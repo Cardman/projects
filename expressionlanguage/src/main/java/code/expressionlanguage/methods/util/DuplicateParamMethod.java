@@ -11,8 +11,8 @@ public class DuplicateParamMethod extends FoundErrorInterpret {
     private String otherType;
 
     @Override
-    public String toString() {
-        return super.toString()+SEP_INFO+COMMON_SIGNATURE+SEP_KEY_VAL+commonSignature
+    public String display() {
+        return super.display()+SEP_INFO+COMMON_SIGNATURE+SEP_KEY_VAL+commonSignature
                 +SEP_INFO+LOCATION+SEP_KEY_VAL+otherType;
     }
 

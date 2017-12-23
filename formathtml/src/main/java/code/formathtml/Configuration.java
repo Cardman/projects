@@ -229,7 +229,7 @@ public class Configuration {
         }
     }
 
-    Struct newBean(String _language, Object _dataBase, Bean _bean, boolean _set) {
+    public Struct newBean(String _language, Object _dataBase, Bean _bean, boolean _set) {
         if (!_set) {
             return new StdStruct(_bean);
         }

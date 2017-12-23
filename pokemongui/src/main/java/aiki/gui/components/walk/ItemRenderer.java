@@ -59,7 +59,7 @@ public class ItemRenderer extends StringCellRenderer {
         _g.drawImage(miniItem, 0, 0, null);
         _g.setColor(Color.BLACK);
         _g.drawString(displayName, _sideLength_, getHeight());
-        _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toString(), maxWordWidth+_sideLength_, getHeight());
+        _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), maxWordWidth+_sideLength_, getHeight());
         _g.drawString(Integer.toString(price), maxWordWidth+_sideLength_ * 2, getHeight());
         if (selected) {
             _g.setColor(Color.RED);

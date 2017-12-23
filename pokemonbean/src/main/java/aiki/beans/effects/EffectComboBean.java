@@ -17,7 +17,7 @@ import aiki.fight.moves.effects.EffectEndRound;
 public class EffectComboBean extends CommonBean {
 
     @Accessible
-    private TreeMap<StringList, EffectCombo> combos;
+    private ComboDto combos;
 
     @Accessible
     private long index;

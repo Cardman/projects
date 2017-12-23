@@ -341,7 +341,7 @@ public class GeneralHelpBean extends CommonBean {
 //        short key_ = data_.getTm().getKeys(move_).first();
         short key_ = data_.getTmByMove(move_).first();
         if (data_.getTmPrice().contains(key_)) {
-            return data_.getTmPrice().getVal(key_).toString();
+            return data_.getTmPrice().getVal(key_).toNumberString();
         }
         return DataBase.EMPTY_STRING;
     }

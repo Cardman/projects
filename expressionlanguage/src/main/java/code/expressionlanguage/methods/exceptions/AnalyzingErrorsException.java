@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods.exceptions;
-import code.expressionlanguage.methods.util.FoundErrorInterpret;
-import code.util.CustList;
+import code.expressionlanguage.methods.util.ErrorList;
 
 public class AnalyzingErrorsException extends RuntimeException {
 
@@ -9,8 +8,8 @@ public class AnalyzingErrorsException extends RuntimeException {
     public AnalyzingErrorsException() {
     }
 
-    public AnalyzingErrorsException(CustList<FoundErrorInterpret> _errors) {
-        super(_errors.join(SEP_ERRORS));
+    public AnalyzingErrorsException(ErrorList _errors) {
+        super(_errors.display());
     }
 
 

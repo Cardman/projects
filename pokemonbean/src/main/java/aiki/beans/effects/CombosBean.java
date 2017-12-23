@@ -16,11 +16,11 @@ public class CombosBean extends CommonBean {
     private final String combo="web/html/combo/combo.html";
 
     @Accessible
-    private TreeMap<StringList, EffectCombo> combos;
+    private ComboDto combos;
 
     @Override
     public void beforeDisplaying() {
-        combos = getCombos();
+        combos = new ComboDto(getCombos());
     }
 
     private TreeMap<StringList, EffectCombo> getCombos() {

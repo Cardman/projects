@@ -16,14 +16,10 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.Element;
@@ -228,34 +224,23 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         boolean finished_ = false;
         OperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
-            Struct[] it_ = (Struct[]) its_.getInstance();
-            length_ = it_.length;
+            length_ = LgNames.getLength(its_.getInstance());
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
             }
         } else {
             boolean native_ = nativeCmp;
-            if (native_) {
-                String next_ = stds_.getAliasSimpleIterator();
-                ClassMethodId clMeth_ = new ClassMethodId(EMPTY_STRING, new MethodId(MethodModifier.NORMAL, next_, new StringList()));
-                ResultErrorStd res_ = _cont.getStandards().getOtherResult(_cont, its_, clMeth_);
-                if (res_.getError() != null) {
-                    throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
-                }
-                iterStr_ = res_.getResult();
-            } else {
-                String locName_ = _cont.getClasses().getIteratorVar(native_);
-                LocalVariable locVar_ = new LocalVariable();
-                locVar_.setClassName(its_.getClassName(_cont));
-                locVar_.setStruct(its_);
-                _cont.getLastPage().getLocalVars().put(locName_, locVar_);
-                ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator();
-                ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
-                iterStr_ = dyn_.calculateMember(_cont).getStruct();
-                _cont.getLastPage().getLocalVars().removeKey(locName_);
-                if (iterStr_.isNull()) {
-                    throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
-                }
+            String locName_ = _cont.getClasses().getIteratorVar(native_);
+            LocalVariable locVar_ = new LocalVariable();
+            locVar_.setClassName(its_.getClassName(_cont));
+            locVar_.setStruct(its_);
+            _cont.getLastPage().getLocalVars().put(locName_, locVar_);
+            ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator(native_);
+            ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
+            iterStr_ = dyn_.calculateMember(_cont).getStruct();
+            _cont.getLastPage().getLocalVars().removeKey(locName_);
+            if (iterStr_.isNull()) {
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
             }
         }
         LoopBlockStack l_ = new LoopBlockStack();
@@ -276,7 +261,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         lv_.setClassName(className_);
         lv_.setIndexClassName(indexClassName_);
         lv_.setContainer(its_);
-        lv_.setExtendedExpression(EMPTY_STRING);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
         varsLoop_.put(var_, lv_);
@@ -358,22 +342,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();
         boolean native_ = nativeCmp;
-        LgNames stds_ = _conf.getStandards();
-        if (native_) {
-            String next_ = stds_.getAliasHasNext();
-            ClassMethodId clMeth_ = new ClassMethodId(EMPTY_STRING, new MethodId(MethodModifier.NORMAL, next_, new StringList()));
-            ResultErrorStd res_ = _conf.getStandards().getOtherResult(_conf, strIter_, clMeth_);
-            if (res_.getError() != null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
-            }
-            return (Boolean) res_.getResult().getInstance();
-        }
         String locName_ = _conf.getClasses().getHasNextVar(native_);
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(strIter_.getClassName(_conf));
         locVar_.setStruct(strIter_);
         _conf.getLastPage().getLocalVars().put(locName_, locVar_);
-        ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext();
+        ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext(native_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.FIRST_INDEX, dynTwo_);
         boolean hasNext_ = (Boolean) dyn_.calculateMember(_conf).getObject();
         _conf.getLastPage().getLocalVars().removeKey(locName_);
@@ -396,26 +370,16 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         OperationNode el_ = opList.last();
         if (!el_.getResultClass().isArray()) {
             boolean native_ = nativeCmp;
-            if (native_) {
-                String next_ = stds_.getAliasNext();
-                ClassMethodId clMeth_ = new ClassMethodId(EMPTY_STRING, new MethodId(MethodModifier.NORMAL, next_, new StringList()));
-                ResultErrorStd res_ = _conf.getStandards().getOtherResult(_conf, iterator_, clMeth_);
-                element_ = res_.getResult();
-                if (res_.getError() != null) {
-                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
-                }
-            } else {
-                String locName_ = _conf.getClasses().getNextVar(native_);
-                LocalVariable locVar_ = new LocalVariable();
-                locVar_.setClassName(iterator_.getClassName(_conf));
-                locVar_.setStruct(iterator_);
-                _conf.getLastPage().getLocalVars().put(locName_, locVar_);
-                ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext();
-                ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
-                element_ = dyn_.calculateMember(_conf).getStruct();
-            }
+            String locName_ = _conf.getClasses().getNextVar(native_);
+            LocalVariable locVar_ = new LocalVariable();
+            locVar_.setClassName(iterator_.getClassName(_conf));
+            locVar_.setStruct(iterator_);
+            _conf.getLastPage().getLocalVars().put(locName_, locVar_);
+            ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext(native_);
+            ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
+            element_ = dyn_.calculateMember(_conf).getStruct();
         } else {
-            element_ = ((Struct[])lv_.getContainer().getInstance())[(int) _l.getIndex()];
+            element_ = LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf);
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(getClassName(), element_, _conf)) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));

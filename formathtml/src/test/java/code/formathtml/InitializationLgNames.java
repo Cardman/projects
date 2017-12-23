@@ -15,6 +15,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
+        _lgNames.setAliasDisplayable("code.util.ints.Displayable");
+        _lgNames.setAliasDisplay("display");
         _lgNames.setAliasCompareTo("compareTo");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("equals");
@@ -41,7 +43,6 @@ public final class InitializationLgNames {
         _lgNames.setAliasError("java.lang.Exception");
 //        _lgNames.setAliasCast("$badCast");
         _lgNames.setAliasCast("code.expressionlanguage.exceptions.DynamicCastClassException");
-//        _lgNames.setAliasDivisionZero("$divZero");
         _lgNames.setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");
         //_lgNames.setAliasSof("$sofe");
         //_lgNames.setAliasMath("$math");
@@ -140,6 +141,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasGet("get");
         _lgNames.setAliasSize("size");
         _lgNames.setAliasSimpleIterator("simpleIterator");
+        _lgNames.setAliasSimpleIteratorType("code.util.SimpleItr");
+        _lgNames.setAliasSimpleIterableType("code.util.ints.SimpleIterable");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
         _lgNames.setAliasName("name");

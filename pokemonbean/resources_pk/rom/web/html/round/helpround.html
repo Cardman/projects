@@ -704,7 +704,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:for key="e" map="l;" value="r">
+									<c:for key="e" map="l;" value="r" keyClassName="r" varClassName="r">
 										<tr>
 											<td>{e;}</td>
 											<td>{r;}</td>
@@ -1439,7 +1439,7 @@
 			<ul>
 				<c:for list="movesFoeTeamMultStat" var="a">
 					<c:if condition="moveFoeTeamMultNormal(a;;)">
-						<li><a c:command="$clickFoeMovesTeamMultStat({a;;})">{getTrFoeMovesTeamMultStat(a;;)}</a></li>
+						<li><a c:command="$clickMovesFoeTeamMultStat({a;;})">{getTrMovesFoeTeamMultStat(a;;)}</a></li>
 					</c:if>
 				</c:for>
 			</ul>
@@ -1585,7 +1585,7 @@
 			<ul>
 				<c:for list="movesFoeTeamMultStat" var="a">
 					<c:if condition="moveFoeTeamMultAccuracy(a;;)">
-						<li><a c:command="$clickFoeMovesTeamMultStat({a;;})">{getTrFoeMovesTeamMultStat(a;;)}</a></li>
+						<li><a c:command="$clickMovesFoeTeamMultStat({a;;})">{getTrMovesFoeTeamMultStat(a;;)}</a></li>
 					</c:if>
 				</c:for>
 			</ul>
@@ -1877,7 +1877,7 @@
 			<ul>
 				<c:for list="movesFoeTeamMultStat" var="a">
 					<c:if condition="moveFoeTeamMultSpeed(a;;)">
-						<li><a c:command="$clickFoeMovesTeamMultStat({a;;})">{getTrFoeMovesTeamMultStat(a;;)}</a></li>
+						<li><a c:command="$clickMovesFoeTeamMultStat({a;;})">{getTrMovesFoeTeamMultStat(a;;)}</a></li>
 					</c:if>
 				</c:for>
 			</ul>

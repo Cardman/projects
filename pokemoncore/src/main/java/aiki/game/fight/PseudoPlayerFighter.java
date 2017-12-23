@@ -111,7 +111,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(_niveau - 1));
         current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
-        return _import.evaluatePositiveExp(Rate.minus(next_, current_).toString(), vars_, Rate.one());
+        return _import.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
     }
 
     void changeWonPoints(short _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {

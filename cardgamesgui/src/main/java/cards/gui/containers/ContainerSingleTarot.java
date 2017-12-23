@@ -807,7 +807,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             partie_.ajouterChelemUtilisateur();
             getPanneauBoutonsJeu().removeAll();
             getPanneauBoutonsJeu().setLayout(new BoxLayout(getPanneauBoutonsJeu(), BoxLayout.PAGE_AXIS));
-            ajouterTexteDansZone(StringList.simpleFormat(getMessages().getVal(MainWindow.DECLARING_SLAM), pseudo())+RETURN_LINE_CHAR);
+            ajouterTexteDansZone(StringList.simpleStringsFormat(getMessages().getVal(MainWindow.DECLARING_SLAM), pseudo())+RETURN_LINE_CHAR);
             setCanDiscard(false);
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 partie_.ajouterPliAttaque();
@@ -1220,7 +1220,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         byte sec_=partie_.joueurAyantPetitSec();
         if(sec_>-1) {
             String mes_ = getMessages().getVal(MainWindow.SMALL_ALONE_TEXT);
-            ConfirmDialog.showMessage(getOwner(),StringList.simpleFormat(mes_, pseudosTarot().get(sec_)),getMessages().getVal(MainWindow.SMALL_ALONE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
+            ConfirmDialog.showMessage(getOwner(),StringList.simpleStringsFormat(mes_, pseudosTarot().get(sec_)),getMessages().getVal(MainWindow.SMALL_ALONE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getOwner(),StringList.simpleFormat(mes_, pseudosTarot().get(sec_)),getMessages().getVal(MainWindow.SMALL_ALONE),JOptionPane.INFORMATION_MESSAGE);
             finPartieTarot();
             pack();
@@ -1424,7 +1424,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void conseil() {
         GameTarot partie_=partieTarot();
         if(partie_.keepBidding()) {
-            String message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_BID), partie_.strategieContrat());
+            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_BID), partie_.strategieContrat().toString());
             message_ += partie_.getRaison();
             ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
@@ -1432,9 +1432,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if (!partie_.getRegles().getDiscardAfterCall()) {
                 if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                     CallDiscard cartesAppeler_ = partie_.strategieAppelApresEcart(true);
-                    String message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.getCarteAppelee().premiereCarte());
+                    String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.getCarteAppelee().premiereCarte().toString());
                     message_+=partie_.getRaison()+RETURN_LINE_CHAR;
-                    message_ += StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_DISCARD), cartesAppeler_.getEcartAFaire());
+                    message_ += StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_DISCARD), cartesAppeler_.getEcartAFaire().toString());
                     message_+=partie_.getRaison();
                     ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
                     //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
@@ -1443,7 +1443,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     if(cartesAppeler_.estVide()) {
                         return;
                     }
-                    String message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.premiereCarte());
+                    String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.premiereCarte().toString());
                     message_+=partie_.getRaison();
                     ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
                     //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
@@ -1453,13 +1453,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 if(cartesAppeler_.estVide()) {
                     return;
                 }
-                String message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.premiereCarte());
+                String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.premiereCarte().toString());
                 message_+=partie_.getRaison();
                 ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             }
         } else if(partie_.getPliEnCours().estVide() && !partie_.getPliEnCours().getVuParToutJoueur()) {
-            String message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_DISCARD), partie_.strategieEcart());
+            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_DISCARD), partie_.strategieEcart().toString());
             message_+=partie_.getRaison();
             ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
@@ -1468,7 +1468,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             ConfirmDialog.showMessage(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else {
-            String message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_PLAYER), partie_.strategieJeuCarteUnique());
+            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_PLAYER), partie_.strategieJeuCarteUnique().toString());
             message_+=partie_.getRaison();
             ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);

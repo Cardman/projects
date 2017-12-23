@@ -74,10 +74,10 @@ public class PokemonRenderer extends CommonCellRenderer {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
             String img_ = facade.getData().getMiniPk().getVal(pk_.getName());
             miniImagePk = ConverterBufferedImage.decodeToImage(img_);
-            remainHp = pk_.getRemainingHp().toString();
+            remainHp = pk_.getRemainingHp().toNumberString();
             try {
                 intRate = pk_.rateRemainHp(facade.getData());
-                rateRemain = intRate.toString()+PER_CENT;
+                rateRemain = intRate.toNumberString()+PER_CENT;
             } catch (RuntimeException _0) {
                 rateRemain = DataBase.EMPTY_STRING;
             }
@@ -125,7 +125,7 @@ public class PokemonRenderer extends CommonCellRenderer {
                 _g.setColor(Color.BLACK);
                 _g.drawString(KO, coords + _sideLength_, h_ * 3);
             } else if (!rateRemain.isEmpty()) {
-                int rate_ = Integer.parseInt(intRate.toString());
+                int rate_ = Integer.parseInt(intRate.toNumberString());
                 int red_ = 255;
                 int green_ = 255;
                 green_ = green_ * rate_ / Rate.CENT;

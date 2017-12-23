@@ -1,7 +1,8 @@
 package code.expressionlanguage.methods.util;
 import code.sml.RowCol;
+import code.util.ints.Displayable;
 
-public abstract class FoundErrorInterpret {
+public abstract class FoundErrorInterpret implements Displayable {
 
     protected static final String SEP_INFO = "\n";
 
@@ -15,6 +16,10 @@ public abstract class FoundErrorInterpret {
 
     private String fileName;
 
+    @Override
+    public String display() {
+        return SEP_INFO+FILE+SEP_KEY_VAL+fileName+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc+SEP_INFO;
+    }
     @Override
     public String toString() {
         return SEP_INFO+FILE+SEP_KEY_VAL+fileName+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc+SEP_INFO;

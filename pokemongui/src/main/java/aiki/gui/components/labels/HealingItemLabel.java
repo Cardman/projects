@@ -83,7 +83,7 @@ public class HealingItemLabel extends SelectableLabel {
         widths_.add(_thirdColumn);
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getItemClass()));
         widths_.add(getThirdLineWidth());
-        widths_.add(getFontMetrics(getFont()).stringWidth(item.getNumber().toString()));
+        widths_.add(getFontMetrics(getFont()).stringWidth(item.getNumber().toNumberString()));
         setPreferredSize(new Dimension(widths_.getMaximum(),h_));
     }
 
@@ -92,7 +92,7 @@ public class HealingItemLabel extends SelectableLabel {
     }
 
     public int getFourthColumnWidth() {
-        return getFontMetrics(getFont()).stringWidth(item.getNumber().toString()+SPACES);
+        return getFontMetrics(getFont()).stringWidth(item.getNumber().toNumberString()+SPACES);
     }
 
 //    public int getFifthColumnWidth() {
@@ -108,7 +108,7 @@ public class HealingItemLabel extends SelectableLabel {
         _g.drawString(item.getName(), _sideLength_, FIRST_LINE);
         _g.drawString(item.getItemClass(), _sideLength_, SECOND_LINE);
         _g.drawString(getThirdLineInfos(), _sideLength_, THIRD_LINE);
-        _g.drawString(item.getNumber().toString(), _sideLength_ + fourthColumn, FIRST_LINE);
+        _g.drawString(item.getNumber().toNumberString(), _sideLength_ + fourthColumn, FIRST_LINE);
         _g.drawString(Integer.toString(item.getPrice()), _sideLength_ + fourthColumn + fifthColumn, FIRST_LINE);
         super.paintComponent(_g);
     }

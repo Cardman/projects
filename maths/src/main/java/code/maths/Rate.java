@@ -10,9 +10,10 @@ import code.util.Numbers;
 import code.util.PairEq;
 import code.util.StringList;
 import code.util.ints.Cmp;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class Rate implements Cmp<Rate> {
+public final class Rate implements Cmp<Rate>, Displayable {
 
     public static final char SEP_NUM_DEN_CHAR = '/';
 
@@ -366,11 +367,11 @@ public final class Rate implements Cmp<Rate> {
     }
 
     public String getNumeratorString() {
-        return numerateur.toString();
+        return numerateur.toNumberString();
     }
 
     public String getDenominatorString() {
-        return denominateur.toString();
+        return denominateur.toNumberString();
     }
 
     public EqList<LgInt> getDividersNumerator() {
@@ -429,7 +430,7 @@ public final class Rate implements Cmp<Rate> {
         copie_.multiplyBy(new Rate(intTen_));
         int nbZeros_ = puissance_ - 1;
         LgInt intPart_ = abs_.intPart();
-        String intPartStr_ = intPart_.toString();
+        String intPartStr_ = intPart_.toNumberString();
         String return_ = signum_ + intPart_;
         boolean zero_ = false;
         if (intPart_.isZero()) {
@@ -440,7 +441,7 @@ public final class Rate implements Cmp<Rate> {
         for (int i = CustList.FIRST_INDEX; i < nbZeros_; i++) {
             str_ += ZERO;
         }
-        str_ += copie_.intPart().toString();
+        str_ += copie_.intPart().toNumberString();
 //        if (str_.length() > _numberDec) {
 //            str_ = str_.substring(CustList.FIRST_INDEX, _numberDec);
 //        }
@@ -459,7 +460,7 @@ public final class Rate implements Cmp<Rate> {
             return String.valueOf(ZERO);
         }
         if (_numberMeaningDigits == 0) {
-            return toLgInt().toString();
+            return toLgInt().toNumberString();
         }
         if (_numberMeaningDigits < 0) {
             throw new NegatifExposantException();
@@ -487,19 +488,28 @@ public final class Rate implements Cmp<Rate> {
         }
         intTen_.growToPow(new LgInt(_numberMeaningDigits - 1));
         copie_.numerateur.multiplyBy(intTen_);
-        String retour_ = copie_.intPart().toString();
+        String retour_ = copie_.intPart().toNumberString();
         retour_ = EMPTY_STRING + retour_.charAt(0) + String.valueOf(SEP_INT_DEC) + retour_.substring(1);
         return signum_ + retour_ + POWER + puissance_;
+    }
+
+    @Override
+    public String display() {
+        return toNumberString();
+    }
+
+    public String toNumberString() {
+        if (isInteger()) {
+            return numerateur.toNumberString();
+        }
+        // fraction
+        return numerateur.toNumberString()+SEP_NUM_DEN+denominateur.toNumberString();
     }
 
     @FromAndToString
     @Override
     public String toString() {
-        if (isInteger()) {
-            return numerateur.toString();
-        }
-        // fraction
-        return numerateur+SEP_NUM_DEN+denominateur;
+        return display();
     }
 
     public void multiplyBy(Rate _autre) {

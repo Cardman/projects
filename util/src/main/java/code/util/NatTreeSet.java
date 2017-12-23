@@ -214,16 +214,6 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     }
 
     @Override
-    public String join(String _join) {
-        return list.join(_join);
-    }
-
-    @Override
-    public String join(char _join) {
-        return list.join(_join);
-    }
-
-    @Override
     public E get(int _index) {
         return list.get(_index);
     }

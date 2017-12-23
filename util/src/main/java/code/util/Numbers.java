@@ -1,10 +1,11 @@
 package code.util;
 import code.util.annot.CapacityInit;
 import code.util.comparators.ComparatorNatNumber;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class Numbers<T extends Number> extends AbEqList<T> implements Equallable<Numbers<T>> {
+public final class Numbers<T extends Number> extends AbEqList<T> implements Equallable<Numbers<T>>, Displayable {
 
     public Numbers() {
     }
@@ -299,7 +300,7 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         }
         return INDEX_NOT_FOUND_ELT;
     }
-    @Override
+
     public String join(String _join) {
         if (isEmpty()) {
             return EMPTY_STRING;
@@ -313,7 +314,6 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return return_.toString();
     }
 
-    @Override
     public String join(char _join) {
         if (isEmpty()) {
             return EMPTY_STRING;
@@ -448,6 +448,16 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
 //            }
 //        }
 //    }
+
+    @Override
+    public String display() {
+        return "["+join(",")+"]";
+    }
+
+    @Override
+    public String toString() {
+        return display();
+    }
 
     @Override
     public Numbers<T> getReverse() {

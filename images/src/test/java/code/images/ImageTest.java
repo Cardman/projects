@@ -182,7 +182,7 @@ public class ImageTest {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
         String img_ = "3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR);
         String res_ = "2"+Image.SEPARATOR_CHAR+"2"+Image.SEPARATOR_CHAR+"6"+Image.SEPARATOR_CHAR+"-1"+Image.SEPARATOR_CHAR+"12";
-        assertEq(res_.toString(), Image.clip(img_, 1, 0, 3, 3).toString());
+        assertEq(res_, Image.clip(img_, 1, 0, 3, 3));
     }
 
     @Test

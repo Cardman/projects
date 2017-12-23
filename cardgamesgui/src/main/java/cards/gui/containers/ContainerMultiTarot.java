@@ -401,7 +401,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setCanBid(false);
     }
     public void errorForBidding(ErrorBidding _error) {
-        String mes_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid());
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid().toString());
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         ConfirmDialog.showMessage(getOwner(),mes_,
@@ -492,8 +492,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getOwner().sendObject(dealt_);
     }
     public void errorDiscardingCard(ErrorDiscarding _error) {
-        String mesCard_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CANT_DISCARD), _error.getCard());
-        String mesReason_ = StringList.simpleFormat(getMessages().getVal(MainWindow.REASON), _error.getErrorMessage());
+        String mesCard_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_DISCARD), _error.getCard().toString());
+        String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getErrorMessage());
 //        JOptionPane.showMessageDialog(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_, getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
         ConfirmDialog.showMessage(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_,
                 getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),
@@ -656,7 +656,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void errorPlayingCard(ErrorHandful _error) {
         setCanExcludeTrumps(true);
         setCanPlay(true);
-        String mes_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), _error.getHandful());
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), _error.getHandful().toString());
 //        JOptionPane.showMessageDialog(
 //                getOwner(),
 //                mes_ + RETURN_LINE_CHAR + _error.getError(),
@@ -669,8 +669,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     public void errorPlayingCard(ErrorPlaying _error) {
         setCanPlay(true);
-        String mes_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard());
-        String mesReason_ = StringList.simpleFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().toString());
+        String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
 //        JOptionPane.showMessageDialog(
 //                getOwner(),
 //                mes_ + RETURN_LINE_CHAR + mesReason_,

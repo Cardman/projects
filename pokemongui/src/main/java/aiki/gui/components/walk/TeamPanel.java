@@ -98,7 +98,7 @@ public class TeamPanel extends JPanel {
         }
         int rem_ = facade.getRemainingRooms();
         String message_ = _messages_.getVal(ROOMS);
-        nbRemainPlaces.setText(StringList.simpleFormat(message_, rem_));
+        nbRemainPlaces.setText(StringList.simpleNumberFormat(message_, rem_));
     }
 
     int getDeltaName(NatTreeMap<Byte,UsablePokemon> _team) {
@@ -115,7 +115,7 @@ public class TeamPanel extends JPanel {
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(pk_.getRemainingHp().toString()+SPACES);
+                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(pk_.getRemainingHp().toNumberString()+SPACES);
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }

@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringMap;
 import code.util.ints.AdvancedMathFactory;
@@ -26,6 +27,12 @@ public final class StandardMathFactory implements AdvancedMathFactory<Rate,Numer
                 return BooleanString.TRUE;
             }
             return BooleanString.FALSE;
+        }
+        if (_gotArg instanceof LgInt) {
+            return ((LgInt)_gotArg).toNumberString();
+        }
+        if (_gotArg instanceof Rate) {
+            return ((Rate)_gotArg).toNumberString();
         }
         return String.valueOf(_gotArg);
     }

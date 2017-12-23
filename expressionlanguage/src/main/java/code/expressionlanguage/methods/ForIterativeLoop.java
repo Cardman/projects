@@ -341,7 +341,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         lv_.setIndexClassName(indexClassName_);
         lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf));
         lv_.setStep(stepValue_);
-        lv_.setExtendedExpression(EMPTY_STRING);
         varsLoop_.put(var_, lv_);
     }
 

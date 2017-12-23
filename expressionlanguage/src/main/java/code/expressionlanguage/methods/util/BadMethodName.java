@@ -7,8 +7,8 @@ public final class BadMethodName extends FoundErrorInterpret {
     private String name;
 
     @Override
-    public String toString() {
-        return super.toString()+CLASS_NAME+SEP_KEY_VAL+name+SEP_INFO;
+    public String display() {
+        return super.display()+CLASS_NAME+SEP_KEY_VAL+name+SEP_INFO;
     }
 
     public String getName() {

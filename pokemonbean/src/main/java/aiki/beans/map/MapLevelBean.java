@@ -433,6 +433,22 @@ public class MapLevelBean extends CommonBean {
         return LEVEL;
     }
 
+    public boolean isUp(Long _index) {
+        return dirs.getKey(_index.intValue()) == Direction.UP;
+    }
+
+    public boolean isDown(Long _index) {
+        return dirs.getKey(_index.intValue()) == Direction.DOWN;
+    }
+
+    public boolean isLeft(Long _index) {
+        return dirs.getKey(_index.intValue()) == Direction.LEFT;
+    }
+
+    public boolean isRight(Long _index) {
+        return dirs.getKey(_index.intValue()) == Direction.RIGHT;
+    }
+
     @Accessible
     private String clickLink() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);

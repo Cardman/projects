@@ -4,9 +4,10 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class Vect implements Equallable<Vect> {
+public final class Vect implements Equallable<Vect>, Displayable {
 
     private static final String SEPARATOR = " ";
     private EqList<Rate> numbers = new EqList<Rate>();
@@ -101,8 +102,22 @@ public final class Vect implements Equallable<Vect> {
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        return numbers.join(SEPARATOR);
+        return display();
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        if (numbers.isEmpty()) {
+            return "";
+        }
+        StringBuilder return_ = new StringBuilder(numbers.first().toNumberString());
+        int size_ = numbers.size();
+        for (int i=1;i<size_;i++) {
+            return_.append(SEPARATOR);
+            return_.append(numbers.get(i).toNumberString());
+        }
+        return return_.toString();
     }
 }

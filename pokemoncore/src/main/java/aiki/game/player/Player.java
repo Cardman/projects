@@ -638,7 +638,7 @@ public class Player {
                 if(!pvRestaures_.isZero()){
                     consommer_=true;
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_);
+                    commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
                 }
             }
             StringList statuts_=new StringList(pkSoigne_.getStatus());
@@ -665,7 +665,7 @@ public class Player {
                 if (attaquesRestaures_.getVal(c) > 0) {
                     String move_ = _import.translateMove(c);
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(_messages_.getVal(RESTORED_MOVE), move_, pk_, attaquesRestaures_.getVal(c));
+                    commentGame.addMessage(_messages_.getVal(RESTORED_MOVE), move_, pk_, Long.toString(attaquesRestaures_.getVal(c)));
                 }
             }
             for(String c:attaquesRestaures_.getKeys()){
@@ -685,7 +685,7 @@ public class Player {
             if(!pvRestaures_.isZero()){
                 consommer_=true;
                 String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_);
+                commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
             }
         }
         if(objet_ instanceof HealingStatus){
@@ -696,7 +696,7 @@ public class Player {
                 if(!pvRestaures_.isZero()){
                     consommer_=true;
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_);
+                    commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
                 }
             }
             HealingStatus soin_=(HealingStatus)objet_;
@@ -758,7 +758,7 @@ public class Player {
         short ppRest_ = chosenMoves.getVal(_move);
         String move_ = _import.translateMove(_move);
         String pk_ = _import.translatePokemon(pkSoigne_.getName());
-        commentGame.addMessage(_messages_.getVal(RESTORED_MOVE), move_, pk_, ppRest_);
+        commentGame.addMessage(_messages_.getVal(RESTORED_MOVE), move_, pk_, Long.toString(ppRest_));
         chosenMoves.clear();
         chosenMoves.put(_move, ppRest_);
         pkSoigne_.soinPpAttaques(chosenMoves);
@@ -808,7 +808,7 @@ public class Player {
             String pkName_ = _import.translatePokemon(pk_.getName());
             int diff_ = pk_.getMoves().getVal(_move).getMax();
             diff_ -= ppMax_;
-            commentGame.addMessage(_messages_.getVal(BOOSTED_MOVE), move_, pkName_, diff_);
+            commentGame.addMessage(_messages_.getVal(BOOSTED_MOVE), move_, pkName_, Long.toString(diff_));
         }
         if (ppMax_ != pk_.getMoves().getVal(_move).getMax() || happinessIncrease_ > 0) {
             inventory.use(selectedObject);
@@ -831,7 +831,7 @@ public class Player {
                 increase_ = true;
                 String stat_ = _import.translateStatistics(s);
                 String pkName_ = _import.translatePokemon(pk_.getName());
-                commentGame.addMessage(_messages_.getVal(BOOSTED_STATISTIC), stat_, pkName_, var_);
+                commentGame.addMessage(_messages_.getVal(BOOSTED_STATISTIC), stat_, pkName_, Long.toString(var_));
             }
         }
         short happinessIncrease_ = pk_.pointBonheurGagnes(_import.getItem(selectedObject), _import);
@@ -901,7 +901,7 @@ public class Player {
                 String name_ = ((PokemonPlayer) team.get(chosenTeamPokemon)).getName();
                 name_ = _import.translatePokemon(name_);
 //                commentGame.addMessage(_messages_.getVal(BAD_NUMBER_MOVES), name_, selectedMoves.getKeys(true).size());
-                commentGame.addMessage(_messages_.getVal(BAD_NUMBER_MOVES), name_, getCheckedMoves().size());
+                commentGame.addMessage(_messages_.getVal(BAD_NUMBER_MOVES), name_, Long.toString(getCheckedMoves().size()));
                 return;
             }
         } else {
@@ -1219,7 +1219,7 @@ public class Player {
         Repel repouse_=(Repel)_import.getItem(selectedObject);
         remainingRepelSteps=(int) repouse_.getSteps();
         String it_ = _import.translateItem(selectedObject);
-        commentGame.addMessage(_messages_.getVal(ENABLE_REPEL), it_, remainingRepelSteps);
+        commentGame.addMessage(_messages_.getVal(ENABLE_REPEL), it_, Long.toString(remainingRepelSteps));
         inventory.use(selectedObject);
         selectedObject = DataBase.EMPTY_STRING;
     }
@@ -1429,7 +1429,7 @@ public class Player {
             attrapePk(pk_.getName());
             addMessageNewPk(pk_.getName(), alreadyCaught_, _data);
         } else {
-            commentGame.addMessage(_messages_.getVal(BETWEEN_NUMBER_MOVES), oldName_, pk_.getMoves().size(), _data.getNbMaxMoves());
+            commentGame.addMessage(_messages_.getVal(BETWEEN_NUMBER_MOVES), oldName_, Long.toString(pk_.getMoves().size()), Long.toString(_data.getNbMaxMoves()));
         }
     }
 

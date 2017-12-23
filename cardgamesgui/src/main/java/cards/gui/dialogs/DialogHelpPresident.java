@@ -70,7 +70,7 @@ public final class DialogHelpPresident extends Dialog {
         } else {
             value_ = DIALOG.messages.getVal(NO);
         }
-        message_ = StringList.simpleFormat(message_, value_);
+        message_ = StringList.simpleStringsFormat(message_, value_);
         JLabel reversed_ = new JLabel(message_);
         contentPane_.add(reversed_);
         DIALOG.setContentPane(contentPane_);

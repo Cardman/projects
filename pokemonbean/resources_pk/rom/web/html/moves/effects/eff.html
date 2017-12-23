@@ -4,7 +4,42 @@
 	</head>
 	<body>
 		<c:message value="msg_eff,targets"/>
-		<c:message value="msg_eff,targets_{getTargetChoice()}"/><br/>
+		<c:if condition="isAdjAdv()">
+		  <c:message value="msg_eff,targets_ADJ_ADV"/><br/>
+		</c:if>
+		<c:if condition="isAdjMult()">
+          <c:message value="msg_eff,targets_ADJ_MULT"/><br/>
+        </c:if>
+        <c:if condition="isAdjUniq()">
+          <c:message value="msg_eff,targets_ADJ_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isAllie()">
+          <c:message value="msg_eff,targets_ALLIE"/><br/>
+        </c:if>
+        <c:if condition="isAllies()">
+          <c:message value="msg_eff,targets_ALLIES"/><br/>
+        </c:if>
+        <c:if condition="isAnyFoe()">
+          <c:message value="msg_eff,targets_ANY_FOE"/><br/>
+        </c:if>
+        <c:if condition="isAutreUniq()">
+          <c:message value="msg_eff,targets_AUTRE_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isGlobale()">
+          <c:message value="msg_eff,targets_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isLanceur()">
+          <c:message value="msg_eff,targets_LANCEUR"/><br/>
+        </c:if>
+        <c:if condition="isPseudoGlobale()">
+          <c:message value="msg_eff,targets_PSEUDO_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isTousAdv()">
+          <c:message value="msg_eff,targets_TOUS_ADV"/><br/>
+        </c:if>
+        <c:if condition="isUniqueImporte()">
+          <c:message value="msg_eff,targets_UNIQUE_IMPORTE"/><br/>
+        </c:if>
 		<c:if condition="!reasons.isEmpty()">
 			<p>
 				<c:message value="msg_eff,reasons"/>

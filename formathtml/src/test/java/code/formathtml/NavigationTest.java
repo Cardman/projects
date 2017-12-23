@@ -2466,7 +2466,7 @@ public class NavigationTest {
         assertEq("TYPED_STRING", map_.getVal("typedString"));
         assertEq(EnumNumber.TWO, (EnumNumber) map_.getVal("chosenNumber"));
         assertEq(0,(Number) map_.getVal("typedInt"));
-        assertEq("1", map_.getVal("rate").toString());
+        assertEq(new Rate("1"), (Rate)map_.getVal("rate"));
         assertTrue(map_.contains("nullableCheckbox"));
         assertNull( map_.getVal("nullableCheckbox"));
         assertTrue(map_.contains("nullableInt"));
@@ -2547,7 +2547,7 @@ public class NavigationTest {
         assertEq("TYPED_STRING", map_.getVal("typedString"));
         assertEq(EnumNumber.TWO, (EnumNumber) map_.getVal("chosenNumber"));
         assertEq(0, (Number)map_.getVal("typedInt"));
-        assertEq("1", map_.getVal("rate").toString());
+        assertEq(new Rate("1"), (Rate)map_.getVal("rate"));
         assertTrue(map_.contains("nullableCheckbox"));
         assertNull( map_.getVal("nullableCheckbox"));
         assertTrue(map_.contains("nullableInt"));
@@ -3680,7 +3680,7 @@ public class NavigationTest {
         assertEq("TYPED_STRING", map_.getVal("typedString"));
         assertEq(EnumNumber.TWO, (EnumNumber) map_.getVal("chosenNumber"));
         assertEq(0, (Number)map_.getVal("typedInt"));
-        assertEq("2", map_.getVal("rate").toString());
+        assertEq(new Rate("2"),(Rate) map_.getVal("rate"));
         assertEq(false, map_.getVal("nullableCheckbox"));
         assertTrue(map_.contains("nullableInt"));
         assertNull( map_.getVal("nullableInt"));

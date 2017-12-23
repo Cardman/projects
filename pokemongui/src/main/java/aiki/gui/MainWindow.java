@@ -437,7 +437,7 @@ public final class MainWindow extends NetGroupFrame {
         dataBattle.setText(_messages_.getVal(TITLE_BATTLE));
         difficulty.setText(_messages_.getVal(DIFFICULTY));
 //        lastSavedGameDate.setText(MessageFormat.format(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
-        lastSavedGameDate.setText(StringList.simpleFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringList.simpleStringsFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
         if (!helpInfo.getText().isEmpty()) {
             helpInfo.setText(_messages_.getVal(HELP_INFO));
         }
@@ -782,7 +782,7 @@ public final class MainWindow extends NetGroupFrame {
                     loadingConf.setLastSavedGame(file_);
                     save(file_);
                     dateLastSaved = Clock.getDateTimeText();
-                    lastSavedGameDate.setText(StringList.simpleFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
+                    lastSavedGameDate.setText(StringList.simpleStringsFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
                 }
             }
@@ -829,7 +829,7 @@ public final class MainWindow extends NetGroupFrame {
                     save(file_);
                     dateLastSaved = Clock.getDateTimeText();
 //                    lastSavedGameDate.setText(MessageFormat.format(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
-                    lastSavedGameDate.setText(StringList.simpleFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
+                    lastSavedGameDate.setText(StringList.simpleStringsFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
                 }
             }
@@ -886,7 +886,7 @@ public final class MainWindow extends NetGroupFrame {
         fileName_ = StringList.replaceBackSlash(fileName_);
         loadingConf.setLastSavedGame(fileName_);
         dateLastSaved = Clock.getDateTimeText();
-        lastSavedGameDate.setText(StringList.simpleFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringList.simpleStringsFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
         savedGame = true;
     }
 

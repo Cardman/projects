@@ -118,6 +118,9 @@ public final class Document extends Node {
     public String export() {
         return documentElement.export();
     }
+    public NodeList getDescNodes() {
+        return documentElement.getDescNodes();
+    }
     public NodeList getElementsByTagName() {
         return documentElement.getElementsByTagName();
     }

@@ -56,7 +56,7 @@ public class ItemsPanel extends JPanel {
             modeleListe.addElement(i);
             items.add(i);
         }
-        amount.setText(facade.amount().toString()+SPACE+facade.getPlayer().getMoney().toString());
+        amount.setText(facade.amount().toNumberString()+SPACE+facade.getPlayer().getMoney().toNumberString());
         if (index_ != CustList.INDEX_NOT_FOUND_ELT) {
             liste.setSelectedIndex(index_);
         }

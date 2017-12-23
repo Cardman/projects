@@ -8,8 +8,8 @@ public final class DuplicateField extends FoundErrorInterpret {
     private String id;
 
     @Override
-    public String toString() {
-        return super.toString()+CLASS_NAME+SEP_KEY_VAL+id+SEP_INFO;
+    public String display() {
+        return super.display()+CLASS_NAME+SEP_KEY_VAL+id+SEP_INFO;
     }
 
     public String getId() {

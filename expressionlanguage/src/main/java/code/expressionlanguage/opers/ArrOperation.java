@@ -205,13 +205,13 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         if (_conf.getClasses() != null) {
-            Struct[] arrayInst_ = (Struct[]) _struct.getInstance();
-            int len_ = arrayInst_.length;
+            Object array_ = _struct.getInstance();
+            int len_ = LgNames.getLength(array_);
             int index_ = ((Number)_index).intValue();
             if (index_ < 0 || index_ >= len_) {
                 throw new InvokeException(new StdStruct(new CustomError(String.valueOf(index_)+RETURN_LINE+_conf.joinPages()),badIndex_));
             }
-            return arrayInst_[index_];
+            return LgNames.getElement(array_, index_, _conf);
         }
         Object arrayInst_ = _struct.getInstance();
         int len_ = Array.getLength(arrayInst_);
@@ -250,8 +250,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         if (_conf.getClasses() != null) {
-            Struct[] arrayInst_ = (Struct[]) _struct.getInstance();
-            int len_ = arrayInst_.length;
+            Object instance_ = _struct.getInstance();
+            int len_ = LgNames.getLength(instance_);
             int index_ = ((Number)_index).intValue();
             if (index_ < 0 || index_ >= len_) {
                 throw new InvokeException(new StdStruct(new CustomError(String.valueOf(index_)+RETURN_LINE+_conf.joinPages()),badIndex_));
@@ -266,7 +266,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
                     throw new InvokeException(new StdStruct(new CustomError(componentType_+elementType_+_conf.joinPages()),store_));
                 }
             }
-            arrayInst_[index_] = _value;
+            LgNames.setElement(instance_, index_, _value, _conf);
             return;
         }
         Object arrayInst_ = _struct.getInstance();

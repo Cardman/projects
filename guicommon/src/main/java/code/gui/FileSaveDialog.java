@@ -157,7 +157,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         //get selected row first table
         File file_ = new File(getCurrentFolder()+getFileName().getText()+getExtension());
         if (file_.exists()) {
-            String mes_ = StringList.simpleFormat(messages.getVal(BODY_CONF), getCurrentFolder()+getFileName().getText());
+            String mes_ = StringList.simpleStringsFormat(messages.getVal(BODY_CONF), getCurrentFolder()+getFileName().getText());
 //            ConfirmDialog conf_ = new ConfirmDialog(
 //                    this,
 //                    mes_, messages.getVal(TITLE_CONF),

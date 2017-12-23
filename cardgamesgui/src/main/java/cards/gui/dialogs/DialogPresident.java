@@ -125,7 +125,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         rules_.add(new JLabel());
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= getReglesPresident().getNbStacks();
-        String message_ = StringList.simpleFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
         possibleReversing = new JCheckBox(message_);
         possibleReversing.setSelected(getReglesPresident().isPossibleReversing());
         rules_.add(possibleReversing);
@@ -210,14 +210,14 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         nbStacks.setValue(v_);
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= v_;
-        String message_ = StringList.simpleFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
         possibleReversing.setText(message_);
     }
 
     public void validateStacks() {
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= (Integer) nbStacks.getValue();
-        String message_ = StringList.simpleFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
         possibleReversing.setText(message_);
     }
 

@@ -61,6 +61,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.types.NativeTypeUtil;
+import code.serialize.ConstClasses;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
@@ -72,6 +73,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
+import code.util.ints.Countable;
 
 public final class FctOperation extends InvokingOperation {
 

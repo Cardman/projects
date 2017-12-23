@@ -1903,7 +1903,7 @@ public final class FightFacade {
                 int nbChosen_ = choice_.getKeptMoves().size();
                 int max_ = _import.getNbMaxMoves();
                 int min_ = fighter_.nbMoves();
-                _fight.addMessage(Fight.ERR_EVOLVING, name_, min_, max_, nbChosen_);
+                _fight.addMessage(Fight.ERR_EVOLVING, name_,Integer.toString(min_), Integer.toString(max_), Integer.toString(nbChosen_));
             }
             if (choice_.getName().isEmpty()) {
                 continue;

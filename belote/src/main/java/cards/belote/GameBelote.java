@@ -504,12 +504,12 @@ public final class GameBelote {
     }
 
     private void formatClassicBid(BidBeloteSuit _contratJoueur) {
-        reason += format(HAND_VALUE_SUIT, _contratJoueur.getCouleur(), bid.getEnchere())+RETURN_LINE;
+        reason += format(HAND_VALUE_SUIT, _contratJoueur.getCouleur().toString(), bid.getEnchere().toString())+RETURN_LINE;
         reason += format(OVERBID_DUE);
     }
 
     private void formatOverBid(BidBeloteSuit _contratJoueur) {
-        reason += format(HAND_VALUE_NO_SUIT, _contratJoueur.getEnchere(), bid.getEnchere())+RETURN_LINE;
+        reason += format(HAND_VALUE_NO_SUIT, _contratJoueur.getEnchere().toString(), bid.getEnchere().toString())+RETURN_LINE;
         reason += format(OVERBID_DUE);
     }
     public EqList<BidBeloteSuit> allowedBids() {
@@ -884,7 +884,7 @@ public final class GameBelote {
         reason = EMPTY;
         if(bid.getCouleurDominante()) {
             if(cartesBeloteRebelote().contient(_ct) &&autoriseBeloteRebelote(_numeroJoueur,_loc)) {
-                reason=format(PLAY_BELOTE_REBELOTE, DeclaresBeloteRebelote.BELOTE_REBELOTE);
+                reason=format(PLAY_BELOTE_REBELOTE, DeclaresBeloteRebelote.BELOTE_REBELOTE.toString());
                 return true;
             }
         }
@@ -6454,7 +6454,7 @@ public final class GameBelote {
         return reason;
     }
 
-    private String format(String _key, Object... _vars) {
+    private String format(String _key, String... _vars) {
         return Format.formatter(FOLDER, file, Constants.getLanguage(), _key, _vars);
     }
 

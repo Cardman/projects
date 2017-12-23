@@ -2,19 +2,19 @@ package aiki.beans.help;
 import code.util.StringList;
 import code.util.ints.Equallable;
 
-public final class LanguageElementKey<E extends Enum<E>> implements Equallable<LanguageElementKey<E>> {
+public final class LanguageElementKey implements Equallable<LanguageElementKey> {
 
     private final String language;
 
-    private final E key;
+    private final Object key;
 
-    public LanguageElementKey(String _language, E _key) {
+    public LanguageElementKey(String _language, Object _key) {
         language = _language;
         key = _key;
     }
 
     @Override
-    public boolean eq(LanguageElementKey<E> _g) {
+    public boolean eq(LanguageElementKey _g) {
         if (!StringList.quickEq(language, _g.language)) {
             return false;
         }
@@ -28,7 +28,7 @@ public final class LanguageElementKey<E extends Enum<E>> implements Equallable<L
         return language;
     }
 
-    public E getKey() {
+    public Object getKey() {
         return key;
     }
 

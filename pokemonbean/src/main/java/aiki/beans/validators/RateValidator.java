@@ -7,8 +7,8 @@ public class RateValidator implements Validator {
 
     @Override
     public Message validate(Object _navigation, Object _node, Object _value) {
-        if (Rate.isValid(_value.toString())) {
-            Rate rate_ = new Rate(_value.toString());
+        if (Rate.isValid((String)_value)) {
+            Rate rate_ = new Rate((String)_value);
             if (rate_.isZeroOrGt()) {
                 if (!rate_.isZero()) {
                     return null;
@@ -16,7 +16,7 @@ public class RateValidator implements Validator {
             }
         }
         Message message_ = new Message();
-        message_.setArgs(_value);
+        message_.setArgs((String)_value);
         return message_;
     }
 

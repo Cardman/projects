@@ -621,10 +621,10 @@ public final class Fight {
         try {
             if (Numbers.eq(_teamPosition.getTeam(), FOE)) {
 //                return MessageFormat.format(_messages_.getVal(FIGHTER_FOE), name_);
-                return StringList.simpleFormat(_messages_.getVal(FIGHTER_FOE), name_);
+                return StringList.simpleStringsFormat(_messages_.getVal(FIGHTER_FOE), name_);
             }
 //            return MessageFormat.format(_messages_.getVal(FIGHTER_ALLY), name_);
-            return StringList.simpleFormat(_messages_.getVal(FIGHTER_ALLY), name_);
+            return StringList.simpleStringsFormat(_messages_.getVal(FIGHTER_ALLY), name_);
         } catch (RuntimeException _0) {
             return DataBase.EMPTY_STRING;
         }
@@ -1437,7 +1437,7 @@ public final class Fight {
         String name_ = getFighterName(_fighter, _import);
         Rate clone_ = getFighter(_fighter).getClone();
         if (!clone_.isZero()) {
-            addMessage(CREATE_CLONE, name_, clone_);
+            addMessage(CREATE_CLONE, name_, clone_.toNumberString());
         }
 
     }
@@ -1702,7 +1702,7 @@ public final class Fight {
     public void addNbHitsMessage(long _nbHits, TeamPosition _fighter,DataBase _import) {
         if (_nbHits > 1) {
             String name_ = getFighterName(_fighter, _import);
-            addMessage(NB_HITS, _nbHits, name_);
+            addMessage(NB_HITS, Long.toString(_nbHits), name_);
         }
     }
 
@@ -1834,7 +1834,7 @@ public final class Fight {
     public void addVarPpEffectMessage(String _move, TeamPosition _fighter, long _varPp, DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(VAR_PP_EFFECT, move_, name_, _varPp);
+        addMessage(VAR_PP_EFFECT, move_, name_, Long.toString(_varPp));
     }
 
     public void addBatonPassMessage(TeamPosition _fighter, TeamPosition _other, DataBase _import) {
@@ -1915,7 +1915,7 @@ public final class Fight {
         String stat_ = _import.translateStatistics(_statistic);
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
-        addMessage(COMMON_STATISTIC, stat_, name_, other_, _value);
+        addMessage(COMMON_STATISTIC, stat_, name_, other_, _value.toNumberString());
     }
 
     public void addEnabledMoveRelMessage(TeamPosition _fighter, String _move, TeamPosition _other, DataBase _import) {
@@ -2072,7 +2072,7 @@ public final class Fight {
 
     public void addStatisticMessage(TeamPosition _fighter, Statistic _st, long _var, DataBase _import) {
         String stat_ = _import.translateStatistics(_st);
-        addMessage(VAR_STATISTIC, stat_, getFighterName(_fighter, _import), _var);
+        addMessage(VAR_STATISTIC, stat_, getFighterName(_fighter, _import), Long.toString(_var));
     }
 
     public void addDisabledStatusOtherRelMessage(String _status, TeamPosition _fighter, DataBase _import) {
@@ -2108,7 +2108,7 @@ public final class Fight {
             addDeletedCloneMessage(_fighter, _import);
             return;
         }
-        addMessage(CLONE_DAMAGE, getFighterName(_fighter, _import), _damage.absNb());
+        addMessage(CLONE_DAMAGE, getFighterName(_fighter, _import), _damage.absNb().toNumberString());
     }
 
     public void addDeletedCloneMessage(TeamPosition _fighter, DataBase _import) {
@@ -2121,13 +2121,13 @@ public final class Fight {
         if (var_.isZero()) {
             addMessage(NO_VAR_HP, getFighterName(_fighter, _import));
         } else if (var_.isZeroOrGt()) {
-            addMessage(WIN_HP, getFighterName(_fighter, _import), var_);
+            addMessage(WIN_HP, getFighterName(_fighter, _import), var_.toNumberString());
         } else {
-            addMessage(LOOSE_HP, getFighterName(_fighter, _import), var_.absNb());
+            addMessage(LOOSE_HP, getFighterName(_fighter, _import), var_.absNb().toNumberString());
         }
     }
 
-    public void addMessage(String _key, Object... _args) {
+    public void addMessage(String _key, String... _args) {
         if (enabledMessages) {
             comment.addMessage(_messages_.getVal(_key), _args);
         }

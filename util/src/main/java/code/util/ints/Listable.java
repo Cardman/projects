@@ -44,10 +44,6 @@ public interface Listable<T> extends IterableList<T>, Countable, SimpleList {
 
     Numbers<Integer> indexesOfNull();
 
-    String join(char _char);
-
-    String join(String _string);
-
     Listable<T> sub(int _from, int _to);
 
     void swapIndexes(int _i, int _j);

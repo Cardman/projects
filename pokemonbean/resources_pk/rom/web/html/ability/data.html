@@ -18,13 +18,13 @@
 				<p>
 					<c:message value="msg_effendround,reasons"/>
 					<ul>
-						<c:for list="reasonsEndRound" var="r">
+						<c:for list="reasonsEndRound" var="r" className="java.lang.String">
 							<li>{r;}</li>
 						</c:for>
 					</ul>
 					<br/>
 					<ul>
-						<c:for key="c" map="mapVarsFailEndRound" value="r">
+						<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName="java.lang.String" varClassName="java.lang.String">
 							<li>{c;} : {r;}</li>
 						</c:for>
 					</ul>
@@ -36,7 +36,7 @@
 			<c:import page="{effectSendBean}">
 				<c:package name="aiki.beans.effects">
 					<c:class name="EffectWhileSendingBean">
-						<c:field name="effect" value="getAbility().getEffectSending().first()"/>
+						<c:field name="effect" value="getEffectSending() "/>
 					</c:class>
 				</c:package>
 			</c:import>
@@ -501,7 +501,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="singleStatus" value="r">
+					<c:for key="s" map="singleStatus" value="r" varClassName="r">
 						<tr>
 							<c:if condition="isStatus(s;;)">
 								<td><a c:command="$clickSingleStatus({s;;})" href="">{getTrSingleStatus(s;;)}</a></td>
@@ -606,7 +606,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="divideStatusRound" value="r">
+					<c:for key="s" map="divideStatusRound" value="r" varClassName="r">
 						<tr>
 							<td><a c:command="$clickDivideStatusRoundKey({s;;})" href="">{getTrDivideStatusRoundKey(s;;)}</a></td>
 							<td>{r;}</td>
@@ -670,7 +670,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStat" value="r">
+					<c:for key="s" map="multStat" value="r" varClassName="java.lang.String">
 						<tr>
 							<td>{getTrMultStat(s;;)}</td>
 							<td>{r;}</td>
@@ -692,7 +692,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfDamageCat" value="r">
+					<c:for key="s" map="multStatIfDamageCat" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfDamageCatKey(s;;)}</td>
 							<td>{getTrMultStatIfDamageCatKeySec(s;;)}</td>
@@ -715,7 +715,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfDamgeType" value="r">
+					<c:for key="s" map="multStatIfDamgeType" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfDamgeType(s;;)}</td>
 							<td>{getTrMultStatIfDamgeTypeSec(s;;)}</td>
@@ -738,7 +738,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfCat" value="r">
+					<c:for key="s" map="multStatIfCat" value="r" varClassName="r">
 						<tr>
 							<td>{getTrMultStatIfCatKey(s;;)}</td>
 							<td>{getTrMultStatIfCatKeySec(s;;)}</td>
@@ -761,7 +761,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfStatutRank" value="r">
+					<c:for key="s" map="multStatIfStatutRank" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfStatutRank(s;;)}</td>
 							<td><a c:command="$clickMultStatIfStatutRankSec({s;;})" href="">{getTrMultStatIfStatutRankSec(s;;)}</a></td>
@@ -783,7 +783,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="bonusStatRank" value="r">
+					<c:for key="s" map="bonusStatRank" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrBonusStatRank(s;;)}</td>
 							<td>{r;}</td>
@@ -804,7 +804,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="boostStatRankEndRound" value="r">
+					<c:for key="s" map="boostStatRankEndRound" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrBoostStatRankEndRound(s;;)}</td>
 							<td>{r;}</td>
@@ -825,7 +825,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="boostStatRankProtected" value="r">
+					<c:for key="s" map="boostStatRankProtected" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrBoostStatRankProtected(s;;)}</td>
 							<td>{r;}</td>
@@ -846,7 +846,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="lowStatFoeHit" value="r">
+					<c:for key="s" map="lowStatFoeHit" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrLowStatFoeHit(s;;)}</td>
 							<td>{r;}</td>
@@ -867,7 +867,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfKoFoe" value="r">
+					<c:for key="s" map="multStatIfKoFoe" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfKoFoe(s;;)}</td>
 							<td>{r;}</td>
@@ -888,7 +888,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfLowStat" value="r">
+					<c:for key="s" map="multStatIfLowStat" value="r" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfLowStat(s;;)}</td>
 							<td>{r;}</td>
@@ -908,7 +908,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatAlly" value="r">
+					<c:for key="s" map="multStatAlly" value="r" varClassName="r">
 						<tr>
 							<td>{getTrMultStatAlly(s;;)}</td>
 							<td>{r;}</td>
@@ -929,7 +929,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="increasedPrio" value="r">
+					<c:for key="s" map="increasedPrio" value="r" varClassName="java.lang.Short">
 						<tr>
 							<td>{getTrIncreasedPrio(s;;)}</td>
 							<td>{r;}</td>
@@ -950,7 +950,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="increasedPrioTypes" value="r">
+					<c:for key="s" map="increasedPrioTypes" value="r" varClassName="java.lang.Short">
 						<tr>
 							<td>{getTrIncreasedPrioTypes(s;;)}</td>
 							<td>{r;}</td>
@@ -971,7 +971,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multDamageFoe" value="r">
+					<c:for key="s" map="multDamageFoe" value="r" varClassName="r">
 						<tr>
 							<td>{getTrMultDamageFoe(s;;)}</td>
 							<td>{r;}</td>
@@ -992,7 +992,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multPowerMovesTypesGlobal" value="r">
+					<c:for key="s" map="multPowerMovesTypesGlobal" value="r" varClassName="r">
 						<tr>
 							<td>{getTrMultPowerMovesTypesGlobalKey(s;;)}</td>
 							<td>{r;}</td>
@@ -1012,7 +1012,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="failStatus" value="r">
+					<c:for key="s" map="failStatus" value="r" varClassName="java.lang.String">
 						<tr>
 							<td><a c:command="$clickFailStatus({s;;})" href="">{getTrFailStatus(s;;)}</a></td>
 							<td>{r;}</td>
@@ -1024,7 +1024,7 @@
 		</c:if>
 		<c:if condition="!mapVars.isEmpty()">
 			<ul>
-				<c:for key="k" map="mapVars" value="v">
+				<c:for key="k" map="mapVars" value="v" keyClassName="java.lang.String">
 					<li>{k;} :
 						<c:message quoted="" value="msg_ability,formula">
 							<param value="v;"/>

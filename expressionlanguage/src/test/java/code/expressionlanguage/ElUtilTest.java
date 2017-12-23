@@ -880,7 +880,6 @@ public class ElUtilTest {
         assertEq(2, ((Struct[])res_.getInstance()).length);
         assertSame(NullStruct.NULL_VALUE, ((Struct[])res_.getInstance())[0]);
         assertSame(NullStruct.NULL_VALUE, ((Struct[])res_.getInstance())[1]);
-        //assertTrue(arg_.getStruct().isJavaObject());
     }
 
     @Test
@@ -893,7 +892,6 @@ public class ElUtilTest {
         assertEq(2, ((Struct[])res_.getInstance()).length);
         assertSame(NullStruct.NULL_VALUE, ((Struct[])res_.getInstance())[0]);
         assertSame(NullStruct.NULL_VALUE, ((Struct[])res_.getInstance())[1]);
-        //assertTrue(arg_.getStruct().isJavaObject());
     }
 
     @Test
@@ -2032,7 +2030,7 @@ public class ElUtilTest {
         composite_.setInteger(6);
         composite_.setPrivateInt(5);
         addBean(context_, composite_);
-        String el_ = "varArgsParam(\"6\",$vararg(\"6\"))";
+        String el_ = "\"\".format(\"6\",$vararg(\"6\"))";
         ElUtil.processEl(el_, 0, context_);
     }
 
@@ -2044,7 +2042,7 @@ public class ElUtilTest {
         composite_.setInteger(6);
         composite_.setPrivateInt(5);
         addBean(context_, composite_);
-        String el_ = "varArgsParam($vararg(\"6\"),\"6\")";
+        String el_ = "\"\".format($vararg(\"6\"),\"6\")";
         ElUtil.processEl(el_, 0, context_);
     }
 
@@ -2066,7 +2064,7 @@ public class ElUtilTest {
         composite_.setInteger(6);
         composite_.setPrivateInt(5);
         addBean(context_, composite_);
-        String el_ = "varArgsParam($vararg(6),\"6\")";
+        String el_ = "\"\".format($vararg(6),\"6\")";
         ElUtil.processEl(el_, 0, context_);
     }
 
@@ -2078,7 +2076,7 @@ public class ElUtilTest {
         composite_.setInteger(6);
         composite_.setPrivateInt(5);
         addBean(context_, composite_);
-        String el_ = "varArgsParam($firstopt(6),\"6\")";
+        String el_ = "\"\".format($firstopt(6),\"6\")";
         ElUtil.processEl(el_, 0, context_);
     }
     
@@ -2365,7 +2363,6 @@ public class ElUtilTest {
         assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
     }
 
-    @Ignore
     @Test
     public void processAffect15Test() {
         ContextEl context_ = contextEl();
@@ -2382,7 +2379,6 @@ public class ElUtilTest {
         assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
     }
 
-    @Ignore
     @Test
     public void processAffect16Test() {
         ContextEl context_ = contextEl();
@@ -2439,7 +2435,6 @@ public class ElUtilTest {
         assertEq("cont", c_.getStrings().first());
     }
 
-    @Ignore
     @Test
     public void processAffect19Test() {
         ContextEl context_ = contextEl();
@@ -2455,7 +2450,6 @@ public class ElUtilTest {
         assertEq(1, c_.getArray()[0]);
     }
 
-    @Ignore
     @Test
     public void processAffect20Test() {
         ContextEl context_ = contextEl();

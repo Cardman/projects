@@ -34,6 +34,6 @@ public class ListenerClickCardsList implements ListSelectionListener {
 //        }
         nbSelectedCards_-=setterDialog.getNombreCartesSelectionneesPrecedent();
         setterDialog.setNombreCartesSelectionnees(nbSelectedCards_);
-        setterDialog.getLabelSelectCards().setText(StringList.simpleFormat(formatMessage,nbSelectedCards_));
+        setterDialog.getLabelSelectCards().setText(StringList.simpleNumberFormat(formatMessage,nbSelectedCards_));
     }
 }

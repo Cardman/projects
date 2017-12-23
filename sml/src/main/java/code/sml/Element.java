@@ -454,7 +454,51 @@ public final class Element extends Node {
         // TODO Auto-generated method stub
         return 0;
     }
-
+    public NodeList getDescNodes() {
+        NodeList elements_ = new NodeList();
+        Element root_ = this;
+        elements_.add(root_);
+        Node current_ = getFirstChild();
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            elements_.add(current_);
+            Node next_ = current_.getFirstChild();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            next_ = current_.getNextSibling();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            Element parent_ = current_.getParentNode();
+            if (parent_ == null) {
+                current_ = null;
+                continue;
+            }
+            if (parent_ == root_) {
+                current_ = null;
+                continue;
+            }
+            next_ = parent_.getNextSibling();
+            while (next_ == null) {
+                Element par_ = parent_.getParentNode();
+                if (par_ == null) {
+                    break;
+                }
+                if (par_ == root_) {
+                    break;
+                }
+                next_ = par_.getNextSibling();
+                parent_ = par_;
+            }
+            current_ = next_;
+        }
+        return elements_;
+    }
     public NodeList getElementsByTagName() {
         NodeList elements_ = new NodeList();
         Element root_ = this;

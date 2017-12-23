@@ -1004,7 +1004,7 @@ public abstract class OperationNode {
         trace_ += PAR_RIGHT;
         throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_cont.joinPages());
     }
-    static ClassMethodIdResult getDeclaredMethodLoop(ContextEl _cont, int _varargOnly, boolean _static, ClassArgumentMatching _class,
+    private static ClassMethodIdResult getDeclaredMethodLoop(ContextEl _cont, int _varargOnly, boolean _static, ClassArgumentMatching _class,
             String _name, ClassArgumentMatching... _argsClass) {
         StringList classNames_ = Templates.getAllGenericSuperTypes(_class.getName(), _cont);
         for (String c: classNames_) {

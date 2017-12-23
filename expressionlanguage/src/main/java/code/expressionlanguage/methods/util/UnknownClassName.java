@@ -7,8 +7,8 @@ public final class UnknownClassName extends FoundErrorInterpret {
     private String className;
 
     @Override
-    public String toString() {
-        return super.toString()+CLASS_NAME+SEP_KEY_VAL+className+SEP_INFO;
+    public String display() {
+        return super.display()+CLASS_NAME+SEP_KEY_VAL+className+SEP_INFO;
     }
 
     public String getClassName() {

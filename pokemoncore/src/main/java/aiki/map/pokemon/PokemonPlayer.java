@@ -377,7 +377,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         commentPk.clearMessages();
         if (Rate.strGreater(remainingHp, pvMax(_import))) {
             String name_ = _import.translatePokemon(getName());
-            commentPk.addMessage(_messages_.getVal(DECREASING_HP), name_, pvMax(_import), remainingHp);
+            commentPk.addMessage(_messages_.getVal(DECREASING_HP), name_, pvMax(_import).toNumberString(), remainingHp.toNumberString());
             remainingHp = pvMax(_import);
         }
     }
@@ -604,7 +604,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         clearComment();
         happiness+=_var;
         String name_ = _data.translatePokemon(getName());
-        commentPk.addMessage(_messages_.getVal(HAPPINESS), name_, _var);
+        commentPk.addMessage(_messages_.getVal(HAPPINESS), name_, Long.toString(_var));
     }
 
     public void variationPvRestants(Rate _pv){

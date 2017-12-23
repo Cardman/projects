@@ -1,4 +1,15 @@
 package aiki.beans.items;
+import aiki.DataBase;
+import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
+import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.comparators.ComparatorTrStrings;
+import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.enums.Statistic;
+import aiki.fight.items.ItemForBattle;
+import aiki.fight.moves.effects.Effect;
+import aiki.fight.moves.effects.EffectEndRound;
+import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
+import aiki.fight.util.StatisticPokemon;
 import code.bean.Accessible;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -7,17 +18,6 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import aiki.DataBase;
-import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
-import aiki.comparators.ComparatorTrStringStatistic;
-import aiki.comparators.ComparatorTrStrings;
-import aiki.fight.enums.Statistic;
-import aiki.fight.items.Item;
-import aiki.fight.items.ItemForBattle;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import aiki.fight.util.StatisticPokemon;
 
 public class ItemForBattleBean extends ItemBean {
 
@@ -165,7 +165,7 @@ public class ItemForBattleBean extends ItemBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         DataBase data_ = (DataBase) getDataBase();
-        ItemForBattle item_ = (ItemForBattle) getItem();
+        ItemForBattle item_ = getItem();
         if (!item_.getEffectEndRound().isEmpty()) {
             endRound = true;
             EffectEndRound effect_ = item_.getEffectEndRound().first();
@@ -636,8 +636,12 @@ public class ItemForBattleBean extends ItemBean {
         return lawForAttackFirst.events().size() == DataBase.ONE_POSSIBLE_CHOICE;
     }
 
+    public EffectWhileSending getEffectSending() {
+        return getItem().getEffectSending().first();
+    }
+
     @Override
-    public Item getItem() {
-        return super.getItem();
+    public ItemForBattle getItem() {
+        return (ItemForBattle) super.getItem();
     }
 }

@@ -11,7 +11,7 @@ import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 import aiki.fight.moves.enums.TargetChoice;
 
-public final class ComparatorLanguageTargetChoice implements Comparator<LanguageElementKey<TargetChoice>> {
+public final class ComparatorLanguageTargetChoice implements Comparator<LanguageElementKey> {
 
     private EnumMap<TargetChoice,String> translatorCurrentLanguage;
 
@@ -29,9 +29,9 @@ public final class ComparatorLanguageTargetChoice implements Comparator<Language
     }
 
     @Override
-    public int compare(LanguageElementKey<TargetChoice> _o1, LanguageElementKey<TargetChoice> _o2) {
-        TargetChoice keyOne_ = _o1.getKey();
-        TargetChoice keyTwo_ = _o2.getKey();
+    public int compare(LanguageElementKey _o1, LanguageElementKey _o2) {
+        TargetChoice keyOne_ = (TargetChoice) _o1.getKey();
+        TargetChoice keyTwo_ = (TargetChoice) _o2.getKey();
         int res_ = compare(translatorCurrentLanguage, keyOne_, keyTwo_);
         if (res_ != CustList.EQ_CMP) {
             return res_;

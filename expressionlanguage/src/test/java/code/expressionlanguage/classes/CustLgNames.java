@@ -7,7 +7,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.IntStruct;
-import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
@@ -22,14 +21,11 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.ObjectMap;
-import code.util.SimpleItr;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.ints.SimpleIterable;
 
 public class CustLgNames extends LgNames {
 
-    private String aliasSimpleIterable = "code.util.ints.SimpleIterable";
     private String aliasStringList = "code.util.StringList";
     private String aliasComposite = "code.expressionlanguage.classes.Composite";
     private String aliasInheritedComposite = "code.expressionlanguage.classes.InheritedComposite";
@@ -49,7 +45,6 @@ public class CustLgNames extends LgNames {
     private String aliasCompositeField = "composite";
     private String aliasGetList = "getList";
     private String aliasRemoveAndExistAfter = "removeAndExistAfter";
-    private String aliasSimpleIteratorType = "code.util.SimpleItr";
     private String aliasGeneObjects = "code.expressionlanguage.classes.GeneObjects";
     private String aliasPickableList = "code.expressionlanguage.classes.PickableList";
     private String aliasGetOverridenOne = "getOverridenOne";
@@ -109,16 +104,6 @@ public class CustLgNames extends LgNames {
         stdcl_.setIterative(getAliasObject());
         std_ = stdcl_;
         getStandards().put(aliasGeneObjects, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod(getAliasNext(), params_, getAliasObject(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(getAliasHasNext(), params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
-        methods_.put(method_.getId(), method_);
-        stdcl_ = new StandardClass(aliasSimpleIteratorType, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        std_ = stdcl_;
-        getStandards().put(aliasSimpleIteratorType, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -249,36 +234,12 @@ public class CustLgNames extends LgNames {
         stdcl_ = new StandardClass(aliasArrayContainer, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         std_ = stdcl_;
         getStandards().put(aliasArrayContainer, std_);
-        //aliasComposite
-        //aliasSimpleIteratorType
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Object... _args) {
         Object instance_ = _instance.getInstance();
         ResultErrorStd res_ = new ResultErrorStd();
-        if (instance_ instanceof SimpleIterable) {
-            if (StringList.quickEq(_method.getConstraints().getName(), getAliasSimpleIterator())) {
-                res_.setResult(new StdStruct(((SimpleIterable) instance_).simpleIterator(), aliasSimpleIteratorType));
-                return res_;
-            }
-        }
-        if (instance_ instanceof SimpleItr) {
-            if (StringList.quickEq(_method.getConstraints().getName(), getAliasNext())) {
-                Object result_ = ((SimpleItr)instance_).next();
-                if (result_ instanceof Integer) {
-                    res_.setResult(new IntStruct((Integer) result_));
-                    return res_;
-                }
-                if (result_ instanceof Long) {
-                    res_.setResult(new LongStruct((Long) result_));
-                    return res_;
-                }
-            } else {
-                res_.setResult(new BooleanStruct(((SimpleItr)instance_).hasNext()));
-                return res_;
-            }
-        }
         if (StringList.quickEq(_method.getClassName(), aliasInts)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasAdd)) {
                 Integer arg_ = (Integer) _args[0];
@@ -456,40 +417,22 @@ public class CustLgNames extends LgNames {
         if (StringList.quickEq(_method.getClassName(), aliasArrayBis)) {
             ArrayBis one_ = (ArrayBis) instance_;
             int[] bytes_ = one_.getArray();
-            Struct[] wrap_ = new Struct[bytes_.length];
-            int i_ = CustList.FIRST_INDEX;
-            for (int b: bytes_) {
-                wrap_[i_] = new IntStruct(b);
-                i_++;
-            }
             String ret_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
-            res_.setResult(new StdStruct(wrap_, ret_));
+            res_.setResult(new StdStruct(bytes_, ret_));
             return res_;
         }
         if (StringList.quickEq(_method.getClassName(), aliasArrayContainer)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetArray)) {
                 ArrayContainer one_ = (ArrayContainer) instance_;
                 int[] bytes_ = one_.getArray();
-                Struct[] wrap_ = new Struct[bytes_.length];
-                int i_ = CustList.FIRST_INDEX;
-                for (int b: bytes_) {
-                    wrap_[i_] = new IntStruct(b);
-                    i_++;
-                }
                 String ret_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
-                res_.setResult(new StdStruct(wrap_, ret_));
+                res_.setResult(new StdStruct(bytes_, ret_));
                 return res_;
             }
             ArrayContainer one_ = (ArrayContainer) instance_;
             ArrayBis[] bytes_ = one_.getCompo();
-            Struct[] wrap_ = new Struct[bytes_.length];
-            int i_ = CustList.FIRST_INDEX;
-            for (ArrayBis b: bytes_) {
-                wrap_[i_] = new StdStruct(b,aliasArrayBis);
-                i_++;
-            }
             String ret_ = PrimitiveTypeUtil.getPrettyArrayType(aliasArrayBis);
-            res_.setResult(new StdStruct(wrap_, ret_));
+            res_.setResult(new StdStruct(bytes_, ret_));
             return res_;
         }
         return super.getOtherResult(_cont, _instance, _method, _args);
@@ -535,7 +478,6 @@ public class CustLgNames extends LgNames {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ClassField _classField, Struct _instance) {
-        // TODO Auto-generated method stub
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
             if (StringList.quickEq(_classField.getFieldName(), aliasIntegerField)) {
@@ -577,6 +519,25 @@ public class CustLgNames extends LgNames {
             }
         }
         return super.setOtherResult(_cont, _classField, _instance, _value);
+    }
+    @Override
+    public Struct getOtherElement(Object _array, int _index) {
+        if (_array instanceof ArrayBis[]) {
+            return new StdStruct(((ArrayBis[])_array)[_index], aliasArrayBis);
+        }
+        if (_array instanceof ArrayContainer[]) {
+            return new StdStruct(((ArrayContainer[])_array)[_index], aliasArrayContainer);
+        }
+        return super.getOtherElement(_array, _index);
+    }
+    @Override
+    public void setOtherElement(Object _array, int _index, Struct _elt) {
+        if (_array instanceof ArrayBis[]) {
+            ((ArrayBis[])_array)[_index] = (ArrayBis) _elt.getInstance();
+        }
+        if (_array instanceof ArrayContainer[]) {
+            ((ArrayContainer[])_array)[_index] = (ArrayContainer) _elt.getInstance();
+        }
     }
     public String getAliasInts() {
         return aliasInts;

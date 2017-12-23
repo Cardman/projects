@@ -10,7 +10,7 @@ public class MyValidator implements Validator {
             Rate rate_ = new Rate((String)_value);
             if (rate_.isZero()) {
                 Message message_ = new Message();
-                message_.setArgs(_value);
+                message_.setArgs((String) _value);
                 message_.setMessage("0 is unacceptable");
                 message_.setFormatMessage(false);
                 return message_;
@@ -18,13 +18,14 @@ public class MyValidator implements Validator {
             return null;
         } catch (BadRateException _0) {
             Message message_ = new Message();
-            message_.setArgs(_value);
+            message_.setArgs((String) _value);
             message_.setMessage("{0} is not a no zero rate");
             message_.setFormatMessage(true);
             return message_;
         } catch (ClassCastException _0) {
+            //Long or Boolean
             Message message_ = new Message();
-            message_.setArgs(_value);
+            message_.setArgs(String.valueOf(_value));
             message_.setMessage("{0} is not a no zero rate");
             message_.setFormatMessage(true);
             return message_;

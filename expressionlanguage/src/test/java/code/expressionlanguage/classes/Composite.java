@@ -107,10 +107,6 @@ public class Composite {
         privateInt = _privateInt;
     }
 
-    public String varArgsParam(String _format, Object... _args) {
-        return StringList.simpleFormat(_format, _args);
-    }
-
     public long varArgsNoParam(long... _args) {
         long l_ = 0;
         for (long l: _args) {

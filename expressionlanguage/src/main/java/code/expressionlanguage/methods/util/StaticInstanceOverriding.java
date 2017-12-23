@@ -19,14 +19,14 @@ public class StaticInstanceOverriding extends FoundErrorInterpret {
     private boolean staticBaseMethod;
 
     @Override
-    public String toString() {
+    public String display() {
         if (staticBaseMethod) {
-            return super.toString()+INSTANCE_SUBCLASS+SEP_LOC_INFO
+            return super.display()+INSTANCE_SUBCLASS+SEP_LOC_INFO
                     +STATIC_BASE
                     +SEP_KEY_VAL+baseClass
                     +SEP_CLASS_PATH+methodeId.getSignature()+SEP_INFO;
         }
-        return super.toString()+STATIC_SUBCLASS+SEP_LOC_INFO
+        return super.display()+STATIC_SUBCLASS+SEP_LOC_INFO
                 +INSTANCE_BASE
                 +SEP_KEY_VAL+baseClass
                 +SEP_CLASS_PATH+methodeId.getSignature()+SEP_INFO;

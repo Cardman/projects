@@ -1205,7 +1205,7 @@ public final class GameTarot {
     }
 
     private void formatNoBid(BidTarot _c) {
-        reason = format(HAND_VALUE_NO_SUIT, _c, bid) + RETURN_LINE;
+        reason = format(HAND_VALUE_NO_SUIT, _c.toString(), bid.toString()) + RETURN_LINE;
         reason += format(OVERBID_DUE);
     }
 
@@ -14818,7 +14818,7 @@ public final class GameTarot {
         return Suit.couleursOrdinaires();
     }
 
-    private String format(String _key, Object... _vars) {
+    private String format(String _key, String... _vars) {
         return Format.formatter(FOLDER, file, Constants.getLanguage(), _key, _vars);
     }
 

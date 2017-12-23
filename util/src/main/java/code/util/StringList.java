@@ -1,11 +1,12 @@
 package code.util;
 import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
-public final class StringList extends AbEqList<String> implements Equallable<StringList> {
+public final class StringList extends AbEqList<String> implements Equallable<StringList>, Displayable {
 
     public static final char LEFT_BRACE = '{';
 
@@ -430,10 +431,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public static String simpleStringsFormat(String _format, String... _args) {
-        return simpleFormat(_format, (Object[])_args);
-    }
-
-    public static String simpleFormat(String _format, Object... _args) {
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
         int length_ = _format.length();
@@ -468,7 +465,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                 inside_ = false;
                 try {
                     int argNb_ = Integer.parseInt(arg_.toString());
-                    str_.append(String.valueOf(_args[argNb_]));
+                    str_.append(_args[argNb_]);
                 } catch (RuntimeException _0) {
                     str_.append(LEFT_BRACE);
                     str_.append(arg_);
@@ -482,15 +479,57 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
             i_++;
         }
         return str_.toString();
-//        Map<String,String> fields_ = new Map<String,String>();
-//        for (String k: getFields(_format)) {
-//            try {
-//                int arg_ = Integer.parseInt(k);
-//                fields_.put(LEFT_BRACE+k+RIGHT_BRACE, String.valueOf(_args[arg_]));
-//            } catch (Exception _0) {
-//            }
-//        }
-//        return formatQuote(_format, fields_);
+    }
+
+    public static String simpleNumberFormat(String _format, Number... _args) {
+        StringBuilder str_ = new StringBuilder();
+        StringBuilder arg_ = new StringBuilder();
+        int length_ = _format.length();
+        boolean escaped_ = false;
+        boolean inside_ = false;
+        int i_ = FIRST_INDEX;
+        while (i_ < length_) {
+            char cur_ = _format.charAt(i_);
+            if (cur_ == QUOTE) {
+                escaped_ = !escaped_;
+                if (i_ < length_ - 1) {
+                    if (_format.charAt(i_ + 1) == QUOTE) {
+                        str_.append(QUOTE);
+                        i_++;
+                        i_++;
+                        escaped_ = false;
+                        continue;
+                    }
+                }
+                i_++;
+                continue;
+            }
+            if (escaped_) {
+                str_.append(cur_);
+                i_++;
+                continue;
+            }
+            if (cur_ == LEFT_BRACE) {
+                arg_ = new StringBuilder();
+                inside_ = true;
+            } else if (cur_ == RIGHT_BRACE) {
+                inside_ = false;
+                try {
+                    int argNb_ = Integer.parseInt(arg_.toString());
+                    str_.append(_args[argNb_].toString());
+                } catch (RuntimeException _0) {
+                    str_.append(LEFT_BRACE);
+                    str_.append(arg_);
+                    str_.append(RIGHT_BRACE);
+                }
+            } else if (inside_) {
+                arg_.append(cur_);
+            } else {
+                str_.append(cur_);
+            }
+            i_++;
+        }
+        return str_.toString();
     }
 
     public static StringList getFields(String _pattern) {
@@ -1323,11 +1362,20 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     @Override
+    public String[] toArray() {
+        int size_ = size();
+        String[] array_ = new String[size_];
+        for (int i = FIRST_INDEX; i < size_; i++) {
+            array_[i] = get(i);
+        }
+        return array_;
+    }
+
     public String join(String _join) {
         if (isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(String.valueOf(get(FIRST_INDEX)));
+        StringBuilder return_ = new StringBuilder(first());
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
             return_.append(_join);
@@ -1336,12 +1384,11 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return return_.toString();
     }
 
-    @Override
     public String join(char _join) {
         if (isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(String.valueOf(get(FIRST_INDEX)));
+        StringBuilder return_ = new StringBuilder(first());
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
             return_.append(_join);
@@ -1956,5 +2003,15 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return display();
+    }
+
+    @Override
+    public String display() {
+        return "["+join(",")+"]";
     }
 }

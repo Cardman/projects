@@ -2440,7 +2440,7 @@ public class FightHelpBean extends CommonBean {
     @Accessible
     private String getStab() {
         DataBase data_ = (DataBase) getDataBase();
-        return data_.getStab().toString();
+        return data_.getStab().toNumberString();
     }
 
     @Accessible
@@ -2455,7 +2455,7 @@ public class FightHelpBean extends CommonBean {
         StatusBeginRoundAutoDamage st_ = (StatusBeginRoundAutoDamage) data_.getStatus(auto_);
         String str_ = data_.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
-        replace_.put(DataBase.VAR_PREFIX+Fight.POWER, st_.getPower().toString());
+        replace_.put(DataBase.VAR_PREFIX+Fight.POWER, st_.getPower().toNumberString());
 //        str_ = str_.replaceAll(DataBase.VAR_PREFIX+Fight.POWER, st_.getPower().toString());
         str_ = StringList.replaceWordsJoin(str_, replace_);
         return str_;

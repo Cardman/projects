@@ -30,8 +30,8 @@ public class ListenerChangeSlide implements ChangeListener {
         int min_=slide.getMinimum();
         int max_=slide.getMaximum();
         String prefix_ = messages.getVal(key);
-        String values_ = StringList.simpleFormat(sentence, min_, max_, slide.getValue());
-        etiquette.setText(StringList.simpleFormat(sentence, prefix_, values_));
+        String values_ = StringList.simpleNumberFormat(sentence, min_, max_, slide.getValue());
+        etiquette.setText(StringList.simpleStringsFormat(sentence, prefix_, values_));
     }
 
 }

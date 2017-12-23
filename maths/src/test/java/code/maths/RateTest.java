@@ -194,7 +194,7 @@ public class RateTest {
     @Parameters(method="inputsToString")
     public void toString1Test(String _input, String _expected) {
         Rate rate_ = new Rate(_input);
-        String str_ = rate_.toString();
+        String str_ = rate_.toNumberString();
         assertEq(_expected, str_);
     }
 

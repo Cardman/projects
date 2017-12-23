@@ -121,13 +121,13 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         byte entameur_=(byte)((donneur_+1)%nombreJoueurs_);
         for (int indiceContrat_ = CustList.FIRST_INDEX;indiceContrat_<tailleContrat_;indiceContrat_++) {
             byte joueur_=(byte)((entameur_+indiceContrat_)%nombreJoueurs_);
-            event_ = StringList.simpleFormat(container.getMessages().getVal(MainWindow.DECLARE_BID), pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR;
+            event_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.DECLARE_BID), pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR;
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(StringList.simpleFormat(container.getMessages().getVal(MainWindow.DECLARE_BID), pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR);
             Constants.sleep(1000);
             String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-            event_ = StringList.simpleFormat(mess_,pseudos_.get(joueur_),contrats_.get(indiceContrat_))+ContainerTarot.RETURN_LINE_CHAR;
+            event_ = StringList.simpleStringsFormat(mess_,pseudos_.get(joueur_),contrats_.get(indiceContrat_).toString())+ContainerTarot.RETURN_LINE_CHAR;
             event_ += ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR;
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
@@ -175,10 +175,10 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                     return;
                 }
                 String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-                event_ = StringList.simpleFormat(mess_, pseudos_.get(preneur_), partie_.getCarteAppelee())+ContainerTarot.RETURN_LINE_CHAR;
+                event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(preneur_), partie_.getCarteAppelee().toString())+ContainerTarot.RETURN_LINE_CHAR;
 //                container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(preneur_), partie_.getCarteAppelee())+ContainerTarot.RETURN_LINE_CHAR);
                 mess_ = container.getMessages().getVal(MainWindow.CALLED_PLAYER);
-                event_ += StringList.simpleFormat(mess_, partie_.getCarteAppelee())+ContainerTarot.RETURN_LINE_CHAR;
+                event_ += StringList.simpleStringsFormat(mess_, partie_.getCarteAppelee().toString())+ContainerTarot.RETURN_LINE_CHAR;
 //                container.ajouterTexteDansZone(StringList.simpleFormat(mess_, partie_.getCarteAppelee())+ContainerTarot.RETURN_LINE_CHAR);
                 event_ += container.getMessages().getVal(MainWindow.CALLED_PLAYER_WARNING)+ContainerTarot.RETURN_LINE_CHAR;
 //                container.ajouterTexteDansZone(container.getMessages().getVal(MainWindow.CALLED_PLAYER_WARNING)+ContainerTarot.RETURN_LINE_CHAR);
@@ -189,7 +189,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
             } else {
                 for(byte a:appele_) {
                     String mess_ = container.getMessages().getVal(MainWindow.PARTNERS_TAKER);
-                    event_ = StringList.simpleFormat(mess_, pseudos_.get(a))+ContainerTarot.RETURN_LINE_CHAR;
+                    event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(a))+ContainerTarot.RETURN_LINE_CHAR;
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(a))+ContainerTarot.RETURN_LINE_CHAR);
@@ -214,11 +214,11 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                     return;
                 }
                 String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-                event_ = StringList.simpleFormat(mess_, pseudos_.get(preneur_), partie_.getCarteAppelee())+ContainerTarot.RETURN_LINE_CHAR;
+                event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(preneur_), partie_.getCarteAppelee().toString())+ContainerTarot.RETURN_LINE_CHAR;
 
 //                container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(preneur_), partie_.getCarteAppelee())+ContainerTarot.RETURN_LINE_CHAR);
                 mess_ = container.getMessages().getVal(MainWindow.CALLED_PLAYER);
-                event_ += StringList.simpleFormat(mess_, partie_.getCarteAppelee())+ContainerTarot.RETURN_LINE_CHAR;
+                event_ += StringList.simpleStringsFormat(mess_, partie_.getCarteAppelee().toString())+ContainerTarot.RETURN_LINE_CHAR;
 //                container.ajouterTexteDansZone(StringList.simpleFormat(mess_, partie_.getCarteAppelee())+ContainerTarot.RETURN_LINE_CHAR);
                 event_ += container.getMessages().getVal(MainWindow.CALLED_PLAYER_WARNING)+ContainerTarot.RETURN_LINE_CHAR;
 //                container.ajouterTexteDansZone(container.getMessages().getVal(MainWindow.CALLED_PLAYER_WARNING)+ContainerTarot.RETURN_LINE_CHAR);
@@ -229,7 +229,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
             } else {
                 for(byte a:appele_) {
                     String mess_ = container.getMessages().getVal(MainWindow.PARTNERS_TAKER);
-                    event_ = StringList.simpleFormat(mess_, pseudos_.get(a))+ContainerTarot.RETURN_LINE_CHAR;
+                    event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(a))+ContainerTarot.RETURN_LINE_CHAR;
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(a))+ContainerTarot.RETURN_LINE_CHAR);
@@ -253,11 +253,11 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                 String mess_;
                 if(joueur_==entameur_) {
                     mess_ = container.getMessages().getVal(MainWindow.PLAY_CARD_FIRST);
-                    event_ = StringList.simpleFormat(mess_, pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR;
+                    event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR;
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR);
                 } else {
                     mess_ = container.getMessages().getVal(MainWindow.PLAY_CARD_THEN);
-                    event_ = StringList.simpleFormat(mess_, pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR;
+                    event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR;
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR);
                 }
                 ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
@@ -268,7 +268,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                     if(partie_.pasJeuMisere()) {
                         for(Miseres annonce_:partie_.getAnnoncesMiseres(joueur_)) {
                             mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-                            event_ = StringList.simpleFormat(mess_, pseudos_.get(joueur_),annonce_)+ContainerTarot.RETURN_LINE_CHAR;
+                            event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_),annonce_.toString())+ContainerTarot.RETURN_LINE_CHAR;
                             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                            container.ajouterTexteDansZone(event_);
 //                            container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(joueur_),annonce_)+ContainerTarot.RETURN_LINE_CHAR);
@@ -277,8 +277,8 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                         if(!poignee_.estVide()) {
                             EnumList<Handfuls> annoncesPoigneesJoueur_ = partie_.getAnnoncesPoignees(joueur_);
                             mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-                            event_ = StringList.simpleFormat(mess_,pseudos_.get(joueur_),annoncesPoigneesJoueur_.first())+ContainerTarot.RETURN_LINE_CHAR;
-                            event_ += StringList.simpleFormat(mess_,pseudos_.get(joueur_),poignee_)+ContainerTarot.RETURN_LINE_CHAR;
+                            event_ = StringList.simpleStringsFormat(mess_,pseudos_.get(joueur_),annoncesPoigneesJoueur_.first().toString())+ContainerTarot.RETURN_LINE_CHAR;
+                            event_ += StringList.simpleStringsFormat(mess_,pseudos_.get(joueur_),poignee_.toString())+ContainerTarot.RETURN_LINE_CHAR;
                             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                            container.ajouterTexteDansZone(event_);
 //                            container.ajouterTexteDansZone(StringList.simpleFormat(mess_,pseudos_.get(joueur_),annoncesPoigneesJoueur_.first())+ContainerTarot.RETURN_LINE_CHAR);
@@ -289,7 +289,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                 if(partie_.existeCarteAppelee()&&partie_.getCarteAppelee().contient(carte_)) {
                     mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
                     container.getMini().setStatus(Status.CALLED_PLAYER, joueur_);
-                    event_ = StringList.simpleFormat(mess_,pseudos_.get(joueur_),Status.CALLED_PLAYER.toString())+ContainerTarot.RETURN_LINE_CHAR;
+                    event_ = StringList.simpleStringsFormat(mess_,pseudos_.get(joueur_),Status.CALLED_PLAYER.toString())+ContainerTarot.RETURN_LINE_CHAR;
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_,pseudos_.get(joueur_),Status.CALLED_PLAYER.toString())+ContainerTarot.RETURN_LINE_CHAR);
@@ -315,7 +315,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
             }
             byte ramasseur_=GameTarot.ramasseur(plisFaits_,(byte)indicePli_);
             String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
-            event_ = StringList.simpleFormat(mess_, pseudos_.get(ramasseur_))+ContainerTarot.RETURN_LINE_CHAR;
+            event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(ramasseur_))+ContainerTarot.RETURN_LINE_CHAR;
             event_ += ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR;
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
@@ -324,7 +324,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
             if(indicePli_==plisFaits_.size()-1) {
                 if(partie_.petitMeneAuBout(ramasseur_)) {
                     mess_ = container.getMessages().getVal(MainWindow.BONUS_WIN);
-                    event_ = StringList.simpleFormat(mess_, pseudos_.get(ramasseur_), BonusTarot.SMALL_BOUND)+ContainerTarot.RETURN_LINE_CHAR;
+                    event_ = StringList.simpleStringsFormat(mess_, pseudos_.get(ramasseur_), BonusTarot.SMALL_BOUND.toString())+ContainerTarot.RETURN_LINE_CHAR;
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(ramasseur_), BonusTarot.SMALL_BOUND)+ContainerTarot.RETURN_LINE_CHAR);
@@ -437,7 +437,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
             }
             String mess_ = container.getMessages().getVal(MainWindow.DISCARD_CARDS);
             HandTarot lastHand_ = partie_.getDistribution().derniereMain();
-            event_ = StringList.simpleFormat(mess_, lastHand_.total())+ContainerTarot.RETURN_LINE_CHAR;
+            event_ = StringList.simpleNumberFormat(mess_, lastHand_.total())+ContainerTarot.RETURN_LINE_CHAR;
             event_ += ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR;
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);

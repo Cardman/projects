@@ -39,7 +39,7 @@ public final class DialogTeamsPlayers extends DialogCards {
         int i_ = 1;
         String stringTeam_ = messages.getVal(TEAM);
         for (Numbers<Byte> t: _teamsPlayers.getTeams()) {
-            String stringTeamLoc_ = StringList.simpleFormat(stringTeam_, i_);
+            String stringTeamLoc_ = StringList.simpleNumberFormat(stringTeam_, i_);
             JPanel team_ = new JPanel(new GridLayout(0,1));
             team_.setBorder(BorderFactory.createTitledBorder(stringTeamLoc_));
             for (byte p:t) {

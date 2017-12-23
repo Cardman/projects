@@ -4,9 +4,11 @@ import java.util.Iterator;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 
 @RwXml
-public final class Polygon implements Iterable<CustPoint>, HasEdges {
+public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable {
+    private static final String SEPARATOR = ";";
 
     private EqList<CustPoint> points = new EqList<CustPoint>();
 
@@ -123,8 +125,22 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges {
     }
 
     @Override
+    public String display() {
+        if (points.isEmpty()) {
+            return "";
+        }
+        StringBuilder return_ = new StringBuilder(points.first().display());
+        int size_ = points.size();
+        for (int i=1;i<size_;i++) {
+            return_.append(SEPARATOR);
+            return_.append(points.get(i).display());
+        }
+        return return_.toString();
+    }
+
+    @Override
     public String toString() {
-        return points.toString();
+        return display();
     }
 
     /**

@@ -11,7 +11,7 @@ import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 import aiki.map.pokemon.enums.Gender;
 
-public final class ComparatorLanguageGender implements Comparator<LanguageElementKey<Gender>> {
+public final class ComparatorLanguageGender implements Comparator<LanguageElementKey> {
 
     private EnumMap<Gender,String> translatorCurrentLanguage;
 
@@ -29,9 +29,9 @@ public final class ComparatorLanguageGender implements Comparator<LanguageElemen
     }
 
     @Override
-    public int compare(LanguageElementKey<Gender> _o1, LanguageElementKey<Gender> _o2) {
-        Gender keyOne_ = _o1.getKey();
-        Gender keyTwo_ = _o2.getKey();
+    public int compare(LanguageElementKey _o1, LanguageElementKey _o2) {
+        Gender keyOne_ = (Gender) _o1.getKey();
+        Gender keyTwo_ = (Gender) _o2.getKey();
         int res_ = compare(translatorCurrentLanguage, keyOne_, keyTwo_);
         if (res_ != CustList.EQ_CMP) {
             return res_;

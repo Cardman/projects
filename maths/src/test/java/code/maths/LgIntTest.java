@@ -158,7 +158,7 @@ public class LgIntTest {
     @Test
     public void toString1Test(LgInt _input, String _expected) {
         //_input.setUnmodified();
-        assertEq(_expected, _input.toString());
+        assertEq(_expected, _input.toNumberString());
         //assertTrue(!_input.isModified());
     }
 

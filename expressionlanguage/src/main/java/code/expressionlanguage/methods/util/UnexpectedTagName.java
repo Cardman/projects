@@ -8,8 +8,8 @@ public final class UnexpectedTagName extends FoundErrorInterpret {
     private String foundTag;
 
     @Override
-    public String toString() {
-        return super.toString()+TAG+SEP_KEY_VAL+foundTag+SEP_INFO;
+    public String display() {
+        return super.display()+TAG+SEP_KEY_VAL+foundTag+SEP_INFO;
     }
 
     public String getFoundTag() {

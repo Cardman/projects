@@ -14,7 +14,7 @@ public final class Calculation {
     public Calculation(String _fieldName) {
         this(true, true,_fieldName);
     }
-    public Calculation(boolean _staticAcces,boolean _staticBlock,String _fieldName) {
+    Calculation(boolean _staticAcces,boolean _staticBlock,String _fieldName) {
         this(_staticAcces, _staticBlock, _fieldName, false);
     }
     public Calculation(boolean _staticAcces,boolean _staticBlock,String _fieldName,boolean _leftStep) {

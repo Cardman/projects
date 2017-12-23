@@ -7,8 +7,8 @@ public final class DuplicateParamName extends FoundErrorInterpret {
     private String paramName;
 
     @Override
-    public String toString() {
-        return super.toString()+CLASS_NAME+SEP_KEY_VAL+paramName+SEP_INFO;
+    public String display() {
+        return super.display()+CLASS_NAME+SEP_KEY_VAL+paramName+SEP_INFO;
     }
 
     public String getParamName() {

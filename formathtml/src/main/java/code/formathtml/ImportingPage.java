@@ -134,6 +134,10 @@ public final class ImportingPage {
         processingHtml.setRoot(_root);
     }
 
+    public String getGlobalClass() {
+        return pageEl.getGlobalClass();
+    }
+
     public Argument getGlobalArgument() {
         return pageEl.getGlobalArgument();
     }
@@ -146,6 +150,10 @@ public final class ImportingPage {
     public void setGlobalArgumentObj(Object _obj) {
         pageEl.setGlobalClass(_obj.getClass().getName());
         pageEl.setGlobalArgumentObj(_obj);
+    }
+
+    public void setGlobalClass(String _className) {
+        pageEl.setGlobalClass(_className);
     }
 
     public void setGlobalArgument(Argument _globalArgument, Configuration _context) {

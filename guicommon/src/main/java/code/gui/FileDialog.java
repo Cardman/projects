@@ -207,7 +207,7 @@ public abstract class FileDialog extends Dialog {
     public void applyTreeChange() {
         String str_ = getFolder();
         currentFolder = str_;
-        currentTitle = StringList.simpleFormat(messages.getVal(FILES_PARAM), currentFolder);
+        currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
         File currentFolder_ = new File(str_);
         if (!currentFolder_.exists()) {
@@ -253,7 +253,7 @@ public abstract class FileDialog extends Dialog {
             str_ += o.toString() + StreamTextFile.SEPARATEUR;
         }
         currentFolder = str_;
-        currentTitle = StringList.simpleFormat(messages.getVal(FILES_PARAM), currentFolder);
+        currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
         File currentFolder_ = new File(str_);
         if (!currentFolder_.exists()) {

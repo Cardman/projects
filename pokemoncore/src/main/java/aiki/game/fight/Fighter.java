@@ -1248,7 +1248,7 @@ public final class Fighter {
         vars_.put(DataBase.VAR_PREFIX+NIVEAU,Integer.toString(_niveau - 1));
         current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
-        return _import.evaluatePositiveExp(Rate.minus(next_, current_).toString(), vars_, Rate.one());
+        return _import.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
     }
 
     StringList nomEvolutions(DataBase _import,StringList _pkNamesBegin){
@@ -1959,7 +1959,7 @@ public final class Fighter {
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(moves.getKeys());
         if(monteNiveau_>0){
-            comment.addMessage(_messages_.getVal(GROW_LEVEL), name_, achievedLevel_);
+            comment.addMessage(_messages_.getVal(GROW_LEVEL), name_, Long.toString(achievedLevel_));
             winHappinessByGrowingLevel(monteNiveau_,_import);
             formeNormale(_import);
             fullHeal(_import);
@@ -2109,7 +2109,7 @@ public final class Fighter {
         comment.clearMessages();
         wonExp.addNb(_variation);
         String name_ = _import.translatePokemon(name);
-        comment.addMessage(_messages_.getVal(WON_EXP), name_, _variation);
+        comment.addMessage(_messages_.getVal(WON_EXP), name_, _variation.toNumberString());
     }
 
     void wonEvStatistic(Statistic _statistique,short _varEv,short _maxEv, DataBase _import){
@@ -2119,7 +2119,7 @@ public final class Fighter {
         String stat_ = _import.translateStatistics(_statistique);
         if(ev_+_varEv<_maxEv){
             ev_=(short) (ev_+_varEv);
-            comment.addMessage(_messages_.getVal(WON_EV), name_, _varEv, stat_);
+            comment.addMessage(_messages_.getVal(WON_EV), name_, Long.toString(_varEv), stat_);
         }else{
             ev_=_maxEv;
             comment.addMessage(_messages_.getVal(WON_EV_MAX), name_, stat_);
@@ -2141,7 +2141,7 @@ public final class Fighter {
         String name_ = _import.translatePokemon(name);
         if(happiness+mult_.ll()<=maxBonheur_){
             happiness=(short) (happiness +mult_.ll());
-            comment.addMessage(_messages_.getVal(WON_HAPPINESS), name_, mult_);
+            comment.addMessage(_messages_.getVal(WON_HAPPINESS), name_, mult_.toNumberString());
         }else{
             happiness=maxBonheur_;
             comment.addMessage(_messages_.getVal(MAX_HAPPINESS), name_);

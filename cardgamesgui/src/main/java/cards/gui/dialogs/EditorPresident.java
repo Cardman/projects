@@ -211,7 +211,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //                break;
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
-            message_ = StringList.simpleFormat(message_, n);
+            message_ = StringList.simpleStringsFormat(message_, n);
             plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_);
             plc_.initSelectionCartePresident();
             plc_.getListe().addListSelectionListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
@@ -237,11 +237,11 @@ public final class EditorPresident extends DialogPresident implements SetterSele
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);
-            message_ = StringList.simpleFormat(message_, n);
+            message_ = StringList.simpleStringsFormat(message_, n);
             listeTwo.addItem(message_);
         }
         sousPanneau_.add(listeTwo);
-        labelSelectCards = new JLabel(StringList.simpleFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
+        labelSelectCards = new JLabel(StringList.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
@@ -278,7 +278,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     private void erreur(PresidentCardsScrollableList _plc) {
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
-        mes_ = StringList.simpleFormat(mes_, _plc.taille());
+        mes_ = StringList.simpleNumberFormat(mes_, _plc.taille());
         ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
@@ -353,7 +353,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             nombreCartesSelectionnees=0;
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
-            mes_ = StringList.simpleFormat(mes_, m.total(), max_-taille_, listeTwo.getSelectedItem());
+            mes_ = StringList.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
             ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
         }
     }

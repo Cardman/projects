@@ -82,7 +82,18 @@
 		<c:if condition="!dirs.isEmpty()">
 			<ul>
 				<c:for key="d" keyClassName="aiki.map.enums.Direction" map="dirs" value="e">
-					<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,{d;name()}"/></a></li>
+					<c:if condition="isUp(d;;)">
+						<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,UP"/></a></li>
+					</c:if>
+					<c:if condition="isDown(d;;)">
+						<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,DOWN"/></a></li>
+					</c:if>
+					<c:if condition="isLeft(d;;)">
+						<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,LEFT"/></a></li>
+					</c:if>
+					<c:if condition="isRight(d;;)">
+						<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,RIGHT"/></a></li>
+					</c:if>
 				</c:for>
 			</ul>
 		</c:if>

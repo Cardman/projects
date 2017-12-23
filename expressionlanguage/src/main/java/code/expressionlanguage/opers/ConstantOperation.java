@@ -1,5 +1,4 @@
 package code.expressionlanguage.opers;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -57,6 +56,7 @@ import code.serialize.exceptions.NoSuchDeclaredFieldException;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
+import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ConstantOperation extends OperationNode implements SettableElResult {
@@ -444,7 +444,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     return;
                 }
             }
-            if (cl_ == null) {
+            if (cl_ == null || cl_.getName() == null) {
                 throw new NullGlobalObjectException(_conf.joinPages());
             }
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
@@ -525,7 +525,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         needGlobalArgument();
         ClassArgumentMatching cl_ = getPreviousResultClass();
-        if (cl_ == null) {
+        if (cl_ == null || cl_.getName() == null) {
             throw new NullGlobalObjectException(_conf.joinPages());
         }
         analyzeNativeField(_conf, str_);
@@ -801,13 +801,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (arg_.isNull()) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
-            if (_conf.getClasses() != null) {
-                a_ = new Argument();
-                a_.setStruct(new IntStruct(((Struct[])arg_.getObject()).length));
-                return ArgumentCall.newArgument(a_);
-            }
             a_ = new Argument();
-            a_.setStruct(new IntStruct(Array.getLength(arg_.getObject())));
+            a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
             return ArgumentCall.newArgument(a_);
         }
         if (resultCanBeSet()) {

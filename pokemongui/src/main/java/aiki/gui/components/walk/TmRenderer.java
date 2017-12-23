@@ -42,7 +42,7 @@ public class TmRenderer extends StringCellRenderer {
     protected void paintComponent(Graphics _g) {
         _g.setColor(Color.BLACK);
         _g.drawString(facade.translateMove(name), 0, getHeight());
-        _g.drawString(price.toString(), 100, getHeight());
+        _g.drawString(price.toNumberString(), 100, getHeight());
         if (selected) {
             _g.setColor(Color.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);

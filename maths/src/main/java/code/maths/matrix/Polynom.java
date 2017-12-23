@@ -7,9 +7,10 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.PairEq;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class Polynom implements Equallable<Polynom>{
+public final class Polynom implements Equallable<Polynom>, Displayable {
 
     private static final String SEPARATOR = " ";
     private EqList<Rate> numbers = new EqList<Rate>();
@@ -145,7 +146,7 @@ public final class Polynom implements Equallable<Polynom>{
     public void growToPow(LgInt _expo) {
         //setModified();
         if (!_expo.isZeroOrGt()) {
-            throw new NegatifExposantException(_expo.toString());
+            throw new NegatifExposantException(_expo.toNumberString());
         }
         Polynom copie_ = new Polynom(this);
         numbers.clear();
@@ -728,7 +729,21 @@ public final class Polynom implements Equallable<Polynom>{
     @Override
     @FromAndToString
     public String toString() {
-        return numbers.join(SEPARATOR);
+        return display();
     }
 
+    @FromAndToString
+    @Override
+    public String display() {
+        if (numbers.isEmpty()) {
+            return "";
+        }
+        StringBuilder return_ = new StringBuilder(numbers.first().toNumberString());
+        int size_ = numbers.size();
+        for (int i=1;i<size_;i++) {
+            return_.append(SEPARATOR);
+            return_.append(numbers.get(i).toNumberString());
+        }
+        return return_.toString();
+    }
 }

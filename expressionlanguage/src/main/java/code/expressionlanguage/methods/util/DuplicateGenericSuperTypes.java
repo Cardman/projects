@@ -9,8 +9,8 @@ public class DuplicateGenericSuperTypes extends FoundErrorInterpret {
     private StringList genericSuperTypes;
 
     @Override
-    public String toString() {
-        return super.toString()+CLASS_NAME+SEP_KEY_VAL+genericSuperTypes+SEP_INFO;
+    public String display() {
+        return super.display()+CLASS_NAME+SEP_KEY_VAL+genericSuperTypes+SEP_INFO;
     }
 
     public StringList getGenericSuperTypes() {

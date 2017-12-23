@@ -3,10 +3,11 @@ import code.util.AbEqList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.NaturalComparator;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class MathList extends AbEqList<String> implements Equallable<MathList> {
+public final class MathList extends AbEqList<String> implements Equallable<MathList>, Displayable {
 
     static final char SEPARATOR_SET_CHAR = ';';
 
@@ -175,12 +176,12 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
         str_.append(RIGHT_BRACE_SET);
         return str_.toString();
     }
-    @Override
+
     public String join(String _join) {
         if (isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(String.valueOf(get(FIRST_INDEX)));
+        StringBuilder return_ = new StringBuilder(get(FIRST_INDEX));
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
             return_.append(_join);
@@ -189,12 +190,11 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
         return return_.toString();
     }
 
-    @Override
     public String join(char _join) {
         if (isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(String.valueOf(get(FIRST_INDEX)));
+        StringBuilder return_ = new StringBuilder(get(FIRST_INDEX));
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
             return_.append(_join);
@@ -204,9 +204,15 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
     }
 
     @Override
-    public String toString() {
+    public String display() {
         return LEFT_BRACE_SET+join(SEPARATOR_SET_CHAR)+RIGHT_BRACE_SET;
     }
+
+    @Override
+    public String toString() {
+        return display();
+    }
+
     @Override
     public boolean eq(MathList _g) {
         StringList cone_ = new StringList(this);

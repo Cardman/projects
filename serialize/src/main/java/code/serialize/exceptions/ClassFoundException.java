@@ -29,9 +29,9 @@ public class ClassFoundException extends RuntimeException {
         try {
             StringMap<String> messages_ = MESSAGES.getVal(Constants.getLanguage());
             if (_inherit) {
-                return StringList.simpleFormat(messages_.getVal(INHERIT), _found, _expected);
+                return StringList.simpleStringsFormat(messages_.getVal(INHERIT), _found, _expected);
             }
-            return StringList.simpleFormat(messages_.getVal(NOT_INHERIT), _found, _expected);
+            return StringList.simpleStringsFormat(messages_.getVal(NOT_INHERIT), _found, _expected);
         } catch (Exception _0) {
             return EMPTY_STRING;
         }

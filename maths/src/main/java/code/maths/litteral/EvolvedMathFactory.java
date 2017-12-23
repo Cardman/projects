@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.LgInt;
 import code.maths.MathList;
 import code.maths.Rate;
 import code.util.StringMap;
@@ -26,6 +27,12 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,Evolve
         }
         if (_gotArg instanceof MathList) {
             return ((MathList)_gotArg).escapedList();
+        }
+        if (_gotArg instanceof LgInt) {
+            return ((LgInt)_gotArg).toNumberString();
+        }
+        if (_gotArg instanceof Rate) {
+            return ((Rate)_gotArg).toNumberString();
         }
         return String.valueOf(_gotArg);
     }

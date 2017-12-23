@@ -215,7 +215,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setLastToken("!key");
+        nc_.setKey(true);
         nc_.setTypedField(bean_.getTree().getKey(0));
         nc_.setObject(bean_.getTree());
         nc_.getNodeInformation().setVarMethod("");
@@ -235,7 +235,6 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setLastToken("!value");
         nc_.setTypedField(bean_.getTree().getValue(0));
         nc_.setObject(bean_.getTree());
         nc_.getNodeInformation().setVarMethod("");
@@ -256,7 +255,6 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setLastToken("");
         nc_.setTypedField(bean_.getArrayInt()[0]);
         nc_.setObject(bean_.getArrayInt());
         nc_.getNodeInformation().setVarMethod("");
@@ -278,7 +276,6 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setLastToken("");
         nc_.setTypedField(bean_.getStrings().first());
         nc_.setObject(bean_.getStrings());
         nc_.getNodeInformation().setVarMethod("");
@@ -300,7 +297,6 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setLastToken("!key");
         nc_.setTypedField(bean_.getTree().getKey(0));
         nc_.setObject(bean_.getTree());
         nc_.getNodeInformation().setVarMethod("");
@@ -324,7 +320,6 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setLastToken("!value");
         nc_.setTypedField(bean_.getTree().getValue(0));
         nc_.setObject(bean_.getTree());
         nc_.getNodeInformation().setVarMethod("");
@@ -349,7 +344,6 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setLastToken("");
         nc_.setTypedField(bean_.getArrayInt()[0]);
         nc_.setObject(bean_.getArrayInt());
         nc_.getNodeInformation().setVarMethod("");
@@ -471,7 +465,7 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "invokeMethod", Argument.numberToArgument("7L"));
+        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "invokeMethod", Argument.numberToArgument("7L")).getInstance();
         assertEq("returned value",return_);
         assertEq(1, bean_.getComposite().getStrings().size());
         assertEq("7", bean_.getComposite().getStrings().first());
@@ -485,7 +479,7 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "composite.internMethod");
+        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "composite.internMethod").getInstance();
         assertEq("sample",return_);
     }
 

@@ -29,7 +29,7 @@ final class InitializerMessages {
     }
 
     public static String getPropertiesPath(String _folder, String _language, String _file) {
-        return StringList.simpleFormat(PROPERTIES_PATTERN, _folder, _language, StringList.toLowerCase(StringList.replace(_file, DOT, SEPARATEUR)));
+        return StringList.simpleStringsFormat(PROPERTIES_PATTERN, _folder, _language, StringList.toLowerCase(StringList.replace(_file, DOT, SEPARATEUR)));
     }
 
 }

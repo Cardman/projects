@@ -715,7 +715,7 @@ public class Game {
             int nbMin_ = NB_HOSTED_POKEMON;
             nbMin_++;
             nbMin_ -= nb_;
-            commentGame.addMessage(_messages_.getVal(MISSING_PK), nbMin_);
+            commentGame.addMessage(_messages_.getVal(MISSING_PK), Long.toString(nbMin_));
             reinitInteraction = true;
         }
     }
@@ -1374,7 +1374,7 @@ public class Game {
             if (FightFacade.loose(fight)) {
                 LgInt money_ = new LgInt(player.getMoney());
                 player.winMoneyFight(new LgInt(-2000));
-                commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+                commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 player.healTeamWithoutUsingObject(_import);
             } else if (FightFacade.win(fight)) {
                 player.affectEndFight(fight,difficulty,_import);
@@ -1411,7 +1411,7 @@ public class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 int nbPlateaux_=((League)pl_).getRooms().size();
                 if(rankLeague==nbPlateaux_){
                     Coords coords_ = new Coords();
@@ -1439,7 +1439,7 @@ public class Game {
                     gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
                     gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                     player.winMoneyFight(gainArgent_.intPart());
-                    commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+                    commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                     beatGymTrainer.getVal(playerCoords.getNumberPlace()).add(coordsFoe_.getLevel().getPoint());
                     addPossibleBeatLeader(_import);
                     FightFacade.endFight(fight);
@@ -1452,7 +1452,7 @@ public class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 beatGymLeader.put(coordsFoe_, true);
                 beatenImportantTrainer_ = coordsFoe_;
                 addBeatenTrainer(beatenImportantTrainer_, _import);
@@ -1474,7 +1474,7 @@ public class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*dual_.getFoeTrainer().getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 player.healTeamWithoutUsingObject(_import);
                 Coords key_ = new Coords(playerCoords);
                 key_.getLevel().getPoint().affect(e.getKey());
@@ -1505,7 +1505,7 @@ public class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*dr_.getTeamsRewards().get(nb_).getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 beatTrainer.put(new NbFightCoords(coordsFoe_,nb_), true);
                 //player.obtentionCs(gymTr_.getCs());
                 FightFacade.endFight(fight);
@@ -1523,7 +1523,7 @@ public class Game {
                     gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
                     gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                     player.winMoneyFight(gainArgent_.intPart());
-                    commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+                    commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                     Coords coords_ = new Coords();
                     coords_.setNumberPlace(playerCoords.getNumberPlace());
                     coords_.setLevel(new LevelPoint());
@@ -1545,7 +1545,7 @@ public class Game {
             gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
             gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
             player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
             //begin of league => just before league
             playerCoords.affect(((League)pl_).getAccessCoords());
@@ -1564,7 +1564,7 @@ public class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart().opposNb());
-                commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+                commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 FightFacade.endFight(fight);
                 //begin of the game
                 playerCoords.affect(d_.getBegin());
@@ -1578,7 +1578,7 @@ public class Game {
             gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
             gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
             player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
             //begin of the game
             playerCoords.affect(d_.getBegin());
@@ -1598,7 +1598,7 @@ public class Game {
             gainArgent_.addNb(new Rate(sommeNiveau_*dual_.getFoeTrainer().getReward()*10));
             gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
             player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
             //begin of the game
             playerCoords.affect(d_.getBegin());
@@ -1626,7 +1626,7 @@ public class Game {
             gainArgent_.addNb(new Rate(sommeNiveau_*dr_.getTeamsRewards().get(nb_).getReward()*10));
             gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
             player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb());
+            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
             //begin of the game
             playerCoords.affect(d_.getBegin());

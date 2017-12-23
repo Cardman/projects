@@ -612,7 +612,7 @@ public final class MainWindow extends NetGroupFrame {
         }
 //        parametres.setLocale(_locale);
         initMessageName();
-        lastSavedGameDate.setText(StringList.simpleFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringList.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
 
         try{
             pseudosJoueurs = (Nicknames) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.PLAYERS);
@@ -1177,7 +1177,7 @@ public final class MainWindow extends NetGroupFrame {
         Container container_=new Container();
         container_.setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(new JLabel(StringList.simpleFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
+        container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
         for (GameEnum jeu2_:GameEnum.values()) {
             ajouterBoutonPrincipal(jeu2_.toString(),jeu2_,container_);
@@ -1215,7 +1215,7 @@ public final class MainWindow extends NetGroupFrame {
         Container container_=new Container();
         container_.setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(new JLabel(StringList.simpleFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
+        container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
         for (GameEnum jeu2_:GameEnum.values()) {
             ajouterBoutonPrincipal(jeu2_.toString(),jeu2_,container_);
@@ -1261,7 +1261,7 @@ public final class MainWindow extends NetGroupFrame {
         setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
         getContentPane().setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        welcomeLabel = new JLabel(StringList.simpleFormat(getMessages().getVal(WELCOME), pseudo()));
+        welcomeLabel = new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()));
         getContentPane().add(welcomeLabel,SwingConstants.CENTER);
         /*Cree les boutons de jeu*/
         singleModeButton = new LabelButton(getMessages().getVal(SINGLE_MODE));
@@ -1521,7 +1521,7 @@ public final class MainWindow extends NetGroupFrame {
             if(!fichier_.isEmpty()) {
                 containerGame.saveCurrentGame(fichier_);
                 dateLastSaved = Clock.getDateTimeText();
-                lastSavedGameDate.setText(StringList.simpleFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
+                lastSavedGameDate.setText(StringList.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
                 partieSauvegardee=true;
             }
         }
@@ -2076,7 +2076,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     private void erreurDeChargement(String _fichier) {
         //The issue of quality of game are caught here
-        String mes_ = StringList.simpleFormat(getMessages().getVal(FILE_NOT_LOADED), _fichier);
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(FILE_NOT_LOADED), _fichier);
         ConfirmDialog.showMessage(this,mes_, getMessages().getVal(FILE_NOT_LOADED_TILE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
     }
 
@@ -2213,7 +2213,7 @@ public final class MainWindow extends NetGroupFrame {
         help.setText(getMessages().getVal(HELP));
         generalHelp.setText(getMessages().getVal(GENERAL_HELP));
         if (welcomeLabel != null) {
-            welcomeLabel.setText(StringList.simpleFormat(getMessages().getVal(WELCOME), pseudo()));
+            welcomeLabel.setText(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()));
         }
         if (singleModeButton != null) {
             singleModeButton.setTextAndSize(getMessages().getVal(SINGLE_MODE));
@@ -2224,7 +2224,7 @@ public final class MainWindow extends NetGroupFrame {
         if (goHelpMenu != null) {
             goHelpMenu.setText(getMessages().getVal(GO_HELP_MENU));
         }
-        lastSavedGameDate.setText(StringList.simpleFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringList.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
     }
 
     public boolean isSaveHomeFolder() {

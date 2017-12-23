@@ -32,7 +32,7 @@ public final class EfficiencyRate {
     @FromAndToString
     @Override
     public String toString() {
-        return eff.toString()+SEPARATOR+hpRate;
+        return eff.toNumberString()+SEPARATOR+hpRate;
     }
 
     public Rate getEff() {

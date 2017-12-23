@@ -812,7 +812,7 @@ public class DataBase implements WithMathFactory {
         _perCentLoading_ = 70;
         Rate power_ = getStrongMovePower();
         if (Rate.strLower(power_, new Rate(90))) {
-            throw new DataException(power_.toString());
+            throw new DataException(power_.toNumberString());
         }
         ObjectNotNullMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
         for (EntryCust<TypeStatistic, Boolean> e: strongMovesTypeStat_.entryList()) {
@@ -7112,7 +7112,7 @@ public class DataBase implements WithMathFactory {
             StringList objDisplay_ = getVars(tokens_.get(i), _language);
             String pattern_ = infos_.get(1);
 //            String format_ = MessageFormat.format(pattern_, objDisplay_.toArray());
-            String format_ = StringList.simpleFormat(pattern_, objDisplay_.toArray());
+            String format_ = StringList.simpleStringsFormat(pattern_, objDisplay_.toArray());
             tokens_.set(i, format_);
         }
         String formula_ = tokens_.join(EMPTY_STRING);
@@ -7257,10 +7257,10 @@ public class DataBase implements WithMathFactory {
             String key_ = infos_.get(1);
             StringList objDisplay_ = getVars(tokens_.get(i), _language);
 //            String formatKey_ = MessageFormat.format(key_, objDisplay_.toArray());
-            String formatKey_ = StringList.simpleFormat(key_, objDisplay_.toArray());
+            String formatKey_ = StringList.simpleStringsFormat(key_, objDisplay_.toArray());
             String pattern_ = infos_.get(2);
 //            String format_ = MessageFormat.format(pattern_, objDisplay_.toArray());
-            String format_ = StringList.simpleFormat(pattern_, objDisplay_.toArray());
+            String format_ = StringList.simpleStringsFormat(pattern_, objDisplay_.toArray());
             desc_.put(formatKey_,format_);
         }
         return desc_;
@@ -7278,19 +7278,19 @@ public class DataBase implements WithMathFactory {
         int len_ = elts_.size();
         for (int j = CustList.SECOND_INDEX; j < len_; j++) {
             if (StringList.quickEq(types_.get(j - 1),MOVE_FORMULA)) {
-                objDisplay_.add(translatedMoves.getVal(_language).getVal(elts_.get(j).toString()));
+                objDisplay_.add(translatedMoves.getVal(_language).getVal(elts_.get(j)));
             }
             if (StringList.quickEq(types_.get(j - 1),CAT_FORMULA)) {
-                objDisplay_.add(translatedCategories.getVal(_language).getVal(elts_.get(j).toString()));
+                objDisplay_.add(translatedCategories.getVal(_language).getVal(elts_.get(j)));
             }
             if (StringList.quickEq(types_.get(j - 1),STATIS_FORMULA)) {
-                objDisplay_.add(translatedStatistics.getVal(_language).getVal(Statistic.getStatisticByName(elts_.get(j).toString())));
+                objDisplay_.add(translatedStatistics.getVal(_language).getVal(Statistic.getStatisticByName(elts_.get(j))));
             }
             if (StringList.quickEq(types_.get(j - 1),STATUS_FORMULA)) {
-                objDisplay_.add(translatedStatus.getVal(_language).getVal(elts_.get(j).toString()));
+                objDisplay_.add(translatedStatus.getVal(_language).getVal(elts_.get(j)));
             }
             if (StringList.quickEq(types_.get(j - 1),TYPE_FORMULA)) {
-                objDisplay_.add(translatedTypes.getVal(_language).getVal(elts_.get(j).toString()));
+                objDisplay_.add(translatedTypes.getVal(_language).getVal(elts_.get(j)));
             }
         }
         return objDisplay_;

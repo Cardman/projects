@@ -213,9 +213,9 @@ public class TargetLabel extends JLabel {
             g_.drawString(Short.toString(level), 0, h_);
             h_ += heightString_;
             g_.setColor(Color.BLUE);
-            g_.drawString(percentExp.toString(), 0, h_);
+            g_.drawString(percentExp.toNumberString(), 0, h_);
             h_ += heightString_;
-            int rate_ = Integer.parseInt(percentHp.toString());
+            int rate_ = Integer.parseInt(percentHp.toNumberString());
             int red_ = 255;
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;

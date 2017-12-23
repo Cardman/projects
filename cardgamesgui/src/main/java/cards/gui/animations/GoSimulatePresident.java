@@ -210,7 +210,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 }
                 byte ramasseur_= t_.getRamasseur(partie_.getNombreDeJoueurs());
                 String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
-                event_ = StringList.simpleFormat(mess_, nicknames_.get(ramasseur_))+ContainerPresident.RETURN_LINE_CHAR;
+                event_ = StringList.simpleStringsFormat(mess_, nicknames_.get(ramasseur_))+ContainerPresident.RETURN_LINE_CHAR;
                 event_ += ContainerPresident.EMPTY+ContainerPresident.RETURN_LINE_CHAR;
                 ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                container.ajouterTexteDansZone(event_);

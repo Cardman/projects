@@ -46,7 +46,7 @@ public final class Quitting extends Thread {
         if (bye.isBusy()) {
             String title_ = messages.getVal(USED_PORT_TITLE);
             String message_ = messages.getVal(USED_PORT);
-            message_ = StringList.simpleFormat(message_, window.getPort());
+            message_ = StringList.simpleNumberFormat(message_, window.getPort());
             ConfirmDialog.showMessage(window, message_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
         }
         window.quitNetwork(bye, socket);

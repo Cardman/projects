@@ -240,7 +240,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_NOM, nomActuelLanceur_);
         variables_.put(DataBase.VAR_PREFIX+Fight.ATTAQUE_TYPES, typeAtt_.join(_data_.getSepartorSetChar()));
         variables_.put(DataBase.VAR_PREFIX+Fight.ATTAQUE_NOM, _move);
-        variables_.put(DataBase.VAR_PREFIX+Fight.PUISSANCE_BASE, _power.toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.PUISSANCE_BASE, _power.toNumberString());
         return variables_;
     }
 
@@ -1480,8 +1480,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = _fight.getFighter(_thrower);
         StringMap<String> variables_;
         variables_ = getValues(_fight, _thrower, _target, _move, _power);
-        variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF, _efficiency.toString());
-        variables_.put(DataBase.VAR_PREFIX+Fight.NB_UTILISATION_CONSECUTIF, fighter_.getNbRepeatingSuccessfulMoves().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF, _efficiency.toNumberString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_UTILISATION_CONSECUTIF, fighter_.getNbRepeatingSuccessfulMoves().toNumberString());
         return variables_;
     }
 

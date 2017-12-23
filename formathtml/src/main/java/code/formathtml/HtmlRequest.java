@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -22,6 +23,7 @@ import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
+import code.util.ints.SimpleList;
 
 final class HtmlRequest {
 
@@ -41,7 +43,7 @@ final class HtmlRequest {
     }
 
 
-    static String formatErrorMessage(Configuration _conf,String _textId, boolean _escapeAmp,String _loc, StringMap<String> _files, String _resourcesFolder, Object... _args) {
+    static String formatErrorMessage(Configuration _conf,String _textId, boolean _escapeAmp,String _loc, StringMap<String> _files, String _resourcesFolder, String... _args) {
         String value_ = _textId;
         StringList elts_ = StringList.splitStrings(value_, FormatHtml.COMMA);
         String var_ = elts_.first();
@@ -52,10 +54,10 @@ final class HtmlRequest {
         StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, _files, _resourcesFolder);
         String preformatted_ = ExtractFromResources.getFormat(messages_, elts_.last(), _conf, _loc, fileName_);
         preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _escapeAmp);
-        return StringList.simpleFormat(preformatted_, _args);
+        return StringList.simpleStringsFormat(preformatted_, _args);
     }
 
-    static Object invokeMethodWithNumbers(Configuration _conf, Struct _container, String _command, Argument... _args) {
+    static Struct invokeMethodWithNumbers(Configuration _conf, Struct _container, String _command, Argument... _args) {
         String command_ = _command;
         Struct obj_ = _container;
         String commandExtract_ = _command;
@@ -87,7 +89,7 @@ final class HtmlRequest {
         for (String n: varNames_) {
             ip_.getLocalVars().removeKey(n.substring(0, n.length() - GET_LOC_VAR.length()));
         }
-        return arg_.getObject();
+        return arg_.getStruct();
     }
 
     static void setObject(Configuration _conf, NodeContainer _nodeContainer,
@@ -101,18 +103,16 @@ final class HtmlRequest {
         ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute, _indexes);
         if (index_ >= 0) {
             try {
-                if (_nodeContainer.getLastToken().isEmpty()) {
-                    if (obj_.getInstance().getClass().isArray()) {
-                        //obj_ is array
-                        Array.set(obj_.getInstance(), (int) index_, _attribute);
-                    } else {
-                        //obj_ is instance of java.util.CustList
-                        Method m_ = SerializeXmlObject.getMethod(Listable.class, SET, int.class, Object.class);
-                        ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int) index_, _attribute);
-                    }
+                String compo_ = PrimitiveTypeUtil.getQuickComponentType(obj_.getClassName(_conf.toContextEl()));
+                if (compo_ != null) {
+                    Array.set(obj_.getInstance(), (int) index_, _attribute);
+                } else if (obj_.getInstance() instanceof SimpleList){
+                    //obj_ is instance of java.util.CustList
+                    Method m_ = SerializeXmlObject.getMethod(Listable.class, SET, int.class, Object.class);
+                    ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int) index_, _attribute);
                 } else {
                     //obj_ is instance of java.util.ListableEntries
-                    boolean key_ = _nodeContainer.getLastToken().endsWith(FormatHtml.GET_KEY);
+                    boolean key_ = _nodeContainer.isKey();
                     if (!key_) {
                         Method m_ = SerializeXmlObject.getMethod(ListableEntries.class, SET_VALUE, int.class, Object.class);
                         ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int)index_, _attribute);
@@ -132,7 +132,7 @@ final class HtmlRequest {
                 _conf.getLastPage().setProcessingAttribute(_conf.getPrefix()+FormatHtml.ATTRIBUTE_CLASS_NAME);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
-                ExtractObject.classForName(_conf, 0, className_);
+                ExtractObject.classNameForName(_conf, 0, className_);
                 ImportingPage ip_ = _conf.getLastPage();
                 ip_.setProcessingAttribute(_conf.getPrefix()+FormatHtml.VAR_METHOD);
                 ip_.setLookForAttrValue(true);

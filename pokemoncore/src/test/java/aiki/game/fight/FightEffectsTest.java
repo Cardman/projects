@@ -6973,7 +6973,7 @@ public class FightEffectsTest extends InitializationDataBase {
         eff_ = (EffectFullHpRate) _data_.getMove(REBONDIFEU).getEffects().last();
         FightEffects.effectFullHpRate(fight_, target_, eff_, diff_, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
-        assertTrue(fighter_.getRemainingHp().toString(),fighter_.estKo());
+        assertTrue(fighter_.getRemainingHp().toNumberString(),fighter_.estKo());
         //106/5 * 1/8 = 53/20 106/5 * 7/8 = 53/5 * 7/4 = 371/20
         assertTrue(fight_.getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
@@ -7013,7 +7013,7 @@ public class FightEffectsTest extends InitializationDataBase {
         eff_ = (EffectFullHpRate) _data_.getMove(REBONDIFEU).getEffects().last();
         FightEffects.effectFullHpRate(fight_, target_, eff_, diff_, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
-        assertTrue(fighter_.getRemainingHp().toString(),fighter_.estKo());
+        assertTrue(fighter_.getRemainingHp().toNumberString(),fighter_.estKo());
         //106/5 * 1/8 = 53/20 106/5 * 7/8 = 53/5 * 7/4 = 371/20
         assertTrue(!fight_.getAcceptableChoices());
     }

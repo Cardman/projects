@@ -7,7 +7,7 @@ public class ShortValidator implements Validator {
     @Override
     public Message validate(Object _navigation, Object _node, Object _value) {
         try {
-            short nb_ = Short.parseShort(_value.toString());
+            short nb_ = Short.parseShort((String)_value);
             if (nb_ >= 0) {
                 return null;
             }
@@ -15,7 +15,7 @@ public class ShortValidator implements Validator {
         }
         Message message_;
         message_ = new Message();
-        message_.setArgs(_value);
+        message_.setArgs((String)_value);
         return message_;
     }
 

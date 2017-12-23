@@ -71,13 +71,13 @@ public class FighterRenderer extends CommonCellRenderer {
             _g.setColor(Color.BLACK);
             _g.drawString(KO, _sideLength_, getHeight());
         } else {
-            int rate_ = Integer.parseInt(intRate.toString());
+            int rate_ = Integer.parseInt(intRate.toNumberString());
             int red_ = 255;
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
             _g.setColor(new Color(red_, green_, 0));
-            _g.drawString(intRate.toString()+PER_CENT, _sideLength_, getHeight());
+            _g.drawString(intRate.toNumberString()+PER_CENT, _sideLength_, getHeight());
         }
         if (selected) {
             _g.setColor(Color.RED);

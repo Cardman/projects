@@ -41,7 +41,7 @@ public class ItemLabel extends SelectableLabel {
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getName()));
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getItemClass()));
         widths_.add(getFontMetrics(getFont()).stringWidth(Integer.toString(item.getPrice())));
-        widths_.add(getFontMetrics(getFont()).stringWidth(item.getNumber().toString()));
+        widths_.add(getFontMetrics(getFont()).stringWidth(item.getNumber().toNumberString()));
         setPreferredSize(new Dimension(widths_.getMaximum(),h_));
     }
 
@@ -54,7 +54,7 @@ public class ItemLabel extends SelectableLabel {
         _g.drawString(item.getName(), _sideLength_, FIRST_LINE);
         _g.drawString(item.getItemClass(), _sideLength_, SECOND_LINE);
         _g.drawString(Integer.toString(item.getPrice()), _sideLength_, THIRD_LINE);
-        _g.drawString(item.getNumber().toString(), _sideLength_, FOURTH_LINE);
+        _g.drawString(item.getNumber().toNumberString(), _sideLength_, FOURTH_LINE);
         super.paintComponent(_g);
     }
 }

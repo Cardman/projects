@@ -8,8 +8,8 @@ public class ReservedMethod extends FoundErrorInterpret {
     private MethodId methodeId;
 
     @Override
-    public String toString() {
-        return super.toString()+STANDARD_METHOD
+    public String display() {
+        return super.display()+STANDARD_METHOD
                 +SEP_KEY_VAL+methodeId.getSignature()+SEP_INFO;
     }
 

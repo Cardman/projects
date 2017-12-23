@@ -113,33 +113,7 @@ public class CustList<T> implements Listable<T> {
     public void removeAt(Number _n) {
         list.remove(_n.intValue());
     }
-    @Override
-    public String join(String _join) {
-        if (isEmpty()) {
-            return EMPTY_STRING;
-        }
-        StringBuilder return_ = new StringBuilder(String.valueOf(get(FIRST_INDEX)));
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            return_.append(_join);
-            return_.append(get(i));
-        }
-        return return_.toString();
-    }
 
-    @Override
-    public String join(char _join) {
-        if (isEmpty()) {
-            return EMPTY_STRING;
-        }
-        StringBuilder return_ = new StringBuilder(String.valueOf(get(FIRST_INDEX)));
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            return_.append(_join);
-            return_.append(get(i));
-        }
-        return return_.toString();
-    }
     @Override
     public int size() {
         return list.size();

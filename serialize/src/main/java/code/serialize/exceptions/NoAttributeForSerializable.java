@@ -25,9 +25,9 @@ public class NoAttributeForSerializable extends RuntimeException {
         try {
             StringMap<String> messages_ = MESSAGES.getVal(Constants.getLanguage());
             if (_hasFieldName) {
-                return StringList.simpleFormat(messages_.getVal(NO_ATTRIBUTE_NAME), _fieldName, _tagName);
+                return StringList.simpleStringsFormat(messages_.getVal(NO_ATTRIBUTE_NAME), _fieldName, _tagName);
             }
-            return StringList.simpleFormat(messages_.getVal(NO_ATTRIBUTE), _tagName);
+            return StringList.simpleStringsFormat(messages_.getVal(NO_ATTRIBUTE), _tagName);
         } catch (Exception _0) {
             return EMPTY_STRING;
         }

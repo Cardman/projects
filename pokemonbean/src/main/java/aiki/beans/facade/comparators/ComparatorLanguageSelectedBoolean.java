@@ -11,7 +11,7 @@ import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 
-public final class ComparatorLanguageSelectedBoolean implements Comparator<LanguageElementKey<SelectedBoolean>> {
+public final class ComparatorLanguageSelectedBoolean implements Comparator<LanguageElementKey> {
 
     private EnumMap<SelectedBoolean,String> translatorCurrentLanguage;
 
@@ -29,9 +29,9 @@ public final class ComparatorLanguageSelectedBoolean implements Comparator<Langu
     }
 
     @Override
-    public int compare(LanguageElementKey<SelectedBoolean> _o1, LanguageElementKey<SelectedBoolean> _o2) {
-        SelectedBoolean keyOne_ = _o1.getKey();
-        SelectedBoolean keyTwo_ = _o2.getKey();
+    public int compare(LanguageElementKey _o1, LanguageElementKey _o2) {
+        SelectedBoolean keyOne_ = (SelectedBoolean) _o1.getKey();
+        SelectedBoolean keyTwo_ = (SelectedBoolean) _o2.getKey();
         int res_ = compare(translatorCurrentLanguage, keyOne_, keyTwo_);
         if (res_ != CustList.EQ_CMP) {
             return res_;

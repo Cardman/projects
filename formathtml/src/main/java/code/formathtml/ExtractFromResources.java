@@ -10,7 +10,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-final class ExtractFromResources {
+public final class ExtractFromResources {
     static final String RETURN_LINE = "\n";
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = SEPARATOR_PATH+SEPARATOR_PATH;
@@ -22,7 +22,7 @@ final class ExtractFromResources {
     private ExtractFromResources() {
     }
 
-    static String loadPage(Configuration _conf, StringMap<String> _files, String _link, String... _resourcesFolder) {
+    public static String loadPage(Configuration _conf, StringMap<String> _files, String _link, String... _resourcesFolder) {
         String link_ = getRealFilePath(_link);
         String contents_ = getContentFile(_conf, _files, link_, _resourcesFolder);
         return contents_;

@@ -2520,7 +2520,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"v\" expression='null' className='java.lang.Object'/><c:for key=\"k\" value=\"v\" map=\"numbers\" varClassName='"+ConstClasses.LISTABLE_ALIAS+"'><c:for var=\"w\" list=\"v;getReverse()\"><span id=\"numbers[`k;;`]sortedNumberKeys!value.getReverse()[`w;;`]\"/></c:for></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"v\" expression='null' className='java.lang.Object'/><c:for key=\"k\" value=\"v\" map=\"numbers\" varClassName='"+ConstClasses.LISTABLE_ALIAS+"'><c:for var=\"w\" list=\"v;\"><span id=\"numbers[`k;;`]sortedNumberKeys!value.getReverse()[`w;;`]\"/></c:for></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -2678,7 +2678,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\"/>{l;.}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='sl'/>{l;.display()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -2699,7 +2699,7 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>[FIRST, SECOND]</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>[FIRST,SECOND]</body></html>", render_);
     }
 
     @Test
@@ -2738,7 +2738,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='"+ConstClasses.LISTABLE_ALIAS+"'/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='sl'/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();

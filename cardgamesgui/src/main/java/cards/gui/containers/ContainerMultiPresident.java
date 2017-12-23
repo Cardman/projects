@@ -370,7 +370,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), _readObject.getReason(), title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
         } else {
-            String mes_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _readObject.getCard());
+            String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _readObject.getCard().toString());
             String finalMessage_ = mes_+ContainerPresident.RETURN_LINE_CHAR+_readObject.getReason();
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);

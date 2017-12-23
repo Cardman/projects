@@ -6,8 +6,6 @@ import code.expressionlanguage.opers.util.Struct;
 
 public final class LoopVariable {
 
-    private static final String EXTENDED_EXPRESSION = "extendedExpression";
-
     private static final String AS = " as ";
 
     private static final String STEP = "step";
@@ -30,8 +28,6 @@ public final class LoopVariable {
     
     private Struct container;
 
-    private String extendedExpression;
-
     private String className;
 
     private String indexClassName;
@@ -46,8 +42,6 @@ public final class LoopVariable {
         } else {
             lv_ += CONTAINER + SEP_KEY_VAL + container.getClassName(_context);
         }
-        lv_ += SEP_INFO;
-        lv_ += EXTENDED_EXPRESSION+SEP_KEY_VAL+extendedExpression;
         lv_ += SEP_INFO;
         return lv_;
     }
@@ -100,14 +94,6 @@ public final class LoopVariable {
         if (_container == null) {
             container = NullStruct.NULL_VALUE;
         }
-    }
-
-    public String getExtendedExpression() {
-        return extendedExpression;
-    }
-
-    public void setExtendedExpression(String _extendedExpression) {
-        extendedExpression = _extendedExpression;
     }
 
     public String getClassName() {

@@ -7,9 +7,10 @@ import code.util.EqList;
 import code.util.PairEq;
 import code.util.PairNumber;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class Matrix implements Equallable<Matrix> {
+public final class Matrix implements Equallable<Matrix>, Displayable {
 
     private static final String SEPARATOR = ";";
     private EqList<Vect> lines = new EqList<Vect>();
@@ -639,8 +640,22 @@ public final class Matrix implements Equallable<Matrix> {
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        return lines.join(SEPARATOR);
+        return display();
+    }
+
+    @Override
+    @FromAndToString
+    public String display() {
+        if (lines.isEmpty()) {
+            return "";
+        }
+        StringBuilder return_ = new StringBuilder(lines.first().display());
+        int size_ = lines.size();
+        for (int i=1;i<size_;i++) {
+            return_.append(SEPARATOR);
+            return_.append(lines.get(i).display());
+        }
+        return return_.toString();
     }
 }

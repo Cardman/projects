@@ -40,7 +40,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
             GameTarot partie_=container.partieTarot();
             if (container.getChoosenHandful() != Handfuls.NO) {
                 if (!partie_.isValidHandful(container.getChoosenHandful(), container.getCurrentIncludedTrumps(), container.getCurrentExcludedTrumps(), Constants.getLanguage())) {
-                    String mes_ = StringList.simpleFormat(container.getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), container.getChoosenHandful());
+                    String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), container.getChoosenHandful().toString());
                     String finalMessage_ = mes_+ContainerTarot.RETURN_LINE_CHAR+partie_.getErrorHandful();
                     String title_ = container.getMessages().getVal(MainWindow.CANT_DECLARE_TITLE);
                     ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
@@ -84,7 +84,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 container.setaJoueCarte(true);
                 container.finPliTarot(getCarteVerif());
             }else{
-                String mes_ = StringList.simpleFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif());
+                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().toString());
                 String finalMessage_ = mes_+ContainerTarot.RETURN_LINE_CHAR+partie_.getErreurDeJeu();
                 String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,Constants.getLanguage(),JOptionPane.ERROR_MESSAGE);

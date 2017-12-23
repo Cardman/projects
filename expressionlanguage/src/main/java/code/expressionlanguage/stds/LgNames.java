@@ -6,6 +6,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
@@ -54,9 +55,12 @@ import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.Replacement;
+import code.util.SimpleItr;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
+import code.util.ints.Displayable;
+import code.util.ints.SimpleIterable;
 
 public class LgNames {
     protected static final String EMPTY_STRING = "";
@@ -78,6 +82,7 @@ public class LgNames {
     private String aliasObject;
     private String aliasVoid;
     private String aliasCharSequence;
+    private String aliasDisplayable;
     private String aliasCompareTo;
     private String aliasCompare;
     private String aliasEquals;
@@ -157,6 +162,7 @@ public class LgNames {
 
     private String aliasString;
     private String aliasLength;
+    private String aliasDisplay;
     private String aliasCharAt;
     private String aliasToCharArray;
     private String aliasSplit;
@@ -205,6 +211,8 @@ public class LgNames {
     private String aliasGetNewString;
     private String aliasSetOldString;
     private String aliasSetNewString;
+    private String aliasSimpleIteratorType;
+    private String aliasSimpleIterableType;
 
     private StringMap<StandardType> standards = new StringMap<StandardType>();
 
@@ -295,6 +303,27 @@ public class LgNames {
         methods_.put(method_.getId(), method_);
         std_ = new StandardInterface(aliasCharSequence, methods_, noTypes_);
         standards.put(aliasCharSequence, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDisplay, params_, aliasString, false, MethodModifier.ABSTRACT, aliasDisplayable);
+        methods_.put(method_.getId(), method_);
+        std_ = new StandardInterface(aliasDisplayable, methods_, noTypes_);
+        standards.put(aliasDisplayable, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSimpleIterator, params_, aliasSimpleIteratorType, false, MethodModifier.ABSTRACT, aliasSimpleIterableType);
+        methods_.put(method_.getId(), method_);
+        std_ = new StandardInterface(aliasSimpleIterableType, methods_, noTypes_);
+        standards.put(aliasSimpleIterableType, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSize, params_, aliasPrimInteger, false, MethodModifier.ABSTRACT, aliasCountable);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean, false, MethodModifier.ABSTRACT, aliasCountable);
+        methods_.put(method_.getId(), method_);
+        std_ = new StandardInterface(aliasCountable, methods_, noTypes_);
+        standards.put(aliasCountable, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         params_ = new StringList();
         method_ = new StandardMethod(aliasBooleanValue, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasBoolean);
@@ -871,6 +900,18 @@ public class LgNames {
         stdcl_.getDirectInterfaces().add(aliasCharSequence);
         std_ = stdcl_;
         standards.put(aliasStringBuilder, std_);
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod(getAliasNext(), params_, getAliasObject(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(getAliasHasNext(), params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
+        methods_.put(method_.getId(), method_);
+        stdcl_ = new StandardClass(aliasSimpleIteratorType, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        std_ = stdcl_;
+        standards.put(aliasSimpleIteratorType, std_);
         buildOther();
     }
     public void setupOverrides() {
@@ -1869,6 +1910,38 @@ public class LgNames {
         }
         if (null_) {
             return result_;
+        }
+        if (instance_ instanceof SimpleIterable) {
+            if (StringList.quickEq(name_, lgNames_.getAliasSimpleIterator())) {
+                String typeInst_ = _struct.getClassName(_cont);
+                String it_ = lgNames_.getStandards().getVal(typeInst_).getIterative();
+                result_.setResult(new StdStruct(((SimpleIterable) instance_).simpleIterator(), lgNames_.getAliasSimpleIteratorType()+Templates.TEMPLATE_BEGIN+it_+Templates.TEMPLATE_END));
+                return result_;
+            }
+        }
+        if (instance_ instanceof SimpleItr) {
+            try {
+                if (StringList.quickEq(name_, lgNames_.getAliasNext())) {
+                    String typeInst_ = _struct.getClassName(_cont);
+                    StringList allTypes_ = StringList.getAllTypes(typeInst_);
+                    Object resObj_ = ((SimpleItr)instance_).next();
+                    result_.setResult(StdStruct.wrapStd(resObj_, allTypes_.last()));
+                    return result_;
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasHasNext())) {
+                    result_.setResult(new BooleanStruct(((SimpleItr)instance_).hasNext()));
+                    return result_;
+                }
+            } catch (Throwable _0) {
+                result_.setError(lgNames_.getAliasError());
+                return result_;
+            }
+        }
+        if (instance_ instanceof Displayable) {
+            if (StringList.quickEq(name_, lgNames_.getAliasDisplay()) || StringList.quickEq(name_, lgNames_.getAliasToString())) {
+                result_.setResult(new StdStruct(((Displayable)instance_).display(), stringType_));
+                return result_;
+            }
         }
         if (StringList.quickEq(type_, mathType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasAbs())) {
@@ -3590,6 +3663,107 @@ public class LgNames {
     public Object getOtherArguments(Struct[] _str, String _base) {
         return null;
     }
+    public static Struct getElement(Object _array, int _index, ContextEl _context) {
+        if (_array instanceof Struct[]) {
+            return ((Struct[])_array)[_index];
+        }
+        if (_array instanceof double[]) {
+            return new DoubleStruct(((double[])_array)[_index]);
+        }
+        if (_array instanceof float[]) {
+            return new FloatStruct(((float[])_array)[_index]);
+        }
+        if (_array instanceof long[]) {
+            return new LongStruct(((long[])_array)[_index]);
+        }
+        if (_array instanceof int[]) {
+            return new IntStruct(((int[])_array)[_index]);
+        }
+        if (_array instanceof char[]) {
+            return new CharStruct(((char[])_array)[_index]);
+        }
+        if (_array instanceof short[]) {
+            return new ShortStruct(((short[])_array)[_index]);
+        }
+        if (_array instanceof byte[]) {
+            return new ByteStruct(((byte[])_array)[_index]);
+        }
+        if (_array instanceof boolean[]) {
+            return new BooleanStruct(((boolean[])_array)[_index]);
+        }
+        return _context.getStandards().getOtherElement(_array, _index);
+    }
+    public Struct getOtherElement(Object _array, int _index) {
+        return NullStruct.NULL_VALUE;
+    }
+    public static int getLength(Object _array) {
+        if (_array instanceof double[]) {
+            return ((double[])_array).length;
+        }
+        if (_array instanceof float[]) {
+            return ((float[])_array).length;
+        }
+        if (_array instanceof long[]) {
+            return ((long[])_array).length;
+        }
+        if (_array instanceof int[]) {
+            return ((int[])_array).length;
+        }
+        if (_array instanceof char[]) {
+            return ((char[])_array).length;
+        }
+        if (_array instanceof short[]) {
+            return ((short[])_array).length;
+        }
+        if (_array instanceof byte[]) {
+            return ((byte[])_array).length;
+        }
+        if (_array instanceof boolean[]) {
+            return ((boolean[])_array).length;
+        }
+        return ((Object[])_array).length;
+    }
+    public static void setElement(Object _array, int _index, Struct _element, ContextEl _context) {
+        if (_array instanceof Struct[]) {
+            ((Struct[])_array)[_index] = _element;
+            return;
+        }
+        if (_array instanceof double[]) {
+            ((double[])_array)[_index] = (Double) _element.getInstance();
+            return;
+        }
+        if (_array instanceof float[]) {
+            ((float[])_array)[_index] = (Float) _element.getInstance();
+            return;
+        }
+        if (_array instanceof long[]) {
+            ((long[])_array)[_index] = (Long) _element.getInstance();
+            return;
+        }
+        if (_array instanceof int[]) {
+            ((int[])_array)[_index] = (Integer) _element.getInstance();
+            return;
+        }
+        if (_array instanceof char[]) {
+            ((char[])_array)[_index] = (Character) _element.getInstance();
+            return;
+        }
+        if (_array instanceof short[]) {
+            ((short[])_array)[_index] = (Short) _element.getInstance();
+            return;
+        }
+        if (_array instanceof byte[]) {
+            ((byte[])_array)[_index] = (Byte) _element.getInstance();
+            return;
+        }
+        if (_array instanceof boolean[]) {
+            ((boolean[])_array)[_index] = (Boolean) _element.getInstance();
+            return;
+        }
+        _context.getStandards().setOtherElement(_array, _index, _element);
+    }
+    public void setOtherElement(Object _array, int _index, Struct _element) {
+    }
     public StringMap<StandardType> getStandards() {
         return standards;
     }
@@ -3610,6 +3784,18 @@ public class LgNames {
     }
     public void setAliasCharSequence(String _aliasCharSequence) {
         aliasCharSequence = _aliasCharSequence;
+    }
+    public String getAliasDisplayable() {
+        return aliasDisplayable;
+    }
+    public void setAliasDisplayable(String _aliasDisplayable) {
+        aliasDisplayable = _aliasDisplayable;
+    }
+    public String getAliasDisplay() {
+        return aliasDisplay;
+    }
+    public void setAliasDisplay(String _aliasDisplay) {
+        aliasDisplay = _aliasDisplay;
     }
     public String getAliasCompareTo() {
         return aliasCompareTo;
@@ -4348,6 +4534,18 @@ public class LgNames {
     }
     public void setAliasMod(String _aliasMod) {
         aliasMod = _aliasMod;
+    }
+    public String getAliasSimpleIteratorType() {
+        return aliasSimpleIteratorType;
+    }
+    public void setAliasSimpleIteratorType(String _aliasSimpleIteratorType) {
+        aliasSimpleIteratorType = _aliasSimpleIteratorType;
+    }
+    public String getAliasSimpleIterableType() {
+        return aliasSimpleIterableType;
+    }
+    public void setAliasSimpleIterableType(String _aliasSimpleIterableType) {
+        aliasSimpleIterableType = _aliasSimpleIterableType;
     }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;

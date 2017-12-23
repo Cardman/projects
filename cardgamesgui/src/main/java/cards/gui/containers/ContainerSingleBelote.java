@@ -953,9 +953,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 BidBelote enchere_ = enchereCouleur_.getEnchere();
                 if(enchere_ == BidBelote.FOLD ||
                         !enchere_.getCouleurDominante()) {
-                    mesBid_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID), enchere_);
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID), enchere_.toString());
                 } else {
-                    mesBid_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_SUIT), enchereCouleur_.getCouleur());
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_SUIT), enchereCouleur_.getCouleur().toString());
                 }
                 mesBid_+=partie_.getRaison();
                 ConfirmDialog.showMessage(getOwner(),mesBid_, getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
@@ -966,18 +966,18 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
                 BidBelote enchere_ = enchereCouleur_.getEnchere();
                 if(enchere_ == BidBelote.FOLD) {
-                    mesBid_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID), enchere_);
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID), enchere_.toString());
                 } else if(!enchere_.getCouleurDominante()) {
-                    mesBid_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_POINTS), enchere_, enchereCouleur_.getPoints());
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_POINTS), enchere_.toString(), Long.toString(enchereCouleur_.getPoints()));
                 } else {
-                    mesBid_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_SUIT_POINTS), enchereCouleur_.getCouleur(), enchereCouleur_.getPoints());
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_SUIT_POINTS), enchereCouleur_.getCouleur().toString(), Long.toString(enchereCouleur_.getPoints()));
                 }
                 mesBid_+=partie_.getRaison();
                 ConfirmDialog.showMessage(getOwner(),mesBid_, getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            String message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_PLAYER), partie_.strategieJeuCarteUnique());
+            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_PLAYER), partie_.strategieJeuCarteUnique().toString());
             message_+=partie_.getRaison();
             ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getOwner(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);

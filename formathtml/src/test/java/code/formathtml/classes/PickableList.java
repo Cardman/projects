@@ -1,9 +1,8 @@
 package code.formathtml.classes;
-import code.util.CustList;
 
 public class PickableList {
 
-    private final CustList<Object> list = new CustList<Object>();
+    private final GeneObjects list = new GeneObjects();
 
     public boolean removeAndExistAfter(int _i) {
         if (_i < list.size()) {
@@ -13,7 +12,7 @@ public class PickableList {
         return false;
     }
 
-    public CustList<Object> getList() {
+    public GeneObjects getList() {
         return list;
     }
 }

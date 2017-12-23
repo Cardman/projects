@@ -64,7 +64,7 @@ public final class Anticipation {
     @FromAndToString
     @Override
     public String toString() {
-        return damage.toString()+SEPARATOR+nbRounds+SEPARATOR+targetPosition;
+        return damage.toNumberString()+SEPARATOR+nbRounds+SEPARATOR+targetPosition;
     }
 
     public Rate getDamage() {

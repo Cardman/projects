@@ -20,4 +20,7 @@ public class StringComboBox extends TreeComboBox<Integer> {
         super.addItem(_anObject);
     }
 
+    public String getSelectedComboItem() {
+        return (String)getSelectedItem();
+    }
 }

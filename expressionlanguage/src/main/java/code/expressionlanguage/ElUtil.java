@@ -26,6 +26,7 @@ import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.serialize.ConstClasses;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -210,6 +211,19 @@ public final class ElUtil {
         return arg_;
     }
 
+    //TODO tmp method
+    public static String processAnalyzeEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
+        String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
+        _conf.setNextIndex(d_.getIndexEnd()+2);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, _conf, d_);
+        OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_);
+        CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
+        boolean static_ = _conf.getLastPage().getGlobalClass() == null;
+        analyze(all_, _conf,static_,static_,EMPTY_STRING,EMPTY_STRING);
+        return op_.getResultClass().getName();
+    }
+
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
@@ -227,6 +241,18 @@ public final class ElUtil {
             analyze(all_, _conf, staticContext_, hiddenVarTypes_, fieldName_, oper_);
         }
         return all_;
+    }
+
+    //TODO tmp method
+    public static String processAnalyzeEl(String _el, int _index, ContextEl _conf) {
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
+        String el_ = _el.substring(_index);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
+        OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_);
+        CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
+        boolean static_ = _conf.getLastPage().getGlobalClass() == null;
+        analyze(all_, _conf,static_,static_,EMPTY_STRING,EMPTY_STRING);
+        return op_.getResultClass().getName();
     }
 
     public static Argument processEl(String _el, int _index, ContextEl _conf) {
@@ -407,7 +433,7 @@ public final class ElUtil {
         boolean static_ = arg_ == null || arg_.isNull();
         for (OperationNode e: _nodes) {
             e.setStaticBlock(static_);
-            if (e.getPreviousResultClass() == null && arg_ != null) {
+            if (e.getPreviousResultClass() == null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), static_);
             }
             e.analyze(_nodes, _context, EMPTY_STRING, EMPTY_STRING);

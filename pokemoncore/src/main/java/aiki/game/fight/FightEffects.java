@@ -1166,7 +1166,7 @@ final class FightEffects {
         variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_NOM, nomActuelLanceur_);
         variables_.put(DataBase.VAR_PREFIX+Fight.ATTAQUE_TYPES, typeAtt_.join(_import.getSepartorSetChar()));
         variables_.put(DataBase.VAR_PREFIX+Fight.ATTAQUE_NOM, _attaqueLanceur);
-        variables_.put(DataBase.VAR_PREFIX+Fight.PUISSANCE_BASE, basePower_.toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.PUISSANCE_BASE, basePower_.toNumberString());
         Rate finalPower_ = new Rate(basePower_);
         finalPower_.multiplyBy(rateObjectPower(_fight, _lanceur, variables_, _import));
         finalPower_.multiplyBy(rateTypesPower(_fight, _lanceur, _cible, typeAtt_));
@@ -1175,9 +1175,9 @@ final class FightEffects {
         Rate def_ = defense(_fight, _lanceur, _cible, effect_, variables_, _import);
         Rate degats_;
         StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(DataBase.VAR_PREFIX+Fight.ATTACK, att_.toString());
-        varLocs_.put(DataBase.VAR_PREFIX+Fight.DEFENSE, def_.toString());
-        varLocs_.put(DataBase.VAR_PREFIX+Fight.POWER, finalPower_.toString());
+        varLocs_.put(DataBase.VAR_PREFIX+Fight.ATTACK, att_.toNumberString());
+        varLocs_.put(DataBase.VAR_PREFIX+Fight.DEFENSE, def_.toNumberString());
+        varLocs_.put(DataBase.VAR_PREFIX+Fight.POWER, finalPower_.toNumberString());
         varLocs_.putAllMap(variables_);
         String damageFormula_ = _import.getDamageFormula();
         degats_ = _import.evaluatePositiveExp(damageFormula_, varLocs_, finalPower_);
@@ -1188,8 +1188,8 @@ final class FightEffects {
         degats_.multiplyBy(rateDamageGlobalAbilities(_fight, typeAtt_, _import));
         degats_.multiplyBy(multBaseDamage(_fight, _attaqueLanceur, _import));
         degats_.multiplyBy(rateDamageGlobalMoves(_fight, typeAtt_, _import));
-        variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF, coeffEff_.toString());
-        variables_.put(DataBase.VAR_PREFIX+Fight.NB_UTILISATION_CONSECUTIF, creatureLanceur_.getNbRepeatingSuccessfulMoves().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF, coeffEff_.toNumberString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_UTILISATION_CONSECUTIF, creatureLanceur_.getNbRepeatingSuccessfulMoves().toNumberString());
         degats_.multiplyBy(rateDamageThrowerObject(_fight, _lanceur, variables_, _import));
         degats_.multiplyBy(rateDamageThrowerAbility(_fight, _lanceur, variables_, _import));
         degats_.multiplyBy(rateDamageInvokedMove(_fight, _lanceur, _cible, _import));

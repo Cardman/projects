@@ -26,7 +26,7 @@
 		<ul>
 			<c:for className="aiki.fight.pokemon.TrainerPlaceNames" list="unBeatenImportantTrainers" var="p">
 				<li>
-					{p;getFirst()} - {p;getSecond()}
+					{p;getTrainer()} - {p;getPlace()}
 				</li>
 			</c:for>
 		</ul>
@@ -35,7 +35,7 @@
 		<ul>
 			<c:for className="aiki.fight.pokemon.TrainerPlaceNames" list="beatenImportantTrainers" var="p">
 				<li>
-					{p;getFirst()} - {p;getSecond()}
+					{p;getTrainer()} - {p;getPlace()}
 				</li>
 			</c:for>
 		</ul>

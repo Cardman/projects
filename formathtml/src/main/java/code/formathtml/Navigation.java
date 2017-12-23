@@ -348,11 +348,11 @@ public final class Navigation {
             Struct bean_ = getNotNullBean(beanName_);
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentStruct(bean_, session);
-            Object return_ = HtmlRequest.invokeMethodWithNumbers(
+            Struct return_ = HtmlRequest.invokeMethodWithNumbers(
                     session, bean_, methodName_, Argument.toArgArray(args_));
             Struct forms_ = ExtractObject.getForms(session, bean_);
             String urlDest_ = currentUrl;
-            if (return_ != null) {
+            if (!return_.isNull()) {
                 ip_.setOffset(_anchorRef.length());
                 urlDest_ = getUrlDest(beanName_ + DOT + methodName_+suffix_, return_);
                 if (urlDest_ == null) {
@@ -490,8 +490,8 @@ public final class Navigation {
 
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
-        StringMap<Object[]> errorsArgs_;
-        errorsArgs_ = new StringMap<Object[]>();
+        StringMap<String[]> errorsArgs_;
+        errorsArgs_ = new StringMap<String[]>();
         //TODO converters
         for (EntryCust<Long, NodeContainer> e: containersMap_.getVal(lg_).entryList()) {
             NodeInformations nInfos_ = e.getValue().getNodeInformation();
@@ -643,7 +643,7 @@ public final class Navigation {
             if (!nCont_.isEnabled()) {
                 continue;
             }
-            Element input_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_INPUT, String.valueOf(e.getKey()));
+            Element input_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_INPUT, Long.toString(e.getKey()));
             session.getLastPage().setProcessingNode(input_);
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
             Struct bean_ = getBean(nCont_.getBeanName());
@@ -718,7 +718,7 @@ public final class Navigation {
         }
         //Number
         if (Number.class.isAssignableFrom(class_) || class_.isPrimitive()) {
-            return ExtractObject.instanceByString(session, class_,_value);
+            return ExtractObject.instanceByString(session, _className,_value);
         }
         Method method_ = ConverterMethod.getFromStringMethod(class_);
         if (method_ != null) {
@@ -756,7 +756,7 @@ public final class Navigation {
     }
 
     private void processFormErrors(Document _doc, Element _formElement, long _id,
-            StringMap<String> _errors, StringMap<Object[]> _errorsArgs) {
+            StringMap<String> _errors, StringMap<String[]> _errorsArgs) {
         HtmlPage htmlPage_ = session.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -923,7 +923,7 @@ public final class Navigation {
         }
     }
 
-    private String getUrlDest(String _method, Object _return) {
+    private String getUrlDest(String _method, Struct _return) {
         StringMap<String> cases_;
         try {
             cases_ = session.getNavigation().getVal(_method);
@@ -936,7 +936,7 @@ public final class Navigation {
             throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages());
         }
         try {
-            return cases_.getVal(_return.toString());
+            return cases_.getVal(ExtractObject.toString(session, _return));
         } catch (Throwable _0) {
             throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
         }

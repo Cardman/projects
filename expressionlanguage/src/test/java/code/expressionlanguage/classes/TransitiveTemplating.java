@@ -1,5 +1,7 @@
 package code.expressionlanguage.classes;
 
-public class TransitiveTemplating<E extends Number,F extends E,G extends F> {
+import code.util.ints.Displayable;
+
+public class TransitiveTemplating<E extends Displayable,F extends E,G extends F> {
 
 }

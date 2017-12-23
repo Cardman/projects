@@ -12,9 +12,9 @@ public final class BadNumberArgMethod extends FoundErrorInterpret {
     private int nbVars;
 
     @Override
-    public String toString() {
-        String message_ = StringList.simpleFormat(CLASS_NAME, nbTypes, nbVars, id);
-        return super.toString()+message_+SEP_INFO;
+    public String display() {
+        String message_ = StringList.simpleStringsFormat(CLASS_NAME, Long.toString(nbTypes), Long.toString(nbVars), id);
+        return super.display()+message_+SEP_INFO;
     }
 
     public String getId() {

@@ -14,6 +14,7 @@ import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.TreeMap;
 import code.util.ints.Cmp;
+import code.util.ints.Displayable;
 
 /**
 Classe modelisant des entiers longs qui sont une extension du type <i>long</i>.<br/>
@@ -21,7 +22,7 @@ Ces entiers sont decoupes en groupes de chiffres et possedent un signe.<br/>
 Attention a eviter d'utiliser des nombres d'un milliard de chiffres, car la memoire vive est limitee.
  */
 @CheckedData
-public final class LgInt implements Cmp<LgInt> {
+public final class LgInt implements Cmp<LgInt>, Displayable {
 
     //extends ViewAdapter
 
@@ -729,13 +730,13 @@ public final class LgInt implements Cmp<LgInt> {
     public static LgInt among(LgInt _nombre, LgInt _nombreTotalElements) {
         String erreurs_ = EMPTY_STRING;
         if (!_nombre.isZeroOrGt()) {
-            erreurs_ += _nombre.toString();
+            erreurs_ += _nombre.toNumberString();
         }
         if (!StringList.quickEq(erreurs_,EMPTY_STRING)) {
             erreurs_ += COMMA;
         }
         if (!_nombreTotalElements.isZeroOrGt()) {
-            erreurs_ += _nombreTotalElements.toString();
+            erreurs_ += _nombreTotalElements.toNumberString();
         }
         if (!StringList.quickEq(erreurs_,EMPTY_STRING)) {
             throw new NegativeNumberException(erreurs_);
@@ -1434,7 +1435,7 @@ public final class LgInt implements Cmp<LgInt> {
     public void growToPow(LgInt _expo) {
         //setModified();
         if (!_expo.isZeroOrGt()) {
-            throw new NegatifExposantException(_expo.toString());
+            throw new NegatifExposantException(_expo.toNumberString());
         }
         LgInt copie_ = new LgInt(this);
         grDigits.clear();
@@ -1770,14 +1771,12 @@ public final class LgInt implements Cmp<LgInt> {
         return true;
     }
 
-    /**
-    Cette methode ne change pas l'entier courant.<br/>
-
-    @return la chaine de caracteres represantant l'entier comme ecrit de maniere naturelle.
-    */
     @Override
-    @FromAndToString
-    public String toString() {
+    public String display() {
+        return toNumberString();
+    }
+
+    public String toNumberString() {
         String chaine_ = EMPTY_STRING;
         int indice_ = CustList.FIRST_INDEX;
         int powerTen_ = LOG_BASE;
@@ -1810,6 +1809,17 @@ public final class LgInt implements Cmp<LgInt> {
             return MINUS + chaine_;
         }
         return chaine_;
+    }
+
+    /**
+    Cette methode ne change pas l'entier courant.<br/>
+
+    @return la chaine de caracteres represantant l'entier comme ecrit de maniere naturelle.
+    */
+    @Override
+    @FromAndToString
+    public String toString() {
+        return display();
     }
 
     /**

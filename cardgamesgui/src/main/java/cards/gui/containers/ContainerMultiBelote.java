@@ -446,7 +446,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void errorForBidding(ErrorBiddingBelote _error) {
-        String mes_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid());
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid().toString());
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         ConfirmDialog.showMessage(getOwner(), mes_, getMessages().getVal(MainWindow.CANT_BID_TITLE),
@@ -577,8 +577,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
             return;
         }
-        String mes_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard());
-        String mesReason_ = StringList.simpleFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().toString());
+        String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
 //        JOptionPane.showMessageDialog(
 //                getOwner(),
 //                mes_ + RETURN_LINE_CHAR + mesReason_,

@@ -11,6 +11,7 @@ public class NodeContainer {
 
     private String access;
 
+    private boolean key;
     private String lastToken;
 
     private long index = -1;
@@ -99,4 +100,13 @@ public class NodeContainer {
     public void setEnabled(boolean _enabled) {
         enabled = _enabled;
     }
+
+    public boolean isKey() {
+        return key;
+    }
+
+    public void setKey(boolean _key) {
+        key = _key;
+    }
+
 }

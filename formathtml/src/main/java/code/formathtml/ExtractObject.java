@@ -1,5 +1,4 @@
 package code.formathtml;
-import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,14 +16,13 @@ import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
 import code.formathtml.exceptions.InexistingTranslatorException;
 import code.serialize.ConstClasses;
-import code.serialize.ConverterMethod;
 import code.serialize.exceptions.InvokingException;
-import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -35,6 +33,7 @@ import code.util.StringMap;
 import code.util.StringMapObject;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
+import code.util.ints.Displayable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.MathFactory;
@@ -54,6 +53,7 @@ final class ExtractObject {
     static final String BEAN_ATTRIBUTE = "bean";
     static final String COMMA = ",";
     static final String DOT = ".";
+    private static final String INSTANCE = "$new ";
     private static final char BEGIN_ARGS = '(';
     private static final char SEP_ARGS = ',';
     private static final char END_ARGS = ')';
@@ -75,9 +75,9 @@ final class ExtractObject {
     private static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
     private static final char SEP_TR = ',';
     private static final char QUOTE = 39;
+    private static final String QUOTE_DOUBLE = "\"";
     private static final String GET_STRING ="getString";
     private static final String NAME ="name";
-    private static final String TO_STRING ="toString";
     private static final String ITERATOR ="iterator";
     private static final String HAS_NEXT ="hasNext";
     private static final String NEXT ="next";
@@ -96,7 +96,107 @@ final class ExtractObject {
 
     private ExtractObject() {
     }
-
+    static String formatAnalyzeNumVariables(String _pattern, Configuration _conf, ImportingPage _ip) {
+        StringBuilder str_ = new StringBuilder();
+        StringBuilder arg_ = new StringBuilder();
+        int length_ = _pattern.length();
+        boolean escaped_ = false;
+        int i_ = CustList.FIRST_INDEX;
+        while (i_ < length_) {
+            char cur_ = _pattern.charAt(i_);
+            if (cur_ == QUOTE) {
+                escaped_ = !escaped_;
+                if (i_ < length_ - 1) {
+                    if (_pattern.charAt(i_ + 1) == QUOTE) {
+                        str_.append(QUOTE);
+                        i_++;
+                        i_++;
+                        escaped_ = false;
+                        continue;
+                    }
+                }
+                i_++;
+                continue;
+            }
+            if (escaped_) {
+                str_.append(cur_);
+                i_++;
+                continue;
+            }
+            if (cur_ == LEFT_EL) {
+                StringBuilder tr_ = new StringBuilder();
+                int indexSepTr_ = _pattern.indexOf(SEP_TR, i_ + 1);
+                boolean processTr_ = false;
+                if (i_ + 1 < length_ && indexSepTr_ != CustList.INDEX_NOT_FOUND_ELT) {
+                    boolean allWord_ = true;
+                    boolean existWord_ = false;
+                    int j_ = i_;
+                    while (true) {
+                        if (j_ == indexSepTr_) {
+                            break;
+                        }
+                        if (j_ > i_+1 && !StringList.isWordChar(_pattern.charAt(j_))) {
+                            allWord_ = false;
+                            break;
+                        }
+                        if (StringList.isWordChar(_pattern.charAt(j_))) {
+                            existWord_ = true;
+                        }
+                        j_++;
+                    }
+                    if (!existWord_) {
+                        _conf.getLastPage().setOffset(i_);
+                        throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
+                    }
+                    processTr_ = allWord_;
+                }
+                if (processTr_) {
+                    int j_ = i_;
+                    while (true) {
+                        if (j_ == indexSepTr_) {
+                            j_++;
+                            i_ = j_;
+                            break;
+                        }
+                        j_++;
+                        tr_.append(_pattern.charAt(j_));
+                    }
+                    tr_.deleteCharAt(tr_.length()-1);
+                } else {
+                    i_++;
+                }
+                if (i_ >= length_ || _pattern.charAt(i_) == RIGHT_EL) {
+                    _conf.getLastPage().setOffset(i_);
+                    throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
+                }
+                ContextEl context_ = _conf.toContextEl();
+                Struct trloc_ = null;
+                if (!tr_.toString().isEmpty()) {
+                    try {
+                        trloc_ = _conf.getBuiltTranslators().getVal(tr_.toString());
+                        if (trloc_ == null) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new InexistingTranslatorException(tr_+RETURN_LINE+_conf.joinPages());
+                        }
+                    } catch (Throwable _0) {
+                        _conf.getLastPage().setOffset(i_);
+                        throw new InexistingTranslatorException(tr_+RETURN_LINE+_conf.joinPages());
+                    }
+                }
+                _conf.getLastPage().setOffset(i_);
+                ElUtil.processAnalyzeEl(_pattern, context_, i_, LEFT_EL, RIGHT_EL);
+                i_ = context_.getNextIndex();
+                continue;
+            }
+            if (cur_ == RIGHT_EL){
+                _conf.getLastPage().setOffset(i_);
+                throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
+            }
+            str_.append(cur_);
+            i_++;
+        }
+        return str_.toString();
+    }
     static String formatNumVariables(String _pattern, Configuration _conf, ImportingPage _ip, StringMap<String> _files) {
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
@@ -190,7 +290,7 @@ final class ExtractObject {
                 String o_ = EMPTY_STRING;
                 try {
                     if (trloc_ != null) {
-                        if (trloc_.isJavaObject()) {
+                        if (trloc_.getInstance() instanceof Translator) {
                             Bean bean_ = (Bean) _ip.getGlobalArgument().getStruct().getInstance();
                             o_ = ((Translator)trloc_.getInstance()).getString(_pattern, _conf, _files, bean_, s_.getInstance());
                         } else {
@@ -313,42 +413,47 @@ final class ExtractObject {
         }
     }
 
-    static Object instanceByString(Configuration _conf, Class<?> _class, String _arg) {
-        Constructor<?> const_ = null;
+    static Object instanceByString(Configuration _conf, String _class, String _arg) {
         try {
-            String name_ = _class.getName();
+            String name_ = _class;
             Object value_;
-            if (StringList.quickEq(name_, Integer.class.getName()) || StringList.quickEq(name_, int.class.getName())) {
+            LgNames stds_ = _conf.getStandards();
+            String doublePrim_ = stds_.getAliasPrimDouble();
+            String floatPrim_ = stds_.getAliasPrimFloat();
+            String longPrim_ = stds_.getAliasPrimLong();
+            String intPrim_ = stds_.getAliasPrimInteger();
+            String shortPrim_ = stds_.getAliasPrimShort();
+            String bytePrim_ = stds_.getAliasPrimByte();
+            if (StringList.quickEq(name_, Integer.class.getName()) || StringList.quickEq(name_, intPrim_)) {
                 value_ = Integer.parseInt(_arg);
-            } else if (StringList.quickEq(name_, Long.class.getName()) || StringList.quickEq(name_, long.class.getName())) {
+            } else if (StringList.quickEq(name_, Long.class.getName()) || StringList.quickEq(name_, longPrim_)) {
                 value_ = Long.parseLong(_arg);
-            } else if (StringList.quickEq(name_, Short.class.getName()) || StringList.quickEq(name_, short.class.getName())) {
+            } else if (StringList.quickEq(name_, Short.class.getName()) || StringList.quickEq(name_, shortPrim_)) {
                 value_ = Short.parseShort(_arg);
-            } else if (StringList.quickEq(name_, Byte.class.getName()) || StringList.quickEq(name_, byte.class.getName())) {
+            } else if (StringList.quickEq(name_, Byte.class.getName()) || StringList.quickEq(name_, bytePrim_)) {
                 value_ = Byte.parseByte(_arg);
             } else if (StringList.quickEq(name_, BigInteger.class.getName())) {
                 value_ = new BigInteger(_arg);
             } else if (StringList.quickEq(name_, BigDecimal.class.getName())) {
                 value_ = new BigDecimal(_arg);
-            } else if (StringList.quickEq(name_, Double.class.getName()) || StringList.quickEq(name_, double.class.getName())) {
+            } else if (StringList.quickEq(name_, Double.class.getName()) || StringList.quickEq(name_, doublePrim_)) {
                 value_ = Double.parseDouble(_arg);
-            } else if (StringList.quickEq(name_, Float.class.getName()) || StringList.quickEq(name_, float.class.getName())) {
+            } else if (StringList.quickEq(name_, Float.class.getName()) || StringList.quickEq(name_, floatPrim_)) {
                 value_ = Float.parseFloat(_arg);
             } else if (StringList.quickEq(name_, AtomicInteger.class.getName())) {
                 value_ = new AtomicInteger(Integer.parseInt(_arg));
             } else if (StringList.quickEq(name_, AtomicLong.class.getName())) {
                 value_ = new AtomicLong(Long.parseLong(_arg));
             } else {
-                const_ = _class.getConstructor(String.class);
-                Object obj_ = ConverterMethod.newInstance(const_, _arg);
+                String escaped_ = StringList.replace(_arg, QUOTE_DOUBLE, ESCAPED+QUOTE_DOUBLE);
+                String instanciation_ = INSTANCE+_class+BEGIN_ARGS+QUOTE_DOUBLE+escaped_+QUOTE_DOUBLE+END_ARGS;
+                Object obj_ = ElUtil.processEl(instanciation_, 0, _conf.toContextEl()).getObject();
                 if (obj_ == null) {
                     throw new RuntimeInstantiationException(EMPTY_STRING);
                 }
                 return obj_;
             }
             return value_;
-        } catch (NoSuchMethodException _0) {
-            throw new NoSuchDeclaredMethodException(_class.getName()+RETURN_LINE+_conf.joinPages());
         } catch (Throwable _0) {
             throw new InvokingException(_0, _conf.joinPages());
         }
@@ -360,6 +465,9 @@ final class ExtractObject {
         classForName(_conf, _offest, _className);
     }
     static String classNameForName(Configuration _conf, int _offest, String _className) {
+        if (_conf.getStandards().getStandards().contains(_className)) {
+            return _className;
+        }
         try {
             if (PrimitiveTypeUtil.isPrimitive(_className, _conf.toContextEl())) {
                 if (!PrimitiveTypeUtil.isExistentPrimitive(_className, _conf.toContextEl())) {
@@ -428,53 +536,101 @@ final class ExtractObject {
     }
 
     static Struct getDataBase(Configuration _conf, Struct _it) {
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof Bean) {
+            Bean inst_ = (Bean) instance_;
+            Struct out_ = StdStruct.wrapStd(inst_.getDataBase());
+            return out_;
+        }
         return getResult(_conf, 0, GET_DATA_BASE, _it);
     }
 
     static void setDataBase(Configuration _conf, Struct _it, Struct _dataBase) {
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof Bean) {
+            Bean inst_ = (Bean) instance_;
+            inst_.setDataBase(_dataBase.getInstance());
+            return;
+        }
         setResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, Object.class.getName());
     }
 
     static String getLanguage(Configuration _conf, Struct _it) {
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof Bean) {
+            Bean inst_ = (Bean) instance_;
+            return inst_.getLanguage();
+        }
         return (String) getResult(_conf, 0, GET_LANGUAGE, _it).getInstance();
     }
 
     static void setLanguage(Configuration _conf, Struct _it, String _scope) {
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof Bean) {
+            Bean inst_ = (Bean) instance_;
+            inst_.setLanguage(_scope);
+            return;
+        }
         setResult(_conf, 0, SET_LANGUAGE, _it, new StdStruct(_scope), String.class.getName());
     }
 
     static String getScope(Configuration _conf, Struct _it) {
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof Bean) {
+            Bean inst_ = (Bean) instance_;
+            return inst_.getScope();
+        }
         return (String) getResult(_conf, 0, GET_SCOPE, _it).getInstance();
     }
 
     static void setScope(Configuration _conf, Struct _it, String _scope) {
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof Bean) {
+            Bean inst_ = (Bean) instance_;
+            inst_.setScope(_scope);
+            return;
+        }
         setResult(_conf, 0, SET_SCOPE, _it, new StdStruct(_scope), String.class.getName());
     }
 
     static Struct getForms(Configuration _conf, Struct _it) {
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof Bean) {
+            Bean inst_ = (Bean) instance_;
+            Struct out_ = StdStruct.wrapStd(inst_.getForms());
+            return out_;
+        }
         return getResult(_conf, 0, GET_FORMS, _it);
     }
 
     static void setForms(Configuration _conf, Struct _it, Struct _forms) {
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof Bean) {
+            Bean inst_ = (Bean) instance_;
+            inst_.setForms((StringMapObject) _forms.getInstance());
+            return;
+        }
         setResult(_conf, 0, SET_FORMS, _it, _forms, StringMapObject.class.getName());
     }
 
     static Struct getKey(Configuration _conf, Struct _it) {
-        if (!_it.isJavaObject()) {
-            return getResult(_conf, 0, GET_KEY, _it);
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof SimpleEntry) {
+            SimpleEntry inst_ = (SimpleEntry) instance_;
+            Struct out_ = StdStruct.wrapStd(inst_.getKey());
+            return out_;
         }
-        SimpleEntry inst_ = (SimpleEntry) _it.getInstance();
-        Struct out_ = StdStruct.wrapStd(inst_.getKey());
-        return out_;
+        return getResult(_conf, 0, GET_KEY, _it);
     }
 
     static Struct getValue(Configuration _conf, Struct _it) {
-        if (!_it.isJavaObject()) {
-            return getResult(_conf, 0, GET_VALUE, _it);
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof SimpleEntry) {
+            SimpleEntry inst_ = (SimpleEntry) instance_;
+            Struct out_ = StdStruct.wrapStd(inst_.getValue());
+            return out_;
         }
-        SimpleEntry inst_ = (SimpleEntry) _it.getInstance();
-        Struct out_ = StdStruct.wrapStd(inst_.getValue());
-        return out_;
+        return getResult(_conf, 0, GET_VALUE, _it);
     }
 
     static char getChar(Configuration _conf, String _obj) {
@@ -527,45 +683,49 @@ final class ExtractObject {
         return toString(_conf, _obj);
     }
     static String toString(Configuration _conf, Struct _obj) {
-        if (!_obj.isJavaObject()) {
-            return (String) getResult(_conf, 0, TO_STRING, _obj).getInstance();
+        Object instance_ = _obj.getInstance();
+        String method_;
+        if (instance_ instanceof Displayable) {
+            method_ = _conf.getStandards().getAliasDisplay();
+        } else {
+            method_ = _conf.getStandards().getAliasToString();
         }
-        try {
-            return _obj.getInstance().toString();
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
-        }
+        return (String) getResult(_conf, 0, method_, _obj).getInstance();
     }
     static Struct iterator(Configuration _conf, Struct _it) {
-        if (!_it.isJavaObject()) {
-            return getResult(_conf, 0, ITERATOR, _it);
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof SimpleIterable) {
+            SimpleIterable inst_ = (SimpleIterable) instance_;
+            Struct out_ = StdStruct.wrapStd(inst_.simpleIterator());
+            return out_;
         }
-        SimpleIterable inst_ = (SimpleIterable) _it.getInstance();
-        Struct out_ = StdStruct.wrapStd(inst_.simpleIterator());
-        return out_;
+        return getResult(_conf, 0, ITERATOR, _it);
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
-        if (!_it.isJavaObject()) {
-            return (Boolean) getResult(_conf, 0, HAS_NEXT, _it).getInstance();
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof SimpleItr) {
+            SimpleItr inst_ = (SimpleItr) instance_;
+            return inst_.hasNext();
         }
-        SimpleItr inst_ = (SimpleItr) _it.getInstance();
-        return inst_.hasNext();
+        return (Boolean) getResult(_conf, 0, HAS_NEXT, _it).getInstance();
     }
     static Struct next(Configuration _conf, Struct _it) {
-        if (!_it.isJavaObject()) {
-            return getResult(_conf, 0, NEXT, _it);
+        Object instance_ = _it.getInstance();
+        if (instance_ instanceof SimpleItr) {
+            SimpleItr inst_ = (SimpleItr) instance_;
+            Struct out_ = StdStruct.wrapStd(inst_.next());
+            return out_;
         }
-        SimpleItr inst_ = (SimpleItr) _it.getInstance();
-        Struct out_ = StdStruct.wrapStd(inst_.next());
-        return out_;
+        return getResult(_conf, 0, NEXT, _it);
     }
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
-        if (!_container.isJavaObject()) {
-            return getResult(_conf, 0, ENTRY_LIST, _container);
+        Object instance_ = _container.getInstance();
+        if (instance_ instanceof SimpleEntries) {
+            SimpleEntries inst_ = (SimpleEntries) _container.getInstance();
+            Struct out_ = StdStruct.wrapStd(inst_.entries());
+            return out_;
         }
-        SimpleEntries inst_ = (SimpleEntries) _container.getInstance();
-        Struct out_ = StdStruct.wrapStd(inst_.entries());
-        return out_;
+        return getResult(_conf, 0, ENTRY_LIST, _container);
     }
 
     static String name(Configuration _conf, Struct _instance) {
@@ -671,7 +831,7 @@ final class ExtractObject {
             String attribute_ = n.getAttribute(ATTRIBUTE_VALUE);
             if (n.hasAttribute(ATTRIBUTE_QUOTED)) {
                 if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {
-                    objects_.add(escapeParam(_conf, new StdStruct(attribute_)));
+                    objects_.add(escapeParam(_conf, attribute_));
                 } else {
                     objects_.add(attribute_);
                 }
@@ -694,7 +854,16 @@ final class ExtractObject {
                 objects_.add(toString(_conf, o_));
             }
         }
-        return StringList.simpleFormat(preformatted_, objects_.toArray());
+        return StringList.simpleStringsFormat(preformatted_, objects_.toArray());
+    }
+
+    private static String escapeParam(Configuration _conf, String _arg) {
+        StringMap<String> rep_ = new StringMap<String>();
+        String quote_ = String.valueOf(QUOTE);
+        rep_.put(String.valueOf(LEFT_EL), quote_+LEFT_EL+quote_);
+        rep_.put(String.valueOf(RIGHT_EL), quote_+RIGHT_EL+quote_);
+        rep_.put(String.valueOf(QUOTE), quote_+quote_);
+        return StringList.replaceMultiple(_arg, rep_);
     }
 
     private static String escapeParam(Configuration _conf, Struct _arg) {

@@ -823,7 +823,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (game_.availableSwitchingCards()) {
             HandPresident d_ = game_.strategieEchange(DealPresident.NUMERO_UTILISATEUR);
             String message_;
-            message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_GIVE), d_);
+            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_GIVE), d_.toString());
             message_+=game_.getReason();
             ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -833,7 +833,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (h_.estVide()) {
             message_ = getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PASS);
         } else {
-            message_ = StringList.simpleFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), game_.playedCards());
+            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), game_.playedCards().toString());
         }
         message_+=game_.getReason();
         ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);

@@ -120,6 +120,10 @@ public final class Rate {
         return true;
     }
 
+    public boolean eq(Rate r) {
+        return StringList.quickEq(string, r.string);
+    }
+
     public boolean isZero() {
         return zero;
     }

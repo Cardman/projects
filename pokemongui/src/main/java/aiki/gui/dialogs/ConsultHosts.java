@@ -86,7 +86,7 @@ public final class ConsultHosts extends Dialog {
                     continue;
                 }
                 hostingLoc_.setBackground(Color.YELLOW);
-                JLabel steps_ = new JLabel(StringList.simpleFormat(rem_, Math.max(facade.getRemaingingSteps(c), 0)));
+                JLabel steps_ = new JLabel(StringList.simpleNumberFormat(rem_, Math.max(facade.getRemaingingSteps(c), 0)));
                 hostingLoc_.add(steps_);
                 PokemonPlayer pk_;
                 String gender_;

@@ -43,7 +43,7 @@ public class ListenerCardTarotMultiHandful extends AbstractListenerCardTarot {
             if (container.getChoosenHandful() != Handfuls.NO) {
                 String mes_ = container.getMessages().getVal(MainWindow.REMOVE_TRUMPS_HANDFUL);
                 int exces_ = container.getCurrentIncludedTrumps().total()-container.getRequiredTrumps().getVal(container.getChoosenHandful());
-                container.getInfoCurrentHandful().setText(StringList.simpleFormat(mes_, exces_, container.getChoosenHandful()));
+                container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), container.getChoosenHandful().toString()));
             }
         }else{
             String finalMessage_ = container.getMessages().getVal(MainWindow.CANT_PLAY)+container.getRaisonCourante();

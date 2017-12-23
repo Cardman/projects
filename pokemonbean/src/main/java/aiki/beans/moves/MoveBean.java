@@ -1034,6 +1034,45 @@ public class MoveBean extends CommonBean {
         }
         return false;
     }
+    public boolean isAdjAdv() {
+        return targetChoice == TargetChoice.ADJ_ADV;
+    }
+    public boolean isAdjMult() {
+        return targetChoice == TargetChoice.ADJ_MULT;
+    }
+    public boolean isAdjUniq() {
+        return targetChoice == TargetChoice.ADJ_UNIQ;
+    }
+    public boolean isAllie() {
+        return targetChoice == TargetChoice.ALLIE;
+    }
+    public boolean isAllies() {
+        return targetChoice == TargetChoice.ALLIES;
+    }
+    public boolean isAnyFoe() {
+        return targetChoice == TargetChoice.ANY_FOE;
+    }
+    public boolean isAutreUniq() {
+        return targetChoice == TargetChoice.AUTRE_UNIQ;
+    }
+    public boolean isGlobale() {
+        return targetChoice == TargetChoice.GLOBALE;
+    }
+    public boolean isLanceur() {
+        return targetChoice == TargetChoice.LANCEUR;
+    }
+    public boolean isPseudoGlobale() {
+        return targetChoice == TargetChoice.PSEUDO_GLOBALE;
+    }
+    public boolean isTousAdv() {
+        return targetChoice == TargetChoice.TOUS_ADV;
+    }
+    public boolean isUniqueImporte() {
+        return targetChoice == TargetChoice.UNIQUE_IMPORTE;
+    }
+    public boolean isNothing() {
+        return targetChoice == TargetChoice.NOTHING;
+    }
 
     @Accessible
     private String getPage(Long _long) {

@@ -19,7 +19,7 @@ public final class BallNumberRate {
         rate = _rate;
         name = _name;
 //        percent = Rate.multiply(rate, CENT).intPart().toString();
-        percent = rate.percent().toString();
+        percent = rate.percent().toNumberString();
     }
 
     public LgInt getNumber() {
@@ -37,7 +37,7 @@ public final class BallNumberRate {
     public void setRate(Rate _rate) {
         rate = _rate;
 //        percent = Rate.multiply(rate, CENT).intPart().toString();
-        percent = rate.percent().toString();
+        percent = rate.percent().toNumberString();
     }
 
     public String getName() {

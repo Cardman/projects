@@ -640,7 +640,7 @@ public class NumericStringTest {
     @Parameters(method="deleteZeroDivider")
     public void deleteZeroDivider1Test(String _numericString,String _res, boolean _checkSyntax) {
         //NumericString.setCheckSyntax(_checkSyntax);
-        assertEq(_res,NumericString.deleteZeroDivider(_checkSyntax, _numericString).toString());
+        assertEq(_res,NumericString.deleteZeroDivider(_checkSyntax, _numericString).toNumberString());
     }
 
     @Test(expected=FormatException.class)

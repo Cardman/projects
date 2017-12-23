@@ -16,4 +16,8 @@ public final class GeneObjs extends CustList<Object> {
         super(_elements);
     }
 
+    @Override
+    public void add(Object _e) {
+        super.add(_e);
+    }
 }

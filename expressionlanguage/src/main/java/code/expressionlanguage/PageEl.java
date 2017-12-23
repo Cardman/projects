@@ -136,7 +136,7 @@ public final class PageEl {
             list_.add(b.getInfos());
         }
         String keyMessage_ = EMPTY_STRING;
-        return keyMessage_+SEP_INFO+list_.toString()+SEP_INFO+LINE_COL+SEP_KEY_VAL;
+        return keyMessage_+SEP_INFO+list_.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL;
     }
 
     public void addToOffset(int _offset) {

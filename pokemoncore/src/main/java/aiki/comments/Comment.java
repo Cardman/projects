@@ -1,6 +1,6 @@
 package aiki.comments;
-import code.util.StringList;
 import aiki.DataBase;
+import code.util.StringList;
 
 public class Comment {
 
@@ -10,11 +10,10 @@ public class Comment {
     public void addComment(Comment _comment) {
         messages.addAllElts(_comment.messages);
     }
-
-    public void addMessage(String _messageFormat, Object... _args) {
+    
+    public void addMessage(String _messageFormat, String... _args) {
         try {
-//            messages.add(MessageFormat.format(_messageFormat, _args));
-            messages.add(StringList.simpleFormat(_messageFormat, _args));
+            messages.add(StringList.simpleStringsFormat(_messageFormat, _args));
         } catch (RuntimeException _0) {
             messages.add(DataBase.EMPTY_STRING);
         }

@@ -30,7 +30,7 @@ public final class LoadingVideo extends Thread {
         barreProgression.setPreferredSize(new Dimension(200,50));
         Container container_=new Container();
         container_.setLayout(new GridLayout(0,1));
-        label=new JLabel(StringList.simpleFormat(container.getMessages().getVal(MainWindow.LOADING), barreProgression.getValue()));
+        label=new JLabel(StringList.simpleNumberFormat(container.getMessages().getVal(MainWindow.LOADING), barreProgression.getValue()));
         container_.add(label);
         container_.add(barreProgression);
         progressingWindow = new SplashWindow(container.getOwner());
@@ -44,7 +44,7 @@ public final class LoadingVideo extends Thread {
 
     public void setProgessingBar(int _value) {
         barreProgression.setValue(_value);
-        label.setText(StringList.simpleFormat(container.getMessages().getVal(MainWindow.LOADING), _value));
+        label.setText(StringList.simpleNumberFormat(container.getMessages().getVal(MainWindow.LOADING), _value));
     }
 
     @Override

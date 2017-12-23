@@ -20,6 +20,7 @@ import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
 import code.expressionlanguage.methods.util.EqualsEl;
+import code.expressionlanguage.methods.util.ErrorList;
 import code.expressionlanguage.methods.util.FoundErrorInterpret;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -108,7 +109,7 @@ public final class Classes {
     private final StringMap<Boolean> initializedClasses;
     private final StringMap<Boolean> successfulInitializedClasses;
 
-    private final CustList<FoundErrorInterpret> errorsDet;
+    private final ErrorList errorsDet;
     private final StringList localVariablesNames;
     private final StringList classesInheriting;
     private EqualsEl natEqEl;
@@ -119,13 +120,16 @@ public final class Classes {
     private String iteratorVarCust;
     private String hasNextVarCust;
     private String nextVarCust;
+    private CustList<OperationNode> expsIterator;
+    private CustList<OperationNode> expsHasNext;
+    private CustList<OperationNode> expsNext;
     private CustList<OperationNode> expsIteratorCust;
     private CustList<OperationNode> expsHasNextCust;
     private CustList<OperationNode> expsNextCust;
 
     public Classes(){
         classesBodies = new StringMap<RootBlock>();
-        errorsDet = new CustList<FoundErrorInterpret>();
+        errorsDet = new ErrorList();
         staticFields = new ObjectMap<ClassField,Struct>();
         values = new StringMap<CustList<Struct>>();
         initializedClasses = new StringMap<Boolean>();
@@ -1370,7 +1374,8 @@ public final class Classes {
         String sixthArg_ = TEMP_PREFIX+six_;
         localVariablesNames.add(fifthArg_);
         localVariablesNames.add(sixthArg_);
-        String nateqt_ = StringList.simpleFormat(NAT_EQ_FORMAT, fifthArg_, sixthArg_);
+        LgNames stds_ = _context.getStandards();
+        String nateqt_ = StringList.simpleStringsFormat(NAT_EQ_FORMAT, fifthArg_, sixthArg_);
         natEqEl = new EqualsEl(fifthArg_, sixthArg_);
         LocalVariable lc_ = new LocalVariable();
         lc_.setClassName(_context.getStandards().getAliasObject());
@@ -1382,23 +1387,42 @@ public final class Classes {
         String locName_ = page_.getNextTempVar(this);
         String exp_;
         LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasSimpleIterableType());
+        page_.getLocalVars().put(locName_, locVar_);
+        iteratorVar = locName_;
+        exp_ = locName_ + LOC_VAR + SIMPLE_ITERATOR;
+        expsIterator = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
-        locVar_.setClassName(PredefinedClasses.ITERABLE);
+        locVar_.setClassName(stds_.getAliasSimpleIteratorType());
+        page_.getLocalVars().put(locName_, locVar_);
+        hasNextVar = locName_;
+        exp_ = locName_ + LOC_VAR + HAS_NEXT;
+        expsHasNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = page_.getNextTempVar(this);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasSimpleIteratorType());
+        page_.getLocalVars().put(locName_, locVar_);
+        nextVar = locName_;
+        exp_ = locName_ + LOC_VAR + NEXT;
+        expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = page_.getNextTempVar(this);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasIterable());
         page_.getLocalVars().put(locName_, locVar_);
         iteratorVarCust = locName_;
         exp_ = locName_ + LOC_VAR + ITERATOR;
         expsIteratorCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
-        locVar_.setClassName(PredefinedClasses.ITERATOR);
+        locVar_.setClassName(stds_.getAliasIteratorType());
         page_.getLocalVars().put(locName_, locVar_);
         hasNextVarCust = locName_;
         exp_ = locName_ + LOC_VAR + HAS_NEXT;
         expsHasNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
-        locVar_.setClassName(PredefinedClasses.ITERATOR);
+        locVar_.setClassName(stds_.getAliasIteratorType());
         page_.getLocalVars().put(locName_, locVar_);
         nextVarCust = locName_;
         exp_ = locName_ + LOC_VAR + NEXT;
@@ -1489,15 +1513,24 @@ public final class Classes {
         return nextVarCust;
     }
 
-    public ExpressionLanguage getEqIterator() {
+    public ExpressionLanguage getEqIterator(boolean _native) {
+        if (_native) {
+            return new ExpressionLanguage(expsIterator);
+        }
         return new ExpressionLanguage(expsIteratorCust);
     }
 
-    public ExpressionLanguage getEqHasNext() {
+    public ExpressionLanguage getEqHasNext(boolean _native) {
+        if (_native) {
+            return new ExpressionLanguage(expsHasNext);
+        }
         return new ExpressionLanguage(expsHasNextCust);
     }
 
-    public ExpressionLanguage getEqNext() {
+    public ExpressionLanguage getEqNext(boolean _native) {
+        if (_native) {
+            return new ExpressionLanguage(expsNext);
+        }
         return new ExpressionLanguage(expsNextCust);
     }
 

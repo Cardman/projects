@@ -643,7 +643,7 @@ public class ScenePanel extends JPanel {
                 //error if bad use of item
                 String it_ = facade.getPlayer().getSelectedObject();
                 it_ = facade.translateItem(it_);
-                String message_ = StringList.simpleFormat(_messages_.getVal(ERROR_USING_ITEM), it_);
+                String message_ = StringList.simpleStringsFormat(_messages_.getVal(ERROR_USING_ITEM), it_);
                 setTextArea(message_, JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -703,7 +703,7 @@ public class ScenePanel extends JPanel {
         if (facade.getPlayer().getSelectedMove().isEmpty()) {
             //no pokemon can learn
             move_ = facade.translateMove(move_);
-            String message_ = StringList.simpleFormat(_messages_.getVal(NO_POSSIBLE_LEARN), move_);
+            String message_ = StringList.simpleStringsFormat(_messages_.getVal(NO_POSSIBLE_LEARN), move_);
             setTextArea(message_, JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -1081,11 +1081,11 @@ public class ScenePanel extends JPanel {
             JPanel form_ = new JPanel();
             form_.setLayout(new BoxLayout(form_, BoxLayout.PAGE_AXIS));
             int nbRemSteps_ = facade.getRemaingingSteps();
-            String buttonText_= StringList.simpleFormat(_messages_.getVal(GET_EGG), nbRemSteps_);
+            String buttonText_= StringList.simpleNumberFormat(_messages_.getVal(GET_EGG), nbRemSteps_);
             LabelButton receiveEgg_ = new LabelButton(buttonText_);
             receiveEgg_.addMouseListener(new ReceiveFromHostEvent(this, true));
             form_.add(receiveEgg_);
-            buttonText_= StringList.simpleFormat(_messages_.getVal(GET_EGG_PARENT), nbRemSteps_);
+            buttonText_= StringList.simpleNumberFormat(_messages_.getVal(GET_EGG_PARENT), nbRemSteps_);
             LabelButton receiveParents_ = new LabelButton(buttonText_);
             receiveParents_.addMouseListener(new ReceiveFromHostEvent(this, false));
             form_.add(receiveParents_);

@@ -71,7 +71,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosBelote()) {
             JTextField pseudo_=new JTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new JLabel(StringList.simpleFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(new JLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesBelote.add(pseudo_);
             i_++;
@@ -84,7 +84,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosPresident()) {
             JTextField pseudo_=new JTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new JLabel(StringList.simpleFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(new JLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesPresident.add(pseudo_);
             i_++;
@@ -99,7 +99,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosTarot()) {
             JTextField pseudo_=new JTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new JLabel(StringList.simpleFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(new JLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesTarot.add(pseudo_);
             i_++;

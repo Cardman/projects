@@ -1,12 +1,15 @@
 package aiki.beans.map.characters;
 import code.bean.Accessible;
 import code.images.ConverterBufferedImage;
+import code.util.CustList;
 import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerLeague;
+import aiki.map.characters.TrainerMultiFights;
+import aiki.map.pokemon.PokemonTeam;
 
 public class TrainerBean extends CommonBean {
 
@@ -60,5 +63,11 @@ public class TrainerBean extends CommonBean {
     private String clickMove() {
         getForms().put(MOVE, move);
         return MOVE;
+    }
+    public CustList<PokemonTeam> getTeamsRewards() {
+        if (trainer instanceof TrainerMultiFights) {
+            return ((TrainerMultiFights)trainer).getTeamsRewards();
+        }
+        return new CustList<PokemonTeam>();
     }
 }

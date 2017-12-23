@@ -11,7 +11,7 @@ import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 import aiki.map.levels.enums.EnvironmentType;
 
-public final class ComparatorLanguageEnvType implements Comparator<LanguageElementKey<EnvironmentType>> {
+public final class ComparatorLanguageEnvType implements Comparator<LanguageElementKey> {
 
     private EnumMap<EnvironmentType,String> translatorCurrentLanguage;
 
@@ -29,9 +29,9 @@ public final class ComparatorLanguageEnvType implements Comparator<LanguageEleme
     }
 
     @Override
-    public int compare(LanguageElementKey<EnvironmentType> _o1, LanguageElementKey<EnvironmentType> _o2) {
-        EnvironmentType keyOne_ = _o1.getKey();
-        EnvironmentType keyTwo_ = _o2.getKey();
+    public int compare(LanguageElementKey _o1, LanguageElementKey _o2) {
+        EnvironmentType keyOne_ = (EnvironmentType) _o1.getKey();
+        EnvironmentType keyTwo_ = (EnvironmentType) _o2.getKey();
         int res_ = compare(translatorCurrentLanguage, keyOne_, keyTwo_);
         if (res_ != CustList.EQ_CMP) {
             return res_;

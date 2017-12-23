@@ -1,5 +1,7 @@
 package code.expressionlanguage.classes;
 
-public class Templating<E extends Number,F extends E> {
+import code.util.ints.Displayable;
+
+public class Templating<E extends Displayable,F extends E> {
 
 }

@@ -16,13 +16,13 @@
 		<br/>
 		<c:img src="{imageMini}"/>
 		<br/>
-		<c:for list="trainer.getTeamsRewards()" var="t">
+		<c:for list="getTeamsRewards()" var="t">
 			{t;;}<br/>
 			<c:import page="{pageTeam}">
 				<c:package name="aiki.beans.map.pokemon">
 					<c:class name="PokemonTeamBean">
 						<c:field name="trainer" value="trainer"/>
-						<c:field name="noFight" value="t;;"/>
+						<c:field name="noFight" value="t;;intValue()"/>
 					</c:class>
 				</c:package>
 			</c:import>

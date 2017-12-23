@@ -195,7 +195,7 @@ public class PokemonPlayerBean extends Bean {
         vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(level));
         current_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
-        Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toString(), vars_, Rate.one());
+        Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
         diff_.removeNb(wonExpSinceLastLevel);
         return diff_;
     }

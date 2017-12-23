@@ -18,7 +18,7 @@ public class InexistingValueForEnum extends RuntimeException {
     private static String getMessage(String _enumValueName, String _enumName) {
         try {
             StringMap<String> messages_ = MESSAGES.getVal(Constants.getLanguage());
-            return StringList.simpleFormat(messages_.getVal(INEXISTING), _enumValueName, _enumName);
+            return StringList.simpleStringsFormat(messages_.getVal(INEXISTING), _enumValueName, _enumName);
         } catch (Exception _0) {
             return EMPTY_STRING;
         }

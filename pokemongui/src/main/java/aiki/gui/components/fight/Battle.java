@@ -301,7 +301,7 @@ public class Battle extends ChildFrame {
         if (flee != null) {
             if (facade.isWildFight()) {
                 Rate r_ = facade.calculateFleeingRate();
-                flee.setTextAndSize(StringList.simpleFormat(_messages_.getVal(FLEE), r_, r_.percent()));
+                flee.setTextAndSize(StringList.simpleStringsFormat(_messages_.getVal(FLEE), r_.toNumberString(), r_.percent().toNumberString()));
                 flee.repaint();
             }
         }
@@ -1314,7 +1314,7 @@ public class Battle extends ChildFrame {
         button_.addMouseListener(new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getChosenHealingMove();
         if (!str_.isEmpty()) {
-            String mess_ = StringList.simpleFormat(_messages_.getVal(SELECTED_ITEM), str_);
+            String mess_ = StringList.simpleStringsFormat(_messages_.getVal(SELECTED_ITEM), str_);
             selectedItem.setText(mess_);
         }
         actions.add(button_);
@@ -1359,7 +1359,7 @@ public class Battle extends ChildFrame {
             facade.clearSortingHealingItem();
             window.setSavedGame(false);
             String item_ = facade.getFight().getChosenHealingMove();
-            String mess_ = StringList.simpleFormat(_messages_.getVal(SELECTED_ITEM), item_);
+            String mess_ = StringList.simpleStringsFormat(_messages_.getVal(SELECTED_ITEM), item_);
             selectedItem.setText(mess_);
             displayMovesToBeHealed();
 //            window.pack();

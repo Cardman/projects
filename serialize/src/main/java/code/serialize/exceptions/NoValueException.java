@@ -18,7 +18,7 @@ public class NoValueException extends RuntimeException {
     private static String getMessage(String _tagName) {
         try {
             StringMap<String> messages_ = MESSAGES.getVal(Constants.getLanguage());
-            return StringList.simpleFormat(messages_.getVal(NO_VALUE), _tagName);
+            return StringList.simpleStringsFormat(messages_.getVal(NO_VALUE), _tagName);
         } catch (Exception _0) {
             return EMPTY_STRING;
         }

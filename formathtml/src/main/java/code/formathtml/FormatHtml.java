@@ -94,12 +94,10 @@ import code.util.StringMapObject;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.Listable;
+import code.util.ints.ListableEntries;
 
-final class FormatHtml {
+public final class FormatHtml {
 
-    private static final char RIGHT_ARR = ']';
-    private static final char LEFT_ARR = '[';
-    private static final String SUFFIX_INT = "i";
     static final String XMLNS = "xmlns";
     static final String NAMESPACE_URI = "javahtml";
     static final String ATTRIBUTE_CLASS_NAME = "className";
@@ -108,17 +106,18 @@ final class FormatHtml {
     static final String RETURN_LINE = "\n";
     static final String RETURN_TAB = "\n\t";
 
-    static final String NULL_METHOD = "goto";
     static final String SPACE = " ";
     static final String VAR_METHOD = "varMethod";
-    static final String BEAN_ATTRIBUTE = "bean";
+    public static final String BEAN_ATTRIBUTE = "bean";
     static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
     static final String COMMA = ",";
     static final String DOT = ".";
-    static final String GET_KEY = "!key";
 
     static final String TMP_VAR = "tmpvar";
-    private static final String GET_ENTRY = "!";
+    private static final char RIGHT_ARR = ']';
+    private static final char LEFT_ARR = '[';
+    private static final String SUFFIX_INT = "i";
+    private static final String COMMENT = "!";
     private static final String ATTRIBUTE_SRC = "src";
     private static final String ATTRIBUTE_ENCODE_IMG = "wrap";
     private static final String TAG_IMG = "img";
@@ -181,7 +180,6 @@ final class FormatHtml {
     private static final String ATTRIBUTE_VAR_VALUE = "varValue";
     private static final String GET_LOC_VAR = ";.";
     private static final String ATTRIBUTE_ESCAPED = "escaped";
-    private static final String GET_VALUE = "!value";
     private static final String GET_ATTRIBUTE = ";";
     private static final String CALL_METHOD = "$";
     private static final String DEFAULT_ATTRIBUTE = "default";
@@ -243,7 +241,6 @@ final class FormatHtml {
     private static final String IS_CHAR_CONST_ATTRIBUTE = "ischarconst";
     private static final String IS_BOOL_CONST_ATTRIBUTE = "isboolconst";
     private static final String EVALUATE_BOOLEAN = "isbool";
-    private static final String INSTANTIATE_PREFIX = "new.";
     private static final char ESCAPED = '\\';
     private static final char MATH_INTERPRET = '`';
     private static final String NUMBER_FORM = "n-f";
@@ -380,7 +377,7 @@ final class FormatHtml {
                 ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(true);
-                ExtractObject.classForName(_conf, 0, searchedClass_);
+                ExtractObject.classNameForName(_conf, 0, searchedClass_);
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(searchedClass_, bean_.getClassName(_conf.toContextEl()), _conf.toContextEl())) {
                     throw new RuntimeClassNotFoundException(searchedClass_+RETURN_LINE+_conf.joinPages());
                 }
@@ -401,7 +398,7 @@ final class FormatHtml {
                         ip_.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                         ip_.setOffset(0);
                         ip_.setLookForAttrValue(true);
-                        ExtractObject.classForName(_conf, 0, classNameParam_);
+                        ExtractObject.classNameForName(_conf, 0, classNameParam_);
                         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameParam_, argt_.getObjectClassName(_conf.toContextEl()), _conf.toContextEl())) {
                             throw new DynamicCastClassException(argt_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+classNameParam_+RETURN_LINE+_conf.joinPages());
                         }
@@ -685,7 +682,6 @@ final class FormatHtml {
                 if (!throwException(_conf, realCaught_)) {
                     continue;
                 }
-                _0.printStackTrace();
                 throw new RenderingException(new StdStruct(_0));
             }
         }
@@ -1560,7 +1556,7 @@ final class FormatHtml {
         }
         _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
         _ip.setLookForAttrValue(true);
-        ExtractObject.classForName(_conf, 0, className_);
+        ExtractObject.classNameForName(_conf, 0, className_);
         checkClass(_conf, _ip, new ClassArgumentMatching(className_), ret_.getStruct());
         ret_.setClassName(ConstClasses.resolve(className_));
     }
@@ -1639,14 +1635,13 @@ final class FormatHtml {
     static VariableInformation tryToGetVoidVariable(Configuration _conf, ImportingPage _ip,
             Element _element) {
         String className_ = _element.getAttribute(ATTRIBUTE_CLASS_NAME);
-        Class<?> cl_ = Object.class;
         if (!className_.isEmpty()) {
             _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            cl_ = ExtractObject.classForName(_conf, 0, className_);
+            ExtractObject.classNameForName(_conf, 0, className_);
         } else {
-            className_ = cl_.getName();
+            className_ = Object.class.getName();
         }
         VariableInformation vi_ = new VariableInformation();
         vi_.setClassName(className_);
@@ -1693,10 +1688,9 @@ final class FormatHtml {
                 }
                 return StdStruct.wrapStd(obj_);
             } else if (StringList.isNumber(expression_)) {
-                obj_ = ExtractObject.instanceByString(_conf, long.class, expression_);
+                String primLong_ = _conf.getStandards().getAliasPrimLong();
+                obj_ = ExtractObject.instanceByString(_conf, primLong_, expression_);
                 return StdStruct.wrapStd(obj_);
-            } else if (expression_.startsWith(INSTANTIATE_PREFIX)){
-                return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
             } else {
                 return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
             }
@@ -1709,7 +1703,6 @@ final class FormatHtml {
         Object obj_ = null;
         boolean useStruct_ = false;
         Struct struct_ = null;
-        Class<?> cl_ = null;
         String expression_ = _element.getAttribute(EXPRESSION_ATTRIBUTE);
         if (!numExpr_.isEmpty()) {
             expression_ = numExpr_;
@@ -1721,10 +1714,9 @@ final class FormatHtml {
             obj_ = ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
             if (className_.isEmpty()) {
                 ExtractObject.checkNullPointer(_conf, obj_);
-                cl_ = obj_.getClass();
-                className_ = cl_.getName();
+                className_ = obj_.getClass().getName();
             } else {
-                cl_ = ExtractObject.classForName(_conf, 0, className_);
+                ExtractObject.classNameForName(_conf, 0, className_);
             }
         } else {
             if (className_.isEmpty()) {
@@ -1733,44 +1725,33 @@ final class FormatHtml {
                 _ip.setOffset(0);
                 if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        cl_ = Object.class;
                         obj_ = null;
+                        className_ = Object.class.getName();
                     } else {
-                        cl_ = String.class;
                         obj_ = expression_;
+                        className_ = String.class.getName();
                     }
-                    className_ = cl_.getName();
                 } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        cl_ = Object.class;
                         obj_ = null;
+                        className_ = Object.class.getName();
                     } else {
-                        cl_ = Character.class;
                         obj_ = ExtractObject.getChar(_conf, expression_);
+                        className_ = Character.class.getName();
                     }
-                    className_ = cl_.getName();
                 } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        cl_ = Object.class;
                         obj_ = null;
+                        className_ = Object.class.getName();
                     } else {
-                        cl_ = Boolean.class;
                         obj_ = Boolean.parseBoolean(expression_);
+                        className_ = Boolean.class.getName();
                     }
-                    className_ = cl_.getName();
                 } else if (StringList.isNumber(expression_)) {
-                    cl_ = long.class;
-                    className_ = PrimitiveTypeUtil.PRIM_LONG;
-                    obj_ = ExtractObject.instanceByString(_conf, long.class, expression_);
-                } else if (expression_.startsWith(INSTANTIATE_PREFIX)){
-                    Argument a_ = ElUtil.processEl(expression_, 0, _conf.toContextEl());
-                    struct_ = a_.getStruct();
-                    useStruct_ = true;
-                    cl_ = Object.class;
-                    className_ = cl_.getName();
+                    className_ = _conf.getStandards().getAliasPrimLong();
+                    obj_ = ExtractObject.instanceByString(_conf, className_, expression_);
                 } else {
-                    cl_ = Object.class;
-                    className_ = cl_.getName();
+                    className_ = Object.class.getName();
                     Argument a_ = ElUtil.processEl(expression_, 0, _conf.toContextEl());
                     struct_ = a_.getStruct();
                     useStruct_ = true;
@@ -1780,7 +1761,7 @@ final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
+                    ExtractObject.classNameForName(_conf, 0, className_);
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                         obj_ = null;
                     } else {
@@ -1790,7 +1771,7 @@ final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
+                    ExtractObject.classNameForName(_conf, 0, className_);
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                         obj_ = null;
                     } else {
@@ -1800,7 +1781,7 @@ final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
+                    ExtractObject.classNameForName(_conf, 0, className_);
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                         obj_ = null;
                     } else {
@@ -1810,19 +1791,11 @@ final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
+                    ExtractObject.classNameForName(_conf, 0, className_);
                     _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    obj_ = ExtractObject.instanceByString(_conf, cl_, expression_);
-                } else if (expression_.startsWith(INSTANTIATE_PREFIX)){
-                    Argument a_ = ElUtil.processEl(expression_, 0, _conf.toContextEl());
-                    struct_ = a_.getStruct();
-                    useStruct_ = true;
-                    _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
+                    obj_ = ExtractObject.instanceByString(_conf, className_, expression_);
                 } else {
                     _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                     _ip.setLookForAttrValue(true);
@@ -2039,7 +2012,7 @@ final class FormatHtml {
                     _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _conf.getLastPage().setOffset(0);
                     _conf.getLastPage().setLookForAttrValue(false);
-                    ExtractObject.classForName(_conf, 0, className_);
+                    ExtractObject.classNameForName(_conf, 0, className_);
                     String var_ = elt_.getAttribute(ATTRIBUTE_VAR);
                     if (!StringList.isWord(var_)) {
                         throw new BadVariableNameException(var_, _conf.joinPages(), ATTRIBUTE_VAR);
@@ -2452,7 +2425,7 @@ final class FormatHtml {
             }
             return indexText_ + 1;
         }
-        return _html.indexOf(LT_BEGIN_TAG+GET_ENTRY, _from);
+        return _html.indexOf(LT_BEGIN_TAG+COMMENT, _from);
     }
     static StringList checkForLoop(Configuration _conf, Element _node, String _html) {
         StringList vars_ = new StringList();
@@ -2525,6 +2498,7 @@ final class FormatHtml {
         String end_ = EMPTY_STRING;
         long index_ = -1;
         long found_ = -1;
+        boolean key_ = false;
         if (name_.endsWith(GET_ATTRIBUTE)) {
             String oldVar_ = name_.substring(CustList.FIRST_INDEX, name_.length() - GET_ATTRIBUTE.length());
             LoopVariable lv_ = ExtractObject.getCurrentVariable(_conf, 0, _ip.getVars(), oldVar_);
@@ -2542,7 +2516,17 @@ final class FormatHtml {
                 break;
             }
             currentField_ = lv_.getStruct();
-            end_ = lv_.getExtendedExpression();
+            for (BlockHtml b: _ip.getBlockStacks()) {
+                if (!(b instanceof LoopHtmlStack)) {
+                    continue;
+                }
+                LoopHtmlStack l_ = (LoopHtmlStack) b;
+                if (StringList.quickEq(l_.getReadNode().getAttribute(ATTRIBUTE_KEY), oldVar_)) {
+                    key_ = true;
+                    break;
+                }
+            }
+            end_ = EMPTY_STRING;
         } else {
             int len_ = name_.length();
             int i_ = len_ - 1;
@@ -2588,6 +2572,7 @@ final class FormatHtml {
             nodeCont_.setEnabled(true);
             nodeCont_.setLastToken(end_);
             nodeCont_.setIndex(index_);
+            nodeCont_.setKey(key_);
             nodeCont_.setTypedStruct(currentField_);
             nodeCont_.setBeanName(_ip.getBeanName());
             nodeCont_.setStruct(obj_);
@@ -2715,7 +2700,7 @@ final class FormatHtml {
             preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _tag.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
             _tag.removeAttribute(ATTRIBUTE_VALUE_SUBMIT);
             _tag.removeAttribute(ATTRIBUTE_ESCAPED_EAMP);
-            IdList<Object> objects_ = new IdList<Object>();
+            StringList objects_ = new StringList();
             int i_ = CustList.FIRST_INDEX;
             while (_tag.hasAttribute(TAG_PARAM+i_)) {
                 attributesNames_.removeAllString(TAG_PARAM+i_);
@@ -2733,7 +2718,7 @@ final class FormatHtml {
             }
             attributesNames_.removeAllString(ATTRIBUTE_VALUE);
             attributesNames_.removeAllString(ATTRIBUTE_TYPE);
-            _tag.setAttribute(ATTRIBUTE_VALUE, StringList.simpleFormat(preformatted_, objects_.toArray()));
+            _tag.setAttribute(ATTRIBUTE_VALUE, StringList.simpleStringsFormat(preformatted_, objects_.toArray()));
             _tag.setAttribute(ATTRIBUTE_TYPE, SUBMIT_TYPE);
             _doc.renameNode(_tag, INPUT_TAG);
         }
@@ -2755,7 +2740,7 @@ final class FormatHtml {
             preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _tag.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
             _tag.removeAttribute(ATTRIBUTE_VALUE_SUBMIT);
             _tag.removeAttribute(ATTRIBUTE_VALUE);
-            IdList<Object> objects_ = new IdList<Object>();
+            StringList objects_ = new StringList();
             int i_ = CustList.FIRST_INDEX;
             while (_tag.hasAttribute(TAG_PARAM+i_)) {
                 attributesNames_.removeAllString(TAG_PARAM+i_);
@@ -2772,7 +2757,7 @@ final class FormatHtml {
                 i_++;
             }
             attributesNames_.removeAllString(ATTRIBUTE_TITLE);
-            _tag.setAttribute(ATTRIBUTE_TITLE, StringList.simpleFormat(preformatted_, objects_.toArray()));
+            _tag.setAttribute(ATTRIBUTE_TITLE, StringList.simpleStringsFormat(preformatted_, objects_.toArray()));
             _doc.renameNode(_tag, TAG_A);
         }
         if (StringList.quickEq(_tag.getTagName(),prefixWrite_+TAG_IMG) && !prefixWrite_.isEmpty()) {
@@ -2815,7 +2800,7 @@ final class FormatHtml {
                 _ip.setProcessingAttribute(ATTRIBUTE_HREF);
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
-                CustList<String> objects_ = new CustList<String>();
+                StringList objects_ = new StringList();
                 int i_ = CustList.FIRST_INDEX;
                 while (_tag.hasAttribute(TAG_PARAM+i_)) {
                     attributesNames_.removeAllString(TAG_PARAM+i_);
@@ -2833,7 +2818,7 @@ final class FormatHtml {
                 }
                 String fileContent_ = ExtractFromResources.getContentFile(_conf, _files, href_, _resourcesFolder);
                 if (!objects_.isEmpty()) {
-                    fileContent_ = StringList.simpleFormat(fileContent_, objects_.toArray());
+                    fileContent_ = StringList.simpleStringsFormat(fileContent_, objects_.toArray());
                 }
                 boolean successAdd_ = children_.isEmpty();
                 if (!successAdd_) {
@@ -3959,7 +3944,6 @@ final class FormatHtml {
         String var_ = currentForNode_.getAttribute(ATTRIBUTE_VAR);
         String key_ = currentForNode_.getAttribute(ATTRIBUTE_KEY);
         String value_ = currentForNode_.getAttribute(ATTRIBUTE_VALUE);
-        String listMethod_ = null;
         long nbMaxIterations_ = 0;
         boolean iterationNb_ = false;
         long stepValue_ = 0;
@@ -3988,7 +3972,6 @@ final class FormatHtml {
             if (iterable_ == null) {
                 throw new NullObjectException(_conf.joinPages());
             }
-            listMethod_ = NULL_METHOD;
         } else {
             iterationNb_ = true;
             String from_ = currentForNode_.getAttribute(ATTRIBUTE_FROM);
@@ -4117,12 +4100,11 @@ final class FormatHtml {
             if (className_.isEmpty()) {
                 className_ = PrimitiveTypeUtil.PRIM_LONG;
             }
-            ExtractObject.classForName(_conf, 0, className_);
+            ExtractObject.classNameForName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()));
             lv_.setStep(stepValue_);
-            lv_.setExtendedExpression(EMPTY_STRING);
             varsLoop_.put(var_, lv_);
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {
             LoopVariable lv_ = new LoopVariable();
@@ -4132,7 +4114,6 @@ final class FormatHtml {
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             lv_.setStruct(elt_);
             lv_.setContainer(container_);
-            lv_.setExtendedExpression(EMPTY_STRING);
             varsLoop_.put(var_, lv_);
         } else {
             LoopVariable lv_ = new LoopVariable();
@@ -4142,7 +4123,6 @@ final class FormatHtml {
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             lv_.setStruct(ExtractObject.getKey(_conf, elt_));
             lv_.setContainer(container_);
-            lv_.setExtendedExpression(listMethod_+GET_KEY);
             varsLoop_.put(key_, lv_);
             lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(VAR_CLASS_NAME_ATTRIBUTE);
@@ -4151,7 +4131,6 @@ final class FormatHtml {
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             lv_.setStruct(ExtractObject.getValue(_conf, elt_));
             lv_.setContainer(container_);
-            lv_.setExtendedExpression(listMethod_+GET_VALUE);
             varsLoop_.put(value_, lv_);
         }
     }

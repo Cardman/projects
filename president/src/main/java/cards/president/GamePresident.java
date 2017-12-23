@@ -1300,7 +1300,7 @@ public final class GamePresident {
             plCards_.ajouterCartes(h_);
         }
         if (cardsToBePlayed.total() != progressingTrick.getNombreDeCartesParJoueur()) {
-            errorPlaying += Format.formatter(FOLDER, file, _loc, HAVE_PLAY_GIVEN_NUMBER_CARDS, progressingTrick.getNombreDeCartesParJoueur())+RETURN_LINE;
+            errorPlaying += Format.formatter(FOLDER, file, _loc, HAVE_PLAY_GIVEN_NUMBER_CARDS, Long.toString(progressingTrick.getNombreDeCartesParJoueur()))+RETURN_LINE;
         }
         return plCards_;
     }

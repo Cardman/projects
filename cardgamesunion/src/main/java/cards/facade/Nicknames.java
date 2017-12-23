@@ -37,7 +37,7 @@ public final class Nicknames {
         int nBots_ = maxJoueurs_;
         nBots_ --;
         for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
-            pseudosBelote.add(StringList.simpleFormat(player_, b));
+            pseudosBelote.add(StringList.simpleNumberFormat(player_, b));
         }
         maxJoueurs_=DealingTarot.values()[CustList.FIRST_INDEX].getNombreJoueurs();
         for(DealingTarot r:DealingTarot.values()){
@@ -48,13 +48,13 @@ public final class Nicknames {
         nBots_ = maxJoueurs_;
         nBots_ --;
         for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
-            pseudosTarot.add(StringList.simpleFormat(player_, b));
+            pseudosTarot.add(StringList.simpleNumberFormat(player_, b));
         }
         maxJoueurs_=RulesPresident.getNbMaxPlayers();
         nBots_ = maxJoueurs_;
         nBots_ --;
         for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
-            pseudosPresident.add(StringList.simpleFormat(player_, b));
+            pseudosPresident.add(StringList.simpleNumberFormat(player_, b));
         }
     }
     public Nicknames(Nicknames _pseudos){

@@ -9,7 +9,7 @@ public class Message {
 
     private String message;
 
-    private Object[] args;
+    private String[] args;
 
     private boolean formatMessage;
 
@@ -20,7 +20,7 @@ public class Message {
     public static Message newStandardMessage(String _message) {
         Message message_ = new Message();
         message_.setMessage(_message);
-        message_.setArgs(new Object[0]);
+        message_.setArgs(new String[0]);
         return message_;
     }
 
@@ -29,7 +29,7 @@ public class Message {
             return message;
         }
         //It is enough here to interpret only {0}, {1}, ....
-        return StringList.simpleFormat(message, args);
+        return StringList.simpleStringsFormat(message, args);
     }
 
     public String getMessage() {
@@ -40,11 +40,11 @@ public class Message {
         message = _message;
     }
 
-    public Object[] getArgs() {
+    public String[] getArgs() {
         return args;
     }
 
-    public void setArgs(Object... _args) {
+    public void setArgs(String... _args) {
         args = _args;
     }
 

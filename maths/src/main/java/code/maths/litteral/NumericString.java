@@ -217,7 +217,7 @@ final class NumericString implements NumericableString<Rate> {
                     return;
                 }
                 String token_ = c_.getToken();
-                String res_ = deleteZeroDivider(_checkSyntax, token_).toString();
+                String res_ = deleteZeroDivider(_checkSyntax, token_).toNumberString();
                 numericString.replace(index_, c_.getIndex(), res_);
                 return;
             }
@@ -979,7 +979,7 @@ final class NumericString implements NumericableString<Rate> {
                 continue;
             }
             dec_ = c_.getToken();
-            numericString.replace(index_, c_.getIndex(), deleteZeroDivider(checkSyntax, int_+POINT+dec_).toString());
+            numericString.replace(index_, c_.getIndex(), deleteZeroDivider(checkSyntax, int_+POINT+dec_).toNumberString());
             code = TRUE_CODE;
             index_ = c_.getIndex();
         }
@@ -1001,7 +1001,7 @@ final class NumericString implements NumericableString<Rate> {
                 index_ = next_;
                 continue;
             }
-            numericString.replace(index_, next_ + 1, deleteZeroDivider(checkSyntax, int_).toString());
+            numericString.replace(index_, next_ + 1, deleteZeroDivider(checkSyntax, int_).toNumberString());
             code = TRUE_CODE;
             index_ = next_ + 1;
         }
@@ -1019,7 +1019,7 @@ final class NumericString implements NumericableString<Rate> {
                 }
                 int_ = c_.getToken();
                 int next_= c_.getIndex();
-                numericString.replace(index_ - 1, next_, deleteZeroDivider(checkSyntax, POINT+int_).toString());
+                numericString.replace(index_ - 1, next_, deleteZeroDivider(checkSyntax, POINT+int_).toNumberString());
                 code = TRUE_CODE;
                 index_ = next_ + 1;
                 foundOpenChar_ = false;
@@ -1248,17 +1248,17 @@ final class NumericString implements NumericableString<Rate> {
         if(_op == PLUS){
             Rate rateOne_ = deleteZeroDivider(_checkSyntax, _nbOne);
             Rate rateTwo_ = deleteZeroDivider(_checkSyntax, _nbTwo);
-            res_=Rate.plus(rateOne_, rateTwo_).toString();
+            res_=Rate.plus(rateOne_, rateTwo_).toNumberString();
         }
         if(_op == FOIS){
             Rate rateOne_ = deleteZeroDivider(_checkSyntax, _nbOne);
             Rate rateTwo_ = deleteZeroDivider(_checkSyntax, _nbTwo);
-            res_=Rate.multiply(rateOne_, rateTwo_).toString();
+            res_=Rate.multiply(rateOne_, rateTwo_).toNumberString();
         }
         if(_op == MOINS){
             Rate rateOne_ = deleteZeroDivider(_checkSyntax, _nbOne);
             Rate rateTwo_ = deleteZeroDivider(_checkSyntax, _nbTwo);
-            res_=Rate.minus(rateOne_, rateTwo_).toString();
+            res_=Rate.minus(rateOne_, rateTwo_).toNumberString();
         }
         if(_op == DIVISION){
             Rate rateOne_ = deleteZeroDivider(_checkSyntax, _nbOne);
@@ -1270,11 +1270,11 @@ final class NumericString implements NumericableString<Rate> {
             }
             if (rateTwo_.isZero()) {
                 if (_checkSyntax) {
-                    return Rate.one().toString();
+                    return Rate.one().toNumberString();
                 }
                 return res_;
             }
-            res_=Rate.divide(rateOne_, rateTwo_).toString();
+            res_=Rate.divide(rateOne_, rateTwo_).toNumberString();
         }
         return res_;
     }
@@ -1486,23 +1486,23 @@ final class NumericString implements NumericableString<Rate> {
             String textArgTwo_=_args.last();
             if(StringList.quickEq(textArgTwo_,ZERO)||StringList.quickEq(textArgTwo_,MINUS_ZERO)){
                 if (_checkSyntax) {
-                    res_ = Rate.one().toString();
+                    res_ = Rate.one().toNumberString();
                 }
                 return res_;
             }
             Rate rateOne_ = deleteZeroDivider(_checkSyntax, textArgOne_);
             Rate rateTwo_ = deleteZeroDivider(_checkSyntax, textArgTwo_);
-            res_=Rate.divide(rateOne_, rateTwo_).toString();
+            res_=Rate.divide(rateOne_, rateTwo_).toNumberString();
         }
         //valeur absolue
         if(StringList.quickEq(_name,ABS)){
             String texteArg_=_args.first();
-            res_=deleteZeroDivider(_checkSyntax, texteArg_).absNb().toString();
+            res_=deleteZeroDivider(_checkSyntax, texteArg_).absNb().toNumberString();
         }
         //partie entiere
         if(StringList.quickEq(_name,ENT)){
             String texteArg_=_args.first();
-            res_=deleteZeroDivider(_checkSyntax, texteArg_).intPart().toString();
+            res_=deleteZeroDivider(_checkSyntax, texteArg_).intPart().toNumberString();
         }
         //troncature vers l'entier en valeur absolue le plus proche
         //exemples:
@@ -1510,7 +1510,7 @@ final class NumericString implements NumericableString<Rate> {
         //troncature(-2)=-2,troncature(-21/10)=-2,troncature(-25/10)=-2,troncature(-26/10)=-2
         if(StringList.quickEq(_name,TRONC)){
             String texteArg_=_args.first();
-            res_=deleteZeroDivider(_checkSyntax, texteArg_).toLgInt().toString();
+            res_=deleteZeroDivider(_checkSyntax, texteArg_).toLgInt().toNumberString();
         }
         //numerateur
         if(StringList.quickEq(_name,NUM)){
@@ -1529,10 +1529,10 @@ final class NumericString implements NumericableString<Rate> {
             Rate base_=deleteZeroDivider(_checkSyntax, textArgOne_);
             Rate exposant_=deleteZeroDivider(_checkSyntax, textArgTwo_);
             try {
-                res_=Rate.powNb(base_, exposant_).toString();
+                res_=Rate.powNb(base_, exposant_).toNumberString();
             } catch (RuntimeException _0) {
                 if (_checkSyntax) {
-                    res_= Rate.one().toString();
+                    res_= Rate.one().toNumberString();
                 } else {
                     return res_;
                 }
@@ -1544,11 +1544,11 @@ final class NumericString implements NumericableString<Rate> {
             String textArgTwo_=_args.last();
             if(StringList.quickEq(textArgTwo_,ZERO)||StringList.quickEq(textArgTwo_,MINUS_ZERO)){
                 if (_checkSyntax) {
-                    res_ = Rate.one().toString();
+                    res_ = Rate.one().toNumberString();
                 }
                 return res_;
             }
-            res_=LgInt.divide(new LgInt(textArgOne_),new LgInt(textArgTwo_)).toString();
+            res_=LgInt.divide(new LgInt(textArgOne_),new LgInt(textArgTwo_)).toNumberString();
         }
         //reste entier
         if(StringList.quickEq(_name,MOD)){
@@ -1556,11 +1556,11 @@ final class NumericString implements NumericableString<Rate> {
             String textArgTwo_=_args.last();
             if(StringList.quickEq(textArgTwo_,ZERO)||StringList.quickEq(textArgTwo_,MINUS_ZERO)){
                 if (_checkSyntax) {
-                    res_ = Rate.one().toString();
+                    res_ = Rate.one().toNumberString();
                 }
                 return res_;
             }
-            res_=LgInt.remain(new LgInt(textArgOne_),new LgInt(textArgTwo_)).toString();
+            res_=LgInt.remain(new LgInt(textArgOne_),new LgInt(textArgTwo_)).toNumberString();
         }
         //reste rationnel
         if(StringList.quickEq(_name,MODTAUX)){
@@ -1568,13 +1568,13 @@ final class NumericString implements NumericableString<Rate> {
             String textArgTwo_=_args.last();
             if(StringList.quickEq(textArgTwo_,ZERO)||StringList.quickEq(textArgTwo_,MINUS_ZERO)){
                 if (_checkSyntax) {
-                    res_ = Rate.one().toString();
+                    res_ = Rate.one().toNumberString();
                 }
                 return res_;
             }
             Rate rateOne_ = deleteZeroDivider(_checkSyntax, textArgOne_);
             Rate rateTwo_ = deleteZeroDivider(_checkSyntax, textArgTwo_);
-            res_=Rate.minus(rateOne_,Rate.multiply(new Rate(Rate.divide(rateOne_,rateTwo_).intPart()),rateTwo_)).toString();
+            res_=Rate.minus(rateOne_,Rate.multiply(new Rate(Rate.divide(rateOne_,rateTwo_).intPart()),rateTwo_)).toNumberString();
         }
         //minimum
         if(StringList.quickEq(_name,MIN)){
@@ -1585,7 +1585,7 @@ final class NumericString implements NumericableString<Rate> {
                     min_=arg_;
                 }
             }
-            res_=min_.toString();
+            res_=min_.toNumberString();
         }
         //maximum
         if(StringList.quickEq(_name,MAX)){
@@ -1596,7 +1596,7 @@ final class NumericString implements NumericableString<Rate> {
                     max_=arg_;
                 }
             }
-            res_=max_.toString();
+            res_=max_.toNumberString();
         }
         //moyenne
         if(StringList.quickEq(_name,MOY)){
@@ -1605,7 +1605,7 @@ final class NumericString implements NumericableString<Rate> {
                 moy_.addNb(deleteZeroDivider(_checkSyntax, a));
             }
             moy_.divideBy(new Rate(_args.size()));
-            res_=moy_.toString();
+            res_=moy_.toNumberString();
         }
         //variance
         if(StringList.quickEq(_name,VAR)){
@@ -1619,7 +1619,7 @@ final class NumericString implements NumericableString<Rate> {
             moy_.divideBy(new Rate(_args.size()));
             var_.divideBy(new Rate(_args.size()));
             var_.removeNb(Rate.multiply(moy_, moy_));
-            res_=var_.toString();
+            res_=var_.toNumberString();
         }
         //segment
         if(StringList.quickEq(_name,CARAC_FERME)){

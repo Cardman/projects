@@ -532,84 +532,84 @@ public class StringListTest {
     @Test
     public void simpleFormat1Test() {
         String pattern_ = "Without variable in string";
-        assertEq(pattern_, StringList.simpleFormat(pattern_));
+        assertEq(pattern_, StringList.simpleStringsFormat(pattern_));
     }
 
     @Test
     public void simpleFormat2Test() {
         String pattern_ = "Without variable '' in string";
         String outPut_ = "Without variable ' in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_));
     }
 
     @Test
     public void simpleFormat3Test() {
         String pattern_ = "With variables {0} {1} in string";
         String outPut_ = "With variables zero one in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_, "zero", "one"));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero", "one"));
     }
 
     @Test
     public void simpleFormat4Test() {
         String pattern_ = "With variables '{STRING} {STRING_ONE}' in string";
         String outPut_ = "With variables {STRING} {STRING_ONE} in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_));
     }
 
     @Test
     public void simpleFormat5Test() {
         String pattern_ = "With variables {1} {0} in string";
         String outPut_ = "With variables one zero in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_, "zero", "one"));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero", "one"));
     }
 
     @Test
     public void simpleFormat6Test() {
         String pattern_ = "With variables '{0} {1}' in string";
         String outPut_ = "With variables {0} {1} in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_,"zero","one"));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_,"zero","one"));
     }
 
     @Test
     public void simpleFormat7Test() {
         String pattern_ = "With variables {1} {0} in string";
         String outPut_ = "With variables one zero in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_, "zero", "one", "two"));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero", "one", "two"));
     }
 
     @Test
     public void simpleFormat8Test() {
         String pattern_ = "With variables {0} {1} '{2}' in string";
         String outPut_ = "With variables zero one {2} in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_, "zero", "one"));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero", "one"));
     }
 
     @Test
     public void simpleFormat9Test() {
         String pattern_ = "With variables {0} {1} {2} in string";
         String outPut_ = "With variables zero one {2} in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_, "zero", "one"));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero", "one"));
     }
 
     @Test
     public void simpleFormat10Test() {
         String pattern_ = "With variables {0} {1} '{arg}' in string";
         String outPut_ = "With variables zero one {arg} in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_, "zero", "one"));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero", "one"));
     }
 
     @Test
     public void simpleFormat11Test() {
         String pattern_ = "With variables {0} {1} {arg} in string";
         String outPut_ = "With variables zero one {arg} in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_, "zero", "one"));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero", "one"));
     }
 
     @Test
     public void simpleFormat12Test() {
         String pattern_ = "With variables '{STRING} {STRING_ONE} in string'";
         String outPut_ = "With variables {STRING} {STRING_ONE} in string";
-        assertEq(outPut_, StringList.simpleFormat(pattern_));
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_));
     }
 
     @Test

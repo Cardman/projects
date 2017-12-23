@@ -9,6 +9,7 @@ import aiki.beans.facade.comparators.ComparatorWeatherType;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.abilities.AbilityData;
+import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.EffectEndRound;
@@ -746,6 +747,10 @@ public class AbilityBean extends CommonBean {
 ////        _formula = _formula.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //        return StringList.replace(_formula, loc_);
 //    }
+
+    public EffectWhileSending getEffectSending() {
+        return getAbility().getEffectSending().first();
+    }
 
     @Accessible
     private boolean decreaseNecStepsHatchInt() {

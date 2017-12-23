@@ -113,6 +113,45 @@ public class EffectBean extends CommonBean {
         return reasons_;
     }*/
 
+    public boolean isAdjAdv() {
+        return effect.getTargetChoice() == TargetChoice.ADJ_ADV;
+    }
+    public boolean isAdjMult() {
+        return effect.getTargetChoice() == TargetChoice.ADJ_MULT;
+    }
+    public boolean isAdjUniq() {
+        return effect.getTargetChoice() == TargetChoice.ADJ_UNIQ;
+    }
+    public boolean isAllie() {
+        return effect.getTargetChoice() == TargetChoice.ALLIE;
+    }
+    public boolean isAllies() {
+        return effect.getTargetChoice() == TargetChoice.ALLIES;
+    }
+    public boolean isAnyFoe() {
+        return effect.getTargetChoice() == TargetChoice.ANY_FOE;
+    }
+    public boolean isAutreUniq() {
+        return effect.getTargetChoice() == TargetChoice.AUTRE_UNIQ;
+    }
+    public boolean isGlobale() {
+        return effect.getTargetChoice() == TargetChoice.GLOBALE;
+    }
+    public boolean isLanceur() {
+        return effect.getTargetChoice() == TargetChoice.LANCEUR;
+    }
+    public boolean isPseudoGlobale() {
+        return effect.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE;
+    }
+    public boolean isTousAdv() {
+        return effect.getTargetChoice() == TargetChoice.TOUS_ADV;
+    }
+    public boolean isUniqueImporte() {
+        return effect.getTargetChoice() == TargetChoice.UNIQUE_IMPORTE;
+    }
+    public boolean isNothing() {
+        return effect.getTargetChoice() == TargetChoice.NOTHING;
+    }
     @Accessible
     private TargetChoice getTargetChoice() {
         return effect.getTargetChoice();

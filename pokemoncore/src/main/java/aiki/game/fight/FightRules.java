@@ -242,7 +242,7 @@ final class FightRules {
         int nbPl_ = places_.size();
         for(byte i=CustList.SECOND_INDEX;i<nbPl_;i++){
             if(Numbers.eq(places_.get(i - 1),places_.get(i))){
-                _fight.addMessage(Fight.ERR_SUBSTITUTE_PLACE, places_.get(i));
+                _fight.addMessage(Fight.ERR_SUBSTITUTE_PLACE, Long.toString(places_.get(i)));
                 error_ = true;
             }
         }
@@ -605,7 +605,7 @@ final class FightRules {
         } else {
             if (nbActions_ != _fight.getPlayerMaxNumberFrontFighters()) {
                 error_ = true;
-                _fight.addMessage(Fight.ERR_TOO_MANY_ACTIONS, _fight.getPlayerMaxNumberFrontFighters(), nbActions_);
+                _fight.addMessage(Fight.ERR_TOO_MANY_ACTIONS, Long.toString(_fight.getPlayerMaxNumberFrontFighters()), Long.toString(nbActions_));
             }
         }
 //        if (nbNonKo_ <= _fight.getPlayerMaxNumberFrontFighters()) {

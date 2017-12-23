@@ -149,8 +149,79 @@
 		</c:if>
 		<h2><c:message value="msg_movedata,targets_title"/></h2>
 		<c:message value="msg_movedata,targets"/>
-		<c:message value="msg_movedata,targets_{targetChoice.name()}"/><br/>
-		<c:message value="msg_movedata,chosen_targets_{targetChoice.name()}"/>
+		<c:if condition="isAdjAdv()">
+          <c:message value="msg_movedata,targets_ADJ_ADV"/><br/>
+        </c:if>
+        <c:if condition="isAdjMult()">
+          <c:message value="msg_movedata,targets_ADJ_MULT"/><br/>
+        </c:if>
+        <c:if condition="isAdjUniq()">
+          <c:message value="msg_movedata,targets_ADJ_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isAllie()">
+          <c:message value="msg_movedata,targets_ALLIE"/><br/>
+        </c:if>
+        <c:if condition="isAllies()">
+          <c:message value="msg_movedata,targets_ALLIES"/><br/>
+        </c:if>
+        <c:if condition="isAnyFoe()">
+          <c:message value="msg_movedata,targets_ANY_FOE"/><br/>
+        </c:if>
+        <c:if condition="isAutreUniq()">
+          <c:message value="msg_movedata,targets_AUTRE_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isGlobale()">
+          <c:message value="msg_movedata,targets_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isLanceur()">
+          <c:message value="msg_movedata,targets_LANCEUR"/><br/>
+        </c:if>
+        <c:if condition="isPseudoGlobale()">
+          <c:message value="msg_movedata,targets_PSEUDO_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isTousAdv()">
+          <c:message value="msg_movedata,targets_TOUS_ADV"/><br/>
+        </c:if>
+        <c:if condition="isUniqueImporte()">
+          <c:message value="msg_movedata,targets_UNIQUE_IMPORTE"/><br/>
+        </c:if>
+
+        <c:if condition="isAdjAdv()">
+          <c:message value="msg_movedata,chosen_targets_ADJ_ADV"/><br/>
+        </c:if>
+        <c:if condition="isAdjMult()">
+          <c:message value="msg_movedata,chosen_targets_ADJ_MULT"/><br/>
+        </c:if>
+        <c:if condition="isAdjUniq()">
+          <c:message value="msg_movedata,chosen_targets_ADJ_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isAllie()">
+          <c:message value="msg_movedata,chosen_targets_ALLIE"/><br/>
+        </c:if>
+        <c:if condition="isAllies()">
+          <c:message value="msg_movedata,chosen_targets_ALLIES"/><br/>
+        </c:if>
+        <c:if condition="isAnyFoe()">
+          <c:message value="msg_movedata,chosen_targets_ANY_FOE"/><br/>
+        </c:if>
+        <c:if condition="isAutreUniq()">
+          <c:message value="msg_movedata,chosen_targets_AUTRE_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isGlobale()">
+          <c:message value="msg_movedata,chosen_targets_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isLanceur()">
+          <c:message value="msg_movedata,chosen_targets_LANCEUR"/><br/>
+        </c:if>
+        <c:if condition="isPseudoGlobale()">
+          <c:message value="msg_movedata,chosen_targets_PSEUDO_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isTousAdv()">
+          <c:message value="msg_movedata,chosen_targets_TOUS_ADV"/><br/>
+        </c:if>
+        <c:if condition="isUniqueImporte()">
+          <c:message value="msg_movedata,chosen_targets_UNIQUE_IMPORTE"/><br/>
+        </c:if>
 		<br/>
 		<h2><c:message value="msg_movedata,accuracy_title"/></h2>
 		<c:if condition="isConstAccuracy()">

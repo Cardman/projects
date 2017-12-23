@@ -42,11 +42,11 @@ public class BallRenderer extends CommonCellRenderer {
             String img_ = facade.getData().getMiniItems().getVal(b.getName());
             BufferedImage b_ = ConverterBufferedImage.decodeToImage(img_);
             Rate r_ = b.getRate();
-            int w_ = getFontMetrics(getFont()).stringWidth(r_.toString());
+            int w_ = getFontMetrics(getFont()).stringWidth(r_.toNumberString());
             if (w_ > maxWidthRate) {
                 maxWidthRate = w_;
             }
-            w_ = getFontMetrics(getFont()).stringWidth(b.getNumber().toString());
+            w_ = getFontMetrics(getFont()).stringWidth(b.getNumber().toNumberString());
             if (w_ > maxWidthNumber) {
                 maxWidthNumber = w_;
             }
@@ -74,8 +74,8 @@ public class BallRenderer extends CommonCellRenderer {
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.drawImage(ballImage, 0, 0, null);
         _g.setColor(Color.BLACK);
-        _g.drawString(ball.getNumber().toString(), maxWidthImage, ballImage.getHeight());
-        _g.drawString(ball.getRate().toString(), maxWidthImage +10+ maxWidthNumber, ballImage.getHeight());
+        _g.drawString(ball.getNumber().toNumberString(), maxWidthImage, ballImage.getHeight());
+        _g.drawString(ball.getRate().toNumberString(), maxWidthImage +10+ maxWidthNumber, ballImage.getHeight());
         _g.drawString(ball.getPercent()+PERCENT, maxWidthImage +20+ maxWidthNumber+maxWidthRate, ballImage.getHeight());
         if (selected) {
             _g.setColor(Color.RED);

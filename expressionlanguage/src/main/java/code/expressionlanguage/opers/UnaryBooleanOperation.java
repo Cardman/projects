@@ -43,7 +43,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         if (!clMatch_.matchClass(booleanPrimType_)) {
             if (!clMatch_.matchClass(booleanType_)) {
                 ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                throw new NotBooleanException(String.valueOf(cl_)+RETURN_LINE+_conf.joinPages());
+                throw new NotBooleanException(cl_.getName()+RETURN_LINE+_conf.joinPages());
             }
         }
         setResultClass(new ClassArgumentMatching(booleanPrimType_));

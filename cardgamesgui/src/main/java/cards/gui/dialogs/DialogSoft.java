@@ -108,8 +108,8 @@ public final class DialogSoft extends DialogCards {
             maxValeur_=2000;
             String sentence_ = messages.getVal(WAITING_SENTENCE);
             String prefix_ = messages.getVal(WAITING_BIDDING);
-            String values_ = StringList.simpleFormat(messages.getVal(WAITING_VALUES), minValeur_, maxValeur_, valeur_);
-            label_ = new JLabel(StringList.simpleFormat(sentence_, prefix_, values_));
+            String values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES), minValeur_, maxValeur_, valeur_);
+            label_ = new JLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitBids=new JSlider(minValeur_,maxValeur_);
             delayWaitBids.setValue(valeur_);
@@ -120,8 +120,8 @@ public final class DialogSoft extends DialogCards {
             minValeur_=300;
             maxValeur_=2000;
             prefix_ = messages.getVal(WAITING_PLAYED_CARD);
-            values_ = StringList.simpleFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
-            label_ = new JLabel(StringList.simpleFormat(sentence_, prefix_, values_));
+            values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
+            label_ = new JLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitCards=new JSlider(minValeur_,maxValeur_);
             delayWaitCards.setValue(valeur_);
@@ -132,8 +132,8 @@ public final class DialogSoft extends DialogCards {
             minValeur_=500;
             maxValeur_=3000;
             prefix_ = messages.getVal(WAITING_TRICK);
-            values_ = StringList.simpleFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
-            label_ = new JLabel(StringList.simpleFormat(sentence_, prefix_, values_));
+            values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
+            label_ = new JLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitTricks=new JSlider(minValeur_,maxValeur_);
             delayWaitTricks.setValue(valeur_);

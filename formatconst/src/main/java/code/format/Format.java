@@ -97,9 +97,9 @@ public final class Format {
     @param _nomConstante nom de la constante en rapport avec la chaine de caracteres
     @param _variables liste de parametres remplacant les expressions comme {0} {1}...
     @return la chaine de caracteres retournee par la methode getConstante qui est formatte avec _variables*/
-    public static String formatter(String _dossier,String _fichier, String _loc,String _nomConstante,Object... _variables){
+    public static String formatter(String _dossier,String _fichier, String _loc,String _nomConstante,String... _variables){
         String constante_ = getConstanteLangue(_dossier,_fichier, _loc,_nomConstante);
-        return StringList.simpleFormat(constante_, _variables);
+        return StringList.simpleStringsFormat(constante_, _variables);
     }
 
     public static String getClassProperties(String _class) {
