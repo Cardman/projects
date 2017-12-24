@@ -20,8 +20,6 @@ public final class ContextEl {
 
     private String filesConfName;
 
-    private String language = "java";
-
     private int stackOverFlow;
 
     private Options options = new Options();
@@ -104,14 +102,6 @@ public final class ContextEl {
 
     public void setFilesConfName(String _filesConfName) {
         filesConfName = _filesConfName;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String _language) {
-        language = _language;
     }
 
     public ElementOffsetsNext getElements() {
