@@ -39,20 +39,12 @@ public abstract class NumericOperation extends MethodOperation {
             o_ = NumericOperation.calculateSum(_right, _conf, _left, false, _catString);
         } else if (StringList.quickEq(_op, Block.MINUS_EQ)) {
             o_ = NumericOperation.calculateDiff(_left, _conf, _right);
-        } else if (StringList.quickEq(_op, Block.EQ_MINUS)) {
-            o_ = NumericOperation.calculateDiff(_right, _conf, _left);
         } else if (StringList.quickEq(_op, Block.MULT_EQ)) {
             o_ = NumericOperation.calculateMult(_left, _conf, _right);
-        } else if (StringList.quickEq(_op, Block.EQ_MULT)) {
-            o_ = NumericOperation.calculateMult(_right, _conf, _left);
         } else if (StringList.quickEq(_op, Block.DIV_EQ)) {
             o_ = NumericOperation.calculateDiv(_left, _conf, _right);
-        } else if (StringList.quickEq(_op, Block.EQ_DIV)) {
-            o_ = NumericOperation.calculateDiv(_right, _conf, _left);
         } else if (StringList.quickEq(_op, Block.MOD_EQ)) {
             o_ = NumericOperation.calculateMod(_left, _conf, _right);
-        } else if (StringList.quickEq(_op, Block.EQ_MOD)) {
-            o_ = NumericOperation.calculateMod(_right, _conf, _left);
         } else if (StringList.quickEq(_op, Block.INCR)) {
             o_ = AddOperation.addOne(_left, _conf);
         } else if (StringList.quickEq(_op, Block.DECR)) {

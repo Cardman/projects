@@ -473,7 +473,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        Argument arg_ = ElUtil.processEl("getOverridenTwo(null)",0, context_);
+        Argument arg_ = ElUtil.processEl("getOverridenTwo($null)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("one", (String)res_);
@@ -485,7 +485,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        Argument arg_ = ElUtil.processEl("getOverridenTwo($class(\"java.lang.Object\",null))",0, context_);
+        Argument arg_ = ElUtil.processEl("getOverridenTwo($class(\"java.lang.Object\",$null))",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("two", (String)res_);
@@ -495,7 +495,7 @@ public class ElUtilTest {
     public void processEl39Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$instanceof(\"java.lang.Object\",null)",0, context_);
+        Argument arg_ = ElUtil.processEl("$instanceof(\"java.lang.Object\",$null)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(false, (Boolean)res_);
@@ -954,7 +954,7 @@ public class ElUtilTest {
     public void processEl70Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("!!false",0, context_);
+        Argument arg_ = ElUtil.processEl("!!$false",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(false, (Boolean)res_);
@@ -1543,7 +1543,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        Argument arg_ = ElUtil.processEl("getOverridenFour(null)",0, context_);
+        Argument arg_ = ElUtil.processEl("getOverridenFour($null)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("Long", (String)res_);
@@ -1679,24 +1679,18 @@ public class ElUtilTest {
         assertEq(-1, (Number)res_);
     }
 
-    @Test
-    public void processEl123Test() {
+    @Test(expected=EmptyPartException.class)
+    public void processEl123FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("+1b",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
-        assertEq(1, (Number)res_);
+        ElUtil.processEl("+1b",0, context_);
     }
 
-    @Test
+    @Test(expected=EmptyPartException.class)
     public void processEl124Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("+-1b",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
-        assertEq(-1, (Number)res_);
+        ElUtil.processEl("+-1b",0, context_);
     }
 
     @Test
@@ -1807,7 +1801,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        ElUtil.processEl("getOverridenOne(null)",0, context_);
+        ElUtil.processEl("getOverridenOne($null)",0, context_);
     }
 
     @Test(expected=RuntimeClassNotFoundException.class)
@@ -1816,7 +1810,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        ElUtil.processEl("$class(\"Object\",null)",0, context_);
+        ElUtil.processEl("$class(\"Object\",$null)",0, context_);
     }
 
     @Ignore
@@ -2408,7 +2402,7 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertNotNull(c_.getStrings());
-        ElUtil.processAffect("","","","v;.strings", "null", "=",context_);
+        ElUtil.processAffect("","","","v;.strings", "$null", "=",context_);
         assertEq(COMPOSITE, lv_.getClassName());
         assertNull(c_.getStrings());
     }
@@ -2698,7 +2692,7 @@ public class ElUtilTest {
         lv_.setClassName(Integer.class.getName());
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("","","","$this", "null", "=",context_);
+        ElUtil.processAffect("","","","$this", "$null", "=",context_);
     }
 
     @Test(expected=StaticAccessException.class)

@@ -505,7 +505,7 @@ public class FormatHtmlTryCatchTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:try>{$new "+COMPOSITE+"().getValue(null)}</c:try><c:catch className='"+NPE+"' var='e'>NPE</c:catch></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:try>{$new "+COMPOSITE+"().getValue($null)}</c:try><c:catch className='"+NPE+"' var='e'>NPE</c:catch></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -542,7 +542,7 @@ public class FormatHtmlTryCatchTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{new."+COMPOSITE+"().getValue(null)}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{new."+COMPOSITE+"().getValue($null)}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -579,7 +579,7 @@ public class FormatHtmlTryCatchTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{new."+COMPOSITE+"().getValue(null)}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{new."+COMPOSITE+"().getValue($null)}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);

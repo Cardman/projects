@@ -798,7 +798,6 @@ public class DataMap {
                         c_.getLevel().setLevelIndex((byte) 0);
                         c_.getLevel().setPoint(((Gym)b.getValue()).getLevel().getGymLeaderCoords());
                         beatGymLeader.add(c_);
-                        //TODO remove after
                         beatGymTrainer.put(s,new EqList<Point>(((Gym)b.getValue()).getLevel().getGymTrainers().getKeys()));
                         break;
                     }
@@ -965,7 +964,6 @@ public class DataMap {
                         c_.getLevel().setLevelIndex((byte) 0);
                         c_.getLevel().setPoint(((Gym)b.getValue()).getLevel().getGymLeaderCoords());
                         beatGymLeader.add(c_);
-                      //TODO remove after
                         beatGymTrainer.put(s,new EqList<Point>(((Gym)b.getValue()).getLevel().getGymTrainers().getKeys()));
                         break;
                     }

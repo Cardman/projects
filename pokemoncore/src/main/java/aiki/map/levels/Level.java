@@ -256,6 +256,9 @@ public abstract class Level {
             }
             for(Point c:links_){
                 Point dest_=deplLinks_.getVal(c);
+                if (dest_ == null) {
+                    continue;
+                }
                 if (Point.eq(c,dest_)) {
                     deplLinks_.removeKey(c);
                 }
@@ -285,6 +288,9 @@ public abstract class Level {
             }
             for(Point c:links_){
                 Point dest_=deplLinks_.getVal(c);
+                if (dest_ == null) {
+                    continue;
+                }
                 if (Point.eq(c,dest_)) {
                     deplLinks_.removeKey(c);
                 }
@@ -459,6 +465,9 @@ public abstract class Level {
             }
             for(Point c:links_){
                 Point dest_=deplLinks_.getVal(c);
+                if (dest_ == null) {
+                    continue;
+                }
                 if (Point.eq(c,dest_)) {
                     deplLinks_.removeKey(c);
                 }
@@ -638,6 +647,9 @@ public abstract class Level {
             }
             for(Point c:links_){
                 Point dest_=deplLinks_.getVal(c);
+                if (dest_ == null) {
+                    continue;
+                }
                 if (Point.eq(c,dest_)) {
                     deplLinks_.removeKey(c);
                 }
@@ -668,6 +680,9 @@ public abstract class Level {
             }
             for(Point c:links_){
                 Point dest_=deplLinks_.getVal(c);
+                if (dest_ == null) {
+                    continue;
+                }
                 if (Point.eq(c,dest_)) {
                     deplLinks_.removeKey(c);
                 }

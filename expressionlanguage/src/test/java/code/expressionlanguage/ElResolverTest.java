@@ -2262,10 +2262,11 @@ public class ElResolverTest {
         assertEq(1, opers_.size());
         assertEq("+", opers_.getVal(0));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
+        assertEq(2, values_.size());
+        assertEq("", values_.getVal(0));
         assertEq("a", values_.getVal(1));
     
-        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+        assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
     @Test

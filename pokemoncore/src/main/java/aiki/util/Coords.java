@@ -151,8 +151,18 @@ public final class Coords implements Equallable<Coords> {
         if (!Numbers.eq(numberPlace,_g.numberPlace)) {
             return false;
         }
-        if (!Point.eq(insideBuilding,_g.insideBuilding)) {
-            return false;
+        if (isInside() && _g.isInside()) {
+            if (!Point.eq(insideBuilding,_g.insideBuilding)) {
+                return false;
+            }
+        } else if (!isInside()) {
+            if (_g.isInside()) {
+                return false;
+            }
+        } else if (isInside()) {
+            if (!_g.isInside()) {
+                return false;
+            }
         }
         if (!LevelPoint.eq(level,_g.level)) {
             return false;

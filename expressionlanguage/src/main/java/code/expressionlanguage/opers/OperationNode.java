@@ -105,9 +105,6 @@ public abstract class OperationNode {
     protected static final String CURRENT = "this";
     protected static final String INSTANCE = "new";
     protected static final String STATIC_ACCESS = "static";
-    protected static final String NULL_REF_STRING = "null";
-    protected static final String TRUE_STRING = "true";
-    protected static final String FALSE_STRING = "false";
     protected static final String INSTANCEOF = "instanceof";
     protected static final String BOOLEAN = "bool";
     protected static final String CAST = "class";

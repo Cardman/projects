@@ -96,107 +96,6 @@ final class ExtractObject {
 
     private ExtractObject() {
     }
-    static String formatAnalyzeNumVariables(String _pattern, Configuration _conf, ImportingPage _ip) {
-        StringBuilder str_ = new StringBuilder();
-        StringBuilder arg_ = new StringBuilder();
-        int length_ = _pattern.length();
-        boolean escaped_ = false;
-        int i_ = CustList.FIRST_INDEX;
-        while (i_ < length_) {
-            char cur_ = _pattern.charAt(i_);
-            if (cur_ == QUOTE) {
-                escaped_ = !escaped_;
-                if (i_ < length_ - 1) {
-                    if (_pattern.charAt(i_ + 1) == QUOTE) {
-                        str_.append(QUOTE);
-                        i_++;
-                        i_++;
-                        escaped_ = false;
-                        continue;
-                    }
-                }
-                i_++;
-                continue;
-            }
-            if (escaped_) {
-                str_.append(cur_);
-                i_++;
-                continue;
-            }
-            if (cur_ == LEFT_EL) {
-                StringBuilder tr_ = new StringBuilder();
-                int indexSepTr_ = _pattern.indexOf(SEP_TR, i_ + 1);
-                boolean processTr_ = false;
-                if (i_ + 1 < length_ && indexSepTr_ != CustList.INDEX_NOT_FOUND_ELT) {
-                    boolean allWord_ = true;
-                    boolean existWord_ = false;
-                    int j_ = i_;
-                    while (true) {
-                        if (j_ == indexSepTr_) {
-                            break;
-                        }
-                        if (j_ > i_+1 && !StringList.isWordChar(_pattern.charAt(j_))) {
-                            allWord_ = false;
-                            break;
-                        }
-                        if (StringList.isWordChar(_pattern.charAt(j_))) {
-                            existWord_ = true;
-                        }
-                        j_++;
-                    }
-                    if (!existWord_) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
-                    }
-                    processTr_ = allWord_;
-                }
-                if (processTr_) {
-                    int j_ = i_;
-                    while (true) {
-                        if (j_ == indexSepTr_) {
-                            j_++;
-                            i_ = j_;
-                            break;
-                        }
-                        j_++;
-                        tr_.append(_pattern.charAt(j_));
-                    }
-                    tr_.deleteCharAt(tr_.length()-1);
-                } else {
-                    i_++;
-                }
-                if (i_ >= length_ || _pattern.charAt(i_) == RIGHT_EL) {
-                    _conf.getLastPage().setOffset(i_);
-                    throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
-                }
-                ContextEl context_ = _conf.toContextEl();
-                Struct trloc_ = null;
-                if (!tr_.toString().isEmpty()) {
-                    try {
-                        trloc_ = _conf.getBuiltTranslators().getVal(tr_.toString());
-                        if (trloc_ == null) {
-                            _conf.getLastPage().setOffset(i_);
-                            throw new InexistingTranslatorException(tr_+RETURN_LINE+_conf.joinPages());
-                        }
-                    } catch (Throwable _0) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new InexistingTranslatorException(tr_+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                _conf.getLastPage().setOffset(i_);
-                ElUtil.processAnalyzeEl(_pattern, context_, i_, LEFT_EL, RIGHT_EL);
-                i_ = context_.getNextIndex();
-                continue;
-            }
-            if (cur_ == RIGHT_EL){
-                _conf.getLastPage().setOffset(i_);
-                throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
-            }
-            str_.append(cur_);
-            i_++;
-        }
-        return str_.toString();
-    }
     static String formatNumVariables(String _pattern, Configuration _conf, ImportingPage _ip, StringMap<String> _files) {
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
@@ -462,7 +361,7 @@ final class ExtractObject {
         if (_className.isEmpty()) {
             return;
         }
-        classForName(_conf, _offest, _className);
+        classNameForName(_conf, _offest, _className);
     }
     static String classNameForName(Configuration _conf, int _offest, String _className) {
         if (_conf.getStandards().getStandards().contains(_className)) {
@@ -493,32 +392,6 @@ final class ExtractObject {
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
         }
     }
-    static Class<?> classForName(Configuration _conf, int _offest, String _className) {
-        try {
-            if (PrimitiveTypeUtil.isPrimitive(_className, _conf.toContextEl())) {
-                Class<?> cl_ = PrimitiveTypeUtil.getPrimitiveClass(_className);
-                if (cl_ == null) {
-                    throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
-                }
-                return cl_;
-            }
-            if (StringList.quickEq(_className, ConstClasses.LISTABLE_ALIAS)) {
-                return Listable.class;
-            }
-            if (StringList.quickEq(_className, ConstClasses.LISTABLE_ENTRIES_ALIAS)) {
-                return ListableEntries.class;
-            }
-            String className_ = ConstClasses.getMapping(_className);
-            if (className_ != null) {
-                return PrimitiveTypeUtil.getSingleNativeClass(className_);
-            }
-            return PrimitiveTypeUtil.getSingleNativeClass(_className);
-        } catch (Throwable _0) {
-            _conf.getLastPage().addToOffset(_offest);
-            throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
-        }
-    }
-
     static void beforeDiplaying(Configuration _conf, Struct _it, boolean _addpage) {
         if (_it == null) {
             return;

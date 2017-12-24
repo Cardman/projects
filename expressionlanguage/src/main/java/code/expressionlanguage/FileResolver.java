@@ -4,6 +4,7 @@ public final class FileResolver {
 
     private static final char FOR_BLOCKS = ':';
     private static final char END_LINE = ':';
+    private static final char END_IMPORTS = ';';
     private static final char LINE_RETURN = '\n';
     private static final String COMMENT_LINE = "//";
     private static final String COMMENT_MULTI_LINE_BEGIN = "/*";
@@ -20,5 +21,8 @@ public final class FileResolver {
     private static final String INTERFACES = "interfaces";
 
     private FileResolver(){
+    }
+    public static void parseFile(String _file, ContextEl _context) {
+        
     }
 }

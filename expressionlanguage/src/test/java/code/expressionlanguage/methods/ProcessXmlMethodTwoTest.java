@@ -1497,7 +1497,7 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "<for init='index;.;' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='length;;;-1i' step='1i'>\n";
         xml_ += "<affect left='list;;;[i;]' oper='=' right='list;;;[i;+1i]'/>\n";
         xml_ += "</for>\n";
-        xml_ += "<affect left='list;;;[length;;;-1i]' oper='=' right='null'/>\n";
+        xml_ += "<affect left='list;;;[length;;;-1i]' oper='=' right='$null'/>\n";
         xml_ += "<affect left='length;;;' oper='--'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' name='iterator' modifier='normal' class='"+PredefinedClasses.ITERATOR+"&lt;#U&gt;'>\n";

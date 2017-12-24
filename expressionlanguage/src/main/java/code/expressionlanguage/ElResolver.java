@@ -373,12 +373,17 @@ public final class ElResolver {
                             _conf.getLastPage().setOffset(afterClassChoice_);
                             throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                         }
+                        if (afterClassChoice_ + 2 < len_) {
+                            if (_string.charAt(afterClassChoice_ + 2) == EXTERN_CLASS) {
+                                _conf.getLastPage().setOffset(afterClassChoice_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                        }
                         i_ = afterClassChoice_ + 2;
                         continue;
                     }
                     if (procWordFirstChar(_string, i_ + 1, THIS, len_)) {
                         int afterSuper_ = i_ + 1 + THIS.length();
-                        i_ = afterSuper_;
                         boolean foundHat_ = false;
                         while (afterSuper_ < len_) {
                             if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
@@ -416,6 +421,29 @@ public final class ElResolver {
                             afterSuper_++;
                         }
                         i_ = afterSuper_;
+                        continue;
+                    }
+                    boolean foundValue_ = false;
+                    for (String s: new String[]{TRUE_STRING,FALSE_STRING,NULL_REF_STRING}) {
+                        if (procWordFirstChar(_string, i_ + 1, s, len_)) {
+                            int afterSuper_ = i_ + 1 + s.length();
+                            while (afterSuper_ < len_) {
+                                if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                                    _conf.getLastPage().setOffset(afterSuper_);
+                                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                                }
+                                if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+                                    break;
+                                }
+                                afterSuper_++;
+                            }
+                            hatMethod_ = false;
+                            foundValue_ = true;
+                            i_ = afterSuper_;
+                            break;
+                        }
+                    }
+                    if (foundValue_) {
                         continue;
                     }
                     for (String s: new String[]{VAR_ARG,FIRST_OPT,CLASS,INSTANCEOF,BOOLEAN}) {
@@ -987,6 +1015,30 @@ public final class ElResolver {
                 op_.setDelimiter(_d);
                 return op_;
             }
+            if (StringList.quickEq(sub_, NULL_REF_STRING)) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.NULL_CST);
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setupValues(_string);
+                op_.setDelimiter(_d);
+                return op_;
+            }
+            if (StringList.quickEq(sub_, TRUE_STRING)) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.TRUE_CST);
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setupValues(_string);
+                op_.setDelimiter(_d);
+                return op_;
+            }
+            if (StringList.quickEq(sub_, FALSE_STRING)) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.FALSE_CST);
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setupValues(_string);
+                op_.setDelimiter(_d);
+                return op_;
+            }
             if (procWordFirstChar(_string, firstPrintChar_ + 1, SUPER, len_)) {
                 boolean hatMethod_ = false;
                 int afterSuper_ = i_ + 1 + SUPER.length();
@@ -1053,31 +1105,6 @@ public final class ElResolver {
                     return op_;
                 }
             }
-        }
-        String sub_ = _string.substring(firstPrintChar_, lastPrintChar_ + 1);
-        if (StringList.quickEq(sub_, TRUE_STRING)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.TRUE_CST);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (StringList.quickEq(sub_, FALSE_STRING)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.FALSE_CST);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (StringList.quickEq(sub_, NULL_REF_STRING)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.NULL_CST);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
-            op_.setDelimiter(_d);
-            return op_;
         }
         if (isIntegerNumber(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
@@ -1292,7 +1319,7 @@ public final class ElResolver {
                     }
                     if (prioOpMult_ > 0) {
                         builtOperator_ += curChar_;
-                        if (i_ == firstPrintChar_ && prioOpMult_ == ADD_PRIO) {
+                        if (i_ == firstPrintChar_ && curChar_ == MINUS_CHAR) {
                             if (prio_ > UNARY_PRIO) {
                                 foundOperator_ = true;
                                 prio_ = UNARY_PRIO;

@@ -14,7 +14,7 @@
 		<a c:command="web_fight/html/fight.html"><c:message value="msg_team,fight"/></a><br/>
 		<a c:command="web_fight/html/team.html"><c:message value="msg_team,refresh"/></a><br/>
 		<ul>
-			<c:for list="getMembers()" var="f">
+			<c:for list="getMembers()" var="f" className="java.lang.Byte">
 				<li><a c:command="$clickFighter({f;})">{getTrPokemonLink(f;;)}</a></li>
 			</c:for>
 		</ul>

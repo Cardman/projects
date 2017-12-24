@@ -14,18 +14,10 @@ public final class MoveUsesTeam implements Equallable<MoveUsesTeam> {
         move = _move;
         nbUses = _nbUses;
     }
-    //TODO null check
     public static boolean equalsSet(EqList<MoveUsesTeam> _list1,EqList<MoveUsesTeam> _list2) {
         for (MoveUsesTeam a: _list2) {
             boolean contains_ = false;
             for (MoveUsesTeam b: _list1) {
-                if (a == null) {
-                    if (b == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
                 if (a.eq(b)) {
                     contains_ = true;
                     break;
@@ -38,13 +30,6 @@ public final class MoveUsesTeam implements Equallable<MoveUsesTeam> {
         for (MoveUsesTeam a: _list1) {
             boolean contains_ = false;
             for (MoveUsesTeam b: _list2) {
-                if (a == null) {
-                    if (b == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
                 if (a.eq(b)) {
                     contains_ = true;
                     break;

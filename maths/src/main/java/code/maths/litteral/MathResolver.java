@@ -371,7 +371,7 @@ public final class MathResolver {
                 }
                 if (prioOpMult_ > 0) {
                     builtOperator_ += curChar_;
-                    if (i_ == firstPrintChar_ && prioOpMult_ == ADD_PRIO) {
+                    if (i_ == firstPrintChar_ && curChar_ == MINUS_CHAR) {
                         if (prio_ > UNARY_PRIO) {
                             foundOperator_ = true;
                             prio_ = UNARY_PRIO;

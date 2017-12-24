@@ -14,7 +14,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.StringList;
 import code.util.exceptions.NullObjectException;
 
 public final class UnaryOperation extends PrimitiveBoolOperation {
@@ -92,44 +91,22 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         if (o_ == null) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
-        int key_ = getOperations().getOperators().firstKey();
-        if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
-            if (o_ instanceof Character) {
-                out_.setObject(-((Character)o_));
-            } else {
-                Number b_ = (Number) o_;
-                if (b_ instanceof Integer) {
-                    out_.setObject(-((Integer)b_));
-                } else if (b_ instanceof Long) {
-                    out_.setObject(-((Long)b_));
-                } else if (b_ instanceof Byte) {
-                    out_.setObject(-((Byte)b_));
-                } else if (b_ instanceof Short) {
-                    out_.setObject(-((Short)b_));
-                } else if (b_ instanceof Double) {
-                    out_.setObject(-((Double)b_));
-                } else if (b_ instanceof Float) {
-                    out_.setObject(-((Float)b_));
-                }
-            }
+        if (o_ instanceof Character) {
+            out_.setObject(-((Character)o_));
         } else {
-            if (o_ instanceof Character) {
-                out_.setObject(+((Character)o_));
-            } else {
-                Number b_ = (Number) o_;
-                if (b_ instanceof Integer) {
-                    out_.setObject(+((Integer)b_));
-                } else if (b_ instanceof Long) {
-                    out_.setObject(+((Long)b_));
-                } else if (b_ instanceof Byte) {
-                    out_.setObject(+((Byte)b_));
-                } else if (b_ instanceof Short) {
-                    out_.setObject(+((Short)b_));
-                } else if (b_ instanceof Double) {
-                    out_.setObject(+((Double)b_));
-                } else if (b_ instanceof Float) {
-                    out_.setObject(+((Float)b_));
-                }
+            Number b_ = (Number) o_;
+            if (b_ instanceof Integer) {
+                out_.setObject(-((Integer)b_));
+            } else if (b_ instanceof Long) {
+                out_.setObject(-((Long)b_));
+            } else if (b_ instanceof Byte) {
+                out_.setObject(-((Byte)b_));
+            } else if (b_ instanceof Short) {
+                out_.setObject(-((Short)b_));
+            } else if (b_ instanceof Double) {
+                out_.setObject(-((Double)b_));
+            } else if (b_ instanceof Float) {
+                out_.setObject(-((Float)b_));
             }
         }
         return out_;

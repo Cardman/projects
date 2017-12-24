@@ -19,18 +19,10 @@ public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
 
     private int points;
 
-    //TODO null check
     public static boolean equalsSet(EqList<BidBeloteSuit> _list1,EqList<BidBeloteSuit> _list2) {
         for (BidBeloteSuit a: _list2) {
             boolean contains_ = false;
             for (BidBeloteSuit b: _list1) {
-                if (a == null) {
-                    if (b == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
                 if (a.eq(b)) {
                     contains_ = true;
                     break;
@@ -43,13 +35,6 @@ public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
         for (BidBeloteSuit a: _list1) {
             boolean contains_ = false;
             for (BidBeloteSuit b: _list2) {
-                if (a == null) {
-                    if (b == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
                 if (a.eq(b)) {
                     contains_ = true;
                     break;

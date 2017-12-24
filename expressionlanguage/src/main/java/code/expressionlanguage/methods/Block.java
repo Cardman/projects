@@ -27,10 +27,6 @@ public abstract class Block extends Blockable {
     public static final String DIV_EQ = "/=";
     public static final String MOD_EQ = "%=";
     public static final String EQ_PLUS = "=+";
-    public static final String EQ_MINUS = "=-";
-    public static final String EQ_MULT = "=*";
-    public static final String EQ_DIV = "=/";
-    public static final String EQ_MOD = "=%";
     public static final String INCR = "++";
     public static final String DECR = "--";
 

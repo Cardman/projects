@@ -3,7 +3,6 @@ import code.maths.Rate;
 import code.maths.litteral.exceptions.NotNumberException;
 import code.util.CustList;
 import code.util.NatTreeMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class UnaryOperation extends PrimitiveBoolOperation {
@@ -25,18 +24,13 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     @Override
     void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int key_ = getOperations().getOperators().firstKey();
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = new Argument();
         Object o_ = arg_.getObject();
         a_.setArgClass(MathType.RATE);
-        if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
-            a_.setObject(((Rate)o_).opposNb());
-            setArgument(a_);
-            return;
-        }
-        a_.setObject(o_);
+        a_.setObject(((Rate)o_).opposNb());
         setArgument(a_);
+        return;
     }
 
     @Override
