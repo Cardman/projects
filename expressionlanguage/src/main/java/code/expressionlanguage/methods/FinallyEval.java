@@ -5,7 +5,6 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.expressionlanguage.stacks.TryBlockStack;
-import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.NatTreeMap;
 
@@ -17,7 +16,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
+    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
     }

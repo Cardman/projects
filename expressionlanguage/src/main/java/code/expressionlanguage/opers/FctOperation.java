@@ -213,7 +213,7 @@ public final class FctOperation extends InvokingOperation {
             superConstructorCall = true;
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
             UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
-            String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), _conf);
+            String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(_conf), _conf);
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (ctorRes_ != null) {
@@ -558,6 +558,9 @@ public final class FctOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        if (PrimitiveTypeUtil.isPrimitive(_subType, stds_)) {
+            throw new PrimitiveTypeException(_subType+RETURN_LINE+_conf.joinPages());
+        }
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         String clCurName_ = _subType;
@@ -763,7 +766,7 @@ public final class FctOperation extends InvokingOperation {
                 String base_ = StringList.getAllTypes(gl_).first();
                 gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
                 UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
-                String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(), _conf);
+                String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(_conf), _conf);
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
                 CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();

@@ -11,15 +11,14 @@ public interface UniqueRootedBlock {
 
     void validateConstructors(ContextEl _cont);
 
-    String getGenericSuperClass();
+    String getGenericSuperClass(ContextEl _classes);
 
-    String getSuperClass();
+    String getSuperClass(ContextEl _classes);
 
-    StringList getDirectGenericInterfaces();
+    StringList getDirectGenericInterfaces(ContextEl _classes);
 
-    StringList getDirectInterfaces();
+    StringList getDirectInterfaces(ContextEl _classes);
     StringList getAllGenericInterfaces(ContextEl _classes);
-    StringList getAllDirectInterfaces();
 
     StringList getAllSuperClasses(ContextEl _classes);
 

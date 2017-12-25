@@ -57,7 +57,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
+    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_CLASS, className);
         tr_.put(ATTRIBUTE_CLASS_INDEX, classIndexName);

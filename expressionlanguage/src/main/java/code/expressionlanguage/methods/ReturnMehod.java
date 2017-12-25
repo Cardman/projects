@@ -49,7 +49,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
+    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
     }

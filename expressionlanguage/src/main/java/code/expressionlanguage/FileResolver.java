@@ -11,6 +11,7 @@ public final class FileResolver {
     private static final char END_LINE = ':';
     private static final char END_IMPORTS = ';';
     private static final char LINE_RETURN = '\n';
+    private static final char TAB = '\t';
     private static final char BEGIN_COMMENT = '/';
     private static final char SECOND_COMMENT = '*';
     private static final String COMMENT_LINE = "//";
@@ -125,6 +126,7 @@ public final class FileResolver {
         if (i_ >= len_) {
             return;
         }
+        boolean enabledTab_ = true;
         AccessEnum access_;
         int nextIndex_ = i_ + 1;
         if (_file.substring(nextIndex_).startsWith(KEY_WORD_PUBLIC)) {
@@ -143,19 +145,33 @@ public final class FileResolver {
             //ERROR
             return;
         }
-        if (_file.charAt(nextIndex_) != SPACE) {
+        //enabledTab_
+        if (!Character.isWhitespace(_file.charAt(nextIndex_))) {
             //ERROR
             return;
         }
-        if (nextIndex_ + 2 >= len_) {
+        while (nextIndex_ < len_) {
+            if (_file.charAt(nextIndex_) == LINE_RETURN) {
+                enabledTab_ = true;
+            } else if (_file.charAt(nextIndex_) != TAB) {
+                enabledTab_ = false;
+            } else if (!enabledTab_) {
+                //ERROR
+                return;
+            }
+            if (!Character.isWhitespace(_file.charAt(nextIndex_))) {
+                break;
+            }
+            nextIndex_++;
+        }
+        if (nextIndex_ > len_) {
             //ERROR
             return;
         }
-        if (_file.charAt(nextIndex_ + 1) != KEY_WORD_PREFIX) {
+        if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
             //ERROR
             return;
         }
-        nextIndex_++;
         nextIndex_++;
         String type_;
         if (_file.substring(nextIndex_).startsWith(KEY_WORD_CLASS)) {
@@ -171,16 +187,22 @@ public final class FileResolver {
             //ERROR
             return;
         }
+        enabledTab_ = true;
         while (nextIndex_ < len_) {
             char currentChar_ = _file.charAt(nextIndex_);
+            if (currentChar_ == LINE_RETURN) {
+                enabledTab_ = true;
+            } else if (currentChar_ != TAB) {
+                enabledTab_ = false;
+            } else if (!enabledTab_){
+                //ERROR
+                return;
+            }
             if (Character.isWhitespace(currentChar_)) {
-                if (_file.charAt(nextIndex_) != SPACE && _file.charAt(nextIndex_) != LINE_RETURN) {
-                    //ERROR
-                    return;
-                }
                 nextIndex_++;
                 continue;
             }
+            enabledTab_ = false;
             break;
         }
         if (!StringList.isWordChar(_file.charAt(nextIndex_))) {
@@ -196,6 +218,14 @@ public final class FileResolver {
         boolean foundInherit_ = false;
         while (nextIndex_ < len_) {
             char currentChar_ = _file.charAt(nextIndex_);
+            if (currentChar_ == LINE_RETURN) {
+                enabledTab_ = true;
+            } else if (currentChar_ != TAB) {
+                enabledTab_ = false;
+            } else if (!enabledTab_) {
+                //ERROR
+                return;
+            }
             if (currentChar_ == BEGIN_TEMPLATE) {
                 nbOpened_++;
             }

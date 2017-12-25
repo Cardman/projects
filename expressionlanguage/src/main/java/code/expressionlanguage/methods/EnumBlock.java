@@ -32,14 +32,9 @@ import code.util.graphs.Graph;
 
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
-    private final String superClass;
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
-
-    private final StringList directInterfaces = new StringList();
-
-    private final StringList allDirectInterfaces = new StringList();
 
     private final StringList allInterfaces = new StringList();
 
@@ -51,16 +46,15 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
         String superClass_ = _el.getAttribute(ATTRIBUTE_SUPER_CLASS);
-        if (superClass_.trim().isEmpty()) {
-            superClass_ = _importingPage.getStandards().getAliasObject();
+        if (!superClass_.trim().isEmpty()) {
+            getDirectSuperTypes().add(superClass_);
         }
-        superClass = superClass_;
         int i_ = CustList.FIRST_INDEX;
         while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
-            directInterfaces.add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
+            getDirectSuperTypes().add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
             i_++;
         }
-        directInterfaces.add(PredefinedClasses.ENUM_PARAM+LT+getFullName()+GT);
+        getDirectSuperTypes().add(PredefinedClasses.ENUM_PARAM+LT+getFullName()+GT);
     }
 
     @Override
@@ -208,12 +202,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public StringList getDirectGenericSuperTypes(ContextEl _classes) {
-        StringList superTypes_ = new StringList();
-        if (!StringList.quickEq(superClass, _classes.getStandards().getAliasObject())) {
-            superTypes_.add(superClass);
-        }
-        superTypes_.addAllElts(directInterfaces);
-        return superTypes_;
+        return getDirectSuperTypes();
     }
 
     @Override
@@ -221,9 +210,9 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         return allInterfaces;
     }
     @Override
-    public StringList getDirectInterfaces() {
+    public StringList getDirectInterfaces(ContextEl _classes) {
         StringList direct_ = new StringList();
-        for (String s: directInterfaces) {
+        for (String s: getDirectGenericInterfaces(_classes)) {
             int index_ = s.indexOf(LT);
             if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
                 direct_.add(s.substring(CustList.FIRST_INDEX, index_));
@@ -235,13 +224,15 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericInterfaces() {
-        return directInterfaces;
-    }
-
-    @Override
-    public StringList getAllDirectInterfaces() {
-        return allDirectInterfaces;
+    public StringList getDirectGenericInterfaces(ContextEl _classes) {
+        StringList interfaces_ = new StringList();
+        for (String s: getDirectSuperTypes()) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClasses().getClassBody(base_) instanceof InterfaceBlock) {
+                interfaces_.add(s);
+            }
+        }
+        return interfaces_;
     }
 
     @Override
@@ -295,7 +286,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     private boolean optionalCallConstr(ContextEl _cont) {
-        ClassMetaInfo clMeta_ = _cont.getClasses().getClassMetaInfo(superClass, _cont);
+        String superClass_ = getSuperClass(_cont);
+        ClassMetaInfo clMeta_ = _cont.getClasses().getClassMetaInfo(superClass_, _cont);
         if (clMeta_ == null) {
             return true;
         }
@@ -305,7 +297,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             return true;
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
-            CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesById(superClass, e.getKey());
+            CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesById(superClass_, e.getKey());
             if (!_cont.getClasses().canAccess(getFullName(), formatted_.first(), _cont)) {
                 continue;
             }
@@ -327,12 +319,12 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
+    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_NAME, getFullDefinition());
-        tr_.put(ATTRIBUTE_SUPER_CLASS, superClass);
+        tr_.put(ATTRIBUTE_SUPER_CLASS, getGenericSuperClass(_context));
         int i_ = 0;
-        for (String t: directInterfaces) {
+        for (String t: getDirectGenericInterfaces(_context)) {
             tr_.put(ATTRIBUTE_CLASS+i_, t);
             i_++;
         }
@@ -362,34 +354,42 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getDirectGenericSuperClasses(ContextEl _classes) {
         StringList classes_ = new StringList();
-        classes_.add(superClass);
+        classes_.add(getGenericSuperClass(_classes));
         return classes_;
     }
 
     @Override
     public StringList getDirectSuperClasses(ContextEl _classes) {
         StringList classes_ = new StringList();
-        int index_ = superClass.indexOf(LT);
+        String superClass_ = getGenericSuperClass(_classes);
+        int index_ = superClass_.indexOf(LT);
         if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-            classes_.add(superClass.substring(CustList.FIRST_INDEX, index_));
+            classes_.add(superClass_.substring(CustList.FIRST_INDEX, index_));
         } else {
-            classes_.add(superClass);
+            classes_.add(superClass_);
         }
         return classes_;
     }
 
     @Override
-    public String getSuperClass() {
-        int index_ = superClass.indexOf(LT);
+    public String getSuperClass(ContextEl _classes) {
+        String superClass_ = getGenericSuperClass(_classes);
+        int index_ = superClass_.indexOf(LT);
         if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-            return superClass.substring(CustList.FIRST_INDEX, index_);
+            return superClass_.substring(CustList.FIRST_INDEX, index_);
         }
-        return superClass;
+        return superClass_;
     }
 
     @Override
-    public String getGenericSuperClass() {
-        return superClass;
+    public String getGenericSuperClass(ContextEl _classes) {
+        for (String s: getDirectSuperTypes()) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClasses().getClassBody(base_) instanceof ClassBlock) {
+                return s;
+            }
+        }
+        return _classes.getStandards().getAliasObject();
     }
 
     @Override
@@ -446,7 +446,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         String objectAlias_ = _classes.getStandards().getAliasObject();
         while (!StringList.quickEq(current_, objectAlias_)) {
             UniqueRootedBlock r_ = (UniqueRootedBlock) _classes.getClasses().getClassBody(current_);
-            String superClass_ = r_.getSuperClass();
+            String superClass_ = r_.getSuperClass(_classes);
             superClasses_.add(superClass_);
             current_ = superClass_;
         }

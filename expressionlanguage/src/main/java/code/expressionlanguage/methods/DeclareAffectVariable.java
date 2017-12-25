@@ -12,7 +12,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
@@ -39,7 +38,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
+    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_CLASS, className);
         return tr_;

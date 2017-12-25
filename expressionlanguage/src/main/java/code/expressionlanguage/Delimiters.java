@@ -14,6 +14,10 @@ public final class Delimiters {
     private boolean partOfString;
     private Numbers<Integer> allowedOperatorsIndexes = new Numbers<Integer>();
     private Numbers<Integer> delStringsChars = new Numbers<Integer>();
+    private Numbers<Integer> delNumbers = new Numbers<Integer>();
+    private Numbers<Integer> delKeyWordSuper = new Numbers<Integer>();
+    private Numbers<Integer> delKeyWordClassChoice = new Numbers<Integer>();
+    private Numbers<Integer> delKeyWordStatic = new Numbers<Integer>();
 
     public Numbers<Integer> getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
@@ -21,6 +25,34 @@ public final class Delimiters {
 
     public Numbers<Integer> getDelStringsChars() {
         return delStringsChars;
+    }
+
+    public Numbers<Integer> getDelNumbers() {
+        return delNumbers;
+    }
+
+    public Numbers<Integer> getDelKeyWordSuper() {
+        return delKeyWordSuper;
+    }
+
+    public void setDelKeyWordSuper(Numbers<Integer> _delKeyWordSuper) {
+        delKeyWordSuper = _delKeyWordSuper;
+    }
+
+    public Numbers<Integer> getDelKeyWordClassChoice() {
+        return delKeyWordClassChoice;
+    }
+
+    public void setDelKeyWordClassChoice(Numbers<Integer> _delKeyWordClassChoice) {
+        delKeyWordClassChoice = _delKeyWordClassChoice;
+    }
+
+    public Numbers<Integer> getDelKeyWordStatic() {
+        return delKeyWordStatic;
+    }
+
+    public void setDelKeyWordStatic(Numbers<Integer> _delKeyWordStatic) {
+        delKeyWordStatic = _delKeyWordStatic;
     }
 
     public int getFirstPrintableChar() {

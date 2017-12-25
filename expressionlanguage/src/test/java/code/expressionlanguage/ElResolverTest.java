@@ -410,7 +410,7 @@ public class ElResolverTest {
         assertEq(0, opers_.size());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v;", values_.getVal(0));
+        assertEq("v", values_.getVal(0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -427,7 +427,7 @@ public class ElResolverTest {
         assertEq(0, opers_.size());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v;.", values_.getVal(0));
+        assertEq("v", values_.getVal(0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1756,7 +1756,7 @@ public class ElResolverTest {
         assertEq(0, opers_.size());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v; ", values_.getVal(0));
+        assertEq("v", values_.getVal(0));
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }

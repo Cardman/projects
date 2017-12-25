@@ -57,6 +57,8 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
 
+    private final StringList directSuperTypes = new StringList();
+
     RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -65,6 +67,10 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         packageName = _el.getAttribute(ATTRIBUTE_PACKAGE);
         access = AccessEnum.getAccessByName(_el.getAttribute(ATTRIBUTE_ACCESS));
         templateDef = _el.getAttribute(ATTRIBUTE_TEMPLATE_DEF);
+    }
+
+    protected StringList getDirectSuperTypes() {
+        return directSuperTypes;
     }
 
     public abstract StringList getAllGenericSuperClasses(ContextEl _classes);
@@ -197,6 +203,23 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         StringList idsField_ = new StringList();
         String className_ = getFullName();
         LgNames stds_ = _context.getStandards();
+        StringMap<StringList> varsGl_ = new StringMap<StringList>();
+        for (TypeVar t: getParamTypes()) {
+            varsGl_.put(t.getName(), t.getConstraints());
+        }
+        for (EntryCust<String, String> n: getClassNames(_context).entryList()) {
+            if (StringList.quickEq(n.getKey(), ATTRIBUTE_NAME)) {
+                continue;
+            }
+            String classNameLoc_ = n.getValue();
+            if (!Templates.correctClassParts(classNameLoc_, varsGl_, _context)) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(classNameLoc_);
+                un_.setFileName(className_);
+                un_.setRc(getRowCol(0, _context.getTabWidth(), n.getKey()));
+                _context.getClasses().getErrorsDet().add(un_);
+            }
+        }
         CustList<Block> bl_;
         bl_ = Classes.getDirectChildren(this);
         for (Block b: bl_) {
@@ -218,7 +241,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 }
             }
             for (Block a: blLoc_) {
-                for (EntryCust<String, String> n: a.getClassNames(stds_).entryList()) {
+                for (EntryCust<String, String> n: a.getClassNames(_context).entryList()) {
                     String classNameLoc_ = n.getValue();
                     if (StringList.quickEq(classNameLoc_, stds_.getAliasVoid())) {
                         if (a == b) {
@@ -932,7 +955,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             String name_ = c.getFullName();
             RootBlock r_ = classes_.getClassBody(name_);
             if (r_ instanceof InterfaceBlock) {
-                if (r_.getDirectInterfaces().containsStr(baseClassFound_)) {
+                if (((InterfaceBlock) r_).getDirectSuperInterfaces().containsStr(baseClassFound_)) {
                     subTypes_.add(name_);
                 }
             } else {
@@ -1459,5 +1482,4 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     public abstract StringList getAllNeededSortedInterfaces();
 
-    public abstract StringList getDirectInterfaces();
 }

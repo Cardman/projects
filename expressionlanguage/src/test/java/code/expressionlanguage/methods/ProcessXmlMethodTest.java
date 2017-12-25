@@ -11136,6 +11136,142 @@ public class ProcessXmlMethodTest {
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO", (String)field_.getInstance());
     }
+    @Test
+    public void instanceArgument112Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='$super$inst;;;.intValue()'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='2i'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.Integer' value='16i'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='5i'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExThree");
+        ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(16, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument113Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='$super$inst;;;+0i'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='2i'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='16i'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='5i'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExThree");
+        ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(16, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument114Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$classchoice$pkg$Ex$$inst;;;+0i'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExTwo");
+        ProcessXmlMethod.initializeClass("pkg.ExTwo", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExTwo", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "ance"));
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument115Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.Integer' value='2i'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$classchoice$pkg$Ex$$inst;;;.intValue()'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExTwo");
+        ProcessXmlMethod.initializeClass("pkg.ExTwo", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExTwo", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "ance"));
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, (Number)field_.getInstance());
+    }
     @Test(expected=UndefinedConstructorException.class)
     public void validateAll1FailTest() {
         StringMap<String> files_ = new StringMap<String>();

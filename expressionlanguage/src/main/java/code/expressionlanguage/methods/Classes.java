@@ -707,7 +707,11 @@ public final class Classes {
             String d_ = c.getKey();
             RootBlock bl_ = c.getValue();
             boolean int_ = bl_ instanceof InterfaceBlock;
+            int nbDirectSuperClass_ = 0;
             for (String s: bl_.getDirectSuperClasses(_context)) {
+                if (bl_ instanceof UniqueRootedBlock) {
+                    nbDirectSuperClass_++;
+                }
                 if (!classesBodies.contains(s)) {
                     if (!StringList.quickEq(s, objectClassName_)) {
                         UnknownClassName undef_;
@@ -761,6 +765,14 @@ public final class Classes {
                 }
                 inherit_.addSegment(new ClassEdge(d_), new ClassEdge(s));
             }
+            if (nbDirectSuperClass_ > 1) {
+                BadInheritedClass enum_;
+                enum_ = new BadInheritedClass();
+                enum_.setClassName(EMPTY_STRING);
+                enum_.setFileName(d_);
+                enum_.setRc(new RowCol());
+                errorsDet.add(enum_);
+            }
         }
         if (!errorsDet.isEmpty()) {
             return;
@@ -787,7 +799,7 @@ public final class Classes {
                 if (!(bl_ instanceof InterfaceBlock)) {
                     continue;
                 }
-                if (!bl_.getDirectInterfaces().isEmpty()) {
+                if (!((InterfaceBlock) bl_).getDirectSuperInterfaces().isEmpty()) {
                     continue;
                 }
                 String key_ = c.getKey();
@@ -807,7 +819,7 @@ public final class Classes {
                     continue;
                 }
                 UniqueRootedBlock unique_ = (UniqueRootedBlock) bl_;
-                if (!StringList.quickEq(unique_.getSuperClass(), objectClassName_)) {
+                if (!StringList.quickEq(unique_.getSuperClass(_context), objectClassName_)) {
                     continue;
                 }
                 String key_ = c.getKey();
@@ -876,8 +888,11 @@ public final class Classes {
         }
         for (String c: classesInheriting) {
             RootBlock bl_ = classesBodies.getVal(c);
+            if (!(bl_ instanceof UniqueRootedBlock)) {
+                continue;
+            }
             StringList all_ = bl_.getAllInterfaces();
-            StringList direct_ = bl_.getDirectInterfaces();
+            StringList direct_ = ((UniqueRootedBlock) bl_).getDirectInterfaces(_context);
             all_.addAllElts(direct_);
             for (String i: direct_) {
                 InterfaceBlock i_ = (InterfaceBlock) classesBodies.getVal(i);
@@ -1299,7 +1314,7 @@ public final class Classes {
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block e: bl_) {
                 Block b_ = e;
-                for (EntryCust<String, String> n: b_.getClassNames(stds_).entryList()) {
+                for (EntryCust<String, String> n: b_.getClassNames(_context).entryList()) {
                     String classNameLoc_ = n.getValue();
                     StringList parts_ = StringList.splitChars(classNameLoc_, LT, GT, ARR_BEG, COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
                     for (String p: parts_) {
@@ -2125,7 +2140,7 @@ public final class Classes {
             }
             boolean abs_ = clblock_.isAbstractType();
             boolean final_ = clblock_.isFinalType();
-            return new ClassMetaInfo(_name, ((UniqueRootedBlock) clblock_).getGenericSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
+            return new ClassMetaInfo(_name, ((UniqueRootedBlock) clblock_).getGenericSuperClass(_context), infosFields_,infos_, infosConst_, cat_, abs_, final_);
         }
         return null;
     }

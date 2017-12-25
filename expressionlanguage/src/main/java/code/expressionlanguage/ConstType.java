@@ -1,10 +1,21 @@
 package code.expressionlanguage;
 
 public enum ConstType {
-INTEGER,FLOAT_NUMBER,
-CHARACTER,STRING,
-SUPER_KEYWORD,STATIC_ACCESS,
-VARIABLE,CUST_FIELD,WORD,CLASSCHOICE_KEYWORD,
-THIS_KEYWORD,TRUE_CST,NULL_CST,FALSE_CST,
-NOTHING
+    NUMBER,
+    CHARACTER,STRING,
+    STATIC_ACCESS,
+    LOC_VAR(true),PARAM(true),CATCH_VAR(true),LOOP_VAR(true),LOOP_INDEX(true),
+    CUST_FIELD,WORD,CLASSCHOICE_KEYWORD,SUPER_KEYWORD,
+    THIS_KEYWORD,TRUE_CST,NULL_CST,FALSE_CST,
+    NOTHING;
+    boolean variable;
+    ConstType(){
+        
+    }
+    ConstType(boolean _variable){
+        variable = _variable;
+    }
+    public boolean isVariable() {
+        return variable;
+    }
 }

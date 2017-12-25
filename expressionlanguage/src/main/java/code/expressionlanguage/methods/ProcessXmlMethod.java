@@ -386,7 +386,7 @@ public final class ProcessXmlMethod {
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
             RootBlock root_ =  _conf.getClasses().getClassBody(curClassBase_);
             if (root_ instanceof UniqueRootedBlock) {
-                String superClass_ = ((UniqueRootedBlock) root_).getSuperClass();
+                String superClass_ = ((UniqueRootedBlock) root_).getSuperClass(_conf);
                 ClassMetaInfo s_ = _conf.getClasses().getClassMetaInfo(superClass_, _conf);
                 if (s_ != null && !_conf.getClasses().isInitialized(superClass_)) {
                     _conf.getClasses().initialize(superClass_);
@@ -420,7 +420,7 @@ public final class ProcessXmlMethod {
             RootBlock class_ = _conf.getClasses().getClassBody(curClassBase_);
             if (class_ instanceof UniqueRootedBlock) {
                 UniqueRootedBlock root_ = (UniqueRootedBlock) class_;
-                String superClassBase_ = root_.getSuperClass();
+                String superClassBase_ = root_.getSuperClass(_conf);
                 String objectClassName_ = _conf.getStandards().getAliasObject();
                 if (!calledImpl_ && !StringList.quickEq(superClassBase_, objectClassName_)) {
                     ip_.getCallingConstr().setCalledImplicitConstructor(true);

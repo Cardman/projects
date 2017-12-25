@@ -93,6 +93,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     private boolean catString;
 
+    private String variableName = EMPTY_STRING;
+
     public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -329,7 +331,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return;
         }
         str_ = StringList.removeAllSpaces(str_);
-        if (op_.getConstType() == ConstType.INTEGER || op_.getConstType() == ConstType.FLOAT_NUMBER) {
+        if (op_.getConstType() == ConstType.NUMBER) {
             ParsedArgument parsed_ = ParsedArgument.parse(str_, _conf);
             String argClassName_ = parsed_.getType();
             if (argClassName_.isEmpty()) {
@@ -358,7 +360,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             needGlobalArgument();
             ClassArgumentMatching cl_ = getPreviousResultClass();
             String clCurName_;
-            if (str_.contains(STATIC_CALL)) {
+            if (op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD) {
                 StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                 if (classMethod_.size() != 2) {
                     throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
@@ -393,18 +395,17 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     boolean superClassAccess_ = true;
                     FieldResult r_;
                     FieldInfo e_;
-                    if (str_.contains(STATIC_CALL)) {
+                    if (op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD) {
                         StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                         key_ = classMethod_.last();
-                        key_ = key_.substring(CustList.FIRST_INDEX, key_.length() - GET_FIELD.length());
                         superClassAccess_ = false;
                         r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
-                    } else if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
-                        key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length() - GET_FIELD.length());
+                    } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
+                        key_ = str_;
                         if (!(root_ instanceof UniqueRootedBlock)) {
                             throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
                         }
-                        String superClass_ = ((UniqueRootedBlock)root_).getSuperClass();
+                        String superClass_ = ((UniqueRootedBlock)root_).getSuperClass(_conf);
                         superClass_ = StringList.getAllTypes(superClass_).first();
                         superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, _conf);
                         if (StringList.quickEq(superClass_, stds_.getAliasObject())) {
@@ -413,7 +414,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         cl_ = new ClassArgumentMatching(superClass_);
                         r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
                     } else {
-                        key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
+                        key_ = str_;
                         superClassAccess_ = root_ instanceof UniqueRootedBlock;
                         r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
                     }
@@ -447,21 +448,21 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (cl_ == null || cl_.getName() == null) {
                 throw new NullGlobalObjectException(_conf.joinPages());
             }
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
+            String key_ = str_;
             analyzeNativeField(_conf, key_);
             return;
         }
-        if (op_.getConstType() == ConstType.VARIABLE) {
+        if (op_.getConstType().isVariable()) {
             if (isIntermediateDotted()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 throw new SettingMemberException(_conf.joinPages());
             }
-            if (str_.endsWith(GET_PARAM)) {
+            if (op_.getConstType() == ConstType.PARAM) {
                 if (getParent() == null) {
                     immutablePart = true;
                 }
-                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
-                LocalVariable locVar_ = ip_.getParameters().getVal(key_);
+                variableName = str_;
+                LocalVariable locVar_ = ip_.getParameters().getVal(variableName);
                 if (locVar_ != null) {
                     String paramType_ = locVar_.getClassName();
                     if (paramType_.endsWith(VARARG_SUFFIX)) {
@@ -471,23 +472,23 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     setResultClass(new ClassArgumentMatching(paramType_));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), key_, PARAMETER);
+                throw new UndefinedVariableException(_conf.joinPages(), variableName, PARAMETER);
             }
-            if (str_.endsWith(GET_CATCH_VAR)) {
+            if (op_.getConstType() == ConstType.CATCH_VAR) {
                 if (getParent() == null) {
                     immutablePart = true;
                 }
-                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_CATCH_VAR.length());
-                LocalVariable locVar_ = ip_.getCatchVars().getVal(key_);
+                variableName = str_;
+                LocalVariable locVar_ = ip_.getCatchVars().getVal(variableName);
                 if (locVar_ != null) {
                     setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), key_, CATCH_VARIABLE);
+                throw new UndefinedVariableException(_conf.joinPages(), variableName, CATCH_VARIABLE);
             }
-            if (str_.endsWith(GET_LOC_VAR)) {
-                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
-                LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
+            if (op_.getConstType() == ConstType.LOC_VAR) {
+                variableName = str_;
+                LocalVariable locVar_ = ip_.getLocalVars().getVal(variableName);
                 if (locVar_ != null) {
                     String c_ = locVar_.getClassName();
                     if (StringList.quickEq(c_, stringType_)) {
@@ -496,31 +497,31 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     setResultClass(new ClassArgumentMatching(c_));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), key_, LOCAL_VARIABLE);
+                throw new UndefinedVariableException(_conf.joinPages(), variableName, LOCAL_VARIABLE);
             }
-            if (str_.endsWith(GET_INDEX)) {
+            if (op_.getConstType() == ConstType.LOOP_INDEX) {
                 if (getParent() == null) {
                     immutablePart = true;
                 }
-                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
-                LoopVariable locVar_ = ip_.getVars().getVal(key_);
+                variableName = str_;
+                LoopVariable locVar_ = ip_.getVars().getVal(variableName);
                 if (locVar_ != null) {
                     setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), key_, INDEX);
+                throw new UndefinedVariableException(_conf.joinPages(), variableName, INDEX);
             }
-            if (str_.endsWith(GET_ATTRIBUTE)) {
+            if (op_.getConstType() == ConstType.LOOP_VAR) {
                 if (getParent() == null) {
                     immutablePart = true;
                 }
-                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
-                LoopVariable locVar_ = ip_.getVars().getVal(key_);
+                variableName = str_;
+                LoopVariable locVar_ = ip_.getVars().getVal(variableName);
                 if (locVar_ != null) {
                     setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), key_, ATTRIBUTE);
+                throw new UndefinedVariableException(_conf.joinPages(), variableName, ATTRIBUTE);
             }
         }
         needGlobalArgument();
@@ -552,13 +553,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             boolean superClassAccess_ = true;
             FieldResult r_;
             FieldInfo e_;
-            if (str_.contains(STATIC_CALL)) {
+            OperationsSequence op_ = getOperations();
+            if (op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD) {
                 StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                 key_ = classMethod_.last();
                 superClassAccess_ = false;
                 r_ = LgNames.getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
-            } else if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
-                key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length());
+            } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
+                key_ = str_;
                 if (!(root_ instanceof StandardClass)) {
                     throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
                 }
@@ -757,40 +759,36 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 return ArgumentCall.newArgument(a_);
             }
         }
-        if (str_.endsWith(GET_PARAM)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
-            LocalVariable locVar_ = ip_.getParameters().getVal(key_);
+        OperationsSequence op_ = getOperations();
+        if (op_.getConstType() == ConstType.PARAM) {
+            LocalVariable locVar_ = ip_.getParameters().getVal(variableName);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
             return ArgumentCall.newArgument(a_);
         }
-        if (str_.endsWith(GET_CATCH_VAR)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_CATCH_VAR.length());
-            LocalVariable locVar_ = ip_.getCatchVars().getVal(key_);
+        if (op_.getConstType() == ConstType.CATCH_VAR) {
+            LocalVariable locVar_ = ip_.getCatchVars().getVal(variableName);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
             return ArgumentCall.newArgument(a_);
         }
-        if (str_.endsWith(GET_LOC_VAR)) {
+        if (op_.getConstType() == ConstType.LOC_VAR) {
             if (resultCanBeSet()) {
                 return ArgumentCall.newArgument(Argument.createVoid());
             }
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
-            LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
+            LocalVariable locVar_ = ip_.getLocalVars().getVal(variableName);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
             return ArgumentCall.newArgument(a_);
         }
-        if (str_.endsWith(GET_INDEX)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
-            LoopVariable locVar_ = ip_.getVars().getVal(key_);
+        if (op_.getConstType() == ConstType.LOOP_INDEX) {
+            LoopVariable locVar_ = ip_.getVars().getVal(variableName);
             a_ = new Argument();
             a_.setStruct(new LongStruct(locVar_.getIndex()));
             return ArgumentCall.newArgument(a_);
         }
-        if (str_.endsWith(GET_ATTRIBUTE)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
-            LoopVariable locVar_ = ip_.getVars().getVal(key_);
+        if (op_.getConstType() == ConstType.LOOP_VAR) {
+            LoopVariable locVar_ = ip_.getVars().getVal(variableName);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
             return ArgumentCall.newArgument(a_);
@@ -831,12 +829,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        if (str_.endsWith(GET_LOC_VAR)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
-            LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
+        OperationsSequence op_ = getOperations();
+        if (op_.getConstType() == ConstType.LOC_VAR) {
+            LocalVariable locVar_ = ip_.getLocalVars().getVal(variableName);
             Argument left_ = new Argument();
             left_.setStruct(locVar_.getStruct());
             Argument right_ = ip_.getRightArgument();

@@ -6,7 +6,6 @@ import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -44,7 +43,7 @@ public final class Affectation extends Leaf implements StackableBlock {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
+    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
     }

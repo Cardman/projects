@@ -97,7 +97,6 @@ public abstract class OperationNode {
     protected static final String PAR_RIGHT_STR = ")";
     protected static final char SEP_ARG = ',';
     protected static final char FIRST_VAR_ARG = '?';
-    protected static final char GET_VAR = ';';
     protected static final char DOT_VAR = '.';
     protected static final char EXTERN_CLASS = '$';
     protected static final char INTERN_CLASS = '$';
@@ -114,13 +113,6 @@ public abstract class OperationNode {
     protected static final char MAX_ENCODE_LOW_LETTER = 'f';
     protected static final char MIN_ENCODE_UPP_LETTER = 'A';
     protected static final char MAX_ENCODE_UPP_LETTER = 'F';
-    protected static final String GET_INDEX = ";;";
-    protected static final String GET_CATCH_VAR = ";..";
-    protected static final String GET_LOC_VAR = ";.";
-    protected static final String GET_ATTRIBUTE = ";";
-    protected static final char MATH_INTERPRET = '`';
-    protected static final String GET_PARAM = ";.;";
-    protected static final String GET_FIELD = ";;;";
     protected static final String CURRENT_INTANCE = "$this";
     protected static final String STATIC_CALL = "$$";
     protected static final String CLASS_CHOICE = "classchoice";

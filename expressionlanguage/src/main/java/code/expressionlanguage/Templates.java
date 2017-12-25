@@ -788,7 +788,7 @@ public final class Templates {
         if (classes_ != null) {
             RootBlock r_ = classes_.getClassBody(_className);
             if (r_ instanceof UniqueRootedBlock) {
-                return ((UniqueRootedBlock)r_).getSuperClass();
+                return ((UniqueRootedBlock)r_).getSuperClass(_context);
             }
             if (r_ instanceof InterfaceBlock) {
                 return null;
@@ -817,7 +817,7 @@ public final class Templates {
         if (classes_ != null) {
             RootBlock r_ = classes_.getClassBody(baseClass_);
             if (r_ != null) {
-                return ((UniqueRootedBlock)r_).getGenericSuperClass();
+                return ((UniqueRootedBlock)r_).getGenericSuperClass(_context);
             }
             LgNames stds_ = _context.getStandards();
             if (StringList.quickEq(baseClass_, stds_.getAliasObject())) {
@@ -838,7 +838,7 @@ public final class Templates {
         if (classes_ != null) {
             RootBlock r_ = classes_.getClassBody(_className);
             if (r_ instanceof UniqueRootedBlock) {
-                return ((UniqueRootedBlock)r_).getDirectInterfaces();
+                return ((UniqueRootedBlock)r_).getDirectInterfaces(_context);
             }
             if (r_ instanceof InterfaceBlock) {
                 return ((InterfaceBlock)r_).getDirectSuperClasses(_context);
@@ -864,7 +864,7 @@ public final class Templates {
         if (classes_ != null) {
             RootBlock r_ = classes_.getClassBody(baseClass_);
             if (r_ instanceof UniqueRootedBlock) {
-                return ((UniqueRootedBlock)r_).getDirectGenericInterfaces().get(_index);
+                return ((UniqueRootedBlock)r_).getDirectGenericInterfaces(_context).get(_index);
             }
             if (r_ instanceof InterfaceBlock) {
                 return ((InterfaceBlock)r_).getDirectGenericSuperClasses(_context).get(_index);
