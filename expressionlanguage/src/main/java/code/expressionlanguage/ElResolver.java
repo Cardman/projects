@@ -22,6 +22,9 @@ public final class ElResolver {
 
     private static final String RETURN_LINE = "\n";
     private static final String EMPTY_STRING = "";
+    private static final char LINE_RETURN = '\n';
+    private static final char LINE_FEED = '\r';
+    private static final char TAB = '\t';
     private static final char ESCAPE_META_CHAR = '\\';
     private static final char DELIMITER_CHAR = 39;
     private static final char DELIMITER_STRING = 34;
@@ -722,6 +725,18 @@ public final class ElResolver {
         infos_.setNbChars(nbChars_);
         infos_.setUnicode(unicode_);
         infos_.setPart(_infos.isPart());
+        if (curChar_ == LINE_RETURN) {
+            infos_.setIndex(-i_);
+            return infos_;
+        }
+        if (curChar_ == TAB) {
+            infos_.setIndex(-i_);
+            return infos_;
+        }
+        if (curChar_ == LINE_FEED) {
+            infos_.setIndex(-i_);
+            return infos_;
+        }
         if (nbChars_ > 1 && _delimiter == DELIMITER_CHAR) {
             infos_.setIndex(-i_);
             return infos_;
@@ -1102,7 +1117,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.SUPER_KEYWORD);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string.substring(firstPrintChar_+(EXTERN_CLASS+SUPER+EXTERN_CLASS).length(), lastPrintChar_ - GET_FIELD.length() + 1));
+                op_.setValue(_string.substring(firstPrintChar_+(EXTERN_CLASS+SUPER+EXTERN_CLASS).length(), lastPrintChar_ - GET_FIELD.length() + 1), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1112,7 +1127,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string.substring(firstPrintChar_, lastPrintChar_ - GET_FIELD.length() + 1));
+                op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_FIELD.length() + 1),firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1142,7 +1157,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CUST_FIELD);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string.substring(firstPrintChar_, lastPrintChar_ - GET_FIELD.length() + 1));
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_FIELD.length() + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -1150,7 +1165,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.PARAM);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string.substring(firstPrintChar_, lastPrintChar_ - GET_PARAM.length() + 1));
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_PARAM.length() + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -1158,7 +1173,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CATCH_VAR);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string.substring(firstPrintChar_, lastPrintChar_ - GET_CATCH_VAR.length() + 1));
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_CATCH_VAR.length() + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -1166,7 +1181,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOC_VAR);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string.substring(firstPrintChar_, lastPrintChar_ - GET_LOC_VAR.length() + 1));
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_LOC_VAR.length() + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -1174,7 +1189,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOOP_INDEX);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string.substring(firstPrintChar_, lastPrintChar_ - GET_INDEX.length() + 1));
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_INDEX.length() + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -1182,7 +1197,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOOP_VAR);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string.substring(firstPrintChar_, lastPrintChar_ - GET_ATTRIBUTE.length() + 1));
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_ATTRIBUTE.length() + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }

@@ -3,8 +3,6 @@ import code.expressionlanguage.methods.util.ErrorList;
 
 public class AnalyzingErrorsException extends RuntimeException {
 
-    private static final String SEP_ERRORS = "\n";
-
     public AnalyzingErrorsException() {
     }
 

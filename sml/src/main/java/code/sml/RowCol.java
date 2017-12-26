@@ -1,8 +1,9 @@
 package code.sml;
 import code.util.Numbers;
 import code.util.ints.Cmp;
+import code.util.ints.Displayable;
 
-public final class RowCol implements Cmp<RowCol> {
+public final class RowCol implements Cmp<RowCol>, Displayable {
 
     private static final String SEP = ",";
 
@@ -11,8 +12,13 @@ public final class RowCol implements Cmp<RowCol> {
     private int col;
 
     @Override
-    public String toString() {
+    public String display() {
         return row+SEP+col;
+    }
+
+    @Override
+    public String toString() {
+        return display();
     }
 
     @Override

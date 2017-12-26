@@ -18,6 +18,14 @@ public final class OperationsSequence {
 
     private Delimiters delimiter;
 
+    private int offset;
+
+    public void setValue(String _string, int _offset) {
+        values = new NatTreeMap<Integer,String>();
+        values.put(CustList.FIRST_INDEX, _string);
+        offset = _offset;
+    }
+
     public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
@@ -136,4 +144,7 @@ public final class OperationsSequence {
         delimiter = _delimiter;
     }
 
+    public int getOffset() {
+        return offset;
+    }
 }

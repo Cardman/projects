@@ -8013,9 +8013,9 @@ public class ProcessXmlMethodTest {
         assertEq(REAL_ARR_OBJECT, field_.getRealClassName(cont_));
         assertEq(ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, ((Struct[])field_.getInstance()).length);
-        Object[] inter_ = (Object[]) field_.getInstance();
+        Struct[] inter_ = (Struct[]) field_.getInstance();
         assertEq(1, inter_.length);
-        Struct elt_ = (Struct) inter_[0];
+        Struct elt_ = inter_[0];
         assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, intern_.getRealClassName(cont_));
@@ -8169,9 +8169,9 @@ public class ProcessXmlMethodTest {
         assertEq(REAL_ARR_OBJECT, field_.getRealClassName(cont_));
         assertEq(ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, ((Struct[])field_.getInstance()).length);
-        Object[] inter_ = (Object[]) field_.getInstance();
+        Struct[] inter_ = (Struct[]) field_.getInstance();
         assertEq(1, inter_.length);
-        Struct elt_ = (Struct) inter_[0];
+        Struct elt_ = inter_[0];
         assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, intern_.getRealClassName(cont_));

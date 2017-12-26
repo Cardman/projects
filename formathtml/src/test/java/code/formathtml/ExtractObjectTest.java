@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -707,7 +708,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(true,ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true"));
+        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true"));
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -742,7 +743,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(false,ExtractObject.evaluateMathExpression(ip_, conf_, true, "false"));
+        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false"));
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -811,7 +812,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(false,ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
+        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        conf_.setDocument(doc_);
@@ -843,7 +844,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(true,ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
+        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
     }
 
     @Test

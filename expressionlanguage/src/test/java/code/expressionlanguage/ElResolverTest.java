@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
@@ -412,6 +413,7 @@ public class ElResolverTest {
         assertEq(1, values_.size());
         assertEq("v", values_.getVal(0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertSame(ConstType.LOOP_VAR, seq_.getConstType());
     }
 
     @Test
@@ -429,6 +431,7 @@ public class ElResolverTest {
         assertEq(1, values_.size());
         assertEq("v", values_.getVal(0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertSame(ConstType.LOC_VAR, seq_.getConstType());
     }
 
     @Test
@@ -1757,7 +1760,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("v", values_.getVal(0));
-    
+        assertSame(ConstType.LOOP_VAR, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2866,6 +2869,25 @@ public class ElResolverTest {
         assertEq(1, values_.size());
         assertEq("-a", values_.getVal(2));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence149Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = " v;";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("v", values_.getVal(0));
+        assertSame(ConstType.LOOP_VAR, seq_.getConstType());
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(1, seq_.getOffset());
     }
 
     @Test

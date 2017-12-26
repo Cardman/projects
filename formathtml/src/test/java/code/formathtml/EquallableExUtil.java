@@ -13,16 +13,9 @@ public class EquallableExUtil {
     private EquallableExUtil() {
     }
 
-    public static void assertEq(boolean _expected, Object _result) {
+    public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
-        Assert.assertSame(Boolean.class,_result.getClass());
-        Assert.assertTrue(_expected+DIFF+_result, _expected == ((Boolean)_result).booleanValue());
-    }
-
-    public static void assertEq(String _expected, Object _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertSame(String.class,_result.getClass());
-        Assert.assertTrue(_expected+DIFF+_result, StringList.quickEq(_expected, (String)_result));
+        Assert.assertTrue(_expected+DIFF+_result, StringList.quickEq(_expected, _result));
     }
 
     public static void assertEq(Rate _expected, Rate _result) {

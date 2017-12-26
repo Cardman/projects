@@ -227,7 +227,7 @@ public class ElUtilTest {
     public void processEl15Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("'\n'",0, context_);
+        Argument arg_ = ElUtil.processEl("'\\n'",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Character.class, res_.getClass());
         assertEq('\n', ((Character)res_).charValue());

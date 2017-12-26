@@ -21,6 +21,7 @@ import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
+import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotBooleanException;
@@ -61,7 +62,6 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.types.NativeTypeUtil;
-import code.serialize.ConstClasses;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
@@ -73,7 +73,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
-import code.util.ints.Countable;
 
 public final class FctOperation extends InvokingOperation {
 

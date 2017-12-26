@@ -11,8 +11,14 @@ public class Delimiters {
     private int childOffest;
     private int indexBegin;
     private int indexEnd;
+    private Numbers<Integer> allowedOperatorsIndexes = new Numbers<Integer>();
     private NatTreeMap<Integer,Integer> delimitersStringsChars = new NatTreeMap<Integer,Integer>();
     private NatTreeMap<Integer,Integer> callings = new NatTreeMap<Integer,Integer>();
+
+    public Numbers<Integer> getAllowedOperatorsIndexes() {
+        return allowedOperatorsIndexes;
+    }
+
     public boolean inStringOrCharConst(int _index) {
         for (EntryCust<Integer,Integer> e: delimitersStringsChars.entryList()) {
             if (e.getKey() <= _index && e.getValue() >= _index) {

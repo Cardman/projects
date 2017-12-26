@@ -103,12 +103,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
             String _fieldName, String _op) {
         OperationsSequence op_ = getOperations();
+        int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String argClName_;
-        if (StringList.removeAllSpaces(str_).isEmpty()) {
+        if (str_.isEmpty()) {
             throw new EmptyPartException(_conf.joinPages());
         }
         if (isVararg()) {
@@ -697,9 +698,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return ArgumentCall.newArgument(cur_);
         }
         Argument a_ = new Argument();
+        int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         PageEl ip_ = _conf.getLastPage();
         if (StringList.quickEq(str_, CURRENT_INTANCE)) {
@@ -828,8 +830,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         String cast_;
         null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
+        int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         OperationsSequence op_ = getOperations();
         if (op_.getConstType() == ConstType.LOC_VAR) {

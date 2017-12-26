@@ -73,13 +73,8 @@ public final class MathResolver {
         if (i_ >= len_) {
             throw new BadMathExpressionException(_string);
         }
-        while (i_ < len_) {
-            if (!StringList.isWordChar(_string.charAt(i_))) {
-                break;
-            }
-            i_++;
-        }
         i_ = CustList.FIRST_INDEX;
+        boolean enabledMinus_ = true;
         int beginCharString_ = 0;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
@@ -95,6 +90,7 @@ public final class MathResolver {
                     }
                     if (curChar_ == DELIMITER_STRING_END) {
                         constString_ = false;
+                        enabledMinus_ = true;
                         d_.getDelimitersStringsChars().put(beginCharString_, i_);
                         i_++;
                         continue;
@@ -120,6 +116,7 @@ public final class MathResolver {
                 throw new BadMathExpressionException(_string);
             }
             if (StringList.isWordChar(curChar_)) {
+                enabledMinus_ = true;
                 if (i_ + 1 < len_) {
                     if (Character.isWhitespace(_string.charAt(i_ + 1))) {
                         int j_ = i_ + 2;
@@ -182,6 +179,29 @@ public final class MathResolver {
                 if (parsBrackets_.isEmpty()) {
                     throw new BadMathExpressionException(_string);
                 }
+            }
+            boolean pureBinaryOp_ = false;
+            if (curChar_ == PLUS_CHAR) {
+                pureBinaryOp_ = true;
+            }
+            if (curChar_ == MULT_CHAR) {
+                pureBinaryOp_ = true;
+            }
+            if (curChar_ == DIV_CHAR) {
+                pureBinaryOp_ = true;
+            }
+            if (pureBinaryOp_) {
+                enabledMinus_ = false;
+            } else if (!Character.isWhitespace(curChar_) && curChar_ != MINUS_CHAR){
+                enabledMinus_ = true;
+            }
+            if (!enabledMinus_ && curChar_ == MINUS_CHAR) {
+                i_++;
+                continue;
+            }
+            d_.getAllowedOperatorsIndexes().add(i_);
+            if (curChar_ == MINUS_CHAR) {
+                enabledMinus_ = false;
             }
             i_++;
         }
@@ -266,6 +286,17 @@ public final class MathResolver {
         boolean escapedMeta_ = false;
         boolean useFct_ = false;
         String fctName_ = EMPTY_STRING;
+        if (_string.charAt(firstPrintChar_) == MINUS_CHAR) {
+            prio_ = UNARY_PRIO;
+            operators_.put(firstPrintChar_, String.valueOf(MINUS_CHAR));
+            i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
+        } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
+            if (firstPrintChar_ < lastPrintChar_ && _string.charAt(firstPrintChar_+1) != EQ_CHAR) {
+                prio_ = UNARY_PRIO;
+                operators_.put(firstPrintChar_, String.valueOf(NEG_BOOL_CHAR));
+                i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
+            }
+        }
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (constString_) {
@@ -313,70 +344,60 @@ public final class MathResolver {
                 }
                 continue;
             }
-            if (curChar_ == PAR_LEFT) {
-                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                    useFct_ = true;
-                    fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
-                    operators_.put(i_, String.valueOf(PAR_LEFT));
-                }
-                parsBrackets_.put(i_, curChar_);
-            }
-            if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
-                operators_.put(i_, String.valueOf(SEP_ARG));
-            }
-            if (curChar_ == PAR_RIGHT) {
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
-                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                    operators_.put(i_, String.valueOf(PAR_RIGHT));
-                }
-            }
-            if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
-                String builtOperator_ = EMPTY_STRING;
-                boolean clearOperators_ = false;
-                boolean foundOperator_ = false;
-                char nextChar_ = _string.charAt(i_ + 1);
-                int increment_ = 1;
-                if (curChar_ == NEG_BOOL_CHAR) {
-                    builtOperator_ += NEG_BOOL_CHAR;
-                    if (nextChar_ != EQ_CHAR) {
-                        if (prio_ > UNARY_PRIO) {
-                            foundOperator_ = true;
-                            prio_ = UNARY_PRIO;
-                        }
-                    } else {
-                        if (prio_ > EQ_PRIO) {
-                            clearOperators_ = true;
-                            prio_ = EQ_PRIO;
-                        }
-                        if (prio_ == EQ_PRIO) {
-                            builtOperator_ += EQ_CHAR;
-                            foundOperator_ = true;
-                        }
+            if (_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
+                if (curChar_ == PAR_LEFT) {
+                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                        useFct_ = true;
+                        fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
+                        operators_.put(i_, String.valueOf(PAR_LEFT));
                     }
-                    if (foundOperator_) {
-                        increment_ = getIncrement(_string, nextChar_ == EQ_CHAR, i_+1, lastPrintChar_);
+                    parsBrackets_.put(i_, curChar_);
+                }
+                if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
+                    operators_.put(i_, String.valueOf(SEP_ARG));
+                }
+                if (curChar_ == PAR_RIGHT) {
+                    parsBrackets_.removeKey(parsBrackets_.lastKey());
+                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                        operators_.put(i_, String.valueOf(PAR_RIGHT));
                     }
                 }
-                int prioOpMult_ = 0;
-                if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
-                    prioOpMult_ = ADD_PRIO;
-                } else if (curChar_ == MULT_CHAR || curChar_ == DIV_CHAR) {
-                    prioOpMult_ = MULT_PRIO;
-                } else if (curChar_ == AND_CHAR) {
-                    prioOpMult_ = AND_PRIO;
-                } else if (curChar_ == EQ_CHAR) {
-                    prioOpMult_ = EQ_PRIO;
-                } else if (curChar_ == OR_CHAR) {
-                    prioOpMult_ = OR_PRIO;
-                }
-                if (prioOpMult_ > 0) {
-                    builtOperator_ += curChar_;
-                    if (i_ == firstPrintChar_ && curChar_ == MINUS_CHAR) {
-                        if (prio_ > UNARY_PRIO) {
-                            foundOperator_ = true;
-                            prio_ = UNARY_PRIO;
+                if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
+                    String builtOperator_ = EMPTY_STRING;
+                    boolean clearOperators_ = false;
+                    boolean foundOperator_ = false;
+                    char nextChar_ = _string.charAt(i_ + 1);
+                    int increment_ = 1;
+                    if (curChar_ == NEG_BOOL_CHAR) {
+                        builtOperator_ += NEG_BOOL_CHAR;
+                        if (nextChar_ == EQ_CHAR) {
+                            if (prio_ > EQ_PRIO) {
+                                clearOperators_ = true;
+                                prio_ = EQ_PRIO;
+                            }
+                            if (prio_ == EQ_PRIO) {
+                                builtOperator_ += EQ_CHAR;
+                                foundOperator_ = true;
+                            }
                         }
-                    } else {
+                        if (foundOperator_) {
+                            increment_ = 2;
+                        }
+                    }
+                    int prioOpMult_ = 0;
+                    if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
+                        prioOpMult_ = ADD_PRIO;
+                    } else if (curChar_ == MULT_CHAR || curChar_ == DIV_CHAR) {
+                        prioOpMult_ = MULT_PRIO;
+                    } else if (curChar_ == AND_CHAR) {
+                        prioOpMult_ = AND_PRIO;
+                    } else if (curChar_ == EQ_CHAR) {
+                        prioOpMult_ = EQ_PRIO;
+                    } else if (curChar_ == OR_CHAR) {
+                        prioOpMult_ = OR_PRIO;
+                    }
+                    if (prioOpMult_ > 0) {
+                        builtOperator_ += curChar_;
                         if (prio_ > prioOpMult_) {
                             clearOperators_ = true;
                             prio_ = prioOpMult_;
@@ -385,34 +406,33 @@ public final class MathResolver {
                             foundOperator_ = true;
                         }
                     }
-                    increment_ = getIncrement(_string, false, i_+1, lastPrintChar_);
-                }
-                if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
-                    builtOperator_ += curChar_;
-                    if (prio_ > CMP_PRIO) {
-                        clearOperators_ = true;
-                        prio_ = CMP_PRIO;
-                    }
-                    if (prio_ == CMP_PRIO) {
-                        foundOperator_ = true;
+                    if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
+                        builtOperator_ += curChar_;
+                        if (prio_ > CMP_PRIO) {
+                            clearOperators_ = true;
+                            prio_ = CMP_PRIO;
+                        }
+                        if (prio_ == CMP_PRIO) {
+                            foundOperator_ = true;
+                        }
+                        if (foundOperator_) {
+                            if (nextChar_ == EQ_CHAR) {
+                                builtOperator_ += nextChar_;
+                                increment_++;
+                            }
+                        }
                     }
                     if (foundOperator_) {
-                        if (nextChar_ == EQ_CHAR) {
-                            builtOperator_ += nextChar_;
+                        if (clearOperators_) {
+                            useFct_ = false;
+                            fctName_ = EMPTY_STRING;
+                            operators_.clear();
                         }
-                        increment_ = getIncrement(_string, nextChar_ == EQ_CHAR, i_+1, lastPrintChar_);
+                        operators_.put(i_,builtOperator_);
                     }
+                    i_ += increment_;
+                    continue;
                 }
-                if (foundOperator_) {
-                    if (clearOperators_) {
-                        useFct_ = false;
-                        fctName_ = EMPTY_STRING;
-                        operators_.clear();
-                    }
-                    operators_.put(i_,builtOperator_);
-                }
-                i_ += increment_;
-                continue;
             }
             i_++;
         }
@@ -426,13 +446,9 @@ public final class MathResolver {
         return op_;
     }
 
-    static int getIncrement(String _string, boolean _preIncrement, int _from, int _to) {
+    static int getIncrement(String _string, int _from, int _to) {
         int increment_ = 1;
         int j_ = _from;
-        if (_preIncrement) {
-            j_++;
-            increment_++;
-        }
         while (j_ <= _to) {
             char ch_ = _string.charAt(j_);
             if (ch_ != MINUS_CHAR) {

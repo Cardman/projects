@@ -7946,7 +7946,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
     }
 
     @Test
@@ -8143,7 +8143,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Next text</body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
     }
     @Test
     public void processImports11Test() {
@@ -8183,7 +8183,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
     }
 
     @Test
@@ -8224,7 +8224,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Description <a n-a='1' href=\"\" c:command='$bean_two.go'>two</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
     }
 
     @Test
@@ -8265,7 +8265,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Description <a n-a='1' href=\"$bean_two.go\">two</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
     }
     @Test
     public void processImports14Test() {
@@ -8305,7 +8305,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
     }
 
     @Test
@@ -8420,7 +8420,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Next text</body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
     }
 
     @Test

@@ -1,11 +1,13 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.FileRowCol;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.UnknownBlockException;
 import code.expressionlanguage.methods.util.CallConstructor;
+import code.expressionlanguage.methods.util.Metrics;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
 import code.sml.DocumentBuilder;
@@ -99,8 +101,6 @@ public abstract class Block extends Blockable {
 
     private static final String TRUE_STRING = "true";
 
-    private Element associateElement;
-
     private BracedBlock parent;
 
     private final int indexChild;
@@ -115,18 +115,10 @@ public abstract class Block extends Blockable {
 
     private Block previousSibling;
 
-    private StringMap<RowCol> attributes;
-
-    private RowCol endHeader;
-
-    private StringMap<Numbers<Integer>> offsets;
-
-    private StringMap<Numbers<Integer>> tabs;
-
-    private StringMap<NatTreeMap<Integer,Integer>> encoded;
+    private Metrics metrics = new Metrics();
 
     Block(Element _el,int _indexChild, BracedBlock _m) {
-        associateElement = _el;
+        metrics.setAssociateElement(_el);
         parent = _m;
         indexChild = _indexChild;
         searching = new SearchingReturnThrow();
@@ -247,7 +239,7 @@ public abstract class Block extends Blockable {
         ((StackableBlockGroup)par_).exitStack(_conf);
     }
     public final RowCol getRowCol(int _offset, int _tabWidth,String _attribute) {
-        return DocumentBuilder.getOffset(_attribute, attributes, encoded, _offset, offsets, tabs, endHeader, _tabWidth);
+        return DocumentBuilder.getOffset(_attribute, getAttributes(), getEncoded(), _offset, getOffsets(), getTabs(), getEndHeader(), _tabWidth);
     }
 
     private static RowCol getRowColBeginElt(String _html, int _offset, int _tabWidth, Element _elt) {
@@ -255,19 +247,19 @@ public abstract class Block extends Blockable {
     }
 
     public final StringMap<NatTreeMap<Integer,Integer>> getEncoded() {
-        return encoded;
+        return metrics.getEncoded();
     }
     public final StringMap<Numbers<Integer>> getTabs() {
-        return tabs;
+        return metrics.getTabs();
     }
     public final StringMap<Numbers<Integer>> getOffsets() {
-        return offsets;
+        return metrics.getOffsets();
     }
     public final StringMap<RowCol> getAttributes() {
-        return attributes;
+        return metrics.getAttributes();
     }
     public final RowCol getEndHeader() {
-        return endHeader;
+        return metrics.getEndHeader();
     }
     @Override
     boolean canCallSuperThis() {
@@ -607,7 +599,7 @@ public abstract class Block extends Blockable {
         }
     }
     public final void setupChars(String _html) {
-        encoded = DocumentBuilder.getSpecialChars(_html, associateElement);
+        metrics.setEncoded(DocumentBuilder.getSpecialChars(_html, getAssociateElement()));
     }
 
     protected final void removeLocalVariablesFromParent(ContextEl _cont) {
@@ -734,10 +726,10 @@ public abstract class Block extends Blockable {
         throw new UnknownBlockException(_el.getTagName(), rc_);
     }
     public final Element getAssociateElement() {
-        return associateElement;
+        return metrics.getAssociateElement();
     }
     public final void setNullAssociateElement() {
-        associateElement = null;
+        metrics.setAssociateElement(null);
     }
     protected final Block getPreviousSibling() {
         return previousSibling;
@@ -762,7 +754,7 @@ public abstract class Block extends Blockable {
         String html_ = _context.getHtml();
         int tabWidth_ = _context.getTabWidth();
         ElementOffsetsNext e_ = _context.getElements();
-        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, associateElement, tabWidth_);
+        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, getAssociateElement(), tabWidth_);
         setAttributes(ne_.getAttributes());
         setEndHeader(ne_.getEndHeader());
         setTabs(ne_.getTabs());
@@ -776,22 +768,28 @@ public abstract class Block extends Blockable {
         previousSibling = _previousSibling;
     }
     final void setAttributes(StringMap<RowCol> _attributes) {
-        attributes = _attributes;
+        metrics.setAttributes(_attributes);
     }
     final void setEndHeader(RowCol _endHeader) {
-        endHeader = _endHeader;
+        metrics.setEndHeader(_endHeader);
     }
     final void setOffsets(StringMap<Numbers<Integer>> _offsets) {
-        offsets = _offsets;
+        metrics.setOffsets(_offsets);
     }
     final void setTabs(StringMap<Numbers<Integer>> _tabs) {
-        tabs = _tabs;
+        metrics.setTabs(_tabs);
     }
 
     public final BracedBlock getParent() {
         return parent;
     }
 
+    public StringMap<FileRowCol> getFileAttributes() {
+        return metrics.getFileAttributes();
+    }
+    public void setFileAttributes(StringMap<FileRowCol> _fileAttributes) {
+        metrics.setFileAttributes(_fileAttributes);
+    }
     public final boolean hasChildNodes() {
         return getFirstChild() != null;
     }
