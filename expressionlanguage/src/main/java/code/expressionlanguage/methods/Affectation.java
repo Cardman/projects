@@ -30,6 +30,14 @@ public final class Affectation extends Leaf implements StackableBlock {
         rightMember = _el.getAttribute(ATTRIBUTE_RIGHT);
     }
 
+    public Affectation(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _left, String _op, String _right) {
+        super(_importingPage, _indexChild, _m);
+        leftMember = _left;
+        oper = _op;
+        rightMember = _right;
+    }
+
     public String getLeftMember() {
         return leftMember;
     }

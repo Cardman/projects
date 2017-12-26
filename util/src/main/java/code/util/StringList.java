@@ -1421,6 +1421,29 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return true;
     }
 
+    public static String concat(CharSequence... _strings) {
+        StringBuilder str_ = new StringBuilder();
+        for (CharSequence s: _strings) {
+            str_.append(s);
+        }
+        return str_.toString();
+    }
+
+    public static String concatNbs(CharSequence _string,Number... _nbs) {
+        StringBuilder str_ = new StringBuilder(_string);
+        for (Number s: _nbs) {
+            str_.append(s);
+        }
+        return str_.toString();
+    }
+
+    public static String concatNb(Number _nb,CharSequence _string) {
+        StringBuilder str_ = new StringBuilder(_string);
+        str_.append(_nb);
+        str_.append(_string);
+        return str_.toString();
+    }
+
     public static String escape(String _input) {
         int length_ = _input.length();
         char[] newArray_ = new char[length_];

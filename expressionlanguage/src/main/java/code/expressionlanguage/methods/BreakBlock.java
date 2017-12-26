@@ -17,6 +17,12 @@ public final class BreakBlock extends Leaf implements CallingFinally {
         setStoppable(true);
     }
 
+    public BreakBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+        setStoppable(true);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

@@ -24,6 +24,12 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         condition = _el.getAttribute(ATTRIBUTE_CONDITION);
     }
 
+    public Condition(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _condition) {
+        super(_importingPage, _indexChild, _m);
+        condition = _condition;
+    }
+
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();

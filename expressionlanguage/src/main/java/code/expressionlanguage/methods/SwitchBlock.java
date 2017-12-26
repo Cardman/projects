@@ -28,6 +28,11 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         value = _el.getAttribute(ATTRIBUTE_VALUE);
     }
 
+    public SwitchBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, String _value) {
+        super(_importingPage, _indexChild, _m);
+        value = _value;
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

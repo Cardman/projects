@@ -12,6 +12,11 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         super(_el, _indexChild, _m);
     }
 
+    BracedBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_indexChild, _m);
+    }
+
     public final void appendChild(Block _child) {
         if (firstChild == null) {
             firstChild = _child;

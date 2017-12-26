@@ -30,6 +30,12 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         value = _el.getAttribute(ATTRIBUTE_VALUE);
     }
 
+    public CaseCondition(ContextEl _importingPage,
+            int _indexChild, BracedBlock _m, String _expression) {
+        super(_importingPage, _indexChild, _m);
+        value = _expression;
+    }
+
     public String getValue() {
         return value;
     }

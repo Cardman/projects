@@ -23,6 +23,15 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public ConstructorBlock(ContextEl _importingPage,
+            int _indexChild, BracedBlock _m,
+            AccessEnum _access,
+            String _retType, String _fctName,
+            StringList _paramTypes,
+            StringList _paramNames) {
+        super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramNames);
+    }
+
     @Override
     public String getSignature() {
         return getId().getSignature();

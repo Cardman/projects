@@ -123,6 +123,11 @@ public abstract class Block extends Blockable {
         indexChild = _indexChild;
         searching = new SearchingReturnThrow();
     }
+    Block(int _indexChild, BracedBlock _m) {
+        parent = _m;
+        indexChild = _indexChild;
+        searching = new SearchingReturnThrow();
+    }
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
             _cont.getLastPage().setCurrentBlock(_block);

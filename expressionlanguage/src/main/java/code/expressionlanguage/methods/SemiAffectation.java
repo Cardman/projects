@@ -33,6 +33,13 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         oper = _el.getAttribute(ATTRIBUTE_OPER);
     }
 
+    public SemiAffectation(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _left, String _oper) {
+        super(_importingPage, _indexChild, _m);
+        leftMember = _left;
+        oper = _oper;
+    }
+
     public String getLeftMember() {
         return leftMember;
     }

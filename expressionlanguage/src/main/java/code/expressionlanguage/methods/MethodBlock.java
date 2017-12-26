@@ -32,6 +32,20 @@ public final class MethodBlock extends NamedFunctionBlock {
         normalMethod = StringList.quickEq(modifier_, VALUE_NORMAL);
         declaringType = getRooted().getFullName();
     }
+    public MethodBlock(ContextEl _importingPage,
+            int _indexChild, BracedBlock _m,
+            AccessEnum _access,
+            String _retType, String _fctName,
+            StringList _paramTypes,
+            StringList _paramNames,
+            String _modifier) {
+        super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramNames);
+        staticMethod = StringList.quickEq(_modifier, VALUE_STATIC);
+        finalMethod = StringList.quickEq(_modifier, VALUE_FINAL);
+        abstractMethod = StringList.quickEq(_modifier, VALUE_ABSTRACT);
+        normalMethod = StringList.quickEq(_modifier, VALUE_NORMAL);
+        declaringType = getRooted().getFullName();
+    }
 
     @Override
     public String getSignature() {

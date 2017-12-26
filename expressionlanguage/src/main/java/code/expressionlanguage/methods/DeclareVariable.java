@@ -21,6 +21,13 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         className = _el.getAttribute(ATTRIBUTE_CLASS);
     }
 
+    public DeclareVariable(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _className, String _variableName) {
+        super(_importingPage, _indexChild, _m);
+        className = _className;
+        variableName = _variableName;
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

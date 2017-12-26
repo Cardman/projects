@@ -16,6 +16,12 @@ public final class ContinueBlock extends Leaf implements CallingFinally {
         setStoppable(true);
     }
 
+    public ContinueBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+        setStoppable(true);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

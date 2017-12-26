@@ -23,6 +23,13 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         variableName = _el.getAttribute(ATTRIBUTE_VAR);
     }
 
+    public CatchEval(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _className, String _variable) {
+        super(_importingPage, _indexChild, _m);
+        className = _className;
+        variableName = _variable;
+    }
+
     public String getClassName() {
         return className;
     }

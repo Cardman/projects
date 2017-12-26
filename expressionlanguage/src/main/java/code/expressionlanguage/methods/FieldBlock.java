@@ -48,6 +48,20 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         finalField = _el.hasAttribute(ATTRIBUTE_FINAL);
         access = AccessEnum.getAccessByName(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
+
+    public FieldBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, AccessEnum _access,
+            boolean _static, boolean _final,
+            String _name, String _type, String _value) {
+        super(_importingPage, _indexChild, _m);
+        access = _access;
+        staticField = _static;
+        finalField = _final;
+        fieldName = _name;
+        className = _type;
+        value = _value;
+    }
+
     public Struct getDefaultStruct(ContextEl _cont) {
         if (value.isEmpty()) {
             return StdStruct.defaultClass(className, _cont);

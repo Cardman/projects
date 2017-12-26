@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.FileRowCol;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
@@ -11,6 +12,7 @@ import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
@@ -21,6 +23,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -56,6 +59,16 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         String modifier_ = _el.getAttribute(ATTRIBUTE_MODIFIER);
         finalType = StringList.quickEq(modifier_, VALUE_FINAL);
         abstractType = StringList.quickEq(modifier_, VALUE_ABSTRACT);
+    }
+
+    public ClassBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _name, String _packageName, AccessEnum _access,
+            String _templateDef, ObjectMap<FileRowCol, String> _directSuperTypes,
+            boolean _finalType,
+            boolean _abstractType) {
+        super(_importingPage, _indexChild, _m, _name, _packageName, _access, _templateDef, _directSuperTypes);
+        finalType = _finalType;
+        abstractType = _abstractType;
     }
 
     @Override

@@ -36,6 +36,14 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
         setStoppable(true);
     }
 
+    public ReturnMehod(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _expression) {
+        super(_importingPage, _indexChild, _m);
+        setExitable(true);
+        setStoppable(true);
+        expression = _expression;
+    }
+
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         BracedBlock b_ = getParent();
@@ -55,7 +63,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
     }
 
     public boolean isEmpty() {
-        return expression.isEmpty();
+        return expression.trim().isEmpty();
     }
 
     public String getExpression() {
@@ -90,7 +98,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         page_.setOffset(0);
         if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
-            if (!expression.isEmpty()) {
+            if (!isEmpty()) {
                 throw new BadReturnException(_cont.joinPages());
             }
         } else {

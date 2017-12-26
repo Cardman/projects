@@ -37,6 +37,14 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         rightMember = _el.getAttribute(ATTRIBUTE_EXPRESSION);
     }
 
+    public DeclareAffectVariable(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _className, String _variableName, String _right) {
+        super(_importingPage, _indexChild, _m);
+        className = _className;
+        variableName = _variableName;
+        rightMember = _right;
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

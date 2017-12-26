@@ -14,6 +14,11 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public ElseIfCondition(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _condition) {
+        super(_importingPage, _indexChild, _m, _condition);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

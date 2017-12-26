@@ -14,6 +14,11 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public DefaultCondition(ContextEl _importingPage,
+            int _indexChild, BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

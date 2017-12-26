@@ -14,6 +14,11 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public ElseCondition(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

@@ -12,6 +12,10 @@ public final class StaticBlock extends MemberCallingsBlock implements AloneBlock
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public StaticBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
+
     @Override
     public void checkFctBlocksTree(ContextEl _cont) {
         if (getFirstChild() == null) {

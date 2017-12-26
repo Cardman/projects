@@ -12,6 +12,11 @@ public final class InstanceBlock extends MemberCallingsBlock implements AloneBlo
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public InstanceBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
+
     @Override
     public void checkFctBlocksTree(ContextEl _cont) {
         if (getFirstChild() == null) {

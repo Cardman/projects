@@ -53,6 +53,42 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
     }
 
+    public NamedFunctionBlock(ContextEl _importingPage,
+            int _indexChild, BracedBlock _m,
+            AccessEnum _access,
+            String _retType, String _fctName,
+            StringList _paramTypes,
+            StringList _paramNames) {
+        super(_importingPage, _indexChild, _m);
+        name = _fctName;
+        parametersTypes = new StringList();
+        int i_ = CustList.FIRST_INDEX;
+        int len_ = _paramTypes.size();
+        boolean varargs_ = false;
+        while (i_ < len_) {
+            String className_ = _paramTypes.get(i_);
+            if (i_+1 == len_) {
+                varargs_ = className_.endsWith(VARARG);
+                if (varargs_) {
+                    parametersTypes.add(className_.substring(CustList.FIRST_INDEX, className_.length()-VARARG.length()));
+                } else {
+                    parametersTypes.add(className_);
+                }
+            } else {
+                parametersTypes.add(className_);
+            }
+            i_++;
+        }
+        varargs = varargs_;
+        access = _access;
+        returnType = _retType;
+        parametersNames = new StringList();
+        i_ = CustList.FIRST_INDEX;
+        while (i_ < len_) {
+            parametersNames.add(_paramNames.get(i_));
+            i_++;
+        }
+    }
 
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {

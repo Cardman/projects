@@ -1,11 +1,13 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.FileRowCol;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.sml.Element;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class InterfaceBlock extends RootBlock {
@@ -26,6 +28,12 @@ public final class InterfaceBlock extends RootBlock {
             getDirectSuperTypes().add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
             i_++;
         }
+    }
+
+    public InterfaceBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _name, String _packageName, AccessEnum _access,
+            String _templateDef, ObjectMap<FileRowCol, String> _directSuperTypes) {
+        super(_importingPage, _indexChild, _m, _name, _packageName, _access, _templateDef, _directSuperTypes);
     }
 
     @Override

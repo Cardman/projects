@@ -2205,12 +2205,13 @@ public final class DocumentBuilder {
             res_.setLocation(rc_);
             return res_;
         }
+        col_ = 0;
         i_++;
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
             if (curChar_ == LINE_RETURN) {
                 row_ ++;
-                col_ = 1;
+                col_ = 0;
             } else {
                 col_++;
                 if (curChar_ == TAB) {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.FileRowCol;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -59,6 +60,8 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     private final StringList directSuperTypes = new StringList();
 
+    private ObjectMap<FileRowCol, String> rowColDirectSuperTypes;
+
     RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -67,6 +70,18 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         packageName = _el.getAttribute(ATTRIBUTE_PACKAGE);
         access = AccessEnum.getAccessByName(_el.getAttribute(ATTRIBUTE_ACCESS));
         templateDef = _el.getAttribute(ATTRIBUTE_TEMPLATE_DEF);
+    }
+
+    RootBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _name, String _packageName, AccessEnum _access, String _templateDef, ObjectMap<FileRowCol, String> _directSuperTypes) {
+        super(_importingPage, _indexChild, _m);
+        allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
+        name = _name;
+        packageName = _packageName;
+        access = _access;
+        templateDef = _templateDef;
+        rowColDirectSuperTypes = _directSuperTypes;
+        directSuperTypes.addAllElts(_directSuperTypes.values());
     }
 
     protected StringList getDirectSuperTypes() {

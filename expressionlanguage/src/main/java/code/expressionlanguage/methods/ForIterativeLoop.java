@@ -62,6 +62,26 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         setAlwaysSkipped(true);
     }
 
+    public ForIterativeLoop(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m,
+            String _className, String _variable,
+            String _from,
+            String _to, boolean _eq, String _step, String _classIndex) {
+        super(_importingPage, _indexChild, _m);
+        className = _className;
+        variableName = _variable;
+        init = _from;
+        expression = _to;
+        step = _step;
+        eq = _eq;
+        String classIndex_ = _classIndex;
+        if (classIndex_.isEmpty()) {
+            classIndex_ = _importingPage.getStandards().getAliasLong();
+        }
+        classIndexName = classIndex_;
+        setAlwaysSkipped(true);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

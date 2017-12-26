@@ -9,4 +9,8 @@ public abstract class BracedStack extends BracedBlock {
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    BracedStack(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
 }

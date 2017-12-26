@@ -12,6 +12,11 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    MemberCallingsBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
+
     @Override
     public void checkFctBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof RootBlock)) {

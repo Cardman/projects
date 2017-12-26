@@ -39,6 +39,12 @@ public final class Line extends Leaf implements StackableBlock {
         expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
     }
 
+    public Line(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _left) {
+        super(_importingPage, _indexChild, _m);
+        expression = _left;
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

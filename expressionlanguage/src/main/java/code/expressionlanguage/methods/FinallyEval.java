@@ -15,6 +15,10 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public FinallyEval(ContextEl _importingPage, int _indexChild, BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

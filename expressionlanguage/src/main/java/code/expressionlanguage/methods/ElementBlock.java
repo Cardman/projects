@@ -31,6 +31,13 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         value = _el.getAttribute(ATTRIBUTE_VALUE);
     }
 
+    public ElementBlock(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m, String _fieldName, String _value) {
+        super(_importingPage, _indexChild, _m);
+        fieldName = _fieldName;
+        value = _value;
+    }
+
     public ExpressionLanguage getValueEl() {
         return new ExpressionLanguage(opValue);
     }

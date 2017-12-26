@@ -14,6 +14,10 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public DoBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();

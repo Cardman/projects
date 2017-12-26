@@ -8,6 +8,11 @@ public abstract class Leaf extends Block implements WithEl {
         super(_el, _indexChild, _m);
     }
 
+    Leaf(ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_indexChild, _m);
+    }
+
     @Override
     public void checkBlocksTree(ContextEl _cont) {
     }

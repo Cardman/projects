@@ -14,6 +14,10 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public TryEval(ContextEl _importingPage, int _indexChild, BracedBlock _m) {
+        super(_importingPage, _indexChild, _m);
+    }
+
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
