@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -151,6 +152,9 @@ public final class Classes {
         processCustomClass(cl_, true, _content, _context, ne_);
     }
     private void processCustomClass(RootBlock _root, boolean _predefined, String _content, ContextEl _context, ElementOffsetsNext _elt) {
+        if (classesBodies.contains(_root.getFullName())) {
+            throw new AlreadyExistingClassException(_root.getFullName());
+        }
         RootBlock bl_ = _root;
         ElementOffsetsNext ne_ = _elt;
         bl_.setAttributes(ne_.getAttributes());
@@ -242,6 +246,99 @@ public final class Classes {
             b.setupChars(_content);
             b.setCompleteGroup();
             b.setNullAssociateElement();
+        }
+        String fullName_ = cl_.getFullName();
+        initializedClasses.put(fullName_, false);
+        classesBodies.put(fullName_, cl_);
+    }
+    public void processBracedClass(RootBlock _root, boolean _predefined, ContextEl _context) {
+        if (classesBodies.contains(_root.getFullName())) {
+            throw new AlreadyExistingClassException(_root.getFullName());
+        }
+        RootBlock bl_ = _root;
+        RootBlock cl_ = bl_;
+        String packageName_;
+        packageName_ = cl_.getPackageName();
+        LgNames lgNames_ = _context.getStandards();
+        if (!_predefined) {
+            if (packageName_.isEmpty()) {
+                throw new BadClassNameException(cl_.getFullName());
+            }
+            StringList elements_ = StringList.splitChars(packageName_, DOT);
+            for (String e: elements_) {
+                if (!StringList.isWord(e)) {
+                    throw new BadClassNameException(cl_.getFullName());
+                }
+            }
+            String className_;
+            className_ = cl_.getName();
+            if (!StringList.isWord(className_)) {
+                throw new BadClassNameException(cl_.getFullName());
+            }
+        }
+        String fullDef_ = cl_.getFullDefinition();
+        StringList params_ = StringList.getAllTypes(fullDef_);
+        if (params_ == null) {
+            throw new BadClassNameException(fullDef_);
+        }
+        StringList varTypes_ = new StringList();
+        String objectClassName_ = _context.getStandards().getAliasObject();
+        for (String p: params_.mid(CustList.SECOND_INDEX)) {
+            if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                throw new BadClassNameException(fullDef_);
+            }
+            String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
+            TypeVar type_ = new TypeVar();
+            int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
+            StringList parts_ = StringList.splitInTwo(name_, indexDef_);
+            if (!StringList.isWord(parts_.first())) {
+                throw new BadClassNameException(fullDef_);
+            }
+            if (varTypes_.containsStr(parts_.first())) {
+                throw new BadClassNameException(fullDef_);
+            }
+            varTypes_.add(parts_.first());
+            StringList constraints_ = new StringList();
+            if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
+                for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
+                    if (!isCorrectTemplate(b, _context)) {
+                        throw new BadClassNameException(b);
+                    }
+                    constraints_.add(b);
+                }
+            } else {
+                constraints_.add(objectClassName_);
+            }
+            type_.setConstraints(constraints_);
+            type_.setName(parts_.first());
+            cl_.getParamTypes().add(type_);
+        }
+        cl_.buildMapParamType();
+        for (String s: cl_.getDirectGenericSuperTypes(_context)) {
+            if (!isCorrectTemplate(s, _context)) {
+                throw new BadClassNameException(s);
+            }
+        }
+        for (TypeVar t: cl_.getParamTypes()) {
+            for (String u: t.getConstraints()) {
+                if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                    continue;
+                }
+                if (!cl_.getParamTypesMap().contains(u.substring(1))) {
+                    throw new BadClassNameException(u);
+                }
+            }
+        }
+        if (lgNames_.getStandards().contains(cl_.getFullName())) {
+            throw new AlreadyExistingClassException(cl_.getFullName());
+        }
+        if (PrimitiveTypeUtil.isPrimitive(cl_.getFullName(), _context)) {
+            throw new AlreadyExistingClassException(cl_.getFullName());
+        }
+        Block rootBl_ = cl_;
+        CustList<Block> all_ = getSortedDescNodes(rootBl_);
+        for (Block b: all_) {
+            b.setCompleteGroup();
         }
         String fullName_ = cl_.getFullName();
         initializedClasses.put(fullName_, false);
@@ -340,8 +437,6 @@ public final class Classes {
         }
     }
     public void tryBuildClassesBodies(StringMap<String> _files, ContextEl _context) {
-        StringList classesFiles_ = new StringList();
-        StringList classes_ = new StringList();
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             try {
@@ -384,14 +479,6 @@ public final class Classes {
                     }
                 }
                 String content_ = f.getValue();
-                file_ = file_.substring(CustList.FIRST_INDEX, file_.indexOf(DOT));
-                file_ = file_.replace(SEP_FILE, DOT);
-                for (String e: classesFiles_) {
-                    if (e.equalsIgnoreCase(file_)) {
-                        throw new AlreadyExistingClassException(file_);
-                    }
-                }
-                classesFiles_.add(file_);
                 DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(content_);
                 Document doc_ = res_.getDocument();
                 if (doc_ == null) {
@@ -410,12 +497,6 @@ public final class Classes {
                 }
                 int tabWidth_ = _context.getTabWidth();
                 RootBlock cl_ = (RootBlock) bl_;
-                for (String e: classes_) {
-                    if (StringList.quickEq(e, cl_.getFullName())) {
-                        throw new AlreadyExistingClassException(file_);
-                    }
-                }
-                classes_.add(cl_.getFullName());
                 ElementOffsetsNext e_ = _context.getElements();
                 ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(content_, e_, root_, tabWidth_);
                 processCustomClass(cl_, false, content_, _context, ne_);
@@ -461,6 +542,60 @@ public final class Classes {
         content_ = PredefinedClasses.getEnumParamType(_context);
         processPredefinedClass(content_, _context);
         _context.setHtml(EMPTY_STRING);
+    }
+    public void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
+        for (EntryCust<String,String> f: _files.entryList()) {
+            String file_ = f.getKey();
+            try {
+                String content_ = f.getValue();
+                FileResolver.parseFile(file_, content_, false, _context);
+            } catch (UnknownBlockException _0) {
+                RowCol where_ = _0.getRc();
+                UnexpectedTagName t_ = new UnexpectedTagName();
+                t_.setRc(where_);
+                t_.setFileName(file_);
+                t_.setFoundTag(_0.getMessage());
+                errorsDet.add(t_);
+            } catch (BadClassNameException _0) {
+                BadClassName bad_ = new BadClassName();
+                bad_.setClassName(_0.getMessage());
+                bad_.setRc(new RowCol());
+                bad_.setFileName(file_);
+                errorsDet.add(bad_);
+            } catch (BadFileNameException _0) {
+                BadFileName bad_ = new BadFileName();
+                bad_.setRc(new RowCol());
+                bad_.setFileName(file_);
+                errorsDet.add(bad_);
+            } catch (XmlParseException _0) {
+                //TODO change later class
+                BadFileName bad_ = new BadFileName();
+                bad_.setRc(_0.getRowCol());
+                bad_.setFileName(file_);
+                errorsDet.add(bad_);
+            } catch (AlreadyExistingClassException _0) {
+                //TODO change later class
+                BadClassName bad_ = new BadClassName();
+                bad_.setClassName(_0.getMessage());
+                bad_.setRc(new RowCol());
+                bad_.setFileName(file_);
+                errorsDet.add(bad_);
+            }
+        }
+        String name_;
+        LgNames stds_ = _context.getStandards();
+        String content_ = PredefinedClasses.getBracedIterableType(_context);
+        name_ = stds_.getAliasIterable();
+        FileResolver.parseFile(name_, content_, true, _context);
+        content_ = PredefinedClasses.getBracedIteratorType(_context);
+        name_ = stds_.getAliasIteratorType();
+        FileResolver.parseFile(name_, content_, true, _context);
+        content_ = PredefinedClasses.getBracedEnumType(_context);
+        name_ = stds_.getAliasEnum();
+        FileResolver.parseFile(name_, content_, true, _context);
+        content_ = PredefinedClasses.getBracedEnumParamType(_context);
+        name_ = stds_.getAliasEnumParam();
+        FileResolver.parseFile(name_, content_, true, _context);
     }
     public static CustList<Block> getSortedDescNodesRoot(Block _root, ContextEl _context) {
         CustList<Block> list_ = new CustList<Block>();
@@ -1308,7 +1443,6 @@ public final class Classes {
     public void validateClassesAccess(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.setAnalyzing(page_);
-        LgNames stds_ = _context.getStandards();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());

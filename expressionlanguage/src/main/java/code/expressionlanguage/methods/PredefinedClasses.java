@@ -79,4 +79,38 @@ public final class PredefinedClasses {
         iterable_ += "</interface>\n";
         return iterable_;
     }
+    public static String getBracedIterableType(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        String iterable_ = "$public $interface "+stds_.getAliasIterable()+"<#T>{\n";
+        iterable_ += "$public $abstract "+stds_.getAliasIteratorType()+"<#T> "+stds_.getAliasIterator()+"():\n";
+        iterable_ += "}\n";
+        return iterable_;
+    }
+
+    public static String getBracedIteratorType(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        String iterable_ = "$public $interface "+stds_.getAliasIteratorType()+"<#T>{\n";
+        iterable_ += "$public $abstract #T "+stds_.getAliasNext()+"():\n";
+        iterable_ += "$public $abstract "+stds_.getAliasPrimBoolean()+" "+stds_.getAliasHasNext()+"():\n";
+        iterable_ += "}\n";
+        return iterable_;
+    }
+
+    public static String getBracedEnumType(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        String iterable_ = "$public $interface "+stds_.getAliasEnum()+"{\n";
+        iterable_ += "$public $abstract "+stds_.getAliasPrimInteger()+" "+stds_.getAliasName()+"():\n";
+        iterable_ += "$public $abstract "+stds_.getAliasPrimInteger()+" "+stds_.getAliasOrdinal()+"():\n";
+        iterable_ += "}\n";
+        return iterable_;
+    }
+
+    public static String getBracedEnumParamType(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        String type_ = stds_.getAliasEnumParam();
+        String typeSup_ = stds_.getAliasEnum();
+        String iterable_ = "$public $interface "+type_+"<#T:"+type_+"<#T>>:"+typeSup_+"{\n";
+        iterable_ += "}\n";
+        return iterable_;
+    }
 }

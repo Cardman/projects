@@ -52,9 +52,6 @@ public final class FileResolver {
     private static final char SECOND_COMMENT = '*';
     private static final char PKG = '.';
     private static final String EMPTY_STRING = "";
-    private static final String COMMENT_LINE = "//";
-    private static final String COMMENT_MULTI_LINE_BEGIN = "/*";
-    private static final String COMMENT_MULTI_LINE_END = "*/";
     private static final String NEW = "$new";
     private static final char SEP_ENUM_CONST = ',';
     private static final char BEGIN_TEMPLATE = '<';
@@ -79,7 +76,6 @@ public final class FileResolver {
     private static final String INCR = "++";
     private static final String DECR = "--";
     private static final char KEY_WORD_PREFIX = '$';
-    private static final char SPACE = ' ';
     private static final String KEY_WORD_PUBLIC = "public";
     private static final String KEY_WORD_PACKAGE = "package";
     private static final String KEY_WORD_PROTECTED = "protected";
@@ -87,8 +83,6 @@ public final class FileResolver {
     private static final String KEY_WORD_INTERFACE = "interface";
     private static final String KEY_WORD_CLASS = "class";
     private static final String KEY_WORD_ENUM = "enum";
-    private static final String KEY_WORD_FIELD = "field";
-    private static final String KEY_WORD_METHOD = "method";
     private static final String KEY_WORD_STATIC = "static";
     private static final String KEY_WORD_ABSTRACT = "abstract";
     private static final String KEY_WORD_FINAL = "final";
@@ -119,7 +113,7 @@ public final class FileResolver {
 
     private FileResolver(){
     }
-    public static void parseFile(String _fileName, String _file, ContextEl _context) {
+    public static void parseFile(String _fileName, String _file, boolean _predefined, ContextEl _context) {
         ObjectMap<FileRowCol, String> importedTypes_ = new ObjectMap<FileRowCol, String>();
         StringBuilder str_ = new StringBuilder();
         boolean allowedComments_ = true;
@@ -228,13 +222,105 @@ public final class FileResolver {
         input_.getNextRowCol().setRow(row_);
         input_.getNextRowCol().setCol(col_);
         input_.setNextIndex(i_);
-        ResultTypeCreation res_ = createType(_context, _fileName, _file, input_, importedTypes_);
-        if (!res_.isOk()) {
-            return;
+        while (true) {
+            input_.setNextRowCol(new RowCol());
+            input_.getNextRowCol().setRow(row_);
+            input_.getNextRowCol().setCol(col_);
+            input_.setNextIndex(i_);
+            ResultTypeCreation res_ = createType(_context, _fileName, _file, input_, importedTypes_);
+            if (!res_.isOk()) {
+                return;
+            }
+            _context.getClasses().processBracedClass(res_.getType(), _predefined, _context);
+            i_ = res_.getNextIndex();
+            boolean hasNext_ = false;
+            while (i_ < len_) {
+                char currentChar_ = _file.charAt(i_);
+                if (currentChar_ == LINE_RETURN) {
+                    row_++;
+                    col_ = 0;
+                } else {
+                    col_++;
+                    if (currentChar_ == TAB) {
+                        col_ += _context.getTabWidth() - 1;
+                    }
+                }
+                if (currentChar_ == KEY_WORD_PREFIX) {
+                    hasNext_ = true;
+                    break;
+                }
+                if (commentedSingleLine_) {
+                    if (currentChar_ == LINE_RETURN) {
+                        commentedSingleLine_ = false;
+                    }
+                    i_++;
+                    continue;
+                }
+                if (commentedMultiLine_) {
+                    if (currentChar_ == SECOND_COMMENT) {
+                        if (i_ + 1 >= len_) {
+                            //ERROR
+                            return;
+                        }
+                        char nextChar_ = _file.charAt(i_ + 1);
+                        if (nextChar_ == BEGIN_COMMENT) {
+                            commentedMultiLine_ = false;
+                            i_++;
+                            i_++;
+                            previousChar_ = nextChar_;
+                            continue;
+                        }
+                    }
+                    i_++;
+                    continue;
+                }
+                if (currentChar_ == BEGIN_COMMENT) {
+                    if (!allowedComments_) {
+                        //ERROR
+                        return;
+                    }
+                    if (i_ + 1 >= len_) {
+                        //ERROR
+                        return;
+                    }
+                    char nextChar_ = _file.charAt(i_ + 1);
+                    if (nextChar_ == BEGIN_COMMENT) {
+                        commentedSingleLine_ = true;
+                        i_++;
+                        i_++;
+                        previousChar_ = nextChar_;
+                        continue;
+                    }
+                    if (nextChar_ == SECOND_COMMENT) {
+                        commentedMultiLine_ = true;
+                        i_++;
+                        i_++;
+                        previousChar_ = nextChar_;
+                        continue;
+                    }
+                    //ERROR
+                    return;
+                }
+                if (!Character.isWhitespace(currentChar_)) {
+                    allowedComments_ = false;
+                    if (str_.length() == 0) {
+                        rowBegImport_ = row_;
+                        colBegImport_ = col_;
+                    }
+                    str_.append(currentChar_);
+                } else if (currentChar_ == LINE_RETURN && previousChar_ == END_IMPORTS) {
+                    allowedComments_ = true;
+                }
+                previousChar_ = currentChar_;
+                i_++;
+            }
+            if (!hasNext_) {
+                return;
+            }
+            input_.getNextRowCol().setRow(row_);
+            input_.getNextRowCol().setCol(col_);
+            input_.setNextIndex(i_);
         }
-        input_.setNextIndex(res_.getNextIndex());
-        input_.setNextRowCol(res_.getNextRowCol());
-        allowedComments_ = true;
     }
     private static ResultTypeCreation createType(ContextEl _context, String _fileName, String _file, InputTypeCreation _input, ObjectMap<FileRowCol, String> _import) {
         boolean enabledTab_ = true;
@@ -312,8 +398,8 @@ public final class FileResolver {
             col_ += KEY_WORD_ABSTRACT.length();
         } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_FINAL)) {
             finalType_ = true;
-            nextIndex_ += KEY_WORD_ABSTRACT.length();
-            col_ += KEY_WORD_ABSTRACT.length();
+            nextIndex_ += KEY_WORD_FINAL.length();
+            col_ += KEY_WORD_FINAL.length();
         }
         if (abstractType_ || finalType_) {
             while (nextIndex_ < len_) {
@@ -398,7 +484,7 @@ public final class FileResolver {
             enabledTab_ = false;
             break;
         }
-        if (!StringList.isWordChar(_file.charAt(nextIndex_))) {
+        if (!StringList.isWordChar(_file.charAt(nextIndex_)) && _file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
             //ERROR
             return out_;
         }
@@ -451,7 +537,9 @@ public final class FileResolver {
                     rctype_.setRow(row_);
                     rctype_.setCol(col_);
                 }
-                typeNamePref_.append(currentChar_);
+                if (!foundInherit_ && currentChar_ != INHERIT) {
+                    typeNamePref_.append(currentChar_);
+                }
             }
             if (currentChar_ == END_TEMPLATE) {
                 nbOpened_--;
@@ -775,7 +863,41 @@ public final class FileResolver {
                             accessField_ = AccessEnum.PUBLIC;
                             word_ = KEY_WORD_PREFIX+KEY_WORD_PUBLIC;
                         }
+                        boolean method_ = false;
                         if (field_) {
+                            if (found_.trim().substring(word_.length()).trim().startsWith(KEY_WORD_PREFIX+KEY_WORD_ABSTRACT)) {
+                                method_ = true;
+                            }
+                        }
+                        if (method_) {
+                            String info_ = found_.trim().substring(word_.length()).trim();
+                            info_ = info_.substring((KEY_WORD_PREFIX+KEY_WORD_ABSTRACT).length()).trim();
+                            String declaringType_ = getDeclaringType(info_);
+                            info_ = info_.substring(declaringType_.length()).trim();
+                            String methodName_ = info_.substring(0, info_.indexOf(BEGIN_CALLING));
+                            info_ = info_.substring(methodName_.length() + 1).trim();
+                            StringList parametersType_ = new StringList();
+                            StringList parametersName_ = new StringList();
+                            while (true) {
+                                if (info_.indexOf(END_CALLING) == 0) {
+                                    break;
+                                }
+                                String paramType_ = getDeclaringType(info_);
+                                parametersType_.add(paramType_);
+                                info_ = info_.substring(paramType_.length()).trim();
+                                int call_ = info_.indexOf(SEP_CALLING);
+                                if (call_ < 0) {
+                                    call_ = info_.indexOf(END_CALLING);
+                                }
+                                String paramName_ = info_.substring(0, call_);
+                                parametersName_.add(paramName_.trim());
+                                info_ = info_.substring(paramName_.length() + 1).trim();
+                                if (info_.isEmpty()) {
+                                    break;
+                                }
+                            }
+                            currentParent_.appendChild(new MethodBlock(_context, index_, currentParent_, accessField_, declaringType_, methodName_, parametersType_, parametersName_, KEY_WORD_ABSTRACT));
+                        } else if (field_) {
                             String info_ = found_.trim().substring(word_.length()).trim();
                             boolean static_ = false;
                             boolean final_ = false;
@@ -802,7 +924,7 @@ public final class FileResolver {
                             String declaringType_ = getDeclaringType(found_);
                             boolean typeDeclaring_ = !declaringType_.isEmpty();
                             String info_;
-                            if (typeDeclaring_) {
+                            if (typeDeclaring_ && !StringList.quickEq(declaringType_, NEW)) {
                                 info_ = found_.substring(declaringType_.length());
                             } else {
                                 info_ = found_;
@@ -953,7 +1075,7 @@ public final class FileResolver {
                             modifier_ = KEY_WORD_FINAL;
                         }
                         if (!modifier_.isEmpty()) {
-                            info_ = info_.substring(modifier_.length()).trim();
+                            info_ = info_.substring((KEY_WORD_PREFIX+modifier_).length()).trim();
                             String declaringType_ = getDeclaringType(info_);
                             info_ = info_.substring(declaringType_.length()).trim();
                             String methodName_ = info_.substring(0, info_.indexOf(BEGIN_CALLING));
@@ -1135,6 +1257,10 @@ public final class FileResolver {
             }
             i_++;
             previousChar_ = currentChar_;
+        }
+        if (okType_) {
+            i_++;
+            col_++;
         }
         out_.setNextIndex(i_);
         out_.setNextRowCol(new RowCol());

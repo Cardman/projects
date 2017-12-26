@@ -62,6 +62,12 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     private ObjectMap<FileRowCol, String> rowColDirectSuperTypes;
 
+    private String realTemplateDef;
+
+    private String realName;
+
+    private String realPackageName;
+
     RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -76,12 +82,17 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             BracedBlock _m, String _name, String _packageName, AccessEnum _access, String _templateDef, ObjectMap<FileRowCol, String> _directSuperTypes) {
         super(_importingPage, _indexChild, _m);
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
-        name = _name;
-        packageName = _packageName;
+        name = StringList.removeAllSpaces(_name);
+        packageName = StringList.removeAllSpaces(_packageName);
         access = _access;
-        templateDef = _templateDef;
+        realTemplateDef = _templateDef;
+        realName = _name;
+        realPackageName = _packageName;
+        templateDef = StringList.removeAllSpaces(_templateDef);
         rowColDirectSuperTypes = _directSuperTypes;
-        directSuperTypes.addAllElts(_directSuperTypes.values());
+        for (String t: _directSuperTypes.values()) {
+            directSuperTypes.add(StringList.removeAllSpaces(t));
+        }
     }
 
     protected StringList getDirectSuperTypes() {
