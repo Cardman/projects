@@ -3,7 +3,7 @@ package code.expressionlanguage.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class LongStruct extends Struct {
+public final class LongStruct extends NumberStruct {
 
     private final long value;
 
@@ -17,17 +17,12 @@ public final class LongStruct extends Struct {
     }
 
     @Override
-    public Boolean isJavaObject() {
-        return true;
-    }
-
-    @Override
     public String getClassName(ContextEl _context) {
         return _context.getStandards().getAliasLong();
     }
 
     @Override
-    public Object getInstance() {
+    public Number getInstance() {
         return value;
     }
 

@@ -4,7 +4,7 @@ import code.expressionlanguage.opers.util.Struct;
 
 public class RenderingException extends RuntimeException {
 
-    private Struct custCause;
+    private final Struct custCause;
     public RenderingException(Struct _cause) {
         custCause = _cause;
     }

@@ -543,17 +543,17 @@ public final class DocumentBuilder {
     private static final char QUOT_CHAR = '"';
     private static final char APOS_CHAR = '\'';
 
-//        private static final int NB_INDENT = 4;
-
     private static final char END_ESCAPED = ';';
 
     private static final char EQUALS = '=';
+
+    private static final int DEFAULT_TAB = 4;
 
     private boolean ignoreComments;
 
     private boolean indentWhileWriting;
 
-    private int tabWidth = 4;
+    private int tabWidth = DEFAULT_TAB;
 
     private DocumentBuilder(){
     }
@@ -1332,7 +1332,7 @@ public final class DocumentBuilder {
         StringList stack_ = new StringList();
         int row_ = 1;
         int col_ = 0;
-        int tabWidth_ = 4;
+        int tabWidth_ = DEFAULT_TAB;
         StringBuilder currentText_ = new StringBuilder();
         boolean finished_ = false;
         StringBuilder attributeValue_ = new StringBuilder();
@@ -1361,12 +1361,13 @@ public final class DocumentBuilder {
             res_.setLocation(rc_);
             return false;
         }
+        col_ = 0;
         i_++;
         while (i_ < len_) {
             char curChar_ = _expected.charAt(i_);
             if (curChar_ == LINE_RETURN) {
-                row_ ++;
-                col_ = 1;
+                row_++;
+                col_ = 0;
             } else {
                 col_++;
                 if (curChar_ == TAB) {
@@ -1714,7 +1715,7 @@ public final class DocumentBuilder {
             return false;
         }
         row_ = 1;
-        col_ = 1;
+        col_ = 0;
         len_ = _found.length();
         i_ = 1;
         finished_ = false;
@@ -1734,8 +1735,8 @@ public final class DocumentBuilder {
         while (i_ < len_) {
             char curChar_ = _found.charAt(i_);
             if (curChar_ == LINE_RETURN) {
-                row_ ++;
-                col_ = 1;
+                row_++;
+                col_ = 0;
             } else {
                 col_++;
                 if (curChar_ == TAB) {
@@ -2210,7 +2211,7 @@ public final class DocumentBuilder {
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
             if (curChar_ == LINE_RETURN) {
-                row_ ++;
+                row_++;
                 col_ = 0;
             } else {
                 col_++;
@@ -3443,7 +3444,7 @@ public final class DocumentBuilder {
 
     public void setTabWidth(int _tabWidth) {
         if (_tabWidth < 0) {
-            tabWidth = 4;
+            tabWidth = DEFAULT_TAB;
         } else {
             tabWidth = _tabWidth;
         }

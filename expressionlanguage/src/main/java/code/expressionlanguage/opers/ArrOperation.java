@@ -276,11 +276,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             throw new InvokeException(new StdStruct(new CustomError(String.valueOf(index_)+RETURN_LINE+_conf.joinPages()),badIndex_));
         }
         if (_value.isNull()) {
-            if (_struct.isJavaObject()) {
-                Array.set(arrayInst_, index_, null);
-            } else {
-                Array.set(arrayInst_, index_, NullStruct.NULL_VALUE);
-            }
+            Array.set(arrayInst_, index_, null);
             return;
         }
         String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName(_conf));
@@ -290,10 +286,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         mapping_.setParam(componentType_);
         if (!Templates.isCorrect(mapping_, _conf)) {
             throw new InvokeException(new StdStruct(new CustomError(componentType_+elementType_+_conf.joinPages()),store_));
-        }
-        if (!_value.isJavaObject()) {
-            Array.set(arrayInst_, index_, _value);
-            return;
         }
         Array.set(arrayInst_, index_, _value.getInstance());
     }

@@ -69,14 +69,14 @@ public class BeanEight extends Bean {
     }
 
     public NatTreeMap<EnumNumber, String> getComboboxMap() {
-      return comboboxMap;
-   }
+        return comboboxMap;
+    }
 
-   public void setComboboxMap(NatTreeMap<EnumNumber, String> _comboboxMap) {
-      comboboxMap = _comboboxMap;
-   }
+    public void setComboboxMap(NatTreeMap<EnumNumber, String> _comboboxMap) {
+        comboboxMap = _comboboxMap;
+    }
 
-   public EnumNumber getComboNumber() {
+    public EnumNumber getComboNumber() {
         return comboNumber;
     }
 

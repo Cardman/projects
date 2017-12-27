@@ -9,7 +9,6 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 
-//for const strings
 public class CommonFightBean extends Bean {
 
     protected static final String FIGHTER = "fighter";

@@ -21,7 +21,8 @@ public abstract class TreeComboBox<T> extends JComboBox {
     }
 
     public TreeComboBox(TreeMap<T,String> _tr){
-        elements = _tr;    }
+        elements = _tr;
+    }
 
     protected TreeMap<T, String> getElements() {
         return elements;

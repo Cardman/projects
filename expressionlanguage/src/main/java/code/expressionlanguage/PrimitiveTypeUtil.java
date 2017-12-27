@@ -5,12 +5,12 @@ import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMatching;
-import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.DoubleStruct;
 import code.expressionlanguage.opers.util.FloatStruct;
@@ -164,7 +164,7 @@ public final class PrimitiveTypeUtil {
         TreeMap<Numbers<Integer>,Struct> indexesArray_;
         indexesArray_ = new TreeMap<Numbers<Integer>,Struct>(new IndexesComparator());
         Struct[] instanceGl_ = new Struct[_dims.first()];
-        Struct output_ = new CustStruct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
+        Struct output_ = new ArrayStruct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
         Numbers<Integer> dims_ = new Numbers<Integer>();
         indexesArray_.put(new Numbers<Integer>(), output_);
         int glDim_ = _dims.size();
@@ -181,7 +181,7 @@ public final class PrimitiveTypeUtil {
             String formattedClass_ = PrimitiveTypeUtil.getPrettyArrayType(_className, glDim_);
             for (Numbers<Integer> k: dims_.getAllIndexes()) {
                 Struct[] instance_ = new Struct[_dims.get(i_ + 1)];
-                Struct value_ = new CustStruct(instance_, formattedClass_);
+                Struct value_ = new ArrayStruct(instance_, formattedClass_);
                 indexesArray_.put(k, value_);
             }
             i_++;
@@ -195,9 +195,10 @@ public final class PrimitiveTypeUtil {
             Numbers<Integer> ind_ = new Numbers<Integer>(key_);
             ind_.removeLast();
             int lastIndex_ = key_.last();
-            Object instance_ = indexesArray_.getVal(ind_).getInstance();
-            if (instance_ != null) {
-                ((Struct[])instance_)[lastIndex_] = value_;
+            Struct str_ = indexesArray_.getVal(ind_);
+            if (str_ instanceof ArrayStruct) {
+                Struct[] array_ = ((ArrayStruct)str_).getInstance();
+                array_[lastIndex_] = value_;
             }
         }
         return output_;

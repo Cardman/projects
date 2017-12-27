@@ -213,7 +213,7 @@ final class ExtractObject {
                             String filName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
                             lv_.setElement(_files);
-                            lv_.setClassName(StringMap.class.getName()+Templates.TEMPLATE_BEGIN+String.class.getName()+Templates.TEMPLATE_END);
+                            lv_.setClassName(StringList.concat(StringMap.class.getName(), Templates.TEMPLATE_BEGIN, String.class.getName(), Templates.TEMPLATE_END));
                             _ip.getLocalVars().put(filName_, lv_);
                             String beanName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
@@ -605,7 +605,7 @@ final class ExtractObject {
         return (String) getResult(_conf, 0, NAME, _instance).getInstance();
     }
 
-    static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance) {
+    private static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance) {
         ImportingPage ip_ = _conf.getLastPage();
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
@@ -623,7 +623,7 @@ final class ExtractObject {
             throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
-    static void setResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
+    private static void setResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
             String _argumentClassName) {
         ImportingPage ip_ = _conf.getLastPage();
         String varName_ = ip_.getNextTempVar();

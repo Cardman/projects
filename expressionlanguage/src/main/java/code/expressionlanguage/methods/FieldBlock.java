@@ -13,7 +13,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.CustStruct;
+import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
@@ -201,7 +201,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 _cont.getClasses().initializeStaticField(staticField_, struct_);
             } else {
                 Argument gl_ = ip_.getGlobalArgument();
-                ((CustStruct) gl_.getStruct()).setStruct(staticField_, struct_);
+                ((FieldableStruct) gl_.getStruct()).setStruct(staticField_, struct_);
             }
         }
         processBlock(_cont);

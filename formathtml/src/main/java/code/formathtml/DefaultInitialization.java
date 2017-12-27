@@ -4,6 +4,8 @@ import code.expressionlanguage.stds.LgNames;
 
 public final class DefaultInitialization {
 
+    private DefaultInitialization() {
+    }
     public static void basicStandards(LgNames _lgNames) {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");

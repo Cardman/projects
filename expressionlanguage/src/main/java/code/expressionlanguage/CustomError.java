@@ -2,9 +2,10 @@ package code.expressionlanguage;
 
 public final class CustomError {
 
-    private String message = "";
+    private final String message;
 
     public CustomError() {
+        message = "";
     }
 
     public CustomError(String _message) {

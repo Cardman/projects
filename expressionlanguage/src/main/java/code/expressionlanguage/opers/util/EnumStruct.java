@@ -5,16 +5,23 @@ import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public final class CustStruct implements FieldableStruct {
+public final class EnumStruct implements FieldableStruct {
+
+    private final int ordinal;
+
+    private final String name;
 
     private final String className;
 
     private final ObjectMap<ClassField,Struct> fields;
 
-    public CustStruct(String _className,
-            ObjectMap<ClassField,Struct> _fields, Struct _parent) {
+    public EnumStruct(String _className,
+            ObjectMap<ClassField,Struct> _fields,
+            int _ordinal, String _name) {
         fields = _fields;
         className = _className;
+        ordinal = _ordinal;
+        name = _name;
     }
 
     public static Struct wrapOrId(Object _element) {
@@ -55,10 +62,10 @@ public final class CustStruct implements FieldableStruct {
 
     @Override
     public boolean sameReference(Struct _other) {
-        if (!(_other instanceof CustStruct)) {
+        if (!(_other instanceof EnumStruct)) {
             return false;
         }
-        CustStruct other_ = (CustStruct) _other;
+        EnumStruct other_ = (EnumStruct) _other;
         if (!StringList.quickEq(className, other_.className)) {
             return false;
         }
@@ -88,6 +95,14 @@ public final class CustStruct implements FieldableStruct {
     @Override
     public Object getInstance() {
         return null;
+    }
+
+    public int getOrdinal() {
+        return ordinal;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

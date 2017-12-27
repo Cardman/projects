@@ -3,7 +3,7 @@ package code.expressionlanguage.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class ShortStruct extends Struct {
+public final class ShortStruct extends NumberStruct {
 
     private final short value;
 
@@ -17,17 +17,12 @@ public final class ShortStruct extends Struct {
     }
 
     @Override
-    public Boolean isJavaObject() {
-        return true;
-    }
-
-    @Override
     public String getClassName(ContextEl _context) {
         return _context.getStandards().getAliasShort();
     }
 
     @Override
-    public Object getInstance() {
+    public Number getInstance() {
         return value;
     }
 

@@ -4,6 +4,8 @@ import code.expressionlanguage.stds.LgNames;
 
 public final class InitializationLgNames {
 
+    private InitializationLgNames(){
+    }
     public static LgNames initStandards() {
         LgNames lgNames_ = new LgNames();
         basicStandards(lgNames_);

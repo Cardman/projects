@@ -11,7 +11,6 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import code.resources.StandardCharsets;
 import code.stream.exceptions.RuntimeIOException;
 import code.util.CustList;
 import code.util.InsCaseStringMap;
@@ -211,7 +210,7 @@ public final class StreamZipFile {
         }
     }
     public static StringMap<String>
-            contentsOfZippedFilesFromFolder(String _zipFileName, String _folderName) {
+    contentsOfZippedFilesFromFolder(String _zipFileName, String _folderName) {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);

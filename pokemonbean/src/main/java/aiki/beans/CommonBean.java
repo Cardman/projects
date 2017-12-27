@@ -6,7 +6,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import aiki.DataBase;
 
-//For const strings
 public class CommonBean extends Bean {
     protected static final String ABILITIES = "abilities";
     protected static final String ABILITIES_SET = "abilities_set";

@@ -7,8 +7,6 @@ import org.junit.Test;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringMap;
-import code.sml.ElementOffsetsNext;
-import code.sml.RowCol;
 
 @SuppressWarnings("static-method")
 public class IndexesTest {

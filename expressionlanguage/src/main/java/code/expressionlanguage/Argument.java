@@ -10,6 +10,7 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -153,8 +154,8 @@ public final class Argument {
     public void setObject(Boolean _object) {
         object = new BooleanStruct(_object);
     }
-    public void setObject(String _object, String _alias) {
-        object = new StdStruct(_object, _alias);
+    public void setObject(String _object) {
+        object = new StringStruct(_object);
     }
     public void setObject(Byte _object) {
         object = new ByteStruct(_object);

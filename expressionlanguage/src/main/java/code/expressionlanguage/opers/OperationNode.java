@@ -169,6 +169,8 @@ public abstract class OperationNode {
 
     protected static final String VARARG_SUFFIX = "...";
 
+    private static final int QUICK_OP = 3;
+
     private MethodOperation parent;
 
     private OperationNode nextSibling;
@@ -636,7 +638,9 @@ public abstract class OperationNode {
         }
         return signatures_.first().getMethod();
     }
-    static ClassMethodIdReturn getDeclaredCustMethod(boolean _failIfError, ContextEl _conf, int _varargOnly, boolean _staticContext, ClassArgumentMatching _class, String _name, boolean _superClass, boolean _accessFromSuper, ClassArgumentMatching... _argsClass) {
+    static ClassMethodIdReturn getDeclaredCustMethod(boolean _failIfError, ContextEl _conf, int _varargOnly,
+    boolean _staticContext, ClassArgumentMatching _class, String _name,
+    boolean _superClass, boolean _accessFromSuper, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
@@ -780,7 +784,9 @@ public abstract class OperationNode {
         methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(clCurName_), _name, _argsClass);
         return getCustResult(_conf, _varargOnly, methods_, correctTemplated_, _name, _argsClass);
     }
-    private static ClassMethodIdResult getDeclaredCustMethodByInterfaceInherit(ContextEl _conf, boolean _accessFromSuper, int _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+    private static ClassMethodIdResult getDeclaredCustMethodByInterfaceInherit(ContextEl _conf, boolean _accessFromSuper,
+    int _varargOnly, boolean _static, ClassArgumentMatching _class, String _name,
+    boolean _superClass, ClassArgumentMatching... _argsClass) {
         String clCurName_ = _class.getName();
         if (_static) {
             ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
@@ -793,8 +799,8 @@ public abstract class OperationNode {
         return getCustResult(_conf, _varargOnly, methods_, correctTemplated_, _name, _argsClass);
     }
     private static ObjectNotNullMap<ClassMethodId, MethodMetaInfo>
-            getDeclaredCustMethodByType(ContextEl _conf, int _varargOnly, boolean _accessFromSuper,
-            boolean _static, boolean _superClass, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    getDeclaredCustMethodByType(ContextEl _conf, int _varargOnly, boolean _accessFromSuper,
+        boolean _static, boolean _superClass, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         LgNames stds_ = _conf.getStandards();
         String clCurName_ = _class.getName();
@@ -830,12 +836,12 @@ public abstract class OperationNode {
                     if (_superClass) {
                         formattedClass_ = Templates.getFullTypeByBases(clCurName_, name_, _conf);
                     } else {
-                         String base_ = StringList.getAllTypes(name_).first();
+                        String base_ = StringList.getAllTypes(name_).first();
                         if (!StringList.quickEq(base_, root_.getFullName())) {
                             continue;
                         }
                         formattedClass_ = clCurName_;
-                   }
+                    }
                     MethodId id_ = s.getConstraints();
                     MethodBlock sup_ = classes_.getMethodBodiesById(name_, id_).first();
                     if (!_conf.getClasses().canAccess(glClass_, sup_, _conf)) {
@@ -1459,10 +1465,6 @@ public abstract class OperationNode {
             if (argStruct_.isNull()) {
                 continue;
             }
-            if (!argStruct_.isJavaObject()) {
-                args_[i] = argStruct_;
-                continue;
-            }
             Object a_ = argStruct_.getInstance();
             Class<?> p_ = _params[i];
             if (p_ == double.class || p_ == Double.class) {
@@ -1513,7 +1515,7 @@ public abstract class OperationNode {
         MethodOperation par_ = getParent();
         Object o_ = _arg.getObject();
         Boolean b_ = (Boolean) o_;
-        if (res_ < 3) {
+        if (res_ != QUICK_OP) {
             CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
             OperationNode opElt_ = l_.get(res_);
             opElt_.setSimpleArgument(_arg);
@@ -1540,7 +1542,7 @@ public abstract class OperationNode {
         Object o_ = _arg.getObject();
         MethodOperation par_ = getParent();
         Boolean b_ = (Boolean) o_;
-        if (res_ < 3) {
+        if (res_ != QUICK_OP) {
             CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
             OperationNode opElt_ = l_.get(res_);
             _nodes.getVal(opElt_).setArgument(_arg);
@@ -1599,7 +1601,7 @@ public abstract class OperationNode {
             }
             return 1;
         }
-        return 3;
+        return QUICK_OP;
     }
 
     public final MethodOperation getParent() {

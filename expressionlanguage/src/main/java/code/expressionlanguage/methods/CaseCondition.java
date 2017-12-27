@@ -149,7 +149,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             ip_.clearCurrentEls();
             boolean enter_ = false;
             if (str_.isNull()) {
-                if (arg_.getObject() == null) {
+                if (arg_.isNull()) {
                     enter_ = true;
                 }
             } else {

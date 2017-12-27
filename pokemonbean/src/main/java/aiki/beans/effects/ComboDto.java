@@ -18,11 +18,11 @@ public final class ComboDto {
         combos = _combos;
     }
 
-    public final SimpleIterable entries() {
+    public SimpleIterable entries() {
         return combos.entries();
     }
 
-    public final Iterable<EntryCust<StringList, EffectCombo>> entryList() {
+    public Iterable<EntryCust<StringList, EffectCombo>> entryList() {
         return combos.entryList();
     }
 

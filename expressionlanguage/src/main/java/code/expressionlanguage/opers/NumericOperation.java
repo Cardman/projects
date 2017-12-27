@@ -93,10 +93,10 @@ public abstract class NumericOperation extends MethodOperation {
             a_.setObject(str_.toString(),stringType_);
             return a_;
         }
-        if (_a.getObject() == null) {
+        if (_a.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
-        if (_b.getObject() == null) {
+        if (_b.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
@@ -234,10 +234,10 @@ public abstract class NumericOperation extends MethodOperation {
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
-        if (_a.getObject() == null) {
+        if (_a.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
-        if (_b.getObject() == null) {
+        if (_b.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
@@ -375,10 +375,10 @@ public abstract class NumericOperation extends MethodOperation {
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
-        if (_a.getObject() == null) {
+        if (_a.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
-        if (_b.getObject() == null) {
+        if (_b.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
@@ -517,10 +517,10 @@ public abstract class NumericOperation extends MethodOperation {
         String null_;
         div_ = stds_.getAliasDivisionZero();
         null_ = stds_.getAliasNullPe();
-        if (_a.getObject() == null) {
+        if (_a.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
-        if (_b.getObject() == null) {
+        if (_b.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
@@ -671,10 +671,10 @@ public abstract class NumericOperation extends MethodOperation {
         String null_;
         div_ = stds_.getAliasDivisionZero();
         null_ = stds_.getAliasNullPe();
-        if (_a.getObject() == null) {
+        if (_a.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
-        if (_b.getObject() == null) {
+        if (_b.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();

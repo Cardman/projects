@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustBase;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -10,6 +9,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
+import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.IndirectException;
 import code.expressionlanguage.exceptions.InvokeException;
@@ -37,6 +37,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ProcessXmlMethod {
@@ -124,6 +125,7 @@ public final class ProcessXmlMethod {
                 if (!throwException(_cont, realCaught_)) {
                     continue;
                 }
+                _0.printStackTrace();
                 throw new InvokeRedinedMethException(new StdStruct(_0));
             }
         }
@@ -225,13 +227,13 @@ public final class ProcessXmlMethod {
             }
             String fieldName_ = _call.getFieldName();
             if (fieldName_.isEmpty()) {
-                argGl_.setStruct(new CustStruct(new CustBase(),_class, fields_, str_));
+                argGl_.setStruct(new CustStruct(_class, fields_, str_));
             } else {
                 Struct enum_ = classes_.getStaticField(new ClassField(_class, fieldName_));
                 if (!enum_.isNull()) {
                     argGl_.setStruct(enum_);
                 } else {
-                    argGl_.setStruct(new CustStruct(new CustBase(),_class, fields_, str_));
+                    argGl_.setStruct(new CustStruct(_class, fields_, str_));
                 }
             }
         } else {

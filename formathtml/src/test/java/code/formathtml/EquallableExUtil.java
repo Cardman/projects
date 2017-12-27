@@ -6,7 +6,7 @@ import code.formathtml.classes.EnumNumber;
 import code.formathtml.classes.Rate;
 import code.util.StringList;
 
-public class EquallableExUtil {
+public final class EquallableExUtil {
 
     private static final String DIFF = " != ";
 

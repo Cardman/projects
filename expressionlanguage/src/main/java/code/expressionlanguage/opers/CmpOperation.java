@@ -466,12 +466,12 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         LgNames stds_ = _conf.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
-        if (first_.getObject() == null) {
+        if (first_.isNull()) {
             setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         Argument second_ = chidren_.last().getArgument();
-        if (second_.getObject() == null) {
+        if (second_.isNull()) {
             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }

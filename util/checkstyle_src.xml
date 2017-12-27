@@ -102,9 +102,6 @@
 			<property name="max" value="10" />
 			<property name="tokens" value="METHOD_DEF" />
 		</module>
-		<module name="MethodCount">
-			<property name="maxPublic" value="128" />
-		</module>
 		<module name="AvoidInlineConditionals" />
 		<module name="MethodParamPad" />
 		<module name="VisibilityModifier">

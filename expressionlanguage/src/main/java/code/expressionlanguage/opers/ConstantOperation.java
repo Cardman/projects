@@ -34,9 +34,9 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
+import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
@@ -738,7 +738,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
                     throw new InvokeException(new StdStruct(new CustomError(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
                 }
-                Struct struct_ = ((CustStruct) arg_.getStruct()).getStruct(fieldId);
+                Struct struct_ = ((FieldableStruct) arg_.getStruct()).getStruct(fieldId);
                 a_ = new Argument();
                 a_.setStruct(struct_);
                 return ArgumentCall.newArgument(a_);
@@ -872,7 +872,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
                         throw new InvokeException(new StdStruct(new CustomError(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
                     }
-                    structField_ = ((CustStruct) argument_.getStruct()).getStruct(fieldId);
+                    structField_ = ((FieldableStruct) argument_.getStruct()).getStruct(fieldId);
                     if (staticChoiceField) {
                         if (!staticChoiceFieldTemplate) {
                             classNameFound_ = StringList.getAllTypes(classNameFound_).first();
@@ -893,7 +893,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (fieldMetaInfo.isStaticField()) {
                     classes_.initializeStaticField(fieldId, res_.getStruct());
                 } else {
-                    ((CustStruct) argument_.getStruct()).setStruct(fieldId, res_.getStruct());
+                    ((FieldableStruct) argument_.getStruct()).setStruct(fieldId, res_.getStruct());
                 }
                 Argument a_ = res_;
                 return a_;

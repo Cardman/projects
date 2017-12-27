@@ -6,7 +6,6 @@ import java.lang.reflect.Type;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.InvokingConstructor;
@@ -45,6 +44,7 @@ import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -54,7 +54,7 @@ import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.opers.util.CustStruct;
+import code.expressionlanguage.opers.util.EnumStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -890,7 +890,7 @@ public final class FctOperation extends InvokingOperation {
         if (classMethodId == null) {
             firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
             Object obj_ = arg_.getObject();
-            if (!staticMethod && obj_ == null) {
+            if (!staticMethod && arg_.isNull()) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
             if (firstArgs_.isEmpty()) {
@@ -931,15 +931,15 @@ public final class FctOperation extends InvokingOperation {
             custClass_ = classes_.getClassMetaInfo(className_, _conf);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (methodId_.eq(new MethodId(false, METH_NAME, new EqList<ClassName>()))) {
-                    CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
-                    String name_ = cen_.name();
+                    EnumStruct cen_ = (EnumStruct) arg_.getStruct();
+                    String name_ = cen_.getName();
                     Argument argres_ = new Argument();
                     argres_.setObject(name_,stringType_);
                     return ArgumentCall.newArgument(argres_);
                 }
                 if (methodId_.eq(new MethodId(false, METH_ORDINAL, new EqList<ClassName>()))) {
-                    CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
-                    int name_ = cen_.ordinal();
+                    EnumStruct cen_ = (EnumStruct) arg_.getStruct();
+                    int name_ = cen_.getOrdinal();
                     Argument argres_ = new Argument();
                     argres_.setObject(name_);
                     return ArgumentCall.newArgument(argres_);
@@ -1059,7 +1059,7 @@ public final class FctOperation extends InvokingOperation {
                     }
                     String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(classNameFound_);
                     Argument argres_ = new Argument();
-                    argres_.setStruct(new CustStruct(o_,clArr_));
+                    argres_.setStruct(new ArrayStruct(o_,clArr_));
                     return ArgumentCall.newArgument(argres_);
                 }
                 if (methodId_.eq(new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(stringType_,false))))) {

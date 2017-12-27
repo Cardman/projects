@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustBase;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
@@ -32,8 +31,6 @@ public class ProcessXmlMethodTwoTest {
     private static final String CUST_ITER_PATH = CUST_PKG+"/CustIter."+Classes.EXT;
     private static final String CUST_LIST_PATH = CUST_PKG+"/CustList."+Classes.EXT;
     private static final String INTEGER = Integer.class.getName();
-    private static final String REAL_ARR_NUMBER = Struct[].class.getName();
-    private static final String CUST_BASE = CustBase.class.getName();
     @Test
     public void instanceArgument95Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -54,15 +51,12 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(INTEGER, subField_.getRealClassName(cont_));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number)subField_.getInstance());
     }
@@ -89,15 +83,12 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(REAL_ARR_NUMBER, subField_.getRealClassName(cont_));
         assertEq(ARR_NUMBER, subField_.getClassName(cont_));
         Struct[] nbs_ = (Struct[]) subField_.getInstance();
         assertEq(1, nbs_.length);
@@ -132,22 +123,17 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(INTEGER, subField_.getRealClassName(cont_));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(1, (Number) subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.String>", field_.getClassName(cont_));
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(INTEGER, subField_.getRealClassName(cont_));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number) subField_.getInstance());
     }
@@ -175,19 +161,15 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(CUST_BASE, subField_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", subField_.getClassName(cont_));
         Struct subSubField_;
         subSubField_ = subField_.getFields().getVal(new ClassField("pkg.ExThree", "inst"));
-        assertEq(INTEGER, subSubField_.getRealClassName(cont_));
         assertEq(INTEGER, subSubField_.getClassName(cont_));
         assertEq(2, (Number)subSubField_.getInstance());
     }
@@ -213,14 +195,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -252,14 +231,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
     }
@@ -296,14 +272,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExFour", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
     }
@@ -335,14 +308,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -374,14 +344,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -414,14 +381,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -454,14 +418,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -493,14 +454,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -533,14 +491,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -569,14 +524,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -608,14 +560,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
     }
@@ -654,14 +603,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
@@ -700,14 +646,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
     }
@@ -746,14 +689,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
     }
@@ -791,14 +731,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
     }
@@ -824,14 +761,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
@@ -867,14 +801,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<pkg.CustNb>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
@@ -915,14 +846,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<pkg.CustNb>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
@@ -967,14 +895,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<pkg.CustInt>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
     }
@@ -1020,14 +945,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<pkg.CustInt>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
     }
@@ -1065,11 +987,9 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
@@ -1108,22 +1028,17 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(INTEGER, subField_.getRealClassName(cont_));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(1, (Number) subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.String>", field_.getClassName(cont_));
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(INTEGER, subField_.getRealClassName(cont_));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number) subField_.getInstance());
     }
@@ -1153,11 +1068,9 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
     }
@@ -1191,19 +1104,15 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "one"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "two"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "three"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
     }
@@ -1234,11 +1143,9 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, (Number)field_.getInstance());
     }
@@ -1266,11 +1173,9 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(123, (Number)field_.getInstance());
     }
@@ -1299,11 +1204,9 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
     }
@@ -1339,15 +1242,12 @@ public class ProcessXmlMethodTwoTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(INTEGER, subField_.getRealClassName(cont_));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(8, (Number) subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
@@ -1390,14 +1290,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
     }
@@ -1440,14 +1337,11 @@ public class ProcessXmlMethodTwoTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName(cont_));
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName(cont_));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName(cont_));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
     }
@@ -1560,12 +1454,12 @@ public class ProcessXmlMethodTwoTest {
         }
         return new ConstructorId(_name, cl_);
     }
-    private ContextEl contextEl(int... m) {
+    private ContextEl contextEl(int... _m) {
         ContextEl ct_;
-        if (m.length == 0) {
+        if (_m.length == 0) {
             ct_ = new ContextEl();
         } else {
-            ct_ = new ContextEl(m[0]);
+            ct_ = new ContextEl(_m[0]);
         }
         InitializationLgNames.initAdvStandards(ct_);
         return ct_;

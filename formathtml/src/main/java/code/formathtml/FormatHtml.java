@@ -107,7 +107,7 @@ public final class FormatHtml {
 
     static final String SPACE = " ";
     static final String VAR_METHOD = "varMethod";
-    public static final String BEAN_ATTRIBUTE = "bean";
+    static final String BEAN_ATTRIBUTE = "bean";
     static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
     static final String COMMA = ",";
     static final String DOT = ".";
@@ -2602,7 +2602,7 @@ public final class FormatHtml {
                     type_ = SELECT_TAG;
                     if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
                         class_ = Object.class.getName();
-                        class_ = CustList.class.getName()+BEG_TEMP+class_+END_TEMP;
+                        class_ = StringList.concat(CustList.class.getName(),BEG_TEMP,class_,END_TEMP);
                     }
                 }
                 if (StringList.quickEq(_input.getTagName(), TEXT_AREA)) {
@@ -2615,7 +2615,7 @@ public final class FormatHtml {
                     if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
                         StringList params_ = Templates.getTypesByBases(class_, Listable.class.getName(), _conf.toContextEl());
                         if (params_ == null) {
-                            class_ = CustList.class.getName()+BEG_TEMP+class_+END_TEMP;
+                            class_ = StringList.concat(CustList.class.getName(),BEG_TEMP,class_,END_TEMP);
                         }
                     }
                 }

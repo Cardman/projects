@@ -6,7 +6,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.ObjectMap;
 
-public final class StdStruct extends Struct {
+public final class StdStruct implements Struct {
 
     private final Object instance;
 
@@ -123,24 +123,18 @@ public final class StdStruct extends Struct {
         return false;
     }
 
-    public boolean sameReference(Struct _other) {
-        return getInstance() == _other.getInstance();
-    }
-
-
     @Override
-    public Boolean isJavaObject() {
-        return true;
+    public boolean sameReference(Struct _other) {
+        if (!(_other instanceof StdStruct)) {
+            return false;
+        }
+        StdStruct other_ = (StdStruct) _other;
+        return getInstance() == other_.getInstance();
     }
 
     @Override
     public String getClassName(ContextEl _contextEl) {
         return className;
-    }
-
-    @Override
-    public String getRealClassName(ContextEl _contextEl) {
-        return instance.getClass().getName();
     }
 
     @Override

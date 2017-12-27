@@ -4,7 +4,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
 public final class Game {
 
     private ObjectMap<UnitMapKey,Soldier> soldiers = new ObjectMap<UnitMapKey,Soldier>();

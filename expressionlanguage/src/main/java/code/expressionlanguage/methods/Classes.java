@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.Mapping;
@@ -36,7 +35,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.CustStruct;
+import code.expressionlanguage.opers.util.EnumStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -1282,8 +1281,8 @@ public final class Classes {
             all_.add(current_);
             RootBlock info_ = getClassBody(current_);
             StringList direct_ = info_.getDirectSubTypes(_context);
-            for (String child : direct_) {
-                nodeQueue_.add(child);
+            for (String c : direct_) {
+                nodeQueue_.add(c);
             }
         }
         StringList unique_ = new StringList();
@@ -1933,7 +1932,7 @@ public final class Classes {
     }
 
     public CustList<RootBlock> getClassBodies() {
-       return classesBodies.values();
+        return classesBodies.values();
     }
 
     public RootBlock getClassBody(String _className) {
@@ -2182,8 +2181,6 @@ public final class Classes {
                 if (b instanceof ElementBlock) {
                     ElementBlock method_ = (ElementBlock) b;
                     String m_ = method_.getFieldName();
-                    CustEnum enum_;
-                    enum_ = new CustEnum(base_, m_, i_);
                     ObjectMap<ClassField,Struct> fields_;
                     fields_ = new ObjectMap<ClassField,Struct>();
                     for (EntryCust<ClassField, FieldBlock> f: fieldsInfos_.entryList()) {
@@ -2191,7 +2188,7 @@ public final class Classes {
                         fields_.put(f.getKey(), inf_.getDefaultStruct(_context));
                     }
                     Struct str_;
-                    str_ = new CustStruct(enum_, base_, fields_);
+                    str_ = new EnumStruct(base_, fields_, i_, m_);
                     staticFields.put(new ClassField(base_, m_), str_);
                     values_.add(str_);
                     i_++;

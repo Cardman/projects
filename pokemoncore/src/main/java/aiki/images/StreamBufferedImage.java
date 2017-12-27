@@ -1,5 +1,4 @@
 package aiki.images;
-//import formathtml.images.ConverterBufferedImageIo;
 
 public final class StreamBufferedImage {
 
