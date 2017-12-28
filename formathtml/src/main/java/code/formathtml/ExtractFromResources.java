@@ -13,7 +13,7 @@ import code.util.consts.Constants;
 public final class ExtractFromResources {
     static final String RETURN_LINE = "\n";
     private static final String SEPARATOR_PATH = "/";
-    private static final String IMPLICIT_LANGUAGE = SEPARATOR_PATH+SEPARATOR_PATH;
+    private static final String IMPLICIT_LANGUAGE = "//";
     private static final String LINE_RETURN = "\n";
     private static final String EMPTY_STRING = Constants.EMPTY_STRING;
     private static final String TAB = "\t";

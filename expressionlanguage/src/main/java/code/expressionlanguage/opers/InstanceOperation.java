@@ -407,11 +407,11 @@ public final class InstanceOperation extends InvokingOperation {
                     Number n_ = (Number)_arguments.get(i_).getObject();
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
                     if (n_ == null) {
-                        throw new InvokeException(new StdStruct(new CustomError(i_+RETURN_LINE+_conf.joinPages()),null_));
+                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(i_),RETURN_LINE,_conf.joinPages())),null_));
                     }
                     int dim_ = n_.intValue();
                     if (dim_ < 0) {
-                        throw new InvokeException(new StdStruct(new CustomError(String.valueOf(dim_)+RETURN_LINE+i_+RETURN_LINE+_conf.joinPages()),size_));
+                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE,_conf.joinPages())),size_));
                     }
                     args_[i_] = dim_;
                     i_++;

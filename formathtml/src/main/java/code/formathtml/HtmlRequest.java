@@ -35,10 +35,8 @@ final class HtmlRequest {
     private static final char EQUALS = '=';
     private static final String GET_LOC_VAR = ";.";
     private static final String TMP_VAR = "tmpvar";
-    private static final char LEFT_PAR_CHAR = '(';
-    private static final String LEFT_PAR = EMPTY_STRING+LEFT_PAR_CHAR;
-    private static final char RIGHT_PAR_CHAR = ')';
-    private static final String RIGHT_PAR = EMPTY_STRING+RIGHT_PAR_CHAR;
+    private static final String LEFT_PAR = "(";
+    private static final String RIGHT_PAR = ")";
     private HtmlRequest() {
     }
 

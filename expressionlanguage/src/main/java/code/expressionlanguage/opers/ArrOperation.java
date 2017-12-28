@@ -209,7 +209,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             int len_ = LgNames.getLength(array_);
             int index_ = ((Number)_index).intValue();
             if (index_ < 0 || index_ >= len_) {
-                throw new InvokeException(new StdStruct(new CustomError(String.valueOf(index_)+RETURN_LINE+_conf.joinPages()),badIndex_));
+                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
             }
             return LgNames.getElement(array_, index_, _conf);
         }
@@ -217,7 +217,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         int len_ = Array.getLength(arrayInst_);
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
-            throw new InvokeException(new StdStruct(new CustomError(String.valueOf(index_)+RETURN_LINE+_conf.joinPages()),badIndex_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
         }
         Object output_ = Array.get(arrayInst_, index_);
         if (output_ == null) {
@@ -254,7 +254,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             int len_ = LgNames.getLength(instance_);
             int index_ = ((Number)_index).intValue();
             if (index_ < 0 || index_ >= len_) {
-                throw new InvokeException(new StdStruct(new CustomError(String.valueOf(index_)+RETURN_LINE+_conf.joinPages()),badIndex_));
+                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
             }
             if (!_value.isNull()) {
                 String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName(_conf));
@@ -263,7 +263,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
                 mapping_.setArg(elementType_);
                 mapping_.setParam(componentType_);
                 if (!Templates.isCorrect(mapping_, _conf)) {
-                    throw new InvokeException(new StdStruct(new CustomError(componentType_+elementType_+_conf.joinPages()),store_));
+                    throw new InvokeException(new StdStruct(new CustomError(StringList.concat(componentType_,elementType_,_conf.joinPages())),store_));
                 }
             }
             LgNames.setElement(instance_, index_, _value, _conf);
@@ -273,7 +273,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         int len_ = Array.getLength(arrayInst_);
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
-            throw new InvokeException(new StdStruct(new CustomError(String.valueOf(index_)+RETURN_LINE+_conf.joinPages()),badIndex_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
         }
         if (_value.isNull()) {
             Array.set(arrayInst_, index_, null);
@@ -285,7 +285,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         mapping_.setArg(elementType_);
         mapping_.setParam(componentType_);
         if (!Templates.isCorrect(mapping_, _conf)) {
-            throw new InvokeException(new StdStruct(new CustomError(componentType_+elementType_+_conf.joinPages()),store_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(componentType_,elementType_,_conf.joinPages())),store_));
         }
         Array.set(arrayInst_, index_, _value.getInstance());
     }

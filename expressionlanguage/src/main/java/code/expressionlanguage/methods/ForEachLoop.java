@@ -117,10 +117,10 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName, _cont)) {
-            throw new DynamicCastClassException(classIndexName+RETURN_LINE+_cont.joinPages());
+            throw new DynamicCastClassException(StringList.concat(classIndexName,RETURN_LINE,_cont.joinPages()));
         }
         if (_cont.getLastPage().getVars().contains(variableName)) {
-            throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
+            throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
         }
         PageEl page_ = _cont.getLastPage();
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);

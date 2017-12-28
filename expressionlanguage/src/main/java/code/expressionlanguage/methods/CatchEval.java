@@ -8,6 +8,7 @@ import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class CatchEval extends BracedStack implements Eval, IncrCurrentGroup, IncrNextGroup {
@@ -75,7 +76,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         page_.setProcessingAttribute(ATTRIBUTE_VAR);
         page_.setOffset(0);
         if (_cont.getLastPage().getCatchVars().contains(variableName)) {
-            throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
+            throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
         }
         if (getFirstChild() == null) {
             return;

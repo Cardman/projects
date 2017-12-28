@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.exceptions.NullObjectException;
 
 public final class UnaryOperation extends PrimitiveBoolOperation {
@@ -39,7 +40,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         if (cl_ == null) {
-            throw new NotNumberException(clMatch_+RETURN_LINE+_conf.joinPages());
+            throw new NotNumberException(StringList.concat(clMatch_.getName(),RETURN_LINE,_conf.joinPages()));
         }
         LgNames stds_ = _conf.getStandards();
         int intOrder_ = PrimitiveTypeUtil.getOrderClass(stds_.getAliasPrimInteger(), _conf);

@@ -9,6 +9,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 import code.util.exceptions.NullObjectException;
 
 
@@ -41,7 +42,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
             if (!clMatch_.matchClass(booleanPrimType_)) {
                 if (!clMatch_.matchClass(booleanType_)) {
                     ClassArgumentMatching cl_ = o.getResultClass();
-                    throw new NotBooleanException(cl_+RETURN_LINE+_conf.joinPages());
+                    throw new NotBooleanException(StringList.concat(cl_.getName(),RETURN_LINE,_conf.joinPages()));
                 }
             }
         }

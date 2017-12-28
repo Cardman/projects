@@ -12141,7 +12141,7 @@ public final class GameTarot {
         Numbers<Byte> joueurs_ = new Numbers<Byte>();
         byte player_ = playerAfter(taker);
         //called player exists
-        while (player_ != _appele) {
+        while (!Numbers.eq(player_, _appele)) {
             if (_joueurs.containsObj(player_)) {
                 joueurs_.add(player_);
             }

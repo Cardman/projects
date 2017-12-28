@@ -9,16 +9,9 @@ import code.util.ints.Listable;
 
 public final class MathList extends AbEqList<String> implements Equallable<MathList>, Displayable {
 
-    static final char SEPARATOR_SET_CHAR = ';';
-
     private static final String EMPTY_STRING = "";
-    private static final char ESCAPING_CHAR = '\\';
-    private static final String SEP =  EMPTY_STRING+SEPARATOR_SET_CHAR;
-    private static final String ESCAPE =  EMPTY_STRING+ESCAPING_CHAR;
-
-    private static final String LEFT_BRACE_SET=EMPTY_STRING+StringList.LEFT_BRACE;
-
-    private static final String RIGHT_BRACE_SET= EMPTY_STRING+StringList.RIGHT_BRACE;
+    private static final String SEP =  ";";
+    private static final String ESCAPE =  "\\";
 
     public MathList() {
     }
@@ -161,11 +154,12 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
 //        return INDEX_NOT_FOUND_ELT;
 //    }
     public String escapedList() {
-        StringBuilder str_ = new StringBuilder(LEFT_BRACE_SET);
+        StringBuilder str_ = new StringBuilder(String.valueOf(StringList.LEFT_BRACE));
+        String end_ = String.valueOf(StringList.RIGHT_BRACE);
         StringMap<String> rep_ = new StringMap<String>();
-        rep_.put(SEP, ESCAPE+SEP);
-        rep_.put(ESCAPE, ESCAPE+ESCAPE);
-        rep_.put(RIGHT_BRACE_SET, ESCAPE+RIGHT_BRACE_SET);
+        rep_.put(SEP, StringList.concat(ESCAPE,SEP));
+        rep_.put(ESCAPE, StringList.concat(ESCAPE,ESCAPE));
+        rep_.put(end_, StringList.concat(ESCAPE,end_));
         for (String s: this) {
             str_.append(StringList.replaceMultiple(s, rep_));
             str_.append(SEP);
@@ -173,7 +167,7 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
         if (!isEmpty()) {
             str_.deleteCharAt(str_.length() - 1);
         }
-        str_.append(RIGHT_BRACE_SET);
+        str_.append(end_);
         return str_.toString();
     }
 
@@ -205,7 +199,7 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
 
     @Override
     public String display() {
-        return LEFT_BRACE_SET+join(SEPARATOR_SET_CHAR)+RIGHT_BRACE_SET;
+        return StringList.concat(String.valueOf(StringList.LEFT_BRACE),join(SEP),String.valueOf(StringList.RIGHT_BRACE));
     }
 
     @Override

@@ -133,17 +133,17 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
             setVararg(true);
             if (!(getParent() instanceof InvokingOperation)) {
-                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             InvokingOperation parent_ = (InvokingOperation) getParent();
             if (!parent_.isCallMethodCtor()) {
-                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             if (!isFirstChild()) {
-                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             if (chidren_.size() != CustList.ONE_ELEMENT) {
-                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             if (!chidren_.first().getResultClass().matchClass(stringType_)) {
                 setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
@@ -167,17 +167,17 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+FIRST_OPT)) {
             setFirstOptArg(true);
             if (!(getParent() instanceof InvokingOperation)) {
-                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             InvokingOperation parent_ = (InvokingOperation) getParent();
             if (!parent_.isCallMethodCtor()) {
-                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             if (isFirstChild()) {
-                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             if (chidren_.size() != CustList.ONE_ELEMENT) {
-                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             setResultClass(chidren_.first().getResultClass());
             return;

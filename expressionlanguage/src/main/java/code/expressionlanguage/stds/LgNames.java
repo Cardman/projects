@@ -71,7 +71,6 @@ public class LgNames {
     protected static final String EMPTY_STRING = "";
     protected static final String RETURN_LINE = "\n";
     protected static final String SPACE = " ";
-    protected static final String RETURN_TAB = RETURN_LINE+"\t";
 
     protected static final char PAR_LEFT = '(';
     protected static final char SEP_ARG = ',';
@@ -1018,7 +1017,7 @@ public class LgNames {
                 }
                 trace_ += classesNames_.join(SEP_ARG);
                 trace_ += PAR_RIGHT;
-                throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+                throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
             }
             if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
                 return toFoundMethod(classes_, resStatic_);
@@ -1034,7 +1033,7 @@ public class LgNames {
             }
             trace_ += classesNames_.join(SEP_ARG);
             trace_ += PAR_RIGHT;
-            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
         }
         ClassMethodIdResult resInst_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
         boolean foundInst_ = false;
@@ -1056,7 +1055,7 @@ public class LgNames {
             }
             trace_ += classesNames_.join(SEP_ARG);
             trace_ += PAR_RIGHT;
-            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
         }
         if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
             return toFoundMethod(classes_, resStatic_);
@@ -1075,7 +1074,7 @@ public class LgNames {
         }
         trace_ += classesNames_.join(SEP_ARG);
         trace_ += PAR_RIGHT;
-        throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+        throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
     }
     public static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching... _args) {
         LgNames classes_ = _conf.getStandards();

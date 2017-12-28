@@ -62,6 +62,7 @@ public final class FileResolver {
     private static final char BEGIN_BLOCK = '{';
     private static final char END_BLOCK = '}';
     private static final char BEGIN_ARRAY = '[';
+    private static final char GET_VAR = ';';
     private static final char END_ARRAY = ']';
     private static final char BEGIN_CALLING = '(';
     private static final char SEP_CALLING = ',';
@@ -610,6 +611,7 @@ public final class FileResolver {
         boolean constChar_ = false;
         boolean constString_ = false;
         StringBuilder instruction_ = new StringBuilder();
+        RowCol instructionLocation_ = new RowCol();
         Numbers<Integer> parentheses_ = new Numbers<Integer>();
         Numbers<Integer> indexes_ = new Numbers<Integer>();
         indexes_.add(0);
@@ -677,7 +679,11 @@ public final class FileResolver {
                 i_++;
                 continue;
             }
-            if (currentChar_ == BEGIN_COMMENT) {
+            boolean const_ = false;
+            if (constString_ || constChar_) {
+                const_ = true;
+            }
+            if (currentChar_ == BEGIN_COMMENT && !const_) {
                 if (i_ + 1 >= len_) {
                     //ERROR
                     break;
@@ -705,7 +711,7 @@ public final class FileResolver {
                 }
             }
             boolean endInstruction_ = false;
-            if (parentheses_.isEmpty() && !constChar_ && !constString_) {
+            if (parentheses_.isEmpty() && !const_) {
                 if (currentChar_ == END_LINE) {
                     endInstruction_ = true;
                 }
@@ -721,6 +727,11 @@ public final class FileResolver {
                 //End line
             }
             if (!endInstruction_) {
+                if (instruction_.length() == 0) {
+                    instructionLocation_ = new RowCol();
+                    instructionLocation_.setCol(col_);
+                    instructionLocation_.setRow(row_);
+                }
                 instruction_.append(currentChar_);
             }
             if (constChar_) {
@@ -729,6 +740,7 @@ public final class FileResolver {
                         //ERROR
                         break;
                     }
+                    instruction_.append(_file.charAt(i_+1));
                     i_++;
                     i_++;
                     continue;
@@ -748,6 +760,7 @@ public final class FileResolver {
                         //ERROR
                         break;
                     }
+                    instruction_.append(_file.charAt(i_+1));
                     i_++;
                     i_++;
                     continue;
@@ -929,14 +942,23 @@ public final class FileResolver {
                             boolean typeDeclaring_ = !declaringType_.isEmpty();
                             boolean declaring_ = false;
                             String info_;
-                            if (typeDeclaring_ && !StringList.quickEq(declaringType_, NEW) && !StringList.quickEq(declaringType_, SUPER) && !StringList.quickEq(declaringType_, THIS) && !StringList.quickEq(declaringType_, CLASSCHOICE)) {
+                            if (typeDeclaring_) {
                                 info_ = found_.trim().substring(declaringType_.length());
                                 declaring_ = true;
                             } else {
                                 info_ = found_;
                             }
+                            int beforeInstr_ = 0;
+                            int instrLen_ = found_.length();
+                            while (beforeInstr_ < instrLen_) {
+                                char locChar_ = info_.charAt(beforeInstr_);
+                                if (!Character.isWhitespace(locChar_)) {
+                                    break;
+                                }
+                                beforeInstr_++;
+                            }
                             int indexInstr_ = 0;
-                            int instrLen_ = info_.length();
+                            instrLen_ = info_.length();
                             Numbers<Integer> localCallings_ = new Numbers<Integer>();
                             boolean localConstChar_ = false;
                             boolean localConstString_ = false;
@@ -1113,7 +1135,7 @@ public final class FileResolver {
                             StringList interfaces_ = new StringList();
                             if (info_.startsWith(KEY_WORD_PREFIX+KEY_WORD_INTERFACES)) {
                                 info_ = info_.substring((KEY_WORD_PREFIX+KEY_WORD_INTERFACES).length()).trim();
-                                info_ = info_.substring(info_.indexOf(BEGIN_CALLING) + 1);
+                                info_ = info_.substring(info_.indexOf(BEGIN_CALLING) + 1).trim();
                                 while (true) {
                                     if (info_.indexOf(END_CALLING) == 0) {
                                         info_ = info_.substring(1).trim();
@@ -1281,32 +1303,42 @@ public final class FileResolver {
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
+        boolean foundTmp_ = false;
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
-            boolean takeComma_ = false;
-            if (nbOpenedTmp_ > 0) {
-                takeComma_ = true;
-            }
-            if (!takeComma_ && !StringList.isWordChar(currentCharFound_) && currentCharFound_ != KEY_WORD_PREFIX && currentCharFound_ != VAR_PREFIX
-                && currentCharFound_ != PKG && declTypeName_.length() > 0 && currentCharFound_ != BEGIN_ARRAY  && currentCharFound_ != END_ARRAY) {
-                if (Character.isWhitespace(currentCharFound_)) {
+            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
+                if (foundTmp_) {
                     typeDeclaring_ = true;
                     break;
                 }
-                if (currentCharFound_ == END_TEMPLATE && nbOpenedTmp_ == 0) {
-                    declTypeName_.append(currentCharFound_);
-                    typeDeclaring_ = true;
-                    break;
+                String nextPart_ = _found.substring(indexInstr_).trim();
+                String trimmed_ = declTypeName_.toString().trim();
+                if (trimmed_.length() > 0) {
+                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
+                    if (StringList.isWordChar(ch_)) {
+                        if (!nextPart_.isEmpty()) {
+                            if (StringList.isWordChar(nextPart_.charAt(0))) {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                        }
+                    }
                 }
-                if (currentCharFound_ != BEGIN_TEMPLATE && nbOpenedTmp_ == 0) {
-                    break;
-                }
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
             }
             if (currentCharFound_ == BEGIN_TEMPLATE) {
                 nbOpenedTmp_++;
+                foundTmp_ = true;
             }
             if (currentCharFound_ == END_TEMPLATE) {
                 nbOpenedTmp_--;
+                if (nbOpenedTmp_ == 0) {
+                    typeDeclaring_ = true;
+                    declTypeName_.append(currentCharFound_);
+                    break;
+                }
             }
             declTypeName_.append(currentCharFound_);
             indexInstr_++;
@@ -1322,31 +1354,68 @@ public final class FileResolver {
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
+        boolean foundTmp_ = false;
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
+            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
+                if (declTypeName_.toString().equals(NEW)) {
+                    break;
+                }
+                if (foundTmp_) {
+                    typeDeclaring_ = true;
+                    break;
+                }
+                String nextPart_ = _found.substring(indexInstr_).trim();
+                String trimmed_ = declTypeName_.toString().trim();
+                if (trimmed_.length() > 0) {
+                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
+                    if (StringList.isWordChar(ch_)) {
+                        if (!nextPart_.isEmpty()) {
+                            if (StringList.isWordChar(nextPart_.charAt(0))) {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
             if (currentCharFound_ == BEGIN_CALLING) {
                 break;
             }
-            boolean takeComma_ = false;
-            if (nbOpenedTmp_ > 0 || Character.isWhitespace(currentCharFound_)) {
-                takeComma_ = true;
+            if (currentCharFound_ == PLUS_CHAR) {
+                break;
             }
-            if (!takeComma_ && !StringList.isWordChar(currentCharFound_) && currentCharFound_ != KEY_WORD_PREFIX && currentCharFound_ != VAR_PREFIX
-                && currentCharFound_ != PKG && declTypeName_.length() > 0 && currentCharFound_ != BEGIN_ARRAY  && currentCharFound_ != END_ARRAY) {
-                if (Character.isWhitespace(currentCharFound_)) {
-                    if (_found.substring(indexInstr_).trim().startsWith(String.valueOf(BEGIN_ARRAY))) {
+            if (currentCharFound_ == MINUS_CHAR) {
+                break;
+            }
+            if (currentCharFound_ == PART_SEPARATOR) {
+                break;
+            }
+            if (currentCharFound_ == MULT_CHAR) {
+                break;
+            }
+            if (currentCharFound_ == DIV_CHAR) {
+                break;
+            }
+            if (currentCharFound_ == MOD_CHAR) {
+                break;
+            }
+            if (currentCharFound_ == BEGIN_CALLING) {
+                break;
+            }
+            if (currentCharFound_ == GET_VAR) {
+                break;
+            }
+            if (currentCharFound_ == BEGIN_ARRAY) {
+                String trimmed_ = declTypeName_.toString().trim();
+                if (trimmed_.length() > 0) {
+                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
+                    if (ch_ != BEGIN_ARRAY) {
                         break;
                     }
-                    typeDeclaring_ = true;
-                    break;
-                }
-                if (currentCharFound_ == END_TEMPLATE && nbOpenedTmp_ == 0) {
-                    declTypeName_.append(currentCharFound_);
-                    typeDeclaring_ = true;
-                    break;
-                }
-                if (currentCharFound_ != BEGIN_TEMPLATE && nbOpenedTmp_ == 0) {
-                    break;
                 }
             }
             if (currentCharFound_ == BEGIN_TEMPLATE) {

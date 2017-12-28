@@ -6,6 +6,7 @@ import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class DeclareVariable extends Leaf implements InitVariable {
@@ -53,7 +54,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         if (_cont.getLastPage().getLocalVars().contains(variableName)) {
             page_.setProcessingAttribute(ATTRIBUTE_VAR);
             page_.setOffset(0);
-            throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
+            throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(className);

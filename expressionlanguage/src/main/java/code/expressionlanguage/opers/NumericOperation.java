@@ -94,10 +94,10 @@ public abstract class NumericOperation extends MethodOperation {
             return a_;
         }
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -235,10 +235,10 @@ public abstract class NumericOperation extends MethodOperation {
         String null_;
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -376,10 +376,10 @@ public abstract class NumericOperation extends MethodOperation {
         String null_;
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -518,10 +518,10 @@ public abstract class NumericOperation extends MethodOperation {
         div_ = stds_.getAliasDivisionZero();
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -672,10 +672,10 @@ public abstract class NumericOperation extends MethodOperation {
         div_ = stds_.getAliasDivisionZero();
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -822,13 +822,12 @@ public abstract class NumericOperation extends MethodOperation {
 
     static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
         int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
-        String mess_ = _a+RETURN_LINE;
         if (oa_ == 0) {
-            throw new NotNumberException(mess_+_cont.joinPages());
+            throw new NotNumberException(StringList.concat(_a.getName(),_cont.joinPages()));
         }
         int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
         if (ob_ == 0) {
-            throw new NotNumberException(mess_+_b+RETURN_LINE+_cont.joinPages());
+            throw new NotNumberException(StringList.concat(_b.getName(),RETURN_LINE,_cont.joinPages()));
         }
         ClassArgumentMatching arg_;
         int max_ = Math.max(oa_, ob_);

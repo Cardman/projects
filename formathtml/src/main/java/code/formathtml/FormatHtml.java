@@ -131,7 +131,6 @@ public final class FormatHtml {
     private static final String LEFT_PAR_COMMA = "(,";
     private static final String DOUBLE_COMMA = ",,";
     private static final char RIGHT_PAR_CHAR = ')';
-    private static final String RIGHT_PAR = EMPTY_STRING+RIGHT_PAR_CHAR;
     private static final String TAG_OPTION = "option";
     private static final String SELECTED = "selected";
     private static final String ATTRIBUTE_VALIDATOR = "validator";
@@ -146,7 +145,6 @@ public final class FormatHtml {
     private static final String SUBMIT_TYPE = "submit";
     private static final String TAG_BODY = "body";
     private static final char LEFT_PAR_CHAR = '(';
-    private static final String LEFT_PAR = EMPTY_STRING+LEFT_PAR_CHAR;
     private static final String TAG_PARAM = "param";
     private static final String ATTRIBUTE_CLASS = "class";
     private static final String ATTRIBUTE_TYPE = "type";
@@ -255,8 +253,7 @@ public final class FormatHtml {
     private static final char EQUALS = '=';
     private static final char QUOT = 34;
     private static final char APOS = 39;
-    private static final String NEXT_COMMENT = "--";
-    private static final String END_COMMENT = "--"+GT_TAG;
+    private static final String END_COMMENT = "-->";
 
     private static final StringList AVAILABLE_FORMATS = new StringList("png","jpg","bmp","gif","svg");
 
@@ -354,6 +351,8 @@ public final class FormatHtml {
         Struct bean_ = getBean(_conf, _beanName);
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
+        String leftParStr_ = String.valueOf(LEFT_PAR_CHAR);
+        String rightParStr_ = String.valueOf(RIGHT_PAR_CHAR);
         for (Element n: _node.getChildElements()) {
             if (!StringList.quickEq(n.getTagName(),prefix_+PACKAGE_BLOCK_TAG)) {
                 continue;
@@ -413,7 +412,7 @@ public final class FormatHtml {
                         lv_.setStruct(argt_.getStruct());
                         String nameVar_ = ip_.getNextTempVar();
                         ip_.getLocalVars().put(nameVar_, lv_);
-                        ElUtil.processEl(methodName_+LEFT_PAR+nameVar_+GET_LOC_VAR+RIGHT_PAR, 0, _conf.toContextEl());
+                        ElUtil.processEl(StringList.concat(methodName_,leftParStr_,nameVar_,GET_LOC_VAR,rightParStr_), 0, _conf.toContextEl());
                         ip_.getLocalVars().removeKey(nameVar_);
                         continue;
                     }
@@ -2225,7 +2224,7 @@ public final class FormatHtml {
                 infos_.put(nodeAttr_, getIndexesSpecChars(_html, false, attrPart_, indexGlobal_));
                 indexGlobal_ = endHeader_;
             } else {
-                indexGlobal_ = _html.indexOf(END_COMMENT, indexGlobal_+NEXT_COMMENT.length())+END_COMMENT.length()-1;
+                indexGlobal_ = _html.indexOf(END_COMMENT, indexGlobal_+END_COMMENT.length() - 1)+END_COMMENT.length()-1;
             }
             Node n_ = en_.getFirstChild();
             if (n_ != null) {
@@ -2309,7 +2308,7 @@ public final class FormatHtml {
                 infos_.put(nodeAttr_, getIndexesSpecChars(_html, false, attrPart_, indexGlobal_));
                 indexGlobal_ = endHeader_;
             } else {
-                indexGlobal_ = _html.indexOf(END_COMMENT, indexGlobal_+NEXT_COMMENT.length())+END_COMMENT.length()-1;
+                indexGlobal_ = _html.indexOf(END_COMMENT, indexGlobal_+END_COMMENT.length() - 1)+END_COMMENT.length()-1;
             }
             Node n_ = en_.getFirstChild();
             if (n_ != null) {
@@ -3175,20 +3174,26 @@ public final class FormatHtml {
                 return ret_;
             }
         }
+        String leftParStr_ = String.valueOf(LEFT_PAR_CHAR);
+        String rightParStr_ = String.valueOf(RIGHT_PAR_CHAR);
         for (BlockHtml l: _stacks) {
             if (!(l instanceof LoopHtmlStack)) {
                 continue;
             }
             LoopHtmlStack l_ = (LoopHtmlStack) l;
             long index_ = l_.getIndex();
+            String indexStr_ = Long.toString(index_);
             if (ret_.contains(LEFT_PAR_COMMA)) {
-                ret_ = StringList.replace(ret_, LEFT_PAR_COMMA, LEFT_PAR+index_+COMMA);
+                String con_ = StringList.concat(leftParStr_,indexStr_,COMMA);
+                ret_ = StringList.replace(ret_, LEFT_PAR_COMMA, con_);
             } else if (ret_.contains(DOUBLE_COMMA)) {
                 ret_ = insertArguments(ret_,index_);
             } else if (ret_.contains(COMMA_RIGHT_PAR)) {
-                ret_ = StringList.replace(ret_, COMMA_RIGHT_PAR, COMMA+index_+RIGHT_PAR);
+                String con_ = StringList.concat(COMMA,indexStr_,rightParStr_);
+                ret_ = StringList.replace(ret_, COMMA_RIGHT_PAR, con_);
             } else if (ret_.contains(NO_PARAM_METHOD)) {
-                ret_ = StringList.replace(ret_, NO_PARAM_METHOD, LEFT_PAR+index_+RIGHT_PAR);
+                String con_ = StringList.concat(leftParStr_,indexStr_,rightParStr_);
+                ret_ = StringList.replace(ret_, NO_PARAM_METHOD, con_);
             }
         }
         return ret_;

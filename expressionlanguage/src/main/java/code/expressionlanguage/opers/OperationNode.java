@@ -115,11 +115,10 @@ public abstract class OperationNode {
     protected static final char MAX_ENCODE_UPP_LETTER = 'F';
     protected static final String CURRENT_INTANCE = "$this";
     protected static final String STATIC_CALL = "$$";
-    protected static final String CLASS_CHOICE = "classchoice";
     protected static final String VAR_ARG = "vararg";
     protected static final String FIRST_OPT = "firstopt";
 
-    protected static final String CLASS_CHOICE_PREF = EXTERN_CLASS + CLASS_CHOICE + EXTERN_CLASS;
+    protected static final String CLASS_CHOICE_PREF = "$classchoice$";
 
     protected static final String FCT = "(";
 
@@ -163,7 +162,7 @@ public abstract class OperationNode {
     protected static final String EMPTY_STRING = "";
     protected static final String RETURN_LINE = "\n";
     protected static final String SPACE = " ";
-    protected static final String RETURN_TAB = RETURN_LINE+"\t";
+    protected static final String RETURN_TAB = "\n\t";
 
     protected static final String GET_CLASS = "getClass";
 
@@ -671,7 +670,7 @@ public abstract class OperationNode {
                 }
                 trace_ += classesNames_.join(SEP_ARG);
                 trace_ += PAR_RIGHT;
-                throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+                throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
             }
             if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
                 return toFoundMethod(_conf, resStatic_);
@@ -687,7 +686,7 @@ public abstract class OperationNode {
             }
             trace_ += classesNames_.join(SEP_ARG);
             trace_ += PAR_RIGHT;
-            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
         }
         ClassMethodIdResult resInst_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
         boolean foundInst_ = false;
@@ -709,7 +708,7 @@ public abstract class OperationNode {
             }
             trace_ += classesNames_.join(SEP_ARG);
             trace_ += PAR_RIGHT;
-            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
         }
         if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
             return toFoundMethod(_conf, resStatic_);
@@ -728,7 +727,7 @@ public abstract class OperationNode {
         }
         trace_ += classesNames_.join(SEP_ARG);
         trace_ += PAR_RIGHT;
-        throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+        throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
     }
     private static ClassMethodIdReturn toFoundMethod(ContextEl _conf, ClassMethodIdResult _res){
         Classes classes_ = _conf.getClasses();
