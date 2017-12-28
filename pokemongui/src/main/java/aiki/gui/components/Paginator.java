@@ -23,6 +23,7 @@ import code.maths.exceptions.FormatException;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumMap;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.pagination.SearchingMode;
@@ -45,7 +46,7 @@ public abstract class Paginator extends JPanel{
 
     protected static final String POKEMON = "Pokemon";
 
-    protected static final String SPACES = SPACE + SPACE;
+    protected static final String SPACES = StringList.concat(SPACE,SPACE);
     protected static final String ACCESS_EGG = "aiki.gui.components.PaginatorEgg";
     protected static final String ACCESS_HEALING_ITEM = "aiki.gui.components.PaginatorHealingItem";
     protected static final String ACCESS_ITEM = "aiki.gui.components.PaginatorItem";

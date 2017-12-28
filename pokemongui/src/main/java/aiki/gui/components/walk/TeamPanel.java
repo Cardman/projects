@@ -36,7 +36,7 @@ public class TeamPanel extends JPanel {
 
     private static final String SPACE = " ";
 
-    private static final String SPACES = SPACE + SPACE;
+    private static final String SPACES = StringList.concat(SPACE,SPACE);
 
     private static final String ROOMS = "rooms";
 

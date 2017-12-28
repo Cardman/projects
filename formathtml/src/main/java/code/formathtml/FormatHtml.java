@@ -2700,18 +2700,18 @@ public final class FormatHtml {
             _tag.removeAttribute(ATTRIBUTE_ESCAPED_EAMP);
             StringList objects_ = new StringList();
             int i_ = CustList.FIRST_INDEX;
-            while (_tag.hasAttribute(TAG_PARAM+i_)) {
-                attributesNames_.removeAllString(TAG_PARAM+i_);
-                String attribute_ = _tag.getAttribute(TAG_PARAM+i_);
+            while (_tag.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
+                attributesNames_.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
+                String attribute_ = _tag.getAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                 if (attribute_.startsWith(CALL_METHOD)) {
-                    _ip.setProcessingAttribute(TAG_PARAM+i_);
+                    _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
                     objects_.add(ExtractObject.valueOf(_conf, ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
                 } else {
                     objects_.add(attribute_);
                 }
-                _tag.removeAttribute(TAG_PARAM+i_);
+                _tag.removeAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                 i_++;
             }
             attributesNames_.removeAllString(ATTRIBUTE_VALUE);
@@ -2740,18 +2740,18 @@ public final class FormatHtml {
             _tag.removeAttribute(ATTRIBUTE_VALUE);
             StringList objects_ = new StringList();
             int i_ = CustList.FIRST_INDEX;
-            while (_tag.hasAttribute(TAG_PARAM+i_)) {
-                attributesNames_.removeAllString(TAG_PARAM+i_);
-                String attribute_ = _tag.getAttribute(TAG_PARAM+i_);
+            while (_tag.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
+                attributesNames_.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
+                String attribute_ = _tag.getAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                 if (attribute_.startsWith(CALL_METHOD)) {
-                    _ip.setProcessingAttribute(TAG_PARAM+i_);
+                    _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
                     objects_.add(ExtractObject.valueOf(_conf, ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
                 } else {
                     objects_.add(attribute_);
                 }
-                _tag.removeAttribute(TAG_PARAM+i_);
+                _tag.removeAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                 i_++;
             }
             attributesNames_.removeAllString(ATTRIBUTE_TITLE);
@@ -2800,18 +2800,18 @@ public final class FormatHtml {
                 _ip.setOffset(0);
                 StringList objects_ = new StringList();
                 int i_ = CustList.FIRST_INDEX;
-                while (_tag.hasAttribute(TAG_PARAM+i_)) {
-                    attributesNames_.removeAllString(TAG_PARAM+i_);
-                    String attribute_ = _tag.getAttribute(TAG_PARAM+i_);
+                while (_tag.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
+                    attributesNames_.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
+                    String attribute_ = _tag.getAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     if (attribute_.startsWith(CALL_METHOD)) {
-                        _ip.setProcessingAttribute(TAG_PARAM+i_);
+                        _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(1);
                         objects_.add(ExtractObject.valueOf(_conf,ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
                     } else {
                         objects_.add(attribute_);
                     }
-                    _tag.removeAttribute(TAG_PARAM+i_);
+                    _tag.removeAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     i_++;
                 }
                 String fileContent_ = ExtractFromResources.getContentFile(_conf, _files, href_, _resourcesFolder);

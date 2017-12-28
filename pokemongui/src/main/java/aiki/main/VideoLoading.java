@@ -18,7 +18,7 @@ public final class VideoLoading {
     /**IMAGES does not contain any null BufferedImage*/
     private static final CustList<CustList<BufferedImage>> IMAGES = new CustList<CustList<BufferedImage>>();
     private static final String VIDEO = "video";
-    private static final String VIDEO_DEFAULT = "resources_pk/gui/"+VIDEO+"/";
+    private static final String VIDEO_DEFAULT = "resources_pk/gui/video/";
     private static final String FILE = "link_";
     private static boolean _initialized_;
 

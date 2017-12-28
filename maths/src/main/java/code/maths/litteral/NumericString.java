@@ -15,19 +15,19 @@ final class NumericString implements NumericableString<Rate> {
 
     static final String EMPTY_STRING = "";
 
-    static final String LEFT_BRACE_SET=EMPTY_STRING+StringList.LEFT_BRACE;
+    static final String LEFT_BRACE_SET=String.valueOf(StringList.LEFT_BRACE);
 
-    static final String RIGHT_BRACE_SET= EMPTY_STRING+StringList.RIGHT_BRACE;
+    static final String RIGHT_BRACE_SET= String.valueOf(StringList.RIGHT_BRACE);
 
-    static final String SEPARATOR_SET = EMPTY_STRING+SEPARATOR_SET_CHAR;
+    static final String SEPARATOR_SET = String.valueOf(SEPARATOR_SET_CHAR);
 
     static final char LEFT_BRACE_SET_CHAR = StringList.LEFT_BRACE;
 
-    static final String LEFT_PAR= EMPTY_STRING+StringList.LEFT_PAR;
+    static final String LEFT_PAR= String.valueOf(StringList.LEFT_PAR);
 
     static final char RIGHT_BRACE_SET_CHAR = StringList.RIGHT_BRACE;
 
-    static final String RIGHT_PAR = EMPTY_STRING+StringList.RIGHT_PAR;
+    static final String RIGHT_PAR = String.valueOf(StringList.RIGHT_PAR);
 
     static final String EMPTY_SET = "vide";
 

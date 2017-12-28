@@ -1,5 +1,7 @@
 package aiki;
 
+import code.util.StringList;
+
 public final class Resources {
 
     public static final String PORT_INI = "pokemon_port.ini";
@@ -12,7 +14,7 @@ public final class Resources {
 
     public static final String CONF_EXT = ".pkconf";
 
-    public static final String LOAD_CONFIG_FILE = "loadconfig"+CONF_EXT;
+    public static final String LOAD_CONFIG_FILE = "loadconfig.pkconf";
 
     public static final String RESOURCES_FOLDER= "resources_pk";
 
@@ -24,7 +26,7 @@ public final class Resources {
 
     public static final String COORDS="pk.coords";
 
-    public static final String ACCESS_TO_DEFAULT_FILES = RESOURCES_FOLDER+"/rom/";
+    public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
 
     public static final String CONFIG_DATA = "web/faces.xml";
 
@@ -36,25 +38,25 @@ public final class Resources {
 
     public static final String CONFIG_FIGHT = "web_fight/faces.xml";
 
-    public static final String ACCESS_TO_DEFAULT_FILES_DATA = RESOURCES_FOLDER+"/rom/web";
+    public static final String ACCESS_TO_DEFAULT_FILES_DATA = "resources_pk/rom/web";
 
-    public static final String ACCESS_TO_DEFAULT_FILES_PROG = RESOURCES_FOLDER+"/rom/web_prog";
+    public static final String ACCESS_TO_DEFAULT_FILES_PROG = "resources_pk/rom/web_prog";
 
-    public static final String ACCESS_TO_DEFAULT_FILES_DIFF = RESOURCES_FOLDER+"/rom/web_game";
+    public static final String ACCESS_TO_DEFAULT_FILES_DIFF = "resources_pk/rom/web_game";
 
-    public static final String ACCESS_TO_DEFAULT_FILES_PK = RESOURCES_FOLDER+"/rom/web_pk";
+    public static final String ACCESS_TO_DEFAULT_FILES_PK = "resources_pk/rom/web_pk";
 
-    public static final String ACCESS_TO_DEFAULT_FILES_FIGHT = RESOURCES_FOLDER+"/rom/web_fight";
+    public static final String ACCESS_TO_DEFAULT_FILES_FIGHT = "resources_pk/rom/web_fight";
 
-    public static final String ACCESS_TO_DEFAULT_DATA = ACCESS_TO_DEFAULT_FILES+CONFIG_DATA;
+    public static final String ACCESS_TO_DEFAULT_DATA = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_DATA);
 
-    public static final String ACCESS_TO_DEFAULT_DIFF = ACCESS_TO_DEFAULT_FILES+CONFIG_DIFF;
+    public static final String ACCESS_TO_DEFAULT_DIFF = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_DIFF);
 
-    public static final String ACCESS_TO_DEFAULT_PROG = ACCESS_TO_DEFAULT_FILES+CONFIG_PROG;
+    public static final String ACCESS_TO_DEFAULT_PROG = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_PROG);
 
-    public static final String ACCESS_TO_DEFAULT_PK = ACCESS_TO_DEFAULT_FILES+CONFIG_PK;
+    public static final String ACCESS_TO_DEFAULT_PK = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_PK);
 
-    public static final String ACCESS_TO_DEFAULT_FIGHT = ACCESS_TO_DEFAULT_FILES+CONFIG_FIGHT;
+    public static final String ACCESS_TO_DEFAULT_FIGHT = StringList.concat(ACCESS_TO_DEFAULT_FILES,CONFIG_FIGHT);
 
     private Resources(){
     }

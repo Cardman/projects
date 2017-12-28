@@ -10,11 +10,11 @@ final class BooleanString implements NumericableString<Boolean> {
 
     static final char TRUE_CHAR = 'V';
 
-    static final String TRUE = NumericString.EMPTY_STRING + TRUE_CHAR;
+    static final String TRUE = String.valueOf(TRUE_CHAR);
 
     static final char FALSE_CHAR = 'F';
 
-    static final String FALSE = NumericString.EMPTY_STRING + FALSE_CHAR;
+    static final String FALSE = String.valueOf(FALSE_CHAR);
 
     static final String LEFT_PAR = NumericString.LEFT_PAR;
 
@@ -30,9 +30,7 @@ final class BooleanString implements NumericableString<Boolean> {
 
     private static final String GREATER_EQ = ">=";
 
-    private static final String BEGIN_DIFF = "!";
-
-    private static final String DIFF = BEGIN_DIFF+"=";
+    private static final String DIFF = "!=";
 
     private static final char OR_OP_CHAR = '|';
 

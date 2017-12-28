@@ -1,6 +1,5 @@
 package code.maths.matrix;
 import code.maths.LgInt;
-import code.maths.Rate;
 import code.maths.exceptions.BadDivisionException;
 import code.sml.FromAndToString;
 import code.util.StringList;
@@ -8,7 +7,7 @@ import code.util.ints.Equallable;
 
 public final class FractPol implements Equallable<FractPol> {
 
-    private static final String SEP_NUM_DEN = Rate.SEP_NUM_DEN+Rate.SEP_NUM_DEN;
+    private static final String SEP_NUM_DEN = "//";
 
     private Polynom numerateur;
 

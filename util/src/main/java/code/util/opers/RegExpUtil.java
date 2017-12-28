@@ -9,9 +9,9 @@ public final class RegExpUtil {
 
     public static final char BACK_SLASH = '\\';
 
-    public static final String BOUNDS = BACK_SLASH+"b";
+    public static final String BOUNDS = "\\b";
 
-    public static final String CHAR_WORD = BACK_SLASH+"w";
+    public static final String CHAR_WORD = "\\w";
 
     public static final char CHAR_WORD_OTHER = '_';
 
