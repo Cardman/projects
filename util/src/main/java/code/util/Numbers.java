@@ -187,6 +187,14 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return CustList.EQ_CMP;
     }
 
+    public static byte[] wrapByteArray(byte... _ints) {
+        return _ints;
+    }
+
+    public static int[] wrapIntArray(int... _ints) {
+        return _ints;
+    }
+
     public EqList<Numbers<Integer>> getAllIndexes() {
         EqList<Numbers<Integer>> e_;
         e_ = new EqList<Numbers<Integer>>();

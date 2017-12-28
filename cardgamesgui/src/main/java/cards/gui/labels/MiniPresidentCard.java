@@ -6,9 +6,10 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import code.util.consts.Constants;
 import cards.consts.Suit;
 import cards.president.enumerations.CardPresident;
+import code.util.Numbers;
+import code.util.consts.Constants;
 
 public class MiniPresidentCard extends JLabel {
 
@@ -39,7 +40,7 @@ public class MiniPresidentCard extends JLabel {
             _g.setColor(Color.BLUE);
             _g.drawLine(_x,_y,_x+10,_y+10);
             _g.setColor(Color.BLACK);
-            _g.fillPolygon(new int[]{10+_x,12+_x,15+_x,15+_x,12+_x,10+_x},new int[]{10+_y,10+_y,12+_y,15+_y,15+_y,12+_y},6);
+            _g.fillPolygon(Numbers.wrapIntArray(10+_x,12+_x,15+_x,15+_x,12+_x,10+_x),Numbers.wrapIntArray(10+_y,10+_y,12+_y,15+_y,15+_y,12+_y),6);
         } else if(couleur_ == Suit.HEART) {
             _g.setColor(Color.RED);
             _g.fillOval(_x,_y,10,10);
@@ -52,23 +53,23 @@ public class MiniPresidentCard extends JLabel {
             _g.setColor(Color.BLACK);
             _g.fillOval(_x,_y+5,10,10);
             _g.fillOval(_x+10,_y+5,10,10);
-            _g.fillPolygon(new int[]{10+_x,13+_x,10+_x,7+_x},new int[]{10+_y,20+_y,17+_y,20+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(10+_x,13+_x,10+_x,7+_x),Numbers.wrapIntArray(10+_y,20+_y,17+_y,20+_y),4);
             _g.fillRect(_x+5,_y,10,10);
             _g.setColor(Color.WHITE);
             _g.fillOval(_x,_y-5,10,10);
             _g.fillOval(_x+10,_y-5,10,10);
         } else if(couleur_ == Suit.DIAMOND) {
             _g.setColor(Color.RED);
-            _g.fillPolygon(new int[]{_x,10+_x,20+_x,10+_x},new int[]{10+_y,_y,10+_y,20+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(_x,10+_x,20+_x,10+_x),Numbers.wrapIntArray(10+_y,_y,10+_y,20+_y),4);
         } else {
             _g.setColor(Color.BLACK);
             _g.fillOval(_x,_y+6,8,8);
             _g.fillOval(_x+12,_y+6,8,8);
             _g.fillOval(_x+6,_y,8,8);
-            _g.fillPolygon(new int[]{7+_x,10+_x,7+_x},new int[]{8+_y,10+_y,12+_y},3);
-            _g.fillPolygon(new int[]{13+_x,10+_x,13+_x},new int[]{8+_y,10+_y,12+_y},3);
-            _g.fillPolygon(new int[]{8+_x,10+_x,12+_x},new int[]{7+_y,10+_y,7+_y},3);
-            _g.fillPolygon(new int[]{7+_x,10+_x,13+_x,10+_x},new int[]{20+_y,10+_y,20+_y,17+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(7+_x,10+_x,7+_x),Numbers.wrapIntArray(8+_y,10+_y,12+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(13+_x,10+_x,13+_x),Numbers.wrapIntArray(8+_y,10+_y,12+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(8+_x,10+_x,12+_x),Numbers.wrapIntArray(7+_y,10+_y,7+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(7+_x,10+_x,13+_x,10+_x),Numbers.wrapIntArray(20+_y,10+_y,20+_y,17+_y),4);
         }
     }
 }

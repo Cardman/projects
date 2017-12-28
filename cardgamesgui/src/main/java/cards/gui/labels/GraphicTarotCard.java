@@ -18,6 +18,7 @@ import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.consts.Constants;
 
 public class GraphicTarotCard extends JLabel {
@@ -156,15 +157,15 @@ public class GraphicTarotCard extends JLabel {
                 g_.drawString(_card.getSymbol(Constants.getLanguage()),5,20);
                 g_.drawString(_card.getSymbol(Constants.getLanguage()),87,20);
                 g_.setColor(Color.GREEN);
-                g_.fillPolygon(new int[]{35,40,40,33,13,11,30,35,47,47,53,53,65,80,65,70},new int[]{75,60,40,55,61,56,50,35,35,30,30,35,35,55,65,75},16);
+                g_.fillPolygon(Numbers.wrapIntArray(35,40,40,33,13,11,30,35,47,47,53,53,65,80,65,70),Numbers.wrapIntArray(75,60,40,55,61,56,50,35,35,30,30,35,35,55,65,75),16);
                 g_.setColor(Color.WHITE);
-                g_.fillPolygon(new int[]{60,60,70,62},new int[]{60,40,55,63},4);
+                g_.fillPolygon(Numbers.wrapIntArray(60,60,70,62),Numbers.wrapIntArray(60,40,55,63),4);
                 g_.setColor(new Color(128,64,0));
                 g_.fillOval(35,65,35,10);
                 g_.setColor(Color.GREEN);
-                g_.fillPolygon(new int[]{70,56,60,80},new int[]{55,65,70,55},4);
+                g_.fillPolygon(Numbers.wrapIntArray(70,56,60,80),Numbers.wrapIntArray(55,65,70,55),4);
                 g_.setColor(new Color(128,64,0));
-                g_.fillPolygon(new int[]{0,3,5,40,38,4},new int[]{60,50,55,67,72,58},6);
+                g_.fillPolygon(Numbers.wrapIntArray(0,3,5,40,38,4),Numbers.wrapIntArray(60,50,55,67,72,58),6);
                 g_.setColor(Color.BLACK);
                 g_.fillOval(47,67,6,6);
                 g_.setColor(new Color(254,180,160));
@@ -174,10 +175,10 @@ public class GraphicTarotCard extends JLabel {
                 g_.setColor(Color.BLACK);
                 g_.drawLine(44,16,48,16);
                 g_.drawLine(56,16,52,16);
-                g_.drawPolygon(new int[]{47,50,53},new int[]{23,18,23},3);
+                g_.drawPolygon(Numbers.wrapIntArray(47,50,53),Numbers.wrapIntArray(23,18,23),3);
                 g_.setColor(Color.RED);
                 g_.drawLine(46,26,54,26);
-                g_.fillPolygon(new int[]{50,60,62,38,40},new int[]{8,10,15,15,10,8},5);
+                g_.fillPolygon(Numbers.wrapIntArray(50,60,62,38,40),Numbers.wrapIntArray(8,10,15,15,10,8),5);
                 g_.setColor(Color.YELLOW);
                 g_.fillRect(38,15,5,15);
                 g_.fillRect(57,15,5,15);
@@ -276,36 +277,36 @@ public class GraphicTarotCard extends JLabel {
                 } else {
                     g_.setColor(new Color(128,128,0));
                 }
-                g_.fillPolygon(new int[]{25,35,47,47,53,53,65,75},new int[]{75,45,45,40,40,45,45,75},8);
+                g_.fillPolygon(Numbers.wrapIntArray(25,35,47,47,53,53,65,75),Numbers.wrapIntArray(75,45,45,40,40,45,45,75),8);
                 g_.setColor(Color.WHITE);
-                g_.fillPolygon(new int[]{30,40,40},new int[]{75,55,75},3);
-                g_.fillPolygon(new int[]{60,60,70},new int[]{75,55,75},3);
+                g_.fillPolygon(Numbers.wrapIntArray(30,40,40),Numbers.wrapIntArray(75,55,75),3);
+                g_.fillPolygon(Numbers.wrapIntArray(60,60,70),Numbers.wrapIntArray(75,55,75),3);
                 g_.setColor(new Color(254,180,160));
                 g_.fillOval(40,20,20,20);
                 g_.setColor(Color.BLACK);
                 g_.drawLine(44,26,48,26);
                 g_.drawLine(56,26,52,26);
-                g_.drawPolygon(new int[]{47,50,53},new int[]{33,28,33},3);
+                g_.drawPolygon(Numbers.wrapIntArray(47,50,53),Numbers.wrapIntArray(33,28,33),3);
                 g_.setColor(Color.RED);
                 g_.drawLine(46,36,54,36);
                 if(_card.getNomFigure() == CardChar.JACK || _card.getNomFigure() == CardChar.KNIGHT) {
                     g_.setColor(Color.GREEN);
-                    g_.fillPolygon(new int[]{40,40,50,60,60,50},new int[]{25,20,15,20,25,25},6);
+                    g_.fillPolygon(Numbers.wrapIntArray(40,40,50,60,60,50),Numbers.wrapIntArray(25,20,15,20,25,25),6);
                 } else {
                     g_.setColor(Color.YELLOW);
-                    g_.fillPolygon(new int[]{55,60,55,58,54,50,46,42,45,40,45},new int[]{23,18,21,13,17,9,17,13,21,18,23},11);
+                    g_.fillPolygon(Numbers.wrapIntArray(55,60,55,58,54,50,46,42,45,40,45),Numbers.wrapIntArray(23,18,21,13,17,9,17,13,21,18,23),11);
                 }
                 g_.setColor(new Color(128,64,0));
                 if(_card.getNomFigure() == CardChar.QUEEN) {
-                    g_.fillPolygon(new int[]{43,43,47,47,35},new int[]{22,37,40,45,45},5);
-                    g_.fillPolygon(new int[]{57,57,53,53,65},new int[]{22,37,40,45,45},5);
+                    g_.fillPolygon(Numbers.wrapIntArray(43,43,47,47,35),Numbers.wrapIntArray(22,37,40,45,45),5);
+                    g_.fillPolygon(Numbers.wrapIntArray(57,57,53,53,65),Numbers.wrapIntArray(22,37,40,45,45),5);
                 } else {
-                    g_.fillPolygon(new int[]{43,43,45,55,57,57,60,55,45,40},new int[]{22,32,35,35,32,22,30,40,40,30},10);
+                    g_.fillPolygon(Numbers.wrapIntArray(43,43,45,55,57,57,60,55,45,40),Numbers.wrapIntArray(22,32,35,35,32,22,30,40,40,30),10);
                     g_.setColor(Color.RED);
                     g_.drawLine(46,36,54,36);
                     if(_card.getNomFigure() == CardChar.KNIGHT) {
                         g_.setColor(new Color(128,64,0));
-                        g_.fillPolygon(new int[]{2,2,10,12,15,30,15,10,5},new int[]{60,55,47,40,50,75,75,55,60},9);
+                        g_.fillPolygon(Numbers.wrapIntArray(2,2,10,12,15,30,15,10,5),Numbers.wrapIntArray(60,55,47,40,50,75,75,55,60),9);
                     }
                 }
                 dessinerGrandSymbole(_card,g_,15,7);
@@ -545,23 +546,23 @@ public class GraphicTarotCard extends JLabel {
             _g.setColor(Color.BLACK);
             _g.fillOval(_x,_y+2,5,5);
             _g.fillOval(_x+5,_y+2,5,5);
-            _g.fillPolygon(new int[]{5+_x,8+_x,5+_x,2+_x},new int[]{5+_y,12+_y,8+_y,12+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(5+_x,8+_x,5+_x,2+_x),Numbers.wrapIntArray(5+_y,12+_y,8+_y,12+_y),4);
             _g.fillRect(_x+3,_y-2,5,7);
             _g.setColor(Color.WHITE);
             _g.fillOval(_x,_y-3,5,5);
             _g.fillOval(_x+5,_y-3,5,5);
         } else if(couleur_ == Suit.DIAMOND) {
             _g.setColor(Color.RED);
-            _g.fillPolygon(new int[]{_x,5+_x,10+_x,5+_x},new int[]{5+_y,_y,5+_y,10+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(_x,5+_x,10+_x,5+_x),Numbers.wrapIntArray(5+_y,_y,5+_y,10+_y),4);
         } else {
             _g.setColor(Color.BLACK);
             _g.fillOval(_x,_y+3,4,4);
             _g.fillOval(_x+6,_y+3,4,4);
             _g.fillOval(_x+3,_y,4,4);
-            _g.fillPolygon(new int[]{3+_x,5+_x,3+_x},new int[]{4+_y,5+_y,6+_y},3);
-            _g.fillPolygon(new int[]{6+_x,5+_x,6+_x},new int[]{4+_y,5+_y,6+_y},3);
-            _g.fillPolygon(new int[]{4+_x,5+_x,6+_x},new int[]{3+_y,5+_y,3+_y},3);
-            _g.fillPolygon(new int[]{3+_x,5+_x,6+_x,5+_x},new int[]{10+_y,5+_y,10+_y,8+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(3+_x,5+_x,3+_x),Numbers.wrapIntArray(4+_y,5+_y,6+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(6+_x,5+_x,6+_x),Numbers.wrapIntArray(4+_y,5+_y,6+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(4+_x,5+_x,6+_x),Numbers.wrapIntArray(3+_y,5+_y,3+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(3+_x,5+_x,6+_x,5+_x),Numbers.wrapIntArray(10+_y,5+_y,10+_y,8+_y),4);
         }
     }
     private static void dessinerGrandSymbole(CardTarot _card,Graphics2D _g,int _x,int _y) {
@@ -570,7 +571,7 @@ public class GraphicTarotCard extends JLabel {
             _g.setColor(Color.BLUE);
             _g.drawLine(_x,_y,_x+10,_y+10);
             _g.setColor(Color.BLACK);
-            _g.fillPolygon(new int[]{10+_x,12+_x,15+_x,15+_x,12+_x,10+_x},new int[]{10+_y,10+_y,12+_y,15+_y,15+_y,12+_y},6);
+            _g.fillPolygon(Numbers.wrapIntArray(10+_x,12+_x,15+_x,15+_x,12+_x,10+_x),Numbers.wrapIntArray(10+_y,10+_y,12+_y,15+_y,15+_y,12+_y),6);
         } else if(couleur_ == Suit.HEART) {
             _g.setColor(Color.RED);
             _g.fillOval(_x,_y,10,10);
@@ -583,23 +584,23 @@ public class GraphicTarotCard extends JLabel {
             _g.setColor(Color.BLACK);
             _g.fillOval(_x,_y+5,10,10);
             _g.fillOval(_x+10,_y+5,10,10);
-            _g.fillPolygon(new int[]{10+_x,13+_x,10+_x,7+_x},new int[]{10+_y,20+_y,17+_y,20+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(10+_x,13+_x,10+_x,7+_x),Numbers.wrapIntArray(10+_y,20+_y,17+_y,20+_y),4);
             _g.fillRect(_x+5,_y,10,10);
             _g.setColor(Color.WHITE);
             _g.fillOval(_x,_y-5,10,10);
             _g.fillOval(_x+10,_y-5,10,10);
         } else if(couleur_ == Suit.DIAMOND) {
             _g.setColor(Color.RED);
-            _g.fillPolygon(new int[]{_x,10+_x,20+_x,10+_x},new int[]{10+_y,_y,10+_y,20+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(_x,10+_x,20+_x,10+_x),Numbers.wrapIntArray(10+_y,_y,10+_y,20+_y),4);
         } else {
             _g.setColor(Color.BLACK);
             _g.fillOval(_x,_y+6,8,8);
             _g.fillOval(_x+12,_y+6,8,8);
             _g.fillOval(_x+6,_y,8,8);
-            _g.fillPolygon(new int[]{7+_x,10+_x,7+_x},new int[]{8+_y,10+_y,12+_y},3);
-            _g.fillPolygon(new int[]{13+_x,10+_x,13+_x},new int[]{8+_y,10+_y,12+_y},3);
-            _g.fillPolygon(new int[]{8+_x,10+_x,12+_x},new int[]{7+_y,10+_y,7+_y},3);
-            _g.fillPolygon(new int[]{7+_x,10+_x,13+_x,10+_x},new int[]{20+_y,10+_y,20+_y,17+_y},4);
+            _g.fillPolygon(Numbers.wrapIntArray(7+_x,10+_x,7+_x),Numbers.wrapIntArray(8+_y,10+_y,12+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(13+_x,10+_x,13+_x),Numbers.wrapIntArray(8+_y,10+_y,12+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(8+_x,10+_x,12+_x),Numbers.wrapIntArray(7+_y,10+_y,7+_y),3);
+            _g.fillPolygon(Numbers.wrapIntArray(7+_x,10+_x,13+_x,10+_x),Numbers.wrapIntArray(20+_y,10+_y,20+_y,17+_y),4);
         }
     }
 }

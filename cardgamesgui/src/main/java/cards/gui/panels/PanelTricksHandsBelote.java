@@ -207,13 +207,14 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
         for(byte indicePli_=1;indicePli_<numeroPli_ ;indicePli_++) {
             byte entameur_=tricks_.get(indicePli_-1).getEntameur();
             byte indice_=0;
-            for(indice_=0;indice_<entameur_;indice_++) {
+            while(indice_<entameur_) {
                 JLabel etiquette2_=new JLabel(EMPTY+indice_);
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 tricks.add(etiquette2_,indicePli_*(indice_+1)-1);
+                indice_++;
             }
             for(CardBelote carte_:tricks_.get(indicePli_ - 1)) {
                 GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(carte_,SwingConstants.RIGHT,true);

@@ -37,18 +37,18 @@ public class StringListUtilTest {
     }
 
     Object[] inputsCommons() {
-        return $($("","",new String[]{}),
-                $("a","a",new String[]{"a"}),
-                $("hello","kelly",new String[]{"ell"}),
-                $("hello","miss",new String[]{}),
-                $("elements","em",new String[]{"e","m"}),
-                $("elements","ems",new String[]{"e","m","s"}),
-                $("Star Wiz","Wars Quizz",new String[]{"ar"," ","iz"}),
-                $("Star Wizz","Wars Quizz",new String[]{"ar"," ","izz"}),
-                $("Star","Wars",new String[]{"ar"}),
-                $("hello world","allo gunners",new String[]{"llo ","r"}),
-                $("mime","rime",new String[]{"ime"}),
-                $("mime","perime",new String[]{"m","e"}));
+        return $($("","",StringList.wrapStringArray()),
+                $("a","a",StringList.wrapStringArray("a")),
+                $("hello","kelly",StringList.wrapStringArray("ell")),
+                $("hello","miss",StringList.wrapStringArray()),
+                $("elements","em",StringList.wrapStringArray("e","m")),
+                $("elements","ems",StringList.wrapStringArray("e","m","s")),
+                $("Star Wiz","Wars Quizz",StringList.wrapStringArray("ar"," ","iz")),
+                $("Star Wizz","Wars Quizz",StringList.wrapStringArray("ar"," ","izz")),
+                $("Star","Wars",StringList.wrapStringArray("ar")),
+                $("hello world","allo gunners",StringList.wrapStringArray("llo ","r")),
+                $("mime","rime",StringList.wrapStringArray("ime")),
+                $("mime","perime",StringList.wrapStringArray("m","e")));
     }
 
     @Parameters(method="inputsCommons")

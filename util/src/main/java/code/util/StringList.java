@@ -1421,6 +1421,10 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return true;
     }
 
+    public static String[] wrapStringArray(String... _strings) {
+        return _strings;
+    }
+
     public static String concat(CharSequence... _strings) {
         StringBuilder str_ = new StringBuilder();
         for (CharSequence s: _strings) {

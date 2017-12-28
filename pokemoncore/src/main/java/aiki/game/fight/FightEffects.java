@@ -1486,7 +1486,7 @@ final class FightEffects {
         return rate_;
     }
 
-    static Rate rateDamageThrowerAbility(Fight _fight, TeamPosition _fighter, StringMap<String>_variables, DataBase _import) {
+    static Rate rateDamageThrowerAbility(Fight _fight, TeamPosition _fighter, StringMap<String> _variables, DataBase _import) {
         Rate rate_ = DataBase.defRateProduct();
         Fighter thrower_ = _fight.getFighter(_fighter);
         if(thrower_.capaciteActive()){

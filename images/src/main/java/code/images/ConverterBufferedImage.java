@@ -513,7 +513,7 @@ public final class ConverterBufferedImage {
             IIOMetadataNode child_ = new IIOMetadataNode(APPLICATION_EXTENSION);
             child_.setAttribute(APPLICATION_ID, NETSCAPE);
             child_.setAttribute(AUTHENTICATION_CODE, TWO);
-            child_.setUserObject(new byte[] { 1, 0, 0 });
+            child_.setUserObject(Numbers.wrapByteArray((byte)1,(byte) 0,(byte) 0));
             appEntensionsNode_.appendChild(child_);
         }
 

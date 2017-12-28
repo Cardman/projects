@@ -53,6 +53,9 @@ public final class FileResolver {
     private static final char PKG = '.';
     private static final String EMPTY_STRING = "";
     private static final String NEW = "$new";
+    private static final String SUPER = "$super";
+    private static final String THIS = "$this";
+    private static final String CLASSCHOICE = "$classchoice";
     private static final char SEP_ENUM_CONST = ',';
     private static final char BEGIN_TEMPLATE = '<';
     private static final char END_TEMPLATE = '>';
@@ -76,6 +79,7 @@ public final class FileResolver {
     private static final String INCR = "++";
     private static final String DECR = "--";
     private static final char KEY_WORD_PREFIX = '$';
+    private static final char VAR_PREFIX = '#';
     private static final String KEY_WORD_PUBLIC = "public";
     private static final String KEY_WORD_PACKAGE = "package";
     private static final String KEY_WORD_PROTECTED = "protected";
@@ -701,7 +705,7 @@ public final class FileResolver {
                 }
             }
             boolean endInstruction_ = false;
-            if (parentheses_.isEmpty()) {
+            if (parentheses_.isEmpty() && !constChar_ && !constString_) {
                 if (currentChar_ == END_LINE) {
                     endInstruction_ = true;
                 }
@@ -875,7 +879,7 @@ public final class FileResolver {
                             String declaringType_ = getDeclaringType(info_);
                             info_ = info_.substring(declaringType_.length()).trim();
                             String methodName_ = info_.substring(0, info_.indexOf(BEGIN_CALLING));
-                            info_ = info_.substring(methodName_.length() + 1).trim();
+                            info_ = info_.substring(info_.indexOf(BEGIN_CALLING) + 1).trim();
                             StringList parametersType_ = new StringList();
                             StringList parametersName_ = new StringList();
                             while (true) {
@@ -891,7 +895,7 @@ public final class FileResolver {
                                 }
                                 String paramName_ = info_.substring(0, call_);
                                 parametersName_.add(paramName_.trim());
-                                info_ = info_.substring(paramName_.length() + 1).trim();
+                                info_ = info_.substring(call_ + 1).trim();
                                 if (info_.isEmpty()) {
                                     break;
                                 }
@@ -921,11 +925,13 @@ public final class FileResolver {
                             }
                             currentParent_.appendChild(new FieldBlock(_context, index_, currentParent_, accessField_, static_, final_, fieldName_, declaringType_, expression_));
                         } else {
-                            String declaringType_ = getDeclaringType(found_);
+                            String declaringType_ = getDeclaringTypeInstr(found_.trim());
                             boolean typeDeclaring_ = !declaringType_.isEmpty();
+                            boolean declaring_ = false;
                             String info_;
-                            if (typeDeclaring_ && !StringList.quickEq(declaringType_, NEW)) {
-                                info_ = found_.substring(declaringType_.length());
+                            if (typeDeclaring_ && !StringList.quickEq(declaringType_, NEW) && !StringList.quickEq(declaringType_, SUPER) && !StringList.quickEq(declaringType_, THIS) && !StringList.quickEq(declaringType_, CLASSCHOICE)) {
+                                info_ = found_.trim().substring(declaringType_.length());
+                                declaring_ = true;
                             } else {
                                 info_ = found_;
                             }
@@ -984,7 +990,7 @@ public final class FileResolver {
                                 indexInstr_++;
                             }
                             if (affect_) {
-                                if (typeDeclaring_) {
+                                if (declaring_) {
                                     String left_ = info_.substring(0, indexInstr_);
                                     String right_ = info_.substring(indexInstr_ + 1);
                                     currentParent_.appendChild(new DeclareAffectVariable(_context, index_, currentParent_, declaringType_, left_, right_));
@@ -1021,7 +1027,7 @@ public final class FileResolver {
                                 }
                             } else {
                                 String left_ = info_;
-                                if (typeDeclaring_) {
+                                if (declaring_) {
                                     currentParent_.appendChild(new DeclareVariable(_context, index_, currentParent_, declaringType_, left_));
                                 } else {
                                     currentParent_.appendChild(new Line(_context, index_, currentParent_, left_));
@@ -1079,7 +1085,7 @@ public final class FileResolver {
                             String declaringType_ = getDeclaringType(info_);
                             info_ = info_.substring(declaringType_.length()).trim();
                             String methodName_ = info_.substring(0, info_.indexOf(BEGIN_CALLING));
-                            info_ = info_.substring(methodName_.length() + 1).trim();
+                            info_ = info_.substring(info_.indexOf(BEGIN_CALLING) + 1).trim();
                             StringList parametersType_ = new StringList();
                             StringList parametersName_ = new StringList();
                             while (true) {
@@ -1095,7 +1101,7 @@ public final class FileResolver {
                                 }
                                 String paramName_ = info_.substring(0, call_);
                                 parametersName_.add(paramName_.trim());
-                                info_ = info_.substring(paramName_.length() + 1).trim();
+                                info_ = info_.substring(call_ + 1).trim();
                                 if (info_.isEmpty()) {
                                     break;
                                 }
@@ -1141,7 +1147,7 @@ public final class FileResolver {
                                 }
                                 String paramName_ = info_.substring(0, call_);
                                 parametersName_.add(paramName_.trim());
-                                info_ = info_.substring(paramName_.length() + 1).trim();
+                                info_ = info_.substring(call_ + 1).trim();
                                 if (info_.isEmpty()) {
                                     break;
                                 }
@@ -1198,13 +1204,13 @@ public final class FileResolver {
                             String indexClassName_ = EMPTY_STRING;
                             if (exp_.indexOf(BEGIN_ARRAY) == 0) {
                                 indexClassName_ = exp_.substring(0, exp_.indexOf(END_ARRAY));
-                                exp_ = exp_.substring(indexClassName_.length() + 1).trim();
+                                exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1).trim();
                             }
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1).trim();
                             String declaringType_ = getDeclaringType(exp_);
                             exp_ = exp_.substring(declaringType_.length()).trim();
                             String variable_ = exp_.substring(0, exp_.indexOf(FOR_BLOCKS)).trim();
-                            exp_ = exp_.substring(variable_.length() + 1).trim();
+                            exp_ = exp_.substring(exp_.indexOf(FOR_BLOCKS) + 1, exp_.lastIndexOf(END_CALLING)).trim();
                             br_ = new ForEachLoop(_context, index_, currentParent_, declaringType_, variable_, exp_, indexClassName_);
                             currentParent_.appendChild(br_);
                         } else if (found_.trim().startsWith(KEY_WORD_PREFIX+KEY_WORD_FOR)) {
@@ -1212,13 +1218,13 @@ public final class FileResolver {
                             String indexClassName_ = EMPTY_STRING;
                             if (exp_.indexOf(BEGIN_ARRAY) == 0) {
                                 indexClassName_ = exp_.substring(0, exp_.indexOf(END_ARRAY));
-                                exp_ = exp_.substring(indexClassName_.length() + 1).trim();
+                                exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1).trim();
                             }
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1).trim();
                             String declaringType_ = getDeclaringType(exp_);
                             exp_ = exp_.substring(declaringType_.length()).trim();
                             String variable_ = exp_.substring(0, exp_.indexOf(PART_SEPARATOR)).trim();
-                            exp_ = exp_.substring(variable_.length() + 1).trim();
+                            exp_ = exp_.substring(exp_.indexOf(PART_SEPARATOR) + 1).trim();
                             int nextElt_ = getIndex(exp_);
                             String init_ = exp_.substring(0, nextElt_);
                             exp_ = exp_.substring(init_.length()+1);
@@ -1277,7 +1283,12 @@ public final class FileResolver {
         int nbOpenedTmp_ = 0;
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
-            if (!StringList.isWordChar(currentCharFound_) && currentCharFound_ != KEY_WORD_PREFIX && declTypeName_.length() > 0) {
+            boolean takeComma_ = false;
+            if (nbOpenedTmp_ > 0) {
+                takeComma_ = true;
+            }
+            if (!takeComma_ && !StringList.isWordChar(currentCharFound_) && currentCharFound_ != KEY_WORD_PREFIX && currentCharFound_ != VAR_PREFIX
+                && currentCharFound_ != PKG && declTypeName_.length() > 0 && currentCharFound_ != BEGIN_ARRAY  && currentCharFound_ != END_ARRAY) {
                 if (Character.isWhitespace(currentCharFound_)) {
                     typeDeclaring_ = true;
                     break;
@@ -1297,9 +1308,54 @@ public final class FileResolver {
             if (currentCharFound_ == END_TEMPLATE) {
                 nbOpenedTmp_--;
             }
-            if (!Character.isWhitespace(currentCharFound_)) {
-                declTypeName_.append(currentCharFound_);
+            declTypeName_.append(currentCharFound_);
+            indexInstr_++;
+        }
+        if (typeDeclaring_) {
+            return declTypeName_.toString();
+        }
+        return EMPTY_STRING;
+    }
+    private static String getDeclaringTypeInstr(String _found) {
+        int indexInstr_ = 0;
+        int instLen_ = _found.length();
+        boolean typeDeclaring_ = false;
+        StringBuilder declTypeName_ = new StringBuilder();
+        int nbOpenedTmp_ = 0;
+        while (indexInstr_ < instLen_) {
+            char currentCharFound_ = _found.charAt(indexInstr_);
+            if (currentCharFound_ == BEGIN_CALLING) {
+                break;
             }
+            boolean takeComma_ = false;
+            if (nbOpenedTmp_ > 0 || Character.isWhitespace(currentCharFound_)) {
+                takeComma_ = true;
+            }
+            if (!takeComma_ && !StringList.isWordChar(currentCharFound_) && currentCharFound_ != KEY_WORD_PREFIX && currentCharFound_ != VAR_PREFIX
+                && currentCharFound_ != PKG && declTypeName_.length() > 0 && currentCharFound_ != BEGIN_ARRAY  && currentCharFound_ != END_ARRAY) {
+                if (Character.isWhitespace(currentCharFound_)) {
+                    if (_found.substring(indexInstr_).trim().startsWith(String.valueOf(BEGIN_ARRAY))) {
+                        break;
+                    }
+                    typeDeclaring_ = true;
+                    break;
+                }
+                if (currentCharFound_ == END_TEMPLATE && nbOpenedTmp_ == 0) {
+                    declTypeName_.append(currentCharFound_);
+                    typeDeclaring_ = true;
+                    break;
+                }
+                if (currentCharFound_ != BEGIN_TEMPLATE && nbOpenedTmp_ == 0) {
+                    break;
+                }
+            }
+            if (currentCharFound_ == BEGIN_TEMPLATE) {
+                nbOpenedTmp_++;
+            }
+            if (currentCharFound_ == END_TEMPLATE) {
+                nbOpenedTmp_--;
+            }
+            declTypeName_.append(currentCharFound_);
             indexInstr_++;
         }
         if (typeDeclaring_) {

@@ -7,17 +7,17 @@ import code.util.consts.Constants;
 import cards.tarot.HandTarot;
 
 public enum DealingTarot {
-    DEAL_1_VS_2(3,CallingCard.WITHOUT,new int[]{3,3,3,3,3,3,3,3},6,0),
-    DEAL_1_VS_3(4,CallingCard.WITHOUT,new int[]{3,3,3,3,3,3},6,0),
-    DEAL_2_VS_2_WITHOUT_CALL(4,CallingCard.DEFINED,new int[]{3,3,3,3,3,3},6,1),
-    DEAL_2_VS_2_CALL_KING(4,CallingCard.KING,new int[]{3,3,3,3,3,3},6,1),
-    DEAL_2_VS_2_CALL_CHAR(4,CallingCard.CHARACTER_CARD,new int[]{3,3,3,3,3,3},6,1),
-    DEAL_1_VS_4(5,CallingCard.WITHOUT,new int[]{2,2,2,2,2,2,2},8,0),
-    DEAL_2_VS_3_CALL_KING(5,CallingCard.KING,new int[]{3,3,3,3,3},3,1),
-    DEAL_2_VS_3_CALL_CHAR(5,CallingCard.CHARACTER_CARD,new int[]{3,3,3,3,3},3,1),
-    DEAL_2_VS_4_WITHOUT_CALL(6,CallingCard.DEFINED,new int[]{2,2,2,2,2,2},6,1),
-    DEAL_2_VS_4_CALL_KING(6,CallingCard.KING,new int[]{2,2,2,2,2,2},6,1),
-    DEAL_2_VS_4_CALL_CHAR(6,CallingCard.CHARACTER_CARD,new int[]{2,2,2,2,2,2},6,1);
+    DEAL_1_VS_2(3,CallingCard.WITHOUT,Numbers.wrapIntArray(3,3,3,3,3,3,3,3),6,0),
+    DEAL_1_VS_3(4,CallingCard.WITHOUT,Numbers.wrapIntArray(3,3,3,3,3,3),6,0),
+    DEAL_2_VS_2_WITHOUT_CALL(4,CallingCard.DEFINED,Numbers.wrapIntArray(3,3,3,3,3,3),6,1),
+    DEAL_2_VS_2_CALL_KING(4,CallingCard.KING,Numbers.wrapIntArray(3,3,3,3,3,3),6,1),
+    DEAL_2_VS_2_CALL_CHAR(4,CallingCard.CHARACTER_CARD,Numbers.wrapIntArray(3,3,3,3,3,3),6,1),
+    DEAL_1_VS_4(5,CallingCard.WITHOUT,Numbers.wrapIntArray(2,2,2,2,2,2,2),8,0),
+    DEAL_2_VS_3_CALL_KING(5,CallingCard.KING,Numbers.wrapIntArray(3,3,3,3,3),3,1),
+    DEAL_2_VS_3_CALL_CHAR(5,CallingCard.CHARACTER_CARD,Numbers.wrapIntArray(3,3,3,3,3),3,1),
+    DEAL_2_VS_4_WITHOUT_CALL(6,CallingCard.DEFINED,Numbers.wrapIntArray(2,2,2,2,2,2),6,1),
+    DEAL_2_VS_4_CALL_KING(6,CallingCard.KING,Numbers.wrapIntArray(2,2,2,2,2,2),6,1),
+    DEAL_2_VS_4_CALL_CHAR(6,CallingCard.CHARACTER_CARD,Numbers.wrapIntArray(2,2,2,2,2,2),6,1);
     private final int nombreJoueurs;
     private final CallingCard appel;
     private final int nombreCartesChien;

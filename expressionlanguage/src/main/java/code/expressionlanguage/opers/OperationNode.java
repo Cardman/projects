@@ -465,7 +465,8 @@ public abstract class OperationNode {
         }
         throw new NoSuchDeclaredFieldException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
     }
-    static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
+    static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
+    ClassArgumentMatching... _args) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -567,7 +568,8 @@ public abstract class OperationNode {
         out_.setConstId(ctor_.format(clCurName_, _conf));
         return out_;
     }
-    static Constructor<?> getDeclaredConstructor(ContextEl _conf, int _varargOnly, int _offsetIncr, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
+    static Constructor<?> getDeclaredConstructor(ContextEl _conf, int _varargOnly, int _offsetIncr, ClassArgumentMatching _class,
+    ClassArgumentMatching... _args) {
         String className_ = _class.getName();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid(_conf)) {
@@ -1107,7 +1109,8 @@ public abstract class OperationNode {
         res_.setMethod(signatures_.first().getMethod());
         return res_;
     }
-    static boolean isPossibleMethod(ContextEl _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params, ClassArgumentMatching..._argsClass) {
+    static boolean isPossibleMethod(ContextEl _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params,
+    ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
         int nbDem_ = _params.length;
@@ -1191,7 +1194,8 @@ public abstract class OperationNode {
         }
         return true;
     }
-    static boolean varArgWrap(ContextEl _context, String _globalClass, String _class, Identifiable _id, ClassArgumentMatching..._argsClass) {
+    static boolean varArgWrap(ContextEl _context, String _globalClass, String _class, Identifiable _id,
+    ClassArgumentMatching... _argsClass) {
         if (!_id.isVararg()) {
             return false;
         }

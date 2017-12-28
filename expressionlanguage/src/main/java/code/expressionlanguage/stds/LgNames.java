@@ -1077,7 +1077,7 @@ public class LgNames {
         trace_ += PAR_RIGHT;
         throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
     }
-    public static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
+    public static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching... _args) {
         LgNames classes_ = _conf.getStandards();
         StandardClass custClass_ = null;
         String clCurName_ = _class.getName();
@@ -1359,7 +1359,9 @@ public class LgNames {
         res_.setReturnType(info_.getReturnType());
         return res_;
     }
-    static boolean isPossibleMethod(ContextEl _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params, ClassArgumentMatching..._argsClass) {
+    static boolean isPossibleMethod(
+    ContextEl _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params,
+    ClassArgumentMatching... _argsClass) {
         LgNames stds_ = _context.getStandards();
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
@@ -1418,7 +1420,7 @@ public class LgNames {
         }
         return true;
     }
-    static boolean varArgWrap(ContextEl _context, String _class, Identifiable _id, ClassArgumentMatching..._argsClass) {
+    static boolean varArgWrap(ContextEl _context, String _class, Identifiable _id, ClassArgumentMatching... _argsClass) {
         LgNames stds_ = _context.getStandards();
         if (!_id.isVararg()) {
             return false;

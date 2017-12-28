@@ -13,6 +13,7 @@ import code.gui.events.CreateFolderEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
 import code.stream.StreamTextFile;
+import code.util.CharList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
@@ -45,7 +46,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private static final char QUOTE = 34;
 
-    private static final char[] FORBIDDEN_CHARS_FILE_NAME = new char[]{'<', '>', '?', QUOTE, '*', '/', '\\', '|', ':'};
+    private static final char[] FORBIDDEN_CHARS_FILE_NAME = CharList.wrapCharArray('<', '>', '?', QUOTE, '*', '/', '\\', '|', ':');
 
     private static final int NB_COLS = 24;
 

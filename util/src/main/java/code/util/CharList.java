@@ -20,6 +20,10 @@ public final class CharList extends AbEqList<Character> implements Equallable<Ch
         super(_capacity);
     }
 
+    public static char[] wrapCharArray(char... _chars) {
+        return _chars;
+    }
+
     public boolean containsChar(char _char) {
         return containsObj(_char);
     }

@@ -4,6 +4,8 @@ import static code.sml.EquallableRowColUtil.assertEq;
 
 import org.junit.Test;
 
+import code.util.CharList;
+
 @SuppressWarnings("static-method")
 public class TransformationsTest {
 
@@ -33,7 +35,7 @@ public class TransformationsTest {
     }
     @Test
     public void transformSpecialChars1Test() {
-        assertEq(new String(new char[]{233}), DocumentBuilder.transformSpecialChars("&eacute;"));
+        assertEq(new String(CharList.wrapCharArray((char)233)), DocumentBuilder.transformSpecialChars("&eacute;"));
     }
 
     @Test
@@ -53,7 +55,7 @@ public class TransformationsTest {
 
     @Test
     public void transformSpecialChars5Test() {
-        assertEq(new String(new char[]{233}), DocumentBuilder.transformSpecialChars("&#233;"));
+        assertEq(new String(CharList.wrapCharArray((char)233)), DocumentBuilder.transformSpecialChars("&#233;"));
     }
 
     @Test
@@ -133,7 +135,7 @@ public class TransformationsTest {
     @Test
     public void encodeToHtml2Test() {
 //        assertEq("&eacute;", DocumentBuilder.encodeToHtml(new String(new char[]{233})));
-        assertEq("&#233;", DocumentBuilder.encodeToHtml(new String(new char[]{233})));
+        assertEq("&#233;", DocumentBuilder.encodeToHtml(new String(CharList.wrapCharArray((char)233))));
     }
 
 }

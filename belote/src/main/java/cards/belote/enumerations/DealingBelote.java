@@ -6,8 +6,8 @@ import code.util.consts.Constants;
 import cards.belote.HandBelote;
 
 public enum DealingBelote {
-    CLASSIC_2_VS_2(4,0,new int[]{3,2},new int[]{3}),
-    COINCHE_2_VS_2(4,0,new int[]{3,3,2},new int[]{});
+    CLASSIC_2_VS_2(4,0,Numbers.wrapIntArray(3,2),Numbers.wrapIntArray(3)),
+    COINCHE_2_VS_2(4,0,Numbers.wrapIntArray(3,3,2),Numbers.wrapIntArray());
     private final int nombreJoueurs;
     private final int cartesAPart;
     private final int[] distributionDebut;

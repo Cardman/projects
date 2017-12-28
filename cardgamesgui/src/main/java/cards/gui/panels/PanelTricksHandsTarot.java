@@ -232,13 +232,14 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
             byte entameur_=tricks_.get(indicePli_).getEntameur();
             byte indice_=0;
             if(!passe2_) {
-                for(indice_=0;indice_<entameur_;indice_++) {
+                while(indice_<entameur_) {
                     JLabel etiquette2_=new JLabel(EMPTY+indice_);
                     etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                     etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                     etiquette2_.setOpaque(true);
                     etiquette2_.setBackground(Color.WHITE);
                     tricks.add(etiquette2_,indicePli_*(indice_+1)-1);
+                    indice_++;
                 }
                 for(CardTarot carte_:tricks_.get(indicePli_)) {
                     GraphicTarotCard carteGraphique2_=new GraphicTarotCard(carte_,SwingConstants.RIGHT,true);
@@ -256,13 +257,14 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
                     indice_++;
                 }
             } else {
-                for(indice_=0;indice_<entameur_;indice_++) {
+                while(indice_<entameur_) {
                     JLabel etiquette2_=new JLabel(EMPTY+indice_);
                     etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                     etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                     etiquette2_.setOpaque(true);
                     etiquette2_.setBackground(Color.WHITE);
                     tricks.add(etiquette2_,(indicePli_-1)*(indice_+1)-1);
+                    indice_++;
                 }
                 for(CardTarot carte_:tricks_.get(indicePli_)) {
                     GraphicTarotCard carteGraphique2_=new GraphicTarotCard(carte_,SwingConstants.RIGHT,true);

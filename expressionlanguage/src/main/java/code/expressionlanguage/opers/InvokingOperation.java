@@ -110,7 +110,7 @@ public abstract class InvokingOperation extends MethodOperation {
             if (native_) {
                 int len_ = optArgs_.size();
                 Object array_;
-                array_ = InstanceOperation.newClassicArray(_context, g_, g_, new int[]{len_});
+                array_ = InstanceOperation.newClassicArray(_context, g_, g_, len_);
                 Struct arr_ = new StdStruct(array_);
                 for (int i = 0; i < len_; i++) {
                     Argument chArg_ = optArgs_.get(i);
@@ -154,7 +154,7 @@ public abstract class InvokingOperation extends MethodOperation {
             if (native_) {
                 int len_ = optArgs_.size();
                 Object array_;
-                array_ = InstanceOperation.newClassicArray(_context, g_, g_, new int[]{len_});
+                array_ = InstanceOperation.newClassicArray(_context, g_, g_, len_);
                 Struct arr_ = new StdStruct(array_);
                 for (int i = 0; i < len_; i++) {
                     Argument chArg_ = optArgs_.get(i);

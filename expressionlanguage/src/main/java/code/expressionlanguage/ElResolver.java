@@ -481,7 +481,7 @@ public final class ElResolver {
                         continue;
                     }
                     boolean foundValue_ = false;
-                    for (String s: new String[]{TRUE_STRING,FALSE_STRING,NULL_REF_STRING}) {
+                    for (String s: StringList.wrapStringArray(TRUE_STRING,FALSE_STRING,NULL_REF_STRING)) {
                         if (procWordFirstChar(_string, i_ + 1, s, len_)) {
                             int afterSuper_ = i_ + 1 + s.length();
                             while (afterSuper_ < len_) {
@@ -503,7 +503,7 @@ public final class ElResolver {
                     if (foundValue_) {
                         continue;
                     }
-                    for (String s: new String[]{VAR_ARG,FIRST_OPT,CLASS,INSTANCEOF,BOOLEAN}) {
+                    for (String s: StringList.wrapStringArray(VAR_ARG,FIRST_OPT,CLASS,INSTANCEOF,BOOLEAN)) {
                         if (procWordFirstChar(_string, i_ + 1, s, len_)) {
                             int index_ = processPredefinedMethod(_string, i_, s, len_);
                             if (index_ < 0) {

@@ -530,7 +530,7 @@ public final class InstanceOperation extends InvokingOperation {
         InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, constId, needed_, _arguments, InstancingStep.NEWING, called_);
         return ArgumentCall.newCall(inv_);
     }
-    static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int[] _args) {
+    static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int... _args) {
         Class<?> cl_;
         try {
             if (PrimitiveTypeUtil.isPrimitive(_instanceClassName)) {

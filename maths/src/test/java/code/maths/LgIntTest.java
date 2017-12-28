@@ -790,9 +790,13 @@ public class LgIntTest {
             for (LgInt e: l) {
                 somme_.addNb(e);
             }
-            list_.add(new Object[]{sommeTotale_, somme_, repartitions_.size(), l.size()});
+            list_.add(wrapObjects(sommeTotale_, somme_, repartitions_.size(), l.size()));
         }
         return list_.toArray();
+    }
+
+    private static Object[] wrapObjects(Object ..._objects) {
+        return _objects;
     }
 
     @Parameters(method="seqAmong")
