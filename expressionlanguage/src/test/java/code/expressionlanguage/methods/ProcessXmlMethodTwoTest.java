@@ -1299,6 +1299,38 @@ public class ProcessXmlMethodTwoTest {
         assertEq(2, (Number)field_.getInstance());
     }
     @Test
+    public void instanceArgument128Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='$new "+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<line expression='inst;;;add(3i)'/>\n";
+        xml_ += "<line expression='inst;;;add(1i)'/>\n";
+        xml_ += "<line expression='inst;;;add(2i)'/>\n";
+        xml_ += "<declareset class='java.lang.Number' var='mynb' expression='inst;;;iterator().next()'/>\n";
+        xml_ += "<affect left='res;;;' oper='=' right='mynb;.intValue()'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(3, (Number)field_.getInstance());
+    }
+    @Test
     public void instanceArgument4FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";

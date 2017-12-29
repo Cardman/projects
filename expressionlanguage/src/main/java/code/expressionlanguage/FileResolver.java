@@ -395,7 +395,6 @@ public final class FileResolver {
         }
         char currentChar_ = _file.charAt(nextIndex_);
         nextIndex_++;
-        char previousChar_ = _file.charAt(nextIndex_);
         boolean abstractType_ = false;
         boolean finalType_ = false;
         if (_file.substring(nextIndex_).startsWith(KEY_WORD_ABSTRACT)) {
@@ -561,7 +560,6 @@ public final class FileResolver {
                 str_.delete(0, str_.length());
                 foundInherit_ = true;
                 nextIndex_++;
-                previousChar_ = currentChar_;
                 continue;
             }
             if (currentChar_ == BEGIN_BLOCK) {
@@ -586,7 +584,6 @@ public final class FileResolver {
                 str_.append(currentChar_);
             }
             nextIndex_++;
-            previousChar_ = currentChar_;
         }
         if (foundInherit_) {
             RowCol rc_ = new RowCol();
@@ -616,7 +613,6 @@ public final class FileResolver {
         Numbers<Integer> parentheses_ = new Numbers<Integer>();
         Numbers<Integer> indexes_ = new Numbers<Integer>();
         indexes_.add(0);
-        indexes_.add(0);
         RootBlock typeBlock_;
         BracedBlock currentParent_;
         String tempDef_ = templateDef_.toString();
@@ -641,7 +637,6 @@ public final class FileResolver {
         }
         out_.setType(typeBlock_);
         currentParent_ = typeBlock_;
-        previousChar_ = currentChar_;
         i_ = nextIndex_;
         boolean okType_ = false;
         while (i_ < len_) {
@@ -673,7 +668,6 @@ public final class FileResolver {
                         commentedMultiLine_ = false;
                         i_++;
                         i_++;
-                        previousChar_ = nextChar_;
                         continue;
                     }
                 }
@@ -749,7 +743,6 @@ public final class FileResolver {
                 if (currentChar_ == DEL_CHAR) {
                     i_++;
                     constChar_ = false;
-                    previousChar_ = currentChar_;
                     continue;
                 }
                 i_++;
@@ -769,7 +762,6 @@ public final class FileResolver {
                 if (currentChar_ == DEL_STRING) {
                     i_++;
                     constString_ = false;
-                    previousChar_ = currentChar_;
                     continue;
                 }
                 i_++;
@@ -778,16 +770,8 @@ public final class FileResolver {
             if (!Character.isWhitespace(currentChar_)) {
                 allowedComments_ = false;
             } else if (currentChar_ == LINE_RETURN) {
-                if (previousChar_ == BEGIN_BLOCK) {
+                if (instruction_.toString().trim().isEmpty()) {
                     allowedComments_ = true;
-                } else if (previousChar_ == END_BLOCK) {
-                    allowedComments_ = true;
-                } else if (previousChar_ == END_LINE) {
-                    allowedComments_ = true;
-                } else if (previousChar_ == SEP_ENUM_CONST) {
-                    if (enableByEndLine_ && parentheses_.isEmpty()) {
-                        allowedComments_ = true;
-                    }
                 }
             }
             if (currentChar_ == DEL_CHAR) {
@@ -815,7 +799,20 @@ public final class FileResolver {
             if (endInstruction_) {
                 String found_ = instruction_.toString();
                 int index_ = indexes_.last();
-                if (currentChar_ == SEP_ENUM_CONST || currentChar_ == END_LINE && enableByEndLine_) {
+                boolean enum_ = false;
+                if (found_.indexOf(BEGIN_CALLING) >= 0) {
+                    String part_ = found_.trim();
+                    part_ = part_.substring(0, part_.indexOf(BEGIN_CALLING));
+                    if (StringList.isWord(part_)) {
+                        enum_ = true;
+                    }
+                } else {
+                    String part_ = found_.trim();
+                    if (StringList.isWord(part_)) {
+                        enum_ = true;
+                    }
+                }
+                if ((currentChar_ == SEP_ENUM_CONST || currentChar_ == END_LINE && enableByEndLine_) && enum_) {
                     String info_ = found_.trim();
                     String fieldName_;
                     String expression_ = EMPTY_STRING;
@@ -826,8 +823,9 @@ public final class FileResolver {
                         fieldName_ = info_;
                     }
                     currentParent_.appendChild(new ElementBlock(_context, index_, currentParent_, fieldName_, expression_));
-                }
-                if (currentChar_ == END_LINE) {
+                    index_++;
+                    indexes_.setLast(index_);
+                } else if (currentChar_ == END_LINE) {
                     if (found_.trim().startsWith(KEY_WORD_PREFIX+KEY_WORD_BREAK)) {
                         currentParent_.appendChild(new BreakBlock(_context, index_, currentParent_));
                     } else if (found_.trim().startsWith(KEY_WORD_PREFIX+KEY_WORD_CONTINUE)) {
@@ -1060,15 +1058,13 @@ public final class FileResolver {
                     }
                     index_++;
                     indexes_.setLast(index_);
-                }
-                if (currentChar_ == END_BLOCK) {
+                } else if (currentChar_ == END_BLOCK) {
                     indexes_.removeLast();
                     index_ = indexes_.last();
                     index_++;
                     indexes_.setLast(index_);
                     currentParent_ = currentParent_.getParent();
-                }
-                if (currentChar_ == BEGIN_BLOCK) {
+                } else if (currentChar_ == BEGIN_BLOCK) {
                     BracedBlock br_ = null;
                     indexes_.add(0);
                     boolean fct_ = false;
@@ -1285,7 +1281,6 @@ public final class FileResolver {
                 }
             }
             i_++;
-            previousChar_ = currentChar_;
         }
         if (okType_) {
             i_++;
