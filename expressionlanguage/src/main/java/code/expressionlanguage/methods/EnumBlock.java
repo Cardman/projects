@@ -52,8 +52,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             getDirectSuperTypes().add(superClass_);
         }
         int i_ = CustList.FIRST_INDEX;
-        while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
-            getDirectSuperTypes().add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
+        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
+            getDirectSuperTypes().add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_)));
             i_++;
         }
         getDirectSuperTypes().add(PredefinedClasses.ENUM_PARAM+LT+getFullName()+GT);

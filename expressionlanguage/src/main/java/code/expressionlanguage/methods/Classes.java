@@ -1509,17 +1509,17 @@ public final class Classes {
         }
         localVariablesNames.removeDuplicates();
         int i_ = CustList.FIRST_INDEX;
-        while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
+        while (localVariablesNames.containsStr(StringList.concatNbs(TEMP_PREFIX,i_))) {
             i_++;
         }
         int five_ = i_;
         i_++;
-        while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
+        while (localVariablesNames.containsStr(StringList.concatNbs(TEMP_PREFIX,i_))) {
             i_++;
         }
         int six_ = i_;
-        String fifthArg_ = TEMP_PREFIX+five_;
-        String sixthArg_ = TEMP_PREFIX+six_;
+        String fifthArg_ = StringList.concatNbs(TEMP_PREFIX,five_);
+        String sixthArg_ = StringList.concatNbs(TEMP_PREFIX,six_);
         localVariablesNames.add(fifthArg_);
         localVariablesNames.add(sixthArg_);
         LgNames stds_ = _context.getStandards();
@@ -1538,42 +1538,42 @@ public final class Classes {
         locVar_.setClassName(stds_.getAliasSimpleIterableType());
         page_.getLocalVars().put(locName_, locVar_);
         iteratorVar = locName_;
-        exp_ = locName_ + LOC_VAR + SIMPLE_ITERATOR;
+        exp_ = StringList.concat(locName_, LOC_VAR, SIMPLE_ITERATOR);
         expsIterator = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getAliasSimpleIteratorType());
         page_.getLocalVars().put(locName_, locVar_);
         hasNextVar = locName_;
-        exp_ = locName_ + LOC_VAR + HAS_NEXT;
+        exp_ = StringList.concat(locName_, LOC_VAR, HAS_NEXT);
         expsHasNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getAliasSimpleIteratorType());
         page_.getLocalVars().put(locName_, locVar_);
         nextVar = locName_;
-        exp_ = locName_ + LOC_VAR + NEXT;
+        exp_ = StringList.concat(locName_, LOC_VAR, NEXT);
         expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getAliasIterable());
         page_.getLocalVars().put(locName_, locVar_);
         iteratorVarCust = locName_;
-        exp_ = locName_ + LOC_VAR + ITERATOR;
+        exp_ = StringList.concat(locName_, LOC_VAR, ITERATOR);
         expsIteratorCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getAliasIteratorType());
         page_.getLocalVars().put(locName_, locVar_);
         hasNextVarCust = locName_;
-        exp_ = locName_ + LOC_VAR + HAS_NEXT;
+        exp_ = StringList.concat(locName_, LOC_VAR, HAS_NEXT);
         expsHasNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getAliasIteratorType());
         page_.getLocalVars().put(locName_, locVar_);
         nextVarCust = locName_;
-        exp_ = locName_ + LOC_VAR + NEXT;
+        exp_ = StringList.concat(locName_, LOC_VAR, NEXT);
         expsNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         page_.getLocalVars().removeKey(fifthArg_);
         page_.getLocalVars().removeKey(sixthArg_);

@@ -51,8 +51,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             getDirectSuperTypes().add(superClass_);
         }
         int i_ = CustList.FIRST_INDEX;
-        while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
-            getDirectSuperTypes().add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
+        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
+            getDirectSuperTypes().add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_)));
             i_++;
         }
         String modifier_ = _el.getAttribute(ATTRIBUTE_MODIFIER);

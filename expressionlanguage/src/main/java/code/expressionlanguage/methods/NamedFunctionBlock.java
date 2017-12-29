@@ -28,9 +28,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersTypes = new StringList();
         int i_ = CustList.FIRST_INDEX;
         boolean varargs_ = false;
-        while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
-            String className_ = _el.getAttribute(ATTRIBUTE_CLASS+i_);
-            if (!_el.hasAttribute(ATTRIBUTE_CLASS+(i_+1))) {
+        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
+            String className_ = _el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_));
+            if (!_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,(i_+1)))) {
                 varargs_ = className_.endsWith(VARARG);
                 if (varargs_) {
                     parametersTypes.add(className_.substring(CustList.FIRST_INDEX, className_.length()-VARARG.length()));
@@ -47,8 +47,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         returnType = _el.getAttribute(ATTRIBUTE_CLASS);
         parametersNames = new StringList();
         i_ = CustList.FIRST_INDEX;
-        while (_el.hasAttribute(ATTRIBUTE_VAR+i_)) {
-            parametersNames.add(_el.getAttribute(ATTRIBUTE_VAR+i_));
+        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_VAR,i_))) {
+            parametersNames.add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_VAR,i_)));
             i_++;
         }
     }

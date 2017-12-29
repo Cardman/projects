@@ -73,16 +73,16 @@ final class HtmlRequest {
         for (Argument a: _args) {
             String tmp_ = TMP_VAR;
             int i_ = CustList.FIRST_INDEX;
-            while (ip_.getLocalVars().contains(tmp_+i_)) {
+            while (ip_.getLocalVars().contains(StringList.concatNbs(tmp_,i_))) {
                 i_++;
             }
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(ConstClasses.resolve(a.getObjectClassName(_conf.toContextEl())));
             locVar_.setStruct(a.getStruct());
-            varNames_.add(tmp_+i_+GET_LOC_VAR);
-            ip_.getLocalVars().put(tmp_+i_, locVar_);
+            varNames_.add(StringList.concat(tmp_,Long.toString(i_),GET_LOC_VAR));
+            ip_.getLocalVars().put(StringList.concatNbs(tmp_,i_), locVar_);
         }
-        Argument arg_ = ElUtil.processEl(commandExtract_+LEFT_PAR+varNames_.join(COMMA)+RIGHT_PAR, 0, _conf.toContextEl());
+        Argument arg_ = ElUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR,varNames_.join(COMMA),RIGHT_PAR), 0, _conf.toContextEl());
         ip_.setGlobalArgumentStruct(current_, _conf);
         for (String n: varNames_) {
             ip_.getLocalVars().removeKey(n.substring(0, n.length() - GET_LOC_VAR.length()));

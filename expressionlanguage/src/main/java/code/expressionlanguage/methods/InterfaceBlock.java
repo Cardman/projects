@@ -24,8 +24,8 @@ public final class InterfaceBlock extends RootBlock {
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
         int i_ = CustList.FIRST_INDEX;
-        while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
-            getDirectSuperTypes().add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
+        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
+            getDirectSuperTypes().add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_)));
             i_++;
         }
     }
