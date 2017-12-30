@@ -6,6 +6,7 @@ import java.net.URLStreamHandler;
 import javax.imageio.ImageIO;
 
 import code.util.CustList;
+import code.util.StringList;
 
 public class Handler extends URLStreamHandler {
 
@@ -28,9 +29,9 @@ public class Handler extends URLStreamHandler {
         String protocolHandlers_ = System.getProperty(JAVA_PROTOCOL_HANDLER_PKGS, EMPTY_STRING);
         if (!protocolHandlers_.contains(pkg_)) {
             if (!protocolHandlers_.isEmpty()) {
-                protocolHandlers_ += OR;
+                protocolHandlers_ = StringList.concat(protocolHandlers_,OR);
             }
-            protocolHandlers_ += pkg_;
+            protocolHandlers_ = StringList.concat(protocolHandlers_,pkg_);
             System.setProperty(JAVA_PROTOCOL_HANDLER_PKGS, protocolHandlers_);
         }
     }

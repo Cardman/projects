@@ -54,9 +54,6 @@ public final class FileResolver {
     private static final String EMPTY_STRING = "";
     private static final String VARARG = "...";
     private static final String NEW = "$new";
-    private static final String SUPER = "$super";
-    private static final String THIS = "$this";
-    private static final String CLASSCHOICE = "$classchoice";
     private static final char SEP_ENUM_CONST = ',';
     private static final char BEGIN_TEMPLATE = '<';
     private static final char END_TEMPLATE = '>';
@@ -81,7 +78,6 @@ public final class FileResolver {
     private static final String INCR = "++";
     private static final String DECR = "--";
     private static final char KEY_WORD_PREFIX = '$';
-    private static final char VAR_PREFIX = '#';
     private static final String KEY_WORD_PUBLIC = "public";
     private static final String KEY_WORD_PACKAGE = "package";
     private static final String KEY_WORD_PROTECTED = "protected";
@@ -812,7 +808,7 @@ public final class FileResolver {
                         enum_ = true;
                     }
                 }
-                if ((currentChar_ == SEP_ENUM_CONST || currentChar_ == END_LINE && enableByEndLine_) && enum_) {
+                if (enableByEndLine_ && enum_) {
                     String info_ = found_.trim();
                     String fieldName_;
                     String expression_ = EMPTY_STRING;
@@ -1016,15 +1012,18 @@ public final class FileResolver {
                                     String right_ = info_.substring(indexInstr_ + 1);
                                     currentParent_.appendChild(new DeclareAffectVariable(_context, index_, currentParent_, declaringType_, left_, right_));
                                 } else {
-                                    String left_ = info_.substring(0, indexInstr_);
                                     if (indexInstr_ >= info_.length()) {
                                         //ERROR
                                         break;
                                     }
+                                    int maxLeft_ = indexInstr_ - 1;
+                                    int minRight_ = indexInstr_ + 1;
                                     StringBuilder oper_ = new StringBuilder();
                                     if (info_.charAt(indexInstr_ + 1) == PLUS_CHAR) {
                                         oper_.append(PART_SEPARATOR);
                                         oper_.append(PLUS_CHAR);
+                                        maxLeft_++;
+                                        minRight_++;
                                     } else if (info_.charAt(indexInstr_ - 1) == PLUS_CHAR) {
                                         oper_.append(PLUS_CHAR);
                                         oper_.append(PART_SEPARATOR);
@@ -1041,9 +1040,11 @@ public final class FileResolver {
                                         oper_.append(MOD_CHAR);
                                         oper_.append(PART_SEPARATOR);
                                     } else {
+                                        maxLeft_++;
                                         oper_.append(PART_SEPARATOR);
                                     }
-                                    String right_ = info_.substring(indexInstr_ + 1);
+                                    String left_ = info_.substring(0, maxLeft_);
+                                    String right_ = info_.substring(minRight_);
                                     currentParent_.appendChild(new Affectation(_context, index_, currentParent_, left_, oper_.toString(), right_));
                                 }
                             } else {
@@ -1336,6 +1337,13 @@ public final class FileResolver {
                 nbOpenedTmp_--;
                 if (nbOpenedTmp_ == 0) {
                     declTypeName_.append(currentCharFound_);
+                    if (indexInstr_ + 1 < instLen_ && _found.substring(indexInstr_ + 1).trim().startsWith(VARARG)) {
+                        int offset_ = StringList.getFirstPrintableCharIndex(_found.substring(indexInstr_ + 1));
+                        for (int i = CustList.FIRST_INDEX; i < offset_; i++) {
+                            declTypeName_.append(_found.charAt(indexInstr_ + 1 + i));
+                        }
+                        declTypeName_.append(VARARG);
+                    }
                     typeDeclaring_ = true;
                     break;
                 }
