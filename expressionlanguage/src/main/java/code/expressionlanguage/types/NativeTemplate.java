@@ -3,6 +3,8 @@ package code.expressionlanguage.types;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import code.util.StringList;
+
 final class NativeTemplate extends ParentType {
 
     NativeTemplate(Type _type, ParentType _parent, int _index) {
@@ -12,7 +14,7 @@ final class NativeTemplate extends ParentType {
     @Override
     String getBegin() {
         Class<?> cl_ = (Class<?>) ((ParameterizedType)getType()).getRawType();
-        return cl_.getName()+TEMPLATE_BEGIN;
+        return StringList.concat(cl_.getName(),TEMPLATE_BEGIN);
     }
     @Override
     String getEnd() {

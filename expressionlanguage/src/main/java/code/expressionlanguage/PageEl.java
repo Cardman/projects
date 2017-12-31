@@ -317,11 +317,6 @@ public final class PageEl {
         globalArgument = arg_;
     }
 
-    public void setGlobalArgument(Class<?> _class) {
-        Argument arg_ = new Argument();
-        globalArgument = arg_;
-    }
-
     public void setGlobalArgument(Argument _globalArgument) {
         globalArgument = _globalArgument;
     }

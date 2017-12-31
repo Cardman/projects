@@ -24,13 +24,13 @@ public final class StreamBinaryFile {
         if (toFolder_.endsWith(StreamTextFile.SEPARATEUR)) {
             toFolder_ = toFolder_.substring(CustList.FIRST_INDEX, toFolder_.length() - 1);
         }
-        String toFile_ = toFolder_ + StreamTextFile.SEPARATEUR + list_.last();
+        String toFile_ = StringList.concat(toFolder_, StreamTextFile.SEPARATEUR, list_.last());
         copyFile(_fromFile, toFile_);
     }
 
     public static void copyFile(String _fromFolder, String _fileName, String _toFolder) {
-        String from_ = _fromFolder + StreamTextFile.SEPARATEUR + _fileName;
-        String to_ = _toFolder + StreamTextFile.SEPARATEUR + _fileName;
+        String from_ = StringList.concat(_fromFolder, StreamTextFile.SEPARATEUR, _fileName);
+        String to_ = StringList.concat(_toFolder, StreamTextFile.SEPARATEUR, _fileName);
         copyFile(from_, to_);
     }
     public static void copyFile(String _fromFile, String _toFile) {

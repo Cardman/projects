@@ -94,7 +94,19 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
 
     @Override
     public String toString() {
-        return name+SEP_ONE+phrases.toString()+SEP_ONE+instrument+SEP_ONE+channel+SEP_ONE+numerator+SEP_TWO+denominator;
+        StringBuilder str_ = new StringBuilder();
+        str_.append(name);
+        str_.append(SEP_ONE);
+        str_.append(phrases.toString());
+        str_.append(SEP_ONE);
+        str_.append(instrument);
+        str_.append(SEP_ONE);
+        str_.append(channel);
+        str_.append(SEP_ONE);
+        str_.append(numerator);
+        str_.append(SEP_TWO);
+        str_.append(denominator);
+        return str_.toString();
     }
 
     @Override

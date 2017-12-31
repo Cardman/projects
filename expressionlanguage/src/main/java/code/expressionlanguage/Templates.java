@@ -467,7 +467,7 @@ public final class Templates {
         StringBuilder generic_ = new StringBuilder(className_);
         StringList vars_ = new StringList();
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
-            vars_.add(PREFIX_VAR_TYPE+t.getName());
+            vars_.add(StringList.concat(PREFIX_VAR_TYPE,t.getName()));
         }
         generic_.append(TEMPLATE_BEGIN);
         generic_.append(vars_.join(TEMPLATE_SEP));

@@ -465,7 +465,7 @@ public final class PrimitiveTypeUtil {
     public static String getAliasArrayClass(Class<?> _class) {
         String className_ = _class.getName();
         if (_class.isPrimitive()) {
-            className_ = PRIM + className_;
+            className_ = StringList.concat(PRIM, className_);
         }
         DimComp d_ = getComponentBaseType(className_);
         String compo_ = d_.getComponent();
@@ -820,28 +820,28 @@ public final class PrimitiveTypeUtil {
         return null;
     }
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id) {
-        if (_class.matchClass(Boolean.class)) {
+        if (_class.matchClass(Boolean.class.getName())) {
             return new ClassArgumentMatching(PRIM_BOOLEAN);
         }
-        if (_class.matchClass(Double.class)) {
+        if (_class.matchClass(Double.class.getName())) {
             return new ClassArgumentMatching(PRIM_DOUBLE);
         }
-        if (_class.matchClass(Float.class)) {
+        if (_class.matchClass(Float.class.getName())) {
             return new ClassArgumentMatching(PRIM_FLOAT);
         }
-        if (_class.matchClass(Long.class)) {
+        if (_class.matchClass(Long.class.getName())) {
             return new ClassArgumentMatching(PRIM_LONG);
         }
-        if (_class.matchClass(Integer.class)) {
+        if (_class.matchClass(Integer.class.getName())) {
             return new ClassArgumentMatching(PRIM_INT);
         }
-        if (_class.matchClass(Short.class)) {
+        if (_class.matchClass(Short.class.getName())) {
             return new ClassArgumentMatching(PRIM_SHORT);
         }
-        if (_class.matchClass(Byte.class)) {
+        if (_class.matchClass(Byte.class.getName())) {
             return new ClassArgumentMatching(PRIM_BYTE);
         }
-        if (_class.matchClass(Character.class)) {
+        if (_class.matchClass(Character.class.getName())) {
             return new ClassArgumentMatching(PRIM_CHAR);
         }
         if (_id) {

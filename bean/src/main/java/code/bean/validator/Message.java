@@ -40,8 +40,8 @@ public class Message {
         message = _message;
     }
 
-    public String[] getArgs() {
-        return args;
+    public StringList getArgs() {
+        return new StringList(args);
     }
 
     public void setArgs(String... _args) {

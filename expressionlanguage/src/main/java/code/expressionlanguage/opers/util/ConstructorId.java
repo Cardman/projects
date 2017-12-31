@@ -1,6 +1,4 @@
 package code.expressionlanguage.opers.util;
-import java.lang.reflect.Constructor;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Templates;
 import code.util.CustList;
@@ -22,19 +20,6 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
     public ConstructorId(String _name, EqList<ClassName> _classNames) {
         name = _name;
         classNames = _classNames;
-    }
-
-    public ConstructorId(Constructor<?> _method) {
-        name = _method.getName();
-        classNames = new EqList<ClassName>();
-        boolean varargMeth_ = _method.isVarArgs();
-        Class<?>[] classes_ = _method.getParameterTypes();
-        int len_ = classes_.length;
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            Class<?> param_ = classes_[i];
-            boolean vararg_ = varargMeth_ && i + 1 == len_;
-            classNames.add(new ClassName(param_.getName(), vararg_));
-        }
     }
 
     public ConstructorId format(String _genericClass, ContextEl _classes) {

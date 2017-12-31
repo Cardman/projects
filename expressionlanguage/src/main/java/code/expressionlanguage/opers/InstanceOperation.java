@@ -273,7 +273,7 @@ public final class InstanceOperation extends InvokingOperation {
         ClassArgumentMatching arg_ = new ClassArgumentMatching(realClassName_);
         Constructor<?> const_ = getDeclaredConstructor(_conf, varargOnly_, 0, arg_, ClassArgumentMatching.toArgArray(_firstArgs));
         if (!canBeUsed(const_, _conf)) {
-            throw new BadAccessException(const_+RETURN_LINE+_conf.joinPages());
+            throw new BadAccessException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         contructor = const_;
         if (contructor.isVarArgs() && varargOnly_ == -1) {

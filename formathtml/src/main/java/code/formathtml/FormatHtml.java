@@ -3426,7 +3426,7 @@ public final class FormatHtml {
                 Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
                 isEnumClass_ = class_.isEnum();
             } catch (Throwable _0) {
-                throw new RuntimeClassNotFoundException(_className+_conf.joinPages());
+                throw new RuntimeClassNotFoundException(StringList.concat(_className,_conf.joinPages()));
             }
         }
         StringList names_;

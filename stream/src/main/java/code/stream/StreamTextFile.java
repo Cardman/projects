@@ -47,10 +47,10 @@ public final class StreamTextFile {
     public static StringMap<String> getTextFiles(String _folder) {
         StringMap<String> map_ = new StringMap<String>();
         for (String f: files(_folder)) {
-            if (new File(_folder+f).isDirectory()) {
+            if (new File(StringList.concat(_folder,f)).isDirectory()) {
                 continue;
             }
-            map_.put(f, contentsOfFile(_folder+f));
+            map_.put(f, contentsOfFile(StringList.concat(_folder,f)));
         }
         return map_;
     }
@@ -58,10 +58,10 @@ public final class StreamTextFile {
     public static InsCaseStringMap<String> getTextFilesIns(String _folder) {
         InsCaseStringMap<String> map_ = new InsCaseStringMap<String>();
         for (String f: files(_folder)) {
-            if (new File(_folder+f).isDirectory()) {
+            if (new File(StringList.concat(_folder,f)).isDirectory()) {
                 continue;
             }
-            map_.put(f, contentsOfFile(_folder+f));
+            map_.put(f, contentsOfFile(StringList.concat(_folder,f)));
         }
         return map_;
     }
@@ -71,11 +71,11 @@ public final class StreamTextFile {
         StringList files_ = files(folder_);
         StringList folders_ = new StringList();
         for (String f: files_) {
-            if (new File(folder_+f).isDirectory()) {
-                folders_.add(folder_+f);
+            if (new File(StringList.concat(folder_,f)).isDirectory()) {
+                folders_.add(StringList.concat(folder_,f));
                 continue;
             }
-            new File(folder_+f).delete();
+            new File(StringList.concat(folder_,f)).delete();
         }
         while (!folders_.isEmpty()) {
             StringList newFolders_ = new StringList();
@@ -154,10 +154,10 @@ public final class StreamTextFile {
         String folder_ = _folder;
         folder_ = new File(folder_).getAbsolutePath();
         folder_ = StringList.replaceBackSlash(folder_);
-        if (folder_.endsWith(SEPARATEUR+_folder)) {
-            String suffix_ = SEPARATEUR+_folder;
+        if (folder_.endsWith(StringList.concat(SEPARATEUR,_folder))) {
+            String suffix_ = StringList.concat(SEPARATEUR,_folder);
             folder_ = folder_.substring(CustList.FIRST_INDEX, folder_.length() - suffix_.length());
-            folder_ += SEPARATEUR;
+            folder_ = StringList.concat(folder_,SEPARATEUR);
         }
 //        folder_ = folder_.replaceAll(SEPARATEUR+_folder+END, SEPARATEUR);
         StringList new_ = new StringList();
@@ -189,7 +189,7 @@ public final class StreamTextFile {
     }
 
     public static Element documentXmlInterne(String _dossier, String _fichier) {
-        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(_dossier +SEPARATEUR + _fichier));
+        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringList.concat(_dossier,SEPARATEUR, _fichier)));
         Element element_ = doc_.getDocumentElement();
         return element_;
     }

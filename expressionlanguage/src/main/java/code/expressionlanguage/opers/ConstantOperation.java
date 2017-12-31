@@ -39,6 +39,7 @@ import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -746,13 +747,17 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (!fieldMetaInfo.isStaticField() && arg_.isNull()) {
                     throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
                 }
-                String argClassName_ = arg_.getObjectClassName(_conf);
-                String classNameFound_ = fieldId.getClassName();
-                String base_ = argClassName_;
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-                    throw new InvokeException(new StdStruct(new CustomError(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
+                Struct default_ = NullStruct.NULL_VALUE;
+                if (!fieldMetaInfo.isStaticField()) {
+                    String argClassName_ = arg_.getObjectClassName(_conf);
+                    String classNameFound_ = fieldId.getClassName();
+                    String base_ = argClassName_;
+                    if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
+                        throw new InvokeException(new StdStruct(new CustomError(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
+                    }
+                    default_ = arg_.getStruct();
                 }
-                ResultErrorStd res_ = LgNames.getField(_conf, fieldId, arg_.getStruct());
+                ResultErrorStd res_ = LgNames.getField(_conf, fieldId, default_);
                 if (res_.getError() != null) {
                     throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
                 }

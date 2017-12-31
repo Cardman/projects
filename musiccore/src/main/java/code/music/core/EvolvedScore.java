@@ -7,6 +7,7 @@ import jm.music.data.Score;
 import jm.util.Play;
 import code.serialize.XmlTransientable;
 import code.util.EqList;
+import code.util.StringList;
 import code.util.annot.RwXml;
 import code.util.ints.Listable;
 import code.util.ints.MidListable;
@@ -68,7 +69,7 @@ public class EvolvedScore implements XmlTransientable, MidListable<EvolvedPart> 
 
     @Override
     public String toString() {
-        return name+parts.toString();
+        return StringList.concat(name,parts.toString());
     }
 
     @Override

@@ -122,7 +122,7 @@ public final class StreamZipFile {
             ZipInputStream zip_ = new ZipInputStream(fis_);
             ZipEntry entry_ = zip_.getNextEntry();
             while (entry_ != null) {
-                if (!entry_.getName().endsWith(DOT+CLASS_EXT)) {
+                if (!entry_.getName().endsWith(StringList.concat(DOT,CLASS_EXT))) {
                     entry_ = zip_.getNextEntry();
                     continue;
                 }
@@ -137,8 +137,8 @@ public final class StreamZipFile {
                         className_.append(DOT);
                     }
                     className_.append(part_);
-                    if (part_.endsWith(DOT+CLASS_EXT)) {
-                        className_.setLength(className_.length()-(DOT+CLASS_EXT).length());
+                    if (part_.endsWith(StringList.concat(DOT,CLASS_EXT))) {
+                        className_.setLength(className_.length()-StringList.concat(DOT,CLASS_EXT).length());
                     }
                 }
                 classNames_.add(className_.toString());
@@ -218,10 +218,10 @@ public final class StreamZipFile {
             StringMap<String> files_ = new StringMap<String>();
             for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 String fileName_ = entry_.getName();
-                if (!fileName_.startsWith(_folderName+StreamTextFile.SEPARATEUR)) {
+                if (!fileName_.startsWith(StringList.concat(_folderName,StreamTextFile.SEPARATEUR))) {
                     continue;
                 }
-                if (StringList.quickEq(fileName_,_folderName+StreamTextFile.SEPARATEUR)) {
+                if (StringList.quickEq(fileName_,StringList.concat(_folderName,StreamTextFile.SEPARATEUR))) {
                     continue;
                 }
                 String file_ = getContentOfZippedFile(zipFile_, entry_);

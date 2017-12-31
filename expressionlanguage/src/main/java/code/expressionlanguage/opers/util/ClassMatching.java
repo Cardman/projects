@@ -22,9 +22,6 @@ public final class ClassMatching {
     public boolean matchClass(String _className) {
         return StringList.quickEq(className, _className);
     }
-    public boolean matchClass(Class<?> _class) {
-        return StringList.quickEq(className, _class.getName());
-    }
 
     public boolean matchClass(ClassMatching _className) {
         return StringList.quickEq(className, _className.className);

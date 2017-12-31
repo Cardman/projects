@@ -457,12 +457,12 @@ public abstract class OperationNode {
             try {
                 return class_.getDeclaredField(_name);
             } catch (NoSuchFieldException _0) {
-                String trace_ = class_.getName()+DOT+_name;
+                String trace_ = StringList.concat(class_.getName(),DOT,_name);
                 traces_.add(trace_);
             }
             class_ = class_.getSuperclass();
         }
-        throw new NoSuchDeclaredFieldException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
+        throw new NoSuchDeclaredFieldException(StringList.concat(traces_.join(RETURN_TAB),RETURN_LINE,_cont.joinPages()));
     }
     static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
     ClassArgumentMatching... _args) {
@@ -572,7 +572,7 @@ public abstract class OperationNode {
         String className_ = _class.getName();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(className_+RETURN_LINE+_conf.joinPages());
+                throw new VoidArgumentException(StringList.concat(className_,RETURN_LINE,_conf.joinPages()));
             }
         }
         CustList<Constructor<?>> possibleConstructors_ = new CustList<Constructor<?>>();
@@ -599,7 +599,7 @@ public abstract class OperationNode {
         }
         if (possibleConstructors_.isEmpty()) {
             _conf.getLastPage().addToOffset(_offsetIncr);
-            throw new NoSuchDeclaredConstructorException(className_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredConstructorException(StringList.concat(className_,RETURN_LINE,_conf.joinPages()));
         }
         if (possibleConstructors_.size() == CustList.ONE_ELEMENT) {
             return possibleConstructors_.first();
@@ -635,7 +635,7 @@ public abstract class OperationNode {
         sortCtors(signatures_, gr_);
         if (gr_.isAmbigous()) {
             _conf.getLastPage().addToOffset(_offsetIncr);
-            throw new NoSuchDeclaredConstructorException(className_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredConstructorException(StringList.concat(className_,RETURN_LINE,_conf.joinPages()));
         }
         return signatures_.first().getMethod();
     }
@@ -1453,7 +1453,7 @@ public abstract class OperationNode {
         StringList params_ = new StringList();
         for (Class<?> c: _params) {
             if (c.isPrimitive()) {
-                params_.add(PrimitiveTypeUtil.PRIM+c.getName());
+                params_.add(StringList.concat(PrimitiveTypeUtil.PRIM,c.getName()));
             } else {
                 params_.add(PrimitiveTypeUtil.getAliasArrayClass(c));
             }

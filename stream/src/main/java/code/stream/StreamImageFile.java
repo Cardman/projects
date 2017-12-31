@@ -84,7 +84,7 @@ public final class StreamImageFile {
     public static String toString(BufferedImage _img) {
         int w_ = _img.getWidth();
         int h_ = _img.getHeight();
-        StringBuilder string_ = new StringBuilder(w_ + COMMA);
+        StringBuilder string_ = new StringBuilder(StringList.concatNb(w_, COMMA));
         for (int i = CustList.FIRST_INDEX;i<h_;i++) {
             for (int j = CustList.FIRST_INDEX;j<w_;j++) {
                 string_.append(_img.getRGB(j, i));

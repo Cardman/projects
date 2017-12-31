@@ -7,6 +7,7 @@ import jm.music.data.Note;
 import code.music.enums.Gamme;
 import code.serialize.XmlTransientable;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.annot.RwXml;
 import code.util.ints.Equallable;
 
@@ -216,20 +217,23 @@ public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNo
 
     @Override
     public String toString() {
-        String time_ = EMPTY_STRING;
+        String time_;
         if (_displayDoubleValue_) {
-            time_ += getDouble(durationNum, durationDen);
+            time_ = Double.toString(getDouble(durationNum, durationDen));
         } else {
-            time_ += durationNum+SEPARATOR+durationDen;
+            time_ = StringList.concat(Integer.toString(durationNum),SEPARATOR,Integer.toString(durationDen));
         }
+        String dyn_ = Integer.toString(dynamic);
         if (pause) {
-            return PAUSE+time_+SEPARATOR_TIME+dynamic;
+            return StringList.concat(PAUSE,time_,SEPARATOR_TIME,dyn_);
         }
-        String diese_ = EMPTY_STRING;
+        String diese_;
         if (diese) {
-            diese_ += DIESE;
+            diese_ = DIESE;
+        } else {
+            diese_ = EMPTY_STRING;
         }
-        return value.name()+diese_+level+SEPARATOR_TIME+time_+SEPARATOR_TIME+dynamic;
+        return StringList.concat(value.name(),diese_,Integer.toString(level),SEPARATOR_TIME,time_,SEPARATOR_TIME,dyn_);
     }
 
     @Override

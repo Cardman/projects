@@ -79,7 +79,13 @@ public final class EvolvedPhrase implements XmlTransientable, MidListable<Evolve
 
     @Override
     public String toString() {
-        return notes.toString()+SEP_ONE+numerator+SEP_TWO+denominator;
+        StringBuilder str_ = new StringBuilder();
+        str_.append(notes.toString());
+        str_.append(SEP_ONE);
+        str_.append(numerator);
+        str_.append(SEP_TWO);
+        str_.append(denominator);
+        return str_.toString();
     }
 
     @Override

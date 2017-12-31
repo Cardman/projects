@@ -965,7 +965,7 @@ public class ElUtilTest {
     public void processEl71Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        addBeanClass(context_,Byte.class);
+        addBeanClassName(context_,context_.getStandards().getAliasByte());
         Argument arg_ = ElUtil.processEl("MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Byte.class, res_.getClass());
@@ -992,29 +992,29 @@ public class ElUtilTest {
         assertEq(new StringList(), (StringList)res_);
     }
 
-    @Ignore
-    @Test
-    public void processEl74Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        addBeanClass(context_,StringList.class);
-        Argument arg_ = ElUtil.processEl("isNumber(\"8\")",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
-        assertEq(true, (Boolean)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl74Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        addBeanClassName(context_,"StringList");
+//        Argument arg_ = ElUtil.processEl("isNumber(\"8\")",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(Boolean.class, res_.getClass());
+//        assertEq(true, (Boolean)res_);
+//    }
 
-    @Ignore
-    @Test
-    public void processEl75Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        addBeanClass(context_,StringList.class);
-        Argument arg_ = ElUtil.processEl("getMetaCharacters().size()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
-        assertEq(3, (Number)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl75Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        addBeanClassName(context_,"StringList");
+//        Argument arg_ = ElUtil.processEl("getMetaCharacters().size()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(Integer.class, res_.getClass());
+//        assertEq(3, (Number)res_);
+//    }
 
     @Ignore
     @Test
@@ -1415,16 +1415,16 @@ public class ElUtilTest {
         assertEq("long", (String)res_);
     }
 
-    @Ignore
-    @Test
-    public void processEl104Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        addBeanClass(context_, InternsClasses.class);
-        Argument arg_ = ElUtil.processEl("$new InternStaticStandard()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStaticStandard.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl104Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        addBeanClass(context_, InternsClasses.class);
+//        Argument arg_ = ElUtil.processEl("$new InternStaticStandard()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStaticStandard.class, res_.getClass());
+//    }
 
     @Test
     public void processEl105Test() {
@@ -1874,18 +1874,19 @@ public class ElUtilTest {
     public void processEl9FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        addBeanClass(context_,Composite.class);
+        CustLgNames cust_ = (CustLgNames) context_.getStandards();
+        addBeanClassName(context_,cust_.getAliasComposite());
         ElUtil.processEl("integer",0, context_);
     }
 
-    @Ignore
-    @Test(expected=StaticAccessException.class)
-    public void processEl10FailTest() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        addBeanClass(context_, InternsClasses.class);
-        ElUtil.processEl("$new InternStandard()",0, context_);
-    }
+//    @Ignore
+//    @Test(expected=StaticAccessException.class)
+//    public void processEl10FailTest() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        addBeanClass(context_, InternsClasses.class);
+//        ElUtil.processEl("$new InternStandard()",0, context_);
+//    }
 
     @Test(expected=NullGlobalObjectException.class)
     public void processEl11FailTest() {
@@ -2765,10 +2766,10 @@ public class ElUtilTest {
         _conf.getLastPage().setGlobalClass(_bean.getClass().getName());
     }
 
-    private static void addBeanClass(ContextEl _conf, Class<?> _bean) {
-        _conf.getLastPage().setGlobalArgument(_bean);
-        _conf.getLastPage().setGlobalClass(_bean.getName());
+    private static void addBeanClassName(ContextEl _conf, String _bean) {
+        _conf.getLastPage().setGlobalClass(_bean);
     }
+
     private ContextEl contextEl() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         StringMap<String> files_ = new StringMap<String>();

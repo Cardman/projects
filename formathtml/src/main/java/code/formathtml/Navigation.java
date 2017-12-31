@@ -490,8 +490,8 @@ public final class Navigation {
 
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
-        StringMap<String[]> errorsArgs_;
-        errorsArgs_ = new StringMap<String[]>();
+        StringMap<StringList> errorsArgs_;
+        errorsArgs_ = new StringMap<StringList>();
         //TODO converters
         for (EntryCust<Long, NodeContainer> e: containersMap_.getVal(lg_).entryList()) {
             NodeInformations nInfos_ = e.getValue().getNodeInformation();
@@ -756,7 +756,7 @@ public final class Navigation {
     }
 
     private void processFormErrors(Document _doc, Element _formElement, long _id,
-            StringMap<String> _errors, StringMap<String[]> _errorsArgs) {
+            StringMap<String> _errors, StringMap<StringList> _errorsArgs) {
         HtmlPage htmlPage_ = session.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -777,9 +777,9 @@ public final class Navigation {
                     elt_.removeChild(elt_.getChildNodes().item(0));
                 }
                 String error_ = _errors.getVal(i);
-                if (!elt_.getAttribute(session.getPrefix()+ATTRIBUTE_VALUE_MESSAGE).isEmpty()) {
-                    String valueMessage_ = elt_.getAttribute(session.getPrefix()+ATTRIBUTE_VALUE_MESSAGE);
-                    error_ = HtmlRequest.formatErrorMessage(session, valueMessage_, elt_.hasAttribute(session.getPrefix()+ATTRIBUTE_ESCAPED_EAMP), language, files, resourcesFolder, _errorsArgs.getVal(i));
+                String valueMessage_ = elt_.getAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_VALUE_MESSAGE));
+                if (!valueMessage_.isEmpty()) {
+                    error_ = HtmlRequest.formatErrorMessage(session, valueMessage_, elt_.hasAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_ESCAPED_EAMP)), language, files, resourcesFolder, _errorsArgs.getVal(i).toArray());
                 }
                 Text text_ = _doc.createTextNode(error_);
                 elt_.appendChild(text_);

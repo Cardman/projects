@@ -79,9 +79,6 @@ public final class ClassArgumentMatching {
         LgNames stds_ = _classes;
         return StringList.quickEq(className, stds_.getAliasVoid());
     }
-    public boolean matchClass(Class<?> _class) {
-        return StringList.quickEq(className, _class.getName());
-    }
 
     public boolean matchClass(String _class) {
         return StringList.quickEq(className, _class);
