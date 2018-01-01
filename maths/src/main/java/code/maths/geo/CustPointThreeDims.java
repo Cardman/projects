@@ -1,9 +1,10 @@
 package code.maths.geo;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class CustPointThreeDims implements Equallable<CustPointThreeDims> {
+public final class CustPointThreeDims implements Equallable<CustPointThreeDims>, Displayable {
 
     private static final String SEPARATOR = ",";
     private int xCoords;
@@ -62,9 +63,20 @@ public final class CustPointThreeDims implements Equallable<CustPointThreeDims> 
         return true;
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return xCoords+SEPARATOR+yCoords+SEPARATOR+zCoords;
+        return display();
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(xCoords);
+        str_.append(SEPARATOR);
+        str_.append(yCoords);
+        str_.append(SEPARATOR);
+        str_.append(zCoords);
+        return str_.toString();
     }
 }

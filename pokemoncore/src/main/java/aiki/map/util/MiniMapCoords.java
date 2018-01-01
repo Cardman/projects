@@ -3,14 +3,13 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class MiniMapCoords implements Equallable<MiniMapCoords> {
+public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayable {
 
     private static final char SEPARATOR = ' ';
-
-    private static final String EMPTY_STRING = "";
 
     private final short xCoords;
 
@@ -46,7 +45,7 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords> {
     @Override
     @FromAndToString
     public String toString() {
-        return EMPTY_STRING+xCoords+SEPARATOR+yCoords;
+        return display();
     }
 
     public short getXcoords() {
@@ -55,5 +54,14 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords> {
 
     public short getYcoords() {
         return yCoords;
+    }
+
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(xCoords);
+        str_.append(SEPARATOR);
+        str_.append(yCoords);
+        return str_.toString();
     }
 }

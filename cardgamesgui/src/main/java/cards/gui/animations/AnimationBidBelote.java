@@ -52,7 +52,7 @@ public final class AnimationBidBelote extends Thread {
             BidBeloteSuit contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_, player_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);
-            String event_ = pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR;
+            String event_ = pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_.toString()+ContainerBelote.RETURN_LINE_CHAR;
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
             if (partie_.tailleContrats() == partie_.getNombreDeJoueurs()) {

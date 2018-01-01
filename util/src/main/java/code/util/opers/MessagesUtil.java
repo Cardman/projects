@@ -24,7 +24,7 @@ public final class MessagesUtil {
             if (l.startsWith(TAB)) {
                 String text_ = messages_.getVal(lastKey_);
                 if (text_ != null) {
-                    text_ += l.substring(1);
+                    text_ = StringList.concat(text_,l.substring(1));
                     messages_.put(lastKey_, text_);
                 }
             } else {

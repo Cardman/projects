@@ -5,8 +5,9 @@ import code.maths.matrix.Vect;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.PairNumber;
+import code.util.ints.Displayable;
 
-public final class Tetrahedron {
+public final class Tetrahedron implements Displayable {
 
     public static final int NB_POINTS = 4;
 
@@ -339,6 +340,18 @@ public final class Tetrahedron {
 
     @Override
     public String toString() {
-        return firstPoint+SEPARATOR+secondPoint+SEPARATOR+thirdPoint+SEPARATOR+fourthPoint;
+        return display();
+    }
+
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(firstPoint.display());
+        str_.append(SEPARATOR);
+        str_.append(secondPoint.display());
+        str_.append(SEPARATOR);
+        str_.append(thirdPoint.display());
+        str_.append(SEPARATOR);
+        str_.append(fourthPoint.display());
+        return str_.toString();
     }
 }

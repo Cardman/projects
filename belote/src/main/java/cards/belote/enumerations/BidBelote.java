@@ -2,9 +2,10 @@ package cards.belote.enumerations;
 import code.format.Format;
 import code.util.EnumList;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 import cards.consts.Order;
 
-public enum BidBelote {
+public enum BidBelote implements Displayable {
     FOLD(0,true),
     SUIT(1,2,true,true),
     OTHER_SUIT(1,1,true,true),
@@ -218,5 +219,9 @@ public enum BidBelote {
             }
         }
         return true;
+    }
+    @Override
+    public String display() {
+        return toString(Constants.getLanguage());
     }
 }

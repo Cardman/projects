@@ -370,7 +370,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), _readObject.getReason(), title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
         } else {
-            String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _readObject.getCard().toString());
+            String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _readObject.getCard().display());
             String finalMessage_ = mes_+ContainerPresident.RETURN_LINE_CHAR+_readObject.getReason();
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
@@ -390,7 +390,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
 
         String pseudo_ = getPseudoByPlace(_card.getPlace());
-        ajouterTexteDansZone(pseudo_ + INTRODUCTION_PTS + _card.getPlayedHand() + RETURN_LINE_CHAR);
+        ajouterTexteDansZone(pseudo_ + INTRODUCTION_PTS + _card.getPlayedHand().toString() + RETURN_LINE_CHAR);
         //PackingWindowAfter.pack(this, true);
         pack();
         DonePlaying dealt_ = new DonePlaying();

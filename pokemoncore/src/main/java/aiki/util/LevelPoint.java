@@ -3,14 +3,13 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class LevelPoint implements Equallable<LevelPoint> {
+public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
 
     static final char SEPARATOR = '_';
-
-    private static final String EMPTY_STRING = "";
 
     private byte levelIndex;
 
@@ -53,9 +52,8 @@ public final class LevelPoint implements Equallable<LevelPoint> {
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        return EMPTY_STRING+levelIndex+SEPARATOR+point;
+        return display();
     }
 
     public static boolean eq(LevelPoint _lp1,LevelPoint _lp2) {
@@ -89,6 +87,16 @@ public final class LevelPoint implements Equallable<LevelPoint> {
 
     public void setPoint(Point _point) {
         point = _point;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(levelIndex);
+        str_.append(SEPARATOR);
+        str_.append(point.display());
+        return str_.toString();
     }
 
 }

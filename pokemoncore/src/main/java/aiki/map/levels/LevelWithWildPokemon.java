@@ -367,7 +367,7 @@ public class LevelWithWildPokemon extends Level {
         getBlocks().getVal(_id).setIndexApparition((short) _indexOfApparition);
     }
     public void unlinkBlockAreaApparition(Point _id) {
-        getBlocks().getVal(_id).setIndexApparition((short) CustList.INDEX_NOT_FOUND_ELT);
+        getBlocks().getVal(_id).setIndexApparition(CustList.INDEX_NOT_FOUND_ELT);
     }
     public AreaApparition getAreaByBlockId(Point _key) {
         int index_ = getBlocks().getVal(_key).getIndexApparition();

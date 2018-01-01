@@ -79,11 +79,18 @@ public final class PageEl {
     private String processingAttribute = EMPTY_STRING;
 
     public String getInfos(ContextEl _context) {
-        return READ_URL+SEP_KEY_VAL+readUrl+SEP_INFO+getCommonInfosAndRc(getTrace(), _context);
+        StringBuilder str_ = new StringBuilder(getCommonInfosAndRc(getTrace(), _context));
+        str_.insert(0, SEP_INFO);
+        str_.insert(0, readUrl);
+        str_.insert(0, SEP_KEY_VAL);
+        str_.insert(0, READ_URL);
+        return str_.toString();
     }
 
     public String getCommonInfosAndRc(RowCol _rc,ContextEl _context) {
-        return getCommonInfos(_context)+_rc;
+        StringBuilder str_ = new StringBuilder(getCommonInfos(_context));
+        str_.append(_rc.display());
+        return str_.toString();
     }
 
     public RowCol getTrace() {

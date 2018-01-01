@@ -1,6 +1,7 @@
 package code.sml.exceptions;
 
 import code.sml.RowCol;
+import code.util.StringList;
 
 public class XmlParseException extends RuntimeException {
 
@@ -18,7 +19,7 @@ public class XmlParseException extends RuntimeException {
     }
 
     public XmlParseException(String _fileName,String _message) {
-        super(_fileName+SEPARATOR+_message);
+        super(StringList.concat(_fileName,SEPARATOR,_message));
         rowCol = new RowCol();
     }
 
@@ -32,7 +33,7 @@ public class XmlParseException extends RuntimeException {
     }
 
     public XmlParseException(RowCol _rc, String _fileName,String _message) {
-        super(_fileName+SEPARATOR+_message);
+        super(StringList.concat(_fileName,SEPARATOR,_message));
         rowCol = _rc;
     }
 

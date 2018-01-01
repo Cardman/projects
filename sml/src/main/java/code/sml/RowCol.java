@@ -13,7 +13,11 @@ public final class RowCol implements Cmp<RowCol>, Displayable {
 
     @Override
     public String display() {
-        return row+SEP+col;
+        StringBuilder str_ = new StringBuilder();
+        str_.append(row);
+        str_.append(SEP);
+        str_.append(col);
+        return str_.toString();
     }
 
     @Override

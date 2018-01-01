@@ -459,7 +459,7 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
 
     @Override
     public String display() {
-        return "["+join(",")+"]";
+        return StringList.concat("[",join(","),"]");
     }
 
     @Override

@@ -21,7 +21,7 @@ public final class OperationsSequence {
     public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
-            values.put(CustList.FIRST_INDEX, _string);
+            values.put((int)CustList.FIRST_INDEX, _string);
             return;
         }
         int beginValuePart_ = CustList.FIRST_INDEX;

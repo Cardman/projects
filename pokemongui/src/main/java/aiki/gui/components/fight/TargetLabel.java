@@ -10,6 +10,7 @@ import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.StringList;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -110,14 +111,14 @@ public class TargetLabel extends JLabel {
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = getFontMetrics(getFont()).stringWidth(percentExp+PER_CENT);
+            w_ = getFontMetrics(getFont()).stringWidth(StringList.concat(percentExp.toNumberString(),PER_CENT));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = getFontMetrics(getFont()).stringWidth(percentHp+PER_CENT);
+            w_ = getFontMetrics(getFont()).stringWidth(StringList.concat(percentHp.toNumberString(),PER_CENT));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
@@ -221,7 +222,7 @@ public class TargetLabel extends JLabel {
             green_ = green_ * rate_ / Rate.CENT;
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
             g_.setColor(new Color(red_, green_, 0));
-            g_.drawString(percentHp+PER_CENT, 0, h_);
+            g_.drawString(StringList.concat(percentHp.toNumberString(),PER_CENT), 0, h_);
             g_.drawImage(image_, 0, delta_, null);
             if (ko) {
                 g_.setColor(Color.RED);

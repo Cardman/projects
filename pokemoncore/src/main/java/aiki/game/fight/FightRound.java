@@ -1535,7 +1535,7 @@ final class FightRound {
     static StringMap<String> calculateCatchingVariables(Fight _fight,boolean _dejaCapture,DataBase _import) {
         Fighter creatureSauvage_=_fight.wildPokemon();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Numbers<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex((short) CustList.FIRST_INDEX, true);
+        Numbers<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
         Fighter creatureUt_=_fight.getUserTeam().refPartMembres(cbts_.first());
         StringMap<String> variables_=new StringMap<String>();
         variables_.put(DataBase.VAR_PREFIX+Fight.LIEU_COMBAT,_fight.getEnvType().name());
@@ -1553,7 +1553,7 @@ final class FightRound {
         variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_GENRE,creatureSauvage_.getGender().name());
         variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_MASSE,creatureSauvage_.getWeight().toNumberString());
         variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_NIVEAU,Integer.toString(creatureSauvage_.getLevel()));
-        variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_VITESSE,FightOrder.speed(_fight,Fight.toFoeFighter((byte) CustList.FIRST_INDEX),_import).toNumberString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_VITESSE,FightOrder.speed(_fight,Fight.toFoeFighter(CustList.FIRST_INDEX),_import).toNumberString());
         PokemonData fPk_=creatureSauvage_.fichePokemon(_import);
         variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_TYPES_BASE,fPk_.getTypes().join(_import.getSepartorSetChar()));
         StringList pierresEvo_ = new StringList();
@@ -1608,7 +1608,7 @@ final class FightRound {
     static StringMap<String> calculateFleeingVariable(Fight _fight, DataBase _import){
         Fighter creatureSauvage_=_fight.wildPokemon();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Numbers<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex((short) CustList.FIRST_INDEX, true);
+        Numbers<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
         Fighter creatureUt_=_fight.getUserTeam().refPartMembres(cbts_.first());
         StringMap<String> variables_=new StringMap<String>();
         variables_.put(DataBase.VAR_PREFIX+Fight.LIEU_COMBAT,_fight.getEnvType().name());
@@ -1622,7 +1622,7 @@ final class FightRound {
         variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_GENRE,creatureSauvage_.getGender().name());
         variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_MASSE,creatureSauvage_.getWeight().toNumberString());
         variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_NIVEAU,Integer.toString(creatureSauvage_.getLevel()));
-        variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_VITESSE,FightOrder.speed(_fight,Fight.toFoeFighter((byte) CustList.FIRST_INDEX),_import).toNumberString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_VITESSE,FightOrder.speed(_fight,Fight.toFoeFighter(CustList.FIRST_INDEX),_import).toNumberString());
         PokemonData fPk_=creatureSauvage_.fichePokemon(_import);
         variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_TYPES_BASE,fPk_.getTypes().join(_import.getSepartorSetChar()));
         StringList pierresEvo_ = new StringList();

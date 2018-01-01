@@ -3,10 +3,11 @@ import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 import cards.consts.CardChar;
 import cards.consts.Suit;
 
-public enum CardPresident {
+public enum CardPresident implements Displayable {
     WHITE,
     HEART_2(2,Suit.HEART, 13),
     HEART_1(1,Suit.HEART, 12),
@@ -200,5 +201,10 @@ public enum CardPresident {
 
     public String getImageFileName(String _ext) {
         return StringList.toUpperCase(name())+_ext;
+    }
+
+    @Override
+    public String display() {
+        return toString(Constants.getLanguage());
     }
 }

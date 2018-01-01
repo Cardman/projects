@@ -2,6 +2,9 @@ package code.resources;
 
 public final class BaseSixtyFourUtil {
 
+    private static final int FIRST_DIGIT = '0';
+    private static final int FIRST_LOW_LETTER = 'a';
+    private static final int FIRST_UPP_LETTER = 'A';
     private static final short BYTE = 256;
     private static final byte SIXTY_FOUR_BITS = 64;
     private static final byte SIXTEEN_BITS = 16;
@@ -165,13 +168,13 @@ public final class BaseSixtyFourUtil {
     }
     public static char encode(int _i) {
         if (_i < NB_LETTERS) {
-            return (char) ('A'+_i);
+            return (char) (FIRST_UPP_LETTER+_i);
         }
         if (_i < NB_LETTERS_UPP_LOW) {
-            return (char) ('a'-NB_LETTERS+_i);
+            return (char) (FIRST_LOW_LETTER-NB_LETTERS+_i);
         }
         if (_i < NB_DIGITS_LETTERS) {
-            return (char) ('0'-NB_LETTERS_UPP_LOW+_i);
+            return (char) (FIRST_DIGIT-NB_LETTERS_UPP_LOW+_i);
         }
         if (_i == NB_DIGITS_LETTERS) {
             return '+';

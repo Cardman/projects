@@ -1776,8 +1776,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return toNumberString();
     }
 
+    @FromAndToString
     public String toNumberString() {
-        String chaine_ = EMPTY_STRING;
+        StringBuilder chaine_ = new StringBuilder();
         int indice_ = CustList.FIRST_INDEX;
         int powerTen_ = LOG_BASE;
         // puissance10 vaut log10(_base_)
@@ -1785,7 +1786,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             if (indice_ > CustList.FIRST_INDEX) {
                 if (c == 0) {
                     for (int i = CustList.FIRST_INDEX; i < powerTen_; i++) {
-                        chaine_ += String.valueOf(ZERO);
+                        chaine_.append(ZERO);
                     }
                 } else {
                     int puissance_ = 0;
@@ -1796,19 +1797,19 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                     }
                     int nbZeros_ = powerTen_ - puissance_;
                     for (int i = CustList.FIRST_INDEX; i < nbZeros_; i++) {
-                        chaine_ += String.valueOf(ZERO);
+                        chaine_.append(ZERO);
                     }
-                    chaine_ += c;
+                    chaine_.append(c);
                 }
             } else {
-                chaine_ += c;
+                chaine_.append(c);
             }
             indice_++;
         }
         if (!isZeroOrGt()) {
-            return MINUS + chaine_;
+            return chaine_.insert(0, MINUS).toString();
         }
-        return chaine_;
+        return chaine_.toString();
     }
 
     /**
@@ -1817,7 +1818,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     @return la chaine de caracteres represantant l'entier comme ecrit de maniere naturelle.
     */
     @Override
-    @FromAndToString
     public String toString() {
         return display();
     }

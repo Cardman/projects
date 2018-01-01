@@ -7,9 +7,10 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class Link {
+public final class Link implements Displayable{
 
     private static final char SEPARATOR = '\'';
 
@@ -42,12 +43,8 @@ public final class Link {
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        if (isValidDir()) {
-            return name+SEPARATOR+dir.name()+SEPARATOR+coords;
-        }
-        return name+SEPARATOR+coords;
+        return display();
     }
 
     public boolean isValid(DataBase _data) {
@@ -85,5 +82,18 @@ public final class Link {
 
     public void setDir(Direction _dir) {
         dir = _dir;
+    }
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(name);
+        str_.append(SEPARATOR);
+        if (isValidDir()) {
+            str_.append(dir.name());
+            str_.append(SEPARATOR);
+        }
+        str_.append(coords.display());
+        return str_.toString();
     }
 }

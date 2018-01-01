@@ -1,5 +1,7 @@
 package code.expressionlanguage.exceptions;
 
+import code.util.StringList;
+
 public class BadIndexTypeException extends RuntimeException {
 
     private static final String SEPARATOR = ":";
@@ -9,7 +11,7 @@ public class BadIndexTypeException extends RuntimeException {
     }
 
     public BadIndexTypeException(String _container, String _message) {
-        super(_container+SEPARATOR+_message);
+        super(StringList.concat(_container,SEPARATOR,_message));
     }
 
 }

@@ -55,7 +55,7 @@ public final class GamePresident {
 
     /** Ce sont les plis faits par les joueurs */
     /** PliTarot en cours d'etre joue */
-    private TrickPresident progressingTrick = new TrickPresident((byte) CustList.INDEX_NOT_FOUND_ELT);
+    private TrickPresident progressingTrick = new TrickPresident(CustList.INDEX_NOT_FOUND_ELT);
 
     /** Ensemble des plis faits par les joueurs */
     private CustList<TrickPresident> tricks = new CustList<TrickPresident>();
@@ -1836,7 +1836,7 @@ public final class GamePresident {
                 }
             }
             if (!eqStrPres_) {
-                tree_.put(c, (byte) CustList.ONE_ELEMENT);
+                tree_.put(c, CustList.ONE_ELEMENT);
             }
         }
         for (CardPresident c: HandPresident.pileBase()) {
@@ -1849,7 +1849,7 @@ public final class GamePresident {
                 }
             }
             if (!eqStrPres_) {
-                tree_.put(c, (byte) CustList.SIZE_EMPTY);
+                tree_.put(c, CustList.SIZE_EMPTY);
             }
         }
         return tree_;
@@ -2311,9 +2311,9 @@ public final class GamePresident {
             }
         }
         for (byte p = CustList.FIRST_INDEX; p <nbPlayers_; p++) {
-            t_.add(CustList.INDEX_NOT_FOUND_ELT);
-            c_.add(CustList.INDEX_NOT_FOUND_ELT);
-            r_.add((byte) CustList.FIRST_INDEX);
+            t_.add((int)CustList.INDEX_NOT_FOUND_ELT);
+            c_.add((int)CustList.INDEX_NOT_FOUND_ELT);
+            r_.add(CustList.FIRST_INDEX);
         }
         for (byte p = CustList.FIRST_INDEX; p <nbPlayers_; p++) {
             int tInd_ = tricks.size() - 1;

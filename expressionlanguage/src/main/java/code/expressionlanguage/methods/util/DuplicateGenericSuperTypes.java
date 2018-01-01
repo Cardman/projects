@@ -10,7 +10,12 @@ public class DuplicateGenericSuperTypes extends FoundErrorInterpret {
 
     @Override
     public String display() {
-        return super.display()+CLASS_NAME+SEP_KEY_VAL+genericSuperTypes+SEP_INFO;
+        StringBuilder str_ = new StringBuilder(super.display());
+        str_.append(CLASS_NAME);
+        str_.append(SEP_KEY_VAL);
+        str_.append(genericSuperTypes.display());
+        str_.append(SEP_INFO);
+        return str_.toString();
     }
 
     public StringList getGenericSuperTypes() {

@@ -2,8 +2,9 @@ package code.maths.geo;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.PairNumber;
+import code.util.ints.Displayable;
 
-public final class Triangle implements HasEdges {
+public final class Triangle implements HasEdges, Displayable {
 
     public static final int NB_POINTS = 3;
 
@@ -145,6 +146,16 @@ public final class Triangle implements HasEdges {
 
     @Override
     public String toString() {
-        return firstPoint+SEPARATOR+secondPoint+SEPARATOR+thirdPoint;
+        return display();
+    }
+
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(firstPoint.display());
+        str_.append(SEPARATOR);
+        str_.append(secondPoint.display());
+        str_.append(SEPARATOR);
+        str_.append(thirdPoint.display());
+        return str_.toString();
     }
 }

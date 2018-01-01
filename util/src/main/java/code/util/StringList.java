@@ -274,7 +274,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                 StringList filterList_ = new StringList(list_);
                 boolean exist_ = false;
                 for (String s: filterList_) {
-                    if (s.contains(subString_ + _pattern.charAt(j_ + i_ + 1))) {
+                    if (s.contains(concat(subString_, String.valueOf(_pattern.charAt(j_ + i_ + 1))))) {
                         exist_ = true;
                         break;
                     }
@@ -760,7 +760,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     public static Numbers<Integer> indexesOfSubString(String _string, String _subString) {
         Numbers<Integer> list_ = new Numbers<Integer>();
         if (_subString.isEmpty()) {
-            list_.add(FIRST_INDEX);
+            list_.add((int) FIRST_INDEX);
             return list_;
         }
         int i_ = FIRST_INDEX;
@@ -1744,7 +1744,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                 if (newList_.isEmpty()) {
                     newList_.add(t);
                 } else if (!newList_.last().startsWith(_prefixWord)) {
-                    newList_.setLast(newList_.last()+t);
+                    newList_.setLast(concat(newList_.last(),t));
                 } else {
                     newList_.add(t);
                 }
@@ -1761,7 +1761,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
 //                i_++;
 //                continue;
 //            }
-            newList_.setLast(newList_.last()+t);
+            newList_.setLast(concat(newList_.last(),t));
             i_++;
         }
         return newList_;
@@ -1817,10 +1817,10 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     /**The returned String ends with a slash.*/
     public static String replaceBackSlashDot(String _path) {
         String path_ = StringList.replaceBackSlash(_path);
-        if (path_.endsWith(EMPTY_STRING+SLASH+DOT)) {
+        if (path_.endsWith(concat(String.valueOf(SLASH),String.valueOf(DOT)))) {
             path_ = path_.substring(0, path_.length() - 1);
-        } else if (!path_.endsWith(EMPTY_STRING+SLASH)) {
-            path_ += SLASH;
+        } else if (!path_.endsWith(String.valueOf(SLASH))) {
+            path_ = concat(path_, String.valueOf(SLASH));
         }
         return path_;
     }
@@ -1833,7 +1833,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         if (!_file.endsWith(_oldExt)) {
             return _file;
         }
-        return _file.substring(CustList.FIRST_INDEX, _file.length() - _oldExt.length()) + _newExt;
+        return concat(_file.substring(CustList.FIRST_INDEX, _file.length() - _oldExt.length()), _newExt);
     }
 
     public static String replaceFinalFile(String _str) {
@@ -2039,6 +2039,10 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
 
     @Override
     public String display() {
-        return "["+join(",")+"]";
+        StringBuilder str_ = new StringBuilder();
+        str_.append("[");
+        str_.append(join(","));
+        str_.append("]");
+        return str_.toString();
     }
 }

@@ -1,10 +1,11 @@
 package aiki.map.util;
 import code.serialize.CheckedData;
 import code.util.Numbers;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class ScreenCoords implements Equallable<ScreenCoords> {
+public final class ScreenCoords implements Equallable<ScreenCoords>, Displayable {
 
     private static final String SEPARATOR = ";";
 
@@ -33,7 +34,7 @@ public final class ScreenCoords implements Equallable<ScreenCoords> {
 
     @Override
     public String toString() {
-        return xCoords+SEPARATOR+yCoords;
+        return display();
     }
 
     public int getXcoords() {
@@ -50,5 +51,14 @@ public final class ScreenCoords implements Equallable<ScreenCoords> {
 
     public void setYcoords(int _y) {
         yCoords = _y;
+    }
+
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(xCoords);
+        str_.append(SEPARATOR);
+        str_.append(yCoords);
+        return str_.toString();
     }
 }

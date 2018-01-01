@@ -4,10 +4,11 @@ import aiki.util.Point;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class PlaceInterConnect implements Equallable<PlaceInterConnect> {
+public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, Displayable {
 
     static final char SEPARATOR = ';';
 
@@ -48,9 +49,8 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect> {
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        return source.toString()+SEPARATOR+dir;
+        return display();
     }
 
     public Point getSource() {
@@ -59,5 +59,14 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect> {
 
     public Direction getDir() {
         return dir;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(source.display());
+        str_.append(SEPARATOR);
+        str_.append(dir.name());
+        return str_.toString();
     }
 }

@@ -32,6 +32,6 @@ public final class EntryCust<K, V> implements SimpleEntry {
 
     @Override
     public String toString() {
-        return key+SEPARATOR+value;
+        return StringList.concat(String.valueOf(key),SEPARATOR,String.valueOf(value));
     }
 }

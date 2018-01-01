@@ -3,10 +3,11 @@ import aiki.game.fight.TargetCoords;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class MoveTarget implements Equallable<MoveTarget> {
+public final class MoveTarget implements Equallable<MoveTarget>, Displayable {
 
     private static final char SEPARATOR = ',';
 
@@ -45,9 +46,8 @@ public final class MoveTarget implements Equallable<MoveTarget> {
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        return move+SEPARATOR+target;
+        return display();
     }
 
     public String getMove() {
@@ -64,5 +64,15 @@ public final class MoveTarget implements Equallable<MoveTarget> {
 
     public void setTarget(TargetCoords _target) {
         target = _target;
+    }
+
+    @Override
+    @FromAndToString
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(move);
+        str_.append(SEPARATOR);
+        str_.append(target.display());
+        return str_.toString();
     }
 }

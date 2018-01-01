@@ -205,7 +205,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         panel_.add(panelBids_);
         JPanel panelOk_ = new JPanel();
-        LabelButton buttonSuit_ = new LabelButton(BidBelote.FOLD.toString());
+        LabelButton buttonSuit_ = new LabelButton(BidBelote.FOLD.display());
         buttonSuit_.addMouseListener(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
         panelOk_.add(getBidOk());
@@ -459,7 +459,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             bidMax = bid_.getBidBelote();
         }
         getEvents().append(getPseudoByPlace(_bid.getPlace()) + INTRODUCTION_PTS
-                + bid_.getBidBelote() + RETURN_LINE_CHAR);
+                + bid_.getBidBelote().toString() + RETURN_LINE_CHAR);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
@@ -494,8 +494,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (annonceMain_.getAnnonce() != DeclaresBelote.UNDEFINED) {
             annonceBelote = false;
             JPanel panneau_ = getPanneauBoutonsJeu();
-            JCheckBox caseCoche_ = new JCheckBox(annonceMain_.getAnnonce()
-                    + INTRODUCTION_PTS + annonceMain_.getMain());
+            JCheckBox caseCoche_ = new JCheckBox(annonceMain_.getAnnonce().toString()
+                    + INTRODUCTION_PTS + annonceMain_.getMain().toString());
             caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
             panneau_.add(caseCoche_);
             //panneau_.validate();
@@ -521,7 +521,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isDeclaringBeloteRebelote()) {
-            ajouterTexteDansZone(pseudo_ + INTRODUCTION_PTS + DeclaresBeloteRebelote.BELOTE_REBELOTE
+            ajouterTexteDansZone(pseudo_ + INTRODUCTION_PTS + DeclaresBeloteRebelote.BELOTE_REBELOTE.toString()
                     + RETURN_LINE_CHAR);
         }
         if (_card.isDeclaring()) {
@@ -538,7 +538,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
                                 getDisplayingBelote().getDecroissant(),
                                 bidMax.getOrdre());
             }
-            ajouterTexteDansZone(pseudo_ + INTRODUCTION_PTS + _card.getDeclare().getAnnonce()
+            ajouterTexteDansZone(pseudo_ + INTRODUCTION_PTS + _card.getDeclare().getAnnonce().toString()
                     + RETURN_LINE_CHAR);
             if (!_card.getDeclare().getMain().estVide()) {
                 getHandfuls().getVal(relative_).setText(
@@ -577,7 +577,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
             return;
         }
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().toString());
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().display());
         String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
 //        JOptionPane.showMessageDialog(
 //                getOwner(),

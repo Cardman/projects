@@ -22,14 +22,14 @@ public final class OperationsSequence {
 
     public void setValue(String _string, int _offset) {
         values = new NatTreeMap<Integer,String>();
-        values.put(CustList.FIRST_INDEX, _string);
+        values.put((int)CustList.FIRST_INDEX, _string);
         offset = _offset;
     }
 
     public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
-            values.put(CustList.FIRST_INDEX, _string);
+            values.put((int)CustList.FIRST_INDEX, _string);
             return;
         }
         int beginValuePart_ = CustList.FIRST_INDEX;

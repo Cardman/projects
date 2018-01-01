@@ -99,7 +99,7 @@ public final class GameBelote {
     est vrai si et seulement si c'est la fin des encheres de premier tour*/
     private transient boolean endBidsFirstRound;
     /**PliBelote en cours d'etre joue*/
-    private TrickBelote progressingTrick = new TrickBelote((byte)CustList.INDEX_NOT_FOUND_ELT);
+    private TrickBelote progressingTrick = new TrickBelote(CustList.INDEX_NOT_FOUND_ELT);
 
     /**Entameur du pli qui est en cours d'etre joue*/
     private transient byte starter;
@@ -123,7 +123,7 @@ public final class GameBelote {
     private transient HandBelote cardsToBePlayed = new HandBelote();
 
     private transient String gameError = EMPTY;
-    private transient String reason = EMPTY;
+    private transient StringBuilder reason = new StringBuilder();
     private final transient String file = Format.getClassProperties(GAME_BELOTE);
     /**Constructeur permettant le chargement d'une partie de belote*/
     public GameBelote() {}
@@ -477,7 +477,7 @@ public final class GameBelote {
         return lastBid;
     }
     public BidBeloteSuit strategieContrat() {
-        reason = EMPTY;
+        reason = new StringBuilder();
         BidBeloteSuit contratJoueur_;
         try {
             contratJoueur_=contrat();
@@ -504,13 +504,14 @@ public final class GameBelote {
     }
 
     private void formatClassicBid(BidBeloteSuit _contratJoueur) {
-        reason += format(HAND_VALUE_SUIT, _contratJoueur.getCouleur().toString(), bid.getEnchere().toString())+RETURN_LINE;
-        reason += format(OVERBID_DUE);
+        reason.append(format(HAND_VALUE_SUIT, _contratJoueur.getCouleur().display(), bid.getEnchere().display())).append(RETURN_LINE);
+        reason.append(format(OVERBID_DUE));
     }
 
     private void formatOverBid(BidBeloteSuit _contratJoueur) {
-        reason += format(HAND_VALUE_NO_SUIT, _contratJoueur.getEnchere().toString(), bid.getEnchere().toString())+RETURN_LINE;
-        reason += format(OVERBID_DUE);
+        reason.append(format(HAND_VALUE_NO_SUIT, _contratJoueur.getEnchere().display(), bid.getEnchere().display()));
+        reason.append(RETURN_LINE);
+        reason.append(format(OVERBID_DUE));
     }
     public EqList<BidBeloteSuit> allowedBids() {
         EqList<BidBeloteSuit> encheres_ = new EqList<BidBeloteSuit>();
@@ -881,17 +882,17 @@ public final class GameBelote {
         return progressingTrick;
     }
     public boolean annoncerBeloteRebelote(byte _numeroJoueur, CardBelote _ct, String _loc) {
-        reason = EMPTY;
+        reason = new StringBuilder();
         if(bid.getCouleurDominante()) {
             if(cartesBeloteRebelote().contient(_ct) &&autoriseBeloteRebelote(_numeroJoueur,_loc)) {
-                reason=format(PLAY_BELOTE_REBELOTE, DeclaresBeloteRebelote.BELOTE_REBELOTE.toString());
+                reason=new StringBuilder(format(PLAY_BELOTE_REBELOTE, DeclaresBeloteRebelote.BELOTE_REBELOTE.toString()));
                 return true;
             }
         }
         return false;
     }
     public DeclareHandBelote strategieAnnonces(byte _joueurCourant) {
-        reason = EMPTY;
+        reason = new StringBuilder();
         EnumList<DeclaresBelote> annoncesAutorisees_ = new EnumList<DeclaresBelote>();
         for(DeclaresBelote a: rules.getAnnoncesAutorisees().getKeys()) {
             if(!rules.getAnnoncesAutorisees().getVal(a)) {
@@ -1013,7 +1014,7 @@ public final class GameBelote {
         return playedCard;
     }
     public CardBelote strategieJeuCarteUnique() {
-        reason = EMPTY;
+        reason = new StringBuilder();
         if(progressingTrick.estVide()) {
             byte numero_=playerHavingToPlay();
             HandBelote mainJoueur_=getDistribution().main(numero_);
@@ -1402,18 +1403,18 @@ public final class GameBelote {
             EnumList<Suit> _couleursMaitres,
             Suit _couleurAtout) {
         if(!suite(_suites,_couleurAtout).isEmpty()) {
-            reason += format(GET_CARDS_BY_TRUMP_CARDS);
+            reason.append(format(GET_CARDS_BY_TRUMP_CARDS));
             return main(_suites,_couleurAtout,0).premiereCarte();
         }
         EnumList<Suit> couleurs_ = couleursNonAtoutNonVides(_repartition, _couleursMaitres);
-        reason += format(GET_CARDS_BY_SUIT_CARDS);
+        reason.append(format(GET_CARDS_BY_SUIT_CARDS));
         return main(_repartition,couleurs_.first()).premiereCarte();
     }
     private CardBelote jeuMainMaitresseCouleursEgales(
             EnumMap<Suit,HandBelote> _repartition,
             EnumList<Suit> _couleursMaitres) {
         EnumList<Suit> couleurs_ = couleursNonAtoutNonVides(_repartition, _couleursMaitres);
-        reason += format(GET_CARDS_BY_SUIT_CARDS);
+        reason.append(format(GET_CARDS_BY_SUIT_CARDS));
         return main(_repartition,couleurs_.first()).premiereCarte();
     }
     public static byte nombreCartesPoints(EnumMap<Suit,HandBelote> _repartition,BidBeloteSuit _contrat,Suit _couleur) {
@@ -1509,7 +1510,7 @@ public final class GameBelote {
         EnumMap<Suit,HandBelote> repartition_=mainJoueur_.couleurs(bid);
         HandBelote cartesJouables_=playableCards(repartition_);
         if(cartesJouables_.total()==1) {
-            reason = format(SINGLE_CARD);
+            reason = new StringBuilder(format(SINGLE_CARD));
             return cartesJouables_.premiereCarte();
         }
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
@@ -1576,11 +1577,11 @@ public final class GameBelote {
         EnumMap<Suit,HandBelote> repartitionJouables_=_cartesJouables.couleurs(bid);
 
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
             return main(repartitionJouables_,couleurDemandee_).derniereCarte();
         }
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
 
             for(byte joueur_:adversaire_) {
                 if(!main(cartesPossibles_,couleurDemandee_,joueur_).estVide()) {
@@ -2078,7 +2079,7 @@ public final class GameBelote {
         PossibleTrickWinner ramasseurCertain_=equipeQuiVaFairePliCouleurDominante(info_, carteForte_, _numero);
         EnumMap<Suit,HandBelote> repartitionJouables_=_cartesJouables.couleurs(bid);
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
             /*Si le joueur est oblige de couper la couleur demandee*/
             return main(repartitionJouables_,couleurAtout_).derniereCarte();
         }
@@ -2210,12 +2211,12 @@ public final class GameBelote {
         EqList<HandBelote> suitesJouables_ = repartitionJouables_.getVal(couleurAtout_).eclater(info_.getRepartitionCartesJouees(), bid);
         //entame atout
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append( format(FOE_WIN_TRICK));
             /*La couleur demandee est atout*/
             return main(repartition_,couleurAtout_).derniereCarte();
         }
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append( format(PARTNER_WIN_TRICK));
 
             if(suitesJouables_.size()==1) {
                 return main(repartitionJouables_,couleurAtout_).premiereCarte();
@@ -2343,13 +2344,13 @@ public final class GameBelote {
         CardBelote carteForte_=progressingTrick.carteDuJoueur(ramasseurVirtuel_,nombreJoueurs_);
         PossibleTrickWinner ramasseurCertain_=equipeQuiVaFairePliCouleurDominante(info_, carteForte_, _numero);
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
             /*La couleur demandee est atout*/
             /*Maintenant le joueur se defausse sur demande d'atout*/
             return defausseAtoutSurAdversaireCouleurDominante(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleurAtout_, couleursStrictementMaitresses_);
         }
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
             /*Maintenant le joueur se defausse*/
             return defausseAtoutSurPartenaireCouleurDominante(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleurAtout_, couleursStrictementMaitresses_);
         }
@@ -2387,12 +2388,12 @@ public final class GameBelote {
         EnumMap<Suit,HandBelote> repartitionJouables_=_cartesJouables.couleurs(bid);
 
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
 
             return main(repartition_,couleurDemandee_).derniereCarte();
         }
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
 
 
             for(byte joueur_:adversaire_) {
@@ -2748,13 +2749,13 @@ public final class GameBelote {
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         PossibleTrickWinner ramasseurCertain_=equipeQuiVaFairePliSansAtout(info_, carteForte_, _numero);
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append( format(FOE_WIN_TRICK));
 
             /*Maintenant le joueur se defausse*/
             return defausseCouleurDemandeeSurAdversaireCouleursEgales(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleurDemandee_, couleursStrictementMaitresses_);
         }
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append( format(PARTNER_WIN_TRICK));
 
             return defausseCouleurDemandeeSurPartenaireCouleursEgales(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleurDemandee_, couleursStrictementMaitresses_);
         }
@@ -2799,12 +2800,12 @@ public final class GameBelote {
         EnumMap<Suit,HandBelote> repartitionJouables_=_cartesJouables.couleurs(bid);
         //jeu tout atout
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
 
             return main(repartition_,couleurDemandee_).derniereCarte();
         }
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
 
 
             for(byte joueur_:adversaire_) {
@@ -2891,14 +2892,14 @@ public final class GameBelote {
         //jeu tout atout
         //
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
 
             /*Si le joueur se defausse*/
             return defausseAtoutSurAdversaireCouleursEgales(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleursStrictementMaitresses_);
 
         }
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
 
             return defausseAtoutSurPartenaireCouleursEgales(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleursStrictementMaitresses_);
         }
@@ -6451,7 +6452,7 @@ public final class GameBelote {
     }
 
     public String getRaison() {
-        return reason;
+        return reason.toString();
     }
 
     private String format(String _key, String... _vars) {

@@ -1,13 +1,4 @@
 package aiki.beans.map;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorDirection;
@@ -56,6 +47,16 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.bean.Accessible;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EnumList;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class MapLevelBean extends CommonBean {
 
@@ -127,7 +128,7 @@ public class MapLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            ObjectMap<Point,String> map_ = data_.getLevelImage(pl_.shortValue(), (byte) CustList.FIRST_INDEX, ptInside_);
+            ObjectMap<Point,String> map_ = data_.getLevelImage(pl_.shortValue(), CustList.FIRST_INDEX, ptInside_);
             for (Point pt_: map_.getKeys()) {
                 String s_ = map_.getVal(pt_);
                 tiles.put(pt_, ConverterBufferedImage.surroundImage(s_));
@@ -188,7 +189,7 @@ public class MapLevelBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(PROPONE_LINK_VAR+d, false);
+            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         //getForms().put(FROM_LIST, false);
         for (Short p: data_.getMap().getPlaces().getKeys()) {
@@ -415,7 +416,7 @@ public class MapLevelBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(PROPONE_LINK_VAR+d, false);
+            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         InitializedPlace i_ = (InitializedPlace) p_;
         //p_.getLevelByCoords(coords_).get
@@ -465,7 +466,7 @@ public class MapLevelBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(PROPONE_LINK_VAR+d, false);
+            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         InitializedPlace i_ = (InitializedPlace) p_;
         for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
@@ -489,7 +490,7 @@ public class MapLevelBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(PROPONE_LINK_VAR+d, false);
+            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         Coords current_ = new Coords();
         current_.setNumberPlace(pl_.shortValue());
@@ -540,17 +541,17 @@ public class MapLevelBean extends CommonBean {
             booleans_.put(PROPONE_LINK,!points_.isEmpty());
             if (points_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 for (Direction d: Direction.values()) {
-                    booleans_.put(PROPONE_LINK_VAR+d, points_.containsObj(d));
+                    booleans_.put(StringList.concat(PROPONE_LINK_VAR,d.name()), points_.containsObj(d));
                 }
             } else {
                 for (Direction d: Direction.values()) {
-                    booleans_.put(PROPONE_LINK_VAR+d, false);
+                    booleans_.put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
                 }
             }
         } else {
             booleans_.put(PROPONE_LINK,false);
             for (Direction d: Direction.values()) {
-                booleans_.put(PROPONE_LINK_VAR+d, false);
+                booleans_.put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
             }
         }
         Coords coordsLoc_ = new Coords();

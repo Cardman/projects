@@ -602,7 +602,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         Field f_ = getDeclaredField(_conf, cl_, _key);
         if (!canBeUsed(f_, _conf)) {
-            throw new BadAccessException(f_.getDeclaringClass().getName()+DOT+_key+RETURN_LINE+_conf.joinPages());
+            throw new BadAccessException(StringList.concat(f_.getDeclaringClass().getName(),DOT,_key,RETURN_LINE,_conf.joinPages()));
         }
         if (Modifier.isFinal(f_.getModifiers())) {
             if (resultCanBeSet()) {

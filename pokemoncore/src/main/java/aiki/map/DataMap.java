@@ -2917,7 +2917,7 @@ public class DataMap {
     short indexOfAddedPlace() {
         Numbers<Short> keys_ = new Numbers<Short>(places.getKeys());
         if (keys_.isEmpty()) {
-            return (short) CustList.FIRST_INDEX;
+            return CustList.FIRST_INDEX;
         }
         short max_ = keys_.getMaximum();
         for (short s = CustList.FIRST_INDEX; s < max_; s++) {

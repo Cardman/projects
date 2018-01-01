@@ -99,7 +99,7 @@ public abstract class DialogBelote extends DialogCards {
         bidding=new JPanel();
         bidding.setLayout(new GridLayout(1,0));
         for (BidBelote enchere_:BidBelote.values()) {
-            JCheckBox caseCroix_=new JCheckBox(enchere_.toString());
+            JCheckBox caseCroix_=new JCheckBox(enchere_.display());
             caseCroix_.setSelected(getReglesBelote().getEncheresAutorisees().getVal(enchere_));
             caseCroix_.setEnabled(!enchere_.getToujoursPossibleAnnoncer());
             bidding.add(caseCroix_);

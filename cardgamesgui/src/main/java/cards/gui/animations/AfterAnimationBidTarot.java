@@ -34,7 +34,7 @@ public final class AfterAnimationBidTarot extends Thread {
             container.getConsulting().setEnabled(true);
             container.setCanBid(true);
             for(BidTarot b:gameTarot_.allowedBids()) {
-                container.ajouterBoutonContratTarot(b.toString(),b,b.estDemandable(gameTarot_.getContrat()));
+                container.ajouterBoutonContratTarot(b.display(),b,b.estDemandable(gameTarot_.getContrat()));
             }
         } else {
             if(gameTarot_.getContrat().isJouerDonne()) {
@@ -99,7 +99,7 @@ public final class AfterAnimationBidTarot extends Thread {
         } else {
             partie_.intelligenceArtificielleAppel();
             if(partie_.existeCarteAppelee()) {
-                container.ajouterTexteDansZone(_pseudo+ContainerGame.INTRODUCTION_PTS+partie_.getCarteAppelee()+ContainerTarot.RETURN_LINE_CHAR);
+                container.ajouterTexteDansZone(StringList.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,partie_.getCarteAppelee().toString(),ContainerGame.RETURN_LINE));
             }
             if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 container.addButtonSeeDogTarot(container.getMessages().getVal(MainWindow.SEE_DOG), true);
@@ -125,7 +125,7 @@ public final class AfterAnimationBidTarot extends Thread {
                 partie_.gererChienInconnu();
                 partie_.intelligenceArtificielleAppel();
                 if(partie_.existeCarteAppelee()) {
-                    container.ajouterTexteDansZone(container.pseudosTarot().get(partie_.getPreneur())+ContainerGame.INTRODUCTION_PTS+partie_.getCarteAppelee()+ContainerTarot.RETURN_LINE_CHAR);
+                    container.ajouterTexteDansZone(container.pseudosTarot().get(partie_.getPreneur())+ContainerGame.INTRODUCTION_PTS+partie_.getCarteAppelee().toString()+ContainerTarot.RETURN_LINE_CHAR);
                 }
                 container.addButtonNextTrickTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
             }

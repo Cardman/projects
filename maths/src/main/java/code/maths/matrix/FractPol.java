@@ -3,9 +3,10 @@ import code.maths.LgInt;
 import code.maths.exceptions.BadDivisionException;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class FractPol implements Equallable<FractPol> {
+public final class FractPol implements Equallable<FractPol>, Displayable {
 
     private static final String SEP_NUM_DEN = "//";
 
@@ -128,14 +129,9 @@ public final class FractPol implements Equallable<FractPol> {
         return denominateur;
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        if (isInteger()) {
-            return numerateur.toString();
-        }
-        // fraction
-        return numerateur+SEP_NUM_DEN+denominateur;
+        return display();
     }
 
     public void multiplyBy(FractPol _autre) {
@@ -235,5 +231,19 @@ public final class FractPol implements Equallable<FractPol> {
         }
 //        return numerateur.eq(_autre.numerateur) && denominateur.eq(_autre.denominateur);
         return true;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        if (isInteger()) {
+            return numerateur.display();
+        }
+        // fraction
+        StringBuilder str_ = new StringBuilder();
+        str_.append(numerateur.display());
+        str_.append(SEP_NUM_DEN);
+        str_.append(denominateur.display());
+        return str_.toString();
     }
 }

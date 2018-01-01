@@ -1913,11 +1913,11 @@ public final class FormatHtml {
                     for (StringList l: vars_) {
                         for (String v: l) {
                             if (varsLoc_.containsStr(v)) {
-                                CustList<StringList> alls_ = new CustList<StringList>();
+                                StringList alls_ = new StringList();
                                 for (StringList g: vars_) {
-                                    alls_.add(g);
+                                    alls_.addAllElts(g);
                                 }
-                                throw new AlreadyDefinedVarException(alls_+RETURN_LINE+v+RETURN_LINE+_conf.joinPages());
+                                throw new AlreadyDefinedVarException(StringList.concat(alls_.display(),RETURN_LINE,v,RETURN_LINE,_conf.joinPages()));
                             }
                         }
                     }
@@ -2041,11 +2041,11 @@ public final class FormatHtml {
                     }
                     for (String v: catchVars_) {
                         if (StringList.quickEq(var_, v)) {
-                            CustList<StringList> alls_ = new CustList<StringList>();
+                            StringList alls_ = new StringList();
                             for (StringList g: vars_) {
-                                alls_.add(g);
+                                alls_.addAllElts(g);
                             }
-                            throw new AlreadyDefinedVarException(alls_+RETURN_LINE+v+RETURN_LINE+_conf.joinPages());
+                            throw new AlreadyDefinedVarException(StringList.concat(alls_.display(),RETURN_LINE,v,RETURN_LINE,_conf.joinPages()));
                         }
                     }
                     if (elt_.hasChildNodes()) {
@@ -3337,28 +3337,36 @@ public final class FormatHtml {
     }
 
     private static void checkEnums(Configuration _conf, Struct _list) {
+        StringList list_ = new StringList();
         try {
             Struct iterator_ = ExtractObject.iterator(_conf, _list);
             while (ExtractObject.hasNext(_conf, iterator_)) {
                 Struct element_ = ExtractObject.next(_conf, iterator_);
                 if (!element_.getInstance().getClass().isEnum()) {
-                    throw new DynamicCastClassException();
+                    list_.add(element_.getClassName(_conf.toContextEl()));
                 }
             }
         } catch (RuntimeException _0) {
-            throw new BadEnumeratingException(_list, _conf.joinPages());
+            throw new BadEnumeratingException(list_, _conf.joinPages());
+        }
+        if (!list_.isEmpty()) {
+            throw new BadEnumeratingException(list_, _conf.joinPages());
         }
     }
 
     private static void checkEnums(Configuration _conf, Listable<Struct> _list) {
+        StringList list_ = new StringList();
         try {
             for (Struct s: _list) {
                 if (!s.getInstance().getClass().isEnum()) {
-                    throw new DynamicCastClassException();
+                    list_.add(s.getClassName(_conf.toContextEl()));
                 }
             }
         } catch (RuntimeException _0) {
-            throw new BadEnumeratingException(_list, _conf.joinPages());
+            throw new BadEnumeratingException(list_, _conf.joinPages());
+        }
+        if (!list_.isEmpty()) {
+            throw new BadEnumeratingException(list_, _conf.joinPages());
         }
     }
     private static void processOptionsMap(Configuration _conf, Document _doc,

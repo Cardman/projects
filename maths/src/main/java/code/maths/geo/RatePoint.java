@@ -3,10 +3,11 @@ import code.maths.Rate;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class RatePoint implements Equallable<RatePoint> {
+public final class RatePoint implements Equallable<RatePoint>, Displayable {
 
     private static final String SEPARATOR = ",";
     private Rate xCoords;
@@ -72,9 +73,18 @@ public final class RatePoint implements Equallable<RatePoint> {
         return true;
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return xCoords+SEPARATOR+yCoords;
+        return display();
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(xCoords.toNumberString());
+        str_.append(SEPARATOR);
+        str_.append(yCoords.toNumberString());
+        return str_.toString();
     }
 }

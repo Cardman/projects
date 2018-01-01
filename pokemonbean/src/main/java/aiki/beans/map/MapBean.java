@@ -1,7 +1,4 @@
 package aiki.beans.map;
-import code.bean.Accessible;
-import code.util.CustList;
-import code.util.ints.Listable;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
@@ -13,6 +10,10 @@ import aiki.map.enums.Direction;
 import aiki.map.levels.Level;
 import aiki.map.places.City;
 import aiki.map.places.Place;
+import code.bean.Accessible;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.ints.Listable;
 
 public class MapBean extends CommonBean {
 
@@ -78,7 +79,7 @@ public class MapBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(PROPONE_LINK_VAR+d, false);
+            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         return LEVEL;
     }

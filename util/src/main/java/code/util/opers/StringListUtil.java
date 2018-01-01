@@ -152,8 +152,8 @@ public final class StringListUtil {
         return CustList.INDEX_NOT_FOUND_ELT;
     }
     public static String firstCommonSubstring(String _s, String _t) {
-        String firstOne_ = EMPTY_STRING;
-        String firstTwo_ = EMPTY_STRING;
+        StringBuilder firstOne_ = new StringBuilder();
+        StringBuilder firstTwo_ = new StringBuilder();
         int i_ = 0;
         int j_ = 0;
         boolean found_ = false;
@@ -177,7 +177,7 @@ public final class StringListUtil {
             if (_s.charAt(i_) != _t.charAt(j_)) {
                 break;
             }
-            firstOne_ += _s.charAt(i_);
+            firstOne_.append(_s.charAt(i_));
             i_++;
             j_++;
         }
@@ -201,15 +201,15 @@ public final class StringListUtil {
             if (_s.charAt(i_) != _t.charAt(j_)) {
                 break;
             }
-            firstTwo_ += _s.charAt(i_);
+            firstTwo_.append(_s.charAt(i_));
             i_++;
             j_++;
         }
-        int lastIndexOne_ = Math.max(_s.lastIndexOf(firstOne_), _t.lastIndexOf(firstOne_));
-        int lastIndexTwo_ = Math.max(_s.lastIndexOf(firstTwo_), _t.lastIndexOf(firstTwo_));
+        int lastIndexOne_ = Math.max(_s.lastIndexOf(firstOne_.toString()), _t.lastIndexOf(firstOne_.toString()));
+        int lastIndexTwo_ = Math.max(_s.lastIndexOf(firstTwo_.toString()), _t.lastIndexOf(firstTwo_.toString()));
         if (lastIndexOne_ > lastIndexTwo_) {
-            return firstTwo_;
+            return firstTwo_.toString();
         }
-        return firstOne_;
+        return firstOne_.toString();
     }
 }

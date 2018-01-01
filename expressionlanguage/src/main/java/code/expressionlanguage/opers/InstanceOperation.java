@@ -114,7 +114,7 @@ public final class InstanceOperation extends InvokingOperation {
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
                     if (!o.getResultClass().isNumericInt(_conf)) {
                         ClassArgumentMatching cl_ = o.getResultClass();
-                        throw new BadIndexTypeException(cl_+RETURN_LINE+_conf.joinPages());
+                        throw new BadIndexTypeException(StringList.concat(cl_.getName(),RETURN_LINE,_conf.joinPages()));
                     }
                 }
             } else {

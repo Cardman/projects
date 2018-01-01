@@ -3,11 +3,12 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
 @CheckedData
-public final class MoveTeamPosition implements Equallable<MoveTeamPosition> {
+public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Displayable {
 
     private static final char SEPARATOR=',';
 
@@ -90,10 +91,9 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition> {
         return true;
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return move+SEPARATOR+teamPosition;
+        return display();
     }
 
     public String getMove() {
@@ -102,5 +102,15 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition> {
 
     public TeamPosition getTeamPosition() {
         return teamPosition;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(move);
+        str_.append(SEPARATOR);
+        str_.append(teamPosition);
+        return str_.toString();
     }
 }

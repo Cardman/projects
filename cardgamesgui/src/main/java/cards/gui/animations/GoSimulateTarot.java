@@ -127,7 +127,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
 //            container.ajouterTexteDansZone(StringList.simpleFormat(container.getMessages().getVal(MainWindow.DECLARE_BID), pseudos_.get(joueur_))+ContainerTarot.RETURN_LINE_CHAR);
             Constants.sleep(1000);
             String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-            event_ = StringList.simpleStringsFormat(mess_,pseudos_.get(joueur_),contrats_.get(indiceContrat_).toString())+ContainerTarot.RETURN_LINE_CHAR;
+            event_ = StringList.simpleStringsFormat(mess_,pseudos_.get(joueur_),contrats_.get(indiceContrat_).display())+ContainerTarot.RETURN_LINE_CHAR;
             event_ += ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR;
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);

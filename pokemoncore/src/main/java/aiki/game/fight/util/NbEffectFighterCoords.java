@@ -4,14 +4,13 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCoords> {
+public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCoords>, Displayable {
 
     private static final char SEPARATOR = ',';
-
-    private static final String EMPTY_STRING = "";
 
     private final int number;
 
@@ -45,9 +44,8 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        return EMPTY_STRING+number+SEPARATOR+position;
+        return display();
     }
 
     public int getNumber() {
@@ -56,5 +54,15 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
 
     public TeamPosition getPosition() {
         return position;
+    }
+
+    @Override
+    @FromAndToString
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(number);
+        str_.append(SEPARATOR);
+        str_.append(position);
+        return str_.toString();
     }
 }

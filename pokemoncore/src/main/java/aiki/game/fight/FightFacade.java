@@ -1745,7 +1745,7 @@ public final class FightFacade {
             _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator<String>()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
-            _fight.setChosenIndex((byte) CustList.INDEX_NOT_FOUND_ELT);
+            _fight.setChosenIndex(CustList.INDEX_NOT_FOUND_ELT);
             return;
         }
         if(_fight.getChoices().contains(key_)) {
@@ -1767,7 +1767,7 @@ public final class FightFacade {
             }
             _fight.setMoves(tree_);
         } else {
-            _fight.setChosenIndex((byte) CustList.INDEX_NOT_FOUND_ELT);
+            _fight.setChosenIndex(CustList.INDEX_NOT_FOUND_ELT);
             _fight.setMoves(new NatTreeMap<String,Boolean>());
             _fight.setEvolutions(new TreeMap<String, Boolean>(new NaturalComparator<String>()));
             _fight.setAbilities(new StringList());
@@ -1978,7 +1978,7 @@ public final class FightFacade {
     static void frontFighterChoiceFleeingCatching(Fight _fight){
         Team equipe_=_fight.getUserTeam();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Numbers<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex((short) CustList.FIRST_INDEX, true);
+        Numbers<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
         Fighter creatureLanceur_=equipe_.refPartMembres(cbts_.first());
         creatureLanceur_.cancelActions();
     }

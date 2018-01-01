@@ -729,13 +729,13 @@ public final class ConverterBufferedImage {
         EqList<PairNumber<Integer,Integer>> newPixels_ = new EqList<PairNumber<Integer,Integer>>();
         if (isHandsFeet()) {
             if (_buffered.getRGB(CustList.FIRST_INDEX, CustList.FIRST_INDEX) == white_) {
-                addedPixels_.add(new PairNumber<Integer,Integer>(CustList.FIRST_INDEX, CustList.FIRST_INDEX));
+                addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));
             }
             if (_buffered.getRGB(w_ - 1, CustList.FIRST_INDEX) == white_) {
-                addedPixels_.add(new PairNumber<Integer,Integer>(w_ - 1, CustList.FIRST_INDEX));
+                addedPixels_.add(new PairNumber<Integer,Integer>(w_ - 1, (int)CustList.FIRST_INDEX));
             }
             if (_buffered.getRGB(CustList.FIRST_INDEX, h_ - 1) == white_) {
-                addedPixels_.add(new PairNumber<Integer,Integer>(CustList.FIRST_INDEX, h_ - 1));
+                addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, h_ - 1));
             }
             if (_buffered.getRGB(w_ - 1, h_ - 1) == white_) {
                 addedPixels_.add(new PairNumber<Integer,Integer>(w_ -1, h_ - 1));
@@ -743,7 +743,7 @@ public final class ConverterBufferedImage {
         } else {
             for (int i = CustList.FIRST_INDEX; i < w_; i++) {
                 if (_buffered.getRGB(i, CustList.FIRST_INDEX) == white_) {
-                    addedPixels_.add(new PairNumber<Integer,Integer>(i, CustList.FIRST_INDEX));
+                    addedPixels_.add(new PairNumber<Integer,Integer>(i, (int)CustList.FIRST_INDEX));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < w_; i++) {
@@ -753,7 +753,7 @@ public final class ConverterBufferedImage {
             }
             for (int i = CustList.FIRST_INDEX; i < h_; i++) {
                 if (_buffered.getRGB(CustList.FIRST_INDEX, i) == white_) {
-                    addedPixels_.add(new PairNumber<Integer,Integer>(CustList.FIRST_INDEX, i));
+                    addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, i));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < h_; i++) {
@@ -804,15 +804,15 @@ public final class ConverterBufferedImage {
         if (isHandsFeet()) {
             if (_buffered.getRGB(CustList.FIRST_INDEX, CustList.FIRST_INDEX) == white_) {
                 buff_.setRGB(CustList.FIRST_INDEX, CustList.FIRST_INDEX, transWhite_);
-                addedPixels_.add(new PairNumber<Integer,Integer>(CustList.FIRST_INDEX, CustList.FIRST_INDEX));
+                addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));
             }
             if (_buffered.getRGB(w_ - 1, CustList.FIRST_INDEX) == white_) {
                 buff_.setRGB(w_ - 1, CustList.FIRST_INDEX, transWhite_);
-                addedPixels_.add(new PairNumber<Integer,Integer>(w_ - 1, CustList.FIRST_INDEX));
+                addedPixels_.add(new PairNumber<Integer,Integer>(w_ - 1, (int)CustList.FIRST_INDEX));
             }
             if (_buffered.getRGB(CustList.FIRST_INDEX, h_ - 1) == white_) {
                 buff_.setRGB(CustList.FIRST_INDEX, h_ - 1, transWhite_);
-                addedPixels_.add(new PairNumber<Integer,Integer>(CustList.FIRST_INDEX, h_ - 1));
+                addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, h_ - 1));
             }
             if (_buffered.getRGB(w_ -1, h_ - 1) == white_) {
                 buff_.setRGB(w_ -1, h_ - 1, transWhite_);
@@ -822,7 +822,7 @@ public final class ConverterBufferedImage {
             for (int i = CustList.FIRST_INDEX; i < w_; i++) {
                 if (_buffered.getRGB(i, CustList.FIRST_INDEX) == white_) {
                     buff_.setRGB(i, CustList.FIRST_INDEX, transWhite_);
-                    addedPixels_.add(new PairNumber<Integer,Integer>(i, CustList.FIRST_INDEX));
+                    addedPixels_.add(new PairNumber<Integer,Integer>(i, (int)CustList.FIRST_INDEX));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < w_; i++) {
@@ -834,7 +834,7 @@ public final class ConverterBufferedImage {
             for (int i = CustList.FIRST_INDEX; i < h_; i++) {
                 if (_buffered.getRGB(CustList.FIRST_INDEX, i) == white_) {
                     buff_.setRGB(CustList.FIRST_INDEX, i, transWhite_);
-                    addedPixels_.add(new PairNumber<Integer,Integer>(CustList.FIRST_INDEX, i));
+                    addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, i));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < h_; i++) {

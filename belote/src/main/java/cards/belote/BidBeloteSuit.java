@@ -1,17 +1,16 @@
 package cards.belote;
 import code.util.EqList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import cards.belote.enumerations.BidBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 
 @RwXml
-public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
+public final class BidBeloteSuit implements Equallable<BidBeloteSuit>, Displayable {
 
     private static final String SPACE = " ";
-
-    private static final String EMPTY_STRING = "";
 
     private BidBelote bid = BidBelote.FOLD;
 
@@ -113,24 +112,35 @@ public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
         return true;
     }
     public String toString(String _loc) {
-        String pts_ = EMPTY_STRING;
+        StringBuilder pts_ = new StringBuilder();
         if (points > 0) {
-            pts_ += SPACE+points;
+            pts_.append(SPACE);
+            pts_.append(points);
         }
         if (getCouleurDominante()) {
-            return suit.toString(_loc)+pts_;
+            pts_.insert(0, suit.toString(_loc));
+            return pts_.toString();
         }
-        return bid.toString(_loc)+pts_;
+        pts_.insert(0, bid.toString(_loc));
+        return pts_.toString();
     }
     @Override
     public String toString() {
-        String pts_ = EMPTY_STRING;
+        return display();
+    }
+
+    @Override
+    public String display() {
+        StringBuilder pts_ = new StringBuilder();
         if (points > 0) {
-            pts_ += SPACE+points;
+            pts_.append(SPACE);
+            pts_.append(points);
         }
         if (getCouleurDominante()) {
-            return suit.toString()+pts_;
+            pts_.insert(0, suit.display());
+            return pts_.toString();
         }
-        return bid.toString()+pts_;
+        pts_.insert(0, bid.display());
+        return pts_.toString();
     }
 }

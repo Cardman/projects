@@ -762,7 +762,7 @@ public class ScenePanel extends JPanel {
             ConfirmDialog.showMessage(window, _messages_.getVal(BUG), _messages_.getVal(NOT_CONNECTED), Constants.getLanguage(),JOptionPane.ERROR_MESSAGE);
             return;
         }
-        window.setIndexInGame((byte) CustList.SECOND_INDEX);
+        window.setIndexInGame(CustList.SECOND_INDEX);
     }
 
     public void setPlaces() {

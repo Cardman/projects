@@ -2,8 +2,9 @@ package code.maths.geo;
 import code.maths.Rate;
 import code.util.EqList;
 import code.util.PairNumber;
+import code.util.ints.Displayable;
 
-public final class TriangleThreeDims {
+public final class TriangleThreeDims implements Displayable {
 
     public static final int NB_POINTS = 3;
 
@@ -105,7 +106,7 @@ public final class TriangleThreeDims {
 
     @Override
     public String toString() {
-        return firstPoint+SEPARATOR+secondPoint+SEPARATOR+thirdPoint;
+        return display();
     }
 
     public boolean isSame(TriangleThreeDims _e) {
@@ -124,5 +125,15 @@ public final class TriangleThreeDims {
             }
         }
         return true;
+    }
+
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(firstPoint.display());
+        str_.append(SEPARATOR);
+        str_.append(secondPoint.display());
+        str_.append(SEPARATOR);
+        str_.append(thirdPoint.display());
+        return str_.toString();
     }
 }

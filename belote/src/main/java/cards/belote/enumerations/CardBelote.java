@@ -3,13 +3,14 @@ import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 import cards.belote.BidBeloteSuit;
 import cards.consts.CardChar;
 import cards.consts.Order;
 import cards.consts.Suit;
 /**
     */
-public enum CardBelote {
+public enum CardBelote implements Displayable {
     WHITE,
     HEART_JACK(CardChar.JACK,Suit.HEART,8,4,5,20,2,2,14),
     HEART_9(9,Suit.HEART,7,3,3,14,0,0,9),
@@ -246,5 +247,9 @@ public enum CardBelote {
 
     public boolean isPlayable() {
         return jouable;
+    }
+    @Override
+    public String display() {
+        return toString(Constants.getLanguage());
     }
 }

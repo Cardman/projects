@@ -2,8 +2,9 @@ package cards.tarot.enumerations;
 import code.format.Format;
 import code.util.EnumList;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 
-public enum BidTarot {
+public enum BidTarot implements Displayable {
     FOLD(false,PlayingDog.OUT,0,0,AllowedBiddingTarot.ALWAYS),
     TAKE(true,PlayingDog.WITH,1,1,AllowedBiddingTarot.CAN_BE_FORBIDDEN),
     GUARD(true,PlayingDog.WITH,2,2,AllowedBiddingTarot.ALWAYS),
@@ -192,5 +193,9 @@ public enum BidTarot {
     }
     public boolean strongerThan(BidTarot _o2) {
         return estPlusFortQue(_o2);
+    }
+    @Override
+    public String display() {
+        return toString(Constants.getLanguage());
     }
 }

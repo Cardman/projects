@@ -101,7 +101,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
         for (Suit couleur_:ls_) {
-            trSuit_.add(couleur_, couleur_.toString());
+            trSuit_.add(couleur_, couleur_.display());
         }
         listeChoix.refresh(ls_, trSuit_);
         panneau_.add(listeChoix);

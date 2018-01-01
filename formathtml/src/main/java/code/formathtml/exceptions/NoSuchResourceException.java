@@ -1,5 +1,7 @@
 package code.formathtml.exceptions;
 
+import code.util.StringList;
+
 public class NoSuchResourceException extends RuntimeException {
 
     private static final String SEP = "\n";
@@ -9,6 +11,6 @@ public class NoSuchResourceException extends RuntimeException {
     }
 
     public NoSuchResourceException(String _file, String _addon) {
-        super(_file+SEP+_addon);
+        super(StringList.concat(_file,SEP,_addon));
     }
 }

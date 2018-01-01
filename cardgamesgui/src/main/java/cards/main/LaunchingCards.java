@@ -116,7 +116,7 @@ public class LaunchingCards extends SoftApplication {
             Numbers<Integer> dealsNumbers_ = new Numbers<Integer>();
             int nbGames_ = GameEnum.values().length;
             for (int i=CustList.FIRST_INDEX;i<nbGames_;i++) {
-                dealsNumbers_.add(CustList.SIZE_EMPTY);
+                dealsNumbers_.add((int)CustList.SIZE_EMPTY);
             }
             StreamTextFile.saveTextFile(f.getAbsolutePath(), dealsNumbers_.join(LINE_RETURN));
 //            try {

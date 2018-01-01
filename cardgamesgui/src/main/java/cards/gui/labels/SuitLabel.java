@@ -20,7 +20,7 @@ public class SuitLabel extends JLabel {
     public void setSuit(BidBeloteSuit _bid) {
         bid = _bid;
         if (!bid.getCouleurDominante()) {
-            setText(bid.getEnchere().toString());
+            setText(bid.getEnchere().display());
             setBackground(Color.WHITE);
             setForeground(new Color(0, 0, 127));
             int h_ = getFontMetrics(getFont()).getHeight();

@@ -88,7 +88,7 @@ public class SimulationLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            ObjectMap<Point,String> map_ = data_.getLevelImage(pl_.shortValue(), (byte) CustList.FIRST_INDEX, ptInside_);
+            ObjectMap<Point,String> map_ = data_.getLevelImage(pl_.shortValue(), CustList.FIRST_INDEX, ptInside_);
             for (Point pt_: map_.getKeys()) {
                 String s_ = map_.getVal(pt_);
                 tiles.put(pt_, ConverterBufferedImage.surroundImage(s_));

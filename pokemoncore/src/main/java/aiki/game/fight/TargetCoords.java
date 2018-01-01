@@ -4,14 +4,13 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class TargetCoords implements Equallable<TargetCoords> {
+public final class TargetCoords implements Equallable<TargetCoords>, Displayable {
 
     private static final char SEPARATOR=';';
-
-    private static final String EMPTY_STRING = "";
 
     private final short team;
 
@@ -64,10 +63,9 @@ public final class TargetCoords implements Equallable<TargetCoords> {
         return true;
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return EMPTY_STRING+team+SEPARATOR+position;
+        return display();
     }
 
     public short getTeam() {
@@ -76,5 +74,15 @@ public final class TargetCoords implements Equallable<TargetCoords> {
 
     public short getPosition() {
         return position;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(team);
+        str_.append(SEPARATOR);
+        str_.append(position);
+        return str_.toString();
     }
 }

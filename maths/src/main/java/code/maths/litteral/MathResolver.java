@@ -363,20 +363,20 @@ public final class MathResolver {
                     }
                 }
                 if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
-                    String builtOperator_ = EMPTY_STRING;
+                    StringBuilder builtOperator_ = new StringBuilder();
                     boolean clearOperators_ = false;
                     boolean foundOperator_ = false;
                     char nextChar_ = _string.charAt(i_ + 1);
                     int increment_ = 1;
                     if (curChar_ == NEG_BOOL_CHAR) {
-                        builtOperator_ += NEG_BOOL_CHAR;
+                        builtOperator_.append(NEG_BOOL_CHAR);
                         if (nextChar_ == EQ_CHAR) {
                             if (prio_ > EQ_PRIO) {
                                 clearOperators_ = true;
                                 prio_ = EQ_PRIO;
                             }
                             if (prio_ == EQ_PRIO) {
-                                builtOperator_ += EQ_CHAR;
+                                builtOperator_.append(EQ_CHAR);
                                 foundOperator_ = true;
                             }
                         }
@@ -397,7 +397,7 @@ public final class MathResolver {
                         prioOpMult_ = OR_PRIO;
                     }
                     if (prioOpMult_ > 0) {
-                        builtOperator_ += curChar_;
+                        builtOperator_.append(curChar_);
                         if (prio_ > prioOpMult_) {
                             clearOperators_ = true;
                             prio_ = prioOpMult_;
@@ -407,7 +407,7 @@ public final class MathResolver {
                         }
                     }
                     if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
-                        builtOperator_ += curChar_;
+                        builtOperator_.append(curChar_);
                         if (prio_ > CMP_PRIO) {
                             clearOperators_ = true;
                             prio_ = CMP_PRIO;
@@ -417,7 +417,7 @@ public final class MathResolver {
                         }
                         if (foundOperator_) {
                             if (nextChar_ == EQ_CHAR) {
-                                builtOperator_ += nextChar_;
+                                builtOperator_.append(nextChar_);
                                 increment_++;
                             }
                         }
@@ -428,7 +428,7 @@ public final class MathResolver {
                             fctName_ = EMPTY_STRING;
                             operators_.clear();
                         }
-                        operators_.put(i_,builtOperator_);
+                        operators_.put(i_,builtOperator_.toString());
                     }
                     i_ += increment_;
                     continue;

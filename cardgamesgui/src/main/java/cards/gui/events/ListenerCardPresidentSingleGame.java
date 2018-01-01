@@ -40,7 +40,7 @@ public class ListenerCardPresidentSingleGame extends
             GamePresident game_ = container.partiePresident();
             boolean allow_ = game_.allowPlaying(DealPresident.NUMERO_UTILISATEUR, getCarteVerif(), getIndexVerif(), Constants.getLanguage());
             if (!allow_) {
-                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().toString());
+                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().display());
                 String finalMessage_ = mes_+ContainerPresident.RETURN_LINE_CHAR+game_.getErrorPlaying();
                 String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);

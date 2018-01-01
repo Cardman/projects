@@ -6653,12 +6653,12 @@ public class DataBase implements WithMathFactory {
         files_.put(MAP_FILE, file_);
         StringList lines_ = new StringList();
         for (String s: constNum.getKeys()) {
-            lines_.add(s + TAB + constNum.getVal(s));
+            lines_.add(StringList.concat(s, TAB, constNum.getVal(s).toNumberString()));
         }
         files_.put(CONST_NUM, lines_.join(RETURN_LINE));
         lines_ = new StringList();
         for (String s: typesColors.getKeys()) {
-            lines_.add(s + TAB + typesColors.getVal(s));
+            lines_.add(StringList.concat(s, TAB, typesColors.getVal(s)));
         }
         files_.put(TYPES_COLOR_CODE+IMG_FILES_RES_EXT_TXT, lines_.join(RETURN_LINE));
         lines_ = new StringList();
@@ -6679,11 +6679,11 @@ public class DataBase implements WithMathFactory {
             types_.add(p.getDamageType());
         }
         types_.removeDuplicates();
-        String output_ = TAB+types_.join(TAB);
+        String output_ = StringList.concat(TAB,types_.join(TAB));
         for (String pkType_: types_) {
-            output_ += RETURN_LINE+pkType_;
+            output_ = StringList.concat(output_, RETURN_LINE,pkType_);
             for (String damageType_: types_) {
-                output_ += TAB + tableTypes.getVal(new TypesDuo(damageType_,pkType_));
+                output_ = StringList.concat(output_, TAB, tableTypes.getVal(new TypesDuo(damageType_,pkType_)).toNumberString());
             }
         }
         files_.put(TABLE_TYPES, output_);
@@ -6702,17 +6702,17 @@ public class DataBase implements WithMathFactory {
             LawNumber value_ = lawsDamageRate.getVal(k);
             StringList lawValues_ = new StringList();
             for (Rate event_: value_.getLaw().events()) {
-                lawValues_.add(event_+SEPARATOR_RAND_EVENTS+value_.getLaw().rate(event_));
+                lawValues_.add(StringList.concat(event_.toNumberString(),SEPARATOR_RAND_EVENTS,value_.getLaw().rate(event_).toNumberString()));
             }
-            linesLaws_.add(k+TAB+lawValues_.join(SEPARATOR_RAND)+TAB+value_.getNumber());
+            linesLaws_.add(StringList.concat(k.name(),TAB,lawValues_.join(SEPARATOR_RAND),TAB,Long.toString(value_.getNumber())));
         }
         files_.put(LOIS_RANDOM, linesLaws_.join(RETURN_LINE));
         StringList linesTmHm_ = new StringList();
         for (short k: hm.getKeys()) {
-            linesTmHm_.add(CS+k+TAB+hm.getVal(k));
+            linesTmHm_.add(StringList.concat(CS,Long.toString(k),TAB,hm.getVal(k)));
         }
         for (short k: tm.getKeys()) {
-            linesTmHm_.add(CT+k+TAB+tm.getVal(k)+TAB+tmPrice.getVal(k));
+            linesTmHm_.add(StringList.concat(CT,Long.toString(k),TAB,tm.getVal(k),TAB,tmPrice.getVal(k).toNumberString()));
         }
         files_.put(CT_CS_FILE, linesTmHm_.join(RETURN_LINE));
         for (String l: translatedCategories.getKeys()) {

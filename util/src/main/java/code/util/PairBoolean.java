@@ -43,7 +43,7 @@ public final class PairBoolean implements Equallable<PairBoolean> {
 
     @Override
     public String toString() {
-        return first+SEPARATOR+second;
+        return StringList.concat(String.valueOf(first),SEPARATOR,String.valueOf(second));
     }
 
     @Override

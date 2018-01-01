@@ -2364,7 +2364,7 @@ final class FightEffects {
                 _fight.addStatisticMessage(_cible, e, varCible_, _import);
                 creatureLanceur_.variationBoostStatistique(e,varLanceur_);
                 _fight.addStatisticMessage(_lanceur, e, varLanceur_, _import);
-                _fight.addAnimationStatistic(e, (byte) CustList.FIRST_INDEX, true);
+                _fight.addAnimationStatistic(e, CustList.FIRST_INDEX, true);
             }
         }
     }

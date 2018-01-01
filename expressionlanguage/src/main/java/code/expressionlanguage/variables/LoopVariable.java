@@ -33,17 +33,17 @@ public final class LoopVariable {
     private String indexClassName;
 
     public String getInfos(ContextEl _context) {
-        String lv_ = INDEX+SEP_KEY_VAL+index+AS+indexClassName+SEP_INFO;
-        lv_ += ELEMENT+SEP_KEY_VAL+element.getInstance()+AS+className+SEP_INFO;
-        lv_ += STEP+SEP_KEY_VAL+step;
-        lv_ += SEP_INFO;
+        StringBuilder lv_ = new StringBuilder(INDEX).append(SEP_KEY_VAL).append(index).append(AS).append(indexClassName).append(SEP_INFO);
+        lv_.append(ELEMENT).append(AS).append(className).append(SEP_INFO);
+        lv_.append(STEP).append(SEP_KEY_VAL).append(step);
+        lv_.append(SEP_INFO);
         if (container == null) {
-            lv_ += CONTAINER + SEP_KEY_VAL + container;
+            lv_.append(CONTAINER).append(SEP_KEY_VAL).append(container);
         } else {
-            lv_ += CONTAINER + SEP_KEY_VAL + container.getClassName(_context);
+            lv_.append(CONTAINER).append(SEP_KEY_VAL).append(container.getClassName(_context));
         }
-        lv_ += SEP_INFO;
-        return lv_;
+        lv_.append(SEP_INFO);
+        return lv_.toString();
     }
 
     public long getIndex() {

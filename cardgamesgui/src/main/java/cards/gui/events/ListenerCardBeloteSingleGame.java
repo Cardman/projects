@@ -72,7 +72,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                 container.setaJoueCarte(true);
                 container.finPliBelote(getCarteVerif());
             }else{
-                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().toString());
+                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().display());
                 String finalMessage_ = mes_+ContainerBelote.RETURN_LINE_CHAR+partie_.getErreurDeJeu();
                 String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);

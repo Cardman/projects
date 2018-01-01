@@ -12,7 +12,7 @@ public final class NodeAttribute implements Equallable<NodeAttribute> {
 
     @Override
     public String toString() {
-        return DocumentBuilder.getIndexes(node)+attribue;
+        return StringList.concat(DocumentBuilder.getIndexes(node).display(),attribue);
     }
 
     @Override

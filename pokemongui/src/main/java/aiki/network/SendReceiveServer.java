@@ -100,13 +100,13 @@ public final class SendReceiveServer extends BasicServer {
             }
             if (newPlayer_.getIndex() == CustList.SECOND_INDEX) {
                 InitTrading init_ = new InitTrading();
-                Net.sendObject(Net.getSockets().getVal(CustList.SECOND_INDEX),init_);
+                Net.sendObject(Net.getSockets().getVal((int)CustList.SECOND_INDEX),init_);
                 return;
             }
             if (newPlayer_.getIndex() == CustList.FIRST_INDEX) {
                 //init trading condition
                 InitTrading init_ = new InitTrading();
-                Net.sendObject(Net.getSockets().getVal(CustList.FIRST_INDEX),init_);
+                Net.sendObject(Net.getSockets().getVal((int)CustList.FIRST_INDEX),init_);
                 return;
             }
             return;
@@ -114,11 +114,11 @@ public final class SendReceiveServer extends BasicServer {
         if (_readObject instanceof CheckCompatibility) {
             CheckCompatibility check_ = (CheckCompatibility) _readObject;
             if (check_.getIndex() == CustList.FIRST_INDEX) {
-                Net.getCheckCompatibility().put(CustList.FIRST_INDEX, check_);
+                Net.getCheckCompatibility().put((int)CustList.FIRST_INDEX, check_);
                 return;
             }
             if (check_.getIndex() == CustList.SECOND_INDEX) {
-                CheckCompatibility first_ = Net.getCheckCompatibility().getVal(CustList.FIRST_INDEX);
+                CheckCompatibility first_ = Net.getCheckCompatibility().getVal((int)CustList.FIRST_INDEX);
                 NatTreeMap<Byte, PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
                 NatTreeMap<Byte, PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
                 if (pkFirst_.isEmpty() || pkSecond_.isEmpty()) {
@@ -137,20 +137,20 @@ public final class SendReceiveServer extends BasicServer {
                 }
                 NetPokemon net_ = new NetPokemon();
                 net_.setTradablePokemon(pkFirst_);
-                Net.sendObject(Net.getSockets().getVal(CustList.FIRST_INDEX),net_);
+                Net.sendObject(Net.getSockets().getVal((int)CustList.FIRST_INDEX),net_);
                 net_ = new NetPokemon();
                 net_.setTradablePokemon(pkSecond_);
-                Net.sendObject(Net.getSockets().getVal(CustList.SECOND_INDEX),net_);
+                Net.sendObject(Net.getSockets().getVal((int)CustList.SECOND_INDEX),net_);
                 return;
             }
         }
         if (_readObject instanceof SentPokemon) {
             SentPokemon sent_ = (SentPokemon) _readObject;
             if (sent_.getIndex() == CustList.FIRST_INDEX) {
-                Net.sendObject(Net.getSockets().getVal(CustList.SECOND_INDEX),sent_.getPokemon());
+                Net.sendObject(Net.getSockets().getVal((int)CustList.SECOND_INDEX),sent_.getPokemon());
             }
             if (sent_.getIndex() == CustList.SECOND_INDEX) {
-                Net.sendObject(Net.getSockets().getVal(CustList.FIRST_INDEX),sent_.getPokemon());
+                Net.sendObject(Net.getSockets().getVal((int)CustList.FIRST_INDEX),sent_.getPokemon());
             }
             return;
         }
@@ -172,17 +172,17 @@ public final class SendReceiveServer extends BasicServer {
         }
         if (_readObject instanceof Quit) {
             Quit bye_ = (Quit)_readObject;
-            Net.quit((byte) CustList.SECOND_INDEX);
-            Net.quit((byte) CustList.FIRST_INDEX);
+            Net.quit(CustList.SECOND_INDEX);
+            Net.quit(CustList.FIRST_INDEX);
             Bye forcedBye_ = new Bye();
             forcedBye_.setForced(false);
             forcedBye_.setServer(false);
             forcedBye_.setTooManyPlayers(false);
             Socket socket_;
-            socket_ = Net.getSockets().getVal(CustList.FIRST_INDEX);
-            Net.getConnectionsServer().removeKey(CustList.FIRST_INDEX);
-            Net.getReadyPlayers().removeKey(CustList.FIRST_INDEX);
-            Net.getPlacesPlayers().removeKey(CustList.FIRST_INDEX);
+            socket_ = Net.getSockets().getVal((int)CustList.FIRST_INDEX);
+            Net.getConnectionsServer().removeKey((int)CustList.FIRST_INDEX);
+            Net.getReadyPlayers().removeKey((int)CustList.FIRST_INDEX);
+            Net.getPlacesPlayers().removeKey((int)CustList.FIRST_INDEX);
             if (bye_.getPlace() == CustList.FIRST_INDEX) {
                 forcedBye_.setClosing(bye_.isClosing());
             } else {
@@ -191,10 +191,10 @@ public final class SendReceiveServer extends BasicServer {
             if (socket_ != null) {
                 Net.sendObject(socket_,forcedBye_);
             }
-            socket_ = Net.getSockets().getVal(CustList.SECOND_INDEX);
-            Net.getConnectionsServer().removeKey(CustList.SECOND_INDEX);
-            Net.getReadyPlayers().removeKey(CustList.SECOND_INDEX);
-            Net.getPlacesPlayers().removeKey(CustList.SECOND_INDEX);
+            socket_ = Net.getSockets().getVal((int)CustList.SECOND_INDEX);
+            Net.getConnectionsServer().removeKey((int)CustList.SECOND_INDEX);
+            Net.getReadyPlayers().removeKey((int)CustList.SECOND_INDEX);
+            Net.getPlacesPlayers().removeKey((int)CustList.SECOND_INDEX);
             if (bye_.getPlace() == CustList.SECOND_INDEX) {
                 forcedBye_.setClosing(bye_.isClosing());
             } else {

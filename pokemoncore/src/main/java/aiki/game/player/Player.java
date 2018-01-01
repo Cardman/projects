@@ -160,7 +160,11 @@ public class Player {
     public Player(String _pseudo,Sex _sexeHeros,Difficulty _diff,boolean _avecPkIni,DataBase _import){
         nickname=_pseudo;
         if (nickname.isEmpty()) {
-            nickname = DEFAULT_NICKNAME_PREFIX + _sexeHeros;
+            if (_sexeHeros == null) {
+                nickname = StringList.concat(DEFAULT_NICKNAME_PREFIX, String.valueOf(_sexeHeros));
+            } else {
+                nickname = StringList.concat(DEFAULT_NICKNAME_PREFIX, _sexeHeros.name());
+            }
         }
         sex=_sexeHeros;
         team = new CustList<UsablePokemon>();

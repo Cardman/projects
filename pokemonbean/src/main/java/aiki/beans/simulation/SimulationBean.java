@@ -541,7 +541,7 @@ public class SimulationBean extends CommonBean {
                 translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
                 StringMap<String> translationsCategories_;
                 translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new PairNumber<Byte, Byte>((byte)CustList.FIRST_INDEX, (byte)(selectedRound -1)));
+                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, (byte)(selectedRound -1)));
                 for (String k: moves_) {
                     MoveData moveData_ = data_.getMoves().getVal(k);
                     RadioLineMove line_ = new RadioLineMove();
@@ -665,16 +665,19 @@ public class SimulationBean extends CommonBean {
         if (coords == null) {
             return DataBase.EMPTY_STRING;
         }
-        String placeName_ = DataBase.EMPTY_STRING;
+        StringBuilder placeName_ = new StringBuilder();
         DataBase data_ = (DataBase) getDataBase();
         Place pl_ = data_.getMap().getPlaces().getVal(coords.getNumberPlace());
-        placeName_ += pl_.getName();
-        placeName_ += SPACE;
+        placeName_.append(pl_.getName());
+        placeName_.append(SPACE);
         if (pl_ instanceof Cave) {
-            placeName_ += coords.getLevel().getLevelIndex();
-            placeName_ += SPACE;
+            placeName_.append(coords.getLevel().getLevelIndex());
+            placeName_.append(SPACE);
         }
-        return placeName_+getTrainerName(coords)+SPACE+noFight;
+        placeName_.append(getTrainerName(coords));
+        placeName_.append(SPACE);
+        placeName_.append(noFight);
+        return placeName_.toString();
     }
 
     private String getTrainerName(Coords _coords) {

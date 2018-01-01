@@ -4,10 +4,11 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class TeamPosition implements Equallable<TeamPosition> {
+public final class TeamPosition implements Equallable<TeamPosition>, Displayable {
 
     private static final String EMPTY_STRING = "";
     private static final String INVALID=EMPTY_STRING;
@@ -57,13 +58,9 @@ public final class TeamPosition implements Equallable<TeamPosition> {
         }
         return _tp1.eq(_tp2);
     }
-    @FromAndToString
     @Override
     public String toString() {
-        if (!isValid()) {
-            return INVALID;
-        }
-        return EMPTY_STRING+team+SEPARATOR+position;
+        return display();
     }
 
     public byte getTeam() {
@@ -82,5 +79,17 @@ public final class TeamPosition implements Equallable<TeamPosition> {
             return false;
         }
         return true;
+    }
+    @FromAndToString
+    @Override
+    public String display() {
+        if (!isValid()) {
+            return INVALID;
+        }
+        StringBuilder str_ = new StringBuilder();
+        str_.append(team);
+        str_.append(SEPARATOR);
+        str_.append(position);
+        return str_.toString();
     }
 }

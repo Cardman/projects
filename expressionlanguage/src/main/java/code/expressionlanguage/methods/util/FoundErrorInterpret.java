@@ -17,12 +17,16 @@ public abstract class FoundErrorInterpret implements Displayable {
     private String fileName;
 
     @Override
-    public String display() {
-        return SEP_INFO+FILE+SEP_KEY_VAL+fileName+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc+SEP_INFO;
-    }
-    @Override
     public String toString() {
-        return SEP_INFO+FILE+SEP_KEY_VAL+fileName+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc+SEP_INFO;
+        return display();
+    }
+
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(SEP_INFO);
+        str_.append(FILE).append(SEP_KEY_VAL).append(fileName).append(SEP_INFO);
+        str_.append(LINE_COL).append(SEP_KEY_VAL).append(rc.display()).append(SEP_INFO);
+        return str_.toString();
     }
 
     public RowCol getRc() {

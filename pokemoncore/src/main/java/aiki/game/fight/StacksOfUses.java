@@ -4,18 +4,17 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 
 
 @CheckedData
-public final class StacksOfUses {
+public final class StacksOfUses implements Displayable {
 
     private static final char SEPARATOR=',';
 
     private static final String FALSE="F";
 
     private static final String TRUE="T";
-
-    private static final String EMPTY_STRING = "";
 
     private byte nbRounds;
 
@@ -46,22 +45,9 @@ public final class StacksOfUses {
         return true;
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        String returnedString_ = EMPTY_STRING + nbRounds + SEPARATOR;
-        if (firstStacked) {
-            returnedString_ += TRUE;
-        } else {
-            returnedString_ += FALSE;
-        }
-        returnedString_ += SEPARATOR;
-        if (lastStacked) {
-            returnedString_ += TRUE;
-        } else {
-            returnedString_ += FALSE;
-        }
-        return returnedString_;
+        return display();
     }
 
     public byte getNbRounds() {
@@ -86,5 +72,25 @@ public final class StacksOfUses {
 
     public void setLastStacked(boolean _lastStacked) {
         lastStacked = _lastStacked;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(nbRounds);
+        str_.append(SEPARATOR);
+        if (firstStacked) {
+            str_.append(TRUE);
+        } else {
+            str_.append(FALSE);
+        }
+        str_.append(SEPARATOR);
+        if (lastStacked) {
+            str_.append(TRUE);
+        } else {
+            str_.append(FALSE);
+        }
+        return str_.toString();
     }
 }

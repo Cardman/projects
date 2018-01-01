@@ -38,10 +38,10 @@ public class League extends Place {
         if (rooms.isEmpty()) {
             throw new DataException();
         }
-        if (!_placeArea.getLevel((byte) CustList.FIRST_INDEX).isValid(begin, true)) {
+        if (!_placeArea.getLevel(CustList.FIRST_INDEX).isValid(begin, true)) {
             throw new DataException();
         }
-        rooms.first().validate(_data, _placeArea.getLevel((byte) CustList.FIRST_INDEX));
+        rooms.first().validate(_data, _placeArea.getLevel(CustList.FIRST_INDEX));
         if (!rooms.first().isEmpty(begin)) {
             throw new DataException();
         }

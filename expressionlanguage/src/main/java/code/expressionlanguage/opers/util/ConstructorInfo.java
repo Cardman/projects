@@ -2,6 +2,7 @@ package code.expressionlanguage.opers.util;
 import java.lang.reflect.Constructor;
 
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.util.StringList;
 
 public final class ConstructorInfo implements Parametrable {
 
@@ -24,7 +25,7 @@ public final class ConstructorInfo implements Parametrable {
         if (constructor == null) {
             return constr.getSignature();
         }
-        return constructor.getDeclaringClass()+LEFT_PAR+parameters+RIGHT_PAR;
+        return StringList.concat(constructor.getDeclaringClass().getName(),LEFT_PAR,parameters.display(),RIGHT_PAR);
     }
 
     public ConstructorId getConstr() {

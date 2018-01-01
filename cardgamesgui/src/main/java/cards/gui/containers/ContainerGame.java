@@ -43,6 +43,7 @@ public class ContainerGame implements Packable, Containable {
 
     public static final String EMPTY_STRING = "";
     protected static final String SPACE = " ";
+    public static final String RETURN_LINE="\n";
 
     private static final char LINE_RETURN = '\n';
     private JPanel actionsHistory;

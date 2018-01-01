@@ -23,10 +23,23 @@ public final class MethodInfo implements Parametrable {
 
     @Override
     public String toString() {
+        StringBuilder str_ = new StringBuilder();
         if (method == null) {
-            return className+DOT+constraints.getSignature()+LEFT_PAR+parameters+RIGHT_PAR;
+            str_.append(className);
+            str_.append(DOT);
+            str_.append(constraints.getSignature());
+            str_.append(LEFT_PAR);
+            str_.append(parameters.display());
+            str_.append(RIGHT_PAR);
+            return str_.toString();
         }
-        return method.getDeclaringClass()+DOT+method.getName()+LEFT_PAR+parameters+RIGHT_PAR;
+        str_.append(method.getDeclaringClass().getName());
+        str_.append(DOT);
+        str_.append(method.getName());
+        str_.append(LEFT_PAR);
+        str_.append(parameters.display());
+        str_.append(RIGHT_PAR);
+        return str_.toString();
     }
 
     public MethodId getConstraints() {

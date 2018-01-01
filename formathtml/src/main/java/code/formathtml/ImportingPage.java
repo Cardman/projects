@@ -85,7 +85,20 @@ public final class ImportingPage {
         String attribute_ = pageEl.getProcessingAttribute();
         int tabWidth_ = pageEl.getTabWidth();
         RowCol rc_ = processingHtml.getRowCol(attribute_, off_, tabWidth_);
-        return READ_URL+SEP_KEY_VAL+readUrl+page_+SEP_INFO+keyMessage_+BEAN_NAME+SEP_KEY_VAL+beanName+SEP_INFO+pageEl.getCommonInfosAndRc(rc_, _context.toContextEl())+SEP_INFO+list_;
+        StringBuilder str_ = new StringBuilder(READ_URL);
+        str_.append(SEP_KEY_VAL);
+        str_.append(readUrl);
+        str_.append(page_);
+        str_.append(SEP_INFO);
+        str_.append(keyMessage_);
+        str_.append(BEAN_NAME);
+        str_.append(SEP_KEY_VAL);
+        str_.append(beanName);
+        str_.append(SEP_INFO);
+        str_.append(pageEl.getCommonInfosAndRc(rc_, _context.toContextEl()));
+        str_.append(SEP_INFO);
+        str_.append(list_.display());
+        return str_.toString();
     }
 
     public PageEl getPageEl() {

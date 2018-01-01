@@ -3,13 +3,12 @@ import code.maths.Rate;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class BoostHpRate {
+public final class BoostHpRate implements Displayable {
 
     private static final char SEPARATOR = ';';
-
-    private static final String EMPTY_STRING = "";
 
     private final byte boost;
 
@@ -31,10 +30,9 @@ public final class BoostHpRate {
         return new BoostHpRate(_string);
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return EMPTY_STRING+boost+SEPARATOR+hpRate;
+        return display();
     }
 
     public byte getBoost() {
@@ -43,5 +41,15 @@ public final class BoostHpRate {
 
     public Rate getHpRate() {
         return hpRate;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(boost);
+        str_.append(SEPARATOR);
+        str_.append(hpRate.toNumberString());
+        return str_.toString();
     }
 }

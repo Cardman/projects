@@ -115,7 +115,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         bids.clear();
         bidding.setLayout(new FlowLayout());
         for (BidTarot enchere_:BidTarot.values()) {
-            JCheckBox caseCroix_=new JCheckBox(enchere_.toString());
+            JCheckBox caseCroix_=new JCheckBox(enchere_.display());
             caseCroix_.setSelected(getReglesTarot().getContrats().getVal(enchere_));
             caseCroix_.setEnabled(
                     enchere_.getPossibiliteAnnonce()!=AllowedBiddingTarot.ALWAYS);

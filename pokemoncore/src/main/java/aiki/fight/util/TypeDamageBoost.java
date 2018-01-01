@@ -3,9 +3,10 @@ import code.maths.Rate;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class TypeDamageBoost {
+public final class TypeDamageBoost implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -29,10 +30,9 @@ public final class TypeDamageBoost {
         return new TypeDamageBoost(_string);
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return type+SEPARATOR+boost;
+        return display();
     }
 
     public String getType() {
@@ -41,5 +41,14 @@ public final class TypeDamageBoost {
 
     public Rate getBoost() {
         return boost;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(type);
+        str_.append(SEPARATOR);
+        str_.append(boost.toNumberString());
+        return str_.toString();
     }
 }

@@ -1,5 +1,7 @@
 package code.util.exceptions;
 
+import code.util.StringList;
+
 public class BadFilePropertiesContentException extends RuntimeException {
 
     private static final String SEP = "\nline:";
@@ -8,7 +10,7 @@ public class BadFilePropertiesContentException extends RuntimeException {
     private final int line;
 
     public BadFilePropertiesContentException(String _content, int _line) {
-        super(_content+SEP+_line+SEP_END);
+        super(StringList.concat(_content,SEP,Long.toString(_line),SEP_END));
         line = _line;
     }
 

@@ -613,7 +613,7 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
     public String toString() {
         StringList retString_= new StringList();
         for (CardTarot c: cards) {
-            retString_.add(c.toString());
+            retString_.add(c.display());
         }
         return retString_.join(SEPARATOR);
     }

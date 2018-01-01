@@ -78,6 +78,6 @@ public class SuitCellRenderer extends CommonCellRenderer {
         } else {
             _g.setColor(Color.RED);
         }
-        _g.drawString(couleur.toString(),10,10);
+        _g.drawString(couleur.display(),10,10);
     }
 }

@@ -130,7 +130,7 @@ public class FacadeGame implements WithMathFactory {
 
     private ExchangedData exchangeData;
 
-    private MiniMapCoords miniMapCoords = new MiniMapCoords((byte)CustList.INDEX_NOT_FOUND_ELT,(byte) CustList.INDEX_NOT_FOUND_ELT);
+    private MiniMapCoords miniMapCoords = new MiniMapCoords(CustList.INDEX_NOT_FOUND_ELT,CustList.INDEX_NOT_FOUND_ELT);
 
     private String language;
 
@@ -1350,7 +1350,7 @@ public class FacadeGame implements WithMathFactory {
     }
 
     public void cancelChosenTeamPokemon() {
-        game.getPlayer().setChosenTeamPokemon((short) CustList.INDEX_NOT_FOUND_ELT);
+        game.getPlayer().setChosenTeamPokemon(CustList.INDEX_NOT_FOUND_ELT);
         selectedTeamPokemon = false;
     }
 

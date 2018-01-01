@@ -3,9 +3,10 @@ import code.maths.Rate;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class EfficiencyRate {
+public final class EfficiencyRate implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -29,10 +30,9 @@ public final class EfficiencyRate {
         return new EfficiencyRate(_string);
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return eff.toNumberString()+SEPARATOR+hpRate;
+        return display();
     }
 
     public Rate getEff() {
@@ -41,5 +41,14 @@ public final class EfficiencyRate {
 
     public Rate getHpRate() {
         return hpRate;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(eff.toNumberString());
+        str_.append(SEPARATOR);
+        str_.append(hpRate.toNumberString());
+        return str_.toString();
     }
 }

@@ -2,8 +2,9 @@ package code.maths.geo;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.SortableCustList;
+import code.util.ints.Displayable;
 
-public final class Edge {
+public final class Edge implements Displayable {
 
     private static final String SEPARATOR = " ";
 
@@ -247,7 +248,7 @@ public final class Edge {
 
     @Override
     public String toString() {
-        return first+SEPARATOR+second;
+        return display();
     }
 
     public CustPoint getFirst() {
@@ -264,5 +265,10 @@ public final class Edge {
 
     public void setSecond(CustPoint _second) {
         second = _second;
+    }
+
+    @Override
+    public String display() {
+        return first.display()+SEPARATOR+second.display();
     }
 }

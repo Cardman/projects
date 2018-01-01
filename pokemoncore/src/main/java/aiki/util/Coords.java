@@ -4,18 +4,17 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
 @CheckedData
-public final class Coords implements Equallable<Coords> {
+public final class Coords implements Equallable<Coords>, Displayable {
 
     static final char SEPARATOR = ';';
     static final String INVALID = "";
 
     private static final byte INVALID_NUMBER = CustList.INDEX_NOT_FOUND_ELT - 1;
-
-    private static final String EMPTY_STRING = "";
 
     private short numberPlace;
 
@@ -134,16 +133,8 @@ public final class Coords implements Equallable<Coords> {
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        if (!isValid()) {
-            return INVALID;
-        }
-        String validLevel_ = level.toString();
-        if (!isInside()) {
-            return EMPTY_STRING+numberPlace+SEPARATOR+validLevel_;
-        }
-        return EMPTY_STRING+numberPlace+SEPARATOR+insideBuilding+SEPARATOR+validLevel_;
+        return display();
     }
 
     @Override
@@ -192,5 +183,23 @@ public final class Coords implements Equallable<Coords> {
 
     public void setLevel(LevelPoint _level) {
         level = _level;
+    }
+
+    @Override
+    @FromAndToString
+    public String display() {
+        if (!isValid()) {
+            return INVALID;
+        }
+        String validLevel_ = level.display();
+        StringBuilder str_ = new StringBuilder();
+        str_.append(numberPlace);
+        str_.append(SEPARATOR);
+        if (isInside()) {
+            str_.append(insideBuilding.display());
+            str_.append(SEPARATOR);
+        }
+        str_.append(validLevel_);
+        return str_.toString();
     }
 }

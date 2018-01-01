@@ -59,7 +59,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                     panelToSet_.add(carte_);
                 }
                 partie_.ajouterPoignee(container.getCurrentIncludedTrumps(),DealTarot.NUMERO_UTILISATEUR);
-                container.ajouterTexteDansZone(pseudo_+ContainerGame.INTRODUCTION_PTS+container.getChoosenHandful()+ContainerTarot.RETURN_LINE_CHAR);
+                container.ajouterTexteDansZone(pseudo_+ContainerGame.INTRODUCTION_PTS+container.getChoosenHandful().toString()+ContainerGame.RETURN_LINE);
             }
 //            Map<Miseres,Boolean> map_ = new Map<>(container.getSelectedMiseres());
 //            List<Miseres> selectedMiseres_ = map_.getKeys(true);
@@ -71,7 +71,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                     if (!miseres_.containsObj(m)) {
                         continue;
                     }
-                    container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+m);
+                    container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+m.toString());
                     allowedSelectedMiseres_.add(m);
                 }
                 partie_.ajouterAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,allowedSelectedMiseres_);
@@ -84,7 +84,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 container.setaJoueCarte(true);
                 container.finPliTarot(getCarteVerif());
             }else{
-                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().toString());
+                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().display());
                 String finalMessage_ = mes_+ContainerTarot.RETURN_LINE_CHAR+partie_.getErreurDeJeu();
                 String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,Constants.getLanguage(),JOptionPane.ERROR_MESSAGE);

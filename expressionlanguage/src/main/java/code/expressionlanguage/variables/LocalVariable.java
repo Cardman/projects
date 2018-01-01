@@ -7,20 +7,15 @@ public final class LocalVariable {
 
     private static final String SEP_INFO = "\n";
 
-    private static final String AS = " as ";
-
     private Struct element = NullStruct.NULL_VALUE;
 
     private String className;
 
     public String getInfos() {
-        try {
-            return element+AS+className+SEP_INFO;
-        } catch (Error _0) {
-            return className+SEP_INFO;
-        } catch (RuntimeException _0) {
-            return className+SEP_INFO;
+        if (className == null) {
+            return SEP_INFO;
         }
+        return new StringBuilder(className).append(SEP_INFO).toString();
     }
 
     public Object getElement() {

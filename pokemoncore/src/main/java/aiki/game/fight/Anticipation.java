@@ -6,9 +6,10 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class Anticipation {
+public final class Anticipation implements Displayable{
 
     private static final char SEPARATOR=',';
 
@@ -61,10 +62,9 @@ public final class Anticipation {
         }
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return damage.toNumberString()+SEPARATOR+nbRounds+SEPARATOR+targetPosition;
+        return display();
     }
 
     public Rate getDamage() {
@@ -97,5 +97,14 @@ public final class Anticipation {
 
     public void setIncrementing(boolean _incrementing) {
         incrementing = _incrementing;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(damage.toNumberString());
+        str_.append(SEPARATOR).append(nbRounds);
+        str_.append(SEPARATOR).append(targetPosition.display());
+        return str_.toString();
     }
 }

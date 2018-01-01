@@ -42,7 +42,7 @@ public final class PairNumber<T extends Number,S extends Number> implements Equa
 
     @Override
     public String toString() {
-        return first+SEPARATOR+second;
+        return StringList.concat(String.valueOf(first),SEPARATOR,String.valueOf(second));
     }
 
     @Override

@@ -1,16 +1,17 @@
 package cards.tarot.beans;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.Numbers;
 import cards.consts.Status;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.bean.Accessible;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.Numbers;
+import code.util.StringList;
 
 
 public final class DetailsResultsTarotBean extends TarotBean {
@@ -82,7 +83,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
             if (joueurPetitAuBout>-1) {
                 playerSmall = getNicknames().get(joueurPetitAuBout);
                 if (getGame().aPourDefenseur(joueurPetitAuBout)) {
-                    small = MINUS+BonusTarot.SMALL_BOUND.getPoints()+RIGHT_PAR;
+                    small = StringList.concat(MINUS,Long.toString(BonusTarot.SMALL_BOUND.getPoints()),RIGHT_PAR);
                 } else {
                     small = String.valueOf(BonusTarot.SMALL_BOUND.getPoints());
                 }

@@ -22,8 +22,8 @@ public final class GameTarotMostDemandedSuitComparator implements Comparator<Sui
     public int compare(Suit _suit1, Suit _suit2) {
         boolean aussiHaut_ = true;
         boolean permuter_ = false;
-        byte nbEntamesCouleur1_ = (byte) CustList.SIZE_EMPTY;
-        byte nbEntamesCouleur2_ = (byte) CustList.SIZE_EMPTY;
+        byte nbEntamesCouleur1_ = CustList.SIZE_EMPTY;
+        byte nbEntamesCouleur2_ = CustList.SIZE_EMPTY;
         for(TrickTarot pli_: tricks){
             if (!pli_.getVuParToutJoueur()) {
                 continue;

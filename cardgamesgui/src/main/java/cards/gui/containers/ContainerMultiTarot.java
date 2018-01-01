@@ -154,7 +154,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
 
     private void initBoutonJeuChelemTarotMulti() {
-        LabelButton bouton_=new LabelButton(BidTarot.SLAM.toString());
+        LabelButton bouton_=new LabelButton(BidTarot.SLAM.display());
 //        bouton_.addActionListener(new EcouteurBoutonJeuAnnonceChelemTarotMulti());
         bouton_.addMouseListener(new SlamEvent(this));
         setSlamButton(bouton_);
@@ -373,7 +373,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         /*On place les cartes de l'utilisateur*/
         updateCardsInPanelTarotJeuMulti(getPanelHand(), playerHand);
         for (BidTarot b: _hand.getAllowedBids()) {
-            ajouterBoutonContratTarotMulti(b.toString(), b);
+            ajouterBoutonContratTarotMulti(b.display(), b);
         }
         //getPanneauBoutonsJeu().validate();
         pack();
@@ -401,7 +401,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setCanBid(false);
     }
     public void errorForBidding(ErrorBidding _error) {
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid().toString());
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid().display());
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         ConfirmDialog.showMessage(getOwner(),mes_,
@@ -412,7 +412,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         canPlayLabel.setText(EMPTY_STRING);
         BiddingTarot bid_ = _bid;
 
-        getEvents().append(getPseudoByPlace(_bid.getPlace())+INTRODUCTION_PTS+bid_.getBid()+RETURN_LINE_CHAR);
+        getEvents().append(getPseudoByPlace(_bid.getPlace())+INTRODUCTION_PTS+bid_.getBid().display()+RETURN_LINE_CHAR);
 
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
@@ -485,14 +485,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_call.getPlace());
         getMini().setStatus(Status.TAKER, relative_);
-        getEvents().append(getPseudoByPlace(_call.getPlace())+INTRODUCTION_PTS+_call.getCalledCards()+RETURN_LINE_CHAR);
+        getEvents().append(getPseudoByPlace(_call.getPlace())+INTRODUCTION_PTS+_call.getCalledCards().toString()+RETURN_LINE_CHAR);
 
         CalledCardKnown dealt_ = new CalledCardKnown();
         dealt_.setPlace(indexInGame);
         getOwner().sendObject(dealt_);
     }
     public void errorDiscardingCard(ErrorDiscarding _error) {
-        String mesCard_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_DISCARD), _error.getCard().toString());
+        String mesCard_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_DISCARD), _error.getCard().display());
         String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getErrorMessage());
 //        JOptionPane.showMessageDialog(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_, getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
         ConfirmDialog.showMessage(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_,
@@ -624,11 +624,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         }
         if (_card.getChoosenHandful() != Handfuls.NO) {
-            ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+_card.getChoosenHandful()+RETURN_LINE_CHAR);
+            ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+_card.getChoosenHandful().toString()+RETURN_LINE);
 
         }
         for(Miseres annonce_:_card.getMiseres()) {
-            ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
+            ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+annonce_.toString()+RETURN_LINE);
 
         }
         if(!_card.getHandful().estVide()) {
@@ -669,7 +669,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     public void errorPlayingCard(ErrorPlaying _error) {
         setCanPlay(true);
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().toString());
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().display());
         String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
 //        JOptionPane.showMessageDialog(
 //                getOwner(),

@@ -3,15 +3,15 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 
 @CheckedData
-public final class ActivityOfMove {
+public final class ActivityOfMove implements Displayable {
 
     private static final char SEPARATOR=';';
     private static final String FALSE = "F";
     private static final String TRUE = "T";
-    private static final String EMPTY_STRING = "";
 
     private short nbTurn;
 
@@ -77,22 +77,9 @@ public final class ActivityOfMove {
         }
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        String returnedString_ = EMPTY_STRING + nbTurn+SEPARATOR;
-        if (enabled) {
-            returnedString_ += TRUE;
-        } else {
-            returnedString_ += FALSE;
-        }
-        returnedString_ += SEPARATOR;
-        if (incrementCount) {
-            returnedString_ += TRUE;
-        } else {
-            returnedString_ += FALSE;
-        }
-        return returnedString_;
+        return display();
     }
 
     public short getNbTurn() {
@@ -113,5 +100,25 @@ public final class ActivityOfMove {
 
     public boolean isIncrementCount() {
         return incrementCount;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(nbTurn);
+        str_.append(SEPARATOR);
+        if (enabled) {
+            str_.append(TRUE);
+        } else {
+            str_.append(FALSE);
+        }
+        str_.append(SEPARATOR);
+        if (incrementCount) {
+            str_.append(TRUE);
+        } else {
+            str_.append(FALSE);
+        }
+        return str_.toString();
     }
 }

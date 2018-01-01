@@ -95,7 +95,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
         for (Suit couleur_:ls_) {
-            trSuit_.add(couleur_, couleur_.toString());
+            trSuit_.add(couleur_, couleur_.display());
         }
         listeChoix.refresh(ls_, trSuit_);
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {

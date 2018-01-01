@@ -51,14 +51,18 @@ public final class CustPoint implements Equallable<CustPoint>, Displayable {
         return true;
     }
 
-    @FromAndToString
     @Override
     public String toString() {
         return display();
     }
 
+    @FromAndToString
     @Override
     public String display() {
-        return xCoords+SEPARATOR+yCoords;
+        StringBuilder str_ = new StringBuilder();
+        str_.append(xCoords);
+        str_.append(SEPARATOR);
+        str_.append(yCoords);
+        return str_.toString();
     }
 }

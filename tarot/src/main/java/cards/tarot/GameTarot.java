@@ -167,7 +167,7 @@ public final class GameTarot {
     private transient BidTarot bid = BidTarot.FOLD;
     /** Ce sont les plis faits par les joueurs */
     /** PliTarot en cours d'etre joue */
-    private TrickTarot progressingTrick = new TrickTarot((byte) CustList.INDEX_NOT_FOUND_ELT, false);
+    private TrickTarot progressingTrick = new TrickTarot(CustList.INDEX_NOT_FOUND_ELT, false);
 
     /** Ensemble des plis faits par les joueurs */
     private CustList<TrickTarot> tricks = new CustList<TrickTarot>();
@@ -201,7 +201,7 @@ public final class GameTarot {
 
     private transient HandTarot cardsToBeDiscarded = new HandTarot();
 
-    private transient String discardError = EMPTY;
+    private transient StringBuilder discardError = new StringBuilder();
 
     private transient HandTarot cardsToBePlayed = new HandTarot();
 
@@ -211,7 +211,7 @@ public final class GameTarot {
 
     private transient CardTarot playedCard = CardTarot.WHITE;
 
-    private transient String reason = EMPTY;
+    private transient StringBuilder reason = new StringBuilder();
 
     private final transient String file = Format.getClassProperties(GAME_TAROT);
 
@@ -350,7 +350,7 @@ public final class GameTarot {
             handfuls.set( joueur_, new HandTarot());
         }
         cardsToBeDiscarded = new HandTarot();
-        discardError = EMPTY;
+        discardError = new StringBuilder();
         cardsToBePlayed = new HandTarot();
         errorHandful = EMPTY;
         errorPlaying = EMPTY;
@@ -1205,12 +1205,12 @@ public final class GameTarot {
     }
 
     private void formatNoBid(BidTarot _c) {
-        reason = format(HAND_VALUE_NO_SUIT, _c.toString(), bid.toString()) + RETURN_LINE;
-        reason += format(OVERBID_DUE);
+        reason = new StringBuilder(format(HAND_VALUE_NO_SUIT, _c.display(), bid.display())).append(RETURN_LINE);
+        reason.append(format(OVERBID_DUE));
     }
 
     private void formatTake() {
-        reason = format(MAYBE_GOOD_DOG);
+        reason = new StringBuilder(format(MAYBE_GOOD_DOG));
     }
 
 
@@ -1374,7 +1374,7 @@ public final class GameTarot {
     }
     //pour le conseil lorsqu'aucune carte n'est ecartee
     public CallDiscard strategieAppelApresEcart(boolean _removeDog) {
-        reason = EMPTY;
+        reason = new StringBuilder();
         CallDiscard appelEcart_ = new CallDiscard();
         HandTarot mainPreneur_ = getDistribution().main(taker);
         boolean modif_=true;
@@ -1817,7 +1817,7 @@ public final class GameTarot {
     }
     public HandTarot strategieAppel() {
         HandTarot mainPreneur_ = getDistribution().main(taker);
-        reason = EMPTY;
+        reason = new StringBuilder();
         try {
             return strategieAppel(mainPreneur_);
         } catch (RuntimeException _0) {
@@ -1933,11 +1933,11 @@ public final class GameTarot {
     }
 
     private void formatRandCall() {
-        reason = format(ONE_POSSIBILITY);
+        reason = new StringBuilder(format(ONE_POSSIBILITY));
     }
 
     private void formatCall() {
-        reason = format(ONLY_PLAYER);
+        reason = new StringBuilder(format(ONLY_PLAYER));
     }
 
 
@@ -2097,10 +2097,10 @@ public final class GameTarot {
 
     public boolean autoriseEcartDe(CardTarot _c, String _loc) {
         HandTarot m = getDistribution().main(getPreneur());
-        discardError = EMPTY;
+        discardError = new StringBuilder();
         if(cardsToBeDiscarded.total() >= getDistribution()
                 .derniereMain().total()) {
-            discardError =Format.formatter(FOLDER, file, _loc, TOO_MANY_CARDS);
+            discardError =new StringBuilder(Format.formatter(FOLDER, file, _loc, TOO_MANY_CARDS));
             return false;
         }
         cardsToBeDiscarded.ajouter(_c);
@@ -2181,13 +2181,13 @@ public final class GameTarot {
                     continue;
                 }
                 if(carte_.estUnBout()) {
-                    discardError += Format.formatter(FOLDER, file, _loc, NO_DISCARDED_OUDLER, carte_.toString(_loc))+RETURN_LINE;
+                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_OUDLER, carte_.toString(_loc))).append(RETURN_LINE);
                 }
                 if(carte_.couleur() == couleurAtout() && !carte_.estUnBout()) {
-                    discardError += Format.formatter(FOLDER, file, _loc, DISCARDED_TRUMP, carte_.toString(_loc))+RETURN_LINE;
+                    discardError.append(Format.formatter(FOLDER, file, _loc, DISCARDED_TRUMP, carte_.toString(_loc))).append(RETURN_LINE);
                 }
                 if(carte_.getNomFigure() == CardChar.KING) {
-                    discardError += Format.formatter(FOLDER, file, _loc, NO_DISCARDED_CHARACTER, carte_.toString(_loc), CardChar.KING.toString(_loc))+RETURN_LINE;
+                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_CHARACTER, carte_.toString(_loc), CardChar.KING.toString(_loc))).append(RETURN_LINE);
                 }
             }
         } else {
@@ -2199,13 +2199,13 @@ public final class GameTarot {
                     continue;
                 }
                 if(carte_.estUnBout()) {
-                    discardError += Format.formatter(FOLDER, file, _loc, NO_DISCARDED_OUDLER, carte_.toString(_loc))+RETURN_LINE;
+                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_OUDLER, carte_.toString(_loc))).append(RETURN_LINE);
                 }
                 if(carte_.couleur() == couleurAtout()) {
-                    discardError += Format.formatter(FOLDER, file, _loc, NO_DISCARDED_TRUMP, carte_.toString(_loc))+RETURN_LINE;
+                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_TRUMP, carte_.toString(_loc))).append(RETURN_LINE);
                 }
                 if(carte_.getNomFigure() == CardChar.KING) {
-                    discardError += Format.formatter(FOLDER, file, _loc, NO_DISCARDED_CHARACTER, carte_.toString(_loc), CardChar.KING.toString(_loc))+RETURN_LINE;
+                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_CHARACTER, carte_.toString(_loc), CardChar.KING.toString(_loc))).append(RETURN_LINE);
                 }
             }
         }
@@ -2213,7 +2213,7 @@ public final class GameTarot {
     }
 
     public String getErreurDEcart() {
-        return discardError;
+        return discardError.toString();
     }
 
     public void ecarter(boolean _createTrick) {
@@ -2284,7 +2284,7 @@ public final class GameTarot {
                 HandTarot mainPreneur_ = getDistribution().main(taker);
                 EnumMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
                 int tailleChien_ = getDistribution().derniereMain().total();
-                discardError = EMPTY;
+                discardError = new StringBuilder();
                 cardsToBeDiscarded = new HandTarot();
                 HandTarot ecartables_ = getCartesEcartables(tailleChien_, repartition_);
                 HandTarot cards_ = new HandTarot();
@@ -2296,7 +2296,7 @@ public final class GameTarot {
             HandTarot mainPreneur_ = getDistribution().main(taker);
             EnumMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
             int tailleChien_ = getDistribution().derniereMain().total();
-            discardError = EMPTY;
+            discardError = new StringBuilder();
             cardsToBeDiscarded = new HandTarot();
             HandTarot ecartables_ = getCartesEcartables(tailleChien_, repartition_);
             for (CardTarot c: handStrat_) {
@@ -2325,7 +2325,7 @@ public final class GameTarot {
             HandTarot mainPreneur_ = getDistribution().main(taker);
             EnumMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
             int tailleChien_ = getDistribution().derniereMain().total();
-            discardError = EMPTY;
+            discardError = new StringBuilder();
             cardsToBeDiscarded = new HandTarot();
             HandTarot ecartables_ = getCartesEcartables(tailleChien_, repartition_);
             HandTarot cards_ = new HandTarot();
@@ -2342,7 +2342,7 @@ public final class GameTarot {
         EnumMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
         byte nombreJoueurs_ = getNombreDeJoueurs();
         int tailleChien_ = getDistribution().derniereMain().total();
-        discardError = EMPTY;
+        discardError = new StringBuilder();
         cardsToBeDiscarded = new HandTarot();
         HandTarot ecartables_ = getCartesEcartables(tailleChien_, repartition_);
         EnumMap<Suit,HandTarot> repEcartables_ = ecartables_.couleurs();
@@ -2648,7 +2648,7 @@ public final class GameTarot {
     }
 
     private void formatDiscard() {
-        reason = format(SINGLE_DISCARDED_CARDS);
+        reason = new StringBuilder(format(SINGLE_DISCARDED_CARDS));
     }
 
     public void invaliderAjoutCarteAuChien(CardTarot _ct) {
@@ -2806,7 +2806,7 @@ public final class GameTarot {
     }
     public boolean annoncerUnChelem(byte _numeroJoueur) {
         HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
-        reason = EMPTY;
+        reason = new StringBuilder();
         return annoncerUnChelem(mainJoueur_);
     }
     private boolean annoncerUnChelem(HandTarot _mainJoueur) {
@@ -2821,11 +2821,11 @@ public final class GameTarot {
     }
 
     private void formatNoSlam() {
-        reason = format(NO_SLAM);
+        reason = new StringBuilder(format(NO_SLAM));
     }
 
     private void formatSlam() {
-        reason = format(SLAM);
+        reason = new StringBuilder(format(SLAM));
     }
 
     private static boolean maitreAtoutPourChelem(EnumMap<Suit,HandTarot> _couleurs,
@@ -2939,7 +2939,7 @@ public final class GameTarot {
     }
 
     private void formatIsSlam() {
-        reason = format(WIN_ALL_TRICKS);
+        reason = new StringBuilder(format(WIN_ALL_TRICKS));
     }
 
     public void slam() {
@@ -3062,7 +3062,7 @@ public final class GameTarot {
         return errorHandful;
     }
     public HandTarot strategiePoignee(byte _numeroJoueur) {
-        reason = EMPTY;
+        reason = new StringBuilder();
         HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
         EnumMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
         HandTarot atouts_ = atoutsPoignee(repartition_);
@@ -3092,7 +3092,7 @@ public final class GameTarot {
     }
 
     private void formatHandful() {
-        reason = format(HIDE_WEAKEST_TRUMPS);
+        reason = new StringBuilder(format(HIDE_WEAKEST_TRUMPS));
     }
 
     /** trie les atouts de la maniere suivante: (Excuse, 21, 20, ... 1) */
@@ -4097,7 +4097,7 @@ public final class GameTarot {
     }
 
     public CardTarot strategieJeuCarteUnique() {
-        reason = EMPTY;
+        reason = new StringBuilder();
         CardTarot card_;
         if (progressingTrick.estVide()) {
             try {
@@ -4166,7 +4166,7 @@ public final class GameTarot {
     }
 
     private void formatBeginTrick() {
-        reason = format(SINGLE_CARD);
+        reason = new StringBuilder(format(SINGLE_CARD));
     }
 
     private CardTarot entameClassique(byte _numero,
@@ -5738,18 +5738,18 @@ public final class GameTarot {
                 carteForte_);
         boolean maitreJeu_ = info_.isMaitreJeu();
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason += format(NO_WIN_ALL_TRICK);
+                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             return carteLaPlusPetite(suites_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
             if (maitreJeu_) {
                 if (contientExcuse_) {
                     return CardTarot.excuse();
@@ -6491,12 +6491,12 @@ public final class GameTarot {
                 carteForte_);
         boolean maitreJeu_ = info_.isMaitreJeu();
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason += format(NO_WIN_ALL_TRICK);
+                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             /* La couleur demandee est atout */
@@ -6505,7 +6505,7 @@ public final class GameTarot {
                             repartitionCartesJouees_, couleurDemandee_), contientExcuse_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
             if (_mainJoueur.total() == 2 && contientExcuse_) {
                 Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
                 Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
@@ -6531,10 +6531,10 @@ public final class GameTarot {
             }
             Numbers<Byte> joueursNonConfiance_ = joueursNonConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
             if (pasAtout(joueursNonConfiance_, cartesPossibles_)) {
-                reason += format(SMALL_BOUND);
+                reason.append(format(SMALL_BOUND));
                 return atoutLePlusPetit(suites_);
             }
-            reason += format(SMALL_NOW);
+            reason.append(format(SMALL_NOW));
             return CardTarot.petit();
         }
         //incertitude du ramasseur a la couleur demandee (founiture obligatoire de la couleur demandee)
@@ -6672,12 +6672,12 @@ public final class GameTarot {
         boolean maitreJeu_ = info_.isMaitreJeu();
         //jouer un atout en coupe, surcoupe ou souscoupe
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason += format(NO_WIN_ALL_TRICK);
+                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             return atoutLePlusPetit(
@@ -6685,7 +6685,7 @@ public final class GameTarot {
                             repartitionCartesJouees_, couleurDemandee_), contientExcuse_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
             if (_mainJoueur.total() == 2 && contientExcuse_) {
                 Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
                 Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
@@ -6717,10 +6717,10 @@ public final class GameTarot {
                 }
             }
             if (carteMaitresse_) {
-                reason += format(SMALL_BOUND);
+                reason.append(format(SMALL_BOUND));
                 return atoutLePlusPetit(suites_);
             }
-            reason += format(SMALL_NOW);
+            reason.append(format(SMALL_NOW));
             return CardTarot.petit();
         }
         if (_mainJoueur.total() == 2 && contientExcuse_) {
@@ -6775,13 +6775,13 @@ public final class GameTarot {
                 return atoutLePlusPetit(suites_, contientExcuse_);
             }
             if (pasAtout(joueursNonConfiance_, cartesPossibles_)) {
-                reason += format(SMALL_BOUND);
+                reason.append(format(SMALL_BOUND));
                 return atoutLePlusPetit(suites_);
             }
             if (tours_.isEmpty()) {
                 /* Si c'est le premier tour */
                 if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
-                    reason += format(SAVED_SMALL);
+                    reason.append(format(SAVED_SMALL));
                     return atoutsCoupe_.derniereCarte();
                 }
                 return atoutLePlusPetit(suites_, contientExcuse_);
@@ -6792,7 +6792,7 @@ public final class GameTarot {
                         .total() < 8
                         || progressingTrick.joueursCoupes(nombreJoueurs_)
                         .size() > 1) {
-                    reason += format(SAVED_SMALL);
+                    reason.append(format(SAVED_SMALL));
                     return atoutsCoupe_.derniereCarte();
                 }
             }
@@ -6886,7 +6886,7 @@ public final class GameTarot {
                         .premiereCarte();
             }
             if (pasAtout(joueursNonConfiance_, cartesPossibles_)) {
-                reason += format(SMALL_BOUND);
+                reason.append(format(SMALL_BOUND));
                 return atoutLePlusPetit(suites_);
             }
             if (coupesFranches_.size() == 1) {
@@ -6902,7 +6902,7 @@ public final class GameTarot {
                         }
                     }
                     if (carteMaitresse_) {
-                        reason += format(SMALL_NOW);
+                        reason.append(format(SMALL_NOW));
                         return CardTarot.petit();
                     }
                     return atoutLePlusPetit(suites_);
@@ -6921,7 +6921,7 @@ public final class GameTarot {
                     }
                 }
                 if (carteMaitresse_) {
-                    reason += format(SMALL_NOW);
+                    reason.append(format(SMALL_NOW));
                     return CardTarot.petit();
                 }
                 if (atoutsCoupe_.total() > 1
@@ -7018,7 +7018,7 @@ public final class GameTarot {
                 }
                 if (nombrePoints_ > 7) {
                     if (!cartesRelMaitres_.isEmpty()) {
-                        reason += format(CATCH_CHARS);
+                        reason.append(format(CATCH_CHARS));
                         return cartesRelMaitres_.last()
                                 .premiereCarte();
                     }
@@ -7028,7 +7028,7 @@ public final class GameTarot {
                             carteMaitresse_ = true;
                         }
                         if (carteMaitresse_) {
-                            reason += format(NO_CATCH);
+                            reason.append(format(NO_CATCH));
                             return atoutLePlusPetit(suites_,
                                     contientExcuse_);
                         }
@@ -7117,7 +7117,7 @@ public final class GameTarot {
         cette couleur ou plus
         */
         if (pasAtout(joueursNonConfiance_, cartesPossibles_)) {
-            reason += format(SMALL_BOUND);
+            reason.append(format(SMALL_BOUND));
             return atoutLePlusPetit(suites_);
         }
         if (maitreJeu_ && !cartesRelMaitres_.isEmpty()) {
@@ -7133,7 +7133,7 @@ public final class GameTarot {
             }
         }
         if (carteMaitresse_) {
-            reason += format(SMALL_NOW);
+            reason.append(format(SMALL_NOW));
             return CardTarot.petit();
         }
         if (nombreJoueurs_ < 5) {
@@ -7145,7 +7145,7 @@ public final class GameTarot {
                 Numbers<Byte> joueursCoupePreTour_ = plisFaits_
                         .get(tours_.first()).joueursCoupes();
                 if (intersectionJoueurs(joueursNonConfiance_, autresJoueurs(joueursCoupePreTour_, nombreJoueurs_)).isEmpty()) {
-                    reason += format(SMALL_NOW);
+                    reason.append(format(SMALL_NOW));
                     return CardTarot.petit();
                 }
             }
@@ -7195,12 +7195,12 @@ public final class GameTarot {
 
         //defausse sur une couleur ordinaire
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason += format(NO_WIN_ALL_TRICK);
+                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             return defausseCouleurDemandeeSurAdversaire(
@@ -7209,7 +7209,7 @@ public final class GameTarot {
                     couleursStrictesMaitresses_, couleurDemandee_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
             if (_mainJoueur.total() == 2 && contientExcuse_) {
                 Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
                 Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
@@ -7298,12 +7298,12 @@ public final class GameTarot {
         EnumList<Suit> couleursNonVides_ = couleursNonAtoutNonVides(_mainJoueur, couleursOrdinaires());
         //defausse sur l'atout
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason += format(FOE_WIN_TRICK);
+            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason += format(NO_WIN_ALL_TRICK);
+                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             return defausseAtoutSurAdversaire(suitesTouteCouleur_,
@@ -7311,7 +7311,7 @@ public final class GameTarot {
                     cartesMaitresses_, couleursStrictesMaitresses_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason += format(PARTNER_WIN_TRICK);
+            reason.append(format(PARTNER_WIN_TRICK));
             if (_mainJoueur.total() == 2 && contientExcuse_) {
                 Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
                 Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
@@ -14807,7 +14807,7 @@ public final class GameTarot {
         return type;
     }
     public String getRaison() {
-        return reason;
+        return reason.toString();
     }
 
     public CustList<TrickTarot> getTricks() {

@@ -5,12 +5,6 @@ import code.util.CustList;
 
 public abstract class SwitchStack extends BlockStack implements BreakableStack {
 
-    private static final String RETURN_LINE = "\n";
-
-    private static final String HAS_NEXT = "value";
-
-    private static final String SEP_KEY_VAL = ":";
-
     private boolean finished;
 
     private boolean entered;
@@ -18,16 +12,6 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
     private Struct value = NullStruct.NULL_VALUE;
 
     private int visitedBlock = CustList.INDEX_NOT_FOUND_ELT;
-
-    public String getInfos() {
-        try {
-            return HAS_NEXT+SEP_KEY_VAL+value+RETURN_LINE;
-        } catch (Error _0) {
-            return HAS_NEXT+RETURN_LINE;
-        } catch (RuntimeException _0) {
-            return HAS_NEXT+RETURN_LINE;
-        }
-    }
 
     public boolean isFinished() {
         return finished;

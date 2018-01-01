@@ -98,7 +98,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         GamePresident partie_=partiePresident();
         partie_.addCardsToCurrentTrick(_joueur);
         HandPresident h_ = partie_.getPlayedCards();
-        ThreadInvoker.invokeNow(new AddTextEvents(this, _pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR));
+        ThreadInvoker.invokeNow(new AddTextEvents(this, _pseudo+INTRODUCTION_PTS+h_.toString()+RETURN_LINE));
 //        ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR);
         ThreadInvoker.invokeNow(new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.getNextPlayer()));
 //        tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
@@ -123,7 +123,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setChangerPileFin(false);
         setaJoueCarte(false);
         GamePresident partie_=partiePresident();
-        getOwner().setTitle(EMPTY+GameEnum.PRESIDENT);
+        getOwner().setTitle(GameEnum.PRESIDENT.toString());
         placerPresident();
         getHelpGame().setEnabled(false);
         if (partie_.availableSwitchingCards() && !partie_.readyToPlay()) {
@@ -541,7 +541,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getConsulting().setEnabled(false);
         getOwner().getTricksHands().setEnabled(false);
         getOwner().getTeams().setEnabled(false);
-        ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+partie_.getPlayedCards()+RETURN_LINE_CHAR);
+        ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+partie_.getPlayedCards().toString()+RETURN_LINE);
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(MainWindow.END_TRICK));
@@ -843,7 +843,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     @Override
     public void aideAuJeu() {
         GamePresident g_ = partiePresident();
-        DialogHelpPresident.setTitleDialog(getOwner(), getMessages().getVal(MainWindow.HELP_GAME)+SPACE+GameEnum.PRESIDENT);
+        DialogHelpPresident.setTitleDialog(getOwner(), getMessages().getVal(MainWindow.HELP_GAME)+SPACE+GameEnum.PRESIDENT.toString());
         TreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
         boolean reversed_ = g_.isReversed();
         int nbStacks_ = g_.getRegles().getNbStacks();

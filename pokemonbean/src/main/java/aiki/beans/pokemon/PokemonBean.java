@@ -1,17 +1,4 @@
 package aiki.beans.pokemon;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
@@ -39,6 +26,19 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import code.bean.Accessible;
+import code.images.ConverterBufferedImage;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class PokemonBean extends CommonBean {
 
@@ -509,7 +509,7 @@ public class PokemonBean extends CommonBean {
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(PROPONE_LINK_VAR+d, false);
+            getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         return LEVEL;
     }

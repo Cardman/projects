@@ -30,8 +30,8 @@ public class TarotUsedCardsBean extends Bean {
     private String getSuitOrCard(Long _index) {
         Suit suit_ = images.getKey(_index.intValue());
         if (suit_ != Suit.UNDEFINED) {
-            return suit_.toString();
+            return suit_.display();
         }
-        return CardTarot.EXCUSE.toString();
+        return CardTarot.EXCUSE.display();
     }
 }

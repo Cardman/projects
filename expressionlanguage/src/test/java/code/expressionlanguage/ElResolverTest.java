@@ -3460,6 +3460,16 @@ public class ElResolverTest {
         ElResolver.checkSyntax(el_, conf_, 0);
     }
 
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax47FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1  .0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
     private static void addImportingPage(ContextEl _conf, boolean _rendering) {
         _conf.setAnalyzing(new PageEl());
     }

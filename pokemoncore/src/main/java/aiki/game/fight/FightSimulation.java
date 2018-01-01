@@ -704,7 +704,7 @@ public class FightSimulation {
                 StringList initMoves_ = new StringList(team.get(i_).getMoves().getKeys());
                 choicesMoves_ = movesToBeChosen(treeMoves_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
                 PairNumber<Byte,Byte> firstFightRound_;
-                firstFightRound_ = new PairNumber<Byte, Byte>((byte)CustList.FIRST_INDEX, (byte)CustList.FIRST_INDEX);
+                firstFightRound_ = new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, CustList.FIRST_INDEX);
 //                availableMoves.put(indexes_.get(i_), new Pair<>(firstFightRound_,choicesMoves_));
                 availableMoves.put(i_, new AvailableMovesInfos(firstFightRound_,choicesMoves_));
 //                treeMoves_ = new TreeMap<Pair<Byte,Byte>,StringList>(new Comparator<Pair<Byte,Byte>>() {
@@ -830,7 +830,7 @@ public class FightSimulation {
                     StringList initMoves_ = new StringList(team.get(i_).getMoves().getKeys());
                     choicesMoves_ = movesToBeChosen(tree_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
                     PairNumber<Byte,Byte> firstFightRound_;
-                    firstFightRound_ = new PairNumber<Byte, Byte>((byte)CustList.FIRST_INDEX, (byte)CustList.FIRST_INDEX);
+                    firstFightRound_ = new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, CustList.FIRST_INDEX);
 //                    availableMoves.put(indexes_.get(i_), new Pair<>(firstFightRound_,choicesMoves_));
                     availableMoves.put(i_, new AvailableMovesInfos(firstFightRound_,choicesMoves_));
                     tree_ = new TreeMap<PairNumber<Byte,Byte>,StringList>(new ComparatorPairNumber<Byte,Byte>());
@@ -1246,7 +1246,7 @@ public class FightSimulation {
         StringList initMoves_ = new StringList(team.get((byte) _index).getMoves().getKeys());
         choicesMoves_ = movesToBeChosen(tree_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
         PairNumber<Byte,Byte> firstFightRound_;
-        firstFightRound_ = new PairNumber<Byte, Byte>((byte)CustList.FIRST_INDEX, (byte)CustList.FIRST_INDEX);
+        firstFightRound_ = new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         availableMoves.put((byte) _index, new AvailableMovesInfos(firstFightRound_,choicesMoves_));
 //        availableMoves.put(indexes_.get(i_), new Pair<>(firstFightRound_,choicesMoves_));
         //tree_.put(firstFightRound_, new StringList(initMoves_));
@@ -1355,7 +1355,7 @@ public class FightSimulation {
             StringList initMoves_ = keptMoves.getVal((byte) _index).getVal(key_);
             currentFight_++;
             nextKey_.setFirst(currentFight_);
-            nextKey_.setSecond((byte) CustList.FIRST_INDEX);
+            nextKey_.setSecond(CustList.FIRST_INDEX);
             StringMap<Boolean> choicesMoves_;
             choicesMoves_ = movesToBeChosen(tree_.getVal(nextKey_), initMoves_, _import.getNbMaxMoves());
             availableMoves.getVal((byte) _index).setFirst(nextKey_);
@@ -1405,7 +1405,7 @@ public class FightSimulation {
             byte currentFight_ = _currentFight;
             currentFight_++;
             _nextKey.setFirst(currentFight_);
-            _nextKey.setSecond((byte) CustList.FIRST_INDEX);
+            _nextKey.setSecond(CustList.FIRST_INDEX);
             StringMap<Boolean> choicesMoves_;
             choicesMoves_ = movesToBeChosen(_tree.getVal(_nextKey), initMoves_, _import.getNbMaxMoves());
             availableMoves.getVal((byte) _index).setFirst(_nextKey);
@@ -1758,7 +1758,7 @@ public class FightSimulation {
 //            return;
 //        }
         Player player_ = game.getPlayer();
-        Numbers<Byte> indexes_ = indexesFight((byte) CustList.FIRST_INDEX);
+        Numbers<Byte> indexes_ = indexesFight(CustList.FIRST_INDEX);
         player_.swap(indexes_);
         Fightable trainer_;
         trainer_ = trainers_.get(CustList.FIRST_INDEX);

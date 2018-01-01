@@ -3,12 +3,13 @@ import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 import cards.consts.CardChar;
 import cards.consts.Suit;
 
 /**
     */
-public enum CardTarot {
+public enum CardTarot implements Displayable {
     WHITE,
     EXCUSE(CardChar.EXCUSE, 9),
     /**Oudler card*/
@@ -265,5 +266,9 @@ public enum CardTarot {
             return forceValeur_<forceValeur2_;
         }
         return false;
+    }
+    @Override
+    public String display() {
+        return toString(Constants.getLanguage());
     }
 }

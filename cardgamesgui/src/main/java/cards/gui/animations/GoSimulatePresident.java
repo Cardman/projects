@@ -93,7 +93,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 for (byte l: losers_) {
                     byte w_ = GamePresident.getMatchingWinner(winners_, losers_, l);
                     HandPresident h_ = switchedCards_.getVal(l);
-                    event_ = nicknames_.get(l)+ContainerGame.INTRODUCTION_PTS+h_+ContainerPresident.RETURN_LINE_CHAR;
+                    event_ = nicknames_.get(l)+ContainerGame.INTRODUCTION_PTS+h_.toString()+ContainerPresident.RETURN_LINE_CHAR;
                     event_ += nicknames_.get(w_)+ContainerPresident.RETURN_LINE_CHAR;
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
@@ -112,7 +112,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 for (byte w: winners_) {
                     byte l_ = GamePresident.getMatchingLoser(losers_, winners_, w);
                     HandPresident h_ = switchedCards_.getVal(w);
-                    event_ = nicknames_.get(w)+ContainerGame.INTRODUCTION_PTS+h_+ContainerPresident.RETURN_LINE_CHAR;
+                    event_ = nicknames_.get(w)+ContainerGame.INTRODUCTION_PTS+h_.toString()+ContainerPresident.RETURN_LINE_CHAR;
                     event_ += nicknames_.get(l_)+ContainerPresident.RETURN_LINE_CHAR;
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
@@ -189,7 +189,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                        container.tapisPresident().repaintValidate();
                     }
                     player_ = t_.getPlayer(noHand_, partie_.getNombreDeJoueurs());
-                    event_ = nicknames_.get(player_)+ContainerGame.INTRODUCTION_PTS+h+ContainerPresident.RETURN_LINE_CHAR;
+                    event_ = nicknames_.get(player_)+ContainerGame.INTRODUCTION_PTS+h.toString()+ContainerPresident.RETURN_LINE_CHAR;
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(nicknames_.get(player_)+ContainerGame.INTRODUCTION_PTS+h+ContainerPresident.RETURN_LINE_CHAR);

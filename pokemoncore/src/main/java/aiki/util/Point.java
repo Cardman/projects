@@ -4,14 +4,13 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class Point implements Equallable<Point> {
+public final class Point implements Equallable<Point>, Displayable {
 
     static final char SEPARATOR = ',';
-
-    private static final String EMPTY_STRING = "";
 
     private short xCoord;
 
@@ -86,8 +85,17 @@ public final class Point implements Equallable<Point> {
     }
 
     @Override
-    @FromAndToString
     public String toString() {
-        return EMPTY_STRING+getx()+SEPARATOR+gety();
+        return display();
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(getx());
+        str_.append(SEPARATOR);
+        str_.append(gety());
+        return str_.toString();
     }
 }

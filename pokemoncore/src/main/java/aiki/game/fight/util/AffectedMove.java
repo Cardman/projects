@@ -3,9 +3,10 @@ import aiki.game.fight.ActivityOfMove;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class AffectedMove {
+public final class AffectedMove implements Displayable {
 
     private static final char SEPARATOR='/';
 
@@ -29,10 +30,9 @@ public final class AffectedMove {
         return new AffectedMove(_string);
     }
 
-    @FromAndToString
     @Override
     public String toString() {
-        return move+SEPARATOR+activity;
+        return display();
     }
 
     public String getMove() {
@@ -45,5 +45,15 @@ public final class AffectedMove {
 
     public ActivityOfMove getActivity() {
         return activity;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(move);
+        str_.append(SEPARATOR);
+        str_.append(activity.display());
+        return str_.toString();
     }
 }

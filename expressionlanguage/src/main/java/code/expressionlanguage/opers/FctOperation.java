@@ -147,7 +147,7 @@ public final class FctOperation extends InvokingOperation {
             }
             if (!chidren_.first().getResultClass().matchClass(stringType_)) {
                 setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                throw new NotStringException(chidren_.first().getResultClass()+RETURN_LINE+_conf.joinPages());
+                throw new NotStringException(StringList.concat(chidren_.first().getResultClass().getName(),RETURN_LINE,_conf.joinPages()));
             }
             if (chidren_.first().getArgument() == null) {
                 setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
@@ -240,7 +240,7 @@ public final class FctOperation extends InvokingOperation {
             if (chidren_.size() == 2) {
                 if (!chidren_.first().getResultClass().matchClass(stringType_)) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new NotStringException(chidren_.first().getResultClass()+RETURN_LINE+_conf.joinPages());
+                    throw new NotStringException(StringList.concat(chidren_.first().getResultClass().getName(),RETURN_LINE,_conf.joinPages()));
                 }
                 if (chidren_.first().getArgument() == null) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
@@ -269,7 +269,7 @@ public final class FctOperation extends InvokingOperation {
             if (chidren_.size() == 1) {
                 if (!chidren_.first().getResultClass().matchClass(stringType_)) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new NotStringException(chidren_.first().getResultClass()+RETURN_LINE+_conf.joinPages());
+                    throw new NotStringException(StringList.concat(chidren_.first().getResultClass().getName(),RETURN_LINE,_conf.joinPages()));
                 }
                 setResultClass(new ClassArgumentMatching(ClassMetaInfo.class.getName()));
                 return;
@@ -277,7 +277,7 @@ public final class FctOperation extends InvokingOperation {
             if (chidren_.size() == 2) {
                 if (!chidren_.first().getResultClass().matchClass(stringType_)) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new NotStringException(chidren_.first().getResultClass()+RETURN_LINE+_conf.joinPages());
+                    throw new NotStringException(StringList.concat(chidren_.first().getResultClass().getName(),RETURN_LINE,_conf.joinPages()));
                 }
                 if (chidren_.first().getArgument() == null) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
@@ -304,7 +304,7 @@ public final class FctOperation extends InvokingOperation {
             if (!clMatch_.matchClass(booleanPrimType_)) {
                 if (!clMatch_.matchClass(booleanType_)) {
                     setRelativeOffsetPossibleLastPage(opOne_.getIndexInEl()+1, _conf);
-                    throw new NotBooleanException(clMatch_+RETURN_LINE+_conf.joinPages());
+                    throw new NotBooleanException(StringList.concat(clMatch_.getName(),RETURN_LINE,_conf.joinPages()));
                 }
             }
             OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
@@ -313,7 +313,7 @@ public final class FctOperation extends InvokingOperation {
             ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
             if (!clMatchTwo_.matchClass(clMatchThree_)) {
                 setRelativeOffsetPossibleLastPage(opTwo_.getIndexInEl()+1, _conf);
-                throw new NotEqualableException(clMatchTwo_+RETURN_LINE+clMatchThree_+RETURN_LINE+_conf.joinPages());
+                throw new NotEqualableException(StringList.concat(clMatchTwo_.getName(),RETURN_LINE,clMatchThree_.getName(),RETURN_LINE,_conf.joinPages()));
             }
             ternary = true;
             setResultClass(clMatchTwo_);

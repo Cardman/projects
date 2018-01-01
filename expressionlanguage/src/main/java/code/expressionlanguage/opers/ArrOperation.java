@@ -69,11 +69,11 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
         if (!indexClass_.isNumericInt(_conf)) {
-            throw new BadIndexTypeException(indexClass_+RETURN_LINE+_conf.joinPages());
+            throw new BadIndexTypeException(StringList.concat(indexClass_.getName(),RETURN_LINE,_conf.joinPages()));
         }
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         if (!class_.isArray()) {
-            throw new NotArrayException(class_+RETURN_LINE+_conf.joinPages());
+            throw new NotArrayException(StringList.concat(class_.getName(),RETURN_LINE,_conf.joinPages()));
         }
         class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
         LgNames stds_ = _conf.getStandards();

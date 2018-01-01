@@ -120,10 +120,10 @@ public class HealingItemLabel extends SelectableLabel {
     private String getThirdLineInfos() {
         StringList infos_ = new StringList();
         if (!item.getHp().isZero()) {
-            infos_.add(_messages_.getVal(HP)+item.getHp());
+            infos_.add(StringList.concat(_messages_.getVal(HP),item.getHp().toNumberString()));
         }
         if (!item.getHpRate().isZero()) {
-            infos_.add(_messages_.getVal(HP_RATE)+item.getHpRate());
+            infos_.add(StringList.concat(_messages_.getVal(HP_RATE),item.getHpRate().toNumberString()));
         }
         /*if (item.getHp() != null) {
             if (item.isRelativeRateHp()) {
@@ -138,7 +138,7 @@ public class HealingItemLabel extends SelectableLabel {
             } else {
                 infos_.add(_messages_.getVal(HEAL_MOVES));
             }
-            infos_.add(_messages_.getVal(PP)+item.getPp());
+            infos_.add(StringList.concat(_messages_.getVal(PP),item.getPp().toNumberString()));
         }
         /*if (item.getPp() != null) {
             if (item.isHealOneMove()) {
@@ -149,10 +149,10 @@ public class HealingItemLabel extends SelectableLabel {
             infos_.add(_messages_.getVal(PP)+item.getPp());
         }*/
         if (!item.getStatus().isEmpty()) {
-            infos_.add(_messages_.getVal(STATUS)+item.getStatus().join(SEPARATOR));
+            infos_.add(StringList.concat(_messages_.getVal(STATUS),item.getStatus().join(SEPARATOR)));
         }
         if (!item.getStatistics().isEmpty()) {
-            infos_.add(_messages_.getVal(STATISTICS)+item.getStatistics().join(SEPARATOR));
+            infos_.add(StringList.concat(_messages_.getVal(STATISTICS),item.getStatistics().join(SEPARATOR)));
         }
         if (item.isKo()) {
             infos_.add(_messages_.getVal(KO));

@@ -402,20 +402,24 @@ public final class Rate implements Cmp<Rate>, Displayable {
         }
         Rate abs_ = absNb();
         if (isInteger() || _numberDec == 0) {
-            String signum_ = EMPTY_STRING;
+            String signum_;
             if (!numerateur.isZeroOrGt()) {
-                signum_ += MINUS;
+                signum_ = MINUS;
+            } else {
+                signum_ = EMPTY_STRING;
             }
             LgInt int_ = abs_.intPart();
             if (int_.isZero()) {
                 int_ = LgInt.zero();
                 signum_ = EMPTY_STRING;
             }
-            return signum_+int_;
+            return StringList.concat(signum_,int_.toNumberString());
         }
-        String signum_ = EMPTY_STRING;
+        String signum_;
         if (!numerateur.isZeroOrGt()) {
-            signum_ += MINUS;
+            signum_ = MINUS;
+        } else {
+            signum_ = EMPTY_STRING;
         }
         Rate rateOne_ = one();
         Rate copie_ = abs_.decimalPart();
@@ -431,28 +435,28 @@ public final class Rate implements Cmp<Rate>, Displayable {
         int nbZeros_ = puissance_ - 1;
         LgInt intPart_ = abs_.intPart();
         String intPartStr_ = intPart_.toNumberString();
-        String return_ = signum_ + intPart_;
+        String return_ = StringList.concat(signum_, intPart_.toNumberString());
         boolean zero_ = false;
         if (intPart_.isZero()) {
             zero_ = true;
         }
-        return_ += SEP_INT_DEC;
-        String str_ = EMPTY_STRING;
+        return_ = StringList.concat(return_, String.valueOf(SEP_INT_DEC));
+        StringBuilder str_ = new StringBuilder();
         for (int i = CustList.FIRST_INDEX; i < nbZeros_; i++) {
-            str_ += ZERO;
+            str_.append(ZERO);
         }
-        str_ += copie_.intPart().toNumberString();
+        str_.append(copie_.intPart().toNumberString());
 //        if (str_.length() > _numberDec) {
 //            str_ = str_.substring(CustList.FIRST_INDEX, _numberDec);
 //        }
-        str_ = str_.substring(CustList.FIRST_INDEX, _numberDec);
-        if (!StringList.removeChars(str_, ZERO).isEmpty()) {
+        str_ = new StringBuilder(str_.substring(CustList.FIRST_INDEX, _numberDec));
+        if (!StringList.removeChars(str_.toString(), ZERO).isEmpty()) {
             zero_ = false;
         }
         if (zero_) {
-            return intPartStr_ + SEP_INT_DEC + str_;
+            return StringList.concat(intPartStr_, String.valueOf(SEP_INT_DEC), str_);
         }
-        return return_ + str_;
+        return StringList.concat(return_,str_);
     }
 
     public String evaluate(int _numberMeaningDigits) {
@@ -489,8 +493,14 @@ public final class Rate implements Cmp<Rate>, Displayable {
         intTen_.growToPow(new LgInt(_numberMeaningDigits - 1));
         copie_.numerateur.multiplyBy(intTen_);
         String retour_ = copie_.intPart().toNumberString();
-        retour_ = EMPTY_STRING + retour_.charAt(0) + String.valueOf(SEP_INT_DEC) + retour_.substring(1);
-        return signum_ + retour_ + POWER + puissance_;
+        StringBuilder str_ = new StringBuilder();
+        str_.append(signum_);
+        str_.append(retour_.charAt(0));
+        str_.append(SEP_INT_DEC);
+        str_.append(retour_.substring(1));
+        str_.append(POWER);
+        str_.append(puissance_);
+        return str_.toString();
     }
 
     @Override

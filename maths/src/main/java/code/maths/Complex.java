@@ -1,10 +1,11 @@
 package code.maths;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 
-public final class Complex implements Equallable<Complex> {
+public final class Complex implements Equallable<Complex>, Displayable {
 
     private static final String SEPARATOR = ":";
 
@@ -91,9 +92,16 @@ public final class Complex implements Equallable<Complex> {
         }
         return true;
     }
-    @FromAndToString
     @Override
     public String toString() {
-        return real+SEPARATOR+imag;
+        return display();
+    }
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(real.toNumberString());
+        str_.append(SEPARATOR);
+        str_.append(imag.toNumberString());
+        return str_.toString();
     }
 }

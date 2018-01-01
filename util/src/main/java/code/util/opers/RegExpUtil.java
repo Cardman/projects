@@ -62,23 +62,25 @@ public final class RegExpUtil {
     }
 
     public static String pars(String _exp) {
-        return LEFT_PAR_REG_EXP + _exp + RIGHT_PAR_REG_EXP;
+        return StringList.concat(LEFT_PAR_REG_EXP, _exp, RIGHT_PAR_REG_EXP);
     }
 
     public static String wholeString(String _string) {
-        return BEGIN_REG_EXP + _string + END_REG_EXP;
+        return StringList.concat(BEGIN_REG_EXP, _string, END_REG_EXP);
     }
 
     public static String beginString(String _string) {
-        return BEGIN_REG_EXP + _string;
+        return StringList.concat(BEGIN_REG_EXP, _string);
     }
 
     public static String endString(String _string) {
-        return _string + END_REG_EXP;
+        return StringList.concat(_string, END_REG_EXP);
     }
 
     public static String quote(String _string) {
-        return _string.replaceAll(ESCAPED_META,BACK_SLASH+BACK_SLASH+VAR_REG_EXP);
+        String bk_ = String.valueOf(BACK_SLASH);
+        bk_ = StringList.concat(bk_, bk_);
+        return _string.replaceAll(ESCAPED_META,StringList.concat(bk_,VAR_REG_EXP));
     }
 
     public static String classOfCharacters(String... _args) {
@@ -86,7 +88,7 @@ public final class RegExpUtil {
         for (String s: _args) {
             escaped_.add(quote(s));
         }
-        return LEFT_CLASS_REG_EXP+escaped_.join(EMPTY_STRING)+RIGHT_CLASS_REG_EXP;
+        return StringList.concat(LEFT_CLASS_REG_EXP,escaped_.join(EMPTY_STRING),RIGHT_CLASS_REG_EXP);
     }
 
     public static String outOfClassOfCharacters(String... _args) {
@@ -94,7 +96,7 @@ public final class RegExpUtil {
         for (String s: _args) {
             escaped_.add(quote(s));
         }
-        return LEFT_CLASS_REG_EXP+BEGIN_REG_EXP+escaped_.join(EMPTY_STRING)+RIGHT_CLASS_REG_EXP;
+        return StringList.concat(LEFT_CLASS_REG_EXP,BEGIN_REG_EXP,escaped_.join(EMPTY_STRING),RIGHT_CLASS_REG_EXP);
     }
 
     public static CustList<Integer> indexesOfRegExp(CustList<String> _list,String _regExp) {

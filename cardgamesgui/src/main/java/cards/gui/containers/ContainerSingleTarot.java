@@ -253,7 +253,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         byte nombreDeJoueurs_;
         GameTarot partie_=partieTarot();
         nombreDeJoueurs_=partie_.getNombreDeJoueurs();
-        getOwner().setTitle(EMPTY+GameEnum.TAROT);
+        getOwner().setTitle(GameEnum.TAROT.toString());
         placerTarot();
         pack();
         StringList pseudos_=pseudosTarot();
@@ -301,7 +301,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
             for(BidTarot b: partie_.tousContrats()) {
                 String pseudo_ = pseudos_.get(player_);
-                ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+b+RETURN_LINE_CHAR);
+                ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+b.display()+RETURN_LINE);
                 player_ = partie_.playerAfter(player_);
             }
             if(partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
@@ -312,7 +312,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 getConsulting().setEnabled(true);
                 setCanBid(true);
                 for(BidTarot ench_:partie_.allowedBids()) {
-                    ajouterBoutonContratTarot(ench_.toString(),ench_,ench_.estDemandable(contrat_));
+                    ajouterBoutonContratTarot(ench_.display(),ench_,ench_.estDemandable(contrat_));
                 }
                 pack();
             }
@@ -326,7 +326,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
                 for(BidTarot b: partie_.tousContrats()) {
                     String pseudo_ = pseudos_.get(player_);
-                    ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+b+RETURN_LINE_CHAR);
+                    ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+b.display()+RETURN_LINE);
                     player_ = partie_.playerAfter(player_);
                 }
                 afficherMainUtilisateurTarot(false);
@@ -419,12 +419,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
                     for(BidTarot b: partie_.tousContrats()) {
                         String pseudo_ = pseudos_.get(player_);
-                        ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+b+RETURN_LINE_CHAR);
+                        ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+b.display()+RETURN_LINE);
                         player_ = partie_.playerAfter(player_);
                     }
                     if(partie_.existeCarteAppelee()) {
                         String pseudo_ = pseudos_.get(partie_.getPreneur());
-                        ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+partie_.getCarteAppelee()+RETURN_LINE_CHAR);
+                        ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+partie_.getCarteAppelee().toString()+RETURN_LINE);
                     }
                     afficherMainUtilisateurTarot(false);
                     addButtonSeeDogTarot(getMessages().getVal(MainWindow.SEE_DOG), true);
@@ -435,12 +435,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
                     for(BidTarot b: partie_.tousContrats()) {
                         String pseudo_ = pseudos_.get(player_);
-                        ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+b+RETURN_LINE_CHAR);
+                        ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+b.display()+RETURN_LINE);
                         player_ = partie_.playerAfter(player_);
                     }
                     if(partie_.existeCarteAppelee()) {
                         String pseudo_ = pseudos_.get(partie_.getPreneur());
-                        ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+partie_.getCarteAppelee()+RETURN_LINE_CHAR);
+                        ajouterTexteDansZone(pseudo_+INTRODUCTION_PTS+partie_.getCarteAppelee().toString()+RETURN_LINE);
                     }
                     setChien(partie_.getDistribution().derniereMain(),false);
                     afficherMainUtilisateurTarot(false);
@@ -544,7 +544,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         panneau_.add(bouton_);
     }
     private void initSlamButtonTarot() {
-        LabelButton bouton_=new LabelButton(BidTarot.SLAM.toString());
+        LabelButton bouton_=new LabelButton(BidTarot.SLAM.display());
         bouton_.addMouseListener(new SlamEvent(this));
         setSlamButton(bouton_);
     }
@@ -843,10 +843,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if(partie_.pasJeuMisere()) {
                 HandTarot poignee_=partie_.getPoignee(_joueur);
                 for(Handfuls annonce_:partie_.getAnnoncesPoignees(_joueur)) {
-                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
+                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_.toString()+RETURN_LINE);
                 }
                 for(Miseres annonce_:partie_.getAnnoncesMiseres(_joueur)) {
-                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
+                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_.toString()+RETURN_LINE);
                 }
                 if(!poignee_.estVide()) {
                     getHandfuls().getVal(_joueur).setText(partie_.getAnnoncesPoignees(_joueur).first().toString());
@@ -880,11 +880,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 HandTarot poignee_=partie_.strategiePoignee(_joueur);
                 partie_.ajouterPoignee(poignee_,_joueur);
                 for(Handfuls annonce_:annoncesPoignees_) {
-                    ThreadInvoker.invokeNow(new AddTextEvents(this, _pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR));
+                    ThreadInvoker.invokeNow(new AddTextEvents(this, _pseudo+INTRODUCTION_PTS+annonce_.toString()+RETURN_LINE));
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
                 }
                 for(Miseres annonce_:annoncesMiseres_) {
-                    ThreadInvoker.invokeNow(new AddTextEvents(this, _pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR));
+                    ThreadInvoker.invokeNow(new AddTextEvents(this, _pseudo+INTRODUCTION_PTS+annonce_.toString()+RETURN_LINE));
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
                 }
                 if(!poignee_.estVide()) {
@@ -948,7 +948,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_=partieTarot();
         if(partie_.getCarteAppelee().contient(_carteJouee)) {
             getMini().setStatus(Status.CALLED_PLAYER, DealTarot.NUMERO_UTILISATEUR);
-            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+Status.CALLED_PLAYER);
+            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
         }
         /*L'utilisateur joue sa carte*/
         partie_.ajouterUneCarteDansPliEnCours(DealTarot.NUMERO_UTILISATEUR,_carteJouee);
@@ -1233,7 +1233,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 } else {
                     setCanBid(true);
                     for(BidTarot b:partie_.allowedBids()) {
-                        ajouterBoutonContratTarot(b.toString(),b,b.estDemandable(partie_.getContrat()));
+                        ajouterBoutonContratTarot(b.display(),b,b.estDemandable(partie_.getContrat()));
                     }
                     pack();
                 }
@@ -1257,7 +1257,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if (!partie_.getRegles().getDiscardAfterCall()) {
                 partie_.appelApresEcart();
                 if(partie_.existeCarteAppelee()) {
-                    ajouterTexteDansZone(pseudosTarot().get(partie_.getPreneur())+INTRODUCTION_PTS+partie_.getCarteAppelee()+RETURN_LINE_CHAR);
+                    ajouterTexteDansZone(pseudosTarot().get(partie_.getPreneur())+INTRODUCTION_PTS+partie_.getCarteAppelee().toString()+RETURN_LINE);
                 }
             } else {
                 partie_.ecarter(true);
@@ -1425,7 +1425,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void conseil() {
         GameTarot partie_=partieTarot();
         if(partie_.keepBidding()) {
-            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_BID), partie_.strategieContrat().toString());
+            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_BID), partie_.strategieContrat().display());
             message_ += partie_.getRaison();
             ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
@@ -1433,7 +1433,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if (!partie_.getRegles().getDiscardAfterCall()) {
                 if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                     CallDiscard cartesAppeler_ = partie_.strategieAppelApresEcart(true);
-                    String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.getCarteAppelee().premiereCarte().toString());
+                    String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.getCarteAppelee().premiereCarte().display());
                     message_+=partie_.getRaison()+RETURN_LINE_CHAR;
                     message_ += StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_DISCARD), cartesAppeler_.getEcartAFaire().toString());
                     message_+=partie_.getRaison();
@@ -1444,7 +1444,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     if(cartesAppeler_.estVide()) {
                         return;
                     }
-                    String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.premiereCarte().toString());
+                    String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.premiereCarte().display());
                     message_+=partie_.getRaison();
                     ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
                     //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
@@ -1454,7 +1454,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 if(cartesAppeler_.estVide()) {
                     return;
                 }
-                String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.premiereCarte().toString());
+                String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), cartesAppeler_.premiereCarte().display());
                 message_+=partie_.getRaison();
                 ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
@@ -1469,7 +1469,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             ConfirmDialog.showMessage(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else {
-            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_PLAYER), partie_.strategieJeuCarteUnique().toString());
+            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_PLAYER), partie_.strategieJeuCarteUnique().display());
             message_+=partie_.getRaison();
             ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
@@ -1510,7 +1510,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 !repartition_.getVal(CardTarot.EXCUSE.couleur()).estVide(),repartition_,
                 DealTarot.NUMERO_UTILISATEUR,
                 carteAppeleeJouee_);
-        DialogHelpTarot.setTitleDialog(getWindow(),getMessages().getVal(MainWindow.HELP_GAME)+SPACE+GameEnum.TAROT);
+        DialogHelpTarot.setTitleDialog(getWindow(),getMessages().getVal(MainWindow.HELP_GAME)+SPACE+GameEnum.TAROT.toString());
         EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = partie_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);

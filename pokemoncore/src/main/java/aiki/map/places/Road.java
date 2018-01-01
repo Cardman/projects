@@ -112,7 +112,7 @@ public class Road extends Campaign implements InitializedPlace{
     @Override
     public NumberMap<Byte,Level> getLevels() {
         NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
-        levels_.put((byte) CustList.FIRST_INDEX, level);
+        levels_.put(CustList.FIRST_INDEX, level);
         return levels_;
     }
 

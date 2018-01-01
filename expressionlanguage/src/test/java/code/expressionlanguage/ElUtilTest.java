@@ -1796,6 +1796,26 @@ public class ElUtilTest {
         assertSame(NullStruct.NULL_VALUE, ((Struct[])((Struct[])res_.getInstance())[0].getInstance())[0]);
     }
 
+    @Test
+    public void processEl133Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("(1 + 2) * 3.0",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(9L, (Number)res_);
+    }
+
+    @Test
+    public void processEl134Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(" 2.0 + $static$$math. quot( -8l, 3l) + 3.0",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(2L, (Number)res_);
+    }
+
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
         ContextEl context_ = contextEl();

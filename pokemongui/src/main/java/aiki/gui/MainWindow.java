@@ -1187,7 +1187,7 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public void initIndexInGame(boolean _first) {
         if (_first) {
-            setIndexInGame((byte) CustList.FIRST_INDEX);
+            setIndexInGame(CustList.FIRST_INDEX);
         }
     }
 
@@ -1424,7 +1424,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void resetIndexInGame() {
-        setIndexInGame((byte) CustList.INDEX_NOT_FOUND_ELT);
+        setIndexInGame(CustList.INDEX_NOT_FOUND_ELT);
     }
 
     public void setIndexInGame(byte _indexInGame) {

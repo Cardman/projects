@@ -975,8 +975,8 @@ public class FrontBattle extends JPanel {
         drawBlueRect = false;
 //        xIni = xCoords.getVal((byte) CustList.FIRST_INDEX);
 //        yIni = yCoords.getVal((byte) CustList.FIRST_INDEX);
-        xIni = playerTargets.getVal((byte) CustList.FIRST_INDEX).getxPoint();
-        yIni = playerTargets.getVal((byte) CustList.FIRST_INDEX).getyPoint();
+        xIni = playerTargets.getVal(CustList.FIRST_INDEX).getxPoint();
+        yIni = playerTargets.getVal(CustList.FIRST_INDEX).getyPoint();
         imageNumber = 0;
         xIni += maxWidth / 2;
         yIni += maxHeight / 2;
@@ -995,8 +995,8 @@ public class FrontBattle extends JPanel {
         int yEnd_;
 //        xEnd_ = xCoordsFoe.getVal((byte) CustList.FIRST_INDEX);
 //        yEnd_ = yCoordsFoe.getVal((byte) CustList.FIRST_INDEX);
-        xEnd_ = foeTargets.getVal((byte) CustList.FIRST_INDEX).getxPoint();
-        yEnd_ = foeTargets.getVal((byte) CustList.FIRST_INDEX).getyPoint();
+        xEnd_ = foeTargets.getVal(CustList.FIRST_INDEX).getxPoint();
+        yEnd_ = foeTargets.getVal(CustList.FIRST_INDEX).getyPoint();
         xEnd_ += maxWidth / 2;
         yEnd_ += maxHeight / 2;
         String img_ = facade.getData().getMiniItems().getVal(_ball);

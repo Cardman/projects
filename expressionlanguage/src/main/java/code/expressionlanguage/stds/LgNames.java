@@ -1010,13 +1010,13 @@ public class LgNames {
                 return toFoundMethod(classes_, resInst_);
             }
             if (!_staticContext && _conf.isAmbigous() && _failIfError) {
-                String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+                StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
                 StringList classesNames_ = new StringList();
                 for (ClassArgumentMatching c: _argsClass) {
                     classesNames_.add(c.getName());
                 }
-                trace_ += classesNames_.join(SEP_ARG);
-                trace_ += PAR_RIGHT;
+                trace_.append(classesNames_.join(SEP_ARG));
+                trace_.append(PAR_RIGHT);
                 throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
             }
             if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
@@ -1026,13 +1026,13 @@ public class LgNames {
                 //static access
                 throw new StaticAccessException(_conf.joinPages());
             }
-            String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+            StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _argsClass) {
                 classesNames_.add(c.getName());
             }
-            trace_ += classesNames_.join(SEP_ARG);
-            trace_ += PAR_RIGHT;
+            trace_.append(classesNames_.join(SEP_ARG));
+            trace_.append(PAR_RIGHT);
             throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
         }
         ClassMethodIdResult resInst_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
@@ -1048,13 +1048,13 @@ public class LgNames {
         }
         if (!_staticContext && _conf.isAmbigous()) {
             clCurName_ = _class.getName();
-            String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+            StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _argsClass) {
                 classesNames_.add(c.getName());
             }
-            trace_ += classesNames_.join(SEP_ARG);
-            trace_ += PAR_RIGHT;
+            trace_.append(classesNames_.join(SEP_ARG));
+            trace_.append(PAR_RIGHT);
             throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
         }
         if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
@@ -1067,13 +1067,13 @@ public class LgNames {
             //static access
             throw new StaticAccessException(_conf.joinPages());
         }
-        String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+        StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
         StringList classesNames_ = new StringList();
         for (ClassArgumentMatching c: _argsClass) {
             classesNames_.add(c.getName());
         }
-        trace_ += classesNames_.join(SEP_ARG);
-        trace_ += PAR_RIGHT;
+        trace_.append(classesNames_.join(SEP_ARG));
+        trace_.append(PAR_RIGHT);
         throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
     }
     public static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching... _args) {
@@ -1115,14 +1115,16 @@ public class LgNames {
             possibleMethods_.add(ctor_);
         }
         if (possibleMethods_.isEmpty()) {
-            String trace_ = clCurName_+PAR_LEFT;
+            StringBuilder trace_ = new StringBuilder(clCurName_).append(PAR_LEFT);
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
                 classesNames_.add(c.getName());
             }
-            trace_ += classesNames_.join(SEP_ARG);
-            trace_ += PAR_RIGHT;
-            throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
+            trace_.append(classesNames_.join(SEP_ARG));
+            trace_.append(PAR_RIGHT);
+            trace_.append(RETURN_LINE);
+            trace_.append(_conf.joinPages());
+            throw new NoSuchDeclaredConstructorException(trace_.toString());
         }
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
@@ -1143,14 +1145,16 @@ public class LgNames {
         }
         sortCtors(signatures_, gr_);
         if (gr_.isAmbigous()) {
-            String trace_ = clCurName_+PAR_LEFT;
+            StringBuilder trace_ = new StringBuilder(clCurName_).append(PAR_LEFT);
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
                 classesNames_.add(c.getName());
             }
-            trace_ += classesNames_.join(SEP_ARG);
-            trace_ += PAR_RIGHT;
-            throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
+            trace_.append(classesNames_.join(SEP_ARG));
+            trace_.append(PAR_RIGHT);
+            trace_.append(RETURN_LINE);
+            trace_.append(_conf.joinPages());
+            throw new NoSuchDeclaredConstructorException(trace_.toString());
         }
         ConstructorId ctor_ = signatures_.first().getConstraints();
         ConstrustorIdVarArg out_;

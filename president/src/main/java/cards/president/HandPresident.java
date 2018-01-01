@@ -235,7 +235,7 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
     public String toString() {
         StringList retString_= new StringList();
         for (CardPresident c: cards) {
-            retString_.add(c.toString());
+            retString_.add(c.display());
         }
         return retString_.join(SEPARATOR);
     }
