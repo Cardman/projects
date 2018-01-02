@@ -262,11 +262,6 @@ public class CustList<T> implements Listable<T> {
         return indexes_;
     }
 
-    @Override
-    public String toString() {
-        return list.toString();
-    }
-
     public CustList<CustList<T>> getBaseGroupsSameCompare(Comparator<T> _cmp) {
         CustList<T> copy_ = new CustList<T>(this);
         copy_.sortElts(_cmp);

@@ -91,11 +91,6 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Dis
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public String getMove() {
         return move;
     }
@@ -110,7 +105,7 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Dis
         StringBuilder str_ = new StringBuilder();
         str_.append(move);
         str_.append(SEPARATOR);
-        str_.append(teamPosition);
+        str_.append(teamPosition.display());
         return str_.toString();
     }
 }

@@ -128,7 +128,7 @@ final class ObjectSerial extends TemplateSerial {
         Constructor<?> constr_ = null;
         ClassResult out_ = new ClassResult();
         try {
-            Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getTagName()+_node.getAttribute(INTERN));
+            Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(StringList.concat(_node.getTagName(),_node.getAttribute(INTERN)));
             if (class_.isMemberClass() && !Modifier.isStatic(class_.getModifiers())) {
                 Class<?> curClass_ = class_;
                 CustList<Class<?>> classes_ = new CustList<Class<?>>();

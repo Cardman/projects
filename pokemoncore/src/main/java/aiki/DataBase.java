@@ -2192,7 +2192,7 @@ public class DataBase implements WithMathFactory {
             if (!StringList.isWord(foldersBase_.first())) {
                 throw new DataException();
             }
-            common_ = foldersBase_.first()+SEPARATOR_FILES;
+            common_ = StringList.concat(foldersBase_.first(),SEPARATOR_FILES);
             listRelativePaths_.removePrefixInStrings(common_);
         }
         StringList listCopy_ = new StringList();
@@ -2208,7 +2208,7 @@ public class DataBase implements WithMathFactory {
         StringList filesNames_;
         filesNames_ = new StringList();
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+POKEDEX_FOLDER+SEPARATOR_FILES)) {}
-        for (String f: listRelativePaths_.filterBeginIgnoreCase(POKEDEX_FOLDER+SEPARATOR_FILES)) {
+        for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(POKEDEX_FOLDER,SEPARATOR_FILES))) {
             //String n_ = f.replaceAll(BEGIN_REG_EXP+POKEDEX_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String n_ = StringList.skipStringUntil(f,SEPARATOR_FILES);
             if (n_.isEmpty()) {
@@ -2216,14 +2216,14 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            PokemonData f_ = (PokemonData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
+            PokemonData f_ = (PokemonData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), f_);
         }
         checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
         calculateAvgPound();
         filesNames_.clear();
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+MOVES_FOLDER+SEPARATOR_FILES)) {}
-        for (String f: listRelativePaths_.filterBeginIgnoreCase(MOVES_FOLDER+SEPARATOR_FILES)) {
+        for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(MOVES_FOLDER,SEPARATOR_FILES))) {
             //String n_ = f.replaceAll(BEGIN_REG_EXP+MOVES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String n_ = StringList.skipStringUntil(f,SEPARATOR_FILES);
             if (n_.isEmpty()) {
@@ -2231,12 +2231,12 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            MoveData move_ = (MoveData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
+            MoveData move_ = (MoveData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), move_);
         }
         _perCentLoading_ = 10;
         checkCaseOfFiles(MOVES_FOLDER, filesNames_);
-        StringList tmHm_ = StringList.splitChars(files_.getVal(common_ + CT_CS_FILE), RETURN_LINE_CHAR);
+        StringList tmHm_ = StringList.splitChars(files_.getVal(StringList.concat(common_,CT_CS_FILE)), RETURN_LINE_CHAR);
         for(String l:tmHm_){
             if (l.startsWith(CT)) {
                 StringList infos_=StringList.splitChars(l, TAB_CHAR);
@@ -2263,7 +2263,7 @@ public class DataBase implements WithMathFactory {
         }
         filesNames_.clear();
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+OBJECTS_FOLDER+SEPARATOR_FILES)) {}
-        for (String f: listRelativePaths_.filterBeginIgnoreCase(ITEMS_FOLDER+SEPARATOR_FILES)) {
+        for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(ITEMS_FOLDER,SEPARATOR_FILES))) {
             //String n_ = f.replaceAll(BEGIN_REG_EXP+OBJECTS_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String n_ = StringList.skipStringUntil(f,SEPARATOR_FILES);
             if (n_.isEmpty()) {
@@ -2271,13 +2271,13 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            Item o_ = (Item) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
+            Item o_ = (Item) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), o_);
         }
         checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
         filesNames_.clear();
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+ABILITIES_FOLDER+SEPARATOR_FILES)) {}
-        for (String f: listRelativePaths_.filterBeginIgnoreCase(ABILITIES_FOLDER+SEPARATOR_FILES)) {
+        for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(ABILITIES_FOLDER,SEPARATOR_FILES))) {
             //String n_ = f.replaceAll(BEGIN_REG_EXP+ABILITIES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String n_ = StringList.skipStringUntil(f,SEPARATOR_FILES);
             if (n_.isEmpty()) {
@@ -2285,13 +2285,13 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            AbilityData ab_ = (AbilityData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
+            AbilityData ab_ = (AbilityData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), ab_);
         }
         checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
         filesNames_.clear();
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+STATUS_FOLDER+SEPARATOR_FILES)) {}
-        for (String f: listRelativePaths_.filterBeginIgnoreCase(STATUS_FOLDER+SEPARATOR_FILES)) {
+        for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(STATUS_FOLDER,SEPARATOR_FILES))) {
             //String n_ = f.replaceAll(BEGIN_REG_EXP+STATUS_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String n_ = StringList.skipStringUntil(f,SEPARATOR_FILES);
             if (n_.isEmpty()) {
@@ -2299,7 +2299,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            Status st_ = (Status) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
+            Status st_ = (Status) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), st_);
         }
         checkCaseOfFiles(STATUS_FOLDER, filesNames_);
@@ -2310,12 +2310,12 @@ public class DataBase implements WithMathFactory {
         imagesTiles = new StringMap<ObjectMap<ScreenCoords,String>>();
         StringList images_;
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(IMAGES_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             filesNames_.add(s);
             //String key_ = s.replaceAll(BEGIN_REG_EXP+IMAGES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            images.put(key_, files_.getVal(common_+s));
+            images.put(key_, files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(IMAGES_FOLDER, filesNames_);
         filesNames_.clear();
@@ -2323,40 +2323,40 @@ public class DataBase implements WithMathFactory {
         miniMap = new StringMap<String>();
         StringList miniMap_;
 //        miniMap_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+MINI_MAP_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        miniMap_ = listRelativePaths_.filterStrictBeginIgnoreCase(MINI_MAP_FOLDER+SEPARATOR_FILES);
+        miniMap_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES));
         for (String s: miniMap_) {
             filesNames_.add(s);
             //String key_ = s.replaceAll(BEGIN_REG_EXP+MINI_MAP_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            miniMap.put(key_, files_.getVal(common_+s));
+            miniMap.put(key_, files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(MINI_MAP_FOLDER, filesNames_);
 
         filesNames_.clear();
         links = new StringMap<String>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+LINKS_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(LINKS_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(LINKS_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             filesNames_.add(s);
 //            String key_ = s.replaceAll(BEGIN_REG_EXP+LINKS_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            links.put(key_, files_.getVal(common_+s));
+            links.put(key_, files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(LINKS_FOLDER, filesNames_);
         filesNames_.clear();
         people = new StringMap<String>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+PEOPLE_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(PEOPLE_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             filesNames_.add(s);
 //            String key_ = s.replaceAll(BEGIN_REG_EXP+PEOPLE_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            people.put(key_, files_.getVal(common_+s));
+            people.put(key_, files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(PEOPLE_FOLDER, filesNames_);
         filesNames_.clear();
         frontHeros = new ObjectMap<ImageHeroKey,String>();
-        for (String l: StringList.splitChars(files_.getVal(common_ + HERO_FOLDER+SEPARATOR_FILES+HERO_FRONT), RETURN_LINE_CHAR)) {
+        for (String l: StringList.splitChars(files_.getVal(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_FRONT)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
@@ -2367,7 +2367,7 @@ public class DataBase implements WithMathFactory {
             frontHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
         }
         backHeros = new ObjectMap<ImageHeroKey,String>();
-        for (String l: StringList.splitChars(files_.getVal(common_ + HERO_FOLDER+SEPARATOR_FILES+HERO_BACK), RETURN_LINE_CHAR)) {
+        for (String l: StringList.splitChars(files_.getVal(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_BACK)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
@@ -2378,7 +2378,7 @@ public class DataBase implements WithMathFactory {
             backHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
         }
         overWorldHeros = new ObjectMap<ImageHeroKey,String>();
-        for (String l: StringList.splitChars(files_.getVal(common_ + HERO_FOLDER+SEPARATOR_FILES+HERO_MINI), RETURN_LINE_CHAR)) {
+        for (String l: StringList.splitChars(files_.getVal(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_MINI)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
@@ -2390,60 +2390,60 @@ public class DataBase implements WithMathFactory {
             overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_), infos_.last());
         }
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+HERO_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(HERO_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(HERO_FOLDER,SEPARATOR_FILES));
         checkCaseOfFiles(HERO_FOLDER, filesNames_);
         filesNames_.clear();
         trainers = new StringMap<String>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+TRAINERS_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(TRAINERS_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             filesNames_.add(s);
 //            String key_ = s.replaceAll(BEGIN_REG_EXP+TRAINERS_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            trainers.put(key_, files_.getVal(common_ + s));
+            trainers.put(key_, files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(TRAINERS_FOLDER, filesNames_);
         filesNames_.clear();
         maxiPkBack = new StringMap<String>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+BACK_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(BACK_IMAGES_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             //String n_ = s.replaceAll(BEGIN_REG_EXP+BACK_IMAGES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            maxiPkBack.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
+            maxiPkBack.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         maxiPkFront = new StringMap<String>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+FRONT_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(FRONT_IMAGES_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             //String n_ = s.replaceAll(BEGIN_REG_EXP+FRONT_IMAGES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            maxiPkFront.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
+            maxiPkFront.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         miniPk = new StringMap<String>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+MINI_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(MINI_IMAGES_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             //String n_ = s.replaceAll(BEGIN_REG_EXP+MINI_IMAGES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            miniPk.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
+            miniPk.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         _perCentLoading_ = 25;
         filesNames_.clear();
         miniItems = new StringMap<String>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+OBJECTS_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(OBJECTS_IMAGES_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
                 continue;
@@ -2452,14 +2452,14 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            miniItems.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
+            miniItems.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
 
         filesNames_.clear();
         typesImages = new StringMap<String>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+TYPES_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(TYPES_IMAGES_FOLDER+SEPARATOR_FILES);
+        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
                 continue;
@@ -2468,18 +2468,18 @@ public class DataBase implements WithMathFactory {
             //String n_ = s.replaceAll(BEGIN_REG_EXP+TYPES_IMAGES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            typesImages.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
+            typesImages.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
 
-        imageTmHm = files_.getVal(common_ + IMAGE_TM_HM_FILES+IMG_FILES_RES_EXT_TXT);
-        storage = files_.getVal(common_ + IMAGE_STORAGE_FILES+IMG_FILES_RES_EXT_TXT);
-        combos = (Combos) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_ + COMBOS));
+        imageTmHm = files_.getVal(StringList.concat(common_, IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT));
+        storage = files_.getVal(StringList.concat(common_, IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT));
+        combos = (Combos) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,COMBOS)));
         completeMembersCombos();
         sortEndRound();
-        map = (DataMap) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_ + MAP_FILE));
+        map = (DataMap) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,MAP_FILE)));
         constNum = new StringMap<Rate>();
-        StringList linesNum_ = StringList.splitChars(files_.getVal(common_ + CONST_NUM), RETURN_LINE_CHAR);
+        StringList linesNum_ = StringList.splitChars(files_.getVal(StringList.concat(common_,CONST_NUM)), RETURN_LINE_CHAR);
         for (String l:linesNum_) {
             if (l.isEmpty()) {
                 continue;
@@ -2488,7 +2488,7 @@ public class DataBase implements WithMathFactory {
             constNum.put(infos_.first(), new Rate(infos_.last()));
         }
 //        constNotNum = new Map<>();
-        StringList linesNotNum_ = StringList.splitChars(files_.getVal(common_ + CONST_NOT_NUM), RETURN_LINE_CHAR);
+        StringList linesNotNum_ = StringList.splitChars(files_.getVal(StringList.concat(common_,CONST_NOT_NUM)), RETURN_LINE_CHAR);
         for (String l:linesNotNum_) {
             if (l.isEmpty()) {
                 continue;
@@ -2514,7 +2514,7 @@ public class DataBase implements WithMathFactory {
 //            constNotNum.put(infos_.first(), infos_.last());
         }
         tableTypes = new ObjectMap<TypesDuo,Rate>();
-        StringList linesTableTypes_ = StringList.splitChars(files_.getVal(common_ + TABLE_TYPES), RETURN_LINE_CHAR);
+        StringList linesTableTypes_ = StringList.splitChars(files_.getVal(StringList.concat(common_,TABLE_TYPES)), RETURN_LINE_CHAR);
         String head_ = linesTableTypes_.first();
         StringList typesOff_ = StringList.splitChars(head_, TAB_CHAR);
         typesOff_.removeString(EMPTY_STRING);
@@ -2547,7 +2547,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         lawsDamageRate = new EnumMap<DifficultyModelLaw,LawNumber>();
-        StringList laws_ = StringList.splitChars(files_.getVal(common_ + LOIS_RANDOM), RETURN_LINE_CHAR);
+        StringList laws_ = StringList.splitChars(files_.getVal(StringList.concat(common_,LOIS_RANDOM)), RETURN_LINE_CHAR);
         for(String l:laws_){
             StringList infos_=StringList.splitChars(l, TAB_CHAR);
             MonteCarloNumber law_ = new MonteCarloNumber();
@@ -2582,25 +2582,25 @@ public class DataBase implements WithMathFactory {
             lawsDamageRate.put(DifficultyModelLaw.getModelByName(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType,String>();
-        StringList courbes_ = StringList.splitChars(files_.getVal(common_ + COURBE_PTS_EXP), RETURN_LINE_CHAR);
+        StringList courbes_ = StringList.splitChars(files_.getVal(StringList.concat(common_,COURBE_PTS_EXP)), RETURN_LINE_CHAR);
         for (String l: courbes_) {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             expGrowth.put(ExpType.getExpTypeByName(infos_.first()), infos_.get(1));
         }
         rates = new EnumMap<DifficultyWinPointsFight,String>();
-        StringList rates_ = StringList.splitChars(files_.getVal(common_ + RATE_WON_POINTS), RETURN_LINE_CHAR);
+        StringList rates_ = StringList.splitChars(files_.getVal(StringList.concat(common_,RATE_WON_POINTS)), RETURN_LINE_CHAR);
         for (String l: rates_) {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             rates.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), infos_.get(1));
         }
         typesColors = new StringMap<String>();
-        StringList colorTypes_ = StringList.splitChars(files_.getVal(common_ + TYPES_COLOR_CODE+IMG_FILES_RES_EXT_TXT), RETURN_LINE_CHAR);
+        StringList colorTypes_ = StringList.splitChars(files_.getVal(StringList.concat(common_, TYPES_COLOR_CODE,IMG_FILES_RES_EXT_TXT)), RETURN_LINE_CHAR);
         for (String l: colorTypes_) {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             String colorStr_ = infos_.get(1);
             typesColors.put(infos_.first(), colorStr_);
         }
-        endGameImage = files_.getVal(common_ + END_GAME_IMAGE+IMG_FILES_RES_EXT_TXT);
+        endGameImage = files_.getVal(StringList.concat(common_, END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT));
         translatedBooleans = new StringMap<EnumMap<SelectedBoolean,String>>();
         translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight,String>>();
         translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw,String>>();
@@ -2620,155 +2620,155 @@ public class DataBase implements WithMathFactory {
         litterals = new StringMap<StringMap<String>>();
         _perCentLoading_ = 30;
         for (String l: Constants.getAvailableLanguages()) {
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_GENDERS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_GENDERS);
             EnumMap<Gender,String> genders_ = new EnumMap<Gender, String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 genders_.put(Gender.getGenderByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedGenders.put(l, genders_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_BOOLEANS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_BOOLEANS);
             EnumMap<SelectedBoolean,String> booleans_ = new EnumMap<SelectedBoolean, String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 booleans_.put(SelectedBoolean.getBoolByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedBooleans.put(l, booleans_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_DIFF_WIN_PTS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_DIFF_WIN_PTS);
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 diffWinPts_.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffWinPts.put(l, diffWinPts_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_DIFF_MODEL_LAW;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_DIFF_MODEL_LAW);
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffModelLaw.put(l, diffLaw_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ENVIRONMENTS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ENVIRONMENTS);
             EnumMap<EnvironmentType,String> environments_ = new EnumMap<EnvironmentType, String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 environments_.put(EnvironmentType.getEnvByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedEnvironment.put(l, environments_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_STATISTICS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_STATISTICS);
             EnumMap<Statistic,String> statistics_ = new EnumMap<Statistic, String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 statistics_.put(Statistic.getStatisticByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatistics.put(l, statistics_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_TARGETS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_TARGETS);
             EnumMap<TargetChoice,String> targets_ = new EnumMap<TargetChoice, String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 targets_.put(TargetChoice.getTargetChoiceByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTargets.put(l, targets_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_CATEGORIES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_CATEGORIES);
             StringMap<String> categories_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 categories_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedCategories.put(l, categories_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_TYPES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_TYPES);
             StringMap<String> types_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 types_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTypes.put(l, types_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_POKEMON;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_POKEMON);
             StringMap<String> pokemon_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 pokemon_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedPokemon.put(l, pokemon_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_MOVES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_MOVES);
             StringMap<String> moves_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 moves_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedMoves.put(l, moves_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ITEMS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ITEMS);
             StringMap<String> items_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 items_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedItems.put(l, items_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ABILITIES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ABILITIES);
             StringMap<String> abilities_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 abilities_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedAbilities.put(l, abilities_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_STATUS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_STATUS);
             StringMap<String> status_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 status_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatus.put(l, status_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_MATH;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_MATH);
             StringMap<String> fctsMath_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 fctsMath_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedFctMath.put(l, fctsMath_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_CLASSES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_CLASSES);
             StringMap<String> descrClasses_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 descrClasses_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedClassesDescriptions.put(l, descrClasses_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_LITTERAL;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_LITTERAL);
             StringMap<String> litteral_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 litteral_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.mid(CustList.SECOND_INDEX, infos_.size()).join(TAB)));
             }
@@ -2778,77 +2778,77 @@ public class DataBase implements WithMathFactory {
 //        if (compileFiles) {
 //            filesNames_.clear();
 ////            for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+WEB_FOLDER+SEPARATOR_FILES)) {}
-//            for (String f: listRelativePaths_.filterBeginIgnoreCase(WEB_FOLDER+SEPARATOR_FILES)) {
-//                String content_ = files_.getVal(common_ + f);
+//            for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(WEB_FOLDER,SEPARATOR_FILES))) {
+//                String content_ = files_.getVal(StringList.concat(common_,f));
 //                if (content_.isEmpty()) {
 //                    continue;
 //                }
 //                webFilesTmp.put(f.toLowerCase(), content_);
 //            }
 ////            for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+WEB_GAME+SEPARATOR_FILES)) {}
-//            for (String f: listRelativePaths_.filterBeginIgnoreCase(WEB_GAME+SEPARATOR_FILES)) {
-//                String content_ = files_.getVal(common_ + f);
+//            for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(WEB_GAME,SEPARATOR_FILES))) {
+//                String content_ = files_.getVal(StringList.concat(common_,f));
 //                if (content_.isEmpty()) {
 //                    continue;
 //                }
 //                webGameTmp.put(f.toLowerCase(), content_);
 //            }
 ////            for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+WEB_PROG+SEPARATOR_FILES)) {}
-//            for (String f: listRelativePaths_.filterBeginIgnoreCase(WEB_PROG+SEPARATOR_FILES)) {
-//                String content_ = files_.getVal(common_ + f);
+//            for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(WEB_PROG,SEPARATOR_FILES))) {
+//                String content_ = files_.getVal(StringList.concat(common_,f));
 //                if (content_.isEmpty()) {
 //                    continue;
 //                }
 //                webProgTmp.put(f.toLowerCase(), content_);
 //            }
 ////            for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+WEB_FIGHT+SEPARATOR_FILES)) {}
-//            for (String f: listRelativePaths_.filterBeginIgnoreCase(WEB_FIGHT+SEPARATOR_FILES)) {
-//                String content_ = files_.getVal(common_ + f);
+//            for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(WEB_FIGHT,SEPARATOR_FILES))) {
+//                String content_ = files_.getVal(StringList.concat(common_,f));
 //                if (content_.isEmpty()) {
 //                    continue;
 //                }
 //                webFightTmp.put(f.toLowerCase(), content_);
 //            }
 ////            for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+WEB_PK+SEPARATOR_FILES)) {}
-//            for (String f: listRelativePaths_.filterBeginIgnoreCase(WEB_PK+SEPARATOR_FILES)) {
-//                String content_ = files_.getVal(common_ + f);
+//            for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(WEB_PK,SEPARATOR_FILES))) {
+//                String content_ = files_.getVal(StringList.concat(common_,f));
 //                if (content_.isEmpty()) {
 //                    continue;
 //                }
 //                webPkTmp.put(f.toLowerCase(), content_);
 //            }
 ////            for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+BEANS_FOLDER+SEPARATOR_FILES)) {}
-//            for (String f: listRelativePaths_.filterBeginIgnoreCase(BEANS_FOLDER+SEPARATOR_FILES)) {
+//            for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(BEANS_FOLDER,SEPARATOR_FILES))) {
 ////                String f_ = f.replaceAll(BEGIN_REG_EXP+BEANS_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
 //                String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
 //                if (!f_.endsWith(JAVA_FILES_EXT)) {
 //                    continue;
 //                }
-//                javaBeansTmp.put(f_, files_.getVal(common_ + f));
+//                javaBeansTmp.put(f_, files_.getVal(StringList.concat(common_,f)));
 //            }
 //            javaBeans.putAllMap(javaBeansTmp);
 //        }
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+ANIM_STATIS+SEPARATOR_FILES)) {}
-        for (String f: listRelativePaths_.filterBeginIgnoreCase(ANIM_STATIS+SEPARATOR_FILES)) {
+        for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(ANIM_STATIS,SEPARATOR_FILES))) {
             //String f_ = f.replaceAll(BEGIN_REG_EXP+ANIM_STATIS+SEPARATOR_FILES, EMPTY_STRING);
             String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
             f_ = removeExtension(f_);
             if (f_.isEmpty()) {
                 continue;
             }
-            animStatis.put(StringList.toUpperCase(f_), files_.getVal(common_ + f));
+            animStatis.put(StringList.toUpperCase(f_), files_.getVal(StringList.concat(common_,f)));
         }
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+ANIM_STATUS+SEPARATOR_FILES)) {}
-        for (String f: listRelativePaths_.filterBeginIgnoreCase(ANIM_STATUS+SEPARATOR_FILES)) {
+        for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(ANIM_STATUS,SEPARATOR_FILES))) {
             //String f_ = f.replaceAll(BEGIN_REG_EXP+ANIM_STATUS+SEPARATOR_FILES, EMPTY_STRING);
             String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
             f_ = removeExtension(f_);
             if (f_.isEmpty()) {
                 continue;
             }
-            animStatus.put(StringList.toUpperCase(f_), files_.getVal(common_ + f));
+            animStatus.put(StringList.toUpperCase(f_), files_.getVal(StringList.concat(common_,f)));
         }
-        animAbsorb = files_.getVal(common_ + ANIM_ABSORB);
+        animAbsorb = files_.getVal(StringList.concat(common_,ANIM_ABSORB));
         _perCentLoading_ = 40;
     }
 
@@ -2859,7 +2859,7 @@ public class DataBase implements WithMathFactory {
 //        javaBeans = new Map<>();
         initializeMembers();
         String common_ = Resources.ACCESS_TO_DEFAULT_FILES;
-        StringList tmHm_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + CT_CS_FILE), RETURN_LINE_CHAR);
+        StringList tmHm_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,CT_CS_FILE)), RETURN_LINE_CHAR);
         for(String l:tmHm_){
             if (l.startsWith(CT)) {
                 StringList infos_=StringList.splitChars(l, TAB_CHAR);
@@ -2885,7 +2885,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         frontHeros = new ObjectMap<ImageHeroKey,String>();
-        for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + HERO_FOLDER+SEPARATOR_FILES+HERO_FRONT), RETURN_LINE_CHAR)) {
+        for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_FRONT)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
@@ -2896,7 +2896,7 @@ public class DataBase implements WithMathFactory {
             frontHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
         }
         backHeros = new ObjectMap<ImageHeroKey,String>();
-        for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + HERO_FOLDER+SEPARATOR_FILES+HERO_BACK), RETURN_LINE_CHAR)) {
+        for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_BACK)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
@@ -2907,7 +2907,7 @@ public class DataBase implements WithMathFactory {
             backHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
         }
         overWorldHeros = new ObjectMap<ImageHeroKey,String>();
-        for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + HERO_FOLDER+SEPARATOR_FILES+HERO_MINI), RETURN_LINE_CHAR)) {
+        for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_MINI)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
             }
@@ -2918,14 +2918,14 @@ public class DataBase implements WithMathFactory {
             Sex sex_ = Sex.getSexByName(keyStrings_.last());
             overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_), infos_.last());
         }
-        imageTmHm = ResourceFiles.ressourceFichier(common_ + IMAGE_TM_HM_FILES+IMG_FILES_RES_EXT_TXT);
-        storage = ResourceFiles.ressourceFichier(common_ + IMAGE_STORAGE_FILES+IMG_FILES_RES_EXT_TXT);
-        combos = (Combos) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_ + COMBOS));
+        imageTmHm = ResourceFiles.ressourceFichier(StringList.concat(common_,IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT));
+        storage = ResourceFiles.ressourceFichier(StringList.concat(common_,IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT));
+        combos = (Combos) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,COMBOS)));
         completeMembersCombos();
-        map = (DataMap) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_ + MAP_FILE));
+        map = (DataMap) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,MAP_FILE)));
         _perCentLoading_ += delta_;
         constNum = new StringMap<Rate>();
-        StringList lines_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + CONST_NUM), RETURN_LINE_CHAR);
+        StringList lines_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,CONST_NUM)), RETURN_LINE_CHAR);
         for (String l:lines_) {
             if (l.isEmpty()) {
                 continue;
@@ -2934,7 +2934,7 @@ public class DataBase implements WithMathFactory {
             constNum.put(infos_.first(), new Rate(infos_.last()));
         }
 //        constNotNum = new Map<>();
-        lines_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + CONST_NOT_NUM), RETURN_LINE_CHAR);
+        lines_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,CONST_NOT_NUM)), RETURN_LINE_CHAR);
         for (String l:lines_) {
             if (l.isEmpty()) {
                 continue;
@@ -2960,7 +2960,7 @@ public class DataBase implements WithMathFactory {
 //            constNotNum.put(infos_.first(), infos_.last());
         }
         tableTypes = new ObjectMap<TypesDuo,Rate>();
-        StringList linesTableTypes_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + TABLE_TYPES), RETURN_LINE_CHAR);
+        StringList linesTableTypes_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,TABLE_TYPES)), RETURN_LINE_CHAR);
         String head_ = linesTableTypes_.first();
         StringList typesOff_ = StringList.splitChars(head_, TAB_CHAR);
         typesOff_.removeString(EMPTY_STRING);
@@ -2994,7 +2994,7 @@ public class DataBase implements WithMathFactory {
         }
         initTypesByTable();
         lawsDamageRate = new EnumMap<DifficultyModelLaw,LawNumber>();
-        StringList laws_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + LOIS_RANDOM), RETURN_LINE_CHAR);
+        StringList laws_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,LOIS_RANDOM)), RETURN_LINE_CHAR);
         for(String l:laws_){
             if (l.isEmpty()) {
                 continue;
@@ -3032,7 +3032,7 @@ public class DataBase implements WithMathFactory {
             lawsDamageRate.put(DifficultyModelLaw.getModelByName(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType,String>();
-        StringList courbes_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + COURBE_PTS_EXP), RETURN_LINE_CHAR);
+        StringList courbes_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,COURBE_PTS_EXP)), RETURN_LINE_CHAR);
         for (String l: courbes_) {
             if (l.isEmpty()) {
                 continue;
@@ -3041,7 +3041,7 @@ public class DataBase implements WithMathFactory {
             expGrowth.put(ExpType.getExpTypeByName(infos_.first()), infos_.get(1));
         }
         rates = new EnumMap<DifficultyWinPointsFight,String>();
-        StringList rates_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + RATE_WON_POINTS), RETURN_LINE_CHAR);
+        StringList rates_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,RATE_WON_POINTS)), RETURN_LINE_CHAR);
         for (String l: rates_) {
             if (l.isEmpty()) {
                 continue;
@@ -3050,7 +3050,7 @@ public class DataBase implements WithMathFactory {
             rates.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), infos_.get(1));
         }
         typesColors = new StringMap<String>();
-        rates_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + TYPES_COLOR_CODE+IMG_FILES_RES_EXT_TXT), RETURN_LINE_CHAR);
+        rates_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,TYPES_COLOR_CODE,IMG_FILES_RES_EXT_TXT)), RETURN_LINE_CHAR);
         for (String l: rates_) {
             if (l.isEmpty()) {
                 continue;
@@ -3059,7 +3059,7 @@ public class DataBase implements WithMathFactory {
             String colorStr_ = infos_.get(1);
             typesColors.put(infos_.first(), colorStr_);
         }
-        endGameImage = ResourceFiles.ressourceFichier(common_ + END_GAME_IMAGE+IMG_FILES_RES_EXT_TXT);
+        endGameImage = ResourceFiles.ressourceFichier(StringList.concat(common_,END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT));
         translatedBooleans = new StringMap<EnumMap<SelectedBoolean,String>>();
         translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight,String>>();
         translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw,String>>();
@@ -3078,11 +3078,11 @@ public class DataBase implements WithMathFactory {
         translatedClassesDescriptions = new StringMap<StringMap<String>>();
         litterals = new StringMap<StringMap<String>>();
         for (String l: Constants.getAvailableLanguages()) {
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_GENDERS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_GENDERS);
             EnumMap<Gender,String> genders_ = new EnumMap<Gender, String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3090,11 +3090,11 @@ public class DataBase implements WithMathFactory {
                 genders_.put(Gender.getGenderByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedGenders.put(l, genders_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_BOOLEANS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_BOOLEANS);
             EnumMap<SelectedBoolean,String> booleans_ = new EnumMap<SelectedBoolean, String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3102,11 +3102,11 @@ public class DataBase implements WithMathFactory {
                 booleans_.put(SelectedBoolean.getBoolByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedBooleans.put(l, booleans_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_DIFF_WIN_PTS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_DIFF_WIN_PTS);
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3114,11 +3114,11 @@ public class DataBase implements WithMathFactory {
                 diffWinPts_.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffWinPts.put(l, diffWinPts_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_DIFF_MODEL_LAW;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_DIFF_MODEL_LAW);
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3126,11 +3126,11 @@ public class DataBase implements WithMathFactory {
                 diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffModelLaw.put(l, diffLaw_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ENVIRONMENTS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ENVIRONMENTS);
             EnumMap<EnvironmentType,String> environments_ = new EnumMap<EnvironmentType, String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3138,11 +3138,11 @@ public class DataBase implements WithMathFactory {
                 environments_.put(EnvironmentType.getEnvByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedEnvironment.put(l, environments_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_STATISTICS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_STATISTICS);
             EnumMap<Statistic,String> statistics_ = new EnumMap<Statistic, String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3150,11 +3150,11 @@ public class DataBase implements WithMathFactory {
                 statistics_.put(Statistic.getStatisticByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatistics.put(l, statistics_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_TARGETS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_TARGETS);
             EnumMap<TargetChoice,String> targets_ = new EnumMap<TargetChoice, String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3162,11 +3162,11 @@ public class DataBase implements WithMathFactory {
                 targets_.put(TargetChoice.getTargetChoiceByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTargets.put(l, targets_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_CATEGORIES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_CATEGORIES);
             StringMap<String> categories_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3174,11 +3174,11 @@ public class DataBase implements WithMathFactory {
                 categories_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedCategories.put(l, categories_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_TYPES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_TYPES);
             StringMap<String> types_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3186,11 +3186,11 @@ public class DataBase implements WithMathFactory {
                 types_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTypes.put(l, types_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_POKEMON;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_POKEMON);
             StringMap<String> pokemon_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3198,11 +3198,11 @@ public class DataBase implements WithMathFactory {
                 pokemon_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedPokemon.put(l, pokemon_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_MOVES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_MOVES);
             StringMap<String> moves_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3210,11 +3210,11 @@ public class DataBase implements WithMathFactory {
                 moves_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedMoves.put(l, moves_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ITEMS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ITEMS);
             StringMap<String> items_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3222,11 +3222,11 @@ public class DataBase implements WithMathFactory {
                 items_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedItems.put(l, items_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ABILITIES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ABILITIES);
             StringMap<String> abilities_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3234,11 +3234,11 @@ public class DataBase implements WithMathFactory {
                 abilities_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedAbilities.put(l, abilities_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_STATUS;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_STATUS);
             StringMap<String> status_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3246,11 +3246,11 @@ public class DataBase implements WithMathFactory {
                 status_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatus.put(l, status_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_MATH;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_MATH);
             StringMap<String> fctsMath_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3258,11 +3258,11 @@ public class DataBase implements WithMathFactory {
                 fctsMath_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedFctMath.put(l, fctsMath_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_CLASSES;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_CLASSES);
             StringMap<String> descrClasses_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3270,11 +3270,11 @@ public class DataBase implements WithMathFactory {
                 descrClasses_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedClassesDescriptions.put(l, descrClasses_);
-            fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_LITTERAL;
+            fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_LITTERAL);
             StringMap<String> litteral_ = new StringMap<String>();
-            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(common_ + fileName_), RETURN_LINE_CHAR)) {
+            for (String l2_: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
                 }
@@ -3288,53 +3288,53 @@ public class DataBase implements WithMathFactory {
             if (!f.isBoost()) {
                 continue;
             }
-            String f_ = ANIM_STATIS+SEPARATOR_FILES+f.name()+IMG_FILES_RES_EXT_TXT;
-            animStatis.put(f.name(), ResourceFiles.ressourceFichier(common_ + f_));
+            String f_ = StringList.concat(ANIM_STATIS,SEPARATOR_FILES,f.name(),IMG_FILES_RES_EXT_TXT);
+            animStatis.put(f.name(), ResourceFiles.ressourceFichier(StringList.concat(common_,f_)));
         }
         for (String f: translatedStatus.getVal(Constants.getLanguage()).getKeys()) {
-            String f_ = ANIM_STATUS+SEPARATOR_FILES+f+IMG_FILES_RES_EXT_TXT;
-            animStatus.put(f, ResourceFiles.ressourceFichier(common_ + f_));
+            String f_ = StringList.concat(ANIM_STATUS,SEPARATOR_FILES,f,IMG_FILES_RES_EXT_TXT);
+            animStatus.put(f, ResourceFiles.ressourceFichier(StringList.concat(common_,f_)));
         }
-        animAbsorb = ResourceFiles.ressourceFichier(common_ + ANIM_ABSORB);
+        animAbsorb = ResourceFiles.ressourceFichier(StringList.concat(common_,ANIM_ABSORB));
         StringList filesNames_;
         filesNames_ = new StringList();
         for (String f: translatedPokemon.getVal(Constants.getLanguage()).getKeys()) {
-            String n_ = POKEDEX_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
+            String n_ = StringList.concat(POKEDEX_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(f);
-            PokemonData f_ = (PokemonData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
+            PokemonData f_ = (PokemonData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), f_);
         }
         checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
         calculateAvgPound();
         filesNames_.clear();
         for (String f: translatedMoves.getVal(Constants.getLanguage()).getKeys()) {
-            String n_ = MOVES_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
+            String n_ = StringList.concat(MOVES_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(n_);
-            MoveData move_ = (MoveData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
+            MoveData move_ = (MoveData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), move_);
         }
         checkCaseOfFiles(MOVES_FOLDER, filesNames_);
         filesNames_.clear();
         for (String f: translatedItems.getVal(Constants.getLanguage()).getKeys()) {
-            String n_ = ITEMS_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
+            String n_ = StringList.concat(ITEMS_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(n_);
-            Item o_ = (Item) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
+            Item o_ = (Item) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), o_);
         }
         checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
         filesNames_.clear();
         for (String f: translatedAbilities.getVal(Constants.getLanguage()).getKeys()) {
-            String n_ = ABILITIES_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
+            String n_ = StringList.concat(ABILITIES_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(n_);
-            AbilityData ab_ = (AbilityData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
+            AbilityData ab_ = (AbilityData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), ab_);
         }
         checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
         filesNames_.clear();
         for (String f: translatedStatus.getVal(Constants.getLanguage()).getKeys()) {
-            String n_ = STATUS_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
+            String n_ = StringList.concat(STATUS_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(n_);
-            Status st_ = (Status) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
+            Status st_ = (Status) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), st_);
         }
         checkCaseOfFiles(STATUS_FOLDER, filesNames_);
@@ -3358,41 +3358,41 @@ public class DataBase implements WithMathFactory {
         }
         maxiPkBack = new StringMap<String>();
         for (String s: pokedex.getKeys()) {
-            String n_ = BACK_IMAGES_FOLDER+SEPARATOR_FILES+s+IMG_FILES_RES_EXT_TXT;
+            String n_ = StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            maxiPkBack.put(s, ResourceFiles.ressourceFichier(common_ + n_));
+            maxiPkBack.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         maxiPkFront = new StringMap<String>();
         for (String s: pokedex.getKeys()) {
-            String n_ = FRONT_IMAGES_FOLDER+SEPARATOR_FILES+s+IMG_FILES_RES_EXT_TXT;
+            String n_ = StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            maxiPkFront.put(s, ResourceFiles.ressourceFichier(common_ + n_));
+            maxiPkFront.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         miniPk = new StringMap<String>();
         for (String s: pokedex.getKeys()) {
-            String n_ = MINI_IMAGES_FOLDER+SEPARATOR_FILES+s+IMG_FILES_RES_EXT_TXT;
+            String n_ = StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            miniPk.put(s, ResourceFiles.ressourceFichier(common_ + n_));
+            miniPk.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         miniItems = new StringMap<String>();
         for (String s: items.getKeys()) {
-            String n_ = OBJECTS_IMAGES_FOLDER+SEPARATOR_FILES+s+IMG_FILES_RES_EXT_TXT;
+            String n_ = StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            miniItems.put(s, ResourceFiles.ressourceFichier(common_ + n_));
+            miniItems.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         typesImages = new StringMap<String>();
         for (String s: types) {
-            String n_ = TYPES_IMAGES_FOLDER+SEPARATOR_FILES+s+IMG_FILES_RES_EXT_TXT;
+            String n_ = StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            typesImages.put(s, ResourceFiles.ressourceFichier(common_ + n_));
+            typesImages.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         _perCentLoading_ += delta_;
@@ -3413,23 +3413,23 @@ public class DataBase implements WithMathFactory {
                 for (Level l: l_.getLevelsList()) {
                     LevelLeague lev_ = (LevelLeague)l;
                     String f_ = lev_.getTrainer().getImageMaxiFileName();
-                    String file_ = TRAINERS_FOLDER+SEPARATOR_FILES+f_;
-                    trainers.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
+                    trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     f_ = lev_.getTrainer().getImageMiniFileName();
-                    file_ = PEOPLE_FOLDER+SEPARATOR_FILES+f_;
-                    people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
+                    people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     for (Block b_: l.getBlocks().values()) {
                         f_ = b_.getTileFileName();
-                        file_ = IMAGES_FOLDER+SEPARATOR_FILES+f_;
-                        images.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                        file_=StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,f_);
+                        images.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     }
                     f_ = lev_.getFileName();
-                    file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
-                    links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
+                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
                 String f_ = l_.getFileName();
-                String file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
-                links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
+                links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 continue;
             }
             if (p instanceof City) {
@@ -3439,45 +3439,45 @@ public class DataBase implements WithMathFactory {
                         Gym g_ = (Gym) b;
                         for (Trainer t: g_.getLevel().getGymTrainers().values()) {
                             String f_ = t.getImageMaxiFileName();
-                            String file_ = TRAINERS_FOLDER+SEPARATOR_FILES+f_;
-                            trainers.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                            String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
+                            trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                             f_ = t.getImageMiniFileName();
-                            file_ = PEOPLE_FOLDER+SEPARATOR_FILES+f_;
-                            people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                            file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
+                            people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                         }
                         String f_ = g_.getLevel().getGymLeader().getImageMaxiFileName();
-                        String file_ = TRAINERS_FOLDER+SEPARATOR_FILES+f_;
-                        trainers.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                        String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
+                        trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                         f_ = g_.getLevel().getGymLeader().getImageMiniFileName();
-                        file_ = PEOPLE_FOLDER+SEPARATOR_FILES+f_;
-                        people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                        file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
+                        people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     }
                     if (b instanceof PokemonCenter) {
                         PokemonCenter pkCenter_ = (PokemonCenter) b;
                         for (Person g: pkCenter_.getLevel().getGerants().values()) {
                             String f_ = g.getImageMiniFileName();
-                            String file_ = PEOPLE_FOLDER+SEPARATOR_FILES+f_;
-                            people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                            String file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
+                            people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                         }
                     }
                     for (Block b_: b.getLevel().getBlocks().values()) {
                         String f_ = b_.getTileFileName();
-                        String file_ = IMAGES_FOLDER+SEPARATOR_FILES+f_;
-                        images.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                        String file_=StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,f_);
+                        images.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     }
                     String f_ = b.getImageFileName();
-                    String file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
-                    links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
+                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
                 for (Block b_: c_.getLevel().getBlocks().values()) {
                     String f_ = b_.getTileFileName();
-                    String file_ = IMAGES_FOLDER+SEPARATOR_FILES+f_;
-                    images.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    String file_=StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,f_);
+                    images.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
                 for (Link k: c_.getLinksWithCaves().values()) {
                     String f_ = k.getFileName();
-                    String file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
-                    links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
+                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
                 continue;
             }
@@ -3488,61 +3488,61 @@ public class DataBase implements WithMathFactory {
                     if (c instanceof TrainerMultiFights) {
                         TrainerMultiFights tr_ = (TrainerMultiFights) c;
                         String f_ = tr_.getImageMaxiFileName();
-                        String file_ = TRAINERS_FOLDER+SEPARATOR_FILES+f_;
-                        trainers.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                        String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
+                        trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                         f_ = tr_.getImageMiniFileName();
-                        file_ = PEOPLE_FOLDER+SEPARATOR_FILES+f_;
-                        people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                        file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
+                        people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     }
                 }
                 for (DualFight d: level_.getDualFights().values()) {
                     String f_ = d.getFoeTrainer().getImageMaxiFileName();
-                    String file_ = TRAINERS_FOLDER+SEPARATOR_FILES+f_;
-                    trainers.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
+                    trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     f_ = d.getFoeTrainer().getImageMiniFileName();
-                    file_ = PEOPLE_FOLDER+SEPARATOR_FILES+f_;
-                    people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
+                    people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     f_ = d.getFoeTrainer().getImageMiniSecondTrainerFileName();
-                    file_ = PEOPLE_FOLDER+SEPARATOR_FILES+f_;
-                    people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
+                    people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
                 for (Block b_: l.getBlocks().values()) {
                     String f_ = b_.getTileFileName();
-                    String file_ = IMAGES_FOLDER+SEPARATOR_FILES+f_;
-                    images.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    String file_=StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,f_);
+                    images.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
             }
             if (p instanceof InitializedPlace) {
                 InitializedPlace p_ = (InitializedPlace) p;
                 for (Link k: p_.getLinksWithCaves().values()) {
                     String f_ = k.getFileName();
-                    String file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
-                    links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
+                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
             }
             if (p instanceof Cave) {
                 Cave cave_ = (Cave) p;
                 for (Link k: cave_.getLinksWithOtherPlaces().values()) {
                     String f_ = k.getFileName();
-                    String file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
-                    links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                    String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
+                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
                 for (Level l: cave_.getLevels().values()) {
                     LevelCave lCave_ = (LevelCave)l;
                     for (Link k: lCave_.getLinksOtherLevels().values()) {
                         String f_ = k.getFileName();
-                        String file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
-                        links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+                        String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
+                        links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                     }
                 }
             }
         }
         for (TileMiniMap t: map.getMiniMap().values()) {
             String f_ = t.getFile();
-            String file_ = MINI_MAP_FOLDER+SEPARATOR_FILES+f_;
-            miniMap.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
+            String file_=StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES,f_);
+            miniMap.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
         }
-        miniMap.put(map.getUnlockedCity(), ResourceFiles.ressourceFichier(common_ + MINI_MAP_FOLDER+SEPARATOR_FILES + map.getUnlockedCity()));
+        miniMap.put(map.getUnlockedCity(), ResourceFiles.ressourceFichier(StringList.concat(common_, MINI_MAP_FOLDER,SEPARATOR_FILES , map.getUnlockedCity())));
         _perCentLoading_ += delta_;
         initializeWildPokemon();
         deleteLineReturn(images);
@@ -3721,7 +3721,7 @@ public class DataBase implements WithMathFactory {
         for (String s: _files) {
             String upperCase_ = StringList.toUpperCase(s);
             if (filesNamesWithSameCase_.containsObj(upperCase_)) {
-                String name_ = _folderName+SEPARATOR_FILES+upperCase_;
+                String name_ = StringList.concat(_folderName,SEPARATOR_FILES,upperCase_);
                 if (!filesWithSameNameDifferentCase.containsObj(name_)) {
                     filesWithSameNameDifferentCase.add(name_);
                 }
@@ -6629,23 +6629,23 @@ public class DataBase implements WithMathFactory {
         StringMap<String> files_ = new StringMap<String>();
         for (String n: pokedex.getKeys()) {
             String file_ = SerializeXmlObject.toXmlString(pokedex.getVal(n));
-            files_.put(POKEDEX_FOLDER+SEPARATOR_FILES+n+FILES_RES_EXT, file_);
+            files_.put(StringList.concat(POKEDEX_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         for (String n: moves.getKeys()) {
             String file_ = SerializeXmlObject.toXmlString(moves.getVal(n));
-            files_.put(MOVES_FOLDER+SEPARATOR_FILES+n+FILES_RES_EXT, file_);
+            files_.put(StringList.concat(MOVES_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         for (String n: items.getKeys()) {
             String file_ = SerializeXmlObject.toXmlString(items.getVal(n));
-            files_.put(ITEMS_FOLDER+SEPARATOR_FILES+n+FILES_RES_EXT, file_);
+            files_.put(StringList.concat(ITEMS_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         for (String n: abilities.getKeys()) {
             String file_ = SerializeXmlObject.toXmlString(abilities.getVal(n));
-            files_.put(ABILITIES_FOLDER+SEPARATOR_FILES+n+FILES_RES_EXT, file_);
+            files_.put(StringList.concat(ABILITIES_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         for (String n: status.getKeys()) {
             String file_ = SerializeXmlObject.toXmlString(status.getVal(n));
-            files_.put(STATUS_FOLDER+SEPARATOR_FILES+n+FILES_RES_EXT, file_);
+            files_.put(StringList.concat(STATUS_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         String file_ = SerializeXmlObject.toXmlString(combos);
         files_.put(COMBOS, file_);
@@ -6660,16 +6660,16 @@ public class DataBase implements WithMathFactory {
         for (String s: typesColors.getKeys()) {
             lines_.add(StringList.concat(s, TAB, typesColors.getVal(s)));
         }
-        files_.put(TYPES_COLOR_CODE+IMG_FILES_RES_EXT_TXT, lines_.join(RETURN_LINE));
+        files_.put(StringList.concat(TYPES_COLOR_CODE,IMG_FILES_RES_EXT_TXT), lines_.join(RETURN_LINE));
         lines_ = new StringList();
-        lines_.add(DEF_MOVE+TAB+defMove);
-        lines_.add(RATE_BOOST+TAB+rateBoost);
-        lines_.add(RATE_BOOST_CRITICAL_HIT+TAB+rateBoostCriticalHit);
-        lines_.add(RATE_FLEEING+TAB+rateFleeing);
-        lines_.add(RATE_CATCHING+TAB+rateCatching);
-        lines_.add(BALL_DEF+TAB+ballDef);
-        lines_.add(DEFAULT_EGG_GROUP+TAB+defaultEggGoup);
-        lines_.add(DAMAGE_FORMULA+TAB+damageFormula);
+        lines_.add(StringList.concat(DEF_MOVE,TAB,defMove));
+        lines_.add(StringList.concat(RATE_BOOST,TAB,rateBoost));
+        lines_.add(StringList.concat(RATE_BOOST_CRITICAL_HIT,TAB,rateBoostCriticalHit));
+        lines_.add(StringList.concat(RATE_FLEEING,TAB,rateFleeing));
+        lines_.add(StringList.concat(RATE_CATCHING,TAB,rateCatching));
+        lines_.add(StringList.concat(BALL_DEF,TAB,ballDef));
+        lines_.add(StringList.concat(DEFAULT_EGG_GROUP,TAB,defaultEggGoup));
+        lines_.add(StringList.concat(DAMAGE_FORMULA,TAB,damageFormula));
 //        for (String s: constNotNum.getKeys()) {
 //            lines_.add(s + TAB + constNotNum.getVal(s));
 //        }
@@ -6689,12 +6689,12 @@ public class DataBase implements WithMathFactory {
         files_.put(TABLE_TYPES, output_);
         StringList linesCourbes_ = new StringList();
         for (ExpType c: expGrowth.getKeys()) {
-            linesCourbes_.add(c.name()+TAB+expGrowth.getVal(c));
+            linesCourbes_.add(StringList.concat(c.name(),TAB,expGrowth.getVal(c)));
         }
         files_.put(COURBE_PTS_EXP, linesCourbes_.join(RETURN_LINE));
         StringList rates_ = new StringList();
         for (DifficultyWinPointsFight c: rates.getKeys()) {
-            rates_.add(c.name()+TAB+rates.getVal(c));
+            rates_.add(StringList.concat(c.name(),TAB,rates.getVal(c)));
         }
         files_.put(RATE_WON_POINTS, rates_.join(RETURN_LINE));
         StringList linesLaws_ = new StringList();
@@ -6725,9 +6725,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_CATEGORIES;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_CATEGORIES);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedGenders.getKeys()) {
@@ -6740,9 +6740,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_GENDERS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_GENDERS);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedBooleans.getKeys()) {
@@ -6755,9 +6755,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_BOOLEANS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_BOOLEANS);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedDiffWinPts.getKeys()) {
@@ -6770,9 +6770,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_DIFF_WIN_PTS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_DIFF_WIN_PTS);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedDiffModelLaw.getKeys()) {
@@ -6785,9 +6785,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_DIFF_MODEL_LAW;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_DIFF_MODEL_LAW);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedEnvironment.getKeys()) {
@@ -6800,9 +6800,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ENVIRONMENTS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ENVIRONMENTS);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedStatistics.getKeys()) {
@@ -6815,9 +6815,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_STATISTICS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_STATISTICS);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedTargets.getKeys()) {
@@ -6830,9 +6830,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_TARGETS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_TARGETS);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedTypes.getKeys()) {
@@ -6845,9 +6845,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_TYPES;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_TYPES);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedPokemon.getKeys()) {
@@ -6860,9 +6860,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(pokemon_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_POKEMON;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_POKEMON);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedMoves.getKeys()) {
@@ -6875,9 +6875,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(moves_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_MOVES;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_MOVES);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedItems.getKeys()) {
@@ -6890,9 +6890,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(items_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ITEMS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ITEMS);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedAbilities.getKeys()) {
@@ -6905,9 +6905,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(abilities_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_ABILITIES;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_ABILITIES);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedStatus.getKeys()) {
@@ -6920,9 +6920,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_STATUS;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_STATUS);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedFctMath.getKeys()) {
@@ -6935,9 +6935,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_MATH;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_MATH);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: translatedClassesDescriptions.getKeys()) {
@@ -6953,9 +6953,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_CLASSES;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_CLASSES);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
         for (String l: litterals.getKeys()) {
@@ -6968,9 +6968,9 @@ public class DataBase implements WithMathFactory {
                 words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
-            String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
-            fileName_ += l + SEPARATOR_FILES;
-            fileName_ += TRANSLATION_LITTERAL;
+            String fileName_ = StringList.concat(TRANSLATION_FOLDER,SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , l, SEPARATOR_FILES);
+            fileName_ = StringList.concat(fileName_ , TRANSLATION_LITTERAL);
             files_.put(fileName_, linesGenders_.join(RETURN_LINE));
         }
 //        for (String f: webFiles.getKeys()) {
@@ -6989,27 +6989,27 @@ public class DataBase implements WithMathFactory {
 //            files_.put(f, webPk.getVal(f));
 //        }
 //        for (String f: javaBeans.getKeys()) {
-//            files_.put(BEANS_FOLDER+SEPARATOR_FILES+f, javaBeans.getVal(f));
+//            files_.put(StringList.concat(BEANS_FOLDER,SEPARATOR_FILES,f), javaBeans.getVal(f));
 //        }
         if (_addImages) {
             for (String n: animStatis.getKeys()) {
-                files_.put(ANIM_STATIS+SEPARATOR_FILES+n+IMG_FILES_RES_EXT_TXT, animStatis.getVal(n));
+                files_.put(StringList.concat(ANIM_STATIS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), animStatis.getVal(n));
             }
             for (String n: animStatus.getKeys()) {
-                files_.put(ANIM_STATUS+SEPARATOR_FILES+n+IMG_FILES_RES_EXT_TXT, animStatus.getVal(n));
+                files_.put(StringList.concat(ANIM_STATUS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), animStatus.getVal(n));
             }
             files_.put(ANIM_ABSORB, animAbsorb);
             for (String n: images.getKeys()) {
-                files_.put(IMAGES_FOLDER+SEPARATOR_FILES+n, images.getVal(n));
+                files_.put(StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,n), images.getVal(n));
             }
             for (String n: miniMap.getKeys()) {
-                files_.put(MINI_MAP_FOLDER+SEPARATOR_FILES+n, miniMap.getVal(n));
+                files_.put(StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES,n), miniMap.getVal(n));
             }
             for (String n: links.getKeys()) {
-                files_.put(LINKS_FOLDER+SEPARATOR_FILES+n, links.getVal(n));
+                files_.put(StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,n), links.getVal(n));
             }
             for (String n: people.getKeys()) {
-                files_.put(PEOPLE_FOLDER+SEPARATOR_FILES+n, people.getVal(n));
+                files_.put(StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,n), people.getVal(n));
             }
             StringList linesHeros_;
             linesHeros_ = new StringList();
@@ -7023,7 +7023,7 @@ public class DataBase implements WithMathFactory {
                 str_.append(image_);
                 linesHeros_.add(str_.toString());
             }
-            files_.put(HERO_FOLDER+SEPARATOR_FILES+HERO_FRONT, linesHeros_.join(RETURN_LINE));
+            files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_FRONT), linesHeros_.join(RETURN_LINE));
             linesHeros_.clear();
             for (ImageHeroKey k: backHeros.getKeys()) {
                 String image_ = backHeros.getVal(k);
@@ -7035,7 +7035,7 @@ public class DataBase implements WithMathFactory {
                 str_.append(image_);
                 linesHeros_.add(str_.toString());
             }
-            files_.put(HERO_FOLDER+SEPARATOR_FILES+HERO_BACK, linesHeros_.join(RETURN_LINE));
+            files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_BACK), linesHeros_.join(RETURN_LINE));
             linesHeros_.clear();
             for (ImageHeroKey k: overWorldHeros.getKeys()) {
                 String image_ = overWorldHeros.getVal(k);
@@ -7049,29 +7049,29 @@ public class DataBase implements WithMathFactory {
                 str_.append(image_);
                 linesHeros_.add(str_.toString());
             }
-            files_.put(HERO_FOLDER+SEPARATOR_FILES+HERO_MINI, linesHeros_.join(RETURN_LINE));
+            files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_MINI), linesHeros_.join(RETURN_LINE));
             for (String n: trainers.getKeys()) {
-                files_.put(TRAINERS_FOLDER+SEPARATOR_FILES+n, trainers.getVal(n));
+                files_.put(StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,n), trainers.getVal(n));
             }
             for (String n: maxiPkFront.getKeys()) {
-                files_.put(FRONT_IMAGES_FOLDER+SEPARATOR_FILES+n+IMG_FILES_RES_EXT_TXT, maxiPkFront.getVal(n));
+                files_.put(StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), maxiPkFront.getVal(n));
             }
             for (String n: maxiPkBack.getKeys()) {
-                files_.put(BACK_IMAGES_FOLDER+SEPARATOR_FILES+n+IMG_FILES_RES_EXT_TXT, maxiPkBack.getVal(n));
+                files_.put(StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), maxiPkBack.getVal(n));
             }
             for (String n: miniPk.getKeys()) {
-                files_.put(MINI_IMAGES_FOLDER+SEPARATOR_FILES+n+IMG_FILES_RES_EXT_TXT, miniPk.getVal(n));
+                files_.put(StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), miniPk.getVal(n));
             }
             for (String n: miniItems.getKeys()) {
-                files_.put(OBJECTS_IMAGES_FOLDER+SEPARATOR_FILES+n+IMG_FILES_RES_EXT_TXT, miniItems.getVal(n));
+                files_.put(StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), miniItems.getVal(n));
             }
             for (String n: typesImages.getKeys()) {
-                files_.put(TYPES_IMAGES_FOLDER+SEPARATOR_FILES+n+IMG_FILES_RES_EXT_TXT, typesImages.getVal(n));
+                files_.put(StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), typesImages.getVal(n));
             }
-            files_.put(IMAGE_TM_HM_FILES+IMG_FILES_RES_EXT_TXT, imageTmHm);
-            files_.put(IMAGE_STORAGE_FILES+IMG_FILES_RES_EXT_TXT, storage);
+            files_.put(StringList.concat(IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT), imageTmHm);
+            files_.put(StringList.concat(IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT), storage);
             if (!endGameImage.isEmpty()) {
-                files_.put(END_GAME_IMAGE+IMG_FILES_RES_EXT_TXT, endGameImage);
+                files_.put(StringList.concat(END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT), endGameImage);
             }
         }
         return files_;
@@ -7133,7 +7133,7 @@ public class DataBase implements WithMathFactory {
             words_ = StringList.splitChars(str_.toString(), getSepartorSetChar());
             words_.sort();
 //            tokens_.set(i, NumericString.LEFT_BRACE_SET+words_.join(NumericString.SEPARATOR_SET_CHAR)+NumericString.RIGHT_BRACE_SET);
-            tokens_.set(i, StringList.LEFT_BRACE+words_.join(getSepartorSetChar())+StringList.RIGHT_BRACE);
+            tokens_.set(i, StringList.concat(String.valueOf(StringList.LEFT_BRACE),words_.join(getSepartorSetChar()),String.valueOf(StringList.RIGHT_BRACE)));
         }
         return tokens_.join(EMPTY_STRING);
     }
@@ -7147,7 +7147,7 @@ public class DataBase implements WithMathFactory {
                 if (newList_.isEmpty()) {
                     newList_.add(t);
                 } else if (!isTokenTranslate(newList_.last())) {
-                    newList_.setLast(newList_.last()+t);
+                    newList_.setLast(StringList.concat(newList_.last(),t));
                 } else {
                     newList_.add(t);
                 }
@@ -7159,7 +7159,7 @@ public class DataBase implements WithMathFactory {
                 i_++;
                 continue;
             }
-            newList_.setLast(newList_.last()+t);
+            newList_.setLast(StringList.concat(newList_.last(),t));
             i_++;
         }
         return newList_;

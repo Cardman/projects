@@ -71,16 +71,8 @@ public abstract class NumericOperation extends MethodOperation {
         stringType_ = stds_.getAliasString();
         if (_catString) {
             StringBuilder str_ = new StringBuilder();
-            try {
-                str_.append(_a.getObject());
-            } catch (RuntimeException _0) {
-                throw new InvokeException(new StdStruct(new InvokeRedinedMethException(SECOND+RETURN_LINE+_cont.joinPages(),new StdStruct(_0))));
-            }
-            try {
-                str_.append(_b.getObject());
-            } catch (RuntimeException _0) {
-                throw new InvokeException(new StdStruct(new InvokeRedinedMethException(SECOND+RETURN_LINE+_cont.joinPages(),new StdStruct(_0))));
-            }
+            str_.append(_a.getObject());
+            str_.append(_b.getObject());
             Argument a_ = new Argument();
             a_.setObject(str_.toString(),stringType_);
             return a_;

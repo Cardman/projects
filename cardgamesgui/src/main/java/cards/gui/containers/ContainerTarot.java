@@ -29,7 +29,6 @@ import code.util.StringList;
 public class ContainerTarot extends ContainerGame{
 
     public static final String EMPTY="";
-    public static final char RETURN_LINE_CHAR='\n';
     protected static final String TAB="\t";
     /**Renvoie tous les scores de toutes les parties non solitaires*/
     private CustList<Numbers<Long>> scores=new CustList<Numbers<Long>>();
@@ -88,7 +87,7 @@ public class ContainerTarot extends ContainerGame{
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandTarot chargerPileTarot() {
-        HandTarot pile_=(HandTarot)StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.TAROT.name()+FileConst.DECK_EXT);
+        HandTarot pile_=(HandTarot)StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
         return pile_;
     }
 

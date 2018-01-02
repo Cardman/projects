@@ -72,7 +72,7 @@ public abstract class DialogBelote extends DialogCards {
         EnumMap<MixCardsChoice, String> trMix_;
         trMix_ = new EnumMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, choix_.toString());
+            trMix_.put(choix_, choix_.display());
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
@@ -116,7 +116,7 @@ public abstract class DialogBelote extends DialogCards {
         int indice_ = 0;
         for (DeclaresBelote enchere_:DeclaresBelote.annoncesValides()) {
             indicesAnnoncesValides.put(enchere_, indice_);
-            JCheckBox caseCroix_=new JCheckBox(enchere_.toString());
+            JCheckBox caseCroix_=new JCheckBox(enchere_.display());
             caseCroix_.setSelected(getReglesBelote().getAnnoncesAutorisees().getVal(enchere_));
             declaresFirstRound.add(caseCroix_);
             declares.add(caseCroix_);

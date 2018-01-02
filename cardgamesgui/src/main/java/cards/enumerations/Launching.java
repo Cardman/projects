@@ -1,12 +1,13 @@
 package cards.enumerations;
 import code.format.Format;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 
-public enum Launching {
+public enum Launching implements Displayable {
     WELCOME;
 
     @Override
-    public String toString() {
+    public String display() {
         return toString(Constants.getLanguage());
     }
 

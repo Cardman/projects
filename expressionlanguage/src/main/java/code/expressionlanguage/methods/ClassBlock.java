@@ -346,7 +346,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         tr_.put(ATTRIBUTE_SUPER_CLASS, getGenericSuperClass(_context));
         int i_ = 0;
         for (String t: getDirectGenericInterfaces(_context)) {
-            tr_.put(ATTRIBUTE_CLASS+i_, t);
+            tr_.put(StringList.concatNbs(ATTRIBUTE_CLASS,i_), t);
             i_++;
         }
         return tr_;

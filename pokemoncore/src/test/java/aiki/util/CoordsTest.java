@@ -83,7 +83,7 @@ public class CoordsTest {
     @Test
     public void toString1Test() {
         Coords pt_ = new Coords();
-        assertEq(Coords.INVALID, pt_.toString());
+        assertEq(Coords.INVALID, pt_.display());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class CoordsTest {
         Coords coords_ = new Coords();
         coords_.setLevel(lpt_);
         coords_.setNumberPlace((short) 4);
-        assertEq("4"+Coords.SEPARATOR+"2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1", coords_.toString());
+        assertEq("4"+Coords.SEPARATOR+"2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1", coords_.display());
     }
 
     @Test
@@ -112,6 +112,6 @@ public class CoordsTest {
         coords_.setLevel(lpt_);
         coords_.setNumberPlace((short) 4);
         coords_.setInsideBuilding(new Point((short)5,(short)6));
-        assertEq("4"+Coords.SEPARATOR+"5"+Point.SEPARATOR+"6"+Coords.SEPARATOR+"2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1", coords_.toString());
+        assertEq("4"+Coords.SEPARATOR+"5"+Point.SEPARATOR+"6"+Coords.SEPARATOR+"2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1", coords_.display());
     }
 }

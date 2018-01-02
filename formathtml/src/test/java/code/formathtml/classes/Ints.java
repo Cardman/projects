@@ -8,9 +8,10 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.SimpleItr;
+import code.util.ints.Displayable;
 import code.util.ints.Listable;
 
-public class Ints implements Listable<Integer> {
+public class Ints implements Listable<Integer>, Displayable {
 
     private Numbers<Integer> ints = new Numbers<Integer>();
 
@@ -219,7 +220,7 @@ public class Ints implements Listable<Integer> {
     }
 
     @Override
-    public String toString() {
+    public String display() {
         return ints.toString();
     }
 

@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.exceptions.NotNumberException;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.util.StringList;
@@ -49,19 +50,47 @@ public final class AddOperation extends NumericOperation {
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont) {
         ResultOperand res_ = new ResultOperand();
         String stringType_ = _cont.getStandards().getAliasString();
+        String stringBuilderType_ = _cont.getStandards().getAliasStringBuilder();
         String charType_ = _cont.getStandards().getAliasPrimChar();
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            if (_a.matchClass(stringType_) || _b.matchClass(stringType_)) {
-                res_.setResult(new ClassArgumentMatching(stringType_));
-                res_.setCatString(true);
-                return res_;
-            }
             if (PrimitiveTypeUtil.toPrimitive(_a, true, _cont).matchClass(charType_)) {
                 if (PrimitiveTypeUtil.toPrimitive(_b, true, _cont).matchClass(charType_)) {
                     res_.setResult(new ClassArgumentMatching(stringType_));
                     res_.setCatChars(true);
                     return res_;
                 }
+            }
+            boolean str_ = false;
+            boolean concat_ = false;
+            if (_a.matchClass(stringType_)) {
+                concat_ = true;
+                if (_b.matchClass(stringType_)) {
+                    str_ = true;
+                } else if (_b.matchClass(stringBuilderType_)) {
+                    str_ = true;
+                } else if (_b.getName().isEmpty()) {
+                    str_ = true;
+                } else if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_b.getName(), _cont)) {
+                    str_ = true;
+                }
+            }
+            if (_b.matchClass(stringType_)) {
+                concat_ = true;
+                if (_a.matchClass(stringBuilderType_)) {
+                    str_ = true;
+                } else if (_a.getName().isEmpty()) {
+                    str_ = true;
+                } else if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_a.getName(), _cont)) {
+                    str_ = true;
+                }
+            }
+            if (str_) {
+                res_.setResult(new ClassArgumentMatching(stringType_));
+                res_.setCatString(true);
+                return res_;
+            }
+            if (concat_) {
+                throw new NotNumberException(StringList.concat(_a.getName(),_b.getName(),_cont.joinPages()));
             }
         }
         res_.setResult(getResultClass(_a, _cont, _b));

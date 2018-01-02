@@ -63,7 +63,7 @@ public final class SelectHealedMove extends Dialog {
         movesLearnt.removeAll();
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(tr_+SPACE+moves_.getVal(m));
+            LabelButton check_ = new LabelButton(StringList.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
             check_.addMouseListener(new HealedMoveEvent(this,facade, m));
             movesLearnt.add(check_);
         }

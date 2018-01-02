@@ -42,12 +42,6 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayab
         return true;
     }
 
-    @Override
-    @FromAndToString
-    public String toString() {
-        return display();
-    }
-
     public short getXcoords() {
         return xCoords;
     }
@@ -56,6 +50,7 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayab
         return yCoords;
     }
 
+    @FromAndToString
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

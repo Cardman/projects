@@ -15,6 +15,7 @@ import code.gui.SoftApplication;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
 import code.serialize.exceptions.BadObjectException;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 
@@ -79,8 +80,8 @@ public class LaunchingPokecards extends SoftApplication {
     }
 
     public static String getTempFolder() {
-        new File(ConstFiles.getTmpUserFolderSl()+TEMP_FOLDER).mkdirs();
-        return ConstFiles.getTmpUserFolderSl()+TEMP_FOLDER;
+        new File(StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
+        return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 
     @Override

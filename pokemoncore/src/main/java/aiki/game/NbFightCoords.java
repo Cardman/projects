@@ -4,11 +4,12 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
 @CheckedData
-public final class NbFightCoords implements Equallable<NbFightCoords> {
+public final class NbFightCoords implements Equallable<NbFightCoords>, Displayable {
 
     private static final char SEPARATOR = '\'';
 
@@ -97,17 +98,20 @@ public final class NbFightCoords implements Equallable<NbFightCoords> {
         return true;
     }
 
-    @FromAndToString
-    @Override
-    public String toString() {
-        return coords.toString()+SEPARATOR+nbFight;
-    }
-
     public Coords getCoords() {
         return coords;
     }
 
     public int getNbFight() {
         return nbFight;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(coords.display());
+        str_.append(SEPARATOR);
+        str_.append(nbFight);
+        return str_.toString();
     }
 }

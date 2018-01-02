@@ -88,11 +88,11 @@ public class HealingItemLabel extends SelectableLabel {
     }
 
     public int getThirdColumnWidth() {
-        return getFontMetrics(getFont()).stringWidth(item.getName()+SPACES);
+        return getFontMetrics(getFont()).stringWidth(StringList.concat(item.getName(),SPACES));
     }
 
     public int getFourthColumnWidth() {
-        return getFontMetrics(getFont()).stringWidth(item.getNumber().toNumberString()+SPACES);
+        return getFontMetrics(getFont()).stringWidth(StringList.concat(item.getNumber().toNumberString(),SPACES));
     }
 
 //    public int getFifthColumnWidth() {

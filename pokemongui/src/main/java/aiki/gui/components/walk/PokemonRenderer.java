@@ -10,6 +10,7 @@ import code.gui.CommonCellRenderer;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.StringList;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.map.pokemon.Egg;
@@ -77,7 +78,7 @@ public class PokemonRenderer extends CommonCellRenderer {
             remainHp = pk_.getRemainingHp().toNumberString();
             try {
                 intRate = pk_.rateRemainHp(facade.getData());
-                rateRemain = intRate.toNumberString()+PER_CENT;
+                rateRemain = StringList.concat(intRate.toNumberString(),PER_CENT);
             } catch (RuntimeException _0) {
                 rateRemain = DataBase.EMPTY_STRING;
             }

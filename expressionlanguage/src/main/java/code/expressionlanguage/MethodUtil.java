@@ -1,11 +1,11 @@
 package code.expressionlanguage;
+import code.sml.AttributePart;
 import code.sml.Element;
 import code.sml.Node;
 import code.sml.Text;
-
 import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.StringMap;
-import code.sml.AttributePart;
 
 
 public final class MethodUtil {
@@ -86,7 +86,7 @@ public final class MethodUtil {
     }
     public static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(LT_BEGIN_TAG+((Element) _node).getTagName(), _from) + 1;
+            return _html.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
         }
         if (_node instanceof Text) {
             int indexText_ = _html.indexOf(GT_TAG, _from);
@@ -98,6 +98,6 @@ public final class MethodUtil {
             }
             return indexText_ + 1;
         }
-        return _html.indexOf(LT_BEGIN_TAG+COMMENT, _from);
+        return _html.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),COMMENT), _from);
     }
 }

@@ -42,11 +42,6 @@ public final class Link implements Displayable{
         return new Link(_string);
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public boolean isValid(DataBase _data) {
         return !_data.getLink(getFileName()).isEmpty();
     }

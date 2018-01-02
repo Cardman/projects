@@ -4,9 +4,10 @@ import code.formathtml.util.ValueChangeEvent;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.ints.Displayable;
 
 @SuppressWarnings("static-method")
-public class Composite {
+public class Composite implements Displayable {
 
     @Accessible
     private int integer;
@@ -59,12 +60,12 @@ public class Composite {
     }
 
     public void updateValue(ValueChangeEvent _changing) {
-        getStrings().add(_changing.getNewValue()+" "+_changing.getOldValue());
+        getStrings().add(StringList.concat(((Integer)_changing.getNewValue()).toString()," ",((Integer)_changing.getOldValue()).toString()));
         changing = _changing;
     }
 
     public String getValue(ValueChangeEvent _changing) {
-        return _changing.getNewValue()+" "+_changing.getOldValue();
+        return StringList.concat(((Integer)_changing.getNewValue()).toString()," ",((Integer)_changing.getOldValue()).toString());
     }
 
     public ValueChangeEvent getChanging() {
@@ -180,7 +181,7 @@ public class Composite {
     }
 
     @Override
-    public String toString() {
-        return integer+","+privateInt+","+strings+","+tree+","+map+","+myMap;
+    public String display() {
+        return integer+","+privateInt+","+strings.display()+","+tree+","+map+","+myMap;
     }
 }

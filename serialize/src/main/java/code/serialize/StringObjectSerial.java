@@ -1,14 +1,15 @@
 package code.serialize;
 import java.lang.reflect.Method;
 
-import code.sml.Attr;
-import code.sml.Document;
-import code.sml.Element;
-import code.sml.NamedNodeMap;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.NoValueException;
 import code.serialize.exceptions.RuntimeInstantiationException;
+import code.sml.Attr;
+import code.sml.Document;
+import code.sml.Element;
+import code.sml.NamedNodeMap;
+import code.util.StringList;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 final class StringObjectSerial extends PrimitiveSerial {
@@ -46,7 +47,7 @@ final class StringObjectSerial extends PrimitiveSerial {
             setKeyOfMap(true);
         }
         Method method_ = null;
-        String classNameInst_ = name_+_node.getAttribute(INTERN);
+        String classNameInst_ = StringList.concat(name_,_node.getAttribute(INTERN));
         Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(classNameInst_);
         Attr value_ = map_.getNamedItem(VALUE);
         if (value_ == null) {

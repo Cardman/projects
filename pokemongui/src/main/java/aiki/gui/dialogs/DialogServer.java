@@ -59,7 +59,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
 //            messagesIpEnum.put(IpType.valueOf(i), messagesIp.getVal(i));
 //        }
         for (IpType i: IpType.values()) {
-            messagesIpEnum.put(i, i.toString());
+            messagesIpEnum.put(i, i.display());
         }
         setLocationRelativeTo(_fenetre);
         setResizable(false);

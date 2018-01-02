@@ -124,10 +124,6 @@ public final class BidBeloteSuit implements Equallable<BidBeloteSuit>, Displayab
         pts_.insert(0, bid.toString(_loc));
         return pts_.toString();
     }
-    @Override
-    public String toString() {
-        return display();
-    }
 
     @Override
     public String display() {

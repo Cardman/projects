@@ -214,17 +214,13 @@ public enum CardBelote implements Displayable {
     private byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
         return (byte) (_couleurs.indexOfObj(couleur)+1);
     }
-    @Override
-    public String toString() {
-        return toString(Constants.getLanguage());
-    }
 
     public String toString(String _locale) {
         return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_CARD, name());
     }
 
     public String getImageFileName(String _ext) {
-        return StringList.toUpperCase(name())+_ext;
+        return StringList.concat(StringList.toUpperCase(name()),_ext);
     }
 
     public boolean vientAvant(CardBelote _c,boolean _decroissant,Order _ordre,EnumList<Suit> _couleurs) {

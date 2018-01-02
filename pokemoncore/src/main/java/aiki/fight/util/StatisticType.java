@@ -3,10 +3,11 @@ import aiki.fight.enums.Statistic;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class StatisticType implements Equallable<StatisticType> {
+public final class StatisticType implements Equallable<StatisticType>, Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -44,12 +45,6 @@ public final class StatisticType implements Equallable<StatisticType> {
         return true;
     }
 
-    @FromAndToString
-    @Override
-    public String toString() {
-        return statistic.toString()+SEPARATOR+type;
-    }
-
     public Statistic getStatistic() {
         return statistic;
     }
@@ -64,5 +59,15 @@ public final class StatisticType implements Equallable<StatisticType> {
 
     public void setType(String _type) {
         type = _type;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(statistic.name());
+        str_.append(SEPARATOR);
+        str_.append(type);
+        return str_.toString();
     }
 }

@@ -22,11 +22,6 @@ public final class CustEnum {
         return ordinal;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     public String getDeclaringClass() {
         return className;
     }

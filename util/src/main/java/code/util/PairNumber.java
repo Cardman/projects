@@ -41,11 +41,6 @@ public final class PairNumber<T extends Number,S extends Number> implements Equa
     }
 
     @Override
-    public String toString() {
-        return StringList.concat(String.valueOf(first),SEPARATOR,String.valueOf(second));
-    }
-
-    @Override
     public boolean eq(PairNumber<T, S> _g) {
         if (first == null) {
             if (second == null) {

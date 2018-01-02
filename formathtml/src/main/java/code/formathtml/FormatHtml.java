@@ -267,7 +267,7 @@ public final class FormatHtml {
     }
 
     private static String addToRoot(Configuration _conf, String _prefix, String _body) {
-        return LT_BEGIN_TAG+TMP_BLOCK_TAG+GT_TAG+_body+LT_END_TAG+TMP_BLOCK_TAG+GT_TAG;
+        return StringList.concat(String.valueOf(LT_BEGIN_TAG),TMP_BLOCK_TAG,String.valueOf(GT_TAG),_body,LT_END_TAG,TMP_BLOCK_TAG,String.valueOf(GT_TAG));
     }
 
     static String processImports(String _htmlText, Configuration _conf, String _loc, StringMap<String> _files, String... _resourcesFolder) {
@@ -299,7 +299,7 @@ public final class FormatHtml {
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(subHtml_);
         Document doc_ = res_.getDocument();
         if (doc_ == null) {
-            throw new XmlParseException(res_.getLocation().toString()+RETURN_LINE+_conf.joinPages());
+            throw new XmlParseException(StringList.concat(res_.getLocation().display(),RETURN_LINE,_conf.joinPages()));
         }
         NodeList bodies_ = doc_.getElementsByTagName(TAG_BODY);
         if (bodies_.getLength() != CustList.ONE_ELEMENT) {
@@ -315,7 +315,7 @@ public final class FormatHtml {
         b_.setHtml(subHtml_);
         String prefix_ = getPrefix(_conf, doc_);
         b_.setPrefix(prefix_);
-        b_.setBeanName(doc_.getDocumentElement().getAttribute(prefix_+BEAN_ATTRIBUTE));
+        b_.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(prefix_,BEAN_ATTRIBUTE)));
         return b_;
     }
 
@@ -334,7 +334,7 @@ public final class FormatHtml {
         StringMapObject formsMap_ = (StringMapObject) ExtractObject.getForms(_conf, _mainBean).getInstance();
         if (_keepField) {
             for (Element f_: _node.getChildElements()) {
-                if (!StringList.quickEq(f_.getTagName(),prefix_+FORM_BLOCK_TAG)) {
+                if (!StringList.quickEq(f_.getTagName(),StringList.concat(prefix_,FORM_BLOCK_TAG))) {
                     continue;
                 }
                 String name_ = f_.getAttribute(ATTRIBUTE_FORM);
@@ -354,12 +354,12 @@ public final class FormatHtml {
         String leftParStr_ = String.valueOf(LEFT_PAR_CHAR);
         String rightParStr_ = String.valueOf(RIGHT_PAR_CHAR);
         for (Element n: _node.getChildElements()) {
-            if (!StringList.quickEq(n.getTagName(),prefix_+PACKAGE_BLOCK_TAG)) {
+            if (!StringList.quickEq(n.getTagName(),StringList.concat(prefix_,PACKAGE_BLOCK_TAG))) {
                 continue;
             }
             String package_ = n.getAttribute(ATTRIBUTE_NAME);
             for (Element nTwo_: n.getChildElements()) {
-                if (!StringList.quickEq(nTwo_.getTagName(),prefix_+CLASS_BLOCK_TAG)) {
+                if (!StringList.quickEq(nTwo_.getTagName(),StringList.concat(prefix_,CLASS_BLOCK_TAG))) {
                     continue;
                 }
                 String className_ = nTwo_.getAttribute(ATTRIBUTE_NAME);
@@ -367,7 +367,7 @@ public final class FormatHtml {
                 ip_.setProcessingAttribute(EMPTY_STRING);
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(false);
-                String searchedClass_ = package_+DOT+className_;
+                String searchedClass_ = StringList.concat(package_,DOT,className_);
                 if (bean_ == null || bean_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
@@ -377,10 +377,10 @@ public final class FormatHtml {
                 ip_.setLookForAttrValue(true);
                 ExtractObject.classNameForName(_conf, 0, searchedClass_);
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(searchedClass_, bean_.getClassName(_conf.toContextEl()), _conf.toContextEl())) {
-                    throw new RuntimeClassNotFoundException(searchedClass_+RETURN_LINE+_conf.joinPages());
+                    throw new RuntimeClassNotFoundException(StringList.concat(searchedClass_,RETURN_LINE,_conf.joinPages()));
                 }
                 for (Element nThree_: nTwo_.getChildElements()) {
-                    if (!StringList.quickEq(nThree_.getTagName(),prefix_+FIELD_BLOCK_TAG)) {
+                    if (!StringList.quickEq(nThree_.getTagName(),StringList.concat(prefix_,FIELD_BLOCK_TAG))) {
                         continue;
                     }
                     if (nThree_.hasAttribute(ATTRIBUTE_METHOD)) {
@@ -398,7 +398,7 @@ public final class FormatHtml {
                         ip_.setLookForAttrValue(true);
                         ExtractObject.classNameForName(_conf, 0, classNameParam_);
                         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameParam_, argt_.getObjectClassName(_conf.toContextEl()), _conf.toContextEl())) {
-                            throw new DynamicCastClassException(argt_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+classNameParam_+RETURN_LINE+_conf.joinPages());
+                            throw new DynamicCastClassException(StringList.concat(argt_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,classNameParam_,RETURN_LINE,_conf.joinPages()));
                         }
                         ip_.setProcessingNode(nThree_);
                         ip_.setProcessingAttribute(ATTRIBUTE_METHOD);
@@ -437,8 +437,8 @@ public final class FormatHtml {
                     lv_.setClassName(argt_.getStruct().getClassName(_conf.toContextEl()));
                     lv_.setStruct(argt_.getStruct());
                     ip_.getLocalVars().put(nameValue_, lv_);
-                    String expressionLeft_ = nameVar_ + GET_LOC_VAR + fieldName_;
-                    String expressionRight_ = nameValue_ + GET_LOC_VAR;
+                    String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, fieldName_);
+                    String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
                     ElUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf.toContextEl(), true, true);
                     ip_.getLocalVars().removeKey(nameVar_);
                     ip_.getLocalVars().removeKey(nameValue_);
@@ -452,7 +452,7 @@ public final class FormatHtml {
         StringMap<LocalVariable> parameters_ = new StringMap<LocalVariable>();
         String prefix_ = ip_.getPrefix();
         for (Element n: _node.getChildElements()) {
-            if (!StringList.quickEq(n.getTagName(),prefix_+PARAM_BLOCK_TAG)) {
+            if (!StringList.quickEq(n.getTagName(),StringList.concat(prefix_,PARAM_BLOCK_TAG))) {
                 continue;
             }
             ip_.setProcessingNode(n);
@@ -481,7 +481,7 @@ public final class FormatHtml {
         StringMap<LocalVariable> parameters_ = new StringMap<LocalVariable>();
         String prefix_ = ip_.getPrefix();
         for (Element n: _node.getChildElements()) {
-            if (!StringList.quickEq(n.getTagName(),prefix_+SET_BLOCK_TAG)) {
+            if (!StringList.quickEq(n.getTagName(),StringList.concat(prefix_,SET_BLOCK_TAG))) {
                 continue;
             }
             ip_.setProcessingNode(n);
@@ -513,7 +513,7 @@ public final class FormatHtml {
         Struct bean_ = null;
         Document docOrig_ = _conf.getDocument();
         Element root_ = docOrig_.getDocumentElement();
-        beanName_ = root_.getAttribute(_conf.getPrefix()+BEAN_ATTRIBUTE);
+        beanName_ = root_.getAttribute(StringList.concat(_conf.getPrefix(),BEAN_ATTRIBUTE));
         bean_ = getBean(_conf, beanName_);
         ExtractObject.beforeDiplaying(_conf, bean_, true);
         _conf.setHtml(_htmlText);
@@ -526,8 +526,8 @@ public final class FormatHtml {
         int indexLoc_ = 0;
         while (true) {
             int indexMin_ = CustList.INDEX_NOT_FOUND_ELT;
-            int indexEndTag_ = htmlText_.indexOf(LT_BEGIN_TAG+prefix_+TR_END_BLOCK_TAG+RIGHT_END_TAG, indexLoc_);
-            int indexBeginTag_ = htmlText_.indexOf(LT_BEGIN_TAG+prefix_+TR_BEGIN_BLOCK_TAG, indexLoc_);
+            int indexEndTag_ = htmlText_.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),prefix_,TR_END_BLOCK_TAG,RIGHT_END_TAG), indexLoc_);
+            int indexBeginTag_ = htmlText_.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),prefix_,TR_BEGIN_BLOCK_TAG), indexLoc_);
             if (indexEndTag_ <= indexBeginTag_) {
                 if (indexEndTag_ > CustList.INDEX_NOT_FOUND_ELT) {
                     indexMin_ = indexEndTag_;
@@ -548,18 +548,21 @@ public final class FormatHtml {
             str_.append(htmlText_.substring(indexLoc_, indexMin_));
             if (indexMin_ == indexEndTag_) {
                 str_.append(TR_END);
-                indexLoc_ = indexEndTag_ + (LT_BEGIN_TAG+prefix_+TR_END_BLOCK_TAG+RIGHT_END_TAG).length();
+                indexLoc_ = indexEndTag_ +prefix_.length()+ TR_END_BLOCK_TAG.length() + RIGHT_END_TAG.length() + 1;
                 continue;
             }
             String begin_ = htmlText_.substring(indexMin_);
-            String nameTag_ = LT_BEGIN_TAG+prefix_+TR_BEGIN_BLOCK_TAG;
-            if (begin_.startsWith(nameTag_+RIGHT_END_TAG)) {
+            String nameTag_ = StringList.concat(String.valueOf(LT_BEGIN_TAG),prefix_,TR_BEGIN_BLOCK_TAG);
+            if (begin_.startsWith(StringList.concat(nameTag_,RIGHT_END_TAG))) {
                 str_.append(TR_BEGIN);
-                indexLoc_ = indexBeginTag_ + (nameTag_+RIGHT_END_TAG).length();
+                indexLoc_ = indexBeginTag_ + nameTag_.length()+RIGHT_END_TAG.length();
                 continue;
             }
             String beginTag_ = begin_.substring(nameTag_.length(), begin_.indexOf(RIGHT_END_TAG));
-            str_.append(LT_BEGIN_TAG + TR_TAG + beginTag_ + GT_TAG);
+            str_.append(LT_BEGIN_TAG);
+            str_.append(TR_TAG);
+            str_.append(beginTag_);
+            str_.append(GT_TAG);
             indexLoc_ = indexBeginTag_ + nameTag_.length() + beginTag_.length() + RIGHT_END_TAG.length();
         }
         return str_.toString();
@@ -626,7 +629,7 @@ public final class FormatHtml {
                 }
                 if (en_ instanceof Element) {
                     if (((Element) en_).getTagName().startsWith(ip_.getPrefix()) && !ip_.getPrefix().isEmpty()) {
-                        if (StringList.quickEq(((Element) en_).getTagName(),ip_.getPrefix()+EXIT_TAG)) {
+                        if (StringList.quickEq(((Element) en_).getTagName(),StringList.concat(ip_.getPrefix(),EXIT_TAG))) {
                             _conf.clearPages();
                             break;
                         }
@@ -650,7 +653,7 @@ public final class FormatHtml {
                     if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
                         curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
                     }
-                    if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND)|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
+                    if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
                         currentAnchor_ = indexes_.getAnchor();
                         tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
                         currentAnchor_++;
@@ -692,7 +695,7 @@ public final class FormatHtml {
             containersMap_.move(k, k - 1);
         }
         _conf.getHtmlPage().setContainers(containersMap_);
-        doc_.getDocumentElement().removeAttribute(_conf.getPrefix()+BEAN_ATTRIBUTE);
+        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(),BEAN_ATTRIBUTE));
         return DocumentBuilder.toXml(doc_);
     }
 
@@ -722,11 +725,11 @@ public final class FormatHtml {
                 }
                 TryHtmlStack try_ = (TryHtmlStack)bl_;
                 boolean addFinallyClause_ = true;
-                if (!StringList.quickEq(try_.getCatchNodes().last().getTagName(), prefix_+TAG_FINALLY)) {
+                if (!StringList.quickEq(try_.getCatchNodes().last().getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                     addFinallyClause_ = false;
                 }
                 if (try_.getVisitedCatch() >= CustList.FIRST_INDEX) {
-                    if (!StringList.quickEq(try_.getCurrentCatchNode().getTagName(), prefix_+TAG_FINALLY)) {
+                    if (!StringList.quickEq(try_.getCurrentCatchNode().getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                         if (addFinallyClause_) {
                             try_.setThrownException(new WrapperException(_t));
                             Element newCurrentNode_ = try_.getWriteNode();
@@ -741,7 +744,7 @@ public final class FormatHtml {
                 //process try block
                 int i_ = 0;
                 for (Element e: try_.getCatchNodes()) {
-                    if (StringList.quickEq(e.getTagName(), prefix_+TAG_FINALLY)) {
+                    if (StringList.quickEq(e.getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                         break;
                     }
                     String name_ = e.getAttribute(ATTRIBUTE_CLASS_NAME);
@@ -831,32 +834,32 @@ public final class FormatHtml {
         Element en_ = (Element) rw_.getRead();
         ImportingPage ip_ = _ip;
         Node currentNode_ = rw_.getWrite();
-        if (StringList.quickEq(en_.getTagName(), prefix_+SET_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,SET_BLOCK_TAG))) {
             Element set_ = en_;
             processSetTag(_conf, ip_, set_);
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(), prefix_+PARAM_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,PARAM_BLOCK_TAG))) {
             Element set_ = en_;
             processSetClassNameParamTag(_conf, _ip, set_);
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(), prefix_+SET_RETURNED_VALUE_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,SET_RETURNED_VALUE_BLOCK_TAG))) {
             Element set_ = en_;
             processSetReturnValueTag(_conf, ip_, set_);
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(), prefix_+UNSET_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,UNSET_BLOCK_TAG))) {
             Element set_ = en_;
             String var_ = set_.getAttribute(ATTRIBUTE_VAR);
             ip_.getLocalVars().removeKey(var_);
             processBlock(_conf, _ip);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+CONTINUE_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,CONTINUE_TAG))) {
             while (true) {
                 BlockHtml blStack_ = ip_.getLastStack();
                 if (blStack_ instanceof LoopHtmlStack) {
@@ -876,7 +879,7 @@ public final class FormatHtml {
             processLastElementLoop(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+BREAK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,BREAK_TAG))) {
             BreakableHtmlStack stack_ = null;
             while (true) {
                 BlockHtml blStack_ = ip_.getLastStack();
@@ -903,12 +906,12 @@ public final class FormatHtml {
             stack_.setFinished(true);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+RETURN_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,RETURN_TAG))) {
             ip_.setReturning(true);
             return removeBlockFinally(_conf, ip_);
         }
 
-        if (StringList.quickEq(en_.getTagName(),prefix_+CATCH_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,CATCH_TAG))) {
             TryHtmlStack ts_ = (TryHtmlStack) ip_.getLastStack();
             ts_.setThrownException(null);
             if (ts_.getLastCatchNode() == en_) {
@@ -919,7 +922,7 @@ public final class FormatHtml {
             }
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_FINALLY)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
             TryHtmlStack ts_ = (TryHtmlStack) ip_.getLastStack();
             ts_.setVisitedCatch(ts_.getCatchNodes().size()-1);
             if (ip_.isReturning()) {
@@ -934,14 +937,14 @@ public final class FormatHtml {
             processAfterBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+THROW_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,THROW_TAG))) {
             String el_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
             ContextEl cont_ = _conf.toContextEl();
             Argument arg_ = ElUtil.processEl(el_, 0, cont_);
             Struct o_ = arg_.getStruct();
             throw new InvokeException(_conf.joinPages(), o_);
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+TRY_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,TRY_TAG))) {
             rw_.setRead(en_.getFirstChild());
             Node n_ = en_.getNextSibling();
             TryHtmlStack tryStack_ = new TryHtmlStack();
@@ -954,8 +957,8 @@ public final class FormatHtml {
                     n_ = n_.getNextSibling();
                     continue;
                 }
-                if (!StringList.quickEq(((Element) n_).getTagName(), prefix_+CATCH_TAG)) {
-                    if (!StringList.quickEq(((Element) n_).getTagName(), prefix_+TAG_FINALLY)) {
+                if (!StringList.quickEq(((Element) n_).getTagName(),StringList.concat(prefix_,CATCH_TAG))) {
+                    if (!StringList.quickEq(((Element) n_).getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                         break;
                     }
                 }
@@ -967,7 +970,7 @@ public final class FormatHtml {
             ip_.addBlock(tryStack_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+ELSE_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,ELSE_BLOCK_TAG))) {
             IfHtmlStack if_ = (IfHtmlStack) ip_.getLastStack();
             if_.changeVisitedElement(en_);
             if (!if_.isEntered()) {
@@ -1019,7 +1022,7 @@ public final class FormatHtml {
                     n_ = n_.getNextSibling();
                     continue;
                 }
-                if (!StringList.quickEq(((Element) n_).getTagName(),prefix_+ELSE_BLOCK_TAG)) {
+                if (!StringList.quickEq(((Element) n_).getTagName(),StringList.concat(prefix_,ELSE_BLOCK_TAG))) {
                     if (!ExtractCondition.isContentOfConditionNode(_conf, n_)) {
                         break;
                     }
@@ -1053,7 +1056,7 @@ public final class FormatHtml {
             }
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_SWITCH)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,TAG_SWITCH))) {
             if (!ip_.noBlock()) {
                 BlockHtml bl_ = ip_.getLastStack();
                 if (bl_.getReadNode() == en_) {
@@ -1093,7 +1096,7 @@ public final class FormatHtml {
             ip_.addBlock(if_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_CASE)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,TAG_CASE))) {
             SwitchHtmlStack sw_ = (SwitchHtmlStack) ip_.getLastStack();
             Struct value_ = sw_.getStruct();
             if (sw_.isEntered()) {
@@ -1161,7 +1164,7 @@ public final class FormatHtml {
                 return ip_;
             }
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_DEFAULT)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,TAG_DEFAULT))) {
             SwitchHtmlStack sw_ = (SwitchHtmlStack) ip_.getLastStack();
             if (sw_.isEntered()) {
                 if (!en_.hasChildNodes()) {
@@ -1203,7 +1206,7 @@ public final class FormatHtml {
                 return ip_;
             }
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+SELECT_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,SELECT_TAG))) {
             String map_ = en_.getAttribute(ATTRIBUTE_MAP);
             String id_ = en_.getAttribute(ATTRIBUTE_ID);
             String groupId_ = en_.getAttribute(ATTRIBUTE_GROUP_ID);
@@ -1246,7 +1249,7 @@ public final class FormatHtml {
                     _conf.getHtmlPage().getSelects().put(inputs_, allOptions_);
                     selectTag_.setAttribute(NUMBER_INPUT, String.valueOf(indexes_.getNb()));
                 }
-                selectTag_.setAttribute(ATTRIBUTE_NAME, ip_.getBeanName()+DOT+name_);
+                selectTag_.setAttribute(ATTRIBUTE_NAME, StringList.concat(ip_.getBeanName(),DOT,name_));
             }
             String selectId_ = selectTag_.getAttribute(ATTRIBUTE_ID);
             if (!selectId_.isEmpty()) {
@@ -1254,16 +1257,16 @@ public final class FormatHtml {
                 selectId_ = interpretPartiallyIds(_conf, ip_, selectId_);
                 selectTag_.setAttribute(ATTRIBUTE_ID, selectId_);
             }
-            String selectGroupId_ = selectTag_.getAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID);
+            String selectGroupId_ = selectTag_.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID));
             if (!selectGroupId_.isEmpty()) {
                 ip_.setProcessingAttribute(ATTRIBUTE_GROUP_ID);
                 selectGroupId_ = interpretPartiallyIds(_conf, ip_, selectGroupId_);
-                selectTag_.setAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID, selectGroupId_);
+                selectTag_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID), selectGroupId_);
             }
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+MESSAGE_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,MESSAGE_BLOCK_TAG))) {
             Element element_ = en_;
             String formatted_ = ExtractObject.formatMessage(_conf, _loc, ip_, element_, _files, _resourcesFolder);
             if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
@@ -1278,7 +1281,7 @@ public final class FormatHtml {
             ipMess_.setTabWidth(getTabWidth(_conf));
             ipMess_.setBeanName(ip_.getBeanName());
             boolean treatAsFullHtml_ = false;
-            if (formatted_.endsWith(LT_END_TAG+TAG_HTML+GT_TAG) && formatted_.startsWith(LT_BEGIN_TAG+TAG_HTML)) {
+            if (formatted_.endsWith(StringList.concat(LT_END_TAG,TAG_HTML,String.valueOf(GT_TAG))) && formatted_.startsWith(StringList.concat(String.valueOf(LT_BEGIN_TAG),TAG_HTML))) {
                 if (Character.isWhitespace(formatted_.charAt(TAG_HTML.length()+1))) {
                     treatAsFullHtml_ = true;
                 } else if (formatted_.charAt(TAG_HTML.length()+1) == GT_TAG) {
@@ -1305,7 +1308,7 @@ public final class FormatHtml {
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(ipMess_.getHtml());
             Document docLoc_ = res_.getDocument();
             if (docLoc_ == null) {
-                throw new XmlParseException(res_.getLocation().toString()+RETURN_LINE+ipMess_.getHtml()+RETURN_LINE+_conf.joinPages());
+                throw new XmlParseException(StringList.concat(res_.getLocation().display(),RETURN_LINE,ipMess_.getHtml(),RETURN_LINE,_conf.joinPages()));
             }
             ipMess_.setPrefix(getPrefix(_conf, docLoc_));
             ipMess_.setRoot(docLoc_.getDocumentElement());
@@ -1339,7 +1342,7 @@ public final class FormatHtml {
                     Element tag_ = (Element) currentNode_.getLastChild();
                     processAttributes(_conf, _loc, _files, ipMess_, doc_, tag_,
                             indexes_, containersMap_, containers_, _resourcesFolder);
-                    if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND)|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
+                    if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
                         tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
                         currentAnchor_++;
                         _indexes.setAnchor(currentAnchor_);
@@ -1352,7 +1355,7 @@ public final class FormatHtml {
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+IMPORT_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,IMPORT_BLOCK_TAG))) {
             BeanElement newElt_ = tryToOpenDocument(en_, ip_, _conf, _files, _resourcesFolder);
             if (newElt_ == null) {
                 processBlock(_conf, ip_);
@@ -1394,7 +1397,7 @@ public final class FormatHtml {
             checkSyntax(_conf, newElt_.getRoot().getOwnerDocument(), newElt_.getHtml());
             return newIp_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_DO)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,TAG_DO))) {
             LoopHtmlStack c_ = null;
             if (!ip_.noBlock() && ip_.getLastStack() instanceof LoopHtmlStack){
                 c_ = (LoopHtmlStack) ip_.getLastStack();
@@ -1444,7 +1447,7 @@ public final class FormatHtml {
             processAfterBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+WHILE_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,WHILE_BLOCK_TAG))) {
             LoopHtmlStack c_ = null;
             if (!ip_.noBlock() && ip_.getLastStack() instanceof LoopHtmlStack){
                 c_ = (LoopHtmlStack) ip_.getLastStack();
@@ -1475,7 +1478,7 @@ public final class FormatHtml {
             processAfterBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getTagName(),prefix_+FOR_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,FOR_BLOCK_TAG))) {
             LoopHtmlStack c_ = null;
             if (!ip_.noBlock() && ip_.getLastStack() instanceof LoopHtmlStack){
                 c_ = (LoopHtmlStack) ip_.getLastStack();
@@ -1516,7 +1519,7 @@ public final class FormatHtml {
                     String var_ = catchBlock_.getAttribute(ATTRIBUTE_VAR);
                     ip_.getCatchVars().removeKey(var_);
                 }
-                if (StringList.quickEq(t_.getLastCatchNode().getTagName(), prefix_+TAG_FINALLY)) {
+                if (StringList.quickEq(t_.getLastCatchNode().getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                     if (t_.getLastCatchNode().hasChildNodes()) {
                         rw_.setRead(t_.getLastCatchNode());
                         rw_.setWrite(t_.getWriteNode());
@@ -1602,7 +1605,9 @@ public final class FormatHtml {
                 String nameTwo_ = _ip.getNextTempVar();
                 _ip.getLocalVars().put(nameTwo_, right_);
                 try {
-                    ElUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, nameOne_+GET_LOC_VAR+LEFT_ARR+indexNb_+SUFFIX_INT+RIGHT_ARR, nameTwo_+GET_LOC_VAR, String.valueOf(EQUALS), _conf.toContextEl());
+                    String leftEl_ = StringList.concat(nameOne_,GET_LOC_VAR,String.valueOf(LEFT_ARR),Long.toString(indexNb_),SUFFIX_INT,String.valueOf(RIGHT_ARR));
+                    String rightEl_ = StringList.concat(nameTwo_,GET_LOC_VAR);
+                    ElUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, leftEl_, rightEl_, String.valueOf(EQUALS), _conf.toContextEl());
                 } catch (RuntimeException _0) {
                     _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
                     _conf.getLastPage().setLookForAttrValue(false);
@@ -1824,23 +1829,23 @@ public final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             if (_object == null || _object.isNull()) {
-                throw new NotPrimitivableException(clMatch_.getName()+RETURN_LINE+_conf.joinPages());
+                throw new NotPrimitivableException(StringList.concat(clMatch_.getName(),RETURN_LINE,_conf.joinPages()));
             }
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(ConstClasses.resolve(_className));
             String type_ = _object.getClassName(_conf.toContextEl());
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _conf.toContextEl())) {
-                throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
+                throw new DynamicCastClassException(StringList.concat(type_,SPACE,_className,RETURN_LINE,_conf.joinPages()));
             }
             String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(type_), true, _conf.toContextEl()).getName();
             if (StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
                 String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf.toContextEl()).getName();
                 if (!StringList.quickEq(typeNameParam_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-                    throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
+                    throw new DynamicCastClassException(StringList.concat(type_,SPACE,_className,RETURN_LINE,_conf.joinPages()));
                 }
             } else {
                 if (PrimitiveTypeUtil.getOrderClass(clMatch_, _conf.toContextEl()) == 0) {
-                    throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
+                    throw new DynamicCastClassException(StringList.concat(type_,SPACE,_className,RETURN_LINE,_conf.joinPages()));
                 }
             }
             loc_.setStruct(_object);
@@ -1859,12 +1864,12 @@ public final class FormatHtml {
             loc_.setStruct(_object);
             return loc_;
         }
-        throw new NotCastableException(arg_+SPACE+_className+RETURN_LINE+_conf.joinPages());
+        throw new NotCastableException(StringList.concat(arg_,SPACE,_className,RETURN_LINE,_conf.joinPages()));
     }
     static void checkClass(Configuration _conf, ImportingPage _ip, ClassArgumentMatching _class, Struct _object) {
         String paramName_ = _class.getName();
         if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, _object, _conf.toContextEl())) {
-            throw new NotPrimitivableException(_class.getName()+RETURN_LINE+_conf.joinPages());
+            throw new NotPrimitivableException(StringList.concat(_class.getName(),RETURN_LINE,_conf.joinPages()));
         }
         if (_object.isNull()) {
             return;
@@ -1880,17 +1885,17 @@ public final class FormatHtml {
             paramName_ = _conf.getLastPage().getPageEl().format(paramName_, context_);
             mapping_.setParam(paramName_);
             if (!Templates.isCorrect(mapping_, context_)) {
-                throw new NotCastableException(_object.getClassName(_conf.toContextEl())+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
+                throw new NotCastableException(StringList.concat(_object.getClassName(_conf.toContextEl()),SPACE,_class.getName(),RETURN_LINE,_conf.joinPages()));
             }
         } else {
             if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf.toContextEl()) > 0) {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.toContextEl()) == 0) {
-                    throw new DynamicCastClassException(_object.getClassName(_conf.toContextEl())+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
+                    throw new DynamicCastClassException(StringList.concat(_object.getClassName(_conf.toContextEl()),SPACE,_class.getName(),RETURN_LINE,_conf.joinPages()));
                 }
             } else {
                 String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true,_conf.toContextEl()).getName();
                 if (!StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-                    throw new DynamicCastClassException(_object.getClassName(_conf.toContextEl())+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
+                    throw new DynamicCastClassException(StringList.concat(_object.getClassName(_conf.toContextEl()),SPACE,_class.getName(),RETURN_LINE,_conf.joinPages()));
                 }
             }
         }
@@ -1908,7 +1913,7 @@ public final class FormatHtml {
             _conf.getLastPage().setProcessingNode(en_);
             if (en_ instanceof Element) {
                 Element elt_ = (Element) en_;
-                if (StringList.quickEq(elt_.getTagName(), prefix_+FOR_BLOCK_TAG)) {
+                if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,FOR_BLOCK_TAG))) {
                     StringList varsLoc_ = checkForLoop(_conf, elt_, _html);
                     for (StringList l: vars_) {
                         for (String v: l) {
@@ -1924,7 +1929,7 @@ public final class FormatHtml {
                     if (elt_.hasChildNodes()) {
                         vars_.add(varsLoc_);
                     }
-                } else if (StringList.quickEq(elt_.getTagName(), prefix_+SELECT_TAG)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,SELECT_TAG))) {
                     if (elt_.getAttribute(ATTRIBUTE_MAP).isEmpty()) {
                         if (elt_.getAttribute(ATTRIBUTE_LIST).isEmpty()) {
                             _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
@@ -1955,7 +1960,7 @@ public final class FormatHtml {
                     if (!existIf_) {
                         throw new BadElseIfException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+ELSE_BLOCK_TAG)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,ELSE_BLOCK_TAG))) {
                     Node prev_ = elt_.getPreviousSibling();
                     boolean existIf_ = false;
                     while (prev_ != null) {
@@ -1977,7 +1982,7 @@ public final class FormatHtml {
                     if (!existIf_) {
                         throw new BadElseException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TRY_TAG)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TRY_TAG))) {
                     if (elt_.getFirstChild() == null) {
                         throw new BadCatchException(_conf.joinPages());
                     }
@@ -1995,17 +2000,17 @@ public final class FormatHtml {
                         if (next_ instanceof Text){
                             break;
                         }
-                        if (StringList.quickEq(((Element) next_).getTagName(),prefix_+TAG_FINALLY)) {
+                        if (StringList.quickEq(((Element) next_).getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                             existCatch_ = true;
                             break;
                         }
-                        existCatch_ = StringList.quickEq(((Element) next_).getTagName(),prefix_+CATCH_TAG);
+                        existCatch_ = StringList.quickEq(((Element) next_).getTagName(),StringList.concat(prefix_,CATCH_TAG));
                         break;
                     }
                     if (!existCatch_) {
                         throw new BadCatchException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+CATCH_TAG)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,CATCH_TAG))) {
                     String className_ = elt_.getAttribute(ATTRIBUTE_CLASS_NAME);
                     _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _conf.getLastPage().setOffset(0);
@@ -2029,11 +2034,11 @@ public final class FormatHtml {
                         if (prev_ instanceof Text){
                             break;
                         }
-                        if (StringList.quickEq(((Element) prev_).getTagName(),prefix_+CATCH_TAG)) {
+                        if (StringList.quickEq(((Element) prev_).getTagName(),StringList.concat(prefix_,CATCH_TAG))) {
                             prev_ = prev_.getPreviousSibling();
                             continue;
                         }
-                        existTry_ = StringList.quickEq(((Element) prev_).getTagName(),prefix_+TRY_TAG);
+                        existTry_ = StringList.quickEq(((Element) prev_).getTagName(),StringList.concat(prefix_,TRY_TAG));
                         break;
                     }
                     if (!existTry_) {
@@ -2051,7 +2056,7 @@ public final class FormatHtml {
                     if (elt_.hasChildNodes()) {
                         catchVars_.add(var_);
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_FINALLY)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_FINALLY))) {
                     if (elt_.getFirstChild() == null) {
                         throw new BadTryException(_conf.joinPages());
                     }
@@ -2069,33 +2074,33 @@ public final class FormatHtml {
                         if (prev_ instanceof Text){
                             break;
                         }
-                        if (StringList.quickEq(((Element) prev_).getTagName(),prefix_+CATCH_TAG)) {
+                        if (StringList.quickEq(((Element) prev_).getTagName(),StringList.concat(prefix_,CATCH_TAG))) {
                             prev_ = prev_.getPreviousSibling();
                             continue;
                         }
-                        existTry_ = StringList.quickEq(((Element) prev_).getTagName(),prefix_+TRY_TAG);
+                        existTry_ = StringList.quickEq(((Element) prev_).getTagName(),StringList.concat(prefix_,TRY_TAG));
                         break;
                     }
                     if (!existTry_) {
                         throw new BadTryException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+BREAK_TAG)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,BREAK_TAG))) {
                     Element parent_ = elt_.getParentNode();
                     boolean ok_ = false;
                     while (parent_ != null) {
-                        if (StringList.quickEq(parent_.getTagName(),prefix_+FOR_BLOCK_TAG)) {
+                        if (StringList.quickEq(parent_.getTagName(), StringList.concat(prefix_,FOR_BLOCK_TAG))) {
                             ok_ = true;
                             break;
                         }
-                        if (StringList.quickEq(parent_.getTagName(),prefix_+WHILE_BLOCK_TAG)) {
+                        if (StringList.quickEq(parent_.getTagName(), StringList.concat(prefix_,WHILE_BLOCK_TAG))) {
                             ok_ = true;
                             break;
                         }
-                        if (StringList.quickEq(parent_.getTagName(),prefix_+TAG_DO)) {
+                        if (StringList.quickEq(parent_.getTagName(), StringList.concat(prefix_,TAG_DO))) {
                             ok_ = true;
                             break;
                         }
-                        if (StringList.quickEq(parent_.getTagName(),prefix_+TAG_SWITCH)) {
+                        if (StringList.quickEq(parent_.getTagName(), StringList.concat(prefix_,TAG_SWITCH))) {
                             ok_ = true;
                             break;
                         }
@@ -2104,19 +2109,19 @@ public final class FormatHtml {
                     if (!ok_) {
                         throw new BadTagBreakException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+CONTINUE_TAG)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,CONTINUE_TAG))) {
                     Element parent_ = elt_.getParentNode();
                     boolean ok_ = false;
                     while (parent_ != null) {
-                        if (StringList.quickEq(parent_.getTagName(),prefix_+FOR_BLOCK_TAG)) {
+                        if (StringList.quickEq(parent_.getTagName(), StringList.concat(prefix_,FOR_BLOCK_TAG))) {
                             ok_ = true;
                             break;
                         }
-                        if (StringList.quickEq(parent_.getTagName(),prefix_+WHILE_BLOCK_TAG)) {
+                        if (StringList.quickEq(parent_.getTagName(), StringList.concat(prefix_,WHILE_BLOCK_TAG))) {
                             ok_ = true;
                             break;
                         }
-                        if (StringList.quickEq(parent_.getTagName(),prefix_+TAG_DO)) {
+                        if (StringList.quickEq(parent_.getTagName(), StringList.concat(prefix_,TAG_DO))) {
                             ok_ = true;
                             break;
                         }
@@ -2125,7 +2130,7 @@ public final class FormatHtml {
                     if (!ok_) {
                         throw new BadTagContinueException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_SWITCH)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_SWITCH))) {
                     Node first_ = elt_.getFirstChild();
                     while (first_ != null) {
                         if (first_ instanceof Text) {
@@ -2139,25 +2144,25 @@ public final class FormatHtml {
                             first_ = first_.getNextSibling();
                             continue;
                         }
-                        if (StringList.quickEq(((Element) first_).getTagName(),prefix_+TAG_CASE)) {
+                        if (StringList.quickEq(((Element) first_).getTagName(),StringList.concat(prefix_,TAG_CASE))) {
                             first_ = first_.getNextSibling();
                             continue;
                         }
-                        if (StringList.quickEq(((Element) first_).getTagName(),prefix_+TAG_DEFAULT)) {
+                        if (StringList.quickEq(((Element) first_).getTagName(),StringList.concat(prefix_,TAG_DEFAULT))) {
                             first_ = first_.getNextSibling();
                             continue;
                         }
                         throw new BadSwitchException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_CASE)) {
-                    if (elt_.getParentNode() == null || !StringList.quickEq(elt_.getParentNode().getTagName(), prefix_+TAG_SWITCH)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_CASE))) {
+                    if (elt_.getParentNode() == null || !StringList.quickEq(elt_.getParentNode().getTagName(),StringList.concat(prefix_,TAG_SWITCH))) {
                         throw new BadCaseException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_DEFAULT)) {
-                    if (elt_.getParentNode() == null || !StringList.quickEq(elt_.getParentNode().getTagName(), prefix_+TAG_SWITCH)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_DEFAULT))) {
+                    if (elt_.getParentNode() == null || !StringList.quickEq(elt_.getParentNode().getTagName(),StringList.concat(prefix_,TAG_SWITCH))) {
                         throw new BadDefaultException(_conf.joinPages());
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+WHILE_BLOCK_TAG)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,WHILE_BLOCK_TAG))) {
                     if (elt_.getFirstChild() != null) {
                         Node prev_ = elt_.getPreviousSibling();
                         boolean existDo_ = false;
@@ -2173,14 +2178,14 @@ public final class FormatHtml {
                             if (prev_ instanceof Text){
                                 break;
                             }
-                            existDo_ = StringList.quickEq(((Element) prev_).getTagName(),prefix_+TAG_DO);
+                            existDo_ = StringList.quickEq(((Element) prev_).getTagName(),StringList.concat(prefix_,TAG_DO));
                             break;
                         }
                         if (existDo_) {
                             throw new BadLoopException(_conf.joinPages());
                         }
                     }
-                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_DO)) {
+                } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_DO))) {
                     Node next_ = elt_.getNextSibling();
                     boolean existWhile_ = false;
                     while (next_ != null) {
@@ -2195,7 +2200,7 @@ public final class FormatHtml {
                         if (next_ instanceof Text){
                             break;
                         }
-                        existWhile_ = StringList.quickEq(((Element) next_).getTagName(),prefix_+WHILE_BLOCK_TAG);
+                        existWhile_ = StringList.quickEq(((Element) next_).getTagName(),StringList.concat(prefix_,WHILE_BLOCK_TAG));
                         break;
                     }
                     if (!existWhile_) {
@@ -2247,10 +2252,10 @@ public final class FormatHtml {
                 _conf.getLastPage().setEncodedChars(infos_);
                 return;
             }
-            if (StringList.quickEq(((Element) n_).getTagName(), prefix_+FOR_BLOCK_TAG)) {
+            if (StringList.quickEq(((Element) n_).getTagName(),StringList.concat(prefix_,FOR_BLOCK_TAG))) {
                 vars_.removeLast();
             }
-            if (StringList.quickEq(((Element) n_).getTagName(), prefix_+CATCH_TAG)) {
+            if (StringList.quickEq(((Element) n_).getTagName(),StringList.concat(prefix_,CATCH_TAG))) {
                 catchVars_.removeLast();
             }
             Node next_ = n_.getNextSibling();
@@ -2259,10 +2264,10 @@ public final class FormatHtml {
                 if (par_ == root_) {
                     break;
                 }
-                if (StringList.quickEq(par_.getTagName(), prefix_+FOR_BLOCK_TAG)) {
+                if (StringList.quickEq(par_.getTagName(), StringList.concat(prefix_,FOR_BLOCK_TAG))) {
                     vars_.removeLast();
                 }
-                if (StringList.quickEq(par_.getTagName(), prefix_+CATCH_TAG)) {
+                if (StringList.quickEq(par_.getTagName(), StringList.concat(prefix_,CATCH_TAG))) {
                     catchVars_.removeLast();
                 }
                 next_ = par_.getNextSibling();
@@ -2411,7 +2416,7 @@ public final class FormatHtml {
     }
     private static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(LT_BEGIN_TAG+((Element) _node).getTagName(), _from) + 1;
+            return _html.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
         }
         if (_node instanceof Text) {
             int indexText_ = _html.indexOf(GT_TAG, _from);
@@ -2423,7 +2428,7 @@ public final class FormatHtml {
             }
             return indexText_ + 1;
         }
-        return _html.indexOf(LT_BEGIN_TAG+COMMENT, _from);
+        return _html.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),COMMENT), _from);
     }
     static StringList checkForLoop(Configuration _conf, Element _node, String _html) {
         StringList vars_ = new StringList();
@@ -2577,10 +2582,10 @@ public final class FormatHtml {
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             String id_ = _input.getAttribute(ATTRIBUTE_ID);
             if (id_.isEmpty()) {
-                id_ = _input.getAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID);
+                id_ = _input.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID));
             }
             String type_ = _input.getAttribute(ATTRIBUTE_TYPE);
-            String class_ = _input.getAttribute(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME);
+            String class_ = _input.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
             if (class_.isEmpty()) {
                 if (StringList.quickEq(type_,NUMBER)) {
                     class_= Long.class.getName();
@@ -2623,11 +2628,11 @@ public final class FormatHtml {
                 }
             }
             nodeInfos_.setType(type_);
-            nodeInfos_.setValidator(_input.getAttribute(_conf.getPrefix()+ATTRIBUTE_VALIDATOR));
+            nodeInfos_.setValidator(_input.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VALIDATOR)));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
-            nodeInfos_.setVarMethod(_input.getAttribute(_conf.getPrefix()+VAR_METHOD));
-            nodeInfos_.setChanging(_input.getAttribute(_conf.getPrefix()+ATTRIBUTE_VALUE_CHANGE_EVENT));
+            nodeInfos_.setVarMethod(_input.getAttribute(StringList.concat(_conf.getPrefix(),VAR_METHOD)));
+            nodeInfos_.setChanging(_input.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VALUE_CHANGE_EVENT)));
             _containers.put(currentInput_, nodeCont_);
             _indexes.setNb(currentInput_);
             currentInput_++;
@@ -2673,14 +2678,14 @@ public final class FormatHtml {
             id_ = interpretPartiallyIds(_conf, _ip, id_);
             _tag.setAttribute(ATTRIBUTE_ID, id_);
         }
-        attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_GROUP_ID);
-        String groupId_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID);
+        attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID));
+        String groupId_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID));
         if (!groupId_.isEmpty()) {
-            _ip.setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID);
+            _ip.setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID));
             groupId_ = interpretPartiallyIds(_conf, _ip, groupId_);
-            _tag.setAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID, groupId_);
+            _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID), groupId_);
         }
-        if (StringList.quickEq(_tag.getTagName(),prefixWrite_+SUBMIT_BLOCK_TAG) && !prefixWrite_.isEmpty()) {
+        if (StringList.quickEq(_tag.getTagName(),StringList.concat(prefixWrite_,SUBMIT_BLOCK_TAG)) && !prefixWrite_.isEmpty()) {
             attributesNames_.removeAllString(ATTRIBUTE_VALUE_SUBMIT);
             String value_ = _tag.getAttribute(ATTRIBUTE_VALUE_SUBMIT);
             StringList elts_ = StringList.splitStrings(value_, COMMA);
@@ -2720,7 +2725,7 @@ public final class FormatHtml {
             _tag.setAttribute(ATTRIBUTE_TYPE, SUBMIT_TYPE);
             _doc.renameNode(_tag, INPUT_TAG);
         }
-        if (StringList.quickEq(_tag.getTagName(),prefixWrite_+TAG_A) && !prefixWrite_.isEmpty()) {
+        if (StringList.quickEq(_tag.getTagName(),StringList.concat(prefixWrite_,TAG_A)) && !prefixWrite_.isEmpty()) {
             attributesNames_.removeAllString(ATTRIBUTE_VALUE);
             String value_ = _tag.getAttribute(ATTRIBUTE_VALUE);
             StringList elts_ = StringList.splitStrings(value_, COMMA);
@@ -2758,7 +2763,7 @@ public final class FormatHtml {
             _tag.setAttribute(ATTRIBUTE_TITLE, StringList.simpleStringsFormat(preformatted_, objects_.toArray()));
             _doc.renameNode(_tag, TAG_A);
         }
-        if (StringList.quickEq(_tag.getTagName(),prefixWrite_+TAG_IMG) && !prefixWrite_.isEmpty()) {
+        if (StringList.quickEq(_tag.getTagName(),StringList.concat(prefixWrite_,TAG_IMG)) && !prefixWrite_.isEmpty()) {
             _doc.renameNode(_tag, TAG_IMG);
         } else if (StringList.quickEq(_tag.getTagName(),TAG_IMG)) {
             String src_ = _tag.getAttribute(ATTRIBUTE_SRC);
@@ -2767,9 +2772,9 @@ public final class FormatHtml {
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
                 src_ = ExtractObject.formatNumVariables(src_, _conf, _ip, _files);
-                String wrap_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_ENCODE_IMG);
+                String wrap_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
                 boolean keep_ = wrap_.isEmpty();
-                attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_ENCODE_IMG);
+                attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
                 attributesNames_.removeAllString(ATTRIBUTE_SRC);
                 String content_ = ExtractFromResources.getContentFile(_conf, _files,src_,_resourcesFolder);
                 if (keep_) {
@@ -2778,7 +2783,7 @@ public final class FormatHtml {
                     content_ = surroundImage(content_, wrap_);
                     _tag.setAttribute(ATTRIBUTE_SRC, content_);
                 }
-                _tag.removeAttribute(_conf.getPrefix()+ATTRIBUTE_ENCODE_IMG);
+                _tag.removeAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
             }
         }
         if (StringList.quickEq(_tag.getTagName(),TAG_LINK)) {
@@ -2882,8 +2887,8 @@ public final class FormatHtml {
             //format name
             attributesNames_.removeAllString(ATTRIBUTE_VALUE);
             attributesNames_.removeAllString(ATTRIBUTE_NAME);
-            attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME);
-            attributesNames_.removeAllString(_conf.getPrefix()+VAR_METHOD);
+            attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
+            attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),VAR_METHOD));
             String name_ = _tag.getAttribute(ATTRIBUTE_NAME);
             accessName_ = name_;
             if (!name_.isEmpty()) {
@@ -2895,14 +2900,14 @@ public final class FormatHtml {
                     _tag.setAttribute(NUMBER_INPUT, String.valueOf(_indexes.getNb()));
                 }
                 attributesNames_.removeAllString(NUMBER_INPUT);
-                _tag.setAttribute(ATTRIBUTE_NAME, beanName_+DOT+name_);
+                _tag.setAttribute(ATTRIBUTE_NAME, StringList.concat(beanName_,DOT,name_));
             }
         }
         if (StringList.quickEq(_tag.getTagName(),TEXT_AREA)) {
             //format name
             attributesNames_.removeAllString(ATTRIBUTE_NAME);
-            attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME);
-            attributesNames_.removeAllString(_conf.getPrefix()+VAR_METHOD);
+            attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
+            attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),VAR_METHOD));
             String name_ = _tag.getAttribute(ATTRIBUTE_NAME);
             if (!name_.isEmpty()) {
                 _ip.setProcessingAttribute(ATTRIBUTE_NAME);
@@ -2913,21 +2918,21 @@ public final class FormatHtml {
                     _tag.setAttribute(NUMBER_INPUT, String.valueOf(_indexes.getNb()));
                 }
                 attributesNames_.removeAllString(NUMBER_INPUT);
-                _tag.setAttribute(ATTRIBUTE_NAME, beanName_+DOT+name_);
+                _tag.setAttribute(ATTRIBUTE_NAME, StringList.concat(beanName_,DOT,name_));
             }
         }
-        if (_tag.hasAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE)) {
+        if (_tag.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE))) {
             if (StringList.quickEq(_tag.getTagName(),INPUT_TAG)) {
-                attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
+                attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
                 attributesNames_.removeAllString(ATTRIBUTE_VALUE);
                 attributesNames_.removeAllString(CHECKED);
                 setValueInput(_conf, _tag);
-                _tag.removeAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
+                _tag.removeAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             }
             if (StringList.quickEq(_tag.getTagName(),TEXT_AREA)) {
-                attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
+                attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
                 setValueTextArea(_conf, _doc, _tag);
-                _tag.removeAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
+                _tag.removeAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             }
         }
         if (StringList.quickEq(_tag.getTagName(),INPUT_TAG)) {
@@ -2959,12 +2964,12 @@ public final class FormatHtml {
             }
         }
         if (StringList.quickEq(_tag.getTagName(),SPAN_TAG)) {
-            String forId_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_FOR);
+            String forId_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR));
             if (!forId_.isEmpty()) {
-                _ip.setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_FOR);
-                attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_FOR);
+                _ip.setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR));
+                attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR));
                 forId_ = interpretPartiallyIds(_conf, _ip, forId_);
-                _tag.setAttribute(_conf.getPrefix()+ATTRIBUTE_FOR, forId_);
+                _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR), forId_);
                 if (!_ip.getReadWrite().getRead().hasChildNodes()) {
                     Text txt_ = _doc.createTextNode(SPACE);
                     _tag.appendChild(txt_);
@@ -2979,22 +2984,22 @@ public final class FormatHtml {
                 attr_ = format(stacks_, attr_, false);
                 _tag.setAttribute(ATTRIBUTE_HREF, attr_);
             }
-            attr_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND);
+            attr_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
             if (!attr_.isEmpty()) {
                 CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
                 attr_ = format(stacks_, attr_, false);
-                _tag.setAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND, attr_);
+                _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), attr_);
             }
             String href_ = _tag.getAttribute(ATTRIBUTE_HREF);
             if (href_.startsWith(CALL_METHOD)) {
-                _tag.setAttribute(ATTRIBUTE_HREF, CALL_METHOD+beanName_+DOT+href_.substring(1));
+                _tag.setAttribute(ATTRIBUTE_HREF, StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
             } else {
-                href_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND);
+                href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
                 if (href_.startsWith(CALL_METHOD)) {
-                    _tag.setAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND, CALL_METHOD+beanName_+DOT+href_.substring(1));
+                    _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
                 }
             }
-            if (_tag.hasAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND)) {
+            if (_tag.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))) {
                 _tag.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
             }
         }
@@ -3006,11 +3011,11 @@ public final class FormatHtml {
                 attr_ = format(stacks_, attr_, false);
                 _tag.setAttribute(ATTRIBUTE_ACTION, attr_);
             }
-            attr_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND);
+            attr_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
             if (!attr_.isEmpty()) {
                 CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
                 attr_ = format(stacks_, attr_, false);
-                _tag.setAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND, attr_);
+                _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), attr_);
             }
             attr_ = _tag.getAttribute(ATTRIBUTE_NAME);
             if (!attr_.isEmpty()) {
@@ -3021,18 +3026,18 @@ public final class FormatHtml {
             }
             String href_ = _tag.getAttribute(ATTRIBUTE_ACTION);
             if (href_.startsWith(CALL_METHOD)) {
-                _tag.setAttribute(ATTRIBUTE_ACTION, CALL_METHOD+beanName_+DOT+href_.substring(1));
+                _tag.setAttribute(ATTRIBUTE_ACTION, StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
             } else {
-                href_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND);
+                href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
                 if (href_.startsWith(CALL_METHOD)) {
-                    _tag.setAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND, CALL_METHOD+beanName_+DOT+href_.substring(1));
+                    _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
                 }
             }
-            if (_tag.hasAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND)) {
+            if (_tag.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))) {
                 _tag.setAttribute(ATTRIBUTE_ACTION, EMPTY_STRING);
             }
         }
-        if (!StringList.quickEq(_tag.getTagName(),prefixWrite_+TR_END_BLOCK_TAG) || prefixWrite_.isEmpty()) {
+        if (!StringList.quickEq(_tag.getTagName(),StringList.concat(prefixWrite_,TR_END_BLOCK_TAG)) || prefixWrite_.isEmpty()) {
             for (String a: attributesNames_) {
                 String v_ = _tag.getAttribute(a);
                 if (!v_.isEmpty()) {
@@ -3064,9 +3069,13 @@ public final class FormatHtml {
         String contourChart_ = EMPTY_STRING;
         StringBuilder sb_ = new StringBuilder();
         if (AVAILABLE_FORMATS.containsStr(_format)) {
-            sb_.append(DATA_IMAGE+_format+BASE64);
+            sb_.append(DATA_IMAGE);
+            sb_.append(_format);
+            sb_.append(BASE64);
         } else {
-            sb_.append(DATA_IMAGE+IMG_EXT+BASE64);
+            sb_.append(DATA_IMAGE);
+            sb_.append(IMG_EXT);
+            sb_.append(BASE64);
         }
         sb_.append(_image);
         contourChart_ = sb_.toString();
@@ -3085,8 +3094,8 @@ public final class FormatHtml {
     }
 
     private static void setValueTextArea(Configuration _conf, Document _doc, Element _tag) {
-        String attribute_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
-        _conf.getLastPage().setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
+        String attribute_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
+        _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
         Struct o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getStruct();
@@ -3099,12 +3108,12 @@ public final class FormatHtml {
     }
 
     private static void setValueInput(Configuration _conf, Element _tag) {
-        String attribute_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
+        String attribute_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
         try {
             //TODO converter
             _tag.setAttribute(ATTRIBUTE_VALUE, String.valueOf(Long.parseLong(attribute_)));
         } catch (NumberFormatException _0) {
-            _conf.getLastPage().setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
+            _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
             Struct o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getStruct();
@@ -3142,7 +3151,7 @@ public final class FormatHtml {
                     i_++;
                     continue;
                 }
-                throw new BadExpressionLanguageException(_pattern+RETURN_LINE+_conf.joinPages());
+                throw new BadExpressionLanguageException(StringList.concat(_pattern,RETURN_LINE,_conf.joinPages()));
             }
             if (curChar_ == ESCAPED) {
                 escaped_ = true;
@@ -3247,9 +3256,9 @@ public final class FormatHtml {
             if (!_id.isEmpty()) {
                 docElementSelect_.setAttribute(ATTRIBUTE_ID, _id);
             } else {
-                docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID, _groupId);
+                docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID), _groupId);
             }
-            docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_VALIDATOR, _n.getAttribute(ATTRIBUTE_VALIDATOR));
+            docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VALIDATOR), _n.getAttribute(ATTRIBUTE_VALIDATOR));
         }
         if (_multiple) {
             docElementSelect_.setAttribute(ATTRIBUTE_MULTIPLE, ATTRIBUTE_MULTIPLE);
@@ -3330,9 +3339,9 @@ public final class FormatHtml {
         }
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
         if (!varMethod_.isEmpty()) {
-            docElementSelect_.setAttribute(_conf.getPrefix()+VAR_METHOD, varMethod_);
+            docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),VAR_METHOD), varMethod_);
         }
-        docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME, _n.getAttribute(ATTRIBUTE_CLASS_NAME));
+        docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME), _n.getAttribute(ATTRIBUTE_CLASS_NAME));
         _currentModifiedNode.appendChild(docElementSelect_);
     }
 
@@ -3392,9 +3401,9 @@ public final class FormatHtml {
             if (!_id.isEmpty()) {
                 docElementSelect_.setAttribute(ATTRIBUTE_ID, _id);
             } else {
-                docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID, _groupId);
+                docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID), _groupId);
             }
-            docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_VALIDATOR, ((Element) _n).getAttribute(ATTRIBUTE_VALIDATOR));
+            docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VALIDATOR), ((Element) _n).getAttribute(ATTRIBUTE_VALIDATOR));
         }
         if (_multiple) {
             docElementSelect_.setAttribute(ATTRIBUTE_MULTIPLE, ATTRIBUTE_MULTIPLE);
@@ -3419,10 +3428,10 @@ public final class FormatHtml {
             }
         }
         if (!varMethod_.isEmpty()) {
-            docElementSelect_.setAttribute(_conf.getPrefix()+VAR_METHOD, varMethod_);
+            docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),VAR_METHOD), varMethod_);
         }
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
-        docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME, ((Element) _n).getAttribute(ATTRIBUTE_CLASS_NAME));
+        docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME), ((Element) _n).getAttribute(ATTRIBUTE_CLASS_NAME));
         _currentModifiedNode.appendChild(docElementSelect_);
     }
 
@@ -3575,13 +3584,13 @@ public final class FormatHtml {
     private static boolean isLoopNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
         String nodeName_ = ((Element) _node).getTagName();
-        if (StringList.quickEq(nodeName_, prefix_+FOR_BLOCK_TAG)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,FOR_BLOCK_TAG))) {
             return true;
         }
-        if (StringList.quickEq(nodeName_, prefix_+WHILE_BLOCK_TAG)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,WHILE_BLOCK_TAG))) {
             return true;
         }
-        if (StringList.quickEq(nodeName_, prefix_+TAG_DO)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TAG_DO))) {
             return true;
         }
         return false;
@@ -3589,7 +3598,7 @@ public final class FormatHtml {
     private static boolean isCatchNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
         String nodeName_ = ((Element) _node).getTagName();
-        if (StringList.quickEq(nodeName_, prefix_+CATCH_TAG)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,CATCH_TAG))) {
             return true;
         }
         return false;
@@ -3597,7 +3606,7 @@ public final class FormatHtml {
     private static boolean isFinallyNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
         String nodeName_ = ((Element) _node).getTagName();
-        if (StringList.quickEq(nodeName_, prefix_+TAG_FINALLY)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TAG_FINALLY))) {
             return true;
         }
         return false;
@@ -3606,7 +3615,7 @@ public final class FormatHtml {
     private static boolean isTryNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
         String nodeName_ = ((Element) _node).getTagName();
-        if (StringList.quickEq(nodeName_, prefix_+TRY_TAG)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TRY_TAG))) {
             return true;
         }
         return false;
@@ -3615,10 +3624,10 @@ public final class FormatHtml {
     private static boolean isSwitchNode(Configuration _conf, Node _node) {
         String nodeName_ = ((Element) _node).getTagName();
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (StringList.quickEq(nodeName_, prefix_+TAG_CASE)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TAG_CASE))) {
             return true;
         }
-        if (StringList.quickEq(nodeName_, prefix_+TAG_DEFAULT)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TAG_DEFAULT))) {
             return true;
         }
         return false;
@@ -3633,7 +3642,7 @@ public final class FormatHtml {
         }
         String nodeName_ = ((Element) _node).getTagName();
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (StringList.quickEq(nodeName_, prefix_+ELSE_BLOCK_TAG)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,ELSE_BLOCK_TAG))) {
             return true;
         }
         return false;
@@ -3784,7 +3793,7 @@ public final class FormatHtml {
     private static void incrementLoop(Configuration _conf, LoopHtmlStack _l, StringMap<LoopVariable> _vars) {
         Element forLoopLoc_ = _l.getReadNode();
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (!StringList.quickEq(forLoopLoc_.getTagName(), prefix_+FOR_BLOCK_TAG)) {
+        if (!StringList.quickEq(forLoopLoc_.getTagName(), StringList.concat(prefix_,FOR_BLOCK_TAG))) {
             return;
         }
         _l.setIndex(_l.getIndex() + 1);
@@ -3839,7 +3848,7 @@ public final class FormatHtml {
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
         ip_.removeLastBlock();
-        if (!StringList.quickEq(_forLoop.getTagName(), prefix_+FOR_BLOCK_TAG)) {
+        if (!StringList.quickEq(_forLoop.getTagName(), StringList.concat(prefix_,FOR_BLOCK_TAG))) {
             return;
         }
         if (_forLoop.hasAttribute(ATTRIBUTE_LIST) || _forLoop.hasAttribute(ATTRIBUTE_FROM)) {
@@ -3865,7 +3874,7 @@ public final class FormatHtml {
                 String newNodeName_;
                 if (nodeName_.startsWith(prefix_)) {
                     String suffix_ = _read.getTagName().substring(prefix_.length());
-                    newNodeName_ = getPrefix(_conf, (Document)_parent)+suffix_;
+                    newNodeName_ = StringList.concat(getPrefix(_conf, (Document)_parent),suffix_);
                 } else {
                     newNodeName_ = nodeName_;
                 }
@@ -3879,7 +3888,7 @@ public final class FormatHtml {
                 String newNodeName_;
                 if (nodeName_.startsWith(prefix_)) {
                     String suffix_ = _read.getTagName().substring(prefix_.length());
-                    newNodeName_ = replacing_+suffix_;
+                    newNodeName_ = StringList.concat(replacing_,suffix_);
                 } else {
                     newNodeName_ = nodeName_;
                 }
@@ -3915,7 +3924,7 @@ public final class FormatHtml {
                 _write.setAttribute(name_, value_);
             } else {
                 String suffix_ = name_.substring(_readPrefix.length());
-                _write.setAttribute(mainPrefix_ + suffix_, value_);
+                _write.setAttribute(StringList.concat(mainPrefix_, suffix_), value_);
             }
         }
     }
@@ -3995,21 +4004,21 @@ public final class FormatHtml {
             _ip.setOffset(0);
             Argument argFrom_ = ElUtil.processEl(from_, 0, _conf.toContextEl());
             if (!argFrom_.isIntegerType(_conf.toContextEl())) {
-                throw new DynamicCastClassException(argFrom_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+_conf.joinPages());
+                throw new DynamicCastClassException(StringList.concat(argFrom_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
             }
             _ip.setProcessingAttribute(ATTRIBUTE_TO);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Argument argTo_ = ElUtil.processEl(to_, 0, _conf.toContextEl());
             if (!argTo_.isIntegerType(_conf.toContextEl())) {
-                throw new DynamicCastClassException(argTo_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+_conf.joinPages());
+                throw new DynamicCastClassException(StringList.concat(argTo_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
             }
             _ip.setProcessingAttribute(ATTRIBUTE_STEP);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Argument argStep_ = ElUtil.processEl(step_, 0, _conf.toContextEl());
             if (!argStep_.isIntegerType(_conf.toContextEl())) {
-                throw new DynamicCastClassException(argStep_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+_conf.joinPages());
+                throw new DynamicCastClassException(StringList.concat(argStep_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
             }
             realFromValue_ = argFrom_.getObject();
             fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_, _conf.toContextEl());
@@ -4213,7 +4222,7 @@ public final class FormatHtml {
         _conf.getLastPage().setOffset(0);
         _conf.getLastPage().setLookForAttrValue(false);
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (StringList.quickEq(l_.getReadNode().getTagName(), prefix_+TAG_DO)) {
+        if (StringList.quickEq(l_.getReadNode().getTagName(),StringList.concat(prefix_,TAG_DO))) {
             Node n_ = l_.getReadNode().getNextSibling();
             while (true) {
                 if (n_ instanceof Text) {
@@ -4228,7 +4237,7 @@ public final class FormatHtml {
             }
             return ExtractCondition.evaluateCondition((Element) n_, _conf, _ip);
         }
-        if (StringList.quickEq(l_.getReadNode().getTagName(), prefix_+FOR_BLOCK_TAG)) {
+        if (StringList.quickEq(l_.getReadNode().getTagName(),StringList.concat(prefix_,FOR_BLOCK_TAG))) {
             if (l_.getStructIterator() != null) {
                 return ExtractObject.hasNext(_conf, l_.getStructIterator());
             }

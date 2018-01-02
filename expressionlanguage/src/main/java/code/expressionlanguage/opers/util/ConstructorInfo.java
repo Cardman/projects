@@ -3,8 +3,9 @@ import java.lang.reflect.Constructor;
 
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
-public final class ConstructorInfo implements Parametrable {
+public final class ConstructorInfo implements Parametrable, Displayable {
 
     private static final String RIGHT_PAR = ")";
 
@@ -21,7 +22,7 @@ public final class ConstructorInfo implements Parametrable {
     private ParametersGroup parameters;
 
     @Override
-    public String toString() {
+    public String display() {
         if (constructor == null) {
             return constr.getSignature();
         }

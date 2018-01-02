@@ -93,7 +93,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
         assertTrue(hand_.contient(CardBelote.HEART_KING));
         game.getDistribution().jouer(player_,CardBelote.HEART_KING);
         game.ajouterUneCarteDansPliEnCours(CardBelote.HEART_KING);
@@ -135,7 +135,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
         assertTrue(hand_.contient(CardBelote.HEART_JACK));
         game.getDistribution().jouer(player_,CardBelote.HEART_JACK);
         game.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
@@ -178,7 +178,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
         assertTrue(hand_.contient(CardBelote.HEART_JACK));
         game.getDistribution().jouer(player_,CardBelote.HEART_JACK);
         game.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
@@ -197,7 +197,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteTest {
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_QUEEN);
         playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(), playableCards_.total());
-        assertTrue(playableCards_.toString(),hand_.contientCartes(playableCards_));
+        assertTrue(playableCards_.display(),hand_.contientCartes(playableCards_));
     }
 
     @Parameters(method="rulesTrumpingPartner")
@@ -223,7 +223,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
         assertTrue(hand_.contient(CardBelote.HEART_7));
         game.getDistribution().jouer(player_,CardBelote.HEART_7);
         game.ajouterUneCarteDansPliEnCours(CardBelote.HEART_7);

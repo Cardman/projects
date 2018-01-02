@@ -1,9 +1,10 @@
 package cards.tarot.enumerations;
 import code.format.Format;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 
 /**Prime pour le chelem au tarot*/
-public enum BonusTarot {
+public enum BonusTarot implements Displayable {
     SLAM(400),
     SMALL_BOUND(10);
     private final int points;
@@ -14,7 +15,7 @@ public enum BonusTarot {
         return points;
     }
     @Override
-    public String toString() {
+    public String display() {
         return toString(Constants.getLanguage());
     }
 

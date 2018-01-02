@@ -109,9 +109,4 @@ public final class EnumMap<K extends Enum<K>, V> extends AbsMap<K,V> {
 //    public int size() {
 //        return list.size();
 //    }
-//
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
 }

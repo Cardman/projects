@@ -128,9 +128,4 @@ public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
 //    public int size() {
 //        return list.size();
 //    }
-//
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
 }

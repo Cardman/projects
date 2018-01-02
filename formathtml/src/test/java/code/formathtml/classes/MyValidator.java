@@ -25,7 +25,11 @@ public class MyValidator implements Validator {
         } catch (ClassCastException _0) {
             //Long or Boolean
             Message message_ = new Message();
-            message_.setArgs(String.valueOf(_value));
+            if (_value instanceof Boolean) {
+                message_.setArgs(String.valueOf(((Boolean)_value).booleanValue()));
+            } else {
+                message_.setArgs(String.valueOf(((Number)_value).longValue()));
+            }
             message_.setMessage("{0} is not a no zero rate");
             message_.setFormatMessage(true);
             return message_;

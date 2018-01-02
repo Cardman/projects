@@ -86,7 +86,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     public static void initEditorPresident(MainWindow _fenetre) {
         DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.PRESIDENT.toString());
+        DIALOG.setTitle(GameEnum.PRESIDENT.display());
         DIALOG.setReglesPresident(_fenetre.getReglesPresident());
         DIALOG.partie = null;
         DIALOG.setToNullGame = true;

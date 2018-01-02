@@ -218,11 +218,6 @@ public class Ints implements Listable<Integer> {
         return ints.indexOf(_element);
     }
 
-    @Override
-    public String toString() {
-        return ints.toString();
-    }
-
     public Numbers<Integer> subAbEq(int _from, int _to) {
         return ints.subAbEq(_from, _to);
     }

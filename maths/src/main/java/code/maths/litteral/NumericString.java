@@ -7,9 +7,10 @@ import code.maths.exceptions.MathStringFormatException;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.ints.Displayable;
 import code.util.ints.NumericableString;
 
-final class NumericString implements NumericableString<Rate> {
+final class NumericString implements NumericableString<Rate>, Displayable {
 
     static final char SEPARATOR_SET_CHAR = ';';
 
@@ -928,7 +929,7 @@ final class NumericString implements NumericableString<Rate> {
                 continue;
             }
             den_ = c_.getToken();
-            numericString.replace(index_, c_.getIndex(), Rate.MINUS+num_+Rate.SEP_NUM_DEN+den_);
+            numericString.replace(index_, c_.getIndex(), StringList.concat(Rate.MINUS,num_,Rate.SEP_NUM_DEN,den_));
             index_ = c_.getIndex();
             code = TRUE_CODE;
         }
@@ -979,7 +980,7 @@ final class NumericString implements NumericableString<Rate> {
                 continue;
             }
             dec_ = c_.getToken();
-            numericString.replace(index_, c_.getIndex(), deleteZeroDivider(checkSyntax, int_+POINT+dec_).toNumberString());
+            numericString.replace(index_, c_.getIndex(), deleteZeroDivider(checkSyntax, StringList.concat(int_,String.valueOf(POINT),dec_)).toNumberString());
             code = TRUE_CODE;
             index_ = c_.getIndex();
         }
@@ -1019,7 +1020,7 @@ final class NumericString implements NumericableString<Rate> {
                 }
                 int_ = c_.getToken();
                 int next_= c_.getIndex();
-                numericString.replace(index_ - 1, next_, deleteZeroDivider(checkSyntax, POINT+int_).toNumberString());
+                numericString.replace(index_ - 1, next_, deleteZeroDivider(checkSyntax, StringList.concat(String.valueOf(POINT),int_)).toNumberString());
                 code = TRUE_CODE;
                 index_ = next_ + 1;
                 foundOpenChar_ = false;
@@ -1323,7 +1324,7 @@ final class NumericString implements NumericableString<Rate> {
                 return EMPTY_SET;
             }
             retour_.deleteCharAt(retour_.length() - 1);
-            return LEFT_BRACE_SET+retour_+RIGHT_BRACE_SET;
+            return StringList.concat(LEFT_BRACE_SET,retour_,RIGHT_BRACE_SET);
         }
         if(StringList.quickEq(_name,UNION)){
             String textArgOne_=_args.first();
@@ -1342,7 +1343,7 @@ final class NumericString implements NumericableString<Rate> {
             ls_.sort();
             ls_.removeDuplicates();
             String retour_ = ls_.join(SEPARATOR_SET_CHAR);
-            return LEFT_BRACE_SET+retour_+RIGHT_BRACE_SET;
+            return StringList.concat(LEFT_BRACE_SET,retour_,RIGHT_BRACE_SET);
         }
         if(StringList.quickEq(_name,COMPL)){
             String textArgOne_=_args.first();
@@ -1364,7 +1365,7 @@ final class NumericString implements NumericableString<Rate> {
             if (elements_.isEmpty()) {
                 return EMPTY_SET;
             }
-            return LEFT_BRACE_SET+elements_.join(SEPARATOR_SET_CHAR)+RIGHT_BRACE_SET;
+            return StringList.concat(LEFT_BRACE_SET,elements_.join(SEPARATOR_SET_CHAR),RIGHT_BRACE_SET);
         }
         if(StringList.quickEq(_name,INCL)){
             String textArgOne_=_args.first();
@@ -1798,7 +1799,7 @@ final class NumericString implements NumericableString<Rate> {
     }
 
     @Override
-    public String toString() {
+    public String display() {
         return numericString.toString();
     }
 

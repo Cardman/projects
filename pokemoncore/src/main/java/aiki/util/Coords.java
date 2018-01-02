@@ -133,11 +133,6 @@ public final class Coords implements Equallable<Coords>, Displayable {
     }
 
     @Override
-    public String toString() {
-        return display();
-    }
-
-    @Override
     public boolean eq(Coords _g) {
         if (!Numbers.eq(numberPlace,_g.numberPlace)) {
             return false;

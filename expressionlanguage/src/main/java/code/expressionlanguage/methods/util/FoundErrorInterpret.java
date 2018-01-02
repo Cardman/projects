@@ -17,11 +17,6 @@ public abstract class FoundErrorInterpret implements Displayable {
     private String fileName;
 
     @Override
-    public String toString() {
-        return display();
-    }
-
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(SEP_INFO);
         str_.append(FILE).append(SEP_KEY_VAL).append(fileName).append(SEP_INFO);

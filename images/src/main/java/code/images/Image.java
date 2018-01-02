@@ -6,8 +6,9 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
-public final class Image {
+public final class Image implements Displayable {
 
     public static final char SEPARATOR_CHAR = ';';
 
@@ -89,7 +90,7 @@ public final class Image {
         if (_img.isEmpty()) {
             return false;
         }
-        if (_img.startsWith(EMPTY_IMAGE+SEPARATOR_CHAR)) {
+        if (_img.startsWith(StringList.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         int nb_ = 0;
@@ -105,7 +106,7 @@ public final class Image {
             return false;
         }
         nb_ --;
-        if (!_img.startsWith(String.valueOf(_sideLength)+SEPARATOR_CHAR)) {
+        if (!_img.startsWith(StringList.concat(String.valueOf(_sideLength), String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         return nb_ == _sideLength * _sideLength;
@@ -118,7 +119,7 @@ public final class Image {
         if (_img.isEmpty()) {
             return false;
         }
-        if (_img.startsWith(EMPTY_IMAGE+SEPARATOR_CHAR)) {
+        if (_img.startsWith(StringList.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         int nb_ = 0;
@@ -152,7 +153,7 @@ public final class Image {
         if (_img.isEmpty()) {
             return false;
         }
-        if (_img.startsWith(EMPTY_IMAGE+SEPARATOR_CHAR)) {
+        if (_img.startsWith(StringList.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         int nb_ = 0;
@@ -168,7 +169,7 @@ public final class Image {
             return false;
         }
         nb_ --;
-        if (!_img.startsWith(String.valueOf(_width)+SEPARATOR_CHAR)) {
+        if (!_img.startsWith(StringList.concat(String.valueOf(_width),String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
         return nb_ == _width * _height;
@@ -298,7 +299,7 @@ public final class Image {
 
     @FromAndToString
     @Override
-    public String toString() {
+    public String display() {
         StringBuilder return_ = new StringBuilder(String.valueOf(width));
         for (int i: pixels) {
             return_.append(SEPARATOR_CHAR);

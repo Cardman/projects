@@ -30,7 +30,7 @@ public final class ConstantOperation extends OperationNode {
             String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
 
             for (EntryCust<String,String> v: _conf.entryList()) {
-                if (StringList.quickEq(str_, DELIMITER_STRING_BEGIN+v.getKey()+DELIMITER_STRING_END)) {
+                if (StringList.quickEq(str_, StringList.concat(String.valueOf(DELIMITER_STRING_BEGIN),v.getKey(),String.valueOf(DELIMITER_STRING_END)))) {
                     MathList m_ = new MathList();
                     for (String e: StringList.splitChars(v.getValue(), DELIMITER_STRING_SEP)) {
                         if (e.isEmpty()) {
@@ -75,7 +75,7 @@ public final class ConstantOperation extends OperationNode {
             try {
                 a_.setObject(Rate.newRate(_conf.getVal(str_)));
             } catch (FormatException _0) {
-                throw new BadDivisionException(_0.getMessage()+RETURN_LINE+String.valueOf(getIndexInEl()));
+                throw new BadDivisionException(StringList.concat(_0.getMessage(),RETURN_LINE,String.valueOf(getIndexInEl())));
             }
         } else if (getResultClass() == MathType.BOOLEAN) {
             a_.setObject(StringList.quickEq(_conf.getVal(str_), TRUE_STRING));

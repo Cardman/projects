@@ -24,7 +24,12 @@ public final class Attr implements Info {
     }
 
     protected String export() {
-        return BEG_ATTR+getName()+SEPARATOR+DocumentBuilder.escape(getValue(), true)+END_ATTR;
+        StringBuilder str_ = new StringBuilder(BEG_ATTR);
+        str_.append(getName());
+        str_.append(SEPARATOR);
+        str_.append(DocumentBuilder.escape(getValue(), true));
+        str_.append(END_ATTR);
+        return str_.toString();
     }
 
     public String getName() {

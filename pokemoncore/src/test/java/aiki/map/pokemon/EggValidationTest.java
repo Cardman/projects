@@ -38,6 +38,6 @@ public class EggValidationTest extends InitializationDataBase {
     @Test
     public void toString1Test() {
         Egg egg_ = new Egg(PIKACHU+SEPARATOR+1);
-        assertEq(PIKACHU+SEPARATOR+1, egg_.toString());
+        assertEq(PIKACHU+SEPARATOR+1, egg_.display());
     }
 }

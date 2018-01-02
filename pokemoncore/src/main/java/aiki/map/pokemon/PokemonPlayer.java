@@ -322,7 +322,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
                         if (evo_ instanceof EvolutionLevel) {
                             max_= (short) Math.max(max_, ((EvolutionLevel) evo_).getLevel());
                         }
-                        newEvolutions_.put(e+SEPARATOR+e2_, max_);
+                        newEvolutions_.put(StringList.concat(e,SEPARATOR,e2_), max_);
                     }
                 }
                 if (newEvolutions_.isEmpty()) {

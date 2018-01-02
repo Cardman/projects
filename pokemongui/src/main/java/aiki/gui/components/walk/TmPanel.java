@@ -55,7 +55,7 @@ public class TmPanel extends JPanel {
             modeleListe.addElement(i);
             items.add(i);
         }
-        amount.setText(facade.amountTm().toNumberString()+SPACE+facade.getPlayer().getMoney().toNumberString());
+        amount.setText(StringList.concat(facade.amountTm().toNumberString(),SPACE,facade.getPlayer().getMoney().toNumberString()));
     }
 
     public boolean isSelected() {

@@ -908,11 +908,11 @@ public class PrimitiveTypeUtilTest {
         InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(_files, cont_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         return cont_;
     }
     private ContextEl simpleContextEl() {

@@ -157,7 +157,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         StringBuilder generic_ = new StringBuilder(base_);
         StringList vars_ = new StringList();
         for (TypeVar t:paramTypes) {
-            vars_.add(Templates.PREFIX_VAR_TYPE+t.getName());
+            vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         generic_.append(Templates.TEMPLATE_BEGIN);
         generic_.append(vars_.join(Templates.TEMPLATE_SEP));
@@ -166,7 +166,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     }
 
     public String getFullDefinition() {
-        return getFullName()+getTemplateDef();
+        return StringList.concat(getFullName(),getTemplateDef());
     }
 
     public String getTemplateDef() {
@@ -195,7 +195,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         if (packageName_.isEmpty()) {
             return getName();
         }
-        return packageName_+DOT+getName();
+        return StringList.concat(packageName_,DOT,getName());
     }
 
     protected void validateClassNames(ContextEl _context) {
@@ -371,7 +371,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 StringList seen_ = new StringList();
                 int i_ = CustList.FIRST_INDEX;
                 for (String v: l_) {
-                    String attr_ = ATTRIBUTE_VAR+i_;
+                    String attr_ = StringList.concatNbs(ATTRIBUTE_VAR,i_);
                     if (!StringList.isWord(v)) {
                         BadParamName b_;
                         b_ = new BadParamName();
@@ -656,13 +656,13 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         StringList vars_ = new StringList();
         Classes classes_ = _classes.getClasses();
         for (TypeVar t: getParamTypes()) {
-            vars_.add(Templates.PREFIX_VAR_TYPE+t.getName());
+            vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         StringList current_;
         if (vars_.isEmpty()) {
             current_ = new StringList(getFullName());
         } else {
-            current_ = new StringList(getFullName()+LT+vars_.join(SEP_TMP)+GT);
+            current_ = new StringList(StringList.concat(getFullName(),LT,vars_.join(SEP_TMP),GT));
         }
         while (true) {
             StringList next_ = new StringList();

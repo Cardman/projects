@@ -1,15 +1,14 @@
 package cards.gui.animations;
-import code.util.StringList;
 import cards.consts.Status;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
-import cards.gui.containers.ContainerTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CallingCard;
 import cards.tarot.enumerations.PlayingDog;
+import code.util.StringList;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -99,7 +98,7 @@ public final class AfterAnimationBidTarot extends Thread {
         } else {
             partie_.intelligenceArtificielleAppel();
             if(partie_.existeCarteAppelee()) {
-                container.ajouterTexteDansZone(StringList.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,partie_.getCarteAppelee().toString(),ContainerGame.RETURN_LINE));
+                container.ajouterTexteDansZone(StringList.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,partie_.getCarteAppelee().display(),ContainerGame.RETURN_LINE));
             }
             if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 container.addButtonSeeDogTarot(container.getMessages().getVal(MainWindow.SEE_DOG), true);
@@ -125,7 +124,7 @@ public final class AfterAnimationBidTarot extends Thread {
                 partie_.gererChienInconnu();
                 partie_.intelligenceArtificielleAppel();
                 if(partie_.existeCarteAppelee()) {
-                    container.ajouterTexteDansZone(container.pseudosTarot().get(partie_.getPreneur())+ContainerGame.INTRODUCTION_PTS+partie_.getCarteAppelee().toString()+ContainerTarot.RETURN_LINE_CHAR);
+                    container.ajouterTexteDansZone(StringList.concat(container.pseudosTarot().get(partie_.getPreneur()),ContainerGame.INTRODUCTION_PTS,partie_.getCarteAppelee().display(),ContainerGame.RETURN_LINE));
                 }
                 container.addButtonNextTrickTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
             }

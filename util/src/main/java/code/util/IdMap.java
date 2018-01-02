@@ -152,11 +152,7 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
 //    public int size() {
 //        return list.size();
 //    }
-//
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
+
     public V firstValue() {
         return getList().first().getValue();
     }

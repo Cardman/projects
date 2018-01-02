@@ -9,6 +9,7 @@ import code.gui.CommonCellRenderer;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.StringList;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 
@@ -77,7 +78,7 @@ public class FighterRenderer extends CommonCellRenderer {
             green_ = green_ * rate_ / Rate.CENT;
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
             _g.setColor(new Color(red_, green_, 0));
-            _g.drawString(intRate.toNumberString()+PER_CENT, _sideLength_, getHeight());
+            _g.drawString(StringList.concat(intRate.toNumberString(),PER_CENT), _sideLength_, getHeight());
         }
         if (selected) {
             _g.setColor(Color.RED);

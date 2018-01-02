@@ -239,7 +239,7 @@ public final class Navigation {
         }
         Element root_ = doc_.getDocumentElement();
         session.setDocument(doc_);
-        currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
+        currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
         htmlText = FormatHtml.processImports(text_, session, language, files, resourcesFolder);
         if (htmlText == null) {
             return;
@@ -293,9 +293,9 @@ public final class Navigation {
                 Document doc_ = session.getDocument();
                 node_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_ANCHOR, String.valueOf(htmlPage_.getUrl()));
                 if (node_.getAttribute(ATTRIBUTE_HREF).isEmpty()) {
-                    htmlPage_.setUsedFieldUrl(ip_.getPrefix()+ATTRIBUTE_COMMAND);
+                    htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
                 } else if (node_.getAttribute(ATTRIBUTE_HREF).endsWith(END_PATH)) {
-                    htmlPage_.setUsedFieldUrl(ip_.getPrefix()+ATTRIBUTE_COMMAND);
+                    htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
                 } else {
                     htmlPage_.setUsedFieldUrl(ATTRIBUTE_HREF);
                 }
@@ -354,7 +354,7 @@ public final class Navigation {
             String urlDest_ = currentUrl;
             if (!return_.isNull()) {
                 ip_.setOffset(_anchorRef.length());
-                urlDest_ = getUrlDest(beanName_ + DOT + methodName_+suffix_, return_);
+                urlDest_ = getUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_);
                 if (urlDest_ == null) {
                     urlDest_ = currentUrl;
                 }
@@ -380,7 +380,7 @@ public final class Navigation {
             }
             Element root_ = doc_.getDocumentElement();
             session.setDocument(doc_);
-            currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
+            currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
             bean_ = getNotNullBean(currentBeanName_);
             ExtractObject.setForms(session, bean_, forms_);
             textToBeChanged_ = FormatHtml.processImports(
@@ -428,7 +428,7 @@ public final class Navigation {
         String currentBeanName_;
         Element root_ = doc_.getDocumentElement();
         session.setDocument(doc_);
-        currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
+        currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
         bean_ = getBean(currentBeanName_);
         try {
             session.addPage(new ImportingPage(false));
@@ -484,8 +484,8 @@ public final class Navigation {
         htmlPage_.setUsedFieldUrl(ATTRIBUTE_ACTION);
         if (actionCommand_.isEmpty()
                 || actionCommand_.endsWith(END_PATH)) {
-            actionCommand_ = formElement_.getAttribute(ip_.getPrefix()+ATTRIBUTE_COMMAND);
-            htmlPage_.setUsedFieldUrl(ip_.getPrefix()+ATTRIBUTE_COMMAND);
+            actionCommand_ = formElement_.getAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+            htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
         }
 
         StringMap<String> errors_;
@@ -500,19 +500,19 @@ public final class Navigation {
             if (valId_.isEmpty()) {
                 continue;
             }
-            Element node_ = DocumentBuilder.getElementById(doc_, ATTRIBUTE_ID, ip_.getPrefix()+ATTRIBUTE_GROUP_ID, id_);
+            Element node_ = DocumentBuilder.getElementById(doc_, ATTRIBUTE_ID, StringList.concat(ip_.getPrefix(),ATTRIBUTE_GROUP_ID), id_);
             ip_.setProcessingNode(node_);
-            ip_.setProcessingAttribute(ip_.getPrefix()+ATTRIBUTE_VALIDATOR);
+            ip_.setProcessingAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_VALIDATOR));
             ip_.setLookForAttrValue(true);
             ip_.setOffset(0);
             Struct validator_;
             try {
                 validator_ = session.getBuiltValidators().getVal(valId_);
             } catch (Throwable _0) {
-                throw new InvokeRedinedMethException(valId_+RETURN_LINE+session.joinPages());
+                throw new InvokeRedinedMethException(StringList.concat(valId_,RETURN_LINE,session.joinPages()));
             }
             if (validator_ == null) {
-                throw new InexistingValidatorException(valId_+RETURN_LINE+session.joinPages());
+                throw new InexistingValidatorException(StringList.concat(valId_,RETURN_LINE,session.joinPages()));
             }
             StringList v_ = nInfos_.getValue();
             String className_ = nInfos_.getInputClass();
@@ -583,12 +583,12 @@ public final class Navigation {
             lv_.setElement(obj_);
             lv_.setClassName(Object.class.getName());
             ip_.getLocalVars().put(objName_, lv_);
-            String expression_ = valName_ + GET_LOC_VAR+VALIDATE+BEGIN_ARGS;
-            expression_ += navName_+GET_LOC_VAR + SEP_ARGS;
-            expression_ += nodName_+GET_LOC_VAR + SEP_ARGS;
-            expression_ += objName_+GET_LOC_VAR + END_ARGS;
+            StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(VALIDATE).append(BEGIN_ARGS);
+            expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
+            expression_.append(nodName_).append(GET_LOC_VAR).append(SEP_ARGS);
+            expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
             try {
-                Argument message_ = ElUtil.processEl(expression_, 0, session.toContextEl());
+                Argument message_ = ElUtil.processEl(expression_.toString(), 0, session.toContextEl());
                 if (!message_.isNull()) {
                     Message messageTr_ = (Message) message_.getObject();
                     errors_.put(id_, messageTr_.format());
@@ -606,7 +606,7 @@ public final class Navigation {
         int lengthSpansForom_ = spansForm_.getLength();
         for (int j = CustList.FIRST_INDEX; j < lengthSpansForom_; j++) {
             Element elt_ = (Element) spansForm_.item(j);
-            if (!elt_.hasAttribute(ip_.getPrefix()+ATTRIBUTE_FOR)) {
+            if (!elt_.hasAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_FOR))) {
                 continue;
             }
             NodeList children_ = elt_.getChildNodes();
@@ -766,7 +766,7 @@ public final class Navigation {
             int lengthSpans_ = spans_.getLength();
             for (int j = CustList.FIRST_INDEX; j < lengthSpans_; j++) {
                 Element elt_ = (Element) spans_.item(j);
-                if (!StringList.quickEq(elt_.getAttribute(session.getPrefix()+ATTRIBUTE_FOR),i)) {
+                if (!StringList.quickEq(elt_.getAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_FOR)),i)) {
                     continue;
                 }
                 int len_ = elt_.getChildNodes().getLength();
@@ -928,12 +928,12 @@ public final class Navigation {
         try {
             cases_ = session.getNavigation().getVal(_method);
         } catch (Error _0) {
-            throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages());
+            throw new NavCaseNotFoundException(StringList.concat(_method,RETURN_LINE,session.joinPages()));
         } catch (RuntimeException _0) {
-            throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages());
+            throw new NavCaseNotFoundException(StringList.concat(_method,RETURN_LINE,session.joinPages()));
         }
         if (cases_ == null) {
-            throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages());
+            throw new NavCaseNotFoundException(StringList.concat(_method,RETURN_LINE,session.joinPages()));
         }
         try {
             return cases_.getVal(ExtractObject.toString(session, _return));

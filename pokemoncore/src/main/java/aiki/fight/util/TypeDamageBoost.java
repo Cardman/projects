@@ -30,11 +30,6 @@ public final class TypeDamageBoost implements Displayable {
         return new TypeDamageBoost(_string);
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public String getType() {
         return type;
     }

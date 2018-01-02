@@ -2,7 +2,6 @@ package minirts.rts;
 
 public final class CustPoint {
 
-    private static final String SEP = ",";
     private int x;
     private int y;
     public CustPoint() {
@@ -32,9 +31,5 @@ public final class CustPoint {
     }
     public void setY(int _y) {
         y = _y;
-    }
-    @Override
-    public String toString() {
-        return x+SEP+y;
     }
 }

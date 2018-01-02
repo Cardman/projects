@@ -26,11 +26,6 @@ final class EvolvedBooleanString implements NumericableString<Boolean> {
     }
 
     @Override
-    public String toString() {
-        return arg.toString();
-    }
-
-    @Override
     public String beforeEvaluated() {
         return numericString.toString();
     }

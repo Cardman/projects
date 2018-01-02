@@ -2033,11 +2033,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     @Override
-    public String toString() {
-        return display();
-    }
-
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append("[");

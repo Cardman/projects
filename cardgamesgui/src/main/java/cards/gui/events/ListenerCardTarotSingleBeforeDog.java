@@ -3,18 +3,17 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
-import code.gui.ConfirmDialog;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
-import cards.gui.containers.ContainerTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
+import code.gui.ConfirmDialog;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot {
 
@@ -52,7 +51,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
             HandTarot cartesAppel_ = new HandTarot();
             cartesAppel_.ajouter(getCarteVerif());
             partie_.initConfianceAppeleUtilisateur(cartesAppel_);
-            container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+getCarteVerif().display()+ContainerTarot.RETURN_LINE_CHAR);
+            container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,getCarteVerif().display(),ContainerGame.RETURN_LINE));
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
 //                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
@@ -72,7 +71,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCarteVerif());
         partie_.initConfianceAppeleUtilisateur(cartesAppel_);
-        container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+getCarteVerif().display()+ContainerTarot.RETURN_LINE_CHAR);
+        container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,getCarteVerif().display(),ContainerGame.RETURN_LINE));
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             container.voirChien();
         } else {

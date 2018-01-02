@@ -301,14 +301,11 @@ public final class ThreadAnchorForm extends Thread {
 
     private void processErrors(Throwable _t) {
         if (session.getArea() != null) {
-            session.getArea().append(TAB + _t.getMessage() + RETURN_LINE);
+            session.getArea().append(StringList.concat(TAB, _t.getMessage(), RETURN_LINE));
             for (StackTraceElement s : _t.getStackTrace()) {
-                session.getArea().append(
-                      TAB + s.getFileName() + TAB
-                              + s.getClassName() + TAB
-                              + s.getClassName() + TAB
-                              + s.getMethodName() + TAB
-                              + s.getLineNumber() + RETURN_LINE);
+                session.getArea().append(StringList.concat(
+                      TAB, s.getFileName(), TAB, s.getClassName(),
+                      TAB, s.getClassName(), TAB, s.getMethodName(), TAB, Long.toString(s.getLineNumber()), RETURN_LINE));
             }
         }
         _t.printStackTrace();

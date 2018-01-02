@@ -1162,11 +1162,11 @@ final class FightEffects {
         basePower_ = _import.evaluatePositiveExp(effect_.getPower(), variables_, DataBase.getDefaultPower());
         StringList typeAtt_=FightMoves.moveTypes(_fight, _lanceur,_attaqueLanceur,_import);
         String nomActuelLanceur_=creatureLanceur_.getCurrentName();
-        variables_.put(DataBase.VAR_PREFIX+Fight.ATTAQUE_CATEGORIE, fAtt_.getCategory());
-        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_NOM, nomActuelLanceur_);
-        variables_.put(DataBase.VAR_PREFIX+Fight.ATTAQUE_TYPES, typeAtt_.join(_import.getSepartorSetChar()));
-        variables_.put(DataBase.VAR_PREFIX+Fight.ATTAQUE_NOM, _attaqueLanceur);
-        variables_.put(DataBase.VAR_PREFIX+Fight.PUISSANCE_BASE, basePower_.toNumberString());
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), fAtt_.getCategory());
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), typeAtt_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _attaqueLanceur);
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), basePower_.toNumberString());
         Rate finalPower_ = new Rate(basePower_);
         finalPower_.multiplyBy(rateObjectPower(_fight, _lanceur, variables_, _import));
         finalPower_.multiplyBy(rateTypesPower(_fight, _lanceur, _cible, typeAtt_));
@@ -1175,9 +1175,9 @@ final class FightEffects {
         Rate def_ = defense(_fight, _lanceur, _cible, effect_, variables_, _import);
         Rate degats_;
         StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(DataBase.VAR_PREFIX+Fight.ATTACK, att_.toNumberString());
-        varLocs_.put(DataBase.VAR_PREFIX+Fight.DEFENSE, def_.toNumberString());
-        varLocs_.put(DataBase.VAR_PREFIX+Fight.POWER, finalPower_.toNumberString());
+        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTACK), att_.toNumberString());
+        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.DEFENSE), def_.toNumberString());
+        varLocs_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.POWER), finalPower_.toNumberString());
         varLocs_.putAllMap(variables_);
         String damageFormula_ = _import.getDamageFormula();
         degats_ = _import.evaluatePositiveExp(damageFormula_, varLocs_, finalPower_);
@@ -1188,8 +1188,8 @@ final class FightEffects {
         degats_.multiplyBy(rateDamageGlobalAbilities(_fight, typeAtt_, _import));
         degats_.multiplyBy(multBaseDamage(_fight, _attaqueLanceur, _import));
         degats_.multiplyBy(rateDamageGlobalMoves(_fight, typeAtt_, _import));
-        variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF, coeffEff_.toNumberString());
-        variables_.put(DataBase.VAR_PREFIX+Fight.NB_UTILISATION_CONSECUTIF, creatureLanceur_.getNbRepeatingSuccessfulMoves().toNumberString());
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF), coeffEff_.toNumberString());
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF), creatureLanceur_.getNbRepeatingSuccessfulMoves().toNumberString());
         degats_.multiplyBy(rateDamageThrowerObject(_fight, _lanceur, variables_, _import));
         degats_.multiplyBy(rateDamageThrowerAbility(_fight, _lanceur, variables_, _import));
         degats_.multiplyBy(rateDamageInvokedMove(_fight, _lanceur, _cible, _import));
@@ -1266,7 +1266,7 @@ final class FightEffects {
             StringMap<String> vars_ = new StringMap<String>(_variables);
             vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));
             rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(ab_.getMultPower(), vars_, _import));
-            for (String t: StringList.splitChars(_variables.getVal(DataBase.VAR_PREFIX+Fight.ATTAQUE_TYPES), _import.getSepartorSetChar())) {
+            for (String t: StringList.splitChars(_variables.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES)), _import.getSepartorSetChar())) {
                 for (TypeDamageBoost tDamage_: ab_.getChangingBoostTypes().values()) {
                     if (!StringList.quickEq(tDamage_.getType(), t)) {
                         continue;

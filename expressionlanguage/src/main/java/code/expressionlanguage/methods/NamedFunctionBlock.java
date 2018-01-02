@@ -96,7 +96,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         StringList l_ = getParametersTypes();
         int i_ = 0;
         for (String t: l_) {
-            tr_.put(ATTRIBUTE_CLASS+i_, t);
+            tr_.put(StringList.concatNbs(ATTRIBUTE_CLASS,i_), t);
             i_++;
         }
         return tr_;

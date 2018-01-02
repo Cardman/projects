@@ -50,13 +50,13 @@ final class EnumSerial extends PrimitiveSerial {
     @throws ClassCastException*/
     private static Object initialize(Element _node) {
         NamedNodeMap map_ = _node.getAttributes();
-        Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getTagName()+_node.getAttribute(INTERN));
+        Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(StringList.concat(_node.getTagName(),_node.getAttribute(INTERN)));
         if (!class_.isEnum()){
             throw new ClassFoundException(class_.getName());
         }
         Attr valueNode_ = map_.getNamedItem(VALUE);
         if (valueNode_ == null) {
-            throw new NoAttributeForSerializable(VALUE, _node.getTagName()+_node.getAttribute(INTERN));
+            throw new NoAttributeForSerializable(VALUE, StringList.concat(_node.getTagName(),_node.getAttribute(INTERN)));
         }
         String name_ = valueNode_.getValue();
         for (Object s : class_.getEnumConstants()) {

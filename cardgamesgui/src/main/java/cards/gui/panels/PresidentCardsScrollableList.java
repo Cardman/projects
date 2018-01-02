@@ -10,6 +10,7 @@ import code.gui.EnumListModel;
 import code.gui.Jl;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.StringList;
 import cards.consts.Suit;
 import cards.gui.labels.selection.CardPresidentCellRenderer;
 import cards.president.HandPresident;
@@ -32,7 +33,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         add(new JScrollPane(liste),BorderLayout.CENTER);
-        remCards = new JLabel(PLS+getNbCartesRestantes(), SwingConstants.CENTER);
+        remCards = new JLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         add(remCards, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
@@ -54,7 +55,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
             modeleListe.addElement(c);
         }
         setNbCartesRestantes(getNbCartesRestantes() - _m.total());
-        remCards.setText(PLS+getNbCartesRestantes());
+        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void ajouterCartesPresident(HandPresident _m) {
         for(CardPresident c:_m) {
@@ -75,7 +76,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
             }
             setNbCartesRestantes(getNbCartesRestantes() - 1);
         }
-        remCards.setText(PLS+getNbCartesRestantes());
+        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void supprimerCartesPresident(HandPresident _cs) {
         int indice_;
@@ -86,7 +87,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
                 setNbCartesRestantes(getNbCartesRestantes() + 1);
             }
         }
-        remCards.setText(PLS+getNbCartesRestantes());
+        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     public HandPresident valMainPresident() {
         HandPresident main_=new HandPresident();

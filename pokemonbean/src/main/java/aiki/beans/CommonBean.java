@@ -116,8 +116,8 @@ public class CommonBean extends Bean {
     protected static String escapedStringQuote(String _string) {
         StringMap<String> map_ = new StringMap<String>();
         map_.put(QUOTE, ESCAPED_QUOTE);
-        map_.put(LEFT_BRACE, QUOTED_LEFT_BRACE+QUOTE);
-        map_.put(RIGHT_BRACE, QUOTE+QUOTED_RIGHT_BRACE);
+        map_.put(LEFT_BRACE, StringList.concat(QUOTED_LEFT_BRACE,QUOTE));
+        map_.put(RIGHT_BRACE, StringList.concat(QUOTE,QUOTED_RIGHT_BRACE));
         return StringList.formatBasic(_string, map_, false);
     }
     protected static StringList getFormattedReasons(DataBase _data, StringList _reasons, String _language) {

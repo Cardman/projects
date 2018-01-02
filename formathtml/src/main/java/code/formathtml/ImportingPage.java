@@ -69,17 +69,17 @@ public final class ImportingPage {
         StringList list_ = new StringList();
         list_.add(RETURNED_VALUES);
         for (EntryCust<String,LocalVariable> e: returnedValues.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos());
+            list_.add(new StringBuilder(e.getKey()).append(SEP_KEY_VAL).append(SEP_INFO).append(e.getValue().getInfos()).toString());
         }
-        String keyMessage_ = EMPTY_STRING;
+        StringBuilder keyMessage_ = new StringBuilder();
         if (key != null) {
-            String intro_ = key+EQ;
-            keyMessage_ = intro_+messageValue+SEP_INFO;
-            keyMessage_ += processingHtml.getHtml() + SEP_INFO;
+            StringBuilder intro_ = new StringBuilder(key).append(EQ);
+            keyMessage_.append(intro_).append(messageValue).append(SEP_INFO);
+            keyMessage_.append(processingHtml.getHtml()).append(SEP_INFO);
         }
-        String page_ = EMPTY_STRING;
+        StringBuilder page_ = new StringBuilder();
         if (rendering) {
-            page_ += SEP_INFO +processingHtml.getHtml() + SEP_INFO;
+            page_.append(SEP_INFO).append(processingHtml.getHtml()).append(SEP_INFO);
         }
         int off_ = pageEl.getOffset();
         String attribute_ = pageEl.getProcessingAttribute();
@@ -111,12 +111,12 @@ public final class ImportingPage {
     public String getNextTempVar() {
         int i_ = CustList.FIRST_INDEX;
         while (true) {
-            if (!pageEl.getLocalVars().contains(FormatHtml.TMP_VAR+i_)) {
+            if (!pageEl.getLocalVars().contains(StringList.concatNbs(FormatHtml.TMP_VAR,i_))) {
                 break;
             }
             i_++;
         }
-        return FormatHtml.TMP_VAR+i_;
+        return StringList.concatNbs(FormatHtml.TMP_VAR,i_);
     }
 
     public boolean isRendering() {

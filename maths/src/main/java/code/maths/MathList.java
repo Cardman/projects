@@ -203,11 +203,6 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
     }
 
     @Override
-    public String toString() {
-        return display();
-    }
-
-    @Override
     public boolean eq(MathList _g) {
         StringList cone_ = new StringList(this);
         StringList ctwo_ = new StringList(_g);

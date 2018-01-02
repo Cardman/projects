@@ -177,7 +177,7 @@ public class TeamBean extends CommonFightBean {
         if (nb_ == CustList.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
-        return data_.translatePokemon(fighter_.getName())+SPACE+nb_;
+        return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
     @Accessible
@@ -232,7 +232,7 @@ public class TeamBean extends CommonFightBean {
         if (nb_ == CustList.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
-        return data_.translatePokemon(fighter_.getName())+SPACE+nb_;
+        return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
     private String getDisplayFoeName(byte _indexOne, Long _index) {
@@ -254,6 +254,6 @@ public class TeamBean extends CommonFightBean {
         if (nb_ == CustList.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
-        return data_.translatePokemon(fighter_.getName())+SPACE+nb_;
+        return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 }

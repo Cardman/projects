@@ -84,20 +84,20 @@ public class ImageTest {
     @Test
     public void toString1Test() {
         Image img_ = new Image("0");
-        assertEq("0", img_.toString());
+        assertEq("0", img_.display());
     }
 
     @Test
     public void toString2Test() {
         Image img_ = new Image("1"+Image.SEPARATOR_CHAR+"2");
-        assertEq("1"+Image.SEPARATOR_CHAR+"2", img_.toString());
+        assertEq("1"+Image.SEPARATOR_CHAR+"2", img_.display());
     }
 
     @Test
     public void toString3Test() {
         StringList pixels_ = new StringList("1","2","1","2","1","2");
         Image img_ = new Image("3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR));
-        assertEq("3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR), img_.toString());
+        assertEq("3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR), img_.display());
     }
 
     @Test
@@ -136,21 +136,21 @@ public class ImageTest {
     @Test
     public void clip1Test() {
         Image img_ = new Image("0");
-        assertEq(img_.toString(), img_.clip(0, 0, 1, 1).toString());
+        assertEq(img_.display(), img_.clip(0, 0, 1, 1).display());
     }
 
     @Test
     public void clip2Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
         Image img_ = new Image("3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR));
-        assertEq(new Image("0").toString(), img_.clip(2, 2, 1, 1).toString());
+        assertEq(new Image("0").display(), img_.clip(2, 2, 1, 1).display());
     }
 
     @Test
     public void clip3Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
         Image img_ = new Image("3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR));
-        assertEq(new Image("0").toString(), img_.clip(3, 1, 1, 1).toString());
+        assertEq(new Image("0").display(), img_.clip(3, 1, 1, 1).display());
     }
 
     @Test
@@ -158,7 +158,7 @@ public class ImageTest {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
         Image img_ = new Image("3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR));
         Image res_ = new Image("2"+Image.SEPARATOR_CHAR+"-1"+Image.SEPARATOR_CHAR+"12");
-        assertEq(res_.toString(), img_.clip(1, 1, 2, 2).toString());
+        assertEq(res_.display(), img_.clip(1, 1, 2, 2).display());
     }
 
     @Test
@@ -166,7 +166,7 @@ public class ImageTest {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
         Image img_ = new Image("3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR));
         Image res_ = new Image("2"+Image.SEPARATOR_CHAR+"2"+Image.SEPARATOR_CHAR+"6"+Image.SEPARATOR_CHAR+"-1"+Image.SEPARATOR_CHAR+"12");
-        assertEq(res_.toString(), img_.clip(1, 0, 2, 2).toString());
+        assertEq(res_.display(), img_.clip(1, 0, 2, 2).display());
     }
 
     @Test
@@ -174,7 +174,7 @@ public class ImageTest {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
         Image img_ = new Image("3"+Image.SEPARATOR_CHAR+pixels_.join(Image.SEPARATOR_CHAR));
         Image res_ = new Image("2"+Image.SEPARATOR_CHAR+"2"+Image.SEPARATOR_CHAR+"6"+Image.SEPARATOR_CHAR+"-1"+Image.SEPARATOR_CHAR+"12");
-        assertEq(res_.toString(), img_.clip(1, 0, 3, 3).toString());
+        assertEq(res_.display(), img_.clip(1, 0, 3, 3).display());
     }
 
     @Test

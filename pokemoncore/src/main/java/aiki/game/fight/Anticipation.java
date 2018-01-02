@@ -62,11 +62,6 @@ public final class Anticipation implements Displayable{
         }
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public Rate getDamage() {
         return damage;
     }

@@ -171,7 +171,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         HandTarot hand_ = game.getDistribution().main(player_);
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
         //
     }
 
@@ -218,7 +218,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         HandTarot hand_ = game.getDistribution().main(player_);
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
         //
     }
     @Test
@@ -264,7 +264,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         HandTarot hand_ = game.getDistribution().main(player_);
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
         //
     }
     @Test

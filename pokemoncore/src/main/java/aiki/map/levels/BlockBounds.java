@@ -1,8 +1,8 @@
 package aiki.map.levels;
-import aiki.DataBase;
 import code.util.CustList;
+import code.util.ints.Displayable;
 
-public class BlockBounds {
+public class BlockBounds implements Displayable {
 
     public static final short INVALIDATE = CustList.INDEX_NOT_FOUND_ELT;
     public static final String SEP_COORDS = ",";
@@ -87,16 +87,16 @@ public class BlockBounds {
     }
 
     @Override
-    public String toString() {
-        String display_ = DataBase.EMPTY_STRING;
-        display_ += xLeftTop +SEP_COORDS;
-        display_ += yLeftTop +SEP_PTS;
-        display_ += xRightTop +SEP_COORDS;
-        display_ += yRightTop +SEP_PTS;
-        display_ += xLeftBottom +SEP_COORDS;
-        display_ += yLeftBottom +SEP_PTS;
-        display_ += xRightBottom +SEP_COORDS;
-        display_ += yRightBottom +SEP_PTS;
-        return display_;
+    public String display() {
+        StringBuilder display_ = new StringBuilder();
+        display_.append(xLeftTop).append(SEP_COORDS);
+        display_.append(yLeftTop).append(SEP_PTS);
+        display_.append(xRightTop).append(SEP_COORDS);
+        display_.append(yRightTop).append(SEP_PTS);
+        display_.append(xLeftBottom).append(SEP_COORDS);
+        display_.append(yLeftBottom).append(SEP_PTS);
+        display_.append(xRightBottom).append(SEP_COORDS);
+        display_.append(yRightBottom).append(SEP_PTS);
+        return display_.toString();
     }
 }

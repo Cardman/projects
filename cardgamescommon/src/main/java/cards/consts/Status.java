@@ -1,13 +1,14 @@
 package cards.consts;
 import code.format.Format;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 
 /**Statut du joueur*/
-public enum Status {
+public enum Status implements Displayable {
 TAKER,CALLED_PLAYER,DEFENDER;
 
     @Override
-    public String toString() {
+    public String display() {
         return toString(Constants.getLanguage());
     }
     public String toString(String _locale) {

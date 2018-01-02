@@ -225,7 +225,7 @@ public class FileTable extends AbstractTableModel {
         } else if(_columnIndex == PATH_INDEX) {
             head_ = messages.getVal(PATH);
         }
-        return head_+end_;
+        return StringList.concat(head_,end_);
     }
 
     @Override

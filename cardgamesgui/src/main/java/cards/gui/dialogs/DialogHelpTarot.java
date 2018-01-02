@@ -24,12 +24,12 @@ public final class DialogHelpTarot extends Dialog {
 
     private static final DialogHelpTarot DIALOG = new DialogHelpTarot();
     private static final String EMPTY="";
-    private static final char POSSIBLE='P';
-    private static final char OWNED='C';
-    private static final char PLAYED='J';
-    private static final char RETURN_LINE_CHAR='\n';
-    private static final char SPACE_CHAR=' ';
-    private static final char TAB_CHAR='\t';
+    private static final String POSSIBLE="P";
+    private static final String OWNED="C";
+    private static final String PLAYED="J";
+    private static final String RETURN_LINE="\n";
+    private static final String SPACE=" ";
+    private static final String TAB="\t";
     private DialogHelpTarot() {
     }
     public static void setTitleDialog(MainWindow _fenetre,String _title) {
@@ -58,32 +58,32 @@ public final class DialogHelpTarot extends Dialog {
             zone_.setRows(84);
             zone_.setEditable(false);
             if(indicePseudo_<_pseudos.size()) {
-                zone_.append(_pseudos.get(indicePseudo_)+RETURN_LINE_CHAR);
+                zone_.append(StringList.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             } else {
-                zone_.append(EMPTY+RETURN_LINE_CHAR);
+                zone_.append(RETURN_LINE);
             }
             for (Suit s: suits_) {
                 HandTarot h_ = tout_.couleur(s);
                 if(s != Suit.UNDEFINED) {
-                    zone_.append(s.toString(Constants.getLanguage())+RETURN_LINE_CHAR);
+                    zone_.append(StringList.concat(s.toString(Constants.getLanguage()),RETURN_LINE));
                 }
                 for(CardTarot carte_:h_) {
-                    zone_.append(TAB_CHAR+EMPTY);
+                    zone_.append(TAB);
                     if(carte_ == CardTarot.EXCUSE) {
-                        zone_.append(carte_.toString(Constants.getLanguage())+SPACE_CHAR);
+                        zone_.append(StringList.concat(carte_.toString(Constants.getLanguage()),SPACE));
                     } else {
-                        zone_.append(carte_.getSymbol(Constants.getLanguage())+SPACE_CHAR);
+                        zone_.append(StringList.concat(carte_.getSymbol(Constants.getLanguage()),SPACE));
                     }
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
-                        zone_.append(POSSIBLE+EMPTY);
+                        zone_.append(POSSIBLE);
                     }
                     if(_cartesCertaines.getVal(s).get(indicePseudo_).contient(carte_)) {
-                        zone_.append(OWNED+EMPTY);
+                        zone_.append(OWNED);
                     }
                     if(_repartitionJouees.getVal(s).contient(carte_)) {
-                        zone_.append(PLAYED+EMPTY);
+                        zone_.append(PLAYED);
                     }
-                    zone_.append(RETURN_LINE_CHAR+EMPTY);
+                    zone_.append(RETURN_LINE);
                 }
             }
 //            for(CardTarot carte_:tout_) {

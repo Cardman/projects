@@ -640,11 +640,6 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     }
 
     @Override
-    public String toString() {
-        return display();
-    }
-
-    @Override
     @FromAndToString
     public String display() {
         if (lines.isEmpty()) {

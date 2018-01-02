@@ -9,10 +9,11 @@ import code.serialize.XmlTransientable;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @RwXml
-public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNote> {
+public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNote>, Displayable {
 
     private static final String SEPARATOR = "/";
     private static final String SEPARATOR_TIME = ",";
@@ -216,7 +217,7 @@ public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNo
     }
 
     @Override
-    public String toString() {
+    public String display() {
         String time_;
         if (_displayDoubleValue_) {
             time_ = Double.toString(getDouble(durationNum, durationDen));

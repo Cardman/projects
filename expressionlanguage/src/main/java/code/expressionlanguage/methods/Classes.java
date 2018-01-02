@@ -379,7 +379,7 @@ public final class Classes {
         }
         return true;
     }
-    public CustList<FoundErrorInterpret> getErrorsDet() {
+    public ErrorList getErrorsDet() {
         return errorsDet;
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
@@ -460,7 +460,7 @@ public final class Classes {
                 if (file_.lastIndexOf(SEP_FILE) > file_.indexOf(DOT)) {
                     throw new BadFileNameException(file_);
                 }
-                if (!file_.endsWith(DOT+EXT)) {
+                if (!file_.endsWith(StringList.concat(String.valueOf(DOT),EXT))) {
                     throw new BadFileNameException(file_);
                 }
                 for (String s: StringList.splitChars(file_, SEP_FILE)) {
@@ -1744,7 +1744,7 @@ public final class Classes {
                         String p_ = params_.last();
                         String c_ = types_.last();
                         LocalVariable lv_ = new LocalVariable();
-                        lv_.setClassName(c_+VARARG);
+                        lv_.setClassName(StringList.concat(c_,VARARG));
                         page_.getParameters().put(p_, lv_);
                     }
                     method_.buildFctInstructions(_context);

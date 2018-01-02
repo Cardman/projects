@@ -97,7 +97,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         hand_ = game.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
         HandBelote playableCards_ = game.playableCards(suits_);
-        assertTrue(playableCards_.toString(),playableCards_.contient(CardBelote.SPADE_JACK));
+        assertTrue(playableCards_.display(),playableCards_.contient(CardBelote.SPADE_JACK));
         assertEq(1, playableCards_.total());
         assertEq(1, suits_.getVal(game.getPliEnCours().couleurDemandee()).total());
     }
@@ -174,7 +174,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         HandBelote playableCards_ = game.playableCards(suits_);
         assertTrue(suits_.getVal(game.getPliEnCours().couleurDemandee()).estVide());
         assertEq(hand_.total(), playableCards_.total());
-        assertTrue(playableCards_.toString(), playableCards_.contientCartes(hand_));
+        assertTrue(playableCards_.display(), playableCards_.contientCartes(hand_));
     }
     @Parameters(method="bidsWithoutTrumpSuit")
     @Test

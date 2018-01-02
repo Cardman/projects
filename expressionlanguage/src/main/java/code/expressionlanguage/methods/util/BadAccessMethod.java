@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods.util;
 
 import code.expressionlanguage.opers.util.MethodId;
+import code.util.StringList;
 
 public class BadAccessMethod extends FoundErrorInterpret {
 
@@ -10,7 +11,7 @@ public class BadAccessMethod extends FoundErrorInterpret {
 
     @Override
     public String display() {
-        return super.display()+CLASS_NAME+SEP_KEY_VAL+id.getSignature()+SEP_INFO;
+        return StringList.concat(super.display(),CLASS_NAME,SEP_KEY_VAL,id.getSignature(),SEP_INFO);
     }
 
     public MethodId getId() {

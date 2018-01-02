@@ -37,11 +37,6 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     }
 
     @Override
-    public String toString() {
-        return list.toString();
-    }
-
-    @Override
     public Comparator<E> comparator() {
         return new NatComparator<E>();
     }

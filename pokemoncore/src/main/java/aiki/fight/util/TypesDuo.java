@@ -2,10 +2,11 @@ package aiki.fight.util;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class TypesDuo implements Equallable<TypesDuo> {
+public final class TypesDuo implements Equallable<TypesDuo>, Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -43,12 +44,6 @@ public final class TypesDuo implements Equallable<TypesDuo> {
         return true;
     }
 
-    @FromAndToString
-    @Override
-    public String toString() {
-        return damageType+SEPARATOR+pokemonType;
-    }
-
     public String getDamageType() {
         return damageType;
     }
@@ -63,5 +58,14 @@ public final class TypesDuo implements Equallable<TypesDuo> {
 
     public void setPokemonType(String _pokemonType) {
         pokemonType = _pokemonType;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(damageType);
+        str_.append(SEPARATOR);
+        str_.append(pokemonType);
+        return str_.toString();
     }
 }

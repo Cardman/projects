@@ -25,7 +25,6 @@ import code.util.StringList;
 public class ContainerBelote extends ContainerGame {
 
     public static final String EMPTY="";
-    public static final char RETURN_LINE_CHAR='\n';
     public static final String TAB="\t";
 
     private JPanel panneauBoutonsJeuPoints;
@@ -132,7 +131,7 @@ public class ContainerBelote extends ContainerGame {
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandBelote chargerPileBelote() {
-        HandBelote pile_=(HandBelote)StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE.name()+FileConst.DECK_EXT);
+        HandBelote pile_=(HandBelote)StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT));
         return pile_;
     }
     public String pseudo() {

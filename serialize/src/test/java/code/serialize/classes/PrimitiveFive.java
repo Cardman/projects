@@ -1,9 +1,10 @@
 package code.serialize.classes;
 import code.sml.FromAndToString;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 
 @RwXml
-public class PrimitiveFive {
+public class PrimitiveFive implements Displayable {
 
     private Integer primitive;
 
@@ -19,7 +20,7 @@ public class PrimitiveFive {
 
     @Override
     @FromAndToString
-    public String toString() {
+    public String display() {
         return primitive.toString();
     }
 

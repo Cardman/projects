@@ -12,6 +12,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class VideoLoading {
 
@@ -40,7 +41,7 @@ public final class VideoLoading {
                     len_ = files_.length;
                     for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                         try {
-                            imgs_.add(ImageIO.read(new File(path_+DataBase.SEPARATOR_FILES+folder_.getName()+DataBase.SEPARATOR_FILES+FILE+i+DataBase.IMG_FILES_RES_EXT)));
+                            imgs_.add(ImageIO.read(new File(StringList.concat(path_,DataBase.SEPARATOR_FILES,folder_.getName(),DataBase.SEPARATOR_FILES,FILE,Long.toString(i),DataBase.IMG_FILES_RES_EXT))));
                         } catch (IOException _0) {
                             //e.printStackTrace();
                         }
@@ -51,7 +52,7 @@ public final class VideoLoading {
                 CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
                 int i_ = CustList.FIRST_INDEX;
                 while (true) {
-                    String txtFile_ = ResourceFiles.ressourceFichier(VIDEO_DEFAULT+i_+DataBase.IMG_FILES_RES_EXT_TXT);
+                    String txtFile_ = ResourceFiles.ressourceFichier(StringList.concat(VIDEO_DEFAULT,Long.toString(i_),DataBase.IMG_FILES_RES_EXT_TXT));
                     if (txtFile_ == null) {
                         break;
                     }

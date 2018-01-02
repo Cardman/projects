@@ -9,11 +9,6 @@ public final class NumberedNode implements GraphElement<NumberedNode> {
         number = _number;
     }
 
-    @Override
-    public String toString() {
-        return Integer.toString(number);
-    }
-
     public int getNumber() {
         return number;
     }

@@ -30,11 +30,6 @@ public final class AffectedMove implements Displayable {
         return new AffectedMove(_string);
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public String getMove() {
         return move;
     }

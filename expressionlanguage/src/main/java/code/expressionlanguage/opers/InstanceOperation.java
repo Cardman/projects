@@ -94,7 +94,7 @@ public final class InstanceOperation extends InvokingOperation {
         className_ = StringList.removeAllSpaces(className_);
         if (!className_.startsWith(ARR) && className_.endsWith(ARR_DYN)) {
             int len_ = className_.length();
-            throw new NotArrayException(className_.substring(0, len_-ARR_DYN.length())+RETURN_LINE+_conf.joinPages());
+            throw new NotArrayException(StringList.concat(className_.substring(0, len_-ARR_DYN.length()),RETURN_LINE,_conf.joinPages()));
         }
         boolean elts_ = false;
         String realClassName_;
@@ -107,7 +107,7 @@ public final class InstanceOperation extends InvokingOperation {
         }
         if (realClassName_.startsWith(ARR)) {
             if (chidren_.isEmpty() && !elts_) {
-                throw new EmptyArrayDimensionsException(realClassName_+RETURN_LINE+_conf.joinPages());
+                throw new EmptyArrayDimensionsException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
             }
             if (!elts_) {
                 for (OperationNode o: chidren_) {
@@ -135,7 +135,7 @@ public final class InstanceOperation extends InvokingOperation {
                     mapping_.setArg(argType_);
                     mapping_.setMapping(map_);
                     if (!Templates.isCorrect(mapping_, _conf)) {
-                        throw new DynamicCastClassException(argType_+RETURN_LINE+eltType_+RETURN_LINE+_conf.joinPages());
+                        throw new DynamicCastClassException(StringList.concat(argType_,RETURN_LINE,eltType_,RETURN_LINE,_conf.joinPages()));
                     }
                 }
             }
@@ -176,10 +176,10 @@ public final class InstanceOperation extends InvokingOperation {
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
         if (arg_ == null) {
-            throw new NullGlobalObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
+            throw new NullGlobalObjectException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
         firstArgs_.add(CustList.FIRST_INDEX, arg_);
-        realClassName_ = arg_.getName()+INTERN_CLASS+realClassName_;
+        realClassName_ = StringList.concat(arg_.getName(),String.valueOf(INTERN_CLASS),realClassName_);
         analyzeCtor(_nodes, _conf, _fieldName, _op, realClassName_, firstArgs_, intern_);
     }
 
@@ -199,14 +199,14 @@ public final class InstanceOperation extends InvokingOperation {
                 ClassMetaInfo custClass_ = null;
                 custClass_ = classes_.getClassMetaInfo(realClassName_, _conf);
                 if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
-                    throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+                    throw new AbstractClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
                 }
                 if (custClass_.getCategory() == ClassCategory.INTERFACE) {
-                    throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+                    throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
                 }
                 if (custClass_.getCategory() == ClassCategory.ENUM) {
                     if (_fieldName.isEmpty() || _nodes.last() != this) {
-                        throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+                        throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
                     }
                     fieldName = _fieldName;
                 }
@@ -225,18 +225,18 @@ public final class InstanceOperation extends InvokingOperation {
                 }
                 if (!ctors_.isEmpty() && !classes_.canAccess(curClassBase_, ctors_.first(), _conf)) {
                     ConstructorBlock ctr_ = ctors_.first();
-                    throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new BadAccessException(StringList.concat(ctr_.getId().getSignature(),RETURN_LINE,_conf.joinPages()));
                 }
                 possibleInitClass = true;
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;
             }
             if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
-                throw new PrimitiveTypeException(realClassName_+RETURN_LINE+_conf.joinPages());
+                throw new PrimitiveTypeException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
             }
             StandardType type_ = stds_.getStandards().getVal(realClassName_);
             if (!type_.mustImplement()) {
-                throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+                throw new AbstractClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
             }
             ctorRes_ = LgNames.getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
             constId = ctorRes_.getRealId();
@@ -250,30 +250,30 @@ public final class InstanceOperation extends InvokingOperation {
             return;
         }
         if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
-            throw new PrimitiveTypeException(realClassName_+RETURN_LINE+_conf.joinPages());
+            throw new PrimitiveTypeException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
         Class<?> cl_;
         try {
             cl_ = PrimitiveTypeUtil.getSingleNativeClass(realClassName_);
         } catch (RuntimeClassNotFoundException _0_) {
-            throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
+            throw new RuntimeClassNotFoundException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
         if (cl_.isEnum()) {
-            throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+            throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
         if (cl_.isInterface()) {
-            throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+            throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
         if (_intern && isStaticAccess() && !Modifier.isStatic(cl_.getModifiers())) {
             throw new StaticAccessException(_conf.joinPages());
         }
         if (Modifier.isAbstract(cl_.getModifiers())) {
-            throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+            throw new AbstractClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
         ClassArgumentMatching arg_ = new ClassArgumentMatching(realClassName_);
         Constructor<?> const_ = getDeclaredConstructor(_conf, varargOnly_, 0, arg_, ClassArgumentMatching.toArgArray(_firstArgs));
         if (!canBeUsed(const_, _conf)) {
-            throw new BadAccessException(realClassName_+RETURN_LINE+_conf.joinPages());
+            throw new BadAccessException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
         contructor = const_;
         if (contructor.isVarArgs() && varargOnly_ == -1) {
@@ -539,7 +539,7 @@ public final class InstanceOperation extends InvokingOperation {
                 cl_ = PrimitiveTypeUtil.getSingleNativeClass(_instanceClassName);
             }
         } catch (RuntimeClassNotFoundException _0) {
-            throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(_realClassName+RETURN_LINE+_conf.joinPages())));
+            throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(StringList.concat(_realClassName,RETURN_LINE,_conf.joinPages()))));
         }
         return Array.newInstance(cl_, _args);
     }

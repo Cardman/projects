@@ -93,7 +93,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         EnumMap<MixCardsChoice, String> trMix_;
         trMix_ = new EnumMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, choix_.toString());
+            trMix_.put(choix_, choix_.display());
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
@@ -151,7 +151,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         declaringMiseres.setLayout(new FlowLayout());
         declaringMiseres.add(new JLabel(getMessages().getVal(ALLOWED_MISERES)));
         for (Miseres annonce_:Miseres.values()) {
-            JCheckBox caseCroix_=new JCheckBox(annonce_.toString());
+            JCheckBox caseCroix_=new JCheckBox(annonce_.display());
             caseCroix_.setSelected(getReglesTarot().getMiseres().containsObj(annonce_));
             declaringMiseres.add(caseCroix_);
             miseres.add(caseCroix_);

@@ -326,17 +326,17 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (loadingConf.isSaveGameAtExit()) {
             if (loadingConf.getLastSavedGame().isEmpty()) {
-                String name_ = LaunchingPokemon.getTempFolderSl()+LoadingGame.DEFAULT_SAVE_GAME+Resources.GAME_EXT;
+                String name_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
 //                String path_ = new File(name_).getAbsolutePath();
 //                path_ = StringList.replaceBackSlash(path_);
                 loadingConf.setLastSavedGame(name_);
 //                facade.save(path_);
                 save(name_);
                 if (!new File(name_).exists()) {
-                    name_ = ConstFiles.getInitFolder()+LoadingGame.DEFAULT_SAVE_GAME+Resources.GAME_EXT;
+                    name_ = StringList.concat(ConstFiles.getInitFolder(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
                     int index_ = 0;
                     while (new File(name_).exists()) {
-                        name_ = ConstFiles.getInitFolder()+LoadingGame.DEFAULT_SAVE_GAME+index_+Resources.GAME_EXT;
+                        name_ = StringList.concat(ConstFiles.getInitFolder(),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
                         index_++;
                     }
                     loadingConf.setLastSavedGame(name_);
@@ -347,12 +347,12 @@ public final class MainWindow extends NetGroupFrame {
                 path_ = StringList.replaceBackSlash(path_);
                 save(path_);
             }
-            StreamTextFile.saveObject(LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE, loadingConf);
+            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
             //LaunchingPokemon.decrement();
             dispose();
         } else if (indexInGame == CustList.INDEX_NOT_FOUND_ELT && !savedGame) {
             if (facade.getGame() == null) {
-                StreamTextFile.saveObject(LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE, loadingConf);
+                StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
                 //LaunchingPokemon.decrement();
                 dispose();
                 return;
@@ -367,7 +367,7 @@ public final class MainWindow extends NetGroupFrame {
                     }
                 }
                 savedGame = true;
-                StreamTextFile.saveObject(LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE, loadingConf);
+                StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
                 //LaunchingPokemon.decrement();
 //                ecrireCoordonnees();
 //                CustList<FrameHtmlData> frames_ = new CustList<>();
@@ -562,7 +562,7 @@ public final class MainWindow extends NetGroupFrame {
         if (!_configuration.getLastRom().isEmpty()) {
             File file_ = new File(StringList.replaceBackSlash(_configuration.getLastRom()));
             if (!file_.isAbsolute()) {
-                path_ = _path+_configuration.getLastRom();
+                path_ = StringList.concat(_path,_configuration.getLastRom());
             } else {
                 path_ = file_.getAbsolutePath();
             }
@@ -604,7 +604,7 @@ public final class MainWindow extends NetGroupFrame {
         } else {
             File file_ = new File(StringList.replaceBackSlash(_configuration.getLastSavedGame()));
             if (!file_.isAbsolute()) {
-                path_ = _path+_configuration.getLastSavedGame();
+                path_ = StringList.concat(_path,_configuration.getLastSavedGame());
             } else {
                 path_ = file_.getAbsolutePath();
             }
@@ -786,7 +786,7 @@ public final class MainWindow extends NetGroupFrame {
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveObject(LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE, loadingConf);
+            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
         String fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         if (fileName_.isEmpty()) {
@@ -833,7 +833,7 @@ public final class MainWindow extends NetGroupFrame {
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveObject(LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE, loadingConf);
+            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
         String fileName_ = fileDialogLoad(Resources.GAME_EXT, false);
         if (fileName_.isEmpty()) {
@@ -926,7 +926,7 @@ public final class MainWindow extends NetGroupFrame {
         SoftParams.setSoftParams(this, loadingConf);
         SoftParams.setParams(loadingConf);
         if (SoftParams.isOk()) {
-            StreamTextFile.saveObject(LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE, loadingConf);
+            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
     }
 
@@ -1419,7 +1419,7 @@ public final class MainWindow extends NetGroupFrame {
     public void setLoadingConf(LoadingGame _loadingConf, boolean _save) {
         loadingConf = _loadingConf;
         if (_save) {
-            StreamTextFile.saveObject(LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE, loadingConf);
+            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
     }
 

@@ -291,7 +291,8 @@ public final class Element extends Node {
         Element root_ = this;
         Node current_ = getFirstChild();
         StringBuilder str_ = new StringBuilder();
-        str_.append(BEGIN_TAG+getTagName());
+        str_.append(BEGIN_TAG);
+        str_.append(getTagName());
         if (!attributes.isEmpty()) {
             for (Attr a: attributes) {
                 str_.append(a.export());
@@ -311,7 +312,8 @@ public final class Element extends Node {
             }
             if (current_ instanceof Element) {
                 Element elt_ = (Element) current_;
-                str_.append(BEGIN_TAG+elt_.getTagName());
+                str_.append(BEGIN_TAG);
+                str_.append(elt_.getTagName());
                 if (!elt_.attributes.isEmpty()) {
                     for (Attr a: elt_.attributes) {
                         str_.append(a.export());
@@ -344,7 +346,9 @@ public final class Element extends Node {
                 current_ = null;
                 continue;
             }
-            str_.append(BEGIN_FOOTER+parent_.getTagName()+END_TAG);
+            str_.append(BEGIN_FOOTER);
+            str_.append(parent_.getTagName());
+            str_.append(END_TAG);
             if (parent_ == root_) {
                 current_ = null;
                 continue;
@@ -355,7 +359,9 @@ public final class Element extends Node {
                 if (par_ == null) {
                     break;
                 }
-                str_.append(BEGIN_FOOTER+par_.getTagName()+END_TAG);
+                str_.append(BEGIN_FOOTER);
+                str_.append(par_.getTagName());
+                str_.append(END_TAG);
                 if (par_ == root_) {
                     break;
                 }
@@ -370,7 +376,8 @@ public final class Element extends Node {
         Element root_ = this;
         Node current_ = getFirstChild();
         StringBuilder str_ = new StringBuilder();
-        str_.append(BEGIN_TAG+getTagName());
+        str_.append(BEGIN_TAG);
+        str_.append(getTagName());
         if (!attributes.isEmpty()) {
             for (Attr a: attributes) {
                 str_.append(a.export());
@@ -387,7 +394,8 @@ public final class Element extends Node {
             }
             if (current_ instanceof Element) {
                 Element elt_ = (Element) current_;
-                str_.append(BEGIN_TAG+elt_.getTagName());
+                str_.append(BEGIN_TAG);
+                str_.append(elt_.getTagName());
                 if (!elt_.attributes.isEmpty()) {
                     for (Attr a: elt_.attributes) {
                         str_.append(a.export());
@@ -417,7 +425,9 @@ public final class Element extends Node {
                 current_ = null;
                 continue;
             }
-            str_.append(BEGIN_FOOTER+parent_.getTagName()+END_TAG);
+            str_.append(BEGIN_FOOTER);
+            str_.append(parent_.getTagName());
+            str_.append(END_TAG);
             if (parent_ == root_) {
                 current_ = null;
                 continue;
@@ -428,7 +438,9 @@ public final class Element extends Node {
                 if (par_ == null) {
                     break;
                 }
-                str_.append(BEGIN_FOOTER+par_.getTagName()+END_TAG);
+                str_.append(BEGIN_FOOTER);
+                str_.append(par_.getTagName());
+                str_.append(END_TAG);
                 if (par_ == root_) {
                     break;
                 }

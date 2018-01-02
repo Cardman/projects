@@ -52,6 +52,6 @@ public final class StandardMethod extends StandardNamedFunction {
         return declaringType;
     }
     public String getPrettyString() {
-        return declaringType+"."+getId().getSignature()+":"+getReturnType()+" is "+modifier.name();
+        return StringList.concat(declaringType,".",getId().getSignature(),":",getReturnType()," is ",modifier.name());
     }
 }

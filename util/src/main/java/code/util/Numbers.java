@@ -463,11 +463,6 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
     }
 
     @Override
-    public String toString() {
-        return display();
-    }
-
-    @Override
     public Numbers<T> getReverse() {
         Numbers<T> list_ = new Numbers<T>(this);
         int i_ = FIRST_INDEX;

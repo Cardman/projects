@@ -2,13 +2,12 @@ package aiki.fight.util;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class StatBaseEv {
+public final class StatBaseEv implements Displayable{
 
     private static final char SEPARATOR = ';';
-
-    private static final String EMPTY_STRING = "";
 
     private final short base;
 
@@ -30,17 +29,21 @@ public final class StatBaseEv {
         return new StatBaseEv(_string);
     }
 
-    @FromAndToString
-    @Override
-    public String toString() {
-        return EMPTY_STRING+base+SEPARATOR+ev;
-    }
-
     public short getBase() {
         return base;
     }
 
     public short getEv() {
         return ev;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(base);
+        str_.append(SEPARATOR);
+        str_.append(ev);
+        return str_.toString();
     }
 }

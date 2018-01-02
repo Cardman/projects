@@ -191,9 +191,4 @@ public class Composite {
     public void setString(String _string) {
         string = _string;
     }
-
-    @Override
-    public String toString() {
-        return integer+","+privateInt+","+strings+","+tree+","+map+","+myMap;
-    }
 }

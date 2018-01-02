@@ -45,11 +45,6 @@ public final class StacksOfUses implements Displayable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public byte getNbRounds() {
         return nbRounds;
     }

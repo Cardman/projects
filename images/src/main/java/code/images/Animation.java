@@ -2,8 +2,9 @@ package code.images;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
-public final class Animation {
+public final class Animation implements Displayable {
 
     public static final String SEPARATOR_IMAGE_DELAY = "_";
     public static final String SEPARATOR_IMAGES = ",";
@@ -48,10 +49,10 @@ public final class Animation {
 
     @FromAndToString
     @Override
-    public String toString() {
+    public String display() {
         StringList lines_ = new StringList();
         for (ImageDelay p: imagesDelays) {
-            lines_.add(p.toString());
+            lines_.add(p.display());
         }
         return lines_.join(SEPARATOR_IMAGES);
     }

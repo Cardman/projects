@@ -227,7 +227,7 @@ public abstract class OperationNode {
             if (fctName_.isEmpty()) {
                 return new IdOperation(_index, _indexChild, _m, _op);
             }
-            if (fctName_.startsWith(EXTERN_CLASS+INSTANCE)) {
+            if (fctName_.startsWith(prefixFunction(INSTANCE))) {
                 return new InstanceOperation(_index, _indexChild, _m, _op);
             }
             return new FctOperation(_index, _indexChild, _m, _op);
@@ -370,7 +370,7 @@ public abstract class OperationNode {
             if (_setOffset) {
                 setRelativeOffsetPossibleLastPage(_offset, _cont);
             }
-            throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_cont.joinPages());
+            throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_cont.joinPages()));
         }
     }
     final void checkExistBase(ContextEl _cont, boolean _allowVarTypes, String _className,boolean _setOffset, int _offset) {
@@ -386,7 +386,7 @@ public abstract class OperationNode {
             if (_setOffset) {
                 setRelativeOffsetPossibleLastPage(_offset, _cont);
             }
-            throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_cont.joinPages());
+            throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_cont.joinPages()));
         }
     }
     static FieldResult getDeclaredCustField(ContextEl _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _superClass, String _name) {
@@ -480,7 +480,7 @@ public abstract class OperationNode {
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(clCurName_+RETURN_LINE+_conf.joinPages());
+                throw new VoidArgumentException(StringList.concat(clCurName_,RETURN_LINE,_conf.joinPages()));
             }
         }
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructors_;
@@ -653,7 +653,7 @@ public abstract class OperationNode {
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
         for (ClassArgumentMatching c:_argsClass) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(clCurName_+DOT+_name+RETURN_LINE+_conf.joinPages());
+                throw new VoidArgumentException(StringList.concat(clCurName_,DOT,_name,RETURN_LINE,_conf.joinPages()));
             }
         }
         if (classes_.getClassBody(baseClass_) instanceof InterfaceBlock) {
@@ -955,7 +955,7 @@ public abstract class OperationNode {
     static Method getDeclaredMethod(boolean _failIfError, ContextEl _cont, int _varargOnly, boolean _staticContext, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         for (ClassArgumentMatching c:_argsClass) {
             if (c.matchVoid(_cont)) {
-                throw new VoidArgumentException(_class.getName()+DOT+_name+RETURN_LINE+_cont.joinPages());
+                throw new VoidArgumentException(StringList.concat(_class.getName(),DOT,_name,RETURN_LINE,_cont.joinPages()));
             }
         }
         ClassMethodIdResult resInst_ = getDeclaredMethodLoop(_cont, _varargOnly, false, _class, _name, _argsClass);
@@ -1444,14 +1444,14 @@ public abstract class OperationNode {
         StringList traces_ = new StringList();
         for (int i = 0; i < len_; i++) {
             if (PrimitiveTypeUtil.primitiveTypeNullObject(_params.get(i), _args[i], _cont)) {
-                traces_.add(i+RETURN_LINE+_params.get(i)+RETURN_LINE+null);
+                traces_.add(StringList.concat(Long.toString(i),RETURN_LINE,_params.get(i),RETURN_LINE,null));
             }
         }
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
         if (!traces_.isEmpty()) {
-            throw new InvokeException(new StdStruct(new CustomError(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(traces_.join(SEP_ARG),RETURN_LINE,_cont.joinPages())),null_));
         }
     }
     static StringList toClassNames(Class<?>[] _params) {
@@ -1779,5 +1779,9 @@ public abstract class OperationNode {
             return;
         }
         needGlobalArgument = true;
+    }
+
+    protected static String prefixFunction(String _fct) {
+        return StringList.concat(String.valueOf(EXTERN_CLASS), _fct);
     }
 }

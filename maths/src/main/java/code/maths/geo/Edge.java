@@ -246,11 +246,6 @@ public final class Edge implements Displayable {
         return one_.det(two_) == 0 && one_.scal(two_) <= 0;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public CustPoint getFirst() {
         return first;
     }
@@ -269,6 +264,9 @@ public final class Edge implements Displayable {
 
     @Override
     public String display() {
-        return first.display()+SEPARATOR+second.display();
+        StringBuilder str_ = new StringBuilder(first.display());
+        str_.append(SEPARATOR);
+        str_.append(second.display());
+        return str_.toString();
     }
 }

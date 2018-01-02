@@ -161,7 +161,7 @@ public class Player {
         nickname=_pseudo;
         if (nickname.isEmpty()) {
             if (_sexeHeros == null) {
-                nickname = StringList.concat(DEFAULT_NICKNAME_PREFIX, String.valueOf(_sexeHeros));
+                nickname = DEFAULT_NICKNAME_PREFIX;
             } else {
                 nickname = StringList.concat(DEFAULT_NICKNAME_PREFIX, _sexeHeros.name());
             }

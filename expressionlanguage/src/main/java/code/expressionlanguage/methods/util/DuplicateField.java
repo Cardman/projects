@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods.util;
 
+import code.util.StringList;
+
 
 public final class DuplicateField extends FoundErrorInterpret {
 
@@ -9,7 +11,7 @@ public final class DuplicateField extends FoundErrorInterpret {
 
     @Override
     public String display() {
-        return super.display()+CLASS_NAME+SEP_KEY_VAL+id+SEP_INFO;
+        return StringList.concat(super.display(),CLASS_NAME,SEP_KEY_VAL,id,SEP_INFO);
     }
 
     public String getId() {

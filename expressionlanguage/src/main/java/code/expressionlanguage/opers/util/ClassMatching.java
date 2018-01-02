@@ -15,10 +15,6 @@ public final class ClassMatching {
         className = _className;
     }
 
-    @Override
-    public String toString() {
-        return className.toString();
-    }
     public boolean matchClass(String _className) {
         return StringList.quickEq(className, _className);
     }

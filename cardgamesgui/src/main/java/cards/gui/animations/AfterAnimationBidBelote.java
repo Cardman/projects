@@ -28,7 +28,7 @@ public final class AfterAnimationBidBelote extends Thread {
             container.setCanBid(true);
             if (!gameBelote_.getRegles().dealAll()) {
                 for(BidBeloteSuit e:gameBelote_.allowedBids()){
-                    container.ajouterBoutonContratBelote(e.toString(),e,e.estDemandable(gameBelote_.getContrat()));
+                    container.ajouterBoutonContratBelote(e.display(),e,e.estDemandable(gameBelote_.getContrat()));
                 }
             } else {
                 container.addButtonsForCoinche(gameBelote_);

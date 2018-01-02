@@ -104,11 +104,6 @@ public final class TriangleThreeDims implements Displayable {
         return thirdPoint;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public boolean isSame(TriangleThreeDims _e) {
         EqList<CustPointThreeDims> listOne_ = getPoints();
         EqList<CustPointThreeDims> listTwo_ = _e.getPoints();

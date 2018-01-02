@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods.util;
 
+import code.util.StringList;
+
 public class DuplicateParamMethod extends FoundErrorInterpret {
 
     private static final String COMMON_SIGNATURE = "common signature";
@@ -12,8 +14,8 @@ public class DuplicateParamMethod extends FoundErrorInterpret {
 
     @Override
     public String display() {
-        return super.display()+SEP_INFO+COMMON_SIGNATURE+SEP_KEY_VAL+commonSignature
-                +SEP_INFO+LOCATION+SEP_KEY_VAL+otherType;
+        return StringList.concat(super.display(),SEP_INFO,COMMON_SIGNATURE,SEP_KEY_VAL,commonSignature,
+                SEP_INFO,LOCATION,SEP_KEY_VAL,otherType);
     }
 
     public void setCommonSignature(String _commonSignature) {

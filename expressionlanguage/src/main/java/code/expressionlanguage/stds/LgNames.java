@@ -994,7 +994,7 @@ public class LgNames {
         String baseClass_ = clCurName_;
         for (ClassArgumentMatching c:_argsClass) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(clCurName_+DOT+_name+RETURN_LINE+_conf.joinPages());
+                throw new VoidArgumentException(StringList.concat(clCurName_,DOT,_name,RETURN_LINE,_conf.joinPages()));
             }
         }
         if (classes_.getStandards().getVal(baseClass_) instanceof StandardInterface) {
@@ -1087,7 +1087,7 @@ public class LgNames {
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(clCurName_+RETURN_LINE+_conf.joinPages());
+                throw new VoidArgumentException(StringList.concat(clCurName_,RETURN_LINE,_conf.joinPages()));
             }
         }
         CustList<StandardConstructor> constructors_;
@@ -1934,7 +1934,7 @@ public class LgNames {
             if (StringList.quickEq(name_, lgNames_.getAliasSimpleIterator())) {
                 String typeInst_ = _struct.getClassName(_cont);
                 String it_ = lgNames_.getStandards().getVal(typeInst_).getIterative();
-                result_.setResult(new StdStruct(((SimpleIterable) instance_).simpleIterator(), lgNames_.getAliasSimpleIteratorType()+Templates.TEMPLATE_BEGIN+it_+Templates.TEMPLATE_END));
+                result_.setResult(new StdStruct(((SimpleIterable) instance_).simpleIterator(), StringList.concat(lgNames_.getAliasSimpleIteratorType(),Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
                 return result_;
             }
         }
@@ -3514,13 +3514,13 @@ public class LgNames {
         StringList traces_ = new StringList();
         for (int i = 0; i < len_; i++) {
             if (PrimitiveTypeUtil.primitiveTypeNullObject(_params.get(i), _args[i], _cont)) {
-                traces_.add(i+RETURN_LINE+_params.get(i)+RETURN_LINE+null);
+                traces_.add(StringList.concat(Long.toString(i),RETURN_LINE,_params.get(i),RETURN_LINE,null));
             }
         }
         LgNames stds_ = _cont.getStandards();
         String null_ = stds_.getAliasNullPe();
         if (!traces_.isEmpty()) {
-            throw new InvokeException(new StdStruct(new CustomError(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(traces_.join(SEP_ARG),RETURN_LINE,_cont.joinPages())),null_));
         }
     }
     static Struct[] getObjects(Argument... _args) {

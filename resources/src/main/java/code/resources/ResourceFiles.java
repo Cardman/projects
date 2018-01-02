@@ -72,10 +72,10 @@ public final class ResourceFiles {
     private static String resourceTextFile(String _url, String _filePath, boolean _returnNullFail) {
         String lignes_ = EMPTY_STRING;
         try {
-            lignes_ = readFile(_url+_filePath, StandardCharsets.UTF_8.getName());
+            lignes_ = readFile(new StringBuilder(_url).append(_filePath).toString(), StandardCharsets.UTF_8.getName());
             int ind_ = lignes_.indexOf(INVALID_CHARACTER);
             if (ind_ >= 0) {
-                lignes_ = readFile(_url+_filePath, StandardCharsets.ISO_8859_1.getName());
+                lignes_ = readFile(new StringBuilder(_url).append(_filePath).toString(), StandardCharsets.ISO_8859_1.getName());
             }
             return lignes_;
         } catch (RuntimeException _0) {

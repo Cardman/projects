@@ -30,11 +30,6 @@ public final class BoostHpRate implements Displayable {
         return new BoostHpRate(_string);
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public byte getBoost() {
         return boost;
     }

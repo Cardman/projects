@@ -26,11 +26,6 @@ public final class ClassArgumentMatching {
         return args_;
     }
 
-    @Override
-    public String toString() {
-        return className;
-    }
-
     public boolean isNumericInt(ContextEl _context) {
         ClassArgumentMatching cl_ = new ClassArgumentMatching(className);
         LgNames stds_ = _context.getStandards();

@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods.util;
 
 import code.expressionlanguage.opers.util.MethodId;
+import code.util.StringList;
 
 public final class FinalMethod extends FoundErrorInterpret {
 
@@ -14,7 +15,7 @@ public final class FinalMethod extends FoundErrorInterpret {
 
     @Override
     public String display() {
-        return super.display()+CLASS_NAME+SEP_KEY_VAL+className+SEP_CLASS_METHOD+id.getSignature()+SEP_INFO;
+        return StringList.concat(super.display(),CLASS_NAME,SEP_KEY_VAL,className,SEP_CLASS_METHOD,id.getSignature(),SEP_INFO);
     }
 
     public String getClassName() {

@@ -24,7 +24,7 @@ public final class FctConstraints implements Equallable<FctConstraints> {
         for (StringList c: constraints) {
             classNames_.add(c.join(SEP_AND_TYPE));
         }
-        return name+LEFT+classNames_.join(SEP_TYPE)+RIGHT;
+        return StringList.concat(name,LEFT,classNames_.join(SEP_TYPE),RIGHT);
     }
     @Override
     public boolean eq(FctConstraints _c) {

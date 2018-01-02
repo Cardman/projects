@@ -87,11 +87,6 @@ public final class RatePointThreeDims implements Equallable<RatePointThreeDims>,
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     @FromAndToString
     @Override
     public String display() {

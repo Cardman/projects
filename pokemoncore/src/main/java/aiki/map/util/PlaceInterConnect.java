@@ -48,11 +48,6 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, D
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public Point getSource() {
         return source;
     }

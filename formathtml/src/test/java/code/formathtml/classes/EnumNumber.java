@@ -1,5 +1,12 @@
 package code.formathtml.classes;
 
-public enum EnumNumber {
-    ONE,TWO,THREE,FOUR,FIVE,SIX
+import code.util.ints.Displayable;
+
+public enum EnumNumber implements Displayable {
+    ONE,TWO,THREE,FOUR,FIVE,SIX;
+
+    @Override
+    public String display() {
+        return name();
+    }
 }

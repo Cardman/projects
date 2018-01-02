@@ -125,9 +125,4 @@ public final class CharMap<V> extends AbsMap<Character,V> {
 //    public int size() {
 //        return list.size();
 //    }
-//
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
 }

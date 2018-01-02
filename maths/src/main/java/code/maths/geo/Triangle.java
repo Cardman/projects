@@ -145,11 +145,6 @@ public final class Triangle implements HasEdges, Displayable {
     }
 
     @Override
-    public String toString() {
-        return display();
-    }
-
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(firstPoint.display());
         str_.append(SEPARATOR);

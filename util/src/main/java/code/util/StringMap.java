@@ -124,9 +124,4 @@ public final class StringMap<V> extends AbsMap<String,V> {
 //    public int size() {
 //        return list.size();
 //    }
-//
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
 }

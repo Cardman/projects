@@ -1,7 +1,8 @@
 package code.serialize.classes;
 import code.sml.FromAndToString;
+import code.util.ints.Displayable;
 
-public class PrimitiveTwo {
+public class PrimitiveTwo implements Displayable {
 
     private Integer primitive;
 
@@ -19,7 +20,7 @@ public class PrimitiveTwo {
 
     @Override
     @FromAndToString
-    public String toString() {
+    public String display() {
         return primitive.toString();
     }
 

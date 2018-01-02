@@ -161,7 +161,7 @@ public final class Templates {
         if (std_.getIterative().isEmpty()) {
             return null;
         }
-        return lgNames_.getAliasIterable()+TEMPLATE_BEGIN+std_.getIterative()+TEMPLATE_END;
+        return StringList.concat(lgNames_.getAliasIterable(),TEMPLATE_BEGIN,std_.getIterative(),TEMPLATE_END);
     }
     public static String getFullTypeByBases(String _subType, String _superType, ContextEl _context) {
         String baseSubType_ = StringList.getAllTypes(_subType).first();

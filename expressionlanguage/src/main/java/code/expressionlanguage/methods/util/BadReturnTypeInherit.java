@@ -15,7 +15,7 @@ public class BadReturnTypeInherit extends FoundErrorInterpret {
     @Override
     public String display() {
         String for_ = StringList.simpleStringsFormat(CLASS_NAME, returnType, method.getSignature(), parentClass);
-        return super.display()+for_+SEP_INFO;
+        return StringList.concat(super.display(),for_,SEP_INFO);
     }
 
     public String getReturnType() {

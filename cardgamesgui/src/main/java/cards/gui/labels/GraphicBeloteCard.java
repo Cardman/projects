@@ -19,6 +19,7 @@ import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.StringList;
 import code.util.consts.Constants;
 
 public class GraphicBeloteCard extends JLabel {
@@ -35,8 +36,8 @@ public class GraphicBeloteCard extends JLabel {
         fullCard=_fullCard;
         peindreCarte = true;
         card=_pc;
-        String file_ = ResourceFiles.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()
-                +StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.TXT_EXT));
+        String file_ = ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT)));
         bufferedImage = ConverterBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
@@ -65,8 +66,8 @@ public class GraphicBeloteCard extends JLabel {
         this(_i,_fullCard);
         peindreCarte = true;
         card=_pc;
-        String file_ = ResourceFiles.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()
-                +StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.TXT_EXT));
+        String file_ = ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT)));
         bufferedImage = ConverterBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
@@ -103,8 +104,8 @@ public class GraphicBeloteCard extends JLabel {
 
     public static BufferedImage getImage(CardBelote _card) {
         BufferedImage img_;
-        String file_ = ResourceFiles.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()
-                +StreamTextFile.SEPARATEUR+_card.getImageFileName(FileConst.TXT_EXT));
+        String file_ = ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+                StreamTextFile.SEPARATEUR,_card.getImageFileName(FileConst.TXT_EXT)));
         img_ = ConverterBufferedImage.decodeToImage(file_);
         if (img_ == null) {
             return getDefaultImage(_card);
@@ -267,8 +268,8 @@ public class GraphicBeloteCard extends JLabel {
         card=_pc;
         peinte=false;
         peindreCarte=true;
-        String file_ = ResourceFiles.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()
-                +StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.TXT_EXT));
+        String file_ = ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT)));
         bufferedImage = ConverterBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
@@ -314,7 +315,7 @@ public class GraphicBeloteCard extends JLabel {
             _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
             _g2.setColor(Color.BLUE);
             _g2.setFont(new Font(DEFAULT,Font.BOLD,20));
-            _g2.drawString(GameEnum.BELOTE.toString(),20,80);
+            _g2.drawString(GameEnum.BELOTE.display(),20,80);
             return;
         }
         if(!peinte) {

@@ -3266,7 +3266,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" expression=\"abba\" isstringconst=\"true\" className=\"java.lang.Object\"/>{getStandard(str;.)}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" expression=\"abba\" isstringconst=\"true\" className=\"java.lang.String\"/>{getStandard(str;.)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -3330,7 +3330,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" isstringconst=\"true\" className=\"java.lang.Object\"/>{getStandard(str;.)}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" isstringconst=\"true\" className=\"java.lang.String\"/>{getStandard(str;.)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();

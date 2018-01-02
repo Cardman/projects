@@ -48,11 +48,11 @@ public final class Rate implements Cmp<Rate>, Displayable {
         String tauxPris_ = _chaine;
         // Ajout de 0 devant le . si ce n'est pas fait
         if (tauxPris_.startsWith(String.valueOf(SEP_INT_DEC))) {
-            tauxPris_ = String.valueOf(ZERO) + tauxPris_;
+            tauxPris_ = StringList.concat(String.valueOf(ZERO), tauxPris_);
         }
         // Ajout de 0 devant le . et derriere le - si ce n'est pas fait
-        if (tauxPris_.startsWith(MINUS+SEP_INT_DEC)) {
-            tauxPris_ = MINUS + ZERO + tauxPris_.substring(1);
+        if (tauxPris_.startsWith(StringList.concat(MINUS,String.valueOf(SEP_INT_DEC)))) {
+            tauxPris_ = StringList.concat(MINUS, String.valueOf(ZERO), tauxPris_.substring(1));
         }
         if (tauxPris_.endsWith(String.valueOf(SEP_INT_DEC))) {
             numerateur = new LgInt(StringList.removeStrings(tauxPris_, String.valueOf(SEP_INT_DEC)));
@@ -469,9 +469,11 @@ public final class Rate implements Cmp<Rate>, Displayable {
         if (_numberMeaningDigits < 0) {
             throw new NegatifExposantException();
         }
-        String signum_ = EMPTY_STRING;
+        String signum_;
         if (!numerateur.isZeroOrGt()) {
-            signum_ += MINUS;
+            signum_ = MINUS;
+        } else {
+            signum_ = EMPTY_STRING;
         }
         Rate rateOne_ = one();
         Rate copie_ = absNb();
@@ -508,18 +510,16 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return toNumberString();
     }
 
+    @FromAndToString
     public String toNumberString() {
         if (isInteger()) {
             return numerateur.toNumberString();
         }
         // fraction
-        return numerateur.toNumberString()+SEP_NUM_DEN+denominateur.toNumberString();
-    }
-
-    @FromAndToString
-    @Override
-    public String toString() {
-        return display();
+        StringBuilder str_ = new StringBuilder(numerateur.toNumberString());
+        str_.append(SEP_NUM_DEN);
+        str_.append(denominateur.toNumberString());
+        return str_.toString();
     }
 
     public void multiplyBy(Rate _autre) {

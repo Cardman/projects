@@ -13,6 +13,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.exceptions.NullObjectException;
 
 public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
@@ -43,7 +44,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         if (!clMatch_.matchClass(booleanPrimType_)) {
             if (!clMatch_.matchClass(booleanType_)) {
                 ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                throw new NotBooleanException(cl_.getName()+RETURN_LINE+_conf.joinPages());
+                throw new NotBooleanException(StringList.concat(cl_.getName(),RETURN_LINE,_conf.joinPages()));
             }
         }
         setResultClass(new ClassArgumentMatching(booleanPrimType_));

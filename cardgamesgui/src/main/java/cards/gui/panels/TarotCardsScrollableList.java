@@ -10,6 +10,7 @@ import code.gui.EnumListModel;
 import code.gui.Jl;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.StringList;
 import cards.consts.Suit;
 import cards.gui.labels.selection.CardTarotCellRenderer;
 import cards.tarot.HandTarot;
@@ -32,7 +33,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         add(new JScrollPane(liste),BorderLayout.CENTER);
-        remCards = new JLabel(PLS+getNbCartesRestantes(), SwingConstants.CENTER);
+        remCards = new JLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         add(remCards, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
@@ -52,7 +53,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
             modeleListe.addElement(c);
         }
         setNbCartesRestantes(getNbCartesRestantes() - _m.total());
-        remCards.setText(PLS+getNbCartesRestantes());
+        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     /**Utilisee pour ajouter des cartes en respectant le tri*/
     public void ajouterCartesTarot(HandTarot _m) {
@@ -74,7 +75,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
             }
             setNbCartesRestantes(getNbCartesRestantes() - 1);
         }
-        remCards.setText(PLS+getNbCartesRestantes());
+        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void supprimerCartesTarot(HandTarot _cs) {
         int indice_;
@@ -85,7 +86,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
                 setNbCartesRestantes(getNbCartesRestantes() + 1);
             }
         }
-        remCards.setText(PLS+getNbCartesRestantes());
+        remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     public HandTarot valMainTarot() {
         HandTarot main_=new HandTarot();

@@ -546,84 +546,84 @@ public final class MainWindow extends NetGroupFrame {
         clock = new Clock();
         lastSavedGameDate = new JLabel();
         try{
-            reglesBelote = (RulesBelote) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE);
+            reglesBelote = (RulesBelote) StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE));
             if (!reglesBelote.isValidRules()) {
                 reglesBelote = new RulesBelote();
-                StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE, reglesBelote);
+                StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE), reglesBelote);
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             reglesBelote = new RulesBelote();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE, reglesBelote);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE), reglesBelote);
         }
         try{
-            displayingBelote = (DisplayingBelote) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE);
+            displayingBelote = (DisplayingBelote) StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_BELOTE));
             displayingBelote.validate();
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             displayingBelote = new DisplayingBelote();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE, displayingBelote);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_BELOTE), displayingBelote);
         }
         try{
-            reglesPresident = (RulesPresident) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT);
+            reglesPresident = (RulesPresident) StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT));
             if (!reglesPresident.isValidRules()) {
                 reglesPresident = new RulesPresident();
-                StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT, reglesPresident);
+                StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT), reglesPresident);
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             reglesPresident = new RulesPresident();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT, reglesPresident);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT), reglesPresident);
         }
         try{
-            displayingPresident = (DisplayingPresident) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT);
+            displayingPresident = (DisplayingPresident) StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_PRESIDENT));
             displayingPresident.validate();
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             displayingPresident = new DisplayingPresident();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT, displayingPresident);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_PRESIDENT), displayingPresident);
         }
         try{
-            reglesTarot = (RulesTarot) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT);
+            reglesTarot = (RulesTarot) StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_TAROT));
             if (!reglesTarot.isValidRules()) {
                 reglesTarot = new RulesTarot();
-                StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT, reglesTarot);
+                StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_TAROT), reglesTarot);
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             reglesTarot = new RulesTarot();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT, reglesTarot);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_TAROT), reglesTarot);
         }
         try{
-            displayingTarot = (DisplayingTarot) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT);
+            displayingTarot = (DisplayingTarot) StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_TAROT));
             displayingTarot.validate();
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             displayingTarot = new DisplayingTarot();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT, displayingTarot);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_TAROT), displayingTarot);
         }
         try {
-            parametres = (SoftParams) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.PARAMS);
+            parametres = (SoftParams) StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PARAMS));
             parametres.setDelays();
         } catch (RuntimeException _0) {
             _0.printStackTrace();
             parametres = new SoftParams();
-            parametres.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.PARAMS);
+            parametres.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PARAMS));
         }
 //        parametres.setLocale(_locale);
         initMessageName();
         lastSavedGameDate.setText(StringList.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
 
         try{
-            pseudosJoueurs = (Nicknames) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.PLAYERS);
+            pseudosJoueurs = (Nicknames) StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS));
             if (!pseudosJoueurs.isValidNicknames()) {
                 pseudosJoueurs = new Nicknames(Constants.getLanguage());
-                pseudosJoueurs.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.PLAYERS);
+                pseudosJoueurs.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS));
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             pseudosJoueurs = new Nicknames(Constants.getLanguage());
-            pseudosJoueurs.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.PLAYERS);
+            pseudosJoueurs.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS));
         }
         /*Parametre de lancement*/
         initMenus();
@@ -791,7 +791,7 @@ public final class MainWindow extends NetGroupFrame {
         return confirm(getMessages().getVal(SAVING),getMessages().getVal(SAVING_TITLE));
     }
     private void changerNombreDePartiesEnQuittant() {
-        String fileName_ = LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE;
+        String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
         Numbers<Long> vl_=new Numbers<Long>();
         boolean read_ = false;
@@ -1180,7 +1180,7 @@ public final class MainWindow extends NetGroupFrame {
         container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
         for (GameEnum jeu2_:GameEnum.values()) {
-            ajouterBoutonPrincipal(jeu2_.toString(),jeu2_,container_);
+            ajouterBoutonPrincipal(jeu2_.display(),jeu2_,container_);
         }
         LabelButton button_ = new LabelButton(getMessages().getVal(MAIN_MENU));
         button_.addMouseListener(new BackToMainMenuEvent(this));
@@ -1218,7 +1218,7 @@ public final class MainWindow extends NetGroupFrame {
         container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
         for (GameEnum jeu2_:GameEnum.values()) {
-            ajouterBoutonPrincipal(jeu2_.toString(),jeu2_,container_);
+            ajouterBoutonPrincipal(jeu2_.display(),jeu2_,container_);
         }
         LabelButton button_ = new LabelButton(getMessages().getVal(MAIN_MENU));
         button_.addMouseListener(new BackToMainMenuEvent(this));
@@ -1594,32 +1594,32 @@ public final class MainWindow extends NetGroupFrame {
         deal.add(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         edit=new JMenu(getMessages().getVal(EDIT));
-        JMenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.toString());
+        JMenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.display());
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.BELOTE));
         edit.add(sousSousMenu_);
         editGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.toString());
+        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.display());
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.PRESIDENT));
         edit.add(sousSousMenu_);
         editGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.TAROT.toString());
+        sousSousMenu_ = new MenuItem(GameEnum.TAROT.display());
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.TAROT));
         edit.add(sousSousMenu_);
         editGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.add(edit);
         /* Partie/Demo "Permet de voir la demostration d une partie"*/
         demo=new Menu(getMessages().getVal(DEMO));
-        sousMenu_=new MenuItem(GameEnum.BELOTE.toString());
+        sousMenu_=new MenuItem(GameEnum.BELOTE.display());
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
         demo.add(sousMenu_);
         demoGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousMenu_=new MenuItem(GameEnum.PRESIDENT.toString());
+        sousMenu_=new MenuItem(GameEnum.PRESIDENT.display());
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.PRESIDENT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
         demo.add(sousMenu_);
         demoGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousMenu_=new MenuItem(GameEnum.TAROT.toString());
+        sousMenu_=new MenuItem(GameEnum.TAROT.display());
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.TAROT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
         demo.add(sousMenu_);
@@ -1631,7 +1631,7 @@ public final class MainWindow extends NetGroupFrame {
         //Petitasauver,Petitachasser,Petitaemmeneraubout;
         for (ChoiceTarot ct_:ChoiceTarot.values()) {
 
-            sousMenu_=new MenuItem(ct_.toString());
+            sousMenu_=new MenuItem(ct_.display());
             sousMenu_.addActionListener(new ListenerTrainingTarot(this, ct_));
             training.add(sousMenu_);
             trainingTarot.put(ct_, sousMenu_);
@@ -1861,17 +1861,17 @@ public final class MainWindow extends NetGroupFrame {
     private void initParametersMenu() {
         /* Parametres */
         parameters=new Menu(getMessages().getVal(PARAMETERS));
-        JMenuItem sousMenu_=new MenuItem(GameEnum.BELOTE.toString());
+        JMenuItem sousMenu_=new MenuItem(GameEnum.BELOTE.display());
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.SHIFT_DOWN_MASK));
         parameters.add(sousMenu_);
         rulesGames.put(GameEnum.BELOTE, sousMenu_);
-        sousMenu_=new MenuItem(GameEnum.PRESIDENT.toString());
+        sousMenu_=new MenuItem(GameEnum.PRESIDENT.display());
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.PRESIDENT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.SHIFT_DOWN_MASK));
         parameters.add(sousMenu_);
         rulesGames.put(GameEnum.PRESIDENT, sousMenu_);
-        sousMenu_=new MenuItem(GameEnum.TAROT.toString());
+        sousMenu_=new MenuItem(GameEnum.TAROT.display());
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.TAROT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.SHIFT_DOWN_MASK));
         parameters.add(sousMenu_);
@@ -1902,15 +1902,15 @@ public final class MainWindow extends NetGroupFrame {
         parameters.add(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         displaying=new Menu(getMessages().getVal(DISPLAYING));
-        JMenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.toString());
+        JMenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.display());
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.BELOTE));
         displaying.add(sousSousMenu_);
         displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.toString());
+        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.display());
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.PRESIDENT));
         displaying.add(sousSousMenu_);
         displayingGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.TAROT.toString());
+        sousSousMenu_ = new MenuItem(GameEnum.TAROT.display());
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.TAROT));
         displaying.add(sousSousMenu_);
         displayingGames.put(GameEnum.TAROT, sousSousMenu_);
@@ -1919,47 +1919,47 @@ public final class MainWindow extends NetGroupFrame {
     }
     public void manageRules(GameEnum _game) {
         if (_game == GameEnum.BELOTE) {
-            DialogRulesBelote.initDialogRulesBelote(_game.toString(), this,reglesBelote);
+            DialogRulesBelote.initDialogRulesBelote(_game.display(), this,reglesBelote);
             RulesBelote reglesBelote_=DialogRulesBelote.getRegles();
             if (!DialogRulesBelote.isValidated()) {
                 return;
             }
             reglesBelote = reglesBelote_;
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE, reglesBelote);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE), reglesBelote);
             containerGame.setRulesBelote(reglesBelote);
         } else if (_game == GameEnum.PRESIDENT) {
-            DialogRulesPresident.initDialogRulesPresident(_game.toString(), this, reglesPresident);
+            DialogRulesPresident.initDialogRulesPresident(_game.display(), this, reglesPresident);
             DialogRulesPresident.setPresidentDialog(true, 0);
             RulesPresident rules_ = DialogRulesPresident.getRegles();
             if (!DialogRulesPresident.isValidated()) {
                 return;
             }
             reglesPresident = rules_;
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT, reglesPresident);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT), reglesPresident);
             containerGame.setRulesPresident(reglesPresident);
         } else if (_game == GameEnum.TAROT) {
-            DialogRulesTarot.initDialogRulesTarot(_game.toString(), this, reglesTarot);
+            DialogRulesTarot.initDialogRulesTarot(_game.display(), this, reglesTarot);
             DialogRulesTarot.setTarotDialog(true,0);
             RulesTarot reglesTarot_=DialogRulesTarot.getRegles();
             if (!DialogRulesTarot.isValidated()) {
                 return;
             }
             reglesTarot = reglesTarot_;
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT, reglesTarot);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_TAROT), reglesTarot);
             containerGame.setRulesTarot(reglesTarot);
         }
     }
     public void manageNicknames() {
         DialogNicknames.initDialogNicknames(getMessages().getVal(PLAYERS), this);
         pseudosJoueurs=DialogNicknames.getPseudos();
-        pseudosJoueurs.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.PLAYERS);
+        pseudosJoueurs.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS));
         containerGame.setNicknames(pseudosJoueurs);
     }
     public void manageSoft(String _key) {
         DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
         DialogSoft.setDialogSoft(_key);
         parametres=DialogSoft.getParametres();
-        parametres.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.PARAMS);
+        parametres.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PARAMS));
         containerGame.setSettings(parametres);
     }
     public void manageLanguage() {
@@ -1977,19 +1977,19 @@ public final class MainWindow extends NetGroupFrame {
     }
     public void displayingGame(GameEnum _game) {
         if (_game == GameEnum.BELOTE) {
-            DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(), this);
+            DialogDisplayingBelote.setDialogDisplayingBelote(_game.display(), this);
             displayingBelote=DialogDisplayingBelote.getDisplaying();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE, displayingBelote);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_BELOTE), displayingBelote);
             containerGame.setDisplayingBelote(displayingBelote);
         } else if (_game == GameEnum.PRESIDENT) {
-            DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(), this);
+            DialogDisplayingPresident.setDialogDisplayingPresident(_game.display(), this);
             displayingPresident=DialogDisplayingPresident.getDisplaying();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT, displayingPresident);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_PRESIDENT), displayingPresident);
             containerGame.setDisplayingPresident(displayingPresident);
         } else if (_game == GameEnum.TAROT) {
-            DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(), this);
+            DialogDisplayingTarot.setDialogDisplayingTarot(_game.display(), this);
             displayingTarot=DialogDisplayingTarot.getDisplaying();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT, displayingTarot);
+            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_TAROT), displayingTarot);
             containerGame.setDisplayingTarot(displayingTarot);
         }
     }
@@ -2114,7 +2114,7 @@ public final class MainWindow extends NetGroupFrame {
         } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
             containerGame = new ContainerMultiBelote(this,DialogServer.isCreate());
         }
-        String fileName_ = ConstFiles.getInitFolder() + FileConst.PORT_INI;
+        String fileName_ = StringList.concat(ConstFiles.getInitFolder(), FileConst.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
         if (DialogServer.isCreate()) {
             int nbChoosenPlayers_ = DialogServer.getNbPlayers();
@@ -2186,20 +2186,20 @@ public final class MainWindow extends NetGroupFrame {
         teams.setText(getMessages().getVal(TEAMS));
         edit.setText(getMessages().getVal(EDIT));
         for (GameEnum g: GameEnum.values()) {
-            editGames.getVal(g).setText(g.toString());
+            editGames.getVal(g).setText(g.display());
         }
         demo.setText(getMessages().getVal(DEMO));
         for (GameEnum g: GameEnum.values()) {
-            demoGames.getVal(g).setText(g.toString());
+            demoGames.getVal(g).setText(g.display());
         }
         training.setText(getMessages().getVal(TRAINING));
         for (ChoiceTarot c: ChoiceTarot.values()) {
-            trainingTarot.getVal(c).setText(c.toString());
+            trainingTarot.getVal(c).setText(c.display());
         }
         multiStop.setText(getMessages().getVal(MULTI_STOP));
         parameters.setText(getMessages().getVal(PARAMETERS));
         for (GameEnum g: GameEnum.values()) {
-            rulesGames.getVal(g).setText(g.toString());
+            rulesGames.getVal(g).setText(g.display());
         }
         players.setText(getMessages().getVal(PLAYERS));
         launching.setText(getMessages().getVal(LAUNCHING));
@@ -2208,7 +2208,7 @@ public final class MainWindow extends NetGroupFrame {
         language.setText(getMessages().getVal(LANGUAGE));
         displaying.setText(getMessages().getVal(DISPLAYING));
         for (GameEnum g: GameEnum.values()) {
-            displayingGames.getVal(g).setText(g.toString());
+            displayingGames.getVal(g).setText(g.display());
         }
         help.setText(getMessages().getVal(HELP));
         generalHelp.setText(getMessages().getVal(GENERAL_HELP));

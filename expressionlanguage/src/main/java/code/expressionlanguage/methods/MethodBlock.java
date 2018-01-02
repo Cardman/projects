@@ -94,13 +94,13 @@ public final class MethodBlock extends NamedFunctionBlock {
         StringList vars_ = new StringList();
         Classes classes_ = _context.getClasses();
         for (TypeVar t: classes_.getClassBody(className_).getParamTypes()) {
-            vars_.add(Templates.PREFIX_VAR_TYPE+t.getName());
+            vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         String current_;
         if (vars_.isEmpty()) {
             current_ = className_;
         } else {
-            current_ = className_+LT+vars_.join(SEP_TMP)+GT;
+            current_ = StringList.concat(className_,LT,vars_.join(SEP_TMP),GT);
         }
         String name_ = getName();
         StringList types_ = getParametersTypes();

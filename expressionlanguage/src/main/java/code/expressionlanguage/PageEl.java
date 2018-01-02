@@ -116,34 +116,34 @@ public final class PageEl {
         if (globalArgument != null) {
             Object glel_ = globalArgument.getObject();
             if (glel_ != null) {
-                list_.add(BEAN_CLASS+SEP_KEY_VAL+globalArgument.getObjectClassName(_context));
+                list_.add(StringList.concat(BEAN_CLASS,SEP_KEY_VAL,globalArgument.getObjectClassName(_context)));
             } else {
-                list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
+                list_.add(StringList.concat(BEAN_CLASS,SEP_KEY_VAL,null));
             }
         } else {
-            list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
+            list_.add(StringList.concat(BEAN_CLASS,SEP_KEY_VAL,null));
         }
         for (EntryCust<String,LoopVariable> e: vars.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos(_context));
+            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos(_context)));
         }
         list_.add(LOCAL_VARIABLES);
         for (EntryCust<String,LocalVariable> e: localVars.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos());
+            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
         }
         list_.add(CATCH_VARIABLES);
         for (EntryCust<String,LocalVariable> e: catchVars.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos());
+            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
         }
         list_.add(PARAMATERS);
         for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos());
+            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
         }
         list_.add(SEP_INFO);
         for (RemovableVars b: blockStacks) {
             list_.add(b.getInfos());
         }
-        String keyMessage_ = EMPTY_STRING;
-        return keyMessage_+SEP_INFO+list_.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL;
+        StringBuilder keyMessage_ = new StringBuilder(SEP_INFO);
+        return keyMessage_.append(list_.join(SEP_INFO)).append(SEP_INFO).append(LINE_COL).append(SEP_KEY_VAL).toString();
     }
 
     public void addToOffset(int _offset) {
@@ -154,14 +154,14 @@ public final class PageEl {
         StringList resVar_ = _classes.getLocalVariablesNames();
         int i_ = CustList.FIRST_INDEX;
         while (true) {
-            if (!resVar_.containsStr(Classes.TEMP_PREFIX+i_)) {
-                if (!localVars.contains(Classes.TEMP_PREFIX+i_)) {
+            if (!resVar_.containsStr(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
+                if (!localVars.contains(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
                     break;
                 }
             }
             i_++;
         }
-        return Classes.TEMP_PREFIX+i_;
+        return StringList.concatNbs(Classes.TEMP_PREFIX,i_);
     }
 
     public ReadWrite getReadWrite() {

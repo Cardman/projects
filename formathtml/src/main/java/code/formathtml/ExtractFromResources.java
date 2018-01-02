@@ -29,7 +29,7 @@ public final class ExtractFromResources {
     }
 
     static String getRealFilePath(String _link) {
-        return StringList.replace(_link, IMPLICIT_LANGUAGE, SEPARATOR_PATH+Constants.getLanguage()+SEPARATOR_PATH);
+        return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,Constants.getLanguage(),SEPARATOR_PATH));
     }
 
     static String getFormat(StringMap<String> _messages, String _key, Configuration _conf, String _loc, String _fileName) {
@@ -48,7 +48,7 @@ public final class ExtractFromResources {
         String content_ = getContentFile(_conf, _files, fileName_, _resourcesFolder);
         int index_ = indexCorrectMessages(content_);
         if (index_ >= 0) {
-            throw new BadFilePropertiesException(fileName_+RETURN_LINE+index_+RETURN_LINE+_conf.joinPages());
+            throw new BadFilePropertiesException(StringList.concat(fileName_,RETURN_LINE,Long.toString(index_),RETURN_LINE,_conf.joinPages()));
         }
         return getMessages(content_);
     }
@@ -68,7 +68,7 @@ public final class ExtractFromResources {
             if (l.startsWith(TAB)) {
                 String text_ = messages_.getVal(lastKey_);
                 if (text_ != null) {
-                    text_ += l.substring(1);
+                    text_ = StringList.concat(text_, l.substring(1));
                     messages_.put(lastKey_, text_);
                 }
             } else {
@@ -93,7 +93,7 @@ public final class ExtractFromResources {
             if (l.startsWith(TAB)) {
                 String text_ = messages_.getVal(lastKey_);
                 if (text_ != null) {
-                    text_ += l.substring(1);
+                    text_ = StringList.concat(text_,l.substring(1));
                     messages_.put(lastKey_, text_);
                 }
             } else {

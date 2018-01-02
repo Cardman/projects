@@ -2,6 +2,8 @@ package code.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import code.util.StringList;
+
 public class TaskPaintingLabel implements ActionListener {
 
     private static final int DELTA = 100;
@@ -39,9 +41,9 @@ public class TaskPaintingLabel implements ActionListener {
 //        }
         time += DELTA;
         if (dialog.getPercent().isEmpty()) {
-            dialog.setTitle(Integer.toString(time/SECOND_MILLIS)+UNIT);
+            dialog.setTitle(StringList.concat(Integer.toString(time/SECOND_MILLIS),UNIT));
         } else {
-            dialog.setTitle(Integer.toString(time/SECOND_MILLIS)+UNIT+SEPARATOR+dialog.getPercent()+PERCENT);
+            dialog.setTitle(StringList.concat(Integer.toString(time/SECOND_MILLIS),UNIT,SEPARATOR,dialog.getPercent(),PERCENT));
         }
 //        painting = new PaintingLabel(label);
 //        painting.start();

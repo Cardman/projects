@@ -1,13 +1,14 @@
 package cards.facade.enumerations;
 import code.format.Format;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 
 /**Jeux de cartes utilisees*/
-public enum GameEnum {
+public enum GameEnum implements Displayable {
     BELOTE,PRESIDENT,TAROT;
 
     @Override
-    public String toString() {
+    public String display() {
         return toString(Constants.getLanguage());
     }
 

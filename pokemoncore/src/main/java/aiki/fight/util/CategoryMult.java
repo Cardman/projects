@@ -3,10 +3,11 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class CategoryMult implements Equallable<CategoryMult> {
+public final class CategoryMult implements Equallable<CategoryMult>, Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -43,12 +44,6 @@ public final class CategoryMult implements Equallable<CategoryMult> {
         return true;
     }
 
-    @FromAndToString
-    @Override
-    public String toString() {
-        return category+SEPARATOR+mult;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -63,5 +58,15 @@ public final class CategoryMult implements Equallable<CategoryMult> {
 
     public void setMult(short _mult) {
         mult = _mult;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(category);
+        str_.append(SEPARATOR);
+        str_.append(mult);
+        return str_.toString();
     }
 }

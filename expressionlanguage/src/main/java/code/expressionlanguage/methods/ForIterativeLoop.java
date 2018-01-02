@@ -286,14 +286,14 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         ExpressionLanguage to_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getExpressionEl());
         Argument argTo_ = to_.calculateMember(_conf);
         if (argTo_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(RETURN_LINE+_conf.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
         }
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX + 1, getStepEl());
         Argument argStep_ = step_.calculateMember(_conf);
         if (argStep_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(RETURN_LINE+_conf.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
         }
         realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);

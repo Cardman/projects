@@ -572,17 +572,17 @@ public final class PaginatorHealingItem extends Paginator {
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
         results.setLayout(new GridLayout(0, 1));
         int side_ = getFacade().getMap().getSideLength();
-        int nameWidth_ = getHeader().width(getMessages().getVal(NAME)+SPACES);
-        int numberWidth_ = getHeader().width(getMessages().getVal(NUMBER)+SPACES);
+        int nameWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
+        int numberWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NUMBER),SPACES));
         int width_ = side_+nameWidth_+numberWidth_;
-        width_ += getHeader().width(getMessages().getVal(PRICE)+SPACES);
+        width_ += getHeader().width(StringList.concat(getMessages().getVal(PRICE),SPACES));
         if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
             width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
         }
-        getHeader().addString(getMessages().getVal(NAME)+SPACES, side_);
+        getHeader().addString(StringList.concat(getMessages().getVal(NAME),SPACES), side_);
         getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
-        getHeader().addString(getMessages().getVal(NUMBER)+SPACES, side_+nameWidth_);
-        getHeader().addString(getMessages().getVal(PRICE)+SPACES, side_+nameWidth_+numberWidth_);
+        getHeader().addString(StringList.concat(getMessages().getVal(NUMBER),SPACES), side_+nameWidth_);
+        getHeader().addString(StringList.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         add(new JScrollPane(results));
@@ -767,22 +767,22 @@ public final class PaginatorHealingItem extends Paginator {
         getResultsLabels().clear();
         getHeader().clearStrings();
         int side_ = getFacade().getMap().getSideLength();
-        int nameWidth_ = getHeader().width(getMessages().getVal(NAME)+SPACES);
-        int numberWidth_ = getHeader().width(getMessages().getVal(NUMBER)+SPACES);
+        int nameWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
+        int numberWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NUMBER),SPACES));
         int width_ = side_+nameWidth_+numberWidth_;
-        width_ += getHeader().width(getMessages().getVal(PRICE)+SPACES);
+        width_ += getHeader().width(StringList.concat(getMessages().getVal(PRICE),SPACES));
         if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
             width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
         }
-        getHeader().addString(getMessages().getVal(NAME)+SPACES, side_);
+        getHeader().addString(StringList.concat(getMessages().getVal(NAME),SPACES), side_);
         getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
 
 
         EqList<SortingHealingItem> rendered_ = getFacade().getRenderedHealingItem();
         CustList<HealingItemLabel> list_ = new CustList<HealingItemLabel>();
         int thirdColumn_ = CustList.SIZE_EMPTY;
-        int fourthColumn_ = getHeader().width(getMessages().getVal(NAME)+SPACES);
-        int fifthColumn_ = getHeader().width(getMessages().getVal(NUMBER)+SPACES);
+        int fourthColumn_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
+        int fifthColumn_ = getHeader().width(StringList.concat(getMessages().getVal(NUMBER),SPACES));
         //item.getName()
         //item.getItemClass()
         //item.getHp().toString()
@@ -805,8 +805,8 @@ public final class PaginatorHealingItem extends Paginator {
             }
             list_.add(l_);
         }
-        getHeader().addString(getMessages().getVal(NUMBER)+SPACES, side_+fourthColumn_);
-        getHeader().addString(getMessages().getVal(PRICE)+SPACES, side_+fourthColumn_+fifthColumn_);
+        getHeader().addString(StringList.concat(getMessages().getVal(NUMBER),SPACES), side_+fourthColumn_);
+        getHeader().addString(StringList.concat(getMessages().getVal(PRICE),SPACES), side_+fourthColumn_+fifthColumn_);
         for (HealingItemLabel l: list_) {
             l.setImagesResults(getFacade(), thirdColumn_, fourthColumn_, fifthColumn_);
         }

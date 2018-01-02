@@ -104,17 +104,17 @@ public abstract class FileDialog extends Dialog {
         excludedFolders = new StringList();
         if (currentFolderRoot) {
             String root_ = StringList.replaceBackSlash(new File(folder).getAbsolutePath());
-            currentFolder = root_+StreamTextFile.SEPARATEUR;
+            currentFolder = StringList.concat(root_,StreamTextFile.SEPARATEUR);
             if (StringList.quickEq(currentFolder,ConstFiles.getInitFolder())) {
                 for (String f: _excludedFolders) {
-                    excludedFolders.add(currentFolder+f);
+                    excludedFolders.add(StringList.concat(currentFolder,f));
                 }
             }
         }
         fileModel = new FileTable();
         currentTitle = messages.getVal(FILES);
         if (currentFolderRoot) {
-            currentTitle += SPACE+ currentFolder;
+            currentTitle = StringList.concat(currentTitle, SPACE, currentFolder);
         }
         setTitle(currentTitle);
         fileTable = new JTable(fileModel);
@@ -248,14 +248,14 @@ public abstract class FileDialog extends Dialog {
             pathFull_.add(o.toString());
         }
         pathFull_.removeObj(EMPTY_STRING);
-        String str_ = EMPTY_STRING;
+        StringBuilder str_ = new StringBuilder();
         for (Object o: pathFull_) {
-            str_ += o.toString() + StreamTextFile.SEPARATEUR;
+            str_.append(o.toString()).append(StreamTextFile.SEPARATEUR);
         }
-        currentFolder = str_;
+        currentFolder = str_.toString();
         currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
-        File currentFolder_ = new File(str_);
+        File currentFolder_ = new File(str_.toString());
         if (!currentFolder_.exists()) {
             selected_.removeFromParent();
             return;

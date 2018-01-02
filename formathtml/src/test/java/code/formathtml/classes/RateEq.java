@@ -3,8 +3,9 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
+import code.util.ints.Displayable;
 
-public final class RateEq {
+public final class RateEq implements Displayable {
 
     private static final char ZERO_CHAR = '0';
 
@@ -138,7 +139,7 @@ public final class RateEq {
 
     @Override
     @FromAndToString
-    public String toString() {
+    public String display() {
         return string;
     }
 }

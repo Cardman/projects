@@ -2,8 +2,9 @@ package code.formathtml.classes;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
-public final class Rate {
+public final class Rate implements Displayable {
 
     private static final char ZERO_CHAR = '0';
 
@@ -130,7 +131,7 @@ public final class Rate {
 
     @Override
     @FromAndToString
-    public String toString() {
+    public String display() {
         return string;
     }
 }

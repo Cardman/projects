@@ -25,8 +25,7 @@ import code.util.ints.MathFactory;
 public class Configuration {
     private static final String INSTANCE = "$new ";
 
-    private static final char BEGIN_ARGS = '(';
-    private static final char END_ARGS = ')';
+    private static final String NO_PARAM = "()";
 
     private static final String RETURN_LINE = "\n";
 
@@ -91,7 +90,7 @@ public class Configuration {
         if (prefix == null) {
             prefix = EMPTY_STRING;
         } else {
-            prefix += SEP;
+            prefix = StringList.concat(prefix,SEP);
         }
         if (accessValue == null) {
             accessValue = new HtmlAccessValue();
@@ -195,11 +194,11 @@ public class Configuration {
             }
         }
         for (EntryCust<String, String> e: getLateValidators().entryList()) {
-            Struct str_ = ElUtil.processEl(INSTANCE+e.getValue()+BEGIN_ARGS+END_ARGS, 0, context).getStruct();
+            Struct str_ = ElUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, context).getStruct();
             getBuiltValidators().put(e.getKey(), str_);
         }
         for (EntryCust<String, String> e: getLateTranslators().entryList()) {
-            Struct str_ = ElUtil.processEl(INSTANCE+e.getValue()+BEGIN_ARGS+END_ARGS, 0, context).getStruct();
+            Struct str_ = ElUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, context).getStruct();
             getBuiltTranslators().put(e.getKey(), str_);
         }
     }
@@ -234,7 +233,7 @@ public class Configuration {
             return new StdStruct(_bean);
         }
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElUtil.processEl(INSTANCE+_bean.getClassName()+BEGIN_ARGS+END_ARGS, 0, toContextEl()).getStruct();
+        Struct strBean_ = ElUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, toContextEl()).getStruct();
         if (_dataBase != null) {
             ExtractObject.setDataBase(this, strBean_, CustStruct.wrapOrId(_dataBase));
         } else {
@@ -257,7 +256,7 @@ public class Configuration {
 
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElUtil.processEl(INSTANCE+_bean.getClassName(toContextEl())+BEGIN_ARGS+END_ARGS, 0, toContextEl()).getStruct();
+        Struct strBean_ = ElUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(toContextEl()),NO_PARAM), 0, toContextEl()).getStruct();
         ExtractObject.setDataBase(this, strBean_, ExtractObject.getDataBase(this, _bean));
         ExtractObject.setForms(this, strBean_, ExtractObject.getForms(this, _bean));
         ExtractObject.setLanguage(this, strBean_, _language);
@@ -439,7 +438,7 @@ public class Configuration {
     }
 
     public final void setPrefix(String _prefix) {
-        prefix = _prefix + SEP;
+        prefix = StringList.concat(_prefix,SEP);
     }
 
     public boolean isInterrupt() {

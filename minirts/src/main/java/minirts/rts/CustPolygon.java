@@ -37,11 +37,6 @@ public class CustPolygon implements Iterable<CustPoint>{
         points.clear();
     }
 
-    @Override
-    public String toString() {
-        return points.toString();
-    }
-
     /**
     jarvis(S)
    pointOnHull = leftmost point in S

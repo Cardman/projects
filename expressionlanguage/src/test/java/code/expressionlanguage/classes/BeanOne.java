@@ -62,10 +62,6 @@ public class BeanOne {
         return "a"+_one;
     }
 
-    public String getStandard(Object _obj) {
-        return String.valueOf(_obj);
-    }
-
     public StringList sortedNumberKeys() {
         return new StringList(numbers.getKeys());
     }

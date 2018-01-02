@@ -101,11 +101,6 @@ public final class Vect implements Equallable<Vect>, Displayable {
         return numbers.eq(_o.numbers);
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     @FromAndToString
     @Override
     public String display() {

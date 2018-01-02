@@ -13,6 +13,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.StringList;
 
 public final class ElementBlock extends Leaf implements InfoBlock{
 
@@ -96,7 +97,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         page_.setOffset(0);
         String className_ = getClassName();
-        String fullInstance_ = NEW+className_ + PAR_LEFT + value + PAR_RIGHT;
+        String fullInstance_ = StringList.concat(NEW,className_, PAR_LEFT, value, PAR_RIGHT);
         opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
     }
 

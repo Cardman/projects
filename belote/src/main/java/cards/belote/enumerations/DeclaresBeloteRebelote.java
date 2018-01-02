@@ -1,8 +1,9 @@
 package cards.belote.enumerations;
 import code.format.Format;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 
-public enum DeclaresBeloteRebelote {
+public enum DeclaresBeloteRebelote implements Displayable {
     BELOTE_REBELOTE(20);
     private final int points;
 
@@ -15,7 +16,7 @@ public enum DeclaresBeloteRebelote {
     }
 
     @Override
-    public String toString() {
+    public String display() {
         return toString(Constants.getLanguage());
     }
 

@@ -43,11 +43,6 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public int getNumber() {
         return number;
     }
@@ -62,7 +57,7 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
         StringBuilder str_ = new StringBuilder();
         str_.append(number);
         str_.append(SEPARATOR);
-        str_.append(position);
+        str_.append(position.display());
         return str_.toString();
     }
 }

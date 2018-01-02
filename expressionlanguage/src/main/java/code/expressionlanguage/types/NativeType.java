@@ -4,6 +4,8 @@ import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import code.util.StringList;
+
 abstract class NativeType {
 
     static final String EMPTY_STRING = "";
@@ -62,7 +64,7 @@ abstract class NativeType {
     }
 
     final String getPrefixBegin() {
-        return getPrefix()+getBegin();
+        return StringList.concat(getPrefix(),getBegin());
     }
 
     abstract String getBegin();

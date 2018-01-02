@@ -1,9 +1,10 @@
 package cards.consts;
 import code.format.Format;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 
 /**Figures existantes dans les jeux de cartes (L'Excuse n'existe qu'au tarot)*/
-public enum CardChar {
+public enum CardChar implements Displayable {
     EXCUSE,KING,QUEEN,KNIGHT,JACK,UNDEFINED;
 
     public String getSymbol(String _loc) {
@@ -13,7 +14,7 @@ public enum CardChar {
     }
 
     @Override
-    public String toString() {
+    public String display() {
         return toString(Constants.getLanguage());
     }
 

@@ -45,11 +45,6 @@ public final class MoveTarget implements Equallable<MoveTarget>, Displayable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public String getMove() {
         return move;
     }

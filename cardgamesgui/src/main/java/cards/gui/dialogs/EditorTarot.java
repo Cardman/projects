@@ -84,7 +84,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     public static void initEditorTarot(MainWindow _fenetre) {
         DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.TAROT.toString());
+        DIALOG.setTitle(GameEnum.TAROT.display());
         DIALOG.setReglesTarot(_fenetre.getReglesTarot());
         DIALOG.partie = null;
         DIALOG.setToNullGame = true;

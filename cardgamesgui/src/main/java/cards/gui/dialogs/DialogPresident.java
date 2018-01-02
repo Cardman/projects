@@ -84,7 +84,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         EnumMap<MixCardsChoice, String> trMix_;
         trMix_ = new EnumMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, choix_.toString());
+            trMix_.put(choix_, choix_.display());
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {

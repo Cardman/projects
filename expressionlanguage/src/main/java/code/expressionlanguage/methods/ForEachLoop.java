@@ -143,7 +143,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             mapping_.setMapping(vars_);
             if (!Templates.isCorrect(mapping_, _cont)) {
                 String str_ = el_.getResultClass().getName();
-                throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
+                throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
             }
         } else {
             String type_ = Templates.getFullTypeByStds(el_.getResultClass().getName(), _cont);
@@ -169,11 +169,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrect(mapping_, _cont)) {
                     String str_ = el_.getResultClass().getName();
-                    throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
+                    throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
                 }
             } else {
                 String str_ = el_.getResultClass().getName();
-                throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
+                throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
             }
         }
         LoopVariable lv_ = new LoopVariable();

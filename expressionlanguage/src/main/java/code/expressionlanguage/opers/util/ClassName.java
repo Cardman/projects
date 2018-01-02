@@ -14,11 +14,6 @@ public final class ClassName implements Equallable<ClassName> {
     }
 
     @Override
-    public String toString() {
-        return name;
-    }
-
-    @Override
     public boolean eq(ClassName _obj) {
         if (!StringList.quickEq(name, _obj.name)) {
             return false;

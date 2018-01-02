@@ -85,7 +85,7 @@ public final class InterfaceBlock extends RootBlock {
         tr_.put(ATTRIBUTE_NAME, getFullDefinition());
         int i_ = 0;
         for (String t: getDirectSuperTypes()) {
-            tr_.put(ATTRIBUTE_CLASS+i_, t);
+            tr_.put(StringList.concatNbs(ATTRIBUTE_CLASS,i_), t);
             i_++;
         }
         return tr_;

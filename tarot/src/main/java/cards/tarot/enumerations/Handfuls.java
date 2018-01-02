@@ -3,10 +3,11 @@ import code.format.Format;
 import code.util.EnumList;
 import code.util.NumberMap;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 import cards.tarot.HandTarot;
 
 /**Poignees utilisees au tarot*/
-public enum Handfuls {
+public enum Handfuls implements Displayable {
     NO,ONE(20),TWO(30),THREE(40),FOUR(50);
     private final boolean declarable;
     private final int points;
@@ -124,12 +125,12 @@ public enum Handfuls {
         }
         return configuration_;
     }
-    @Override
-    public String toString() {
-        return toString(Constants.getLanguage());
-    }
 
     public String toString(String _locale) {
         return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_HANDFULS,name());
+    }
+    @Override
+    public String display() {
+        return toString(Constants.getLanguage());
     }
 }

@@ -67,11 +67,11 @@ public class TmLabel extends SelectableLabel {
         }
         types_.sort();
         String target_ = _facade.translatedTargets(_move.getTargetChoice());
-        types = SPACE+types_.join(SPACE);
-        priority = SPACE+move_.getPriority();
-        pp = SPACE+move_.getPp();
-        target = SPACE+target_;
-        price = SPACE+_move.getPrice();
+        types = StringList.concat(SPACE,types_.join(SPACE));
+        priority = StringList.concatNbs(SPACE,move_.getPriority());
+        pp = StringList.concatNbs(SPACE,move_.getPp());
+        target = StringList.concat(SPACE,target_);
+        price = StringList.concatNbs(SPACE,_move.getPrice());
         //setText(moveName+types+priority+pp+target+price);
         //setOpaque(true);
         //int width_ = getFontMetrics(getFont()).stringWidth(getText());
@@ -83,23 +83,23 @@ public class TmLabel extends SelectableLabel {
     }
 
     public int getTypesWidth() {
-        return getFontMetrics(getFont()).stringWidth(SPACE+types);
+        return getFontMetrics(getFont()).stringWidth(StringList.concat(SPACE,types));
     }
 
     public int getPriorityWidth() {
-        return getFontMetrics(getFont()).stringWidth(SPACE+priority);
+        return getFontMetrics(getFont()).stringWidth(StringList.concat(SPACE,priority));
     }
 
     public int getPpWidth() {
-        return getFontMetrics(getFont()).stringWidth(SPACE+pp);
+        return getFontMetrics(getFont()).stringWidth(StringList.concat(SPACE,pp));
     }
 
     public int getTargetWidth() {
-        return getFontMetrics(getFont()).stringWidth(SPACE+target);
+        return getFontMetrics(getFont()).stringWidth(StringList.concat(SPACE,target));
     }
 
     public int getPriceWidth() {
-        return getFontMetrics(getFont()).stringWidth(SPACE+price);
+        return getFontMetrics(getFont()).stringWidth(StringList.concat(SPACE,price));
     }
 
     public void setPreferredSize(int _width) {

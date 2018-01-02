@@ -107,10 +107,6 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     public int size() {
         return getList().size();
     }
-    @Override
-    public String toString() {
-        return getList().toString();
-    }
     EntryCust<K,V> getEntryByKey(K _key) {
         int index_ = indexOfEntry(_key);
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {

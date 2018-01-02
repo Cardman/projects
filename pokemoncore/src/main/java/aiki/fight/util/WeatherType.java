@@ -2,10 +2,11 @@ package aiki.fight.util;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class WeatherType implements Equallable<WeatherType> {
+public final class WeatherType implements Equallable<WeatherType>, Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -43,12 +44,6 @@ public final class WeatherType implements Equallable<WeatherType> {
         return true;
     }
 
-    @FromAndToString
-    @Override
-    public String toString() {
-        return weather+SEPARATOR+type;
-    }
-
     public String getWeather() {
         return weather;
     }
@@ -63,5 +58,14 @@ public final class WeatherType implements Equallable<WeatherType> {
 
     public void setType(String _type) {
         type = _type;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(weather);
+        str_.append(SEPARATOR);
+        str_.append(type);
+        return str_.toString();
     }
 }

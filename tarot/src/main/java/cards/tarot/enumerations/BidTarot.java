@@ -67,10 +67,6 @@ public enum BidTarot implements Displayable {
         }
         return estPlusFortQue(_c);
     }
-    @Override
-    public String toString() {
-        return toString(Constants.getLanguage());
-    }
 
     public String toString(String _locale) {
         return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_BID,name());

@@ -13,6 +13,7 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerBelote;
+import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.labels.GraphicBeloteCard;
 
@@ -73,13 +74,13 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                 container.finPliBelote(getCarteVerif());
             }else{
                 String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().display());
-                String finalMessage_ = mes_+ContainerBelote.RETURN_LINE_CHAR+partie_.getErreurDeJeu();
+                String finalMessage_ = StringList.concat(mes_,ContainerGame.RETURN_LINE,partie_.getErreurDeJeu());
                 String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(container.getOwner(),mes_+ContainerBelote.RETURN_LINE_CHAR+partie_.getErreurDeJeu(),container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
             }
         }else{
-            String finalMessage_ = container.getMessages().getVal(MainWindow.CANT_PLAY)+container.getRaisonCourante();
+            String finalMessage_ = StringList.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
             ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(container.getOwner(),container.getMessages().getVal(MainWindow.CANT_PLAY)+container.getRaisonCourante(),container.getMessages().getVal(MainWindow.TOO_GAME),JOptionPane.ERROR_MESSAGE);

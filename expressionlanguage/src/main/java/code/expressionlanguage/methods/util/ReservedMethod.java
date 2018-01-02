@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods.util;
 
 import code.expressionlanguage.opers.util.MethodId;
+import code.util.StringList;
 
 public class ReservedMethod extends FoundErrorInterpret {
 
@@ -9,8 +10,8 @@ public class ReservedMethod extends FoundErrorInterpret {
 
     @Override
     public String display() {
-        return super.display()+STANDARD_METHOD
-                +SEP_KEY_VAL+methodeId.getSignature()+SEP_INFO;
+        return StringList.concat(super.display(),STANDARD_METHOD,
+                SEP_KEY_VAL,methodeId.getSignature(),SEP_INFO);
     }
 
     public MethodId getMethodeId() {

@@ -63,11 +63,6 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public short getTeam() {
         return team;
     }

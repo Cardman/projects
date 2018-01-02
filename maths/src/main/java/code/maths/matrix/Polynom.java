@@ -726,12 +726,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return numbers.first().isZero();
     }
 
-    @Override
-    @FromAndToString
-    public String toString() {
-        return display();
-    }
-
     @FromAndToString
     @Override
     public String display() {

@@ -245,11 +245,6 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     public EntryCust<K, V> lastEntry() {
         return getList().last();
     }
-
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
 //    (non-Javadoc)
 //        @see flux.utils.Viewable#setModified()
 //

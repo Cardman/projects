@@ -107,22 +107,22 @@ public class TeamPanel extends JPanel {
         for (UsablePokemon l: _team.values()) {
             if (l instanceof PokemonPlayer) {
                 PokemonPlayer pk_ = (PokemonPlayer) l;
-                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(facade.translatePokemon(pk_.getName())+SPACES);
+                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringList.concat(facade.translatePokemon(pk_.getName()),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(facade.translateAbility(pk_.getAbility())+SPACES);
+                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringList.concat(facade.translateAbility(pk_.getAbility()),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(pk_.getRemainingHp().toNumberString()+SPACES);
+                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringList.concat(pk_.getRemainingHp().toNumberString(),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
             }
             if (l instanceof PokemonPlayer) {
                 PokemonPlayer egg_ = (PokemonPlayer) l;
-                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(egg_.getName()+SPACES);
+                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringList.concat(egg_.getName(),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }

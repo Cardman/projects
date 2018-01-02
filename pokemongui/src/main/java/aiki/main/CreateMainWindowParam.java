@@ -48,7 +48,7 @@ public final class CreateMainWindowParam extends Thread {
             if (!load.getLastRom().isEmpty()) {
                 File file_ = new File(StringList.replaceBackSlash(load.getLastRom()));
                 if (!file_.isAbsolute()) {
-                    path_ = path+load.getLastRom();
+                    path_ = StringList.concat(path,load.getLastRom());
                 } else {
                     path_ = file_.getAbsolutePath();
                 }

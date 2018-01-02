@@ -1,15 +1,14 @@
 package cards.gui.animations;
 import javax.swing.SwingUtilities;
 
-import code.gui.ThreadInvoker;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.belote.BidBeloteSuit;
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
-import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
+import code.gui.ThreadInvoker;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -31,7 +30,7 @@ public final class AnimationBidBelote extends Thread {
         if (partie_.playerHavingToBid() == DealBelote.NUMERO_UTILISATEUR) {
             BidBeloteSuit contrat_=container.getContratUtilisateurBelote();
             partie_.ajouterContrat(contrat_,DealBelote.NUMERO_UTILISATEUR);
-            String event_ = container.pseudo()+ContainerGame.INTRODUCTION_PTS+contrat_.toString()+ContainerBelote.RETURN_LINE_CHAR;
+            String event_ = StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,contrat_.display(),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+contrat_.toString()+ContainerBelote.RETURN_LINE_CHAR);
@@ -52,7 +51,7 @@ public final class AnimationBidBelote extends Thread {
             BidBeloteSuit contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_, player_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);
-            String event_ = pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_.toString()+ContainerBelote.RETURN_LINE_CHAR;
+            String event_ = StringList.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,contrat_.display(),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
             if (partie_.tailleContrats() == partie_.getNombreDeJoueurs()) {

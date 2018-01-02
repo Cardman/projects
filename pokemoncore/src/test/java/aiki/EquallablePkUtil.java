@@ -34,51 +34,81 @@ public final class EquallablePkUtil {
 
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, StringList.quickEq(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
     }
 
-    public static void assertEq(Number _expected, Number _result) {
+    public static void assertEq(Integer _expected, Long _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
     }
+
+    public static void assertEq(Integer _expected, Integer _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(Integer _expected, Short _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(Integer _expected, Byte _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(Byte _expected, Integer _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(Byte _expected, Short _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    }
+    public static void assertEq(Byte _expected, Byte _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    }
+
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
     public static void assertEq(Rate _expected, Rate _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
     }
     
     public static void assertEq(LgInt _expected, LgInt _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
     }
     public static void assertEq(TeamPosition _expected, TeamPosition _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
     public static void assertEq(TargetCoords _expected, TargetCoords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
     public static void assertEq(Coords _expected, Coords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
     public static void assertEq(Point _expected, Point _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
     
     public static void assertEq(Dims _expected, Dims _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
 
     public static void assertEq(ScreenCoords _expected, ScreenCoords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
 
     public static void assertEq(EndTurnType _expected, EndTurnType _result) {

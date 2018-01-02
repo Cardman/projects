@@ -270,10 +270,6 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
         return getList().last();
     }
 
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
 //    (non-Javadoc)
 //        @see flux.utils.Viewable#setModified()
 //

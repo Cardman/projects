@@ -987,7 +987,7 @@ public class NumericStringTest {
         NumericString numeric_ = new NumericString(_numericString);
         //NumericString.setCheckSyntax(false);
         numeric_.evaluateExp(false);
-        assertEq(_res,numeric_.toString());
+        assertEq(_res,numeric_.display());
         assertEq(false, numeric_.isError());
     }
 }

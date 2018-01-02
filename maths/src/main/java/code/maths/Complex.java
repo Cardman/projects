@@ -92,10 +92,6 @@ public final class Complex implements Equallable<Complex>, Displayable {
         }
         return true;
     }
-    @Override
-    public String toString() {
-        return display();
-    }
     @FromAndToString
     @Override
     public String display() {

@@ -56,14 +56,14 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             getDirectSuperTypes().add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_)));
             i_++;
         }
-        getDirectSuperTypes().add(PredefinedClasses.ENUM_PARAM+LT+getFullName()+GT);
+        getDirectSuperTypes().add(StringList.concat(PredefinedClasses.ENUM_PARAM,LT,getFullName(),GT));
     }
 
     public EnumBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, String _name, String _packageName, AccessEnum _access,
             String _templateDef, ObjectMap<FileRowCol, String> _directSuperTypes) {
         super(_importingPage, _indexChild, _m, _name, _packageName, _access, _templateDef, _directSuperTypes);
-        getDirectSuperTypes().add(PredefinedClasses.ENUM_PARAM+LT+getFullName()+GT);
+        getDirectSuperTypes().add(StringList.concat(PredefinedClasses.ENUM_PARAM,LT,getFullName(),GT));
     }
 
     @Override
@@ -334,7 +334,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         tr_.put(ATTRIBUTE_SUPER_CLASS, getGenericSuperClass(_context));
         int i_ = 0;
         for (String t: getDirectGenericInterfaces(_context)) {
-            tr_.put(ATTRIBUTE_CLASS+i_, t);
+            tr_.put(StringList.concatNbs(ATTRIBUTE_CLASS,i_), t);
             i_++;
         }
         return tr_;

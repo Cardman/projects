@@ -18,11 +18,12 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 /**
  */
 @RwXml
-public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBelote> {
+public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBelote>, Displayable {
     private static final String SEPARATOR = " - ";
     private transient Order order;
     private EnumList<CardBelote> cards=new EnumList<CardBelote>();
@@ -648,15 +649,6 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
     }
 
     @Override
-    public String toString() {
-        StringList retString_= new StringList();
-        for (CardBelote c: cards) {
-            retString_.add(c.display());
-        }
-        return retString_.join(SEPARATOR);
-    }
-
-    @Override
     public Iterator<CardBelote> iterator() {
         return cards.iterator();
     }
@@ -674,5 +666,13 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
             }
         }
         return id_;
+    }
+    @Override
+    public String display() {
+        StringList retString_= new StringList();
+        for (CardBelote c: cards) {
+            retString_.add(c.display());
+        }
+        return retString_.join(SEPARATOR);
     }
 }

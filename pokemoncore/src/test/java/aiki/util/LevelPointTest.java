@@ -25,6 +25,6 @@ public class LevelPointTest {
         LevelPoint lpt_ = new LevelPoint();
         lpt_.setPoint(pt_);
         lpt_.setLevelIndex((byte) 2);
-        assertEq("2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1", lpt_.toString());
+        assertEq("2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1", lpt_.display());
     }
 }

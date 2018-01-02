@@ -149,7 +149,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(hand_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(hand_));
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
     }
     @Test
@@ -195,7 +195,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         HandTarot hand_ = game.getDistribution().main(game.getEntameur());
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
     }
     @Test
@@ -243,7 +243,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         HandTarot hand_ = game.getDistribution().main(game.playerAfter(game.getEntameur()));
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
     }
     @Test
@@ -286,7 +286,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         HandTarot hand_ = game.getDistribution().main(game.getEntameur());
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
     }
     @Test
@@ -323,7 +323,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         HandTarot expected_ = suits_.getVal(game.getPliEnCours().couleurDemandee());
         expected_.ajouter(CardTarot.EXCUSE);
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
     }
     @Test
     public void playableCards_trumpingTrickFirstTime6Test() {
@@ -358,6 +358,6 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         HandTarot playableCards_ = game.playableCards(suits_);
         HandTarot expected_ = suits_.getVal(Suit.TRUMP);
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
     }
 }

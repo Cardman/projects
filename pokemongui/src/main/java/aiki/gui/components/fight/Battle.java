@@ -754,12 +754,12 @@ public class Battle extends ChildFrame {
     }
 
     public void setComments() {
-        commentsRound.setText(facade.getComment().getMessages().join(RETURN_LINE)+RETURN_LINE);
+        commentsRound.setText(StringList.concat(facade.getComment().getMessages().join(RETURN_LINE),RETURN_LINE));
         window.setNoPaintingScene();
     }
 
     public void appendComments() {
-        commentsRound.append(facade.getComment().getMessages().join(RETURN_LINE)+RETURN_LINE);
+        commentsRound.append(StringList.concat(facade.getComment().getMessages().join(RETURN_LINE),RETURN_LINE));
     }
 
     public void afterRound() {

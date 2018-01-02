@@ -411,8 +411,8 @@ public class SimulationBean extends CommonBean {
                 boolean heal_ = (Boolean) getForms().getVal(HEAL_EDIT_PK);
                 getForms().removeKey(HEAL_EDIT_PK);
                 for (Statistic s:Statistic.getStatisticsWithBase()) {
-                    short ev_ = (Short) getForms().getVal(POKEMON_EV_VAR+s.name());
-                    getForms().removeKey(POKEMON_EV_VAR+s.name());
+                    short ev_ = (Short) getForms().getVal(StringList.concat(POKEMON_EV_VAR,s.name()));
+                    getForms().removeKey(StringList.concat(POKEMON_EV_VAR,s.name()));
                     if (ev_ > data_.getMaxEv()) {
                         ev_ = (short) data_.getMaxEv();
                     }
@@ -1125,7 +1125,7 @@ public class SimulationBean extends CommonBean {
             getForms().put(POKEMON_HP, simulation.getTeam().get(selectedPk).getRemainingHp());
             getForms().put(CATCHING_BALL, simulation.getTeam().get(selectedPk).getUsedBallCatching());
             for (Statistic s: Statistic.getStatisticsWithBase()) {
-                getForms().put(POKEMON_EV_VAR+s.name(), simulation.getTeam().get(selectedPk).getEv().getVal(s));
+                getForms().put(StringList.concat(POKEMON_EV_VAR,s.name()), simulation.getTeam().get(selectedPk).getEv().getVal(s));
             }
             return EDIT_POKEMON_PLAYER;
         }
@@ -1701,11 +1701,11 @@ public class SimulationBean extends CommonBean {
         PokemonData fPk_=data_.getPokemon(pk_.getName());
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(level_ + 1));
+        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level_ + 1));
         Rate next_;
         next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
-        vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(level_));
+        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(level_));
         current_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());

@@ -5,10 +5,11 @@ import code.maths.matrix.Vect;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class VectThreeDims implements Equallable<VectThreeDims> {
+public final class VectThreeDims implements Equallable<VectThreeDims>, Displayable {
 
     private static final String SEPARATOR = ",";
     private int deltax;
@@ -117,7 +118,13 @@ public final class VectThreeDims implements Equallable<VectThreeDims> {
 
     @FromAndToString
     @Override
-    public String toString() {
-        return deltax+SEPARATOR+deltay+SEPARATOR+deltaz;
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(deltax);
+        str_.append(SEPARATOR);
+        str_.append(deltay);
+        str_.append(SEPARATOR);
+        str_.append(deltaz);
+        return str_.toString();
     }
 }

@@ -30,7 +30,6 @@ import code.util.consts.Constants;
 public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricksHands {
 
     private static final String ACCESS = "cards.gui.panels.PanelTricksHandsTarot";
-    private static final String EMPTY ="";
     private static final String DEFAULT ="Default";
     private static final String TRICK ="trick";
     private static final String CARD ="card";
@@ -195,7 +194,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
             byte entameur_=tricks_.get(numeroPli_).getEntameur();
             byte indice_=0;
             while(indice_<entameur_) {
-                JLabel etiquette2_=new JLabel(EMPTY+indice_);
+                JLabel etiquette2_=new JLabel(Long.toString(indice_));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -210,7 +209,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
                 indice_++;
             }
             while(indice_<2*numberPlayers-1) {
-                JLabel etiquette2_=new JLabel(EMPTY+(indice_-numberPlayers));
+                JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -233,7 +232,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
             byte indice_=0;
             if(!passe2_) {
                 while(indice_<entameur_) {
-                    JLabel etiquette2_=new JLabel(EMPTY+indice_);
+                    JLabel etiquette2_=new JLabel(Long.toString(indice_));
                     etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                     etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                     etiquette2_.setOpaque(true);
@@ -248,7 +247,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
                     indice_++;
                 }
                 while(indice_<numberPlayers*2-1) {
-                    JLabel etiquette2_=new JLabel(EMPTY+(indice_-numberPlayers));
+                    JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
                     etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                     etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                     etiquette2_.setOpaque(true);
@@ -258,7 +257,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
                 }
             } else {
                 while(indice_<entameur_) {
-                    JLabel etiquette2_=new JLabel(EMPTY+indice_);
+                    JLabel etiquette2_=new JLabel(Long.toString(indice_));
                     etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                     etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                     etiquette2_.setOpaque(true);
@@ -273,7 +272,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
                     indice_++;
                 }
                 while(indice_<numberPlayers*2-1) {
-                    JLabel etiquette2_=new JLabel(EMPTY+(indice_-numberPlayers));
+                    JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
                     etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                     etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                     etiquette2_.setOpaque(true);
@@ -329,7 +328,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
             byte indice_=0;
             byte indice2_=0;
             while(indice_<entameur_) {
-                JLabel etiquette2_=new JLabel(EMPTY+indice_);
+                JLabel etiquette2_=new JLabel(Long.toString(indice_));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -349,7 +348,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
                 }
             }
             while(indice_<2*numberPlayers-1) {
-                JLabel etiquette2_=new JLabel(EMPTY+(indice_-numberPlayers));
+                JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);

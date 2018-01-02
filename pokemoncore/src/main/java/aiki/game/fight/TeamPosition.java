@@ -58,10 +58,6 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
         }
         return _tp1.eq(_tp2);
     }
-    @Override
-    public String toString() {
-        return display();
-    }
 
     public byte getTeam() {
         return team;

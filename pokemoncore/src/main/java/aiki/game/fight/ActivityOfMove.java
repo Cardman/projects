@@ -77,11 +77,6 @@ public final class ActivityOfMove implements Displayable {
         }
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public short getNbTurn() {
         return nbTurn;
     }

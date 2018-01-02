@@ -62,7 +62,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         messages = getMessages(FileConst.FOLDER_MESSAGES_GUI);
         messagesIpEnum = new EnumMap<IpType,String>();
         for (IpType i: IpType.values()) {
-            messagesIpEnum.put(i, i.toString());
+            messagesIpEnum.put(i, i.display());
         }
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_fenetre);

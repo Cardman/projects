@@ -1,9 +1,10 @@
 package code.serialize.classes;
 import code.sml.FromAndToString;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 
 @RwXml
-public class PrimitiveFour {
+public class PrimitiveFour implements Displayable {
 
     private static int _nbInstances_;
 
@@ -23,7 +24,7 @@ public class PrimitiveFour {
 
     @Override
     @FromAndToString
-    public String toString() {
+    public String display() {
         return primitive.toString();
     }
 

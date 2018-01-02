@@ -1,5 +1,4 @@
 package code.expressionlanguage.classes;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
@@ -41,7 +40,7 @@ public final class RateEq {
         }
         return StringList.quickEq(string, _obj.string);
     }
-    @FromAndToString
+
     public static RateEq newRate(String _value) {
         return new RateEq(_value);
     }
@@ -134,11 +133,5 @@ public final class RateEq {
 
     public boolean isZero() {
         return zero;
-    }
-
-    @Override
-    @FromAndToString
-    public String toString() {
-        return string;
     }
 }

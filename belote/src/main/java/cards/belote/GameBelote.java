@@ -885,7 +885,7 @@ public final class GameBelote {
         reason = new StringBuilder();
         if(bid.getCouleurDominante()) {
             if(cartesBeloteRebelote().contient(_ct) &&autoriseBeloteRebelote(_numeroJoueur,_loc)) {
-                reason=new StringBuilder(format(PLAY_BELOTE_REBELOTE, DeclaresBeloteRebelote.BELOTE_REBELOTE.toString()));
+                reason=new StringBuilder(format(PLAY_BELOTE_REBELOTE, DeclaresBeloteRebelote.BELOTE_REBELOTE.display()));
                 return true;
             }
         }

@@ -3,6 +3,8 @@ import java.awt.Dimension;
 
 import javax.swing.JLabel;
 
+import code.util.StringList;
+
 /** */
 public abstract class CardsScrollableList extends ScrollableList {
     protected static final String PLS="Pls: ";
@@ -12,7 +14,7 @@ public abstract class CardsScrollableList extends ScrollableList {
     private int max;
 
     protected void initText() {
-        getRemCards().setText(PLS+getNbCartesRestantes());
+        getRemCards().setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     /**Utilise pour le solitaire pour reduire la largeur*/
     public void setPreference(int _nb) {

@@ -40,10 +40,10 @@ final class ExtractCondition {
 
     static boolean evaluateGenericCondition(Element _en, Configuration _conf, ImportingPage _ip) {
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (StringList.quickEq(_en.getTagName(), prefix_+IF_BLOCK_TAG)) {
+        if (StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,IF_BLOCK_TAG))) {
             return evaluateCondition(_en, _conf, _ip);
         }
-        if (StringList.quickEq(_en.getTagName(), prefix_+ELSE_IF_BLOCK_TAG)) {
+        if (StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,ELSE_IF_BLOCK_TAG))) {
             return evaluateCondition(_en, _conf, _ip);
         }
         _ip.setProcessingAttribute(EMPTY_STRING);
@@ -53,7 +53,7 @@ final class ExtractCondition {
         if (defined_.isEmpty()) {
             throw new BadConditionExpressionException(_conf.joinPages());
         }
-        if (StringList.quickEq(_en.getTagName(), prefix_+TAG_IF_DEF_PARAM) || StringList.quickEq(_en.getTagName(), prefix_+TAG_ELSE_IF_DEF_PARAM)) {
+        if (StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_IF_DEF_PARAM)) || StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_ELSE_IF_DEF_PARAM))) {
             StringMap<LocalVariable> locVars_ = _ip.getParameters();
             boolean return_ = true;
             for (String a: StringList.splitChars(defined_, COMMA_CHAR)) {
@@ -106,7 +106,7 @@ final class ExtractCondition {
         if (return_ && !isNotNull_.isEmpty()) {
             String isNotNullWithoutNeg_ = replaceNegPrefix(isNotNull_);
             if (isNotNullWithoutNeg_.isEmpty()) {
-                throw new BadConditionExpressionException(isNotNull_+RETURN_LINE+_conf.joinPages());
+                throw new BadConditionExpressionException(StringList.concat(isNotNull_,RETURN_LINE,_conf.joinPages()));
             }
             int nbNeg_ = isNotNull_.length() - isNotNullWithoutNeg_.length();
             _ip.setProcessingAttribute(IS_NOT_NULL_ATTRIBUTE);
@@ -124,7 +124,7 @@ final class ExtractCondition {
         if (return_ && !isNull_.isEmpty()) {
             String isNullWithoutNeg_ = replaceNegPrefix(isNull_);
             if (isNullWithoutNeg_.isEmpty()) {
-                throw new BadConditionExpressionException(isNull_+RETURN_LINE+_conf.joinPages());
+                throw new BadConditionExpressionException(StringList.concat(isNull_,RETURN_LINE,_conf.joinPages()));
             }
             int nbNeg_ = isNull_.length() - isNullWithoutNeg_.length();
             _ip.setProcessingAttribute(IS_NULL_ATTRIBUTE);
@@ -161,7 +161,7 @@ final class ExtractCondition {
             String accessOp_ = parts_.get(CustList.SECOND_INDEX);
             String accessPartTwo_ = parts_.last();
             String eq_ = String.valueOf(EQUALS);
-            String diff_ = NEG+eq_;
+            String diff_ = StringList.concat(String.valueOf(NEG),eq_);
             boolean eqCmp_;
             if (StringList.quickEq(accessOp_, eq_)) {
                 eqCmp_ = true;
@@ -187,7 +187,7 @@ final class ExtractCondition {
         if (return_ && !condition_.isEmpty()) {
             String conditionWithoutNeg_ = replaceNegPrefix(condition_);
             if (conditionWithoutNeg_.isEmpty()) {
-                throw new BadConditionExpressionException(condition_+RETURN_LINE+_conf.joinPages());
+                throw new BadConditionExpressionException(StringList.concat(condition_,RETURN_LINE,_conf.joinPages()));
             }
             int nbNeg_ = condition_.length() - conditionWithoutNeg_.length();
             _ip.setProcessingAttribute(ATTRIBUTE_CONDITION);
@@ -196,7 +196,7 @@ final class ExtractCondition {
             Argument a_ = ElUtil.processEl(conditionWithoutNeg_, 0, _conf.toContextEl());
             Object o_ = a_.getObject();
             if (!(o_ instanceof Boolean)) {
-                throw new DynamicCastClassException(a_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+PrimitiveTypeUtil.PRIM_BOOLEAN+RETURN_LINE+_conf.joinPages());
+                throw new DynamicCastClassException(StringList.concat(a_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,PrimitiveTypeUtil.PRIM_BOOLEAN,RETURN_LINE,_conf.joinPages()));
             }
             Boolean b_ = (Boolean) o_;
             if (nbNeg_%2 == 1) {
@@ -215,13 +215,13 @@ final class ExtractCondition {
         }
         String nodeName_ = ((Element) _node).getTagName();
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (StringList.quickEq(nodeName_, prefix_+IF_BLOCK_TAG)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,IF_BLOCK_TAG))) {
             return true;
         }
-        if (StringList.quickEq(nodeName_, prefix_+TAG_IF_DEF_PARAM)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TAG_IF_DEF_PARAM))) {
             return true;
         }
-        if (StringList.quickEq(nodeName_, prefix_+TAG_IF_DEF_RET_VAL)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TAG_IF_DEF_RET_VAL))) {
             return true;
         }
         return false;
@@ -232,13 +232,13 @@ final class ExtractCondition {
         }
         String nodeName_ = ((Element) _node).getTagName();
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (StringList.quickEq(nodeName_, prefix_+ELSE_IF_BLOCK_TAG)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,ELSE_IF_BLOCK_TAG))) {
             return true;
         }
-        if (StringList.quickEq(nodeName_, prefix_+TAG_ELSE_IF_DEF_PARAM)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TAG_ELSE_IF_DEF_PARAM))) {
             return true;
         }
-        if (StringList.quickEq(nodeName_, prefix_+TAG_ELSE_IF_DEF_RET_VAL)) {
+        if (StringList.quickEq(nodeName_,StringList.concat(prefix_,TAG_ELSE_IF_DEF_RET_VAL))) {
             return true;
         }
         return false;

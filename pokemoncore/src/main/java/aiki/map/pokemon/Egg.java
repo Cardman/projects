@@ -4,9 +4,10 @@ import aiki.exceptions.GameLoadException;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class Egg implements UsablePokemon {
+public final class Egg implements UsablePokemon, Displayable {
 
     static final char SEPARATOR = ';';
 
@@ -52,12 +53,6 @@ public final class Egg implements UsablePokemon {
 //        return name+SEPARATOR+steps;
 //    }
 
-    @Override
-    @FromAndToString
-    public String toString() {
-        return name+SEPARATOR+steps;
-    }
-
     public void versEclosion(short _nb) {
         steps += _nb;
     }
@@ -78,5 +73,14 @@ public final class Egg implements UsablePokemon {
 
     public int getSteps() {
         return steps;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(name);
+        str_.append(SEPARATOR);
+        str_.append(steps);
+        return str_.toString();
     }
 }

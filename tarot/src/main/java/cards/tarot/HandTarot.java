@@ -13,11 +13,12 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 /**
     */
 @RwXml
-public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTarot> {
+public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTarot>, Displayable {
     private static final String SEPARATOR = " - ";
     private EnumList<CardTarot> cards=new EnumList<CardTarot>();
     public HandTarot() {}
@@ -609,18 +610,19 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         }
         return id_;
     }
+
     @Override
-    public String toString() {
+    public Iterator<CardTarot> iterator() {
+        return cards.iterator();
+    }
+
+    @Override
+    public String display() {
         StringList retString_= new StringList();
         for (CardTarot c: cards) {
             retString_.add(c.display());
         }
         return retString_.join(SEPARATOR);
-    }
-
-    @Override
-    public Iterator<CardTarot> iterator() {
-        return cards.iterator();
     }
 
 }

@@ -30,11 +30,6 @@ public final class EfficiencyRate implements Displayable {
         return new EfficiencyRate(_string);
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public Rate getEff() {
         return eff;
     }

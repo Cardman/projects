@@ -363,7 +363,7 @@ public class FightSimulation {
         StringList keys_ = new StringList(evos_.getKeys());
         StringList moves_ = new StringList();
 //        StringList res_ = keys_.filter(PokemonPlayer.SEPARATOR+_name+END_REG_EXP);
-        StringList res_ = keys_.filterEndsWith(PokemonPlayer.SEPARATOR+_name);
+        StringList res_ = keys_.filterEndsWith(StringList.concat(PokemonPlayer.SEPARATOR,_name));
         if (res_.isEmpty() || _level < evos_.getVal(res_.first())) {
             for (LevelMove p: data_.getLevMoves()) {
                 if (p.getLevel() > _level) {
@@ -517,7 +517,7 @@ public class FightSimulation {
             keys_ = getNextEvos(keys_, p.getName());
             StringMap<Short> direct_ = new StringMap<Short>();
             for (String k: keys_) {
-                String prefix_ = p.getName()+SEPARATOR_PK;
+                String prefix_ = StringList.concat(p.getName(),SEPARATOR_PK);
                 String rep_ = StringList.replaceBegin(k, prefix_);
                 direct_.put(rep_, evos_.getVal(k));
 //                direct_.put(k.replaceAll(BEGIN_REG_EXP+p.getName()+SEPARATOR_PK, DataBase.EMPTY_STRING), evos_.getVal(k));
@@ -553,7 +553,7 @@ public class FightSimulation {
         keys_ = getNextEvos(keys_, _currentEvo);
         StringMap<Short> direct_ = new StringMap<Short>();
         for (String k: keys_) {
-            String prefix_ = _currentEvo+SEPARATOR_PK;
+            String prefix_ = StringList.concat(_currentEvo,SEPARATOR_PK);
             String rep_ = StringList.replaceBegin(k, prefix_);
             direct_.put(rep_, nextEvos_.getVal(k));
 //            direct_.put(k.replaceAll(BEGIN_REG_EXP+_currentEvo+SEPARATOR_PK, DataBase.EMPTY_STRING), nextEvos_.getVal(k));
@@ -585,7 +585,7 @@ public class FightSimulation {
         keys_ = getNextEvos(keys_, previous_.getName());
         StringMap<Short> direct_ = new StringMap<Short>();
         for (String k: keys_) {
-            String prefix_ = previous_.getName()+SEPARATOR_PK;
+            String prefix_ = StringList.concat(previous_.getName(),SEPARATOR_PK);
             String rep_ = StringList.replaceBegin(k, prefix_);
             direct_.put(rep_, nextEvos_.getVal(k));
 //            direct_.put(k.replaceAll(BEGIN_REG_EXP+previous_.getFirst()+SEPARATOR_PK, DataBase.EMPTY_STRING), nextEvos_.getVal(k));

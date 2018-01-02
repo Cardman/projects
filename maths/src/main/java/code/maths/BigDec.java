@@ -9,8 +9,9 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.GenericNumbers;
 import code.util.ints.Cmp;
+import code.util.ints.Displayable;
 
-public final class BigDec implements Cmp<BigDec> {
+public final class BigDec implements Cmp<BigDec>, Displayable {
 
     private static final String DOTTED_TENTH = "0.1";
     private static final String ERROR = "nth root can only be calculated for positive numbers";
@@ -278,7 +279,7 @@ public final class BigDec implements Cmp<BigDec> {
 
     @FromAndToString
     @Override
-    public String toString() {
+    public String display() {
         return number.toString();
     }
 

@@ -51,11 +51,6 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
         return point != null;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public static boolean eq(LevelPoint _lp1,LevelPoint _lp2) {
         if (_lp1 == null) {
             return _lp2 == null;

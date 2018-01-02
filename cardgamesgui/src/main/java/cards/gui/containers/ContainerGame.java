@@ -109,7 +109,7 @@ public class ContainerGame implements Packable, Containable {
     }
 
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames) {
-        String fileName_ = LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE;
+        String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
         Numbers<Long> vl_=new Numbers<Long>();
         boolean read_ = false;
@@ -192,7 +192,7 @@ public class ContainerGame implements Packable, Containable {
     }
     protected static long chargerNombreDeParties(GameEnum _jeu) {
         try {
-            String fileName_ = LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE;
+            String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
             String content_ = StreamTextFile.contentsOfFile(fileName_);
             StringList lines_ = StringList.splitChars(content_, LINE_RETURN);
             lines_.removeAllString(EMPTY_STRING);

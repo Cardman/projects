@@ -3,14 +3,13 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @CheckedData
-public final class LevelMove implements Equallable<LevelMove> {
+public final class LevelMove implements Equallable<LevelMove>, Displayable {
 
     private static final char SEPARATOR = ';';
-
-    private static final String EMPTY_STRING = "";
 
     private short level;
 
@@ -46,12 +45,6 @@ public final class LevelMove implements Equallable<LevelMove> {
         return true;
     }
 
-    @FromAndToString
-    @Override
-    public String toString() {
-        return EMPTY_STRING+level+SEPARATOR+move;
-    }
-
     public short getLevel() {
         return level;
     }
@@ -66,5 +59,15 @@ public final class LevelMove implements Equallable<LevelMove> {
 
     public void setMove(String _move) {
         move = _move;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(level);
+        str_.append(SEPARATOR);
+        str_.append(move);
+        return str_.toString();
     }
 }

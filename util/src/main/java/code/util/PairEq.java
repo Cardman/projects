@@ -42,10 +42,6 @@ public final class PairEq<T extends Equallable<T>,S extends Equallable<S>> imple
     }
 
     @Override
-    public String toString() {
-        return StringList.concat(String.valueOf(first),SEPARATOR,String.valueOf(second));
-    }
-    @Override
     public boolean eq(PairEq<T, S> _g) {
         if (first == null) {
             if (second == null) {

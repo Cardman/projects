@@ -97,6 +97,6 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.toString(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
     }
 }

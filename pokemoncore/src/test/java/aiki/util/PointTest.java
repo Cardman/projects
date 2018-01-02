@@ -20,6 +20,6 @@ public class PointTest {
         Point pt_ = new Point();
         pt_.setx((short) 3);
         pt_.sety((short) 1);
-        assertEq("3"+Point.SEPARATOR+"1", pt_.toString());
+        assertEq("3"+Point.SEPARATOR+"1", pt_.display());
     }
 }

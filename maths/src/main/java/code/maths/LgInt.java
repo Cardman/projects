@@ -728,18 +728,18 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     @return le nombre de combinaisons de <i>_nombre</i> parmi <i>_nombreTotalElements</i>
     */
     public static LgInt among(LgInt _nombre, LgInt _nombreTotalElements) {
-        String erreurs_ = EMPTY_STRING;
+        StringBuilder erreurs_ = new StringBuilder();
         if (!_nombre.isZeroOrGt()) {
-            erreurs_ += _nombre.toNumberString();
+            erreurs_.append(_nombre.toNumberString());
         }
-        if (!StringList.quickEq(erreurs_,EMPTY_STRING)) {
-            erreurs_ += COMMA;
+        if (!StringList.quickEq(erreurs_.toString(),EMPTY_STRING)) {
+            erreurs_.append(COMMA);
         }
         if (!_nombreTotalElements.isZeroOrGt()) {
-            erreurs_ += _nombreTotalElements.toNumberString();
+            erreurs_.append(_nombreTotalElements.toNumberString());
         }
-        if (!StringList.quickEq(erreurs_,EMPTY_STRING)) {
-            throw new NegativeNumberException(erreurs_);
+        if (!StringList.quickEq(erreurs_.toString(),EMPTY_STRING)) {
+            throw new NegativeNumberException(erreurs_.toString());
         }
         if (_nombre.plusGrandQue(_nombreTotalElements)) {
             // <=> this > _nombreTotalElements
@@ -1776,6 +1776,11 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return toNumberString();
     }
 
+    /**
+    Cette methode ne change pas l'entier courant.<br/>
+
+    @return la chaine de caracteres represantant l'entier comme ecrit de maniere naturelle.
+    */
     @FromAndToString
     public String toNumberString() {
         StringBuilder chaine_ = new StringBuilder();
@@ -1810,16 +1815,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             return chaine_.insert(0, MINUS).toString();
         }
         return chaine_.toString();
-    }
-
-    /**
-    Cette methode ne change pas l'entier courant.<br/>
-
-    @return la chaine de caracteres represantant l'entier comme ecrit de maniere naturelle.
-    */
-    @Override
-    public String toString() {
-        return display();
     }
 
     /**

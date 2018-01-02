@@ -138,11 +138,6 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return return_.toString();
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     /**
     jarvis(S)
    pointOnHull = leftmost point in S

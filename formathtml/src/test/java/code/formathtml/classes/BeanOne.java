@@ -84,8 +84,8 @@ public class BeanOne extends Bean {
         return "a"+_one;
     }
 
-    public String getStandard(Object _obj) {
-        return String.valueOf(_obj);
+    public String getStandard(String _obj) {
+        return _obj;
     }
 
     public StringList sortedNumberKeys() {
@@ -117,7 +117,7 @@ public class BeanOne extends Bean {
     }
 
     public void updateValue(ValueChangeEvent _changing) {
-        composite.getStrings().add(_changing.getNewValue()+" "+_changing.getOldValue());
+        composite.getStrings().add(StringList.concat(((Composite)_changing.getNewValue()).display()," ",((Composite)_changing.getOldValue()).display()));
         changing = _changing;
     }
 

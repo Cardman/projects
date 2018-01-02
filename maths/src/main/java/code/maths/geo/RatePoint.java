@@ -73,11 +73,6 @@ public final class RatePoint implements Equallable<RatePoint>, Displayable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     @FromAndToString
     @Override
     public String display() {

@@ -47,12 +47,12 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         StringList classNames_ = new StringList();
         for (ClassName c: classNames) {
             if (c.isVararg()) {
-                classNames_.add(c.getName()+VARARG);
+                classNames_.add(StringList.concat(c.getName(),VARARG));
             } else {
                 classNames_.add(c.getName());
             }
         }
-        return name+LEFT+classNames_.join(SEP_TYPE)+RIGHT;
+        return StringList.concat(name,LEFT,classNames_.join(SEP_TYPE),RIGHT);
     }
 
     @Override

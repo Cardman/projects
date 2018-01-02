@@ -32,11 +32,6 @@ final class EvolvedNumString implements NumericableString<Rate> {
     }
 
     @Override
-    public String toString() {
-        return arg.toString();
-    }
-
-    @Override
     public boolean isValid() {
         return arg.getArgClass() == MathType.RATE;
     }

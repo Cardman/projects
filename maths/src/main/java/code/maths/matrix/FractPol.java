@@ -129,11 +129,6 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
         return denominateur;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public void multiplyBy(FractPol _autre) {
         if (isZero() || _autre.isZero()) {
             affectZero();

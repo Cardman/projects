@@ -32,11 +32,6 @@ public final class ScreenCoords implements Equallable<ScreenCoords>, Displayable
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     public int getXcoords() {
         return xCoords;
     }

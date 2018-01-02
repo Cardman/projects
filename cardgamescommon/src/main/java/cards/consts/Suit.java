@@ -31,10 +31,6 @@ UNDEFINED,TRUMP,HEART,SPADE,DIAMOND,CLUB;
         }
         return true;
     }
-    @Override
-    public String toString() {
-        return display();
-    }
 
     public String toString(String _locale) {
         String folderName_ = ResourcesAccess.NOM_DOSSIER;

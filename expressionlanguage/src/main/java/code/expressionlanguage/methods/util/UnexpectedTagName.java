@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods.util;
 
+import code.util.StringList;
+
 
 public final class UnexpectedTagName extends FoundErrorInterpret {
 
@@ -9,7 +11,7 @@ public final class UnexpectedTagName extends FoundErrorInterpret {
 
     @Override
     public String display() {
-        return super.display()+TAG+SEP_KEY_VAL+foundTag+SEP_INFO;
+        return StringList.concat(super.display(),TAG,SEP_KEY_VAL,foundTag,SEP_INFO);
     }
 
     public String getFoundTag() {

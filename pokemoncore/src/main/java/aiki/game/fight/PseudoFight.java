@@ -9,6 +9,7 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.NumberMap;
 import code.util.Numbers;
+import code.util.StringList;
 import code.util.StringMap;
 
 public class PseudoFight {
@@ -243,8 +244,8 @@ public class PseudoFight {
         PseudoPlayerFighter winner_ = playerFighters.get(_winner);
         PseudoFoeFighter looser_ = foes.get(_looser);
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(DataBase.VAR_PREFIX+Fight.LEVEL_WINNER,Integer.toString(winner_.getLevel()));
-        vars_.put(DataBase.VAR_PREFIX+Fight.LEVEL_LOOSER,Integer.toString(looser_.getLevel()));
+        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Integer.toString(winner_.getLevel()));
+        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Integer.toString(looser_.getLevel()));
         String exp_ = _import.getRates().getVal(_diff.getDiffWinningExpPtsFight());
         return _import.evaluatePositiveExp(exp_, vars_, Rate.one());
     }

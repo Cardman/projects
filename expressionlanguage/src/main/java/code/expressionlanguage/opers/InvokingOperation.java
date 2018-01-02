@@ -61,7 +61,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
                 if (!Templates.isCorrect(mapping_, _conf)) {
-                    throw new DynamicCastClassException(argType_+RETURN_LINE+name_+RETURN_LINE+_conf.joinPages());
+                    throw new DynamicCastClassException(StringList.concat(argType_,RETURN_LINE,name_,RETURN_LINE,_conf.joinPages()));
                 }
             }
             name_ = PrimitiveTypeUtil.getPrettyArrayType(name_);

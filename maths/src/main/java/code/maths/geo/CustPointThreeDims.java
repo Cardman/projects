@@ -63,11 +63,6 @@ public final class CustPointThreeDims implements Equallable<CustPointThreeDims>,
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     @FromAndToString
     @Override
     public String display() {

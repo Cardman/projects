@@ -21,6 +21,7 @@ import code.serialize.exceptions.BadObjectException;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 /**
@@ -91,27 +92,27 @@ public class LaunchingCards extends SoftApplication {
     private static void installer() {
 
         File f;
-        f=new File(getTempFolderSl()+FileConst.DECK_FOLDER);
+        f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER));
         f.mkdirs();
-        f=new File(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE.name()+FileConst.DECK_EXT);
+        f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveObject(f.getAbsolutePath(), mainB_);
         }
-        f=new File(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.TAROT.name()+FileConst.DECK_EXT);
+        f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
         HandTarot mainT_=HandTarot.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveObject(f.getAbsolutePath(), mainT_);
         }
         int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
         for (int i = CustList.ONE_ELEMENT; i <= maxStacks_; i++) {
-            f=new File(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.PRESIDENT.name()+i+FileConst.DECK_EXT);
+            f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
             HandPresident h_ = HandPresident.stack(i);
             if(!f.exists()) {
                 StreamTextFile.saveObject(f.getAbsolutePath(), h_);
             }
         }
-        f=new File(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE);
+        f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
         if(!f.exists()) {
             Numbers<Integer> dealsNumbers_ = new Numbers<Integer>();
             int nbGames_ = GameEnum.values().length;
@@ -139,12 +140,12 @@ public class LaunchingCards extends SoftApplication {
     }
 
     public static String getTempFolderSl() {
-        return getTempFolder() + StreamTextFile.SEPARATEUR;
+        return StringList.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
     }
 
     public static String getTempFolder() {
-        new File(ConstFiles.getTmpUserFolderSl()+TEMP_FOLDER).mkdirs();
-        return ConstFiles.getTmpUserFolderSl()+TEMP_FOLDER;
+        new File(StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
+        return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 
     public static Class<?> getMainWindowClass() {

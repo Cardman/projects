@@ -8,6 +8,7 @@ import code.util.AbsMap;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
+import code.util.StringList;
 import code.util.ints.Listable;
 
 public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
@@ -32,6 +33,30 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
             indexes_.removeAt(rem_);
         }
         CustList<Object> newList_ = new CustList<Object>();
+        for (int i: indexesEdited_) {
+            newList_.add(list_.get(i));
+        }
+        list_.clear();
+        list_.addAllElts(newList_);
+        return list_;
+    }
+
+    public static StringList suffledStrings(String... _list) {
+        StringList list_ = new StringList(_list);
+        Numbers<Integer> indexes_ = new Numbers<Integer>();
+        Numbers<Integer> indexesEdited_ = new Numbers<Integer>();
+        int size_ = list_.size();
+        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
+            indexes_.add(i);
+        }
+        while (!indexes_.isEmpty()) {
+            long len_ = indexes_.size();
+            int rem_ = randomInt(len_);
+            //rem_ >= 0 && rem_ < len_
+            indexesEdited_.add(indexes_.get(rem_));
+            indexes_.removeAt(rem_);
+        }
+        StringList newList_ = new StringList();
         for (int i: indexesEdited_) {
             newList_.add(list_.get(i));
         }
@@ -223,9 +248,5 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         for (E e:deletedKeys_) {
             getLaw().removeKey(e);
         }
-    }
-    @Override
-    public String toString() {
-        return getLaw().toString();
     }
 }

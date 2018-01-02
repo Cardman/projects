@@ -239,9 +239,9 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //            closeWindow();
 //            return;
         }
-        String extFileName_ = fileName_+getExtension();
+        String extFileName_ = StringList.concat(fileName_,getExtension());
         if (!new File(extFileName_).isAbsolute()) {
-            selectedPath_ = getCurrentFolder() + extFileName_;
+            selectedPath_ = StringList.concat(getCurrentFolder(), extFileName_);
         } else {
             selectedPath_ = extFileName_;
         }

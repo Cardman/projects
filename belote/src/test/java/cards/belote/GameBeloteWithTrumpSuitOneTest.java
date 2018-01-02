@@ -94,7 +94,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         hand_ = game.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
         HandBelote playableCards_ = game.playableCards(suits_);
-        assertTrue(playableCards_.toString(),playableCards_.contient(CardBelote.SPADE_JACK));
+        assertTrue(playableCards_.display(),playableCards_.contient(CardBelote.SPADE_JACK));
         assertEq(1, playableCards_.total());
         assertEq(1, suits_.getVal(game.getPliEnCours().couleurDemandee()).total());
     }
@@ -119,7 +119,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         hand_ = game.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
         HandBelote playableCards_ = game.playableCards(suits_);
-        assertTrue(playableCards_.toString(),playableCards_.couleur(game.getContrat(),_suit).estVide());
+        assertTrue(playableCards_.display(),playableCards_.couleur(game.getContrat(),_suit).estVide());
     }
 
     @Test

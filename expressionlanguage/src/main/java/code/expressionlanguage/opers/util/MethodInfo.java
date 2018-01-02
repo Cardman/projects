@@ -1,7 +1,9 @@
 package code.expressionlanguage.opers.util;
 import java.lang.reflect.Method;
 
-public final class MethodInfo implements Parametrable {
+import code.util.ints.Displayable;
+
+public final class MethodInfo implements Parametrable, Displayable {
 
     private static final String RIGHT_PAR = ")";
 
@@ -22,7 +24,7 @@ public final class MethodInfo implements Parametrable {
     private boolean staticMethod;
 
     @Override
-    public String toString() {
+    public String display() {
         StringBuilder str_ = new StringBuilder();
         if (method == null) {
             str_.append(className);

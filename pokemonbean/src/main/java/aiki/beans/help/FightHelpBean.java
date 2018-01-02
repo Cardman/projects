@@ -564,12 +564,12 @@ public class FightHelpBean extends CommonBean {
         strongMove = data_.getStrongMovePower();
         StringMap<String> replace_ = new StringMap<String>();
         rateFormula = data_.getRateBoost();
-        replace_.put(DataBase.VAR_PREFIX+Fight.BOOST, varBoost);
+        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), varBoost);
 //        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, varBoost);
         rateFormula = StringList.replaceWordsJoin(rateFormula, replace_);
         replace_ = new StringMap<String>();
         rateFormulaCh = data_.getRateBoostCriticalHit();
-        replace_.put(DataBase.VAR_PREFIX+Fight.BOOST, varBoost);
+        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), varBoost);
 //        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, varBoost);
         rateFormulaCh = StringList.replaceWordsJoin(rateFormulaCh, replace_);
         long minBoost_ = data_.getMinBoost();
@@ -2299,7 +2299,7 @@ public class FightHelpBean extends CommonBean {
             String rateBoost_ = data_.getRateBoost();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(DataBase.VAR_PREFIX+Fight.BOOST, Long.toString(b));
+            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -2310,7 +2310,7 @@ public class FightHelpBean extends CommonBean {
             String rateBoost_ = data_.getRateBoostCriticalHit();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(DataBase.VAR_PREFIX+Fight.BOOST, Long.toString(b));
+            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -2329,7 +2329,7 @@ public class FightHelpBean extends CommonBean {
             if (i % 2 == 0) {
                 continue;
             }
-            tokens_.set(i, DataBase.VAR_PREFIX+tokens_.get(i));
+            tokens_.set(i, StringList.concat(DataBase.VAR_PREFIX,tokens_.get(i)));
         }
         catchingFormulaCopy_ = tokens_.join(DataBase.EMPTY_STRING);
         catchingFormula = data_.getFormula(catchingFormulaCopy_, getLanguage());
@@ -2367,7 +2367,7 @@ public class FightHelpBean extends CommonBean {
                 if (newList_.isEmpty()) {
                     newList_.add(t);
                 } else if (!isTokenTranslate(newList_.last())) {
-                    newList_.setLast(newList_.last()+t);
+                    newList_.setLast(StringList.concat(newList_.last(),t));
                 } else {
                     newList_.add(t);
                 }
@@ -2379,7 +2379,7 @@ public class FightHelpBean extends CommonBean {
                 i_++;
                 continue;
             }
-            newList_.setLast(newList_.last()+t);
+            newList_.setLast(StringList.concat(newList_.last(),t));
             i_++;
         }
         return newList_;
@@ -2455,8 +2455,7 @@ public class FightHelpBean extends CommonBean {
         StatusBeginRoundAutoDamage st_ = (StatusBeginRoundAutoDamage) data_.getStatus(auto_);
         String str_ = data_.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
-        replace_.put(DataBase.VAR_PREFIX+Fight.POWER, st_.getPower().toNumberString());
-//        str_ = str_.replaceAll(DataBase.VAR_PREFIX+Fight.POWER, st_.getPower().toString());
+        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.POWER), st_.getPower().toNumberString());
         str_ = StringList.replaceWordsJoin(str_, replace_);
         return str_;
     }

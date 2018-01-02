@@ -1401,7 +1401,7 @@ public final class DocumentBuilder {
                     infos_.add(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
                     if (addChild_) {
-                        stack_.add(tagName_.toString()+GT_CHAR);
+                        stack_.add(tagName_.append(GT_CHAR).toString());
                     } else {
                         infos_.add(EMPTY_STRING);
                         if (stack_.isEmpty()) {
@@ -1598,7 +1598,7 @@ public final class DocumentBuilder {
                     infos_.add(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
                     if (addChild_) {
-                        stack_.add(tagName_.toString()+GT_CHAR);
+                        stack_.add(tagName_.append(GT_CHAR).toString());
                     } else {
                         infos_.add(EMPTY_STRING);
                         if (stack_.isEmpty()) {
@@ -2251,7 +2251,7 @@ public final class DocumentBuilder {
                     }
                     if (addChild_) {
                         currentElement_ = element_;
-                        stack_.add(tagName_.toString()+GT_CHAR);
+                        stack_.add(tagName_.append(GT_CHAR).toString());
                     } else {
                         if (stack_.isEmpty()) {
                             finished_ = true;
@@ -2451,7 +2451,7 @@ public final class DocumentBuilder {
                     }
                     if (addChild_) {
                         currentElement_ = element_;
-                        stack_.add(tagName_.toString()+GT_CHAR);
+                        stack_.add(tagName_.append(GT_CHAR).toString());
                     } else {
                         if (stack_.isEmpty()) {
                             finished_ = true;
@@ -2757,7 +2757,7 @@ public final class DocumentBuilder {
         Numbers<Integer> tabs_ = new Numbers<Integer>();
         int index_ = _previous.getNextElt();
         String nodeName_ = _node.getTagName();
-        int found_ = _xml.indexOf(LT+nodeName_, index_);
+        int found_ = _xml.indexOf(StringList.concat(String.valueOf(LT),nodeName_), index_);
         int nbLineReturns_ = 0;
         int minLine_ = _previous.getNextCol().getRow();
         int indexLoc_ = _previous.getNextCol().getCol();
@@ -3087,7 +3087,7 @@ public final class DocumentBuilder {
     }
     public static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(LT+((Element) _node).getTagName(), _from) + 1;
+            return _html.indexOf(StringList.concat(String.valueOf(LT),((Element) _node).getTagName()), _from) + 1;
         }
         if (_node instanceof Text) {
             int indexText_ = _html.indexOf(GT, _from);
@@ -3099,7 +3099,7 @@ public final class DocumentBuilder {
             }
             return indexText_ + 1;
         }
-        return _html.indexOf(EMPTY_STRING+LT+BEGIN_COMMENT, _from);
+        return _html.indexOf(StringList.concat(String.valueOf(LT),String.valueOf(BEGIN_COMMENT)), _from);
     }
 
     public static int getIndexOfNodeOrAttribute(String _xml, Node _node, String _attribute, boolean _attrValue) {
@@ -3127,7 +3127,7 @@ public final class DocumentBuilder {
             int nb_ = nbSameNamedNodes_ + 1;
             int found_ = CustList.INDEX_NOT_FOUND_ELT;
             while (count_ < nb_) {
-                found_ = _xml.indexOf(LT+nodeName_, index_) + 1;
+                found_ = _xml.indexOf(StringList.concat(String.valueOf(LT),nodeName_), index_) + 1;
                 //                int j_ = found_ - 1;
                 //                boolean isTag_ = _xml.charAt(j_) == LT;
                 boolean isTag_ = true;
@@ -3309,7 +3309,7 @@ public final class DocumentBuilder {
                             strArg_.append(charArg_);
                             charArg_ = arg_.charAt(j_);
                         }
-                        String convered_ = DocumentBuilder.encodeHtml(strArg_.toString()+END_ESCAPED);
+                        String convered_ = DocumentBuilder.encodeHtml(strArg_.append(END_ESCAPED).toString());
                         convered_ = convered_.substring(CustList.SECOND_INDEX + 1, convered_.length() - 1);
                         int intArg_ = Integer.parseInt(convered_);
                         formatted_.append((char)intArg_);

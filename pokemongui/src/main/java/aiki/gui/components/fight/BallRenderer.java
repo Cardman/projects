@@ -9,6 +9,7 @@ import code.gui.CommonCellRenderer;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
 import code.util.NatTreeMap;
+import code.util.StringList;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 
@@ -76,7 +77,7 @@ public class BallRenderer extends CommonCellRenderer {
         _g.setColor(Color.BLACK);
         _g.drawString(ball.getNumber().toNumberString(), maxWidthImage, ballImage.getHeight());
         _g.drawString(ball.getRate().toNumberString(), maxWidthImage +10+ maxWidthNumber, ballImage.getHeight());
-        _g.drawString(ball.getPercent()+PERCENT, maxWidthImage +20+ maxWidthNumber+maxWidthRate, ballImage.getHeight());
+        _g.drawString(StringList.concat(ball.getPercent(),PERCENT), maxWidthImage +20+ maxWidthNumber+maxWidthRate, ballImage.getHeight());
         if (selected) {
             _g.setColor(Color.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);

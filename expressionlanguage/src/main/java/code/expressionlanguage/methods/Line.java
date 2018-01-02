@@ -74,8 +74,8 @@ public final class Line extends Leaf implements StackableBlock {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         boolean stBlock_ = f_.isStaticContext();
-        callSuper = expression.trim().startsWith(EXTERN_CLASS+SUPER_ACCESS+PAR_LEFT);
-        callThis = expression.trim().startsWith(EXTERN_CLASS+CURRENT+PAR_LEFT);
+        callSuper = expression.trim().startsWith(StringList.concat(String.valueOf(EXTERN_CLASS),SUPER_ACCESS,String.valueOf(PAR_LEFT)));
+        callThis = expression.trim().startsWith(StringList.concat(String.valueOf(EXTERN_CLASS),CURRENT,String.valueOf(PAR_LEFT)));
         boolean st_ = stBlock_ || callSuper || callThis;
         PageEl page_ = _cont.getLastPage();
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);

@@ -190,17 +190,12 @@ public enum CardPresident implements Displayable {
         return valeur;
     }
 
-    @Override
-    public String toString() {
-        return toString(Constants.getLanguage());
-    }
-
     public String toString(String _locale) {
         return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.PRESIDENT_CARD,name());
     }
 
     public String getImageFileName(String _ext) {
-        return StringList.toUpperCase(name())+_ext;
+        return StringList.concat(StringList.toUpperCase(name()),_ext);
     }
 
     @Override

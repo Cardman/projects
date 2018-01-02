@@ -85,7 +85,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     public static void initEditorBelote(MainWindow _fenetre) {
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
         DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.BELOTE.toString());
+        DIALOG.setTitle(GameEnum.BELOTE.display());
         DIALOG.setReglesBelote(_fenetre.getReglesBelote());
         DIALOG.partie = null;
         DIALOG.setToNullGame = true;

@@ -429,7 +429,9 @@ public final class ConverterBufferedImage {
             baos_.flush();
             byte[] imageInByte_ = baos_.toByteArray();
             StringBuilder sb_ = new StringBuilder();
-            sb_.append(DATA_IMAGE+_format+BASE64);
+            sb_.append(DATA_IMAGE);
+            sb_.append(_format);
+            sb_.append(BASE64);
             sb_.append(BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_));
             contourChart_ = sb_.toString();
         } catch (IOException _0) {
@@ -456,9 +458,13 @@ public final class ConverterBufferedImage {
         String contourChart_ = EMPTY_STRING;
         StringBuilder sb_ = new StringBuilder();
         if (AVAILABLE_FORMATS.containsStr(_format)) {
-            sb_.append(DATA_IMAGE+_format+BASE64);
+            sb_.append(DATA_IMAGE);
+            sb_.append(_format);
+            sb_.append(BASE64);
         } else {
-            sb_.append(DATA_IMAGE+IMG_EXT+BASE64);
+            sb_.append(DATA_IMAGE);
+            sb_.append(IMG_EXT);
+            sb_.append(BASE64);
         }
         sb_.append(_image);
         contourChart_ = sb_.toString();
@@ -468,7 +474,9 @@ public final class ConverterBufferedImage {
     public static String surroundImage(String _image) {
         String contourChart_ = EMPTY_STRING;
         StringBuilder sb_ = new StringBuilder();
-        sb_.append(DATA_IMAGE+IMG_EXT+BASE64);
+        sb_.append(DATA_IMAGE);
+        sb_.append(IMG_EXT);
+        sb_.append(BASE64);
         sb_.append(_image);
         contourChart_ = sb_.toString();
         return contourChart_;

@@ -127,12 +127,12 @@ final class HtmlRequest {
             if (!varMethod_.isEmpty()) {
                 //use defined class in className attribute
                 String className_ = _nodeContainer.getNodeInformation().getInputClass();
-                _conf.getLastPage().setProcessingAttribute(_conf.getPrefix()+FormatHtml.ATTRIBUTE_CLASS_NAME);
+                _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),FormatHtml.ATTRIBUTE_CLASS_NAME));
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
                 ExtractObject.classNameForName(_conf, 0, className_);
                 ImportingPage ip_ = _conf.getLastPage();
-                ip_.setProcessingAttribute(_conf.getPrefix()+FormatHtml.VAR_METHOD);
+                ip_.setProcessingAttribute(StringList.concat(_conf.getPrefix(),FormatHtml.VAR_METHOD));
                 ip_.setLookForAttrValue(true);
                 ip_.setOffset(0);
                 Struct current_ = ip_.getGlobalArgument().getStruct();
@@ -142,7 +142,7 @@ final class HtmlRequest {
                 locVar_.setClassName(ConstClasses.resolve(className_));
                 locVar_.setElement(_attribute);
                 ip_.getLocalVars().put(tmp_, locVar_);
-                ElUtil.processEl(varMethod_+LEFT_PAR+tmp_+GET_LOC_VAR+RIGHT_PAR, 0, _conf.toContextEl());
+                ElUtil.processEl(StringList.concat(varMethod_,LEFT_PAR,tmp_,GET_LOC_VAR,RIGHT_PAR), 0, _conf.toContextEl());
                 ip_.getLocalVars().removeKey(tmp_);
                 ip_.setGlobalArgumentStruct(current_, _conf);
                 return;
@@ -159,8 +159,8 @@ final class HtmlRequest {
                 lv_.setClassName(_attribute.getClass().getName());
                 lv_.setStruct(StdStruct.wrapStd(_attribute));
                 ip_.getLocalVars().put(nameValue_, lv_);
-                String expressionLeft_ = nameVar_ + GET_LOC_VAR + _nodeContainer.getLastToken();
-                String expressionRight_ = nameValue_ + GET_LOC_VAR;
+                String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
+                String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
                 ElUtil.processAffect(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf.toContextEl(), true, true);
                 ip_.getLocalVars().removeKey(nameVar_);
                 ip_.getLocalVars().removeKey(nameValue_);
@@ -168,13 +168,13 @@ final class HtmlRequest {
                 _conf.getLastPage().setProcessingAttribute(FormatHtml.EMPTY_STRING);
                 _conf.getLastPage().setLookForAttrValue(false);
                 _conf.getLastPage().setOffset(0);
-                throw new SetterException(_nodeContainer.getLastToken()+FormatHtml.RETURN_LINE+_conf.joinPages());
+                throw new SetterException(StringList.concat(_nodeContainer.getLastToken(),FormatHtml.RETURN_LINE,_conf.joinPages()));
             }
         }
         if (chg_ != null) {
             String method_ = _nodeContainer.getNodeInformation().getChanging();
             ImportingPage ip_ = _conf.getLastPage();
-            ip_.setProcessingAttribute(_conf.getPrefix()+FormatHtml.ATTRIBUTE_VALUE_CHANGE_EVENT);
+            ip_.setProcessingAttribute(StringList.concat(_conf.getPrefix(),FormatHtml.ATTRIBUTE_VALUE_CHANGE_EVENT));
             ip_.setLookForAttrValue(false);
             ip_.setOffset(0);
             Struct current_ = ip_.getGlobalArgument().getStruct();
@@ -184,7 +184,12 @@ final class HtmlRequest {
             locVar_.setClassName(ValueChangeEvent.class.getName());
             locVar_.setElement(chg_);
             ip_.getLocalVars().put(tmp_, locVar_);
-            ElUtil.processEl(method_+LEFT_PAR+tmp_+GET_LOC_VAR+RIGHT_PAR, 0, _conf.toContextEl());
+            StringBuilder str_ = new StringBuilder(method_);
+            str_.append(LEFT_PAR);
+            str_.append(tmp_);
+            str_.append(GET_LOC_VAR);
+            str_.append(RIGHT_PAR);
+            ElUtil.processEl(str_.toString(), 0, _conf.toContextEl());
             ip_.getLocalVars().removeKey(tmp_);
             ip_.setGlobalArgumentStruct(current_, _conf);
         }

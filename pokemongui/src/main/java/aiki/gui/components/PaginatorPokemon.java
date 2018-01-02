@@ -396,22 +396,22 @@ public final class PaginatorPokemon extends Paginator {
         add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
         results.setLayout(new GridLayout(0, 1));
-        String h_ = getMessages().getVal(NAME)+SPACE;
+        String h_ = StringList.concat(getMessages().getVal(NAME),SPACE);
         int side_ = getFacade().getMap().getSideLength();
 //        h_ += getMessages().getVal(STEPS)+SPACE;
 //        h_ += getMessages().getVal(REMAIN_STEPS);
         //getHeader().addString(h_, FIRST_PIXEL);
         getHeader().addString(h_, side_);
-        h_ = getMessages().getVal(ABILITY)+SPACE;
+        h_ = StringList.concat(getMessages().getVal(ABILITY),SPACE);
         getHeader().addString(h_, side_, Paginator.HEIGTH_CHARS);
         int secondCol_ = getHeader().width(getMessages().getVal(NAME));
         if (secondCol_ < getHeader().width(getMessages().getVal(ABILITY))) {
             secondCol_ = getHeader().width(getMessages().getVal(ABILITY));
         }
         secondCol_ += side_;
-        h_ = getMessages().getVal(LEVEL)+SPACE;
+        h_ = StringList.concat(getMessages().getVal(LEVEL),SPACE);
         getHeader().addString(h_, secondCol_);
-        h_ = getMessages().getVal(GENDER)+SPACE;
+        h_ = StringList.concat(getMessages().getVal(GENDER),SPACE);
         getHeader().addString(h_, secondCol_, Paginator.HEIGTH_CHARS);
         int thirdCol_ = getHeader().width(getMessages().getVal(LEVEL));
         if (thirdCol_ < getHeader().width(getMessages().getVal(GENDER))) {
@@ -603,13 +603,13 @@ public final class PaginatorPokemon extends Paginator {
 //        h_ += getMessages().getVal(STEPS)+SPACE;
 //        h_ += getMessages().getVal(REMAIN_STEPS);
         //getHeader().addString(h_, FIRST_PIXEL);
-        getHeader().addString(h_+SPACE, side_);
+        getHeader().addString(StringList.concat(h_,SPACE), side_);
         h_ = getMessages().getVal(ABILITY);
-        getHeader().addString(h_+SPACE, side_, Paginator.HEIGTH_CHARS);
+        getHeader().addString(StringList.concat(h_,SPACE), side_, Paginator.HEIGTH_CHARS);
         //int maxPixName_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(NAME));
-        int maxPixName_ = getHeader().width(getMessages().getVal(NAME)+SPACE);
+        int maxPixName_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACE));
         for (PokemonLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(l.getPokemon().getName()+SPACE);
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringList.concat(l.getPokemon().getName(),SPACE));
             if (value_ > maxPixName_) {
                 maxPixName_ = value_;
             }
@@ -617,9 +617,9 @@ public final class PaginatorPokemon extends Paginator {
         //setNameCoord
         //header_.addString(getMessages().getVal(NAME), 0);
 //        int maxPixAbility_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(ABILITY));
-        int maxPixAbility_ = getHeader().width(getMessages().getVal(ABILITY)+SPACE);
+        int maxPixAbility_ = getHeader().width(StringList.concat(getMessages().getVal(ABILITY),SPACE));
         for (PokemonLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(l.getPokemon().getAbility()+SPACE);
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringList.concat(l.getPokemon().getAbility(),SPACE));
             if (value_ > maxPixAbility_) {
                 maxPixAbility_ = value_;
             }
@@ -633,12 +633,12 @@ public final class PaginatorPokemon extends Paginator {
         }
         int secondCol_ = Math.max(maxPixAbility_, maxPixName_);
         h_ = getMessages().getVal(LEVEL);
-        getHeader().addString(h_+SPACE, secondCol_ + side_);
+        getHeader().addString(StringList.concat(h_,SPACE), secondCol_ + side_);
         h_ = getMessages().getVal(GENDER);
-        getHeader().addString(h_+SPACE, secondCol_ + side_, Paginator.HEIGTH_CHARS);
-        int thirdCol_ = getHeader().width(getMessages().getVal(LEVEL)+SPACE);
-        if (thirdCol_ < getHeader().width(getMessages().getVal(GENDER)+SPACE)) {
-            thirdCol_ = getHeader().width(getMessages().getVal(GENDER)+SPACE);
+        getHeader().addString(StringList.concat(h_,SPACE), secondCol_ + side_, Paginator.HEIGTH_CHARS);
+        int thirdCol_ = getHeader().width(StringList.concat(getMessages().getVal(LEVEL),SPACE));
+        if (thirdCol_ < getHeader().width(StringList.concat(getMessages().getVal(GENDER),SPACE))) {
+            thirdCol_ = getHeader().width(StringList.concat(getMessages().getVal(GENDER),SPACE));
         }
         h_ = getMessages().getVal(ITEM);
         getHeader().addString(h_, thirdCol_+secondCol_ + side_);

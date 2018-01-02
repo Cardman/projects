@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import code.gui.events.UpdateTimeEvent;
+import code.util.StringList;
 
 public class Clock extends JTextField {
 
@@ -47,7 +48,9 @@ public class Clock extends JTextField {
         int h_ = now_.get(Calendar.HOUR_OF_DAY);
         int mi_ = now_.get(Calendar.MINUTE);
         int s_ = now_.get(Calendar.SECOND);
-        return y_+_separatorDate+m_+_separatorDate+d_+_sep+h_+_separatorTime+mi_+_separatorTime+s_;
+        return StringList.concat(String.valueOf(y_),_separatorDate,String.valueOf(m_),
+                _separatorDate,String.valueOf(d_),_sep,String.valueOf(h_),
+                _separatorTime,String.valueOf(mi_),_separatorTime,String.valueOf(s_));
     }
 
     public static String getDateTimeText() {
@@ -55,8 +58,8 @@ public class Clock extends JTextField {
         int y_ = now_.get(Calendar.YEAR);
         int m_ = now_.get(Calendar.MONTH) + 1;
         int d_ = now_.get(Calendar.DAY_OF_MONTH);
-        String date_ = d_+SEPARATOR_DATE+m_+SEPARATOR_DATE+y_;
-        return date_+SEPARATOR_DATE_TIME+getTimeText();
+        String date_ = StringList.concat(String.valueOf(d_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(y_));
+        return StringList.concat(date_,SEPARATOR_DATE_TIME,getTimeText());
     }
 
     public static String getTimeText() {
@@ -64,7 +67,7 @@ public class Clock extends JTextField {
         int h_ = now_.get(Calendar.HOUR_OF_DAY);
         int m_ = now_.get(Calendar.MINUTE);
         int s_ = now_.get(Calendar.SECOND);
-        return h_+SEPARATOR+m_+SEPARATOR+s_;
+        return StringList.concat(String.valueOf(h_),SEPARATOR,String.valueOf(m_),SEPARATOR,String.valueOf(s_));
     }
 
     public static String getDateText() {
@@ -72,6 +75,6 @@ public class Clock extends JTextField {
         int y_ = now_.get(Calendar.YEAR);
         int m_ = now_.get(Calendar.MONTH) + 1;
         int d_ = now_.get(Calendar.DAY_OF_MONTH);
-        return y_+SEPARATOR_DATE+m_+SEPARATOR_DATE+d_;
+        return StringList.concat(String.valueOf(y_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(d_));
     }
 }

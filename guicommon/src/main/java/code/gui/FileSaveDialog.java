@@ -99,7 +99,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         }
         TreePath treePath_ = getFolderSystem().getSelectionPath();
         if (treePath_ == null) {
-            new File(getFolder()+StreamTextFile.SEPARATEUR+typedString.getText().trim()).mkdirs();
+            new File(StringList.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim())).mkdirs();
             applyTreeChange();
         } else {
             StringList pathFull_ = new StringList();
@@ -107,11 +107,11 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                 pathFull_.add(o.toString());
             }
             pathFull_.removeObj(EMPTY_STRING);
-            String str_ = EMPTY_STRING;
+            StringBuilder str_ = new StringBuilder();
             for (Object o: pathFull_) {
-                str_ += o.toString() + StreamTextFile.SEPARATEUR;
+                str_.append(o.toString()).append(StreamTextFile.SEPARATEUR);
             }
-            new File(str_+typedString.getText()).mkdirs();
+            new File(StringList.concat(str_,typedString.getText())).mkdirs();
             applyTreeChange(treePath_);
         }
     }
@@ -156,9 +156,9 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             return;
         }
         //get selected row first table
-        File file_ = new File(getCurrentFolder()+getFileName().getText()+getExtension());
+        File file_ = new File(StringList.concat(getCurrentFolder(),getFileName().getText(),getExtension()));
         if (file_.exists()) {
-            String mes_ = StringList.simpleStringsFormat(messages.getVal(BODY_CONF), getCurrentFolder()+getFileName().getText());
+            String mes_ = StringList.simpleStringsFormat(messages.getVal(BODY_CONF), StringList.concat(getCurrentFolder(),getFileName().getText()));
 //            ConfirmDialog conf_ = new ConfirmDialog(
 //                    this,
 //                    mes_, messages.getVal(TITLE_CONF),
@@ -174,7 +174,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                 return;
             }
         }
-        setSelectedPath(getCurrentFolder()+getFileName().getText()+getExtension());
+        setSelectedPath(StringList.concat(getCurrentFolder(),getFileName().getText(),getExtension()));
         closeWindow();
     }
 

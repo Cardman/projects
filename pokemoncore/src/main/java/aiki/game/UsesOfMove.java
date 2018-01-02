@@ -2,14 +2,13 @@ package aiki.game;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 
 @CheckedData
-public final class UsesOfMove {
+public final class UsesOfMove implements Displayable{
 
     private static final char SEPARATOR = ',';
-
-    private static final String EMPTY_STRING = "";
 
     private short current;
 
@@ -37,12 +36,6 @@ public final class UsesOfMove {
     @FromAndToString
     public static UsesOfMove newUsesOfMove(String _string) {
         return new UsesOfMove(_string);
-    }
-
-    @FromAndToString
-    @Override
-    public String toString() {
-        return EMPTY_STRING+current+SEPARATOR+max;
     }
 
     public void heal(short _nb) {
@@ -82,5 +75,15 @@ public final class UsesOfMove {
 
     public void setMax(short _max) {
         max = _max;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(current);
+        str_.append(SEPARATOR);
+        str_.append(max);
+        return str_.toString();
     }
 }

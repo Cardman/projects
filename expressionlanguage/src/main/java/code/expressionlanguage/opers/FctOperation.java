@@ -130,7 +130,7 @@ public final class FctOperation extends InvokingOperation {
         String stringType_ = stds_.getAliasString();
         String booleanType_ = stds_.getAliasBoolean();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(VAR_ARG))) {
             setVararg(true);
             if (!(getParent() instanceof InvokingOperation)) {
                 throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
@@ -164,7 +164,7 @@ public final class FctOperation extends InvokingOperation {
             setSimpleArgument(new Argument());
             return;
         }
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+FIRST_OPT)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
             setFirstOptArg(true);
             if (!(getParent() instanceof InvokingOperation)) {
                 throw new VarargException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
@@ -182,7 +182,7 @@ public final class FctOperation extends InvokingOperation {
             setResultClass(chidren_.first().getResultClass());
             return;
         }
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+CURRENT)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
             //validate calling of constructors of the current class
             String clCurName_ = _conf.getLastPage().getGlobalClass();
             otherConstructorClass = true;
@@ -203,9 +203,9 @@ public final class FctOperation extends InvokingOperation {
                 cl_.add(new ClassName(c.getName(), false));
             }
             ConstructorId constId_ = new ConstructorId(clCurName_, cl_);
-            throw new UndefinedConstructorException(constId_.getSignature()+RETURN_LINE+_conf.joinPages());
+            throw new UndefinedConstructorException(StringList.concat(constId_.getSignature(),RETURN_LINE,_conf.joinPages()));
         }
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+SUPER_ACCESS)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(SUPER_ACCESS))) {
             //validate calling of super constructors
             String clCurName_ = _conf.getLastPage().getGlobalClass();
             String base_ = StringList.getAllTypes(clCurName_).first();
@@ -220,7 +220,7 @@ public final class FctOperation extends InvokingOperation {
                 CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesById(superClass_, constId);
                 if (!ctors_.isEmpty() && !classes_.canAccess(clCurName_, ctors_.first(), _conf)) {
                     ConstructorBlock ctr_ = ctors_.first();
-                    throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new BadAccessException(StringList.concat(ctr_.getId().getSignature(),RETURN_LINE,_conf.joinPages()));
                 }
                 if (ctorRes_.isVarArgToCall()) {
                     naturalVararg = constId.getParametersTypes().size() - 1;
@@ -234,9 +234,9 @@ public final class FctOperation extends InvokingOperation {
                 cl_.add(new ClassName(c.getName(), false));
             }
             ConstructorId constId_ = new ConstructorId(superClass_, cl_);
-            throw new UndefinedConstructorException(constId_.getSignature()+RETURN_LINE+_conf.joinPages());
+            throw new UndefinedConstructorException(StringList.concat(constId_.getSignature(),RETURN_LINE,_conf.joinPages()));
         }
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+INSTANCEOF)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(INSTANCEOF))) {
             if (chidren_.size() == 2) {
                 if (!chidren_.first().getResultClass().matchClass(stringType_)) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
@@ -263,9 +263,9 @@ public final class FctOperation extends InvokingOperation {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }
-            throw new BadNumberArgumentException(EXTERN_CLASS+INSTANCEOF+RETURN_LINE+chidren_.size()+RETURN_LINE+_conf.joinPages());
+            throw new BadNumberArgumentException(StringList.concat(String.valueOf(EXTERN_CLASS),INSTANCEOF,RETURN_LINE,Long.toString(chidren_.size()),RETURN_LINE,_conf.joinPages()));
         }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CAST)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
             if (chidren_.size() == 1) {
                 if (!chidren_.first().getResultClass().matchClass(stringType_)) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
@@ -293,11 +293,11 @@ public final class FctOperation extends InvokingOperation {
                 setResultClass(new ClassArgumentMatching(str_));
                 return;
             }
-            throw new BadNumberArgumentException(EXTERN_CLASS+CAST+RETURN_LINE+chidren_.size()+RETURN_LINE+_conf.joinPages());
+            throw new BadNumberArgumentException(StringList.concat(String.valueOf(EXTERN_CLASS),CAST,RETURN_LINE,Long.toString(chidren_.size()),RETURN_LINE,_conf.joinPages()));
         }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+BOOLEAN)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
             if (chidren_.size() != BOOLEAN_ARGS) {
-                throw new BadNumberArgumentException(EXTERN_CLASS+CAST+RETURN_LINE+chidren_.size()+RETURN_LINE+_conf.joinPages());
+                throw new BadNumberArgumentException(StringList.concat(String.valueOf(EXTERN_CLASS),CAST,RETURN_LINE,Long.toString(chidren_.size()),RETURN_LINE,_conf.joinPages()));
             }
             OperationNode opOne_ = chidren_.first();
             ClassArgumentMatching clMatch_ = opOne_.getResultClass();
@@ -326,11 +326,11 @@ public final class FctOperation extends InvokingOperation {
         if (trimMeth_.contains(STATIC_CALL)) {
             StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
             if (classMethod_.size() != 2) {
-                throw new BadFormatPathException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new BadFormatPathException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             String className_ = classMethod_.first();
             if (!className_.startsWith(CLASS_CHOICE_PREF)) {
-                throw new BadFormatPathException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new BadFormatPathException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             int lenPref_ = CLASS_CHOICE_PREF.length();
             className_ = className_.substring(lenPref_);
@@ -375,7 +375,7 @@ public final class FctOperation extends InvokingOperation {
                         return;
                     }
                 }
-                throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new NoSuchDeclaredMethodException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
             if (classes_.isCustomType(clCurName_)) {
                 analyzeCustomClass(_conf, clCurName_, true);
@@ -391,7 +391,7 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         if (clCur_.getClassOrNull() == null) {
-            throw new RuntimeClassNotFoundException(clCur_.getName()+RETURN_LINE+_conf.joinPages());
+            throw new RuntimeClassNotFoundException(StringList.concat(clCur_.getName(),RETURN_LINE,_conf.joinPages()));
         }
         analyzeNativeClass(_conf, clCurName_, true);
     }
@@ -409,7 +409,7 @@ public final class FctOperation extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         for (ClassArgumentMatching c:firstArgs_) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VoidArgumentException(StringList.concat(clCurName_,DOT,trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
         }
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
@@ -483,7 +483,7 @@ public final class FctOperation extends InvokingOperation {
             }
             if (StringList.quickEq(trimMeth_, METH_VALUEOF) && firstArgs_.size() == CustList.ONE_ELEMENT) {
                 if (!StringList.quickEq(firstArgs_.first().getName(), stringType_)) {
-                    throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                    throw new NoSuchDeclaredMethodException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
                 }
                 MethodId methodId_ = new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(stringType_, false)));
                 classMethodId = new ClassMethodId(clCurName_, methodId_);
@@ -504,13 +504,13 @@ public final class FctOperation extends InvokingOperation {
             trimMeth_ = classMethod_.last();
             staticChoiceMethod_ = true;
             superClassAccess_ = false;
-        } else if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
-            trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length());
+        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(EXTERN_CLASS))))) {
+            trimMeth_ = trimMeth_.substring(SUPER_ACCESS.length() + 2);
             staticChoiceMethod_ = true;
             superAccessMethod_ = true;
             accessFromSuper_ = true;
-        } else if (trimMeth_.startsWith(EXTERN_CLASS+CURRENT+EXTERN_CLASS)) {
-            trimMeth_ = trimMeth_.substring((EXTERN_CLASS+CURRENT+EXTERN_CLASS).length());
+        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(CURRENT, String.valueOf(EXTERN_CLASS))))) {
+            trimMeth_ = trimMeth_.substring(CURRENT.length() + 2);
             staticChoiceMethod_ = true;
             superAccessMethod_ = true;
         }
@@ -522,7 +522,7 @@ public final class FctOperation extends InvokingOperation {
             if (clMeth_.isAbstractMethod()) {
                 if (_failIfError) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new AbstractMethodException(StringList.concat(clMeth_.getId().getConstraints().getSignature(),RETURN_LINE,_conf.joinPages()));
                 }
                 return;
             }
@@ -558,7 +558,7 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         if (PrimitiveTypeUtil.isPrimitive(_subType, stds_)) {
-            throw new PrimitiveTypeException(_subType+RETURN_LINE+_conf.joinPages());
+            throw new PrimitiveTypeException(StringList.concat(_subType,RETURN_LINE,_conf.joinPages()));
         }
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
@@ -566,7 +566,7 @@ public final class FctOperation extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         for (ClassArgumentMatching c:firstArgs_) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
+                throw new VoidArgumentException(StringList.concat(clCurName_,DOT,trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
         }
         boolean superClassAccess_ = true;
@@ -578,13 +578,13 @@ public final class FctOperation extends InvokingOperation {
             trimMeth_ = classMethod_.last();
             staticChoiceMethod_ = true;
             superClassAccess_ = false;
-        } else if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
-            trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length());
+        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(EXTERN_CLASS))))) {
+            trimMeth_ = trimMeth_.substring(SUPER_ACCESS.length() + 2);
             staticChoiceMethod_ = true;
             superAccessMethod_ = true;
             accessFromSuper_ = true;
-        } else if (trimMeth_.startsWith(EXTERN_CLASS+CURRENT+EXTERN_CLASS)) {
-            trimMeth_ = trimMeth_.substring((EXTERN_CLASS+CURRENT+EXTERN_CLASS).length());
+        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(CURRENT, String.valueOf(EXTERN_CLASS))))) {
+            trimMeth_ = trimMeth_.substring(CURRENT.length()+2);
             staticChoiceMethod_ = true;
             superAccessMethod_ = true;
         }
@@ -596,7 +596,7 @@ public final class FctOperation extends InvokingOperation {
             if (clMeth_.isAbstractMethod()) {
                 if (_failIfError) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new AbstractMethodException(StringList.concat(clMeth_.getId().getConstraints().getSignature(),RETURN_LINE,_conf.joinPages()));
                 }
                 return;
             }
@@ -630,7 +630,7 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         if (PrimitiveTypeUtil.isPrimitive(_subType, _conf)) {
             setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-            throw new PrimitiveTypeException(_subType+RETURN_LINE+_conf.joinPages());
+            throw new PrimitiveTypeException(StringList.concat(_subType,RETURN_LINE,_conf.joinPages()));
         }
         ClassArgumentMatching clVar_ = new ClassArgumentMatching(_subType);
         String trimMeth_ = methodName.trim();
@@ -644,7 +644,7 @@ public final class FctOperation extends InvokingOperation {
         if (!canBeUsed(m_, _conf)) {
             if (_failIfError) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                throw new BadAccessException(m_.toString()+RETURN_LINE+_conf.joinPages());
+                throw new BadAccessException(StringList.concat(m_.toGenericString(),RETURN_LINE,_conf.joinPages()));
             }
             return;
         }
@@ -736,7 +736,7 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+FIRST_OPT)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
             return ArgumentCall.newArgument(_arguments.first());
         }
         LgNames stds_ = _conf.getStandards();
@@ -747,7 +747,7 @@ public final class FctOperation extends InvokingOperation {
         cast_ = stds_.getAliasCast();
         stringType_ = stds_.getAliasString();
         if (constId != null) {
-            if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
+            if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
                 Argument arg_ = _conf.getLastPage().getGlobalArgument();
                 String clCurName_ = arg_.getObjectClassName(_conf);
                 String clCurNameBase_ = StringList.getAllTypes(clCurName_).first();
@@ -757,7 +757,7 @@ public final class FctOperation extends InvokingOperation {
                 InvokingConstructor inv_ = new InvokingConstructor(clCurName_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_THIS, called_);
                 return ArgumentCall.newCall(inv_);
             }
-            if (StringList.quickEq(trimMeth_,EXTERN_CLASS+SUPER_ACCESS)) {
+            if (StringList.quickEq(trimMeth_,prefixFunction(SUPER_ACCESS))) {
                 Argument arg_ = _conf.getLastPage().getGlobalArgument();
                 String clCurName_ = arg_.getObjectClassName(_conf);
                 String gl_ = _conf.getLastPage().getGlobalClass();
@@ -775,7 +775,7 @@ public final class FctOperation extends InvokingOperation {
                 return ArgumentCall.newCall(inv_);
             }
         }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+INSTANCEOF)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(INSTANCEOF))) {
             String str_ = (String) _arguments.first().getObject();
             str_ = StringList.removeAllSpaces(str_);
             Argument sec_ = _arguments.last();
@@ -802,7 +802,7 @@ public final class FctOperation extends InvokingOperation {
             arg_.setObject(res_);
             return ArgumentCall.newArgument(arg_);
         }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CAST)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
             if (chidren_.size() == 1) {
                 String str_ = (String) _arguments.first().getObject();
                 if (str_ == null) {
@@ -813,7 +813,7 @@ public final class FctOperation extends InvokingOperation {
                 if (PrimitiveTypeUtil.isPrimitive(str_, _conf)) {
                     if (!PrimitiveTypeUtil.isExistentPrimitive(str_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                        throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages())));
+                        throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(StringList.concat(str_,RETURN_LINE,_conf.joinPages()))));
                     }
                     ClassMetaInfo res_ = new ClassMetaInfo(str_, null, null, null, null, null,false,false);
                     Argument arg_ = new Argument();
@@ -825,7 +825,7 @@ public final class FctOperation extends InvokingOperation {
                     cl_ = PrimitiveTypeUtil.getSingleNativeClass(str_);
                 } catch (RuntimeClassNotFoundException _0_) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages())));
+                    throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(StringList.concat(str_,RETURN_LINE,_conf.joinPages()))));
                 }
                 ClassMetaInfo res_ = new ClassMetaInfo(str_, null, null, null, null, null,false,false);
                 Argument arg_ = new Argument();
@@ -853,21 +853,21 @@ public final class FctOperation extends InvokingOperation {
                     mapping_.setParam(paramName_);
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                        throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages()),cast_));
+                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
                     }
                     arg_.setStruct(objArg_.getStruct());
                 } else {
                     if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
                         if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages()),cast_));
+                            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
                         }
                         arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
                     } else {
                         String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true, _conf).getName();
                         if (!StringList.quickEq(typeNameArg_, stds_.getAliasPrimBoolean())) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages()),cast_));
+                            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
                         }
                         arg_.setStruct(objArg_.getStruct());
                     }
@@ -875,7 +875,7 @@ public final class FctOperation extends InvokingOperation {
                 return ArgumentCall.newArgument(arg_);
             }
         }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+BOOLEAN)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
             Boolean obj_ = (Boolean) _arguments.first().getObject();
             Argument arg_;
             if (obj_) {
@@ -956,7 +956,7 @@ public final class FctOperation extends InvokingOperation {
                         map_.setParam(classNameFound_);
                         if (!Templates.isCorrect(map_, _conf)) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
+                            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                         }
                         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                     } else {
@@ -964,7 +964,7 @@ public final class FctOperation extends InvokingOperation {
                         String baseArgClassName_ = StringList.getAllTypes(argClassName_).first();
                         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, baseArgClassName_, _conf)) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(baseArgClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
+                            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                         }
                         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
                         methodId_ = realId.format(classNameFound_, _conf);
@@ -1000,7 +1000,7 @@ public final class FctOperation extends InvokingOperation {
                             map_.setParam(type_);
                             if (!Templates.isCorrect(map_, _conf)) {
                                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                                throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
+                                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                             }
                         }
                         indexType_++;
@@ -1121,19 +1121,19 @@ public final class FctOperation extends InvokingOperation {
     @Override
     boolean isCallMethodCtor() {
         String trimMeth_ = methodName.trim();
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(VAR_ARG))) {
             return false;
         }
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+FIRST_OPT)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
             return false;
         }
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+INSTANCEOF)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(INSTANCEOF))) {
             return false;
         }
-        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+CAST)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
             return false;
         }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+BOOLEAN)) {
+        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
             return false;
         }
         return true;

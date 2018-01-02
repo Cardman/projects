@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import code.images.ConverterBufferedImage;
 import code.util.EnumMap;
 import code.util.Numbers;
+import code.util.StringList;
 import aiki.facade.FacadeGame;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
@@ -70,8 +71,8 @@ public class PokemonLabel extends SelectableLabel {
 
     public int getThirdColumnWidth() {
         Numbers<Integer> widths_ = new Numbers<Integer>();
-        widths_.add(getFontMetrics(getFont()).stringWidth(Integer.toString(pokemon.getLevel())+SPACE));
-        widths_.add(getFontMetrics(getFont()).stringWidth(gender+SPACE));
+        widths_.add(getFontMetrics(getFont()).stringWidth(StringList.concat(Integer.toString(pokemon.getLevel()),SPACE)));
+        widths_.add(getFontMetrics(getFont()).stringWidth(StringList.concat(gender,SPACE)));
         return widths_.getMaximum();
     }
 

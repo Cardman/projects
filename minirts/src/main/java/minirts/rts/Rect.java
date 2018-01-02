@@ -1,10 +1,11 @@
 package minirts.rts;
 
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 
 
-public final class Rect implements Equallable<Rect> {
+public final class Rect implements Equallable<Rect>, Displayable {
 
     public static final int NB_POINTS = 4;
     private static final String SEPARATOR = ",";
@@ -133,7 +134,15 @@ public final class Rect implements Equallable<Rect> {
         return true;
     }
     @Override
-    public String toString() {
-        return left+SEPARATOR+top+SEPARATOR+width+SEPARATOR+height;
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(left);
+        str_.append(SEPARATOR);
+        str_.append(top);
+        str_.append(SEPARATOR);
+        str_.append(width);
+        str_.append(SEPARATOR);
+        str_.append(height);
+        return str_.toString();
     }
 }

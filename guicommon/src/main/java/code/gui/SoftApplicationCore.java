@@ -90,7 +90,7 @@ public abstract class SoftApplicationCore {
     protected static BufferedImage getImage(String _folder, String _fileTxt) {
         //, String _filePng
         BufferedImage image_ = null;
-        String file_ = ResourceFiles.ressourceFichier(_folder+StreamTextFile.SEPARATEUR+ _fileTxt);
+        String file_ = ResourceFiles.ressourceFichier(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
         image_ = ConverterBufferedImage.decodeToImage(file_);
 //        try {
 //            String file_ = StreamTextFile.ressourceFichier(_folder, _fileTxt);
@@ -114,7 +114,7 @@ public abstract class SoftApplicationCore {
             return language_;
         }
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
-        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getInitFolder()+LANGUAGE_TXT);
+        String content_ = StreamTextFile.contentsOfFile(StringList.concat(ConstFiles.getInitFolder(),LANGUAGE_TXT));
         if (content_ == null) {
             return EMPTY_STRING;
         }
@@ -132,7 +132,7 @@ public abstract class SoftApplicationCore {
     }
 
     private static String tryToGetXmlLanguage(String _dir) {
-        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(_dir+StreamTextFile.SEPARATEUR+LANGUAGE);
+        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(StringList.concat(_dir,StreamTextFile.SEPARATEUR,LANGUAGE));
         if (noeud_ == null) {
             return null;
         }
@@ -163,7 +163,7 @@ public abstract class SoftApplicationCore {
         document_.appendChild(info_);
         boolean indent_ = DocumentBuilder.isIndentXmlWhileWriting();
         DocumentBuilder.setIndentXmlWhileWriting(false);
-        StreamTextFile.saveTextFile(_folder+StreamTextFile.SEPARATEUR+LANGUAGE, DocumentBuilder.toXml(document_));
+        StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), DocumentBuilder.toXml(document_));
         DocumentBuilder.setIndentXmlWhileWriting(indent_);
     }
 
@@ -207,7 +207,7 @@ public abstract class SoftApplicationCore {
 
     protected static TopLeftFrame loadCoords(String _folder, String _file) {
 //        return (TopLeftFrame) StreamTextFile.deserialiser(getFolderJarPath()+_file);
-        return (TopLeftFrame) StreamTextFile.loadObject(_folder+StreamTextFile.SEPARATEUR+_file);
+        return (TopLeftFrame) StreamTextFile.loadObject(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file));
     }
 
     public static void saveCoords(String _folder, String _file, int _x, int _y) {
@@ -215,7 +215,7 @@ public abstract class SoftApplicationCore {
         topLeft_.setWidth(_x);
         topLeft_.setHeight(_y);
 //        StreamTextFile.save(getFolderJarPath()+_file, topLeft_);
-        StreamTextFile.saveObject(_folder+StreamTextFile.SEPARATEUR+_file, topLeft_);
+        StreamTextFile.saveObject(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file), topLeft_);
     }
 
     protected abstract Image getImageIcon();

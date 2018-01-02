@@ -7,12 +7,13 @@ import jm.music.data.Phrase;
 import code.serialize.XmlTransientable;
 import code.util.EqList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 import code.util.ints.MidListable;
 
 @RwXml
-public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedPhrase>, Equallable<EvolvedPart> {
+public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedPhrase>, Equallable<EvolvedPart>, Displayable {
 
     private static final String SEP_TWO = "/";
 
@@ -93,11 +94,14 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
     }
 
     @Override
-    public String toString() {
+    public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(name);
         str_.append(SEP_ONE);
-        str_.append(phrases.toString());
+        for (EvolvedPhrase e: phrases) {
+            str_.append(e.display());
+            str_.append(SEP_ONE);
+        }
         str_.append(SEP_ONE);
         str_.append(instrument);
         str_.append(SEP_ONE);

@@ -104,11 +104,11 @@ public class PseudoPlayerFighter extends PseudoFighter {
         PokemonData fPk_=_import.getPokemon(getName());
         String expLitt_=_import.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(_niveau));
+        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(_niveau));
         Rate next_;
         next_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
-        vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(_niveau - 1));
+        vars_.put(StringList.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Integer.toString(_niveau - 1));
         current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         return _import.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());

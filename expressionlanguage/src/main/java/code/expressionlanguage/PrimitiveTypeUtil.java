@@ -296,37 +296,37 @@ public final class PrimitiveTypeUtil {
     }
     private static String getArrayType(String _className) {
         if (StringList.quickEq(_className, PRIM_BOOLEAN)) {
-            return ARR_CLASS+BOOLEAN;
+            return StringList.concat(ARR_CLASS,BOOLEAN);
         }
         if (StringList.quickEq(_className, PRIM_BYTE)) {
-            return ARR_CLASS+BYTE;
+            return StringList.concat(ARR_CLASS,BYTE);
         }
         if (StringList.quickEq(_className, PRIM_SHORT)) {
-            return ARR_CLASS+SHORT;
+            return StringList.concat(ARR_CLASS,SHORT);
         }
         if (StringList.quickEq(_className, PRIM_CHAR)) {
-            return ARR_CLASS+CHAR;
+            return StringList.concat(ARR_CLASS,CHAR);
         }
         if (StringList.quickEq(_className, PRIM_INT)) {
-            return ARR_CLASS+INTEGER;
+            return StringList.concat(ARR_CLASS,INTEGER);
         }
         if (StringList.quickEq(_className, PRIM_LONG)) {
-            return ARR_CLASS+LONG;
+            return StringList.concat(ARR_CLASS,LONG);
         }
         if (StringList.quickEq(_className, PRIM_FLOAT)) {
-            return ARR_CLASS+FLOAT;
+            return StringList.concat(ARR_CLASS,FLOAT);
         }
         if (StringList.quickEq(_className, PRIM_DOUBLE)) {
-            return ARR_CLASS+DOUBLE;
+            return StringList.concat(ARR_CLASS,DOUBLE);
         }
         if (_className.startsWith(ARR_CLASS)) {
-            return ARR_CLASS+_className;
+            return StringList.concat(ARR_CLASS,_className);
         }
-        return ARR_CLASS+OBJECT+_className+SUFFIX_INSTANCE;
+        return StringList.concat(ARR_CLASS,OBJECT,_className,SUFFIX_INSTANCE);
     }
 
     public static String getPrettyArrayType(String _className) {
-        return ARR_CLASS+_className;
+        return StringList.concat(ARR_CLASS,_className);
     }
     /**Custom classes*/
     public static DimComp getQuickComponentBaseType(String _className) {
@@ -848,9 +848,6 @@ public final class PrimitiveTypeUtil {
             return _class;
         }
         return null;
-    }
-    static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id, ContextEl _context) {
-        return toWrapper(_class, _id, _context.getStandards());
     }
     static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
         if (_class.matchClass(_stds.getAliasPrimBoolean())) {

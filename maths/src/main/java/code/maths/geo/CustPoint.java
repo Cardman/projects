@@ -51,11 +51,6 @@ public final class CustPoint implements Equallable<CustPoint>, Displayable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     @FromAndToString
     @Override
     public String display() {

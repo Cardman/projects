@@ -3,9 +3,10 @@ import code.format.Format;
 import code.util.EnumList;
 import code.util.Numbers;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 import cards.belote.HandBelote;
 
-public enum DealingBelote {
+public enum DealingBelote implements Displayable {
     CLASSIC_2_VS_2(4,0,Numbers.wrapIntArray(3,2),Numbers.wrapIntArray(3)),
     COINCHE_2_VS_2(4,0,Numbers.wrapIntArray(3,3,2),Numbers.wrapIntArray());
     private final int nombreJoueurs;
@@ -126,7 +127,7 @@ public enum DealingBelote {
         return getNombreCartesParJoueur()*nombreJoueurs+cartesAPart==HandBelote.pileBase().total();
     }
     @Override
-    public String toString() {
+    public String display() {
         return toString(Constants.getLanguage());
     }
 

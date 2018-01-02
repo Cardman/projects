@@ -6,6 +6,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+import cards.facade.Games;
+import cards.gui.MainWindow;
+import cards.gui.containers.ContainerGame;
+import cards.gui.containers.ContainerSimuPresident;
+import cards.gui.dialogs.FileConst;
+import cards.president.DealPresident;
+import cards.president.GamePresident;
+import cards.president.HandPresident;
+import cards.president.ResultsPresident;
+import cards.president.TrickPresident;
+import cards.president.enumerations.Playing;
 import code.gui.LabelButton;
 import code.gui.SessionEditorPane;
 import code.gui.ThreadInvoker;
@@ -15,18 +26,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.consts.Constants;
-import cards.facade.Games;
-import cards.gui.MainWindow;
-import cards.gui.containers.ContainerGame;
-import cards.gui.containers.ContainerPresident;
-import cards.gui.containers.ContainerSimuPresident;
-import cards.gui.dialogs.FileConst;
-import cards.president.DealPresident;
-import cards.president.GamePresident;
-import cards.president.HandPresident;
-import cards.president.ResultsPresident;
-import cards.president.TrickPresident;
-import cards.president.enumerations.Playing;
 
 /**Thread safe class*/
 public final class GoSimulatePresident extends Thread implements GoSimulate {
@@ -63,7 +62,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
         GamePresident.setChargementSimulation(100);
         Constants.sleep(500);
         String event_;
-        event_ = container.getMessages().getVal(MainWindow.BEGIN_DEMO)+ContainerPresident.RETURN_LINE_CHAR;
+        event_ = StringList.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //        container.ajouterTexteDansZone(event_);
 //        container.ajouterTexteDansZone(container.getMessages().getVal(MainWindow.BEGIN_DEMO)+ContainerPresident.RETURN_LINE_CHAR);
@@ -93,14 +92,13 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 for (byte l: losers_) {
                     byte w_ = GamePresident.getMatchingWinner(winners_, losers_, l);
                     HandPresident h_ = switchedCards_.getVal(l);
-                    event_ = nicknames_.get(l)+ContainerGame.INTRODUCTION_PTS+h_.toString()+ContainerPresident.RETURN_LINE_CHAR;
-                    event_ += nicknames_.get(w_)+ContainerPresident.RETURN_LINE_CHAR;
+                    event_ = StringList.concat(nicknames_.get(l),ContainerGame.INTRODUCTION_PTS,h_.display(),ContainerGame.RETURN_LINE,nicknames_.get(w_),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(nicknames_.get(l)+ContainerGame.INTRODUCTION_PTS+h_+ContainerPresident.RETURN_LINE_CHAR);
 //                    container.ajouterTexteDansZone(nicknames_.get(w_)+ContainerPresident.RETURN_LINE_CHAR);
                 }
-                event_ = ContainerPresident.EMPTY+ContainerPresident.RETURN_LINE_CHAR;
+                event_ = ContainerGame.RETURN_LINE;
                 ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                container.ajouterTexteDansZone(event_);
 //                container.ajouterTexteDansZone(ContainerPresident.EMPTY+ContainerPresident.RETURN_LINE_CHAR);
@@ -112,14 +110,13 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 for (byte w: winners_) {
                     byte l_ = GamePresident.getMatchingLoser(losers_, winners_, w);
                     HandPresident h_ = switchedCards_.getVal(w);
-                    event_ = nicknames_.get(w)+ContainerGame.INTRODUCTION_PTS+h_.toString()+ContainerPresident.RETURN_LINE_CHAR;
-                    event_ += nicknames_.get(l_)+ContainerPresident.RETURN_LINE_CHAR;
+                    event_ = StringList.concat(nicknames_.get(w),ContainerGame.INTRODUCTION_PTS,h_.display(),ContainerGame.RETURN_LINE,nicknames_.get(l_),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(nicknames_.get(w)+ContainerGame.INTRODUCTION_PTS+h_+ContainerPresident.RETURN_LINE_CHAR);
 //                    container.ajouterTexteDansZone(nicknames_.get(l_)+ContainerPresident.RETURN_LINE_CHAR);
                 }
-                event_ = ContainerPresident.EMPTY+ContainerPresident.RETURN_LINE_CHAR;
+                event_ = ContainerGame.RETURN_LINE;
                 ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                container.ajouterTexteDansZone(event_);
 //                container.ajouterTexteDansZone(ContainerPresident.EMPTY+ContainerPresident.RETURN_LINE_CHAR);
@@ -189,7 +186,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                        container.tapisPresident().repaintValidate();
                     }
                     player_ = t_.getPlayer(noHand_, partie_.getNombreDeJoueurs());
-                    event_ = nicknames_.get(player_)+ContainerGame.INTRODUCTION_PTS+h.toString()+ContainerPresident.RETURN_LINE_CHAR;
+                    event_ = StringList.concat(nicknames_.get(player_),ContainerGame.INTRODUCTION_PTS,h.display(),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(nicknames_.get(player_)+ContainerGame.INTRODUCTION_PTS+h+ContainerPresident.RETURN_LINE_CHAR);
@@ -210,8 +207,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 }
                 byte ramasseur_= t_.getRamasseur(partie_.getNombreDeJoueurs());
                 String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
-                event_ = StringList.simpleStringsFormat(mess_, nicknames_.get(ramasseur_))+ContainerPresident.RETURN_LINE_CHAR;
-                event_ += ContainerPresident.EMPTY+ContainerPresident.RETURN_LINE_CHAR;
+                event_ = StringList.concat(StringList.simpleStringsFormat(mess_, nicknames_.get(ramasseur_)),ContainerGame.RETURN_LINE,ContainerGame.RETURN_LINE);
                 ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                container.ajouterTexteDansZone(event_);
 //                container.ajouterTexteDansZone(StringList.simpleFormat(mess_, nicknames_.get(ramasseur_))+ContainerPresident.RETURN_LINE_CHAR);

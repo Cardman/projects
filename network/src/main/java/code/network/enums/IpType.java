@@ -4,8 +4,9 @@ import java.net.Inet6Address;
 
 import code.format.Format;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 
-public enum IpType {
+public enum IpType implements Displayable {
     HOST_NAME,IP_V4(Inet4Address.class),IP_V6(Inet6Address.class);
     private final Class<?> classIp;
 
@@ -19,7 +20,7 @@ public enum IpType {
         return classIp;
     }
     @Override
-    public String toString() {
+    public String display() {
         return toString(Constants.getLanguage());
     }
 

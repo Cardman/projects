@@ -44,7 +44,7 @@ public class CommonFightBean extends Bean {
         if (nb_ == CustList.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
-        return data_.translatePokemon(fighter_.getName())+SPACE+nb_;
+        return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
     protected static Numbers<Byte> getMembers(FacadeGame _facade, byte _noTeam) {

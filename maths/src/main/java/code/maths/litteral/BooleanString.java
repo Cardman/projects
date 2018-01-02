@@ -4,9 +4,10 @@ import code.maths.exceptions.MathStringFormatException;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.ints.Displayable;
 import code.util.ints.NumericableString;
 
-final class BooleanString implements NumericableString<Boolean> {
+final class BooleanString implements NumericableString<Boolean>, Displayable {
 
     static final char TRUE_CHAR = 'V';
 
@@ -121,7 +122,7 @@ final class BooleanString implements NumericableString<Boolean> {
             if (num_.isError()) {
                 return;
             }
-            elts_.set(index_, num_.toString());
+            elts_.set(index_, num_.display());
         }
         booleanString = new StringBuilder(elts_.join(EMPTY_STRING));
         if (booleanString.length() == 0) {
@@ -718,7 +719,7 @@ final class BooleanString implements NumericableString<Boolean> {
     }
 
     @Override
-    public String toString() {
+    public String display() {
         return booleanString.toString();
     }
 

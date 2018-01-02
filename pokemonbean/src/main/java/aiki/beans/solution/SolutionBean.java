@@ -1,9 +1,4 @@
 package aiki.beans.solution;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorWildPokemonDto;
@@ -22,6 +17,12 @@ import aiki.map.places.League;
 import aiki.map.places.Place;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
+import code.bean.Accessible;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.TreeMap;
 
 public class SolutionBean extends CommonBean {
 
@@ -131,7 +132,7 @@ public class SolutionBean extends CommonBean {
         if (place_.getLevels().size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return name_;
         }
-        return name_+SPACE+key_.getLevel();
+        return StringList.concat(name_,SPACE,Long.toString(key_.getLevel()));
     }
 
     @Accessible

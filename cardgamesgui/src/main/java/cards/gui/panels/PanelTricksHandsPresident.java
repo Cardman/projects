@@ -198,7 +198,7 @@ public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTr
             byte col_ = 0;
             byte row_ = 0;
             while(indice_<entameur_) {
-                JLabel etiquette2_=new JLabel(EMPTY+indice_);
+                JLabel etiquette2_=new JLabel(Long.toString(indice_));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -296,7 +296,7 @@ public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTr
             byte col_ = 0;
             byte row_ = 0;
             while(indice_<entameur_) {
-                JLabel etiquette2_=new JLabel(EMPTY+indice_);
+                JLabel etiquette2_=new JLabel(Long.toString(indice_));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -343,7 +343,7 @@ public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTr
                 selectedTrick.add(panels_.getVal(c));
             }
 //            while(indice_<2*numberPlayers-1) {
-//                JLabel etiquette2_=new JLabel(EMPTY+(indice_-numberPlayers));
+//                JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
 //                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
 //                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
 //                etiquette2_.setOpaque(true);
@@ -393,7 +393,7 @@ public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTr
             byte col_ = 0;
             byte row_ = 0;
             while(indice_<entameur_) {
-                JLabel etiquette2_=new JLabel(EMPTY+indice_);
+                JLabel etiquette2_=new JLabel(Long.toString(indice_));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -493,7 +493,7 @@ public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTr
             byte col_ = 0;
             byte row_ = 0;
             while(indice_<entameur_) {
-                JLabel etiquette2_=new JLabel(EMPTY+indice_);
+                JLabel etiquette2_=new JLabel(Long.toString(indice_));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -546,7 +546,7 @@ public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTr
                 selectedTrick.add(panels_.getVal(c));
             }
 //            while(indice_<2*numberPlayers-1) {
-//                JLabel etiquette2_=new JLabel(EMPTY+(indice_-numberPlayers));
+//                JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
 //                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
 //                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
 //                etiquette2_.setOpaque(true);

@@ -14,6 +14,7 @@ import code.gui.TopLeftFrame;
 import code.serialize.SerializeXmlObject;
 import code.serialize.exceptions.BadObjectException;
 import code.stream.StreamTextFile;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 
@@ -61,7 +62,7 @@ public class LaunchingPokemon extends SoftApplication {
                 zip_ = DataBase.EMPTY_STRING;
             }
             if (zip_.isEmpty() || new File(zip_).exists()) {
-                fileConfig_ = LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE;
+                fileConfig_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
             }
         } catch (RuntimeException _0) {
         }
@@ -75,12 +76,12 @@ public class LaunchingPokemon extends SoftApplication {
                 //pathConfig_ = new File(fileConfig_).getParentFile().getAbsolutePath().replace(StreamTextFile.B_SEPARATEUR, StreamTextFile.SEPARATEUR);
             } catch (RuntimeException _0) {
                 param_ = null;
-                fileConfig_ = LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE;
+                fileConfig_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
             }
         } else {
             try {
 //                String xmlString_ = StreamTextFile.contentsOfFile(getFolderJarPath()+fileConfig_);
-                String xmlString_ = StreamTextFile.contentsOfFile(ConstFiles.getInitFolder()+fileConfig_);
+                String xmlString_ = StreamTextFile.contentsOfFile(StringList.concat(ConstFiles.getInitFolder(),fileConfig_));
                 param_ = (LoadingGame) SerializeXmlObject.newObjectFromXmlString(xmlString_);
                 param_.setLastSavedGame(gameSavePath_);
                 param_.setLastRom(zip_);
@@ -140,12 +141,12 @@ public class LaunchingPokemon extends SoftApplication {
     }
 
     public static String getTempFolderSl() {
-        return getTempFolder() + StreamTextFile.SEPARATEUR;
+        return StringList.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
     }
 
     public static String getTempFolder() {
-        new File(ConstFiles.getTmpUserFolderSl()+TEMP_FOLDER).mkdirs();
-        return ConstFiles.getTmpUserFolderSl()+TEMP_FOLDER;
+        new File(StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
+        return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 
     public static Class<?> getMainWindowClass() {

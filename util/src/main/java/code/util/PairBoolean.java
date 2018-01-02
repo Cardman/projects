@@ -42,11 +42,6 @@ public final class PairBoolean implements Equallable<PairBoolean> {
     }
 
     @Override
-    public String toString() {
-        return StringList.concat(String.valueOf(first),SEPARATOR,String.valueOf(second));
-    }
-
-    @Override
     public boolean eq(PairBoolean _g) {
         if (first != _g.first) {
             return false;

@@ -1120,7 +1120,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.SUPER_KEYWORD);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string.substring(firstPrintChar_+(EXTERN_CLASS+SUPER+EXTERN_CLASS).length(), lastPrintChar_ - GET_FIELD.length() + 1), firstPrintChar_);
+                op_.setValue(_string.substring(firstPrintChar_+SUPER.length() + 2, lastPrintChar_ - GET_FIELD.length() + 1), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }

@@ -53,7 +53,7 @@ public final class FileRowCol implements Equallable<FileRowCol>, Displayable {
 
     @Override
     public String display() {
-        return fileName+SEP+rowCol.display();
+        return StringList.concat(fileName,SEP,rowCol.display());
     }
 
 }

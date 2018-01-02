@@ -55,11 +55,6 @@ public final class MyPoint implements Parent<MyPoint>, TreeFilter<MyPoint>, Equa
         return true;
     }
 
-    @Override
-    public String toString() {
-        return xCoords+","+yCoords;
-    }
-
     public int getXcoords() {
         return xCoords;
     }

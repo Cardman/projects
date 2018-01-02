@@ -1,8 +1,11 @@
 package aiki.map.tree.util;
 import code.util.Numbers;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class Dims implements Equallable<Dims> {
+public final class Dims implements Equallable<Dims>, Displayable {
+
+    private static final String SEPARATOR = ",";
 
     private short width;
 
@@ -41,5 +44,14 @@ public final class Dims implements Equallable<Dims> {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(height);
+        str_.append(SEPARATOR);
+        str_.append(width);
+        return str_.toString();
     }
 }

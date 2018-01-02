@@ -32,7 +32,7 @@ public class MoveLabel extends JLabel {
         move = _move;
         infos = _infos;
         UsesOfMove uses_ = infos.getUses();
-        String usesStr_ = uses_.getCurrent()+RATIO+uses_.getMax();
+        String usesStr_ = StringList.concat(Long.toString(uses_.getCurrent()),RATIO,Long.toString(uses_.getMax()));
         StringList types_ = new StringList();
         for (String t: infos.getTypes()) {
             String type_ = _facade.translateType(t);
@@ -41,7 +41,7 @@ public class MoveLabel extends JLabel {
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }
-        setText(move+SPACE+types_.join(SPACE)+SPACE+usesStr_);
+        setText(StringList.concat(move,SPACE,types_.join(SPACE),SPACE,usesStr_));
         setOpaque(true);
         setPreferredSize(new Dimension(150, 20));
     }

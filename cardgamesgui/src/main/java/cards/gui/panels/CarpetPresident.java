@@ -134,7 +134,7 @@ public class CarpetPresident extends JPanel {
             } else {
                 l_.setBackground(Color.WHITE);
             }
-            l_.setText(pseudos.get(p)+SEPARATOR+cards.getVal(p).toString(Constants.getLanguage()));
+            l_.setText(StringList.concat(pseudos.get(p),SEPARATOR,cards.getVal(p).toString(Constants.getLanguage())));
         }
         repaintValidate();
     }

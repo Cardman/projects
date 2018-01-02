@@ -376,10 +376,10 @@ public final class PaginatorMove extends Paginator {
 //        int side_ = getFacade().getData().getMap().getSideLength();
         //Numbers<Integer> widths_ = new Numbers<Integer>();
         int nameWidth_ = getHeader().width(getMessages().getVal(NAME));
-        int typesWidth_ = getHeader().width(SPACE+getMessages().getVal(TYPES));
-        int prioWidth_ = getHeader().width(SPACE+getMessages().getVal(PRIORITY));
-        int ppWidth_ = getHeader().width(SPACE+getMessages().getVal(PP));
-        int targetWidth_ = getHeader().width(SPACE+getMessages().getVal(TARGETS));
+        int typesWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(TYPES)));
+        int prioWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(PRIORITY)));
+        int ppWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(PP)));
+        int targetWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(TARGETS)));
 //        widths_.add(nameWidth_);
 //        int numberWidth_ = getHeader().width(getMessages().getVal(NUMBER));
 //        widths_.add(numberWidth_);
@@ -387,7 +387,7 @@ public final class PaginatorMove extends Paginator {
         width_ += prioWidth_;
         width_ += ppWidth_;
         width_ += targetWidth_;
-        width_ += getHeader().width(SPACE+getMessages().getVal(PRICE));
+        width_ += getHeader().width(StringList.concat(SPACE,getMessages().getVal(PRICE)));
 //        width_ += getHeader().width(getMessages().getVal(PRICE));
 //        widths_.add(getHeader().width(getMessages().getVal(NAME)));
 //        widths_.add(getHeader().width(getMessages().getVal(NUMBER)));
@@ -397,11 +397,11 @@ public final class PaginatorMove extends Paginator {
 //            width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
 //        }
         getHeader().addString(getMessages().getVal(NAME), FIRST_PIXEL);
-        getHeader().addString(SPACE+getMessages().getVal(TYPES), nameWidth_);
-        getHeader().addString(SPACE+getMessages().getVal(PRIORITY), nameWidth_ + typesWidth_);
-        getHeader().addString(SPACE+getMessages().getVal(PP), nameWidth_ + typesWidth_ + prioWidth_);
-        getHeader().addString(SPACE+getMessages().getVal(TARGETS), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
-        getHeader().addString(SPACE+getMessages().getVal(PRICE), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(TYPES)), nameWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(PRIORITY)), nameWidth_ + typesWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(PP)), nameWidth_ + typesWidth_ + prioWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(MOVE)));
@@ -568,11 +568,11 @@ public final class PaginatorMove extends Paginator {
         getResultsLabels().clear();
         getHeader().clearStrings();
         int nameWidth_ = getHeader().width(getMessages().getVal(NAME));
-        int typesWidth_ = getHeader().width(SPACE+getMessages().getVal(TYPES));
-        int prioWidth_ = getHeader().width(SPACE+getMessages().getVal(PRIORITY));
-        int ppWidth_ = getHeader().width(SPACE+getMessages().getVal(PP));
-        int targetWidth_ = getHeader().width(SPACE+getMessages().getVal(TARGETS));
-        int priceWidth_ = getHeader().width(SPACE+getMessages().getVal(PRICE));
+        int typesWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(TYPES)));
+        int prioWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(PRIORITY)));
+        int ppWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(PP)));
+        int targetWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(TARGETS)));
+        int priceWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(PRICE)));
 //        widths_.add(nameWidth_);
 //        int numberWidth_ = getHeader().width(getMessages().getVal(NUMBER));
 //        widths_.add(numberWidth_);
@@ -634,11 +634,11 @@ public final class PaginatorMove extends Paginator {
 //            l.setxPrice(priceWidth_);
             l.setPreferredSize(width_);
         }
-        getHeader().addString(SPACE+getMessages().getVal(TYPES), nameWidth_);
-        getHeader().addString(SPACE+getMessages().getVal(PRIORITY), nameWidth_ + typesWidth_);
-        getHeader().addString(SPACE+getMessages().getVal(PP), nameWidth_ + typesWidth_ + prioWidth_);
-        getHeader().addString(SPACE+getMessages().getVal(TARGETS), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
-        getHeader().addString(SPACE+getMessages().getVal(PRICE), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(TYPES)), nameWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(PRIORITY)), nameWidth_ + typesWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(PP)), nameWidth_ + typesWidth_ + prioWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
+        getHeader().addString(StringList.concat(SPACE,getMessages().getVal(PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
 //        results.add(new JLabel(getMessages().getVal(MOVE)));
         results.add(getHeader());
         for (TmLabel l: list_) {

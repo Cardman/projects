@@ -83,10 +83,6 @@ public enum BidBelote implements Displayable {
         }
         return ordre == Order.TRUMP;
     }
-    @Override
-    public String toString() {
-        return toString(Constants.getLanguage());
-    }
 
     public String toString(String _locale) {
         return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_BID,name());

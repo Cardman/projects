@@ -745,7 +745,7 @@ public class ScenePanel extends JPanel {
         if (!DialogServer.isChoosen()) {
             return;
         }
-        String fileName_ = ConstFiles.getInitFolder() + Resources.PORT_INI;
+        String fileName_ = StringList.concat(ConstFiles.getInitFolder(), Resources.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
         if (DialogServer.isCreate()) {
             window.createServer(ip_, DialogServer.getIpType(), port_);
@@ -1477,7 +1477,7 @@ public class ScenePanel extends JPanel {
         StringMap<Short> chosenMoves_ = facade.getPlayer().getChosenMoves();
         for (String m: unselectedMoves_) {
             String tr_ = facade.translateMove(m);
-            MoveTutorCheckBox check_ = new MoveTutorCheckBox(m,tr_+SPACE+chosenMoves_.getVal(m),false,this);
+            MoveTutorCheckBox check_ = new MoveTutorCheckBox(m,StringList.concat(tr_,SPACE,Long.toString(chosenMoves_.getVal(m))),false,this);
             check_.setBackground(Color.WHITE);
             check_.setSelected(false);
             movesLearnt.add(check_);
@@ -1704,7 +1704,7 @@ public class ScenePanel extends JPanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(tr_+SPACE+moves_.getVal(m));
+            LabelButton check_ = new LabelButton(StringList.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
             check_.addMouseListener(new HealMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);
@@ -1727,7 +1727,7 @@ public class ScenePanel extends JPanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(tr_+SPACE+moves_.getVal(m));
+            LabelButton check_ = new LabelButton(StringList.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
             check_.addMouseListener(new BoostMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);
@@ -1792,7 +1792,7 @@ public class ScenePanel extends JPanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(tr_+SPACE+moves_.getVal(m));
+            LabelButton check_ = new LabelButton(StringList.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
             check_.addMouseListener(new LearntMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);

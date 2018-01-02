@@ -12,7 +12,7 @@ public final class MissingReturnMethod extends FoundErrorInterpret {
     @Override
     public String display() {
         String message_ = StringList.simpleStringsFormat(CLASS_NAME, returning);
-        return super.display()+message_+SEP_KEY_VAL+id+SEP_INFO;
+        return StringList.concat(super.display(),message_,SEP_KEY_VAL,id,SEP_INFO);
     }
 
     public String getId() {

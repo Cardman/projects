@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods.util;
 
+import code.util.StringList;
+
 public final class DuplicateParamName extends FoundErrorInterpret {
 
     private static final String CLASS_NAME = "duplicate param name";
@@ -8,7 +10,7 @@ public final class DuplicateParamName extends FoundErrorInterpret {
 
     @Override
     public String display() {
-        return super.display()+CLASS_NAME+SEP_KEY_VAL+paramName+SEP_INFO;
+        return StringList.concat(super.display(),CLASS_NAME,SEP_KEY_VAL,paramName,SEP_INFO);
     }
 
     public String getParamName() {

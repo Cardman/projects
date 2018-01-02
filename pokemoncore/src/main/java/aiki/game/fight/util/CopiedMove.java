@@ -2,9 +2,10 @@ package aiki.game.fight.util;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
 @CheckedData
-public final class CopiedMove {
+public final class CopiedMove implements Displayable {
 
     private static final char SEPARATOR = ',';
 
@@ -31,12 +32,6 @@ public final class CopiedMove {
         return new CopiedMove(_string);
     }
 
-    @FromAndToString
-    @Override
-    public String toString() {
-        return move+SEPARATOR+pp;
-    }
-
     public String getMove() {
         return move;
     }
@@ -51,5 +46,14 @@ public final class CopiedMove {
 
     public void setPp(short _pp) {
         pp = _pp;
+    }
+
+    @FromAndToString
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(move);
+        str_.append(SEPARATOR);
+        str_.append(pp);
+        return str_.toString();
     }
 }

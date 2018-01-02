@@ -168,11 +168,11 @@ public final class PaginatorEgg extends Paginator {
         //map.getSideLength()
         //miniImagePk egg.getName() steps remainSteps
         //getHeader().setText(getMessages().getVal(EGG));
-        String h_ = getMessages().getVal(NAME)+SPACES;
-        h_ += getMessages().getVal(STEPS)+SPACES;
-        h_ += getMessages().getVal(REMAIN_STEPS);
-        getHeader().addString(h_, FIRST_PIXEL);
-        getHeader().setPreferredSize(new Dimension(getHeader().width(h_), HEIGTH_CHARS));
+        StringBuilder h_ = new StringBuilder(getMessages().getVal(NAME)).append(SPACES);
+        h_.append(getMessages().getVal(STEPS)).append(SPACES);
+        h_.append(getMessages().getVal(REMAIN_STEPS));
+        getHeader().addString(h_.toString(), FIRST_PIXEL);
+        getHeader().setPreferredSize(new Dimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         results.add(getHeader());
         add(new JScrollPane(results));
         JPanel bottom_ = new JPanel();
@@ -323,19 +323,19 @@ public final class PaginatorEgg extends Paginator {
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);
         }
-        getHeader().addString(getMessages().getVal(NAME)+SPACES, FIRST_PIXEL);
-        int maxPixName_ = getHeader().width(getMessages().getVal(NAME)+SPACES);
+        getHeader().addString(StringList.concat(getMessages().getVal(NAME),SPACES), FIRST_PIXEL);
+        int maxPixName_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
         for (EggLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(l.getEgg().getName()+SPACES);
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringList.concat(l.getEgg().getName(),SPACES));
             if (value_ > maxPixName_) {
                 maxPixName_ = value_;
             }
         }
         int side_ = getFacade().getMap().getSideLength();
-        getHeader().addString(getMessages().getVal(STEPS)+SPACES, side_+maxPixName_);
-        int maxPixSteps_ = getHeader().width(getMessages().getVal(STEPS)+SPACES);
+        getHeader().addString(StringList.concat(getMessages().getVal(STEPS),SPACES), side_+maxPixName_);
+        int maxPixSteps_ = getHeader().width(StringList.concat(getMessages().getVal(STEPS),SPACES));
         for (EggLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(Integer.toString(l.getEgg().getSteps())+SPACES);
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringList.concat(Integer.toString(l.getEgg().getSteps()),SPACES));
             if (value_ > maxPixSteps_) {
                 maxPixSteps_ = value_;
             }

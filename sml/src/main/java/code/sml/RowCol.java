@@ -21,11 +21,6 @@ public final class RowCol implements Cmp<RowCol>, Displayable {
     }
 
     @Override
-    public String toString() {
-        return display();
-    }
-
-    @Override
     public boolean eq(RowCol _obj) {
         if (row != _obj.row) {
             return false;

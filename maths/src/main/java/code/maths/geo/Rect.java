@@ -4,11 +4,12 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @RwXml
 @CheckedData
-public final class Rect implements HasEdges, Equallable<Rect> {
+public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
 
     public static final int NB_POINTS = 4;
     private static final String SEPARATOR = ",";
@@ -182,7 +183,15 @@ public final class Rect implements HasEdges, Equallable<Rect> {
     }
     @Override
     @FromAndToString
-    public String toString() {
-        return left+SEPARATOR+top+SEPARATOR+width+SEPARATOR+height;
+    public String display() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(left);
+        str_.append(SEPARATOR);
+        str_.append(top);
+        str_.append(SEPARATOR);
+        str_.append(width);
+        str_.append(SEPARATOR);
+        str_.append(height);
+        return str_.toString();
     }
 }

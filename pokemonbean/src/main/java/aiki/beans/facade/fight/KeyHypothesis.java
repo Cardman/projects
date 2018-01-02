@@ -3,13 +3,14 @@ import code.maths.Rate;
 import code.util.Numbers;
 import code.util.comparators.ComparatorBoolean;
 import code.util.ints.Cmp;
+import code.util.ints.Displayable;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
 
 
-public final class KeyHypothesis implements Cmp<KeyHypothesis> {
+public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
 
     private static final String SEPARATOR = " ";
 
@@ -40,13 +41,11 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis> {
         numberTarget = _targetPk.getPosition();
     }
 
-    @Override
-    public String toString() {
-        return getPlayerPokemon()+SEPARATOR+getMove()+SEPARATOR+getTargetPokemon()+SEPARATOR+isBelongsToUser()+SEPARATOR+getNumberTarget();
-    }
-
     public String getPlayerPokemon() {
-        return playerPokemon+SEPARATOR+numberPlayer;
+        StringBuilder str_ = new StringBuilder(playerPokemon);
+        str_.append(SEPARATOR);
+        str_.append(numberPlayer);
+        return str_.toString();
     }
 
     public String getMove() {
@@ -54,7 +53,9 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis> {
     }
 
     public String getTargetPokemon() {
-        return targetPokemon+SEPARATOR;
+        StringBuilder str_ = new StringBuilder(targetPokemon);
+        str_.append(SEPARATOR);
+        return str_.toString();
     }
 
     public boolean isBelongsToUser() {
@@ -124,6 +125,20 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis> {
             return res_;
         }
         return Numbers.compare(numberTarget, _o.numberTarget);
+    }
+
+    @Override
+    public String display() {
+        StringBuilder str_ = new StringBuilder(getPlayerPokemon());
+        str_.append(SEPARATOR);
+        str_.append(getMove());
+        str_.append(SEPARATOR);
+        str_.append(getTargetPokemon());
+        str_.append(SEPARATOR);
+        str_.append(isBelongsToUser());
+        str_.append(SEPARATOR);
+        str_.append(getNumberTarget());
+        return null;
     }
 
 

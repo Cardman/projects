@@ -38,7 +38,7 @@ public final class LoopVariable {
         lv_.append(STEP).append(SEP_KEY_VAL).append(step);
         lv_.append(SEP_INFO);
         if (container == null) {
-            lv_.append(CONTAINER).append(SEP_KEY_VAL).append(container);
+            lv_.append(CONTAINER).append(SEP_KEY_VAL);
         } else {
             lv_.append(CONTAINER).append(SEP_KEY_VAL).append(container.getClassName(_context));
         }

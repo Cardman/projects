@@ -1,8 +1,9 @@
 package code.serialize.classes;
 import code.util.annot.RwXml;
+import code.util.ints.Displayable;
 
 @RwXml
-public abstract class PrimitiveSix {
+public abstract class PrimitiveSix implements Displayable {
 
     private Integer primitive;
 
@@ -17,7 +18,7 @@ public abstract class PrimitiveSix {
     }
 
     @Override
-    public String toString() {
+    public String display() {
         return primitive.toString();
     }
 

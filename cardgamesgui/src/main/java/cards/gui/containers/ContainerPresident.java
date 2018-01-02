@@ -20,7 +20,6 @@ import code.util.StringList;
 public class ContainerPresident extends ContainerGame {
 
     public static final String EMPTY="";
-    public static final char RETURN_LINE_CHAR='\n';
     public static final String TAB="\t";
 
     private JPanel panelReceivedCards;
@@ -91,7 +90,7 @@ public class ContainerPresident extends ContainerGame {
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandPresident chargerPilePresident(int _nbStacks) {
-        HandPresident pile_=(HandPresident)StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.PRESIDENT.name()+_nbStacks+FileConst.DECK_EXT);
+        HandPresident pile_=(HandPresident)StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(_nbStacks),FileConst.DECK_EXT));
         return pile_;
     }
 

@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.methods.AccessEnum;
+import code.util.StringList;
 
 public final class StandardField {
 
@@ -43,6 +44,6 @@ public final class StandardField {
     }
 
     public String getPrettyString(String _className) {
-        return _className+" "+className+" "+fieldName;
+        return StringList.concat(_className," ",className," ",fieldName);
     }
 }

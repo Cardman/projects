@@ -84,11 +84,6 @@ public final class Point implements Equallable<Point>, Displayable {
         yCoord = _y;
     }
 
-    @Override
-    public String toString() {
-        return display();
-    }
-
     @FromAndToString
     @Override
     public String display() {

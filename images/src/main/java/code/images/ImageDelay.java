@@ -1,8 +1,9 @@
 package code.images;
 import code.sml.FromAndToString;
 import code.util.StringList;
+import code.util.ints.Displayable;
 
-public final class ImageDelay {
+public final class ImageDelay implements Displayable {
 
     public static final char SEPARATOR_IMAGE_DELAY = '_';
 
@@ -31,8 +32,11 @@ public final class ImageDelay {
 
     @FromAndToString
     @Override
-    public String toString() {
-        return image.toString()+SEPARATOR_IMAGE_DELAY+delay;
+    public String display() {
+        StringBuilder str_ = new StringBuilder(image.display());
+        str_.append(SEPARATOR_IMAGE_DELAY);
+        str_.append(delay);
+        return str_.toString();
     }
 
     public Image getImage() {

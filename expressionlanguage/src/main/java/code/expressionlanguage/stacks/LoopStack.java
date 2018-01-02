@@ -1,5 +1,6 @@
 package code.expressionlanguage.stacks;
 import code.expressionlanguage.opers.util.Struct;
+import code.util.StringList;
 
 public abstract class LoopStack extends BlockStack implements BreakableStack {
 
@@ -30,7 +31,7 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
         } else {
             iteration_ = WHILE_LOOP;
         }
-        return iteration_+SEP_INFO+INDEX+SEP_KEY_VAL+index+SEP_INFO;
+        return StringList.concat(iteration_,SEP_INFO,INDEX,SEP_KEY_VAL,Long.toString(index),SEP_INFO);
     }
 
     public boolean hasNext() {

@@ -183,8 +183,8 @@ public class MainWindow extends GroupFrame {
                 songsList = StringList.splitStrings(songs.getText(), LINE_RETURN);
                 songsList.removeAllString(EMPTY);
                 StringList songsList_ = new StringList();
-                for (Object o: AbMonteCarlo.suffledElts((Object[])songsList.toArray())) {
-                    songsList_.add(o.toString());
+                for (String o: AbMonteCarlo.suffledStrings(songsList.toArray())) {
+                    songsList_.add(o);
                 }
                 songsList = songsList_;
             } else if (_click) {
@@ -269,8 +269,8 @@ public class MainWindow extends GroupFrame {
                     }
                     if (random.isSelected()) {
                         StringList songsList_ = new StringList();
-                        for (Object o: AbMonteCarlo.suffledElts((Object[])songsList.toArray())) {
-                            songsList_.add(o.toString());
+                        for (String o: AbMonteCarlo.suffledStrings(songsList.toArray())) {
+                            songsList_.add(o);
                         }
                         songsList = songsList_;
                     }
