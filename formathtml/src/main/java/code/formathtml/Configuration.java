@@ -6,11 +6,12 @@ import code.expressionlanguage.AccessValue;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
-import code.expressionlanguage.stds.LgNames;
+import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanStruct;
+import code.formathtml.util.StringMapObjectStruct;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.util.CustList;
@@ -63,7 +64,8 @@ public class Configuration {
     private StringMap<String> lateTranslators = new StringMap<String>();
 
     private String prefix = EMPTY_STRING;
-    private LgNames standards;
+    private BeanLgNames standards;
+    private String dataBaseClassName;
 
     private final transient StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
@@ -82,6 +84,8 @@ public class Configuration {
     private transient String resourceUrl;
 
     private transient volatile boolean interrupt;
+
+    private transient boolean customLgNames;
 
     public final void init() {
         htmlPage = new HtmlPage();
@@ -102,8 +106,10 @@ public class Configuration {
             lateTranslators = new StringMap<String>();
         }
         if (standards == null) {
-            standards = new LgNames();
+            standards = new BeanLgNames();
             DefaultInitialization.basicStandards(standards);
+        } else {
+            customLgNames = true;
         }
         standards.build();
         standards.setupOverrides();
@@ -230,19 +236,25 @@ public class Configuration {
 
     public Struct newBean(String _language, Object _dataBase, Bean _bean, boolean _set) {
         if (!_set) {
-            return new StdStruct(_bean);
+            return new BeanStruct(_bean);
         }
         addPage(new ImportingPage(false));
         Struct strBean_ = ElUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, toContextEl()).getStruct();
         if (_dataBase != null) {
-            ExtractObject.setDataBase(this, strBean_, CustStruct.wrapOrId(_dataBase));
+            String className_;
+            if (toContextEl().getClasses() == null) {
+                className_ = standards.getAliasObject();
+            } else {
+                className_ = getDataBaseClassName();
+            }
+            ExtractObject.setDataBase(this, strBean_, new StdStruct(_dataBase, className_));
         } else {
             ExtractObject.setDataBase(this, strBean_, NullStruct.NULL_VALUE);
         }
         if (_bean == null || _bean.getForms() == null) {
-            ExtractObject.setForms(this, strBean_, new StdStruct(new StringMapObject()));
+            ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(new StringMapObject()));
         } else {
-            ExtractObject.setForms(this, strBean_, new StdStruct(_bean.getForms()));
+            ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(_bean.getForms()));
         }
         ExtractObject.setLanguage(this, strBean_, _language);
         if (_bean.getScope() != null) {
@@ -277,6 +289,9 @@ public class Configuration {
             return context;
         }
         ContextEl context_ = new ContextEl();
+        if (customLgNames) {
+            context_.setClasses(new Classes());
+        }
         context_.setStandards(standards);
         context_.setAccessValue(accessValue);
         context_.setCurrentUrl(currentUrl);
@@ -493,11 +508,19 @@ public class Configuration {
         return builtTranslators;
     }
 
-    public final LgNames getStandards() {
+    public final BeanLgNames getStandards() {
         return standards;
     }
 
-    public final void setStandards(LgNames _standards) {
+    public final void setStandards(BeanLgNames _standards) {
         standards = _standards;
+    }
+
+    public String getDataBaseClassName() {
+        return dataBaseClassName;
+    }
+
+    public void setDataBaseClassName(String _dataBaseClassName) {
+        dataBaseClassName = _dataBaseClassName;
     }
 }

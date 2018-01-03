@@ -6,19 +6,19 @@
 <body>
 	<h1>D&eacute;tails des annonces</h1>
 	<ul>
-		<c:for var="p" list="declaring" className='cards.belote.beans.SumDeclaringPlayer'>
+		<c:for var="p" list="getDeclaring()" className='cards.belote.beans.SumDeclaringPlayer'>
 			<li>
-				Annonces de {p;nickname} ({p;statut}):
-				<c:if condition="p;declaring.isEmpty()">
+				Annonces de {p;getNickname()} ({p;getStatut()}):
+				<c:if condition="p;getDeclaring().isEmpty()">
 					Rien
 				</c:if>
-				<c:if condition="!p;declaring.isEmpty()">
+				<c:if condition="!p;getDeclaring().isEmpty()">
 					<br/>
 					<ul>
-						<c:for var="d" list="p;declaring" className='cards.belote.beans.DeclaringPlayerValue'>
-							<li>{d;declaring} : {d;value}</li>
+						<c:for var="d" list="p;getDeclaring()" className='cards.belote.beans.DeclaringPlayerValue'>
+							<li>{d;getDeclaring()} : {d;getValue()}</li>
 						</c:for>
-						<li>Somme : {p;sum}</li>
+						<li>Somme : {p;getSum()}</li>
 					</ul>
 				</c:if>
 			</li>

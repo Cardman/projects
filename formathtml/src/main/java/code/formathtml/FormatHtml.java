@@ -30,11 +30,14 @@ import code.expressionlanguage.methods.exceptions.BadTagBreakException;
 import code.expressionlanguage.methods.exceptions.BadTagContinueException;
 import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.expressionlanguage.methods.exceptions.BadVariableNameException;
+import code.expressionlanguage.opers.util.BooleanStruct;
+import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.BadEnumeratingException;
@@ -683,6 +686,7 @@ public final class FormatHtml {
                 if (!throwException(_conf, realCaught_)) {
                     continue;
                 }
+                _0.printStackTrace();
                 throw new RenderingException(new StdStruct(_0));
             }
         }
@@ -1653,7 +1657,6 @@ public final class FormatHtml {
     static Struct tryToGetObject(Configuration _conf, ImportingPage _ip,
             Element _element) {
         String numExpr_ = _element.getAttribute(NUMBER_EXPRESSION);
-        Object obj_;
         String expression_ = _element.getAttribute(EXPRESSION_ATTRIBUTE);
         if (!numExpr_.isEmpty()) {
             expression_ = numExpr_;
@@ -1662,9 +1665,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(NUMBER_EXPRESSION);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            obj_ = ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
-            ExtractObject.checkNullPointer(_conf, obj_);
-            return StdStruct.wrapStd(obj_);
+            return ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
         } else {
             _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
@@ -1673,27 +1674,23 @@ public final class FormatHtml {
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                     return NullStruct.NULL_VALUE;
                 } else {
-                    obj_ = expression_;
+                    return new StringStruct(expression_);
                 }
-                return StdStruct.wrapStd(obj_);
             } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                     return NullStruct.NULL_VALUE;
                 } else {
-                    obj_ = ExtractObject.getChar(_conf, expression_);
+                    return new CharStruct(ExtractObject.getChar(_conf, expression_));
                 }
-                return StdStruct.wrapStd(obj_);
             } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                     return NullStruct.NULL_VALUE;
                 } else {
-                    obj_ = Boolean.parseBoolean(expression_);
+                    return new BooleanStruct(Boolean.parseBoolean(expression_));
                 }
-                return StdStruct.wrapStd(obj_);
             } else if (StringList.isNumber(expression_)) {
                 String primLong_ = _conf.getStandards().getAliasPrimLong();
-                obj_ = ExtractObject.instanceByString(_conf, primLong_, expression_);
-                return StdStruct.wrapStd(obj_);
+                return ExtractObject.instanceByString(_conf, primLong_, expression_);
             } else {
                 return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
             }
@@ -1703,8 +1700,6 @@ public final class FormatHtml {
             Element _element) {
         String className_ = _element.getAttribute(ATTRIBUTE_CLASS_NAME);
         String numExpr_ = _element.getAttribute(NUMBER_EXPRESSION);
-        Object obj_ = null;
-        boolean useStruct_ = false;
         Struct struct_ = null;
         String expression_ = _element.getAttribute(EXPRESSION_ATTRIBUTE);
         if (!numExpr_.isEmpty()) {
@@ -1714,10 +1709,10 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(NUMBER_EXPRESSION);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            obj_ = ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
+            struct_ = ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
             if (className_.isEmpty()) {
-                ExtractObject.checkNullPointer(_conf, obj_);
-                className_ = obj_.getClass().getName();
+                ExtractObject.checkNullPointer(_conf, struct_.getInstance());
+                className_ = struct_.getClassName(_conf.toContextEl());
             } else {
                 ExtractObject.classNameForName(_conf, 0, className_);
             }
@@ -1728,36 +1723,35 @@ public final class FormatHtml {
                 _ip.setOffset(0);
                 if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        obj_ = null;
+                        struct_ = NullStruct.NULL_VALUE;
                         className_ = Object.class.getName();
                     } else {
-                        obj_ = expression_;
+                        struct_ = new StringStruct(expression_);
                         className_ = String.class.getName();
                     }
                 } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        obj_ = null;
+                        struct_ = NullStruct.NULL_VALUE;
                         className_ = Object.class.getName();
                     } else {
-                        obj_ = ExtractObject.getChar(_conf, expression_);
+                        struct_ = new CharStruct(ExtractObject.getChar(_conf, expression_));
                         className_ = Character.class.getName();
                     }
                 } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        obj_ = null;
+                        struct_ = NullStruct.NULL_VALUE;
                         className_ = Object.class.getName();
                     } else {
-                        obj_ = Boolean.parseBoolean(expression_);
+                        struct_ = new BooleanStruct(Boolean.parseBoolean(expression_));
                         className_ = Boolean.class.getName();
                     }
                 } else if (StringList.isNumber(expression_)) {
                     className_ = _conf.getStandards().getAliasPrimLong();
-                    obj_ = ExtractObject.instanceByString(_conf, className_, expression_);
+                    struct_ = ExtractObject.instanceByString(_conf, className_, expression_);
                 } else {
                     className_ = Object.class.getName();
                     Argument a_ = ElUtil.processEl(expression_, 0, _conf.toContextEl());
                     struct_ = a_.getStruct();
-                    useStruct_ = true;
                 }
             } else {
                 if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
@@ -1766,9 +1760,9 @@ public final class FormatHtml {
                     _ip.setOffset(0);
                     ExtractObject.classNameForName(_conf, 0, className_);
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        obj_ = null;
+                        struct_ = NullStruct.NULL_VALUE;
                     } else {
-                        obj_ = expression_;
+                        struct_ = new StringStruct(expression_);
                     }
                 } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
@@ -1776,9 +1770,9 @@ public final class FormatHtml {
                     _ip.setOffset(0);
                     ExtractObject.classNameForName(_conf, 0, className_);
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        obj_ = null;
+                        struct_ = NullStruct.NULL_VALUE;
                     } else {
-                        obj_ = ExtractObject.getChar(_conf, expression_);
+                        struct_ = new CharStruct(ExtractObject.getChar(_conf, expression_));
                     }
                 } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
@@ -1786,9 +1780,9 @@ public final class FormatHtml {
                     _ip.setOffset(0);
                     ExtractObject.classNameForName(_conf, 0, className_);
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        obj_ = null;
+                        struct_ = NullStruct.NULL_VALUE;
                     } else {
-                        obj_ = Boolean.parseBoolean(expression_);
+                        struct_ = new BooleanStruct(Boolean.parseBoolean(expression_));
                     }
                 } else if (StringList.isNumber(expression_)) {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
@@ -1798,14 +1792,13 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    obj_ = ExtractObject.instanceByString(_conf, className_, expression_);
+                    struct_ = ExtractObject.instanceByString(_conf, className_, expression_);
                 } else {
                     _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
                     Argument a_ = ElUtil.processEl(expression_, 0, _conf.toContextEl());
                     struct_ = a_.getStruct();
-                    useStruct_ = true;
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
@@ -1815,11 +1808,7 @@ public final class FormatHtml {
         }
         VariableInformation vi_ = new VariableInformation();
         vi_.setClassName(className_);
-        if (useStruct_) {
-            vi_.setStruct(struct_);
-        } else {
-            vi_.setElement(obj_);
-        }
+        vi_.setStruct(struct_);
         return vi_;
     }
     static LocalVariable tryToCreateVariable(Configuration _conf, ImportingPage _ip, String _className, Struct _object) {
@@ -3100,7 +3089,7 @@ public final class FormatHtml {
         _conf.getLastPage().setOffset(0);
         Struct o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getStruct();
         if (o_.isNull()) {
-            o_ = new StdStruct(EMPTY_STRING);
+            o_ = new StringStruct(EMPTY_STRING);
         }
         //TODO converter
         Text text_ = _doc.createTextNode(ExtractObject.toString(_conf, o_));
@@ -3808,7 +3797,7 @@ public final class FormatHtml {
             if (iterator_ != null) {
                 lv_.setStruct(ExtractObject.next(_conf, iterator_));
             } else {
-                lv_.setElement(Array.get(lv_.getContainer().getInstance(), (int) _l.getIndex()));
+                lv_.setStruct(LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf.toContextEl()));
             }
             lv_.setIndex(lv_.getIndex() + 1);
         } else if (forLoopLoc_.hasAttribute(ATTRIBUTE_MAP)) {
@@ -3839,7 +3828,7 @@ public final class FormatHtml {
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
             Number element_ = (Number) lv_.getStruct().getInstance();
-            lv_.setElement((Number)PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.toContextEl()));
+            lv_.setElement((Number)PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.toContextEl()).getInstance());
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4021,9 +4010,9 @@ public final class FormatHtml {
                 throw new DynamicCastClassException(StringList.concat(argStep_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
             }
             realFromValue_ = argFrom_.getObject();
-            fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_, _conf.toContextEl());
-            long toValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argTo_.getObject(), _conf.toContextEl());
-            stepValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argStep_.getObject(), _conf.toContextEl());
+            fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_, _conf.toContextEl()).getInstance();
+            long toValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argTo_.getObject(), _conf.toContextEl()).getInstance();
+            stepValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argStep_.getObject(), _conf.toContextEl()).getInstance();
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -4104,7 +4093,7 @@ public final class FormatHtml {
         if (iterationNb_) {
             int_ = realFromValue_;
         } else if (iterable_.getClass().isArray()) {
-            elt_ = CustStruct.wrapOrId(Array.get(iterable_, CustList.FIRST_INDEX));
+            elt_ = LgNames.getElement(iterable_, CustList.FIRST_INDEX, _conf.toContextEl());
         } else {
             elt_ = ExtractObject.next(_conf, itStr_);
         }
@@ -4124,7 +4113,7 @@ public final class FormatHtml {
             ExtractObject.classNameForName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
-            lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()));
+            lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()).getInstance());
             lv_.setStep(stepValue_);
             varsLoop_.put(var_, lv_);
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {

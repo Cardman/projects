@@ -1,20 +1,15 @@
 package cards.belote.beans;
-import code.bean.Accessible;
 import code.util.CustList;
 
 
 final class SumDeclaringPlayer{
 
-    @Accessible
     private String nickname;
 
-    @Accessible
     private String statut;
 
-    @Accessible
     private CustList<DeclaringPlayerValue> declaring;
 
-    @Accessible
     private int sum;
 
     public String getNickname() {

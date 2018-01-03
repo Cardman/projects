@@ -5498,6 +5498,7 @@ public class NavigationTest {
         values_.add("TWO");
         values_.add("THREE");
         ni_.setValue(values_);
+        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -5576,6 +5577,7 @@ public class NavigationTest {
         values_ = new StringList();
         values_.add("TWO");
         values_.add("THREE");
+        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
@@ -5722,6 +5724,7 @@ public class NavigationTest {
         values_.add("TWO");
         values_.add("THREE");
         ni_.setValue(values_);
+        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -5947,6 +5950,7 @@ public class NavigationTest {
         values_.add("TWO");
         values_.add("THREE");
         ni_.setValue(values_);
+        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -6026,6 +6030,7 @@ public class NavigationTest {
         values_.add("TWO");
         values_.add("THREE");
         ni_.setValue(values_);
+        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -6684,6 +6689,7 @@ public class NavigationTest {
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
         ni_.setValue(values_);
+        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -6758,6 +6764,7 @@ public class NavigationTest {
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
         ni_.setValue(values_);
+        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);

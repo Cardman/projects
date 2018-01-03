@@ -1,4 +1,3 @@
-
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/classes//cards/president/rules.html"/>
     <java.lang.String class="cfg" field="prefix" value="c"/>

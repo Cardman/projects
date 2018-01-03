@@ -1,6 +1,5 @@
 package code.formathtml.util;
 import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 
 public final class VariableInformation {
@@ -21,10 +20,6 @@ public final class VariableInformation {
         if (element == null) {
             element = NullStruct.NULL_VALUE;
         }
-    }
-
-    public void setElement(Object _element) {
-        element = StdStruct.wrapStd(_element);
     }
 
     public void setClassName(String _className) {

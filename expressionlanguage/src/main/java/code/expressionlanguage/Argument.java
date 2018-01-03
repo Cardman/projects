@@ -190,9 +190,6 @@ public final class Argument {
             setObject((Double)_object);
         }
     }
-    public void setObject(Object _object) {
-        object = StdStruct.wrapStd(_object);
-    }
 
     public void setObject(Object _object, String _alias) {
         object = StdStruct.wrapStd(_object, _alias);

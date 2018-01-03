@@ -164,7 +164,7 @@ public abstract class OperationNode {
     protected static final String SPACE = " ";
     protected static final String RETURN_TAB = "\n\t";
 
-    protected static final String GET_CLASS = "getClass";
+//    protected static final String GET_CLASS = "getClass";
 
     protected static final String VARARG_SUFFIX = "...";
 

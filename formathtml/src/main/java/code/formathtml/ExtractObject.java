@@ -1,9 +1,4 @@
 package code.formathtml;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
@@ -15,13 +10,22 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
+import code.expressionlanguage.opers.util.BooleanStruct;
+import code.expressionlanguage.opers.util.ByteStruct;
+import code.expressionlanguage.opers.util.DoubleStruct;
+import code.expressionlanguage.opers.util.FloatStruct;
+import code.expressionlanguage.opers.util.IntStruct;
+import code.expressionlanguage.opers.util.LongStruct;
+import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
 import code.formathtml.exceptions.InexistingTranslatorException;
+import code.formathtml.util.StringMapObjectStruct;
 import code.serialize.ConstClasses;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.RuntimeInstantiationException;
@@ -255,8 +259,9 @@ final class ExtractObject {
         return str_.toString();
     }
 
-    static Object evaluateMathExpression(ImportingPage _ip, Configuration _conf, boolean _evalBool, String _mathExp) {
+    static Struct evaluateMathExpression(ImportingPage _ip, Configuration _conf, boolean _evalBool, String _mathExp) {
         MathFactory mathFact_ = getMathFactory(_conf);
+        String rateClass_ = _conf.getStandards().getAliasRate();
         String numExpr_ = _mathExp;
         StringBuilder calculateVariables_ = new StringBuilder();
         int i_ = CustList.FIRST_INDEX;
@@ -301,22 +306,19 @@ final class ExtractObject {
         }
         numExpr_ = calculateVariables_.toString();
         try {
-            Object ret_;
             if (_evalBool) {
-                ret_ = mathFact_.evaluateDirectlyBoolean(numExpr_);
+                return new BooleanStruct(mathFact_.evaluateDirectlyBoolean(numExpr_));
             } else {
-                ret_ = mathFact_.evaluateDirectlyRate(numExpr_);
+                return new StdStruct(mathFact_.evaluateDirectlyRate(numExpr_), rateClass_);
             }
-            return ret_;
         } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
 
-    static Object instanceByString(Configuration _conf, String _class, String _arg) {
+    static Struct instanceByString(Configuration _conf, String _class, String _arg) {
         try {
             String name_ = _class;
-            Object value_;
             LgNames stds_ = _conf.getStandards();
             String doublePrim_ = stds_.getAliasPrimDouble();
             String floatPrim_ = stds_.getAliasPrimFloat();
@@ -325,35 +327,26 @@ final class ExtractObject {
             String shortPrim_ = stds_.getAliasPrimShort();
             String bytePrim_ = stds_.getAliasPrimByte();
             if (StringList.quickEq(name_, Integer.class.getName()) || StringList.quickEq(name_, intPrim_)) {
-                value_ = Integer.parseInt(_arg);
+                return new IntStruct(Integer.parseInt(_arg));
             } else if (StringList.quickEq(name_, Long.class.getName()) || StringList.quickEq(name_, longPrim_)) {
-                value_ = Long.parseLong(_arg);
+                return new LongStruct(Long.parseLong(_arg));
             } else if (StringList.quickEq(name_, Short.class.getName()) || StringList.quickEq(name_, shortPrim_)) {
-                value_ = Short.parseShort(_arg);
+                return new ShortStruct(Short.parseShort(_arg));
             } else if (StringList.quickEq(name_, Byte.class.getName()) || StringList.quickEq(name_, bytePrim_)) {
-                value_ = Byte.parseByte(_arg);
-            } else if (StringList.quickEq(name_, BigInteger.class.getName())) {
-                value_ = new BigInteger(_arg);
-            } else if (StringList.quickEq(name_, BigDecimal.class.getName())) {
-                value_ = new BigDecimal(_arg);
+                return new ByteStruct(Byte.parseByte(_arg));
             } else if (StringList.quickEq(name_, Double.class.getName()) || StringList.quickEq(name_, doublePrim_)) {
-                value_ = Double.parseDouble(_arg);
+                return new DoubleStruct(Double.parseDouble(_arg));
             } else if (StringList.quickEq(name_, Float.class.getName()) || StringList.quickEq(name_, floatPrim_)) {
-                value_ = Float.parseFloat(_arg);
-            } else if (StringList.quickEq(name_, AtomicInteger.class.getName())) {
-                value_ = new AtomicInteger(Integer.parseInt(_arg));
-            } else if (StringList.quickEq(name_, AtomicLong.class.getName())) {
-                value_ = new AtomicLong(Long.parseLong(_arg));
+                return new FloatStruct(Float.parseFloat(_arg));
             } else {
                 String escaped_ = StringList.replace(_arg, QUOTE_DOUBLE, StringList.concat(String.valueOf(ESCAPED),QUOTE_DOUBLE));
                 String instanciation_ = StringList.concat(INSTANCE,_class,String.valueOf(BEGIN_ARGS),QUOTE_DOUBLE,escaped_,QUOTE_DOUBLE,String.valueOf(END_ARGS));
-                Object obj_ = ElUtil.processEl(instanciation_, 0, _conf.toContextEl()).getObject();
-                if (obj_ == null) {
+                Argument obj_ = ElUtil.processEl(instanciation_, 0, _conf.toContextEl());
+                if (obj_.isNull()) {
                     throw new RuntimeInstantiationException(EMPTY_STRING);
                 }
-                return obj_;
+                return obj_.getStruct();
             }
-            return value_;
         } catch (Throwable _0) {
             throw new InvokingException(_0, _conf.joinPages());
         }
@@ -411,9 +404,9 @@ final class ExtractObject {
 
     static Struct getDataBase(Configuration _conf, Struct _it) {
         Object instance_ = _it.getInstance();
-        if (instance_ instanceof Bean) {
+        if (_conf.toContextEl().getClasses() == null) {
             Bean inst_ = (Bean) instance_;
-            Struct out_ = StdStruct.wrapStd(inst_.getDataBase());
+            Struct out_ = new StdStruct(inst_.getDataBase(), _conf.getStandards().getAliasObject());
             return out_;
         }
         return getResult(_conf, 0, GET_DATA_BASE, _it);
@@ -421,7 +414,7 @@ final class ExtractObject {
 
     static void setDataBase(Configuration _conf, Struct _it, Struct _dataBase) {
         Object instance_ = _it.getInstance();
-        if (instance_ instanceof Bean) {
+        if (_conf.toContextEl().getClasses() == null) {
             Bean inst_ = (Bean) instance_;
             inst_.setDataBase(_dataBase.getInstance());
             return;
@@ -445,7 +438,7 @@ final class ExtractObject {
             inst_.setLanguage(_scope);
             return;
         }
-        setResult(_conf, 0, SET_LANGUAGE, _it, new StdStruct(_scope), String.class.getName());
+        setResult(_conf, 0, SET_LANGUAGE, _it, new StringStruct(_scope), String.class.getName());
     }
 
     static String getScope(Configuration _conf, Struct _it) {
@@ -464,15 +457,14 @@ final class ExtractObject {
             inst_.setScope(_scope);
             return;
         }
-        setResult(_conf, 0, SET_SCOPE, _it, new StdStruct(_scope), String.class.getName());
+        setResult(_conf, 0, SET_SCOPE, _it, new StringStruct(_scope), String.class.getName());
     }
 
     static Struct getForms(Configuration _conf, Struct _it) {
         Object instance_ = _it.getInstance();
         if (instance_ instanceof Bean) {
             Bean inst_ = (Bean) instance_;
-            Struct out_ = StdStruct.wrapStd(inst_.getForms());
-            return out_;
+            return new StringMapObjectStruct(inst_.getForms());
         }
         return getResult(_conf, 0, GET_FORMS, _it);
     }

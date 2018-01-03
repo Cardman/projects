@@ -30,7 +30,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         boolean varargs_ = false;
         while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
             String className_ = _el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_));
-            if (!_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,(i_+1)))) {
+            if (!_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_+1))) {
                 varargs_ = className_.endsWith(VARARG);
                 if (varargs_) {
                     parametersTypes.add(className_.substring(CustList.FIRST_INDEX, className_.length()-VARARG.length()));

@@ -45,5 +45,4 @@ public class SimpleMathFactory implements MathFactory {
     public String toString(Object _gotArg) {
         return String.valueOf(_gotArg);
     }
-
 }

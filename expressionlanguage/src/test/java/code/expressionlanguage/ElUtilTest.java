@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
@@ -16,7 +15,6 @@ import code.expressionlanguage.classes.EnumNumber;
 import code.expressionlanguage.classes.FailMethods;
 import code.expressionlanguage.classes.FieldClass;
 import code.expressionlanguage.classes.FieldFieldClass;
-import code.expressionlanguage.classes.FinalFieldClass;
 import code.expressionlanguage.classes.IOne;
 import code.expressionlanguage.classes.ImplFour;
 import code.expressionlanguage.classes.InheritedComposite;
@@ -35,7 +33,6 @@ import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
-import code.expressionlanguage.exceptions.FinalMemberException;
 import code.expressionlanguage.exceptions.IllegalClassConstructorException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotStringException;
@@ -1129,56 +1126,56 @@ public class ElUtilTest {
         assertSame(Long.class, res_.getClass());
         assertEq(20L, (Number)res_);
     }
-    @Ignore
-    @Test
-    public void processEl84Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setElement(new InternsClasses());
-        lv_.setClassName(InternsClasses.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("v;.$new InternStandard()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStandard.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl84Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setElement(new InternsClasses());
+//        lv_.setClassName(InternsClasses.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        Argument arg_ = ElUtil.processEl("v;.$new InternStandard()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStandard.class, res_.getClass());
+//    }
 
-    @Ignore
-    @Test
-    public void processEl85Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setElement(new InternsClasses());
-        lv_.setClassName(InternsClasses.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("v;.news",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
-        assertEq("", (String)res_);
-    }
-
-
-    @Ignore
-    @Test
-    public void processEl86Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setElement(new InternsClasses());
-        lv_.setClassName(InternsClasses.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("v;.news.length()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
-        assertEq(0, (Number)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl85Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setElement(new InternsClasses());
+//        lv_.setClassName(InternsClasses.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        Argument arg_ = ElUtil.processEl("v;.news",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(String.class, res_.getClass());
+//        assertEq("", (String)res_);
+//    }
+//
+//
+//    @Ignore
+//    @Test
+//    public void processEl86Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setElement(new InternsClasses());
+//        lv_.setClassName(InternsClasses.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        Argument arg_ = ElUtil.processEl("v;.news.length()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(Integer.class, res_.getClass());
+//        assertEq(0, (Number)res_);
+//    }
 
     @Test
     public void processEl87Test() {
@@ -1228,73 +1225,73 @@ public class ElUtilTest {
         assertEq(1,(Number) res_);
     }
 
-    @Ignore
-    @Test
-    public void processEl91Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setElement(new InternsClasses());
-        lv_.setClassName(InternsClasses.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"(0i).getClass().getName()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
-        assertEq("[$int", (String)res_);
-    }
-
-    @Ignore
-    @Test
-    public void processEl92Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setElement(new InternsClasses());
-        lv_.setClassName(InternsClasses.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("$new "+ARR_INTEGER+"(0i).getClass().getName()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
-        assertEq("[java.lang.Integer", (String)res_);
-    }
-
-    @Ignore
-    @Test
-    public void processEl93Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setElement(new InternsClasses());
-        lv_.setClassName(InternsClasses.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("$new "+ARR_ARR_INT+"(0i).getClass().getName()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
-        assertEq("[[$int", (String)res_);
-    }
-
-    @Ignore
-    @Test
-    public void processEl94Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setElement(new InternsClasses());
-        lv_.setClassName(InternsClasses.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("$new "+ARR_ARR_INTEGER+"(0i).getClass().getName()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
-        assertEq("[[java.lang.Integer", (String)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl91Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setElement(new InternsClasses());
+//        lv_.setClassName(InternsClasses.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"(0i).getClass().getName()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(String.class, res_.getClass());
+//        assertEq("[$int", (String)res_);
+//    }
+//
+//    @Ignore
+//    @Test
+//    public void processEl92Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setElement(new InternsClasses());
+//        lv_.setClassName(InternsClasses.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        Argument arg_ = ElUtil.processEl("$new "+ARR_INTEGER+"(0i).getClass().getName()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(String.class, res_.getClass());
+//        assertEq("[java.lang.Integer", (String)res_);
+//    }
+//
+//    @Ignore
+//    @Test
+//    public void processEl93Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setElement(new InternsClasses());
+//        lv_.setClassName(InternsClasses.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        Argument arg_ = ElUtil.processEl("$new "+ARR_ARR_INT+"(0i).getClass().getName()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(String.class, res_.getClass());
+//        assertEq("[[$int", (String)res_);
+//    }
+//
+//    @Ignore
+//    @Test
+//    public void processEl94Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setElement(new InternsClasses());
+//        lv_.setClassName(InternsClasses.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        Argument arg_ = ElUtil.processEl("$new "+ARR_ARR_INTEGER+"(0i).getClass().getName()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(String.class, res_.getClass());
+//        assertEq("[[java.lang.Integer", (String)res_);
+//    }
 
     @Test
     public void processEl95Test() {
@@ -2324,31 +2321,31 @@ public class ElUtilTest {
         assertEq(-1, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
     }
 
-    @Ignore
-    @Test
-    public void processAffect11Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        FieldClass c_ = new FieldClass(8);
-        lv_.setElement(c_);
-        lv_.setClassName(FieldClass.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("","","","v;.field", "12i", "=",context_);
-        assertEq(12, c_.getField());
-    }
-    @Ignore
-    @Test
-    public void processAffect12Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        FieldClass c_ = new FieldClass(8);
-        addBean(context_, c_);
-        ElUtil.processAffect("","","","field", "12i", "=",context_);
-        assertEq(12, c_.getField());
-    }
+//    @Ignore
+//    @Test
+//    public void processAffect11Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        FieldClass c_ = new FieldClass(8);
+//        lv_.setElement(c_);
+//        lv_.setClassName(FieldClass.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        ElUtil.processAffect("","","","v;.field", "12i", "=",context_);
+//        assertEq(12, c_.getField());
+//    }
+//    @Ignore
+//    @Test
+//    public void processAffect12Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        FieldClass c_ = new FieldClass(8);
+//        addBean(context_, c_);
+//        ElUtil.processAffect("","","","field", "12i", "=",context_);
+//        assertEq(12, c_.getField());
+//    }
 
 
     @Ignore
@@ -2411,45 +2408,45 @@ public class ElUtilTest {
         assertEq(1, ((ArrayContainer)c_[0].getInstance()).getCompo()[0].getArray()[0]);
     }
 
-    @Ignore
-    @Test
-    public void processAffect17Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Composite c_ = new Composite("cont");
-        lv_.setElement(c_);
-        lv_.setClassName(Composite.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        assertNotNull(c_.getStrings());
-        ElUtil.processAffect("","","","v;.strings", "$null", "=",context_);
-        assertEq(COMPOSITE, lv_.getClassName());
-        assertNull(c_.getStrings());
-    }
-
-    @Ignore
-    @Test
-    public void processAffect18Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Composite c_ = new Composite();
-        lv_.setElement(c_);
-        lv_.setClassName(Composite.class.getName());
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setElement(new StringList("cont"));
-        lv_.setClassName(StringList.class.getName());
-        localVars_.put("v2", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        assertNull(c_.getStrings());
-        ElUtil.processAffect("","","","v;.strings", "v2;.", "=",context_);
-        assertEq(1, c_.getStrings().size());
-        assertEq("cont", c_.getStrings().first());
-    }
+//    @Ignore
+//    @Test
+//    public void processAffect17Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        Composite c_ = new Composite("cont");
+//        lv_.setElement(c_);
+//        lv_.setClassName(Composite.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        assertNotNull(c_.getStrings());
+//        ElUtil.processAffect("","","","v;.strings", "$null", "=",context_);
+//        assertEq(COMPOSITE, lv_.getClassName());
+//        assertNull(c_.getStrings());
+//    }
+//
+//    @Ignore
+//    @Test
+//    public void processAffect18Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        Composite c_ = new Composite();
+//        lv_.setElement(c_);
+//        lv_.setClassName(Composite.class.getName());
+//        localVars_.put("v", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setElement(new StringList("cont"));
+//        lv_.setClassName(StringList.class.getName());
+//        localVars_.put("v2", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        assertNull(c_.getStrings());
+//        ElUtil.processAffect("","","","v;.strings", "v2;.", "=",context_);
+//        assertEq(1, c_.getStrings().size());
+//        assertEq("cont", c_.getStrings().first());
+//    }
 
     @Test
     public void processAffect19Test() {
@@ -2575,20 +2572,20 @@ public class ElUtilTest {
         assertEq("add 1",(String)((Struct[]) lv_.getStruct().getInstance())[0].getInstance());
     }
 
-    @Ignore
-    @Test(expected=FinalMemberException.class)
-    public void processAffect1FailTest() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        FinalFieldClass c_ = new FinalFieldClass(8);
-        lv_.setElement(c_);
-        lv_.setClassName(FinalFieldClass.class.getName());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("","","","v;.field", "12i", "=",context_);
-    }
+//    @Ignore
+//    @Test(expected=FinalMemberException.class)
+//    public void processAffect1FailTest() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        FinalFieldClass c_ = new FinalFieldClass(8);
+//        lv_.setElement(c_);
+//        lv_.setClassName(FinalFieldClass.class.getName());
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        ElUtil.processAffect("","","","v;.field", "12i", "=",context_);
+//    }
 
     @Test(expected=SettingMemberException.class)
     public void processAffect2FailTest() {

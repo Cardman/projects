@@ -10,6 +10,7 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyStrangeTranslator;
 import code.formathtml.classes.MyTranslator;
@@ -673,7 +674,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(2L,((Long)ExtractObject.evaluateMathExpression(ip_, conf_, false, "1+1")).longValue());
+        assertEq(2L,(Long)((StdStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "1+1")).getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -708,7 +709,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true"));
+        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true").getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -743,7 +744,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false"));
+        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false").getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -778,7 +779,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(6L,((Long)ExtractObject.evaluateMathExpression(ip_, conf_, false, "`composite.integer`+1")).longValue());
+        assertEq(6L,(Long)((StdStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "`composite.integer`+1")).getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -812,7 +813,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
+        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`").getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        conf_.setDocument(doc_);
@@ -844,7 +845,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
+        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`").getInstance());
     }
 
     @Test

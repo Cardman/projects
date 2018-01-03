@@ -29,7 +29,7 @@ public final class StdStruct implements Struct {
 
     public static Struct defaultClass(String _element, ContextEl _context) {
         if (PrimitiveTypeUtil.isPrimitive(_element, _context)) {
-            Object def_ = PrimitiveTypeUtil.defaultValue(_element, _context);
+            Object def_ = PrimitiveTypeUtil.defaultValue(_element, _context).getInstance();
             if (def_ instanceof Double) {
                 return new DoubleStruct((Double) def_);
             }

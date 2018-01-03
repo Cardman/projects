@@ -1,15 +1,13 @@
 package cards.belote.beans;
-import code.bean.Accessible;
-import code.util.CustList;
 import cards.belote.BidBeloteSuit;
 import cards.belote.ResultsBelote;
 import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.enumerations.DeclaresBeloteRebelote;
+import code.util.CustList;
 
 public final class DetailsResultsBeloteBean extends BeloteBean {
 
-    @Accessible
     private CustList<SumDeclaringPlayer> declaring;
 
     @Override
@@ -56,5 +54,8 @@ public final class DetailsResultsBeloteBean extends BeloteBean {
                 declaring.add(sumDeclaring_);
             }
         }
+    }
+    public CustList<SumDeclaringPlayer> getDeclaring() {
+        return declaring;
     }
 }

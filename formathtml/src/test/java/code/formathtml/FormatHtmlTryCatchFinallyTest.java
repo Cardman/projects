@@ -265,7 +265,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK<c:throw expression='$new java.lang.String()'/></c:finally></c:try><c:catch className='java.lang.CharSequence' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK<c:throw expression='$new java.lang.String()'/></c:finally></c:try><c:catch className='java.lang.CharSequence' var='e'>{e;..length()+8}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -290,7 +290,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>END BLOCKjava.lang.StringOUTER</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>END BLOCK8OUTER</body></html>", render_);
     }
 
     @Test
@@ -299,7 +299,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -324,7 +324,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>"+DIV_ZERO+"OUTER</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EXCOUTER</body></html>", render_);
     }
 
     @Test
@@ -503,7 +503,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -528,7 +528,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>"+DIV_ZERO+"OUTER</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EXCOUTER</body></html>", render_);
     }
 
 
@@ -538,7 +538,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -563,7 +563,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>"+DIV_ZERO+"OUTER</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EXCOUTER</body></html>", render_);
     }
 
     @Test
@@ -572,7 +572,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -597,7 +597,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>code.expressionlanguage.exceptions.DynamicCastClassExceptionOUTER</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EXCOUTER</body></html>", render_);
     }
 
     @Test
@@ -606,7 +606,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>{$class(\"java.lang.String\",8i)}</c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>{$class(\"java.lang.String\",8i)}</c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -631,7 +631,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>code.expressionlanguage.exceptions.DynamicCastClassExceptionOUTER</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EXCOUTER</body></html>", render_);
     }
 
     @Test
@@ -640,7 +640,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXCEPTION</c:catch><c:finally>{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXCEPTION</c:catch><c:finally>{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -665,7 +665,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EXCEPTIONcode.expressionlanguage.exceptions.DynamicCastClassExceptionOUTER</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EXCEPTIONEXCOUTER</body></html>", render_);
     }
 
     @Test

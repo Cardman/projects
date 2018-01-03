@@ -1,13 +1,15 @@
 package code.formathtml;
 
 import code.expressionlanguage.stds.LgNames;
+import code.formathtml.util.BeanLgNames;
 
 public final class InitializationLgNames {
 
     private InitializationLgNames(){
     }
-    public static LgNames initStandards() {
-        LgNames lgNames_ = new LgNames();
+    public static BeanLgNames initStandards() {
+        BeanLgNames lgNames_ = new BeanLgNames();
+        lgNames_.setAliasRate("java.lang.Long");
         basicStandards(lgNames_);
         lgNames_.build();
         lgNames_.setupOverrides();

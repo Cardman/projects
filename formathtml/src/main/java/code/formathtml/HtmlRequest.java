@@ -91,32 +91,32 @@ final class HtmlRequest {
     }
 
     static void setObject(Configuration _conf, NodeContainer _nodeContainer,
-            Object _attribute,
+            Struct _attribute,
             Numbers<Long> _indexes) {
         Struct obj_ = _nodeContainer.getStruct();
         if (obj_.isNull()) {
             throw new NullObjectException(_conf.joinPages());
         }
         long index_ = _nodeContainer.getIndex();
-        ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute, _indexes);
+        ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute.getInstance(), _indexes);
         if (index_ >= 0) {
             try {
                 String compo_ = PrimitiveTypeUtil.getQuickComponentType(obj_.getClassName(_conf.toContextEl()));
                 if (compo_ != null) {
-                    Array.set(obj_.getInstance(), (int) index_, _attribute);
+                    Array.set(obj_.getInstance(), (int) index_, _attribute.getInstance());
                 } else if (obj_.getInstance() instanceof SimpleList){
                     //obj_ is instance of java.util.CustList
                     Method m_ = SerializeXmlObject.getMethod(Listable.class, SET, int.class, Object.class);
-                    ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int) index_, _attribute);
+                    ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int) index_, _attribute.getInstance());
                 } else {
                     //obj_ is instance of java.util.ListableEntries
                     boolean key_ = _nodeContainer.isKey();
                     if (!key_) {
                         Method m_ = SerializeXmlObject.getMethod(ListableEntries.class, SET_VALUE, int.class, Object.class);
-                        ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int)index_, _attribute);
+                        ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int)index_, _attribute.getInstance());
                     } else {
                         Method m_ = SerializeXmlObject.getMethod(ListableEntries.class, MOVE, Object.class, Object.class);
-                        ConverterMethod.invokeMethod(m_, obj_.getInstance(), _nodeContainer.getTypedField(), _attribute);
+                        ConverterMethod.invokeMethod(m_, obj_.getInstance(), _nodeContainer.getTypedField(), _attribute.getInstance());
                     }
                 }
             } catch (Throwable _0) {
@@ -140,7 +140,7 @@ final class HtmlRequest {
                 String tmp_ = ip_.getNextTempVar();
                 LocalVariable locVar_ = new LocalVariable();
                 locVar_.setClassName(ConstClasses.resolve(className_));
-                locVar_.setElement(_attribute);
+                locVar_.setStruct(_attribute);
                 ip_.getLocalVars().put(tmp_, locVar_);
                 ElUtil.processEl(StringList.concat(varMethod_,LEFT_PAR,tmp_,GET_LOC_VAR,RIGHT_PAR), 0, _conf.toContextEl());
                 ip_.getLocalVars().removeKey(tmp_);
@@ -156,8 +156,8 @@ final class HtmlRequest {
                 ip_.getLocalVars().put(nameVar_, lv_);
                 String nameValue_ = ip_.getNextTempVar();
                 lv_ = new LocalVariable();
-                lv_.setClassName(_attribute.getClass().getName());
-                lv_.setStruct(StdStruct.wrapStd(_attribute));
+                lv_.setClassName(_attribute.getClassName(_conf.toContextEl()));
+                lv_.setStruct(_attribute);
                 ip_.getLocalVars().put(nameValue_, lv_);
                 String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
                 String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);

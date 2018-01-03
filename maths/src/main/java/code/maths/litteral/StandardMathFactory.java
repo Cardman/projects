@@ -87,6 +87,4 @@ public final class StandardMathFactory implements AdvancedMathFactory<Rate,Numer
             StringMap<String> _variables, Boolean _default) {
         return BooleanString.evaluate(_booleanString, _variables, _default);
     }
-
-
 }

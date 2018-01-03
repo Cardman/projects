@@ -9,8 +9,10 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.IndirectException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exceptions.BadParenthesesException;
@@ -516,7 +518,7 @@ public final class Navigation {
             }
             StringList v_ = nInfos_.getValue();
             String className_ = nInfos_.getInputClass();
-            Object obj_ = null;
+            Struct obj_ = null;
             int indexTemp_;
             indexTemp_ = className_.indexOf(BEG_TEMP);
             boolean isList_ = false;
@@ -551,16 +553,19 @@ public final class Navigation {
                 contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
                 for (String v:v_) {
                     try {
-                        ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
+                        ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_).getInstance());
                     } catch (Throwable _0) {
                     }
                 }
-                obj_ = list_;
+                obj_ = new StdStruct(list_, className_);
             } else {
                 try {
                     obj_ = retrieveObjectByClassName(v_.first(), className_);
                 } catch (Throwable _0) {
                 }
+            }
+            if (obj_ == null) {
+                obj_ = NullStruct.NULL_VALUE;
             }
             LocalVariable lv_ = new LocalVariable();
             String valName_ = ip_.getNextTempVar();
@@ -580,7 +585,7 @@ public final class Navigation {
             ip_.getLocalVars().put(nodName_, lv_);
             String objName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(obj_);
+            lv_.setStruct(obj_);
             lv_.setClassName(Object.class.getName());
             ip_.getLocalVars().put(objName_, lv_);
             StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(VALIDATE).append(BEGIN_ARGS);
@@ -666,7 +671,7 @@ public final class Navigation {
                 }
             }
             nCont_.getNodeInformation().setChanging(changingValue_);
-            Object newObj_;
+            Struct newObj_;
             StringList v_ = nCont_.getNodeInformation().getValue();
             String className_ = nCont_.getNodeInformation().getInputClass();
             try {
@@ -679,9 +684,9 @@ public final class Navigation {
                         String contentClass_;
                         contentClass_ = Templates.getTypesByBases(clObj_.getName(), Listable.class.getName(), session.toContextEl()).first();
                         for (String v:v_) {
-                            ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
+                            ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_).getInstance());
                         }
-                        newObj_ = list_;
+                        newObj_ = new StdStruct(list_, className_);
                     } else {
                         newObj_ = retrieveObjectByClassName(v_.first(), obj_.getClass().getName());
                     }
@@ -695,7 +700,7 @@ public final class Navigation {
         }
     }
 
-    private Object retrieveObjectByClassName(String _value, String _className) {
+    private Struct retrieveObjectByClassName(String _value, String _className) {
         //case where it is better to test on class of the value
         Class<?> class_;
         try {
@@ -707,14 +712,14 @@ public final class Navigation {
             //Enum
             for (Object o : class_.getEnumConstants()) {
                 if (StringList.quickEq(ConverterMethod.getName(o),_value)) {
-                    return o;
+                    return new StdStruct(o, _className);
                 }
             }
             throw new InexistingValueForEnum(_value,class_.getName());
         }
         //Boolean
         if (class_ == Boolean.class || class_ == boolean.class) {
-            return StringList.quickEq(_value,ON);
+            return new BooleanStruct(StringList.quickEq(_value,ON));
         }
         //Number
         if (Number.class.isAssignableFrom(class_) || class_.isPrimitive()) {
@@ -731,9 +736,9 @@ public final class Navigation {
             if (instance_ == null) {
                 throw new InvokeRedinedMethException(session.joinPages());
             }
-            return instance_;
+            return new StdStruct(instance_, _className);
         }
-        return _value;
+        return new StringStruct(_value);
     }
 
     private static Object instance(Class<?> _class) {

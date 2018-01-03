@@ -1,4 +1,3 @@
-
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/classes//cards/tarot/results.html"/>
     <java.lang.String class="cfg" field="prefix" value="c"/>

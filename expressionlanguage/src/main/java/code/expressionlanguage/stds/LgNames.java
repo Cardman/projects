@@ -1364,7 +1364,7 @@ public class LgNames {
     }
     static boolean isPossibleMethod(
     ContextEl _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params,
-    ClassArgumentMatching... _argsClass) {
+        ClassArgumentMatching... _argsClass) {
         LgNames stds_ = _context.getStandards();
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;

@@ -69,14 +69,6 @@ public final class LoopVariable {
         element = StdStruct.wrapStd(_element);
     }
 
-    public void setElement(Object _element) {
-        if (_element instanceof Struct) {
-            element = (Struct) _element;
-        } else {
-            element = StdStruct.wrapStd(_element);
-        }
-    }
-
     public long getStep() {
         return step;
     }

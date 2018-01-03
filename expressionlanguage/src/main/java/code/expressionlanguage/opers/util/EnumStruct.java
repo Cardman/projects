@@ -24,37 +24,6 @@ public final class EnumStruct implements FieldableStruct {
         name = _name;
     }
 
-    public static Struct wrapOrId(Object _element) {
-        if (_element instanceof Struct) {
-            return (Struct) _element;
-        }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
-        }
-        if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
-        }
-        return new StdStruct(_element);
-    }
-
     @Override
     public boolean isNull() {
         return false;

@@ -755,7 +755,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;%2=0'><c:continue/></c:if>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;%2=0'><c:continue/></c:if>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -780,7 +780,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>1_1;3_0;"+DIV_ZERO+"</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>1_1;3_0;EXC</body></html>", render_);
     }
 
     @Test
@@ -789,7 +789,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;&gt;=2'><c:break/></c:if>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;&gt;=2'><c:break/></c:if>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -814,7 +814,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Divide Zero1_1;"+DIV_ZERO+"</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Divide Zero1_1;EXC</body></html>", render_);
     }
 
     @Test
@@ -823,7 +823,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero<c:continue/></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>OK</c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero<c:continue/></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>OK</c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -848,7 +848,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Divide Zero1_1;OK2_0;OK3_0;OK"+DIV_ZERO+"</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Divide Zero1_1;OK2_0;OK3_0;OKEXC</body></html>", render_);
     }
 
     @Test
@@ -857,7 +857,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='3' to='0' eq='true' step='-1'><c:try>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero<c:break/></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>OK</c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='3' to='0' eq='true' step='-1'><c:try>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero<c:break/></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>OK</c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -882,7 +882,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>3_0;OK2_0;OK1_1;OKDivide Zero"+DIV_ZERO+"</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>3_0;OK2_0;OK1_1;OKDivide ZeroEXC</body></html>", render_);
     }
 
     @Test
@@ -891,7 +891,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>{1/0}<span>NOT_PASS</span></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>NOT READ</c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>{1/0}<span>NOT_PASS</span></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>NOT READ</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -914,7 +914,7 @@ public class FormatHtmlTryCatchTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>"+DIV_ZERO+"</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EXC</body></html>", render_);
     }
 
     @Test

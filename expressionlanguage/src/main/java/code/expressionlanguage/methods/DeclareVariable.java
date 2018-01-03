@@ -81,7 +81,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         LocalVariable lv_ = new LocalVariable();
         String className_ = getClassName();
         lv_.setClassName(className_);
-        lv_.setElement(PrimitiveTypeUtil.defaultValue(className_, _cont));
+        lv_.setStruct(PrimitiveTypeUtil.defaultValue(className_, _cont));
         String name_ = getVariableName();
         StringMap<LocalVariable> map_ = ip_.getLocalVars();
         map_.put(name_, lv_);

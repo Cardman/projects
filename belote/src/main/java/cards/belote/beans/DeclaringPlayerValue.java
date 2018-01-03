@@ -1,13 +1,10 @@
 package cards.belote.beans;
-import code.bean.Accessible;
 
 
 final class DeclaringPlayerValue{
 
-    @Accessible
     private String declaring;
 
-    @Accessible
     private int value;
 
     public String getDeclaring() {

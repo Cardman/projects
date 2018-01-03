@@ -7,6 +7,7 @@ import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignableFrom;
+import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -17,6 +18,7 @@ import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IndexesComparator;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -924,68 +926,68 @@ public final class PrimitiveTypeUtil {
         return Argument.createVoid();
     }
 
-    public static Object defaultValue(String _class, ContextEl _context) {
+    public static Struct defaultValue(String _class, ContextEl _context) {
         return defaultValue(_class, _context.getStandards());
     }
 
-    public static Object defaultValue(String _class, LgNames _stds) {
+    public static Struct defaultValue(String _class, LgNames _stds) {
         if (isPrimitive(_class, _stds)) {
             if (StringList.quickEq(_class, _stds.getAliasPrimBoolean())) {
-                return false;
+                return new BooleanStruct(false);
             }
             return convert(_class, 0, _stds);
         }
-        return null;
+        return NullStruct.NULL_VALUE;
     }
-    public static Object convert(String _toClass, Object _arg, ContextEl _context) {
+    public static Struct convert(String _toClass, Object _arg, ContextEl _context) {
         return convert(_toClass, _arg, _context.getStandards());
     }
-    public static Object convert(String _toClass, Object _arg, LgNames _stds) {
+    public static Struct convert(String _toClass, Object _arg, LgNames _stds) {
         ClassArgumentMatching class_ = new ClassArgumentMatching(_toClass);
         ClassArgumentMatching prim_ = toPrimitive(class_, true, _stds);
         if (prim_.matchClass(_stds.getAliasPrimDouble())) {
             if (_arg instanceof Character) {
-                return (double)((Character)_arg).charValue();
+                return new DoubleStruct(((Character)_arg).charValue());
             }
-            return ((Number)_arg).doubleValue();
+            return new DoubleStruct(((Number)_arg).doubleValue());
         }
         if (prim_.matchClass(_stds.getAliasPrimFloat())) {
             if (_arg instanceof Character) {
-                return (float)((Character)_arg).charValue();
+                return new FloatStruct(((Character)_arg).charValue());
             }
-            return ((Number)_arg).floatValue();
+            return new FloatStruct(((Number)_arg).floatValue());
         }
         if (prim_.matchClass(_stds.getAliasPrimLong())) {
             if (_arg instanceof Character) {
-                return (long)((Character)_arg).charValue();
+                return new LongStruct(((Character)_arg).charValue());
             }
-            return ((Number)_arg).longValue();
+            return new LongStruct(((Number)_arg).longValue());
         }
         if (prim_.matchClass(_stds.getAliasPrimInteger())) {
             if (_arg instanceof Character) {
-                return (int)((Character)_arg).charValue();
+                return new IntStruct(((Character)_arg).charValue());
             }
-            return ((Number)_arg).intValue();
+            return new IntStruct(((Number)_arg).intValue());
         }
         if (prim_.matchClass(_stds.getAliasPrimChar())) {
             if (_arg instanceof Character) {
-                return _arg;
+                return new CharStruct((Character)_arg);
             }
-            return (char)((Number)_arg).longValue();
+            return new CharStruct((char)((Number)_arg).longValue());
         }
         if (prim_.matchClass(_stds.getAliasPrimShort())) {
             if (_arg instanceof Character) {
-                return (short)((Character)_arg).charValue();
+                return new ShortStruct((short)((Character)_arg).charValue());
             }
-            return ((Number)_arg).shortValue();
+            return new ShortStruct(((Number)_arg).shortValue());
         }
         if (prim_.matchClass(_stds.getAliasPrimByte())) {
             if (_arg instanceof Character) {
-                return (byte)((Character)_arg).charValue();
+                return new ByteStruct((byte)((Character)_arg).charValue());
             }
-            return ((Number)_arg).byteValue();
+            return new ByteStruct(((Number)_arg).byteValue());
         }
-        return null;
+        return NullStruct.NULL_VALUE;
     }
     public static boolean isIntegerType(ClassArgumentMatching _class, ContextEl _context) {
         return isIntegerType(_class, _context.getStandards());
