@@ -1,4 +1,4 @@
-package code.util.opers;
+package code.util.oper;
 import java.util.regex.Pattern;
 
 import code.util.StringList;

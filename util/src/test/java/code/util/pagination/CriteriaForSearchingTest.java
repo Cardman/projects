@@ -12,12 +12,16 @@ public class CriteriaForSearchingTest {
     public void matchString1Test() {
         assertTrue(CriteriaForSearching.match(SearchingMode.WHOLE_STRING, null, ""));
         assertTrue(CriteriaForSearching.match(SearchingMode.SUBSTRING, null, ""));
+        assertTrue(CriteriaForSearching.match(SearchingMode.BEGIN, null, ""));
+        assertTrue(CriteriaForSearching.match(SearchingMode.END, null, ""));
+        assertTrue(CriteriaForSearching.match(SearchingMode.MATCH_SPACE, null, ""));
         assertTrue(CriteriaForSearching.match(SearchingMode.META_CHARACTER, null, ""));
-        assertTrue(CriteriaForSearching.match(SearchingMode.REG_EXP, null, ""));
         assertTrue(!CriteriaForSearching.match(SearchingMode.WHOLE_STRING, "STRING", (String) null));
         assertTrue(!CriteriaForSearching.match(SearchingMode.SUBSTRING, "STRING", (String) null));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.BEGIN, "STRING", (String) null));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.END, "STRING", (String) null));
         assertTrue(!CriteriaForSearching.match(SearchingMode.META_CHARACTER, "STRING", (String) null));
-        assertTrue(!CriteriaForSearching.match(SearchingMode.REG_EXP, "STRING", (String) null));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "STRING", (String) null));
     }
 
     @Test
@@ -42,22 +46,42 @@ public class CriteriaForSearchingTest {
 
     @Test
     public void matchString6Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.REG_EXP, ".string", "string"));
-    }
-
-    @Test
-    public void matchString7Test() {
-        assertTrue(CriteriaForSearching.match(SearchingMode.REG_EXP, ".string", "substring"));
-    }
-
-    @Test
-    public void matchString8Test() {
         assertTrue(!CriteriaForSearching.match(SearchingMode.META_CHARACTER, "*strin", "string"));
     }
 
     @Test
-    public void matchString9Test() {
+    public void matchString7Test() {
         assertTrue(CriteriaForSearching.match(SearchingMode.META_CHARACTER, "*string", "substring"));
+    }
+
+    @Test
+    public void matchString8Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.BEGIN, "substring", "string"));
+    }
+
+    @Test
+    public void matchString9Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.BEGIN, "string", "strings"));
+    }
+
+    @Test
+    public void matchString10Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.END, "substring", "string"));
+    }
+
+    @Test
+    public void matchString11Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.END, "string", "substring"));
+    }
+
+    @Test
+    public void matchString12Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.MATCH_SPACE, " strin", "string"));
+    }
+
+    @Test
+    public void matchString13Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "sub string", "substring"));
     }
 
     @Test
@@ -152,66 +176,111 @@ public class CriteriaForSearchingTest {
 
     @Test
     public void matchStringList3Test() {
-        assertTrue(CriteriaForSearching.match(SearchingMode.REG_EXP, null, new StringList()));
-    }
-
-    @Test
-    public void matchStringList4Test() {
         assertTrue(CriteriaForSearching.match(SearchingMode.META_CHARACTER, null, new StringList()));
     }
 
     @Test
-    public void matchStringList5Test() {
+    public void matchStringList4Test() {
         assertTrue(!CriteriaForSearching.match(SearchingMode.WHOLE_STRING, "STRING", new StringList("SUBSTRING","STRING_ONE")));
     }
 
     @Test
-    public void matchStringList6Test() {
+    public void matchStringList5Test() {
         assertTrue(CriteriaForSearching.match(SearchingMode.WHOLE_STRING, "SUBSTRING", new StringList("SUBSTRING","STRING_ONE")));
     }
 
     @Test
-    public void matchStringList7Test() {
+    public void matchStringList6Test() {
         assertTrue(!CriteriaForSearching.match(SearchingMode.WHOLE_STRING, "SUBSTRING", new StringList((String)null,(String)null)));
     }
 
     @Test
-    public void matchStringList8Test() {
+    public void matchStringList7Test() {
         assertTrue(!CriteriaForSearching.match(SearchingMode.SUBSTRING, "THREE", new StringList("STRING_ONE","STRING_TWO")));
     }
 
     @Test
-    public void matchStringList9Test() {
+    public void matchStringList8Test() {
         assertTrue(CriteriaForSearching.match(SearchingMode.SUBSTRING, "STRING", new StringList("STRING_ONE","STRING_TWO")));
     }
 
     @Test
-    public void matchStringList10Test() {
+    public void matchStringList9Test() {
         assertTrue(!CriteriaForSearching.match(SearchingMode.SUBSTRING, "STRING", new StringList((String)null,(String)null)));
     }
 
     @Test
-    public void matchStringList11Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.REG_EXP, "THREE", new StringList("STRING_ONE","STRING_TWO")));
-    }
-
-    @Test
-    public void matchStringList12Test() {
-        assertTrue(CriteriaForSearching.match(SearchingMode.REG_EXP, "STRING.*", new StringList("STRING_ONE","STRING_TWO")));
-    }
-
-    @Test
-    public void matchStringList13Test() {
+    public void matchStringList10Test() {
         assertTrue(!CriteriaForSearching.match(SearchingMode.META_CHARACTER, "THREE", new StringList("STRING_ONE","STRING_TWO")));
     }
 
     @Test
-    public void matchStringList14Test() {
+    public void matchStringList11Test() {
         assertTrue(CriteriaForSearching.match(SearchingMode.META_CHARACTER, "STRING*", new StringList("STRING_ONE","STRING_TWO")));
     }
 
     @Test
-    public void matchStringList15Test() {
+    public void matchStringList12Test() {
         assertTrue(CriteriaForSearching.match(SearchingMode.META_CHARACTER, "", new StringList("STRING_ONE","STRING_TWO")));
+    }
+
+    @Test
+    public void matchStringList13Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.BEGIN, null, new StringList()));
+    }
+
+    @Test
+    public void matchStringList14Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.END, null, new StringList()));
+    }
+
+    @Test
+    public void matchStringList15Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.MATCH_SPACE, null, new StringList()));
+    }
+
+    @Test
+    public void matchStringList16Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.END, "THREE", new StringList("STRING_ONE","STRING_TWO")));
+    }
+
+    @Test
+    public void matchStringList17Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.END, "TWO", new StringList("STRING_ONE","STRING_TWO")));
+    }
+
+    @Test
+    public void matchStringList18Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.END, "STRING", new StringList((String)null,(String)null)));
+    }
+
+    @Test
+    public void matchStringList19Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.BEGIN, "THREE", new StringList("STRING_ONE","STRING_TWO")));
+    }
+
+    @Test
+    public void matchStringList20Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.BEGIN, "STRING", new StringList("STRING_ONE","STRING_TWO")));
+    }
+
+    @Test
+    public void matchStringList21Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.BEGIN, "STRING", new StringList((String)null,(String)null)));
+    }
+
+    @Test
+    public void matchStringList22Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "THREE", new StringList("STRING_ONE","STRING_TWO")));
+    }
+
+    @Test
+    public void matchStringList23Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "STRING ", new StringList("STRING_ONE","STRING_TWO")));
+    }
+
+    @Test
+    public void matchStringList24Test() {
+        assertTrue(CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "", new StringList("STRING_ONE","STRING_TWO")));
     }
 }

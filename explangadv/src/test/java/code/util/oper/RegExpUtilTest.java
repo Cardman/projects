@@ -1,4 +1,4 @@
-package code.util.opers;
+package code.util.oper;
 import static code.util.EquallableExUtil.assertEq;
 import static junitparams.JUnitParamsRunner.$;
 import junitparams.JUnitParamsRunner;
@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import code.util.StringList;
-import code.util.opers.RegExpUtil;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)

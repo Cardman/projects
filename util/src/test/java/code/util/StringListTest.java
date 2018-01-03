@@ -120,6 +120,49 @@ public class StringListTest {
         assertTrue(!StringList.match("myStrinString","*yS*Strin"));
     }
 
+    Object[] inputsFiltersSpace() {
+        return $($("myString","",true),
+                $("myString","myString",true),
+                $("myString","myStrings",false),
+                $("myString","my Strings",false),
+                $("myString","myStrin",false),
+                $("myString","my Strin",false),
+                $("myString"," ",true),
+                $("myString"," \\  ",false),
+                $("my String"," \\  ",true),
+                $("my \\String"," \\\\ ",true),
+                $("myString","m ",true),
+                $("myString","myStri ",true),
+                $("myString","myStrn ",false),
+                $("myString"," String",true),
+                $("myString","\\ String",false),
+                $("myString","myString ",true),
+                $("myString","myString\\ ",false),
+                $("myString"," myString",true),
+                $("myString","my String",true),
+                $("myString"," my String ",true),
+                $("myString"," my Str ing",true),
+                $("myString"," my Str in ",true),
+                $("myString"," my Str ins ",false),
+                $("myString","my Str ing",true),
+                $("myString","my Str ings",false),
+                $("myString","my Str ing\\ ",false),
+                $("myString","my Str ngs",false),
+                $("myString","my Stg ing",false),
+                $("my.String","my\\ String",false),
+                $("my String","my\\ String",true),
+                $("my\\String","my\\String",true),
+                $("my\\String","my\\\\String",true),
+                $("my\\String","my\\ String",false),
+                $("my String","my\\\\String",false));
+    }
+
+    @Test
+    @Parameters(method="inputsFiltersSpace")
+    public void matchSpace1Test(String _input,String _filter,boolean _match) {
+        assertEq(_match, StringList.matchSpace(_input, _filter));
+    }
+
     @Test
     public void greatestIndex1Test() {
         assertEq(-1, StringList.greatestIndex("one", "two", 0));

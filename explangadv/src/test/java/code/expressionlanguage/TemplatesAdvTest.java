@@ -125,12 +125,11 @@ public class TemplatesAdvTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",TemplatesAdv.format(first_, second_, classes_));
+        assertEq("#E",TemplatesAdv.format(first_, second_, cont_));
     }
 
     @Test
@@ -139,12 +138,11 @@ public class TemplatesAdvTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
-        assertEq("java.lang.String",TemplatesAdv.format(first_, second_, classes_));
+        assertEq("java.lang.String",TemplatesAdv.format(first_, second_, cont_));
     }
 
     @Test
@@ -153,12 +151,11 @@ public class TemplatesAdvTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
-        assertEq("java.lang.Object",TemplatesAdv.format(first_, second_, classes_));
+        assertEq("java.lang.Object",TemplatesAdv.format(first_, second_, cont_));
     }
 
     @Test
@@ -167,12 +164,11 @@ public class TemplatesAdvTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",TemplatesAdv.format(first_, second_, classes_));
+        assertEq("java.lang.String",TemplatesAdv.format(first_, second_, cont_));
     }
 
     @Test
@@ -181,12 +177,11 @@ public class TemplatesAdvTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = CUST_LIST+"<java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.Object",TemplatesAdv.format(first_, second_, classes_));
+        assertEq("java.lang.Object",TemplatesAdv.format(first_, second_, cont_));
     }
 
     @Test

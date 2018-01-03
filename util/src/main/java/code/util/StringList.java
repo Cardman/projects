@@ -990,6 +990,81 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return new StringList(sub(_beginIndex,size()));
     }
 
+    public static boolean startsWith(String _string,String _filter) {
+        return _string.startsWith(_filter.trim());
+    }
+
+    public static boolean endsWith(String _string,String _filter) {
+        return _string.endsWith(_filter.trim());
+    }
+
+    public static boolean matchSpace(String _string,String _filter){
+        if(_filter.trim().isEmpty()){
+            return true;
+        }
+        PairEq<PairEq<StringList,StringList>,PairBoolean> wordsAndSeparators_
+        =wordsAndSeparatorsSpace(_filter);
+        StringList words_=wordsAndSeparators_.getFirst().getSecond();
+        StringList separators_=wordsAndSeparators_.getFirst().getFirst();
+        if (words_.isEmpty()) {
+            String lastSep_ = separators_.last();
+            int index_ = FIRST_INDEX;
+            if(index_==_string.length()){
+                return true;
+            }
+            if(index_<_string.length()){
+                if(lastSep_.contains(String.valueOf(SPACE_CHAR))){
+                    return true;
+                }
+            }
+            return false;
+        }
+        if (wordsAndSeparators_.getSecond().getFirst()) {
+            separators_.add(FIRST_INDEX, EMPTY_STRING);
+        }
+        if (wordsAndSeparators_.getSecond().getSecond()) {
+            separators_.add(EMPTY_STRING);
+        }
+        int i_=FIRST_INDEX;
+        int index_=FIRST_INDEX;
+        int indiceRDecalePt_=0;
+        int indiceNext_=0;
+        for(String e:words_){
+            indiceRDecalePt_=index_;
+          //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
+            //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
+            if(separators_.get(i_).contains(String.valueOf(SPACE_CHAR))){
+                if (words_.isValidIndex(i_+1)) {
+                    indiceNext_=_string.indexOf(e,indiceRDecalePt_);
+                    if(indiceNext_ == INDEX_NOT_FOUND_ELT){
+                        return false;
+                    }
+                } else {
+                    indiceNext_=greatestIndex(_string, e,indiceRDecalePt_);
+                    if(indiceNext_ == INDEX_NOT_FOUND_ELT){
+                        return false;
+                    }
+                }
+            } else{
+                indiceNext_=_string.indexOf(e,indiceRDecalePt_);
+                if(indiceRDecalePt_ != indiceNext_){
+                    return false;
+                }
+            }
+            
+            index_=indiceNext_+e.length();
+            i_++;
+        }
+        if(index_==_string.length()){
+            return true;
+        }
+        if(index_<_string.length()){
+            if(separators_.get(i_).contains(String.valueOf(SPACE_CHAR))){
+                return true;
+            }
+        }
+        return false;
+    }
     public static boolean match(String _string,String _filter){
         if(_filter.isEmpty()){
             return true;
@@ -1119,6 +1194,53 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
             }
         }
         return return_ + _offset;
+    }
+
+    private static PairEq<PairEq<StringList,StringList>,PairBoolean> wordsAndSeparatorsSpace(String _string){
+        PairEq<PairEq<StringList,StringList>,PairBoolean> wordsSepBeginEnd_;
+        wordsSepBeginEnd_ = new PairEq<PairEq<StringList,StringList>,PairBoolean>();
+        wordsSepBeginEnd_.setSecond(new PairBoolean(false,false));
+        PairEq<StringList,StringList> wordsAndSeparators_ = new PairEq<StringList,StringList>();
+        StringList words_ = new StringList();
+        StringList separators_ = new StringList();
+        CharList metas_ = getMetaCharactersSpace();
+        int begin_ = FIRST_INDEX;
+        while (true) {
+            int minIndex_ = lowestIndexOfMetaChar(_string, begin_, metas_);
+            if (minIndex_ == INDEX_NOT_FOUND_ELT) {
+                if (begin_ < _string.length()) {
+                    words_.add(_string.substring(begin_));
+                }
+                if (begin_ == FIRST_INDEX) {
+                    wordsSepBeginEnd_.getSecond().setFirst(true);
+                }
+                wordsSepBeginEnd_.getSecond().setSecond(begin_ < _string.length());
+                break;
+            }
+            if (minIndex_ > begin_) {
+                words_.add(_string.substring(begin_, minIndex_));
+                if (begin_ == FIRST_INDEX) {
+                    wordsSepBeginEnd_.getSecond().setFirst(true);
+                }
+            }
+            int ind_ = lowestIndexOfWordChar(_string, minIndex_, metas_);
+            //ind_ < _string.length() ==> all character after or at minIndex_ are meta characters
+            //so if ind_ is lower than the length of the string _string,
+            //then this string does not end with a character of word
+            if (ind_ > minIndex_) {
+                separators_.add(_string.substring(minIndex_, ind_));
+            }
+            begin_ = ind_;
+        }
+        wordsAndSeparators_.setFirst(separators_);
+        wordsAndSeparators_.setSecond(words_);
+        int nbWords_=wordsAndSeparators_.getSecond().size();
+        for(int i=FIRST_INDEX;i<nbWords_;i++){
+            String escapedString_= escapeSpace(wordsAndSeparators_.getSecond().get(i));
+            wordsAndSeparators_.getSecond().set(i, escapedString_);
+        }
+        wordsSepBeginEnd_.setFirst(wordsAndSeparators_);
+        return wordsSepBeginEnd_;
     }
 
     private static PairEq<PairEq<StringList,StringList>,PairBoolean> wordsAndSeparators(String _string){
@@ -1311,6 +1433,10 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return new CharList(CHARACTER, STRING, POSSIBLE_CHAR);
     }
 
+    private static CharList getMetaCharactersSpace() {
+        return new CharList(SPACE_CHAR);
+    }
+
     @Override
     public StringList mid(int _beginIndex, int _nbElements) {
         if (_beginIndex+_nbElements > size()) {
@@ -1477,18 +1603,36 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                         c_ = _input.charAt(i_);
                         newLength_--;
                     }
-//                    switch(_input.charAt(next_)) {
-//                        case CHARACTER:
-//                        case STRING:
-//                        case POSSIBLE_CHAR:
-//                        case ESCAPING_CHAR:
-//                            i_++;
-//                            c_ = _input.charAt(i_);
-//                            newLength_--;
-//                            break;
-//                        default:
-//                            break;
-//                    }
+                }
+            }
+            newArray_[j_] = c_;
+            j_++;
+            i_++;
+        }
+        return new String(newArray_,FIRST_INDEX,newLength_);
+    }
+
+    public static String escapeSpace(String _input) {
+        int length_ = _input.length();
+        char[] newArray_ = new char[length_];
+        int i_ = FIRST_INDEX;
+        int j_ = FIRST_INDEX;
+        int newLength_ = length_;
+        while (i_ < length_) {
+            char c_ = _input.charAt(i_);
+            if (c_ == ESCAPING_CHAR) {
+                int next_ = i_;
+                next_++;
+                if (next_ < length_) {
+                    if (_input.charAt(next_) == SPACE_CHAR) {
+                        i_++;
+                        c_ = _input.charAt(i_);
+                        newLength_--;
+                    } else if (_input.charAt(next_) == ESCAPING_CHAR) {
+                        i_++;
+                        c_ = _input.charAt(i_);
+                        newLength_--;
+                    }
                 }
             }
             newArray_[j_] = c_;

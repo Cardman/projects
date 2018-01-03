@@ -1,4 +1,4 @@
-package code.util.opers;
+package code.util.oper;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -155,7 +155,7 @@ public final class RegExpUtil {
         return list_;
     }
 
-    public CustList<StringList> catchRegExp(CustList<String> _list,String _regExp) {
+    public static CustList<StringList> catchRegExp(CustList<String> _list,String _regExp) {
         CustList<StringList> list_ = new CustList<StringList>();
         for (String s: _list) {
             list_.add(matchingRegExp(s,_regExp));

@@ -119,7 +119,9 @@ public final class PaginatorMove extends Paginator {
         order.add(SearchingMode.WHOLE_STRING);
         order.add(SearchingMode.SUBSTRING);
         order.add(SearchingMode.META_CHARACTER);
-        order.add(SearchingMode.REG_EXP);
+        order.add(SearchingMode.BEGIN);
+        order.add(SearchingMode.END);
+        order.add(SearchingMode.MATCH_SPACE);
         modeName = new ComboBoxSearchingMode();
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());

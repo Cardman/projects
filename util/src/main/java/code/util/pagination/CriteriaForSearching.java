@@ -1,6 +1,5 @@
 package code.util.pagination;
 import code.util.StringList;
-import code.util.opers.CommonRegExpUtil;
 
 public abstract class CriteriaForSearching {
 
@@ -21,12 +20,18 @@ public abstract class CriteriaForSearching {
                 return false;
             }
         }
-        if (_searchMode == SearchingMode.REG_EXP) {
-//            if (!RegExpUtil.matchRegExp(_string, _typedString)) {
-//                return false;
-//            }
-            StringList matches_ = new StringList(_string);
-            if (CommonRegExpUtil.filter(matches_, _typedString).isEmpty()) {
+        if (_searchMode == SearchingMode.MATCH_SPACE) {
+            if (!StringList.matchSpace(_string, _typedString)) {
+                return false;
+            }
+        }
+        if (_searchMode == SearchingMode.BEGIN) {
+            if (!StringList.startsWith(_string, _typedString)) {
+                return false;
+            }
+        }
+        if (_searchMode == SearchingMode.END) {
+            if (!StringList.endsWith(_string, _typedString)) {
                 return false;
             }
         }
@@ -124,9 +129,6 @@ public abstract class CriteriaForSearching {
                 if (s == null) {
                     continue;
                 }
-                if (_typedString == null) {
-                    continue;
-                }
                 if (StringList.quickEq(s,_typedString)) {
                     contained_ = true;
                     break;
@@ -151,8 +153,48 @@ public abstract class CriteriaForSearching {
                 return false;
             }
         }
-        if (_searchMode == SearchingMode.REG_EXP) {
-            if (CommonRegExpUtil.filter(_list,_typedString).isEmpty()) {
+        if (_searchMode == SearchingMode.BEGIN) {
+            boolean contained_ = false;
+            for (String s: _list) {
+                if (s == null) {
+                    continue;
+                }
+                if (StringList.startsWith(s, _typedString)) {
+                    contained_ = true;
+                    break;
+                }
+            }
+            if (!contained_) {
+                return false;
+            }
+        }
+        if (_searchMode == SearchingMode.END) {
+            boolean contained_ = false;
+            for (String s: _list) {
+                if (s == null) {
+                    continue;
+                }
+                if (StringList.endsWith(s, _typedString)) {
+                    contained_ = true;
+                    break;
+                }
+            }
+            if (!contained_) {
+                return false;
+            }
+        }
+        if (_searchMode == SearchingMode.MATCH_SPACE) {
+            boolean contained_ = false;
+            for (String s: _list) {
+                if (s == null) {
+                    continue;
+                }
+                if (StringList.matchSpace(s, _typedString)) {
+                    contained_ = true;
+                    break;
+                }
+            }
+            if (!contained_) {
                 return false;
             }
         }

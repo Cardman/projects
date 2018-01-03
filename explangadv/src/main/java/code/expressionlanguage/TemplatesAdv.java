@@ -3,7 +3,6 @@ package code.expressionlanguage;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.DimComp;
@@ -28,7 +27,7 @@ public final class TemplatesAdv {
 
     private TemplatesAdv() {
     }
-    public static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Classes _classes) {
+    public static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, ContextEl _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         int i_ = CustList.FIRST_INDEX;
         String className_ = types_.first();
@@ -118,15 +117,15 @@ public final class TemplatesAdv {
         }
         return true;
     }
-    public static String format(String _first, String _second, Classes _classes) {
+    public static String format(String _first, String _second, ContextEl _classes) {
         StringMap<String> varTypes_ = getVarTypes(_first, _classes);
         return getFormattedType(_second, varTypes_);
     }
-    static StringMap<String> getVarTypes(String _className, Classes _classes) {
+    static StringMap<String> getVarTypes(String _className, ContextEl _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
         if (_classes != null) {
-            RootBlock root_ = _classes.getClassBody(className_);
+            RootBlock root_ = _classes.getClasses().getClassBody(className_);
             if (root_ != null) {
                 StringMap<String> varTypes_ = new StringMap<String>();
                 int i_ = CustList.FIRST_INDEX;
@@ -186,7 +185,7 @@ public final class TemplatesAdv {
         }
         return newList_.join(EMPTY_STRING);
     }
-    public static boolean isCorrect(Mapping _m, Classes _classes) {
+    public static boolean isCorrect(Mapping _m, ContextEl _classes) {
         String arg_ = _m.getArg();
         String param_ = _m.getParam();
         MappingPairs current_ = new MappingPairs();
@@ -324,7 +323,7 @@ public final class TemplatesAdv {
         }
         return true;
     }
-    static EqList<StringList> getClassBounds(String _className, Classes _classes) {
+    static EqList<StringList> getClassBounds(String _className, ContextEl _classes) {
         StringList allTypes_ = StringList.getAllTypes(_className);
         Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(allTypes_.first());
         if (cl_.getTypeParameters().length != allTypes_.size() - 1) {
@@ -392,7 +391,7 @@ public final class TemplatesAdv {
         return newType_.toString();
     }
 
-    private static MappingPairs getMapping(Mapping _m, Classes _classes) {
+    private static MappingPairs getMapping(Mapping _m, ContextEl _classes) {
         EqList<StringList> boundsArg_;
         EqList<StringList> boundsParam_;
         String arg_ = _m.getArg();
@@ -463,7 +462,7 @@ public final class TemplatesAdv {
         StringList visitedClasses_ = new StringList(dArg_.getComponent());
         String generic_ = null;
         if (baseArg_.startsWith(PREFIX_VAR_TYPE)) {
-            curClasses_ = _m.getAllUpperBounds(baseArg_.substring(1));
+            curClasses_ = _m.getAllUpperBounds(baseArg_.substring(1), generic_);
             visitedClasses_ = new StringList(curClasses_);
             for (String c: curClasses_) {
                 if (StringList.quickEq(c, param_)) {
