@@ -1491,6 +1491,11 @@ public final class FileResolver {
             }
             if (currentCharFound_ == END_TEMPLATE) {
                 nbOpenedTmp_--;
+                if (nbOpenedTmp_ == 0) {
+                    declTypeName_.append(currentCharFound_);
+                    typeDeclaring_ = true;
+                    break;
+                }
             }
             declTypeName_.append(currentCharFound_);
             indexInstr_++;

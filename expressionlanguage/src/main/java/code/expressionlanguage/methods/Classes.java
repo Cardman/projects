@@ -21,7 +21,6 @@ import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
 import code.expressionlanguage.methods.util.EqualsEl;
 import code.expressionlanguage.methods.util.ErrorList;
-import code.expressionlanguage.methods.util.FoundErrorInterpret;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;

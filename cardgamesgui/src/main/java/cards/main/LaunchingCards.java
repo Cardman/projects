@@ -148,8 +148,8 @@ public class LaunchingCards extends SoftApplication {
         return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 
-    public static Class<?> getMainWindowClass() {
-        return MainWindow.class;
+    public static String getMainWindowClass() {
+        return "cards";
     }
 
     @Override

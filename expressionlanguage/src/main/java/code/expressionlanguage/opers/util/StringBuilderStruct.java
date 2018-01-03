@@ -3,7 +3,7 @@ package code.expressionlanguage.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class StringBuilderStruct implements Struct {
+public final class StringBuilderStruct extends CharSequenceStruct {
 
     private final StringBuilder instance;
 
@@ -29,15 +29,6 @@ public final class StringBuilderStruct implements Struct {
     @Override
     public ObjectMap<ClassField, Struct> getFields() {
         return null;
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        if (!(_other instanceof StringBuilderStruct)) {
-            return false;
-        }
-        StringBuilderStruct other_ = (StringBuilderStruct) _other;
-        return getInstance() == other_.getInstance();
     }
 
 }

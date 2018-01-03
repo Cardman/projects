@@ -16,10 +16,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import minirts.MainWindow;
 import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
-import minirts.MainWindow;
+import code.util.StringList;
 
 public class ImageTask implements ActionListener {
 
@@ -67,7 +68,7 @@ public class ImageTask implements ActionListener {
             }
             tmpImg_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
             g_.drawImage(tmpImg_, pt_.x, pt_.y, null);
-            ImageIO.write(b_, ConverterBufferedImage.IMG_EXT, new File(MainWindow.FOLDER + StreamTextFile.SEPARATEUR+noImg+EXT+ConverterBufferedImage.IMG_EXT));
+            ImageIO.write(b_, ConverterBufferedImage.IMG_EXT, new File(StringList.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,ConverterBufferedImage.IMG_EXT)));
         } catch (IOException e) {
             e.printStackTrace();
         }

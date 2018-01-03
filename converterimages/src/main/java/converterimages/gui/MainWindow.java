@@ -149,4 +149,9 @@ public class MainWindow extends GroupFrame {
     @Override
     public void changeLanguage(String _language) {
     }
+
+    @Override
+    public String getApplicationName() {
+        return "converter";
+    }
 }

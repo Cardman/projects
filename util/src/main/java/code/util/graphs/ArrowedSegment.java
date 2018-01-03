@@ -9,9 +9,7 @@ public final class ArrowedSegment<T extends GraphElement<T>> {
 
     public ArrowedSegment(T _from, T _to) {
         from = _from;
-        from.getClass();
         to = _to;
-        to.getClass();
     }
 
     public T getFrom() {

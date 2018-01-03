@@ -1589,4 +1589,9 @@ public final class MainWindow extends NetGroupFrame {
     public FacadeGame getFacade() {
         return facade;
     }
+
+    @Override
+    public String getApplicationName() {
+        return LaunchingPokemon.getMainWindowClass();
+    }
 }

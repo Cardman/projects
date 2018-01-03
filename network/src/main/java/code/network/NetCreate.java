@@ -1,5 +1,7 @@
 package code.network;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
@@ -48,7 +50,7 @@ public final class NetCreate {
     }
 
     public static String getHostAddress(IpType _ipType, String _defaultIp) {
-        if (_ipType.getClassIp() == null) {
+        if (_ipType == IpType.HOST_NAME) {
             for (NetworkInterface n: getNetworkInterfaces()) {
                 for (InetAddress i: Collections.list(n.getInetAddresses())) {
                     if (i.isLoopbackAddress()) {
@@ -59,12 +61,25 @@ public final class NetCreate {
             }
             return _defaultIp;
         }
+        if (_ipType == IpType.IP_V4) {
+            for (NetworkInterface n: getNetworkInterfaces()) {
+                for (InetAddress i: Collections.list(n.getInetAddresses())) {
+                    if (i.isLoopbackAddress()) {
+                        continue;
+                    }
+                    if (!(i instanceof Inet4Address)) {
+                        continue;
+                    }
+                    return i.getHostAddress();
+                }
+            }
+        }
         for (NetworkInterface n: getNetworkInterfaces()) {
             for (InetAddress i: Collections.list(n.getInetAddresses())) {
                 if (i.isLoopbackAddress()) {
                     continue;
                 }
-                if (i.getClass() != _ipType.getClassIp()) {
+                if (!(i instanceof Inet6Address)) {
                     continue;
                 }
                 return i.getHostAddress();
@@ -111,7 +126,7 @@ public final class NetCreate {
 
     public static StringList getAllAddresses(IpType _ipType, String _host) {
         StringList addresses_ = new StringList();
-        if (_ipType.getClassIp() == null) {
+        if (_ipType == IpType.HOST_NAME) {
             try {
                 //InetAddress.getAllByName throws UnknownHostException
                 //if no IP address for the host could be found,

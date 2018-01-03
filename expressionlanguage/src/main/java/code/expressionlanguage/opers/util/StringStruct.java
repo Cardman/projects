@@ -2,9 +2,8 @@ package code.expressionlanguage.opers.util;
 
 import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
-import code.util.StringList;
 
-public final class StringStruct implements Struct {
+public final class StringStruct extends CharSequenceStruct {
 
     private final String instance;
 
@@ -30,15 +29,6 @@ public final class StringStruct implements Struct {
     @Override
     public ObjectMap<ClassField, Struct> getFields() {
         return null;
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        if (!(_other instanceof StringStruct)) {
-            return false;
-        }
-        StringStruct other_ = (StringStruct) _other;
-        return StringList.quickEq(getInstance(), other_.getInstance());
     }
 
 }

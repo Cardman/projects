@@ -476,4 +476,8 @@ public class MainWindow extends GroupFrame {
         songsLabel.setText(_messages_.getVal(SONGS));
     }
 
+    @Override
+    public String getApplicationName() {
+        return "musicplayer";
+    }
 }

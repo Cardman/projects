@@ -2351,6 +2351,11 @@ public final class MainWindow extends NetGroupFrame {
         return generalHelp;
     }
 
+    @Override
+    public String getApplicationName() {
+        return LaunchingCards.getMainWindowClass();
+    }
+
 
 }
 

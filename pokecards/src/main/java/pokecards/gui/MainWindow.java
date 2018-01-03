@@ -124,4 +124,9 @@ public final class MainWindow extends GroupFrame {
         int y_ = point_.y;
         SoftApplicationCore.saveCoords(LaunchingPokecards.getTempFolder(), LaunchingPokecards.COORDS, x_, y_);
     }
+
+    @Override
+    public String getApplicationName() {
+        return "pokecards";
+    }
 }

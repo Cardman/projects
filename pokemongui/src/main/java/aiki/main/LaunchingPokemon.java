@@ -6,7 +6,6 @@ import aiki.DataBase;
 import aiki.Resources;
 import aiki.game.Game;
 import aiki.game.params.LoadingGame;
-import aiki.gui.MainWindow;
 import code.gui.LoadLanguage;
 import code.gui.SoftApplication;
 import code.gui.ThreadInvoker;
@@ -149,8 +148,8 @@ public class LaunchingPokemon extends SoftApplication {
         return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
     }
 
-    public static Class<?> getMainWindowClass() {
-        return MainWindow.class;
+    public static String getMainWindowClass() {
+        return "aiki";
     }
 
     @Override

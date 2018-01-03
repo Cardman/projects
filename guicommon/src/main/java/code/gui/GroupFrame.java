@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
@@ -28,9 +29,9 @@ public abstract class GroupFrame extends CommonFrame implements ChangeableTitle 
         WindowUtils.addInArray(this);
     }
 
-    public static boolean tryToReopen(Class<?> _class) {
+    public static boolean tryToReopen(String _applicationName) {
         for (GroupFrame g: FRAMES) {
-            if (g.getClass() == _class) {
+            if (StringList.quickEq(g.getApplicationName(), _applicationName)) {
                 g.pack();
                 g.setVisible(true);
                 return true;
@@ -54,6 +55,8 @@ public abstract class GroupFrame extends CommonFrame implements ChangeableTitle 
     }
 
     public abstract void quit();
+
+    public abstract String getApplicationName();
 
     public void destroy() {
         int index_ = CustList.FIRST_INDEX;
