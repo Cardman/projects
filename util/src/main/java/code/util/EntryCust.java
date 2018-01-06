@@ -5,8 +5,6 @@ import code.util.ints.SimpleEntry;
 
 public final class EntryCust<K, V> implements SimpleEntry {
 
-    private static final String SEPARATOR = " ";
-
     private K key;
 
     private V value;

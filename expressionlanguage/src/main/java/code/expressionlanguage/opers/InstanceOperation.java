@@ -469,7 +469,9 @@ public final class InstanceOperation extends InvokingOperation {
                 }
             }
         }
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
+        className_ = page_.formatVarType(className_, _conf);
+        String lastType_ = Templates.format(className_, lastType, _conf);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
         if (!isIntermediateDotted()) {
 //            Class<?> class_ = null;
 //            if (StringList.isWord(realClassName_)) {

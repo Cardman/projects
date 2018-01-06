@@ -146,4 +146,9 @@ public final class StdStruct implements Struct {
     public ObjectMap<ClassField, Struct> getFields() {
         return null;
     }
+
+    @Override
+    public boolean isArray() {
+        return className.startsWith(PrimitiveTypeUtil.ARR_CLASS);
+    }
 }

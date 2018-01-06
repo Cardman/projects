@@ -38,4 +38,9 @@ public final class ArrayStruct implements Struct {
     public ObjectMap<ClassField,Struct> getFields() {
         return null;
     }
+
+    @Override
+    public boolean isArray() {
+        return true;
+    }
 }

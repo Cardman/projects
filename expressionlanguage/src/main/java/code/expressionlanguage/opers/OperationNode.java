@@ -40,7 +40,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.Fcts;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
@@ -1271,7 +1270,7 @@ public abstract class OperationNode {
             if (o_ == null) {
                 return NullStruct.NULL_VALUE;
             }
-            return CustStruct.wrapOrId(o_);
+            return StdStruct.wrapStd(o_);
         } catch (InvokingException _0) {
             throw new InvokeException(_cont.joinPages(), new StdStruct(_0.getTarget()));
         } catch (Throwable _0) {

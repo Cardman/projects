@@ -281,20 +281,6 @@ public final class PageEl {
         globalClass = _globalClass;
     }
 
-    public String format(String _type, ContextEl _context) {
-        boolean static_ = false;
-        Argument gl_ = globalArgument;
-        if (gl_ == null) {
-            static_ = true;
-        } else if (gl_.isNull()) {
-            static_ = true;
-        }
-        if (!static_) {
-            return Templates.format(globalClass, _type, _context);
-        }
-        return _type;
-    }
-
     public String formatVarType(String _varType, ContextEl _cont) {
         if (globalArgument == null) {
             return _varType;
@@ -315,12 +301,6 @@ public final class PageEl {
     public void setGlobalArgumentStruct(Struct _obj) {
         Argument arg_ = new Argument();
         arg_.setStruct(_obj);
-        globalArgument = arg_;
-    }
-
-    public void setGlobalArgumentObj(Object _obj) {
-        Argument arg_ = new Argument();
-        arg_.setObject(_obj, _obj.getClass().getName());
         globalArgument = arg_;
     }
 

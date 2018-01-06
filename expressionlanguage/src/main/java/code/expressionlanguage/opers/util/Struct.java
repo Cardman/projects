@@ -6,6 +6,9 @@ public interface Struct {
 
     boolean isNull();
 
+    boolean isArray();
+
+
     String getClassName(ContextEl _contextEl);
 
     boolean sameReference(Struct _other);

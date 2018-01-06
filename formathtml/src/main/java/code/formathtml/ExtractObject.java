@@ -39,8 +39,6 @@ import code.util.StringMapObject;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.Displayable;
-import code.util.ints.Listable;
-import code.util.ints.ListableEntries;
 import code.util.ints.MathFactory;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
@@ -357,30 +355,30 @@ final class ExtractObject {
         }
         classNameForName(_conf, _offest, _className);
     }
-    static String classNameForName(Configuration _conf, int _offest, String _className) {
+    static void classNameForName(Configuration _conf, int _offest, String _className) {
         if (_conf.getStandards().getStandards().contains(_className)) {
-            return _className;
+            return;
         }
         try {
             if (PrimitiveTypeUtil.isPrimitive(_className, _conf.toContextEl())) {
                 if (!PrimitiveTypeUtil.isExistentPrimitive(_className, _conf.toContextEl())) {
                     throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_conf.joinPages()));
                 }
-                return _className;
+                return;
             }
             if (StringList.quickEq(_className, ConstClasses.LISTABLE_ALIAS)) {
-                return Listable.class.getName();
+                return;
             }
             if (StringList.quickEq(_className, ConstClasses.LISTABLE_ENTRIES_ALIAS)) {
-                return ListableEntries.class.getName();
+                return;
             }
             String className_ = ConstClasses.getMapping(_className);
             if (className_ != null) {
                 PrimitiveTypeUtil.getSingleNativeClass(className_);
-                return className_;
+                return;
             }
             PrimitiveTypeUtil.getSingleNativeClass(_className);
-            return _className;
+            return;
         } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offest);
             throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_conf.joinPages()));
@@ -403,8 +401,8 @@ final class ExtractObject {
     }
 
     static Struct getDataBase(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
         if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             Bean inst_ = (Bean) instance_;
             Struct out_ = new StdStruct(inst_.getDataBase(), _conf.getStandards().getAliasObject());
             return out_;
@@ -413,8 +411,8 @@ final class ExtractObject {
     }
 
     static void setDataBase(Configuration _conf, Struct _it, Struct _dataBase) {
-        Object instance_ = _it.getInstance();
         if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             Bean inst_ = (Bean) instance_;
             inst_.setDataBase(_dataBase.getInstance());
             return;
@@ -423,8 +421,8 @@ final class ExtractObject {
     }
 
     static String getLanguage(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof Bean) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             Bean inst_ = (Bean) instance_;
             return inst_.getLanguage();
         }
@@ -432,8 +430,8 @@ final class ExtractObject {
     }
 
     static void setLanguage(Configuration _conf, Struct _it, String _scope) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof Bean) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             Bean inst_ = (Bean) instance_;
             inst_.setLanguage(_scope);
             return;
@@ -442,8 +440,8 @@ final class ExtractObject {
     }
 
     static String getScope(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof Bean) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             Bean inst_ = (Bean) instance_;
             return inst_.getScope();
         }
@@ -451,8 +449,8 @@ final class ExtractObject {
     }
 
     static void setScope(Configuration _conf, Struct _it, String _scope) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof Bean) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             Bean inst_ = (Bean) instance_;
             inst_.setScope(_scope);
             return;
@@ -461,8 +459,8 @@ final class ExtractObject {
     }
 
     static Struct getForms(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof Bean) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             Bean inst_ = (Bean) instance_;
             return new StringMapObjectStruct(inst_.getForms());
         }
@@ -470,8 +468,8 @@ final class ExtractObject {
     }
 
     static void setForms(Configuration _conf, Struct _it, Struct _forms) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof Bean) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             Bean inst_ = (Bean) instance_;
             inst_.setForms((StringMapObject) _forms.getInstance());
             return;
@@ -480,8 +478,8 @@ final class ExtractObject {
     }
 
     static Struct getKey(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof SimpleEntry) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             SimpleEntry inst_ = (SimpleEntry) instance_;
             Struct out_ = StdStruct.wrapStd(inst_.getKey());
             return out_;
@@ -490,8 +488,8 @@ final class ExtractObject {
     }
 
     static Struct getValue(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof SimpleEntry) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             SimpleEntry inst_ = (SimpleEntry) instance_;
             Struct out_ = StdStruct.wrapStd(inst_.getValue());
             return out_;
@@ -549,6 +547,9 @@ final class ExtractObject {
         return toString(_conf, _obj);
     }
     static String toString(Configuration _conf, Struct _obj) {
+        if (_obj.getInstance() instanceof String) {
+            return (String) _obj.getInstance();
+        }
         ContextEl context_ = _conf.toContextEl();
         String method_;
         if (context_.getClasses() != null) {
@@ -573,8 +574,8 @@ final class ExtractObject {
         return (String) getResult(_conf, 0, method_, _obj).getInstance();
     }
     static Struct iterator(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof SimpleIterable) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             SimpleIterable inst_ = (SimpleIterable) instance_;
             Struct out_ = StdStruct.wrapStd(inst_.simpleIterator());
             return out_;
@@ -582,16 +583,16 @@ final class ExtractObject {
         return getResult(_conf, 0, ITERATOR, _it);
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof SimpleItr) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             SimpleItr inst_ = (SimpleItr) instance_;
             return inst_.hasNext();
         }
         return (Boolean) getResult(_conf, 0, HAS_NEXT, _it).getInstance();
     }
     static Struct next(Configuration _conf, Struct _it) {
-        Object instance_ = _it.getInstance();
-        if (instance_ instanceof SimpleItr) {
+        if (_conf.toContextEl().getClasses() == null) {
+            Object instance_ = _it.getInstance();
             SimpleItr inst_ = (SimpleItr) instance_;
             Struct out_ = StdStruct.wrapStd(inst_.next());
             return out_;
@@ -599,8 +600,7 @@ final class ExtractObject {
         return getResult(_conf, 0, NEXT, _it);
     }
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
-        Object instance_ = _container.getInstance();
-        if (instance_ instanceof SimpleEntries) {
+        if (_conf.toContextEl().getClasses() == null) {
             SimpleEntries inst_ = (SimpleEntries) _container.getInstance();
             Struct out_ = StdStruct.wrapStd(inst_.entries());
             return out_;

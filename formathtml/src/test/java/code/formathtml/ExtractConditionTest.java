@@ -10,6 +10,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.SimpleMathFactory;
+import code.formathtml.util.BeanStruct;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -545,6 +546,7 @@ public class ExtractConditionTest {
 //        lv_.setElement(_bean);
 //        lv_.setExtendedExpression("");
 //        _conf.getLastPage().getVars().put("", lv_);
-        _conf.getLastPage().setGlobalArgumentObj(_bean);
+        _conf.getLastPage().setGlobalClass(_bean.getClassName());
+        _conf.getLastPage().setGlobalArgumentStruct(new BeanStruct(_bean), _conf);
     }
 }

@@ -522,7 +522,7 @@ public final class FctOperation extends InvokingOperation {
             if (clMeth_.isAbstractMethod()) {
                 if (_failIfError) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(StringList.concat(clMeth_.getId().getConstraints().getSignature(),RETURN_LINE,_conf.joinPages()));
+                    throw new AbstractMethodException(StringList.concat(clMeth_.getRealId().getSignature(),RETURN_LINE,_conf.joinPages()));
                 }
                 return;
             }
@@ -542,7 +542,7 @@ public final class FctOperation extends InvokingOperation {
         }
         realId = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
-            StringList paramtTypes_ = clMeth_.getId().getConstraints().getParametersTypes();
+            StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
@@ -596,7 +596,7 @@ public final class FctOperation extends InvokingOperation {
             if (clMeth_.isAbstractMethod()) {
                 if (_failIfError) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(StringList.concat(clMeth_.getId().getConstraints().getSignature(),RETURN_LINE,_conf.joinPages()));
+                    throw new AbstractMethodException(StringList.concat(clMeth_.getRealId().getSignature(),RETURN_LINE,_conf.joinPages()));
                 }
                 return;
             }
@@ -616,7 +616,7 @@ public final class FctOperation extends InvokingOperation {
         }
         realId = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
-            StringList paramtTypes_ = clMeth_.getId().getConstraints().getParametersTypes();
+            StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
@@ -751,7 +751,8 @@ public final class FctOperation extends InvokingOperation {
                 Argument arg_ = _conf.getLastPage().getGlobalArgument();
                 String clCurName_ = arg_.getObjectClassName(_conf);
                 String clCurNameBase_ = StringList.getAllTypes(clCurName_).first();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
+                String lastType_ = Templates.format(clCurName_, lastType, _conf);
+                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(clCurNameBase_);
                 InvokingConstructor inv_ = new InvokingConstructor(clCurName_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_THIS, called_);
@@ -767,7 +768,8 @@ public final class FctOperation extends InvokingOperation {
                 UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
                 String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(_conf), _conf);
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
+                String lastType_ = Templates.format(superClass_, lastType, _conf);
+                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(superClassBase_);
                 _conf.getLastPage().clearCurrentEls();
@@ -849,7 +851,7 @@ public final class FctOperation extends InvokingOperation {
                 if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(argClassName_);
-                    paramName_ = _conf.getLastPage().format(paramName_, _conf);
+                    paramName_ = _conf.getLastPage().formatVarType(paramName_, _conf);
                     mapping_.setParam(paramName_);
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
@@ -934,7 +936,7 @@ public final class FctOperation extends InvokingOperation {
                     EnumStruct cen_ = (EnumStruct) arg_.getStruct();
                     String name_ = cen_.getName();
                     Argument argres_ = new Argument();
-                    argres_.setObject(name_,stringType_);
+                    argres_.setObject(name_);
                     return ArgumentCall.newArgument(argres_);
                 }
                 if (methodId_.eq(new MethodId(false, METH_ORDINAL, new EqList<ClassName>()))) {
@@ -958,6 +960,9 @@ public final class FctOperation extends InvokingOperation {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                             throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                         }
+                        String base_ = StringList.getAllTypes(classNameFound_).first();
+                        String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+                        lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
                         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                     } else {
                         classNameFound_ = StringList.getAllTypes(classNameFound_).first();
@@ -1006,16 +1011,22 @@ public final class FctOperation extends InvokingOperation {
                         indexType_++;
                     }
                 } else {
+                    String base_ = StringList.getAllTypes(classNameFound_).first();
+                    String argClassName_ = arg_.getObjectClassName(_conf);
+                    String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+                    lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
                     firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 }
                 methodId_ = realId;
             } else {
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 classNameFound_ = classMethodId.getClassName();
+                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
                 String argClassName_ = arg_.getObjectClassName(_conf);
+                String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
+                lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
+                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 argClassName_ = Templates.getGenericString(argClassName_, _conf);
                 String base_ = StringList.getAllTypes(argClassName_).first();
-                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
                 MethodId id_ = classMethodId.getConstraints();
                 if (classes_.getMethodBodiesById(classNameFound_, id_).first().isFinalMethod()) {
                     classNameFound_ = classMethodId.getClassName();

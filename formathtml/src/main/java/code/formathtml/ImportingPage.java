@@ -1,9 +1,12 @@
 package code.formathtml;
+import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.formathtml.util.BeanStruct;
 import code.formathtml.util.BlockHtml;
 import code.formathtml.util.NodeAttribute;
 import code.formathtml.util.ProcessingHtml;
@@ -160,9 +163,14 @@ public final class ImportingPage {
         pageEl.setGlobalArgumentStruct(_obj);
     }
 
-    public void setGlobalArgumentObj(Object _obj) {
-        pageEl.setGlobalClass(_obj.getClass().getName());
-        pageEl.setGlobalArgumentObj(_obj);
+    public void setGlobalArgumentObj(Object _obj, String _className) {
+        pageEl.setGlobalClass(_className);
+        pageEl.setGlobalArgumentStruct(StdStruct.wrapStd(_obj, _className));
+    }
+
+    public void setGlobalArgumentObj(Bean _obj) {
+        pageEl.setGlobalClass(_obj.getClassName());
+        pageEl.setGlobalArgumentStruct(new BeanStruct(_obj));
     }
 
     public void setGlobalClass(String _className) {

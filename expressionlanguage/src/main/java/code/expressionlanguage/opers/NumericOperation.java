@@ -66,15 +66,13 @@ public abstract class NumericOperation extends MethodOperation {
     static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b, boolean _catChars, boolean _catString) {
         LgNames stds_ = _cont.getStandards();
         String null_;
-        String stringType_;
         null_ = stds_.getAliasNullPe();
-        stringType_ = stds_.getAliasString();
         if (_catString) {
             StringBuilder str_ = new StringBuilder();
             str_.append(_a.getObject());
             str_.append(_b.getObject());
             Argument a_ = new Argument();
-            a_.setObject(str_.toString(),stringType_);
+            a_.setObject(str_.toString());
             return a_;
         }
         if (_catChars) {
@@ -82,7 +80,7 @@ public abstract class NumericOperation extends MethodOperation {
             str_.append(_a.getObject());
             str_.append(_b.getObject());
             Argument a_ = new Argument();
-            a_.setObject(str_.toString(),stringType_);
+            a_.setObject(str_.toString());
             return a_;
         }
         if (_a.isNull()) {
@@ -821,9 +819,13 @@ public abstract class NumericOperation extends MethodOperation {
         if (ob_ == 0) {
             throw new NotNumberException(StringList.concat(_b.getName(),RETURN_LINE,_cont.joinPages()));
         }
+        return getQuickResultClass(_a, oa_, _cont, _b, ob_);
+    }
+
+    static ClassArgumentMatching getQuickResultClass(ClassArgumentMatching _a, int _oa, ContextEl _cont, ClassArgumentMatching _b, int _ob) {
         ClassArgumentMatching arg_;
-        int max_ = Math.max(oa_, ob_);
-        if (oa_ > ob_) {
+        int max_ = Math.max(_oa, _ob);
+        if (_oa > _ob) {
             arg_ = _a;
         } else {
             arg_ = _b;

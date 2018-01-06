@@ -6,8 +6,6 @@ import code.util.ints.Equallable;
 @RwXml
 public final class PairNumber<T extends Number,S extends Number> implements Equallable<PairNumber<T,S>> {
 
-    private static final String SEPARATOR = " ";
-
     private T first;
 
     private S second;

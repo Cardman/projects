@@ -7,8 +7,6 @@ import code.util.ints.Equallable;
 @RwXml
 public final class PairBoolean implements Equallable<PairBoolean> {
 
-    private static final String SEPARATOR = " ";
-
     private boolean first;
 
     private boolean second;

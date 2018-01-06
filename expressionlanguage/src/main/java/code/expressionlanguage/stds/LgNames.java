@@ -63,6 +63,7 @@ import code.util.SimpleItr;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
+import code.util.ints.Countable;
 import code.util.ints.Displayable;
 import code.util.ints.SimpleIterable;
 
@@ -543,7 +544,6 @@ public class LgNames {
         fields_ = new StringMap<StandardField>();
         numbersValuesFields(fields_, aliasPrimChar);
         stdcl_ = new StandardClass(aliasCharacter, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
-        stdcl_.getDirectInterfaces().add(aliasCharSequence);
         std_ = stdcl_;
         standards.put(aliasCharacter, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -779,13 +779,16 @@ public class LgNames {
         params_ = new StringList(aliasPrimDouble);
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasCharSequence,aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString,aliasPrimInteger,aliasPrimInteger);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasStringBuilder,aliasPrimInteger,aliasPrimInteger);
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar));
@@ -854,13 +857,16 @@ public class LgNames {
         params_ = new StringList(aliasPrimInteger, aliasPrimDouble);
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger, aliasCharSequence);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger, aliasCharSequence,aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasString);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger, aliasString,aliasPrimInteger,aliasPrimInteger);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger, aliasStringBuilder,aliasPrimInteger,aliasPrimInteger);
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar));
@@ -894,7 +900,7 @@ public class LgNames {
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_, false);
         constructors_.add(ctor_);
-        params_ = new StringList(aliasCharSequence);
+        params_ = new StringList(aliasStringBuilder);
         ctor_ = new StandardConstructor(params_, false);
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimInteger);
@@ -1241,7 +1247,7 @@ public class LgNames {
             boolean _static, boolean _superClass, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         LgNames classes_ = _conf.getStandards();
         String clCurName_ = _class.getName();
-        String baseCurName_ = clCurName_;
+        String baseCurName_ = StringList.getAllTypes(clCurName_).first();
         StandardType root_ = classes_.getStandards().getVal(baseCurName_);
         ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
         methods_ = new ObjectNotNullMap<ClassMethodId, MethodMetaInfo>();
@@ -1929,6 +1935,16 @@ public class LgNames {
         }
         if (null_) {
             return result_;
+        }
+        if (instance_ instanceof Countable) {
+            if (StringList.quickEq(name_, lgNames_.getAliasIsEmpty())) {
+                result_.setResult(new BooleanStruct(((Countable) instance_).isEmpty()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasSize())) {
+                result_.setResult(new IntStruct(((Countable) instance_).size()));
+                return result_;
+            }
         }
         if (instance_ instanceof SimpleIterable) {
             if (StringList.quickEq(name_, lgNames_.getAliasSimpleIterator())) {
@@ -2931,12 +2947,7 @@ public class LgNames {
             }
         } else if (StringList.quickEq(type_, lgNames_.getAliasCharSequence())) {
             if (StringList.quickEq(name_, lgNames_.getAliasCharAt())) {
-                CharSequence one_;
-                if (instance_ instanceof Character) {
-                    one_ = String.valueOf(instance_);
-                } else {
-                    one_ = (CharSequence) instance_;
-                }
+                CharSequence one_ = (CharSequence) instance_;
                 Integer two_ = (Integer) argsObj_[0];
                 if (two_ < 0 || two_ > one_.length()) {
                     result_.setError(lgNames_.getAliasBadIndex());
@@ -2944,31 +2955,21 @@ public class LgNames {
                     result_.setResult(new CharStruct(one_.charAt(two_)));
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasLength())) {
-                CharSequence one_;
-                if (instance_ instanceof Character) {
-                    one_ = String.valueOf(instance_);
-                } else {
-                    one_ = (CharSequence) instance_;
-                }
+                CharSequence one_ = (CharSequence) instance_;
                 result_.setResult(new IntStruct(one_.length()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasSubSequence())) {
-                CharSequence one_;
-                boolean ch_ = false;
-                if (instance_ instanceof Character) {
-                    one_ = String.valueOf(instance_);
-                    ch_ = true;
-                } else {
-                    one_ = (CharSequence) instance_;
-                }
+                CharSequence one_ = (CharSequence) instance_;
                 Integer two_ = (Integer) argsObj_[0];
                 Integer three_ = (Integer) argsObj_[1];
                 if (two_ < 0 || three_ < 0 || two_ > one_.length() || three_ > one_.length() || two_ > three_) {
                     result_.setError(lgNames_.getAliasBadIndex());
                 } else {
-                    if (ch_) {
-                        result_.setResult(new CharStruct((Character) instance_));
+                    if (one_ instanceof String) {
+                        result_.setResult(new StringStruct(((String)one_).substring(two_, three_)));
+                    } else if (one_ instanceof StringBuilder) {
+                        result_.setResult(new StringStruct(((StringBuilder)one_).substring(two_, three_)));
                     } else {
-                        result_.setResult(new StdStruct(one_.subSequence(two_, three_),_struct.getClassName(_cont)));
+                        result_ = lgNames_.getOtherResult(_cont, _struct, _method, argsObj_);
                     }
                 }
             }
@@ -3539,9 +3540,8 @@ public class LgNames {
             if (argStruct_.isNull()) {
                 continue;
             }
-            Object a_ = argStruct_.getInstance();
-            if (a_ instanceof Struct[]) {
-                Struct[] str_ = (Struct[]) a_;
+            if (argStruct_ instanceof ArrayStruct) {
+                Struct[] str_ = ((ArrayStruct) argStruct_).getInstance();
                 String compo_ = PrimitiveTypeUtil.getQuickComponentType(argStruct_.getClassName(_context));
                 if (StringList.quickEq(compo_, _stds.getAliasPrimByte())) {
                     byte[] adapt_ = new byte[str_.length];
@@ -3649,6 +3649,7 @@ public class LgNames {
             String p_ = _params.get(i);
             ClassArgumentMatching cl_ = new ClassArgumentMatching(p_);
             cl_ = PrimitiveTypeUtil.toPrimitive(cl_, true, _stds);
+            Object a_ = argStruct_.getInstance();
             if (cl_.matchClass(_stds.getAliasPrimDouble())) {
                 if (a_ instanceof Number) {
                     args_[i] = ((Number)a_).doubleValue();
@@ -3782,6 +3783,39 @@ public class LgNames {
         _context.getStandards().setOtherElement(_array, _index, _element);
     }
     public void setOtherElement(Object _array, int _index, Struct _element) {
+    }
+    public String getClassName(Object _stds, Struct _from, ClassMethodId _method, ContextEl _context, Argument... _args) {
+        if (_stds instanceof Double) {
+            return getAliasDouble();
+        }
+        if (_stds instanceof Float) {
+            return getAliasFloat();
+        }
+        if (_stds instanceof Long) {
+            return getAliasLong();
+        }
+        if (_stds instanceof Integer) {
+            return getAliasInteger();
+        }
+        if (_stds instanceof Character) {
+            return getAliasCharacter();
+        }
+        if (_stds instanceof Short) {
+            return getAliasShort();
+        }
+        if (_stds instanceof Byte) {
+            return getAliasByte();
+        }
+        if (_stds instanceof String) {
+            return getAliasString();
+        }
+        if (_stds instanceof StringBuilder) {
+            return getAliasStringBuilder();
+        }
+        return getOtherClassName(_stds, _from, _method, _context, _args);
+    }
+    public String getOtherClassName(Object _stds, Struct _from, ClassMethodId _method, ContextEl _context, Argument... _args) {
+        return EMPTY_STRING;
     }
     public StringMap<StandardType> getStandards() {
         return standards;

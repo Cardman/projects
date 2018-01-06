@@ -39,4 +39,9 @@ public final class BeanStruct implements Struct {
         return null;
     }
 
+    @Override
+    public boolean isArray() {
+        return false;
+    }
+
 }

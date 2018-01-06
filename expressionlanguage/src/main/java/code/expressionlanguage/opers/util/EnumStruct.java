@@ -83,4 +83,9 @@ public final class EnumStruct implements FieldableStruct {
     public String getClassName() {
         return className;
     }
+
+    @Override
+    public boolean isArray() {
+        return false;
+    }
 }

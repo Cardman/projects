@@ -51,4 +51,9 @@ public final class CharStruct implements Struct {
         CharStruct other_ = (CharStruct) _other;
         return Numbers.eq(getInstance(), other_.getInstance());
     }
+
+    @Override
+    public boolean isArray() {
+        return false;
+    }
 }

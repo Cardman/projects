@@ -1,18 +1,25 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.exceptions.BadReturnException;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.CharStruct;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.NumberStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.stds.LgNames;
@@ -157,6 +164,28 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             Argument arg_ = el_.calculateMember(_cont);
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();
+            if (arg_.getStruct() instanceof NumberStruct || arg_.getStruct() instanceof CharStruct || arg_.isNull()) {
+                LgNames stds_ = _cont.getStandards();
+                String retType_ = stds_.getAliasVoid();
+                BracedBlock par_ = getParent();
+                while (par_ != null) {
+                    if (par_ instanceof Returnable) {
+                        Returnable meth_ = null;
+                        meth_ = (Returnable) par_;
+                        retType_ = meth_.getReturnType(stds_);
+                        break;
+                    }
+                    par_ = par_.getParent();
+                }
+                retType_ = _cont.getLastPage().formatVarType(retType_, _cont);
+                if (PrimitiveTypeUtil.primitiveTypeNullObject(retType_, arg_.getStruct(), _cont)) {
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                }
+                ClassArgumentMatching resCl_ = new ClassArgumentMatching(retType_);
+                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, arg_.getStruct(), _cont));
+            }
             _cont.getLastPage().setReturnedArgument(arg_);
         } else {
             FunctionBlock f_ = getFunction();

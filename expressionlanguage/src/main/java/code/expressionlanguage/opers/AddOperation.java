@@ -60,10 +60,14 @@ public final class AddOperation extends NumericOperation {
                     return res_;
                 }
             }
+            int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
+            int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
+            if (oa_ > 0 && ob_ > 0) {
+                res_.setResult(getQuickResultClass(_a, oa_, _cont, _b, ob_));
+                return res_;
+            }
             boolean str_ = false;
-            boolean concat_ = false;
             if (_a.matchClass(stringType_)) {
-                concat_ = true;
                 if (_b.matchClass(stringType_)) {
                     str_ = true;
                 } else if (_b.matchClass(stringBuilderType_)) {
@@ -75,7 +79,6 @@ public final class AddOperation extends NumericOperation {
                 }
             }
             if (_b.matchClass(stringType_)) {
-                concat_ = true;
                 if (_a.matchClass(stringBuilderType_)) {
                     str_ = true;
                 } else if (_a.getName().isEmpty()) {
@@ -89,9 +92,7 @@ public final class AddOperation extends NumericOperation {
                 res_.setCatString(true);
                 return res_;
             }
-            if (concat_) {
-                throw new NotNumberException(StringList.concat(_a.getName(),_b.getName(),_cont.joinPages()));
-            }
+            throw new NotNumberException(StringList.concat(_a.getName(),_b.getName(),_cont.joinPages()));
         }
         res_.setResult(getResultClass(_a, _cont, _b));
         return res_;

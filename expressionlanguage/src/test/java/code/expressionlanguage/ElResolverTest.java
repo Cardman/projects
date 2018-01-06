@@ -4,7 +4,6 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import code.expressionlanguage.classes.BeanOne;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.util.NatTreeMap;
 
@@ -17,8 +16,6 @@ public class ElResolverTest {
     public void getOperationsSequence1Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -40,8 +37,6 @@ public class ElResolverTest {
     public void getOperationsSequence2Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs(4,3).abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -59,8 +54,6 @@ public class ElResolverTest {
     public void getOperationsSequence3Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs(4+3).abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -78,8 +71,6 @@ public class ElResolverTest {
     public void getOperationsSequence4Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs($vararg(\""+ARR_INT+"\"),4+3).abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -97,8 +88,6 @@ public class ElResolverTest {
     public void getOperationsSequence5Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs($vararg(\""+ARR_INT+"\"),'[').abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -116,8 +105,6 @@ public class ElResolverTest {
     public void getOperationsSequence6Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs($vararg(\""+ARR_INT+"\"),'[').abs(4,3)+8";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -135,8 +122,6 @@ public class ElResolverTest {
     public void getOperationsSequence7Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(1+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -154,8 +139,6 @@ public class ElResolverTest {
     public void getOperationsSequence8Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\u9fcb'+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -173,8 +156,6 @@ public class ElResolverTest {
     public void getOperationsSequence9Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\''+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -192,8 +173,6 @@ public class ElResolverTest {
     public void getOperationsSequence10Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"ab\"+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -211,8 +190,6 @@ public class ElResolverTest {
     public void getOperationsSequence11Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-6*8";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -230,8 +207,6 @@ public class ElResolverTest {
     public void getOperationsSequence12Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-abs(8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -248,8 +223,6 @@ public class ElResolverTest {
     public void getOperationsSequence13Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs($vararg(\""+ARR_INT+"\"),'[').abs(4,3)+8-9";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -267,8 +240,6 @@ public class ElResolverTest {
     public void getOperationsSequence14Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1.8-abs(9)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -286,8 +257,6 @@ public class ElResolverTest {
     public void getOperationsSequence15Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1.8";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -303,8 +272,6 @@ public class ElResolverTest {
     public void getOperationsSequence16Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "\"18\"";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -320,8 +287,6 @@ public class ElResolverTest {
     public void getOperationsSequence17Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "18";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -337,8 +302,6 @@ public class ElResolverTest {
     public void getOperationsSequence18Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "(4+3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -357,8 +320,6 @@ public class ElResolverTest {
     public void getOperationsSequence19Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(4+3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -377,8 +338,6 @@ public class ElResolverTest {
     public void getOperationsSequence20Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs($vararg(\""+ARR_INT+"\"),4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -402,8 +361,6 @@ public class ElResolverTest {
     public void getOperationsSequence21Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v;";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -420,8 +377,6 @@ public class ElResolverTest {
     public void getOperationsSequence22Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v;.";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -438,8 +393,6 @@ public class ElResolverTest {
     public void getOperationsSequence23Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -456,8 +409,6 @@ public class ElResolverTest {
     public void getOperationsSequence24Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs(4,3)[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -477,8 +428,6 @@ public class ElResolverTest {
     public void getOperationsSequence25Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs(4,3)[14][5]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -498,8 +447,6 @@ public class ElResolverTest {
     public void getOperationsSequence26Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"a b\"+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -518,8 +465,6 @@ public class ElResolverTest {
     public void getOperationsSequence27Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v.a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -538,8 +483,6 @@ public class ElResolverTest {
     public void getOperationsSequence28Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.call()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -557,8 +500,6 @@ public class ElResolverTest {
     public void getOperationsSequence29Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.;call()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -577,8 +518,6 @@ public class ElResolverTest {
     public void getOperationsSequence30Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;;call()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -596,8 +535,6 @@ public class ElResolverTest {
     public void getOperationsSequence31Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;call()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -615,8 +552,6 @@ public class ElResolverTest {
     public void getOperationsSequence32Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.call().call()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -636,8 +571,6 @@ public class ElResolverTest {
     public void getOperationsSequence33Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.;call().call()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -655,8 +588,6 @@ public class ElResolverTest {
     public void getOperationsSequence34Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;;call().call()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -675,8 +606,6 @@ public class ElResolverTest {
     public void getOperationsSequence35Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;call().call()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -695,8 +624,6 @@ public class ElResolverTest {
     public void getOperationsSequence36Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$new java.lang.Integer(\"8\")";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -716,8 +643,6 @@ public class ElResolverTest {
     public void getOperationsSequence37Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "call().$new java.lang.Integer(\"8\")";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -737,8 +662,6 @@ public class ElResolverTest {
     public void getOperationsSequence38Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$new java.lang.Integer(\"8\").intValue()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -757,8 +680,6 @@ public class ElResolverTest {
     public void getOperationsSequence39Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$new "+ARR_INTEGER+"(\"8\")";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -778,8 +699,6 @@ public class ElResolverTest {
     public void getOperationsSequence40Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "new.java.lang.Integer(\"8\").intValue()+5";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -798,8 +717,6 @@ public class ElResolverTest {
     public void getOperationsSequence41Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -819,8 +736,6 @@ public class ElResolverTest {
     public void getOperationsSequence42Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.;[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -840,8 +755,6 @@ public class ElResolverTest {
     public void getOperationsSequence43Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;;[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -861,8 +774,6 @@ public class ElResolverTest {
     public void getOperationsSequence44Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -882,8 +793,6 @@ public class ElResolverTest {
     public void getOperationsSequence45Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.f[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -902,8 +811,6 @@ public class ElResolverTest {
     public void getOperationsSequence46Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.;f[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -922,8 +829,6 @@ public class ElResolverTest {
     public void getOperationsSequence47Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;;f[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -942,8 +847,6 @@ public class ElResolverTest {
     public void getOperationsSequence48Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;f[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -962,8 +865,6 @@ public class ElResolverTest {
     public void getOperationsSequence49Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.f()[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -982,8 +883,6 @@ public class ElResolverTest {
     public void getOperationsSequence50Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.;f()[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1002,8 +901,6 @@ public class ElResolverTest {
     public void getOperationsSequence51Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;;f()[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1022,8 +919,6 @@ public class ElResolverTest {
     public void getOperationsSequence52Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;f()[0]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1041,8 +936,6 @@ public class ElResolverTest {
     public void getOperationsSequence53Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$static$pkg$classname.field";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1060,8 +953,6 @@ public class ElResolverTest {
     public void getOperationsSequence54Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "--1";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1079,8 +970,6 @@ public class ElResolverTest {
     public void getOperationsSequence55Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-1";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1097,8 +986,6 @@ public class ElResolverTest {
     public void getOperationsSequence56Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-1.0";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1114,8 +1001,6 @@ public class ElResolverTest {
     public void getOperationsSequence57Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1--1";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1133,8 +1018,6 @@ public class ElResolverTest {
     public void getOperationsSequence58Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1152,8 +1035,6 @@ public class ElResolverTest {
     public void getOperationsSequence59Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!!a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1171,8 +1052,6 @@ public class ElResolverTest {
     public void getOperationsSequence60Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "b!=a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1191,8 +1070,6 @@ public class ElResolverTest {
     public void getOperationsSequence61Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "b<=a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1211,8 +1088,6 @@ public class ElResolverTest {
     public void getOperationsSequence62Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "b>=a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1231,8 +1106,6 @@ public class ElResolverTest {
     public void getOperationsSequence63Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "b=a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1251,8 +1124,6 @@ public class ElResolverTest {
     public void getOperationsSequence64Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "\"\\\"string\"";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1269,8 +1140,6 @@ public class ElResolverTest {
     public void getOperationsSequence65Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "'\\''";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1287,8 +1156,6 @@ public class ElResolverTest {
     public void getOperationsSequence66Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "'\\\\'";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1305,8 +1172,6 @@ public class ElResolverTest {
     public void getOperationsSequence67Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(\"\\\"string\")";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1326,8 +1191,6 @@ public class ElResolverTest {
     public void getOperationsSequence68Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt('\\'')";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1347,8 +1210,6 @@ public class ElResolverTest {
     public void getOperationsSequence69Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt('\\\\')";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1368,8 +1229,6 @@ public class ElResolverTest {
     public void getOperationsSequence70Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(1.0)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1389,8 +1248,6 @@ public class ElResolverTest {
     public void getOperationsSequence71Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs($vararg(\"java.lang.Object\"),$firstopt(4),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1414,8 +1271,6 @@ public class ElResolverTest {
     public void getOperationsSequence72Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs($vararg(\"java.lang.Object\"),$firstopt(4;.;),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1440,8 +1295,6 @@ public class ElResolverTest {
     public void getOperationsSequence73Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "abs($vararg(\"java.lang.Object\"),$firstopt(4;.),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1466,8 +1319,6 @@ public class ElResolverTest {
     public void getOperationsSequence74Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(v;.)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1487,8 +1338,6 @@ public class ElResolverTest {
     public void getOperationsSequence75Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(v;.;)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1508,8 +1357,6 @@ public class ElResolverTest {
     public void getOperationsSequence76Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(v;)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1529,8 +1376,6 @@ public class ElResolverTest {
     public void getOperationsSequence77Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(v;;)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1551,8 +1396,6 @@ public class ElResolverTest {
     public void getOperationsSequence78Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(v;.t)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1572,8 +1415,6 @@ public class ElResolverTest {
     public void getOperationsSequence79Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(v;.;t)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1593,8 +1434,6 @@ public class ElResolverTest {
     public void getOperationsSequence80Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(v;t)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1616,8 +1455,6 @@ public class ElResolverTest {
     public void getOperationsSequence81Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$firstopt(v;;t)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1637,8 +1474,6 @@ public class ElResolverTest {
     public void getOperationsSequence82Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-10";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1655,8 +1490,6 @@ public class ElResolverTest {
     public void getOperationsSequence83Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1674,8 +1507,6 @@ public class ElResolverTest {
     public void getOperationsSequence84Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-1d";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1693,8 +1524,6 @@ public class ElResolverTest {
     public void getOperationsSequence85Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-1.0d";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1711,8 +1540,6 @@ public class ElResolverTest {
     public void getOperationsSequence86Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "a&b!=c";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1730,8 +1557,6 @@ public class ElResolverTest {
     public void getOperationsSequence87Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v; a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1750,8 +1575,6 @@ public class ElResolverTest {
     public void getOperationsSequence88Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v; ";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1768,8 +1591,6 @@ public class ElResolverTest {
     public void getOperationsSequence89Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "a .b";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1788,8 +1609,6 @@ public class ElResolverTest {
     public void getOperationsSequence90Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\u9Fcb'+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1808,8 +1627,6 @@ public class ElResolverTest {
     public void getOperationsSequence91Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"\\u9Fcb\"+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1827,8 +1644,6 @@ public class ElResolverTest {
     public void getOperationsSequence92Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\n'+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1847,8 +1662,6 @@ public class ElResolverTest {
     public void getOperationsSequence93Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"\\n\"+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1866,8 +1679,6 @@ public class ElResolverTest {
     public void getOperationsSequence94Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\r'+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1886,8 +1697,6 @@ public class ElResolverTest {
     public void getOperationsSequence95Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"\\r\"+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1906,8 +1715,6 @@ public class ElResolverTest {
     public void getOperationsSequence96Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\b'+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1925,8 +1732,6 @@ public class ElResolverTest {
     public void getOperationsSequence97Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"\\b\"+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1944,8 +1749,6 @@ public class ElResolverTest {
     public void getOperationsSequence98Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\t'+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1963,8 +1766,6 @@ public class ElResolverTest {
     public void getOperationsSequence99Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"\\t\"+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -1982,8 +1783,6 @@ public class ElResolverTest {
     public void getOperationsSequence100Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "\"\\\"string\"+\"\\\"string\"";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2001,8 +1800,6 @@ public class ElResolverTest {
     public void getOperationsSequence101Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "\"\\\\\\\"string\"+\"\\\"string\"";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2021,8 +1818,6 @@ public class ElResolverTest {
     public void getOperationsSequence102Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\f'+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2040,8 +1835,6 @@ public class ElResolverTest {
     public void getOperationsSequence103Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"\\f\"+8)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2060,8 +1853,6 @@ public class ElResolverTest {
     public void getOperationsSequence104Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!!field";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2078,8 +1869,6 @@ public class ElResolverTest {
     public void getOperationsSequence105Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!field!=anotherfield";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2097,8 +1886,6 @@ public class ElResolverTest {
     public void getOperationsSequence106Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "field!=!anotherfield";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2116,8 +1903,6 @@ public class ElResolverTest {
     public void getOperationsSequence107Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!field!=!anotherfield";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2136,8 +1921,6 @@ public class ElResolverTest {
     public void getOperationsSequence108Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v;.news.a()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2157,8 +1940,6 @@ public class ElResolverTest {
     public void getOperationsSequence109Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "news.a()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2178,8 +1959,6 @@ public class ElResolverTest {
     public void getOperationsSequence110Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.f";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2197,8 +1976,6 @@ public class ElResolverTest {
     public void getOperationsSequence111Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.;f";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2217,8 +1994,6 @@ public class ElResolverTest {
     public void getOperationsSequence112Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;;f";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2236,8 +2011,6 @@ public class ElResolverTest {
     public void getOperationsSequence113Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;f";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2256,8 +2029,6 @@ public class ElResolverTest {
     public void getOperationsSequence114Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "+a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2276,8 +2047,6 @@ public class ElResolverTest {
     public void getOperationsSequence115Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "a|b";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2296,8 +2065,6 @@ public class ElResolverTest {
     public void getOperationsSequence116Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "a&b";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2316,8 +2083,6 @@ public class ElResolverTest {
     public void getOperationsSequence117Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "a|b&c";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2336,8 +2101,6 @@ public class ElResolverTest {
     public void getOperationsSequence118Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "a&b|c";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2356,8 +2119,6 @@ public class ElResolverTest {
     public void getOperationsSequence119Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!a|b";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2376,8 +2137,6 @@ public class ElResolverTest {
     public void getOperationsSequence120Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!a&b";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2396,8 +2155,6 @@ public class ElResolverTest {
     public void getOperationsSequence121Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!a|b&c";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2416,8 +2173,6 @@ public class ElResolverTest {
     public void getOperationsSequence122Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "!a&b|c";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2436,8 +2191,6 @@ public class ElResolverTest {
     public void getOperationsSequence123Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "(a|b)&c";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2456,8 +2209,6 @@ public class ElResolverTest {
     public void getOperationsSequence124Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "(a|b)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2476,8 +2227,6 @@ public class ElResolverTest {
     public void getOperationsSequence125Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v;.[0i].array[0i]";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2496,8 +2245,6 @@ public class ElResolverTest {
     public void getOperationsSequence126Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;.$new java.lang.Integer(\"8\")";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2516,8 +2263,6 @@ public class ElResolverTest {
     public void getOperationsSequence127Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "var;$new java.lang.Integer(\"8\")";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2762,8 +2507,6 @@ public class ElResolverTest {
     public void getOperationsSequence143Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1bs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2785,8 +2528,6 @@ public class ElResolverTest {
     public void getOperationsSequence144Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = " !a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2803,8 +2544,6 @@ public class ElResolverTest {
     public void getOperationsSequence145Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "! a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2821,8 +2560,6 @@ public class ElResolverTest {
     public void getOperationsSequence146Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "-- a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2839,8 +2576,6 @@ public class ElResolverTest {
     public void getOperationsSequence147Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "- -a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2857,8 +2592,6 @@ public class ElResolverTest {
     public void getOperationsSequence148Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = " --a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2875,8 +2608,6 @@ public class ElResolverTest {
     public void getOperationsSequence149Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = " v;";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -2894,8 +2625,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "{6*('\\u9fcb'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
@@ -2909,8 +2638,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters2Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "`6*('\\u9fcb'+8)`";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '`', '`');
         assertEq(2, d_.getDelStringsChars().size());
@@ -2924,8 +2651,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters3Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "`6*('`'+8)`";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '`', '`');
         assertEq(2, d_.getDelStringsChars().size());
@@ -2939,8 +2664,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters4Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "{6*('}'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
@@ -2954,8 +2677,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters5Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = " {6*('\\u9fcb'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
@@ -2969,8 +2690,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters6Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = " {6*(\"//\"+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
@@ -2984,8 +2703,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters1FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "{6*('\\u9fcb'+8)";
         ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
     }
@@ -2994,8 +2711,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters2FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "{6*('\\u9fcb'+8){";
         ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
     }
@@ -3004,8 +2719,6 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters3FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "{6*('\\u9gcb'+8)}";
         ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
     }
@@ -3014,8 +2727,6 @@ public class ElResolverTest {
     public void checkSyntax1FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\u9gcb'+8)";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3024,8 +2735,6 @@ public class ElResolverTest {
     public void checkSyntax2FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('\\g'+8)";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3034,8 +2743,6 @@ public class ElResolverTest {
     public void checkSyntax3FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('ab'+8)";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3044,8 +2751,6 @@ public class ElResolverTest {
     public void checkSyntax4FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*('a'+[8)]";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3054,8 +2759,6 @@ public class ElResolverTest {
     public void checkSyntax5FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*['a'+(8])";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3064,8 +2767,6 @@ public class ElResolverTest {
     public void checkSyntax7FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"t\\u98\"+[8])";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3074,8 +2775,6 @@ public class ElResolverTest {
     public void checkSyntax8FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6*(\"t\\u98 \"+[8])";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3084,8 +2783,6 @@ public class ElResolverTest {
     public void checkSyntax9FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "6 1*(\"te\"+[8])";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3094,8 +2791,6 @@ public class ElResolverTest {
     public void checkSyntax10FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$static.a";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3104,8 +2799,6 @@ public class ElResolverTest {
     public void checkSyntax11FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "a.$static";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3114,8 +2807,6 @@ public class ElResolverTest {
     public void checkSyntax12FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1< =2";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3124,8 +2815,6 @@ public class ElResolverTest {
     public void checkSyntax13FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1> =2";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3134,8 +2823,6 @@ public class ElResolverTest {
     public void checkSyntax14FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1! =2";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3144,8 +2831,6 @@ public class ElResolverTest {
     public void checkSyntax15FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v ;";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3154,8 +2839,6 @@ public class ElResolverTest {
     public void checkSyntax16FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v; .";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3164,8 +2847,6 @@ public class ElResolverTest {
     public void checkSyntax17FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v;. ;";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3174,8 +2855,6 @@ public class ElResolverTest {
     public void checkSyntax18FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v; ;";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3184,8 +2863,6 @@ public class ElResolverTest {
     public void checkSyntax19FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v;  ;";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3194,8 +2871,6 @@ public class ElResolverTest {
     public void checkSyntax20FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "'\\";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3204,8 +2879,6 @@ public class ElResolverTest {
     public void checkSyntax21FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "\"\\";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3214,8 +2887,6 @@ public class ElResolverTest {
     public void checkSyntax22FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "\"\\u9fc";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3224,8 +2895,6 @@ public class ElResolverTest {
     public void checkSyntax23FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "'\\u9fc";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3234,8 +2903,6 @@ public class ElResolverTest {
     public void checkSyntax24FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "\"\\g9fc";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3244,8 +2911,6 @@ public class ElResolverTest {
     public void checkSyntax25FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "'\\g9fc";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3254,8 +2919,6 @@ public class ElResolverTest {
     public void checkSyntax26FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "\"\\u9fcb";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3264,8 +2927,6 @@ public class ElResolverTest {
     public void checkSyntax27FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "'\\u9fcb";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3274,8 +2935,6 @@ public class ElResolverTest {
     public void checkSyntax28FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1)";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3284,8 +2943,6 @@ public class ElResolverTest {
     public void checkSyntax29FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "(1";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3294,8 +2951,6 @@ public class ElResolverTest {
     public void checkSyntax30FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1]";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3304,8 +2959,6 @@ public class ElResolverTest {
     public void checkSyntax31FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "[1";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3314,8 +2967,6 @@ public class ElResolverTest {
     public void checkSyntax32FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "v.";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3324,8 +2975,6 @@ public class ElResolverTest {
     public void checkSyntax33FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$new java.lang.Integer";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3334,8 +2983,6 @@ public class ElResolverTest {
     public void checkSyntax34FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "new.java.lang.Integer(?java";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3344,8 +2991,6 @@ public class ElResolverTest {
     public void checkSyntax35FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "a,b";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3354,8 +2999,6 @@ public class ElResolverTest {
     public void checkSyntax36FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "integer[?java";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3364,8 +3007,6 @@ public class ElResolverTest {
     public void checkSyntax37FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "integer\\n";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3374,8 +3015,6 @@ public class ElResolverTest {
     public void checkSyntax38FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1 .0";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3384,8 +3023,6 @@ public class ElResolverTest {
     public void checkSyntax39FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1. 0";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3394,8 +3031,6 @@ public class ElResolverTest {
     public void checkSyntax40FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "$static$pkg$classname";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3404,8 +3039,6 @@ public class ElResolverTest {
     public void checkSyntax41FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = ".1.0";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3414,8 +3047,6 @@ public class ElResolverTest {
     public void checkSyntax42FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1e.0";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3424,8 +3055,6 @@ public class ElResolverTest {
     public void checkSyntax43FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1e";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3434,8 +3063,6 @@ public class ElResolverTest {
     public void checkSyntax44FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1.0e.2";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3444,8 +3071,6 @@ public class ElResolverTest {
     public void checkSyntax45FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1.0e5.2";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3454,8 +3079,6 @@ public class ElResolverTest {
     public void checkSyntax46FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1.0.2";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3464,8 +3087,6 @@ public class ElResolverTest {
     public void checkSyntax47FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1  .0";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
@@ -3474,9 +3095,6 @@ public class ElResolverTest {
         _conf.setAnalyzing(new PageEl());
     }
 
-    private static void addBean(ContextEl _conf, Object _bean) {
-        _conf.getLastPage().setGlobalArgumentObj(_bean);
-    }
     private ContextEl contextEl() {
         ContextEl cont_ = new ContextEl();
         InitializationLgNames.initAdvStandards(cont_);

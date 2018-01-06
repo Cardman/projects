@@ -34,4 +34,9 @@ public final class NullStruct implements Struct {
     public boolean sameReference(Struct _other) {
         return _other == NULL_VALUE;
     }
+
+    @Override
+    public boolean isArray() {
+        return false;
+    }
 }

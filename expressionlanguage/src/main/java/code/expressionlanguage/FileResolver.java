@@ -1152,6 +1152,7 @@ public final class FileResolver {
                                     }
                                 }
                             }
+                            info_ = info_.substring(info_.indexOf(BEGIN_CALLING) + 1).trim();
                             StringList parametersType_ = new StringList();
                             StringList parametersName_ = new StringList();
                             while (true) {

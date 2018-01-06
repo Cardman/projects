@@ -31,4 +31,8 @@ public final class StringStruct extends CharSequenceStruct {
         return null;
     }
 
+    @Override
+    public boolean isArray() {
+        return false;
+    }
 }

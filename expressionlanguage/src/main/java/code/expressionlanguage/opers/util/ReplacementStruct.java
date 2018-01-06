@@ -41,4 +41,8 @@ public final class ReplacementStruct implements Struct {
         return getInstance() == other_.getInstance();
     }
 
+    @Override
+    public boolean isArray() {
+        return false;
+    }
 }

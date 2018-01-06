@@ -7,8 +7,6 @@ import code.util.ints.Equallable;
 @RwXml
 public final class PairEq<T extends Equallable<T>,S extends Equallable<S>> implements Equallable<PairEq<T,S>> {
 
-    private static final String SEPARATOR = " ";
-
     private T first;
 
     private S second;

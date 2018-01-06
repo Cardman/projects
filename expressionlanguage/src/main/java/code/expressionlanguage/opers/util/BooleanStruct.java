@@ -39,4 +39,9 @@ public final class BooleanStruct implements Struct {
         BooleanStruct other_ = (BooleanStruct) _other;
         return getInstance().booleanValue() == other_.getInstance().booleanValue();
     }
+
+    @Override
+    public boolean isArray() {
+        return false;
+    }
 }

@@ -8,23 +8,11 @@ import org.junit.Test;
 
 import code.expressionlanguage.classes.ArrayContainer;
 import code.expressionlanguage.classes.BeanOne;
-import code.expressionlanguage.classes.BeanSeven;
 import code.expressionlanguage.classes.Composite;
 import code.expressionlanguage.classes.CustLgNames;
-import code.expressionlanguage.classes.EnumNumber;
 import code.expressionlanguage.classes.FailMethods;
-import code.expressionlanguage.classes.FieldClass;
-import code.expressionlanguage.classes.FieldFieldClass;
 import code.expressionlanguage.classes.IOne;
 import code.expressionlanguage.classes.ImplFour;
-import code.expressionlanguage.classes.InheritedComposite;
-import code.expressionlanguage.classes.InternsClasses;
-import code.expressionlanguage.classes.InternsClasses.InternStandard;
-import code.expressionlanguage.classes.InternsClasses.InternStandardTwo.InternStandardOne;
-import code.expressionlanguage.classes.InternsClasses.InternStandardTwo.InternStandardThree;
-import code.expressionlanguage.classes.InternsClasses.InternStaticStandard;
-import code.expressionlanguage.classes.InternsClasses.InternStaticStandard.InternStaticStandardFour;
-import code.expressionlanguage.classes.InternsClasses.InternStaticStandard.InternStaticStandardThree;
 import code.expressionlanguage.classes.MyImpl;
 import code.expressionlanguage.classes.StrangeInit;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
@@ -33,7 +21,6 @@ import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
-import code.expressionlanguage.exceptions.IllegalClassConstructorException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotStringException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
@@ -63,10 +50,8 @@ public class ElUtilTest {
     private static final String ARR_INTEGER = "[java.lang.Integer";
     private static final String ARR_ARR_INTEGER = "[[java.lang.Integer";
     private static final String STRING_LIST = StringList.class.getName();
-    private static final String ENUM = EnumNumber.class.getName();
-    private static final String INTERNS = InternsClasses.class.getName();
-    private static final String INHERITED_COMPOSITE = InheritedComposite.class.getName();
-    private static final String COMPOSITE = Composite.class.getName();
+    private static final String INHERITED_COMPOSITE = "code.expressionlanguage.classes.InheritedComposite";
+    private static final String COMPOSITE = "code.expressionlanguage.classes.Composite";
     private static final String COMPOSITE_HAT = StringList.replace(COMPOSITE, ".", "$");
     private static final String STRANGE_INIT = StrangeInit.class.getName();
     private static final String STRANGE_INIT_HAT = StringList.replace(STRANGE_INIT, ".", "$");
@@ -77,6 +62,7 @@ public class ElUtilTest {
     private static final String MY_IMPL = MyImpl.class.getName();
     private static final String MY_IMPL_HAT = StringList.replace(MY_IMPL, ".", "$");
     private static final String PUBLIC_ACCESS = "PUBLIC";
+    private static final String ALIAS_BEAN_ONE = "code.expressionlanguage.classes.BeanOne";
 
     @Test
     public void processEl1Test() {
@@ -121,8 +107,6 @@ public class ElUtilTest {
     public void processEl5Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        BeanOne b_ = new BeanOne();
-        addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1+2*3",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
@@ -164,7 +148,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
-        addBean(context_, b_);
+        addBean(context_, b_, ALIAS_BEAN_ONE);
         Argument arg_ = ElUtil.processEl("composite.integer",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
@@ -373,7 +357,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
-        addBean(context_, b_);
+        addBean(context_, b_, ALIAS_BEAN_ONE);
         Argument arg_ = ElUtil.processEl("composite.integer",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
@@ -390,18 +374,18 @@ public class ElUtilTest {
         assertEq(true, (Boolean)res_);
     }
 
-    @Ignore
-    @Test
-    public void processEl30Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        BeanSeven b_ = new BeanSeven();
-        addBean(context_, b_);
-        Argument arg_ = ElUtil.processEl("arrayInt[1i]",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
-        assertEq(3, (Number)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl30Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        BeanSeven b_ = new BeanSeven();
+//        addBean(context_, b_);
+//        Argument arg_ = ElUtil.processEl("arrayInt[1i]",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(Integer.class, res_.getClass());
+//        assertEq(3, (Number)res_);
+//    }
 
     @Test
     public void processEl31Test() {
@@ -470,7 +454,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenTwo($null)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -482,7 +466,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenTwo($class(\"java.lang.Object\",$null))",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -504,7 +488,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -516,7 +500,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1l)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -528,7 +512,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -540,7 +524,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0d)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -552,7 +536,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0F)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -564,7 +548,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0f)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -593,89 +577,89 @@ public class ElUtilTest {
         assertEq("three", (String)res_);
     }
 
-    @Ignore
-    @Test
-    public void processEl48Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandard()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStandard.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl48Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandard()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStandard.class, res_.getClass());
+//    }
 
-    @Ignore
-    @Test
-    public void processEl49Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStaticStandard.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl49Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStaticStandard.class, res_.getClass());
+//    }
 
-    @Ignore
-    @Test
-    public void processEl50Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardOne()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStandardOne.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl50Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardOne()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStandardOne.class, res_.getClass());
+//    }
 
-    @Ignore
-    @Test
-    public void processEl51Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard$InternStaticStandardThree()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStaticStandardThree.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl51Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard$InternStaticStandardThree()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStaticStandardThree.class, res_.getClass());
+//    }
 
-    @Ignore
-    @Test
-    public void processEl52Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard().$new InternStaticStandardFour()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStaticStandardFour.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl52Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard().$new InternStaticStandardFour()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStaticStandardFour.class, res_.getClass());
+//    }
 
-    @Ignore
-    @Test
-    public void processEl53Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardThree(1i)",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStandardThree.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl53Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardThree(1i)",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStandardThree.class, res_.getClass());
+//    }
 
-    @Ignore
-    @Test
-    public void processEl54Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardThree(1i).getPrivateInfo()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
-        assertEq(1, (Number)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl54Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardThree(1i).getPrivateInfo()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(Integer.class, res_.getClass());
+//        assertEq(1, (Number)res_);
+//    }
 
-    @Ignore
-    @Test
-    public void processEl55Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        InternsClasses b_ = new InternsClasses();
-        addBean(context_, b_);
-        Argument arg_ = ElUtil.processEl("$new InternStandardTwo().$new InternStandardThree(1i).getPrivateInfo()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
-        assertEq(1, (Number)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl55Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        InternsClasses b_ = new InternsClasses();
+//        addBean(context_, b_);
+//        Argument arg_ = ElUtil.processEl("$new InternStandardTwo().$new InternStandardThree(1i).getPrivateInfo()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(Integer.class, res_.getClass());
+//        assertEq(1, (Number)res_);
+//    }
 
     @Test
     public void processEl56Test() {
@@ -687,37 +671,33 @@ public class ElUtilTest {
         assertEq(0, (Number)res_);
     }
 
-    @Ignore
-    @Test
-    public void processEl57Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
-//        InternsClasses b_ = new InternsClasses();
-        addBean(context_, composite_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setElement(7);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
-        localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("summum(v;.)",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
-        assertEq(13, (Number)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl57Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Composite composite_ = new Composite();
+//        composite_.setInteger(6);
+//        composite_.setPrivateInt(5);
+////        InternsClasses b_ = new InternsClasses();
+//        addBean(context_, composite_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setElement(7);
+//        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+//        localVars_.put("v", lv_);
+//        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+//        Argument arg_ = ElUtil.processEl("summum(v;.)",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(Integer.class, res_.getClass());
+//        assertEq(13, (Number)res_);
+//    }
 
     @Test
     public void processEl58Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
         String stringType_ = context_.getStandards().getAliasString();
-        addBean(context_, composite_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("7"));
@@ -742,11 +722,7 @@ public class ElUtilTest {
     public void processEl59Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
         String stringType_ = context_.getStandards().getAliasString();
-        addBean(context_, composite_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("7"));
@@ -771,11 +747,7 @@ public class ElUtilTest {
     public void processEl60Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
         String stringType_ = context_.getStandards().getAliasString();
-        addBean(context_, composite_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("7"));
@@ -800,11 +772,7 @@ public class ElUtilTest {
     public void processEl61Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
         String stringType_ = context_.getStandards().getAliasString();
-        addBean(context_, composite_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("7"));
@@ -897,7 +865,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         Composite composite_ = new Composite();
         addImportingPage(context_);
-        addBean(context_,composite_);
+        addBean(context_,composite_, COMPOSITE);
         assertEq(0, composite_.getPrivateInt());
         ElUtil.processEl("setPrivateInt(2i)",0, context_);
         assertEq(2, composite_.getPrivateInt());
@@ -1013,15 +981,15 @@ public class ElUtilTest {
 //        assertEq(3, (Number)res_);
 //    }
 
-    @Ignore
-    @Test
-    public void processEl76Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard()",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(InternStaticStandard.class, res_.getClass());
-    }
+//    @Ignore
+//    @Test
+//    public void processEl76Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertSame(InternStaticStandard.class, res_.getClass());
+//    }
 
     @Test
     public void processEl77Test() {
@@ -1066,11 +1034,7 @@ public class ElUtilTest {
     public void processEl81Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
         String stringType_ = context_.getStandards().getAliasString();
-        addBean(context_, composite_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("7"));
@@ -1381,7 +1345,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1l);
@@ -1399,7 +1363,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1l);
@@ -1540,7 +1504,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFour($null)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -1570,7 +1534,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFour(1L)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -1582,7 +1546,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFour(1l)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -1594,7 +1558,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFive(1L)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -1606,7 +1570,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFive(1l)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -1618,7 +1582,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenSix(1L)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -1630,7 +1594,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenSix(1l)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
@@ -1818,7 +1782,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         ElUtil.processEl("getOverridenOne($null)",0, context_);
     }
 
@@ -1826,8 +1790,6 @@ public class ElUtilTest {
     public void processEl2FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite b_ = new Composite();
-        addBean(context_, b_);
         ElUtil.processEl("$class(\"Object\",$null)",0, context_);
     }
 
@@ -1848,25 +1810,24 @@ public class ElUtilTest {
         localVars_.put("arg", lv_);
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        addBean(context_,new Composite());
+        addBean(context_,new Composite(), COMPOSITE);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processEl("setPrivateInt(arg;.)",0, context_);
     }
 
-    @Ignore
-    @Test(expected=IllegalClassConstructorException.class)
-    public void processEl5FailTest() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        addBean(context_,new Composite());
-        ElUtil.processEl("$new "+ENUM+"()",0, context_);
-    }
+//    @Ignore
+//    @Test(expected=IllegalClassConstructorException.class)
+//    public void processEl5FailTest() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        addBean(context_,new Composite());
+//        ElUtil.processEl("$new "+ENUM+"()",0, context_);
+//    }
 
     @Test(expected=AbstractClassConstructorException.class)
     public void processEl6FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        addBean(context_,new Composite());
         ElUtil.processEl("$new java.lang.Number()",0, context_);
     }
 
@@ -1874,7 +1835,6 @@ public class ElUtilTest {
     public void processEl7FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        addBean(context_,new Composite());
         ElUtil.processEl("$new "+ARR_INT+"(-1i)",0, context_);
     }
 
@@ -1882,7 +1842,6 @@ public class ElUtilTest {
     public void processEl8FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        addBean(context_,new Composite());
         ElUtil.processEl("$new "+ARR_INTEGER+"(-1i)",0, context_);
     }
 
@@ -1967,7 +1926,7 @@ public class ElUtilTest {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
-        addBean(context_, b_);
+        addBean(context_, b_, COMPOSITE);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1l);
@@ -2029,8 +1988,6 @@ public class ElUtilTest {
     public void processEl24FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        BeanOne b_ = new BeanOne();
-        addBean(context_, b_);
         String el_ = "$firstopt(6)*(7+8)";
         ElUtil.processEl(el_, 0, context_);
     }
@@ -2039,10 +1996,6 @@ public class ElUtilTest {
     public void processEl25FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
-        addBean(context_, composite_);
         String el_ = "\"\".format(\"6\",$vararg(\"6\"))";
         ElUtil.processEl(el_, 0, context_);
     }
@@ -2051,10 +2004,6 @@ public class ElUtilTest {
     public void processEl26FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
-        addBean(context_, composite_);
         String el_ = "\"\".format($vararg(\"6\"),\"6\")";
         ElUtil.processEl(el_, 0, context_);
     }
@@ -2063,8 +2012,6 @@ public class ElUtilTest {
     public void processEl27FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        BeanOne b_ = new BeanOne();
-        addBean(context_, b_);
         String el_ = "$vararg(\"java.lang.Object\")*(7+8)";
         ElUtil.processEl(el_, 0, context_);
     }
@@ -2073,10 +2020,6 @@ public class ElUtilTest {
     public void processEl28FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
-        addBean(context_, composite_);
         String el_ = "\"\".format($vararg(6),\"6\")";
         ElUtil.processEl(el_, 0, context_);
     }
@@ -2085,10 +2028,6 @@ public class ElUtilTest {
     public void processEl29FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
-        addBean(context_, composite_);
         String el_ = "\"\".format($firstopt(6),\"6\")";
         ElUtil.processEl(el_, 0, context_);
     }
@@ -2097,10 +2036,6 @@ public class ElUtilTest {
     public void processEl30FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
-        addBean(context_, composite_);
         String el_ = "";
         ElUtil.processEl(el_, 0, context_);
     }
@@ -2109,10 +2044,6 @@ public class ElUtilTest {
     public void processEl31FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        Composite composite_ = new Composite();
-        composite_.setInteger(6);
-        composite_.setPrivateInt(5);
-        addBean(context_, composite_);
         String el_ = "get(,)";
         ElUtil.processEl(el_, 0, context_);
     }
@@ -2121,8 +2052,6 @@ public class ElUtilTest {
     public void processEl32FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1!=2!=3";
         ElUtil.processEl(el_, 0, conf_);
     }
@@ -2131,8 +2060,6 @@ public class ElUtilTest {
     public void processEl33FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "1<2<3";
         ElUtil.processEl(el_, 0, conf_);
     }
@@ -2141,8 +2068,6 @@ public class ElUtilTest {
     public void processEl34FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
         String el_ = "(3,4)";
         ElUtil.processEl(el_, 0, conf_);
     }
@@ -2348,16 +2273,16 @@ public class ElUtilTest {
 //    }
 
 
-    @Ignore
-    @Test
-    public void processAffect13Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        FieldFieldClass c_ = new FieldFieldClass(new FieldClass(8));
-        addBean(context_, c_);
-        ElUtil.processAffect("","","","field.field", "12i", "=",context_);
-        assertEq(12, c_.getField().getField());
-    }
+//    @Ignore
+//    @Test
+//    public void processAffect13Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        FieldFieldClass c_ = new FieldFieldClass(new FieldClass(8));
+//        addBean(context_, c_);
+//        ElUtil.processAffect("","","","field.field", "12i", "=",context_);
+//        assertEq(12, c_.getField().getField());
+//    }
 
     @Ignore
     @Test
@@ -2701,7 +2626,7 @@ public class ElUtilTest {
     public void processAffect9FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
-        addBean(context_, new BeanOne());
+        addBean(context_, new BeanOne(), ALIAS_BEAN_ONE);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1);
@@ -2778,9 +2703,9 @@ public class ElUtilTest {
     private static void addImportingPage(ContextEl _conf) {
         _conf.addPage(new PageEl());
     }
-    private static void addBean(ContextEl _conf, Object _bean) {
-        _conf.getLastPage().setGlobalArgumentObj(_bean);
-        _conf.getLastPage().setGlobalClass(_bean.getClass().getName());
+    private static void addBean(ContextEl _conf, Object _bean, String _beanClass) {
+        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.wrapStd(_bean, _beanClass));
+        _conf.getLastPage().setGlobalClass(_beanClass);
     }
 
     private static void addBeanClassName(ContextEl _conf, String _bean) {

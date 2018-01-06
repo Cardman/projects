@@ -113,7 +113,7 @@ public final class BeloteStandards extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), "getStatut")) {
-                res_.setResult(new StringStruct(((SumDeclaringPlayer)_instance.getInstance()).getNickname()));
+                res_.setResult(new StringStruct(((SumDeclaringPlayer)_instance.getInstance()).getStatut()));
                 return res_;
             }
         }

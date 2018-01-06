@@ -26,4 +26,9 @@ public abstract class NumberStruct implements Struct {
 
     @Override
     public abstract Number getInstance();
+
+    @Override
+    public boolean isArray() {
+        return false;
+    }
 }

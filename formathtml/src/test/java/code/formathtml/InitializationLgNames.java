@@ -144,7 +144,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasCountable("code.util.ints.Countable");
         _lgNames.setAliasGet("get");
         _lgNames.setAliasSize("size");
-        _lgNames.setAliasSimpleIterator("simpleIterator");
+//        _lgNames.setAliasSimpleIterator("simpleIterator");
+        _lgNames.setAliasSimpleIterator("iterator");
         _lgNames.setAliasSimpleIteratorType("code.util.SimpleItr");
         _lgNames.setAliasSimpleIterableType("code.util.ints.SimpleIterable");
         _lgNames.setAliasNext("next");

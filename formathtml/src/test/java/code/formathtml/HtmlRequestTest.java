@@ -31,6 +31,7 @@ import code.util.consts.Constants;
 
 @SuppressWarnings("static-method")
 public class HtmlRequestTest {
+    private static final String COMPOSITE = "code.formathtml.classes.Composite";
 
     @BeforeClass
     public static void initialize() {
@@ -61,7 +62,7 @@ public class HtmlRequestTest {
         Configuration conf_ = newConfiguration();
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
-        conf_.getLastPage().setGlobalArgumentObj(bean_.getComposite());
+        conf_.getLastPage().setGlobalArgumentObj(bean_.getComposite(),COMPOSITE);
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
         nc_.setTypedField(8);
@@ -428,7 +429,7 @@ public class HtmlRequestTest {
         Configuration conf_ = newConfiguration();
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
-        conf_.getLastPage().setGlobalArgumentObj(composite_);
+        conf_.getLastPage().setGlobalArgumentObj(composite_,COMPOSITE);
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
         nc_.setObject(composite_);

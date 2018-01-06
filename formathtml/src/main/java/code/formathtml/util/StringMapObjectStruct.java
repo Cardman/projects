@@ -40,4 +40,8 @@ public final class StringMapObjectStruct implements Struct {
         return null;
     }
 
+    @Override
+    public boolean isArray() {
+        return false;
+    }
 }

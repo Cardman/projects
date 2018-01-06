@@ -2,10 +2,13 @@ package code.formathtml.util;
 
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -17,11 +20,18 @@ import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.StringMapObject;
+import code.util.ints.SimpleEntries;
+import code.util.ints.SimpleEntry;
+import code.util.ints.SimpleIterable;
 
 public class BeanLgNames extends LgNames {
 
     private final String aliasStringMapObject = "code.util.StringMapObject";
     private final String custList = "$custlist";
+    private final String custEntry = "$custentry";
+    private final String custMap = "$custmap";
+    private final String custEntries = "$custentries";
     private String aliasRate;
     private String aliasDataBase;
 
@@ -76,7 +86,32 @@ public class BeanLgNames extends LgNames {
         cl_ = new StandardClass(custList, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
         cl_.getDirectInterfaces().add(getAliasCountable());
         cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
+        cl_.setIterative(getAliasObject());
         getStandards().put(custList, cl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod("entries", params_, getAliasSimpleIterableType(), false, MethodModifier.NORMAL, custEntries);
+        methods_.put(method_.getId(), method_);
+        cl_ = new StandardClass(custMap, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        cl_.getDirectInterfaces().add(getAliasCountable());
+        cl_.getDirectInterfaces().add(custEntries);
+        cl_.setIterative(getAliasObject());
+        getStandards().put(custMap, cl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        cl_ = new StandardClass(custEntries, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        cl_.getDirectInterfaces().add(getAliasCountable());
+        cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
+        cl_.setIterative(custEntry);
+        getStandards().put(custEntries, cl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod("getKey", params_, getAliasObject(), false, MethodModifier.NORMAL, custEntry);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod("getValue", params_, getAliasObject(), false, MethodModifier.NORMAL, custEntry);
+        methods_.put(method_.getId(), method_);
+        cl_ = new StandardClass(custEntry, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        getStandards().put(custEntry, cl_);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
@@ -91,6 +126,57 @@ public class BeanLgNames extends LgNames {
             if (StringList.quickEq(_method.getConstraints().getName(), "setDataBase")) {
                 ((Bean)_instance.getInstance()).setDataBase(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "getDataBase")) {
+                Object db_ = ((Bean)_instance.getInstance()).getDataBase();
+                res_.setResult(new StdStruct(db_, getAliasObject()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "getForms")) {
+                StringMapObject resMap_ = ((Bean)_instance.getInstance()).getForms();
+                res_.setResult(new StringMapObjectStruct(resMap_));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "setForms")) {
+                ((Bean)_instance.getInstance()).setForms((StringMapObject)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "getLanguage")) {
+                String resMap_ = ((Bean)_instance.getInstance()).getLanguage();
+                res_.setResult(new StringStruct(resMap_));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "setLanguage")) {
+                ((Bean)_instance.getInstance()).setLanguage((String)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "getScope")) {
+                String resMap_ = ((Bean)_instance.getInstance()).getScope();
+                res_.setResult(new StringStruct(resMap_));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "setScope")) {
+                ((Bean)_instance.getInstance()).setScope((String)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+        }
+        if (_instance.getInstance() instanceof SimpleEntries) {
+            SimpleIterable db_ = ((SimpleEntries)_instance.getInstance()).entries();
+            res_.setResult(new StdStruct(db_, StringList.concat(getAliasSimpleIterableType(),Templates.TEMPLATE_BEGIN,custEntry,Templates.TEMPLATE_END)));
+            return res_;
+        }
+        if (_instance.getInstance() instanceof SimpleEntry) {
+            SimpleEntry db_ = (SimpleEntry)_instance.getInstance();
+            if (StringList.quickEq(_method.getConstraints().getName(), "getKey")) {
+                res_.setResult(new StdStruct(db_.getKey(), getAliasObject()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "getValue")) {
+                res_.setResult(new StdStruct(db_.getValue(), getAliasObject()));
                 return res_;
             }
         }

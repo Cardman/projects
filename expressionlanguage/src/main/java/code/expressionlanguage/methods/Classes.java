@@ -94,7 +94,8 @@ public final class Classes {
     private static final char PRIM = '$';
     private static final char COMMA = ',';
     private static final String LOC_VAR = ";.";
-    private static final String SIMPLE_ITERATOR = "simpleIterator()";
+//    private static final String SIMPLE_ITERATOR = "simpleIterator()";
+    private static final String SIMPLE_ITERATOR = "iterator()";
     private static final String ITERATOR = "iterator()";
     private static final String HAS_NEXT = "hasNext()";
     private static final String NEXT = "next()";

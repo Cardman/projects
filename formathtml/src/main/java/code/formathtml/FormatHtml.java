@@ -1,6 +1,4 @@
 package code.formathtml;
-import java.lang.reflect.Array;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -1802,7 +1800,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    className_ = ExtractObject.classNameForName(_conf, 0, className_);
+                    ExtractObject.classNameForName(_conf, 0, className_);
                 }
             }
         }
@@ -1871,7 +1869,7 @@ public final class FormatHtml {
         if (!PrimitiveTypeUtil.isPrimitive(paramName_, context_)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argClassName_);
-            paramName_ = _conf.getLastPage().getPageEl().format(paramName_, context_);
+            paramName_ = _conf.getLastPage().getPageEl().formatVarType(paramName_, context_);
             mapping_.setParam(paramName_);
             if (!Templates.isCorrect(mapping_, context_)) {
                 throw new NotCastableException(StringList.concat(_object.getClassName(_conf.toContextEl()),SPACE,_class.getName(),RETURN_LINE,_conf.joinPages()));
@@ -3950,7 +3948,7 @@ public final class FormatHtml {
         boolean map_ = false;
         StringMap<LoopVariable> varsLoop_ = _ip.getVars();
         Struct container_ = null;
-        Object iterable_ = null;
+//        Object iterable_ = null;
         String var_ = currentForNode_.getAttribute(ATTRIBUTE_VAR);
         String key_ = currentForNode_.getAttribute(ATTRIBUTE_KEY);
         String value_ = currentForNode_.getAttribute(ATTRIBUTE_VALUE);
@@ -3969,7 +3967,6 @@ public final class FormatHtml {
                 _conf.getLastPage().addToOffset(listAttr_.length()+1);
                 throw new NullObjectException(_conf.joinPages());
             }
-            iterable_ = container_.getInstance();
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_MAP)) {
             map_ = true;
             String mapAttr_ = currentForNode_.getAttribute(ATTRIBUTE_MAP);
@@ -3977,9 +3974,7 @@ public final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             container_ = ElUtil.processEl(mapAttr_, 0, _conf.toContextEl()).getStruct();
-            Object o_ = container_.getInstance();
-            iterable_ = o_;
-            if (iterable_ == null) {
+            if (container_.isNull()) {
                 throw new NullObjectException(_conf.joinPages());
             }
         } else {
@@ -4058,8 +4053,8 @@ public final class FormatHtml {
                 finished_ = true;
                 res_.setFinished(true);
             }
-        } else if (iterable_.getClass().isArray()) {
-            length_ = Array.getLength(iterable_);
+        } else if (container_.isArray()) {
+            length_ = LgNames.getLength(container_.getInstance());
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
                 res_.setFinished(true);
@@ -4092,8 +4087,8 @@ public final class FormatHtml {
         Struct elt_ = null;
         if (iterationNb_) {
             int_ = realFromValue_;
-        } else if (iterable_.getClass().isArray()) {
-            elt_ = LgNames.getElement(iterable_, CustList.FIRST_INDEX, _conf.toContextEl());
+        } else if (container_.isArray()) {
+            elt_ = LgNames.getElement(container_.getInstance(), CustList.FIRST_INDEX, _conf.toContextEl());
         } else {
             elt_ = ExtractObject.next(_conf, itStr_);
         }

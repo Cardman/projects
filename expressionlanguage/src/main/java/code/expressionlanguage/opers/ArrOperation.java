@@ -16,7 +16,6 @@ import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -223,7 +222,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (output_ == null) {
             return NullStruct.NULL_VALUE;
         }
-        return CustStruct.wrapOrId(output_);
+        return StdStruct.wrapStd(output_);
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();

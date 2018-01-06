@@ -42,7 +42,7 @@ public final class PrimitiveTypeUtil {
     public static final String PRIM_LONG = "$long";
     public static final String PRIM_FLOAT = "$float";
     public static final String PRIM_DOUBLE = "$double";
-    private static final String ARR_CLASS = "[";
+    public static final String ARR_CLASS = "[";
     private static final String BOOLEAN = "Z";
     private static final String CHAR = "C";
     private static final String BYTE = "B";

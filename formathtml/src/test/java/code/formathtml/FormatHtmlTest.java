@@ -2520,7 +2520,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"v\" expression='$null' className='java.lang.Object'/><c:for key=\"k\" value=\"v\" map=\"numbers\" varClassName='"+ConstClasses.LISTABLE_ALIAS+"'><c:for var=\"w\" list=\"v;\"><span id=\"numbers[`k;;`]sortedNumberKeys!value.getReverse()[`w;;`]\"/></c:for></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"v\" expression='$null'/><c:for key=\"k\" value=\"v\" map=\"numbers\" varClassName='"+ConstClasses.LISTABLE_ALIAS+"'><c:for var=\"w\" list=\"v;\"><span id=\"numbers[`k;;`]sortedNumberKeys!value.getReverse()[`w;;`]\"/></c:for></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -2678,7 +2678,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='sl'/>{l;.display()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='code.util.StringList'/>{l;.display()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -2738,7 +2738,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='sl'/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='code.util.StringList'/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -9255,7 +9255,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className=\"java.lang.Iterable\"/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className='java.lang.Iterable'/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);

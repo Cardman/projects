@@ -213,7 +213,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 }
                 strBuilder_.append(c);
             }
-            a_.setObject(strBuilder_.toString(),stringType_);
+            a_.setObject(strBuilder_.toString());
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(stringType_),staticAccess);
             return;
