@@ -166,7 +166,7 @@ public class BeanLgNames extends LgNames {
         }
         if (_instance.getInstance() instanceof SimpleEntries) {
             SimpleIterable db_ = ((SimpleEntries)_instance.getInstance()).entries();
-            res_.setResult(new StdStruct(db_, StringList.concat(getAliasSimpleIterableType(),Templates.TEMPLATE_BEGIN,custEntry,Templates.TEMPLATE_END)));
+            res_.setResult(new StdStruct(db_, custEntries));
             return res_;
         }
         if (_instance.getInstance() instanceof SimpleEntry) {
@@ -207,5 +207,8 @@ public class BeanLgNames extends LgNames {
     }
     public String getCustList() {
         return custList;
+    }
+    public String getCustMap() {
+        return custMap;
     }
 }

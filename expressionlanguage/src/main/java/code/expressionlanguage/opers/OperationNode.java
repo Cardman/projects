@@ -389,14 +389,23 @@ public abstract class OperationNode {
         }
     }
     static FieldResult getDeclaredCustField(ContextEl _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _superClass, String _name) {
-        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _superClass, _name);
-        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _superClass, _name);
-        if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
-            if (!_staticContext) {
+        if (!_staticContext) {
+            FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _superClass, _name);
+            if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
                 return resIns_;
             }
+        }
+        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _superClass, _name);
+        if (resSt_.getStatus() == SearchingMemberStatus.UNIQ) {
+            return resSt_;
+        }
+        //Errors
+        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _superClass, _name);
+        if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
             throw new StaticAccessException(_cont.joinPages());
         }
+        resSt_ = new FieldResult();
+        resSt_.setStatus(SearchingMemberStatus.ZERO);
         return resSt_;
     }
     private static FieldResult getDeclaredCustFieldByContext(ContextEl _cont, boolean _static, ClassArgumentMatching _class, boolean _superClass, String _name) {
@@ -656,18 +665,21 @@ public abstract class OperationNode {
             }
         }
         if (classes_.getClassBody(baseClass_) instanceof InterfaceBlock) {
-            ClassMethodIdResult resInst_ = getDeclaredCustMethodByInterfaceInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
-            boolean foundInst_ = false;
             if (!_staticContext) {
+                ClassMethodIdResult resInst_ = getDeclaredCustMethodByInterfaceInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
                 if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
-                    foundInst_ = true;
+                    return toFoundMethod(_conf, resInst_);
+                }
+                if (!_failIfError) {
+                    return new ClassMethodIdReturn(false);
                 }
             }
             ClassMethodIdResult resStatic_ = getDeclaredCustMethodByInterfaceInherit(_conf, _accessFromSuper, _varargOnly, true, _class, _name, _superClass, _argsClass);
-            if (foundInst_) {
-                return toFoundMethod(_conf, resInst_);
+            if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
+                return toFoundMethod(_conf, resStatic_);
             }
-            if (!_staticContext && _conf.isAmbigous() && _failIfError) {
+            //Error
+            if (_conf.isAmbigous() && _failIfError) {
                 StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
                 StringList classesNames_ = new StringList();
                 for (ClassArgumentMatching c: _argsClass) {
@@ -677,9 +689,7 @@ public abstract class OperationNode {
                 trace_.append(PAR_RIGHT);
                 throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
             }
-            if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
-                return toFoundMethod(_conf, resStatic_);
-            }
+            ClassMethodIdResult resInst_ = getDeclaredCustMethodByInterfaceInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
             if (_staticContext && resInst_.getStatus() == SearchingMemberStatus.UNIQ && _failIfError) {
                 //static access
                 throw new StaticAccessException(_conf.joinPages());
@@ -693,17 +703,20 @@ public abstract class OperationNode {
             trace_.append(PAR_RIGHT);
             throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
         }
-        ClassMethodIdResult resInst_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
-        boolean foundInst_ = false;
         if (!_staticContext) {
+            ClassMethodIdResult resInst_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
             if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
-                foundInst_ = true;
+                return toFoundMethod(_conf, resInst_);
+            }
+            if (!_failIfError) {
+                return new ClassMethodIdReturn(false);
             }
         }
         ClassMethodIdResult resStatic_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, true, _class, _name, _superClass, _argsClass);
-        if (foundInst_) {
-            return toFoundMethod(_conf, resInst_);
+        if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
+            return toFoundMethod(_conf, resStatic_);
         }
+        //Errors
         if (!_staticContext && _conf.isAmbigous()) {
             StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
             StringList classesNames_ = new StringList();
@@ -714,12 +727,7 @@ public abstract class OperationNode {
             trace_.append(PAR_RIGHT);
             throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
         }
-        if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
-            return toFoundMethod(_conf, resStatic_);
-        }
-        if (!_failIfError) {
-            return new ClassMethodIdReturn(false);
-        }
+        ClassMethodIdResult resInst_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
         if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
             //static access
             throw new StaticAccessException(_conf.joinPages());
