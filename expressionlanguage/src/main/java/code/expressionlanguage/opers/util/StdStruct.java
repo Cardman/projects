@@ -17,6 +17,11 @@ public final class StdStruct implements Struct {
         className = NativeTypeUtil.getPrettyType(_instance.getClass());
     }
 
+    public StdStruct(Throwable _instance) {
+        instance = _instance;
+        className = NativeTypeUtil.getPrettyType(_instance.getClass());
+    }
+
     public StdStruct(Object _instance, String _className) {
         instance = _instance;
         className = _className;

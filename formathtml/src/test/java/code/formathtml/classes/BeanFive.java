@@ -72,7 +72,7 @@ public class BeanFive extends Bean {
     }
 
     public void updateValue(ValueChangeEvent _changing) {
-        composite.getStrings().add(_changing.getNewValue()+" "+_changing.getOldValue());
+        composite.getStrings().add(StringList.concat(((Integer)_changing.getNewValue()).toString()," ",((Integer)_changing.getOldValue()).toString()));
         changing = _changing;
     }
 
@@ -153,6 +153,6 @@ public class BeanFive extends Bean {
 
     @Accessible
     String goToPage(Long _index) {
-        return "page"+_index;
+        return StringList.concatNbs("page",_index);
     }
 }

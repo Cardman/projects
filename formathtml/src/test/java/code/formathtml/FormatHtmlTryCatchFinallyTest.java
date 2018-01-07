@@ -27,7 +27,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>END BLOCK</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -61,7 +61,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}</c:try><c:finally>END BLOCK</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -95,7 +95,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK</c:finally></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -129,7 +129,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try><c:throw expression='$new java.lang.String()'/></c:try><c:finally>END BLOCK</c:finally></c:try><c:catch className='java.lang.String' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -163,7 +163,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>END BLOCK</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -198,7 +198,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK</c:finally></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -232,7 +232,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>END BLOCK<c:throw expression='$new java.lang.String()'/></c:catch></c:try><c:catch className='java.lang.CharSequence' var='e'>Divide Zero</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -267,7 +267,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK<c:throw expression='$new java.lang.String()'/></c:finally></c:try><c:catch className='java.lang.CharSequence' var='e'>{e;..length()+8}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -301,7 +301,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -335,7 +335,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}<c:return/></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>END BLOCK</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -369,7 +369,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}<c:return/></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>END BLOCK</c:finally>NOT DISPLAYED</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -403,7 +403,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero<c:return/></c:catch><c:finally>END BLOCK</c:finally>NOT DISPLAYED</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -437,7 +437,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>END BLOCK</c:finally>DISPLAYED</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -471,7 +471,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>END BLOCK</c:finally>DISPLAYED</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -505,7 +505,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -540,7 +540,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -574,7 +574,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -608,7 +608,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>{$class(\"java.lang.String\",8i)}</c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -642,7 +642,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXCEPTION</c:catch><c:finally>{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -676,7 +676,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero<c:return/></c:catch><c:finally>FIRST</c:finally></c:try><c:finally>SECOND</c:finally>NOT DISPLAYED</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -710,7 +710,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1+1}<c:return/></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>FIRST</c:finally></c:try><c:finally>SECOND</c:finally>NOT DISPLAYED</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -744,7 +744,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -778,7 +778,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally/></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -812,7 +812,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}<c:return/></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally/>NOT DISPLAYED</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -846,7 +846,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>END BLOCK<c:throw expression='$new java.lang.String()'/></c:catch></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");

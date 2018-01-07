@@ -76,15 +76,15 @@ public class BeanSeven {
     }
 
     public String goTwoArgs(int _a, int _b) {
-        return "bean"+(_a+_b);
+        return StringList.concatNbs("bean",_a+_b);
     }
 
     public String getSpanClasses(Long _one, Long _two, Long _three) {
-        return "a"+_one+"b"+_two+"c"+_three;
+        return StringList.concat("a",_one.toString(),"b",_two.toString(),"c",_three.toString());
     }
 
     public String getSpanClass(Long _one) {
-        return "a"+_one;
+        return StringList.concatNbs("a",_one);
     }
 
     public StringList sortedNumberKeys() {
@@ -169,6 +169,6 @@ public class BeanSeven {
 
 
     String goToPage(Long _index) {
-        return "page"+_index;
+        return StringList.concatNbs("page",_index);
     }
 }

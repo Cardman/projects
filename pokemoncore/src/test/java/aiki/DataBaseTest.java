@@ -172,13 +172,13 @@ public class DataBaseTest {
         moveDamage_ = new StatusMoveData();
         moveDamage_.setPp((short) 20);
 
-        moveDamage_.setAccuracy("1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        moveDamage_.setAccuracy(StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getCategories().size());
         assertEq(1, data_.getVariables().size());
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -230,13 +230,13 @@ public class DataBaseTest {
         moveDamage_.setEffects(new CustList<Effect>());
         EffectDamage damage_;
         damage_ = new EffectDamage();
-        damage_.setFail("1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        damage_.setFail(StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         damage_.setPower("50");
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -252,12 +252,12 @@ public class DataBaseTest {
         EffectDamage damage_;
         damage_ = new EffectDamage();
         damage_.setFail("");
-        damage_.setPower("1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        damage_.setPower(StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -275,11 +275,11 @@ public class DataBaseTest {
         damage_.setFail("");
         damage_.setPower("50");
         damage_.setDamageLaw(new MonteCarloString());
-        damage_.getDamageLaw().addEvent("1+"+DataBase.VAR_PREFIX+"NB_TURN*100", LgInt.one());
+        damage_.getDamageLaw().addEvent(StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"), LgInt.one());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -317,12 +317,12 @@ public class DataBaseTest {
         effStatis_ = new EffectStatistic();
         effStatis_.setFail("");
         effStatis_.setLocalFailStatis(new EnumMap<Statistic,String>());
-        effStatis_.getLocalFailStatis().put(Statistic.ATTACK, "1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        effStatis_.getLocalFailStatis().put(Statistic.ATTACK,StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         effStatis_.setLocalFailSwapBoostStatis(new EnumMap<Statistic,String>());
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -340,11 +340,11 @@ public class DataBaseTest {
         effStatis_.setFail("");
         effStatis_.setLocalFailStatis(new EnumMap<Statistic,String>());
         effStatis_.setLocalFailSwapBoostStatis(new EnumMap<Statistic,String>());
-        effStatis_.getLocalFailSwapBoostStatis().put(Statistic.ATTACK, "1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        effStatis_.getLocalFailSwapBoostStatis().put(Statistic.ATTACK,StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -381,11 +381,11 @@ public class DataBaseTest {
         effStatus_ = new EffectStatus();
         effStatus_.setFail("");
         effStatus_.setLocalFailStatus(new StringMap<String>());
-        effStatus_.getLocalFailStatus().put("PSN", "1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        effStatus_.getLocalFailStatus().put("PSN",StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -422,11 +422,11 @@ public class DataBaseTest {
         effStatus_ = new EffectCommonStatistics();
         effStatus_.setFail("");
         effStatus_.setCommonValue(new EnumMap<Statistic,String>());
-        effStatus_.getCommonValue().put(Statistic.ATTACK, "1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        effStatus_.getCommonValue().put(Statistic.ATTACK,StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -462,11 +462,11 @@ public class DataBaseTest {
         EffectFullHpRate effStatus_;
         effStatus_ = new EffectFullHpRate();
         effStatus_.setFail("");
-        effStatus_.setRestoredHp("1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        effStatus_.setRestoredHp(StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
     }
 
     @Test
@@ -506,11 +506,11 @@ public class DataBaseTest {
         effStatus_ = new EffectTeamWhileSendFoe();
         effStatus_.setFail("");
         effStatus_.setFailSending("");
-        effStatus_.setDamageRateAgainstFoe("1+"+DataBase.VAR_PREFIX+"NB_TURN*100");
+        effStatus_.setDamageRateAgainstFoe(StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
         assertTrue(data_.getMovesEffectWhileSending().containsObj("QUEUE_DE_CHEVAL"));
     }
@@ -1516,12 +1516,12 @@ public class DataBaseTest {
         EffectTeamWhileSendFoe effStatus_;
         effStatus_ = new EffectTeamWhileSendFoe();
         effStatus_.setFail("");
-        effStatus_.setFailSending(DataBase.VAR_PREFIX+"NB_TURN>1");
+        effStatus_.setFailSending(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN>1"));
         effStatus_.setDamageRateAgainstFoe("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
         assertTrue(data_.getMovesEffectWhileSending().containsObj("QUEUE_DE_CHEVAL"));
     }
@@ -1539,13 +1539,13 @@ public class DataBaseTest {
         EffectCounterAttack effStatus_;
         effStatus_ = new EffectCounterAttack();
         effStatus_.setFail("");
-        effStatus_.setCounterFail(DataBase.VAR_PREFIX+"NB_TURN>1");
-        effStatus_.setProtectFail(DataBase.VAR_PREFIX+"USED_MOVE=TACKLE");
+        effStatus_.setCounterFail(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN>1"));
+        effStatus_.setProtectFail(StringList.concat(DataBase.VAR_PREFIX,"USED_MOVE=TACKLE"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"NB_TURN"));
-        assertTrue(data_.getVariables().containsObj(DataBase.VAR_PREFIX+"USED_MOVE"));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"USED_MOVE")));
         assertEq(1, data_.getMovesCountering().size());
         assertTrue(data_.getMovesCountering().containsObj("QUEUE_DE_CHEVAL"));
     }
@@ -1655,7 +1655,7 @@ public class DataBaseTest {
         EffectDamage damage_;
         damage_ = new EffectDamage();
         damage_.setFail("");
-        damage_.setPower("1+"+DataBase.VAR_PREFIX+"NB_TURN__CHARGE*100+"+DataBase.VAR_PREFIX+"NB_TURN__FLYING*100");
+        damage_.setPower(StringList.concat("1+",DataBase.VAR_PREFIX,"NB_TURN__CHARGE*100+",DataBase.VAR_PREFIX,"NB_TURN__FLYING*100"));
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());

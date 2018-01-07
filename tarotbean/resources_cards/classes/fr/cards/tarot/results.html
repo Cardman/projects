@@ -1,0 +1,133 @@
+<html c:bean="results" xmlns:c="javahtml">
+<head>
+<title>Results</title>
+<link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<c:if condition="playClassicGame()">
+		<h1>1 Calcul des points de l''attaque</h1>
+		<ul>
+			<li>Nombre de bouts gagn&eacute;s dans les plis de l''attaque
+				:{numberOudlersTaker}</li>
+			<li>Nombre de points n&eacute;cessaires pour que le preneur gagne
+				:{needlyScoresTaker}</li>
+			<li>Nombre de points gagn&eacute;s dans les plis de l''attaque
+				:{scoreTaker}</li>
+		</ul>
+		<h1>2 Attaque</h1>
+		<ul>
+			<li>Preneur:{taker}</li>
+			<li>Partenaires du preneur: <c:if
+					condition="calledPlayers.isEmpty()">
+					Aucun
+				</c:if> <c:if condition="!calledPlayers.isEmpty()">
+					<ul>
+						<c:for var="p" list="calledPlayers">
+							<li>{p;}</li>
+						</c:for>
+					</ul>
+				</c:if>
+
+			</li>
+			<li>Cartes appel&eacute;s: <c:if
+					condition="calledCardsList.isEmpty()">
+					Aucune
+				</c:if> <c:if condition="!calledCardsList.isEmpty()">
+					<ul>
+						<c:for var="c" list="calledCardsList">
+							<li>{c;}</li>
+						</c:for>
+					</ul>
+				</c:if>
+
+			</li>
+			<li>Ench&egrave;re:<c:message value="$bidString()" /></li>
+		</ul>
+		<h1>3 R&eacute;sultats:</h1>
+		<p>
+			<c:if condition="win()">
+				<c:message value="msg,win" />
+			</c:if>
+			<c:if condition="equality()">
+				<c:message value="msg,equality" />
+			</c:if>
+			<c:if condition="loose()">
+				<c:message value="msg,loose" />
+			</c:if>
+		</p>
+		<br />
+		<p>
+			<c:if condition="successfulBid()">
+				<c:message value="msg,successful">
+					<param value="$bidString()" />
+					<param value="$absoluteDiff()" />
+				</c:message>
+			</c:if>
+			<c:if condition="midBid()">
+				<c:message value="msg,mid">
+					<param value="$bidString()" />
+				</c:message>
+			</c:if>
+			<c:if condition="failedBid()">
+				<c:message value="msg,failed">
+					<param value="$bidString()" />
+					<param value="$absoluteDiff()" />
+				</c:message>
+			</c:if>
+		</p>
+		<br />
+		<p>
+			<c:if condition="successfulDeclaredSlamAttack()">
+				<c:message value="msg,successfulDeclaredSlam" />
+			</c:if>
+			<c:if condition="successfulNoDeclaredSlamAttack()">
+				<c:message value="msg,successfulNoDeclaredSlam" />
+			</c:if>
+			<c:if condition="failedSlamAttack()">
+				<c:message value="msg,failedDeclaredSlam" />
+			</c:if>
+			<c:if condition="noSlamAttack()">
+				<c:message value="msg,noSlamAttack" />
+			</c:if>
+			<c:if condition="slamDefense()">
+				<c:message value="msg,noSlamDefense" />
+			</c:if>
+			<c:if condition="noSlamDefense()">
+				<c:message value="msg,noSlamDefense" />
+			</c:if>
+		</p>
+		<br />
+	</c:if>
+	<c:if condition="playVariantModeGame()">
+		<h1>R&eacute;sultats</h1>
+		<ul>
+			<li>La plus grande diff&eacute;rence de points: {maxDifference}</li>
+			<li>Votre position avant d&eacute;partage {initialUserPosition}</li>
+			<li>Votre position finale {finalUserPosition}</li>
+		</ul>
+	</c:if>
+	<br />
+	<table border="1">
+		<caption>Scores</caption>
+		<thead>
+			<tr>
+				<td></td>
+				<c:for var="p" list="nicknames">
+					<td>{p;}</td>
+				</c:for>
+			</tr>
+		</thead>
+		<tbody>
+			<c:for var="l" list="linesDeal" className='cards.tarot.beans.LineDeal'>
+				<tr>
+					<td>{l;number}</td>
+					<c:for var="s" list="l;scores">
+						<td>{s;}</td>
+					</c:for>
+				</tr>
+			</c:for>
+		</tbody>
+	</table>
+	<br />
+</body>
+</html>

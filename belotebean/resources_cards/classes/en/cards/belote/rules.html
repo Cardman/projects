@@ -1,0 +1,50 @@
+<html c:bean="rules" xmlns:c="javahtml">
+	<head>
+	<link href="resources_cards/css/belote.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+	<h1>Mix Cards</h1>
+	{cartesBattues}
+	<br/>
+	<h1>Deal all cards</h1>
+	<c:if condition="dealAll">
+		yes<br/>
+	</c:if>
+	<c:if condition="!dealAll">
+		no<br/>
+	</c:if>
+	<h1>Allowed declaring</h1>
+	<ul>
+		<c:for var="b" list="encheresAutorisees">
+			<li>{b;}</li>
+		</c:for>
+	</ul>
+	<br/>
+	<h1>Undertrumping a foe</h1>
+	<c:if condition="sousCoupeAdv">
+		yes<br/>
+	</c:if>
+	<c:if condition="!sousCoupeAdv">
+		no<br/>
+	</c:if>
+	<br/>
+	<h1>Allowed Bids at the beginning of the deal</h1>
+	<ul>
+		<c:for var="d" list="annoncesAutorisees">
+			<li>{d;}</li>
+		</c:for>
+	</ul>
+	<h1>Rules of playing trumps when a partner is leading the current trick</h1>
+	{gestionCoupePartenaire}
+	<br/>
+	<h1>Players'' repartition</h1>
+	{repartition}
+	<br/>
+	<h1>End of game</h1>
+	<c:if condition="comptePointsClassique">
+		162 - 0, if the attack''s team looses.<br/>
+	</c:if>
+	<c:if condition="!comptePointsClassique">
+		If the attack''s team looses, then this team keeps its own scored points.<br/>
+	</c:if></body>
+</html>

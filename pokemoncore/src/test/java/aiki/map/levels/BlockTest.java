@@ -82,7 +82,7 @@ public class BlockTest {
     public void isValidForEditing3Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = new DataBase();
-        dataBase_.addImage("tile.png", "6"+Image.SEPARATOR_CHAR+getPixels().join(Image.SEPARATOR_CHAR));
+        dataBase_.addImage("tile.png", StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR),getPixels().join(Image.SEPARATOR_CHAR)));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.isValidForEditing(dataBase_));
         assertEq(0, dataBase_.getImagesDimensions().size());
@@ -92,7 +92,7 @@ public class BlockTest {
     public void isValidForEditing4Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = new DataBase();
-        dataBase_.addImage("tile.png", "6"+Image.SEPARATOR_CHAR+getPixels().join(Image.SEPARATOR_CHAR));
+        dataBase_.addImage("tile.png", StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR),getPixels().join(Image.SEPARATOR_CHAR)));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.isValidForEditing(dataBase_));
         assertEq(1, dataBase_.getImagesDimensions().size());
@@ -104,7 +104,7 @@ public class BlockTest {
     public void isValidForEditing5Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = new DataBase();
-        dataBase_.addImage("tile.png", "6"+Image.SEPARATOR_CHAR+getPixels().join(Image.SEPARATOR_CHAR));
+        dataBase_.addImage("tile.png", StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR),getPixels().join(Image.SEPARATOR_CHAR)));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.isValidForEditing(dataBase_));
         Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
@@ -118,7 +118,7 @@ public class BlockTest {
     public void isValidForEditing6Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = new DataBase();
-        dataBase_.addImage("tile.png", "6"+Image.SEPARATOR_CHAR+getPixels().join(Image.SEPARATOR_CHAR));
+        dataBase_.addImage("tile.png", StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR),getPixels().join(Image.SEPARATOR_CHAR)));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.isValidForEditing(dataBase_));
         Block blockTwo_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
@@ -132,7 +132,7 @@ public class BlockTest {
     public void isValidForEditing7Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = new DataBase();
-        dataBase_.addImage("tile.png", "6"+Image.SEPARATOR_CHAR+getPixels().join(Image.SEPARATOR_CHAR));
+        dataBase_.addImage("tile.png", StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR),getPixels().join(Image.SEPARATOR_CHAR)));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.isValidForEditing(dataBase_));
         assertEq(0, dataBase_.getImagesDimensions().size());
@@ -147,7 +147,7 @@ public class BlockTest {
     public void isValidForEditing8Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile2.png");
         DataBase dataBase_ = new DataBase();
-        dataBase_.addImage("tile.png", "6"+Image.SEPARATOR_CHAR+getPixels().join(Image.SEPARATOR_CHAR));
+        dataBase_.addImage("tile.png", StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR),getPixels().join(Image.SEPARATOR_CHAR)));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.isValidForEditing(dataBase_));
         assertEq(0, dataBase_.getImagesDimensions().size());

@@ -23,7 +23,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'/>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -57,7 +57,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -91,7 +91,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'/><c:default/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -125,7 +125,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:default/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -159,7 +159,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='3'/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -193,7 +193,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='3'/><c:default/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -227,7 +227,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'/><c:case expression='3'/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -261,7 +261,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'/><c:case expression='3'/><c:default/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -295,7 +295,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'/><c:case expression='3'/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -329,7 +329,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'/><c:case expression='3'/><c:default/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -363,7 +363,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'>ONE</c:case></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -397,7 +397,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'>ONE</c:case><c:default>DEFAULT</c:default></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -431,7 +431,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:default>DEFAULT</c:default></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -465,7 +465,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='3'>THREE</c:case></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -500,7 +500,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='3'>THREE</c:case><c:default>DEFAULT</c:default></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -534,7 +534,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'>ONE</c:case><c:case expression='3'>THREE</c:case></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -568,7 +568,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'>ONE</c:case><c:case expression='3'>THREE</c:case><c:default>DEFAULT</c:default></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -602,7 +602,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='1' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'>ONE</c:case><c:case expression='3'>THREE</c:case></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -636,7 +636,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='1' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='1'>ONE</c:case><c:case expression='3'>THREE</c:case><c:default>DEFAULT</c:default></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -670,7 +670,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='1' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'>\n<c:case expression='1'>ONE</c:case>\n<c:case expression='3'>THREE</c:case>\n<c:default>DEFAULT</c:default>\n</c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -705,7 +705,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='1' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'>\n<c:case expression='1'>ONE</c:case>\n<c:case expression='3'>THREE<c:break/></c:case>\n<c:default>DEFAULT</c:default>\n</c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -740,7 +740,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='1' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'>\n<c:case expression='1'>ONE<c:break/></c:case>\n<c:case expression='3'>THREE</c:case>\n<c:default>DEFAULT</c:default>\n</c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -775,7 +775,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'>\n<c:default>DEFAULT</c:default>\n<c:case expression='1'>ONE<c:break/></c:case>\n<c:case expression='3'>THREE</c:case>\n</c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -809,7 +809,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:default/><c:case expression='1'>ONE</c:case></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -843,7 +843,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='1' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:default/><c:case expression='1'>ONE</c:case></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -877,7 +877,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:default/><c:case expression='2'/><c:case expression='1'>ONE</c:case></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -911,7 +911,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:default/><c:case expression='2'/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -945,7 +945,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='3'>THREE</c:case><c:default/><c:case expression='2'/></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -980,7 +980,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:for var='v' from='0' to='5' step='1'><c:switch expression='v;'><c:case expression='0'>ZERO_{v;}</c:case><c:case expression='1'>ONE_{v;}<c:break/></c:case><c:case expression='2'>TWO_{v;}</c:case><c:case expression='3'>THREE_{v;}<c:break/></c:case><c:default>LIMIT{v;}</c:default></c:switch></c:for>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -1014,7 +1014,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:for var='v' from='0' to='5' step='1'><c:switch expression='v;'><c:case expression='0'>ZERO_{v;}</c:case><c:case expression='1'>ONE_{v;}<c:break/></c:case><c:case expression='2'>TWO_{v;}</c:case><c:case expression='3'>THREE_{v;}<c:break/></c:case><c:default>LIMIT{v;}</c:default></c:switch></c:for>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -1048,7 +1048,7 @@ public class FormatHtmlSwitchTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:set var='v' expression='3' className='"+PrimitiveTypeUtil.PRIM_LONG+"'/><c:switch expression='v;.'><c:case expression='3'/><c:case expression='1'>THREE</c:case></c:switch>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");

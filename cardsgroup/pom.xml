@@ -19,6 +19,9 @@
         <module>../president</module>
         <module>../tarot</module>
         <module>../cardgamesunion</module>
+        <module>../belotebean</module>
+        <module>../presidentbean</module>
+        <module>../tarotbean</module>
         <module>../cardgamesgui</module>
 	</modules>
 	<build>

@@ -191,7 +191,7 @@ public final class ConstClasses {
 
     /**DO NOT USE DEFAULT PACKAGE FOR ALL CLASSES
     @throws RuntimeClassNotFoundException*/
-    public static Class<?> classForObjectNameNotInit(String _name) {
+    private static Class<?> classForObjectNameNotInit(String _name) {
         return classForNameObjectClasses(_name, false);
     }
 

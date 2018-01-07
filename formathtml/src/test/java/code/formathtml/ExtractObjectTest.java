@@ -41,7 +41,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$composite.integer\"/></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -71,7 +71,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\"><param value=\"One\" quoted=\"quoted\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -101,7 +101,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\"><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -131,7 +131,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,one\"/></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -162,7 +162,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\"><param value=\"elt\" quoted=\"quoted\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -193,7 +193,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -224,7 +224,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -255,7 +255,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -286,7 +286,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"&quot;\" quoted=\"quoted\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -318,7 +318,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$composite.integer\" escapedamp='true'/></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -348,7 +348,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\" escapedamp='true'><param value=\"One\" quoted=\"quoted\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -378,7 +378,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -408,7 +408,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,one\" escapedamp='true'/></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -439,7 +439,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\" escapedamp='true'><param value=\"elt\" quoted=\"quoted\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -470,7 +470,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -501,7 +501,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -532,7 +532,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -563,7 +563,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"&quot;\" quoted=\"quoted\"/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -595,7 +595,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.string\" escaped='escaped'/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setString("{escaped}");
         Configuration conf_ = newConfiguration();
@@ -626,7 +626,7 @@ public class ExtractObjectTest {
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"{escaped}\" quoted=\"quoted\" escaped=''/></c:message></body></html>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -656,7 +656,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"1+1\" isbool=\"false\"/>{n;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -691,7 +691,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"false|true\" isbool=\"true\"/>{n;.}<c:set var=\"n\" mathexpr=\"false\" isbool=\"true\"/>{n;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -726,7 +726,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"false|true\" isbool=\"true\"/>{n;.}<c:set var=\"n\" mathexpr=\"false\" isbool=\"true\"/>{n;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -761,7 +761,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"`composite.integer`+1\" isbool=\"false\"/>{n;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -795,7 +795,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:while mathexpr=\"`composite.strings.isEmpty()`\">EMPTY</c:while></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -829,7 +829,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
@@ -857,7 +857,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "{composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -874,7 +874,7 @@ public class ExtractObjectTest {
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("5", formated_);
     }
 
@@ -887,7 +887,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
         String html_ = "{trans,composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -905,7 +905,7 @@ public class ExtractObjectTest {
 //        conf_.setHtml(html_);
         //String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, bean_);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>5 &amp;lt;= 5</body></html>", formated_);
         assertEq("5 &lt;= 5", formated_);
@@ -920,7 +920,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>'{composite.integerToo}'</body></html>";
         String html_ = "'{composite.integerToo}'";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -937,7 +937,7 @@ public class ExtractObjectTest {
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, bean_);
 //        assertEq("<html xmlns:c=\"javahtm:l\" xmlns=\"javahtml\"><body>{composite.integerToo}</body></html>", formated_);
         assertEq("{composite.integerToo}", formated_);
@@ -952,7 +952,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>'{composite.integerToo|trans}'</body></html>";
         String html_ = "'{composite.integerToo|trans}'";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -971,7 +971,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, bean_);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>{composite.integerToo|trans}</body></html>", formated_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("{composite.integerToo|trans}", formated_);
     }
 
@@ -984,7 +984,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>''composite.integer</body></html>";
         String html_ = "''composite.integer";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1003,7 +1003,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, bean_);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'composite.integer", formated_);
     }
 
@@ -1016,7 +1016,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>''composite.integer</body></html>";
         String html_ = "''{composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1035,7 +1035,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'5", formated_);
     }
 
@@ -1048,7 +1048,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>''composite.integer</body></html>";
         String html_ = "''{composite.integer";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1067,7 +1067,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     @Test(expected=BadExpressionLanguageException.class)
@@ -1079,7 +1079,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>''composite.integer</body></html>";
         String html_ = "''composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1098,7 +1098,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     @Test(expected=BadExpressionLanguageException.class)
@@ -1110,7 +1110,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>''composite.integer</body></html>";
         String html_ = "''{composite.integer{}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1129,7 +1129,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     @Test
@@ -1141,7 +1141,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>''composite.integer</body></html>";
         String html_ = "''{composite.integer} {composite.integer+composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1160,7 +1160,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'5 10", formated_);
     }
 
@@ -1173,7 +1173,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>''composite.integer</body></html>";
         String html_ = "''{'c'} {composite.integer+composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1192,7 +1192,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'c 10", formated_);
     }
 
@@ -1205,7 +1205,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>''composite.integer</body></html>";
         String html_ = "''{'c'}{composite.integer+composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1224,7 +1224,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'c10", formated_);
     }
 
@@ -1236,7 +1236,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "''{'{'} {composite.integer+composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1250,7 +1250,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'{ 10", formated_);
     }
 
@@ -1263,7 +1263,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "''{'}'} {composite.integer+composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1277,7 +1277,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'} 10", formated_);
     }
 
@@ -1289,7 +1289,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "''{\"{}\"} {composite.integer+composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1303,7 +1303,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'{} 10", formated_);
     }
     @Test(expected=BadExpressionLanguageException.class)
@@ -1314,7 +1314,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "{";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1328,7 +1328,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     @Test(expected=BadExpressionLanguageException.class)
@@ -1339,7 +1339,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "{}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1353,7 +1353,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     @Test(expected=BadExpressionLanguageException.class)
@@ -1365,7 +1365,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
         String html_ = "{[trans}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1379,7 +1379,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     @Test(expected=BadExpressionLanguageException.class)
@@ -1391,7 +1391,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
         String html_ = "{[trans";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1405,7 +1405,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
     
     @Test(expected=InexistingTranslatorException.class)
@@ -1417,7 +1417,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
         String html_ = "{trans2,composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1431,7 +1431,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     @Test(expected=InvokeRedinedMethException.class)
@@ -1443,7 +1443,7 @@ public class ExtractObjectTest {
 //        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
         String html_ = "{trans,composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1457,7 +1457,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     @Test(expected=BadExpressionLanguageException.class)
@@ -1468,7 +1468,7 @@ public class ExtractObjectTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "{,composite.integer}";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1482,7 +1482,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        ExtractObject.formatNumVariables(html_, conf_, ip_);
     }
 
     private static void addImportingPage(Configuration _conf, boolean _rendering) {

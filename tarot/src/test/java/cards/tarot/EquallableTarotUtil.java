@@ -1,6 +1,7 @@
 package cards.tarot;
 import org.junit.Assert;
 
+import code.util.StringList;
 import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -13,7 +14,7 @@ public final class EquallableTarotUtil {
     }
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
     }
 
     private static boolean sameValue(Number _expected, Number _result) {
@@ -24,7 +25,7 @@ public final class EquallableTarotUtil {
     }
     public static void assertEq(HandTarot _expected, HandTarot _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
     
     public static void assertEq(Suit _expected, Suit _result) {

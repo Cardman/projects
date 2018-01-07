@@ -121,6 +121,6 @@ public class BeanFive {
 
 
     String goToPage(Long _index) {
-        return "page"+_index;
+        return StringList.concatNbs("page",_index);
     }
 }

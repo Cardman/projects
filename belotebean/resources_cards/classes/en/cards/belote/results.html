@@ -1,0 +1,117 @@
+<html c:bean="results" xmlns:c="javahtml">
+<head>
+<title>Results</title>
+<link href="resources_cards/css/belote.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<c:if condition="playGame()">
+		<h1>1 Calculation of attack team''s points</h1>
+		<ul>
+			<li>Number of necessary points in order that the taker
+				wins:{pointsDefenseTemporaire}</li>
+			<li>Number of points won in the attack team''s
+				tricks:{pointsAttaqueTemporaire}</li>
+		</ul>
+		<h1>2 Attack team</h1>
+		<ul>
+			<li>Taker:{takerNickname}</li>
+			<li>Taker''s partners: <c:if
+					condition="calledPlayersList.isEmpty()">
+					Noone
+				</c:if> <c:if condition="!calledPlayersList.isEmpty()">
+					<ul>
+						<c:for var="p" list="calledPlayersList">
+							<li>{p;}</li>
+						</c:for>
+					</ul>
+				</c:if>
+
+			</li>
+			<li>Bid:{bidString}</li>
+		</ul>
+		<h1>3 Results</h1>
+		<p>Scored points by attack''s team without
+			bonuses:{pointsAttaqueSansPrime}</p>
+		<br />
+		<p>Scored points by defense''s team without
+			bonuses:{pointsDefenseSansPrime}</p>
+		<br />
+		<p>Scored points by attack''s team with
+			bonuses:{pointsAttaqueTemporaire}</p>
+		<br />
+		<p>Scored points by defense''s team with
+			bonuses:{pointsDefenseTemporaire}</p>
+		<br />
+		<p>Final scored points by attack''s team:{pointsAttaqueDefinitif}</p>
+		<br />
+		<p>Final scored points by defense''s team:{pointsDefenseDefinitif}</p>
+		<br />
+		<p>
+			<c:if condition="win()">
+				<c:message value="msg,win" />
+			</c:if>
+			<c:if condition="equality()">
+				<c:message value="msg,equality" />
+			</c:if>
+			<c:if condition="loose()">
+				<c:message value="msg,loose" />
+			</c:if>
+		</p>
+		<br />
+		<p>
+			<c:if condition="successfulBid()">
+				<c:message value="msg,successful">
+					<param value="$bidString" />
+					<param value="$absoluteDiff()" />
+				</c:message>
+			</c:if>
+			<c:if condition="midBid()">
+				<c:message value="msg,mid">
+					<param value="$bidString" />
+				</c:message>
+			</c:if>
+			<c:if condition="failedBid()">
+				<c:message value="msg,failed">
+					<param value="$bidString" />
+					<param value="$absoluteDiff()" />
+				</c:message>
+			</c:if>
+		</p>
+		<br />
+		<p>
+			<c:if condition="slam()">
+				<c:message value="msg,slam" />
+			</c:if>
+			<c:if condition="!slam()">
+				<c:message value="msg,noSlam" />
+			</c:if>
+		</p>
+		<br />
+	</c:if>
+	<c:if condition="!playGame()">
+	</c:if>
+	<br />
+	<table border="1">
+		<caption>Scores</caption>
+		<thead>
+			<tr>
+				<td></td>
+				<c:for var="p" list="getNicknames()">
+					<td>{p;}</td>
+				</c:for>
+			</tr>
+		</thead>
+		<tbody>
+			<c:for var="l" list="linesDeal" className='cards.belote.beans.LineDeal'>
+				<tr>
+					<td>{l;number}</td>
+					<c:for var="s" list="l;scores">
+						<td>{s;}</td>
+					</c:for>
+				</tr>
+			</c:for>
+		</tbody>
+	</table>
+	<br />
+</body>
+</html>

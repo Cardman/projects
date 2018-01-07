@@ -3,6 +3,7 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -13,6 +14,7 @@ import code.expressionlanguage.exceptions.UndefinedVariableException;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.DoubleStruct;
+import code.expressionlanguage.opers.util.EnumStruct;
 import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
@@ -21,6 +23,7 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
@@ -99,7 +102,7 @@ final class ExtractObject {
 
     private ExtractObject() {
     }
-    static String formatNumVariables(String _pattern, Configuration _conf, ImportingPage _ip, StringMap<String> _files) {
+    static String formatNumVariables(String _pattern, Configuration _conf, ImportingPage _ip) {
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
         int length_ = _pattern.length();
@@ -194,7 +197,7 @@ final class ExtractObject {
                     if (trloc_ != null) {
                         if (trloc_.getInstance() instanceof Translator) {
                             Bean bean_ = (Bean) _ip.getGlobalArgument().getStruct().getInstance();
-                            o_ = ((Translator)trloc_.getInstance()).getString(_pattern, _conf, _files, bean_, s_.getInstance());
+                            o_ = ((Translator)trloc_.getInstance()).getString(_pattern, _conf, bean_, s_.getInstance());
                         } else {
                             Struct bean_ = _ip.getGlobalArgument().getStruct();
                             LocalVariable lv_ = new LocalVariable();
@@ -213,11 +216,6 @@ final class ExtractObject {
                             lv_.setElement(_conf);
                             lv_.setClassName(Object.class.getName());
                             _ip.getLocalVars().put(navName_, lv_);
-                            String filName_ = _ip.getNextTempVar();
-                            lv_ = new LocalVariable();
-                            lv_.setElement(_files);
-                            lv_.setClassName(StringList.concat(StringMap.class.getName(), Templates.TEMPLATE_BEGIN, String.class.getName(), Templates.TEMPLATE_END));
-                            _ip.getLocalVars().put(filName_, lv_);
                             String beanName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
                             lv_.setStruct(bean_);
@@ -231,7 +229,6 @@ final class ExtractObject {
                             StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(GET_STRING).append(BEGIN_ARGS);
                             expression_.append(patName_).append(GET_LOC_VAR).append(SEP_ARGS);
                             expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
-                            expression_.append(filName_).append(GET_LOC_VAR).append(SEP_ARGS);
                             expression_.append(beanName_).append(GET_LOC_VAR).append(SEP_ARGS);
                             expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
                             o_ = (String) ElUtil.processEl(expression_.toString(), 0, context_).getObject();
@@ -608,10 +605,23 @@ final class ExtractObject {
         return getResult(_conf, 0, ENTRY_LIST, _container);
     }
 
-    static String name(Configuration _conf, Struct _instance) {
-        return (String) getResult(_conf, 0, NAME, _instance).getInstance();
+    static String getStringKey(Configuration _conf, Struct _instance) {
+        ContextEl cont_ = _conf.toContextEl();
+        if (cont_.getClasses() == null) {
+            if (_instance.getInstance().getClass().isEnum()) {
+                return (String) getResult(_conf, 0, NAME, _instance).getInstance();
+            }
+            return toString(_conf, _instance);
+        }
+        if (_instance instanceof EnumStruct) {
+            return ((EnumStruct) _instance).getName();
+        }
+        ResultErrorStd res_ = _conf.getStandards().getName(cont_, _instance);
+        if (res_.getError() != null) {
+            throw new InvokeRedinedMethException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+        }
+        return toString(_conf, res_.getResult());
     }
-
     private static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance) {
         ImportingPage ip_ = _conf.getLastPage();
         String varName_ = ip_.getNextTempVar();
@@ -698,7 +708,7 @@ final class ExtractObject {
             if (!_conf.noPages()) {
                 _conf.getLastPage().setOffset(var_.length()+COMMA.length());
             }
-            key_ = formatNumVariables(key_, _conf, _ip, _files);
+            key_ = formatNumVariables(key_, _conf, _ip);
             StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, _files, _resourcesFolder);
             preformatted_ = ExtractFromResources.getFormat(messages_, key_, _conf, _loc, fileName_);
             if (!_conf.noPages()) {

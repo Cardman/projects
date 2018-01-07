@@ -182,6 +182,6 @@ public class Composite implements Displayable {
 
     @Override
     public String display() {
-        return integer+","+privateInt+","+strings.display()+","+tree+","+map+","+myMap;
+        return new StringBuilder().append(integer).append(",").append(privateInt).append(",").append(strings.display()).append(",").append(tree).append(",").append(map).append(",").append(myMap).toString();
     }
 }

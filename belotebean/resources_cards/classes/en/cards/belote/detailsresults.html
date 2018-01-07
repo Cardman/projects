@@ -1,0 +1,28 @@
+<html c:bean="details" xmlns:c="javahtml">
+<head>
+<title>Results</title>
+<link href="resources_cards/css/belote.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<h1>Details of declaring</h1>
+	<ul>
+		<c:for var="p" list="getDeclaring()" className='cards.belote.beans.SumDeclaringPlayer'>
+			<li>
+				{p;getNickname()}''s declaring ({p;getStatut()}):
+				<c:if condition="p;getDeclaring().isEmpty()">
+					No thing
+				</c:if>
+				<c:if condition="!p;getDeclaring().isEmpty()">
+					<br/>
+					<ul>
+						<c:for var="d" list="p;getDeclaring()" className='cards.belote.beans.DeclaringPlayerValue'>
+							<li>{d;getDeclaring()} : {d;getValue()}</li>
+						</c:for>
+						<li>Sum : {p;getSum()}</li>
+					</ul>
+				</c:if>
+			</li>
+		</c:for>
+	</ul>
+</body>
+</html>

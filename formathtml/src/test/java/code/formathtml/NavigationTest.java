@@ -62,7 +62,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -108,7 +108,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,one\"/></title></head><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -154,7 +154,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -197,7 +197,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -240,7 +240,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -283,7 +283,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -326,7 +326,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -369,7 +369,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -418,7 +418,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -467,7 +467,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -519,7 +519,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -571,7 +571,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -623,7 +623,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -675,7 +675,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -727,7 +727,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,three\" escaped=\"escaped\"><param value=\"My quoted title\" quoted=\"quoted\"/></c:message></title></head><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -780,7 +780,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,one\"/></title></head><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -832,7 +832,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form><a name=\"here\">Title loc</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -881,7 +881,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form><a name=\"here\" title=\"Tool tip\">Title loc</a><a href=\"\" name=\"here\">Title href</a><a href=\"a_ref\" name=\"here\" title=\"a_title\">Title real</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -931,7 +931,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -983,7 +983,7 @@ public class NavigationTest {
         String html_ = "<html xmlns:c='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,four\"/> NEXT<form action=\"DELETE\">2</form><form action=\"go\">4</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
 //        BeanOne bean_ = new BeanOne();
@@ -1032,7 +1032,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"$goTwoArgs(4i,8i)\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanSeven bean_ = new BeanSeven();
@@ -1084,7 +1084,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1164,7 +1164,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1244,7 +1244,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1323,7 +1323,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1394,7 +1394,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1465,7 +1465,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1546,7 +1546,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1626,7 +1626,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1697,7 +1697,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"number\" name=\"typedInt\" c:varValue=\"typedInt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1776,7 +1776,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"checked\" c:varValue=\"checked\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1855,7 +1855,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"checked\" varValue=\"checked\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1934,7 +1934,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2013,7 +2013,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:varValue=\"typedString\" name=\"typedString\" type=\"text\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2095,7 +2095,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2176,7 +2176,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"nullableCheckbox\" varValue=\"nullableCheckbox\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2254,7 +2254,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input class=\"java.lang.Long\" type=\"number\" name=\"nullableInt\" varValue=\"nullableInt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2332,7 +2332,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"nullableCheckbox\" varValue=\"nullableCheckbox\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2410,7 +2410,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2489,7 +2489,7 @@ public class NavigationTest {
 //        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\"maths.Rate\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2569,7 +2569,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2649,7 +2649,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\" valueChangeEvent=\"changeText\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2729,7 +2729,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2808,7 +2808,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" c:validator=\"validator\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2888,7 +2888,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -2968,7 +2968,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3048,7 +3048,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\" c:validator=\"rate_val\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3119,7 +3119,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\" c:validator=\"rate_val\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3190,7 +3190,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3272,7 +3272,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3355,7 +3355,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"number\" name=\"nullableInt\" c:varValue=\"nullableInt\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3438,7 +3438,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"range\" name=\"nullableInt\" c:varValue=\"nullableInt\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3521,7 +3521,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"range\" name=\"nullableInt\" c:varValue=\"nullableInt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3611,7 +3611,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" id=\"txt\" type=\"text\" name=\"rate\" c:varValue=\"rate\" c:validator=\"rate_val\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3701,7 +3701,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\">DELETE</span><input id=\"checking\" type=\"text\" name=\"field\" c:varValue=\"field\" c:validator=\"rate_val\"/><span c:for=\"checking\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3779,7 +3779,7 @@ public class NavigationTest {
 //        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input id=\"checking\" type=\"text\" name=\"choose1_2\" c:varValue=\"choose1_2\"/></form></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input id=\"checking\" type=\"text\" name=\"choose\" c:varValue=\"choose\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3867,7 +3867,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go(6)\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -3949,7 +3949,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go(-6)\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4032,7 +4032,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"page1.html\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4104,7 +4104,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4187,7 +4187,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4270,7 +4270,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4354,7 +4354,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form><form c:command=\"$validate\" name=\"myform2\"><input type=\"text\" name=\"field\" c:varValue=\"field\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4437,7 +4437,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4503,7 +4503,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\" valueChangeEvent=\"changeTextTwo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4583,7 +4583,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4654,7 +4654,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4734,7 +4734,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4815,7 +4815,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -4894,7 +4894,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
@@ -4960,7 +4960,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\"/><span>Text</span></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5032,7 +5032,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"$go\" name=\"myform\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5112,7 +5112,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"$go:\" name=\"myform\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5179,7 +5179,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
@@ -5243,7 +5243,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\" c:groupId=\"myradio\" c:validator=\"checkselected\"/></c:for><span c:for=\"myradio\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
@@ -5308,7 +5308,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\" c:groupId=\"myradio\" c:validator=\"checkselected\"/></c:for><span c:for=\"myradio\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
@@ -5374,7 +5374,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5454,7 +5454,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5533,7 +5533,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\" className='"+ENUMS+"'/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5613,7 +5613,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5680,7 +5680,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5759,7 +5759,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\" className='"+ENUMS+"'/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5838,7 +5838,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5905,7 +5905,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -5985,7 +5985,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -6065,7 +6065,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -6145,7 +6145,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><textarea id=\"txt\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -6227,7 +6227,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea name=\"typedString\" varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -6307,7 +6307,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea id=\"my_text_area\" name=\"typedString\" varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -6387,7 +6387,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -6454,7 +6454,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
@@ -6518,7 +6518,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
@@ -6582,7 +6582,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
@@ -6647,7 +6647,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -6722,7 +6722,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -6796,7 +6796,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
@@ -6860,7 +6860,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
@@ -6924,7 +6924,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
@@ -6988,7 +6988,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'><input type=\"text\" name=\"c;getString()\" c:varMethod=\"setString\" c:varValue=\"c;getString()\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanOne bean_ = new BeanOne();
         bean_.setScope("session");
@@ -7062,7 +7062,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'><input type=\"text\" name=\"c;getString()\" c:varMethod=\"setString\" c:varValue=\"c;getString()\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanOne bean_ = new BeanOne();
         bean_.setScope("session");
@@ -7136,7 +7136,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getStrings()\"><input type=\"text\" name=\"c;\" c:varValue=\"c;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSeven bean_ = new BeanSeven();
         bean_.setScope("session");
@@ -7210,7 +7210,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateStringsSave\"><c:for var=\"c\" list=\"getStrings()\"><input type=\"text\" name=\"c;\" c:varValue=\"c;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSeven bean_ = new BeanSeven();
         bean_.setScope("session");
@@ -7284,7 +7284,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateMap\"><c:for key=\"k\" value=\"v\" map=\"getTree()\"><input type=\"text\" name=\"v;\" c:varValue=\"v;\" c:className=\"java.lang.Integer\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSeven bean_ = new BeanSeven();
         bean_.setScope("session");
@@ -7359,7 +7359,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><input type=\"radio\" name=\"chosenNumber\" c:className=\""+ENUM+"\" value=\"ONE\"/><input type=\"radio\" name=\"chosenNumber\" c:className=\""+ENUM+"\" value=\"TWO\"/><span c:for=\"txt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -7436,7 +7436,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateMap\"><c:for key=\"k\" value=\"v\" map=\"getTree()\"><input type=\"text\" name=\"k;\" c:varValue=\"k;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSeven bean_ = new BeanSeven();
         bean_.setScope("session");
@@ -7511,7 +7511,7 @@ public class NavigationTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name='myform' c:command=\"$validateIntsSave\"><c:for var=\"i\" list=\"arrayInt\"><input type=\"text\" c:className=\"java.lang.Integer\" name=\"i;\" c:varValue=\"i;\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSeven bean_ = new BeanSeven();
         bean_.setScope("session");
@@ -7598,7 +7598,7 @@ public class NavigationTest {
         html_ += "</body>";
         html_ += "</html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanEight bean_ = new BeanEight();
         bean_.setScope("session");
@@ -7859,7 +7859,7 @@ public class NavigationTest {
         html_ += "</body>";
         html_ += "</html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanEight bean_ = new BeanEight();
         bean_.setScope("session");
@@ -8286,7 +8286,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -8344,7 +8344,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -8400,7 +8400,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form><form c:command=\"$validate\" name=\"myform2\"><input type=\"text\" name=\"field\" varValue=\"field\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -8446,7 +8446,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -8504,7 +8504,7 @@ public class NavigationTest {
 //        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
 //        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
 //        Map<String,String> files_ = new Map<String,String>();
-//        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
 //        files_.put("page1.html", html_);
 //        files_.put("page2.html", htmlTwo_);
 //        BeanOne bean_ = new BeanOne();
@@ -8546,7 +8546,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:varMethod=\"inexistant\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -8602,7 +8602,7 @@ public class NavigationTest {
         String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" c:className='"+PrimitiveTypeUtil.PRIM_INT+"' name=\"composite.privateInt\" varValue=\"composite.getPrivateInt()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();

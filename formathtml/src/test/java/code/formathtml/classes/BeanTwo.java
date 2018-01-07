@@ -3,6 +3,7 @@ import code.bean.Accessible;
 import code.bean.Bean;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class BeanTwo extends Bean {
@@ -43,7 +44,7 @@ public class BeanTwo extends Bean {
         if (typedString == null) {
             typedString = "TYPED_STRING";
         } else {
-            typedString += 2;
+            typedString = StringList.concatNbs(typedString,2);
         }
     }
 
@@ -125,7 +126,7 @@ public class BeanTwo extends Bean {
     }
 
     public void changeText(ValueChangeEvent _event) {
-        newOld = _event.getNewValue()+" "+_event.getOldValue();
+        newOld = StringList.concat(((Integer)_event.getNewValue()).toString()," ",((Integer)_event.getOldValue()).toString());
     }
 
     public boolean isChecked() {

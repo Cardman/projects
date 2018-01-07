@@ -30,7 +30,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"composite.strings.isEmpty()\">EMPTY</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -64,7 +64,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"composite.strings.isEmpty()\">EMPTY</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -98,7 +98,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"!composite.strings.isEmpty()\">NOT EMPTY</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -132,7 +132,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"!composite.strings.isEmpty()\">NOT EMPTY</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -162,7 +162,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"composite.strings.isEmpty()\">EMPTY</c:if><c:elseif condition=\"hasMoreThanOne()\">NOT EMPTY</c:elseif></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -196,7 +196,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"composite.strings.isEmpty()\">EMPTY</c:if><c:elseif condition=\"hasMoreThanOne()\">NOT EMPTY</c:elseif><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
@@ -229,7 +229,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if mathexpr=\"`composite.strings.isEmpty()`\">EMPTY</c:if><c:else>NOT EMPTY</c:else></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -262,7 +262,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"!!\">BAD CODE</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -295,7 +295,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"composite.strings.isEmpty()\">EMPTY</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -329,7 +329,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"composite.strings.isEmpty()\">EMPTY</c:if><c:elseif condition=\"hasMoreThanOne()\">NOT EMPTY</c:elseif><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
@@ -363,7 +363,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:ifdefparam defined=\"p\">EMPTY</c:ifdefparam><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
@@ -395,7 +395,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:ifdefparam defined=\"p\">EMPTY</c:ifdefparam><c:elseifdefparam defined=\"e\">EMPTY</c:elseifdefparam><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
@@ -432,7 +432,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:ifdefretval defined=\"p\">EMPTY</c:ifdefretval><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
@@ -464,7 +464,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:ifdefretval defined=\"p\">EMPTY</c:ifdefretval><c:elseifdefretval defined=\"e\">EMPTY</c:elseifdefretval><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
@@ -500,7 +500,7 @@ public class ExtractConditionTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:ifdefretval>EMPTY</c:ifdefretval><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);

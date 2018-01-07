@@ -17,6 +17,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
@@ -64,7 +65,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getTeam().clear();
-        player_.getTeam().add(new Egg(PIKACHU+";10"));
+        player_.getTeam().add(new Egg(StringList.concat(PIKACHU,";10")));
         player_.validate(_data_);
     }
 
@@ -74,7 +75,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
-        player_.getTeam().add(new Egg(INVALID_DATA_KEY+";10"));
+        player_.getTeam().add(new Egg(StringList.concat(INVALID_DATA_KEY,";10")));
         player_.validate(_data_);
     }
 
@@ -84,7 +85,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
-        player_.getTeam().add(new Egg(PIKACHU+";10"));
+        player_.getTeam().add(new Egg(StringList.concat(PIKACHU,";10")));
         player_.validate(_data_);
     }
 
@@ -94,7 +95,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
-        player_.getBox().add(new Egg(INVALID_DATA_KEY+";10"));
+        player_.getBox().add(new Egg(StringList.concat(INVALID_DATA_KEY,";10")));
         player_.validate(_data_);
     }
 

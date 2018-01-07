@@ -113,15 +113,15 @@ public class BeanSeven extends Bean {
     }
 
     public String goTwoArgs(int _a, int _b) {
-        return "bean"+(_a+_b);
+        return StringList.concatNbs("bean",_a+_b);
     }
 
     public String getSpanClasses(Long _one, Long _two, Long _three) {
-        return "a"+_one+"b"+_two+"c"+_three;
+        return StringList.concat("a",_one.toString(),"b",_two.toString(),"c",_three.toString());
     }
 
     public String getSpanClass(Long _one) {
-        return "a"+_one;
+        return StringList.concatNbs("page",_one);
     }
 
     public StringList sortedNumberKeys() {
@@ -153,7 +153,7 @@ public class BeanSeven extends Bean {
     }
 
     public void updateValue(ValueChangeEvent _changing) {
-        composite.getStrings().add(_changing.getNewValue()+" "+_changing.getOldValue());
+        composite.getStrings().add(StringList.concat(((Integer)_changing.getNewValue()).toString()," ",((Integer)_changing.getOldValue()).toString()));
         changing = _changing;
     }
 
@@ -215,6 +215,6 @@ public class BeanSeven extends Bean {
 
     @Accessible
     String goToPage(Long _index) {
-        return "page"+_index;
+        return StringList.concatNbs("page",_index);
     }
 }

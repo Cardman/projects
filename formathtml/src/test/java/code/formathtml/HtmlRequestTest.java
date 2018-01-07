@@ -529,7 +529,7 @@ public class HtmlRequestTest {
         String html_ = "<html bean=\"bean_one\"><body>HEAD<a href=\"\"/><c:import page=\"page1.html\"/></body></html>";
         String htmlTwo_ = "<html bean=\"bean_two\"><body> NEXT<form action=\"DELETE\" command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -563,7 +563,7 @@ public class HtmlRequestTest {
         String html_ = "<html bean=\"bean_one\"><body>HEAD<a href=\"\"/><c:import page=\"page1.html\"/></body></html>";
         String htmlTwo_ = "<html bean=\"bean_two\"><body> NEXT<form action=\"DELETE\" command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();

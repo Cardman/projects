@@ -13,12 +13,12 @@ public final class EquallableImageUtil {
 
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, StringList.quickEq(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
     }
 
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
     }
 
     private static boolean sameValue(Number _expected, Number _result) {

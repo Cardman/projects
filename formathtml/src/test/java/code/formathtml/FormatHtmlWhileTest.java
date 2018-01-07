@@ -33,7 +33,7 @@ public class FormatHtmlWhileTest {
         html_ += "<c:while condition='p;.removeAndExistAfter(1i)'/>";
         html_ += "AFTER WHILE</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -74,7 +74,7 @@ public class FormatHtmlWhileTest {
         html_ += "<c:while condition='p;.removeAndExistAfter(1i)'/>";
         html_ += "AFTER WHILE</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -115,7 +115,7 @@ public class FormatHtmlWhileTest {
         html_ += "<c:while condition='p;.removeAndExistAfter(2i)'/>";
         html_ += "AFTER WHILE</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -162,7 +162,7 @@ public class FormatHtmlWhileTest {
         html_ += "<c:while condition='i;.&lt;2'/>";
         html_ += "AFTER WHILE</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
@@ -201,7 +201,7 @@ public class FormatHtmlWhileTest {
         html_ += "<c:while condition='p;.removeAndExistAfter(1i)'/>";
         html_ += "AFTER WHILE</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");

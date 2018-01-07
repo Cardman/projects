@@ -1,0 +1,63 @@
+<html c:bean="rules" xmlns:c="javahtml">
+	<head>
+	<link href="resources_cards/css/president.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+	<h1>Mix Cards</h1>
+	{cartesBattues}
+	<br/>
+	<h1>Number of players</h1>
+	{nbPlayers}
+	<br/>
+	<h1>Number of stacks</h1>
+	{nbStacks}
+	<br/>
+	<c:if condition="sameAmount()">
+		Number of cards per player:
+		{nbCardsPerPlayerMin}<br/>
+	</c:if>
+	<c:if condition="!sameAmount()">
+		Number of cards per player:
+		between {nbCardsPerPlayerMin} and {nbCardsPerPlayerMax}<br/>
+	</c:if>
+	<br/>
+	<h1>Equality</h1>
+	{equalty}
+	<br/>
+	<h1>Possible reversing strength</h1>
+	<c:if condition="possibleReversing">
+		yes<br/>
+	</c:if>
+	<c:if condition="!possibleReversing">
+		no<br/>
+	</c:if>
+	<h1>Every player has to play if possible</h1>
+	<c:if condition="hasToPlay">
+		yes<br/>
+	</c:if>
+	<c:if condition="!hasToPlay">
+		no<br/>
+	</c:if>
+	<h1>A player looses if this player finish by the best cards</h1>
+	<c:if condition="loosingIfFinishByBestCards">
+		yes<br/>
+	</c:if>
+	<c:if condition="!loosingIfFinishByBestCards">
+		no<br/>
+	</c:if>
+	<h1>For next deals, players can switch their cards at the beginning</h1>
+	<c:if condition="switchCards">
+		yes<br/>
+	</c:if>
+	<c:if condition="!switchCards">
+		no<br/>
+	</c:if>
+	<h1>For next deals, the looser player starts first the first trick</h1>
+	<c:if condition="looserStartsFirst">
+		yes<br/>
+	</c:if>
+	<c:if condition="!looserStartsFirst">
+		no<br/>
+	</c:if>
+	</body>
+</html>

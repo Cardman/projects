@@ -24,7 +24,7 @@ public class ExtractFromResourcesTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo_lignes=Description\n\t2";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = newConfiguration();
         conf_.setMessagesFolder(folder_);
         StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(conf_, locale_, relative_, files_);
@@ -40,7 +40,7 @@ public class ExtractFromResourcesTest {
         String relative_ = "sample/file";
         String content_ = "\tone=Description one\ntwo_lignes=Description 2";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = newConfiguration();
         conf_.setMessagesFolder(folder_);
         StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(conf_, locale_, relative_, files_);

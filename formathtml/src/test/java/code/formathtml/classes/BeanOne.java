@@ -77,11 +77,11 @@ public class BeanOne extends Bean {
     }
 
     public String getSpanClasses(Long _one, Long _two, Long _three) {
-        return "a"+_one+"b"+_two+"c"+_three;
+        return StringList.concat("a",_one.toString(),"b",_two.toString(),"c",_three.toString());
     }
 
     public String getSpanClass(Long _one) {
-        return "a"+_one;
+        return StringList.concatNbs("a",_one);
     }
 
     public String getStandard(String _obj) {
@@ -179,6 +179,6 @@ public class BeanOne extends Bean {
 
     @Accessible
     String goToPage(Long _index) {
-        return "page"+_index;
+        return StringList.concatNbs("page",_index);
     }
 }

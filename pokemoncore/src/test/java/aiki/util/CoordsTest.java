@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class CoordsTest {
@@ -58,7 +56,7 @@ public class CoordsTest {
 
     @Test
     public void new_Coords_String_2Test() {
-        Coords lpt_ = new Coords("4"+Coords.SEPARATOR+"2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1");
+        Coords lpt_ = new Coords(StringList.concat("4",String.valueOf(Coords.SEPARATOR),"2",String.valueOf(LevelPoint.SEPARATOR),"3",String.valueOf(Point.SEPARATOR),"1"));
         assertTrue(lpt_.isValid());
         assertTrue(!lpt_.isInside());
         assertEq(4, lpt_.getNumberPlace());
@@ -69,7 +67,7 @@ public class CoordsTest {
 
     @Test
     public void new_Coords_String_3Test() {
-        Coords lpt_ = new Coords("4"+Coords.SEPARATOR+"5"+Point.SEPARATOR+"6"+Coords.SEPARATOR+"2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1");
+        Coords lpt_ = new Coords(StringList.concat("4",String.valueOf(Coords.SEPARATOR),"5",String.valueOf(Point.SEPARATOR),"6",String.valueOf(Coords.SEPARATOR),"2",String.valueOf(LevelPoint.SEPARATOR),"3",String.valueOf(Point.SEPARATOR),"1"));
         assertTrue(lpt_.isValid());
         assertTrue(lpt_.isInside());
         assertEq(5, lpt_.getInsideBuilding().getx());
@@ -97,7 +95,7 @@ public class CoordsTest {
         Coords coords_ = new Coords();
         coords_.setLevel(lpt_);
         coords_.setNumberPlace((short) 4);
-        assertEq("4"+Coords.SEPARATOR+"2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1", coords_.display());
+        assertEq(StringList.concat("4",String.valueOf(Coords.SEPARATOR),"2",String.valueOf(LevelPoint.SEPARATOR),"3",String.valueOf(Point.SEPARATOR),"1"), coords_.display());
     }
 
     @Test
@@ -112,6 +110,6 @@ public class CoordsTest {
         coords_.setLevel(lpt_);
         coords_.setNumberPlace((short) 4);
         coords_.setInsideBuilding(new Point((short)5,(short)6));
-        assertEq("4"+Coords.SEPARATOR+"5"+Point.SEPARATOR+"6"+Coords.SEPARATOR+"2"+LevelPoint.SEPARATOR+"3"+Point.SEPARATOR+"1", coords_.display());
+        assertEq(StringList.concat("4",String.valueOf(Coords.SEPARATOR),"5",String.valueOf(Point.SEPARATOR),"6",String.valueOf(Coords.SEPARATOR),"2",String.valueOf(LevelPoint.SEPARATOR),"3",String.valueOf(Point.SEPARATOR),"1"), coords_.display());
     }
 }

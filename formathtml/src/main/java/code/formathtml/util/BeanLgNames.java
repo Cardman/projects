@@ -2,7 +2,6 @@ package code.formathtml.util;
 
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -181,6 +180,9 @@ public class BeanLgNames extends LgNames {
             }
         }
         return getOtherResultBean(_cont, _instance, _method, _args);
+    }
+    public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
+        return new ResultErrorStd();
     }
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Object... _args) {

@@ -1,0 +1,65 @@
+<html c:bean="rules" xmlns:c="javahtml">
+<head>
+<link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<h1>Battre les cartes</h1>
+	{cartesBattues}
+	<br />
+	<h1>R&eacute;partition des joueurs</h1>
+	{repartition}
+	<br />
+	<h1>Mode</h1>
+	{mode}
+	<br />
+	<h1>Ecart apr&egrave;s appel</h1>
+	<c:if condition="discardAfterCall">
+		oui
+	</c:if>
+	<c:if condition="!discardAfterCall">
+		non
+	</c:if>
+	<br />
+	<h1>Ench&egrave; au d&eacute;but de la partie</h1>
+	<ul>
+		<c:for var="d" list="contrats">
+			<li>{d;}</li>
+		</c:for>
+	</ul>
+	<h1>Annonces autoris&eacute;es</h1>
+	<table>
+		<caption>Poign&eacute;es</caption>
+		<thead>
+			<tr>
+				<td>Poign&eacute;e</td>
+				<td>Nombre</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<c:for key="h" value="n" map="poigneesAutorisees">
+				<tr>
+					<td>{h;}</td>
+					<td>{n;}</td>
+				</tr>
+			</c:for>
+		</tbody>
+
+	</table>
+	<br/>
+	Mis&egrave;res autoris&eacute;es:<br/>
+	<c:if condition="!miseres.isEmpty()">
+		<ul>
+			<c:for var="m" list="miseres">
+				<li>{m;}</li>
+			</c:for>
+		</ul>
+	</c:if>
+	<c:if condition="miseres.isEmpty()">
+		Rien<br/>
+	</c:if>
+	<br />
+	<h1>Fin de partie</h1>
+	{finPartieTarot}
+</body>
+</html>

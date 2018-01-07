@@ -1710,33 +1710,33 @@ public class PokemonPlayerTest extends InitializationDataBase {
     public void getAllEvolutions6Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(PTITARD, (short) 3, true, _data_);
         assertEq(3, evos_.size());
-        assertEq(25, evos_.getVal(PTITARD+SEPARATOR+TETARTE).intValue());
-        assertEq(25, evos_.getVal(PTITARD+SEPARATOR+TETARTE+SEPARATOR+TARTARD).intValue());
-        assertEq(25, evos_.getVal(PTITARD+SEPARATOR+TETARTE+SEPARATOR+TARPAUD).intValue());
+        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE)).intValue());
+        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARTARD)).intValue());
+        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARPAUD)).intValue());
     }
 
     @Test
     public void getAllEvolutions7Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(NINGALE, (short) 3, true, _data_);
         assertEq(2, evos_.size());
-        assertEq(20, evos_.getVal(NINGALE+SEPARATOR+NINJASK).intValue());
-        assertEq(20, evos_.getVal(NINGALE+SEPARATOR+MUNJA).intValue());
+        assertEq(20, evos_.getVal(StringList.concat(NINGALE,SEPARATOR,NINJASK)).intValue());
+        assertEq(20, evos_.getVal(StringList.concat(NINGALE,SEPARATOR,MUNJA)).intValue());
     }
 
     @Test
     public void getAllEvolutions8Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(NUCLEOS, (short) 3, true, _data_);
         assertEq(2, evos_.size());
-        assertEq(32, evos_.getVal(NUCLEOS+SEPARATOR+MEIOS).intValue());
-        assertEq(41, evos_.getVal(NUCLEOS+SEPARATOR+MEIOS+SEPARATOR+SYMBIOS).intValue());
+        assertEq(32, evos_.getVal(StringList.concat(NUCLEOS,SEPARATOR,MEIOS)).intValue());
+        assertEq(41, evos_.getVal(StringList.concat(NUCLEOS,SEPARATOR,MEIOS,SEPARATOR,SYMBIOS)).intValue());
     }
 
     @Test
     public void getAllEvolutions9Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(TETARTE, (short) 20, true, _data_);
         assertEq(2, evos_.size());
-        assertEq(20, evos_.getVal(TETARTE+SEPARATOR+TARTARD).intValue());
-        assertEq(20, evos_.getVal(TETARTE+SEPARATOR+TARPAUD).intValue());
+        assertEq(20, evos_.getVal(StringList.concat(TETARTE,SEPARATOR,TARTARD)).intValue());
+        assertEq(20, evos_.getVal(StringList.concat(TETARTE,SEPARATOR,TARPAUD)).intValue());
     }
 
     @Test

@@ -295,7 +295,7 @@ public final class FormatHtml {
         if (pageName_.isEmpty()) {
             return null;
         }
-        pageName_ = ExtractObject.formatNumVariables(pageName_, _conf, _ip, _files);
+        pageName_ = ExtractObject.formatNumVariables(pageName_, _conf, _ip);
         String subHtml_ = ExtractFromResources.loadPage(_conf, _files, pageName_,_resourcesFolder);
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(subHtml_);
         Document doc_ = res_.getDocument();
@@ -671,7 +671,7 @@ public final class FormatHtml {
                     continue;
                 }
                 if (interpretBrackets((CharacterData) en_)) {
-                    content_ = ExtractObject.formatNumVariables(content_, _conf, ip_, _files);
+                    content_ = ExtractObject.formatNumVariables(content_, _conf, ip_);
                 }
                 Text t_ = doc_.createTextNode(content_);
                 currentNode_.appendChild(t_);
@@ -1700,6 +1700,7 @@ public final class FormatHtml {
         String numExpr_ = _element.getAttribute(NUMBER_EXPRESSION);
         Struct struct_ = null;
         String expression_ = _element.getAttribute(EXPRESSION_ATTRIBUTE);
+        ContextEl context_ = _conf.toContextEl();
         if (!numExpr_.isEmpty()) {
             expression_ = numExpr_;
             String evalBool_ = _element.getAttribute(EVALUATE_BOOLEAN);
@@ -1725,7 +1726,7 @@ public final class FormatHtml {
                         className_ = Object.class.getName();
                     } else {
                         struct_ = new StringStruct(expression_);
-                        className_ = String.class.getName();
+                        className_ = struct_.getClassName(context_);
                     }
                 } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
@@ -1733,7 +1734,7 @@ public final class FormatHtml {
                         className_ = Object.class.getName();
                     } else {
                         struct_ = new CharStruct(ExtractObject.getChar(_conf, expression_));
-                        className_ = Character.class.getName();
+                        className_ = struct_.getClassName(context_);
                     }
                 } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                     if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
@@ -1741,7 +1742,7 @@ public final class FormatHtml {
                         className_ = Object.class.getName();
                     } else {
                         struct_ = new BooleanStruct(Boolean.parseBoolean(expression_));
-                        className_ = Boolean.class.getName();
+                        className_ = struct_.getClassName(context_);
                     }
                 } else if (StringList.isNumber(expression_)) {
                     className_ = _conf.getStandards().getAliasPrimLong();
@@ -2758,7 +2759,7 @@ public final class FormatHtml {
                 _ip.setProcessingAttribute(ATTRIBUTE_SRC);
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
-                src_ = ExtractObject.formatNumVariables(src_, _conf, _ip, _files);
+                src_ = ExtractObject.formatNumVariables(src_, _conf, _ip);
                 String wrap_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
                 boolean keep_ = wrap_.isEmpty();
                 attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
@@ -2863,7 +2864,7 @@ public final class FormatHtml {
                 attributesNames_.removeAllString(ATTRIBUTE_HREF);
                 attributesNames_.removeAllString(ATTRIBUTE_TYPE);
                 String ref_ = href_.getValue();
-                ref_ = ExtractObject.formatNumVariables(ref_, _conf, _ip, _files);
+                ref_ = ExtractObject.formatNumVariables(ref_, _conf, _ip);
                 _tag.setAttribute(ATTRIBUTE_TYPE, SCRIPT_TYPE);
                 Text txt_ = _doc.createTextNode(ExtractFromResources.getContentFile(_conf, _files,ref_,_resourcesFolder));
                 _tag.appendChild(txt_);
@@ -2936,12 +2937,7 @@ public final class FormatHtml {
                 if (o_ == null || o_.isNull()) {
                     _tag.removeAttribute(CHECKED);
                 } else {
-                    String strObj_;
-                    if (o_.getInstance().getClass().isEnum()) {
-                        strObj_ = ExtractObject.name(_conf, o_);
-                    } else {
-                        strObj_ = ExtractObject.toString(_conf, o_);
-                    }
+                    String strObj_ = ExtractObject.getStringKey(_conf, o_);
                     if (StringList.quickEq(_tag.getAttribute(ATTRIBUTE_VALUE),strObj_)) {
                         _tag.setAttribute(CHECKED, CHECKED);
                     } else {
@@ -3040,7 +3036,7 @@ public final class FormatHtml {
                         _ip.setProcessingAttribute(a);
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(0);
-                        v_ = ExtractObject.formatNumVariables(v_, _conf, _ip, _files);
+                        v_ = ExtractObject.formatNumVariables(v_, _conf, _ip);
                         _tag.setAttribute(a, v_);
                     }
                 }
@@ -3251,12 +3247,11 @@ public final class FormatHtml {
             docElementSelect_.setAttribute(ATTRIBUTE_MULTIPLE, ATTRIBUTE_MULTIPLE);
         }
         if (default_.isEmpty() || returnedVarValue_ != null && update_) {
-            checkEnums(_conf, extractedList_);
             Struct it_ = ExtractObject.iterator(_conf, extractedList_);
             while (ExtractObject.hasNext(_conf, it_)) {
                 Struct o_ = ExtractObject.next(_conf, it_);
                 Element option_ = _doc.createElement(TAG_OPTION);
-                option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.name(_conf,o_));
+                option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.getStringKey(_conf, o_));
                 if (returnedVarValue_ != null) {
                     for (Struct a: returnedVarValue_) {
                         if (ExtractObject.eq(_conf, a, o_)) {
@@ -3284,16 +3279,14 @@ public final class FormatHtml {
                         defaults_.add(ExtractObject.next(_conf, it_));
                     }
                 }
-                checkEnums(_conf, extractedList_);
                 _conf.getLastPage().setProcessingAttribute(DEFAULT_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
-                checkEnums(_conf, defaults_);
                 Struct it_ = ExtractObject.iterator(_conf, extractedList_);
                 while (ExtractObject.hasNext(_conf, it_)) {
                     Struct o_ = ExtractObject.next(_conf, it_);
                     Element option_ = _doc.createElement(TAG_OPTION);
-                    String nameEnum_ = ExtractObject.name(_conf,o_);
+                    String nameEnum_ = ExtractObject.getStringKey(_conf, o_);
                     option_.setAttribute(ATTRIBUTE_VALUE, nameEnum_);
                     for (Struct d: defaults_) {
                         if (ExtractObject.eq(_conf, o_, d)) {
@@ -3306,12 +3299,11 @@ public final class FormatHtml {
                 }
             } else {
                 StringList names_ = StringList.splitChars(default_, SEP_ENUMS);
-                checkEnums(_conf, extractedList_);
                 Struct it_ = ExtractObject.iterator(_conf, extractedList_);
                 while (ExtractObject.hasNext(_conf, it_)) {
                     Struct o_ = ExtractObject.next(_conf, it_);
                     Element option_ = _doc.createElement(TAG_OPTION);
-                    String enumName_ = ExtractObject.name(_conf,o_);
+                    String enumName_ = ExtractObject.getStringKey(_conf, o_);
                     option_.setAttribute(ATTRIBUTE_VALUE, enumName_);
                     for (String n: names_) {
                         if (StringList.quickEq(enumName_,n)) {
@@ -3332,39 +3324,6 @@ public final class FormatHtml {
         _currentModifiedNode.appendChild(docElementSelect_);
     }
 
-    private static void checkEnums(Configuration _conf, Struct _list) {
-        StringList list_ = new StringList();
-        try {
-            Struct iterator_ = ExtractObject.iterator(_conf, _list);
-            while (ExtractObject.hasNext(_conf, iterator_)) {
-                Struct element_ = ExtractObject.next(_conf, iterator_);
-                if (!element_.getInstance().getClass().isEnum()) {
-                    list_.add(element_.getClassName(_conf.toContextEl()));
-                }
-            }
-        } catch (RuntimeException _0) {
-            throw new BadEnumeratingException(list_, _conf.joinPages());
-        }
-        if (!list_.isEmpty()) {
-            throw new BadEnumeratingException(list_, _conf.joinPages());
-        }
-    }
-
-    private static void checkEnums(Configuration _conf, Listable<Struct> _list) {
-        StringList list_ = new StringList();
-        try {
-            for (Struct s: _list) {
-                if (!s.getInstance().getClass().isEnum()) {
-                    list_.add(s.getClassName(_conf.toContextEl()));
-                }
-            }
-        } catch (RuntimeException _0) {
-            throw new BadEnumeratingException(list_, _conf.joinPages());
-        }
-        if (!list_.isEmpty()) {
-            throw new BadEnumeratingException(list_, _conf.joinPages());
-        }
-    }
     private static void processOptionsMap(Configuration _conf, Document _doc,
             Node _currentModifiedNode, Node _n, String _map, String _id, String _groupId, boolean _multiple) {
         String name_ = ((Element) _n).getAttribute(ATTRIBUTE_NAME);
@@ -3449,12 +3408,7 @@ public final class FormatHtml {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
-            String cmp_;
-            if (o_.getInstance().getClass().isEnum()) {
-                cmp_ = ExtractObject.name(_conf,o_);
-            } else {
-                cmp_ = ExtractObject.toString(_conf, o_);
-            }
+            String cmp_ = ExtractObject.getStringKey(_conf, o_);
             option_.setAttribute(ATTRIBUTE_VALUE, cmp_);
             for (String n: names_) {
                 if (StringList.quickEq(n,cmp_)) {
@@ -3491,11 +3445,7 @@ public final class FormatHtml {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
-            if (o_.getInstance().getClass().isEnum()) {
-                option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.name(_conf,o_));
-            } else {
-                option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.toString(_conf, o_));
-            }
+            option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.getStringKey(_conf, o_));
             for (Struct o: obj_) {
                 if (o == null) {
                     continue;

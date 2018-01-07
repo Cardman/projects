@@ -2284,7 +2284,6 @@ public class ElUtilTest {
 //        assertEq(12, c_.getField().getField());
 //    }
 
-    @Ignore
     @Test
     public void processAffect14Test() {
         ContextEl context_ = contextEl();
@@ -2587,7 +2586,6 @@ public class ElUtilTest {
         ElUtil.processAffect("","","","v;.integer", "v2;.", "=",context_);
     }
 
-    @Ignore
     @Test(expected=InvokeException.class)
     public void processAffect7FailTest() {
         ContextEl context_ = contextEl();
@@ -2596,7 +2594,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer[] c_ = new ArrayContainer[1];
         c_[0] = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_));
+        lv_.setStruct(new StdStruct(c_, "["+ArrayContainer.class.getName()));
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();

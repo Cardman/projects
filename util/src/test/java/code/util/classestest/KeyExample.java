@@ -1,8 +1,9 @@
 package code.util.classestest;
+import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 
-public final class KeyExample implements Equallable<KeyExample> {
+public final class KeyExample implements Equallable<KeyExample>, Displayable {
 
     private int firstField;
 
@@ -41,5 +42,10 @@ public final class KeyExample implements Equallable<KeyExample> {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String display() {
+        return new StringBuilder().append(firstField).append(",").append(secondFiled).toString();
     }
 }

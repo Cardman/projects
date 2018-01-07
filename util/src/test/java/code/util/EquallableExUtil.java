@@ -16,32 +16,32 @@ public final class EquallableExUtil {
 
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
 
     public static void assertEq(boolean _expected, boolean _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected == _result);
+        Assert.assertTrue(StringList.concat(Boolean.toString(_expected),DIFF,Boolean.toString(_result)), _expected == _result);
     }
 
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, StringList.quickEq(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
     }
 
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
     }
 
     public static void assertEq(BigInteger _expected, BigInteger _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, BigIntegers.eq(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), BigIntegers.eq(_expected, _result));
     }
 
     public static void assertEq(BigDecimal _expected, BigDecimal _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, GenericNumbers.eq(_expected, _result));
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), GenericNumbers.eq(_expected, _result));
     }
 
     private static boolean sameValue(Number _expected, Number _result) {
@@ -53,7 +53,7 @@ public final class EquallableExUtil {
 
     public static void assertEq(KeyExample _expected, KeyExample _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
     public static void assertEq(Sex _expected, Sex _result) {
         Assert.assertSame(_expected, _result);

@@ -4,9 +4,10 @@ import java.lang.reflect.Method;
 import code.bean.Bean;
 import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.IndirectException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.BooleanStruct;
@@ -32,7 +33,6 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.sml.Element;
-import code.sml.Node;
 import code.sml.NodeList;
 import code.sml.Text;
 import code.sml.exceptions.XmlParseException;
@@ -64,6 +64,7 @@ public final class Navigation {
     private static final char BEGIN_ARGS = '(';
     private static final char SEP_ARGS = ',';
     private static final char END_ARGS = ')';
+    private static final String NO_PARAMS = "()";
 
     private static final String ATTRIBUTE_TITLE = "title";
 
@@ -140,7 +141,7 @@ public final class Navigation {
     private static final String ADD ="add";
 
     private static final Method ADD_METHOD = SerializeXmlObject.getMethod(Listable.class, ADD, Object.class);
-
+    private static final String INSTANCE = "$new ";
     private Configuration session = new Configuration();
 
     private String currentBeanName;
@@ -523,6 +524,7 @@ public final class Navigation {
             indexTemp_ = className_.indexOf(BEG_TEMP);
             boolean isList_ = false;
             String suffix_ = EMPTY_STRING;
+            String tempClassName_ = EMPTY_STRING;
             Class<?> tempClass_ = null;
             if (indexTemp_ != CustList.INDEX_NOT_FOUND_ELT) {
                 String prefix_ = EMPTY_STRING;
@@ -535,6 +537,7 @@ public final class Navigation {
                 }
                 if (Listable.class.isAssignableFrom(tempClass_)) {
                     isList_ = true;
+                    tempClassName_ = className_;
                 }
             } else {
                 try {
@@ -543,12 +546,13 @@ public final class Navigation {
                     throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
                 }
                 if (Listable.class.isAssignableFrom(tempClass_)) {
+                    tempClassName_ = className_;
                     suffix_ = Templates.getTypesByBases(className_, Listable.class.getName(), session.toContextEl()).first();
                     isList_ = true;
                 }
             }
             if (isList_) {
-                Object list_ = instance(tempClass_);
+                Object list_ = ElUtil.processEl(StringList.concat(INSTANCE,tempClassName_,NO_PARAMS), 0, session.toContextEl()).getObject();
                 String contentClass_ = suffix_;
                 contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
                 for (String v:v_) {
@@ -581,7 +585,7 @@ public final class Navigation {
             String nodName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
             lv_.setElement(node_);
-            lv_.setClassName(Node.class.getName());
+            lv_.setClassName(Object.class.getName());
             ip_.getLocalVars().put(nodName_, lv_);
             String objName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
@@ -653,7 +657,7 @@ public final class Navigation {
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
             Struct bean_ = getBean(nCont_.getBeanName());
             String simpleKey_ = nCont_.getNodeInformation().getName();
-            Object obj_ = nCont_.getTypedField();
+            Struct obj_ = nCont_.getTypedStruct();
             Numbers<Long> indexes_ = new Numbers<Long>();
             for (String n: positiveNumbers(simpleKey_)) {
                 indexes_.add(Long.parseLong(n));
@@ -675,20 +679,23 @@ public final class Navigation {
             StringList v_ = nCont_.getNodeInformation().getValue();
             String className_ = nCont_.getNodeInformation().getInputClass();
             try {
-                if (obj_ == null) {
+                if (obj_.isNull()) {
                     newObj_ = retrieveObjectByClassName(v_.first(), className_);
                 } else {
-                    Class<?> clObj_ = obj_.getClass();
-                    if (Listable.class.isAssignableFrom(clObj_)){
-                        Object list_ = instance(clObj_);
+                    ContextEl context_ = session.toContextEl();
+                    String clObjName_ = obj_.getClassName(context_);
+                    StringList types_;
+                    types_ = Templates.getTypesByBases(clObjName_, Listable.class.getName(), context_);
+                    if (types_ != null){
+                        Object list_ = ElUtil.processEl(StringList.concat(INSTANCE,clObjName_,NO_PARAMS), 0, context_).getObject();
                         String contentClass_;
-                        contentClass_ = Templates.getTypesByBases(clObj_.getName(), Listable.class.getName(), session.toContextEl()).first();
+                        contentClass_ = types_.first();
                         for (String v:v_) {
                             ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_).getInstance());
                         }
-                        newObj_ = new StdStruct(list_, className_);
+                        newObj_ = new StdStruct(list_, clObjName_);
                     } else {
-                        newObj_ = retrieveObjectByClassName(v_.first(), obj_.getClass().getName());
+                        newObj_ = retrieveObjectByClassName(v_.first(), clObjName_);
                     }
                 }
             } catch (Throwable _0) {
@@ -739,14 +746,6 @@ public final class Navigation {
             return new StdStruct(instance_, _className);
         }
         return new StringStruct(_value);
-    }
-
-    private static Object instance(Class<?> _class) {
-        try {
-            return ConverterMethod.newInstance(_class.getDeclaredConstructor());
-        } catch (Throwable _0) {
-            throw new ErrorCausingException(new StdStruct(_0));
-        }
     }
 
     private static StringList positiveNumbers(String _string) {
@@ -946,18 +945,18 @@ public final class Navigation {
             throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
         }
     }
+    private Struct getNotNullBean(String _beanName) {
+        Struct b_ = getBean(_beanName);
+        if (b_ == null) {
+            String null_ = session.getStandards().getAliasNullPe();
+            throw new InvokeRedinedMethException(new StdStruct(new CustomError(session.joinPages()),null_));
+        }
+        return b_;
+    }
+
     private Struct getBean(String _beanName) {
         try {
             return session.getBuiltBeans().getVal(_beanName);
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
-        }
-    }
-    private Struct getNotNullBean(String _beanName) {
-        try {
-            Struct b_ = session.getBuiltBeans().getVal(_beanName);
-            b_.getClass();
-            return b_;
         } catch (Throwable _0) {
             throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
         }

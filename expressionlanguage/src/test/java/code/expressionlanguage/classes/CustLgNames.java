@@ -224,6 +224,9 @@ public class CustLgNames extends LgNames {
         stdcl_ = new StandardClass(aliasArrayBis, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         std_ = stdcl_;
         getStandards().put(aliasArrayBis, std_);
+        fields_ = new StringMap<StandardField>();
+        field_ = new StandardField("array", PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, false);
+        fields_.put("array", field_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetArray, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.NORMAL, aliasArrayContainer);
@@ -503,6 +506,13 @@ public class CustLgNames extends LgNames {
                     res_.setError(getAliasError());
                     return res_;
                 }
+            }
+        }
+        if (StringList.quickEq(_classField.getClassName(), aliasArrayContainer)) {
+            if (StringList.quickEq(_classField.getFieldName(), "array")) {
+                ArrayContainer cpt_ = (ArrayContainer) _instance.getInstance();
+                res_.setResult(new StdStruct(cpt_.getArray(), PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger())));
+                return res_;
             }
         }
         return super.getOtherResult(_cont, _classField, _instance);
