@@ -63,6 +63,7 @@ public class BeanOne extends Bean {
             c_.setString(String.valueOf(i));
             composites.add(c_);
         }
+        setClassName("code.formathtml.classes.BeanOne");
     }
 
     public void validateStrings() {

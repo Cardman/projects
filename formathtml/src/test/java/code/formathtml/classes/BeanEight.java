@@ -42,6 +42,7 @@ public class BeanEight extends Bean {
         }
         composites.add(new EncapsFields());
         composites.add(new EncapsFields());
+        setClassName("code.formathtml.classes.BeanEight");
     }
 
     @Override

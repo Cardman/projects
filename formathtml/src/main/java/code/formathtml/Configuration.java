@@ -12,6 +12,8 @@ import code.expressionlanguage.opers.util.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.BeanStruct;
 import code.formathtml.util.StringMapObjectStruct;
+import code.formathtml.util.TranslatorStruct;
+import code.formathtml.util.ValidatorStruct;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.util.CustList;
@@ -214,22 +216,22 @@ public class Configuration {
             getBuiltBeans().put(e.getKey(), str_);
         }
         for (EntryCust<String, Validator> e: getValidators().entryList()) {
-            Struct str_ = new StdStruct(e.getValue());
+            Struct str_ = new ValidatorStruct(e.getValue());
             getBuiltValidators().put(e.getKey(), str_);
         }
         for (EntryCust<String, Translator> e: getTranslators().entryList()) {
-            Struct str_ = new StdStruct(e.getValue());
+            Struct str_ = new TranslatorStruct(e.getValue());
             getBuiltTranslators().put(e.getKey(), str_);
         }
     }
 
     void setupValiatorsTranslators() {
         for (EntryCust<String, Validator> e: getValidators().entryList()) {
-            Struct str_ = new StdStruct(e.getValue());
+            Struct str_ = new ValidatorStruct(e.getValue());
             getBuiltValidators().put(e.getKey(), str_);
         }
         for (EntryCust<String, Translator> e: getTranslators().entryList()) {
-            Struct str_ = new StdStruct(e.getValue());
+            Struct str_ = new TranslatorStruct(e.getValue());
             getBuiltTranslators().put(e.getKey(), str_);
         }
     }

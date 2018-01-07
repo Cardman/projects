@@ -46,7 +46,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setObject(composite_);
+        nc_.setObject(composite_, COMPOSITE);
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(Integer.class.getName());
@@ -66,7 +66,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
         nc_.setTypedField(8);
-        nc_.setObject(bean_.getComposite());
+        nc_.setObject(bean_.getComposite(), COMPOSITE);
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(Integer.class.getName());
@@ -94,7 +94,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setObject(bean_.getComposite());
+        nc_.setObject(bean_.getComposite(), COMPOSITE);
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(Integer.class.getName());
@@ -165,7 +165,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setObject(bean_.getComposite());
+        nc_.setObject(bean_.getComposite(), COMPOSITE);
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(Integer.class.getName());
@@ -201,7 +201,7 @@ public class HtmlRequestTest {
         nc_.setIndex(0);
         nc_.setLastToken("");
         nc_.setTypedField(bean_.getStrings().first());
-        nc_.setObject(bean_.getStrings());
+        nc_.setObject(bean_.getStrings(), "code.util.StringList");
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(String.class.getName());
@@ -219,7 +219,7 @@ public class HtmlRequestTest {
         nc_.setIndex(0);
         nc_.setKey(true);
         nc_.setTypedField(bean_.getTree().getKey(0));
-        nc_.setObject(bean_.getTree());
+        nc_.setObject(bean_.getTree(), "code.util.NatTreeMap");
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(String.class.getName());
@@ -238,7 +238,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getTree().getValue(0));
-        nc_.setObject(bean_.getTree());
+        nc_.setObject(bean_.getTree(), "code.util.NatTreeMap");
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(Integer.class.getName());
@@ -258,7 +258,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getArrayInt()[0]);
-        nc_.setObject(bean_.getArrayInt());
+        nc_.setObject(bean_.getArrayInt(), "[$int");
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(PrimitiveTypeUtil.PRIM_INT);
@@ -279,7 +279,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getStrings().first());
-        nc_.setObject(bean_.getStrings());
+        nc_.setObject(bean_.getStrings(), "code.util.StringList");
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(String.class.getName());
@@ -300,7 +300,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getTree().getKey(0));
-        nc_.setObject(bean_.getTree());
+        nc_.setObject(bean_.getTree(), "code.util.NatTreeMap");
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(String.class.getName());
@@ -323,7 +323,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getTree().getValue(0));
-        nc_.setObject(bean_.getTree());
+        nc_.setObject(bean_.getTree(), "code.util.NatTreeMap");
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(Integer.class.getName());
@@ -347,7 +347,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getArrayInt()[0]);
-        nc_.setObject(bean_.getArrayInt());
+        nc_.setObject(bean_.getArrayInt(), "[$int");
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(PrimitiveTypeUtil.PRIM_INT);
@@ -432,7 +432,7 @@ public class HtmlRequestTest {
         conf_.getLastPage().setGlobalArgumentObj(composite_,COMPOSITE);
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setObject(composite_);
+        nc_.setObject(composite_, COMPOSITE);
         nc_.getNodeInformation().setVarMethod("inexistantmethod");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(Integer.class.getName());

@@ -108,7 +108,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 int len_ = optArgs_.size();
                 Object array_;
                 array_ = InstanceOperation.newClassicArray(_context, g_, g_, len_);
-                Struct arr_ = new StdStruct(array_);
+                Struct arr_ = new StdStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(g_));
                 for (int i = 0; i < len_; i++) {
                     Argument chArg_ = optArgs_.get(i);
                     ArrOperation.setCheckedElement(arr_, i, chArg_, _context);
@@ -151,7 +151,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 int len_ = optArgs_.size();
                 Object array_;
                 array_ = InstanceOperation.newClassicArray(_context, g_, g_, len_);
-                Struct arr_ = new StdStruct(array_);
+                Struct arr_ = new StdStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(g_));
                 for (int i = 0; i < len_; i++) {
                     Argument chArg_ = optArgs_.get(i);
                     ArrOperation.setCheckedElement(arr_, i, chArg_, _context);

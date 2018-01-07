@@ -3,8 +3,8 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -101,8 +101,7 @@ final class HtmlRequest {
         ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute.getInstance(), _indexes);
         if (index_ >= 0) {
             try {
-                String compo_ = PrimitiveTypeUtil.getQuickComponentType(obj_.getClassName(_conf.toContextEl()));
-                if (compo_ != null) {
+                if (obj_.isArray()) {
                     Array.set(obj_.getInstance(), (int) index_, _attribute.getInstance());
                 } else if (obj_.getInstance() instanceof SimpleList){
                     //obj_ is instance of java.util.CustList
@@ -120,7 +119,8 @@ final class HtmlRequest {
                     }
                 }
             } catch (Throwable _0) {
-                throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+                String err_ = _conf.getStandards().getAliasError();
+                throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
             }
         } else {
             String varMethod_ = _nodeContainer.getNodeInformation().getVarMethod();
@@ -182,7 +182,7 @@ final class HtmlRequest {
             String tmp_ = ip_.getNextTempVar();
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(ValueChangeEvent.class.getName());
-            locVar_.setElement(chg_);
+            locVar_.setElement(chg_, ValueChangeEvent.class.getName());
             ip_.getLocalVars().put(tmp_, locVar_);
             StringBuilder str_ = new StringBuilder(method_);
             str_.append(LEFT_PAR);

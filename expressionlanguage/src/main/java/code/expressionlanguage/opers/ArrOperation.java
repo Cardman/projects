@@ -222,7 +222,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (output_ == null) {
             return NullStruct.NULL_VALUE;
         }
-        return StdStruct.wrapStd(output_);
+        return StdStruct.wrapStd(output_, PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName(_conf)));
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();

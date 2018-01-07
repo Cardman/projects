@@ -2,9 +2,13 @@ package code.formathtml.classes;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
 
-public class MyValidatorEnums implements Validator {
+public class MyValidatorEnums extends Validator {
 
     private static final String BAD_SELECTION = "Bad selection";
+
+    public MyValidatorEnums() {
+        setClassName("code.formathtml.classes.MyValidatorEnums");
+    }
 
     @Override
     public Message validate(Object _navigation, Object _node, Object _value) {

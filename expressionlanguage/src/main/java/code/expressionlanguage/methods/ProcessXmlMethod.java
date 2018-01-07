@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -126,7 +127,8 @@ public final class ProcessXmlMethod {
                     continue;
                 }
                 _0.printStackTrace();
-                throw new InvokeRedinedMethException(new StdStruct(_0));
+                Struct custCause_ = ((IndirectException)realCaught_).getCustCause();
+                throw new InvokeRedinedMethException(new StdStruct(new CustomError(_cont.joinPages()), custCause_.getClassName(_cont)));
             }
         }
     }

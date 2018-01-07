@@ -1,7 +1,8 @@
 package code.expressionlanguage.variables;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.Struct;
 
 public final class LoopVariable {
@@ -64,9 +65,13 @@ public final class LoopVariable {
             element = NullStruct.NULL_VALUE;
         }
     }
-    
+
+    public void setElement(Long _element) {
+        element = new LongStruct(_element);
+    }
+
     public void setElement(Number _element) {
-        element = StdStruct.wrapStd(_element);
+        element = NumberStruct.wrapNb(_element);
     }
 
     public long getStep() {

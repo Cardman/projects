@@ -533,7 +533,8 @@ public final class Navigation {
                 try {
                     tempClass_ = ConstClasses.classAliasForNameNotInit(prefix_);
                 } catch (RuntimeClassNotFoundException _0) {
-                    throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
+                    String err_ = session.getStandards().getAliasError();
+                    throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
                 }
                 if (Listable.class.isAssignableFrom(tempClass_)) {
                     isList_ = true;
@@ -543,7 +544,8 @@ public final class Navigation {
                 try {
                     tempClass_ = ConstClasses.classAliasForNameNotInit(className_);
                 } catch (RuntimeClassNotFoundException _0) {
-                    throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
+                    String err_ = session.getStandards().getAliasError();
+                    throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
                 }
                 if (Listable.class.isAssignableFrom(tempClass_)) {
                     tempClassName_ = className_;
@@ -579,12 +581,12 @@ public final class Navigation {
             ip_.getLocalVars().put(valName_, lv_);
             String navName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(this);
+            lv_.setElement(this, Object.class.getName());
             lv_.setClassName(Object.class.getName());
             ip_.getLocalVars().put(navName_, lv_);
             String nodName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(node_);
+            lv_.setElement(node_, Object.class.getName());
             lv_.setClassName(Object.class.getName());
             ip_.getLocalVars().put(nodName_, lv_);
             String objName_ = ip_.getNextTempVar();
@@ -607,7 +609,8 @@ public final class Navigation {
                 Struct ex_ = _0.getCustCause();
                 throw new InvokeRedinedMethException(session.joinPages(), ex_);
             } catch (Throwable _0) {
-                throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
+                String err_ = session.getStandards().getAliasError();
+                throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
             }
         }
         //begin deleting previous errors
@@ -699,7 +702,8 @@ public final class Navigation {
                     }
                 }
             } catch (Throwable _0) {
-                throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
+                String err_ = session.getStandards().getAliasError();
+                throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
             }
             Struct procObj_ = e.getValue().getStruct();
             session.getLastPage().setGlobalArgumentStruct(procObj_, session);
@@ -713,7 +717,8 @@ public final class Navigation {
         try {
             class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(new StdStruct(_0));
+            String err_ = session.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
         }
         if (class_.isEnum()) {
             //Enum
@@ -942,7 +947,8 @@ public final class Navigation {
         try {
             return cases_.getVal(ExtractObject.toString(session, _return));
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
+            String err_ = session.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
         }
     }
     private Struct getNotNullBean(String _beanName) {
@@ -958,7 +964,8 @@ public final class Navigation {
         try {
             return session.getBuiltBeans().getVal(_beanName);
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
+            String err_ = session.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
         }
     }
 

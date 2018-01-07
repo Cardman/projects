@@ -72,6 +72,7 @@ public class BeanSeven extends Bean {
         tree.put("keytwo", 2);
         arrayInt[0]=1;
         arrayInt[1]=3;
+        setClassName("code.formathtml.classes.BeanSeven");
     }
 
     @Override

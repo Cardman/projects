@@ -11,6 +11,10 @@ public class BeanFour extends Bean {
 
     private Composite composite = new Composite();
 
+    public BeanFour() {
+        setClassName("code.formathtml.classes.BeanFour");
+    }
+
     public int getInvisibleField() {
         return invisibleField;
     }

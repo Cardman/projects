@@ -181,6 +181,9 @@ public class BeanLgNames extends LgNames {
         }
         return getOtherResultBean(_cont, _instance, _method, _args);
     }
+    public StringList getDefaultValues(ContextEl _cont, String _className, String _value) {
+        return new StringList();
+    }
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
         return new ResultErrorStd();
     }
@@ -212,5 +215,8 @@ public class BeanLgNames extends LgNames {
     }
     public String getCustMap() {
         return custMap;
+    }
+    public String getCustEntries() {
+        return custEntries;
     }
 }

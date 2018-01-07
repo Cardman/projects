@@ -2,8 +2,11 @@ package code.formathtml.classes;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
 
-public class MyValidator implements Validator {
+public class MyValidator extends Validator {
 
+    public MyValidator() {
+        setClassName("code.formathtml.classes.MyValidator");
+    }
     @Override
     public Message validate(Object _navigation, Object _node, Object _value) {
         try {

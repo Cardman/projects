@@ -3,7 +3,11 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.util.StringList;
 
-public class MyTranslator implements Translator {
+public class MyTranslator extends Translator {
+
+    public MyTranslator() {
+        setClassName("MyTranslator");
+    }
 
     @Override
     public String getString(String _pattern, Object _conf,

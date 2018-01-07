@@ -438,7 +438,7 @@ public final class InstanceOperation extends InvokingOperation {
                     return ArgumentCall.newArgument(a_);
                 }
                 Object array_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                Struct strArr_ = new StdStruct(array_);
+                Struct strArr_ = new StdStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(realClassName_));
                 for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                     Argument chArg_ = _arguments.get(i);
                     ArrOperation.setCheckedElement(strArr_, i, chArg_, _conf);
@@ -455,7 +455,7 @@ public final class InstanceOperation extends InvokingOperation {
                 return ArgumentCall.newArgument(a_);
             } else {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                a_.setStruct(new StdStruct(o_));
+                a_.setStruct(new StdStruct(o_, PrimitiveTypeUtil.getPrettyArrayType(realClassName_)));
                 return ArgumentCall.newArgument(a_);
             }
         }
@@ -501,7 +501,9 @@ public final class InstanceOperation extends InvokingOperation {
 //            _arguments.add(CustList.FIRST_INDEX, arg_);
 //        }
         if (constId == null) {
-            return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, naturalVararg > -1, contructor, Argument.toArgArray(_arguments)));
+            String className_ = methodName.trim().substring(INSTANCE.length()+1);
+            className_ = StringList.removeAllSpaces(className_);
+            return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, naturalVararg > -1, contructor,className_, Argument.toArgArray(_arguments)));
         }
         String base_ = StringList.getAllTypes(className).first();
         if (!_conf.getClasses().isCustomType(base_)) {
@@ -541,7 +543,8 @@ public final class InstanceOperation extends InvokingOperation {
                 cl_ = PrimitiveTypeUtil.getSingleNativeClass(_instanceClassName);
             }
         } catch (RuntimeClassNotFoundException _0) {
-            throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(StringList.concat(_realClassName,RETURN_LINE,_conf.joinPages()))));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(_realClassName,RETURN_LINE,_conf.joinPages())),err_));
         }
         return Array.newInstance(cl_, _args);
     }

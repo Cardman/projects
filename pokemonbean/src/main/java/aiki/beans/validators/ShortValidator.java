@@ -2,7 +2,11 @@ package aiki.beans.validators;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
 
-public class ShortValidator implements Validator {
+public class ShortValidator extends Validator {
+
+    public ShortValidator() {
+        setClassName("ShortValidator");
+    }
 
     @Override
     public Message validate(Object _navigation, Object _node, Object _value) {

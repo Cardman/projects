@@ -11,7 +11,7 @@ public class Bean {
 
     private String scope;
 
-    private String className = getClass().getName();
+    private String className;
 
     private transient String language;
 

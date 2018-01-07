@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import code.bean.Bean;
@@ -8593,6 +8594,7 @@ public class NavigationTest {
         nav_.processFormRequest();
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processFormRequest7FailTest() {
         String locale_ = "LOCALE";

@@ -1,6 +1,7 @@
 package code.formathtml.util;
 import code.bean.Bean;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -38,8 +39,8 @@ public class NodeContainer {
         }
     }
 
-    public void setObject(Object _object) {
-        object = StdStruct.wrapStd(_object);
+    public void setObject(Object _object, String _className) {
+        object = StdStruct.wrapStd(_object, _className);
     }
 
     public void setObject(Bean _object) {
@@ -61,7 +62,7 @@ public class NodeContainer {
     }
 
     public void setTypedField(Number _typedField) {
-        typedField = StdStruct.wrapStd(_typedField);
+        typedField = NumberStruct.wrapNb(_typedField);
     }
 
     public void setTypedField(String _typedField) {

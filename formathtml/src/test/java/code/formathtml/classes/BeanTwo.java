@@ -38,6 +38,10 @@ public class BeanTwo extends Bean {
     @Accessible
     private String choose;//1_2;
 
+    public BeanTwo() {
+        setClassName("code.formathtml.classes.BeanTwo");
+    }
+
     @Override
     public void beforeDisplaying() {
         chosenNumber = EnumNumber.TWO;

@@ -1,6 +1,7 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -685,7 +686,8 @@ public final class FormatHtml {
                     continue;
                 }
                 _0.printStackTrace();
-                throw new RenderingException(new StdStruct(_0));
+                String error_ = _conf.getStandards().getAliasError();
+                throw new RenderingException(new StdStruct(new CustomError(_conf.joinPages()),error_));
             }
         }
         containersMap_.put(currentForm_, containers_);
@@ -703,13 +705,7 @@ public final class FormatHtml {
 
     static boolean throwException(Configuration _conf, Throwable _t) {
         Element catchElt_ = null;
-        boolean indirect_ = _t instanceof IndirectException;
-        Struct custCause_;
-        if (indirect_) {
-            custCause_ = ((IndirectException)_t).getCustCause();
-        } else {
-            custCause_ = new StdStruct(_t);
-        }
+        Struct custCause_ = ((IndirectException)_t).getCustCause();
         while (!_conf.noPages()) {
             ImportingPage bkIp_ = _conf.getLastPage();
             String prefix_ = bkIp_.getPrefix();
@@ -1614,7 +1610,8 @@ public final class FormatHtml {
                     _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
                     _conf.getLastPage().setLookForAttrValue(false);
                     _conf.getLastPage().setOffset(0);
-                    throw new SettingArrayException(_conf.joinPages(), new StdStruct(_0));
+                    String err_ = _conf.getStandards().getAliasError();
+                    throw new SettingArrayException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
                 } finally {
                     _ip.getLocalVars().removeKey(nameOne_);
                     _ip.getLocalVars().removeKey(nameTwo_);
@@ -3383,18 +3380,10 @@ public final class FormatHtml {
 
     private static void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
             String _default, Document _docSelect, Element _docElementSelect, String _className) {
-        boolean isEnumClass_ = false;
+        StringList names_ = new StringList();
         if (!_className.isEmpty()) {
-            try {
-                Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
-                isEnumClass_ = class_.isEnum();
-            } catch (Throwable _0) {
-                throw new RuntimeClassNotFoundException(StringList.concat(_className,_conf.joinPages()));
-            }
-        }
-        StringList names_;
-        if (isEnumClass_) {
-            names_ = StringList.splitChars(_default, SEP_ENUMS);
+            ContextEl cont_ = _conf.toContextEl();
+            names_ = _conf.getStandards().getDefaultValues(cont_, _className, _default);
         } else {
             names_ = new StringList(_default);
         }
@@ -4247,14 +4236,16 @@ public final class FormatHtml {
         try {
             return _conf.getBuiltBeans().getVal(_beanName);
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
     private static int getTabWidth(Configuration _conf) {
         try {
             return _conf.getTabWidth();
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
 }

@@ -13,6 +13,10 @@ public class BeanSix extends Bean {
     @Accessible
     private EnumNumber myEnumThree = EnumNumber.FOUR;
 
+    public BeanSix() {
+        setClassName("code.formathtml.classes.BeanSix");
+    }
+
     public EnumNumber getMyEnumOne() {
         return myEnumOne;
     }

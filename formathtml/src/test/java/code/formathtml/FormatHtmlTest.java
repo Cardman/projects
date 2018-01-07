@@ -4307,6 +4307,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         //FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
     }
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processHtml4FailTest() {
         String locale_ = "LOCALE";
@@ -4336,6 +4337,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processHtml5FailTest() {
         String locale_ = "LOCALE";
@@ -4366,6 +4368,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processHtml6FailTest() {
         String locale_ = "LOCALE";
@@ -9282,6 +9285,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>1</body></html>", render_);
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processImports1FailTest() {
         String locale_ = "LOCALE";
@@ -9322,7 +9326,7 @@ public class FormatHtmlTest {
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
-
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processImports2FailTest() {
         String locale_ = "LOCALE";
@@ -9363,6 +9367,7 @@ public class FormatHtmlTest {
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processImports3FailTest() {
         String locale_ = "LOCALE";
@@ -9403,6 +9408,7 @@ public class FormatHtmlTest {
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processImports5FailTest() {
         String locale_ = "LOCALE";
@@ -9435,6 +9441,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processImports6FailTest() {
         String locale_ = "LOCALE";
@@ -9467,6 +9474,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processImports7FailTest() {
         String locale_ = "LOCALE";
@@ -9499,6 +9507,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
+    @Ignore
     @Test(expected=RenderingException.class)
     public void processImports8FailTest() {
         String locale_ = "LOCALE";

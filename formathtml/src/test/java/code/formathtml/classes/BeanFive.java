@@ -57,6 +57,7 @@ public class BeanFive extends Bean {
         numbers.put("ONE", new Numbers<Integer>(1));
         numbers.put("TWO", new Numbers<Integer>(2,3));
         numbers.put("THREE", new Numbers<Integer>(4,5,6));
+        setClassName("code.formathtml.classes.BeanFive");
     }
 
     public String getTrans(Long _index) {

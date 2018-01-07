@@ -904,7 +904,10 @@ public final class FctOperation extends InvokingOperation {
 //                }
 //            }
             String clCur_ = getPreviousResultClass().getName();
-            Struct ret_ = invokeMethod(_conf, 0, naturalVararg > -1, clCur_, method, obj_, Argument.toArgArray(firstArgs_));
+            int nbParams_ = method.getTypeParameters().length;
+            Type type_ = method.getGenericReturnType();
+            String pre_ = NativeTypeUtil.getFormattedType(method.getReturnType().getName(), type_.toString(), nbParams_, type_);
+            Struct ret_ = invokeMethod(_conf, 0, naturalVararg > -1, clCur_, method, obj_, pre_, Argument.toArgArray(firstArgs_));
             Argument argres_ = new Argument();
             argres_.setStruct(ret_);
             return ArgumentCall.newArgument(argres_);

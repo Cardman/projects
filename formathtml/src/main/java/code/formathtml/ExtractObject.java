@@ -1,6 +1,5 @@
 package code.formathtml;
 import code.bean.Bean;
-import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -29,6 +28,7 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
 import code.formathtml.exceptions.InexistingTranslatorException;
 import code.formathtml.util.StringMapObjectStruct;
+import code.formathtml.util.TranslatorStruct;
 import code.serialize.ConstClasses;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.RuntimeInstantiationException;
@@ -195,9 +195,9 @@ final class ExtractObject {
                 String o_ = EMPTY_STRING;
                 try {
                     if (trloc_ != null) {
-                        if (trloc_.getInstance() instanceof Translator) {
+                        if (trloc_ instanceof TranslatorStruct) {
                             Bean bean_ = (Bean) _ip.getGlobalArgument().getStruct().getInstance();
-                            o_ = ((Translator)trloc_.getInstance()).getString(_pattern, _conf, bean_, s_.getInstance());
+                            o_ = ((TranslatorStruct)trloc_).getInstance().getString(_pattern, _conf, bean_, s_.getInstance());
                         } else {
                             Struct bean_ = _ip.getGlobalArgument().getStruct();
                             LocalVariable lv_ = new LocalVariable();
@@ -213,7 +213,7 @@ final class ExtractObject {
                             _ip.getLocalVars().put(patName_, lv_);
                             String navName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
-                            lv_.setElement(_conf);
+                            lv_.setElement(_conf, Object.class.getName());
                             lv_.setClassName(Object.class.getName());
                             _ip.getLocalVars().put(navName_, lv_);
                             String beanName_ = _ip.getNextTempVar();
@@ -238,7 +238,8 @@ final class ExtractObject {
                     }
                 } catch (Throwable _0) {
                     _conf.getLastPage().setOffset(context_.getNextIndex());
-                    throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+                    String err_ = _conf.getStandards().getAliasError();
+                    throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
                 }
                 str_.append(o_);
                 i_ = context_.getNextIndex();
@@ -291,7 +292,8 @@ final class ExtractObject {
                 try {
                     calculateVariables_.append(mathFact_.toString(arg_.getObject()));
                 } catch (Throwable _0) {
-                    throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+                    String err_ = _conf.getStandards().getAliasError();
+                    throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
                 }
                 i_ = context_.getNextIndex();
                 continue;
@@ -307,7 +309,8 @@ final class ExtractObject {
                 return new StdStruct(mathFact_.evaluateDirectlyRate(numExpr_), rateClass_);
             }
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
 
@@ -529,7 +532,8 @@ final class ExtractObject {
             ip_.getLocalVars().removeKey(nameTwo_);
             return ret_;
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
     static void checkNullPointer(Configuration _conf, Object _obj) {
@@ -574,7 +578,7 @@ final class ExtractObject {
         if (_conf.toContextEl().getClasses() == null) {
             Object instance_ = _it.getInstance();
             SimpleIterable inst_ = (SimpleIterable) instance_;
-            Struct out_ = StdStruct.wrapStd(inst_.simpleIterator());
+            Struct out_ = StdStruct.wrapStd(inst_.simpleIterator(), _conf.getStandards().getAliasIteratorType());
             return out_;
         }
         return getResult(_conf, 0, ITERATOR, _it);
@@ -599,7 +603,7 @@ final class ExtractObject {
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
         if (_conf.toContextEl().getClasses() == null) {
             SimpleEntries inst_ = (SimpleEntries) _container.getInstance();
-            Struct out_ = StdStruct.wrapStd(inst_.entries());
+            Struct out_ = StdStruct.wrapStd(inst_.entries(), _conf.getStandards().getCustEntries());
             return out_;
         }
         return getResult(_conf, 0, ENTRY_LIST, _container);
@@ -637,7 +641,8 @@ final class ExtractObject {
         } catch (Throwable _0) {
             ip_.getLocalVars().removeKey(varName_);
             _conf.getLastPage().addToOffset(_offsIndex);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
     private static void setResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
@@ -660,7 +665,8 @@ final class ExtractObject {
         } catch (Throwable _0) {
             ip_.getLocalVars().removeKey(varName_);
             _conf.getLastPage().addToOffset(_offsIndex);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
 
@@ -770,21 +776,24 @@ final class ExtractObject {
         try {
             return _conf.getMessagesFolder();
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
     private static MathFactory getMathFactory(Configuration _conf) {
         try {
             return _conf.getMathFactory();
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
     static String getProperty(Configuration _conf, String _key) {
         try {
             return _conf.getProperties().getVal(_key);
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
 }

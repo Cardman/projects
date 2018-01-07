@@ -820,10 +820,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         try {
             res_ = ConverterMethod.getField(field, obj_);
         } catch (Throwable _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new ErrorCausingException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
         a_ = new Argument();
-        a_.setStruct(StdStruct.wrapStd(res_));
+        Type type_ = field.getGenericType();
+        String pre_ = NativeTypeUtil.getFormattedType(field.getType().getName(), type_.toString(), 0, type_);
+        a_.setStruct(StdStruct.wrapStd(res_, pre_));
         return ArgumentCall.newArgument(a_);
     }
 
@@ -932,7 +935,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         Object obj_ = argument_.getStruct().getInstance();
         Object field_ = ConverterMethod.getField(field, obj_);
-        left_.setStruct(StdStruct.wrapStd(field_));
+        Type type_ = field.getGenericType();
+        String pre_ = NativeTypeUtil.getFormattedType(field.getType().getName(), type_.toString(), 0, type_);
+        left_.setStruct(StdStruct.wrapStd(field_, pre_));
         if (right_.isNull() && field.getType().isPrimitive()) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }

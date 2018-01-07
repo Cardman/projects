@@ -55,6 +55,7 @@ import code.expressionlanguage.opers.util.Parametrable;
 import code.expressionlanguage.opers.util.Parametrables;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.NativeTypeUtil;
@@ -1255,22 +1256,24 @@ public abstract class OperationNode {
         }
         return p_;
     }
-    static Argument newInstance(ContextEl _conf, Argument _need, int _offsetIncr, boolean _natvararg, Constructor<?> _const, Argument... _args) {
+    static Argument newInstance(ContextEl _conf, Argument _need, int _offsetIncr, boolean _natvararg, Constructor<?> _const, String _className, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         checkArgumentsForInvoking(_conf, _natvararg, toClassNames(_const.getParameterTypes()), args_);
         try {
             Argument a_ = new Argument();
             Object o_ = ConverterMethod.newInstance(_const, adaptedArgs(_const.getParameterTypes(), args_));
-            a_.setStruct(new StdStruct(o_));
+            a_.setStruct(new StdStruct(o_, _className));
             return a_;
         } catch (InvokingException _0) {
-            throw new InvokeException(_conf.joinPages(), new StdStruct(_0.getTarget()));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new InvokeException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         } catch (Throwable _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new StdStruct(_0));
+            String err_ = _conf.getStandards().getAliasError();
+            throw new ErrorCausingException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
 
-    static Struct invokeMethod(ContextEl _cont,int _offsetIncr, boolean _natvararg, String _className, Method _method, Object _instance, Argument... _args) {
+    static Struct invokeMethod(ContextEl _cont,int _offsetIncr, boolean _natvararg, String _className, Method _method, Object _instance, String _classRet, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         checkArgumentsForInvoking(_cont, _natvararg, toClassNames(_method.getParameterTypes()), args_);
         try {
@@ -1278,11 +1281,16 @@ public abstract class OperationNode {
             if (o_ == null) {
                 return NullStruct.NULL_VALUE;
             }
-            return StdStruct.wrapStd(o_);
+            if (o_ instanceof String) {
+                return new StringStruct((String) o_);
+            }
+            return StdStruct.wrapStd(o_, _classRet);
         } catch (InvokingException _0) {
-            throw new InvokeException(_cont.joinPages(), new StdStruct(_0.getTarget()));
+            String err_ = _cont.getStandards().getAliasError();
+            throw new InvokeException(_cont.joinPages(), new StdStruct(new CustomError(_cont.joinPages()),err_));
         } catch (Throwable _0) {
-            throw new ErrorCausingException(_cont.joinPages(), new StdStruct(_0));
+            String err_ = _cont.getStandards().getAliasError();
+            throw new ErrorCausingException(_cont.joinPages(), new StdStruct(new CustomError(_cont.joinPages()),err_));
         }
     }
     static void sortFct(Parametrables<MethodInfo> _fct, ArgumentsGroup _context) {

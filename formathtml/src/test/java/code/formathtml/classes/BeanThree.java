@@ -18,6 +18,10 @@ public class BeanThree extends Bean {
     @Accessible
     private int indexTwo = CustList.INDEX_NOT_FOUND_ELT;
 
+    public BeanThree() {
+        setClassName("code.formathtml.classes.BeanThree");
+    }
+
     @Override
     public void beforeDisplaying() {
         if (!numbers.isEmpty()) {
