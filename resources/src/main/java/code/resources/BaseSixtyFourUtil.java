@@ -124,6 +124,7 @@ public final class BaseSixtyFourUtil {
                 buf_[ptr_] = encode(
                         ((adj_%FOUR_BITS)*SIXTEEN_BITS) +
                         ((adjNext_/SIXTEEN_BITS)%SIXTEEN_BITS));
+                ptr_++;
                 buf_[ptr_] = encode((adjNext_%SIXTEEN_BITS)*FOUR_BITS);
                 ptr_++;
                 buf_[ptr_] = '=';

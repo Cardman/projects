@@ -36,11 +36,13 @@ import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -531,7 +533,20 @@ public final class InstanceOperation extends InvokingOperation {
         }
         checkArgumentsForInvoking(_conf, naturalVararg > -1, params_, getObjects(Argument.toArgArray(_arguments)));
         StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, constId, needed_, _arguments, InstancingStep.NEWING, called_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        int i_ = CustList.FIRST_INDEX;
+        for (Argument a: _arguments) {
+            Struct str_ = a.getStruct();
+            if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
+                ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
+                a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
+            } else {
+                a.setStruct(str_);
+            }
+            args_.add(a);
+            i_++;
+        }
+        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, constId, needed_, args_, InstancingStep.NEWING, called_);
         return ArgumentCall.newCall(inv_);
     }
     static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int... _args) {

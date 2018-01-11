@@ -42,6 +42,7 @@ public final class ElResolver {
     private static final char GET_VAR = ';';
     private static final char DOT_VAR = '.';
     private static final char EXP = 'e';
+    private static final char NB_INTERN_SP = '_';
     private static final String GET_INDEX = ";;";
     private static final String GET_CATCH_VAR = ";..";
     private static final String GET_LOC_VAR = ";.";
@@ -944,7 +945,7 @@ public final class ElResolver {
                 return processExp(j_, len_, _string);
             }
             while (j_ < len_) {
-                if (!Character.isDigit(_string.charAt(j_))) {
+                if (!Character.isDigit(_string.charAt(j_)) && _string.charAt(j_) != NB_INTERN_SP) {
                     break;
                 }
                 j_++;
@@ -960,7 +961,7 @@ public final class ElResolver {
                 return processExp(j_, len_, _string);
             }
             while (j_ < len_) {
-                if (!StringList.isWordChar(_string.charAt(j_))) {
+                if (!StringList.isWordChar(_string.charAt(j_)) && _string.charAt(j_) != NB_INTERN_SP) {
                     break;
                 }
                 j_++;
@@ -1005,7 +1006,7 @@ public final class ElResolver {
             return -j_;
         }
         while (j_ < len_) {
-            if (!Character.isDigit(_string.charAt(j_))) {
+            if (!Character.isDigit(_string.charAt(j_)) && _string.charAt(j_) != NB_INTERN_SP) {
                 break;
             }
             j_++;

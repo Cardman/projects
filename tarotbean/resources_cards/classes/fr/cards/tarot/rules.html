@@ -1,17 +1,17 @@
 <html c:bean="rules" xmlns:c="javahtml">
 <head>
-<link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css" />
+<link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<h1>Battre les cartes</h1>
 	{cartesBattues}
-	<br />
+	<br/>
 	<h1>R&eacute;partition des joueurs</h1>
 	{repartition}
-	<br />
+	<br/>
 	<h1>Mode</h1>
 	{mode}
-	<br />
+	<br/>
 	<h1>Ecart apr&egrave;s appel</h1>
 	<c:if condition="discardAfterCall">
 		oui
@@ -19,7 +19,7 @@
 	<c:if condition="!discardAfterCall">
 		non
 	</c:if>
-	<br />
+	<br/>
 	<h1>Ench&egrave; au d&eacute;but de la partie</h1>
 	<ul>
 		<c:for var="d" list="contrats">
@@ -58,7 +58,7 @@
 	<c:if condition="miseres.isEmpty()">
 		Rien<br/>
 	</c:if>
-	<br />
+	<br/>
 	<h1>Fin de partie</h1>
 	{finPartieTarot}
 </body>

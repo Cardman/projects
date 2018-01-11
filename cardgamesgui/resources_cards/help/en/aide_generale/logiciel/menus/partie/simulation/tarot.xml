@@ -1,4 +1,3 @@
-
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/help//aide_generale/logiciel/menus/partie/simulation/tarot.html"/>
 	<sm class="cfg" field="beans"/>

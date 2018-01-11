@@ -95,7 +95,6 @@ import code.util.StringMap;
 import code.util.StringMapObject;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
-import code.util.ints.Listable;
 
 public final class FormatHtml {
 
@@ -2601,12 +2600,6 @@ public final class FormatHtml {
             } else {
                 if (StringList.quickEq(_input.getTagName(), SELECT_TAG)) {
                     type_ = SELECT_TAG;
-                    if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
-                        StringList params_ = Templates.getTypesByBases(class_, Listable.class.getName(), _conf.toContextEl());
-                        if (params_ == null) {
-                            class_ = StringList.concat(CustList.class.getName(),BEG_TEMP,class_,END_TEMP);
-                        }
-                    }
                 }
                 if (StringList.quickEq(_input.getTagName(), TEXT_AREA)) {
                     type_ = TEXT_AREA;

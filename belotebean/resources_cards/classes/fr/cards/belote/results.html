@@ -1,7 +1,7 @@
 <html c:bean="results" xmlns:c="javahtml">
 <head>
 <title>Results</title>
-<link href="resources_cards/css/belote.css" rel="stylesheet" type="text/css" />
+<link href="resources_cards/css/belote.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<c:if condition="playGame()">
@@ -32,65 +32,65 @@
 		<h1>3 R&eacute;sultats</h1>
 		<p>Points marqu&eacute;s par l''attaque sans les primes
 			:{pointsAttaqueSansPrime}</p>
-		<br />
+		<br/>
 		<p>Points marqu&eacute;s par la d&eacute;fense sans les primes
 			:{pointsDefenseSansPrime}</p>
-		<br />
+		<br/>
 		<p>Points marqu&eacute;s par l''attaque avec les primes
 			:{pointsAttaqueTemporaire}</p>
-		<br />
+		<br/>
 		<p>Points marqu&eacute;s par la d&eacute;fense avec les primes
 			:{pointsDefenseTemporaire}</p>
-		<br />
+		<br/>
 		<p>Score d&eacute;finitif de l''attaque:{pointsAttaqueDefinitif}</p>
-		<br />
+		<br/>
 		<p>Score d&eacute;finitif de la d&eacute;fense:{pointsDefenseDefinitif}</p>
-		<br />
+		<br/>
 		<p>
 			<c:if condition="win()">
-				<c:message value="msg,win" />
+				<c:message value="msg,win"/>
 			</c:if>
 			<c:if condition="equality()">
-				<c:message value="msg,equality" />
+				<c:message value="msg,equality"/>
 			</c:if>
 			<c:if condition="loose()">
-				<c:message value="msg,loose" />
+				<c:message value="msg,loose"/>
 			</c:if>
 		</p>
-		<br />
+		<br/>
 		<p>
 			<c:if condition="successfulBid()">
 				<c:message value="msg,successful">
-					<param value="$bidString" />
-					<param value="$absoluteDiff()" />
+					<param value="$bidString"/>
+					<param value="$absoluteDiff()"/>
 				</c:message>
 			</c:if>
 			<c:if condition="midBid()">
 				<c:message value="msg,mid">
-					<param value="$bidString" />
+					<param value="$bidString"/>
 				</c:message>
 			</c:if>
 			<c:if condition="failedBid()">
 				<c:message value="msg,failed">
-					<param value="$bidString" />
-					<param value="$absoluteDiff()" />
+					<param value="$bidString"/>
+					<param value="$absoluteDiff()"/>
 				</c:message>
 			</c:if>
 		</p>
-		<br />
+		<br/>
 		<p>
 			<c:if condition="slam()">
-				<c:message value="msg,slam" />
+				<c:message value="msg,slam"/>
 			</c:if>
 			<c:if condition="!slam()">
-				<c:message value="msg,noSlam" />
+				<c:message value="msg,noSlam"/>
 			</c:if>
 		</p>
-		<br />
+		<br/>
 	</c:if>
 	<c:if condition="!playGame()">
 	</c:if>
-	<br />
+	<br/>
 	<table border="1">
 		<caption>Scores</caption>
 		<thead>
@@ -112,6 +112,6 @@
 			</c:for>
 		</tbody>
 	</table>
-	<br />
+	<br/>
 </body>
 </html>

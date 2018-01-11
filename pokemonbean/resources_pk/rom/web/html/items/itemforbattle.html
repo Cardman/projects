@@ -200,29 +200,27 @@
 			</c:if>
 			<c:if condition="!boostStatisTypes.isEmpty()">
 				<c:message value="msg_itemforbattle,boost_types"/>
-				<span>
-					<c:for key="t" map="boostStatisTypes" value="m" varClassName="tm">
-						<h3>{getTrMultStatisTypes(t;;)}</h3>
-						<br/>
-						<table>
-							<thead>
-								<tr>
-									<th><c:message value="msg_itemforbattle,boost_types_stat"/></th>
-									<th><c:message value="msg_itemforbattle,boost_types_boost"/></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:for key="s" map="m;" value="r" varClassName="java.lang.Byte">
-									<tr>
-										<td>{getTrMultStatisTypesStat(t;;,s;;)}</td>
-										<td>{r;}</td>
-									</tr>
-								</c:for>
-							</tbody>
-						</table>
-						<br/>
-					</c:for>
-				</span>
+				<c:for key="t" map="boostStatisTypes" value="m" varClassName="tm">
+                    <h3>{getTrMultStatisTypes(t;;)}</h3>
+                    <br/>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><c:message value="msg_itemforbattle,boost_types_stat"/></th>
+                                <th><c:message value="msg_itemforbattle,boost_types_boost"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:for key="s" map="m;" value="r" varClassName="java.lang.Byte">
+                                <tr>
+                                    <td>{getTrMultStatisTypesStat(t;;,s;;)}</td>
+                                    <td>{r;}</td>
+                                </tr>
+                            </c:for>
+                        </tbody>
+                    </table>
+                    <br/>
+                </c:for>
 				<br/>
 			</c:if>
 			<c:if condition="!multStat.isEmpty()">

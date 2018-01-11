@@ -45,6 +45,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ArrayStruct;
+import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -57,6 +58,7 @@ import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.EnumStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -1098,7 +1100,20 @@ public final class FctOperation extends InvokingOperation {
             params_.add(c);
         }
         checkArgumentsForInvoking(_conf, naturalVararg_ > -1, params_, getObjects(Argument.toArgArray(firstArgs_)));
-        InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, firstArgs_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        int i_ = CustList.FIRST_INDEX;
+        for (Argument a: firstArgs_) {
+            Struct str_ = a.getStruct();
+            if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
+                ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
+                a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
+            } else {
+                a.setStruct(str_);
+            }
+            args_.add(a);
+            i_++;
+        }
+        InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, args_);
         return ArgumentCall.newCall(inv_);
     }
     public boolean isTernary() {

@@ -57,6 +57,12 @@ public abstract class InvokingOperation extends MethodOperation {
             for (OperationNode o: optArgsNodes_) {
                 setRelativeOffsetPossibleLastPage(o.getIndexInEl(), _conf);
                 String argType_ = o.getResultClass().getName();
+                if (argType_.isEmpty()) {
+                    if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
+                        throw new DynamicCastClassException(StringList.concat(argType_,RETURN_LINE,name_,RETURN_LINE,_conf.joinPages()));
+                    }
+                    continue;
+                }
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
                 if (!Templates.isCorrect(mapping_, _conf)) {
@@ -99,6 +105,7 @@ public abstract class InvokingOperation extends MethodOperation {
             }
             Argument argRem_ = new Argument();
             String g_ = _children.first().getResultClass().getName();
+            g_ = _context.getLastPage().formatVarType(g_, _context);
             Classes classes_ = _context.getClasses();
             boolean native_ = true;
             if (classes_ != null) {

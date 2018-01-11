@@ -1,7 +1,7 @@
 <html c:bean="details" xmlns:c="javahtml">
 <head>
 <title>Results</title>
-<link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css" />
+<link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<c:if condition="playClassicGame()">
@@ -16,7 +16,7 @@
 		<h1>Calcul des annonces des joueurs</h1>
 		<ul>
 			<c:for var="l" list="linesDeclaring" className='cards.tarot.beans.SumDeclaringPlayer'>
-				<li>annonces de {l;nickname} ({l;status}): <br />
+				<li>annonces de {l;nickname} ({l;status}): <br/>
 					<ul>
 						<c:for key="h" value="p" map="l;handfuls">
 							<li>{h;} : {p;}</li>
@@ -30,11 +30,11 @@
 			</c:for>
 			<li>Somme des annonces des joueurs: {sumPlayers}</li>
 		</ul>
-		<br />
+		<br/>
 		<h1>Primes suppl&eacute;mentaires</h1>
-		Prime pour l''attaque:{additionnalBonusesAttack}<br />
-		Prime pour la d&eacute;fense:{additionnalBonusesDefense}<br />
-		Somme des primes: {diffAttackDefenseBonuses}<br />
+		Prime pour l''attaque:{additionnalBonusesAttack}<br/>
+		Prime pour la d&eacute;fense:{additionnalBonusesDefense}<br/>
+		Somme des primes: {diffAttackDefenseBonuses}<br/>
 		<table border="1">
 			<caption>Coefficient et scores de cette partie pour chaque
 				joueur</caption>
@@ -112,7 +112,7 @@
 		<h1>Calcul des annonces des joueurs</h1>
 		<ul>
 			<c:for var="l" list="linesDeclaring" className='cards.tarot.beans.SumDeclaringPlayer'>
-				<li>annonce de {l;nickname}: <br />
+				<li>annonce de {l;nickname}: <br/>
 					<ul>
 						<c:for key="h" value="p" map="l;handfuls">
 							<li>{h;}</li>

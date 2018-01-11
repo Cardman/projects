@@ -1,4 +1,3 @@
-
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/help//aide_generale/jeux/belote/variantes/fin_de_partie_differente.html"/>
 	<sm class="cfg" field="beans"/>

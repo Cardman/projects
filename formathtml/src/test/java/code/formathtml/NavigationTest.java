@@ -5453,7 +5453,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -5499,7 +5499,6 @@ public class NavigationTest {
         values_.add("TWO");
         values_.add("THREE");
         ni_.setValue(values_);
-        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -5578,7 +5577,6 @@ public class NavigationTest {
         values_ = new StringList();
         values_.add("TWO");
         values_.add("THREE");
-        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
@@ -5679,7 +5677,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -5725,7 +5723,6 @@ public class NavigationTest {
         values_.add("TWO");
         values_.add("THREE");
         ni_.setValue(values_);
-        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -5904,7 +5901,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -5951,7 +5948,6 @@ public class NavigationTest {
         values_.add("TWO");
         values_.add("THREE");
         ni_.setValue(values_);
-        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -5984,7 +5980,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -6031,7 +6027,6 @@ public class NavigationTest {
         values_.add("TWO");
         values_.add("THREE");
         ni_.setValue(values_);
-        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -6646,7 +6641,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -6690,7 +6685,6 @@ public class NavigationTest {
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
         ni_.setValue(values_);
-        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -6721,7 +6715,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -6765,7 +6759,6 @@ public class NavigationTest {
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
         ni_.setValue(values_);
-        ni_.setInputClass("code.formathtml.classes.EnumNumbers");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);

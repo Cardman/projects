@@ -33,14 +33,14 @@ public class ConverterBufferedImageTest {
     public void toBaseSixtyFour1Test() {
         BufferedImage img_ = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         img_.setRGB(0, 0, Color.WHITE.getRGB());
-        assertEq("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYI==", ConverterBufferedImage.toBaseSixtyFour(img_));
+        assertEq("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=", ConverterBufferedImage.toBaseSixtyFour(img_));
     }
 
     @Test
     public void toBaseSixtyFour2Test() {
         BufferedImage img_ = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         img_.setRGB(0, 0, Color.WHITE.getRGB());
-        assertEq("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYI==", ConverterBufferedImage.toBaseSixtyFour(img_, "png"));
+        assertEq("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=", ConverterBufferedImage.toBaseSixtyFour(img_, "png"));
     }
 
     @Test
@@ -117,14 +117,14 @@ public class ConverterBufferedImageTest {
     @Test
     public void stackImages2Test() {
         String back_ = TRANSPARENT_WHITE;
-        String front_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYI==";
+        String front_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=";
         assertEq(front_, ConverterBufferedImage.stackImages(back_, front_));
     }
 
     @Test
     public void stackImages3Test() {
         String front_ = TRANSPARENT_WHITE;
-        String back_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYI==";
+        String back_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=";
         assertEq(back_, ConverterBufferedImage.stackImages(back_, front_));
     }
 

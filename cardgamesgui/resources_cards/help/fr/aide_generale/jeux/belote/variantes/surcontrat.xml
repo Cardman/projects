@@ -1,4 +1,3 @@
-
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/help//aide_generale/jeux/belote/variantes/surcontrat.html"/>
 	<sm class="cfg" field="beans"/>

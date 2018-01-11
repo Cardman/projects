@@ -1,7 +1,7 @@
 <html c:bean="details" xmlns:c="javahtml">
 <head>
 <title>Results</title>
-<link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css" />
+<link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<c:if condition="playClassicGame()">
@@ -17,7 +17,7 @@
 		<h1>Calculation of players''s declaring</h1>
 		<ul>
 			<c:for var="l" list="linesDeclaring" className='cards.tarot.beans.SumDeclaringPlayer'>
-				<li>{l;nickname}''s declaring ({l;status}): <br />
+				<li>{l;nickname}''s declaring ({l;status}): <br/>
 					<ul>
 						<c:for key="h" value="p" map="l;handfuls">
 							<li>{h;} : {p;}</li>
@@ -31,11 +31,11 @@
 			</c:for>
 			<li>Sum of players'' declaring: {sumPlayers}</li>
 		</ul>
-		<br />
+		<br/>
 		<h1>Additional bonuses</h1>
-		Bonuses for attack team:{additionnalBonusesAttack}<br />
-		Bonuses for defense team:{additionnalBonusesDefense}<br />
-		Sum of additional bonuses: {diffAttackDefenseBonuses}<br />
+		Bonuses for attack team:{additionnalBonusesAttack}<br/>
+		Bonuses for defense team:{additionnalBonusesDefense}<br/>
+		Sum of additional bonuses: {diffAttackDefenseBonuses}<br/>
 		<table border="1">
 			<caption>Rates and scores of this deal for each player</caption>
 			<thead>
@@ -112,7 +112,7 @@
 		<h1>Calculation of players''s declaring</h1>
 		<ul>
 			<c:for var="l" list="linesDeclaring" className='cards.tarot.beans.SumDeclaringPlayer'>
-				<li>{l;nickname}''s declaring: <br />
+				<li>{l;nickname}''s declaring: <br/>
 					<ul>
 						<c:for key="h" value="p" map="l;handfuls">
 							<li>{h;}</li>
