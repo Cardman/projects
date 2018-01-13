@@ -9,7 +9,6 @@ import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -191,16 +190,12 @@ public final class Argument {
         }
     }
 
-    public void setObject(Object _object, String _alias) {
-        object = StdStruct.wrapStd(_object, _alias);
+    private ClassArgumentMatching getArgClass(ContextEl _context) {
+        return new ClassArgumentMatching(getObjectClassName(_context));
     }
 
     public String getObjectClassName(ContextEl _context) {
-        return object.getClassName(_context);
-    }
-
-    public ClassArgumentMatching getArgClass(ContextEl _context) {
-        return new ClassArgumentMatching(object.getClassName(_context));
+        return _context.getStandards().getStructClassName(object, _context);
     }
 
     public boolean isIntegerType(ContextEl _context) {

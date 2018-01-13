@@ -481,7 +481,9 @@ final class ExtractObject {
         if (_conf.toContextEl().getClasses() == null) {
             Object instance_ = _it.getInstance();
             SimpleEntry inst_ = (SimpleEntry) instance_;
-            Struct out_ = StdStruct.wrapStd(inst_.getKey());
+            Object key_ = inst_.getKey();
+            String className_ = _conf.getStandards().getStructClassName(key_, _conf.toContextEl());
+            Struct out_ = StdStruct.wrapStd(key_, className_);
             return out_;
         }
         return getResult(_conf, 0, GET_KEY, _it);
@@ -491,7 +493,9 @@ final class ExtractObject {
         if (_conf.toContextEl().getClasses() == null) {
             Object instance_ = _it.getInstance();
             SimpleEntry inst_ = (SimpleEntry) instance_;
-            Struct out_ = StdStruct.wrapStd(inst_.getValue());
+            Object value_ = inst_.getValue();
+            String className_ = _conf.getStandards().getStructClassName(value_, _conf.toContextEl());
+            Struct out_ = StdStruct.wrapStd(value_, className_);
             return out_;
         }
         return getResult(_conf, 0, GET_VALUE, _it);
@@ -517,12 +521,12 @@ final class ExtractObject {
             }
             ImportingPage ip_ = _conf.getLastPage();
             LocalVariable lvOne_ = new LocalVariable();
-            lvOne_.setClassName(ConstClasses.resolve(_objOne.getClassName(_conf.toContextEl())));
+            lvOne_.setClassName(_conf.getStandards().getAliasObject());
             lvOne_.setStruct(_objOne);
             String nameOne_ = ip_.getNextTempVar();
             ip_.getLocalVars().put(nameOne_, lvOne_);
             LocalVariable lvTwo_ = new LocalVariable();
-            lvTwo_.setClassName(ConstClasses.resolve(_objTwo.getClassName(_conf.toContextEl())));
+            lvTwo_.setClassName(_conf.getStandards().getAliasObject());
             lvTwo_.setStruct(_objTwo);
             String nameTwo_ = ip_.getNextTempVar();
             ip_.getLocalVars().put(nameTwo_, lvTwo_);
@@ -555,7 +559,7 @@ final class ExtractObject {
         String method_;
         if (context_.getClasses() != null) {
             String param_ = context_.getStandards().getAliasDisplayable();
-            String arg_ = _obj.getClassName(context_);
+            String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
             Mapping map_ = new Mapping();
             map_.setArg(arg_);
             map_.setParam(param_);
@@ -595,7 +599,9 @@ final class ExtractObject {
         if (_conf.toContextEl().getClasses() == null) {
             Object instance_ = _it.getInstance();
             SimpleItr inst_ = (SimpleItr) instance_;
-            Struct out_ = StdStruct.wrapStd(inst_.next());
+            Object next_ = inst_.next();
+            String className_ = _conf.getStandards().getStructClassName(next_, _conf.toContextEl());
+            Struct out_ = StdStruct.wrapStd(next_, className_);
             return out_;
         }
         return getResult(_conf, 0, NEXT, _it);
@@ -628,14 +634,15 @@ final class ExtractObject {
     }
     private static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance) {
         ImportingPage ip_ = _conf.getLastPage();
+        ContextEl context_ = _conf.toContextEl();
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
-        var_.setClassName(_instance.getClassName(_conf.toContextEl()));
+        var_.setClassName(context_.getStandards().getStructClassName(_instance, context_));
         ip_.getLocalVars().put(varName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,NO_PARAM_METHOD);
         try {
-            Struct str_ = ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+            Struct str_ = ElUtil.processEl(expression_, 0, context_).getStruct();
             ip_.getLocalVars().removeKey(varName_);
             return str_;
         } catch (Throwable _0) {
@@ -648,10 +655,11 @@ final class ExtractObject {
     private static void setResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
             String _argumentClassName) {
         ImportingPage ip_ = _conf.getLastPage();
+        ContextEl context_ = _conf.toContextEl();
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
-        var_.setClassName(_instance.getClassName(_conf.toContextEl()));
+        var_.setClassName(context_.getStandards().getStructClassName(_instance, context_));
         ip_.getLocalVars().put(varName_, var_);
         String argName_ = ip_.getNextTempVar();
         var_ = new LocalVariable();

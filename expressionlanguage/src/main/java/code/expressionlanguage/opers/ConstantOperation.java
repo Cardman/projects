@@ -60,7 +60,7 @@ import code.util.StringList;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
-public final class ConstantOperation extends OperationNode implements SettableElResult {
+public final class ConstantOperation extends OperationNode implements SettableElResult, PossibleIntermediateDotted {
     private static final String ATTRIBUTE = "attribute";
     private static final String INDEX = "index";
     private static final String CATCH_VARIABLE = "catch variable";
@@ -80,8 +80,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     private boolean immutablePart;
 
-    private boolean staticAccess;
-
     private boolean possibleInitClass;
 
     private ClassField fieldId;
@@ -95,6 +93,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     private boolean catString;
 
     private String variableName = EMPTY_STRING;
+    private ClassArgumentMatching previousResultClass;
+    private boolean staticAccess;
+    private boolean intermediate;
+
+    private Argument previousArgument;
 
     public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -113,6 +116,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (str_.isEmpty()) {
             throw new EmptyPartException(_conf.joinPages());
         }
+        if (!isIntermediateDottedOperation()) {
+            staticAccess = _conf.getLastPage().isStaticContext();
+        }
         if (isVararg()) {
             str_ = str_.substring(CustList.SECOND_INDEX);
             str_ = StringList.removeAllSpaces(str_);
@@ -120,7 +126,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             checkCorrect(_conf, str_, false, 0);
             argClName_ = str_;
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         Argument a_ = new Argument();
@@ -131,20 +137,20 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             argClName_ = stds_.getAliasPrimBoolean();
             a_.setObject(true);
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.FALSE_CST) {
             argClName_ = stds_.getAliasPrimBoolean();
             a_.setObject(false);
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.NULL_CST) {
             argClName_ = EMPTY_STRING;
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.STRING) {
@@ -215,7 +221,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             a_.setObject(strBuilder_.toString());
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(stringType_),staticAccess);
+            setResultClass(new ClassArgumentMatching(stringType_));
             return;
         }
         if (op_.getConstType() == ConstType.CHARACTER) {
@@ -287,7 +293,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             a_.setObject(strBuilder_.toString().charAt(0));
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.STATIC_ACCESS) {
@@ -324,11 +330,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 }
                 possibleInitClass = true;
             }
-            staticAccess = true;
             a_ = new Argument();
             argClName_ = classStr_;
             setArguments(a_);
-            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            setStaticResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         str_ = StringList.removeAllSpaces(str_);
@@ -341,7 +346,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(parsed_.getStruct());
             setSimpleArgument(arg_);
-            setResultClass(new ClassArgumentMatching(argClassName_),staticAccess);
+            setResultClass(new ClassArgumentMatching(argClassName_));
             return;
         }
         if (op_.getConstType() == ConstType.THIS_KEYWORD) {
@@ -358,8 +363,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         PageEl ip_ = _conf.getLastPage();
         if (op_.getConstType() == ConstType.CUST_FIELD || op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD || op_.getConstType() == ConstType.SUPER_KEYWORD) {
             Classes classes_ = _conf.getClasses();
-            needGlobalArgument();
-            ClassArgumentMatching cl_ = getPreviousResultClass();
+            ClassArgumentMatching cl_;
+            if (isIntermediateDottedOperation()) {
+                cl_ = getPreviousResultClass();
+            } else {
+                cl_ = new ClassArgumentMatching(_conf.getLastPage().getGlobalClass());
+            }
             String clCurName_;
             if (op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD) {
                 StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
@@ -446,15 +455,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     return;
                 }
             }
-            if (cl_ == null || cl_.getName() == null) {
-                throw new NullGlobalObjectException(_conf.joinPages());
-            }
             String key_ = str_;
             analyzeNativeField(_conf, key_);
             return;
         }
         if (op_.getConstType().isVariable()) {
-            if (isIntermediateDotted()) {
+            if (isIntermediateDottedOperation()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 throw new SettingMemberException(_conf.joinPages());
             }
@@ -525,16 +531,19 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 throw new UndefinedVariableException(_conf.joinPages(), variableName, ATTRIBUTE);
             }
         }
-        needGlobalArgument();
-        ClassArgumentMatching cl_ = getPreviousResultClass();
-        if (cl_ == null || cl_.getName() == null) {
-            throw new NullGlobalObjectException(_conf.joinPages());
-        }
         analyzeNativeField(_conf, str_);
     }
 
     private void analyzeNativeField(ContextEl _conf, String _key) {
-        ClassArgumentMatching cl_ = getPreviousResultClass();
+        ClassArgumentMatching cl_;
+        if (isIntermediateDottedOperation()) {
+            cl_ = getPreviousResultClass();
+        } else {
+            cl_ = new ClassArgumentMatching(_conf.getLastPage().getGlobalClass());
+        }
+        if (cl_ == null || cl_.getName() == null) {
+            throw new NullGlobalObjectException(_conf.joinPages());
+        }
         LgNames stds_ = _conf.getStandards();
         String stringType_;
         stringType_ = stds_.getAliasString();
@@ -547,7 +556,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         if (_conf.getClasses() != null) {
             String str_ = _key;
-            String clCurName_ = getPreviousResultClass().getName();
+            String clCurName_ = cl_.getName();
             String base_ = StringList.getAllTypes(clCurName_).first();
             StandardType root_ = stds_.getStandards().getVal(base_);
             String key_;
@@ -625,7 +634,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     Argument calculateArgument(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
-        Argument previous_ = _nodes.getVal(this).getPreviousArgument();
+        Argument previous_;
+        if (isIntermediateDottedOperation()) {
+            previous_ = _nodes.getVal(this).getPreviousArgument();
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
         ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
         if (argres_.isInitClass()) {
             throw new NotInitializedClassException(argres_.getInitClass().getClassName());
@@ -655,7 +669,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     void calculateArgument(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        Argument previous_ = getPreviousArgument();
+        Argument previous_;
+        if (isIntermediateDottedOperation()) {
+            previous_ = getPreviousArgument();
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
         ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
         if (argres_.isInitClass()) {
             ProcessXmlMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
@@ -748,13 +767,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 }
                 Struct default_ = NullStruct.NULL_VALUE;
                 if (!fieldMetaInfo.isStaticField()) {
-                    String argClassName_ = arg_.getObjectClassName(_conf);
+                    default_ = arg_.getStruct();
+                    String argClassName_ = _conf.getStandards().getStructClassName(default_, _conf);
                     String classNameFound_ = fieldId.getClassName();
                     String base_ = argClassName_;
                     if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
                         throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                     }
-                    default_ = arg_.getStruct();
                 }
                 ResultErrorStd res_ = LgNames.getField(_conf, fieldId, default_);
                 if (res_.getError() != null) {
@@ -799,7 +818,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             a_.setStruct(locVar_.getStruct());
             return ArgumentCall.newArgument(a_);
         }
-        ClassArgumentMatching cl_ = getPreviousResultClass();
+        ClassArgumentMatching cl_;
+        if (isIntermediateDottedOperation()) {
+            cl_ = getPreviousResultClass();
+        } else {
+            cl_ = new ClassArgumentMatching(_conf.getLastPage().getGlobalClass());
+        }
         Argument arg_ = _previous;
         if (cl_.isArray()) {
             if (arg_.isNull()) {
@@ -887,10 +911,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                             String type_ = fieldMetaInfo.getRealType();
                             type_ = Templates.format(classNameFound_, type_, _conf);
                             Mapping map_ = new Mapping();
-                            map_.setArg(right_.getObjectClassName(_conf));
+                            String rightClass_ = right_.getObjectClassName(_conf);
+                            map_.setArg(rightClass_);
                             map_.setParam(type_);
                             if (!Templates.isCorrect(map_, _conf)) {
-                                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(right_.getObjectClassName(_conf),RETURN_LINE,type_,RETURN_LINE,_conf.joinPages())),cast_));
+                                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,type_,RETURN_LINE,_conf.joinPages())),cast_));
                             }
                         }
                     }
@@ -908,7 +933,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (!fieldMetaInfo.isStaticField() && argument_.isNull()) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
-            String argClassName_ = argument_.getObjectClassName(_conf);
+            String argClassName_ = _conf.getStandards().getStructClassName(argument_.getStruct(), _conf);
             String classNameFound_ = fieldId.getClassName();
             String base_ = StringList.getAllTypes(argClassName_).first();
             if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
@@ -988,5 +1013,43 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     public boolean isFinalField() {
         return finalField;
+    }
+    @Override
+    public void setIntermediateDotted() {
+        intermediate = true;
+    }
+    @Override
+    public boolean isIntermediateDottedOperation() {
+        return intermediate;
+    }
+
+    @Override
+    public final ClassArgumentMatching getPreviousResultClass() {
+        return previousResultClass;
+    }
+
+    @Override
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
+        setPreviousResultClass(_previousResultClass, false);
+    }
+
+    @Override
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+        previousResultClass = _previousResultClass;
+        staticAccess = _staticAccess;
+    }
+
+    @Override
+    public final Argument getPreviousArgument() {
+        return previousArgument;
+    }
+
+    @Override
+    public final void setPreviousArgument(Argument _previousArgument) {
+        previousArgument = _previousArgument;
+    }
+
+    public final boolean isStaticAccess() {
+        return staticAccess;
     }
 }

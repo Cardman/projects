@@ -4,6 +4,7 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 
 public final class LoopVariable {
 
@@ -41,7 +42,8 @@ public final class LoopVariable {
         if (container == null) {
             lv_.append(CONTAINER).append(SEP_KEY_VAL);
         } else {
-            lv_.append(CONTAINER).append(SEP_KEY_VAL).append(container.getClassName(_context));
+            LgNames stds_ = _context.getStandards();
+            lv_.append(CONTAINER).append(SEP_KEY_VAL).append(stds_.getStructClassName(container, _context));
         }
         lv_.append(SEP_INFO);
         return lv_.toString();

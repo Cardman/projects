@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteral.exceptions.BadMathExpressionException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -48,6 +49,9 @@ public abstract class MethodOperation extends OperationNode {
         int offset_ = getIndexInEl()+curKey_;
         OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, getConf(), d_);
         firstChild = createOperationNode(value_, offset_, getConf(), CustList.FIRST_INDEX, this, r_);
+        if (firstChild == null) {
+            throw new BadMathExpressionException(value_);
+        }
         return firstChild;
     }
 

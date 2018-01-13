@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotNumberException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -32,10 +31,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.size() != 1) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
-        }
         ClassArgumentMatching clMatch_ = chidren_.first().getResultClass();
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);

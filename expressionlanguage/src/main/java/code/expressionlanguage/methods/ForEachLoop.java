@@ -248,7 +248,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             boolean native_ = nativeCmp;
             String locName_ = _cont.getClasses().getIteratorVar(native_);
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(its_.getClassName(_cont));
+            locVar_.setClassName(stds_.getStructClassName(its_, _cont));
             locVar_.setStruct(its_);
             _cont.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator(native_);
@@ -355,12 +355,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     private boolean iteratorHasNext(ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
+        LgNames stds_ = _conf.getStandards();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();
         boolean native_ = nativeCmp;
         String locName_ = _conf.getClasses().getHasNextVar(native_);
         LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(strIter_.getClassName(_conf));
+        locVar_.setClassName(stds_.getStructClassName(strIter_, _conf));
         locVar_.setStruct(strIter_);
         _conf.getLastPage().getLocalVars().put(locName_, locVar_);
         ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext(native_);
@@ -388,7 +389,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             boolean native_ = nativeCmp;
             String locName_ = _conf.getClasses().getNextVar(native_);
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(iterator_.getClassName(_conf));
+            locVar_.setClassName(stds_.getStructClassName(iterator_, _conf));
             locVar_.setStruct(iterator_);
             _conf.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext(native_);

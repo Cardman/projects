@@ -8,6 +8,7 @@ import code.util.StringMap;
 
 public final class MathResolver {
 
+    static final int BAD_PRIO = -1;
     static final int OR_PRIO = 1;
     static final int AND_PRIO = 2;
     static final int EQ_PRIO = 3;
@@ -366,22 +367,34 @@ public final class MathResolver {
                     StringBuilder builtOperator_ = new StringBuilder();
                     boolean clearOperators_ = false;
                     boolean foundOperator_ = false;
-                    char nextChar_ = _string.charAt(i_ + 1);
                     int increment_ = 1;
                     if (curChar_ == NEG_BOOL_CHAR) {
                         builtOperator_.append(NEG_BOOL_CHAR);
-                        if (nextChar_ == EQ_CHAR) {
-                            if (prio_ > EQ_PRIO) {
-                                clearOperators_ = true;
-                                prio_ = EQ_PRIO;
+                        if (i_ + 1 < _string.length()) {
+                            char nextChar_ = _string.charAt(i_ + 1);
+                            if (nextChar_ == EQ_CHAR) {
+                                if (prio_ > EQ_PRIO) {
+                                    clearOperators_ = true;
+                                    prio_ = EQ_PRIO;
+                                }
+                                if (prio_ == EQ_PRIO) {
+                                    builtOperator_.append(EQ_CHAR);
+                                    foundOperator_ = true;
+                                }
+                                if (foundOperator_) {
+                                    increment_ = 2;
+                                }
+                            } else {
+                                if (prio_ > EQ_PRIO) {
+                                    prio_ = EQ_PRIO;
+                                    clearOperators_ = true;
+                                    foundOperator_ = true;
+                                }
                             }
-                            if (prio_ == EQ_PRIO) {
-                                builtOperator_.append(EQ_CHAR);
-                                foundOperator_ = true;
-                            }
-                        }
-                        if (foundOperator_) {
-                            increment_ = 2;
+                        } else {
+                            prio_ = EQ_PRIO;
+                            clearOperators_ = true;
+                            foundOperator_ = true;
                         }
                     }
                     int prioOpMult_ = 0;
@@ -416,6 +429,7 @@ public final class MathResolver {
                             foundOperator_ = true;
                         }
                         if (foundOperator_) {
+                            char nextChar_ = _string.charAt(i_ + 1);
                             if (nextChar_ == EQ_CHAR) {
                                 builtOperator_.append(nextChar_);
                                 increment_++;

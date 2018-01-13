@@ -14,9 +14,11 @@ import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -168,7 +170,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Argument left_ = new Argument();
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName(_conf));
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf));
         if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct(), _conf)) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
@@ -222,13 +224,13 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (output_ == null) {
             return NullStruct.NULL_VALUE;
         }
-        return StdStruct.wrapStd(output_, PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName(_conf)));
+        return StdStruct.wrapStd(output_, PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_struct, _conf)));
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName(_conf));
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf));
         if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct(), _conf)) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
@@ -248,6 +250,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_index == null) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
+        String strClass_ = stds_.getStructClassName(_struct, _conf);
+        String valClass_ = stds_.getStructClassName(_value, _conf);
         if (_conf.getClasses() != null) {
             Object instance_ = _struct.getInstance();
             int len_ = LgNames.getLength(instance_);
@@ -256,8 +260,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
                 throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
             }
             if (!_value.isNull()) {
-                String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName(_conf));
-                String elementType_ = _value.getClassName(_conf);
+                String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+                String elementType_ = valClass_;
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(elementType_);
                 mapping_.setParam(componentType_);
@@ -265,7 +269,15 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
                     throw new InvokeException(new StdStruct(new CustomError(StringList.concat(componentType_,elementType_,_conf.joinPages())),store_));
                 }
             }
-            LgNames.setElement(instance_, index_, _value, _conf);
+            Struct value_;
+            if (_value instanceof NumberStruct || _value instanceof CharStruct) {
+                String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+                ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
+                value_ = PrimitiveTypeUtil.convertObject(cl_, _value, _conf);
+            } else {
+                value_ = _value;
+            }
+            LgNames.setElement(instance_, index_, value_, _conf);
             return;
         }
         Object arrayInst_ = _struct.getInstance();
@@ -278,8 +290,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             Array.set(arrayInst_, index_, null);
             return;
         }
-        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName(_conf));
-        String elementType_ = _value.getClassName(_conf);
+        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+        String elementType_ = valClass_;
         Mapping mapping_ = new Mapping();
         mapping_.setArg(elementType_);
         mapping_.setParam(componentType_);

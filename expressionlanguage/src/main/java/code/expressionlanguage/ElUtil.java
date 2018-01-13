@@ -1,4 +1,5 @@
 package code.expressionlanguage;
+import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
@@ -37,6 +38,7 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ElUtil {
 
+    private static final String RETURN_LINE = "\n";
     private static final String EMPTY_STRING = "";
     private ElUtil() {
     }
@@ -49,12 +51,18 @@ public final class ElUtil {
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
+        if (opLeft_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(_left,RETURN_LINE,_conf.joinPages()));
+        }
         CustList<OperationNode> allLeft_ = getOperationNodes(opLeft_, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
         OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
+        if (opRight_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(_right,RETURN_LINE,_conf.joinPages()));
+        }
         CustList<OperationNode> allRight_ = getOperationNodes(opRight_, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
@@ -89,7 +97,7 @@ public final class ElUtil {
         } else {
             if (clMatchRight_.isVariable()) {
                 if (!clMatchLeft_.isPrimitive(_conf)) {
-                    return new ExpLanguages(new ExpressionLanguage(allLeft_), new ExpressionLanguage(allRight_));
+                    return new ExpLanguages(allLeft_, allRight_);
                 }
                 throw new PrimitiveTypeException(_conf.joinPages());
             }
@@ -113,7 +121,7 @@ public final class ElUtil {
                 throw new DynamicCastClassException(_conf.joinPages());
             }
         }
-        return new ExpLanguages(new ExpressionLanguage(allLeft_), new ExpressionLanguage(allRight_));
+        return new ExpLanguages(allLeft_, allRight_);
     }
 
     public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right) {
@@ -161,27 +169,14 @@ public final class ElUtil {
         }
         _conf.getLastPage().setRightArgument(null);
     }
-    public static void tryToCalculateAffect(ExpressionLanguage _left, ContextEl _conf, ExpressionLanguage _right, String _op) {
-        CustList<OperationNode> allLeft_ = _left.getOperations();
-        _conf.getLastPage().clearCurrentEls();
-        _conf.getLastPage().addCurrentEl(_left);
-        calculate(allLeft_ , _left, _conf, _op);
-        CustList<OperationNode> allRight_ = _right.getOperations();
-        _conf.getLastPage().addCurrentEl(_right);
-        calculate(allRight_, _right,_conf, _op);
-        _conf.getLastPage().setRightArgument(_right.getRoot().getArgument());
-        SettableElResult settable_ = _left.getSettable();
-        try {
-            settable_.calculateSetting(allLeft_, _conf, _op);
-        } catch (RuntimeException _0) {
-            _left.setCurrentOper(null);
-            _conf.getLastPage().clearCurrentEls();
-            throw _0;
-        } catch (Error _0) {
-            _left.setCurrentOper(null);
-            _conf.getLastPage().clearCurrentEls();
-            throw _0;
-        }
+    static void tryToCalculateAffect(CustList<OperationNode> _left, ContextEl _conf, CustList<OperationNode> _right, String _op) {
+        CustList<OperationNode> allLeft_ = _left;
+        calculate(allLeft_ , _conf, _op);
+        CustList<OperationNode> allRight_ = _right;
+        calculate(allRight_, _conf, _op);
+        _conf.getLastPage().setRightArgument(_right.last().getArgument());
+        SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
+        settable_.calculateSetting(allLeft_, _conf, _op);
         _conf.getLastPage().setRightArgument(null);
     }
     public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
@@ -193,8 +188,8 @@ public final class ElUtil {
     public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddentVarTypes) {
         ExpLanguages members_ = analyzeAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, _staticContext, _hiddentVarTypes);
-        ExpressionLanguage left_ = members_.getLeft();
-        ExpressionLanguage right_ = members_.getRight();
+        CustList<OperationNode> left_ = members_.getLeft();
+        CustList<OperationNode> right_ = members_.getRight();
         tryToCalculateAffect(left_, _conf, right_, _oper);
     }
 
@@ -204,6 +199,9 @@ public final class ElUtil {
         _conf.setNextIndex(d_.getIndexEnd()+2);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_);
+        if (op_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
+        }
         CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
         analyze(all_, _conf);
         calculate(all_, _conf, EMPTY_STRING);
@@ -215,6 +213,9 @@ public final class ElUtil {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_);
+        if (op_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
+        }
         CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
         boolean staticContext_ = _calcul.isStaticAcces();
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
@@ -235,6 +236,9 @@ public final class ElUtil {
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_);
+        if (op_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
+        }
         CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
         analyze(all_, _conf);
         calculate(all_, _conf, EMPTY_STRING);
@@ -357,7 +361,11 @@ public final class ElUtil {
         d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
-        return OperationNode.createOperationNode(offset_, CustList.FIRST_INDEX, block_, r_);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, CustList.FIRST_INDEX, block_, r_);
+        if (op_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(value_,RETURN_LINE,_context.joinPages()));
+        }
+        return op_;
     }
 
     private static OperationNode createNextSibling(OperationNode _block, ContextEl _context) {
@@ -375,7 +383,11 @@ public final class ElUtil {
         d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
-        return OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_);
+        if (op_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(value_,RETURN_LINE,_context.joinPages()));
+        }
+        return op_;
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
@@ -393,11 +405,9 @@ public final class ElUtil {
 
     static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _staticBlock,String _fieldName, String _op) {
         PageEl page_ = _context.getLastPage();
+        page_.setStaticContext(_staticContext);
         for (OperationNode e: _nodes) {
             e.setStaticBlock(_staticBlock);
-            if (e.getPreviousResultClass() == null) {
-                e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
-            }
             e.analyze(_nodes, _context, _fieldName, _op);
         }
     }
@@ -406,11 +416,9 @@ public final class ElUtil {
         PageEl page_ = _context.getLastPage();
         Argument arg_ = page_.getGlobalArgument();
         boolean static_ = arg_ == null || arg_.isNull();
+        page_.setStaticContext(static_);
         for (OperationNode e: _nodes) {
             e.setStaticBlock(static_);
-            if (e.getPreviousResultClass() == null) {
-                e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), static_);
-            }
             e.analyze(_nodes, _context, EMPTY_STRING, EMPTY_STRING);
         }
     }
@@ -424,52 +432,9 @@ public final class ElUtil {
     @throws InvokeException
     @throws UnwrappingException*/
     static void calculate(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
-                if (e.isNeedGlobalArgument()) {
-                    e.setPreviousArgument(arg_);
-                }
                 e.calculate(_nodes, _context, _op);
-            }
-        }
-    }
-    /**@throws InvokeRedinedMethException
-    @throws CustomFoundMethodException
-    @throws BadIndexException
-    @throws NegativeSizeException
-    @throws ErrorCausingException
-    @throws DynamicCastClassException
-    @throws RuntimeClassNotFoundException
-    @throws NullObjectException
-    @throws InvokeException
-    @throws UnwrappingException*/
-    static void calculate(CustList<OperationNode> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
-        for (OperationNode e: _nodes) {
-            if (!e.isCalculated()) {
-                if (e.isNeedGlobalArgument()) {
-                    e.setPreviousArgument(arg_);
-                }
-                try {
-                    e.calculate(_nodes, _context, _op);
-                } catch (NotInitializedClassException _0) {
-                    throw _0;
-                } catch (CustomFoundConstructorException _0) {
-                    _el.setCurrentOper(e);
-                    throw _0;
-                } catch (CustomFoundMethodException _0) {
-                    _el.setCurrentOper(e);
-                    throw _0;
-                } catch (RuntimeException _0) {
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
-                    throw _0;
-                } catch (Error _0) {
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
-                    throw _0;
-                }
             }
         }
     }
@@ -485,14 +450,10 @@ public final class ElUtil {
     @throws UnwrappingException*/
 
     static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
             OperationNode o = e.getKey();
             if (!o.isCalculated(_nodes)) {
                 ArgumentsPair a_ = e.getValue();
-                if (o.isNeedGlobalArgument()) {
-                    a_.setPreviousArgument(arg_);
-                }
                 try {
                     a_.setArgument(o.calculate(_nodes, _context, _op));
                 } catch (NotInitializedClassException _0) {

@@ -1,35 +1,27 @@
 package code.formathtml;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
-
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exceptions.SetterException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
 import code.serialize.ConstClasses;
-import code.serialize.ConverterMethod;
-import code.serialize.SerializeXmlObject;
 import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
-import code.util.ints.Listable;
-import code.util.ints.ListableEntries;
-import code.util.ints.SimpleList;
 
 final class HtmlRequest {
 
-    private static final String MOVE = "move";
-    private static final String SET_VALUE = "setValue";
-    private static final String SET = "set";
     private static final String COMMA = ",";
     private static final String EMPTY_STRING = "";
     private static final char EQUALS = '=';
@@ -56,19 +48,8 @@ final class HtmlRequest {
     }
 
     static Struct invokeMethodWithNumbers(Configuration _conf, Struct _container, String _command, Argument... _args) {
-        String command_ = _command;
-        Struct obj_ = _container;
         String commandExtract_ = _command;
-        if (_command.contains(FormatHtml.DOT)) {
-            command_ = _command.substring(CustList.FIRST_INDEX, _command.lastIndexOf(FormatHtml.DOT));
-            obj_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getStruct();
-            _conf.getLastPage().addToOffset(command_.length()+FormatHtml.DOT.length());
-            commandExtract_ = _command.substring(_command.lastIndexOf(FormatHtml.DOT)+FormatHtml.DOT.length());
-        }
-        ExtractObject.checkNullPointer(_conf, obj_.getInstance());
         ImportingPage ip_ = _conf.getLastPage();
-        Struct current_ = ip_.getGlobalArgument().getStruct();
-        ip_.setGlobalArgumentStruct(obj_, _conf);
         StringList varNames_ = new StringList();
         for (Argument a: _args) {
             String tmp_ = TMP_VAR;
@@ -77,13 +58,12 @@ final class HtmlRequest {
                 i_++;
             }
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(ConstClasses.resolve(a.getObjectClassName(_conf.toContextEl())));
+            locVar_.setClassName(a.getObjectClassName(_conf.toContextEl()));
             locVar_.setStruct(a.getStruct());
             varNames_.add(StringList.concat(tmp_,Long.toString(i_),GET_LOC_VAR));
             ip_.getLocalVars().put(StringList.concatNbs(tmp_,i_), locVar_);
         }
         Argument arg_ = ElUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR,varNames_.join(COMMA),RIGHT_PAR), 0, _conf.toContextEl());
-        ip_.setGlobalArgumentStruct(current_, _conf);
         for (String n: varNames_) {
             ip_.getLocalVars().removeKey(n.substring(0, n.length() - GET_LOC_VAR.length()));
         }
@@ -100,29 +80,15 @@ final class HtmlRequest {
         long index_ = _nodeContainer.getIndex();
         ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute.getInstance(), _indexes);
         if (index_ >= 0) {
-            try {
-                if (obj_.isArray()) {
-                    Array.set(obj_.getInstance(), (int) index_, _attribute.getInstance());
-                } else if (obj_.getInstance() instanceof SimpleList){
-                    //obj_ is instance of java.util.CustList
-                    Method m_ = SerializeXmlObject.getMethod(Listable.class, SET, int.class, Object.class);
-                    ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int) index_, _attribute.getInstance());
-                } else {
-                    //obj_ is instance of java.util.ListableEntries
-                    boolean key_ = _nodeContainer.isKey();
-                    if (!key_) {
-                        Method m_ = SerializeXmlObject.getMethod(ListableEntries.class, SET_VALUE, int.class, Object.class);
-                        ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int)index_, _attribute.getInstance());
-                    } else {
-                        Method m_ = SerializeXmlObject.getMethod(ListableEntries.class, MOVE, Object.class, Object.class);
-                        ConverterMethod.invokeMethod(m_, obj_.getInstance(), _nodeContainer.getTypedField(), _attribute.getInstance());
-                    }
-                }
-            } catch (Throwable _0) {
-                String err_ = _conf.getStandards().getAliasError();
+            boolean key_ = _nodeContainer.isKey();
+            ContextEl context_ = _conf.toContextEl();
+            ResultErrorStd res_ = _conf.getStandards().setElementAtIndex(obj_, (int) index_, key_, _attribute, context_);
+            if (res_.getError() != null) {
+                String err_ = res_.getError();
                 throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
             }
         } else {
+            LgNames lgNames_ = _conf.getStandards();
             String varMethod_ = _nodeContainer.getNodeInformation().getVarMethod();
             if (!varMethod_.isEmpty()) {
                 //use defined class in className attribute
@@ -150,13 +116,13 @@ final class HtmlRequest {
             ImportingPage ip_ = _conf.getLastPage();
             try {
                 LocalVariable lv_ = new LocalVariable();
-                lv_.setClassName(obj_.getClassName(_conf.toContextEl()));
+                lv_.setClassName(lgNames_.getStructClassName(obj_, _conf.toContextEl()));
                 lv_.setStruct(obj_);
                 String nameVar_ = ip_.getNextTempVar();
                 ip_.getLocalVars().put(nameVar_, lv_);
                 String nameValue_ = ip_.getNextTempVar();
                 lv_ = new LocalVariable();
-                lv_.setClassName(_attribute.getClassName(_conf.toContextEl()));
+                lv_.setClassName(lgNames_.getStructClassName(_attribute, _conf.toContextEl()));
                 lv_.setStruct(_attribute);
                 ip_.getLocalVars().put(nameValue_, lv_);
                 String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
@@ -181,8 +147,8 @@ final class HtmlRequest {
             ip_.setGlobalArgumentStruct(obj_, _conf);
             String tmp_ = ip_.getNextTempVar();
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(ValueChangeEvent.class.getName());
-            locVar_.setElement(chg_, ValueChangeEvent.class.getName());
+            locVar_.setClassName(_conf.getStandards().getValueChangedEvent());
+            locVar_.setElement(chg_, _conf.getStandards().getValueChangedEvent());
             ip_.getLocalVars().put(tmp_, locVar_);
             StringBuilder str_ = new StringBuilder(method_);
             str_.append(LEFT_PAR);

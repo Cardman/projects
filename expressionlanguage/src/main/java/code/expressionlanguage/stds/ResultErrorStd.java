@@ -8,6 +8,8 @@ public final class ResultErrorStd {
 
     private String error;
 
+    private String errorMessage;
+
     public Struct getResult() {
         return result;
     }
@@ -23,4 +25,13 @@ public final class ResultErrorStd {
     public void setError(String _error) {
         error = _error;
     }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String _errorMessage) {
+        errorMessage = _errorMessage;
+    }
+
 }

@@ -127,7 +127,7 @@ public final class ConstClasses {
 
     /**DO NOT USE DEFAULT PACKAGE FOR ALL CLASSES
     @throws RuntimeClassNotFoundException*/
-    public static Class<?> classAliasForNameNotInit(String _className) {
+    static Class<?> classAliasForNameNotInit(String _className) {
         if (StringList.quickEq(_className, ConstClasses.SELECTED_BOOLEAN)) {
             return SelectedBoolean.class;
         }
@@ -164,9 +164,6 @@ public final class ConstClasses {
         }
         return _alias;
     }
-    public static StringMap<String> getMapping() {
-        return MAPPING;
-    }
 
     public static String getMapping(String _alias) {
         return MAPPING.getVal(_alias);
@@ -174,7 +171,7 @@ public final class ConstClasses {
 
     /**DO NOT USE DEFAULT PACKAGE FOR ALL CLASSES
     @throws RuntimeClassNotFoundException*/
-    public static Class<?> classAliasForObjectNameNotInit(String _name) {
+    static Class<?> classAliasForObjectNameNotInit(String _name) {
         String className_ = ConstClasses.getMapping(_name);
         if (className_ != null) {
             return ConstClasses.classForObjectNameNotInit(className_);

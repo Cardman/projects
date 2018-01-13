@@ -35,7 +35,7 @@ public class BeanSeven extends Bean {
     private ValueChangeEvent changing;
 
     @Accessible
-    private NatTreeMap<String, Integer> tree = new NatTreeMap<String, Integer>();
+    private NatTreeMapStringInteger tree = new NatTreeMapStringInteger();
 
     @Accessible
     private StringMap<Integer> map = new StringMap<Integer>();
@@ -168,7 +168,7 @@ public class BeanSeven extends Bean {
         return changing;
     }
 
-    public NatTreeMap<String, Integer> getTree() {
+    public NatTreeMapStringInteger getTree() {
         return tree;
     }
 

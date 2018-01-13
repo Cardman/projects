@@ -17,7 +17,7 @@ public final class ConverterMethod {
     private ConverterMethod() {
     }
 
-    public static boolean isPrimitivableClass(Class<?> _cl) {
+    static boolean isPrimitivableClass(Class<?> _cl) {
         Method method_ = ConverterMethod.getFromStringMethod(_cl);
         return method_ != null;
     }
@@ -32,7 +32,7 @@ public final class ConverterMethod {
         }
     }
 
-    public static String getName(Object _instance) {
+    static String getName(Object _instance) {
         try {
             Class<?> cl_ = _instance.getClass();
             Method m_ = cl_.getMethod(NAME);
@@ -68,11 +68,11 @@ public final class ConverterMethod {
         }
     }
 
-    public static Method getFromStringMethod(Class<?> _class) {
+    static Method getFromStringMethod(Class<?> _class) {
         return getFromStringMethod(_class, String.class);
     }
 
-    public static Method getFromStringMethod(Class<?> _class, Class<?> _classArg) {
+    static Method getFromStringMethod(Class<?> _class, Class<?> _classArg) {
         Method method_ = null;
         for (Method methClass_: _class.getMethods()) {
             if (!Modifier.isStatic(methClass_.getModifiers())) {
@@ -106,11 +106,11 @@ public final class ConverterMethod {
         return method_;
     }
 
-    public static Method getToStringMethod(Class<?> _class) {
+    static Method getToStringMethod(Class<?> _class) {
         return getToStringMethod(_class, String.class);
     }
 
-    public static Method getToStringMethod(Class<?> _class, Class<?> _classReturn) {
+    static Method getToStringMethod(Class<?> _class, Class<?> _classReturn) {
         Method method_ = null;
         for (Method methClass_: _class.getMethods()) {
             if (Modifier.isStatic(methClass_.getModifiers())) {

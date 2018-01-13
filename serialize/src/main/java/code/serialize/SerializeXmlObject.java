@@ -52,7 +52,7 @@ public final class SerializeXmlObject {
     }
 
     /**@throws NoSuchDeclaredMethodException*/
-    public static Method getMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
+    static Method getMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
         try {
             Method method_ = _class.getMethod(_name, _argsClass);
             return method_;

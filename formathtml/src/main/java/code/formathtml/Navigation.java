@@ -1,20 +1,16 @@
 package code.formathtml;
-import java.lang.reflect.Method;
-
 import code.bean.Bean;
 import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.IndirectException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exceptions.BadParenthesesException;
 import code.formathtml.exceptions.FormNotFoundException;
@@ -22,10 +18,7 @@ import code.formathtml.exceptions.InexistingValidatorException;
 import code.formathtml.exceptions.NavCaseNotFoundException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
-import code.formathtml.util.ValueChangeEvent;
 import code.resources.ResourceFiles;
-import code.serialize.ConstClasses;
-import code.serialize.ConverterMethod;
 import code.serialize.SerializeXmlObject;
 import code.serialize.exceptions.InexistingValueForEnum;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
@@ -44,7 +37,6 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
-import code.util.ints.Listable;
 import code.util.ints.WithMathFactory;
 
 public final class Navigation {
@@ -55,16 +47,11 @@ public final class Navigation {
 
     private static final String NUMBER_FORM = "n-f";
 
-    private static final String END_TEMP = ">";
-
-    private static final String BEG_TEMP = "<";
-
     private static final String END_PATH = ":";
 
     private static final char BEGIN_ARGS = '(';
     private static final char SEP_ARGS = ',';
     private static final char END_ARGS = ')';
-    private static final String NO_PARAMS = "()";
 
     private static final String ATTRIBUTE_TITLE = "title";
 
@@ -138,10 +125,7 @@ public final class Navigation {
     private static final String EMPTY_STRING = "";
     private static final String GET_LOC_VAR =";.";
     private static final String VALIDATE ="validate";
-    private static final String ADD ="add";
 
-    private static final Method ADD_METHOD = SerializeXmlObject.getMethod(Listable.class, ADD, Object.class);
-    private static final String INSTANCE = "$new ";
     private Configuration session = new Configuration();
 
     private String currentBeanName;
@@ -496,6 +480,7 @@ public final class Navigation {
         StringMap<StringList> errorsArgs_;
         errorsArgs_ = new StringMap<StringList>();
         //TODO converters
+        String objClass_ = session.getStandards().getAliasObject();
         for (EntryCust<Long, NodeContainer> e: containersMap_.getVal(lg_).entryList()) {
             NodeInformations nInfos_ = e.getValue().getNodeInformation();
             String valId_ = nInfos_.getValidator();
@@ -519,60 +504,12 @@ public final class Navigation {
             }
             StringList v_ = nInfos_.getValue();
             String className_ = nInfos_.getInputClass();
-            Struct obj_ = null;
-            int indexTemp_;
-            indexTemp_ = className_.indexOf(BEG_TEMP);
-            boolean isList_ = false;
-            String suffix_ = EMPTY_STRING;
-            String tempClassName_ = EMPTY_STRING;
-            Class<?> tempClass_ = null;
-            if (indexTemp_ != CustList.INDEX_NOT_FOUND_ELT) {
-                String prefix_ = EMPTY_STRING;
-                prefix_ = className_.substring(CustList.FIRST_INDEX, indexTemp_);
-                suffix_ = className_.substring(indexTemp_);
-                try {
-                    tempClass_ = ConstClasses.classAliasForNameNotInit(prefix_);
-                } catch (RuntimeClassNotFoundException _0) {
-                    String err_ = session.getStandards().getAliasError();
-                    throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
-                }
-                if (Listable.class.isAssignableFrom(tempClass_)) {
-                    isList_ = true;
-                    tempClassName_ = className_;
-                }
-            } else {
-                try {
-                    tempClass_ = ConstClasses.classAliasForNameNotInit(className_);
-                } catch (RuntimeClassNotFoundException _0) {
-                    String err_ = session.getStandards().getAliasError();
-                    throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
-                }
-                if (Listable.class.isAssignableFrom(tempClass_)) {
-                    tempClassName_ = className_;
-                    suffix_ = Templates.getTypesByBases(className_, Listable.class.getName(), session.toContextEl()).first();
-                    isList_ = true;
-                }
+            ResultErrorStd resError_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
+            if (resError_.getError() != null) {
+                String err_ = resError_.getError();
+                throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
             }
-            if (isList_) {
-                Object list_ = ElUtil.processEl(StringList.concat(INSTANCE,tempClassName_,NO_PARAMS), 0, session.toContextEl()).getObject();
-                String contentClass_ = suffix_;
-                contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
-                for (String v:v_) {
-                    try {
-                        ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_).getInstance());
-                    } catch (Throwable _0) {
-                    }
-                }
-                obj_ = new StdStruct(list_, className_);
-            } else {
-                try {
-                    obj_ = retrieveObjectByClassName(v_.first(), className_);
-                } catch (Throwable _0) {
-                }
-            }
-            if (obj_ == null) {
-                obj_ = NullStruct.NULL_VALUE;
-            }
+            Struct obj_ = resError_.getResult();
             LocalVariable lv_ = new LocalVariable();
             String valName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
@@ -581,18 +518,18 @@ public final class Navigation {
             ip_.getLocalVars().put(valName_, lv_);
             String navName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(this, Object.class.getName());
-            lv_.setClassName(Object.class.getName());
+            lv_.setElement(this, objClass_);
+            lv_.setClassName(objClass_);
             ip_.getLocalVars().put(navName_, lv_);
             String nodName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(node_, Object.class.getName());
-            lv_.setClassName(Object.class.getName());
+            lv_.setElement(node_, objClass_);
+            lv_.setClassName(objClass_);
             ip_.getLocalVars().put(nodName_, lv_);
             String objName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
             lv_.setStruct(obj_);
-            lv_.setClassName(Object.class.getName());
+            lv_.setClassName(objClass_);
             ip_.getLocalVars().put(objName_, lv_);
             StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(VALIDATE).append(BEGIN_ARGS);
             expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
@@ -658,7 +595,6 @@ public final class Navigation {
             Element input_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_INPUT, Long.toString(e.getKey()));
             session.getLastPage().setProcessingNode(input_);
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
-            Struct bean_ = getBean(nCont_.getBeanName());
             String simpleKey_ = nCont_.getNodeInformation().getName();
             Struct obj_ = nCont_.getTypedStruct();
             Numbers<Long> indexes_ = new Numbers<Long>();
@@ -666,91 +602,24 @@ public final class Navigation {
                 indexes_.add(Long.parseLong(n));
             }
             String changingValue_ = EMPTY_STRING;
-            String ch_ = nCont_.getNodeInformation().getChanging();
-            if (!ch_.isEmpty()) {
-                String method_ = ch_;
-                try {
-                    //checking for existence of method_ in the bean class
-                    bean_.getClass().getMethod(method_,
-                            ValueChangeEvent.class);
-                    changingValue_ = method_;
-                } catch (Throwable _0) {
-                }
-            }
             nCont_.getNodeInformation().setChanging(changingValue_);
             Struct newObj_;
             StringList v_ = nCont_.getNodeInformation().getValue();
             String className_ = nCont_.getNodeInformation().getInputClass();
-            try {
-                if (obj_.isNull()) {
-                    newObj_ = retrieveObjectByClassName(v_.first(), className_);
-                } else {
-                    ContextEl context_ = session.toContextEl();
-                    String clObjName_ = obj_.getClassName(context_);
-                    StringList types_;
-                    types_ = Templates.getTypesByBases(clObjName_, Listable.class.getName(), context_);
-                    if (types_ != null){
-                        Object list_ = ElUtil.processEl(StringList.concat(INSTANCE,clObjName_,NO_PARAMS), 0, context_).getObject();
-                        String contentClass_;
-                        contentClass_ = types_.first();
-                        for (String v:v_) {
-                            ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_).getInstance());
-                        }
-                        newObj_ = new StdStruct(list_, clObjName_);
-                    } else {
-                        newObj_ = retrieveObjectByClassName(v_.first(), clObjName_);
-                    }
-                }
-            } catch (Throwable _0) {
-                String err_ = session.getStandards().getAliasError();
+            if (!obj_.isNull()) {
+                ContextEl context_ = session.toContextEl();
+                className_ = context_.getStandards().getStructClassName(obj_, context_);
+            }
+            ResultErrorStd res_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
+            if (res_.getError() != null) {
+                String err_ = res_.getError();
                 throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
             }
+            newObj_ = res_.getResult();
             Struct procObj_ = e.getValue().getStruct();
             session.getLastPage().setGlobalArgumentStruct(procObj_, session);
             HtmlRequest.setObject(session, e.getValue(), newObj_, indexes_);
         }
-    }
-
-    private Struct retrieveObjectByClassName(String _value, String _className) {
-        //case where it is better to test on class of the value
-        Class<?> class_;
-        try {
-            class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
-        } catch (Throwable _0) {
-            String err_ = session.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
-        }
-        if (class_.isEnum()) {
-            //Enum
-            for (Object o : class_.getEnumConstants()) {
-                if (StringList.quickEq(ConverterMethod.getName(o),_value)) {
-                    return new StdStruct(o, _className);
-                }
-            }
-            throw new InexistingValueForEnum(_value,class_.getName());
-        }
-        //Boolean
-        if (class_ == Boolean.class || class_ == boolean.class) {
-            return new BooleanStruct(StringList.quickEq(_value,ON));
-        }
-        //Number
-        if (Number.class.isAssignableFrom(class_) || class_.isPrimitive()) {
-            return ExtractObject.instanceByString(session, _className,_value);
-        }
-        Method method_ = ConverterMethod.getFromStringMethod(class_);
-        if (method_ != null) {
-            Object instance_;
-            try {
-                instance_ = method_.invoke(null, _value);
-            } catch (Throwable _0) {
-                instance_ = null;
-            }
-            if (instance_ == null) {
-                throw new InvokeRedinedMethException(session.joinPages());
-            }
-            return new StdStruct(instance_, _className);
-        }
-        return new StringStruct(_value);
     }
 
     private static StringList positiveNumbers(String _string) {

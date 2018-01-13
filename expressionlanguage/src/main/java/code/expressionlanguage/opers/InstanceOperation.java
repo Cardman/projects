@@ -153,7 +153,8 @@ public final class InstanceOperation extends InvokingOperation {
         }
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         boolean intern_ = true;
-        if (!isIntermediateDotted()) {
+        if (!isIntermediateDottedOperation()) {
+            setStaticAccess(_conf.getLastPage().isStaticContext());
             intern_ = false;
 //            if (StringList.isWord(realClassName_)) {
 //                needGlobalArgument();
@@ -177,6 +178,12 @@ public final class InstanceOperation extends InvokingOperation {
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
+        if (isIntermediateDottedOperation()) {
+            arg_ = getPreviousResultClass();
+        } else {
+            arg_ = new ClassArgumentMatching(_conf.getLastPage().getGlobalClass());
+            setStaticAccess(_conf.getLastPage().isStaticContext());
+        }
         if (arg_ == null) {
             throw new NullGlobalObjectException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
@@ -320,7 +327,12 @@ public final class InstanceOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(_nodes.getVal(o).getArgument());
         }
-        Argument previous_ = _nodes.getVal(this).getPreviousArgument();
+        Argument previous_;
+        if (isIntermediateDottedOperation()) {
+            previous_ = _nodes.getVal(this).getPreviousArgument();
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf, _op);
         if (argres_.isInitClass()) {
             throw new NotInitializedClassException(argres_.getInitClass().getClassName());
@@ -352,7 +364,12 @@ public final class InstanceOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        Argument previous_ = getPreviousArgument();
+        Argument previous_;
+        if (isIntermediateDottedOperation()) {
+            previous_ = getPreviousArgument();
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf, _op);
         if (argres_.isInitClass()) {
             ProcessXmlMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
@@ -457,7 +474,7 @@ public final class InstanceOperation extends InvokingOperation {
                 return ArgumentCall.newArgument(a_);
             } else {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                a_.setStruct(new StdStruct(o_, PrimitiveTypeUtil.getPrettyArrayType(realClassName_)));
+                a_.setStruct(new StdStruct(o_, PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));
                 return ArgumentCall.newArgument(a_);
             }
         }
@@ -474,7 +491,7 @@ public final class InstanceOperation extends InvokingOperation {
         className_ = page_.formatVarType(className_, _conf);
         String lastType_ = Templates.format(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
-        if (!isIntermediateDotted()) {
+        if (!isIntermediateDottedOperation()) {
 //            Class<?> class_ = null;
 //            if (StringList.isWord(realClassName_)) {
 //                for (Class<?> c:getPreviousResultClass().getDeclaredClasses()) {
@@ -533,20 +550,16 @@ public final class InstanceOperation extends InvokingOperation {
         }
         checkArgumentsForInvoking(_conf, naturalVararg > -1, params_, getObjects(Argument.toArgArray(_arguments)));
         StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-        CustList<Argument> args_ = new CustList<Argument>();
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _arguments) {
             Struct str_ = a.getStruct();
             if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
                 ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
                 a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
-            } else {
-                a.setStruct(str_);
             }
-            args_.add(a);
             i_++;
         }
-        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, constId, needed_, args_, InstancingStep.NEWING, called_);
+        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, constId, needed_, _arguments, InstancingStep.NEWING, called_);
         return ArgumentCall.newCall(inv_);
     }
     static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int... _args) {

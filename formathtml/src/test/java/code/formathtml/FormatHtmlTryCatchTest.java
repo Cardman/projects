@@ -7,7 +7,6 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanTwo;
-import code.formathtml.classes.Composite;
 import code.formathtml.classes.MyTranslator;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -20,7 +19,6 @@ public class FormatHtmlTryCatchTest {
     private static final String DIV_ZERO = "code.expressionlanguage.exceptions.DivideZeroException";
     private static final String EXCEPTION = "java.lang.RuntimeException";
     private static final String NPE = "java.lang.NullPointerException";
-    private static final String COMPOSITE = Composite.class.getName();
 
     @Test
     public void processHtml132Test() {

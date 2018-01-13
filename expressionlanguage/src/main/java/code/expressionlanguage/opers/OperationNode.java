@@ -164,8 +164,6 @@ public abstract class OperationNode {
     protected static final String SPACE = " ";
     protected static final String RETURN_TAB = "\n\t";
 
-//    protected static final String GET_CLASS = "getClass";
-
     protected static final String VARARG_SUFFIX = "...";
 
     private static final int QUICK_OP = 3;
@@ -173,8 +171,6 @@ public abstract class OperationNode {
     private MethodOperation parent;
 
     private OperationNode nextSibling;
-
-    private Argument previousArgument;
 
     private Argument argument;
 
@@ -188,11 +184,9 @@ public abstract class OperationNode {
 
     private boolean vararg;
     private boolean firstOptArg;
-    private ClassArgumentMatching previousResultClass;
+
     private ClassArgumentMatching resultClass;
 
-    private boolean needGlobalArgument;
-    private boolean staticAccess;
     private boolean staticBlock;
 
     OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -264,29 +258,6 @@ public abstract class OperationNode {
             return new OrOperation(_index, _indexChild, _m, _op);
         }
         return null;
-    }
-
-    final boolean isIntermediateDotted() {
-        MethodOperation par_ = getParent();
-        OperationNode cur_ = this;
-        MethodOperation curPar_ = par_;
-        boolean intermediate_ = false;
-        while (true) {
-            if (curPar_ instanceof ArrOperation) {
-                if (cur_.isFirstChild()) {
-                    cur_ = curPar_;
-                    curPar_ = curPar_.getParent();
-                    continue;
-                }
-            }
-            if (curPar_ instanceof DotOperation) {
-                if (!cur_.isFirstChild()) {
-                    intermediate_ = true;
-                }
-            }
-            break;
-        }
-        return intermediate_;
     }
 
     final boolean isFirstChild() {
@@ -1673,18 +1644,6 @@ public abstract class OperationNode {
         return indexChild;
     }
 
-    public final boolean isStaticAccess() {
-        return staticAccess;
-    }
-
-    public final Argument getPreviousArgument() {
-        return previousArgument;
-    }
-
-    public final void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
-    }
-
     public final Argument getArgument() {
         return argument;
     }
@@ -1695,41 +1654,25 @@ public abstract class OperationNode {
 
     public final void setArguments(Argument _argument) {
         argument = _argument;
-        OperationNode n_ = getSiblingToSet();
-        if (n_ == null) {
-            return;
-        }
+        PossibleIntermediateDotted n_ = getSiblingToSet();
         n_.setPreviousArgument(_argument);
     }
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode n_ = getSiblingToSet();
+        PossibleIntermediateDotted n_ = getSiblingToSet();
         if (n_ != null) {
-            _nodes.getVal(n_).setPreviousArgument(_argument);
+            _nodes.getVal((OperationNode)n_).setPreviousArgument(_argument);
         }
         setNextSiblingsArg(_argument, _conf, _nodes);
     }
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf) {
         argument = _argument;
-        OperationNode n_ = getSiblingToSet();
+        PossibleIntermediateDotted n_ = getSiblingToSet();
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
         }
         setNextSiblingsArg(_argument, _conf);
-    }
-
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
-    }
-
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
-        setPreviousResultClass(_previousResultClass, false);
-    }
-
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
-        previousResultClass = _previousResultClass;
-        staticAccess = _staticAccess;
     }
 
     public final boolean isStaticBlock() {
@@ -1751,23 +1694,25 @@ public abstract class OperationNode {
 
     public final void setResultClass(ClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
-        OperationNode n_ = getSiblingToSet();
+        PossibleIntermediateDotted n_ = getSiblingToSet();
         if (n_ == null) {
             return;
         }
+        n_.setIntermediateDotted();
         n_.setPreviousResultClass(resultClass);
     }
 
-    public final void setResultClass(ClassArgumentMatching _resultClass, boolean _staticPrevious) {
+    public final void setStaticResultClass(ClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
-        OperationNode n_ = getSiblingToSet();
+        PossibleIntermediateDotted n_ = getSiblingToSet();
         if (n_ == null) {
             return;
         }
-        n_.setPreviousResultClass(resultClass, _staticPrevious);
+        n_.setIntermediateDotted();
+        n_.setPreviousResultClass(resultClass, true);
     }
 
-    final OperationNode getSiblingToSet() {
+    private PossibleIntermediateDotted getSiblingToSet() {
         OperationNode n_ = getNextSibling();
         if (n_ == null) {
             return null;
@@ -1775,25 +1720,14 @@ public abstract class OperationNode {
         if (!(getParent() instanceof DotOperation)) {
             return null;
         }
-        if (n_ instanceof ArrOperation) {
+        if (!(n_ instanceof PossibleIntermediateDotted)) {
             OperationNode child_ = n_.getFirstChild();
-            while (child_ instanceof ArrOperation) {
+            while (!(child_ instanceof PossibleIntermediateDotted)) {
                 child_ = child_.getFirstChild();
             }
-            return child_;
+            return (PossibleIntermediateDotted)child_;
         }
-        return n_;
-    }
-
-    public final boolean isNeedGlobalArgument() {
-        return needGlobalArgument;
-    }
-
-    public final void needGlobalArgument() {
-        if (isIntermediateDotted()) {
-            return;
-        }
-        needGlobalArgument = true;
+        return (PossibleIntermediateDotted)n_;
     }
 
     protected static String prefixFunction(String _fct) {

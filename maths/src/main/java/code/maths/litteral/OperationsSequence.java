@@ -1,8 +1,10 @@
 package code.maths.litteral;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.StringList;
 
 public final class OperationsSequence {
+    private static final char NEG_BOOL_CHAR = '!';
 
     private String fctName = "";
 
@@ -24,6 +26,9 @@ public final class OperationsSequence {
             values.put((int)CustList.FIRST_INDEX, _string);
             return;
         }
+        if (priority == MathResolver.EQ_PRIO && StringList.quickEq(operators.firstValue(), String.valueOf(NEG_BOOL_CHAR))) {
+            priority = MathResolver.BAD_PRIO;
+        }
         int beginValuePart_ = CustList.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_;
@@ -31,7 +36,7 @@ public final class OperationsSequence {
             //not unary priority, not identity priority
             str_ = _string.substring(beginValuePart_, endValuePart_);
             values.put(beginValuePart_, str_);
-        } else {
+        } else if (priority != MathResolver.UNARY_PRIO) {
             str_ = _string.substring(beginValuePart_, endValuePart_);
             if (!str_.trim().isEmpty()) {
                 //let analyze this

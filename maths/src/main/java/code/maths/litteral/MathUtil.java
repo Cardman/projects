@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteral.exceptions.BadMathExpressionException;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -12,6 +13,9 @@ final class MathUtil {
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = MathResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(el_, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
+        if (op_ == null) {
+            throw new BadMathExpressionException(el_);
+        }
         CustList<OperationNode> all_ = getOperationNodes(op_);
         analyze(all_, _conf);
         if (!_onlycheckSyntax) {

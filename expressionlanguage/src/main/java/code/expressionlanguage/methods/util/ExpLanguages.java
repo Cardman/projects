@@ -1,22 +1,23 @@
 package code.expressionlanguage.methods.util;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.OperationNode;
+import code.util.CustList;
 
 public final class ExpLanguages {
 
-    private final ExpressionLanguage left;
+    private final CustList<OperationNode> left;
 
-    private final ExpressionLanguage right;
+    private final CustList<OperationNode> right;
 
-    public ExpLanguages(ExpressionLanguage _left, ExpressionLanguage _right) {
+    public ExpLanguages(CustList<OperationNode> _left, CustList<OperationNode> _right) {
         left = _left;
         right = _right;
     }
 
-    public ExpressionLanguage getLeft() {
+    public CustList<OperationNode> getLeft() {
         return left;
     }
 
-    public ExpressionLanguage getRight() {
+    public CustList<OperationNode> getRight() {
         return right;
     }
 }

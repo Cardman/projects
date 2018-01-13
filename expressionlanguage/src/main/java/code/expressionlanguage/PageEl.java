@@ -78,6 +78,8 @@ public final class PageEl {
 
     private String processingAttribute = EMPTY_STRING;
 
+    private boolean staticContext;
+
     public String getInfos(ContextEl _context) {
         StringBuilder str_ = new StringBuilder(getCommonInfosAndRc(getTrace(), _context));
         str_.insert(0, SEP_INFO);
@@ -413,5 +415,13 @@ public final class PageEl {
 
     public void setFinallyToProcess(boolean _finallyToProcess) {
         finallyToProcess = _finallyToProcess;
+    }
+
+    public boolean isStaticContext() {
+        return staticContext;
+    }
+
+    public void setStaticContext(boolean _staticContext) {
+        staticContext = _staticContext;
     }
 }

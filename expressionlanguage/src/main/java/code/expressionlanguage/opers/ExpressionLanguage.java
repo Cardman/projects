@@ -27,11 +27,16 @@ public final class ExpressionLanguage {
     }
 
     private SettableElResult buildSettable() {
-        if (root instanceof SettableElResult) {
-            return (SettableElResult) root;
+        return getSettable(operations);
+    }
+
+    public static SettableElResult getSettable(CustList<OperationNode> _operations) {
+        OperationNode root_ = _operations.last();
+        if (root_ instanceof SettableElResult) {
+            return (SettableElResult) root_;
         }
-        if (operations.size() > 1){
-            OperationNode beforeLast_ = operations.getPrev(operations.getLastIndex());
+        if (_operations.size() > 1){
+            OperationNode beforeLast_ = _operations.getPrev(_operations.getLastIndex());
             if (beforeLast_ instanceof SettableElResult) {
                 return (SettableElResult) beforeLast_;
             }
@@ -45,7 +50,9 @@ public final class ExpressionLanguage {
         for (OperationNode o: operations) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
-            a_.setPreviousArgument(o.getPreviousArgument());
+            if (o instanceof ConstantOperation) {
+                a_.setPreviousArgument(((ConstantOperation)o).getPreviousArgument());
+            }
             arguments_.put(o, a_);
         }
         return arguments_;

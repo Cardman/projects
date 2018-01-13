@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.util.BeanStruct;
@@ -159,7 +160,8 @@ public final class ImportingPage {
     }
 
     public void setGlobalArgumentStruct(Struct _obj, Configuration _context) {
-        pageEl.setGlobalClass(_obj.getClassName(_context.toContextEl()));
+        LgNames lgNames_ = _context.getStandards();
+        pageEl.setGlobalClass(lgNames_.getStructClassName(_obj, _context.toContextEl()));
         pageEl.setGlobalArgumentStruct(_obj);
     }
 
@@ -178,7 +180,8 @@ public final class ImportingPage {
     }
 
     public void setGlobalArgument(Argument _globalArgument, Configuration _context) {
-        pageEl.setGlobalClass(_globalArgument.getStruct().getClassName(_context.toContextEl()));
+        LgNames lgNames_ = _context.getStandards();
+        pageEl.setGlobalClass(lgNames_.getStructClassName(_globalArgument.getStruct(), _context.toContextEl()));
         pageEl.setGlobalArgument(_globalArgument);
     }
 

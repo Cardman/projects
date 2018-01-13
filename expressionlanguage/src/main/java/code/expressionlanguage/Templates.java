@@ -94,19 +94,6 @@ public final class Templates {
         }
         return true;
     }
-    public static StringList getTypesByBases(String _baseType, String _baseSuperType, ContextEl _context) {
-        String generic_ = getGenericTypeByBases(_baseType, _baseSuperType, _context);
-        if (generic_ == null) {
-            return null;
-        }
-        StringList foundSuperClass_ = StringList.getAllTypes(generic_);
-        int len_ = foundSuperClass_.size();
-        StringList args_ = new StringList();
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            args_.add(foundSuperClass_.get(i));
-        }
-        return args_;
-    }
     public static StringList getAllGenericSuperTypes(String _className, ContextEl _context) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = types_.first();
@@ -207,66 +194,6 @@ public final class Templates {
                         String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
                         geneSuperInterface_ = format(c, geneSuperInterface_, _context);
                         if (StringList.quickEq(s, baseSuperType_)) {
-                            generic_ = geneSuperInterface_;
-                            break;
-                        }
-                        if (!visitedClasses_.containsStr(geneSuperInterface_)) {
-                            nextClasses_.add(geneSuperInterface_);
-                            visitedClasses_.add(geneSuperInterface_);
-                        }
-                    }
-                    if (generic_ != null) {
-                        break;
-                    }
-                }
-                if (generic_ != null) {
-                    break;
-                }
-                curClasses_ = nextClasses_;
-            }
-        }
-        return generic_;
-    }
-    static String getGenericTypeByBases(String _baseType, String _baseSuperType, ContextEl _context) {
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _context)) {
-            return null;
-        }
-        StringList curClasses_ = new StringList(_baseType);
-        StringList visitedClasses_ = new StringList(_baseType);
-        String generic_ = null;
-        if (StringList.quickEq(_baseSuperType, _baseType)) {
-            generic_ = _baseType;
-        }
-        if (generic_ == null) {
-            for (String c: curClasses_) {
-                if (!correctNbParameters(c, _context)) {
-                    return null;
-                }
-            }
-            while (true) {
-                StringList nextClasses_ = new StringList();
-                for (String c: curClasses_) {
-                    StringList allTypes_ = StringList.getAllTypes(c);
-                    String baseClass_ = allTypes_.first();
-                    String superClass_ = getSuperClassName(baseClass_, _context);
-                    if (superClass_ != null) {
-                        String geneSuperClass_ = getGenericSuperClassName(c, _context);
-                        geneSuperClass_ = format(c, geneSuperClass_, _context);
-                        if (StringList.quickEq(superClass_, _baseSuperType)) {
-                            generic_ = geneSuperClass_;
-                            break;
-                        }
-                        if (!visitedClasses_.containsStr(geneSuperClass_)) {
-                            nextClasses_.add(geneSuperClass_);
-                            visitedClasses_.add(geneSuperClass_);
-                        }
-                    }
-                    int i_ = CustList.INDEX_NOT_FOUND_ELT;
-                    for (String s: getSuperInterfaceNames(baseClass_, _context)) {
-                        i_++;
-                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
-                        geneSuperInterface_ = format(c, geneSuperInterface_, _context);
-                        if (StringList.quickEq(s, _baseSuperType)) {
                             generic_ = geneSuperInterface_;
                             break;
                         }

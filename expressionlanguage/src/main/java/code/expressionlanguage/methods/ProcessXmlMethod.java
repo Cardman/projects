@@ -32,6 +32,7 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -127,8 +128,9 @@ public final class ProcessXmlMethod {
                     continue;
                 }
                 _0.printStackTrace();
+                LgNames lgNames_ = _cont.getStandards();
                 Struct custCause_ = ((IndirectException)realCaught_).getCustCause();
-                throw new InvokeRedinedMethException(new StdStruct(new CustomError(_cont.joinPages()), custCause_.getClassName(_cont)));
+                throw new InvokeRedinedMethException(new StdStruct(new CustomError(_cont.joinPages()), lgNames_.getStructClassName(custCause_, _cont)));
             }
         }
     }
@@ -281,6 +283,7 @@ public final class ProcessXmlMethod {
         }
     }
     private static boolean throwException(ContextEl _conf, Throwable _t) {
+        LgNames lgNames_ = _conf.getStandards();
         CatchEval catchElt_ = null;
         Struct custCause_ = ((IndirectException)_t).getCustCause();
         while (!_conf.isEmptyPages()) {
@@ -317,7 +320,7 @@ public final class ProcessXmlMethod {
                     CatchEval ca_ = (CatchEval) e;
                     String name_ = ca_.getClassName();
                     Mapping mapping_ = new Mapping();
-                    String excepClass_ = custCause_.getClassName(_conf);
+                    String excepClass_ = lgNames_.getStructClassName(custCause_, _conf);
                     if (excepClass_ == null) {
                         catchElt_ = ca_;
                         try_.setVisitedCatch(i_);

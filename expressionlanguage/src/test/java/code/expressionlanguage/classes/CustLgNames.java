@@ -550,6 +550,40 @@ public class CustLgNames extends LgNames {
             ((ArrayContainer[])_array)[_index] = (ArrayContainer) _elt.getInstance();
         }
     }
+    @Override
+    public String getOtherStructClassName(Object _struct, ContextEl _context) {
+        if (_struct instanceof Composite) {
+            return aliasComposite;
+        }
+        if (_struct instanceof Ints) {
+            return aliasInts;
+        }
+        if (_struct instanceof GeneObjects) {
+            return aliasGeneObjects;
+        }
+        if (_struct instanceof BeanOne) {
+            return aliasBeanOne;
+        }
+        if (_struct instanceof int[]) {
+            return PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
+        }
+        if (_struct instanceof Integer[]) {
+            return PrimitiveTypeUtil.getPrettyArrayType(getAliasInteger());
+        }
+        if (_struct instanceof int[][]) {
+            return PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger(),2);
+        }
+        if (_struct instanceof Integer[][]) {
+            return PrimitiveTypeUtil.getPrettyArrayType(getAliasInteger(),2);
+        }
+        if (_struct instanceof ArrayContainer[]) {
+            return PrimitiveTypeUtil.getPrettyArrayType(aliasArrayContainer);
+        }
+        if (_struct instanceof ArrayContainer) {
+            return aliasArrayContainer;
+        }
+        return super.getOtherStructClassName(_struct, _context);
+    }
     public String getAliasInts() {
         return aliasInts;
     }

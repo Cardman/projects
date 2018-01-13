@@ -4,6 +4,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import code.expressionlanguage.classes.CmpList;
@@ -1092,5 +1093,97 @@ public class TemplatesAdvTest {
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         return cont_;
+    }
+
+    @Test
+    public void getTypesByBases1Test() {
+        ContextEl context_ = new ContextEl();
+        StringList t_ = TemplatesAdv.getTypesByBases("java.lang.String", "java.lang.Object", context_);
+        assertEq(0, t_.size());
+    }
+
+    @Test
+    public void getTypesByBases2Test() {
+        ContextEl context_ = new ContextEl();
+        StringList t_ = TemplatesAdv.getTypesByBases("java.lang.Object", "java.lang.String", context_);
+        assertNull(t_);
+    }
+    
+    @Ignore
+    @Test
+    public void getTypesByBases3Test() {
+        ContextEl context_ = new ContextEl();
+        StringList t_ = TemplatesAdv.getTypesByBases(StringList.class.getName(), Listable.class.getName(), context_);
+        assertEq(1, t_.size());
+        assertEq("java.lang.String", t_.get(0));
+    }
+    
+    @Ignore
+    @Test
+    public void getTypesByBases4Test() {
+        ContextEl context_ = new ContextEl();
+        StringList t_ = TemplatesAdv.getTypesByBases(StringList.class.getName(), Iterable.class.getName(), context_);
+        assertEq(1, t_.size());
+        assertEq("java.lang.String", t_.get(0));
+    }
+    
+    @Ignore
+    @Test
+    public void getTypesByBases5Test() {
+        ContextEl context_ = new ContextEl();
+        StringList t_ = TemplatesAdv.getTypesByBases(Listable.class.getName(), Iterable.class.getName(), context_);
+        assertNull(t_);
+    }
+    
+    @Test
+    public void getTypesByBases6Test() {
+        ContextEl context_ = new ContextEl();
+        StringList t_ = TemplatesAdv.getTypesByBases("java.lang.String", "java.lang.String", context_);
+        assertEq(0, t_.size());
+    }
+    
+    @Ignore
+    @Test
+    public void getTypesByBases7Test() {
+        ContextEl context_ = new ContextEl();
+        StringList t_ = TemplatesAdv.getTypesByBases(Listable.class.getName(), Listable.class.getName(), context_);
+        assertEq(0, t_.size());
+    }
+    
+    @Test
+    public void getTypesByBases8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringList t_ = TemplatesAdv.getTypesByBases("pkg.Ex", "pkg.Ex", cont_);
+        assertEq(0, t_.size());
+    }
+    
+    @Test
+    public void getTypesByBases9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringList t_ = TemplatesAdv.getTypesByBases("pkg.ExTwo", "pkg.Ex", cont_);
+        assertEq(0, t_.size());
+    }
+    
+    @Test
+    public void getTypesByBases10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringList t_ = TemplatesAdv.getTypesByBases("pkg.Ex", "pkg.ExTwo", cont_);
+        assertNull(t_);
     }
 }

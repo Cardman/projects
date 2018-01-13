@@ -2667,6 +2667,203 @@ public class ElResolverTest {
     }
 
     @Test
+    public void getOperationsSequence153Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-.1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence154Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.1e1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-.1e1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence155Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence156Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".1_0";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq(".1_0", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence157Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq(".1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence158Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence159Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence160Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1.d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+ 
+    @Test
+    public void getOperationsSequence161Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.2_0e1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-.2_0e1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence162Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-1.2_0e1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-1.2_0e1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence163Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.1_0";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1.1_0", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+    
+    @Test
+    public void getOperationsSequence164Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.1_0d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1.1_0d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence165Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$$math$$abs()";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(23));
+        assertEq(")", opers_.getVal(24));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("$classchoice$$math$$abs", values_.getVal(0));
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+    }
+
+    @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
@@ -3133,6 +3330,374 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1  .0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax48FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0e5df";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax49FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0df";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax50FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1df";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax51FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.df";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax52FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.d.f";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax53FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1d.";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax54FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1df.";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax55FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0df";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax56FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0dgf";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax57FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0g";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax58FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "4g";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax59FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1ee2";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax60FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0e1g";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax61FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1f2";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax62FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".0e1g";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax63FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".0e1ff";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax64FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "4.g";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax65FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".4g";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax66FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "4.ff";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax67FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".4ff";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax68FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "4f1";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax69FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".4g";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax70FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0e4d.5";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax71FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1. .0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax72FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1..0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax73FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1e .0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax74FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "2e 0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax75FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "2e ";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax76FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = ". 1";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax77FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$vararg";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax78FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$vararg+4";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax79FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "'\\u9";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax80FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "'\\u9'";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax81FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$$";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax82FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$math$$";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax83FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$math$abs$$";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax84FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$math$abs$";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax85FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$$math$abs$";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax86FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$$math$abs$$$";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax87FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$math$abs$abs()";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax88FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$math$abs$$abs";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax89FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$this(";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax90FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$this$call";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax91FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$this$call$";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax92FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$this$call$$";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax93FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice$math$abs$$abs;";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
 

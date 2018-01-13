@@ -158,12 +158,12 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 String loc_ = eq_.getFirstArg();
                 LocalVariable local_ = new LocalVariable();
                 local_.setStruct(str_);
-                local_.setClassName(str_.getClassName(_cont));
+                local_.setClassName(_cont.getStandards().getAliasObject());
                 ip_.getLocalVars().put(loc_, local_);
                 String locSec_ = eq_.getSecondArg();
                 local_ = new LocalVariable();
                 local_.setStruct(arg_.getStruct());
-                local_.setClassName(arg_.getStruct().getClassName(_cont));
+                local_.setClassName(_cont.getStandards().getAliasObject());
                 ip_.getLocalVars().put(locSec_, local_);
                 Argument eqArg_ = cl_.getEqNatEl().calculateMember(_cont);
                 boolean b_ = (Boolean) eqArg_.getObject();

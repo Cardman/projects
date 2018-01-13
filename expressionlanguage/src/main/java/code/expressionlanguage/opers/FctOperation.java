@@ -321,9 +321,13 @@ public final class FctOperation extends InvokingOperation {
             setResultClass(clMatchTwo_);
             return;
         }
-        needGlobalArgument();
-//        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-        ClassArgumentMatching clCur_ = getPreviousResultClass();
+        ClassArgumentMatching clCur_;
+        if (isIntermediateDottedOperation()) {
+            clCur_ = getPreviousResultClass();
+        } else {
+            clCur_ = new ClassArgumentMatching(_conf.getLastPage().getGlobalClass());
+            setStaticAccess(_conf.getLastPage().isStaticContext());
+        }
         String clCurName_;
         if (trimMeth_.contains(STATIC_CALL)) {
             StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
@@ -679,7 +683,13 @@ public final class FctOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(_nodes.getVal(o).getArgument());
         }
-        ArgumentCall argres_ = getArgument(_nodes.getVal(this).getPreviousArgument(), arguments_, _conf);
+        Argument previous_;
+        if (isIntermediateDottedOperation()) {
+            previous_ = _nodes.getVal(this).getPreviousArgument();
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
+        ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
         if (argres_.isInitClass()) {
             throw new NotInitializedClassException(argres_.getInitClass().getClassName());
         }
@@ -714,7 +724,12 @@ public final class FctOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        Argument previous_ = getPreviousArgument();
+        Argument previous_;
+        if (isIntermediateDottedOperation()) {
+            previous_ = getPreviousArgument();
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
         if (argres_.isInitClass()) {
             ProcessXmlMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
@@ -788,7 +803,7 @@ public final class FctOperation extends InvokingOperation {
                 arg_.setObject(false);
                 return ArgumentCall.newArgument(arg_);
             }
-            String className_ = sec_.getStruct().getClassName(_conf);
+            String className_ = stds_.getStructClassName(sec_.getStruct(), _conf);
             if (!correctTemplate) {
                 className_ = StringList.getAllTypes(className_).first();
                 boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(str_, className_, _conf);
@@ -905,11 +920,11 @@ public final class FctOperation extends InvokingOperation {
 //                    return ArgumentCall.newArgument(argres_);
 //                }
 //            }
-            String clCur_ = getPreviousResultClass().getName();
+//            String clCur_ = getPreviousResultClass().getName();
             int nbParams_ = method.getTypeParameters().length;
             Type type_ = method.getGenericReturnType();
             String pre_ = NativeTypeUtil.getFormattedType(method.getReturnType().getName(), type_.toString(), nbParams_, type_);
-            Struct ret_ = invokeMethod(_conf, 0, naturalVararg > -1, clCur_, method, obj_, pre_, Argument.toArgArray(firstArgs_));
+            Struct ret_ = invokeMethod(_conf, 0, naturalVararg > -1, EMPTY_STRING, method, obj_, pre_, Argument.toArgArray(firstArgs_));
             Argument argres_ = new Argument();
             argres_.setStruct(ret_);
             return ArgumentCall.newArgument(argres_);
@@ -934,7 +949,7 @@ public final class FctOperation extends InvokingOperation {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
             ClassMetaInfo custClass_ = null;
-            String className_ = arg_.getStruct().getClassName(_conf);
+            String className_ = stds_.getStructClassName(arg_.getStruct(), _conf);
             custClass_ = classes_.getClassMetaInfo(className_, _conf);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (methodId_.eq(new MethodId(false, METH_NAME, new EqList<ClassName>()))) {
@@ -1006,7 +1021,7 @@ public final class FctOperation extends InvokingOperation {
                         String type_ = methodId_.getParametersTypes().get(indexType_);
                         if (!str_.isNull()) {
                             Mapping map_ = new Mapping();
-                            map_.setArg(str_.getClassName(_conf));
+                            map_.setArg(stds_.getStructClassName(str_, _conf));
                             map_.setParam(type_);
                             if (!Templates.isCorrect(map_, _conf)) {
                                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
@@ -1100,20 +1115,16 @@ public final class FctOperation extends InvokingOperation {
             params_.add(c);
         }
         checkArgumentsForInvoking(_conf, naturalVararg_ > -1, params_, getObjects(Argument.toArgArray(firstArgs_)));
-        CustList<Argument> args_ = new CustList<Argument>();
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: firstArgs_) {
             Struct str_ = a.getStruct();
             if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
                 ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
                 a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
-            } else {
-                a.setStruct(str_);
             }
-            args_.add(a);
             i_++;
         }
-        InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, args_);
+        InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, firstArgs_);
         return ArgumentCall.newCall(inv_);
     }
     public boolean isTernary() {

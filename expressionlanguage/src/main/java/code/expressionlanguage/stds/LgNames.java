@@ -110,6 +110,7 @@ public class LgNames {
     private String aliasReplacement;
 
     private String aliasError;
+    private String aliasCustomError;
     private String aliasBadSize;
     private String aliasDivisionZero;
     private String aliasCast;
@@ -300,6 +301,12 @@ public class LgNames {
         stdcl_ = new StandardClass(aliasBadEncode, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
         std_ = stdcl_;
         standards.put(aliasBadEncode, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasCustomError, fields_, constructors_, methods_, aliasObject, MethodModifier.NORMAL);
+        std_ = stdcl_;
+        standards.put(aliasCustomError, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         params_ = new StringList(aliasPrimInteger);
         method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.ABSTRACT, aliasCharSequence);
@@ -1948,7 +1955,7 @@ public class LgNames {
         }
         if (instance_ instanceof SimpleIterable) {
             if (StringList.quickEq(name_, lgNames_.getAliasSimpleIterator())) {
-                String typeInst_ = _struct.getClassName(_cont);
+                String typeInst_ = lgNames_.getStructClassName(_struct, _cont);
                 String it_ = lgNames_.getStandards().getVal(typeInst_).getIterative();
                 result_.setResult(new StdStruct(((SimpleIterable) instance_).simpleIterator(), StringList.concat(lgNames_.getAliasSimpleIteratorType(),Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
                 return result_;
@@ -1957,7 +1964,7 @@ public class LgNames {
         if (instance_ instanceof SimpleItr) {
             try {
                 if (StringList.quickEq(name_, lgNames_.getAliasNext())) {
-                    String typeInst_ = _struct.getClassName(_cont);
+                    String typeInst_ = lgNames_.getStructClassName(_struct, _cont);
                     StringList allTypes_ = StringList.getAllTypes(typeInst_);
                     Object resObj_ = ((SimpleItr)instance_).next();
                     result_.setResult(StdStruct.wrapStd(resObj_, allTypes_.last()));
@@ -3784,6 +3791,45 @@ public class LgNames {
     }
     public void setOtherElement(Object _array, int _index, Struct _element) {
     }
+    public String getStructClassName(Struct _struct, ContextEl _context) {
+        if (!(_struct instanceof StdStruct) || _struct.getInstance() instanceof CustomError) {
+            return _struct.getClassName(_context);
+        }
+        return getStructClassName(_struct.getInstance(), _context);
+    }
+    public String getStructClassName(Object _struct, ContextEl _context) {
+        if (_struct instanceof Double) {
+            return getAliasDouble();
+        }
+        if (_struct instanceof Float) {
+            return getAliasFloat();
+        }
+        if (_struct instanceof Long) {
+            return getAliasLong();
+        }
+        if (_struct instanceof Integer) {
+            return getAliasInteger();
+        }
+        if (_struct instanceof Character) {
+            return getAliasCharacter();
+        }
+        if (_struct instanceof Short) {
+            return getAliasShort();
+        }
+        if (_struct instanceof Byte) {
+            return getAliasByte();
+        }
+        if (_struct instanceof String) {
+            return getAliasString();
+        }
+        if (_struct instanceof StringBuilder) {
+            return getAliasStringBuilder();
+        }
+        return getOtherStructClassName(_struct, _context);
+    }
+    public String getOtherStructClassName(Object _struct, ContextEl _context) {
+        return getAliasObject();
+    }
     public String getClassName(Object _stds, Struct _from, ClassMethodId _method, ContextEl _context, Argument... _args) {
         if (_stds instanceof Double) {
             return getAliasDouble();
@@ -3927,6 +3973,12 @@ public class LgNames {
     }
     public void setAliasError(String _aliasError) {
         aliasError = _aliasError;
+    }
+    public String getAliasCustomError() {
+        return aliasCustomError;
+    }
+    public void setAliasCustomError(String _aliasCustomError) {
+        aliasCustomError = _aliasCustomError;
     }
     public String getAliasBadSize() {
         return aliasBadSize;

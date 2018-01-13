@@ -16,7 +16,12 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class InvokingOperation extends MethodOperation {
+public abstract class InvokingOperation extends MethodOperation implements PossibleIntermediateDotted {
+    private ClassArgumentMatching previousResultClass;
+    private boolean staticAccess;
+    private boolean intermediate;
+
+    private Argument previousArgument;
 
     public InvokingOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -202,5 +207,48 @@ public abstract class InvokingOperation extends MethodOperation {
         return firstOpt_;
     }
 
+    @Override
+    public final void setIntermediateDotted() {
+        intermediate = true;
+    }
+
+    @Override
+    public final boolean isIntermediateDottedOperation() {
+        return intermediate;
+    }
+
+    @Override
+    public final ClassArgumentMatching getPreviousResultClass() {
+        return previousResultClass;
+    }
+
+    @Override
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
+        setPreviousResultClass(_previousResultClass, false);
+    }
+
+    @Override
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+        previousResultClass = _previousResultClass;
+        staticAccess = _staticAccess;
+    }
+
+    @Override
+    public final Argument getPreviousArgument() {
+        return previousArgument;
+    }
+
+    @Override
+    public final void setPreviousArgument(Argument _previousArgument) {
+        previousArgument = _previousArgument;
+    }
+
+    public final boolean isStaticAccess() {
+        return staticAccess;
+    }
+
+    public final void setStaticAccess(boolean _staticAccess) {
+        staticAccess = _staticAccess;
+    }
     abstract boolean isCallMethodCtor();
 }

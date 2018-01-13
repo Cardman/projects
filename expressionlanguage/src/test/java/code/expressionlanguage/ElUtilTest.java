@@ -1776,6 +1776,36 @@ public class ElUtilTest {
         assertSame(Double.class, res_.getClass());
         assertEq(2L, (Number)res_);
     }
+    
+    @Test
+    public void processEl135Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("1 + 2 ",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Long.class, res_.getClass());
+        assertEq(3L, (Number)res_);
+    }
+
+    @Test
+    public void processEl136Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("1. + 2. ",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(3L, (Number)res_);
+    }
+
+    @Test
+    public void processEl137Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("1.d + 2.d ",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(3L, (Number)res_);
+    }
 
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
@@ -2072,6 +2102,69 @@ public class ElUtilTest {
         ElUtil.processEl(el_, 0, conf_);
     }
 
+    @Test(expected=EmptyPartException.class)
+    public void processEl35FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1< ";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=EmptyPartException.class)
+    public void processEl36FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1<";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void processEl37FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1!";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=EmptyPartException.class)
+    public void processEl38FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1!=";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void processEl39FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "!";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=EmptyPartException.class)
+    public void processEl40FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "-";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void processEl42FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$true!$false";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=BadNumberValuesException.class)
+    public void processEl43FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$static$"+FAIL_METHODS_HAT+".(fail())";
+        ElUtil.processEl(el_, 0, conf_);
+    }
     @Test
     public void processAffect1Test() {
         ContextEl context_ = contextEl();
@@ -2496,6 +2589,27 @@ public class ElUtilTest {
         assertEq("add 1",(String)((Struct[]) lv_.getStruct().getInstance())[0].getInstance());
     }
 
+    @Test
+    public void processAffect25Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='[$int' value='$new [$int(1i)'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='[$int'>\n";
+        xml_ += "<return expression='inst;;;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        addImportingPage(cont_);
+        Struct arg_;
+        Object res_;
+        ElUtil.processAffect("","","","$static$pkg$Ex.exmeth()[0i]", "2i", "=",cont_);
+        arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        res_ = arg_.getInstance();
+        assertEq(1,((Struct[])res_).length);
+        assertEq(2,(Number)((Struct[])res_)[0].getInstance());
+    }
 //    @Ignore
 //    @Test(expected=FinalMemberException.class)
 //    public void processAffect1FailTest() {
