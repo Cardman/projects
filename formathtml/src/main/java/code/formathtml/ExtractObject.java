@@ -394,7 +394,7 @@ final class ExtractObject {
         if (_addpage) {
             _conf.addPage(new ImportingPage(false));
         }
-        getResult(_conf, 0, BEFORE_DISPLAYING, _it);
+        getResult(_conf, 0, BEFORE_DISPLAYING, _it, _conf.getStandards().getBean());
         if (_addpage) {
             _conf.removeLastPage();
         }
@@ -407,7 +407,7 @@ final class ExtractObject {
             Struct out_ = new StdStruct(inst_.getDataBase(), _conf.getStandards().getAliasObject());
             return out_;
         }
-        return getResult(_conf, 0, GET_DATA_BASE, _it);
+        return getResult(_conf, 0, GET_DATA_BASE, _it, _conf.getStandards().getBean());
     }
 
     static void setDataBase(Configuration _conf, Struct _it, Struct _dataBase) {
@@ -417,7 +417,7 @@ final class ExtractObject {
             inst_.setDataBase(_dataBase.getInstance());
             return;
         }
-        setResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, Object.class.getName());
+        setBeanResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, Object.class.getName());
     }
 
     static String getLanguage(Configuration _conf, Struct _it) {
@@ -426,7 +426,7 @@ final class ExtractObject {
             Bean inst_ = (Bean) instance_;
             return inst_.getLanguage();
         }
-        return (String) getResult(_conf, 0, GET_LANGUAGE, _it).getInstance();
+        return (String) getResult(_conf, 0, GET_LANGUAGE, _it, _conf.getStandards().getBean()).getInstance();
     }
 
     static void setLanguage(Configuration _conf, Struct _it, String _scope) {
@@ -436,7 +436,7 @@ final class ExtractObject {
             inst_.setLanguage(_scope);
             return;
         }
-        setResult(_conf, 0, SET_LANGUAGE, _it, new StringStruct(_scope), String.class.getName());
+        setBeanResult(_conf, 0, SET_LANGUAGE, _it, new StringStruct(_scope), String.class.getName());
     }
 
     static String getScope(Configuration _conf, Struct _it) {
@@ -445,7 +445,7 @@ final class ExtractObject {
             Bean inst_ = (Bean) instance_;
             return inst_.getScope();
         }
-        return (String) getResult(_conf, 0, GET_SCOPE, _it).getInstance();
+        return (String) getResult(_conf, 0, GET_SCOPE, _it, _conf.getStandards().getBean()).getInstance();
     }
 
     static void setScope(Configuration _conf, Struct _it, String _scope) {
@@ -455,7 +455,7 @@ final class ExtractObject {
             inst_.setScope(_scope);
             return;
         }
-        setResult(_conf, 0, SET_SCOPE, _it, new StringStruct(_scope), String.class.getName());
+        setBeanResult(_conf, 0, SET_SCOPE, _it, new StringStruct(_scope), String.class.getName());
     }
 
     static Struct getForms(Configuration _conf, Struct _it) {
@@ -464,7 +464,7 @@ final class ExtractObject {
             Bean inst_ = (Bean) instance_;
             return new StringMapObjectStruct(inst_.getForms());
         }
-        return getResult(_conf, 0, GET_FORMS, _it);
+        return getResult(_conf, 0, GET_FORMS, _it, _conf.getStandards().getBean());
     }
 
     static void setForms(Configuration _conf, Struct _it, Struct _forms) {
@@ -474,7 +474,7 @@ final class ExtractObject {
             inst_.setForms((StringMapObject) _forms.getInstance());
             return;
         }
-        setResult(_conf, 0, SET_FORMS, _it, _forms, StringMapObject.class.getName());
+        setBeanResult(_conf, 0, SET_FORMS, _it, _forms, StringMapObject.class.getName());
     }
 
     static Struct getKey(Configuration _conf, Struct _it) {
@@ -486,7 +486,7 @@ final class ExtractObject {
             Struct out_ = StdStruct.wrapStd(key_, className_);
             return out_;
         }
-        return getResult(_conf, 0, GET_KEY, _it);
+        return getResult(_conf, 0, GET_KEY, _it, _conf.getStandards().getCustEntry());
     }
 
     static Struct getValue(Configuration _conf, Struct _it) {
@@ -498,7 +498,7 @@ final class ExtractObject {
             Struct out_ = StdStruct.wrapStd(value_, className_);
             return out_;
         }
-        return getResult(_conf, 0, GET_VALUE, _it);
+        return getResult(_conf, 0, GET_VALUE, _it, _conf.getStandards().getCustEntry());
     }
 
     static char getChar(Configuration _conf, String _obj) {
@@ -576,7 +576,7 @@ final class ExtractObject {
                 method_ = _conf.getStandards().getAliasToString();
             }
         }
-        return (String) getResult(_conf, 0, method_, _obj).getInstance();
+        return (String) getResult(_conf, 0, method_, _obj, _conf.getStandards().getStructClassName(_obj, context_)).getInstance();
     }
     static Struct iterator(Configuration _conf, Struct _it) {
         if (_conf.toContextEl().getClasses() == null) {
@@ -585,7 +585,7 @@ final class ExtractObject {
             Struct out_ = StdStruct.wrapStd(inst_.simpleIterator(), _conf.getStandards().getAliasIteratorType());
             return out_;
         }
-        return getResult(_conf, 0, ITERATOR, _it);
+        return getResult(_conf, 0, ITERATOR, _it, _conf.getStandards().getStructClassName(_it, _conf.toContextEl()));
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
         if (_conf.toContextEl().getClasses() == null) {
@@ -593,7 +593,10 @@ final class ExtractObject {
             SimpleItr inst_ = (SimpleItr) instance_;
             return inst_.hasNext();
         }
-        return (Boolean) getResult(_conf, 0, HAS_NEXT, _it).getInstance();
+        if (_it instanceof StdStruct) {
+            return (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType()).getInstance();
+        }
+        return (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasIteratorType()).getInstance();
     }
     static Struct next(Configuration _conf, Struct _it) {
         if (_conf.toContextEl().getClasses() == null) {
@@ -604,7 +607,10 @@ final class ExtractObject {
             Struct out_ = StdStruct.wrapStd(next_, className_);
             return out_;
         }
-        return getResult(_conf, 0, NEXT, _it);
+        if (_it instanceof StdStruct) {
+            return getResult(_conf, 0, NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType());
+        }
+        return getResult(_conf, 0, NEXT, _it, _conf.getStandards().getAliasIteratorType());
     }
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
         if (_conf.toContextEl().getClasses() == null) {
@@ -612,14 +618,14 @@ final class ExtractObject {
             Struct out_ = StdStruct.wrapStd(inst_.entries(), _conf.getStandards().getCustEntries());
             return out_;
         }
-        return getResult(_conf, 0, ENTRY_LIST, _container);
+        return getResult(_conf, 0, ENTRY_LIST, _container, _conf.getStandards().getCustMap());
     }
 
     static String getStringKey(Configuration _conf, Struct _instance) {
         ContextEl cont_ = _conf.toContextEl();
         if (cont_.getClasses() == null) {
             if (_instance.getInstance().getClass().isEnum()) {
-                return (String) getResult(_conf, 0, NAME, _instance).getInstance();
+                return (String) getResult(_conf, 0, NAME, _instance, _instance.getClassName(cont_)).getInstance();
             }
             return toString(_conf, _instance);
         }
@@ -632,13 +638,13 @@ final class ExtractObject {
         }
         return toString(_conf, res_.getResult());
     }
-    private static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance) {
+    private static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, String _classVar) {
         ImportingPage ip_ = _conf.getLastPage();
         ContextEl context_ = _conf.toContextEl();
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
-        var_.setClassName(context_.getStandards().getStructClassName(_instance, context_));
+        var_.setClassName(_classVar);
         ip_.getLocalVars().put(varName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,NO_PARAM_METHOD);
         try {
@@ -652,14 +658,13 @@ final class ExtractObject {
             throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
         }
     }
-    private static void setResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
+    private static void setBeanResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
             String _argumentClassName) {
         ImportingPage ip_ = _conf.getLastPage();
-        ContextEl context_ = _conf.toContextEl();
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
-        var_.setClassName(context_.getStandards().getStructClassName(_instance, context_));
+        var_.setClassName(_conf.getStandards().getBean());
         ip_.getLocalVars().put(varName_, var_);
         String argName_ = ip_.getNextTempVar();
         var_ = new LocalVariable();

@@ -1807,6 +1807,35 @@ public class ElUtilTest {
         assertEq(3L, (Number)res_);
     }
 
+    @Test
+    public void processEl138Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-.2_5e0+.5",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.25d, (Number)res_);
+    }
+
+    @Test
+    public void processEl139Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-.25e0_0+.5",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.25d, (Number)res_);
+    }
+
+    @Test
+    public void processEl140Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("1_0.d + 2.d ",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(12L, (Number)res_);
+    }
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
         ContextEl context_ = contextEl();

@@ -34,7 +34,7 @@ public final class ParsedArgument {
 
     private String type = UNEXPECTED_TYPE;
 
-    public static ParsedArgument parse(String _nb, ContextEl _context) {
+    public static ParsedArgument parse(NumberInfos _infosNb, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         String doubleType_ = stds_.getAliasDouble();
         String doublePrimType_ = stds_.getAliasPrimDouble();
@@ -50,110 +50,206 @@ public final class ParsedArgument {
         String shortPrimType_ = stds_.getAliasPrimShort();
         String byteType_ = stds_.getAliasByte();
         String bytePrimType_ = stds_.getAliasPrimByte();
-        String nb_ = extractFromSuffix(_nb);
-        Long longValue_ = LgNames.parseLongTen(nb_);
-        if (!or(LgNames.isValidDouble(nb_), longValue_ == null)) {
-            return new ParsedArgument();
-        }
+        char suffix_ = _infosNb.getSuffix();
         ParsedArgument out_ = new ParsedArgument();
-        if (StringList.quickEq(nb_, removeUnderscores(_nb))) {
-            if (longValue_ != null) {
-                out_.type = longType_;
-                out_.object = new LongStruct(longValue_);
-                return out_;
+        if (suffix_ == 'D' || suffix_ == 'd' || suffix_ == 'F' || suffix_ == 'f') {
+            StringBuilder nbFormatted_ = new StringBuilder();
+            if (!_infosNb.isPositive()) {
+                nbFormatted_.append("-");
             }
-            out_.type = doubleType_;
-            out_.object = new DoubleStruct(Double.parseDouble(nb_));
-            return out_;
-        }
-        String parts_ = StringList.splitInTwo(_nb, _nb.length() - 1).last();
-        boolean long_ = false;
-        Number value_;
-        if (longValue_ != null) {
-            long_ = true;
-            value_ = longValue_;
-        } else {
-            value_ = Double.parseDouble(nb_);
-        }
-        if (StringList.quickEq(StringList.toLowerCase(parts_), INT_SUFFIX) && long_) {
-            if (!checkedLongBounds(value_.longValue(), Integer.MIN_VALUE, Integer.MAX_VALUE)) {
-                return out_;
+            nbFormatted_.append(_infosNb.getIntPart());
+            if (_infosNb.isDotted()) {
+                nbFormatted_.append(".");
+                nbFormatted_.append(_infosNb.getDecimalPart());
             }
-            if (StringList.quickEq(parts_, INT_SUFFIX)) {
-                out_.type = intPrimType_;
-            } else {
-                out_.type = intType_;
+            if (_infosNb.getExponentialPart().length() > 0) {
+                nbFormatted_.append("e");
+                nbFormatted_.append(_infosNb.getExponentialPart());
             }
-            out_.object = new IntStruct(value_.intValue());
-            return out_;
-        }
-        if (StringList.quickEq(StringList.toLowerCase(parts_), BYTE_SUFFIX) && long_) {
-            if (!checkedLongBounds(value_.longValue(), Byte.MIN_VALUE, Byte.MAX_VALUE)) {
-                return out_;
-            }
-            if (StringList.quickEq(parts_, BYTE_SUFFIX)) {
-                out_.type = bytePrimType_;
-            } else {
-                out_.type = byteType_;
-            }
-            out_.object = new ByteStruct(value_.byteValue());
-            return out_;
-        }
-        if (StringList.quickEq(StringList.toLowerCase(parts_), LONG_SUFFIX) && long_) {
-            if (StringList.quickEq(parts_, LONG_SUFFIX)) {
-                out_.type = longPrimType_;
-            } else {
-                out_.type = longType_;
-            }
-            out_.object = new LongStruct(value_.longValue());
-            return out_;
-        }
-        if (StringList.quickEq(StringList.toLowerCase(parts_), SHORT_SUFFIX) && long_) {
-            if (!checkedLongBounds(value_.longValue(), Short.MIN_VALUE, Short.MAX_VALUE)) {
-                return out_;
-            }
-            if (StringList.quickEq(parts_, SHORT_SUFFIX)) {
-                out_.type = shortPrimType_;
-            } else {
-                out_.type = shortType_;
-            }
-            out_.object = new ShortStruct(value_.shortValue());
-            return out_;
-        }
-        if (StringList.quickEq(StringList.toLowerCase(parts_), CHAR_SUFFIX) && long_) {
-            if (!checkedLongBounds(value_.longValue(), Character.MIN_VALUE, Character.MAX_VALUE)) {
-                return out_;
-            }
-            if (StringList.quickEq(parts_, CHAR_SUFFIX)) {
-                out_.type = charPrimType_;
-            } else {
-                out_.type = charType_;
-            }
-            out_.object = new CharStruct(Character.valueOf((char) value_.longValue()));
-            return out_;
-        }
-        if (StringList.quickEq(StringList.toLowerCase(parts_), FLOAT_SUFFIX)) {
-            if (!checkedDoubleBounds(value_.doubleValue(), Float.MIN_VALUE, Float.MAX_VALUE)) {
-                return out_;
-            }
-            if (StringList.quickEq(parts_, FLOAT_SUFFIX)) {
+//            String nb_ = StringList.removeChars(StringList.removeAllSpaces(nbFormatted_.toString()), '_');
+            if (suffix_ == 'd') {
+                out_.type = doublePrimType_;
+            } else if (suffix_ == 'D'){
+                out_.type = doubleType_;
+            } else if (suffix_ == 'f') {
                 out_.type = floatPrimType_;
             } else {
                 out_.type = floatType_;
             }
-            out_.object = new FloatStruct(value_.floatValue());
-            return out_;
-        }
-        if (StringList.quickEq(StringList.toLowerCase(parts_), DOUBLE_SUFFIX)) {
-            if (StringList.quickEq(parts_, DOUBLE_SUFFIX)) {
-                out_.type = doublePrimType_;
+            if (suffix_ == 'D' || suffix_ == 'd') {
+                out_.object = new DoubleStruct(LgNames.parseDouble(_infosNb));
             } else {
-                out_.type = doubleType_;
+                double d_ = LgNames.parseDouble(_infosNb);
+                if (!checkedDoubleBounds(d_, Float.MIN_VALUE, Float.MAX_VALUE)) {
+                    return out_;
+                }
+                out_.object = new FloatStruct((float) d_);
             }
-            out_.object = new DoubleStruct(value_.doubleValue());
             return out_;
         }
+        StringBuilder nbFormatted_ = new StringBuilder();
+        if (!_infosNb.isPositive()) {
+            nbFormatted_.append("-");
+        }
+        nbFormatted_.append(_infosNb.getIntPart());
+        String nb_ = StringList.removeChars(StringList.removeAllSpaces(nbFormatted_.toString()), '_');
+        Long longValue_ = LgNames.parseLongTen(nb_);
+        if (suffix_ == 'L' || suffix_ == 'l') {
+            if (suffix_ == 'l') {
+                out_.type = longPrimType_;
+            } else {
+                out_.type = longType_;
+            }
+            out_.object = new LongStruct(longValue_.longValue());
+            return out_;
+        }
+        if (suffix_ == 'I' || suffix_ == 'i') {
+            if (!checkedLongBounds(longValue_.longValue(), Integer.MIN_VALUE, Integer.MAX_VALUE)) {
+                return out_;
+            }
+            if (suffix_ == 'i') {
+                out_.type = intPrimType_;
+            } else {
+                out_.type = intType_;
+            }
+            out_.object = new IntStruct(longValue_.intValue());
+            return out_;
+        }
+        if (suffix_ == 'S' || suffix_ == 's') {
+            if (!checkedLongBounds(longValue_.longValue(), Short.MIN_VALUE, Short.MAX_VALUE)) {
+                return out_;
+            }
+            if (suffix_ == 's') {
+                out_.type = shortPrimType_;
+            } else {
+                out_.type = shortType_;
+            }
+            out_.object = new ShortStruct(longValue_.shortValue());
+            return out_;
+        }
+        if (suffix_ == 'B' || suffix_ == 'b') {
+            if (!checkedLongBounds(longValue_.longValue(), Byte.MIN_VALUE, Byte.MAX_VALUE)) {
+                return out_;
+            }
+            if (suffix_ == 'b') {
+                out_.type = bytePrimType_;
+            } else {
+                out_.type = byteType_;
+            }
+            out_.object = new ByteStruct(longValue_.byteValue());
+            return out_;
+        }
+        if (!checkedLongBounds(longValue_.longValue(), Character.MIN_VALUE, Character.MAX_VALUE)) {
+            return out_;
+        }
+        if (suffix_ == 'c') {
+            out_.type = charPrimType_;
+        } else {
+            out_.type = charType_;
+        }
+        out_.object = new CharStruct(Character.valueOf((char) longValue_.longValue()));
         return out_;
+//        if (!or(LgNames.isValidDouble(nb_), longValue_ == null)) {
+//            return new ParsedArgument();
+//        }
+//        if (StringList.quickEq(nb_, removeUnderscores(_nb))) {
+//            if (longValue_ != null) {
+//                out_.type = longType_;
+//                out_.object = new LongStruct(longValue_);
+//                return out_;
+//            }
+//            out_.type = doubleType_;
+//            out_.object = new DoubleStruct(Double.parseDouble(nb_));
+//            return out_;
+//        }
+//        String parts_ = StringList.splitInTwo(_nb, _nb.length() - 1).last();
+//        boolean long_ = false;
+//        Number value_;
+//        if (longValue_ != null) {
+//            long_ = true;
+//            value_ = longValue_;
+//        } else {
+//            value_ = Double.parseDouble(nb_);
+//        }
+//        if (StringList.quickEq(StringList.toLowerCase(parts_), INT_SUFFIX) && long_) {
+//            if (!checkedLongBounds(value_.longValue(), Integer.MIN_VALUE, Integer.MAX_VALUE)) {
+//                return out_;
+//            }
+//            if (StringList.quickEq(parts_, INT_SUFFIX)) {
+//                out_.type = intPrimType_;
+//            } else {
+//                out_.type = intType_;
+//            }
+//            out_.object = new IntStruct(value_.intValue());
+//            return out_;
+//        }
+//        if (StringList.quickEq(StringList.toLowerCase(parts_), BYTE_SUFFIX) && long_) {
+//            if (!checkedLongBounds(value_.longValue(), Byte.MIN_VALUE, Byte.MAX_VALUE)) {
+//                return out_;
+//            }
+//            if (StringList.quickEq(parts_, BYTE_SUFFIX)) {
+//                out_.type = bytePrimType_;
+//            } else {
+//                out_.type = byteType_;
+//            }
+//            out_.object = new ByteStruct(value_.byteValue());
+//            return out_;
+//        }
+//        if (StringList.quickEq(StringList.toLowerCase(parts_), LONG_SUFFIX) && long_) {
+//            if (StringList.quickEq(parts_, LONG_SUFFIX)) {
+//                out_.type = longPrimType_;
+//            } else {
+//                out_.type = longType_;
+//            }
+//            out_.object = new LongStruct(value_.longValue());
+//            return out_;
+//        }
+//        if (StringList.quickEq(StringList.toLowerCase(parts_), SHORT_SUFFIX) && long_) {
+//            if (!checkedLongBounds(value_.longValue(), Short.MIN_VALUE, Short.MAX_VALUE)) {
+//                return out_;
+//            }
+//            if (StringList.quickEq(parts_, SHORT_SUFFIX)) {
+//                out_.type = shortPrimType_;
+//            } else {
+//                out_.type = shortType_;
+//            }
+//            out_.object = new ShortStruct(value_.shortValue());
+//            return out_;
+//        }
+//        if (StringList.quickEq(StringList.toLowerCase(parts_), CHAR_SUFFIX) && long_) {
+//            if (!checkedLongBounds(value_.longValue(), Character.MIN_VALUE, Character.MAX_VALUE)) {
+//                return out_;
+//            }
+//            if (StringList.quickEq(parts_, CHAR_SUFFIX)) {
+//                out_.type = charPrimType_;
+//            } else {
+//                out_.type = charType_;
+//            }
+//            out_.object = new CharStruct(Character.valueOf((char) value_.longValue()));
+//            return out_;
+//        }
+//        if (StringList.quickEq(StringList.toLowerCase(parts_), FLOAT_SUFFIX)) {
+//            if (!checkedDoubleBounds(value_.doubleValue(), Float.MIN_VALUE, Float.MAX_VALUE)) {
+//                return out_;
+//            }
+//            if (StringList.quickEq(parts_, FLOAT_SUFFIX)) {
+//                out_.type = floatPrimType_;
+//            } else {
+//                out_.type = floatType_;
+//            }
+//            out_.object = new FloatStruct(value_.floatValue());
+//            return out_;
+//        }
+//        if (StringList.quickEq(StringList.toLowerCase(parts_), DOUBLE_SUFFIX)) {
+//            if (StringList.quickEq(parts_, DOUBLE_SUFFIX)) {
+//                out_.type = doublePrimType_;
+//            } else {
+//                out_.type = doubleType_;
+//            }
+//            out_.object = new DoubleStruct(value_.doubleValue());
+//            return out_;
+//        }
+//        return out_;
     }
 
     static boolean checkedLongBounds(long _value, long _min, long _max) {

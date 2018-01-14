@@ -563,14 +563,16 @@ public final class ElResolver {
                     }
                 }
                 if (isNumber(i_, len_, _string)) {
-                    int res_ = processNb(i_, len_, firstPrintableWordChar_, _string, false);
-                    if (res_ < 0) {
-                        _conf.getLastPage().setOffset(-res_);
+                    NumberInfosOutput res_ = processNb(i_, len_, firstPrintableWordChar_, _string, false);
+                    int nextIndex_ = res_.getNextIndex();
+                    if (nextIndex_ < 0) {
+                        _conf.getLastPage().setOffset(-nextIndex_);
                         throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
                     }
+                    d_.getNbInfos().add(res_.getInfos());
                     d_.getDelNumbers().add(i_);
-                    d_.getDelNumbers().add(res_);
-                    i_ = res_;
+                    d_.getDelNumbers().add(nextIndex_);
+                    i_ = nextIndex_;
                     continue;
                 }
                 while (i_ < len_) {
@@ -579,18 +581,25 @@ public final class ElResolver {
                     }
                     i_++;
                 }
+                String nextPart_ = _string.substring(i_).trim();
+                if (!isCorrectNbEndWord(nextPart_, end_)) {
+                    _conf.getLastPage().setOffset(i_+1);
+                    throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                }
                 continue;
             }
             if (curChar_ == DOT_VAR) {
                 if (isNumber(i_ + 1, len_, _string)) {
-                    int res_ = processNb(i_ + 1, len_, firstPrintableWordChar_, _string, true);
-                    if (res_ < 0) {
-                        _conf.getLastPage().setOffset(-res_);
+                    NumberInfosOutput res_ = processNb(i_ + 1, len_, firstPrintableWordChar_, _string, true);
+                    int nextIndex_ = res_.getNextIndex();
+                    if (nextIndex_ < 0) {
+                        _conf.getLastPage().setOffset(-nextIndex_);
                         throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
                     }
+                    d_.getNbInfos().add(res_.getInfos());
                     d_.getDelNumbers().add(i_);
-                    d_.getDelNumbers().add(res_);
-                    i_ = res_;
+                    d_.getDelNumbers().add(nextIndex_);
+                    i_ = nextIndex_;
                     continue;
                 }
                 if (i_ + 1 < len_ && Character.isWhitespace(_string.charAt(i_ + 1))) {
@@ -925,66 +934,98 @@ public final class ElResolver {
         return Character.isDigit(first_) && !var_;
     }
 
-    private static int processNb(int _start, int _max, int _firstPrint, String _string, boolean _seenDot) {
+    private static NumberInfosOutput processNb(int _start, int _max, int _firstPrint, String _string, boolean _seenDot) {
         //_string.charAt(_start) is digit
+        NumberInfosOutput output_ = new NumberInfosOutput();
+        NumberInfos nbInfos_ = new NumberInfos();
+        output_.setInfos(nbInfos_);
+        StringBuilder intPart_ = new StringBuilder();
+        StringBuilder decPart_ = new StringBuilder();
+        StringBuilder expPart_ = new StringBuilder();
+        nbInfos_.setIntPart(intPart_);
+        nbInfos_.setDecimalPart(decPart_);
+        nbInfos_.setExponentialPart(expPart_);
+        if (_seenDot) {
+            nbInfos_.setDotted(true);
+            nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
+            decPart_.append(_string.charAt(_start));
+        } else {
+            intPart_.append(_string.charAt(_start));
+        }
         int len_ = _max;
         int j_ = _start + 1;
         boolean dot_ = false;
         boolean exp_ = false;
         int iExp_ = j_;
         while (j_ < len_) {
-            if (!StringList.isWordChar(_string.charAt(j_))) {
+            char current_ = _string.charAt(j_);
+            if (!StringList.isWordChar(current_)) {
                 if (_string.charAt(j_) == DOT_VAR) {
                     if (_seenDot) {
-                        return -j_;
+                        output_.setNextIndex(-j_);
+                        return output_;
                     }
                     if (j_ + 1 < len_ && Character.isWhitespace(_string.charAt(j_ + 1))) {
                         String nextPart_ = _string.substring(j_ + 1).trim();
                         if (nextPart_.isEmpty()) {
-                            return j_ + 1;
+                            nbInfos_.setDotted(true);
+                            nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
+                            output_.setNextIndex(j_ + 1);
+                            return output_;
                         }
-                        if (StringList.isWordChar(nextPart_.charAt(0)) || nextPart_.charAt(0) == DOT_VAR) {
-                            return -(j_ + 1);
+                        if (!isCorrectNbEnd(nextPart_)) {
+                            output_.setNextIndex(-(j_ + 1));
+                            return output_;
                         }
                     }
                     if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
-                        return -(j_ + 1);
+                        output_.setNextIndex(-(j_ + 1));
+                        return output_;
                     }
                     dot_ = true;
                 }
                 break;
             }
-            if (Character.toLowerCase(_string.charAt(j_)) == EXP) {
-                if (exp_) {
-                    return -j_;
-                }
+            if (Character.toLowerCase(current_) == EXP) {
                 if (j_ + 1 < len_ && Character.isWhitespace(_string.charAt(j_ + 1))) {
-                    return -(j_ + 1);
+                    output_.setNextIndex(-(j_ + 1));
+                    return output_;
                 }
+                nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
                 iExp_ = j_;
                 exp_ = true;
-            } else if (Character.isLetter(_string.charAt(j_))) {
-                if (!isNbSuffix(_string.charAt(j_))) {
-                    return -j_;
+                break;
+            }
+            if (Character.isLetter(current_)) {
+                if (!isNbSuffix(current_)) {
+                    output_.setNextIndex(-j_);
+                    return output_;
                 }
+                nbInfos_.setSuffix(current_);
                 String nextPart_ = _string.substring(j_ + 1).trim();
-                if (nextPart_.isEmpty()) {
-                    return j_ + 1;
+                if (!isCorrectNbEnd(nextPart_)) {
+                    output_.setNextIndex(-j_);
+                    return output_;
                 }
-                if (StringList.isWordChar(nextPart_.charAt(0)) || nextPart_.charAt(0) == DOT_VAR) {
-                    return -j_;
-                }
-                return j_ + 1;
+                output_.setNextIndex(j_ + 1);
+                return output_;
+            }
+            if (_seenDot) {
+                decPart_.append(current_);
+            } else {
+                intPart_.append(current_);
             }
             j_++;
         }
-        if (dot_ && exp_) {
-            return -j_;
-        }
         if (j_ + 1 >= len_ && dot_) {
-            return j_ + 1;
+            nbInfos_.setDotted(true);
+            nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
+            output_.setNextIndex(j_ + 1);
+            return output_;
         }
         if (dot_) {
+            nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
+            nbInfos_.setDotted(true);
             char next_ = _string.charAt(j_ + 1);
             if (Character.toLowerCase(next_) == EXP) {
                 exp_ = true;
@@ -992,70 +1033,80 @@ public final class ElResolver {
             if (!Character.isDigit(next_) && next_ != NB_INTERN_SP && !exp_) {
                 if (Character.isLetter(next_)) {
                     if (!isNbSuffix(next_)) {
-                        return -(j_ + 1);
+                        output_.setNextIndex(-(j_ + 1));
+                        return output_;
                     }
                     String nextPart_ = _string.substring(j_ + 2).trim();
-                    if (nextPart_.isEmpty()) {
-                        return j_ + 2;
+                    if (!isCorrectNbEnd(nextPart_)) {
+                        output_.setNextIndex(-(j_ + 2));
+                        return output_;
                     }
-                    char afterNext_ = nextPart_.charAt(0);
-                    if (afterNext_ == DOT_VAR || StringList.isWordChar(afterNext_)) {
-                        return -(j_ + 2);
-                    }
-                    return j_ + 2;
+                    nbInfos_.setSuffix(next_);
+                    output_.setNextIndex(j_ + 2);
+                    return output_;
                 }
-                return j_ + 1;
+                output_.setNextIndex(j_ + 1);
+                return output_;
             }
             j_++;
             if (exp_) {
                 //_string.charAt(j_) == EXP
-                return processExp(j_, len_, _string);
+                processExp(j_, len_, _string, output_);
+                return output_;
             }
             while (j_ < len_) {
                 if (!Character.isDigit(_string.charAt(j_)) && _string.charAt(j_) != NB_INTERN_SP) {
                     break;
                 }
+                decPart_.append(_string.charAt(j_));
                 j_++;
             }
             if (j_ >= len_) {
-                return j_;
+                output_.setNextIndex(j_);
+                return output_;
             }
             if (Character.toLowerCase(_string.charAt(j_)) == EXP) {
-                return processExp(j_, len_, _string);
+                processExp(j_, len_, _string, output_);
+                return output_;
             }
             if (Character.isLetter(_string.charAt(j_)) && !isNbSuffix(_string.charAt(j_))) {
-                return -j_;
+                output_.setNextIndex(-j_);
+                return output_;
             }
             if (Character.isLetter(_string.charAt(j_))) {
                 // => isNbSuffix(_string.charAt(j_))
+                nbInfos_.setSuffix(_string.charAt(j_));
                 j_++;
             }
             String nextPart_ = _string.substring(j_).trim();
-            if (!nextPart_.isEmpty() && nextPart_.charAt(0) == DOT_VAR) {
-                return -j_;
+            if (!isCorrectNbEnd(nextPart_)) {
+                output_.setNextIndex(-j_);
+                return output_;
             }
-            if (!nextPart_.isEmpty() && StringList.isWordChar(nextPart_.charAt(0))) {
-                return -j_;
-            }
-            return j_;
+            output_.setNextIndex(j_);
+            return output_;
         }
         if (iExp_ + 1 >= len_ && exp_) {
-            return -j_;
+            output_.setNextIndex(-j_);
+            return output_;
         }
         if (exp_) {
             //_string.charAt(iExp_) == EXP
-            return processExp(iExp_, len_, _string);
+            processExp(iExp_, len_, _string, output_);
+            return output_;
         }
         if (j_ < len_ && Character.isWhitespace(_string.charAt(j_))) {
             String next_ = _string.substring(j_ + 1).trim();
-            if (!next_.isEmpty() && next_.charAt(0) == DOT_VAR) {
-                return -j_;
-            }
-            if (!next_.isEmpty() && StringList.isWordChar(next_.charAt(0))) {
-                return -j_;
+            if (!isCorrectNbEnd(next_)) {
+                output_.setNextIndex(-j_);
+                return output_;
             }
         }
-        return j_;
+        if (!_seenDot) {
+            nbInfos_.setSuffix(Character.toUpperCase(LONG));
+        }
+        output_.setNextIndex(j_);
+        return output_;
     }
     private static boolean isNbSuffix(char _char) {
         char lower_ = Character.toLowerCase(_char);
@@ -1083,40 +1134,108 @@ public final class ElResolver {
         return false;
     }
 
-    private static int processExp(int _start, int _max, String _string) {
+    private static boolean isCorrectNbEnd(String _string) {
+        if (_string.isEmpty()) {
+            return true;
+        }
+        char char_ = _string.charAt(0);
+        if (char_ == PAR_LEFT) {
+            return false;
+        }
+        if (char_ == ARR_LEFT) {
+            return false;
+        }
+        if (char_ == DOT_VAR) {
+            return false;
+        }
+        if (char_ == GET_VAR) {
+            return false;
+        }
+        if (char_ == EXTERN_CLASS) {
+            return false;
+        }
+        if (StringList.isWordChar(char_)) {
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isCorrectNbEndWord(String _string, char _end) {
+        if (_string.isEmpty()) {
+            return true;
+        }
+        char char_ = _string.charAt(0);
+        if (char_ == _end) {
+            return true;
+        }
+        if (char_ == EXTERN_CLASS) {
+            return false;
+        }
+        if (char_ == Templates.PREFIX_VAR_TYPE_CHAR) {
+            return false;
+        }
+        if (char_ == DELIMITER_CHAR) {
+            return false;
+        }
+        if (char_ == DELIMITER_STRING) {
+            return false;
+        }
+        if (char_ == ':') {
+            return false;
+        }
+        if (char_ == '{') {
+            return false;
+        }
+        if (char_ == '}') {
+            return false;
+        }
+        if (char_ == '?') {
+            return false;
+        }
+        if (StringList.isWordChar(char_)) {
+            return false;
+        }
+        return true;
+    }
+    private static void processExp(int _start, int _max, String _string, NumberInfosOutput _output) {
+        StringBuilder exp_ = _output.getInfos().getExponentialPart();
         int len_ = _max;
         int j_ = _start;
         j_++;
         if (_string.charAt(j_) == MINUS_CHAR) {
+            exp_.append(_string.charAt(j_));
             j_++;
         }
         if (!Character.isDigit(_string.charAt(j_))) {
-            return -j_;
+            _output.setNextIndex(-j_);
+            return;
         }
         while (j_ < len_) {
             if (!Character.isDigit(_string.charAt(j_)) && _string.charAt(j_) != NB_INTERN_SP) {
                 break;
             }
+            exp_.append(_string.charAt(j_));
             j_++;
         }
         String nextPart_ = _string.substring(j_).trim();
         if (!nextPart_.isEmpty() && nextPart_.charAt(0) == DOT_VAR) {
-            return -j_;
+            _output.setNextIndex(-j_);
+            return;
         }
         if (j_ < len_ && Character.isLetter(_string.charAt(j_))) {
             if (!isNbSuffix(_string.charAt(j_))) {
-                return -j_;
+                _output.setNextIndex(-j_);
+                return;
             }
+            _output.getInfos().setSuffix(_string.charAt(j_));
             j_++;
         }
         nextPart_ = _string.substring(j_).trim();
-        if (!nextPart_.isEmpty() && StringList.isWordChar(nextPart_.charAt(0))) {
-            return -j_;
+        if (!isCorrectNbEnd(nextPart_)) {
+            _output.setNextIndex(-j_);
+            return;
         }
-        if (!nextPart_.isEmpty() &&  nextPart_.charAt(0) == DOT_VAR) {
-            return -j_;
-        }
-        return j_;
+        _output.setNextIndex(j_);
     }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
             ContextEl _conf, Delimiters _d) {
@@ -1217,7 +1336,9 @@ public final class ElResolver {
             }
         }
         int firstNbChar_ = firstPrintChar_;
+        boolean positive_ = true;
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR) {
+            positive_ = false;
             int secondPrintChar_ = firstPrintChar_ + 1;
             while (secondPrintChar_ <= lastPrintChar_) {
                 if (!Character.isWhitespace(_string.charAt(secondPrintChar_))) {
@@ -1232,7 +1353,12 @@ public final class ElResolver {
         if (beginNb_ > CustList.INDEX_NOT_FOUND_ELT && beginNb_ + 1 == endNb_) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.NUMBER);
+            int indexNb_ = beginNb_/2;
             op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setNbInfos(_d.getNbInfos().get(indexNb_));
+            op_.getNbInfos().setPositive(positive_);
+            op_.getNbInfos().setFirstPrintable(firstPrintChar_);
+            op_.getNbInfos().setFirstDigit(firstNbChar_);
             op_.setupValues(_string);
             op_.setDelimiter(_d);
             return op_;

@@ -34,13 +34,14 @@ public final class BaseSixtyFourUtil {
             
             byte v_;
             if (Character.isDigit(ch_)) {
-                v_ = (byte) (NB_LETTERS_UPP_LOW + Byte.parseByte(String.valueOf(ch_)));
+                int diff_ = ch_ - FIRST_DIGIT;
+                v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
             } else if (Character.isLetter(ch_)) {
                 if (Character.isLowerCase(ch_)) {
-                    int diff_ = ch_ - 'a';
+                    int diff_ = ch_ - FIRST_LOW_LETTER;
                     v_ = (byte) (NB_LETTERS+diff_);
                 } else {
-                    int diff_ = ch_ - 'A';
+                    int diff_ = ch_ - FIRST_UPP_LETTER;
                     v_ = (byte) diff_;
                 }
             } else if (ch_ == '+') {
@@ -167,7 +168,7 @@ public final class BaseSixtyFourUtil {
         }
         return new String(buf_);
     }
-    public static char encode(int _i) {
+    private static char encode(int _i) {
         if (_i < NB_LETTERS) {
             return (char) (FIRST_UPP_LETTER+_i);
         }

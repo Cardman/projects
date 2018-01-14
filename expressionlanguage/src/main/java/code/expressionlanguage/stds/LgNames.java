@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.NumberInfos;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.InvokeException;
@@ -87,6 +88,7 @@ public class LgNames {
     private static final byte THREE_ARGS = 3;
     private static final byte FOUR_ARGS = 4;
     private static final byte FIVE_ARGS = 5;
+    private static final byte MAX_DIGITS_DOUBLE = 18;
     private String aliasObject;
     private String aliasVoid;
     private String aliasCharSequence;
@@ -2985,6 +2987,220 @@ public class LgNames {
         }
         return result_;
     }
+    public static Double parseDouble(NumberInfos _nb) {
+        StringBuilder int_ = new StringBuilder(_nb.getIntPart());
+        while(int_.indexOf("_") >= 0) {
+            int_.deleteCharAt(int_.indexOf("_"));
+        }
+        while(int_.indexOf(" ") >= 0) {
+            int_.deleteCharAt(int_.indexOf(" "));
+        }
+        StringBuilder dec_ = new StringBuilder(_nb.getDecimalPart());
+        while(dec_.indexOf("_") >= 0) {
+            dec_.deleteCharAt(dec_.indexOf("_"));
+        }
+        while(dec_.indexOf(" ") >= 0) {
+            dec_.deleteCharAt(dec_.indexOf(" "));
+        }
+        StringBuilder exp_ = new StringBuilder(_nb.getExponentialPart());
+        while(exp_.indexOf("_") >= 0) {
+            exp_.deleteCharAt(exp_.indexOf("_"));
+        }
+        while(exp_.indexOf(" ") >= 0) {
+            exp_.deleteCharAt(exp_.indexOf(" "));
+        }
+        boolean positive_ = _nb.isPositive();
+        if (dec_.length() == 0) {
+            if (exp_.length() == 0) {
+                Long long_;
+                if (int_.length() > MAX_DIGITS_DOUBLE) {
+                    return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE);
+                }
+                long_ = parseLongTen(int_.toString());
+                if (!positive_) {
+                    return -long_.doubleValue();
+                }
+                return long_.doubleValue();
+            }
+            Long expNb_ = parseLongTen(exp_.toString());
+            if (expNb_ == null) {
+                if (positive_) {
+                    if (exp_.charAt(0) == '-') {
+                        return Double.MIN_VALUE;
+                    }
+                    return Double.POSITIVE_INFINITY;
+                }
+                if (exp_.charAt(0) == '-') {
+                    return -Double.MIN_VALUE;
+                }
+                return Double.NEGATIVE_INFINITY;
+            }
+            long expNbLong_ = expNb_.longValue();
+            Long long_;
+            if (int_.length() > MAX_DIGITS_DOUBLE + expNbLong_) {
+                return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE + (int)expNbLong_);
+            }
+            for (long i = 0; i < expNbLong_; i++) {
+                int_.append("0");
+            }
+            long_ = parseLongTen(int_.toString());
+            if (!positive_) {
+                return -long_.doubleValue();
+            }
+            return long_.doubleValue();
+        }
+        if (exp_.length() == 0) {
+            if (int_.length() > MAX_DIGITS_DOUBLE) {
+                return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE);
+            }
+            Long longValue_;
+            if (int_.length() == 0) {
+                longValue_ = parseLongTen("0");
+            } else {
+                longValue_ = parseLongTen(int_.toString());
+            }
+            StringBuilder decCopy_ = new StringBuilder(dec_);
+            decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
+            double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
+            double power_ = 1;
+            int logDec_ = decCopy_.length();
+            for (int i = 0; i < logDec_; i++) {
+                power_ *= 10d;
+            }
+            if (!positive_) {
+                return -longValue_.doubleValue()- decValue_ / power_;
+            }
+            return longValue_.doubleValue() + decValue_ / power_;
+        }
+        Long expNb_ = parseLongTen(exp_.toString());
+        if (expNb_ == null) {
+            if (positive_) {
+                if (exp_.charAt(0) == '-') {
+                    return Double.MIN_VALUE;
+                }
+                return Double.POSITIVE_INFINITY;
+            }
+            if (exp_.charAt(0) == '-') {
+                return -Double.MIN_VALUE;
+            }
+            return Double.NEGATIVE_INFINITY;
+        }
+        long expNbLong_ = expNb_.longValue();
+        if (expNbLong_ >= dec_.length()) {
+            //try to get "double" as int
+            StringBuilder number_ = new StringBuilder(int_.length()+(int)expNbLong_-dec_.length());
+            number_.append(int_);
+            number_.append(dec_);
+            int diff_ = (int)expNbLong_-dec_.length();
+            for (long i = 0; i < diff_; i++) {
+                number_.append("0");
+            }
+            if (number_.length() > MAX_DIGITS_DOUBLE) {
+                return processBigNumbers(number_, positive_, MAX_DIGITS_DOUBLE);
+            }
+            Long long_ = parseLongTen(number_.toString());
+            if (!positive_) {
+                return -long_.doubleValue();
+            }
+            return long_.doubleValue();
+        }
+        if (int_.length() == 0 || -expNbLong_ > int_.length() && expNbLong_ < 0) {
+            StringBuilder decCopy_ = new StringBuilder(int_);
+            decCopy_.append(dec_);
+            decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
+            double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
+            double power_ = 1;
+            int logDec_ = decCopy_.length();
+            for (int i = 0; i < logDec_; i++) {
+                power_ *= 10d;
+            }
+            if (expNbLong_ > 0) {
+                for (int i = 0; i < expNbLong_; i++) {
+                    power_ *= 10d;
+                }
+            } else if (expNbLong_ < 0) {
+                int neg_ = (int) -expNbLong_;
+                for (int i = 0; i < neg_; i++) {
+                    power_ /= 10d;
+                }
+            }
+            if (!positive_) {
+                return -decValue_ / power_;
+            }
+            return decValue_ / power_;
+        }
+        if (expNbLong_ == 0) {
+            if (int_.length() > MAX_DIGITS_DOUBLE) {
+                return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE);
+            }
+            Long longValue_;
+            longValue_ = parseLongTen(int_.toString());
+            StringBuilder decCopy_ = new StringBuilder(dec_);
+            decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
+            double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
+            double power_ = 1;
+            int logDec_ = decCopy_.length();
+            for (int i = 0; i < logDec_; i++) {
+                power_ *= 10d;
+            }
+            if (!positive_) {
+                return -longValue_.doubleValue() - decValue_ / power_;
+            }
+            return longValue_.doubleValue() + decValue_ / power_;
+        }
+        StringBuilder numberInt_ = new StringBuilder();
+        StringBuilder numberDec_ = new StringBuilder();
+        if (expNbLong_ > 0) {
+            numberInt_.append(int_);
+            numberInt_.append(dec_.substring(0, (int) expNbLong_));
+            numberDec_.append(dec_.substring((int)expNbLong_));
+        } else {
+            numberInt_.append(int_.substring(0, (int) -expNbLong_));
+            numberDec_.append(int_.substring((int) -expNbLong_));
+            numberDec_.append(dec_);
+        }
+        if (numberInt_.length() > MAX_DIGITS_DOUBLE) {
+            return processBigNumbers(numberInt_, positive_, MAX_DIGITS_DOUBLE);
+        }
+        Long longValue_;
+        longValue_ = parseLongTen(numberInt_.toString());
+        StringBuilder decCopy_ = new StringBuilder(numberDec_);
+        decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
+        double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
+        double power_ = 1;
+        int logDec_ = decCopy_.length();
+        for (int i = 0; i < logDec_; i++) {
+            power_ *= 10d;
+        }
+        if (expNbLong_ > 0) {
+            for (int i = 0; i < expNbLong_; i++) {
+                power_ *= 10d;
+            }
+        } else if (expNbLong_ < 0) {
+            int neg_ = (int) -expNbLong_;
+            for (int i = 0; i < neg_; i++) {
+                power_ /= 10d;
+            }
+        }
+        if (!positive_) {
+            return -longValue_.doubleValue() - decValue_ / power_;
+        }
+        return longValue_.doubleValue() + decValue_ / power_;
+    }
+    private static Double processBigNumbers(StringBuilder _nb, boolean _positive, int _max) {
+        Long long_ = parseLongTen(_nb.substring(0, _max + 1).toString());
+        double power_ = 1;
+        int logDec_ = _nb.length() - _max;
+        for (int i = 0; i < logDec_; i++) {
+            power_ *= 10d;
+        }
+        double out_ = long_.doubleValue() * power_;
+        if (_positive) {
+            return out_;
+        }
+        return -out_;
+    }
+    //this long parser is very naive
     public static Long parseLongTen(String _string) {
         long result_ = 0;
         boolean negative_ = false;
@@ -2994,58 +3210,40 @@ public class LgNames {
         long multmin_;
         int digit_;
 
-        if (max_ > 0) {
-            if (_string.charAt(0) == '-') {
-                negative_ = true;
-                limit_ = Long.MIN_VALUE;
-                i_++;
-            } else {
-                limit_ = -Long.MAX_VALUE;
-            }
-            if (negative_) {
-                multmin_ = MULTMIN_RADIX_TEN;
-            } else {
-                multmin_ = N_MULTMAX_RADIX_TEN;
-            }
-            if (i_ < max_) {
-                char ch_ = _string.charAt(i_);
-                i_++;
-                digit_ = Character.digit(ch_,DEFAULT_RADIX);
-                if (digit_ < 0) {
-                    return null;
-                } else {
-                    result_ = -digit_;
-                }
-            }
-            while (i_ < max_) {
-                // Accumulating negatively avoids surprises near MAX_VALUE
-                char ch_ = _string.charAt(i_);
-                i_++;
-                digit_ = Character.digit(ch_,DEFAULT_RADIX);
-                if (digit_ < 0) {
-                    return null;
-                }
-                if (result_ < multmin_) {
-                    return null;
-                }
-                result_ *= DEFAULT_RADIX;
-                if (result_ < limit_ + digit_) {
-                    return null;
-                }
-                result_ -= digit_;
-            }
+        if (_string.charAt(0) == '-') {
+            negative_ = true;
+            limit_ = Long.MIN_VALUE;
+            i_++;
         } else {
-            return null;
+            limit_ = -Long.MAX_VALUE;
         }
         if (negative_) {
-            if (i_ > 1) {
-                return result_;
-            } else {
+            multmin_ = MULTMIN_RADIX_TEN;
+        } else {
+            multmin_ = N_MULTMAX_RADIX_TEN;
+        }
+        int ch_ = _string.charAt(i_);
+        i_++;
+        digit_ = ch_ - '0';
+        result_ = -digit_;
+        while (i_ < max_) {
+            // Accumulating negatively avoids surprises near MAX_VALUE
+            ch_ = _string.charAt(i_);
+            i_++;
+            digit_ = ch_ - '0';
+            if (result_ < multmin_) {
                 return null;
             }
-        } else {
-            return -result_;
+            result_ *= DEFAULT_RADIX;
+            if (result_ < limit_ + digit_) {
+                return null;
+            }
+            result_ -= digit_;
         }
+        if (negative_) {
+            return result_;
+        }
+        return -result_;
     }
     public static Long parseLong(String _string, int _radix) {
         if (_string == null) {

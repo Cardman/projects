@@ -8,6 +8,8 @@ public final class OperationsSequence {
 
     private ConstType constType = ConstType.NOTHING;
 
+    private NumberInfos nbInfos;
+
     private String fctName = "";
 
     private boolean useFct;
@@ -152,5 +154,13 @@ public final class OperationsSequence {
 
     public int getOffset() {
         return offset;
+    }
+
+    public NumberInfos getNbInfos() {
+        return nbInfos;
+    }
+
+    public void setNbInfos(NumberInfos _nbInfos) {
+        nbInfos = _nbInfos;
     }
 }

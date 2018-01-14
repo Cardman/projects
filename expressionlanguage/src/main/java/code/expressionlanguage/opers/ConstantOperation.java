@@ -338,7 +338,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         str_ = StringList.removeAllSpaces(str_);
         if (op_.getConstType() == ConstType.NUMBER) {
-            ParsedArgument parsed_ = ParsedArgument.parse(str_, _conf);
+            ParsedArgument parsed_ = ParsedArgument.parse(op_.getNbInfos(), _conf);
             String argClassName_ = parsed_.getType();
             if (argClassName_.isEmpty()) {
                 throw new DynamicNumberFormatException(StringList.concat(str_,RETURN_LINE,_conf.joinPages()));

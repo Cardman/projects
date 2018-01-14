@@ -18,6 +18,7 @@ public final class Delimiters {
     private Numbers<Integer> delKeyWordSuper = new Numbers<Integer>();
     private Numbers<Integer> delKeyWordClassChoice = new Numbers<Integer>();
     private Numbers<Integer> delKeyWordStatic = new Numbers<Integer>();
+    private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
 
     public Numbers<Integer> getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
@@ -104,4 +105,9 @@ public final class Delimiters {
     public void setPartOfString(boolean _partOfString) {
         partOfString = _partOfString;
     }
+
+    public CustList<NumberInfos> getNbInfos() {
+        return nbInfos;
+    }
+
 }

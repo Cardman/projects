@@ -47,6 +47,7 @@ public class BeanLgNames extends LgNames {
     private final String custMap = "$custmap";
     private final String custEntries = "$custentries";
     private final String validator = "code.bean.validator.Validator";
+    private final String bean = "code.bean.Bean";
     private String aliasRate;
     private String aliasDataBase;
 
@@ -406,5 +407,11 @@ public class BeanLgNames extends LgNames {
     }
     public String getValueChangedEvent() {
         return valueChangedEvent;
+    }
+    public String getBean() {
+        return bean;
+    }
+    public String getCustEntry() {
+        return custEntry;
     }
 }
