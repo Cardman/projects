@@ -533,6 +533,12 @@ public final class Templates {
         }
         return str_.toString();
     }
+    public static boolean isGenericCorrect(Mapping _m, ContextEl _context) {
+        if (_m.getArg().isEmpty()) {
+            return !PrimitiveTypeUtil.isPrimitive(_m.getParam(), _context);
+        }
+        return isCorrect(_m, _context);
+    }
     public static boolean isCorrect(Mapping _m, ContextEl _context) {
         String arg_ = _m.getArg();
         String param_ = _m.getParam();

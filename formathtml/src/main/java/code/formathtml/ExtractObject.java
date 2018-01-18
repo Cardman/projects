@@ -209,12 +209,12 @@ final class ExtractObject {
                             String patName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
                             lv_.setElement(_pattern);
-                            lv_.setClassName(String.class.getName());
+                            lv_.setClassName(_conf.getStandards().getAliasString());
                             _ip.getLocalVars().put(patName_, lv_);
                             String navName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
-                            lv_.setElement(_conf, Object.class.getName());
-                            lv_.setClassName(Object.class.getName());
+                            lv_.setElement(_conf, _conf.getStandards().getAliasObject());
+                            lv_.setClassName(_conf.getStandards().getAliasObject());
                             _ip.getLocalVars().put(navName_, lv_);
                             String beanName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
@@ -224,7 +224,7 @@ final class ExtractObject {
                             String objName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
                             lv_.setStruct(s_);
-                            lv_.setClassName(Object.class.getName());
+                            lv_.setClassName(_conf.getStandards().getAliasObject());
                             _ip.getLocalVars().put(objName_, lv_);
                             StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(GET_STRING).append(BEGIN_ARGS);
                             expression_.append(patName_).append(GET_LOC_VAR).append(SEP_ARGS);
@@ -324,17 +324,23 @@ final class ExtractObject {
             String intPrim_ = stds_.getAliasPrimInteger();
             String shortPrim_ = stds_.getAliasPrimShort();
             String bytePrim_ = stds_.getAliasPrimByte();
-            if (StringList.quickEq(name_, Integer.class.getName()) || StringList.quickEq(name_, intPrim_)) {
+            String double_ = stds_.getAliasDouble();
+            String float_ = stds_.getAliasFloat();
+            String long_ = stds_.getAliasLong();
+            String int_ = stds_.getAliasInteger();
+            String short_ = stds_.getAliasShort();
+            String byte_ = stds_.getAliasByte();
+            if (StringList.quickEq(name_, int_) || StringList.quickEq(name_, intPrim_)) {
                 return new IntStruct(Integer.parseInt(_arg));
-            } else if (StringList.quickEq(name_, Long.class.getName()) || StringList.quickEq(name_, longPrim_)) {
+            } else if (StringList.quickEq(name_, long_) || StringList.quickEq(name_, longPrim_)) {
                 return new LongStruct(Long.parseLong(_arg));
-            } else if (StringList.quickEq(name_, Short.class.getName()) || StringList.quickEq(name_, shortPrim_)) {
+            } else if (StringList.quickEq(name_, short_) || StringList.quickEq(name_, shortPrim_)) {
                 return new ShortStruct(Short.parseShort(_arg));
-            } else if (StringList.quickEq(name_, Byte.class.getName()) || StringList.quickEq(name_, bytePrim_)) {
+            } else if (StringList.quickEq(name_, byte_) || StringList.quickEq(name_, bytePrim_)) {
                 return new ByteStruct(Byte.parseByte(_arg));
-            } else if (StringList.quickEq(name_, Double.class.getName()) || StringList.quickEq(name_, doublePrim_)) {
+            } else if (StringList.quickEq(name_, double_) || StringList.quickEq(name_, doublePrim_)) {
                 return new DoubleStruct(Double.parseDouble(_arg));
-            } else if (StringList.quickEq(name_, Float.class.getName()) || StringList.quickEq(name_, floatPrim_)) {
+            } else if (StringList.quickEq(name_, float_) || StringList.quickEq(name_, floatPrim_)) {
                 return new FloatStruct(Float.parseFloat(_arg));
             } else {
                 String escaped_ = StringList.replace(_arg, QUOTE_DOUBLE, StringList.concat(String.valueOf(ESCAPED),QUOTE_DOUBLE));
@@ -417,7 +423,7 @@ final class ExtractObject {
             inst_.setDataBase(_dataBase.getInstance());
             return;
         }
-        setBeanResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, Object.class.getName());
+        setBeanResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, _conf.getStandards().getAliasObject());
     }
 
     static String getLanguage(Configuration _conf, Struct _it) {
@@ -436,7 +442,7 @@ final class ExtractObject {
             inst_.setLanguage(_scope);
             return;
         }
-        setBeanResult(_conf, 0, SET_LANGUAGE, _it, new StringStruct(_scope), String.class.getName());
+        setBeanResult(_conf, 0, SET_LANGUAGE, _it, new StringStruct(_scope), _conf.getStandards().getAliasString());
     }
 
     static String getScope(Configuration _conf, Struct _it) {
@@ -455,7 +461,7 @@ final class ExtractObject {
             inst_.setScope(_scope);
             return;
         }
-        setBeanResult(_conf, 0, SET_SCOPE, _it, new StringStruct(_scope), String.class.getName());
+        setBeanResult(_conf, 0, SET_SCOPE, _it, new StringStruct(_scope), _conf.getStandards().getAliasString());
     }
 
     static Struct getForms(Configuration _conf, Struct _it) {
@@ -474,7 +480,7 @@ final class ExtractObject {
             inst_.setForms((StringMapObject) _forms.getInstance());
             return;
         }
-        setBeanResult(_conf, 0, SET_FORMS, _it, _forms, StringMapObject.class.getName());
+        setBeanResult(_conf, 0, SET_FORMS, _it, _forms, _conf.getStandards().getAliasStringMapObject());
     }
 
     static Struct getKey(Configuration _conf, Struct _it) {

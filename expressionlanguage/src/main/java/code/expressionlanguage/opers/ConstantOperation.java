@@ -31,6 +31,7 @@ import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -40,6 +41,7 @@ import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -72,7 +74,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     private static final String LINE_FEED = "\r";
     private static final String LINE_RETURN = "\n";
     private static final String FORM = "\f";
-    private static final byte HEX_BASE = 16;
 
     private boolean variable;
     
@@ -168,8 +169,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         } else {
                             unicode_ = 0;
                             escaped_ = false;
-                            int val_ = LgNames.parseLong(unicodeString_.toString(), HEX_BASE).intValue();
-                            char i_ = (char)val_;
+                            char i_ = LgNames.parseCharSixteen(unicodeString_.toString());
                             strBuilder_.append(i_);
                         }
                         continue;
@@ -240,8 +240,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         } else {
                             unicode_ = 0;
                             escaped_ = false;
-                            int val_ = LgNames.parseLong(unicodeString_.toString(), HEX_BASE).intValue();
-                            char i_ = (char)val_;
+                            char i_ = LgNames.parseCharSixteen(unicodeString_.toString());
                             strBuilder_.append(i_);
                         }
                         continue;
@@ -876,6 +875,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             Argument res_;
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+            if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
+                ClassArgumentMatching cl_ = new ClassArgumentMatching(locVar_.getClassName());
+                res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
+            }
             locVar_.setStruct(res_.getStruct());
             return res_;
         }

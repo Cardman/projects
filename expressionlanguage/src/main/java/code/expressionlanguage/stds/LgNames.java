@@ -79,6 +79,7 @@ public class LgNames {
     protected static final char PAR_RIGHT = ')';
     protected static final String DOT = ".";
     protected static final String VARARG_SUFFIX = "...";
+    private static final byte HEX_BASE = 16;
     private static final char DOT_VAR = '.';
     private static final char EXP = 'e';
     private static final char MINUS_CHAR = '-';
@@ -3040,39 +3041,29 @@ public class LgNames {
             if (int_.length() > MAX_DIGITS_DOUBLE + expNbLong_) {
                 return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE + (int)expNbLong_);
             }
-            for (long i = 0; i < expNbLong_; i++) {
-                int_.append("0");
+            double power_ = 1;
+            long absExp_ = Math.abs(expNbLong_);
+            for (long i = 0; i < absExp_; i++) {
+                power_ *= 10d;
             }
             long_ = parseLongTen(int_.toString());
             if (!positive_) {
-                return -long_.doubleValue();
+                if (expNbLong_ > 0) {
+                    return -long_.doubleValue() * power_;
+                }
+                return -long_.doubleValue() / power_;
             }
-            return long_.doubleValue();
+            if (expNbLong_ > 0) {
+                return long_.doubleValue() * power_;
+            }
+            return long_.doubleValue() / power_;
         }
+        Long expNb_;
         if (exp_.length() == 0) {
-            if (int_.length() > MAX_DIGITS_DOUBLE) {
-                return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE);
-            }
-            Long longValue_;
-            if (int_.length() == 0) {
-                longValue_ = parseLongTen("0");
-            } else {
-                longValue_ = parseLongTen(int_.toString());
-            }
-            StringBuilder decCopy_ = new StringBuilder(dec_);
-            decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
-            double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
-            double power_ = 1;
-            int logDec_ = decCopy_.length();
-            for (int i = 0; i < logDec_; i++) {
-                power_ *= 10d;
-            }
-            if (!positive_) {
-                return -longValue_.doubleValue()- decValue_ / power_;
-            }
-            return longValue_.doubleValue() + decValue_ / power_;
+            expNb_ = 0l;
+        } else {
+            expNb_ = parseLongTen(exp_.toString());
         }
-        Long expNb_ = parseLongTen(exp_.toString());
         if (expNb_ == null) {
             if (positive_) {
                 if (exp_.charAt(0) == '-') {
@@ -3088,7 +3079,7 @@ public class LgNames {
         long expNbLong_ = expNb_.longValue();
         if (expNbLong_ >= dec_.length()) {
             //try to get "double" as int
-            StringBuilder number_ = new StringBuilder(int_.length()+(int)expNbLong_-dec_.length());
+            StringBuilder number_ = new StringBuilder(int_.length()+dec_.length());
             number_.append(int_);
             number_.append(dec_);
             int diff_ = (int)expNbLong_-dec_.length();
@@ -3104,49 +3095,37 @@ public class LgNames {
             }
             return long_.doubleValue();
         }
-        if (int_.length() == 0 || -expNbLong_ > int_.length() && expNbLong_ < 0) {
-            StringBuilder decCopy_ = new StringBuilder(int_);
-            decCopy_.append(dec_);
-            decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
-            double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
-            double power_ = 1;
-            int logDec_ = decCopy_.length();
-            for (int i = 0; i < logDec_; i++) {
-                power_ *= 10d;
-            }
-            if (expNbLong_ > 0) {
-                for (int i = 0; i < expNbLong_; i++) {
-                    power_ *= 10d;
+        if (-expNbLong_ >= int_.length()) {
+            StringBuilder number_ = new StringBuilder(int_);
+            number_.append(dec_);
+            int nbLeadingZeros_ = 0;
+            StringBuilder decCopy_ = new StringBuilder();
+            int index_ = 0;
+            while (index_ < number_.length()) {
+                if (number_.charAt(index_) != '0') {
+                    break;
                 }
-            } else if (expNbLong_ < 0) {
-                int neg_ = (int) -expNbLong_;
-                for (int i = 0; i < neg_; i++) {
-                    power_ /= 10d;
-                }
+                index_++;
             }
-            if (!positive_) {
-                return -decValue_ / power_;
+            nbLeadingZeros_ = index_;
+            decCopy_.append(number_.substring(nbLeadingZeros_));
+            double value_;
+            int diff_;
+            if (decCopy_.length() > MAX_DIGITS_DOUBLE) {
+                value_ = parseLongTen(decCopy_.substring(0, MAX_DIGITS_DOUBLE + 1)).doubleValue();
+                diff_ = (int) (-expNbLong_ - int_.length() + MAX_DIGITS_DOUBLE + 1 + nbLeadingZeros_);
+            } else {
+                value_ = parseLongTen(decCopy_.toString()).doubleValue();
+                diff_ = (int) (-expNbLong_ + dec_.length());
             }
-            return decValue_ / power_;
-        }
-        if (expNbLong_ == 0) {
-            if (int_.length() > MAX_DIGITS_DOUBLE) {
-                return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE);
-            }
-            Long longValue_;
-            longValue_ = parseLongTen(int_.toString());
-            StringBuilder decCopy_ = new StringBuilder(dec_);
-            decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
-            double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
             double power_ = 1;
-            int logDec_ = decCopy_.length();
-            for (int i = 0; i < logDec_; i++) {
+            for (int i = 0; i < diff_; i++) {
                 power_ *= 10d;
             }
             if (!positive_) {
-                return -longValue_.doubleValue() - decValue_ / power_;
+                return -value_ / power_;
             }
-            return longValue_.doubleValue() + decValue_ / power_;
+            return value_ / power_;
         }
         StringBuilder numberInt_ = new StringBuilder();
         StringBuilder numberDec_ = new StringBuilder();
@@ -3154,6 +3133,9 @@ public class LgNames {
             numberInt_.append(int_);
             numberInt_.append(dec_.substring(0, (int) expNbLong_));
             numberDec_.append(dec_.substring((int)expNbLong_));
+        } else if (expNbLong_ == 0) {
+            numberInt_.append(int_);
+            numberDec_.append(dec_);
         } else {
             numberInt_.append(int_.substring(0, (int) -expNbLong_));
             numberDec_.append(int_.substring((int) -expNbLong_));
@@ -3163,24 +3145,32 @@ public class LgNames {
             return processBigNumbers(numberInt_, positive_, MAX_DIGITS_DOUBLE);
         }
         Long longValue_;
-        longValue_ = parseLongTen(numberInt_.toString());
-        StringBuilder decCopy_ = new StringBuilder(numberDec_);
-        decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
-        double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
+        if (numberInt_.length() > 0) {
+            longValue_ = parseLongTen(numberInt_.toString());
+        } else {
+            longValue_ = 0l;
+        }
+        StringBuilder decCopy_ = new StringBuilder();
+        int nbLeadingZeros_ = 0;
+        int index_ = 0;
+        while (index_ < numberDec_.length()) {
+            if (numberDec_.charAt(index_) != '0') {
+                break;
+            }
+            index_++;
+        }
+        nbLeadingZeros_ = index_;
+        decCopy_.append(numberDec_.substring(nbLeadingZeros_));
+        double decValue_;
+        if (decCopy_.length() > 0) {
+            decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
+        } else {
+            decValue_ = 0;
+        }
         double power_ = 1;
-        int logDec_ = decCopy_.length();
+        int logDec_ = numberDec_.length();
         for (int i = 0; i < logDec_; i++) {
             power_ *= 10d;
-        }
-        if (expNbLong_ > 0) {
-            for (int i = 0; i < expNbLong_; i++) {
-                power_ *= 10d;
-            }
-        } else if (expNbLong_ < 0) {
-            int neg_ = (int) -expNbLong_;
-            for (int i = 0; i < neg_; i++) {
-                power_ /= 10d;
-            }
         }
         if (!positive_) {
             return -longValue_.doubleValue() - decValue_ / power_;
@@ -3190,7 +3180,7 @@ public class LgNames {
     private static Double processBigNumbers(StringBuilder _nb, boolean _positive, int _max) {
         Long long_ = parseLongTen(_nb.substring(0, _max + 1).toString());
         double power_ = 1;
-        int logDec_ = _nb.length() - _max;
+        int logDec_ = _nb.length() - _max - 1;
         for (int i = 0; i < logDec_; i++) {
             power_ *= 10d;
         }
@@ -3199,6 +3189,26 @@ public class LgNames {
             return out_;
         }
         return -out_;
+    }
+    //this long parser is very naive
+    public static char parseCharSixteen(String _string) {
+        int result_ = 0;
+        int i_ = 0;
+        int max_ = _string.length();
+        int digit_;
+        int ch_ = _string.charAt(i_);
+        i_++;
+        digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+        result_ = -digit_;
+        while (i_ < max_) {
+            // Accumulating negatively avoids surprises near MAX_VALUE
+            ch_ = _string.charAt(i_);
+            i_++;
+            digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+            result_ *= HEX_BASE;
+            result_ -= digit_;
+        }
+        return (char)-result_;
     }
     //this long parser is very naive
     public static Long parseLongTen(String _string) {

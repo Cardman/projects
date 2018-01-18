@@ -99,7 +99,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         mapping_.setMapping(vars_);
         mapping_.setArg(opRight.last().getResultClass().getName());
         mapping_.setParam(className);
-        if (!Templates.isCorrect(mapping_, _cont)) {
+        if (!Templates.isGenericCorrect(mapping_, _cont)) {
             throw new DynamicCastClassException(_cont.joinPages());
         }
     }

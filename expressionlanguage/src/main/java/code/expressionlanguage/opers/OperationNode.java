@@ -918,7 +918,11 @@ public abstract class OperationNode {
             id_ = constraints_;
         } else {
             realClass_ = baseClassName_;
-            id_ = constraints_.format(baseClassName_, _conf);
+            if (info_.getModifier() == MethodModifier.STATIC) {
+                id_ = constraints_;
+            } else {
+                id_ = constraints_.format(baseClassName_, _conf);
+            }
             res_.setCorrectTemplated(true);
         }
         res_.setId(new ClassMethodId(realClass_, id_));
@@ -1153,12 +1157,12 @@ public abstract class OperationNode {
             }
             String param_ = _params[last_].getClassName();
             map_.setParam(Templates.generalFormat(_class, param_, _context));
-            if (Templates.isCorrect(map_, _context)) {
+            if (Templates.isGenericCorrect(map_, _context)) {
                 return true;
             }
             param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
             map_.setParam(Templates.generalFormat(_class, param_, _context));
-            return Templates.isCorrect(map_, _context);
+            return Templates.isGenericCorrect(map_, _context);
         }
         len_ = _argsClass.length;
         Mapping map_ = new Mapping();
@@ -1171,7 +1175,7 @@ public abstract class OperationNode {
         map_.setParam(Templates.generalFormat(_class, param_, _context));
         for (int i = startOpt_; i < len_; i++) {
             map_.setArg(_argsClass[i].getName());
-            if (!Templates.isCorrect(map_, _context)) {
+            if (!Templates.isGenericCorrect(map_, _context)) {
                 return false;
             }
         }
@@ -1201,7 +1205,7 @@ public abstract class OperationNode {
         }
         map_.setArg(_argsClass[last_].getName());
         map_.setParam(Templates.generalFormat(_class, param_, _context));
-        return !Templates.isCorrect(map_, _context);
+        return !Templates.isGenericCorrect(map_, _context);
     }
     static ClassMatching[] getParameters(Identifiable _id) {
         StringList params_ = _id.getParametersTypes();
@@ -1308,6 +1312,7 @@ public abstract class OperationNode {
                 return CustList.NO_SWAP_SORT;
             }
         }
+        boolean vararg_ = false;
         if (_o1.isVararg()) {
             if (_o2.isVararg()) {
                 if (len_ < _o2.getParameters().size()) {
@@ -1324,22 +1329,18 @@ public abstract class OperationNode {
                 if (!varOne_ && varTwo_) {
                     return CustList.NO_SWAP_SORT;
                 }
+                vararg_ = true;
             }
+        }
+        if (vararg_) {
+            len_--;
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             ClassArgumentMatching selected_ = _context.get(i);
             ClassMatching one_ = _o1.getParameters().get(i);
             String paramOne_ = one_.getClassName();
-            if (paramOne_.endsWith(VARARG_SUFFIX)) {
-                paramOne_ = StringList.replace(paramOne_, VARARG_SUFFIX, EMPTY_STRING);
-                paramOne_ = PrimitiveTypeUtil.getPrettyArrayType(paramOne_);
-            }
             ClassMatching two_ = _o2.getParameters().get(i);
             String paramTwo_ = two_.getClassName();
-            if (paramTwo_.endsWith(VARARG_SUFFIX)) {
-                paramTwo_ = StringList.replace(paramTwo_, VARARG_SUFFIX, EMPTY_STRING);
-                paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
-            }
             one_ = new ClassMatching(Templates.generalFormat(glClassOne_, paramOne_, context_));
             two_ = new ClassMatching(Templates.generalFormat(glClassTwo_, paramTwo_, context_));
             if (one_.matchClass(two_)) {
@@ -1397,6 +1398,29 @@ public abstract class OperationNode {
             _o1.getParameters().setError(true);
             _o2.getParameters().setError(true);
             return CustList.NO_SWAP_SORT;
+        }
+        if (vararg_) {
+            ClassMatching one_ = _o1.getParameters().last();
+            String paramOne_ = one_.getClassName();
+            paramOne_ = StringList.replace(paramOne_, VARARG_SUFFIX, EMPTY_STRING);
+            paramOne_ = PrimitiveTypeUtil.getPrettyArrayType(paramOne_);
+            ClassMatching two_ = _o2.getParameters().last();
+            String paramTwo_ = two_.getClassName();
+            paramTwo_ = StringList.replace(paramTwo_, VARARG_SUFFIX, EMPTY_STRING);
+            paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
+            one_ = new ClassMatching(Templates.generalFormat(glClassOne_, paramOne_, context_));
+            two_ = new ClassMatching(Templates.generalFormat(glClassTwo_, paramTwo_, context_));
+            if (!one_.matchClass(two_)) {
+                if (one_.isAssignableFrom(two_, map_, context_)) {
+                    return CustList.SWAP_SORT;
+                }
+                if (two_.isAssignableFrom(one_, map_, context_)) {
+                    return CustList.NO_SWAP_SORT;
+                }
+                _o1.getParameters().setError(true);
+                _o2.getParameters().setError(true);
+                return CustList.NO_SWAP_SORT;
+            }
         }
         if (StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
             String baseOne_ = StringList.getAllTypes(glClassOne_).first();

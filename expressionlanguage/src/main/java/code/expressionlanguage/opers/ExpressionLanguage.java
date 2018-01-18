@@ -50,8 +50,8 @@ public final class ExpressionLanguage {
         for (OperationNode o: operations) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
-            if (o instanceof ConstantOperation) {
-                a_.setPreviousArgument(((ConstantOperation)o).getPreviousArgument());
+            if (o instanceof PossibleIntermediateDotted) {
+                a_.setPreviousArgument(((PossibleIntermediateDotted)o).getPreviousArgument());
             }
             arguments_.put(o, a_);
         }

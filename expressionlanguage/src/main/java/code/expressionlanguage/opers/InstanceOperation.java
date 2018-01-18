@@ -136,7 +136,7 @@ public final class InstanceOperation extends InvokingOperation {
                     String argType_ = o.getResultClass().getName();
                     mapping_.setArg(argType_);
                     mapping_.setMapping(map_);
-                    if (!Templates.isCorrect(mapping_, _conf)) {
+                    if (!Templates.isGenericCorrect(mapping_, _conf)) {
                         throw new DynamicCastClassException(StringList.concat(argType_,RETURN_LINE,eltType_,RETURN_LINE,_conf.joinPages()));
                     }
                 }

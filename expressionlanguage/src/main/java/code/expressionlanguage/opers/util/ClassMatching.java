@@ -28,7 +28,7 @@ public final class ClassMatching {
         map_.setMapping(_map);
         map_.setArg(_c.getClassName());
         map_.setParam(className);
-        return Templates.isCorrect(map_, _context);
+        return Templates.isGenericCorrect(map_, _context);
     }
 
     public boolean isAssignableFrom(ClassMatching _c, ContextEl _context) {
