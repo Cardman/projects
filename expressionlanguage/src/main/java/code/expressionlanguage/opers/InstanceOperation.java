@@ -526,11 +526,6 @@ public final class InstanceOperation extends InvokingOperation {
         }
         String base_ = StringList.getAllTypes(className).first();
         if (!_conf.getClasses().isCustomType(base_)) {
-            StringList params_ = new StringList();
-            for (String c: constId.getParametersTypes()) {
-                String class_ = c;
-                params_.add(class_);
-            }
             ResultErrorStd res_ = LgNames.newInstance(_conf, naturalVararg > -1, constId, Argument.toArgArray(_arguments));
             if (res_.getError() != null) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
@@ -543,19 +538,40 @@ public final class InstanceOperation extends InvokingOperation {
         PageEl page_ = _conf.getLastPage();
         className_ = page_.formatVarType(className_, _conf);
         StringList params_ = new StringList();
+        int j_ = 0;
         for (String c: constId.getParametersTypes()) {
             String class_ = c;
             class_ = Templates.format(className_, class_, _conf);
+            if (j_ + 1 == constId.getParametersTypes().size() && constId.isVararg()) {
+                class_ = PrimitiveTypeUtil.getPrettyArrayType(class_);
+            }
             params_.add(class_);
+            j_++;
         }
-        checkArgumentsForInvoking(_conf, naturalVararg > -1, params_, getObjects(Argument.toArgArray(_arguments)));
         StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _arguments) {
-            Struct str_ = a.getStruct();
-            if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
-                ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
-                a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
+            if (i_ < params_.size()) {
+                Struct str_ = a.getStruct();
+                if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                }
+                if (!str_.isNull()) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(a.getObjectClassName(_conf));
+                    mapping_.setParam(params_.get(i_));
+                    if (!Templates.isCorrect(mapping_, _conf)) {
+                        String cast_;
+                        cast_ = stds_.getAliasCast();
+                        throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                    }
+                }
+                if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
+                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
+                    a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
+                }
             }
             i_++;
         }

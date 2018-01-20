@@ -43,20 +43,6 @@ import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ProcessXmlMethod {
-    protected static final String ATTRIBUTE_PACKAGE = "package";
-    protected static final String ATTRIBUTE_NAME = "name";
-    protected static final String ATTRIBUTE_LEFT = "left";
-    protected static final String ATTRIBUTE_OPER = "oper";
-    protected static final String ATTRIBUTE_RIGHT = "right";
-    protected static final String ATTRIBUTE_VAR = "var";
-    protected static final String ATTRIBUTE_CLASS = "class";
-    protected static final String ATTRIBUTE_CLASS_INDEX = "classindex";
-    protected static final String ATTRIBUTE_CONDITION = "condition";
-    protected static final String ATTRIBUTE_VALUE = "value";
-    protected static final String ATTRIBUTE_EXPRESSION = "expression";
-    protected static final String ATTRIBUTE_EQ = "eq";
-    protected static final String ATTRIBUTE_INIT = "init";
-    protected static final String ATTRIBUTE_STEP = "step";
     private static final String EMPTY_STRING = "";
 
     private ProcessXmlMethod() {

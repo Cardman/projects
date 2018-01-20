@@ -152,10 +152,11 @@ public final class ParsedArgument {
 
 
     static boolean checkedDoubleBounds(double _value, double _min, double _max) {
-        if (_value < _min) {
+        double value_ = Math.abs(_value);
+        if (value_ < _min) {
             return false;
         }
-        if (_value > _max) {
+        if (value_ > _max) {
             return false;
         }
         return true;

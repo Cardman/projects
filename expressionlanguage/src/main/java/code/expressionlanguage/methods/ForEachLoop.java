@@ -178,7 +178,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         LoopVariable lv_ = new LoopVariable();
         lv_.setClassName(className);
-        lv_.setIndexClassName(_cont.getStandards().getAliasLong());
+        lv_.setIndexClassName(classIndexName);
         _cont.getLastPage().getVars().put(variableName, lv_);
     }
 
@@ -400,6 +400,18 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(getClassName(), element_, _conf)) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+        }
+        if (!element_.isNull()) {
+            String className_ = getClassName();
+            className_ = _conf.getLastPage().formatVarType(className_, _conf);
+            String argCl_ = stds_.getStructClassName(element_, _conf);
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(argCl_);
+            mapping_.setParam(className_);
+            if (!Templates.isCorrect(mapping_, _conf)) {
+                String cast_ = stds_.getAliasCast();
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+            }
         }
         lv_.setStruct(element_);
         lv_.setIndex(lv_.getIndex() + 1);

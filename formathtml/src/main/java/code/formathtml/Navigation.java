@@ -320,11 +320,11 @@ public final class Navigation {
             if (getArg_) {
                 ip_.addToOffset(indexPoint_+1+action_.indexOf(BEGIN_ARGS));
                 for (String l: StringList.splitChars(strArgs_, SEP_ARGS)) {
-                    try {
-                        args_.add(Argument.numberToArgument(l));
-                    } catch (RuntimeException _0) {
+                    Argument a_ = Argument.numberToArgument(l);
+                    if (a_ == null) {
                         throw new BadParenthesesException(session.joinPages());
                     }
+                    args_.add(a_);
                     ip_.addToOffset(l.length()+1);
                 }
                 ip_.setOffset(0);

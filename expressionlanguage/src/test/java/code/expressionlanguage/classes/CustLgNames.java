@@ -582,6 +582,9 @@ public class CustLgNames extends LgNames {
         if (_struct instanceof ArrayContainer) {
             return aliasArrayContainer;
         }
+        if (_struct instanceof PickableList) {
+            return aliasPickableList;
+        }
         return super.getOtherStructClassName(_struct, _context);
     }
     public String getAliasInts() {

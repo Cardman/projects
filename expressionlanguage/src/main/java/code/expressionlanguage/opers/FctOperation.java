@@ -764,33 +764,75 @@ public final class FctOperation extends InvokingOperation {
         cast_ = stds_.getAliasCast();
         stringType_ = stds_.getAliasString();
         if (constId != null) {
+            Argument arg_ = _conf.getLastPage().getGlobalArgument();
+            String clCurName_ = arg_.getObjectClassName(_conf);
+            String gl_ = _conf.getLastPage().getGlobalClass();
+            gl_ = StringList.getAllTypes(gl_).first();
+            String base_ = StringList.getAllTypes(gl_).first();
+            gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
+            UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
+            CustList<Argument> firstArgs_;
+            String calledCtor_ = base_;
+            String calledCtorTemp_ = gl_;
             if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
-                Argument arg_ = _conf.getLastPage().getGlobalArgument();
-                String clCurName_ = arg_.getObjectClassName(_conf);
-                String clCurNameBase_ = StringList.getAllTypes(clCurName_).first();
-                String lastType_ = Templates.format(clCurName_, lastType, _conf);
-                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
-                StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-                called_.add(clCurNameBase_);
-                InvokingConstructor inv_ = new InvokingConstructor(clCurName_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_THIS, called_);
-                return ArgumentCall.newCall(inv_);
-            }
-            if (StringList.quickEq(trimMeth_,prefixFunction(SUPER_ACCESS))) {
-                Argument arg_ = _conf.getLastPage().getGlobalArgument();
-                String clCurName_ = arg_.getObjectClassName(_conf);
-                String gl_ = _conf.getLastPage().getGlobalClass();
-                gl_ = StringList.getAllTypes(gl_).first();
-                String base_ = StringList.getAllTypes(gl_).first();
-                gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
-                UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
+                String lastType_ = Templates.format(gl_, lastType, _conf);
+                firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
+            } else {
                 String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(_conf), _conf);
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
                 String lastType_ = Templates.format(superClass_, lastType, _conf);
-                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
-                StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-                called_.add(superClassBase_);
+                firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
+                calledCtor_ = superClassBase_;
+                calledCtorTemp_ = superClass_;
+            }
+            StringList params_ = new StringList();
+            String classFormat_ = calledCtor_;
+            classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
+            if (classFormat_ == null) {
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+            }
+            int j_ = 0;
+            for (String c: constId.getParametersTypes()) {
+                String c_ = c;
+                c_ = Templates.format(classFormat_, c_, _conf);
+                if (j_ + 1 == constId.getParametersTypes().size() && constId.isVararg()) {
+                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                j_++;
+            }
+            int i_ = CustList.FIRST_INDEX;
+            for (Argument a: firstArgs_) {
+                if (i_ < params_.size()) {
+                    Struct str_ = a.getStruct();
+                    if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
+                        throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    }
+                    if (!str_.isNull()) {
+                        Mapping mapping_ = new Mapping();
+                        mapping_.setArg(a.getObjectClassName(_conf));
+                        mapping_.setParam(params_.get(i_));
+                        if (!Templates.isCorrect(mapping_, _conf)) {
+                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        }
+                    }
+                    if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
+                        ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
+                        a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
+                    }
+                }
+                i_++;
+            }
+            StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
+            called_.add(calledCtor_);
+            if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
+                InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_THIS, called_);
+                return ArgumentCall.newCall(inv_);
+            }
+            if (StringList.quickEq(trimMeth_,prefixFunction(SUPER_ACCESS))) {
                 _conf.getLastPage().clearCurrentEls();
-                InvokingConstructor inv_ = new InvokingConstructor(superClass_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_SUPER, called_);
+                InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_SUPER, called_);
                 return ArgumentCall.newCall(inv_);
             }
         }
@@ -1015,21 +1057,6 @@ public final class FctOperation extends InvokingOperation {
                         }
                         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                     }
-                    int indexType_ = CustList.FIRST_INDEX;
-                    for (Argument a: firstArgs_) {
-                        Struct str_ = a.getStruct();
-                        String type_ = methodId_.getParametersTypes().get(indexType_);
-                        if (!str_.isNull()) {
-                            Mapping map_ = new Mapping();
-                            map_.setArg(stds_.getStructClassName(str_, _conf));
-                            map_.setParam(type_);
-                            if (!Templates.isCorrect(map_, _conf)) {
-                                setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
-                            }
-                        }
-                        indexType_++;
-                    }
                 } else {
                     String base_ = StringList.getAllTypes(classNameFound_).first();
                     String argClassName_ = arg_.getObjectClassName(_conf);
@@ -1111,16 +1138,54 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         StringList params_ = new StringList();
-        for (String c: methodId_.getParametersTypes()) {
-            params_.add(c);
+        if (!staticMethod) {
+            String className_ = stds_.getStructClassName(arg_.getStruct(), _conf);
+            String classFormat_ = classNameFound_;
+            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
+            if (classFormat_ == null) {
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+            }
+            int i_ = 0;
+            for (String c: methodId_.getParametersTypes()) {
+                String c_ = c;
+                c_ = Templates.format(classFormat_, c_, _conf);
+                if (i_ + 1 == methodId_.getParametersTypes().size() && methodId_.isVararg()) {
+                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        } else {
+            int i_ = 0;
+            for (String c: methodId_.getParametersTypes()) {
+                String c_ = c;
+                if (i_ + 1 == methodId_.getParametersTypes().size() && methodId_.isVararg()) {
+                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
         }
-        checkArgumentsForInvoking(_conf, naturalVararg_ > -1, params_, getObjects(Argument.toArgArray(firstArgs_)));
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: firstArgs_) {
-            Struct str_ = a.getStruct();
-            if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
-                ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
-                a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
+            if (i_ < params_.size()) {
+                Struct str_ = a.getStruct();
+                if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
+                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                }
+                if (!str_.isNull()) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(a.getObjectClassName(_conf));
+                    mapping_.setParam(params_.get(i_));
+                    if (!Templates.isCorrect(mapping_, _conf)) {
+                        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                        throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                    }
+                }
+                if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
+                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
+                    a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
+                }
             }
             i_++;
         }

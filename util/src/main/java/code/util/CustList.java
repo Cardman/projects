@@ -1,6 +1,5 @@
 package code.util;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -61,19 +60,18 @@ public class CustList<T> implements Listable<T> {
         }
     }
     public void sortElts(Comparator<T> _comp) {
-        Collections.sort(list, _comp);
-//        int len_ = size();
-//        for (int i = FIRST_INDEX; i <len_; i++) {
-//            for (int j = i + 1; j <len_; j++) {
-//                T one_ = get(i);
-//                T two_ = get(j);
-//                int res_ = _comp.compare(one_, two_);
-//                if (res_ > EQ_CMP) {
-//                    set(i, two_);
-//                    set(j, one_);
-//                }
-//            }
-//        }
+        int len_ = list.size();
+        for (int i = FIRST_INDEX; i <len_; i++) {
+            for (int j = i + 1; j <len_; j++) {
+                T one_ = list.get(i);
+                T two_ = list.get(j);
+                int res_ = _comp.compare(one_, two_);
+                if (res_ > EQ_CMP) {
+                    list.set(i, two_);
+                    list.set(j, one_);
+                }
+            }
+        }
     }
 
     @Override
@@ -202,7 +200,9 @@ public class CustList<T> implements Listable<T> {
 
     @Override
     public void swapIndexes(int _i, int _j) {
-        Collections.swap(list, _i, _j);
+        T first_ = list.get(_i);
+        list.set(_i, list.get(_j));
+        list.set(_j, first_);
     }
 
     @Override

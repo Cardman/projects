@@ -331,17 +331,17 @@ final class ExtractObject {
             String short_ = stds_.getAliasShort();
             String byte_ = stds_.getAliasByte();
             if (StringList.quickEq(name_, int_) || StringList.quickEq(name_, intPrim_)) {
-                return new IntStruct(Integer.parseInt(_arg));
+                return new IntStruct(LgNames.parseInt(_arg));
             } else if (StringList.quickEq(name_, long_) || StringList.quickEq(name_, longPrim_)) {
-                return new LongStruct(Long.parseLong(_arg));
+                return new LongStruct(LgNames.parseLong(_arg));
             } else if (StringList.quickEq(name_, short_) || StringList.quickEq(name_, shortPrim_)) {
-                return new ShortStruct(Short.parseShort(_arg));
+                return new ShortStruct(LgNames.parseShort(_arg));
             } else if (StringList.quickEq(name_, byte_) || StringList.quickEq(name_, bytePrim_)) {
-                return new ByteStruct(Byte.parseByte(_arg));
+                return new ByteStruct(LgNames.parseByte(_arg));
             } else if (StringList.quickEq(name_, double_) || StringList.quickEq(name_, doublePrim_)) {
-                return new DoubleStruct(Double.parseDouble(_arg));
+                return new DoubleStruct(LgNames.parseDouble(_arg));
             } else if (StringList.quickEq(name_, float_) || StringList.quickEq(name_, floatPrim_)) {
-                return new FloatStruct(Float.parseFloat(_arg));
+                return new FloatStruct(LgNames.parseFloat(_arg));
             } else {
                 String escaped_ = StringList.replace(_arg, QUOTE_DOUBLE, StringList.concat(String.valueOf(ESCAPED),QUOTE_DOUBLE));
                 String instanciation_ = StringList.concat(INSTANCE,_class,String.valueOf(BEGIN_ARGS),QUOTE_DOUBLE,escaped_,QUOTE_DOUBLE,String.valueOf(END_ARGS));

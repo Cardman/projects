@@ -1854,6 +1854,285 @@ public class ElUtilTest {
         assertSame(Double.class, res_.getClass());
         assertEq(10.0625d, (Number)res_);
     }
+    @Test
+    public void processEl143Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("100.625e-1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(10.0625d, (Number)res_);
+    }
+    @Test
+    public void processEl144Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("100.625",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(100.625d, (Number)res_);
+    }
+    @Test
+    public void processEl145Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("123456789123456789123456789.0",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(1.2345678912345678912e26, (Number)res_);
+    }
+    @Test
+    public void processEl147Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("123456789123456789123456789.",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(1.2345678912345678912e26, (Number)res_);
+    }
+    @Test
+    public void processEl148Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("123456789123456789123456789.e-1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(1.2345678912345678912e25, (Number)res_);
+    }
+    @Test
+    public void processEl149Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("123456789123456789123456789.e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(1.2345678912345678912e27, (Number)res_);
+    }
+    @Test
+    public void processEl150Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("123456.e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(1234560, (Number)res_);
+    }
+    @Test
+    public void processEl151Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(".078125e-1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(.078125e-1, (Number)res_);
+    }
+    @Test
+    public void processEl152Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("123456789123456789123456789.0e-36",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(1.2345678912345678912e-10, (Number)res_);
+    }
+    @Test
+    public void processEl153Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("0.0e-36",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.0, (Number)res_);
+    }
+    @Test
+    public void processEl154Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-0.0e-36",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(-0.0, (Number)res_);
+    }
+    @Test
+    public void processEl155Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("0.625e-1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.0625, (Number)res_);
+    }
+    @Test
+    public void processEl156Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(".625e-1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.0625, (Number)res_);
+    }
+    @Test
+    public void processEl157Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("0.625e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(6.25, (Number)res_);
+    }
+    @Test
+    public void processEl158Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(".625e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(6.25, (Number)res_);
+    }
+    @Test
+    public void processEl159Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("0.625e0",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.625, (Number)res_);
+    }
+    @Test
+    public void processEl160Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(".625e0",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.625, (Number)res_);
+    }
+    @Test
+    public void processEl161Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-.625e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(-6.25, (Number)res_);
+    }
+    @Test
+    public void processEl162Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-.6e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(-6.0, (Number)res_);
+    }
+    @Test
+    public void processEl163Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-.60e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(-6.0, (Number)res_);
+    }
+    @Test
+    public void processEl164Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(".6e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(6.0, (Number)res_);
+    }
+    @Test
+    public void processEl165Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(".6e2",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(60.0, (Number)res_);
+    }
+    @Test
+    public void processEl166Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("123456789123456789123456789.1e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(1.2345678912345678912e27, (Number)res_);
+    }
+    @Test
+    public void processEl167Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("100.e-1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(10.0, (Number)res_);
+    }
+    @Test
+    public void processEl168Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-100.e-1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(-10.0, (Number)res_);
+    }
+    @Test
+    public void processEl169Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-1.e1",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(-10.0, (Number)res_);
+    }
+    @Test
+    public void processEl170Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-1.",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(-1.0, (Number)res_);
+    }
+    @Test
+    public void processEl171Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("1e-123456789123456789123",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.0, (Number)res_);
+    }
+    @Test
+    public void processEl172Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-1e-123456789123456789123",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(-0.0, (Number)res_);
+    }
+    @Test
+    public void processEl173Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("1e123456789123456789123",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(Double.POSITIVE_INFINITY, (Number)res_);
+    }
+    @Test
+    public void processEl174Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-1e123456789123456789123",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(Double.NEGATIVE_INFINITY, (Number)res_);
+    }
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
         ContextEl context_ = contextEl();

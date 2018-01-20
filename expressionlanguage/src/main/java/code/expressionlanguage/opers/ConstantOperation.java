@@ -88,9 +88,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     private Field field;
 
-    private boolean staticChoiceFieldTemplate;
-    private boolean staticChoiceField;
-
     private boolean catString;
 
     private String variableName = EMPTY_STRING;
@@ -382,9 +379,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 className_ = className_.substring(lenPref_);
                 className_ = StringList.removeAllSpaces(className_);
                 className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-                staticChoiceField = true;
                 if (className_.contains(Templates.TEMPLATE_BEGIN)) {
-                    staticChoiceFieldTemplate = true;
                     checkCorrect(_conf, className_, true, lenPref_);
                 } else {
                     checkExistBase(_conf, false, className_, true, lenPref_);
@@ -808,7 +803,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (op_.getConstType() == ConstType.LOOP_INDEX) {
             LoopVariable locVar_ = ip_.getVars().getVal(variableName);
             a_ = new Argument();
-            a_.setStruct(new LongStruct(locVar_.getIndex()));
+            ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
+            a_.setStruct(PrimitiveTypeUtil.convertObject(clArg_, new LongStruct(locVar_.getIndex()), _conf));
             return ArgumentCall.newArgument(a_);
         }
         if (op_.getConstType() == ConstType.LOOP_VAR) {
@@ -870,8 +866,19 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Argument left_ = new Argument();
             left_.setStruct(locVar_.getStruct());
             Argument right_ = ip_.getRightArgument();
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(locVar_.getClassName(), right_.getStruct(), _conf)) {
+            String formattedClassVar_ = locVar_.getClassName();
+            formattedClassVar_ = _conf.getLastPage().formatVarType(formattedClassVar_, _conf);
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(formattedClassVar_, right_.getStruct(), _conf)) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            }
+            if (!right_.isNull() && !NumericOperation.convert(_op)) {
+                Mapping mapping_ = new Mapping();
+                String base_ = right_.getObjectClassName(_conf);
+                mapping_.setArg(base_);
+                mapping_.setParam(formattedClassVar_);
+                if (!Templates.isCorrect(mapping_, _conf)) {
+                    throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,formattedClassVar_,RETURN_LINE,_conf.joinPages())),cast_));
+                }
             }
             Argument res_;
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
@@ -887,8 +894,19 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         Argument left_ = new Argument();
         Argument res_;
         if (fieldId != null) {
+            String fieldType_;
+            if (!fieldMetaInfo.isStaticField()) {
+                String argClassName_ = argument_.getObjectClassName(_conf);
+                String classNameFound_ = fieldId.getClassName();
+                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
+                classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
+                fieldType_ = fieldMetaInfo.getRealType();
+                fieldType_ = Templates.format(classNameFound_, fieldType_, _conf);
+            } else {
+                fieldType_ = fieldMetaInfo.getRealType();
+            }
             Classes classes_ = _conf.getClasses();
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldMetaInfo.getType(), right_.getStruct(), _conf)) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, right_.getStruct(), _conf)) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
             Struct structField_ = null;
@@ -907,24 +925,22 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                     }
                     structField_ = ((FieldableStruct) argument_.getStruct()).getStruct(fieldId);
-                    if (staticChoiceField) {
-                        if (!staticChoiceFieldTemplate) {
-                            classNameFound_ = StringList.getAllTypes(classNameFound_).first();
-                            classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
-                            String type_ = fieldMetaInfo.getRealType();
-                            type_ = Templates.format(classNameFound_, type_, _conf);
-                            Mapping map_ = new Mapping();
-                            String rightClass_ = right_.getObjectClassName(_conf);
-                            map_.setArg(rightClass_);
-                            map_.setParam(type_);
-                            if (!Templates.isCorrect(map_, _conf)) {
-                                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,type_,RETURN_LINE,_conf.joinPages())),cast_));
-                            }
-                        }
+                }
+                if (!right_.isNull() && !NumericOperation.convert(_op)) {
+                    Mapping map_ = new Mapping();
+                    String rightClass_ = right_.getObjectClassName(_conf);
+                    map_.setArg(rightClass_);
+                    map_.setParam(fieldType_);
+                    if (!Templates.isCorrect(map_, _conf)) {
+                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
                     }
                 }
                 left_.setStruct(structField_);
                 res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+                if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
+                    ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+                    res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
+                }
                 if (fieldMetaInfo.isStaticField()) {
                     classes_.initializeStaticField(fieldId, res_.getStruct());
                 } else {

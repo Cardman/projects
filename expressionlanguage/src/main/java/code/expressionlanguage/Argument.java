@@ -88,7 +88,11 @@ public final class Argument {
         if (longValue_ != null) {
             value_ = longValue_;
         } else {
-            value_ = Double.parseDouble(nb_);
+            NumberInfos infos_ = LgNames.trySplitDouble(nb_);
+            if (infos_ == null) {
+                return null;
+            }
+            value_ = LgNames.parseDouble(infos_);
         }
         Argument a_ = new Argument();
         if (StringList.quickEq(nb_, StringList.removeChars(_nb, '_'))) {

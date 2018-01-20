@@ -164,25 +164,37 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             Argument arg_ = el_.calculateMember(_cont);
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();
-            if (arg_.getStruct() instanceof NumberStruct || arg_.getStruct() instanceof CharStruct || arg_.isNull()) {
-                LgNames stds_ = _cont.getStandards();
-                String retType_ = stds_.getAliasVoid();
-                BracedBlock par_ = getParent();
-                while (par_ != null) {
-                    if (par_ instanceof Returnable) {
-                        Returnable meth_ = null;
-                        meth_ = (Returnable) par_;
-                        retType_ = meth_.getReturnType(stds_);
-                        break;
-                    }
-                    par_ = par_.getParent();
+            //&& !NumericOperation.convert(_op)
+            LgNames stds_ = _cont.getStandards();
+            String retType_ = stds_.getAliasVoid();
+            BracedBlock par_ = getParent();
+            while (par_ != null) {
+                if (par_ instanceof Returnable) {
+                    Returnable meth_ = null;
+                    meth_ = (Returnable) par_;
+                    retType_ = meth_.getReturnType(stds_);
+                    break;
                 }
-                retType_ = _cont.getLastPage().formatVarType(retType_, _cont);
-                if (PrimitiveTypeUtil.primitiveTypeNullObject(retType_, arg_.getStruct(), _cont)) {
-                    String null_;
-                    null_ = stds_.getAliasNullPe();
-                    throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                par_ = par_.getParent();
+            }
+            retType_ = _cont.getLastPage().formatVarType(retType_, _cont);
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(retType_, arg_.getStruct(), _cont)) {
+                String null_;
+                null_ = stds_.getAliasNullPe();
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+            }
+            if (!arg_.isNull()) {
+                Mapping map_ = new Mapping();
+                String rightClass_ = arg_.getObjectClassName(_cont);
+                map_.setArg(rightClass_);
+                map_.setParam(retType_);
+                if (!Templates.isCorrect(map_, _cont)) {
+                    String cast_;
+                    cast_ = stds_.getAliasCast();
+                    throw new InvokeException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,retType_,RETURN_LINE,_cont.joinPages())),cast_));
                 }
+            }
+            if (arg_.getStruct() instanceof NumberStruct || arg_.getStruct() instanceof CharStruct) {
                 ClassArgumentMatching resCl_ = new ClassArgumentMatching(retType_);
                 arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, arg_.getStruct(), _cont));
             }

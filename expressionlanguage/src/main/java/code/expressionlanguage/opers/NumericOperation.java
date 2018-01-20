@@ -61,6 +61,33 @@ public abstract class NumericOperation extends MethodOperation {
         }
         return o_;
     }
+    static boolean convert(String _op) {
+        if (StringList.quickEq(_op, Block.PLUS_EQ)) {
+            return true;
+        }
+        if (StringList.quickEq(_op, Block.EQ_PLUS)) {
+            return true;
+        }
+        if (StringList.quickEq(_op, Block.MINUS_EQ)) {
+            return true;
+        }
+        if (StringList.quickEq(_op, Block.MULT_EQ)) {
+            return true;
+        }
+        if (StringList.quickEq(_op, Block.DIV_EQ)) {
+            return true;
+        }
+        if (StringList.quickEq(_op, Block.MOD_EQ)) {
+            return true;
+        }
+        if (StringList.quickEq(_op, Block.INCR)) {
+            return true;
+        }
+        if (StringList.quickEq(_op, Block.DECR)) {
+            return true;
+        }
+        return false;
+    }
     /**@throws InvokeRedinedMethException
     @throws NullObjectException*/
     static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b, boolean _catChars, boolean _catString) {

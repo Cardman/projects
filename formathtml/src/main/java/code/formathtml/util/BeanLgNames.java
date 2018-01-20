@@ -292,7 +292,7 @@ public class BeanLgNames extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new DoubleStruct(Double.parseDouble(_values.first())));
+                res_.setResult(new DoubleStruct(LgNames.parseDouble(_values.first())));
                 return res_;
             }
             if (StringList.quickEq(_className, getAliasFloat()) || StringList.quickEq(_className, getAliasPrimFloat())) {
@@ -300,7 +300,7 @@ public class BeanLgNames extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new FloatStruct(Float.parseFloat(_values.first())));
+                res_.setResult(new FloatStruct(LgNames.parseFloat(_values.first())));
                 return res_;
             }
             if (StringList.quickEq(_className, getAliasLong()) || StringList.quickEq(_className, getAliasPrimLong())) {
@@ -308,7 +308,7 @@ public class BeanLgNames extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new LongStruct(Long.parseLong(_values.first())));
+                res_.setResult(new LongStruct(LgNames.parseLong(_values.first())));
                 return res_;
             }
             if (StringList.quickEq(_className, getAliasInteger()) || StringList.quickEq(_className, getAliasPrimInteger())) {
@@ -316,7 +316,7 @@ public class BeanLgNames extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new IntStruct(Integer.parseInt(_values.first())));
+                res_.setResult(new IntStruct(LgNames.parseInt(_values.first())));
                 return res_;
             }
             if (StringList.quickEq(_className, getAliasShort()) || StringList.quickEq(_className, getAliasPrimShort())) {
@@ -324,7 +324,7 @@ public class BeanLgNames extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new ShortStruct(Short.parseShort(_values.first())));
+                res_.setResult(new ShortStruct(LgNames.parseShort(_values.first())));
                 return res_;
             }
             if (StringList.quickEq(_className, getAliasByte()) || StringList.quickEq(_className, getAliasPrimByte())) {
@@ -332,7 +332,7 @@ public class BeanLgNames extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new ByteStruct(Byte.parseByte(_values.first())));
+                res_.setResult(new ByteStruct(LgNames.parseByte(_values.first())));
                 return res_;
             }
             if (StringList.quickEq(_className, getAliasCharacter()) || StringList.quickEq(_className, getAliasPrimChar())) {

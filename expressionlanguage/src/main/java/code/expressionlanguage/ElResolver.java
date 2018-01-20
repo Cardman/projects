@@ -575,13 +575,88 @@ public final class ElResolver {
                     i_ = nextIndex_;
                     continue;
                 }
+                int beginWord_ = i_;
                 while (i_ < len_) {
                     if (!StringList.isWordChar(_string.charAt(i_))) {
                         break;
                     }
                     i_++;
                 }
+                ConstType type_ = ConstType.NOTHING;
+                boolean tolerateDot_ = false;
+                VariableInfo info_ = new VariableInfo();
+                if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
+                    if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
+                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                            type_ = ConstType.CUST_FIELD;
+                            info_.setKind(type_);
+                            info_.setFirstChar(beginWord_);
+                            info_.setLastChar(i_+GET_FIELD.length());
+                            info_.setName(_string.substring(beginWord_, i_));
+                            i_ += GET_FIELD.length();
+                            d_.getVariables().add(info_);
+                            tolerateDot_ = true;
+                        } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
+                            _conf.getLastPage().setOffset(i_+2);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        } else {
+                            type_ = ConstType.LOOP_INDEX;
+                            info_.setKind(type_);
+                            info_.setFirstChar(beginWord_);
+                            info_.setLastChar(i_+GET_INDEX.length());
+                            info_.setName(_string.substring(beginWord_, i_));
+                            i_ += GET_INDEX.length();
+                            d_.getVariables().add(info_);
+                        }
+                    } else if (i_ + 1 < len_ && _string.charAt(i_ + 1) == DOT_VAR) {
+                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
+                            type_ = ConstType.CATCH_VAR;
+                            info_.setKind(type_);
+                            info_.setFirstChar(beginWord_);
+                            info_.setLastChar(i_+GET_CATCH_VAR.length());
+                            info_.setName(_string.substring(beginWord_, i_));
+                            i_ += GET_CATCH_VAR.length();
+                            d_.getVariables().add(info_);
+                        } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                            type_ = ConstType.PARAM;
+                            info_.setKind(type_);
+                            info_.setFirstChar(beginWord_);
+                            info_.setLastChar(i_+GET_PARAM.length());
+                            info_.setName(_string.substring(beginWord_, i_));
+                            i_ += GET_PARAM.length();
+                            d_.getVariables().add(info_);
+                        } else {
+                            type_ = ConstType.LOC_VAR;
+                            info_.setKind(type_);
+                            info_.setFirstChar(beginWord_);
+                            info_.setLastChar(i_+GET_LOC_VAR.length());
+                            info_.setName(_string.substring(beginWord_, i_));
+                            i_ += GET_LOC_VAR.length();
+                            d_.getVariables().add(info_);
+                        }
+                    } else {
+                        type_ = ConstType.LOOP_VAR;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(i_ + GET_ATTRIBUTE.length());
+                        info_.setName(_string.substring(beginWord_, i_));
+                        i_ += GET_ATTRIBUTE.length();
+                        d_.getVariables().add(info_);
+                    }
+                } else {
+                    tolerateDot_ = true;
+                    type_ = ConstType.WORD;
+                    info_.setKind(type_);
+                    info_.setFirstChar(beginWord_);
+                    info_.setLastChar(i_);
+                    info_.setName(_string.substring(beginWord_, i_));
+                    d_.getVariables().add(info_);
+                }
                 String nextPart_ = _string.substring(i_).trim();
+                if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == GET_VAR)) {
+                    _conf.getLastPage().setOffset(i_);
+                    throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                }
                 if (!isCorrectNbEndWord(nextPart_, end_)) {
                     _conf.getLastPage().setOffset(i_+1);
                     throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
@@ -1168,9 +1243,6 @@ public final class ElResolver {
         if (char_ == _end) {
             return true;
         }
-        if (char_ == EXTERN_CLASS) {
-            return false;
-        }
         if (char_ == Templates.PREFIX_VAR_TYPE_CHAR) {
             return false;
         }
@@ -1190,9 +1262,6 @@ public final class ElResolver {
             return false;
         }
         if (char_ == '?') {
-            return false;
-        }
-        if (StringList.isWordChar(char_)) {
             return false;
         }
         return true;
@@ -1255,7 +1324,7 @@ public final class ElResolver {
         if (i_ >= len_) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
+            op_.setValue(_string, 0);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -1277,7 +1346,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.STATIC_ACCESS);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string);
+                op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1286,7 +1355,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.THIS_KEYWORD);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string);
+                op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1294,7 +1363,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.NULL_CST);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string);
+                op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1302,7 +1371,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.TRUE_CST);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string);
+                op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1310,7 +1379,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.FALSE_CST);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string);
+                op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1359,63 +1428,21 @@ public final class ElResolver {
             op_.getNbInfos().setPositive(positive_);
             op_.getNbInfos().setFirstPrintable(firstPrintChar_);
             op_.getNbInfos().setFirstDigit(firstNbChar_);
-            op_.setupValues(_string);
+            op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        if (isCustomField(_string, firstPrintChar_, lastPrintChar_, GET_FIELD)) {
+        for (VariableInfo v: _d.getVariables()) {
+            if (v.getFirstChar() != _offset + firstPrintChar_) {
+                continue;
+            }
+            if (v.getLastChar() != _offset + lastPrintChar_ + 1) {
+                continue;
+            }
             OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.CUST_FIELD);
+            op_.setConstType(v.getKind());
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_FIELD.length() + 1),firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (isCustomField(_string, firstPrintChar_, lastPrintChar_, GET_PARAM)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.PARAM);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_PARAM.length() + 1),firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (isCustomField(_string, firstPrintChar_, lastPrintChar_, GET_CATCH_VAR)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.CATCH_VAR);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_CATCH_VAR.length() + 1),firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (isCustomField(_string, firstPrintChar_, lastPrintChar_, GET_LOC_VAR)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.LOC_VAR);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_LOC_VAR.length() + 1),firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (isCustomField(_string, firstPrintChar_, lastPrintChar_, GET_INDEX)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.LOOP_INDEX);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_INDEX.length() + 1),firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (isCustomField(_string, firstPrintChar_, lastPrintChar_, GET_ATTRIBUTE)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.LOOP_VAR);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_ATTRIBUTE.length() + 1),firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (isWord(_string, firstPrintChar_, lastPrintChar_)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.WORD);
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
+            op_.setValue(v.getName(), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -1426,7 +1453,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CHARACTER);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string);
+                op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1434,7 +1461,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.STRING);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setupValues(_string);
+                op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1659,27 +1686,6 @@ public final class ElResolver {
         op_.setupValues(_string);
         op_.setDelimiter(_d);
         return op_;
-    }
-
-    static boolean isCustomField(String _string, int _from, int _to, String _suffix) {
-        int i_ = _from;
-        while (i_ <= _to) {
-            if (!StringList.isWordChar(_string.charAt(i_))) {
-                return StringList.quickEq(_string.substring(i_, _to +1),_suffix);
-            }
-            i_++;
-        }
-        return false;
-    }
-    static boolean isWord(String _string, int _from, int _to) {
-        int i_ = _from;
-        while (i_ <= _to) {
-            if (!StringList.isWordChar(_string.charAt(i_))) {
-                return false;
-            }
-            i_++;
-        }
-        return true;
     }
 
     static int getIncrement(String _string, int _from, int _to) {

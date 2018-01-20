@@ -2297,15 +2297,15 @@ public class LgNames {
                     } else {
                         String one_ = (String) argsObj_[0];
                         boolean valid_ = true;
-                        if (!isValidDouble(one_)) {
+                        NumberInfos infos_ = trySplitDouble(one_);
+                        if (infos_ == null) {
                             valid_ = false;
                         }
                         Double d_ = null;
                         if (valid_) {
-                            d_ = Double.parseDouble(one_);
-                            if (d_ < Float.MIN_VALUE) {
-                                valid_ = false;
-                            } else if (d_ > Float.MAX_VALUE) {
+                            d_ = parseDouble(infos_);
+                            double abs_ = Math.abs(d_);
+                            if (abs_ > Float.MAX_VALUE) {
                                 valid_ = false;
                             }
                         }
@@ -2341,17 +2341,13 @@ public class LgNames {
                     } else {
                         String one_ = (String) argsObj_[0];
                         boolean valid_ = true;
-                        if (!isValidDouble(one_)) {
+                        NumberInfos infos_ = trySplitDouble(one_);
+                        if (infos_ == null) {
                             valid_ = false;
                         }
                         Double d_ = null;
                         if (valid_) {
-                            d_ = Double.parseDouble(one_);
-                            if (Double.isInfinite(d_)) {
-                                valid_ = false;
-                            } else if (Double.isNaN(d_)) {
-                                valid_ = false;
-                            }
+                            d_ = parseDouble(infos_);
                         }
                         if (!valid_) {
                             result_.setError(lgNames_.getAliasNbFormat());
@@ -3011,8 +3007,26 @@ public class LgNames {
             exp_.deleteCharAt(exp_.indexOf(" "));
         }
         boolean positive_ = _nb.isPositive();
+        Long expNb_;
+        if (exp_.length() == 0) {
+            expNb_ = 0l;
+        } else {
+            expNb_ = parseLongTen(exp_.toString());
+        }
+        if (expNb_ == null) {
+            if (positive_) {
+                if (exp_.charAt(0) == '-') {
+                    return 0.0;
+                }
+                return Double.POSITIVE_INFINITY;
+            }
+            if (exp_.charAt(0) == '-') {
+                return -0.0;
+            }
+            return Double.NEGATIVE_INFINITY;
+        }
         if (dec_.length() == 0) {
-            if (exp_.length() == 0) {
+            if (expNb_.longValue() == 0) {
                 Long long_;
                 if (int_.length() > MAX_DIGITS_DOUBLE) {
                     return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE);
@@ -3023,30 +3037,19 @@ public class LgNames {
                 }
                 return long_.doubleValue();
             }
-            Long expNb_ = parseLongTen(exp_.toString());
-            if (expNb_ == null) {
-                if (positive_) {
-                    if (exp_.charAt(0) == '-') {
-                        return Double.MIN_VALUE;
-                    }
-                    return Double.POSITIVE_INFINITY;
-                }
-                if (exp_.charAt(0) == '-') {
-                    return -Double.MIN_VALUE;
-                }
-                return Double.NEGATIVE_INFINITY;
-            }
             long expNbLong_ = expNb_.longValue();
             Long long_;
-            if (int_.length() > MAX_DIGITS_DOUBLE + expNbLong_) {
-                return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE + (int)expNbLong_);
+            if (int_.length() > MAX_DIGITS_DOUBLE) {
+                long_ = parseLongTen(int_.substring(0, MAX_DIGITS_DOUBLE + 1));
+                expNbLong_ += int_.length() - MAX_DIGITS_DOUBLE - 1;
+            } else {
+                long_ = parseLongTen(int_.toString());
             }
             double power_ = 1;
             long absExp_ = Math.abs(expNbLong_);
             for (long i = 0; i < absExp_; i++) {
                 power_ *= 10d;
             }
-            long_ = parseLongTen(int_.toString());
             if (!positive_) {
                 if (expNbLong_ > 0) {
                     return -long_.doubleValue() * power_;
@@ -3057,24 +3060,6 @@ public class LgNames {
                 return long_.doubleValue() * power_;
             }
             return long_.doubleValue() / power_;
-        }
-        Long expNb_;
-        if (exp_.length() == 0) {
-            expNb_ = 0l;
-        } else {
-            expNb_ = parseLongTen(exp_.toString());
-        }
-        if (expNb_ == null) {
-            if (positive_) {
-                if (exp_.charAt(0) == '-') {
-                    return Double.MIN_VALUE;
-                }
-                return Double.POSITIVE_INFINITY;
-            }
-            if (exp_.charAt(0) == '-') {
-                return -Double.MIN_VALUE;
-            }
-            return Double.NEGATIVE_INFINITY;
         }
         long expNbLong_ = expNb_.longValue();
         if (expNbLong_ >= dec_.length()) {
@@ -3109,6 +3094,12 @@ public class LgNames {
             }
             nbLeadingZeros_ = index_;
             decCopy_.append(number_.substring(nbLeadingZeros_));
+            if (decCopy_.length() == 0) {
+                if (!positive_) {
+                    return -0.0;
+                }
+                return 0.0;
+            }
             double value_;
             int diff_;
             if (decCopy_.length() > MAX_DIGITS_DOUBLE) {
@@ -3130,26 +3121,29 @@ public class LgNames {
         StringBuilder numberInt_ = new StringBuilder();
         StringBuilder numberDec_ = new StringBuilder();
         if (expNbLong_ > 0) {
+            //expNbLong_ < dec_.length() => dec_.length() > 0 => numberInt_.length() > 0
+            //-expNbLong_ < int_.length()
             numberInt_.append(int_);
             numberInt_.append(dec_.substring(0, (int) expNbLong_));
             numberDec_.append(dec_.substring((int)expNbLong_));
         } else if (expNbLong_ == 0) {
+            //expNbLong_ < dec_.length() => 0 < dec_.length()
+            //-expNbLong_ < int_.length() => 0 < int_.length() => numberInt_.length() > 0
             numberInt_.append(int_);
             numberDec_.append(dec_);
         } else {
-            numberInt_.append(int_.substring(0, (int) -expNbLong_));
-            numberDec_.append(int_.substring((int) -expNbLong_));
+            //expNbLong_ < 0
+            int del_ = int_.length() +(int)expNbLong_;
+            //-expNbLong_ < int_.length() => 0 < -expNbLong_ < int_.length() => 0 < int_.length()
+            //-expNbLong_ < int_.length() => 0 < expNbLong_ + int_.length() => numberInt_.length() > 0
+            numberInt_.append(int_.substring(0, del_));
+            numberDec_.append(int_.substring(del_));
             numberDec_.append(dec_);
         }
         if (numberInt_.length() > MAX_DIGITS_DOUBLE) {
             return processBigNumbers(numberInt_, positive_, MAX_DIGITS_DOUBLE);
         }
-        Long longValue_;
-        if (numberInt_.length() > 0) {
-            longValue_ = parseLongTen(numberInt_.toString());
-        } else {
-            longValue_ = 0l;
-        }
+        Long longValue_ = parseLongTen(numberInt_.toString());
         StringBuilder decCopy_ = new StringBuilder();
         int nbLeadingZeros_ = 0;
         int index_ = 0;
@@ -3161,12 +3155,14 @@ public class LgNames {
         }
         nbLeadingZeros_ = index_;
         decCopy_.append(numberDec_.substring(nbLeadingZeros_));
-        double decValue_;
-        if (decCopy_.length() > 0) {
-            decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
-        } else {
-            decValue_ = 0;
+        decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
+        if (decCopy_.length() == 0) {
+            if (!positive_) {
+                return -longValue_.doubleValue();
+            }
+            return longValue_.doubleValue();
         }
+        double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
         double power_ = 1;
         int logDec_ = numberDec_.length();
         for (int i = 0; i < logDec_; i++) {
@@ -3197,12 +3193,18 @@ public class LgNames {
         int max_ = _string.length();
         int digit_;
         int ch_ = _string.charAt(i_);
+        if (ch_ >= 'A' && ch_ <= 'F') {
+            ch_ = Character.toLowerCase(ch_);
+        }
         i_++;
         digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
         result_ = -digit_;
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
             ch_ = _string.charAt(i_);
+            if (ch_ >= 'A' && ch_ <= 'F') {
+                ch_ = Character.toLowerCase(ch_);
+            }
             i_++;
             digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
             result_ *= HEX_BASE;
@@ -3380,6 +3382,208 @@ public class LgNames {
         }
         return true;
     }
+    public static Double parseDouble(String _nb) {
+        NumberInfos infos_ = trySplitDouble(_nb);
+        if (infos_ == null) {
+            return null;
+        }
+        return parseDouble(infos_);
+    }
+    public static Float parseFloat(String _nb) {
+        NumberInfos infos_ = trySplitDouble(_nb);
+        if (infos_ == null) {
+            return null;
+        }
+        double double_ = parseDouble(infos_);
+        double abs_ = Math.abs(double_);
+        if (abs_ > Float.MAX_VALUE) {
+            return null;
+        }
+        return (float)double_;
+    }
+    public static NumberInfos trySplitDouble(String _nb) {
+        NumberInfos infos_ = new NumberInfos();
+        int i_ = 0;
+        if (!Character.isDigit(_nb.charAt(i_))) {
+            if (_nb.charAt(i_) != MINUS_CHAR) {
+                if (_nb.charAt(i_) != DOT_VAR) {
+                    return null;
+                }
+                infos_.setPositive(true);
+            } else {
+                infos_.setPositive(false);
+                i_++;
+            }
+        } else {
+            infos_.setPositive(true);
+        }
+        int len_ = _nb.length();
+        StringBuilder intPart_ = new StringBuilder();
+        infos_.setIntPart(intPart_);
+        StringBuilder decimalPart_ = new StringBuilder();
+        infos_.setDecimalPart(decimalPart_);
+        StringBuilder exponentialPart_ = new StringBuilder();
+        infos_.setExponentialPart(exponentialPart_);
+        while (i_ < len_) {
+            char cur_ = _nb.charAt(i_);
+            if (!Character.isDigit(cur_)) {
+                if (_nb.charAt(i_) != DOT_VAR) {
+                    if (Character.toLowerCase(_nb.charAt(i_)) != EXP) {
+                        return null;
+                    }
+                }
+                break;
+            }
+            intPart_.append(cur_);
+            i_++;
+        }
+        if (i_ >= len_) {
+            return infos_;
+        }
+        if (_nb.charAt(i_) == DOT_VAR) {
+            i_++;
+            while (i_ < len_) {
+                char cur_ = _nb.charAt(i_);
+                if (!Character.isDigit(cur_)) {
+                    if (Character.toLowerCase(_nb.charAt(i_)) != EXP) {
+                        return null;
+                    }
+                    break;
+                }
+                decimalPart_.append(cur_);
+                i_++;
+            }
+        }
+        if (i_ >= len_) {
+            return infos_;
+        }
+        if (Character.toLowerCase(_nb.charAt(i_)) == EXP) {
+            i_++;
+            if (i_ >= len_) {
+                return null;
+            }
+            char cur_ = _nb.charAt(i_);
+            if (!Character.isDigit(cur_) && cur_ != MINUS_CHAR) {
+                return null;
+            }
+            i_++;
+            exponentialPart_.append(cur_);
+            while (i_ < len_) {
+                cur_ = _nb.charAt(i_);
+                if (!Character.isDigit(cur_)) {
+                    return null;
+                }
+                exponentialPart_.append(cur_);
+                i_++;
+            }
+        }
+        return infos_;
+    }
+    public static Byte parseByte(String _string) {
+        Long int_ = parseLong(_string);
+        if (int_ == null) {
+            return null;
+        }
+        if (int_.longValue() < Byte.MIN_VALUE) {
+            return null;
+        }
+        if (int_.longValue() > Byte.MAX_VALUE) {
+            return null;
+        }
+        return int_.byteValue();
+    }
+    public static Short parseShort(String _string) {
+        Long int_ = parseLong(_string);
+        if (int_ == null) {
+            return null;
+        }
+        if (int_.longValue() < Short.MIN_VALUE) {
+            return null;
+        }
+        if (int_.longValue() > Short.MAX_VALUE) {
+            return null;
+        }
+        return int_.shortValue();
+    }
+    public static Integer parseInt(String _string) {
+        Long int_ = parseLong(_string);
+        if (int_ == null) {
+            return null;
+        }
+        if (int_.longValue() < Integer.MIN_VALUE) {
+            return null;
+        }
+        if (int_.longValue() > Integer.MAX_VALUE) {
+            return null;
+        }
+        return int_.intValue();
+    }
+    public static Long parseLong(String _string) {
+        if (_string == null) {
+            return null;
+        }
+        long result_ = 0;
+        boolean negative_ = false;
+        int i_ = 0;
+        int max_ = _string.length();
+        long limit_;
+        long multmin_;
+        int digit_;
+
+        if (max_ > 0) {
+            if (_string.charAt(0) == '-') {
+                negative_ = true;
+                limit_ = Long.MIN_VALUE;
+                i_++;
+            } else {
+                limit_ = -Long.MAX_VALUE;
+            }
+            if (negative_) {
+                multmin_ = MULTMIN_RADIX_TEN;
+            } else {
+                multmin_ = N_MULTMAX_RADIX_TEN;
+            }
+            if (i_ < max_) {
+                char ch_ = _string.charAt(i_);
+                i_++;
+                if (ch_ < '0' || ch_ > '9') {
+                    return null;
+                } else {
+                    digit_ = ch_ - '0';
+                    result_ = -digit_;
+                }
+            }
+            while (i_ < max_) {
+                // Accumulating negatively avoids surprises near MAX_VALUE
+                char ch_ = _string.charAt(i_);
+                i_++;
+                if (ch_ < '0' || ch_ > '9') {
+                    return null;
+                }
+                digit_ = ch_ - '0';
+                if (result_ < multmin_) {
+                    return null;
+                }
+                result_ *= 10;
+                if (result_ < limit_ + digit_) {
+                    return null;
+                }
+                result_ -= digit_;
+            }
+        } else {
+            return null;
+        }
+        if (negative_) {
+            if (i_ > 1) {
+                return result_;
+            } else {
+                return null;
+            }
+        } else {
+            return -result_;
+        }
+    }
+
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         return new ResultErrorStd();
     }
@@ -3490,16 +3694,16 @@ public class LgNames {
         } else if (StringList.quickEq(type_, floatType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 String one_ = (String) argsObj_[0];
+                NumberInfos infos_ = trySplitDouble(one_);
                 boolean valid_ = true;
-                if (!isValidDouble(one_)) {
+                if (infos_ == null) {
                     valid_ = false;
                 }
                 Double d_ = null;
                 if (valid_) {
-                    d_ = Double.parseDouble(one_);
-                    if (d_ < Float.MIN_VALUE) {
-                        valid_ = false;
-                    } else if (d_ > Float.MAX_VALUE) {
+                    d_ = parseDouble(infos_);
+                    double abs_ = Math.abs(d_);
+                    if (abs_ > Float.MAX_VALUE) {
                         valid_ = false;
                     }
                 }
@@ -3516,17 +3720,13 @@ public class LgNames {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 String one_ = (String) argsObj_[0];
                 boolean valid_ = true;
-                if (!isValidDouble(one_)) {
+                NumberInfos infos_ = trySplitDouble(one_);
+                if (infos_ == null) {
                     valid_ = false;
                 }
                 Double d_ = null;
                 if (valid_) {
-                    d_ = Double.parseDouble(one_);
-                    if (Double.isInfinite(d_)) {
-                        valid_ = false;
-                    } else if (Double.isNaN(d_)) {
-                        valid_ = false;
-                    }
+                    d_ = parseDouble(infos_);
                 }
                 if (!valid_) {
                     result_.setError(lgNames_.getAliasNbFormat());
