@@ -16,6 +16,7 @@ import code.formathtml.exceptions.BadParenthesesException;
 import code.formathtml.exceptions.FormNotFoundException;
 import code.formathtml.exceptions.InexistingValidatorException;
 import code.formathtml.exceptions.NavCaseNotFoundException;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.resources.ResourceFiles;
@@ -183,6 +184,37 @@ public final class Navigation {
         }
     }
 
+    public void loadConfiguration(String _conf, BeanLgNames _lgNames) {
+        boolean found_ = false;
+        String fileName_ = EMPTY_STRING;
+        for (EntryCust<String, String> e: files.entryList()) {
+            if (e.getKey().equalsIgnoreCase(_conf)) {
+                fileName_ = e.getKey();
+                found_ = true;
+                break;
+            }
+        }
+        String content_;
+        if (found_) {
+            content_ = files.getVal(fileName_);
+        } else {
+            content_ = ResourceFiles.ressourceFichier(_conf);
+        }
+        DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(content_);
+        Document doc_ = res_.getDocument();
+        if (doc_ == null) {
+            throw new XmlParseException(res_.getLocation());
+        }
+        session = new Configuration();
+        session.setStandards(_lgNames);
+        ReadConfiguration.load(session,doc_);
+        session.init();
+        if (session.getMathFactory() == null) {
+            if (dataBase instanceof WithMathFactory) {
+                session.setMathFactory(((WithMathFactory)dataBase).getMathFactory());
+            }
+        }
+    }
     public void setLanguage(String _language) {
         language = _language;
     }

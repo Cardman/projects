@@ -35,6 +35,7 @@ import cards.belote.GameBelote;
 import cards.belote.HandBelote;
 import cards.belote.RulesBelote;
 import cards.belote.TricksHandsBelote;
+import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
@@ -866,6 +867,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setScores(res_.getScores());
 
         SessionEditorPane editor_ = new SessionEditorPane();
+        BeloteStandards stds_;
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -885,7 +887,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
+            stds_ = new BeloteStandards();
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,stds_);
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }

@@ -5,6 +5,8 @@ import code.util.StringList;
 
 public final class OperationsSequence {
     private static final char NEG_BOOL_CHAR = '!';
+    private static final char PAR_RIGHT = ')';
+    private static final char ARR_RIGHT = ']';
 
     private ConstType constType = ConstType.NOTHING;
 
@@ -37,6 +39,12 @@ public final class OperationsSequence {
             return;
         }
         if (priority == ElResolver.EQ_PRIO && StringList.quickEq(operators.firstValue(), String.valueOf(NEG_BOOL_CHAR))) {
+            priority = ElResolver.BAD_PRIO;
+        }
+        if (priority == ElResolver.FCT_OPER_PRIO && !_string.substring(_string.lastIndexOf(PAR_RIGHT)+1).trim().isEmpty()) {
+            priority = ElResolver.BAD_PRIO;
+        }
+        if (priority == ElResolver.ARR_OPER_PRIO && !_string.substring(_string.lastIndexOf(ARR_RIGHT)+1).trim().isEmpty()) {
             priority = ElResolver.BAD_PRIO;
         }
         int beginValuePart_ = CustList.FIRST_INDEX;

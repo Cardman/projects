@@ -9573,7 +9573,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
     private static void setup(Configuration _conf) {
-        _conf.setPrefix("c");
+        _conf.setSepPrefix("c");
         _conf.setupValiatorsTranslators("LOCALE");
     }
 //    @Ignore

@@ -279,6 +279,10 @@ public class Configuration {
         return strBean_;
     }
 
+    final void setSepPrefix(String _prefix) {
+        prefix = StringList.concat(_prefix,SEP);
+    }
+
     public final ContextEl toContextEl() {
         if (context != null) {
             context.setCurrentUrl(currentUrl);
@@ -455,7 +459,7 @@ public class Configuration {
     }
 
     public final void setPrefix(String _prefix) {
-        prefix = StringList.concat(_prefix,SEP);
+        prefix = _prefix;
     }
 
     public boolean isInterrupt() {

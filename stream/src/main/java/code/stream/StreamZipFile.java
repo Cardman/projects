@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -98,7 +97,7 @@ public final class StreamZipFile {
                     }
                     index_+=res_;
                 }
-                files_.put(fileName_, new String(bytes_, Charset.forName(StandardCharsets.UTF_8.getName())));
+                files_.put(fileName_, new String(bytes_, StandardCharsets.UTF_8.getName()));
                 entry_=zip_.getNextEntry();
             }
             zip_.close();

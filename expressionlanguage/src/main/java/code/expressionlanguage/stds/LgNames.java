@@ -3194,7 +3194,7 @@ public class LgNames {
         int digit_;
         int ch_ = _string.charAt(i_);
         if (ch_ >= 'A' && ch_ <= 'F') {
-            ch_ = Character.toLowerCase(ch_);
+            ch_ = ch_ - 'A' + 'a';
         }
         i_++;
         digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
@@ -3203,7 +3203,7 @@ public class LgNames {
             // Accumulating negatively avoids surprises near MAX_VALUE
             ch_ = _string.charAt(i_);
             if (ch_ >= 'A' && ch_ <= 'F') {
-                ch_ = Character.toLowerCase(ch_);
+                ch_ = ch_ - 'A' + 'a';
             }
             i_++;
             digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
@@ -3294,23 +3294,30 @@ public class LgNames {
                 multmin_ = limit_ / _radix;
             }
             if (i_ < max_) {
-                char ch_ = _string.charAt(i_);
-                i_++;
-                digit_ = Character.digit(ch_,_radix);
-                if (digit_ < 0) {
-                    return null;
-                } else {
-                    result_ = -digit_;
+                int ch_ = _string.charAt(i_);
+                if (ch_ >= 'A' && ch_ <= 'Z') {
+                    ch_ = ch_ - 'A' + 'a';
                 }
+                i_++;
+                int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+                if (dig_ < 0 || dig_ >= _radix) {
+                    return null;
+                }
+                digit_ = dig_;
+                result_ = -digit_;
             }
             while (i_ < max_) {
                 // Accumulating negatively avoids surprises near MAX_VALUE
-                char ch_ = _string.charAt(i_);
+                int ch_ = _string.charAt(i_);
+                if (ch_ >= 'A' && ch_ <= 'Z') {
+                    ch_ = ch_ - 'A' + 'a';
+                }
                 i_++;
-                digit_ = Character.digit(ch_,_radix);
-                if (digit_ < 0) {
+                int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+                if (dig_ < 0 || dig_ >= _radix) {
                     return null;
                 }
+                digit_ = dig_;
                 if (result_ < multmin_) {
                     return null;
                 }

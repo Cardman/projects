@@ -37,6 +37,7 @@ import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.serialize.exceptions.NoSuchDeclaredFieldException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.StringList;
 import code.util.StringMap;
@@ -2133,6 +2134,33 @@ public class ElUtilTest {
         assertSame(Double.class, res_.getClass());
         assertEq(Double.NEGATIVE_INFINITY, (Number)res_);
     }
+    @Test
+    public void processEl75Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("'\\u9FCB'",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Character.class, res_.getClass());
+        assertEq((char)40907, ((Character)res_).charValue());
+    }
+    @Test
+    public void processEl76Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("\"\\u9FCB\"",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("\u9fcb", (String)res_);
+    }
+    @Test
+    public void processEl177Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("\"\\u9fcb\"",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("\u9fcb", (String)res_);
+    }
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
         ContextEl context_ = contextEl();
@@ -2234,7 +2262,7 @@ public class ElUtilTest {
         ElUtil.processEl("$static$"+COMPOSITE_HAT+".integer",0, context_);
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test(expected=NoSuchDeclaredFieldException.class)
     public void processEl13FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);

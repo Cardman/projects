@@ -535,7 +535,7 @@ public class ExtractConditionTest {
     }
 
     private static void addImportingPage(Configuration _conf, boolean _rendering) {
-        _conf.setPrefix("c");
+        _conf.setSepPrefix("c");
         _conf.setupValiatorsTranslators("LOCALE");
         _conf.addPage(new ImportingPage(_rendering));
         _conf.getLastPage().setPrefix(_conf.getPrefix());

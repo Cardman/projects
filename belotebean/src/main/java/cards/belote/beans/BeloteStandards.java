@@ -1,6 +1,8 @@
 package cards.belote.beans;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.util.BooleanStruct;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.IntStruct;
@@ -23,9 +25,11 @@ import code.util.StringMap;
 
 public final class BeloteStandards extends BeanLgNames {
 
+    public BeloteStandards() {
+        DefaultInitialization.basicStandards(this);
+    }
     @Override
     public void buildOther() {
-        DefaultInitialization.basicStandards(this);
         buildBeans();
         StringMap<StandardField> fields_;
         fields_ = new StringMap<StandardField>();
@@ -53,77 +57,102 @@ public final class BeloteStandards extends BeanLgNames {
         std_ = new StandardClass("cards.belote.beans.BeloteBean", fields_, constructors_, methods_, "code.bean.Bean", MethodModifier.ABSTRACT);
         getStandards().put("cards.belote.beans.BeloteBean", std_);
         fields_ = new StringMap<StandardField>();
+        fields_.put("declaring", new StandardField("declaring", getCustList(), false, false));
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod("getDeclaring", params_, getCustList(), false, MethodModifier.NORMAL, "cards.belote.beans.BeloteBean");
-        methods_.put(method_.getId(), method_);
         std_ = new StandardClass("cards.belote.beans.DetailsResultsBeloteBean", fields_, constructors_, methods_, "cards.belote.beans.BeloteBean", MethodModifier.NORMAL);
         getStandards().put("cards.belote.beans.DetailsResultsBeloteBean", std_);
         fields_ = new StringMap<StandardField>();
+        fields_.put("declaring", new StandardField("declaring", getCustList(), false, false));
+        fields_.put("sum", new StandardField("sum", getAliasPrimInteger(), false, false));
+        fields_.put("nickname", new StandardField("nickname", getAliasString(), false, false));
+        fields_.put("statut", new StandardField("statut", getAliasString(), false, false));
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod("getDeclaring", params_, getCustList(), false, MethodModifier.NORMAL, "cards.belote.beans.SumDeclaringPlayer");
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod("getSum", params_, getAliasPrimInteger(), false, MethodModifier.NORMAL, "cards.belote.beans.SumDeclaringPlayer");
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod("getNickname", params_, getAliasString(), false, MethodModifier.NORMAL, "cards.belote.beans.SumDeclaringPlayer");
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod("getStatut", params_, getAliasString(), false, MethodModifier.NORMAL, "cards.belote.beans.SumDeclaringPlayer");
-        methods_.put(method_.getId(), method_);
         std_ = new StandardClass("cards.belote.beans.SumDeclaringPlayer", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         getStandards().put("cards.belote.beans.SumDeclaringPlayer", std_);
-        //getCustList()
+        fields_ = new StringMap<StandardField>();
+        fields_.put("declaring", new StandardField("declaring", getAliasString(), false, false));
+        fields_.put("value", new StandardField("value", getAliasPrimInteger(), false, false));
+        constructors_ = new CustList<StandardConstructor>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass("cards.belote.beans.DeclaringPlayerValue", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        getStandards().put("cards.belote.beans.DeclaringPlayerValue", std_);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getName(), "cards.belote.beans.DetailsResultsBeloteBean")) {
-            res_.setResult(new StdStruct(new DetailsResultsBeloteBean(), "cards.belote.beans.DetailsResultsBeloteBean"));
+            DetailsResultsBeloteBean details_ = new DetailsResultsBeloteBean();
+            details_.setClassName("cards.belote.beans.DetailsResultsBeloteBean");
+            res_.setResult(new StdStruct(details_, "cards.belote.beans.DetailsResultsBeloteBean"));
             return res_;
         }
         return super.getOtherResult(_cont, _method, _args);
     }
-    @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
-            ClassMethodId _method, Object... _args) {
+    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (_instance.getInstance() instanceof DetailsResultsBeloteBean) {
-            if (StringList.quickEq(_method.getConstraints().getName(), "getDeclaring")) {
+            if (StringList.quickEq(_classField.getFieldName(), "declaring")) {
                 res_.setResult(new StdStruct(((DetailsResultsBeloteBean)_instance.getInstance()).getDeclaring(), getCustList()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof SumDeclaringPlayer) {
-            if (StringList.quickEq(_method.getConstraints().getName(), "getDeclaring")) {
+            if (StringList.quickEq(_classField.getFieldName(), "declaring")) {
                 res_.setResult(new StdStruct(((SumDeclaringPlayer)_instance.getInstance()).getDeclaring(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getSum")) {
+            if (StringList.quickEq(_classField.getFieldName(), "sum")) {
                 res_.setResult(new IntStruct(((SumDeclaringPlayer)_instance.getInstance()).getSum()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getNickname")) {
+            if (StringList.quickEq(_classField.getFieldName(), "nickname")) {
                 res_.setResult(new StringStruct(((SumDeclaringPlayer)_instance.getInstance()).getNickname()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getStatut")) {
+            if (StringList.quickEq(_classField.getFieldName(), "statut")) {
                 res_.setResult(new StringStruct(((SumDeclaringPlayer)_instance.getInstance()).getStatut()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof DeclaringPlayerValue) {
-            if (StringList.quickEq(_method.getConstraints().getName(), "getDeclaring")) {
+            if (StringList.quickEq(_classField.getFieldName(), "declaring")) {
                 res_.setResult(new StringStruct(((DeclaringPlayerValue)_instance.getInstance()).getDeclaring()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getValue")) {
+            if (StringList.quickEq(_classField.getFieldName(), "value")) {
                 res_.setResult(new IntStruct(((DeclaringPlayerValue)_instance.getInstance()).getValue()));
+                return res_;
+            }
+        }
+        return super.getOtherResult(_cont, _classField, _instance);
+    }
+    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
+        if (_struct instanceof DeclaringPlayerValue) {
+            return "cards.belote.beans.DeclaringPlayerValue";
+        }
+        if (_struct instanceof SumDeclaringPlayer) {
+            return "cards.belote.beans.SumDeclaringPlayer";
+        }
+        return getAliasObject();
+    }
+    @Override
+    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
+            ClassMethodId _method, Object... _args) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (_instance.getInstance() instanceof BeloteBean) {
+            if (StringList.quickEq(_method.getConstraints().getName(), "playGame")) {
+                res_.setResult(new BooleanStruct(((BeloteBean)_instance.getInstance()).playGame()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "getNicknames")) {
+                res_.setResult(new StdStruct(((BeloteBean)_instance.getInstance()).getNicknames(), getCustList()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "getScores")) {
+                res_.setResult(new StdStruct(((BeloteBean)_instance.getInstance()).getScores(), getCustList()));
                 return res_;
             }
         }

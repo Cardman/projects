@@ -870,7 +870,7 @@ public class FormatHtmlTryCatchFinallyTest {
     }
 
     private static void setup(Configuration _conf) {
-        _conf.setPrefix("c");
+        _conf.setSepPrefix("c");
         _conf.setupValiatorsTranslators("LOCALE");
     }
 

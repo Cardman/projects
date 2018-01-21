@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
 
 import code.resources.ResourceFiles;
 import code.serialize.SerializeXmlObject;
@@ -202,7 +201,7 @@ public final class StreamTextFile {
         try {
             File file_ = new File(_nomFichier);
             InputStream inputStream_ = new FileInputStream(file_);
-            Reader reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.UTF_8.getName()));
+            Reader reader_ = new InputStreamReader(inputStream_, StandardCharsets.UTF_8.getName());
 //            Reader reader_ = new InputStreamReader(inputStream_, StandardCharsets.ISO_8859_1);
             BufferedReader br_ = new BufferedReader(reader_);
             int i_ = 0;
@@ -245,7 +244,7 @@ public final class StreamTextFile {
         try {
             File file_ = new File(_filePath);
             inputStream_ = new FileInputStream(file_);
-            reader_ = new InputStreamReader(inputStream_, Charset.forName(_encoding));
+            reader_ = new InputStreamReader(inputStream_, _encoding);
             br_ = new BufferedReader(reader_);
             return readingFile(LINE_RETURN, br_, file_.length());
         } catch (IOException _0) {

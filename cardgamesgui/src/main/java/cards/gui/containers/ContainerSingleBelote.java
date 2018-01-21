@@ -38,6 +38,7 @@ import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
+import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -738,6 +739,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.setMessages(Constants.getLanguage());
         setScores(res_.getScores());
+        BeloteStandards stds_;
         SessionEditorPane editor_ = new SessionEditorPane();
         try {
 //            editor_.setMainClass(SoftApplication.getMainClass());
@@ -759,7 +761,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //                editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
                 editor_.setLanguage(Constants.getLanguage());
                 editor_.setDataBase(res_);
-                editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
+                stds_ = new BeloteStandards();
+                editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE, stds_);
             } catch (RuntimeException _0) {
                 _0.printStackTrace();
             }

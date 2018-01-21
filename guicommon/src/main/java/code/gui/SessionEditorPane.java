@@ -21,6 +21,7 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
+import code.formathtml.util.BeanLgNames;
 import code.gui.events.FindEvent;
 import code.gui.events.HyperlinkClickEvent;
 import code.gui.events.TitleEvent;
@@ -139,6 +140,15 @@ public class SessionEditorPane extends EditorPane {
 //        if (getHyperlinkListeners().length == 0) {
 //            addHyperlinkListener(new HyperlinkClickEvent(this));
 //        }
+        directScroll();
+    }
+
+    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
+    public void initialize(String _conf, BeanLgNames _stds) {
+        start();
+        nav.loadConfiguration(_conf, _stds);
+        nav.initializeSession();
+        setupText(true);
         directScroll();
     }
 

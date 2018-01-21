@@ -58,6 +58,14 @@ public final class ContextEl {
         return options;
     }
 
+    public void setOptions(Options _options) {
+        options = _options;
+    }
+
+    public void setStackOverFlow(int _stackOverFlow) {
+        stackOverFlow = _stackOverFlow;
+    }
+
     public void setOffsetPossibleLastPage(int _offset) {
         if (importing.isEmpty()) {
             return;

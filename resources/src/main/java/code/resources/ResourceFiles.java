@@ -8,9 +8,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -93,9 +93,11 @@ public final class ResourceFiles {
         BufferedReader br_ = null;
         try {
             inputStream_ = ClassLoader.getSystemResourceAsStream(_file);
-            reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.ISO_8859_1.getName()));
+            reader_ = new InputStreamReader(inputStream_, _encoding);
             br_ = new BufferedReader(reader_);
             return readingFile(LINE_RETURN, br_);
+        } catch (UnsupportedEncodingException _0) {
+            return null;
         } finally {
             close(inputStream_, reader_, br_);
         }

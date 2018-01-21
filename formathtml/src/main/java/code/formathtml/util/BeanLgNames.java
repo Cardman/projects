@@ -1,6 +1,7 @@
 package code.formathtml.util;
 
 import code.bean.Bean;
+import code.bean.translator.Translator;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
@@ -26,16 +27,19 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
+import code.util.ints.MathFactory;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
 import code.util.ints.SimpleIterable;
 import code.util.ints.SimpleList;
+import code.util.pagination.SelectedBoolean;
 
 public class BeanLgNames extends LgNames {
 
@@ -254,6 +258,9 @@ public class BeanLgNames extends LgNames {
         if (!StringList.quickEq(cl_, getAliasObject())) {
             return cl_;
         }
+        if (_struct instanceof Bean) {
+            return ((Bean)_struct).getClassName();
+        }
         if (_struct instanceof SimpleList) {
             return getCustList();
         }
@@ -349,6 +356,15 @@ public class BeanLgNames extends LgNames {
         }
         return getOtherStructToBeValidated(_values, _className, _context);
     }
+    public Validator buildValidator(Element _element) {
+        return null;
+    }
+    public Translator buildTranslator(Element _element) {
+        return null;
+    }
+    public MathFactory buildMathFactory(Element _element) {
+        return null;
+    }
     public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         return new ResultErrorStd();
     }
@@ -371,6 +387,14 @@ public class BeanLgNames extends LgNames {
         return new StringList();
     }
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (_instance.getInstance() instanceof SelectedBoolean) {
+            res_.setResult(new StringStruct(((SelectedBoolean)_instance.getInstance()).name()));
+            return res_;
+        }
+        return getOtherName(_cont, _instance);
+    }
+    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         return new ResultErrorStd();
     }
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,

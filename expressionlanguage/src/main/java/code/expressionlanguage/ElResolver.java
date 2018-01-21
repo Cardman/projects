@@ -218,6 +218,44 @@ public final class ElResolver {
                     constChar_ = false;
                     enabledMinus_ = true;
                     i_++;
+                    if (i_ < len_) {
+                        String nextPart_ = _string.substring(i_).trim();
+                        if (nextPart_.charAt(0) == end_) {
+                            continue;
+                        }
+                        if (nextPart_.charAt(0) == DELIMITER_CHAR) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == DELIMITER_STRING) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (StringList.isWordChar(nextPart_.charAt(0))) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == ARR_LEFT) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == PAR_LEFT) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == DOT_VAR) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == EXTERN_CLASS) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == Templates.PREFIX_VAR_TYPE_CHAR) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                    }
                     continue;
                 }
                 i_ = index_;
@@ -244,6 +282,40 @@ public final class ElResolver {
                     constString_ = false;
                     enabledMinus_ = true;
                     i_++;
+                    if (i_ < len_) {
+                        String nextPart_ = _string.substring(i_).trim();
+                        if (nextPart_.charAt(0) == end_) {
+                            continue;
+                        }
+                        if (nextPart_.charAt(0) == DELIMITER_CHAR) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == DELIMITER_STRING) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (StringList.isWordChar(nextPart_.charAt(0))) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == ARR_LEFT) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == PAR_LEFT) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == EXTERN_CLASS) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                        if (nextPart_.charAt(0) == Templates.PREFIX_VAR_TYPE_CHAR) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                        }
+                    }
                     continue;
                 }
                 i_ = index_;
@@ -578,7 +650,19 @@ public final class ElResolver {
                 int beginWord_ = i_;
                 while (i_ < len_) {
                     if (!StringList.isWordChar(_string.charAt(i_))) {
-                        break;
+                        if (_string.charAt(i_) != EXTERN_CLASS) {
+                            if (_string.charAt(i_) != Templates.PREFIX_VAR_TYPE_CHAR) {
+                                if (_string.charAt(i_) == DELIMITER_CHAR) {
+                                    _conf.getLastPage().setOffset(i_);
+                                    throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                                }
+                                if (_string.charAt(i_) == DELIMITER_STRING) {
+                                    _conf.getLastPage().setOffset(i_);
+                                    throw new BadExpressionLanguageException(StringList.concat(_string,RETURN_LINE,_conf.joinPages()));
+                                }
+                                break;
+                            }
+                        }
                     }
                     i_++;
                 }
