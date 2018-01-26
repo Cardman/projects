@@ -2519,6 +2519,14 @@ public class ElUtilTest {
         String el_ = "$static$"+FAIL_METHODS_HAT+".(fail())";
         ElUtil.processEl(el_, 0, conf_);
     }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void processEl44FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "var;.[0i,1i]";
+        ElUtil.processEl(el_, 0, conf_);
+    }
     @Test
     public void processAffect1Test() {
         ContextEl context_ = contextEl();

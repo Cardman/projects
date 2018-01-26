@@ -1118,7 +1118,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         } else {
             chiffreMax_ = (grDigits.first() * BASE + grDigits.get(CustList.SECOND_INDEX)) / _autre.grDigits.first();
             /*
-            _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numérotation. grChiffres.first()>=1, car
+            _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numerotation. grChiffres.first()>=1, car
             this>=_autre et _autre>0 => this>0 => grChiffres.first()>=1 donc
             grChiffres.first()x_base_>=_autre.grChiffres.first() donc
             grChiffres.first()x_base_+grChiffres[1]>=_autre.grChiffres.first() donc chiffreMax_>=1
@@ -1152,7 +1152,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                     chiffreMax_ = reste_.grDigits.first() * BASE + reste_.grDigits.get(CustList.SECOND_INDEX);
                     chiffreMax_ /= _autre.grDigits.first();
                     /*
-                    _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numérotation. reste_.grChiffres.first()>=1,
+                    _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numerotation. reste_.grChiffres.first()>=1,
                     car reste_>=_autre et _autre>0 => reste_>0 => grChiffres.first()>=1 donc
                     grChiffres.first() x _base_>=_autre.grChiffres.first() donc grChiffres
                     .first() x _base_+grChiffres[1]>=_autre.grChiffres.first() donc chiffreMax_>=1
@@ -1178,7 +1178,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (quotient_ == 0) {
             // quotient_==1, car _min=0 et _min=quotient_ => quotient_=0 =>
             // _min+_max <= 1 => _max <= 1 => _max = 1
-            // De même _max = 1 => _min+_max/2 (division entière) = 0 =>
+            // De meme _max = 1 => _min+_max/2 (division entiere) = 0 =>
             // quotient_=0 => quotient_=_min
             return 1;
         }

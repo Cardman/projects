@@ -52,7 +52,7 @@ public class Difficulty {
 
     private boolean restoredMovesEndFight;
 
-    /**Les attaques dépendant des positions sont différentes en fonction de cette variable*/
+    /**Les attaques dependant des positions sont differentes en fonction de cette variable*/
     private boolean enabledClosing;
 
     private boolean randomWildFight;

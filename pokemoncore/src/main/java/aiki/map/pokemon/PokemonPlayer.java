@@ -106,11 +106,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     @CheckedData
     private short happiness;
 
-    /**nom de la ball ayant capturé le pokémon. Si ce nom est vide, alors le pokémon vient d'une éclosion ou d'un don.*/
+    /**nom de la ball ayant capture le pokemon. Si ce nom est vide, alors le pokemon vient d'une eclosion ou d'un don.*/
     @CheckedData
     private String usedBallCatching;
 
-    /**Nombre de pas effectué en tête d'équipe.*/
+    /**Nombre de pas effectue en tete d'equipe.*/
     @CheckedData
     private short nbStepsTeamLead;
 

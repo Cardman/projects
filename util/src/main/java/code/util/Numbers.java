@@ -116,18 +116,15 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
             if (_two >= 0) {
                 return _one/_two;
             }
-        }
-        if (_one <= 0) {
-            if (_two <= 0) {
-                if ((-_one) % (-_two) == 0) {
-                    return (-_one)/(-_two);
-                }
-                return (-_one)/(-_two)+1;
-            }
-        }
-        if (_one >= 0) {
             //_two < 0
             return -(_one/(-_two));
+        }
+        //_one < 0
+        if (_two <= 0) {
+            if ((-_one) % (-_two) == 0) {
+                return (-_one)/(-_two);
+            }
+            return (-_one)/(-_two)+1;
         }
         //_one < 0 && _two > 0
         if ((-_one) % _two == 0) {
@@ -144,18 +141,15 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
             if (_two >= 0) {
                 return _one/_two;
             }
-        }
-        if (_one <= 0) {
-            if (_two <= 0) {
-                if ((-_one) % (-_two) == 0) {
-                    return (-_one)/(-_two);
-                }
-                return (-_one)/(-_two)+1;
-            }
-        }
-        if (_one >= 0) {
             //_two < 0
             return -(_one/(-_two));
+        }
+        //_one < 0
+        if (_two <= 0) {
+            if ((-_one) % (-_two) == 0) {
+                return (-_one)/(-_two);
+            }
+            return (-_one)/(-_two)+1;
         }
         //_one < 0 && _two > 0
         if ((-_one) % _two == 0) {

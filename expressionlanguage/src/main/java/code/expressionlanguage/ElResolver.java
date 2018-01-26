@@ -727,7 +727,7 @@ public final class ElResolver {
                         i_ += GET_ATTRIBUTE.length();
                         d_.getVariables().add(info_);
                     }
-                } else {
+                } else if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
                     tolerateDot_ = true;
                     type_ = ConstType.WORD;
                     info_.setKind(type_);
@@ -950,7 +950,7 @@ public final class ElResolver {
                 infos_.setIndex(i_);
                 return infos_;
             }
-            nbChars_ ++;
+            nbChars_++;
             infos_.setNbChars(nbChars_);
             i_++;
             infos_.setIndex(i_);
@@ -975,7 +975,7 @@ public final class ElResolver {
                 unicode_++;
             } else {
                 unicode_ = 0;
-                nbChars_ ++;
+                nbChars_++;
                 escapedMeta_ = false;
             }
             infos_.setNbChars(nbChars_);
@@ -986,7 +986,7 @@ public final class ElResolver {
             return infos_;
         }
         if (curChar_ == _delimiter) {
-            nbChars_ ++;
+            nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
             i_++;
@@ -994,7 +994,7 @@ public final class ElResolver {
             return infos_;
         }
         if (curChar_ == IND_LINE) {
-            nbChars_ ++;
+            nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
             i_++;
@@ -1002,7 +1002,7 @@ public final class ElResolver {
             return infos_;
         }
         if (curChar_ == IND_FORM) {
-            nbChars_ ++;
+            nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
             i_++;
@@ -1010,7 +1010,7 @@ public final class ElResolver {
             return infos_;
         }
         if (curChar_ == IND_BOUND) {
-            nbChars_ ++;
+            nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
             i_++;
@@ -1018,7 +1018,7 @@ public final class ElResolver {
             return infos_;
         }
         if (curChar_ == IND_LINE_FEED) {
-            nbChars_ ++;
+            nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
             i_++;
@@ -1026,7 +1026,7 @@ public final class ElResolver {
             return infos_;
         }
         if (curChar_ == IND_TAB) {
-            nbChars_ ++;
+            nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
             i_++;
@@ -1034,7 +1034,7 @@ public final class ElResolver {
             return infos_;
         }
         if (curChar_ == ESCAPE_META_CHAR) {
-            nbChars_ ++;
+            nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
             i_++;
@@ -1119,7 +1119,7 @@ public final class ElResolver {
         while (j_ < len_) {
             char current_ = _string.charAt(j_);
             if (!StringList.isWordChar(current_)) {
-                if (_string.charAt(j_) == DOT_VAR) {
+                if (current_ == DOT_VAR) {
                     if (_seenDot) {
                         output_.setNextIndex(-j_);
                         return output_;
@@ -1190,18 +1190,12 @@ public final class ElResolver {
                 exp_ = true;
             }
             if (!Character.isDigit(next_) && next_ != NB_INTERN_SP && !exp_) {
-                if (Character.isLetter(next_)) {
-                    if (!isNbSuffix(next_)) {
-                        output_.setNextIndex(-(j_ + 1));
-                        return output_;
-                    }
-                    String nextPart_ = _string.substring(j_ + 2).trim();
-                    if (!isCorrectNbEnd(nextPart_)) {
-                        output_.setNextIndex(-(j_ + 2));
-                        return output_;
-                    }
-                    nbInfos_.setSuffix(next_);
-                    output_.setNextIndex(j_ + 2);
+                if (isNbSuffix(next_)) {
+                    j_++;
+                }
+                String nextPart_ = _string.substring(j_ + 1).trim();
+                if (!isCorrectNbEnd(nextPart_)) {
+                    output_.setNextIndex(-(j_ + 1));
                     return output_;
                 }
                 output_.setNextIndex(j_ + 1);
@@ -1254,12 +1248,10 @@ public final class ElResolver {
             processExp(iExp_, len_, _string, output_);
             return output_;
         }
-        if (j_ < len_ && Character.isWhitespace(_string.charAt(j_))) {
-            String next_ = _string.substring(j_ + 1).trim();
-            if (!isCorrectNbEnd(next_)) {
-                output_.setNextIndex(-j_);
-                return output_;
-            }
+        String next_ = _string.substring(j_).trim();
+        if (!isCorrectNbEnd(next_)) {
+            output_.setNextIndex(-j_);
+            return output_;
         }
         if (!_seenDot) {
             nbInfos_.setSuffix(Character.toUpperCase(LONG));
@@ -1311,6 +1303,12 @@ public final class ElResolver {
             return false;
         }
         if (char_ == EXTERN_CLASS) {
+            return false;
+        }
+        if (char_ == DELIMITER_CHAR) {
+            return false;
+        }
+        if (char_ == DELIMITER_STRING) {
             return false;
         }
         if (StringList.isWordChar(char_)) {
@@ -1598,37 +1596,19 @@ public final class ElResolver {
         }
         boolean useFct_ = false;
         String fctName_ = EMPTY_STRING;
-        int quoted_ = 0;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (_d.getDelStringsChars().containsObj(i_+_offset)) {
-                quoted_++;
-                i_++;
-                continue;
-            }
-            if (quoted_ % 2 == 1) {
-                i_++;
-                continue;
-            }
-            if (StringList.isWordChar(curChar_)) {
-                while (i_ < len_) {
-                    if (!StringList.isWordChar(_string.charAt(i_))) {
-                        break;
-                    }
-                    i_++;
-                }
-                continue;
-            }
             if (_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
                 if (curChar_ == PAR_LEFT) {
                     if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                        operators_.clear();
                         useFct_ = true;
                         fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
                         operators_.put(i_, String.valueOf(PAR_LEFT));
                     }
                     parsBrackets_.put(i_, curChar_);
                 }
-                if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
+                if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ >= ARR_OPER_PRIO) {
                     operators_.put(i_, String.valueOf(SEP_ARG));
                 }
                 if (curChar_ == PAR_RIGHT) {

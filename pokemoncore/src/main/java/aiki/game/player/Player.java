@@ -104,11 +104,11 @@ public class Player {
 
     private static final String TAKEN_ITEM = "takenItem";
 
-    /**nom du héros*/
+    /**nom du heros*/
     @CheckedData
     private String nickname;
 
-    /**sexe du héros*/
+    /**sexe du heros*/
     @CheckedData
     private Sex sex;
 
