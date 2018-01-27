@@ -9,8 +9,10 @@ import org.junit.Test;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeException;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.formathtml.classes.BeanFour;
@@ -595,7 +597,9 @@ public class HtmlRequestTest {
 
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
-        conf_.setStandards(InitializationLgNames.initStandards());
+        ContextEl context_ = new ContextEl();
+        context_.setClasses(new Classes());
+        conf_.setStandards(InitializationLgNames.initStandards(context_));
         return conf_;
     }
 }

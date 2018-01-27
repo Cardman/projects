@@ -93,7 +93,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasIsSpace("isSpace");
         _lgNames.setAliasIsInfinite("isInfinite");
         _lgNames.setAliasIsNan("isNan");
-        _lgNames.setAliasForDigit("isForDigit");
+        _lgNames.setAliasForDigit("forDigit");
         _lgNames.setAliasGetDirectionality("isGetDirectionality");
         _lgNames.setAliasGetType("getType");
         _lgNames.setAliasString("java.lang.String");
@@ -127,7 +127,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasCapacity("capacity");
         _lgNames.setAliasClear("clear");
         _lgNames.setAliasDelete("delete");
-        _lgNames.setAliasDeleteCharAt("charAt");
+        _lgNames.setAliasDeleteCharAt("deleteCharAt");
         _lgNames.setAliasEnsureCapacity("ensureCapacity");
         _lgNames.setAliasInsert("insert");
         _lgNames.setAliasReverse("reverse");

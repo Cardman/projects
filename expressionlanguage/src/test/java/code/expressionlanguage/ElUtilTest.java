@@ -1398,9 +1398,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$static$pkg$Ex.exmeth()", 0, cont_);
         Object res_ = arg_.getObject();
@@ -1419,9 +1418,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$static$pkg$Ex.exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
@@ -1439,9 +1437,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$new pkg.Ex()", 0, cont_);
         Struct res_ = arg_.getStruct();
@@ -1469,9 +1466,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$classchoice$pkg$Ex$$exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
@@ -1490,9 +1486,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$classchoice$pkg$Ex$$inst;;;", 0, cont_);
         Object res_ = arg_.getObject();
@@ -2868,9 +2863,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -2898,9 +2892,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -2960,9 +2953,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         Struct arg_;
         Object res_;
@@ -3140,9 +3132,8 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextEl(files_);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3190,10 +3181,20 @@ public class ElUtilTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
+        Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         return cont_;
     }
 
+    private ContextEl contextEl(StringMap<String> _files) {
+        ContextEl cont_ = new ContextEl();
+        Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
+        Classes.validateAll(_files, cont_);
+        return cont_;
+    }
 }

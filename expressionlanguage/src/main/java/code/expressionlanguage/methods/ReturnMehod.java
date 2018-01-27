@@ -164,7 +164,6 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             Argument arg_ = el_.calculateMember(_cont);
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();
-            //&& !NumericOperation.convert(_op)
             LgNames stds_ = _cont.getStandards();
             String retType_ = stds_.getAliasVoid();
             BracedBlock par_ = getParent();

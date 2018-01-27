@@ -7,6 +7,8 @@ import org.junit.Test;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.common.GeneMethod;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
@@ -34,8 +36,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList(PrimitiveTypeUtil.PRIM_INT), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList(PrimitiveTypeUtil.PRIM_INT), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(1, methods_.first().getId().getClassNames().size());
@@ -55,8 +56,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#F"), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#F"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(1, methods_.first().getId().getClassNames().size());
@@ -76,8 +76,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(1, methods_.first().getId().getClassNames().size());
@@ -97,8 +96,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), true);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(1, methods_.first().getId().getClassNames().size());
@@ -118,8 +116,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(2, methods_.first().getId().getClassNames().size());
@@ -142,8 +139,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(2, methods_.first().getId().getClassNames().size());
@@ -164,8 +160,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), false);
         assertEq(0, methods_.size());
     }
 
@@ -183,8 +178,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(1, methods_.first().getId().getClassNames().size());
@@ -204,8 +198,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.String"), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.String"), false);
         assertEq(0, methods_.size());
     }
 
@@ -223,8 +216,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(2, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(1, methods_.first().getId().getClassNames().size());
@@ -252,8 +244,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(2, methods_.first().getId().getClassNames().size());
@@ -278,8 +269,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(0, methods_.first().getId().getClassNames().size());
@@ -304,8 +294,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
         assertEq(2, methods_.first().getId().getClassNames().size());
@@ -326,8 +315,7 @@ public class ClassesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingClasses(files_);
-        Classes classes_ = context_.getClasses();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
+        CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
         assertEq(0, methods_.size());
     }
 
@@ -338,11 +326,11 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(1, s_.size());
         assertEq("pkg.Ex", s_.first());
@@ -357,8 +345,9 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
@@ -379,11 +368,11 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(3, s_.size());
         assertEq("pkg.ExTwo", s_.first());
@@ -404,11 +393,11 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
         assertEq("pkg.ExTwo", s_.first());
@@ -430,11 +419,11 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
         assertEq("pkg.ExFour", s_.first());
@@ -458,11 +447,11 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"),cont_);
         assertEq(5, s_.size());
         assertEq("pkg.ExFour", s_.first());
@@ -490,9 +479,8 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
-        InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.ExFour");
-        ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(context_));
+        InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.ExFour");
+        ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new EqList<ClassName>())));
@@ -517,9 +505,8 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
-        InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.Ex");
-        ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(context_));
+        InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.Ex");
+        ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new EqList<ClassName>())));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
@@ -548,9 +535,8 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
-        InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.Ex");
-        ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(context_));
+        InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.Ex");
+        ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new EqList<ClassName>())));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
@@ -559,11 +545,11 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -575,11 +561,11 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateSingleParameterizedClasses(cont_);

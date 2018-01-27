@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.MethodId;
@@ -11,7 +12,7 @@ import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class MethodBlock extends NamedFunctionBlock {
+public final class MethodBlock extends NamedFunctionBlock implements GeneMethod {
 
     private final boolean staticMethod;
 
@@ -52,6 +53,7 @@ public final class MethodBlock extends NamedFunctionBlock {
         return getId().getSignature();
     }
 
+    @Override
     public MethodModifier getModifier() {
         if (staticMethod) {
             return MethodModifier.STATIC;
@@ -72,10 +74,12 @@ public final class MethodBlock extends NamedFunctionBlock {
         return tr_;
     }
 
+    @Override
     public String getDeclaringType() {
         return declaringType;
     }
 
+    @Override
     public MethodId getFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getParametersTypes();
@@ -89,11 +93,11 @@ public final class MethodBlock extends NamedFunctionBlock {
         return new MethodId(isStaticMethod(), name_, pTypes_);
     }
 
+    @Override
     public MethodId getFormattedId(ContextEl _context) {
         String className_ = declaringType;
         StringList vars_ = new StringList();
-        Classes classes_ = _context.getClasses();
-        for (TypeVar t: classes_.getClassBody(className_).getParamTypes()) {
+        for (TypeVar t: _context.getClassBody(className_).getParamTypes()) {
             vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         String current_;
@@ -114,6 +118,7 @@ public final class MethodBlock extends NamedFunctionBlock {
         return new MethodId(isStaticMethod(), name_, pTypes_);
     }
 
+    @Override
     public MethodId getId() {
         String name_ = getName();
         StringList types_ = getParametersTypes();
@@ -127,6 +132,7 @@ public final class MethodBlock extends NamedFunctionBlock {
     }
 
 
+    @Override
     public boolean isConcreteInstanceDerivableMethod() {
         if (staticMethod) {
             return false;
@@ -140,22 +146,27 @@ public final class MethodBlock extends NamedFunctionBlock {
         return true;
     }
 
+    @Override
     public boolean isConcreteMethod() {
         return isNormalMethod() || isFinalMethod();
     }
 
+    @Override
     public boolean isStaticMethod() {
         return staticMethod;
     }
 
+    @Override
     public boolean isFinalMethod() {
         return finalMethod;
     }
 
+    @Override
     public boolean isAbstractMethod() {
         return abstractMethod;
     }
 
+    @Override
     public boolean isNormalMethod() {
         return normalMethod;
     }

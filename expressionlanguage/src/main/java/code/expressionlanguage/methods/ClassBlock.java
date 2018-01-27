@@ -3,6 +3,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.FileRowCol;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.exceptions.UndefinedSuperConstructorException;
 import code.expressionlanguage.methods.util.BadAccessMethod;
@@ -99,7 +100,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             }
             ConstructorBlock c_ = (ConstructorBlock) b;
             for (String s: classNames_) {
-                if (classesRef_.getConstructorBodiesByFormattedId(_context, s, c_.getId()).size() > 1) {
+                if (TypeUtil.getConstructorBodiesByFormattedId(_context, s, c_.getId()).size() > 1) {
                     DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                     duplicate_.setFileName(getFullName());
                     duplicate_.setRc(new RowCol());
@@ -329,7 +330,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
             CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesById(superClass_, e.getKey());
-            if (!_cont.getClasses().canAccess(getFullName(), formatted_.first(), _cont)) {
+            if (!Classes.canAccess(getFullName(), formatted_.first(), _cont)) {
                 continue;
             }
             if (e.getKey().getParametersTypes().isEmpty()) {

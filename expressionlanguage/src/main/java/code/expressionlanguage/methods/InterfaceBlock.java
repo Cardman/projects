@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.FileRowCol;
+import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.sml.Element;
 import code.sml.RowCol;
@@ -10,7 +11,7 @@ import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public final class InterfaceBlock extends RootBlock {
+public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     private final StringList allSuperClasses = new StringList();
 

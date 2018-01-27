@@ -8,10 +8,8 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.NumberInfos;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.StaticAccessException;
-import code.expressionlanguage.exceptions.VoidArgumentException;
-import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.BooleanStruct;
@@ -19,46 +17,27 @@ import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdResult;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstructorInfo;
-import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.DoubleStruct;
-import code.expressionlanguage.opers.util.Fcts;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.FloatStruct;
-import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodInfo;
-import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.ParametersGroup;
-import code.expressionlanguage.opers.util.Parametrable;
-import code.expressionlanguage.opers.util.Parametrables;
 import code.expressionlanguage.opers.util.ReplacementStruct;
-import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringBuilderStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
-import code.serialize.exceptions.NoSuchDeclaredConstructorException;
-import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.ObjectNotNullMap;
 import code.util.Replacement;
 import code.util.SimpleItr;
 import code.util.StringList;
@@ -90,6 +69,7 @@ public class LgNames {
     private static final byte FOUR_ARGS = 4;
     private static final byte FIVE_ARGS = 5;
     private static final byte MAX_DIGITS_DOUBLE = 18;
+    private ContextEl context;
     private String aliasObject;
     private String aliasVoid;
     private String aliasCharSequence;
@@ -311,1423 +291,734 @@ public class LgNames {
         std_ = stdcl_;
         standards.put(aliasCustomError, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardInterface(aliasCharSequence, methods_, noTypes_);
         params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.ABSTRACT, aliasCharSequence);
+        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.ABSTRACT, aliasCharSequence,std_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger, false, MethodModifier.ABSTRACT, aliasCharSequence);
+        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger, false, MethodModifier.ABSTRACT, aliasCharSequence,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasSubSequence, params_, aliasCharSequence, false, MethodModifier.ABSTRACT, aliasCharSequence);
+        method_ = new StandardMethod(aliasSubSequence, params_, aliasCharSequence, false, MethodModifier.ABSTRACT, aliasCharSequence,std_);
         methods_.put(method_.getId(), method_);
-        std_ = new StandardInterface(aliasCharSequence, methods_, noTypes_);
         standards.put(aliasCharSequence, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasDisplay, params_, aliasString, false, MethodModifier.ABSTRACT, aliasDisplayable);
-        methods_.put(method_.getId(), method_);
         std_ = new StandardInterface(aliasDisplayable, methods_, noTypes_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDisplay, params_, aliasString, false, MethodModifier.ABSTRACT, aliasDisplayable,std_);
+        methods_.put(method_.getId(), method_);
         standards.put(aliasDisplayable, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasSimpleIterator, params_, aliasSimpleIteratorType, false, MethodModifier.ABSTRACT, aliasSimpleIterableType);
-        methods_.put(method_.getId(), method_);
         std_ = new StandardInterface(aliasSimpleIterableType, methods_, noTypes_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSimpleIterator, params_, aliasSimpleIteratorType, false, MethodModifier.ABSTRACT, aliasSimpleIterableType, std_);
+        methods_.put(method_.getId(), method_);
         standards.put(aliasSimpleIterableType, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasSize, params_, aliasPrimInteger, false, MethodModifier.ABSTRACT, aliasCountable);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean, false, MethodModifier.ABSTRACT, aliasCountable);
-        methods_.put(method_.getId(), method_);
         std_ = new StandardInterface(aliasCountable, methods_, noTypes_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSize, params_, aliasPrimInteger, false, MethodModifier.ABSTRACT, aliasCountable,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean, false, MethodModifier.ABSTRACT, aliasCountable,std_);
+        methods_.put(method_.getId(), method_);
         standards.put(aliasCountable, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasBooleanValue, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasBoolean);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean, aliasPrimBoolean);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasBoolean);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasBoolean);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasBoolean);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasBoolean);
-        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasBoolean);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasParseBoolean, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasBoolean);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, aliasBoolean);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean);
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.STATIC, aliasBoolean);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasBoolean, false, MethodModifier.STATIC, aliasBoolean);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasBoolean, false, MethodModifier.STATIC, aliasBoolean);
-        methods_.put(method_.getId(), method_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
+        std_ = new StandardClass(aliasBoolean, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasBooleanValue, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimBoolean, aliasPrimBoolean);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasBoolean);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasBoolean);
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasParseBoolean, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimBoolean);
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.STATIC, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimBoolean);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasBoolean, false, MethodModifier.STATIC, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasBoolean, false, MethodModifier.STATIC, aliasBoolean, std_);
+        methods_.put(method_.getId(), method_);
         StandardConstructor ctor_;
         params_ = new StringList(aliasString);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,std_);
         constructors_.add(ctor_);
         params_ = new StringList(aliasBoolean);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, std_);
         constructors_.add(ctor_);
-        std_ = new StandardClass(aliasBoolean, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         standards.put(aliasBoolean, std_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasAbs, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath);
+        method_ = new StandardMethod(aliasAbs, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimLong);
-        method_ = new StandardMethod(aliasAbs, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath);
+        method_ = new StandardMethod(aliasAbs, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasQuot, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath);
+        method_ = new StandardMethod(aliasQuot, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimLong,aliasPrimLong);
-        method_ = new StandardMethod(aliasQuot, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath);
+        method_ = new StandardMethod(aliasQuot, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasMod, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath);
+        method_ = new StandardMethod(aliasMod, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimLong,aliasPrimLong);
-        method_ = new StandardMethod(aliasMod, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath);
+        method_ = new StandardMethod(aliasMod, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath,std_);
         methods_.put(method_.getId(), method_);
-        std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         standards.put(aliasMath, std_);
         constructors_ = new CustList<StandardConstructor>();
-        numbersConstructors(constructors_, aliasPrimByte);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        numbersValuesMethods(methods_, aliasByte, aliasParseByte, aliasPrimByte);
         fields_ = new StringMap<StandardField>();
-        numbersValuesFields(fields_, aliasPrimByte);
         std_ = new StandardClass(aliasByte, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
+        numbersConstructors(constructors_, aliasPrimByte, std_);
+        numbersValuesMethods(methods_, aliasByte, aliasParseByte, aliasPrimByte, std_);
+        numbersValuesFields(fields_, aliasPrimByte, std_);
         standards.put(aliasByte, std_);
         constructors_ = new CustList<StandardConstructor>();
-        numbersConstructors(constructors_, aliasPrimShort);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        numbersValuesMethods(methods_, aliasShort, aliasParseShort, aliasPrimShort);
         fields_ = new StringMap<StandardField>();
-        numbersValuesFields(fields_, aliasPrimShort);
         std_ = new StandardClass(aliasShort, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
+        numbersConstructors(constructors_, aliasPrimShort, std_);
+        numbersValuesMethods(methods_, aliasShort, aliasParseShort, aliasPrimShort, std_);
+        numbersValuesFields(fields_, aliasPrimShort, std_);
         standards.put(aliasShort, std_);
         constructors_ = new CustList<StandardConstructor>();
-        numbersConstructors(constructors_, aliasPrimInteger);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        numbersValuesMethods(methods_, aliasInteger, aliasParseInt, aliasPrimInteger);
         fields_ = new StringMap<StandardField>();
-        numbersValuesFields(fields_, aliasPrimInteger);
         std_ = new StandardClass(aliasInteger, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
+        numbersConstructors(constructors_, aliasPrimInteger, std_);
+        numbersValuesMethods(methods_, aliasInteger, aliasParseInt, aliasPrimInteger, std_);
+        numbersValuesFields(fields_, aliasPrimInteger, std_);
         standards.put(aliasInteger, std_);
         constructors_ = new CustList<StandardConstructor>();
-        numbersConstructors(constructors_, aliasPrimLong);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        numbersValuesMethods(methods_, aliasLong, aliasParseLong, aliasPrimLong);
         fields_ = new StringMap<StandardField>();
-        numbersValuesFields(fields_, aliasPrimLong);
         std_ = new StandardClass(aliasLong, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
+        numbersConstructors(constructors_, aliasPrimLong, std_);
+        numbersValuesMethods(methods_, aliasLong, aliasParseLong, aliasPrimLong, std_);
+        numbersValuesFields(fields_, aliasPrimLong, std_);
         standards.put(aliasLong, std_);
         constructors_ = new CustList<StandardConstructor>();
-        numbersConstructors(constructors_, aliasPrimFloat);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        numbersValuesMethods(methods_, aliasFloat, aliasParseFloat, aliasPrimFloat);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasFloat);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimFloat);
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasFloat);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasFloat);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimFloat);
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasFloat);
-        methods_.put(method_.getId(), method_);
         fields_ = new StringMap<StandardField>();
-        numbersValuesFields(fields_, aliasPrimFloat);
         std_ = new StandardClass(aliasFloat, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
+        numbersConstructors(constructors_, aliasPrimFloat, std_);
+        numbersValuesMethods(methods_, aliasFloat, aliasParseFloat, aliasPrimFloat, std_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasFloat, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimFloat);
+        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasFloat, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasFloat, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimFloat);
+        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasFloat, std_);
+        methods_.put(method_.getId(), method_);
+        numbersValuesFields(fields_, aliasPrimFloat, std_);
         standards.put(aliasFloat, std_);
         constructors_ = new CustList<StandardConstructor>();
-        numbersConstructors(constructors_, aliasPrimDouble);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        numbersValuesMethods(methods_, aliasDouble, aliasParseDouble, aliasPrimDouble);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasDouble);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimDouble);
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasDouble);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasDouble);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimDouble);
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasDouble);
-        methods_.put(method_.getId(), method_);
         fields_ = new StringMap<StandardField>();
-        numbersValuesFields(fields_, aliasPrimDouble);
         std_ = new StandardClass(aliasDouble, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
+        numbersConstructors(constructors_, aliasPrimDouble, std_);
+        numbersValuesMethods(methods_, aliasDouble, aliasParseDouble, aliasPrimDouble, std_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasDouble,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimDouble);
+        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasDouble,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasDouble,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimDouble);
+        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasDouble,std_);
+        methods_.put(method_.getId(), method_);
+        numbersValuesFields(fields_, aliasPrimDouble, std_);
         standards.put(aliasDouble, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        numbersAbsMethods(methods_, aliasNumber);
         constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
         std_ = new StandardClass(aliasNumber, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
+        numbersAbsMethods(methods_, aliasNumber,std_);
         standards.put(aliasNumber, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasCharacter, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.NORMAL, aliasCharacter);
+        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.NORMAL, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasCharacter);
+        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasSubSequence, params_, aliasCharacter, false, MethodModifier.NORMAL, aliasCharacter);
+        method_ = new StandardMethod(aliasSubSequence, params_, aliasCharacter, false, MethodModifier.NORMAL, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCharValue, params_, aliasPrimChar, false, MethodModifier.NORMAL, aliasCharacter);
+        method_ = new StandardMethod(aliasCharValue, params_, aliasPrimChar, false, MethodModifier.NORMAL, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasCharacter);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasCharacter);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar, aliasPrimChar);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar, aliasPrimInteger);
-        method_ = new StandardMethod(aliasDigit, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasDigit, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimInteger);
-        method_ = new StandardMethod(aliasForDigit, params_, aliasPrimChar, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasForDigit, params_, aliasPrimChar, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasGetType, params_, aliasPrimByte, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasGetType, params_, aliasPrimByte, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIsDigit, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasIsDigit, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIsLetter, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasIsLetter, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIsLetterOrDigit, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasIsLetterOrDigit, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIsWordChar, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasIsWordChar, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIsWhitespace, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasIsWhitespace, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIsLowerCase, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasIsLowerCase, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIsUpperCase, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasIsUpperCase, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIsSpace, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasIsSpace, params_, aliasPrimBoolean, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasToLowerCase, params_, aliasPrimChar, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasToLowerCase, params_, aliasPrimChar, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasToUpperCase, params_, aliasPrimChar, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasToUpperCase, params_, aliasPrimChar, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.STATIC, aliasCharacter);
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.STATIC, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, aliasCharacter);
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, aliasCharacter, stdcl_);
         methods_.put(method_.getId(), method_);
-        constructors_ = new CustList<StandardConstructor>();
         params_ = new StringList(aliasPrimChar);
-        ctor_ = new StandardConstructor(params_, false);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
         constructors_.add(ctor_);
-        fields_ = new StringMap<StandardField>();
-        numbersValuesFields(fields_, aliasPrimChar);
-        stdcl_ = new StandardClass(aliasCharacter, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
+        numbersValuesFields(fields_, aliasPrimChar, stdcl_);
         std_ = stdcl_;
         standards.put(aliasCharacter, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasEqualsIgnoreCase, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasCompareToIgnoreCase, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasContains, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString, aliasPrimInteger);
-        method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasEndsWith, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString, aliasPrimInteger);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar, aliasPrimInteger);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString, aliasPrimInteger);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar, aliasPrimInteger);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasToCharArray, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar), false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetBytes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasGetBytes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasFormat, params_, aliasString, true, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString, aliasPrimInteger);
-        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar, aliasPrimInteger);
-        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasSplitStrings, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger, aliasString);
-        method_ = new StandardMethod(aliasSplitStrings, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasSplitChars, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString, aliasString);
-        method_ = new StandardMethod(aliasReplace, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar, aliasPrimChar);
-        method_ = new StandardMethod(aliasReplace, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasReplacement);
-        method_ = new StandardMethod(aliasReplaceMultiple, params_, aliasString, true, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger, aliasString, aliasPrimInteger, aliasPrimInteger);
-        method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean, aliasPrimInteger, aliasString, aliasPrimInteger, aliasPrimInteger);
-        method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasToLowerCase, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasToUpperCase, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasTrim, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIntern, params_, aliasString, false, MethodModifier.NORMAL, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimByte);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimShort);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimLong);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimFloat);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimDouble);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar));
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar),aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString);
-        methods_.put(method_.getId(), method_);
         constructors_ = new CustList<StandardConstructor>();
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_, false);
-        constructors_.add(ctor_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte));
-        ctor_ = new StandardConstructor(params_, false);
-        constructors_.add(ctor_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), aliasString);
-        ctor_ = new StandardConstructor(params_, false);
-        constructors_.add(ctor_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), aliasPrimInteger, aliasPrimInteger);
-        ctor_ = new StandardConstructor(params_, false);
-        constructors_.add(ctor_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), aliasPrimInteger, aliasPrimInteger, aliasString);
-        ctor_ = new StandardConstructor(params_, false);
-        constructors_.add(ctor_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar));
-        ctor_ = new StandardConstructor(params_, false);
-        constructors_.add(ctor_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar), aliasPrimInteger, aliasPrimInteger);
-        ctor_ = new StandardConstructor(params_, false);
-        constructors_.add(ctor_);
-        params_ = new StringList(aliasStringBuilder);
-        ctor_ = new StandardConstructor(params_, false);
-        constructors_.add(ctor_);
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasString, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
+        params_ = new StringList(aliasPrimInteger);
+        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
+        method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
+        method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger);
+        method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasEqualsIgnoreCase, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasCompareToIgnoreCase, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasContains, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString, aliasPrimInteger);
+        method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasEndsWith, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString, aliasPrimInteger);
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar);
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar, aliasPrimInteger);
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString, aliasPrimInteger);
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar);
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar, aliasPrimInteger);
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasToCharArray, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar), false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetBytes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasGetBytes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasFormat, params_, aliasString, true, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString, aliasPrimInteger);
+        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar);
+        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar, aliasPrimInteger);
+        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasSplitStrings, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger, aliasString);
+        method_ = new StandardMethod(aliasSplitStrings, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar);
+        method_ = new StandardMethod(aliasSplitChars, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString, aliasString);
+        method_ = new StandardMethod(aliasReplace, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar, aliasPrimChar);
+        method_ = new StandardMethod(aliasReplace, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasReplacement);
+        method_ = new StandardMethod(aliasReplaceMultiple, params_, aliasString, true, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger, aliasString, aliasPrimInteger, aliasPrimInteger);
+        method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimBoolean, aliasPrimInteger, aliasString, aliasPrimInteger, aliasPrimInteger);
+        method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasToLowerCase, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasToUpperCase, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTrim, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIntern, params_, aliasString, false, MethodModifier.NORMAL, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimBoolean);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimByte);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimShort);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimChar);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimLong);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimFloat);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimDouble);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar));
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar),aliasPrimInteger,aliasPrimInteger);
+        method_ = new StandardMethod(aliasValueOf, params_, aliasString, false, MethodModifier.STATIC, aliasString, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte));
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), aliasString);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), aliasPrimInteger, aliasPrimInteger);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte), aliasPrimInteger, aliasPrimInteger, aliasString);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar));
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar), aliasPrimInteger, aliasPrimInteger);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(aliasStringBuilder);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
+        constructors_.add(ctor_);
         stdcl_.getDirectInterfaces().add(aliasCharSequence);
         std_ = stdcl_;
         standards.put(aliasString, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetOldString, params_, aliasString, false, MethodModifier.NORMAL, aliasReplacement);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetNewString, params_, aliasString, false, MethodModifier.NORMAL, aliasReplacement);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasSetOldString, params_, aliasVoid, false, MethodModifier.NORMAL, aliasReplacement);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasSetNewString, params_, aliasVoid, false, MethodModifier.NORMAL, aliasReplacement);
-        methods_.put(method_.getId(), method_);
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasReplacement, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetOldString, params_, aliasString, false, MethodModifier.NORMAL, aliasReplacement,stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetNewString, params_, aliasString, false, MethodModifier.NORMAL, aliasReplacement,stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasSetOldString, params_, aliasVoid, false, MethodModifier.NORMAL, aliasReplacement,stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasSetNewString, params_, aliasVoid, false, MethodModifier.NORMAL, aliasReplacement,stdcl_);
+        methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         standards.put(aliasReplacement, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasStringBuilder, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasSubSequence, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasSubSequence, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimBoolean);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimByte);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimShort);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimLong);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimFloat);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimDouble);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString,aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasStringBuilder);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasStringBuilder,aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar));
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar),aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCapacity, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasCapacity, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasDelete, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasDelete, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasDeleteCharAt, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasDeleteCharAt, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasClear, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasClear, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString, aliasPrimInteger);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar, aliasPrimInteger);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString, aliasPrimInteger);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar, aliasPrimInteger);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimBoolean);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimByte);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimShort);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimChar);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimInteger);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimLong);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimFloat);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasPrimDouble);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasString);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasString,aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasStringBuilder);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, aliasStringBuilder,aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar));
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar),aliasPrimInteger,aliasPrimInteger);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasReverse, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasReverse, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger,aliasPrimInteger,aliasString);
-        method_ = new StandardMethod(aliasReplace, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasReplace, params_, aliasStringBuilder, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger,aliasPrimChar);
-        method_ = new StandardMethod(aliasSetCharAt, params_, aliasVoid, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasSetCharAt, params_, aliasVoid, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasSetLength, params_, aliasVoid, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasSetLength, params_, aliasVoid, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTrimToSize, params_, aliasVoid, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasTrimToSize, params_, aliasVoid, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger);
-        method_ = new StandardMethod(aliasEnsureCapacity, params_, aliasVoid, false, MethodModifier.NORMAL, aliasStringBuilder);
+        method_ = new StandardMethod(aliasEnsureCapacity, params_, aliasVoid, false, MethodModifier.NORMAL, aliasStringBuilder,stdcl_);
         methods_.put(method_.getId(), method_);
-        constructors_ = new CustList<StandardConstructor>();
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_, false);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
         constructors_.add(ctor_);
         params_ = new StringList(aliasStringBuilder);
-        ctor_ = new StandardConstructor(params_, false);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimInteger);
-        ctor_ = new StandardConstructor(params_, false);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
         constructors_.add(ctor_);
         params_ = new StringList(aliasString);
-        ctor_ = new StandardConstructor(params_, false);
+        ctor_ = new StandardConstructor(params_, false, stdcl_);
         constructors_.add(ctor_);
-        stdcl_ = new StandardClass(aliasStringBuilder, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         stdcl_.getDirectInterfaces().add(aliasCharSequence);
         std_ = stdcl_;
         standards.put(aliasStringBuilder, std_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        params_ = new StringList();
-        method_ = new StandardMethod(getAliasNext(), params_, getAliasObject(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(getAliasHasNext(), params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
-        methods_.put(method_.getId(), method_);
         stdcl_ = new StandardClass(aliasSimpleIteratorType, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(getAliasNext(), params_, getAliasObject(), false, MethodModifier.FINAL, aliasSimpleIteratorType, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(getAliasHasNext(), params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, aliasSimpleIteratorType, stdcl_);
+        methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         standards.put(aliasSimpleIteratorType, std_);
         buildOther();
     }
-    public void setupOverrides() {
+    public void setupOverrides(ContextEl _cont) {
+        TypeUtil.buildInherits(_cont, standards.getKeys());
         for (StandardType t: standards.values()) {
-            t.buildOverridingMethods(this);
+            TypeUtil.buildOverrides(t, _cont);
         }
     }
-    public static FieldResult getDeclaredCustField(ContextEl _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _superClass, String _name) {
-        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _superClass, _name);
-        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _superClass, _name);
-        if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
-            if (!_staticContext) {
-                return resIns_;
-            }
-            throw new StaticAccessException(_cont.joinPages());
-        }
-        return resSt_;
-    }
-    private static FieldResult getDeclaredCustFieldByContext(ContextEl _cont, boolean _static, ClassArgumentMatching _class, boolean _superClass, String _name) {
-        String clCurName_ = _class.getName();
-        String base_ = clCurName_;
-        LgNames classes_ = _cont.getStandards();
-        StandardType root_ = classes_.getStandards().getVal(base_);
-        StringList classeNames_ = new StringList();
-        classeNames_.add(root_.getName());
-        if (root_ instanceof StandardClass) {
-            classeNames_.addAllElts(((StandardClass) root_).getAllSuperClasses(classes_));
-        }
-        for (String s: classeNames_) {
-            if (StringList.quickEq(s, classes_.getAliasObject())) {
-                continue;
-            }
-            String formatted_ = s;
-            StandardType custClass_;
-            custClass_ = classes_.getStandards().getVal(s);
-            for (EntryCust<String, StandardField> e: custClass_.getFields().entryList()) {
-                if (!StringList.quickEq(e.getKey(), _name)) {
-                    continue;
-                }
-                if (_static) {
-                    if (!e.getValue().isStaticField()) {
-                        break;
-                    }
-                } else {
-                    if (e.getValue().isStaticField()) {
-                        break;
-                    }
-                }
-                FieldResult r_ = new FieldResult();
-                String formattedType_ = e.getValue().getClassName();
-                String realType_ = formattedType_;
-                FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, realType_, _static, e.getValue().isFinalField());
-                r_.setId(f_);
-                r_.setStatus(SearchingMemberStatus.UNIQ);
-                return r_;
-            }
-            if (!_superClass) {
-                FieldResult r_ = new FieldResult();
-                r_.setStatus(SearchingMemberStatus.ZERO);
-                return r_;
-            }
-        }
-        FieldResult r_ = new FieldResult();
-        r_.setStatus(SearchingMemberStatus.ZERO);
-        return r_;
-    }
-    public static ClassMethodIdReturn getDeclaredCustMethod(
-    boolean _failIfError, ContextEl _conf, int _varargOnly,
-        boolean _staticContext, ClassArgumentMatching _class, String _name,
-        boolean _superClass, boolean _accessFromSuper, ClassArgumentMatching... _argsClass) {
-        LgNames classes_ = _conf.getStandards();
-        String clCurName_ = _class.getName();
-        String baseClass_ = clCurName_;
-        for (ClassArgumentMatching c:_argsClass) {
-            if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(StringList.concat(clCurName_,DOT,_name,RETURN_LINE,_conf.joinPages()));
-            }
-        }
-        if (classes_.getStandards().getVal(baseClass_) instanceof StandardInterface) {
-            ClassMethodIdResult resInst_ = getDeclaredCustMethodByInterfaceInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
-            boolean foundInst_ = false;
-            if (!_staticContext) {
-                if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
-                    foundInst_ = true;
-                }
-            }
-            ClassMethodIdResult resStatic_ = getDeclaredCustMethodByInterfaceInherit(_conf, _accessFromSuper, _varargOnly, true, _class, _name, _superClass, _argsClass);
-            if (foundInst_) {
-                return toFoundMethod(classes_, resInst_);
-            }
-            if (!_staticContext && _conf.isAmbigous() && _failIfError) {
-                StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
-                StringList classesNames_ = new StringList();
-                for (ClassArgumentMatching c: _argsClass) {
-                    classesNames_.add(c.getName());
-                }
-                trace_.append(classesNames_.join(SEP_ARG));
-                trace_.append(PAR_RIGHT);
-                throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
-            }
-            if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
-                return toFoundMethod(classes_, resStatic_);
-            }
-            if (_staticContext && resInst_.getStatus() == SearchingMemberStatus.UNIQ && _failIfError) {
-                //static access
-                throw new StaticAccessException(_conf.joinPages());
-            }
-            StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
-            StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: _argsClass) {
-                classesNames_.add(c.getName());
-            }
-            trace_.append(classesNames_.join(SEP_ARG));
-            trace_.append(PAR_RIGHT);
-            throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
-        }
-        ClassMethodIdResult resInst_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
-        boolean foundInst_ = false;
-        if (!_staticContext) {
-            if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
-                foundInst_ = true;
-            }
-        }
-        ClassMethodIdResult resStatic_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, true, _class, _name, _superClass, _argsClass);
-        if (foundInst_) {
-            return toFoundMethod(classes_, resInst_);
-        }
-        if (!_staticContext && _conf.isAmbigous()) {
-            clCurName_ = _class.getName();
-            StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
-            StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: _argsClass) {
-                classesNames_.add(c.getName());
-            }
-            trace_.append(classesNames_.join(SEP_ARG));
-            trace_.append(PAR_RIGHT);
-            throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
-        }
-        if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
-            return toFoundMethod(classes_, resStatic_);
-        }
-        if (!_failIfError) {
-            return new ClassMethodIdReturn(false);
-        }
-        if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
-            //static access
-            throw new StaticAccessException(_conf.joinPages());
-        }
-        StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
-        StringList classesNames_ = new StringList();
-        for (ClassArgumentMatching c: _argsClass) {
-            classesNames_.add(c.getName());
-        }
-        trace_.append(classesNames_.join(SEP_ARG));
-        trace_.append(PAR_RIGHT);
-        throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
-    }
-    public static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching... _args) {
-        LgNames classes_ = _conf.getStandards();
-        StandardClass custClass_ = null;
-        String clCurName_ = _class.getName();
-        custClass_ = (StandardClass) classes_.getStandards().getVal(clCurName_);
-        if (custClass_ == null) {
-            return null;
-        }
-        CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
-        for (ClassArgumentMatching c:_args) {
-            if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(StringList.concat(clCurName_,RETURN_LINE,_conf.joinPages()));
-            }
-        }
-        CustList<StandardConstructor> constructors_;
-        constructors_ = custClass_.getConstructors();
-        if (constructors_.isEmpty()) {
-            if (_args.length == 0) {
-                ConstrustorIdVarArg out_;
-                out_ = new ConstrustorIdVarArg();
-                out_.setRealId(new ConstructorId(clCurName_, new EqList<ClassName>()));
-                out_.setConstId(out_.getRealId());
-                return out_;
-            }
-        }
-        for (StandardConstructor e: constructors_) {
-            ConstructorId ctor_ = e.getId(clCurName_);
-            if (_varargOnly > -1) {
-                if (!ctor_.isVararg()) {
-                    continue;
-                }
-            }
-            ClassMatching[] p_ = getParameters(ctor_);
-            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, ctor_.isVararg(), p_, _args)) {
-                continue;
-            }
-            possibleMethods_.add(ctor_);
-        }
-        if (possibleMethods_.isEmpty()) {
-            StringBuilder trace_ = new StringBuilder(clCurName_).append(PAR_LEFT);
-            StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: _args) {
-                classesNames_.add(c.getName());
-            }
-            trace_.append(classesNames_.join(SEP_ARG));
-            trace_.append(PAR_RIGHT);
-            trace_.append(RETURN_LINE);
-            trace_.append(_conf.joinPages());
-            throw new NoSuchDeclaredConstructorException(trace_.toString());
-        }
-        StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
-        Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
-        for (ConstructorId m: possibleMethods_) {
-            ParametersGroup p_ = new ParametersGroup();
-            for (String c: m.getParametersTypes()) {
-                p_.add(new ClassMatching(c));
-            }
-            ConstructorInfo mloc_ = new ConstructorInfo();
-            StandardConstructor ctr_ = classes_.getConstructorBodiesById(clCurName_, m).first();
-            mloc_.setConstr(ctr_.getId(clCurName_));
-            mloc_.setConstraints(m);
-            mloc_.setParameters(p_);
-            mloc_.setClassName(clCurName_);
-            signatures_.add(mloc_);
-        }
-        sortCtors(signatures_, gr_);
-        if (gr_.isAmbigous()) {
-            StringBuilder trace_ = new StringBuilder(clCurName_).append(PAR_LEFT);
-            StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: _args) {
-                classesNames_.add(c.getName());
-            }
-            trace_.append(classesNames_.join(SEP_ARG));
-            trace_.append(PAR_RIGHT);
-            trace_.append(RETURN_LINE);
-            trace_.append(_conf.joinPages());
-            throw new NoSuchDeclaredConstructorException(trace_.toString());
-        }
-        ConstructorId ctor_ = signatures_.first().getConstraints();
-        ConstrustorIdVarArg out_;
-        out_ = new ConstrustorIdVarArg();
-        if (ctor_.isVararg() && _varargOnly == -1) {
-            if (varArgWrap(_conf, clCurName_, ctor_, _args)) {
-                out_.setVarArgToCall(true);
-            }
-        }
-        out_.setRealId(ctor_);
-        out_.setConstId(ctor_);
-        return out_;
-    }
-    private static ClassMethodIdReturn toFoundMethod(LgNames _conf, ClassMethodIdResult _res){
-        LgNames classes_ = _conf;
-        ClassMethodIdReturn idRet_ = new ClassMethodIdReturn(true);
-        ClassMethodId idCl_ = _res.getId();
-        String clCurName_ = idCl_.getClassName();
-        MethodId id_ = idCl_.getConstraints();
-        MethodId realId_ = _res.getRealId();
-        idRet_.setRealId(realId_);
-        String realClass_ = _res.getRealClass();
-        idRet_.setRealClass(realClass_);
-        idRet_.setId(new ClassMethodId(clCurName_, id_));
-        idRet_.setVarArgToCall(_res.isVarArgToCall());
-        StandardMethod methods_ = classes_.getMethodBodiesById(realClass_, realId_);
-        StandardMethod m_ = methods_;
-        idRet_.setReturnType(_res.getReturnType());
-        idRet_.setStaticMethod(m_.isStaticMethod());
-        idRet_.setAbstractMethod(m_.isAbstractMethod());
-        return idRet_;
-    }
-    private static ClassMethodIdResult getDeclaredCustMethodByClassInherit(ContextEl _conf, boolean _accessFromSuper, int _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
-        LgNames classes_ = _conf.getStandards();
-        String clCurName_ = _class.getName();
-        String base_ = clCurName_;
-        StandardType r_ = classes_.getStandards().getVal(base_);
-        if (_static) {
-            StringList classeNames_ = new StringList();
-            classeNames_.add(base_);
-            if (r_ instanceof StandardClass) {
-                classeNames_.addAllElts(((StandardClass) r_).getAllSuperClasses(classes_));
-            }
-            for (String s: classeNames_) {
-                if (StringList.quickEq(s, classes_.getAliasObject())) {
-                    continue;
-                }
-                String formatted_ = s;
-                ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-                methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(formatted_), _name, _argsClass);
-                ClassMethodIdResult res_ = getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
-                if (res_.getStatus() == SearchingMemberStatus.ZERO) {
-                    if (!_superClass) {
-                        return res_;
-                    }
-                    continue;
-                }
-                return res_;
-            }
-            ClassMethodIdResult res_ = new ClassMethodIdResult();
-            res_.setStatus(SearchingMemberStatus.ZERO);
-            return res_;
-        }
-        ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-        methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(clCurName_), _name, _argsClass);
-        return getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
-    }
-    private static ClassMethodIdResult getDeclaredCustMethodByInterfaceInherit(
-    ContextEl _conf, boolean _accessFromSuper, int _varargOnly,
-        boolean _static, ClassArgumentMatching _class, String _name,
-        boolean _superClass, ClassArgumentMatching... _argsClass) {
-        String clCurName_ = _class.getName();
-        if (_static) {
-            ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-            methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(clCurName_), _name, _argsClass);
-            return getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
-        }
-        ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-        methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(clCurName_), _name, _argsClass);
-        return getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
-    }
-    private static ObjectNotNullMap<ClassMethodId, MethodMetaInfo>
-    getDeclaredCustMethodByType(ContextEl _conf, int _varargOnly, boolean _accessFromSuper,
-            boolean _static, boolean _superClass, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
-        LgNames classes_ = _conf.getStandards();
-        String clCurName_ = _class.getName();
-        String baseCurName_ = StringList.getAllTypes(clCurName_).first();
-        StandardType root_ = classes_.getStandards().getVal(baseCurName_);
-        ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-        methods_ = new ObjectNotNullMap<ClassMethodId, MethodMetaInfo>();
-        if (_static) {
-            for (StandardMethod e: root_.getMethods().values()) {
-                if (e.isStaticMethod()) {
-                    MethodId id_ = e.getId();
-                    String returnType_ = e.getReturnType();
-                    MethodMetaInfo info_ = new MethodMetaInfo(clCurName_, id_, MethodModifier.STATIC, returnType_);
-                    ClassMethodId clId_ = new ClassMethodId(clCurName_, id_);
-                    methods_.put(clId_, info_);
-                }
-            }
-        } else {
-            for (EntryCust<MethodId, EqList<ClassMethodId>> e: root_.getAllOverridingMethods().entryList()) {
-                for (ClassMethodId s: e.getValue()) {
-                    String name_ = s.getClassName();
-                    if (_accessFromSuper) {
-                        String base_ = name_;
-                        if (StringList.quickEq(base_, root_.getName())) {
-                            continue;
-                        }
-                    }
-                    String formattedClass_;
-                    if (_superClass) {
-                        formattedClass_ = name_;
-                    } else {
-                        String base_ = name_;
-                        if (!StringList.quickEq(base_, root_.getName())) {
-                            continue;
-                        }
-                        formattedClass_ = clCurName_;
-                    }
-                    MethodId id_ = s.getConstraints();
-                    StandardMethod sup_ = classes_.getMethodBodiesById(name_, id_);
-                    String ret_ = sup_.getReturnType();
-                    MethodMetaInfo info_ = new MethodMetaInfo(formattedClass_, id_, MethodModifier.NORMAL, ret_);
-                    ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
-                    methods_.put(clId_, info_);
-                }
-            }
-        }
-        return methods_;
-    }
-    private static ClassMethodIdResult getCustResult(ContextEl _conf, int _varargOnly,
-            ObjectNotNullMap<ClassMethodId, MethodMetaInfo> _methods,
-            String _name, ClassArgumentMatching... _argsClass) {
-        CustList<ClassMethodId> possibleMethods_ = new CustList<ClassMethodId>();
-        for (EntryCust<ClassMethodId, MethodMetaInfo> e: _methods.entryList()) {
-            ClassMethodId key_ = e.getKey();
-            MethodId id_ = key_.getConstraints();
-            if (_varargOnly > -1) {
-                if (!id_.isVararg()) {
-                    continue;
-                }
-            }
-            if (!StringList.quickEq(id_.getName(), _name)) {
-                continue;
-            }
-            ClassMatching[] p_ = getParameters(id_);
-            String formattedType_ = e.getValue().getClassName();
-            if (!isPossibleMethod(_conf, formattedType_, _varargOnly, id_.isVararg(), p_, _argsClass)) {
-                continue;
-            }
-            possibleMethods_.add(key_);
-        }
-        if (possibleMethods_.isEmpty()) {
-            ClassMethodIdResult res_ = new ClassMethodIdResult();
-            res_.setStatus(SearchingMemberStatus.ZERO);
-            return res_;
-        }
-        StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
-        Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
-        for (ClassMethodId m: possibleMethods_) {
-            ParametersGroup p_ = new ParametersGroup();
-            MethodMetaInfo info_ = _methods.getVal(m);
-            MethodId realId_ = info_.getRealId();
-            for (String c: realId_.getParametersTypes()) {
-                p_.add(new ClassMatching(c));
-            }
-            MethodInfo mloc_ = new MethodInfo();
-            String formattedType_ = info_.getClassName();
-            mloc_.setClassName(formattedType_);
-            mloc_.setStatic(info_.getModifier() == MethodModifier.STATIC);
-            mloc_.setConstraints(realId_);
-            mloc_.setParameters(p_);
-            mloc_.setReturnType(info_.getReturnType());
-            signatures_.add(mloc_);
-        }
-        _conf.setAmbigous(false);
-        sortFct(signatures_, gr_);
-        if (gr_.isAmbigous()) {
-            _conf.setAmbigous(true);
-            ClassMethodIdResult res_ = new ClassMethodIdResult();
-            res_.setStatus(SearchingMemberStatus.ZERO);
-            return res_;
-        }
-        MethodId constraints_ = signatures_.first().getConstraints();
-        MethodId realId_ = constraints_;
-        String className_ = signatures_.first().getClassName();
-        MethodMetaInfo info_ = _methods.getVal(new ClassMethodId(className_, realId_));
-        String baseClassName_ = info_.getClassName();
-        ClassMethodIdResult res_ = new ClassMethodIdResult();
-        MethodId id_;
-        String realClass_;
-        realClass_ = baseClassName_;
-        id_ = constraints_;
-        res_.setCorrectTemplated(true);
-        res_.setId(new ClassMethodId(realClass_, id_));
-        res_.setStatus(SearchingMemberStatus.UNIQ);
-        if (_varargOnly == -1 && varArgWrap(_conf, realClass_, constraints_, _argsClass)) {
-            res_.setVarArgToCall(true);
-        }
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        res_.setReturnType(info_.getReturnType());
-        return res_;
-    }
-    static boolean isPossibleMethod(
-    ContextEl _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params,
-        ClassArgumentMatching... _argsClass) {
-        LgNames stds_ = _context.getStandards();
-        int startOpt_ = _argsClass.length;
-        boolean checkOnlyDem_ = true;
-        int nbDem_ = _params.length;
-        if (!_vararg) {
-            if (_params.length != _argsClass.length) {
-                return false;
-            }
-        } else {
-            if (_params.length > _argsClass.length + 1) {
-                return false;
-            }
-            if (_varargOnly != 0) {
-                checkOnlyDem_ = false;
-                nbDem_--;
-                startOpt_ = _params.length - 1;
-            }
-            if (_varargOnly > 0) {
-                if (startOpt_ != _varargOnly - 1) {
-                    return false;
-                }
-            }
-        }
-        int len_ = nbDem_;
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (_argsClass[i].isVariable()) {
-                if (_params[i].isPrimitive(_context)) {
-                    return false;
-                }
-                continue;
-            }
-            if (!canBeUseAsArgument(_params[i].getClassName(), _argsClass[i].getName(), stds_)) {
-                return false;
-            }
-        }
-        if (checkOnlyDem_) {
-            return true;
-        }
-        if (_params.length == _argsClass.length) {
-            int last_ = _params.length - 1;
-            String param_ = _params[last_].getClassName();
-            if (canBeUseAsArgument(param_, _argsClass[last_].getName(), stds_)) {
-                return true;
-            }
-            param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-            return canBeUseAsArgument(param_, _argsClass[last_].getName(), stds_);
-        }
-        len_ = _argsClass.length;
-        int last_ = _params.length - 1;
-        String param_ = _params[last_].getClassName();
-        param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-        for (int i = startOpt_; i < len_; i++) {
-            if (!canBeUseAsArgument(param_, _argsClass[i].getName(), stds_)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    static boolean varArgWrap(ContextEl _context, String _class, Identifiable _id, ClassArgumentMatching... _argsClass) {
-        LgNames stds_ = _context.getStandards();
-        if (!_id.isVararg()) {
-            return false;
-        }
-        ClassMatching[] p_ = getParameters(_id);
-        if (p_.length != _argsClass.length) {
-            return true;
-        }
-        int last_ = p_.length - 1;
-        String param_ = p_[last_].getClassName();
-        return !canBeUseAsArgument(param_, _argsClass[last_].getName(), stds_);
-    }
-    static ClassMatching[] getParameters(Identifiable _id) {
-        StringList params_ = _id.getParametersTypes();
-        int nbParams_ = params_.size();
-        ClassMatching[] p_ = new ClassMatching[nbParams_];
-        int i_ = CustList.FIRST_INDEX;
-        if (!_id.isVararg()) {
-            for (String c: params_) {
-                p_[i_] = new ClassMatching(c);
-                i_++;
-            }
-        } else {
-            for (String c: params_) {
-                if (i_ == nbParams_ - 1) {
-                    String c_ = StringList.replace(c, VARARG_SUFFIX, EMPTY_STRING);
-                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                    p_[i_] = new ClassMatching(c_);
-                } else {
-                    p_[i_] = new ClassMatching(c);
-                }
-                i_++;
-            }
-        }
-        return p_;
-    }
-    static void sortFct(Parametrables<MethodInfo> _fct, ArgumentsGroup _context) {
-        int len_ = _fct.size();
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            process(_fct, i, _context);
-        }
-        if (_fct.first().getParameters().isError()) {
-            _context.setAmbigous(true);
-        }
-    }
-    static void sortCtors(Parametrables<ConstructorInfo> _fct, ArgumentsGroup _context) {
-        int len_ = _fct.size();
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            process(_fct, i, _context);
-        }
-        if (_fct.first().getParameters().isError()) {
-            _context.setAmbigous(true);
-        }
-    }
-    static void process(Fcts _list, int _i, ArgumentsGroup _context) {
-        Parametrable pFirst_ = _list.first();
-        Parametrable pCurrent_ = _list.get(_i);
-        int res_ = compare(_context, pFirst_, pCurrent_);
-        if (res_ == CustList.SWAP_SORT) {
-            _list.swapIndexes(CustList.FIRST_INDEX, _i);
-        }
-    }
-    static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
-        int len_ = _o1.getParameters().size();
-        ContextEl context_ = _context.getContext();
-        LgNames stds_ = context_.getStandards();
-        String glClassOne_ = _o1.getClassName();
-        String glClassTwo_ = _o2.getClassName();
-        if (_o1.isVararg()) {
-            if (!_o2.isVararg()) {
-                return CustList.SWAP_SORT;
-            }
-        }
-        if (!_o1.isVararg()) {
-            if (_o2.isVararg()) {
-                return CustList.NO_SWAP_SORT;
-            }
-        }
-        if (_o1.isVararg()) {
-            if (_o2.isVararg()) {
-                if (len_ < _o2.getParameters().size()) {
-                    return CustList.SWAP_SORT;
-                }
-                if (len_ > _o2.getParameters().size()) {
-                    return CustList.NO_SWAP_SORT;
-                }
-                boolean varOne_ = varArgWrap(context_, glClassOne_, _o1.getId(), _context.getArgumentsArray());
-                boolean varTwo_ = varArgWrap(context_, glClassTwo_, _o2.getId(), _context.getArgumentsArray());
-                if (varOne_ && !varTwo_) {
-                    return CustList.SWAP_SORT;
-                }
-                if (!varOne_ && varTwo_) {
-                    return CustList.NO_SWAP_SORT;
-                }
-            }
-        }
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            ClassArgumentMatching selected_ = _context.get(i);
-            ClassMatching one_ = _o1.getParameters().get(i);
-            String paramOne_ = one_.getClassName();
-            if (paramOne_.endsWith(VARARG_SUFFIX)) {
-                paramOne_ = StringList.replace(paramOne_, VARARG_SUFFIX, EMPTY_STRING);
-                paramOne_ = PrimitiveTypeUtil.getPrettyArrayType(paramOne_);
-            }
-            ClassMatching two_ = _o2.getParameters().get(i);
-            String paramTwo_ = two_.getClassName();
-            if (paramTwo_.endsWith(VARARG_SUFFIX)) {
-                paramTwo_ = StringList.replace(paramTwo_, VARARG_SUFFIX, EMPTY_STRING);
-                paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
-            }
-            one_ = new ClassMatching(paramOne_);
-            two_ = new ClassMatching(paramTwo_);
-            if (one_.matchClass(two_)) {
-                continue;
-            }
-            if (selected_.isVariable()) {
-                if (one_.isAssignableFrom(two_, context_)) {
-                    return CustList.SWAP_SORT;
-                }
-                if (two_.isAssignableFrom(one_, context_)) {
-                    return CustList.NO_SWAP_SORT;
-                }
-                _o1.getParameters().setError(true);
-                _o2.getParameters().setError(true);
-                return CustList.NO_SWAP_SORT;
-            }
-            ClassMatching toPrOne_ = one_;
-            ClassMatching toPrTwo_ = two_;
-            boolean onePrimExcl_ = false;
-            boolean twoPrimExcl_ = false;
-            if (one_.isPrimitive(context_) && !two_.isPrimitive(context_)) {
-                onePrimExcl_ = true;
-            }
-            if (!one_.isPrimitive(context_) && two_.isPrimitive(context_)) {
-                twoPrimExcl_ = true;
-            }
-            if (selected_.isPrimitive(context_)) {
-                if (onePrimExcl_) {
-                    return CustList.NO_SWAP_SORT;
-                }
-                if (twoPrimExcl_) {
-                    return CustList.SWAP_SORT;
-                }
-                toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_, context_);
-                toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_, context_);
-            } else {
-                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(selected_, true, context_);
-                if (clMatch_.isPrimitive(context_)) {
-                    if (onePrimExcl_) {
-                        return CustList.SWAP_SORT;
-                    }
-                    if (twoPrimExcl_) {
-                        return CustList.NO_SWAP_SORT;
-                    }
-                    toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_, context_);
-                    toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_, context_);
-                }
-            }
-            if (toPrOne_.isAssignableFrom(toPrTwo_, context_)) {
-                return CustList.SWAP_SORT;
-            }
-            if (toPrTwo_.isAssignableFrom(toPrOne_, context_)) {
-                return CustList.NO_SWAP_SORT;
-            }
-            _o1.getParameters().setError(true);
-            _o2.getParameters().setError(true);
-            return CustList.NO_SWAP_SORT;
-        }
-        if (StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
-            String baseOne_ = glClassOne_;
-            String baseTwo_ = glClassTwo_;
-            if (!canBeUseAsArgument(baseTwo_, baseOne_, stds_)) {
-                return CustList.SWAP_SORT;
-            }
-            return CustList.NO_SWAP_SORT;
-        }
-        if (canBeUseAsArgument(_o1.getReturnType(), _o2.getReturnType(), stds_)) {
-            return CustList.SWAP_SORT;
-        }
-        if (canBeUseAsArgument(_o2.getReturnType(), _o1.getReturnType(), stds_)) {
-            return CustList.SWAP_SORT;
-        }
-        _o1.getParameters().setError(true);
-        _o2.getParameters().setError(true);
-        return CustList.NO_SWAP_SORT;
-    }
-    //public ConstructorId getConstructor(String _name, ClassArgumentMatching... _arguments){}
-    //public ConstructorId getMethod(ClassArgumentMatching _previous,String _name, ClassArgumentMatching... _arguments){}
-    //    public Struct invokeConstructor(ConstructorId _id, Object...args) {//+error in result
-        //        
-        //    }
-    //    public Struct invokeMethod(Object _instance,ClassMethodId _id, Argument...args) {//+error in result
-        //        
-        //    }
-    private void numbersConstructors(CustList<StandardConstructor> _ctors, String _primitive) {
+
+    private void numbersConstructors(CustList<StandardConstructor> _ctors, String _primitive, StandardType _type) {
         StringList params_;
         StandardConstructor ctor_;
         params_ = new StringList(aliasString);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, _type);
         _ctors.add(ctor_);
         params_ = new StringList(_primitive);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, _type);
         _ctors.add(ctor_);
     }
-    private void numbersValuesFields(StringMap<StandardField> _fields, String _primitive) {
-        StandardField field_ = new StandardField(aliasMinValueField, _primitive, true, true);
+    private void numbersValuesFields(StringMap<StandardField> _fields, String _primitive, StandardType _type) {
+        StandardField field_ = new StandardField(aliasMinValueField, _primitive, true, true, _type);
         _fields.put(aliasMinValueField, field_);
-        field_ = new StandardField(aliasMaxValueField, _primitive, true, true);
+        field_ = new StandardField(aliasMaxValueField, _primitive, true, true, _type);
         _fields.put(aliasMaxValueField, field_);
     }
-    private void numbersValuesMethods(ObjectMap<MethodId, StandardMethod> _methods, String _owner, String _parserName, String _primitive) {
+    private void numbersValuesMethods(ObjectMap<MethodId, StandardMethod> _methods, String _owner, String _parserName, String _primitive, StandardType _type) {
         StringList params_;
         StandardMethod method_;
         params_ = new StringList();
-        method_ = new StandardMethod(aliasByteValue, params_, aliasPrimByte, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasByteValue, params_, aliasPrimByte, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasByteValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasShortValue, params_, aliasPrimShort, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasShortValue, params_, aliasPrimShort, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasShortValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIntValue, params_, aliasPrimInteger, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasIntValue, params_, aliasPrimInteger, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasIntValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasLongValue, params_, aliasPrimLong, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasLongValue, params_, aliasPrimLong, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasLongValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFloatValue, params_, aliasPrimFloat, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasFloatValue, params_, aliasPrimFloat, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasFloatValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDoubleValue, params_, aliasPrimDouble, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasDoubleValue, params_, aliasPrimDouble, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasDoubleValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasToString, params_), method_);
         params_ = new StringList(_primitive);
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.STATIC, _owner);
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.STATIC, _owner, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, aliasToString, params_), method_);
         params_ = new StringList(aliasNumber);
-        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasEquals, params_), method_);
         params_ = new StringList(aliasString);
-        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _owner);
+        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _owner, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
         params_ = new StringList(aliasString, aliasPrimInteger);
-        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _owner);
+        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _owner, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasCompareTo, params_), method_);
         params_ = new StringList(_primitive, _primitive);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, _owner);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, _owner, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, aliasCompare, params_), method_);
     }
-    private void numbersAbsMethods(ObjectMap<MethodId, StandardMethod> _methods, String _owner) {
+    private void numbersAbsMethods(ObjectMap<MethodId, StandardMethod> _methods, String _owner, StandardType _type) {
         StringList params_;
         StandardMethod method_;
         params_ = new StringList();
-        method_ = new StandardMethod(aliasByteValue, params_, aliasPrimByte, false, MethodModifier.ABSTRACT, _owner);
+        method_ = new StandardMethod(aliasByteValue, params_, aliasPrimByte, false, MethodModifier.ABSTRACT, _owner, _type);
         _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasByteValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasShortValue, params_, aliasPrimShort, false, MethodModifier.ABSTRACT, _owner);
+        method_ = new StandardMethod(aliasShortValue, params_, aliasPrimShort, false, MethodModifier.ABSTRACT, _owner, _type);
         _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasShortValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIntValue, params_, aliasPrimInteger, false, MethodModifier.ABSTRACT, _owner);
+        method_ = new StandardMethod(aliasIntValue, params_, aliasPrimInteger, false, MethodModifier.ABSTRACT, _owner, _type);
         _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasIntValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasLongValue, params_, aliasPrimLong, false, MethodModifier.ABSTRACT, _owner);
+        method_ = new StandardMethod(aliasLongValue, params_, aliasPrimLong, false, MethodModifier.ABSTRACT, _owner, _type);
         _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasLongValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFloatValue, params_, aliasPrimFloat, false, MethodModifier.ABSTRACT, _owner);
+        method_ = new StandardMethod(aliasFloatValue, params_, aliasPrimFloat, false, MethodModifier.ABSTRACT, _owner, _type);
         _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasFloatValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDoubleValue, params_, aliasPrimDouble, false, MethodModifier.ABSTRACT, _owner);
+        method_ = new StandardMethod(aliasDoubleValue, params_, aliasPrimDouble, false, MethodModifier.ABSTRACT, _owner, _type);
         _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasDoubleValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasToString, params_), method_);
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.STATIC, _owner);
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.STATIC, _owner, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, aliasToString, params_), method_);
         params_ = new StringList(aliasNumber);
-        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasEquals, params_), method_);
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, _owner);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger, false, MethodModifier.NORMAL, _owner, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasCompareTo, params_), method_);
         params_ = new StringList(_owner, _owner);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, _owner);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, _owner, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, aliasCompareTo, params_), method_);
     }
     public static boolean canBeUseAsArgument(String _param, String _arg, LgNames _context) {
@@ -1822,40 +1113,6 @@ public class LgNames {
             }
         }
         return false;
-    }
-    /** Only "object" classes are used as arguments */
-    public static StringList getSubclasses(StringList _classNames, LgNames _classes) {
-        String aliasVoid_ = _classes.getAliasVoid();
-        StringList types_ = new StringList();
-        for (String i: _classNames) {
-            boolean sub_ = true;
-            if (StringList.quickEq(i, aliasVoid_)) {
-                for (String j: _classNames) {
-                    if (!StringList.quickEq(i, j)) {
-                        sub_ = false;
-                        break;
-                    }
-                }
-            } else {
-                for (String j: _classNames) {
-                    String baseSup_ = i;
-                    String baseSub_ = j;
-                    if (StringList.quickEq(baseSup_, baseSub_)) {
-                        continue;
-                    }
-                    if (canBeUseAsArgument(baseSup_, baseSub_, _classes)) {
-                        sub_ = false;
-                        break;
-                    }
-                }
-            }
-            if (!sub_) {
-                continue;
-            }
-            types_.add(i);
-        }
-        types_.removeDuplicates();
-        return types_;
     }
     static AssignableFrom isAssignableFromCust(String _param,String _arg, LgNames _context) {
         String aliasObject_ = _context.getAliasObject();
@@ -4240,6 +3497,9 @@ public class LgNames {
         if (_struct instanceof StringBuilder) {
             return getAliasStringBuilder();
         }
+        if (_struct instanceof SimpleItr) {
+            return getAliasSimpleIteratorType();
+        }
         return getOtherStructClassName(_struct, _context);
     }
     public String getOtherStructClassName(Object _struct, ContextEl _context) {
@@ -4280,6 +3540,12 @@ public class LgNames {
     }
     public StringMap<StandardType> getStandards() {
         return standards;
+    }
+    public ContextEl getContext() {
+        return context;
+    }
+    public void setContext(ContextEl _context) {
+        context = _context;
     }
     public String getAliasObject() {
         return aliasObject;
@@ -5069,19 +4335,6 @@ public class LgNames {
     }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;
-    }
-    public StandardMethod getMethodBodiesById(String _baseSuperType,
-            MethodId _constraints) {
-        return standards.getVal(_baseSuperType).getMethods().getVal(_constraints);
-    }
-    private CustList<StandardConstructor> getConstructorBodiesById(
-            String _clCurName, ConstructorId _m) {
-        for (StandardConstructor s: standards.getVal(_clCurName).getConstructors()) {
-            if (s.getId(_clCurName).eq(_m)) {
-                return new CustList<StandardConstructor>(s);
-            }
-        }
-        return new CustList<StandardConstructor>();
     }
     public String getPrettyString() {
         StringBuilder str_ = new StringBuilder();

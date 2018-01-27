@@ -16,16 +16,17 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneClass;
+import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.common.GeneInterface;
+import code.expressionlanguage.common.GeneMethod;
+import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.MethodBlock;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
@@ -383,13 +384,12 @@ public abstract class OperationNode {
     private static FieldResult getDeclaredCustFieldByContext(ContextEl _cont, boolean _static, ClassArgumentMatching _class, boolean _superClass, String _name) {
         String clCurName_ = _class.getName();
         String base_ = StringList.getAllTypes(clCurName_).first();
-        Classes classes_ = _cont.getClasses();
-        RootBlock root_ = classes_.getClassBody(base_);
+        GeneType root_ = _cont.getClassBody(base_);
         StringList classeNames_ = new StringList();
         classeNames_.add(root_.getFullName());
         String objectType_ = _cont.getStandards().getAliasObject();
-        if (root_ instanceof UniqueRootedBlock) {
-            classeNames_.addAllElts(((UniqueRootedBlock) root_).getAllSuperClasses(_cont));
+        if (root_ instanceof GeneClass) {
+            classeNames_.addAllElts(((GeneClass) root_).getAllSuperClasses(_cont));
         }
         for (String s: classeNames_) {
             if (StringList.quickEq(s, objectType_)) {
@@ -397,7 +397,7 @@ public abstract class OperationNode {
             }
             String formatted_ = Templates.getFullTypeByBases(clCurName_, s, _cont);
             ClassMetaInfo custClass_;
-            custClass_ = classes_.getClassMetaInfo(s, _cont);
+            custClass_ = _cont.getClassMetaInfo(s);
             for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                 if (!StringList.quickEq(e.getKey(), _name)) {
                     continue;
@@ -452,7 +452,7 @@ public abstract class OperationNode {
         }
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
-        custClass_ = classes_.getClassMetaInfo(clCurName_, _conf);
+        custClass_ = _conf.getClassMetaInfo(clCurName_);
         if (custClass_ == null) {
             return null;
         }
@@ -481,8 +481,8 @@ public abstract class OperationNode {
                     continue;
                 }
             }
-            CustList<ConstructorBlock> ctors_ = _conf.getClasses().getConstructorBodiesById(clCurName_, ctor_);
-            if (!_conf.getClasses().canAccess(glClass_, ctors_.first(), _conf)) {
+            CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(clCurName_, ctor_, _conf);
+            if (!Classes.canAccess(glClass_, ctors_.first(), _conf)) {
                 continue;
             }
             ClassMatching[] p_ = getParameters(ctor_);
@@ -520,7 +520,7 @@ public abstract class OperationNode {
                 p_.add(new ClassMatching(c));
             }
             ConstructorInfo mloc_ = new ConstructorInfo();
-            ConstructorBlock ctr_ = classes_.getConstructorBodiesById(clCurName_, m).first();
+            GeneConstructor ctr_ = TypeUtil.getConstructorBodiesById(clCurName_, m, _conf).first();
             mloc_.setConstr(ctr_.getGenericId());
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
@@ -628,7 +628,6 @@ public abstract class OperationNode {
     static ClassMethodIdReturn getDeclaredCustMethod(boolean _failIfError, ContextEl _conf, int _varargOnly,
     boolean _staticContext, ClassArgumentMatching _class, String _name,
     boolean _superClass, boolean _accessFromSuper, ClassArgumentMatching... _argsClass) {
-        Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
         for (ClassArgumentMatching c:_argsClass) {
@@ -636,7 +635,7 @@ public abstract class OperationNode {
                 throw new VoidArgumentException(StringList.concat(clCurName_,DOT,_name,RETURN_LINE,_conf.joinPages()));
             }
         }
-        if (classes_.getClassBody(baseClass_) instanceof InterfaceBlock) {
+        if (_conf.getClassBody(baseClass_) instanceof GeneInterface) {
             if (!_staticContext) {
                 ClassMethodIdResult resInst_ = getDeclaredCustMethodByInterfaceInherit(_conf, _accessFromSuper, _varargOnly, false, _class, _name, _superClass, _argsClass);
                 if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
@@ -714,7 +713,6 @@ public abstract class OperationNode {
         throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
     }
     private static ClassMethodIdReturn toFoundMethod(ContextEl _conf, ClassMethodIdResult _res){
-        Classes classes_ = _conf.getClasses();
         ClassMethodIdReturn idRet_ = new ClassMethodIdReturn(true);
         ClassMethodId idCl_ = _res.getId();
         String clCurName_ = idCl_.getClassName();
@@ -725,24 +723,23 @@ public abstract class OperationNode {
         idRet_.setRealClass(realClass_);
         idRet_.setId(new ClassMethodId(clCurName_, id_));
         idRet_.setVarArgToCall(_res.isVarArgToCall());
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(realClass_, realId_);
-        MethodBlock m_ = methods_.first();
+        CustList<GeneMethod> methods_ = _conf.getMethodBodiesById(realClass_, realId_);
+        GeneMethod m_ = methods_.first();
         idRet_.setReturnType(_res.getReturnType());
         idRet_.setStaticMethod(m_.isStaticMethod());
         idRet_.setAbstractMethod(m_.isAbstractMethod());
         return idRet_;
     }
     private static ClassMethodIdResult getDeclaredCustMethodByClassInherit(ContextEl _conf, boolean _accessFromSuper, int _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
-        Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         String objectType_ = _conf.getStandards().getAliasObject();
         String base_ = StringList.getAllTypes(clCurName_).first();
-        RootBlock r_ = classes_.getClassBody(base_);
+        GeneType r_ = _conf.getClassBody(base_);
         if (_static) {
             StringList classeNames_ = new StringList();
             classeNames_.add(r_.getFullName());
-            if (r_ instanceof UniqueRootedBlock) {
-                classeNames_.addAllElts(((UniqueRootedBlock) r_).getAllSuperClasses(_conf));
+            if (r_ instanceof GeneClass) {
+                classeNames_.addAllElts(((GeneClass) r_).getAllSuperClasses(_conf));
             }
             for (String s: classeNames_) {
                 if (StringList.quickEq(s, objectType_)) {
@@ -786,17 +783,16 @@ public abstract class OperationNode {
     private static ObjectNotNullMap<ClassMethodId, MethodMetaInfo>
     getDeclaredCustMethodByType(ContextEl _conf, int _varargOnly, boolean _accessFromSuper,
         boolean _static, boolean _superClass, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
-        Classes classes_ = _conf.getClasses();
         LgNames stds_ = _conf.getStandards();
         String clCurName_ = _class.getName();
         String glClass_ = _conf.getLastPage().getGlobalClass();
         String baseCurName_ = StringList.getAllTypes(clCurName_).first();
-        RootBlock root_ = classes_.getClassBody(baseCurName_);
+        GeneType root_ = _conf.getClassBody(baseCurName_);
         ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
         methods_ = new ObjectNotNullMap<ClassMethodId, MethodMetaInfo>();
         if (_static) {
-            for (MethodBlock e: Classes.getMethodBlocks(root_)) {
-                if (!_conf.getClasses().canAccess(glClass_, e, _conf)) {
+            for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
+                if (!Classes.canAccess(glClass_, e, _conf)) {
                     continue;
                 }
                 if (e.isStaticMethod()) {
@@ -828,8 +824,8 @@ public abstract class OperationNode {
                         formattedClass_ = clCurName_;
                     }
                     MethodId id_ = s.getConstraints();
-                    MethodBlock sup_ = classes_.getMethodBodiesById(name_, id_).first();
-                    if (!_conf.getClasses().canAccess(glClass_, sup_, _conf)) {
+                    GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
+                    if (!Classes.canAccess(glClass_, sup_, _conf)) {
                         continue;
                     }
                     String ret_ = sup_.getReturnType(stds_);

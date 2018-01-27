@@ -15,6 +15,8 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
@@ -23,6 +25,7 @@ import code.expressionlanguage.exceptions.EmptyArrayDimensionsException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.IllegalClassConstructorException;
 import code.expressionlanguage.exceptions.InvokeException;
+import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
@@ -31,7 +34,6 @@ import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -47,7 +49,6 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
@@ -56,6 +57,7 @@ import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class InstanceOperation extends InvokingOperation {
@@ -203,56 +205,39 @@ public final class InstanceOperation extends InvokingOperation {
         ConstrustorIdVarArg ctorRes_ = null;
         if (classes_ != null) {
             checkCorrect(_conf, realClassName_, false, 0);
-            String base_ = StringList.getAllTypes(realClassName_).first();
-            if (classes_.isCustomType(base_)) {
-                ClassMetaInfo custClass_ = null;
-                custClass_ = classes_.getClassMetaInfo(realClassName_, _conf);
-                if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
-                    throw new AbstractClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-                }
-                if (custClass_.getCategory() == ClassCategory.INTERFACE) {
-                    throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-                }
-                if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (_fieldName.isEmpty() || _nodes.last() != this) {
-                        throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-                    }
-                    fieldName = _fieldName;
-                }
-                ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
-                constId = ctorRes_.getRealId();
-                className = ctorRes_.getConstId().getName();
-                if (ctorRes_.isVarArgToCall()) {
-                    naturalVararg = constId.getParametersTypes().size() - 1;
-                    lastType = constId.getParametersTypes().last();
-                }
-                String glClass_ = _conf.getLastPage().getGlobalClass();
-                CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesById(realClassName_, constId);
-                String curClassBase_ = null;
-                if (glClass_ != null) {
-                    curClassBase_ = StringList.getAllTypes(glClass_).first();
-                }
-                if (!ctors_.isEmpty() && !classes_.canAccess(curClassBase_, ctors_.first(), _conf)) {
-                    ConstructorBlock ctr_ = ctors_.first();
-                    throw new BadAccessException(StringList.concat(ctr_.getId().getSignature(),RETURN_LINE,_conf.joinPages()));
-                }
-                possibleInitClass = true;
-                setResultClass(new ClassArgumentMatching(realClassName_));
-                return;
-            }
             if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
                 throw new PrimitiveTypeException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
             }
-            StandardType type_ = stds_.getStandards().getVal(realClassName_);
-            if (!type_.mustImplement()) {
+            ClassMetaInfo custClass_ = null;
+            custClass_ = _conf.getClassMetaInfo(realClassName_);
+            if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
                 throw new AbstractClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
             }
-            ctorRes_ = LgNames.getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
+            if (custClass_.getCategory() == ClassCategory.INTERFACE) {
+                throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+            }
+            if (custClass_.getCategory() == ClassCategory.ENUM) {
+                if (_fieldName.isEmpty() || _nodes.last() != this) {
+                    throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+                }
+                fieldName = _fieldName;
+            }
+            ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
             constId = ctorRes_.getRealId();
             className = ctorRes_.getConstId().getName();
             if (ctorRes_.isVarArgToCall()) {
                 naturalVararg = constId.getParametersTypes().size() - 1;
                 lastType = constId.getParametersTypes().last();
+            }
+            String glClass_ = _conf.getLastPage().getGlobalClass();
+            CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
+            String curClassBase_ = null;
+            if (glClass_ != null) {
+                curClassBase_ = StringList.getAllTypes(glClass_).first();
+            }
+            if (!ctors_.isEmpty() && !Classes.canAccess(curClassBase_, ctors_.first(), _conf)) {
+                GeneConstructor ctr_ = ctors_.first();
+                throw new BadAccessException(StringList.concat(ctr_.getId().getSignature(),RETURN_LINE,_conf.joinPages()));
             }
             possibleInitClass = true;
             setResultClass(new ClassArgumentMatching(realClassName_));

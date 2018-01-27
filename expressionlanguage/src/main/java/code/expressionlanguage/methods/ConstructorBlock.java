@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -11,7 +12,7 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
 
-public final class ConstructorBlock extends NamedFunctionBlock {
+public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor {
 
     private InstancingStep instancing;
     private ConstructorId constIdSameClass;
@@ -37,6 +38,7 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         return getId().getSignature();
     }
 
+    @Override
     public ConstructorId getId() {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getFullName();
@@ -49,6 +51,7 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         }
         return new ConstructorId(name_, pTypes_);
     }
+    @Override
     public ConstructorId getGenericId() {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getGenericString();
@@ -162,5 +165,11 @@ public final class ConstructorBlock extends NamedFunctionBlock {
     @Override
     public RootBlock belong() {
         return (RootBlock) getParent();
+    }
+
+    @Override
+    public String getDeclaringType() {
+        RootBlock clBlock_ = (RootBlock) getParent();
+        return clBlock_.getFullName();
     }
 }

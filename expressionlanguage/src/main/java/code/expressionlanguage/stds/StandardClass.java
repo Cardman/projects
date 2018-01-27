@@ -1,5 +1,8 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.GeneClass;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
@@ -7,7 +10,13 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class StandardClass extends StandardType {
+public final class StandardClass extends StandardType implements GeneClass {
+
+    private final StringList allSuperClasses = new StringList();
+
+    private final StringList allSuperTypes = new StringList();
+
+    private final StringList allInterfaces = new StringList();
 
     private final String superClass;
 
@@ -31,9 +40,11 @@ public final class StandardClass extends StandardType {
     public StringList getDirectInterfaces() {
         return directInterfaces;
     }
+    @Override
     public boolean isFinalType() {
         return finalType;
     }
+    @Override
     public boolean isAbstractType() {
         return abstractType;
     }
@@ -74,5 +85,96 @@ public final class StandardClass extends StandardType {
             }
         }
         return superClasses_;
+    }
+    @Override
+    public StringList getAllGenericSuperClasses(ContextEl _classes) {
+        StringList allSuperTypes_ = TypeUtil.getAllGenericSuperTypes(this, _classes);
+        StringList allGenericSuperClasses_ = new StringList();
+        for (String s: allSuperTypes_) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClassBody(base_) instanceof StandardClass) {
+                allGenericSuperClasses_.add(s);
+            }
+        }
+        return allGenericSuperClasses_;
+    }
+    @Override
+    public StringList getAllSuperClasses() {
+        return allSuperClasses;
+    }
+    @Override
+    public StringList getAllSuperTypes() {
+        return allSuperTypes;
+    }
+    @Override
+    public StringList getDirectGenericSuperClasses(ContextEl _classes) {
+        StringList classes_ = new StringList();
+        classes_.add(getGenericSuperClass(_classes));
+        return classes_;
+    }
+    @Override
+    public StringList getDirectSuperClasses(ContextEl _classes) {
+        StringList classes_ = new StringList();
+        String superClass_ = getGenericSuperClass(_classes);
+        classes_.add(superClass_);
+        return classes_;
+    }
+    @Override
+    public StringList getAllGenericInterfaces(ContextEl _classes) {
+        StringList allSuperTypes_ = TypeUtil.getAllGenericSuperTypes(this,_classes);
+        StringList allGenericInterfaces_ = new StringList();
+        for (String s: allSuperTypes_) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClassBody(base_) instanceof StandardInterface) {
+                allGenericInterfaces_.add(s);
+            }
+        }
+        return allGenericInterfaces_;
+    }
+    @Override
+    public StringList getAllInterfaces() {
+        return allInterfaces;
+    }
+
+    @Override
+    public StringList getDirectGenericSuperTypes(ContextEl _classes) {
+        return getDirectSuperTypes();
+    }
+    @Override
+    public String getGenericSuperClass(ContextEl _classes) {
+        for (String s: getDirectSuperTypes()) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClassBody(base_) instanceof StandardClass) {
+                return s;
+            }
+        }
+        return _classes.getStandards().getAliasObject();
+    }
+    @Override
+    public String getSuperClass(ContextEl _classes) {
+        return getGenericSuperClass(_classes);
+    }
+    @Override
+    public StringList getDirectGenericInterfaces(ContextEl _classes) {
+        StringList interfaces_ = new StringList();
+        for (String s: getDirectSuperTypes()) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClassBody(base_) instanceof StandardInterface) {
+                interfaces_.add(s);
+            }
+        }
+        return interfaces_;
+    }
+    @Override
+    public StringList getDirectInterfaces(ContextEl _classes) {
+        StringList direct_ = new StringList();
+        for (String s: getDirectGenericInterfaces(_classes)) {
+            direct_.add(s);
+        }
+        return direct_;
+    }
+    @Override
+    public StringList getAllSuperClasses(ContextEl _classes) {
+        return allSuperClasses;
     }
 }

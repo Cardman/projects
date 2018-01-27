@@ -1,12 +1,7 @@
 package code.expressionlanguage.methods;
 
-public interface InfoBlock extends WithEl, AccessibleBlock {
+import code.expressionlanguage.common.GeneField;
 
-    boolean isFinalField();
+public interface InfoBlock extends WithEl, GeneField {
 
-    boolean isStaticField();
-
-    String getFieldName();
-
-    String getClassName();
 }

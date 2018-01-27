@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.classes.CustBeanLgNames;
 import code.formathtml.util.BeanLgNames;
@@ -8,12 +9,14 @@ public final class InitializationLgNames {
 
     private InitializationLgNames(){
     }
-    public static BeanLgNames initStandards() {
+    public static BeanLgNames initStandards(ContextEl _cont) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
+        lgNames_.setContext(_cont);
+        _cont.setStandards(lgNames_);
         lgNames_.setAliasRate("java.lang.Long");
         basicStandards(lgNames_);
         lgNames_.build();
-        lgNames_.setupOverrides();
+        lgNames_.setupOverrides(_cont);
         return lgNames_;
     }
     private static void basicStandards(LgNames _lgNames) {
@@ -102,7 +105,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasIsSpace("isSpace");
         _lgNames.setAliasIsInfinite("isInfinite");
         _lgNames.setAliasIsNan("isNan");
-        _lgNames.setAliasForDigit("isForDigit");
+        _lgNames.setAliasForDigit("forDigit");
         _lgNames.setAliasGetDirectionality("isGetDirectionality");
         _lgNames.setAliasGetType("getType");
         _lgNames.setAliasString("java.lang.String");
@@ -136,7 +139,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasCapacity("capacity");
         _lgNames.setAliasClear("clear");
         _lgNames.setAliasDelete("delete");
-        _lgNames.setAliasDeleteCharAt("charAt");
+        _lgNames.setAliasDeleteCharAt("deleteCharAt");
         _lgNames.setAliasEnsureCapacity("ensureCapacity");
         _lgNames.setAliasInsert("insert");
         _lgNames.setAliasReverse("reverse");

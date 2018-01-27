@@ -93,6 +93,9 @@ public class Configuration {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
+        if (context == null) {
+            context = toContextEl();
+        }
         if (prefix == null) {
             prefix = EMPTY_STRING;
         } else {
@@ -113,8 +116,9 @@ public class Configuration {
         } else {
             customLgNames = true;
         }
+        standards.setContext(context);
         standards.build();
-        standards.setupOverrides();
+        standards.setupOverrides(context);
     }
 
     public final void setupClasses(StringMap<String> _files) {

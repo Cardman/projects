@@ -25,13 +25,10 @@ public class CustBeanLgNames extends BeanLgNames {
         buildBeans();
         StringMap<StandardField> fields_;
         fields_ = new StringMap<StandardField>();
-        StandardClass std_;
         ObjectMap<MethodId, StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        StandardMethod method_;
         constructors_ = new CustList<StandardConstructor>();
-        StringList params_;
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();

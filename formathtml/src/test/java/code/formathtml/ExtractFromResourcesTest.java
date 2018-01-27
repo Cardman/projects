@@ -4,6 +4,8 @@ import static code.formathtml.EquallableExUtil.assertEq;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.methods.Classes;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
@@ -107,7 +109,9 @@ public class ExtractFromResourcesTest {
 
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
-        conf_.setStandards(InitializationLgNames.initStandards());
+        ContextEl context_ = new ContextEl();
+        context_.setClasses(new Classes());
+        conf_.setStandards(InitializationLgNames.initStandards(context_));
         return conf_;
     }
 }

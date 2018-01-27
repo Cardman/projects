@@ -9,7 +9,9 @@ import org.junit.Test;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.formathtml.classes.AbstractBean;
 import code.formathtml.classes.BeanFive;
@@ -9634,7 +9636,9 @@ public class FormatHtmlTest {
 
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
-        conf_.setStandards(InitializationLgNames.initStandards());
+        ContextEl context_ = new ContextEl();
+        context_.setClasses(new Classes());
+        conf_.setStandards(InitializationLgNames.initStandards(context_));
         return conf_;
     }
 }

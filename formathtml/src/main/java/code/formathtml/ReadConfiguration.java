@@ -5,6 +5,7 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Options;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -19,6 +20,7 @@ public final class ReadConfiguration {
     }
     public static void load(Configuration _configuration, Document _document) {
         BeanLgNames stds_ = _configuration.getStandards();
+        boolean found_ = false;
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "firstUrl")) {
@@ -82,13 +84,21 @@ public final class ReadConfiguration {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "context")) {
+                found_ = true;
                 _configuration.setContext(loadContext(c));
                 continue;
             }
         }
+        if (!found_) {
+            ContextEl context_ = new ContextEl();
+            context_.setClasses(new Classes());
+            context_.setStandards(stds_);
+            _configuration.setContext(context_);
+        }
     }
     static ContextEl loadContext(Element _elt) {
         ContextEl context_ = new ContextEl();
+        context_.setClasses(new Classes());
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {

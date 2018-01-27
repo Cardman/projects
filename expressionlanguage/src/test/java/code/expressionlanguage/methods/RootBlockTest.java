@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
@@ -157,7 +158,7 @@ public class RootBlockTest {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -356,7 +357,7 @@ public class RootBlockTest {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Int");
-        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(1, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -546,7 +547,7 @@ public class RootBlockTest {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
-        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(1, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
@@ -555,7 +556,7 @@ public class RootBlockTest {
         assertEq(resId_, res_.getConstraints());
         id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
         r_ = classes_.getClassBody("pkg.Ex");
-        concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(1, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
@@ -781,7 +782,7 @@ public class RootBlockTest {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Int");
-        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(1, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -868,7 +869,7 @@ public class RootBlockTest {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(2, concrete_.size());
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
@@ -923,7 +924,7 @@ public class RootBlockTest {
         map_.put(geneId_, new EqList<ClassMethodId>(geneClassId_));
         MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
-        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(1, concrete_.size());
         MethodId resId_;
         ClassMethodId res_;
@@ -933,7 +934,7 @@ public class RootBlockTest {
         assertEq(resId_, res_.getConstraints());
         id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
         r_ = classes_.getClassBody("pkg.Ex");
-        concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(1, concrete_.size());
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
@@ -942,11 +943,11 @@ public class RootBlockTest {
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());

@@ -6,6 +6,8 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.exceptions.AlreadyExistingClassException;
 import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.exceptions.BadClassNameException;
@@ -41,6 +43,7 @@ import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.variables.LocalVariable;
@@ -383,57 +386,44 @@ public final class Classes {
         return errorsDet;
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
-        Classes bk_ = _context.getClasses();
-        Classes classes_ = new Classes();
-        try {
-            _context.setClasses(classes_);
-            classes_.tryBuildClassesBodies(_files, _context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateInheritingClasses(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateSingleParameterizedClasses(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateIds(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateOverridingInherit(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateClassesAccess(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateLocalVariableNamesId(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateEl(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateReturns(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            _context.setAnalyzing(null);
-        } catch (AnalyzingErrorsException _0) {
-            _context.setClasses(bk_);
-            throw _0;
-        } catch (RuntimeException _0) {
-            _context.setClasses(bk_);
-            throw _0;
-        } catch (Error _0) {
-            _context.setClasses(bk_);
-            throw _0;
+        Classes classes_ = _context.getClasses();
+        classes_.tryBuildClassesBodies(_files, _context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
         }
+        classes_.validateInheritingClasses(_context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
+        }
+        classes_.validateSingleParameterizedClasses(_context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
+        }
+        classes_.validateIds(_context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
+        }
+        classes_.validateOverridingInherit(_context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
+        }
+        classes_.validateClassesAccess(_context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
+        }
+        classes_.validateLocalVariableNamesId(_context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
+        }
+        classes_.validateEl(_context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
+        }
+        classes_.validateReturns(_context);
+        if (!classes_.errorsDet.isEmpty()) {
+            throw new AnalyzingErrorsException(classes_.errorsDet);
+        }
+        _context.setAnalyzing(null);
     }
     public void tryBuildClassesBodies(StringMap<String> _files, ContextEl _context) {
         for (EntryCust<String,String> f: _files.entryList()) {
@@ -1007,54 +997,7 @@ public final class Classes {
                 return;
             }
         }
-        for (String c: classesInheriting) {
-            RootBlock dBl_ = classesBodies.getVal(c);
-            StringList all_ = dBl_.getAllSuperClasses();
-            StringList direct_ = dBl_.getDirectSuperClasses(_context);
-            all_.addAllElts(direct_);
-            for (String b: direct_) {
-                if (StringList.quickEq(b, objectClassName_)) {
-                    continue;
-                }
-                RootBlock bBl_ = classesBodies.getVal(b);
-                all_.addAllElts(bBl_.getAllSuperClasses());
-            }
-        }
-        for (String c: classesInheriting) {
-            RootBlock bl_ = classesBodies.getVal(c);
-            if (!(bl_ instanceof UniqueRootedBlock)) {
-                continue;
-            }
-            StringList all_ = bl_.getAllInterfaces();
-            StringList direct_ = ((UniqueRootedBlock) bl_).getDirectInterfaces(_context);
-            all_.addAllElts(direct_);
-            for (String i: direct_) {
-                InterfaceBlock i_ = (InterfaceBlock) classesBodies.getVal(i);
-                all_.addAllElts(i_.getAllInterfaces());
-            }
-            StringList needed_ = new StringList();
-            for (String s: bl_.getDirectSuperClasses(_context)) {
-                if (!StringList.quickEq(s, objectClassName_)) {
-                    RootBlock super_ = classesBodies.getVal(s);
-                    all_.addAllElts(super_.getAllInterfaces());
-                    needed_.addAllElts(super_.getAllSortedInterfaces());
-                }
-            }
-            all_.removeAllObj(objectClassName_);
-            all_.removeDuplicates();
-            bl_.getAllSortedInterfaces().addAllElts(getSortedSuperInterfaces(all_,_context));
-            bl_.getAllNeededSortedInterfaces().addAllElts(bl_.getAllSortedInterfaces());
-            bl_.getAllNeededSortedInterfaces().removeAllElements(needed_);
-        }
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            RootBlock r_ = c.getValue();
-            if (r_ instanceof UniqueRootedBlock) {
-                r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllSuperClasses(_context));
-                r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllInterfaces());
-            } else {
-                r_.getAllSuperTypes().addAllElts(((InterfaceBlock)r_).getAllSuperClasses());
-            }
-        }
+        TypeUtil.buildInherits(_context, classesInheriting);
         LgNames stds_ = _context.getStandards();
         for (EntryCust<String, RootBlock> s: classesBodies.entryList()) {
             String c = s.getKey();
@@ -1585,27 +1528,35 @@ public final class Classes {
         page_.getLocalVars().removeKey(nextVarCust);
     }
 
-    public boolean canAccessField(String _className, String _accessedClass, String _name, ContextEl _context) {
+    public static boolean canAccessField(String _className, String _accessedClass, String _name, ContextEl _context) {
         String baseClass_ = StringList.getAllTypes(_accessedClass).first();
-        Block access_ = getClassBody(baseClass_);
-        CustList<Block> bl_ = getDirectChildren(access_);
-        for (Block b: bl_) {
-            if (b instanceof InfoBlock) {
-                if (StringList.quickEq(((InfoBlock)b).getFieldName(), _name)) {
-                    return canAccess(_className,(InfoBlock)b, _context);
+        GeneType access_ = _context.getClassBody(baseClass_);
+        if (access_ instanceof RootBlock) {
+            CustList<Block> bl_ = getDirectChildren((Block) access_);
+            for (Block b: bl_) {
+                if (b instanceof InfoBlock) {
+                    if (StringList.quickEq(((InfoBlock)b).getFieldName(), _name)) {
+                        return canAccess(_className,(InfoBlock)b, _context);
+                    }
                 }
+            }
+            return false;
+        }
+        for (StandardField f: _context.getStandards().getStandards().getVal(baseClass_).getFields().values()) {
+            if (StringList.quickEq(f.getFieldName(), _name)) {
+                return canAccess(_className,f, _context);
             }
         }
         return false;
     }
 
-    public boolean canAccessClass(String _className, String _accessedClass, ContextEl _context) {
+    public static boolean canAccessClass(String _className, String _accessedClass, ContextEl _context) {
         String baseClass_ = StringList.getAllTypes(_accessedClass).first();
-        RootBlock access_ = getClassBody(baseClass_);
+        GeneType access_ = _context.getClassBody(baseClass_);
         return canAccess(_className, access_, _context);
     }
 
-    public boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
+    public static boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return true;
         }
@@ -1613,8 +1564,8 @@ public final class Classes {
             return false;
         }
         String baseClass_ = StringList.getAllTypes(_className).first();
-        RootBlock root_ = getClassBody(baseClass_);
-        RootBlock belong_ = _block.belong();
+        GeneType root_ = _context.getClassBody(baseClass_);
+        GeneType belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, _context)) {
                 return true;
@@ -1958,59 +1909,6 @@ public final class Classes {
         }
         return methods_;
     }
-    public CustList<MethodBlock> getMethodBodiesByFormattedId(ContextEl _context, String _genericClassName, MethodId _id) {
-        return getMethodBodiesByFormattedId(_context, _id.isStaticMethod(), _genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
-    }
-    CustList<MethodBlock> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
-        CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
-        StringList types_ = StringList.getAllTypes(_genericClassName);
-        String base_ = types_.first();
-        int nbParams_ = _parametersTypes.size();
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            if (!StringList.quickEq(c.getKey(), base_)) {
-                continue;
-            }
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (!(b instanceof MethodBlock)) {
-                    continue;
-                }
-                MethodBlock method_ = (MethodBlock) b;
-                if (!StringList.quickEq(_methodName, method_.getName())) {
-                    continue;
-                }
-                EqList<ClassName> list_ = method_.getId().getClassNames();
-                if (list_.size() != nbParams_) {
-                    continue;
-                }
-                if (_static != method_.isStaticMethod()) {
-                    continue;
-                }
-                if (nbParams_ > 0 && _vararg) {
-                    if (!method_.isVarargs()) {
-                        continue;
-                    }
-                } else {
-                    if (method_.isVarargs()) {
-                        continue;
-                    }
-                }
-                boolean all_ = true;
-                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), _context);
-                    if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
-                        all_ = false;
-                        break;
-                    }
-                }
-                if (!all_) {
-                    continue;
-                }
-                methods_.add(method_);
-            }
-        }
-        return methods_;
-    }
 
     public CustList<ConstructorBlock> getConstructorBodiesById(String _genericClassName, ConstructorId _id) {
         return getConstructorBodiesById(_genericClassName, _id.getParametersTypes(), _id.isVararg());
@@ -2060,53 +1958,6 @@ public final class Classes {
         return methods_;
     }
 
-    public CustList<ConstructorBlock> getConstructorBodiesByFormattedId(ContextEl _context, String _genericClassName, ConstructorId _id) {
-        return getConstructorBodiesByFormattedId(_context, _genericClassName, _id.getParametersTypes(), _id.isVararg());
-    }
-    private CustList<ConstructorBlock> getConstructorBodiesByFormattedId(ContextEl _context, String _genericClassName, StringList _parametersTypes, boolean _vararg) {
-        CustList<ConstructorBlock> methods_ = new CustList<ConstructorBlock>();
-        StringList types_ = StringList.getAllTypes(_genericClassName);
-        String base_ = types_.first();
-        int nbParams_ = _parametersTypes.size();
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            if (!StringList.quickEq(c.getKey(), base_)) {
-                continue;
-            }
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (!(b instanceof ConstructorBlock)) {
-                    continue;
-                }
-                ConstructorBlock method_ = (ConstructorBlock) b;
-                EqList<ClassName> list_ = method_.getId().getClassNames();
-                if (list_.size() != nbParams_) {
-                    continue;
-                }
-                if (nbParams_ > 0 && _vararg) {
-                    if (!method_.isVarargs()) {
-                        continue;
-                    }
-                } else {
-                    if (method_.isVarargs()) {
-                        continue;
-                    }
-                }
-                boolean all_ = true;
-                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), _context);
-                    if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
-                        all_ = false;
-                        break;
-                    }
-                }
-                if (!all_) {
-                    continue;
-                }
-                methods_.add(method_);
-            }
-        }
-        return methods_;
-    }
     public boolean isInitialized(String _name) {
         String base_ = StringList.getAllTypes(_name).first();
         return initializedClasses.getVal(base_);

@@ -7,18 +7,20 @@ public final class InitializationLgNames {
 
     public static LgNames initStandards(ContextEl _context) {
         LgNames lgNames_ = new LgNames();
+        lgNames_.setContext(_context);
         basicStandards(lgNames_);
         lgNames_.build();
         _context.setStandards(lgNames_);
-        lgNames_.setupOverrides();
+        lgNames_.setupOverrides(_context);
         return lgNames_;
     }
     public static LgNames initAdvStandards(ContextEl _context) {
         LgNames lgNames_ = new CustLgNames();
+        lgNames_.setContext(_context);
         basicStandards(lgNames_);
         lgNames_.build();
         _context.setStandards(lgNames_);
-        lgNames_.setupOverrides();
+        lgNames_.setupOverrides(_context);
         return lgNames_;
     }
     private static void basicStandards(LgNames _lgNames) {
@@ -107,7 +109,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasIsSpace("isSpace");
         _lgNames.setAliasIsInfinite("isInfinite");
         _lgNames.setAliasIsNan("isNan");
-        _lgNames.setAliasForDigit("isForDigit");
+        _lgNames.setAliasForDigit("forDigit");
         _lgNames.setAliasGetDirectionality("isGetDirectionality");
         _lgNames.setAliasGetType("getType");
         _lgNames.setAliasString("java.lang.String");
@@ -141,7 +143,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasCapacity("capacity");
         _lgNames.setAliasClear("clear");
         _lgNames.setAliasDelete("delete");
-        _lgNames.setAliasDeleteCharAt("charAt");
+        _lgNames.setAliasDeleteCharAt("deleteCharAt");
         _lgNames.setAliasEnsureCapacity("ensureCapacity");
         _lgNames.setAliasInsert("insert");
         _lgNames.setAliasReverse("reverse");

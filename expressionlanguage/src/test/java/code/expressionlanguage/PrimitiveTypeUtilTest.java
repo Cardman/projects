@@ -847,6 +847,7 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray1Test() {
         ContextEl cont_ = new ContextEl();
+        cont_.setClasses(new Classes());
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(1);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -860,6 +861,7 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray2Test() {
         ContextEl cont_ = new ContextEl();
+        cont_.setClasses(new Classes());
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -875,6 +877,7 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray3Test() {
         ContextEl cont_ = new ContextEl();
+        cont_.setClasses(new Classes());
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2,3);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -905,11 +908,11 @@ public class PrimitiveTypeUtilTest {
 
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -917,9 +920,9 @@ public class PrimitiveTypeUtilTest {
     }
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
-        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
+        InitializationLgNames.initAdvStandards(cont_);
         return cont_;
     }
 }

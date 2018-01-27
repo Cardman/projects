@@ -1580,6 +1580,8 @@ public class ProcessXmlMethodTwoTest {
         } else {
             ct_ = new ContextEl(_m[0]);
         }
+        Classes classes_ = new Classes();
+        ct_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(ct_);
         return ct_;
     }

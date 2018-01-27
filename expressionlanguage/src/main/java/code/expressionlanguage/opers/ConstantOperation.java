@@ -16,6 +16,8 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ParsedArgument;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneClass;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.DynamicNumberFormatException;
 import code.expressionlanguage.exceptions.EmptyPartException;
@@ -28,8 +30,6 @@ import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessXmlMethod;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -48,7 +48,6 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
@@ -321,7 +320,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (glClass_ != null) {
                     curClassBase_ = StringList.getAllTypes(glClass_).first();
                 }
-                if (!classes_.canAccessClass(curClassBase_, classStr_, _conf)) {
+                if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
                     throw new BadAccessException(StringList.concat(classStr_,RETURN_LINE,_conf.joinPages()));
                 }
                 possibleInitClass = true;
@@ -392,62 +391,60 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 clCurName_ = cl_.getName();
             }
             if (classes_ != null) {
-                if (classes_.isCustomType(clCurName_)) {
-                    String base_ = StringList.getAllTypes(clCurName_).first();
-                    RootBlock root_ = classes_.getClassBody(base_);
-                    String key_;
-                    boolean superClassAccess_ = true;
-                    FieldResult r_;
-                    FieldInfo e_;
-                    if (op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD) {
-                        StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
-                        key_ = classMethod_.last();
-                        superClassAccess_ = false;
-                        r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
-                    } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
-                        key_ = str_;
-                        if (!(root_ instanceof UniqueRootedBlock)) {
-                            throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
-                        }
-                        String superClass_ = ((UniqueRootedBlock)root_).getSuperClass(_conf);
-                        superClass_ = StringList.getAllTypes(superClass_).first();
-                        superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, _conf);
-                        if (StringList.quickEq(superClass_, stds_.getAliasObject())) {
-                            throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
-                        }
-                        cl_ = new ClassArgumentMatching(superClass_);
-                        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
-                    } else {
-                        key_ = str_;
-                        superClassAccess_ = root_ instanceof UniqueRootedBlock;
-                        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
-                    }
-                    if (r_.getStatus() == SearchingMemberStatus.ZERO) {
+                String base_ = StringList.getAllTypes(clCurName_).first();
+                GeneType root_ = _conf.getClassBody(base_);
+                String key_;
+                boolean superClassAccess_ = true;
+                FieldResult r_;
+                FieldInfo e_;
+                if (op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD) {
+                    StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
+                    key_ = classMethod_.last();
+                    superClassAccess_ = false;
+                    r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
+                } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
+                    key_ = str_;
+                    if (!(root_ instanceof GeneClass)) {
                         throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
                     }
-                    e_ = r_.getId();
-                    String glClass_ = _conf.getLastPage().getGlobalClass();
-                    String curClassBase_ = null;
-                    if (glClass_ != null) {
-                        curClassBase_ = StringList.getAllTypes(glClass_).first();
+                    String superClass_ = ((GeneClass)root_).getSuperClass(_conf);
+                    superClass_ = StringList.getAllTypes(superClass_).first();
+                    superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, _conf);
+                    if (StringList.quickEq(superClass_, stds_.getAliasObject())) {
+                        throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
                     }
-                    if (!_conf.getClasses().canAccessField(curClassBase_, e_.getDeclaringBaseClass(), key_, _conf)) {
-                        throw new BadAccessException(StringList.concat(clCurName_,DOT,key_,RETURN_LINE,_conf.joinPages()));
-                    }
-                    fieldMetaInfo = e_;
-                    String c_ = fieldMetaInfo.getType();
-                    if (resultCanBeSet()) {
-                        if (fieldMetaInfo.isFinalField()) {
-                            finalField = true;
-                        }
-                        if (StringList.quickEq(c_, stringType_)) {
-                            catString = true;
-                        }
-                    }
-                    fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
-                    setResultClass(new ClassArgumentMatching(c_));
-                    return;
+                    cl_ = new ClassArgumentMatching(superClass_);
+                    r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
+                } else {
+                    key_ = str_;
+                    superClassAccess_ = root_ instanceof GeneClass;
+                    r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
                 }
+                if (r_.getStatus() == SearchingMemberStatus.ZERO) {
+                    throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
+                }
+                e_ = r_.getId();
+                String glClass_ = _conf.getLastPage().getGlobalClass();
+                String curClassBase_ = null;
+                if (glClass_ != null) {
+                    curClassBase_ = StringList.getAllTypes(glClass_).first();
+                }
+                if (!Classes.canAccessField(curClassBase_, e_.getDeclaringBaseClass(), key_, _conf)) {
+                    throw new BadAccessException(StringList.concat(clCurName_,DOT,key_,RETURN_LINE,_conf.joinPages()));
+                }
+                fieldMetaInfo = e_;
+                String c_ = fieldMetaInfo.getType();
+                if (resultCanBeSet()) {
+                    if (fieldMetaInfo.isFinalField()) {
+                        finalField = true;
+                    }
+                    if (StringList.quickEq(c_, stringType_)) {
+                        catString = true;
+                    }
+                }
+                fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
+                setResultClass(new ClassArgumentMatching(c_));
+                return;
             }
             String key_ = str_;
             analyzeNativeField(_conf, key_);
@@ -562,7 +559,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                 key_ = classMethod_.last();
                 superClassAccess_ = false;
-                r_ = LgNames.getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
+                r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
             } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
                 key_ = str_;
                 if (!(root_ instanceof StandardClass)) {
@@ -575,11 +572,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
                 }
                 cl_ = new ClassArgumentMatching(superClass_);
-                r_ = LgNames.getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
+                r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
             } else {
                 key_ = str_;
-                superClassAccess_ = root_ instanceof StandardInterface;
-                r_ = LgNames.getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
+                superClassAccess_ = root_ instanceof StandardClass;
+                r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
             }
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
@@ -730,8 +727,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 return ArgumentCall.newArgument(arg_);
             }
             String className_ = fieldId.getClassName();
-            if (classes_.isCustomType(className_)) {
-                if (fieldMetaInfo.isStaticField()) {
+            if (fieldMetaInfo.isStaticField()) {
+                if (classes_.isCustomType(className_)) {
                     if (!_conf.getClasses().isInitialized(className_)) {
                         _conf.getClasses().initialize(className_);
                         InitializatingClass inv_ = new InitializatingClass(className_);
@@ -742,34 +739,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     a_.setStruct(struct_);
                     return ArgumentCall.newArgument(a_);
                 }
-                if (arg_.isNull()) {
-                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                }
-                String argClassName_ = arg_.getObjectClassName(_conf);
-                String classNameFound_ = fieldId.getClassName();
-                String base_ = StringList.getAllTypes(argClassName_).first();
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-                    throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
-                }
-                Struct struct_ = ((FieldableStruct) arg_.getStruct()).getStruct(fieldId);
-                a_ = new Argument();
-                a_.setStruct(struct_);
-                return ArgumentCall.newArgument(a_);
-            } else {
-                if (!fieldMetaInfo.isStaticField() && arg_.isNull()) {
-                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                }
-                Struct default_ = NullStruct.NULL_VALUE;
-                if (!fieldMetaInfo.isStaticField()) {
-                    default_ = arg_.getStruct();
-                    String argClassName_ = _conf.getStandards().getStructClassName(default_, _conf);
-                    String classNameFound_ = fieldId.getClassName();
-                    String base_ = argClassName_;
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
-                    }
-                }
-                ResultErrorStd res_ = LgNames.getField(_conf, fieldId, default_);
+                ResultErrorStd res_ = LgNames.getField(_conf, fieldId, NullStruct.NULL_VALUE);
                 if (res_.getError() != null) {
                     throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
                 }
@@ -777,6 +747,29 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 a_.setStruct(res_.getResult());
                 return ArgumentCall.newArgument(a_);
             }
+            if (arg_.isNull()) {
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            }
+            String argClassName_ = arg_.getObjectClassName(_conf);
+            String classNameFound_ = fieldId.getClassName();
+            String base_ = StringList.getAllTypes(argClassName_).first();
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
+                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+            }
+            if (arg_.getStruct() instanceof FieldableStruct) {
+                Struct struct_ = ((FieldableStruct) arg_.getStruct()).getStruct(fieldId);
+                a_ = new Argument();
+                a_.setStruct(struct_);
+                return ArgumentCall.newArgument(a_);
+            }
+            Struct default_ = arg_.getStruct();
+            ResultErrorStd res_ = LgNames.getField(_conf, fieldId, default_);
+            if (res_.getError() != null) {
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            }
+            a_ = new Argument();
+            a_.setStruct(res_.getResult());
+            return ArgumentCall.newArgument(a_);
         }
         OperationsSequence op_ = getOperations();
         if (op_.getConstType() == ConstType.PARAM) {
@@ -911,21 +904,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             Struct structField_ = null;
             String className_ = fieldId.getClassName();
-            if (classes_.isCustomType(className_)) {
-                if (fieldMetaInfo.isStaticField()) {
-                    structField_ = classes_.getStaticField(fieldId);
-                } else {
-                    if (argument_.isNull()) {
-                        throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                    }
-                    String argClassName_ = argument_.getObjectClassName(_conf);
-                    String classNameFound_ = fieldId.getClassName();
-                    String base_ = StringList.getAllTypes(argClassName_).first();
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
-                    }
-                    structField_ = ((FieldableStruct) argument_.getStruct()).getStruct(fieldId);
-                }
+            if (fieldMetaInfo.isStaticField()) {
+                structField_ = classes_.getStaticField(fieldId);
                 if (!right_.isNull() && !NumericOperation.convert(_op)) {
                     Mapping map_ = new Mapping();
                     String rightClass_ = right_.getObjectClassName(_conf);
@@ -941,22 +921,54 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
                     res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
                 }
-                if (fieldMetaInfo.isStaticField()) {
+                if (classes_.isCustomType(className_)) {
                     classes_.initializeStaticField(fieldId, res_.getStruct());
-                } else {
-                    ((FieldableStruct) argument_.getStruct()).setStruct(fieldId, res_.getStruct());
+                    Argument a_ = res_;
+                    return a_;
+                }
+                ResultErrorStd result_ = LgNames.getField(_conf, fieldId, NullStruct.NULL_VALUE);
+                if (result_.getError() != null) {
+                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                }
+                structField_ = result_.getResult();
+                left_.setStruct(structField_);
+                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+                result_ = LgNames.setField(_conf, fieldId, NullStruct.NULL_VALUE, res_.getStruct());
+                if (result_.getError() != null) {
+                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 }
                 Argument a_ = res_;
                 return a_;
             }
-            if (!fieldMetaInfo.isStaticField() && argument_.isNull()) {
+            if (argument_.isNull()) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
-            String argClassName_ = _conf.getStandards().getStructClassName(argument_.getStruct(), _conf);
+            String argClassName_ = argument_.getObjectClassName(_conf);
             String classNameFound_ = fieldId.getClassName();
             String base_ = StringList.getAllTypes(argClassName_).first();
             if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
                 throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+            }
+            if (argument_.getStruct() instanceof FieldableStruct) {
+                structField_ = ((FieldableStruct) argument_.getStruct()).getStruct(fieldId);
+                if (!right_.isNull() && !NumericOperation.convert(_op)) {
+                    Mapping map_ = new Mapping();
+                    String rightClass_ = right_.getObjectClassName(_conf);
+                    map_.setArg(rightClass_);
+                    map_.setParam(fieldType_);
+                    if (!Templates.isCorrect(map_, _conf)) {
+                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
+                    }
+                }
+                left_.setStruct(structField_);
+                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+                if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
+                    ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+                    res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
+                }
+                ((FieldableStruct) argument_.getStruct()).setStruct(fieldId, res_.getStruct());
+                Argument a_ = res_;
+                return a_;
             }
             ResultErrorStd result_ = LgNames.getField(_conf, fieldId, argument_.getStruct());
             if (result_.getError() != null) {

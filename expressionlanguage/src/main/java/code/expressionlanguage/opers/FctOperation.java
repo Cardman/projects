@@ -15,6 +15,8 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.exceptions.AbstractMethodException;
 import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
@@ -38,7 +40,6 @@ import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.ProcessXmlMethod;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -220,7 +221,7 @@ public final class FctOperation extends InvokingOperation {
             if (ctorRes_ != null) {
                 constId = ctorRes_.getRealId();
                 CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesById(superClass_, constId);
-                if (!ctors_.isEmpty() && !classes_.canAccess(clCurName_, ctors_.first(), _conf)) {
+                if (!ctors_.isEmpty() && !Classes.canAccess(clCurName_, ctors_.first(), _conf)) {
                     ConstructorBlock ctr_ = ctors_.first();
                     throw new BadAccessException(StringList.concat(ctr_.getId().getSignature(),RETURN_LINE,_conf.joinPages()));
                 }
@@ -365,29 +366,20 @@ public final class FctOperation extends InvokingOperation {
             if (clCurName_.startsWith(Templates.PREFIX_VAR_TYPE)) {
                 String glClass_ = _conf.getLastPage().getGlobalClass();
                 String curClassBase_ = StringList.getAllTypes(glClass_).first();
-                RootBlock gl_ = classes_.getClassBody(curClassBase_);
+                GeneType gl_ = _conf.getClassBody(curClassBase_);
                 StringMap<StringList> mapping_ = new StringMap<StringList>();
                 for (TypeVar t: gl_.getParamTypes()) {
                     mapping_.put(t.getName(), t.getConstraints());
                 }
                 for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1), objectClassName_)) {
-                    String baseUpper_ = StringList.getAllTypes(u).first();
-                    if (!classes_.isCustomType(baseUpper_)) {
-                        analyzeStandardClass(_conf, u, false);
-                    } else {
-                        analyzeCustomClass(_conf, u, false);
-                    }
+                    analyzeCustomClass(_conf, u, false);
                     if (foundBound) {
                         return;
                     }
                 }
                 throw new NoSuchDeclaredMethodException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
             }
-            if (classes_.isCustomType(clCurName_)) {
-                analyzeCustomClass(_conf, clCurName_, true);
-                return;
-            }
-            analyzeStandardClass(_conf, clCurName_, true);
+            analyzeCustomClass(_conf, clCurName_, true);
             return;
         }
 //        if (firstArgs_.isEmpty()) {
@@ -403,7 +395,6 @@ public final class FctOperation extends InvokingOperation {
     }
 
     private void analyzeCustomClass(ContextEl _conf, String _subType, boolean _failIfError) {
-        Classes classes_ = _conf.getClasses();
         LgNames stds_ = _conf.getStandards();
         String stringType_ = stds_.getAliasString();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -448,7 +439,7 @@ public final class FctOperation extends InvokingOperation {
                 foundBound = true;
                 return;
             }
-        } else if (classes_.getClassBody(baseClass_) instanceof EnumBlock) {
+        } else if (_conf.getClassBody(baseClass_) instanceof EnumBlock) {
             if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
                 if (isStaticAccess()) {
                     if (_failIfError) {
@@ -521,80 +512,6 @@ public final class FctOperation extends InvokingOperation {
             superAccessMethod_ = true;
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
-        if (!clMeth_.isFoundMethod()) {
-            return;
-        }
-        if (staticChoiceMethod_) {
-            if (clMeth_.isAbstractMethod()) {
-                if (_failIfError) {
-                    setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(StringList.concat(clMeth_.getRealId().getSignature(),RETURN_LINE,_conf.joinPages()));
-                }
-                return;
-            }
-            if (superAccessMethod_) {
-                String foundClass_ = clMeth_.getRealClass();
-                foundClass_ = StringList.getAllTypes(foundClass_).first();
-                MethodId id_ = clMeth_.getRealId();
-                classMethodId = new ClassMethodId(foundClass_, id_);
-            } else {
-                classMethodId = clMeth_.getId();
-            }
-        } else {
-            String foundClass_ = clMeth_.getRealClass();
-            foundClass_ = StringList.getAllTypes(foundClass_).first();
-            MethodId id_ = clMeth_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
-        }
-        realId = clMeth_.getRealId();
-        if (clMeth_.isVarArgToCall()) {
-            StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
-            naturalVararg = paramtTypes_.size() - 1;
-            lastType = paramtTypes_.last();
-        }
-        superAccessMethod = superAccessMethod_;
-        staticChoiceMethod = staticChoiceMethod_;
-        staticMethod = clMeth_.isStaticMethod();
-        setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
-        foundBound = true;
-    }
-    private void analyzeStandardClass(ContextEl _conf, String _subType, boolean _failIfError) {
-        LgNames stds_ = _conf.getStandards();
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        if (PrimitiveTypeUtil.isPrimitive(_subType, stds_)) {
-            throw new PrimitiveTypeException(StringList.concat(_subType,RETURN_LINE,_conf.joinPages()));
-        }
-        String trimMeth_ = methodName.trim();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-        String clCurName_ = _subType;
-        int varargOnly_ = lookOnlyForVarArg();
-        for (ClassArgumentMatching c:firstArgs_) {
-            if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(StringList.concat(clCurName_,DOT,trimMeth_,RETURN_LINE,_conf.joinPages()));
-            }
-        }
-        boolean superClassAccess_ = true;
-        boolean staticChoiceMethod_ = false;
-        boolean superAccessMethod_ = false;
-        boolean accessFromSuper_ = false;
-        if (trimMeth_.contains(STATIC_CALL)) {
-            StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
-            trimMeth_ = classMethod_.last();
-            staticChoiceMethod_ = true;
-            superClassAccess_ = false;
-        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(EXTERN_CLASS))))) {
-            trimMeth_ = trimMeth_.substring(SUPER_ACCESS.length() + 2);
-            staticChoiceMethod_ = true;
-            superAccessMethod_ = true;
-            accessFromSuper_ = true;
-        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(CURRENT, String.valueOf(EXTERN_CLASS))))) {
-            trimMeth_ = trimMeth_.substring(CURRENT.length()+2);
-            staticChoiceMethod_ = true;
-            superAccessMethod_ = true;
-        }
-        ClassMethodIdReturn clMeth_ = LgNames.getDeclaredCustMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             return;
         }
@@ -975,24 +892,13 @@ public final class FctOperation extends InvokingOperation {
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
-        String baseCl_ = StringList.getAllTypes(classMethodId.getClassName()).first();
-        if (!classes_.isCustomType(baseCl_)) {
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-            ResultErrorStd res_ = LgNames.invokeMethod(_conf, naturalVararg > -1, classMethodId, arg_.getStruct(), Argument.toArgArray(firstArgs_));
-            if (res_.getError() != null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
-            }
-            Argument argRes_ = new Argument();
-            argRes_.setStruct(res_.getResult());
-            return ArgumentCall.newArgument(argRes_);
-        }
         if (!staticMethod) {
             if (arg_.isNull()) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
             ClassMetaInfo custClass_ = null;
             String className_ = stds_.getStructClassName(arg_.getStruct(), _conf);
-            custClass_ = classes_.getClassMetaInfo(className_, _conf);
+            custClass_ = _conf.getClassMetaInfo(className_);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (methodId_.eq(new MethodId(false, METH_NAME, new EqList<ClassName>()))) {
                     EnumStruct cen_ = (EnumStruct) arg_.getStruct();
@@ -1075,12 +981,12 @@ public final class FctOperation extends InvokingOperation {
                 argClassName_ = Templates.getGenericString(argClassName_, _conf);
                 String base_ = StringList.getAllTypes(argClassName_).first();
                 MethodId id_ = classMethodId.getConstraints();
-                if (classes_.getMethodBodiesById(classNameFound_, id_).first().isFinalMethod()) {
+                if (_conf.getMethodBodiesById(classNameFound_, id_).first().isFinalMethod()) {
                     classNameFound_ = classMethodId.getClassName();
                     methodId_ = realId;
                 } else {
-                    RootBlock info_ = classes_.getClassBody(classNameFound_);
-                    StringMap<ClassMethodId> overriding_ = info_.getConcreteMethodsToCall(id_, _conf);
+                    GeneType info_ = _conf.getClassBody(classNameFound_);
+                    StringMap<ClassMethodId> overriding_ = TypeUtil.getConcreteMethodsToCall(info_,id_, _conf);
                     if (overriding_.contains(base_)) {
                         ClassMethodId res_ = overriding_.getVal(base_);
                         classNameFound_ = res_.getClassName();
@@ -1095,12 +1001,12 @@ public final class FctOperation extends InvokingOperation {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             ClassMetaInfo custClass_ = null;
             classNameFound_ = classMethodId.getClassName();
-            if (!_conf.getClasses().isInitialized(classNameFound_)) {
+            if (classes_.isCustomType(classNameFound_) && !_conf.getClasses().isInitialized(classNameFound_)) {
                 _conf.getClasses().initialize(classNameFound_);
                 InitializatingClass inv_ = new InitializatingClass(classNameFound_);
                 return ArgumentCall.newCall(inv_);
             }
-            custClass_ = classes_.getClassMetaInfo(classNameFound_, _conf);
+            custClass_ = _conf.getClassMetaInfo(classNameFound_);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (methodId_.eq(new MethodId(true, METH_VALUES, new EqList<ClassName>()))) {
                     CustList<Struct> enums_ = new CustList<Struct>();
@@ -1188,6 +1094,17 @@ public final class FctOperation extends InvokingOperation {
                 }
             }
             i_++;
+        }
+        if (!classes_.isCustomType(classNameFound_)) {
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            ClassMethodId dyn_ = new ClassMethodId(classNameFound_, methodId_);
+            ResultErrorStd res_ = LgNames.invokeMethod(_conf, naturalVararg > -1, dyn_, arg_.getStruct(), Argument.toArgArray(firstArgs_));
+            if (res_.getError() != null) {
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            }
+            Argument argRes_ = new Argument();
+            argRes_.setStruct(res_.getResult());
+            return ArgumentCall.newArgument(argRes_);
         }
         InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, firstArgs_);
         return ArgumentCall.newCall(inv_);
