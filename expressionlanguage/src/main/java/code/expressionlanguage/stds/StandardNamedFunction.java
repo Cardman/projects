@@ -13,8 +13,6 @@ public abstract class StandardNamedFunction implements GeneFunction {
 
     private final String returnType;
 
-    private final AccessEnum access = AccessEnum.PUBLIC;
-
     private final boolean varargs;
 
     private final StandardType owner;
@@ -59,7 +57,7 @@ public abstract class StandardNamedFunction implements GeneFunction {
 
     @Override
     public AccessEnum getAccess() {
-        return access;
+        return AccessEnum.PUBLIC;
     }
 
     @Override

@@ -15,8 +15,6 @@ public final class StandardField implements GeneField {
 
     private final boolean finalField;
 
-    private final AccessEnum access = AccessEnum.PUBLIC;
-
     private final StandardType owner;
 
     public StandardField(String _fieldName, String _className,
@@ -50,7 +48,7 @@ public final class StandardField implements GeneField {
 
     @Override
     public AccessEnum getAccess() {
-        return access;
+        return AccessEnum.PUBLIC;
     }
 
     public String getPrettyString(String _className) {

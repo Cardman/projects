@@ -13,11 +13,9 @@ import code.util.StringMap;
 
 public abstract class StandardType implements GeneType {
 
+    private static final String PACKAGE_NAME = "";
+
     private final String name;
-
-    private final String packageName = "";
-
-    private final AccessEnum access = AccessEnum.PUBLIC;
 
     private final CustList<StandardConstructor> constructors;
     private final StringMap<StandardField> fields;
@@ -115,12 +113,12 @@ public abstract class StandardType implements GeneType {
 
     @Override
     public final String getPackageName() {
-        return packageName;
+        return PACKAGE_NAME;
     }
 
     @Override
     public final AccessEnum getAccess() {
-        return access;
+        return AccessEnum.PUBLIC;
     }
 
     @Override

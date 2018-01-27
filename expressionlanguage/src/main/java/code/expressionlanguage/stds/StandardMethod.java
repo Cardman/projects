@@ -15,13 +15,10 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
 
     private final MethodModifier modifier;
 
-    private final String declaringType;
-
     public StandardMethod(String _name, StringList _parametersTypes,
-            String _returnType, boolean _varargs, MethodModifier _modifier, String _declaringType, StandardType _type) {
+            String _returnType, boolean _varargs, MethodModifier _modifier, StandardType _type) {
         super(_name, _parametersTypes, _returnType, _varargs, _type);
         modifier = _modifier;
-        declaringType = _declaringType;
     }
 
     @Override
@@ -59,10 +56,10 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
 
     @Override
     public String getDeclaringType() {
-        return declaringType;
+        return getOwner().getFullName();
     }
     public String getPrettyString() {
-        return StringList.concat(declaringType,".",getId().getSignature(),":",getReturnType()," is ",modifier.name());
+        return StringList.concat(getDeclaringType(),".",getId().getSignature(),":",getReturnType()," is ",modifier.name());
     }
 
     @Override
@@ -91,7 +88,7 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
 
     @Override
     public MethodId getFormattedId(ContextEl _context) {
-        String className_ = declaringType;
+        String className_ = getDeclaringType();
         StringList vars_ = new StringList();
         for (TypeVar t: _context.getClassBody(className_).getParamTypes()) {
             vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
