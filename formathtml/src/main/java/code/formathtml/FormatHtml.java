@@ -2578,29 +2578,31 @@ public final class FormatHtml {
             String class_ = _input.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
             if (class_.isEmpty()) {
                 if (StringList.quickEq(type_,NUMBER)) {
-                    class_= Long.class.getName();
+                    class_= _conf.getStandards().getAliasLong();
                 }
                 if (StringList.quickEq(type_,RANGE)) {
-                    class_= Long.class.getName();
+                    class_= _conf.getStandards().getAliasLong();
                 }
                 if (StringList.quickEq(type_,RADIO)) {
-                    class_= Long.class.getName();
+                    class_= _conf.getStandards().getAliasLong();
                 }
                 if (StringList.quickEq(type_,TEXT)) {
-                    class_= String.class.getName();
+                    class_= _conf.getStandards().getAliasString();
                 }
                 if (StringList.quickEq(type_,CHECKBOX)) {
-                    class_= Boolean.class.getName();
+                    class_= _conf.getStandards().getAliasBoolean();
                 }
                 if (StringList.quickEq(_input.getTagName(), SELECT_TAG)) {
                     type_ = SELECT_TAG;
                     if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
                         class_ = _conf.getStandards().getCustList();
+                    } else {
+                        class_ = _conf.getStandards().getAliasString();
                     }
                 }
                 if (StringList.quickEq(_input.getTagName(), TEXT_AREA)) {
                     type_ = TEXT_AREA;
-                    class_ = String.class.getName();
+                    class_ = _conf.getStandards().getAliasString();
                 }
             } else {
                 if (StringList.quickEq(_input.getTagName(), SELECT_TAG)) {

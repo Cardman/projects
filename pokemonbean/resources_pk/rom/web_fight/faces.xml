@@ -60,8 +60,6 @@
 	<java.lang.Integer class="cfg" field="tabWidth" value="4"/>
 	<java.lang.String class="cfg" field="namespaceUri" value="javahtml"/>
 	<hav class="cfg" field="accessValue"/>
-	<null class="cfg" field="filesConfName"/>
-	<null class="cfg" field="context"/>
 	<sm class="cfg" field="lateValidators"/>
 	<sm class="cfg" field="lateTranslators"/>
 </cfg>

@@ -32,11 +32,11 @@ public final class ReadConfiguration {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "messagesFolder")) {
-                _configuration.setMessagesFolder(c.getAttribute("messagesFolder"));
+                _configuration.setMessagesFolder(c.getAttribute("value"));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "dataBaseClassName")) {
-                _configuration.setDataBaseClassName(c.getAttribute("dataBaseClassName"));
+                _configuration.setDataBaseClassName(c.getAttribute("value"));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "validators")) {
@@ -76,11 +76,11 @@ public final class ReadConfiguration {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
-                _configuration.setTabWidth(LgNames.parseInt(c.getAttribute("tabWidth")));
+                _configuration.setTabWidth(LgNames.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "filesConfName")) {
-                _configuration.setFilesConfName(c.getAttribute("filesConfName"));
+                _configuration.setFilesConfName(c.getAttribute("value"));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "context")) {
@@ -106,7 +106,7 @@ public final class ReadConfiguration {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
-                context_.setTabWidth(LgNames.parseInt(c.getAttribute("tabWidth")));
+                context_.setTabWidth(LgNames.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "options")) {

@@ -91,6 +91,7 @@ public final class BeloteStandards extends BeanLgNames {
         }
         return super.getOtherResult(_cont, _method, _args);
     }
+    @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (_instance.getInstance() instanceof DetailsResultsBeloteBean) {
@@ -129,6 +130,7 @@ public final class BeloteStandards extends BeanLgNames {
         }
         return super.getOtherResult(_cont, _classField, _instance);
     }
+    @Override
     public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
         if (_struct instanceof DeclaringPlayerValue) {
             return "cards.belote.beans.DeclaringPlayerValue";

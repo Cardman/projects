@@ -71,14 +71,6 @@ public abstract class StandardType implements GeneType {
     public StringMap<TypeVar> getParamTypesMap() {
         return new StringMap<TypeVar>();
     }
-    protected static void addClass(ObjectMap<MethodId, EqList<ClassMethodId>> _map, MethodId _key, ClassMethodId _class) {
-        if (_map.contains(_key)) {
-            _map.getVal(_key).add(_class);
-            _map.getVal(_key).removeDuplicates();
-        } else {
-            _map.put(_key, new EqList<ClassMethodId>(_class));
-        }
-    }
     public String getPrettyString() {
         StringBuilder str_ = new StringBuilder();
         str_.append(getName());
