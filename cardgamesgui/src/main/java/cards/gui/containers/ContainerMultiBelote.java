@@ -873,7 +873,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+            stds_ = new BeloteStandards();
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,stds_);
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }

@@ -90,43 +90,80 @@ public final class ResultsBeloteBean extends BeloteBean {
         }
     }
 
-    @Accessible
-    private boolean win() {
+    public boolean win() {
         return winEqualityLoose == EndGameState.WIN;
     }
 
-    @Accessible
-    private boolean equality() {
+    public boolean equality() {
         return winEqualityLoose == EndGameState.EQUALLITY;
     }
 
-    @Accessible
-    private boolean loose() {
+    public boolean loose() {
         return winEqualityLoose == EndGameState.LOOSE;
     }
 
-    @Accessible
-    private boolean successfulBid() {
+    public boolean successfulBid() {
         return differenceScoreTaker > 0;
     }
 
-    @Accessible
-    private boolean midBid() {
+    public boolean midBid() {
         return differenceScoreTaker == 0;
     }
 
-    @Accessible
-    private boolean failedBid() {
+    public boolean failedBid() {
         return differenceScoreTaker < 0;
     }
 
-    @Accessible
-    private int absoluteDiff() {
+    public int absoluteDiff() {
         return Math.abs(differenceScoreTaker);
     }
 
-    @Accessible
-    private boolean slam() {
+    public boolean slam() {
         return capotAttaque > 0;
     }
+
+    public int getPointsAttaqueSansPrime() {
+        return pointsAttaqueSansPrime;
+    }
+
+    public int getPointsAttaqueTemporaire() {
+        return pointsAttaqueTemporaire;
+    }
+
+    public int getPointsAttaqueDefinitif() {
+        return pointsAttaqueDefinitif;
+    }
+
+    public int getPointsDefenseSansPrime() {
+        return pointsDefenseSansPrime;
+    }
+
+    public int getPointsDefenseTemporaire() {
+        return pointsDefenseTemporaire;
+    }
+
+    public int getPointsDefenseDefinitif() {
+        return pointsDefenseDefinitif;
+    }
+
+    public String getTakerNickname() {
+        return takerNickname;
+    }
+
+    public StringList getCalledPlayersList() {
+        return calledPlayersList;
+    }
+
+    public String getBidString() {
+        return bidString;
+    }
+
+    public int getDifferenceScoreTaker() {
+        return differenceScoreTaker;
+    }
+
+    public CustList<LineDeal> getLinesDeal() {
+        return linesDeal;
+    }
+
 }

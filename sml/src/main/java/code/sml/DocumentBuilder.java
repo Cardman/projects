@@ -2174,19 +2174,11 @@ public final class DocumentBuilder {
         int len_ = _input.length();
         int indexFoot_ = 0;
         ReadingState state_ = ReadingState.HEADER;
-//        boolean inHead_ = false;
-//        boolean inFoot_ = false;
-//        boolean inComment_ = false;
-//        boolean inAttibuteName_ = false;
-//        boolean inAttibuteValue_ = false;
-//        boolean inText_ = false;
         boolean addChild_ = true;
         char delimiterAttr_ = 0;
         StringBuilder attributeName_ = new StringBuilder();
         StringBuilder tagName_ = new StringBuilder();
         StringList stack_ = new StringList();
-        int row_ = 1;
-        int col_ = 0;
         StringBuilder currentText_ = new StringBuilder();
         Element currentElement_ = null;
         boolean finished_ = false;
@@ -2198,27 +2190,16 @@ public final class DocumentBuilder {
             return res_;
         }
         int i_ = CustList.FIRST_INDEX;
-        col_ = 1;
         if (_input.charAt(i_) != LT) {
             RowCol rc_ = new RowCol();
-            rc_.setRow(row_);
-            rc_.setCol(col_);
+            rc_.setRow(1);
+            rc_.setCol(1);
             res_.setLocation(rc_);
             return res_;
         }
-        col_ = 0;
         i_++;
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
-            if (curChar_ == LINE_RETURN) {
-                row_++;
-                col_ = 0;
-            } else {
-                col_++;
-                if (curChar_ == TAB) {
-                    col_ += doc_.getTabWidth() - 1;
-                }
-            }
             if (state_ == ReadingState.HEADER) {
                 if (curChar_ == LT_CHAR) {
                     break;
@@ -2562,6 +2543,28 @@ public final class DocumentBuilder {
             }
         }
         if (!finished_) {
+            int max_;
+            if (i_ < len_) {
+                max_ = i_;
+            } else {
+                max_ = len_ - 1;
+            }
+            int row_ = 1;
+            int col_ = 1;
+            int j_ = CustList.FIRST_INDEX;
+            while (j_ <= max_) {
+                char curChar_ = _input.charAt(j_);
+                if (curChar_ == LINE_RETURN) {
+                    row_++;
+                    col_ = 1;
+                } else {
+                    col_++;
+                    if (curChar_ == TAB) {
+                        col_ += doc_.getTabWidth() - 1;
+                    }
+                }
+                j_++;
+            }
             RowCol rc_ = new RowCol();
             rc_.setRow(row_);
             rc_.setCol(col_);

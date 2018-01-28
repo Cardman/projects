@@ -78,6 +78,53 @@ public final class BeloteStandards extends BeanLgNames {
         fields_.put("declaring", new StandardField("declaring", getAliasString(), false, false, std_));
         fields_.put("value", new StandardField("value", getAliasPrimInteger(), false, false, std_));
         getStandards().put("cards.belote.beans.DeclaringPlayerValue", std_);
+        fields_ = new StringMap<StandardField>();
+        constructors_ = new CustList<StandardConstructor>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass("cards.belote.beans.ResultsBeloteBean", fields_, constructors_, methods_, "cards.belote.beans.BeloteBean", MethodModifier.NORMAL);
+        params_ = new StringList();
+        method_ = new StandardMethod("win", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod("equality", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod("loose", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod("successfulBid", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod("midBid", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod("failedBid", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod("slam", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod("absoluteDiff", params_, getAliasPrimInteger(), false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        fields_.put("pointsAttaqueSansPrime", new StandardField("pointsAttaqueSansPrime", getAliasPrimInteger(), false, false, std_));
+        fields_.put("pointsAttaqueTemporaire", new StandardField("pointsAttaqueTemporaire", getAliasPrimInteger(), false, false, std_));
+        fields_.put("pointsAttaqueDefinitif", new StandardField("pointsAttaqueDefinitif", getAliasPrimInteger(), false, false, std_));
+        fields_.put("pointsDefenseSansPrime", new StandardField("pointsDefenseSansPrime", getAliasPrimInteger(), false, false, std_));
+        fields_.put("pointsDefenseTemporaire", new StandardField("pointsDefenseTemporaire", getAliasPrimInteger(), false, false, std_));
+        fields_.put("pointsDefenseDefinitif", new StandardField("pointsDefenseDefinitif", getAliasPrimInteger(), false, false, std_));
+        fields_.put("differenceScoreTaker", new StandardField("differenceScoreTaker", getAliasPrimInteger(), false, false, std_));
+        fields_.put("takerNickname", new StandardField("takerNickname", getAliasString(), false, false, std_));
+        fields_.put("bidString", new StandardField("bidString", getAliasString(), false, false, std_));
+        fields_.put("calledPlayersList", new StandardField("calledPlayersList", getCustList(), false, false, std_));
+        fields_.put("linesDeal", new StandardField("linesDeal", getCustList(), false, false, std_));
+        getStandards().put("cards.belote.beans.ResultsBeloteBean", std_);
+        fields_ = new StringMap<StandardField>();
+        constructors_ = new CustList<StandardConstructor>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass("cards.belote.beans.LineDeal", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        fields_.put("number", new StandardField("number", getAliasPrimInteger(), false, false, std_));
+        fields_.put("scores", new StandardField("scores", getCustList(), false, false, std_));
+        getStandards().put("cards.belote.beans.LineDeal", std_);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
@@ -87,6 +134,12 @@ public final class BeloteStandards extends BeanLgNames {
             DetailsResultsBeloteBean details_ = new DetailsResultsBeloteBean();
             details_.setClassName("cards.belote.beans.DetailsResultsBeloteBean");
             res_.setResult(new StdStruct(details_, "cards.belote.beans.DetailsResultsBeloteBean"));
+            return res_;
+        }
+        if (StringList.quickEq(_method.getName(), "cards.belote.beans.ResultsBeloteBean")) {
+            ResultsBeloteBean details_ = new ResultsBeloteBean();
+            details_.setClassName("cards.belote.beans.ResultsBeloteBean");
+            res_.setResult(new StdStruct(details_, "cards.belote.beans.ResultsBeloteBean"));
             return res_;
         }
         return super.getOtherResult(_cont, _method, _args);
@@ -128,6 +181,64 @@ public final class BeloteStandards extends BeanLgNames {
                 return res_;
             }
         }
+        if (_instance.getInstance() instanceof ResultsBeloteBean) {
+            ResultsBeloteBean instance_ = (ResultsBeloteBean) _instance.getInstance();
+            if (StringList.quickEq(_classField.getFieldName(), "pointsAttaqueSansPrime")) {
+                res_.setResult(new IntStruct(instance_.getPointsAttaqueSansPrime()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "pointsAttaqueTemporaire")) {
+                res_.setResult(new IntStruct(instance_.getPointsAttaqueTemporaire()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "pointsAttaqueDefinitif")) {
+                res_.setResult(new IntStruct(instance_.getPointsAttaqueDefinitif()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "pointsDefenseSansPrime")) {
+                res_.setResult(new IntStruct(instance_.getPointsDefenseSansPrime()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "pointsDefenseTemporaire")) {
+                res_.setResult(new IntStruct(instance_.getPointsDefenseTemporaire()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "pointsDefenseDefinitif")) {
+                res_.setResult(new IntStruct(instance_.getPointsDefenseDefinitif()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "differenceScoreTaker")) {
+                res_.setResult(new IntStruct(instance_.getDifferenceScoreTaker()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "bidString")) {
+                res_.setResult(new StringStruct(instance_.getBidString()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "takerNickname")) {
+                res_.setResult(new StringStruct(instance_.getTakerNickname()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "calledPlayersList")) {
+                res_.setResult(new StdStruct(instance_.getCalledPlayersList(), getCustList()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "linesDeal")) {
+                res_.setResult(new StdStruct(instance_.getLinesDeal(), getCustList()));
+                return res_;
+            }
+        }
+        if (_instance.getInstance() instanceof LineDeal) {
+            LineDeal instance_ = (LineDeal) _instance.getInstance();
+            if (StringList.quickEq(_classField.getFieldName(), "number")) {
+                res_.setResult(new IntStruct(instance_.getNumber()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "scores")) {
+                res_.setResult(new StdStruct(instance_.getScores(), getCustList()));
+                return res_;
+            }
+        }
         return super.getOtherResult(_cont, _classField, _instance);
     }
     @Override
@@ -137,6 +248,9 @@ public final class BeloteStandards extends BeanLgNames {
         }
         if (_struct instanceof SumDeclaringPlayer) {
             return "cards.belote.beans.SumDeclaringPlayer";
+        }
+        if (_struct instanceof LineDeal) {
+            return "cards.belote.beans.LineDeal";
         }
         return getAliasObject();
     }
@@ -155,6 +269,41 @@ public final class BeloteStandards extends BeanLgNames {
             }
             if (StringList.quickEq(_method.getConstraints().getName(), "getScores")) {
                 res_.setResult(new StdStruct(((BeloteBean)_instance.getInstance()).getScores(), getCustList()));
+                return res_;
+            }
+        }
+        if (_instance.getInstance() instanceof ResultsBeloteBean) {
+            ResultsBeloteBean instance_ = (ResultsBeloteBean) _instance.getInstance();
+            if (StringList.quickEq(_method.getConstraints().getName(), "win")) {
+                res_.setResult(new BooleanStruct(instance_.win()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "equality")) {
+                res_.setResult(new BooleanStruct(instance_.equality()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "loose")) {
+                res_.setResult(new BooleanStruct(instance_.loose()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "successfulBid")) {
+                res_.setResult(new BooleanStruct(instance_.successfulBid()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "midBid")) {
+                res_.setResult(new BooleanStruct(instance_.midBid()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "failedBid")) {
+                res_.setResult(new BooleanStruct(instance_.failedBid()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "slam")) {
+                res_.setResult(new BooleanStruct(instance_.slam()));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getConstraints().getName(), "absoluteDiff")) {
+                res_.setResult(new IntStruct(instance_.absoluteDiff()));
                 return res_;
             }
         }
