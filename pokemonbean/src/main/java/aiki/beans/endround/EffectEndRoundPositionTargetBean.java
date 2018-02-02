@@ -36,14 +36,14 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
         return movesSameCategory;
     }
 
-    public String getTrMove(Long _index) {
+    public String getTrTargetRelationMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(movesSameCategory.get(_index.intValue()));
     }
 
-    public String clickMove(Long _index) {
+    public String clickTargetRelationMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());

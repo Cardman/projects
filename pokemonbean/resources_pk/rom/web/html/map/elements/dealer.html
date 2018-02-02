@@ -20,9 +20,9 @@
 			</ul>
 		</c:if>
 		<hr/>
-		<c:if condition="!getTm().isEmpty()">
+		<c:if condition="!getAllTm().isEmpty()">
 			<ul>
-				<c:for list="getTm()" var="i">
+				<c:for list="getAllTm()" var="i">
 					<li><a c:command="$clickTm({i;;})">{getTm(i;;)}</a></li>
 				</c:for>
 			</ul>

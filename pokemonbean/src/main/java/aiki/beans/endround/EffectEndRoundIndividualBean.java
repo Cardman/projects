@@ -55,7 +55,7 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
     }
 
     @Accessible
-    private String getTrStatus() {
+    private String getTrUserStatus() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -63,14 +63,14 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
     }
 
     @Accessible
-    private String clickStatus(Long _index) {
+    private String clickUserStatus(Long _index) {
         EffectEndRoundIndividual effect_ = (EffectEndRoundIndividual) getEffect(_index);
         getForms().put(STATUS, effect_.getUserStatusEndRound());
         return STATUS;
     }
 
     @Accessible
-    private String getTrStatus(Long _index) {
+    private String getTrDamageStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -78,7 +78,7 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
     }
 
     @Accessible
-    private String clickStatus(Long _indexOne,Long _indexTwo) {
+    private String clickDamageStatus(Long _indexOne,Long _indexTwo) {
         EffectEndRoundIndividual effect_ = (EffectEndRoundIndividual) getEffect(_indexOne);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;

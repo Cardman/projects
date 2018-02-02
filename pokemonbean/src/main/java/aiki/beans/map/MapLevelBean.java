@@ -400,7 +400,7 @@ public class MapLevelBean extends CommonBean {
     }
 
     @Accessible
-    private String clickLink(Long _index) {
+    private String clickDirectedLink(Long _index) {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
         Direction dir_ = dirs.getKey(_index.intValue());
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
@@ -505,7 +505,7 @@ public class MapLevelBean extends CommonBean {
     }
 
     @Accessible
-    private String clickTile(Long _index) {
+    private String clickTileOnMap(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         getForms().put(CURRENT_TILE, pt_);
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);

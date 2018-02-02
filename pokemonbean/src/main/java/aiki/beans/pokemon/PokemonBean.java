@@ -159,7 +159,7 @@ public class PokemonBean extends CommonBean {
         name = (String) getForms().getVal(PK);
         int nbPlaces_ = places.size();
         for (short i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
-            if (isAppearing((long) i)) {
+            if (isAppearingPlace((long) i)) {
                 placesAppears.add(i);
             }
         }
@@ -437,7 +437,7 @@ public class PokemonBean extends CommonBean {
     }
 
     @Accessible
-    private boolean isAppearing() {
+    private boolean isAppearingAnyWhere() {
         int nbPlaces_ = places.size();
         for (int i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
             int nbLayers_ = layers((long)i).size();
@@ -462,7 +462,7 @@ public class PokemonBean extends CommonBean {
     }
 
     @Accessible
-    private boolean isAppearing(Long _index) {
+    private boolean isAppearingPlace(Long _index) {
         int nbLayers_ = layers(_index).size();
         for (int j = CustList.FIRST_INDEX; j < nbLayers_; j++) {
             if (isAppearing(_index,(long) j)) {

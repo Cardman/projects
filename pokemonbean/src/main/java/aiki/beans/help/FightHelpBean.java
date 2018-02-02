@@ -2790,7 +2790,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean itemBoostNormal() {
+    private boolean itemBoostNormalAny() {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -2822,7 +2822,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean itemBoostSpeed() {
+    private boolean itemBoostSpeedAny() {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -2855,7 +2855,7 @@ public class FightHelpBean extends CommonBean {
 
 
     @Accessible
-    private boolean itemBoostCh() {
+    private boolean itemBoostChAny() {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -2887,7 +2887,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean itemBoostEvasiness() {
+    private boolean itemBoostEvasinessAny() {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -2919,7 +2919,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean itemBoostAccuracy() {
+    private boolean itemBoostAccuracyAny() {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -2969,7 +2969,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean itemMultNormal() {
+    private boolean itemMultNormalAny() {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -2992,7 +2992,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean itemMultSpeed() {
+    private boolean itemMultSpeedAny() {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3015,7 +3015,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean itemMultEvasiness() {
+    private boolean itemMultEvasinessAny() {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3038,7 +3038,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean itemMultAccuracy() {
+    private boolean itemMultAccuracyAny() {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3646,7 +3646,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityBoostNormal() {
+    private boolean abilityBoostNormalAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3666,7 +3666,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityBoostSpeed() {
+    private boolean abilityBoostSpeedAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3686,7 +3686,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityBoostCh() {
+    private boolean abilityBoostChAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3706,7 +3706,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityBoostEvasiness() {
+    private boolean abilityBoostEvasinessAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3726,7 +3726,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityBoostAccuracy() {
+    private boolean abilityBoostAccuracyAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3759,7 +3759,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityMultNormal() {
+    private boolean abilityMultNormalAny() {
         int len_;
         len_ = abilitiesMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3784,7 +3784,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityMultSpeed() {
+    private boolean abilityMultSpeedAny() {
         int len_;
         len_ = abilitiesMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3809,7 +3809,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityMultEvasiness() {
+    private boolean abilityMultEvasinessAny() {
         int len_;
         len_ = abilitiesMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3834,7 +3834,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityMultAccuracy() {
+    private boolean abilityMultAccuracyAny() {
         int len_;
         len_ = abilitiesMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3872,7 +3872,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityAllyMultNormal() {
+    private boolean abilityAllyMultNormalAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3892,7 +3892,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityAllyMultEvasiness() {
+    private boolean abilityAllyMultEvasinessAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3912,7 +3912,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityAllyMultSpeed() {
+    private boolean abilityAllyMultSpeedAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3932,7 +3932,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityAllyMultAccuracy() {
+    private boolean abilityAllyMultAccuracyAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3965,7 +3965,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityImmuMultNormal() {
+    private boolean abilityImmuMultNormalAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -3990,7 +3990,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityImmuMultEvasiness() {
+    private boolean abilityImmuMultEvasinessAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4016,7 +4016,7 @@ public class FightHelpBean extends CommonBean {
 
 
     @Accessible
-    private boolean abilityImmuMultSpeed() {
+    private boolean abilityImmuMultSpeedAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4041,7 +4041,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean abilityImmuMultAccuracy() {
+    private boolean abilityImmuMultAccuracyAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4360,7 +4360,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean immuStatisTeamMove() {
+    private boolean immuStatisTeamMoveAny() {
         int len_;
         len_ = movesTeam.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4372,7 +4372,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean immuStatusTeamMove() {
+    private boolean immuStatusTeamMoveAny() {
         int len_;
         len_ = movesTeam.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4384,7 +4384,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean immuChTeamMove() {
+    private boolean immuChTeamMoveAny() {
         int len_;
         len_ = movesTeam.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4525,7 +4525,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean attackLast() {
+    private boolean attackLastAny() {
         int len_;
         len_ = movesChangingAttOrder.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4567,7 +4567,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean withConstDamage() {
+    private boolean withConstDamageAny() {
         int len_;
         len_ = damagingMoves.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4587,7 +4587,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean withRandDamage() {
+    private boolean withRandDamageAny() {
         int len_;
         len_ = damagingMoves.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4607,7 +4607,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean withMultDamage() {
+    private boolean withMultDamageAny() {
         int len_;
         len_ = damagingMoves.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4861,7 +4861,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveGlobalMultNormal() {
+    private boolean moveGlobalMultNormalAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4892,7 +4892,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveGlobalMultEvasiness() {
+    private boolean moveGlobalMultEvasinessAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4923,7 +4923,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveGlobalMultSpeed() {
+    private boolean moveGlobalMultSpeedAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4954,7 +4954,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveGlobalMultAccuracy() {
+    private boolean moveGlobalMultAccuracyAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -4998,7 +4998,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveTeamMultNormal() {
+    private boolean moveTeamMultNormalAny() {
         int len_ = movesTeamMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             if (moveTeamMultNormal((long) i)) {
@@ -5026,7 +5026,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveTeamMultEvasiness() {
+    private boolean moveTeamMultEvasinessAny() {
         int len_ = movesTeamMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             if (moveTeamMultEvasiness((long) i)) {
@@ -5054,7 +5054,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveTeamMultSpeed() {
+    private boolean moveTeamMultSpeedAny() {
         int len_ = movesTeamMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             if (moveTeamMultSpeed((long) i)) {
@@ -5082,7 +5082,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveTeamMultAccuracy() {
+    private boolean moveTeamMultAccuracyAny() {
         int len_ = movesTeamMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             if (moveTeamMultAccuracy((long) i)) {
@@ -5123,7 +5123,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveFoeTeamMultNormal() {
+    private boolean moveFoeTeamMultNormalAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5152,7 +5152,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveFoeTeamMultEvasiness() {
+    private boolean moveFoeTeamMultEvasinessAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5181,7 +5181,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveFoeTeamMultSpeed() {
+    private boolean moveFoeTeamMultSpeedAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5210,7 +5210,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean moveFoeTeamMultAccuracy() {
+    private boolean moveFoeTeamMultAccuracyAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5343,7 +5343,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean hasLawForAttack() {
+    private boolean hasLawForAttackAny() {
         int len_;
         len_ = beginRoundStatus.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5369,7 +5369,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean hasLawForHeal() {
+    private boolean hasLawForHealAny() {
         int len_;
         len_ = beginRoundStatus.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5458,7 +5458,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean statusMultNormal() {
+    private boolean statusMultNormalAny() {
         int len_;
         len_ = statusMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5478,7 +5478,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean statusMultEvasiness() {
+    private boolean statusMultEvasinessAny() {
         int len_;
         len_ = statusMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5499,7 +5499,7 @@ public class FightHelpBean extends CommonBean {
 
 
     @Accessible
-    private boolean statusMultSpeed() {
+    private boolean statusMultSpeedAny() {
         int len_;
         len_ = statusMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5519,7 +5519,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean statusMultAccuracy() {
+    private boolean statusMultAccuracyAny() {
         int len_;
         len_ = statusMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5552,7 +5552,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean comboMultNormal() {
+    private boolean comboMultNormalAny() {
         int len_;
         len_ = comboMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5581,7 +5581,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean comboMultEvasiness() {
+    private boolean comboMultEvasinessAny() {
         int len_;
         len_ = comboMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5610,7 +5610,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean comboMultSpeed() {
+    private boolean comboMultSpeedAny() {
         int len_;
         len_ = comboMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -5639,7 +5639,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     @Accessible
-    private boolean comboMultAccuracy() {
+    private boolean comboMultAccuracyAny() {
         int len_;
         len_ = comboMultStat.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {

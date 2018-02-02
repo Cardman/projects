@@ -46,26 +46,26 @@
 				</c:if>
 				<c:if condition="withoutTitle(p;;)">
 					<c:if condition="!isAccessibleByBeatingSomeTrainers(p;;)">
-						<a c:command="$clickTile({p;;})"><c:img border="0" src="{b;}"/></a>
+						<a c:command="$clickTileOnMap({p;;})"><c:img border="0" src="{b;}"/></a>
 					</c:if>
 					<c:if condition="isAccessibleByBeatingSomeTrainers(p;;)">
-						<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_access"><c:img border="0" src="{b;}"/></c:a>
+						<c:a c:command="$clickTileOnMap({p;;})" value="msg_levelmap,title_access"><c:img border="0" src="{b;}"/></c:a>
 					</c:if>
 				</c:if>
 				<c:if condition="isStorage(p;;)">
-					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_storage"><c:img border="0" src="{b;}"/></c:a>
+					<c:a c:command="$clickTileOnMap({p;;})" value="msg_levelmap,title_storage"><c:img border="0" src="{b;}"/></c:a>
 				</c:if>
 				<c:if condition="isHealer(p;;)">
-					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_heal"><c:img border="0" src="{b;}"/></c:a>
+					<c:a c:command="$clickTileOnMap({p;;})" value="msg_levelmap,title_heal"><c:img border="0" src="{b;}"/></c:a>
 				</c:if>
 				<c:if condition="isHost(p;;)">
-					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_host"><c:img border="0" src="{b;}"/></c:a>
+					<c:a c:command="$clickTileOnMap({p;;})" value="msg_levelmap,title_host"><c:img border="0" src="{b;}"/></c:a>
 				</c:if>
 				<c:if condition="isFossile(p;;)">
-					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_fossile"><c:img border="0" src="{b;}"/></c:a>
+					<c:a c:command="$clickTileOnMap({p;;})" value="msg_levelmap,title_fossile"><c:img border="0" src="{b;}"/></c:a>
 				</c:if>
 				<c:if condition="isMoveTutors(p;;)">
-					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_mt"><c:img border="0" src="{b;}"/></c:a>
+					<c:a c:command="$clickTileOnMap({p;;})" value="msg_levelmap,title_mt"><c:img border="0" src="{b;}"/></c:a>
 				</c:if>
 			</c:for>
 		</div>
@@ -83,16 +83,16 @@
 			<ul>
 				<c:for key="d" keyClassName="aiki.map.enums.Direction" map="dirs" value="e">
 					<c:if condition="isUp(d;;)">
-						<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,UP"/></a></li>
+						<li><a c:command="$clickDirectedLink({d;;})"><c:message value="msg_levelmap,UP"/></a></li>
 					</c:if>
 					<c:if condition="isDown(d;;)">
-						<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,DOWN"/></a></li>
+						<li><a c:command="$clickDirectedLink({d;;})"><c:message value="msg_levelmap,DOWN"/></a></li>
 					</c:if>
 					<c:if condition="isLeft(d;;)">
-						<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,LEFT"/></a></li>
+						<li><a c:command="$clickDirectedLink({d;;})"><c:message value="msg_levelmap,LEFT"/></a></li>
 					</c:if>
 					<c:if condition="isRight(d;;)">
-						<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,RIGHT"/></a></li>
+						<li><a c:command="$clickDirectedLink({d;;})"><c:message value="msg_levelmap,RIGHT"/></a></li>
 					</c:if>
 				</c:for>
 			</ul>

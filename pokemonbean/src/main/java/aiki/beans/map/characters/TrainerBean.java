@@ -52,7 +52,7 @@ public class TrainerBean extends CommonBean {
     }
 
     @Accessible
-    private String getMove() {
+    private String getTrMove() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());

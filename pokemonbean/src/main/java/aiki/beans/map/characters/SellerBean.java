@@ -106,12 +106,12 @@ public class SellerBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getTm().get(_index.intValue());
+        String move_ = getAllTm().get(_index.intValue());
         return translationsMoves_.getVal(move_);
     }
 
     @Accessible
-    private StringList getTm() {
+    private StringList getAllTm() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -125,7 +125,7 @@ public class SellerBean extends CommonBean {
 
     @Accessible
     private String clickTm(Long _index) {
-        String move_ = getTm().get(_index.intValue());
+        String move_ = getAllTm().get(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }

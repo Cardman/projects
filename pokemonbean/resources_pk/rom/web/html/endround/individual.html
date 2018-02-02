@@ -29,7 +29,7 @@
 			</c:if>
 			<c:if condition="!userStatusEndRound.isEmpty()">
 				<c:message value="msg_individual,user_status">
-					<param value="getTrStatus()"/>
+					<param value="getTrUserStatus()"/>
 					<param value="index"/>
 				</c:message>
 			</c:if>
@@ -45,7 +45,7 @@
 					<tbody>
 						<c:for key="s" map="multDamageStatus" value="r">
 							<tr>
-								<td><a c:command="$clickStatus({index},{s;;})" href="">{getTrStatus(s;;)}</a></td>
+								<td><a c:command="$clickDamageStatus({index},{s;;})" href="">{getTrDamageStatus(s;;)}</a></td>
 								<td>{r;}</td>
 							</tr>
 						</c:for>

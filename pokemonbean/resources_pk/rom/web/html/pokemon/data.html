@@ -239,13 +239,13 @@
 				<param value="hatchingSteps"/>
 			</c:message>
 		<br/>
-		<c:if condition="isAppearing()">
+		<c:if condition="isAppearingAnyWhere()">
 			<c:message value="msg_pkdata,where_catch">
 				<param value="displayName"/>
 			</c:message>
 			<ul>
 				<c:for className="aiki.beans.facade.map.dto.PlaceIndex" list="places" var="p">
-					<c:if condition="isAppearing(p;;)">
+					<c:if condition="isAppearingPlace(p;;)">
 						<li>
 							{p;getPlace().getName()}<br/>
 							<c:if condition="isMultiLayer(p;;)">

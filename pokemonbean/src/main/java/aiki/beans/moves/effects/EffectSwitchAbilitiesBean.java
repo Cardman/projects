@@ -45,9 +45,9 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
     }
 
     @Accessible
-    private String getTrAbility(Long _index) {
+    private String getTrAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect(_index.intValue());
+        EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect(_index);
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(effect_.getConstAbility());
     }

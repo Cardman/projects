@@ -2027,7 +2027,7 @@ public class SimulationBean extends CommonBean {
     }
 
     @Accessible
-    private NatTreeMap<Byte, NatTreeMap<String, StringList>> getMovesAfterFight() {
+    private NatTreeMap<Byte, NatTreeMap<String, StringList>> getAllMovesAfterFight() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> mv_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> pk_ = data_.getTranslatedPokemon().getVal(getLanguage());

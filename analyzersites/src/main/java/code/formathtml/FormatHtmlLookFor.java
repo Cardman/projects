@@ -22,7 +22,6 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.formathtml.exceptions.BadFilePropertiesException;
 import code.formathtml.exceptions.BadSelectException;
 import code.formathtml.exceptions.InexistingTranslatorException;
 import code.formathtml.exceptions.KeyValueException;
@@ -42,7 +41,6 @@ import code.sml.NamedNodeMap;
 import code.sml.Node;
 import code.sml.Text;
 import code.sml.exceptions.XmlParseException;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -118,6 +116,7 @@ public class FormatHtmlLookFor {
     static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
     static final String COMMA = ",";
     static final String DOT = ".";
+    static final StringList FIELDS_NAMES = new StringList();
 
     static final String TMP_VAR = "tmpvar";
 //    private static final char RIGHT_ARR = ']';
@@ -718,8 +717,10 @@ public class FormatHtmlLookFor {
                     if (!_conf.noPages()) {
                         _conf.getLastPage().setOffset(var_.length()+COMMA.length());
                     }
-                    if (!key_.contains("{")) {
-                        StringMap<String> messages_ = getAnaInnerMessagesFromLocaleClass(_conf, _loc, fileName_, files_, _resourcesFolder);
+                    if (value_.startsWith(CALL_METHOD)) {
+                        System.out.println(CustElUtil.processAnalyzeEl(value_, 1, _conf.toContextEl()));
+                    } else if (!key_.contains("{")) {
+                        StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, files_, _resourcesFolder);
                         preformatted_ = ExtractFromResources.getFormat(messages_, key_, _conf, _loc, fileName_);
                         if (!_conf.noPages()) {
                             _conf.getLastPage().setKey(key_);
@@ -1316,17 +1317,17 @@ public class FormatHtmlLookFor {
         }
         return _html.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),COMMENT), _from);
     }
-    private static StringMap<String> getAnaInnerMessagesFromLocaleClass(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {
-        String folder_ = ExtractObject.getMessageFolder(_conf);
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
-        //        System.out.println(_resourcesFolder[0]+"/"+fileName_);
-        String content_ = ExtractFromResources.getContentFile(_conf, _files, _resourcesFolder[0]+"/"+fileName_, _resourcesFolder);
-        int index_ = ExtractFromResources.indexCorrectMessages(content_);
-        if (index_ >= 0) {
-            throw new BadFilePropertiesException(fileName_+RETURN_LINE+index_+RETURN_LINE+_conf.joinPages());
-        }
-        return ExtractFromResources.getMessages(content_);
-    }
+//    private static StringMap<String> getAnaInnerMessagesFromLocaleClass(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {
+//        String folder_ = ExtractObject.getMessageFolder(_conf);
+//        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
+//        //        System.out.println(_resourcesFolder[0]+"/"+fileName_);
+//        String content_ = ExtractFromResources.getContentFile(_conf, _files, _resourcesFolder[0]+"/"+fileName_, _resourcesFolder);
+//        int index_ = ExtractFromResources.indexCorrectMessages(content_);
+//        if (index_ >= 0) {
+//            throw new BadFilePropertiesException(fileName_+RETURN_LINE+index_+RETURN_LINE+_conf.joinPages());
+//        }
+//        return ExtractFromResources.getMessages(content_);
+//    }
 
     private static void evaluateAnalyzedAttribute(Configuration _conf, Element _elt, String _attrName) {
         String class_ = _elt.getAttribute(_attrName);
@@ -1402,6 +1403,7 @@ public class FormatHtmlLookFor {
             CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).addAllElts(new BooleanList(true,false));
             CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).removeDuplicates();
         }
+        FIELDS_NAMES.add(key_);
         String current_ = _ip.getGlobalClass();
         _ip.setGlobalClass(className_);
         String endcl_ = CustElUtil.processAnalyzeEl(end_, 0, _conf.toContextEl());

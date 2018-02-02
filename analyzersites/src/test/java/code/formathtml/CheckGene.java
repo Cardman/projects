@@ -8,6 +8,7 @@ import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustElUtil;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -23,7 +24,7 @@ public class CheckGene {
 
     @Test
     public void confPkTest() {
-        String resPk = "resources_pk/rom";
+        String resPk = "resources_pk/rom/";
         String web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_fight/";
         String webtwo = "C:/Users/cardman/git/pokemonbean/";
         String conf = "faces.xml";
@@ -42,10 +43,90 @@ public class CheckGene {
             if (e.getValue().size() != 1) {
                 continue;
             }
+            System.out.println(e.getKey());
+        }
+        System.out.println();
+        for (EntryCust<String, BooleanList> e: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
+            if (e.getValue().size() != 1) {
+                continue;
+            }
             if (e.getValue().first()) {
                 continue;
             }
             System.out.println(e.getKey());
+        }
+        System.out.println();
+        for (EntryCust<String, BooleanList> e: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
+            if (e.getValue().size() != 1) {
+                continue;
+            }
+            if (!e.getValue().first()) {
+                continue;
+            }
+            System.out.println(e.getKey());
+        }
+        System.out.println();
+        CustElUtil.CALLS.removeDuplicates();
+        for (ClassMethodId e: CustElUtil.CALLS) {
+            if (e.getClassName().endsWith(">")) {
+                continue;
+            }
+//            String clName_ = e.getClassName();
+//            String mName_ = e.getConstraints().getName();
+//            try {
+////                Class<?> cl_ = ConstClasses.classForNameNotInit(clName_);
+////                EqList<ClassMethodId> homonymsMethods_ = new EqList<ClassMethodId>();
+////                for (ClassMethodId f: CustElUtil.CALLS) {
+////                    if (f.getClassName().endsWith(">")) {
+////                        continue;
+////                    }
+////                    Class<?> cltwo_ = ConstClasses.classForNameNotInit(f.getClassName());
+////                    if (!cltwo_.isAssignableFrom(cl_)) {
+////                        continue;
+////                    }
+////                    if (cltwo_.isInterface()) {
+////                        continue;
+////                    }
+////                    if (StringList.quickEq(f.getConstraints().getName(), mName_)) {
+////                        homonymsMethods_.add(f);
+////                    }
+////                }
+////                if (homonymsMethods_.size() > 1) {
+////                    System.out.println(clName_+"."+e.getConstraints().getSignature());
+////                    for (ClassMethodId c: homonymsMethods_) {
+////                        System.out.println("\t"+c.getClassName()+"."+c.getConstraints().getSignature());
+////                    }
+////                }
+//                Class<?> cl_ = ConstClasses.classForNameNotInit(clName_);
+//                CustList<java.lang.reflect.Method> methods_ = new CustList<java.lang.reflect.Method>();
+//                while (cl_ != null) {
+//                    for (java.lang.reflect.Method m: cl_.getDeclaredMethods()) {
+//                        if (Modifier.isAbstract(m.getModifiers())) {
+//                            continue;
+//                        }
+//                        if (m.getAnnotation(Accessible.class) == null && !Modifier.isPublic(m.getModifiers())) {
+//                            continue;
+//                        }
+//                        if (StringList.quickEq(m.getName(), mName_)) {
+//                            methods_.add(m);
+//                        }
+//                    }
+//                    cl_ = cl_.getSuperclass();
+//                }
+//                if (methods_.size() > 1) {
+//                    System.out.println(clName_+"."+e.getConstraints().getSignature());
+//                    for (java.lang.reflect.Method m: methods_) {
+//                        System.out.println("\t"+m.toGenericString());
+//                    }
+//                }
+//            } catch (Exception _0_) {
+//            }
+            System.out.println(e.getClassName()+"."+e.getConstraints().getSignature());
+        }
+        System.out.println();
+        FormatHtmlLookFor.FIELDS_NAMES.removeDuplicates();
+        for (String e: FormatHtmlLookFor.FIELDS_NAMES) {
+            System.out.println(e);
         }
     }
     @Test
@@ -55,8 +136,8 @@ public class CheckGene {
         String webtwo = "C:/Users/cardman/git/belotebean/";
         String conf;
         web = "C:/Users/cardman/git/belotebean/resources_cards/";
-        resPk = "resources_cards/conf";
-        conf = "conf/details_results_belote.xml";
+        resPk = "";
+        conf = "conf/results_belote.xml";
         testOneFile(conf, web, webtwo, resPk, new BeloteStandards());
     }
     public static void init(Configuration _conf, boolean _cust) {

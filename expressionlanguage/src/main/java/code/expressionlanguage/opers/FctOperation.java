@@ -1096,7 +1096,6 @@ public final class FctOperation extends InvokingOperation {
             i_++;
         }
         if (!classes_.isCustomType(classNameFound_)) {
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             ClassMethodId dyn_ = new ClassMethodId(classNameFound_, methodId_);
             ResultErrorStd res_ = LgNames.invokeMethod(_conf, naturalVararg > -1, dyn_, arg_.getStruct(), Argument.toArgArray(firstArgs_));
             if (res_.getError() != null) {

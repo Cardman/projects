@@ -298,7 +298,7 @@
 					</c:for>
 				</ul>
 			</c:if>
-			<c:if condition="hasLawForAttack()">
+			<c:if condition="hasLawForAttackAny()">
 				<c:message value="msg_helpround,round_process_move_5"/>
 				<ul>
 					<c:for list="beginRoundStatus" var="a">
@@ -308,7 +308,7 @@
 					</c:for>
 				</ul>
 			</c:if>
-			<c:if condition="hasLawForHeal()">
+			<c:if condition="hasLawForHealAny()">
 				<c:message value="msg_helpround,round_process_move_5_1"/>
 				<ul>
 					<c:for list="beginRoundStatus" var="a">
@@ -543,7 +543,7 @@
 							</ul>
 						</li>
 					</c:if>
-					<c:if condition="immuStatisTeamMove()">
+					<c:if condition="immuStatisTeamMoveAny()">
 						<li>
 							<c:message value="msg_helpround,round_process_move_final_16_1_1_2"/>
 							<ul>
@@ -641,7 +641,7 @@
 					</ul>
 				</li>
 			</c:if>
-			<c:if condition="immuStatusTeamMove()">
+			<c:if condition="immuStatusTeamMoveAny()">
 				<li>
 					<c:message value="msg_helpround,round_process_move_final_16_2_4"/>
 					<ul>
@@ -933,7 +933,7 @@
 			</ul>
 			<c:message value="msg_helpround,events_between_user_round_2"/>
 		</c:if>
-		<c:if condition="attackLast()">
+		<c:if condition="attackLastAny()">
 			<c:message value="msg_helpround,events_between_user_round_3"/>
 			<ul>
 				<c:for list="movesChangingAttOrder" var="a">
@@ -1040,7 +1040,7 @@
 		<c:message value="msg_helpround,round_process_add_on_1_0_0">
 			<param value="strongMove"/>
 		</c:message>
-		<c:if condition="withConstDamage()">
+		<c:if condition="withConstDamageAny()">
 			<c:message value="msg_helpround,round_process_add_on_1_1"/>
 			<ul>
 				<c:for list="damagingMoves" var="a">
@@ -1050,7 +1050,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="withRandDamage()">
+		<c:if condition="withRandDamageAny()">
 			<c:message value="msg_helpround,round_process_add_on_1_2"/>
 			<ul>
 				<c:for list="damagingMoves" var="a">
@@ -1060,7 +1060,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="withMultDamage()">
+		<c:if condition="withMultDamageAny()">
 			<c:message value="msg_helpround,round_process_add_on_1_3"/>
 			<ul>
 				<c:for list="damagingMoves" var="a">
@@ -1364,7 +1364,7 @@
 			<c:message value="msg_helpround,round_process_add_on_5_6_1"/>
 		</c:if>
 		<h1><c:message value="msg_helpround,round_process_add_on_6"/></h1>
-				<c:if condition="abilityBoostNormal()">
+				<c:if condition="abilityBoostNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_1"/>
 			<ul>
 				<c:for list="abilitiesBoostingStat" var="a">
@@ -1374,7 +1374,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemBoostNormal()">
+		<c:if condition="itemBoostNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_2"/>
 			<ul>
 				<c:for list="itemsBoostingStat" var="a">
@@ -1384,7 +1384,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemMultNormal()">
+		<c:if condition="itemMultNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_3"/>
 			<ul>
 				<c:for list="itemsMultStat" var="a">
@@ -1394,7 +1394,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityMultNormal()">
+		<c:if condition="abilityMultNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_4"/>
 			<ul>
 				<c:for list="abilitiesMultStat" var="a">
@@ -1404,7 +1404,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveGlobalMultNormal()">
+		<c:if condition="moveGlobalMultNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_5"/>
 			<ul>
 				<c:for list="movesGlobalMultStat" var="a">
@@ -1414,7 +1414,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveTeamMultNormal()">
+		<c:if condition="moveTeamMultNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_6"/>
 			<ul>
 				<c:for list="movesTeamMultStat" var="a">
@@ -1424,7 +1424,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityAllyMultNormal()">
+		<c:if condition="abilityAllyMultNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_7"/>
 			<ul>
 				<c:for list="abilitiesAllyMultStat" var="a">
@@ -1434,7 +1434,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveFoeTeamMultNormal()">
+		<c:if condition="moveFoeTeamMultNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_8"/>
 			<ul>
 				<c:for list="movesFoeTeamMultStat" var="a">
@@ -1444,7 +1444,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="statusMultNormal()">
+		<c:if condition="statusMultNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_9"/>
 			<ul>
 				<c:for list="statusMultStat" var="a">
@@ -1453,7 +1453,7 @@
 					</c:if>
 				</c:for>
 			</ul>
-			<c:if condition="abilityImmuMultNormal()">
+			<c:if condition="abilityImmuMultNormalAny()">
 				<c:message value="msg_helpround,round_process_add_on_6_10"/>
 				<ul>
 					<c:for list="abilitiesImmuMultStat" var="a">
@@ -1464,7 +1464,7 @@
 				</ul>
 			</c:if>
 		</c:if>
-		<c:if condition="comboMultNormal()">
+		<c:if condition="comboMultNormalAny()">
 			<c:message value="msg_helpround,round_process_add_on_6_11"/>
 			<ul>
 				<c:for list="comboMultStat" var="a">
@@ -1510,7 +1510,7 @@
 				<li><a c:command="$clickMovesGlobalAcc({a;;})">{getTrMovesGlobalAcc(a;;)}</a></li>
 			</c:for>
 		</ul>
-		<c:if condition="abilityBoostAccuracy()">
+		<c:if condition="abilityBoostAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_11"/>
 			<ul>
 				<c:for list="abilitiesBoostingStat" var="a">
@@ -1520,7 +1520,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemBoostAccuracy()">
+		<c:if condition="itemBoostAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_12"/>
 			<ul>
 				<c:for list="itemsBoostingStat" var="a">
@@ -1530,7 +1530,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemMultAccuracy()">
+		<c:if condition="itemMultAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_13"/>
 			<ul>
 				<c:for list="itemsMultStat" var="a">
@@ -1540,7 +1540,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityMultAccuracy()">
+		<c:if condition="abilityMultAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_14"/>
 			<ul>
 				<c:for list="abilitiesMultStat" var="a">
@@ -1550,7 +1550,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveGlobalMultAccuracy()">
+		<c:if condition="moveGlobalMultAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_15"/>
 			<ul>
 				<c:for list="movesGlobalMultStat" var="a">
@@ -1560,7 +1560,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveTeamMultAccuracy()">
+		<c:if condition="moveTeamMultAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_16"/>
 			<ul>
 				<c:for list="movesTeamMultStat" var="a">
@@ -1570,7 +1570,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityAllyMultAccuracy()">
+		<c:if condition="abilityAllyMultAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_17"/>
 			<ul>
 				<c:for list="abilitiesAllyMultStat" var="a">
@@ -1580,7 +1580,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveFoeTeamMultAccuracy()">
+		<c:if condition="moveFoeTeamMultAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_18"/>
 			<ul>
 				<c:for list="movesFoeTeamMultStat" var="a">
@@ -1590,7 +1590,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="statusMultAccuracy()">
+		<c:if condition="statusMultAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_19"/>
 			<ul>
 				<c:for list="statusMultStat" var="a">
@@ -1599,7 +1599,7 @@
 					</c:if>
 				</c:for>
 			</ul>
-			<c:if condition="abilityImmuMultAccuracy()">
+			<c:if condition="abilityImmuMultAccuracyAny()">
 				<c:message value="msg_helpround,round_process_add_on_7_20"/>
 				<ul>
 					<c:for list="abilitiesImmuMultStat" var="a">
@@ -1610,7 +1610,7 @@
 				</ul>
 			</c:if>
 		</c:if>
-		<c:if condition="comboMultAccuracy()">
+		<c:if condition="comboMultAccuracyAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_21"/>
 			<ul>
 				<c:for list="comboMultStat" var="a">
@@ -1620,7 +1620,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityBoostEvasiness()">
+		<c:if condition="abilityBoostEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_22"/>
 			<ul>
 				<c:for list="abilitiesBoostingStat" var="a">
@@ -1630,7 +1630,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemBoostEvasiness()">
+		<c:if condition="itemBoostEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_23"/>
 			<ul>
 				<c:for list="itemsBoostingStat" var="a">
@@ -1640,7 +1640,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemMultEvasiness()">
+		<c:if condition="itemMultEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_24"/>
 			<ul>
 				<c:for list="itemsMultStat" var="a">
@@ -1650,7 +1650,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityMultEvasiness()">
+		<c:if condition="abilityMultEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_25"/>
 			<ul>
 				<c:for list="abilitiesMultStat" var="a">
@@ -1660,7 +1660,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveGlobalMultEvasiness()">
+		<c:if condition="moveGlobalMultEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_26"/>
 			<ul>
 				<c:for list="movesGlobalMultStat" var="a">
@@ -1670,7 +1670,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveTeamMultEvasiness()">
+		<c:if condition="moveTeamMultEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_27"/>
 			<ul>
 				<c:for list="movesTeamMultStat" var="a">
@@ -1680,7 +1680,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityAllyMultEvasiness()">
+		<c:if condition="abilityAllyMultEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_28"/>
 			<ul>
 				<c:for list="abilitiesAllyMultStat" var="a">
@@ -1690,7 +1690,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveFoeTeamMultEvasiness()">
+		<c:if condition="moveFoeTeamMultEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_29"/>
 			<ul>
 				<c:for list="movesFoeTeamMultStat" var="a">
@@ -1700,7 +1700,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="statusMultEvasiness()">
+		<c:if condition="statusMultEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_30"/>
 			<ul>
 				<c:for list="statusMultStat" var="a">
@@ -1709,7 +1709,7 @@
 					</c:if>
 				</c:for>
 			</ul>
-			<c:if condition="abilityImmuMultEvasiness()">
+			<c:if condition="abilityImmuMultEvasinessAny()">
 				<c:message value="msg_helpround,round_process_add_on_7_31"/>
 				<ul>
 					<c:for list="abilitiesImmuMultStat" var="a">
@@ -1720,7 +1720,7 @@
 				</ul>
 			</c:if>
 		</c:if>
-		<c:if condition="comboMultEvasiness()">
+		<c:if condition="comboMultEvasinessAny()">
 			<c:message value="msg_helpround,round_process_add_on_7_32"/>
 			<ul>
 				<c:for list="comboMultStat" var="a">
@@ -1731,7 +1731,7 @@
 			</ul>
 		</c:if>
 		<h1><c:message value="msg_helpround,round_process_add_on_8"/></h1>
-		<c:if condition="immuChTeamMove()">
+		<c:if condition="immuChTeamMoveAny()">
 			<c:message value="msg_helpround,round_process_add_on_8_1"/>
 			<ul>
 				<c:for list="movesTeam" var="a">
@@ -1757,7 +1757,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityBoostCh()">
+		<c:if condition="abilityBoostChAny()">
 			<c:message value="msg_helpround,round_process_add_on_8_5"/>
 			<ul>
 				<c:for list="abilitiesBoostingStat" var="a">
@@ -1767,7 +1767,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemBoostCh()">
+		<c:if condition="itemBoostChAny()">
 			<c:message value="msg_helpround,round_process_add_on_8_4"/>
 			<ul>
 				<c:for list="itemsBoostingStat" var="a">
@@ -1802,7 +1802,7 @@
 			</ul>
 		</c:if>
 		<h1><c:message value="msg_helpround,round_process_add_on_9"/></h1>
-		<c:if condition="abilityBoostSpeed()">
+		<c:if condition="abilityBoostSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_1"/>
 			<ul>
 				<c:for list="abilitiesBoostingStat" var="a">
@@ -1812,7 +1812,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemBoostSpeed()">
+		<c:if condition="itemBoostSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_2"/>
 			<ul>
 				<c:for list="itemsBoostingStat" var="a">
@@ -1822,7 +1822,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="itemMultSpeed()">
+		<c:if condition="itemMultSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_3"/>
 			<ul>
 				<c:for list="itemsMultStat" var="a">
@@ -1832,7 +1832,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityMultSpeed()">
+		<c:if condition="abilityMultSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_4"/>
 			<ul>
 				<c:for list="abilitiesMultStat" var="a">
@@ -1842,7 +1842,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveGlobalMultSpeed()">
+		<c:if condition="moveGlobalMultSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_5"/>
 			<ul>
 				<c:for list="movesGlobalMultStat" var="a">
@@ -1852,7 +1852,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveTeamMultSpeed()">
+		<c:if condition="moveTeamMultSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_6"/>
 			<ul>
 				<c:for list="movesTeamMultStat" var="a">
@@ -1862,7 +1862,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="abilityAllyMultSpeed()">
+		<c:if condition="abilityAllyMultSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_7"/>
 			<ul>
 				<c:for list="abilitiesAllyMultStat" var="a">
@@ -1872,7 +1872,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="moveFoeTeamMultSpeed()">
+		<c:if condition="moveFoeTeamMultSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_8"/>
 			<ul>
 				<c:for list="movesFoeTeamMultStat" var="a">
@@ -1882,7 +1882,7 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<c:if condition="statusMultSpeed()">
+		<c:if condition="statusMultSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_9"/>
 			<ul>
 				<c:for list="statusMultStat" var="a">
@@ -1891,7 +1891,7 @@
 					</c:if>
 				</c:for>
 			</ul>
-			<c:if condition="abilityImmuMultSpeed()">
+			<c:if condition="abilityImmuMultSpeedAny()">
 				<c:message value="msg_helpround,round_process_add_on_9_10"/>
 				<ul>
 					<c:for list="abilitiesImmuMultStat" var="a">
@@ -1902,7 +1902,7 @@
 				</ul>
 			</c:if>
 		</c:if>
-		<c:if condition="comboMultSpeed()">
+		<c:if condition="comboMultSpeedAny()">
 			<c:message value="msg_helpround,round_process_add_on_9_11"/>
 			<ul>
 				<c:for list="comboMultStat" var="a">

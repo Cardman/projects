@@ -28,7 +28,7 @@ public class EffectEndRoundSingleStatusBean extends EffectEndRoundStatusBean {
     }
 
     @Accessible
-    private String getTrStatus(Long _index) {
+    private String getTrDamageStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -36,7 +36,7 @@ public class EffectEndRoundSingleStatusBean extends EffectEndRoundStatusBean {
     }
 
     @Accessible
-    private String clickStatus(Long _indexOne,Long _indexTwo) {
+    private String clickDamageStatus(Long _indexOne,Long _indexTwo) {
         EffectEndRoundSingleStatus effect_ = (EffectEndRoundSingleStatus) getEffect(_indexOne);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;

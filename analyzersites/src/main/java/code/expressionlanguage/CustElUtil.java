@@ -10,14 +10,19 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.ComparatorOrder;
 import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
+import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PossibleIntermediateDotted;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.MethodId;
 import code.serialize.ConstClasses;
 import code.util.BooleanList;
 import code.util.CustList;
+import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -25,6 +30,7 @@ import code.util.StringMap;
 public class CustElUtil {
 
     public static final StringMap<BooleanList> GETTERS_SETTERS_FIELDS = new StringMap<BooleanList>();
+    public static final EqList<ClassMethodId> CALLS = new EqList<ClassMethodId>();
     private static final String RETURN_LINE = "\n";
     private static final String EMPTY_STRING = "";
 
@@ -63,36 +69,33 @@ public class CustElUtil {
             if (_context.getClasses() == null) {
                 if (e instanceof PossibleIntermediateDotted) {
                     PossibleIntermediateDotted current_ = (PossibleIntermediateDotted)e;
+                    ClassArgumentMatching previous_;
                     if (current_.isIntermediateDottedOperation()) {
-                        ClassArgumentMatching previous_ = current_.getPreviousResultClass();
-                        if (!_get && e == elt_) {
-                            if (e instanceof ConstantOperation) {
-                                String className_ = previous_.getName();
-                                String field_ = e.getOperations().getValues().firstValue();
-                                String key_ = StringList.concat(className_,".",field_);
-                                if (!CustElUtil.GETTERS_SETTERS_FIELDS.contains(key_)) {
-                                    CustElUtil.GETTERS_SETTERS_FIELDS.put(key_, new BooleanList(false));
-                                } else {
-                                    CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).addAllElts(new BooleanList(false));
-                                    CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).removeDuplicates();
-                                }
-                            }
+                        previous_ = current_.getPreviousResultClass();
+                    } else {
+                        previous_ = new ClassArgumentMatching(_context.getLastPage().getGlobalClass());
+                    }
+                    boolean write_ = !_get && e == elt_;
+                    if (e instanceof ConstantOperation) {
+                        String className_ = previous_.getName();
+                        String field_ = e.getOperations().getValues().firstValue();
+                        String key_ = StringList.concat(className_,".",field_);
+                        if (!CustElUtil.GETTERS_SETTERS_FIELDS.contains(key_)) {
+                            CustElUtil.GETTERS_SETTERS_FIELDS.put(key_, new BooleanList(write_));
                         } else {
-                            if (e instanceof ConstantOperation) {
-                                String className_ = previous_.getName();
-                                String field_ = e.getOperations().getValues().firstValue();
-                                String key_ = StringList.concat(className_,".",field_);
-                                if (!CustElUtil.GETTERS_SETTERS_FIELDS.contains(key_)) {
-                                    CustElUtil.GETTERS_SETTERS_FIELDS.put(key_, new BooleanList(true));
-                                } else {
-                                    CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).addAllElts(new BooleanList(true));
-                                    CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).removeDuplicates();
-                                }
-                            }
+                            CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).addAllElts(new BooleanList(write_));
+                            CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).removeDuplicates();
                         }
-//                        if (!previous_.getName().equals("$void") &&previous_.getClazz().getTypeParameters().length > 0) {
-//                            System.out.println(previous_.getName());
-//                        }
+                    }
+                    if (e instanceof FctOperation) {
+                        String className_ = previous_.getName();
+                        String methodName_ = e.getOperations().getFctName();
+                        EqList<ClassName> params_ = new EqList<ClassName>();
+                        for (OperationNode c: getDirectChildren(e)) {
+                            params_.add(new ClassName(c.getResultClass().getName(), false));
+                        }
+                        MethodId mId_ = new MethodId(false, methodName_, params_);
+                        CustElUtil.CALLS.add(new ClassMethodId(className_, mId_));
                     }
                 }
             }

@@ -79,10 +79,10 @@ public final class ResourceFiles {
             }
             return lignes_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             if (_returnNullFail) {
                 return null;
             }
+            _0.printStackTrace();
             return lignes_;
         }
     }
