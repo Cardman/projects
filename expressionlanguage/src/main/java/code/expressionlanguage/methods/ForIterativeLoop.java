@@ -57,7 +57,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         eq = _el.hasAttribute(ATTRIBUTE_EQ);
         String classIndex_ = _el.getAttribute(ATTRIBUTE_CLASS_INDEX);
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasLong();
+            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
         }
         classIndexName = classIndex_;
         setAlwaysSkipped(true);
@@ -77,7 +77,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         eq = _eq;
         String classIndex_ = _classIndex;
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasLong();
+            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
         }
         classIndexName = classIndex_;
         setAlwaysSkipped(true);

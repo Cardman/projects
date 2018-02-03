@@ -117,6 +117,8 @@ public class FormatHtmlLookFor {
     static final String COMMA = ",";
     static final String DOT = ".";
     static final StringList FIELDS_NAMES = new StringList();
+    static final StringList INPUT_CLASSES = new StringList();
+    static final StringList SELECT_CLASSES = new StringList();
 
     static final String TMP_VAR = "tmpvar";
 //    private static final char RIGHT_ARR = ']';
@@ -311,6 +313,7 @@ public class FormatHtmlLookFor {
                         if (className_.isEmpty()) {
                             className_ = Object.class.getName();
                         }
+                        CustElUtil.CLASSES.add(className_);
 //                        String realClass_ = ConstClasses.resolve(className_);
 //                        if (classForName(_conf, 0, realClass_).getTypeParameters().length == 0) {
 //                            String all_ = Templates.getFullTypeByBases(resIterable_, Listable.class.getName(), _conf.toContextEl());
@@ -323,8 +326,9 @@ public class FormatHtmlLookFor {
                         String indexClassName_;
                         indexClassName_ = elt_.getAttribute(ATTRIBUTE_INDEX_CLASS_NAME);
                         if (indexClassName_.isEmpty()) {
-                            indexClassName_ = _conf.getStandards().getAliasLong();
+                            indexClassName_ = _conf.getStandards().getAliasPrimLong();
                         }
+                        CustElUtil.CLASSES.add(indexClassName_);
                         lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
                         String key_ = elt_.getAttribute(ATTRIBUTE_VAR);
                         varsLoop_.put(key_, lv_);
@@ -334,14 +338,16 @@ public class FormatHtmlLookFor {
                         String indexClassName_;
                         indexClassName_ = elt_.getAttribute(ATTRIBUTE_INDEX_CLASS_NAME);
                         if (indexClassName_.isEmpty()) {
-                            indexClassName_ = _conf.getStandards().getAliasLong();
+                            indexClassName_ = _conf.getStandards().getAliasPrimLong();
                         }
+                        CustElUtil.CLASSES.add(indexClassName_);
                         LoopVariable lv_ = new LoopVariable();
                         String className_ = elt_.getAttribute(KEY_CLASS_NAME_ATTRIBUTE);
                         ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
                         if (className_.isEmpty()) {
                             className_ = Object.class.getName();
                         }
+                        CustElUtil.CLASSES.add(className_);
                         lv_.setClassName(ConstClasses.resolve(className_));
 //                        String realClass_ = ConstClasses.resolve(className_);
 //                        if (classForName(_conf, 0, realClass_).getTypeParameters().length == 0) {
@@ -363,6 +369,7 @@ public class FormatHtmlLookFor {
                         if (className_.isEmpty()) {
                             className_ = Object.class.getName();
                         }
+                        CustElUtil.CLASSES.add(className_);
 //                        realClass_ = ConstClasses.resolve(className_);
 //                        if (classForName(_conf, 0, realClass_).getTypeParameters().length == 0) {
 //                            String all_ = Templates.getFullTypeByBases(resIterable_, ListableEntries.class.getName(), _conf.toContextEl());
@@ -408,6 +415,9 @@ public class FormatHtmlLookFor {
                         ip_.setLookForAttrValue(true);
                         ip_.setOffset(0);
                         CustElUtil.processAnalyzeEl(mapAttr_, 0, _conf.toContextEl());
+                        String class_ = elt_.getAttribute(ATTRIBUTE_CLASS_NAME);
+                        SELECT_CLASSES.add(class_);
+                        //TODO name
                         //System.out.println(CustElUtil.processAnalyzeEl(mapAttr_, 0, _conf.toContextEl()));
                     }
                     String name_ = elt_.getAttribute(ATTRIBUTE_NAME);
@@ -1412,6 +1422,10 @@ public class FormatHtmlLookFor {
         }
         //        System.out.println("end:"+CustElUtil.processAnalyzeEl(end_, 0, _conf.toContextEl()));
         _ip.setGlobalClass(current_);
+        String class_ = _input.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
+        if (!class_.isEmpty()) {
+            INPUT_CLASSES.add(class_);
+        }
     }
 
 

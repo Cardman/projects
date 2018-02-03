@@ -52,6 +52,7 @@ public class BeanLgNames extends LgNames {
     private final String custEntries = "$custentries";
     private final String validator = "code.bean.validator.Validator";
     private final String bean = "code.bean.Bean";
+    private String selectedBoolean;
     private String aliasRate;
     private String aliasDataBase;
 
@@ -123,6 +124,9 @@ public class BeanLgNames extends LgNames {
         cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
         cl_.setIterative(custEntry);
         getStandards().put(custEntries, cl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        cl_ = new StandardClass(selectedBoolean, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        getStandards().put(selectedBoolean, cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(custEntry, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
@@ -392,6 +396,14 @@ public class BeanLgNames extends LgNames {
             res_.setResult(new StringStruct(((SelectedBoolean)_instance.getInstance()).name()));
             return res_;
         }
+        if (_instance.getInstance() instanceof String) {
+            res_.setResult(new StringStruct((String)_instance.getInstance()));
+            return res_;
+        }
+        if (_instance.getInstance() instanceof Number) {
+            res_.setResult(new StringStruct(_instance.getInstance().toString()));
+            return res_;
+        }
         return getOtherName(_cont, _instance);
     }
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
@@ -409,6 +421,12 @@ public class BeanLgNames extends LgNames {
         aliasRate = _aliasRate;
     }
 
+    public String getSelectedBoolean() {
+        return selectedBoolean;
+    }
+    public void setSelectedBoolean(String _selectedBoolean) {
+        selectedBoolean = _selectedBoolean;
+    }
     public String getAliasDataBase() {
         return aliasDataBase;
     }

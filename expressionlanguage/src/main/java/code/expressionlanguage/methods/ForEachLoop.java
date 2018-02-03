@@ -50,7 +50,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
         String classIndex_ = _el.getAttribute(ATTRIBUTE_CLASS_INDEX);
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasLong();
+            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
         }
         classIndexName = classIndex_;
         setAlwaysSkipped(true);
@@ -66,7 +66,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         expression = _expression;
         String classIndex_ = _classIndex;
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasLong();
+            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
         }
         classIndexName = classIndex_;
         setAlwaysSkipped(true);

@@ -4034,7 +4034,7 @@ public final class FormatHtml {
         String indexClassName_;
         indexClassName_ = currentForNode_.getAttribute(ATTRIBUTE_INDEX_CLASS_NAME);
         if (indexClassName_.isEmpty()) {
-            indexClassName_ = _conf.getStandards().getAliasLong();
+            indexClassName_ = _conf.getStandards().getAliasPrimLong();
         }
         ExtractObject.checkClassNotEmptyName(_conf, 0, indexClassName_);
         String className_;

@@ -27,6 +27,7 @@ import code.util.StringMap;
 public final class PresidentStandards extends BeanLgNames {
 
     public PresidentStandards() {
+        setSelectedBoolean("sb");
         DefaultInitialization.basicStandards(this);
     }
     @Override

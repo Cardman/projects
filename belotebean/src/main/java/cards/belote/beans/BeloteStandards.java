@@ -28,6 +28,7 @@ import code.util.StringMap;
 public final class BeloteStandards extends BeanLgNames {
 
     public BeloteStandards() {
+        setSelectedBoolean("sb");
         DefaultInitialization.basicStandards(this);
     }
     @Override

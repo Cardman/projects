@@ -13,6 +13,7 @@ public final class InitializationLgNames {
         BeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.setContext(_cont);
         _cont.setStandards(lgNames_);
+        lgNames_.setSelectedBoolean("sb");
         lgNames_.setAliasRate("java.lang.Long");
         basicStandards(lgNames_);
         lgNames_.build();

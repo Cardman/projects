@@ -31,6 +31,7 @@ import code.util.StringMap;
 
 public final class TarotStandards extends BeanLgNames {
     public TarotStandards() {
+        setSelectedBoolean("sb");
         DefaultInitialization.basicStandards(this);
     }
     @Override

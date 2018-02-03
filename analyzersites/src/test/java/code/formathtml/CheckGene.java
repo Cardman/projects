@@ -132,6 +132,19 @@ public class CheckGene {
             System.out.println(e);
         }
     }
+    @Test
+    public void readSrcFiles() {
+        String folder = "C:/Users/cardman/git/pokemonbean/src/main/java";
+        for (String f: StreamTextFile.allSortedFiles(folder)) {
+            if (!f.endsWith(".java")) {
+                continue;
+            }
+            String content_ = StreamTextFile.contentsOfFile(f);
+            //convert file and add getters and setters
+            Converter.convertFile(content_, CustElUtil.GETTERS_SETTERS_FIELDS);
+        }
+        //add standards
+    }
     @Ignore
     @Test
     public void confCardsTest() {

@@ -31,6 +31,7 @@ public class CustElUtil {
 
     public static final StringMap<BooleanList> GETTERS_SETTERS_FIELDS = new StringMap<BooleanList>();
     public static final EqList<ClassMethodId> CALLS = new EqList<ClassMethodId>();
+    public static final StringList CLASSES = new StringList();
     private static final String RETURN_LINE = "\n";
     private static final String EMPTY_STRING = "";
 
@@ -66,6 +67,7 @@ public class CustElUtil {
         }
         for (OperationNode e: _nodes) {
             e.setStaticBlock(_staticBlock);
+            e.analyze(_nodes, _context, _fieldName, _op);
             if (_context.getClasses() == null) {
                 if (e instanceof PossibleIntermediateDotted) {
                     PossibleIntermediateDotted current_ = (PossibleIntermediateDotted)e;
@@ -86,6 +88,7 @@ public class CustElUtil {
                             CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).addAllElts(new BooleanList(write_));
                             CustElUtil.GETTERS_SETTERS_FIELDS.getVal(key_).removeDuplicates();
                         }
+                        CustElUtil.CLASSES.add(className_);
                     }
                     if (e instanceof FctOperation) {
                         String className_ = previous_.getName();
@@ -95,11 +98,12 @@ public class CustElUtil {
                             params_.add(new ClassName(c.getResultClass().getName(), false));
                         }
                         MethodId mId_ = new MethodId(false, methodName_, params_);
+                        CustElUtil.CLASSES.add(className_);
                         CustElUtil.CALLS.add(new ClassMethodId(className_, mId_));
                     }
+                    CustElUtil.CLASSES.add(e.getResultClass().getName());
                 }
             }
-            e.analyze(_nodes, _context, _fieldName, _op);
         }
     }
 //
