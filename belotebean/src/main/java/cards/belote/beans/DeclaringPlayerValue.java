@@ -7,19 +7,19 @@ final class DeclaringPlayerValue{
 
     private int value;
 
-    public String getDeclaring() {
+    String getDeclaring() {
         return declaring;
     }
 
-    public void setDeclaring(String _declaring) {
+    void setDeclaring(String _declaring) {
         declaring = _declaring;
     }
 
-    public int getValue() {
+    int getValue() {
         return value;
     }
 
-    public void setValue(int _value) {
+    void setValue(int _value) {
         value = _value;
     }
 

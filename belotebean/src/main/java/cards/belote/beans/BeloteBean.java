@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 
-public abstract class BeloteBean extends Bean {
+abstract class BeloteBean extends Bean {
 
     private BidBeloteSuit bid;
 
@@ -21,7 +21,7 @@ public abstract class BeloteBean extends Bean {
 
     private String loc;
 
-    public final boolean playGame() {
+    protected final boolean playGame() {
         return getBid().jouerDonne();
     }
 
@@ -33,7 +33,7 @@ public abstract class BeloteBean extends Bean {
         game = _game;
     }
 
-    public final StringList getNicknames() {
+    protected final StringList getNicknames() {
         return nicknames;
     }
 
@@ -41,7 +41,7 @@ public abstract class BeloteBean extends Bean {
         nicknames = _nicknames;
     }
 
-    public final CustList<Numbers<Long>> getScores() {
+    protected final CustList<Numbers<Long>> getScores() {
         return scores;
     }
 

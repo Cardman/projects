@@ -5,7 +5,6 @@ import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.bean.Accessible;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -14,7 +13,7 @@ import code.util.Numbers;
 import code.util.StringList;
 
 
-public final class DetailsResultsTarotBean extends TarotBean {
+final class DetailsResultsTarotBean extends TarotBean {
 
     private static final String ZERO = "0";
 
@@ -25,35 +24,35 @@ public final class DetailsResultsTarotBean extends TarotBean {
     private static final String EMPTY_STRING = "";
 
     private byte joueurPetitAuBout = -1;
-    @Accessible
+
     private short differenceScoreTaker;
-    @Accessible
+
     private short basePoints;
-    @Accessible
+
     private int rate;
-    @Accessible
+
     private String small;
-    @Accessible
+
     private String playerSmall;
-    @Accessible
+
     private int multipliedTmp;
-    @Accessible
+
     private int sumPlayers;
-    @Accessible
+
     private CustList<SumDeclaringPlayer> linesDeclaring;
-    @Accessible
+
     private CustList<ScoresPlayers> playersScores;
-    @Accessible
+
     private int additionnalBonusesAttack;
-    @Accessible
+
     private int additionnalBonusesDefense;
-    @Accessible
+
     private int diffAttackDefenseBonuses;
-    @Accessible
+
     private CustList<RankingPlayerVariantGame> orderedPlayers;
-    @Accessible
+
     private CustList<PointsPlayerVariantGame> pointsPlayers;
-    @Accessible
+
     private CustList<BonusesPlayers> bonuses;
 
     @Override
@@ -222,4 +221,69 @@ public final class DetailsResultsTarotBean extends TarotBean {
             }
         }
     }
+
+    byte getJoueurPetitAuBout() {
+        return joueurPetitAuBout;
+    }
+
+    short getDifferenceScoreTaker() {
+        return differenceScoreTaker;
+    }
+
+    short getBasePoints() {
+        return basePoints;
+    }
+
+    int getRate() {
+        return rate;
+    }
+
+    String getSmall() {
+        return small;
+    }
+
+    String getPlayerSmall() {
+        return playerSmall;
+    }
+
+    int getMultipliedTmp() {
+        return multipliedTmp;
+    }
+
+    int getSumPlayers() {
+        return sumPlayers;
+    }
+
+    CustList<SumDeclaringPlayer> getLinesDeclaring() {
+        return linesDeclaring;
+    }
+
+    CustList<ScoresPlayers> getPlayersScores() {
+        return playersScores;
+    }
+
+    int getAdditionnalBonusesAttack() {
+        return additionnalBonusesAttack;
+    }
+
+    int getAdditionnalBonusesDefense() {
+        return additionnalBonusesDefense;
+    }
+
+    int getDiffAttackDefenseBonuses() {
+        return diffAttackDefenseBonuses;
+    }
+
+    CustList<RankingPlayerVariantGame> getOrderedPlayers() {
+        return orderedPlayers;
+    }
+
+    CustList<PointsPlayerVariantGame> getPointsPlayers() {
+        return pointsPlayers;
+    }
+
+    CustList<BonusesPlayers> getBonuses() {
+        return bonuses;
+    }
+
 }

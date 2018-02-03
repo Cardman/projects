@@ -1,32 +1,30 @@
 package cards.tarot.beans;
-import code.bean.Accessible;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.TreeMap;
-import code.util.consts.Constants;
 import cards.tarot.RulesTarot;
 import cards.tarot.comparators.AllowedHandfulDefaultComparator;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.util.EntryCust;
+import code.util.EnumList;
+import code.util.TreeMap;
+import code.util.consts.Constants;
 
 public final class RulesTarotBean extends TarotBean {
 
-    @Accessible
     private String cartesBattues;
-    @Accessible
+
     private EnumList<Miseres> miseres=new EnumList<Miseres>();
-    @Accessible
+
     private EnumList<BidTarot> contrats;
-    @Accessible
+
     private String mode;
-    @Accessible
+
     private String repartition;
-    @Accessible
+
     private TreeMap<Handfuls,Integer> poigneesAutorisees;
-    @Accessible
+
     private String finPartieTarot;
-    @Accessible
+
     private boolean discardAfterCall = true;
 
     @Override
@@ -49,7 +47,39 @@ public final class RulesTarotBean extends TarotBean {
         discardAfterCall = rules_.getDiscardAfterCall();
     }
 
-//    @Accessible
+    String getCartesBattues() {
+        return cartesBattues;
+    }
+
+    EnumList<Miseres> getMiseres() {
+        return miseres;
+    }
+
+    EnumList<BidTarot> getContrats() {
+        return contrats;
+    }
+
+    String getMode() {
+        return mode;
+    }
+
+    String getRepartition() {
+        return repartition;
+    }
+
+    TreeMap<Handfuls, Integer> getPoigneesAutorisees() {
+        return poigneesAutorisees;
+    }
+
+    String getFinPartieTarot() {
+        return finPartieTarot;
+    }
+
+    boolean isDiscardAfterCall() {
+        return discardAfterCall;
+    }
+
+//
 //    private List<Handfuls> handfuls() {
 //        List<Handfuls> list_ = new List<>(poigneesAutorisees.getKeys());
 //        RulesTarot rules_ = (RulesTarot) getDataBase();

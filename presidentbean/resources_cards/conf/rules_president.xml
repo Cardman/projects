@@ -11,6 +11,7 @@
 	</sm>
 	<sm class="cfg" field="navigation"/>
 	<java.lang.String class="cfg" field="messagesFolder" value="resources_cards/messages"/>
+	<java.lang.String class="cfg" field="dataBaseClassName" value="RulesPresident"/>
 	<sm class="cfg" field="properties">
 		<java.lang.String class="m" key="" value="msg"/>
 		<java.lang.String class="m" value="messages_president"/>

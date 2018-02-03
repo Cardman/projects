@@ -63,6 +63,7 @@ import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
+import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 
@@ -605,7 +606,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }

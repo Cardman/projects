@@ -1,35 +1,26 @@
 package cards.belote.beans;
-import code.bean.Accessible;
-import code.util.EnumList;
-import code.util.consts.Constants;
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
+import code.util.EnumList;
+import code.util.consts.Constants;
 
-public final class RulesBeloteBean extends BeloteBean {
+final class RulesBeloteBean extends BeloteBean {
 
-    @Accessible
     private String cartesBattues;
 
-    @Accessible
     private boolean dealAll;
 
-    @Accessible
     private EnumList<DeclaresBelote> annoncesAutorisees = new EnumList<DeclaresBelote>();
 
-    @Accessible
     private boolean sousCoupeAdv;
 
-    @Accessible
     private String gestionCoupePartenaire;
 
-    @Accessible
     private EnumList<BidBelote> encheresAutorisees = new EnumList<BidBelote>();
 
-    @Accessible
     private String repartition;
 
-    @Accessible
     private boolean comptePointsClassique=true;
 
     @Override
@@ -47,5 +38,37 @@ public final class RulesBeloteBean extends BeloteBean {
         encheresAutorisees = rules_.getListeEncheresAutorisees();
         repartition = rules_.getRepartition().toString(Constants.getLanguage());
         comptePointsClassique = rules_.getComptePointsClassique();
+    }
+
+    String getCartesBattues() {
+        return cartesBattues;
+    }
+
+    boolean isDealAll() {
+        return dealAll;
+    }
+
+    EnumList<DeclaresBelote> getAnnoncesAutorisees() {
+        return annoncesAutorisees;
+    }
+
+    boolean isSousCoupeAdv() {
+        return sousCoupeAdv;
+    }
+
+    String getGestionCoupePartenaire() {
+        return gestionCoupePartenaire;
+    }
+
+    EnumList<BidBelote> getEncheresAutorisees() {
+        return encheresAutorisees;
+    }
+
+    String getRepartition() {
+        return repartition;
+    }
+
+    boolean isComptePointsClassique() {
+        return comptePointsClassique;
     }
 }

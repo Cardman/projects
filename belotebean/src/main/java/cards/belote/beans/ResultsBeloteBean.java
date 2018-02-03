@@ -1,49 +1,37 @@
 package cards.belote.beans;
-import code.bean.Accessible;
+import cards.belote.ResultsBelote;
+import cards.consts.EndGameState;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
-import cards.belote.ResultsBelote;
-import cards.consts.EndGameState;
 
 
-public final class ResultsBeloteBean extends BeloteBean {
+final class ResultsBeloteBean extends BeloteBean {
 
     private int capotAttaque;
 
-    @Accessible
     private int pointsAttaqueSansPrime;
 
-    @Accessible
     private int pointsAttaqueTemporaire;
 
-    @Accessible
     private int pointsAttaqueDefinitif;
 
-    @Accessible
     private int pointsDefenseSansPrime;
 
-    @Accessible
     private int pointsDefenseTemporaire;
 
-    @Accessible
     private int pointsDefenseDefinitif;
 
     private EndGameState winEqualityLoose;
 
-    @Accessible
     private String takerNickname;
 
-    @Accessible
     private StringList calledPlayersList;
 
-    @Accessible
     private String bidString;
 
-    @Accessible
     private int differenceScoreTaker;
 
-    @Accessible
     private CustList<LineDeal> linesDeal;
 
     @Override
@@ -90,79 +78,79 @@ public final class ResultsBeloteBean extends BeloteBean {
         }
     }
 
-    public boolean win() {
+    boolean win() {
         return winEqualityLoose == EndGameState.WIN;
     }
 
-    public boolean equality() {
+    boolean equality() {
         return winEqualityLoose == EndGameState.EQUALLITY;
     }
 
-    public boolean loose() {
+    boolean loose() {
         return winEqualityLoose == EndGameState.LOOSE;
     }
 
-    public boolean successfulBid() {
+    boolean successfulBid() {
         return differenceScoreTaker > 0;
     }
 
-    public boolean midBid() {
+    boolean midBid() {
         return differenceScoreTaker == 0;
     }
 
-    public boolean failedBid() {
+    boolean failedBid() {
         return differenceScoreTaker < 0;
     }
 
-    public int absoluteDiff() {
+    int absoluteDiff() {
         return Math.abs(differenceScoreTaker);
     }
 
-    public boolean slam() {
+    boolean slam() {
         return capotAttaque > 0;
     }
 
-    public int getPointsAttaqueSansPrime() {
+    int getPointsAttaqueSansPrime() {
         return pointsAttaqueSansPrime;
     }
 
-    public int getPointsAttaqueTemporaire() {
+    int getPointsAttaqueTemporaire() {
         return pointsAttaqueTemporaire;
     }
 
-    public int getPointsAttaqueDefinitif() {
+    int getPointsAttaqueDefinitif() {
         return pointsAttaqueDefinitif;
     }
 
-    public int getPointsDefenseSansPrime() {
+    int getPointsDefenseSansPrime() {
         return pointsDefenseSansPrime;
     }
 
-    public int getPointsDefenseTemporaire() {
+    int getPointsDefenseTemporaire() {
         return pointsDefenseTemporaire;
     }
 
-    public int getPointsDefenseDefinitif() {
+    int getPointsDefenseDefinitif() {
         return pointsDefenseDefinitif;
     }
 
-    public String getTakerNickname() {
+    String getTakerNickname() {
         return takerNickname;
     }
 
-    public StringList getCalledPlayersList() {
+    StringList getCalledPlayersList() {
         return calledPlayersList;
     }
 
-    public String getBidString() {
+    String getBidString() {
         return bidString;
     }
 
-    public int getDifferenceScoreTaker() {
+    int getDifferenceScoreTaker() {
         return differenceScoreTaker;
     }
 
-    public CustList<LineDeal> getLinesDeal() {
+    CustList<LineDeal> getLinesDeal() {
         return linesDeal;
     }
 

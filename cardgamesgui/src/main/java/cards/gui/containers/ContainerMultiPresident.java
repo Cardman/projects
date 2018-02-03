@@ -17,17 +17,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.SessionEditorPane;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.comparators.ComparatorBoolean;
-import code.util.consts.Constants;
 import cards.consts.GameType;
 import cards.facade.enumerations.GameEnum;
 import cards.gameresults.ResultsGame;
@@ -71,7 +60,19 @@ import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import cards.president.TricksHandsPresident;
+import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.Playing;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.gui.NumComboBox;
+import code.gui.SessionEditorPane;
+import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.comparators.ComparatorBoolean;
+import code.util.consts.Constants;
 
 public class ContainerMultiPresident extends ContainerPresident implements
         ContainerMulti {
@@ -156,7 +157,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor.setLanguage(Constants.getLanguage());
             editor.setDataBase(rulesPresidentMulti);
-            editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
+            editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
@@ -659,7 +660,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }

@@ -1,56 +1,51 @@
 package cards.tarot.beans;
-import code.bean.Accessible;
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.StringList;
 import cards.consts.EndGameState;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.StringList;
 
-public final class ResultsTarotBean extends TarotBean {
+final class ResultsTarotBean extends TarotBean {
 
     private static final String EMPTY_STRING = "";
 
-    @Accessible
     private short basePoints;
-    @Accessible
+
     private short scoreTaker;
-    @Accessible
+
     private short differenceScoreTaker;
-    @Accessible
+
     private String taker;
 
-    @Accessible
     private short additionnalBonusesAttack;
-    @Accessible
+
     private short additionnalBonusesDefense;
-    @Accessible
+
     private short scoreTakerWithoutDeclaring;
-    @Accessible
+
     private short needlyScoresTaker;
 
-    @Accessible
     private short maxDoubledDifference;
-    @Accessible
+
     private short maxDifference;
 
     private EndGameState winEqualityLoose;
-    @Accessible
+
     private byte numberOudlersTaker;
-    @Accessible
+
     private StringList calledPlayers;
-    @Accessible
+
     private StringList calledCardsList;
-    @Accessible
+
     private String aloneTrumpAcePlayer;
-    @Accessible
+
     private short initialUserPosition;
-    @Accessible
+
     private short finalUserPosition;
 
-    @Accessible
     private CustList<LineDeal> linesDeal;
 
     @Override
@@ -148,79 +143,136 @@ public final class ResultsTarotBean extends TarotBean {
         }
     }
 
-    @Accessible
-    private boolean win() {
+    boolean win() {
         return winEqualityLoose == EndGameState.WIN;
     }
 
-    @Accessible
-    private boolean equality() {
+    boolean equality() {
         return winEqualityLoose == EndGameState.EQUALLITY;
     }
 
-    @Accessible
-    private boolean loose() {
+    boolean loose() {
         return winEqualityLoose == EndGameState.LOOSE;
     }
 
-    @Accessible
-    private boolean successfulBid() {
+    boolean successfulBid() {
         return differenceScoreTaker > 0;
     }
 
-    @Accessible
-    private boolean midBid() {
+    boolean midBid() {
         return differenceScoreTaker == 0;
     }
 
-    @Accessible
-    private boolean failedBid() {
+    boolean failedBid() {
         return differenceScoreTaker < 0;
     }
 
-    @Accessible
-    private int absoluteDiff() {
+    int absoluteDiff() {
         return Math.abs(differenceScoreTaker);
     }
 
-    @Accessible
-    private String bidString() {
+    String bidString() {
         return getBid().toString(getLoc());
     }
 
-    @Accessible
-    private boolean successfulDeclaredSlamAttack() {
+    boolean successfulDeclaredSlamAttack() {
         return additionnalBonusesAttack == BonusTarot.SLAM.getPoints();
     }
 
-    @Accessible
-    private boolean successfulNoDeclaredSlamAttack() {
+    boolean successfulNoDeclaredSlamAttack() {
         return additionnalBonusesAttack != BonusTarot.SLAM.getPoints()
                 && additionnalBonusesAttack > 0;
     }
 
-    @Accessible
-    private boolean successfulSlamAttack() {
+    boolean successfulSlamAttack() {
         return additionnalBonusesAttack > 0;
     }
 
-    @Accessible
-    private boolean failedSlamAttack() {
+    boolean failedSlamAttack() {
         return additionnalBonusesAttack < 0;
     }
 
-    @Accessible
-    private boolean noSlamAttack() {
+    boolean noSlamAttack() {
         return additionnalBonusesAttack == 0;
     }
 
-    @Accessible
-    private boolean noSlamDefense() {
+    boolean noSlamDefense() {
         return additionnalBonusesDefense == 0;
     }
 
-    @Accessible
-    private boolean slamDefense() {
+    boolean slamDefense() {
         return additionnalBonusesDefense > 0;
+    }
+
+    short getBasePoints() {
+        return basePoints;
+    }
+
+    short getScoreTaker() {
+        return scoreTaker;
+    }
+
+    short getDifferenceScoreTaker() {
+        return differenceScoreTaker;
+    }
+
+    String getTaker() {
+        return taker;
+    }
+
+    short getAdditionnalBonusesAttack() {
+        return additionnalBonusesAttack;
+    }
+
+    short getAdditionnalBonusesDefense() {
+        return additionnalBonusesDefense;
+    }
+
+    short getScoreTakerWithoutDeclaring() {
+        return scoreTakerWithoutDeclaring;
+    }
+
+    short getNeedlyScoresTaker() {
+        return needlyScoresTaker;
+    }
+
+    short getMaxDoubledDifference() {
+        return maxDoubledDifference;
+    }
+
+    short getMaxDifference() {
+        return maxDifference;
+    }
+
+    EndGameState getWinEqualityLoose() {
+        return winEqualityLoose;
+    }
+
+    byte getNumberOudlersTaker() {
+        return numberOudlersTaker;
+    }
+
+    StringList getCalledPlayers() {
+        return calledPlayers;
+    }
+
+    StringList getCalledCardsList() {
+        return calledCardsList;
+    }
+
+    String getAloneTrumpAcePlayer() {
+        return aloneTrumpAcePlayer;
+    }
+
+    short getInitialUserPosition() {
+        return initialUserPosition;
+    }
+
+    short getFinalUserPosition() {
+        return finalUserPosition;
+    }
+
+    CustList<LineDeal> getLinesDeal() {
+        return linesDeal;
     }
 }

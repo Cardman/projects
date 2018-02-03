@@ -76,7 +76,7 @@ public class CustElUtil {
                         previous_ = new ClassArgumentMatching(_context.getLastPage().getGlobalClass());
                     }
                     boolean write_ = !_get && e == elt_;
-                    if (e instanceof ConstantOperation) {
+                    if (e instanceof ConstantOperation && e.getOperations().getConstType() == ConstType.WORD) {
                         String className_ = previous_.getName();
                         String field_ = e.getOperations().getValues().firstValue();
                         String key_ = StringList.concat(className_,".",field_);

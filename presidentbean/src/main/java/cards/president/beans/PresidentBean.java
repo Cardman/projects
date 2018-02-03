@@ -1,30 +1,23 @@
 package cards.president.beans;
-import code.bean.Accessible;
+import cards.president.GamePresident;
+import cards.president.ResultsPresident;
 import code.bean.Bean;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
-import cards.president.GamePresident;
-import cards.president.ResultsPresident;
 
-public final class PresidentBean extends Bean {
+final class PresidentBean extends Bean {
 
-    @Accessible
     private GamePresident game;
 
-    @Accessible
     private StringList nicknames;
 
-    @Accessible
     private CustList<Numbers<Long>> scores;
 
-    @Accessible
     private byte user;
 
-    @Accessible
     private String loc;
 
-    @Accessible
     private CustList<LineDeal> linesDeal;
 
     @Override
@@ -50,48 +43,51 @@ public final class PresidentBean extends Bean {
         }
     }
 
-    public GamePresident getGame() {
+    GamePresident getGame() {
         return game;
     }
 
-    public void setGame(GamePresident _game) {
+    void setGame(GamePresident _game) {
         game = _game;
     }
 
-    public StringList getNicknames() {
+    StringList getNicknames() {
         return nicknames;
     }
 
-    public void setNicknames(StringList _nicknames) {
+    void setNicknames(StringList _nicknames) {
         nicknames = _nicknames;
     }
 
-    public CustList<Numbers<Long>> getScores() {
+    CustList<Numbers<Long>> getScores() {
         return scores;
     }
 
-    public void setScores(CustList<Numbers<Long>> _scores) {
+    void setScores(CustList<Numbers<Long>> _scores) {
         scores = _scores;
     }
 
-    public byte getUser() {
+    byte getUser() {
         return user;
     }
 
-    public void setUser(byte _user) {
+    void setUser(byte _user) {
         user = _user;
     }
 
-    public String getLoc() {
+    String getLoc() {
         return loc;
     }
 
-    public void setLoc(String _loc) {
+    void setLoc(String _loc) {
         loc = _loc;
     }
 
-    @Accessible
-    protected ResultsPresident getResults() {
+    CustList<LineDeal> getLinesDeal() {
+        return linesDeal;
+    }
+
+    ResultsPresident getResults() {
         return (ResultsPresident) getDataBase();
     }
 }

@@ -1,43 +1,31 @@
 package cards.president.beans;
-import code.bean.Accessible;
-import code.bean.Bean;
-import code.util.consts.Constants;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
+import code.bean.Bean;
+import code.util.consts.Constants;
 
-public final class RulesPresidentBean extends Bean {
+final class RulesPresidentBean extends Bean {
 
-    @Accessible
     private String cartesBattues;
 
-    @Accessible
     private int nbPlayers = 4;
 
-    @Accessible
     private int nbStacks = 1;
 
-    @Accessible
     private String equalty = "";
 
-    @Accessible
     private boolean possibleReversing;
 
-    @Accessible
     private boolean hasToPlay;
 
-    @Accessible
     private boolean loosingIfFinishByBestCards = true;
 
-    @Accessible
     private boolean switchCards = true;
 
-    @Accessible
     private boolean looserStartsFirst = true;
 
-    @Accessible
     private byte nbCardsPerPlayerMin;
 
-    @Accessible
     private byte nbCardsPerPlayerMax;
 
     @Override
@@ -60,8 +48,52 @@ public final class RulesPresidentBean extends Bean {
         }
     }
 
-    @Accessible
-    private boolean sameAmount() {
+    boolean sameAmount() {
         return nbCardsPerPlayerMin == nbCardsPerPlayerMax;
     }
+
+    String getCartesBattues() {
+        return cartesBattues;
+    }
+
+    int getNbPlayers() {
+        return nbPlayers;
+    }
+
+    int getNbStacks() {
+        return nbStacks;
+    }
+
+    String getEqualty() {
+        return equalty;
+    }
+
+    boolean isPossibleReversing() {
+        return possibleReversing;
+    }
+
+    boolean isHasToPlay() {
+        return hasToPlay;
+    }
+
+    boolean isLoosingIfFinishByBestCards() {
+        return loosingIfFinishByBestCards;
+    }
+
+    boolean isSwitchCards() {
+        return switchCards;
+    }
+
+    boolean isLooserStartsFirst() {
+        return looserStartsFirst;
+    }
+
+    byte getNbCardsPerPlayerMin() {
+        return nbCardsPerPlayerMin;
+    }
+
+    byte getNbCardsPerPlayerMax() {
+        return nbCardsPerPlayerMax;
+    }
+
 }

@@ -14,6 +14,8 @@ import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
+import code.formathtml.DefaultInitialization;
+import code.formathtml.util.BeanLgNames;
 import code.gui.ChildFrame;
 import code.gui.LabelButton;
 import code.gui.SessionEditorPane;
@@ -238,7 +240,9 @@ public final class FrameGeneralHelp extends ChildFrame {
 //            editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
         editor.setLanguage(Constants.getLanguage());
-        editor.initialize(racineBis.getFile());
+        BeanLgNames bean_ = new BeanLgNames();
+        DefaultInitialization.basicStandards(bean_);
+        editor.initialize(racineBis.getFile(), bean_);
         if (field == null) {
             field = new JTextField(20);
 //                search = new LabelButton(MainWindow.OK);

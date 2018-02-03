@@ -1,5 +1,7 @@
 package cards.belote.beans;
 
+import cards.belote.enumerations.BidBelote;
+import cards.belote.enumerations.DeclaresBelote;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ClassField;
@@ -43,9 +45,6 @@ public final class BeloteStandards extends BeanLgNames {
         constructors_ = new CustList<StandardConstructor>();
         std_ = new StandardClass("cards.belote.beans.BeloteBean", fields_, constructors_, methods_, "code.bean.Bean", MethodModifier.ABSTRACT);
         StringList params_;
-        params_ = new StringList();
-        method_ = new StandardMethod("beforeDisplaying", params_, getAliasVoid(), false, MethodModifier.NORMAL,std_);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod("playGame", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
@@ -125,6 +124,41 @@ public final class BeloteStandards extends BeanLgNames {
         fields_.put("number", new StandardField("number", getAliasPrimInteger(), false, false, std_));
         fields_.put("scores", new StandardField("scores", getCustList(), false, false, std_));
         getStandards().put("cards.belote.beans.LineDeal", std_);
+        fields_ = new StringMap<StandardField>();
+        constructors_ = new CustList<StandardConstructor>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass("cards.belote.beans.RulesBeloteBean", fields_, constructors_, methods_, "cards.belote.beans.BeloteBean", MethodModifier.NORMAL);
+        fields_.put("cartesBattues", new StandardField("cartesBattues", getAliasString(), false, false, std_));
+        fields_.put("dealAll", new StandardField("dealAll", getAliasPrimBoolean(), false, false, std_));
+        fields_.put("annoncesAutorisees", new StandardField("annoncesAutorisees", getCustList(), false, false, std_));
+        fields_.put("encheresAutorisees", new StandardField("encheresAutorisees", getCustList(), false, false, std_));
+        fields_.put("sousCoupeAdv", new StandardField("sousCoupeAdv", getAliasPrimBoolean(), false, false, std_));
+        fields_.put("gestionCoupePartenaire", new StandardField("gestionCoupePartenaire", getAliasString(), false, false, std_));
+        fields_.put("repartition", new StandardField("repartition", getAliasString(), false, false, std_));
+        fields_.put("comptePointsClassique", new StandardField("comptePointsClassique", getAliasPrimBoolean(), false, false, std_));
+        getStandards().put("cards.belote.beans.RulesBeloteBean", std_);
+        fields_ = new StringMap<StandardField>();
+        constructors_ = new CustList<StandardConstructor>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass("$BidBelote", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        std_.getDirectInterfaces().add(getAliasDisplayable());
+        getStandards().put("$BidBelote", std_);
+        fields_ = new StringMap<StandardField>();
+        constructors_ = new CustList<StandardConstructor>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass("$DeclaresBelote", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        std_.getDirectInterfaces().add(getAliasDisplayable());
+        getStandards().put("$DeclaresBelote", std_);
+        fields_ = new StringMap<StandardField>();
+        constructors_ = new CustList<StandardConstructor>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass("ResultsBelote", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        getStandards().put("ResultsBelote", std_);
+        fields_ = new StringMap<StandardField>();
+        constructors_ = new CustList<StandardConstructor>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        std_ = new StandardClass("RulesBelote", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        getStandards().put("RulesBelote", std_);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
@@ -140,6 +174,12 @@ public final class BeloteStandards extends BeanLgNames {
             ResultsBeloteBean details_ = new ResultsBeloteBean();
             details_.setClassName("cards.belote.beans.ResultsBeloteBean");
             res_.setResult(new StdStruct(details_, "cards.belote.beans.ResultsBeloteBean"));
+            return res_;
+        }
+        if (StringList.quickEq(_method.getName(), "cards.belote.beans.RulesBeloteBean")) {
+            RulesBeloteBean details_ = new RulesBeloteBean();
+            details_.setClassName("cards.belote.beans.RulesBeloteBean");
+            res_.setResult(new StdStruct(details_, "cards.belote.beans.RulesBeloteBean"));
             return res_;
         }
         return super.getOtherResult(_cont, _method, _args);
@@ -239,6 +279,41 @@ public final class BeloteStandards extends BeanLgNames {
                 return res_;
             }
         }
+        if (_instance.getInstance() instanceof RulesBeloteBean) {
+            RulesBeloteBean instance_ = (RulesBeloteBean) _instance.getInstance();
+            if (StringList.quickEq(_classField.getFieldName(), "cartesBattues")) {
+                res_.setResult(new StringStruct(instance_.getCartesBattues()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "dealAll")) {
+                res_.setResult(new BooleanStruct(instance_.isDealAll()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "encheresAutorisees")) {
+                res_.setResult(new StdStruct(instance_.getEncheresAutorisees(), getCustList()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "sousCoupeAdv")) {
+                res_.setResult(new BooleanStruct(instance_.isSousCoupeAdv()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "annoncesAutorisees")) {
+                res_.setResult(new StdStruct(instance_.getAnnoncesAutorisees(), getCustList()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "gestionCoupePartenaire")) {
+                res_.setResult(new StringStruct(instance_.getGestionCoupePartenaire()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "repartition")) {
+                res_.setResult(new StringStruct(instance_.getRepartition()));
+                return res_;
+            }
+            if (StringList.quickEq(_classField.getFieldName(), "comptePointsClassique")) {
+                res_.setResult(new BooleanStruct(instance_.isComptePointsClassique()));
+                return res_;
+            }
+        }
         return super.getOtherResult(_cont, _classField, _instance);
     }
     @Override
@@ -251,6 +326,12 @@ public final class BeloteStandards extends BeanLgNames {
         }
         if (_struct instanceof LineDeal) {
             return "cards.belote.beans.LineDeal";
+        }
+        if (_struct instanceof DeclaresBelote) {
+            return "$DeclaresBelote";
+        }
+        if (_struct instanceof BidBelote) {
+            return "$BidBelote";
         }
         return getAliasObject();
     }

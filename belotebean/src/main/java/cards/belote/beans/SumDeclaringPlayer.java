@@ -12,35 +12,35 @@ final class SumDeclaringPlayer{
 
     private int sum;
 
-    public String getNickname() {
+    String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String _nickname) {
+    void setNickname(String _nickname) {
         nickname = _nickname;
     }
 
-    public String getStatut() {
+    String getStatut() {
         return statut;
     }
 
-    public void setStatut(String _statut) {
+    void setStatut(String _statut) {
         statut = _statut;
     }
 
-    public CustList<DeclaringPlayerValue> getDeclaring() {
+    CustList<DeclaringPlayerValue> getDeclaring() {
         return declaring;
     }
 
-    public void setDeclaring(CustList<DeclaringPlayerValue> _declaring) {
+    void setDeclaring(CustList<DeclaringPlayerValue> _declaring) {
         declaring = _declaring;
     }
 
-    public int getSum() {
+    int getSum() {
         return sum;
     }
 
-    public void setSum(int _sum) {
+    void setSum(int _sum) {
         sum = _sum;
     }
 

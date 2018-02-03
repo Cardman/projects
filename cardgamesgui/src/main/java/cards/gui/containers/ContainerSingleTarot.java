@@ -86,6 +86,7 @@ import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TrickTarot;
 import cards.tarot.TricksHandsTarot;
+import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ChoiceTarot;
@@ -1008,7 +1009,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
@@ -1022,7 +1023,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }

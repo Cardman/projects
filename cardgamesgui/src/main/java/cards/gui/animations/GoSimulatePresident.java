@@ -16,6 +16,7 @@ import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.ResultsPresident;
 import cards.president.TrickPresident;
+import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.Playing;
 import code.gui.LabelButton;
 import code.gui.SessionEditorPane;
@@ -294,7 +295,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }

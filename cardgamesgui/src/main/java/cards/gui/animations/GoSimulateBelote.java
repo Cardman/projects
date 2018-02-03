@@ -20,6 +20,7 @@ import cards.belote.GameBelote;
 import cards.belote.HandBelote;
 import cards.belote.ResultsBelote;
 import cards.belote.TrickBelote;
+import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -360,7 +361,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE, new BeloteStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }

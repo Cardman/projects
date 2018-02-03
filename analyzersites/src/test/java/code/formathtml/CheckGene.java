@@ -1,9 +1,11 @@
 package code.formathtml;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import cards.belote.beans.BeloteStandards;
+import cards.tarot.RulesTarot;
+import cards.tarot.beans.TarotStandards;
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustElUtil;
@@ -18,6 +20,7 @@ import code.util.BooleanList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 
 @SuppressWarnings("static-method")
 public class CheckGene {
@@ -28,16 +31,16 @@ public class CheckGene {
         String web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_fight/";
         String webtwo = "C:/Users/cardman/git/pokemonbean/";
         String conf = "faces.xml";
-        test(conf, web, webtwo, resPk, null);
+        test(conf, web, webtwo, resPk, null, null);
         web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web/";
-        test(conf, web, webtwo, resPk, null);
+        test(conf, web, webtwo, resPk, null, null);
         web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_game/";
-        test(conf, web, webtwo, resPk, null);
+        test(conf, web, webtwo, resPk, null, null);
         web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_prog/";
-        test(conf, web, webtwo, resPk, null);
+        test(conf, web, webtwo, resPk, null, null);
         conf = "faces_pokemon.xml";
         web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_pk/";
-        test(conf, web, webtwo, resPk, null);
+        test(conf, web, webtwo, resPk, null, null);
         System.out.println();
         for (EntryCust<String, BooleanList> e: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
             if (e.getValue().size() != 1) {
@@ -129,16 +132,71 @@ public class CheckGene {
             System.out.println(e);
         }
     }
+    @Ignore
     @Test
     public void confCardsTest() {
         String resPk;
         String web;
-        String webtwo = "C:/Users/cardman/git/belotebean/";
+        String webtwo = "C:/Users/cardman/git/tarotbean/";
         String conf;
-        web = "C:/Users/cardman/git/belotebean/resources_cards/";
+        web = "C:/Users/cardman/git/tarotbean/resources_cards/";
         resPk = "";
-        conf = "conf/results_belote.xml";
-        testOneFile(conf, web, webtwo, resPk, new BeloteStandards());
+//        conf = "conf/results_belote.xml";
+//        testOneFile(conf, web, webtwo, resPk, new BeloteStandards());
+        conf = "conf/rules_tarot.xml";
+//        conf = "conf/results_tarot.xml";
+        testOneFile(conf, web, webtwo, resPk, new TarotStandards(), new RulesTarot());
+        System.out.println();
+        for (EntryCust<String, BooleanList> e: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
+            if (e.getValue().size() != 1) {
+                continue;
+            }
+            System.out.println(e.getKey());
+        }
+        System.out.println();
+        for (EntryCust<String, BooleanList> e: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
+            if (e.getValue().size() != 1) {
+                continue;
+            }
+            if (e.getValue().first()) {
+                continue;
+            }
+            System.out.println(e.getKey());
+        }
+        System.out.println();
+        for (EntryCust<String, BooleanList> e: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
+            if (e.getValue().size() != 1) {
+                continue;
+            }
+            if (!e.getValue().first()) {
+                continue;
+            }
+            System.out.println(e.getKey());
+        }
+        System.out.println();
+        CustElUtil.CALLS.removeDuplicates();
+        for (ClassMethodId e: CustElUtil.CALLS) {
+            if (e.getClassName().endsWith(">")) {
+                continue;
+            }
+            System.out.println(e.getClassName()+"."+e.getConstraints().getSignature());
+        }
+        System.out.println();
+        FormatHtmlLookFor.FIELDS_NAMES.removeDuplicates();
+        for (String e: FormatHtmlLookFor.FIELDS_NAMES) {
+            System.out.println(e);
+        }
+    }
+    @Ignore
+    @Test
+    public void execCards() {
+        Constants.setSystemLanguage("fr");
+        Navigation nav_ = new Navigation();
+        nav_.setLanguage("fr");
+        nav_.setDataBase(new RulesTarot());
+        nav_.loadConfiguration("resources_cards/conf/rules_tarot.xml", new TarotStandards());
+        nav_.initializeSession();
+        System.out.println(nav_.getHtmlText());
     }
     public static void init(Configuration _conf, boolean _cust) {
         _conf.setHtmlPage(new HtmlPage());
@@ -197,25 +255,7 @@ public class CheckGene {
 ////            conf_.removeLastPage();
 //        }
 //    }
-    private static void testOneFile(String conf, String web, String webtwo, String resPk, BeanLgNames _stds) {
-        String contentConf_ = StreamTextFile.contentsOfFile(web+conf);
-        Configuration conf_ = new Configuration();
-        conf_.setStandards(_stds);
-        ReadConfiguration.load(conf_, DocumentBuilder.parseSax(contentConf_));
-        ContextEl context_ = new ContextEl();
-        context_.setClasses(new Classes());
-        conf_.setContext(context_);
-        init(conf_,true);
-        Navigation nav = new Navigation();
-        nav.setSession(conf_);
-        conf_.setupClasses(new StringMap<String>());
-        for (EntryCust<String, Bean> e: conf_.getBeans().entryList()) {
-            conf_.getBuiltBeans().put(e.getKey(), conf_.newBean("fr", null, e.getValue(), true));
-        }
-        String currentUrl_ = conf_.getFirstUrl();
-        processOneFile(conf_, "", currentUrl_, conf, web, webtwo, resPk, _stds);
-    }
-    private static void test(String conf, String web, String webtwo, String resPk, BeanLgNames _stds) {
+    private static void testOneFile(String conf, String web, String webtwo, String resPk, BeanLgNames _stds, Object _db) {
         String contentConf_ = StreamTextFile.contentsOfFile(web+conf);
         Configuration conf_ = new Configuration();
         if (_stds == null) {
@@ -237,12 +277,44 @@ public class CheckGene {
             conf_.setContext(context_);
             ReadConfiguration.load(conf_, DocumentBuilder.parseSax(contentConf_));
             init(conf_,true);
-           }
+        }
         Navigation nav = new Navigation();
         nav.setSession(conf_);
         conf_.setupClasses(new StringMap<String>());
         for (EntryCust<String, Bean> e: conf_.getBeans().entryList()) {
-            conf_.getBuiltBeans().put(e.getKey(), conf_.newBean("fr", null, e.getValue(), true));
+            conf_.getBuiltBeans().put(e.getKey(), conf_.newBean("fr", _db, e.getValue(), true));
+        }
+        String currentUrl_ = conf_.getFirstUrl();
+        processOneFile(conf_, "", currentUrl_, conf, web, webtwo, resPk, _stds);
+    }
+    private static void test(String conf, String web, String webtwo, String resPk, BeanLgNames _stds, Object _db) {
+        String contentConf_ = StreamTextFile.contentsOfFile(web+conf);
+        Configuration conf_ = new Configuration();
+        if (_stds == null) {
+            conf_.setStandards(new BeanLgNames());
+            ContextEl context_ = new ContextEl();
+            DefaultInitialization.basicStandards(conf_.getStandards());
+            context_.setStandards(conf_.getStandards());
+            conf_.getStandards().setContext(context_);
+            ReadConfiguration.load(conf_, DocumentBuilder.parseSax(contentConf_));
+            conf_.getStandards().setContext(context_);
+            conf_.setContext(context_);
+            context_.setAccessValue(conf_.getAccessValue());
+            context_.setStandards(conf_.getStandards());
+            init(conf_,false);
+        } else {
+            conf_.setStandards(_stds);
+            ContextEl context_ = new ContextEl();
+            context_.setClasses(new Classes());
+            conf_.setContext(context_);
+            ReadConfiguration.load(conf_, DocumentBuilder.parseSax(contentConf_));
+            init(conf_,true);
+        }
+        Navigation nav = new Navigation();
+        nav.setSession(conf_);
+        conf_.setupClasses(new StringMap<String>());
+        for (EntryCust<String, Bean> e: conf_.getBeans().entryList()) {
+            conf_.getBuiltBeans().put(e.getKey(), conf_.newBean("fr", _db, e.getValue(), true));
         }
         for (String f: StreamTextFile.allSortedFiles(web)) {
             if (!f.endsWith(".html")) {

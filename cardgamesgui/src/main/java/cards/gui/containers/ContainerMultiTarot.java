@@ -101,6 +101,7 @@ import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TricksHandsTarot;
+import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
@@ -286,7 +287,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor.setLanguage(Constants.getLanguage());
             editor.setDataBase(rulesTarotMulti);
-            editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
+            editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
@@ -1107,7 +1108,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
@@ -1121,7 +1122,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
             editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
