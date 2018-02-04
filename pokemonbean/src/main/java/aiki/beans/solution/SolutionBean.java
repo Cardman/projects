@@ -86,11 +86,6 @@ public class SolutionBean extends CommonBean {
     }
 
     @Accessible
-    CustList<Step> getSteps() {
-        return solution.getSteps();
-    }
-
-    @Accessible
     EqList<PlaceLevel> getPlaces(Long _indexStep) {
         StepDto step_ = steps.get(_indexStep.intValue());
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();

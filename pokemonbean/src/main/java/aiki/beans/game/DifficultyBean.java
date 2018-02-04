@@ -81,9 +81,6 @@ public class DifficultyBean extends Bean {
     @Accessible
     private short index = CustList.INDEX_NOT_FOUND_ELT;
 
-//    @Accessible
-//    private CustList<Integer> numbers = new CustList<>();
-
     @Override
     public void beforeDisplaying() {
         FacadeGame facadeGame_ = (FacadeGame) getDataBase();

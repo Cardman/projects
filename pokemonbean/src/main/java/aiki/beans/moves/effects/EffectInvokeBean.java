@@ -103,11 +103,6 @@ public class EffectInvokeBean extends EffectBean {
         invokingMoveByUserTypes = invokingMoveByUserTypes_;
     }
 
-//    @Accessible
-//    private List<EnvironmentType> getEnvironments() {
-//        return moveFctEnv.getKeys();
-//    }
-
     @Accessible
     private String clickMoveFctEnv(Long _index) {
         String st_ = moveFctEnv.getValue(_index.intValue());

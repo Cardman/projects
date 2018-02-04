@@ -20,10 +20,10 @@ public class CombosBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        combos = new ComboDto(getCombos());
+        combos = new ComboDto(getLocCombos());
     }
 
-    private TreeMap<StringList, EffectCombo> getCombos() {
+    private TreeMap<StringList, EffectCombo> getLocCombos() {
         DataBase data_ = (DataBase) getDataBase();
         TreeMap<StringList,EffectCombo> combos_;
 //        combos_ = new TreeMap<new>(new NaturalComparator<StringList>() {

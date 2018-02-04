@@ -1,5 +1,7 @@
 package code.formathtml;
 
+import java.io.File;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,7 +45,7 @@ public class CheckGene {
         test(conf, web, webtwo, resPk, null, null);
         System.out.println();
         for (EntryCust<String, BooleanList> e: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
-            if (e.getValue().size() != 1) {
+            if (e.getValue().size() == 1) {
                 continue;
             }
             System.out.println(e.getKey());
@@ -134,14 +136,36 @@ public class CheckGene {
     }
     @Test
     public void readSrcFiles() {
+        String resPk = "resources_pk/rom/";
+        String web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_fight/";
+        String webtwo = "C:/Users/cardman/git/pokemonbean/";
+        String conf = "faces.xml";
+        test(conf, web, webtwo, resPk, null, null);
+        web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web/";
+        test(conf, web, webtwo, resPk, null, null);
+        web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_game/";
+        test(conf, web, webtwo, resPk, null, null);
+        web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_prog/";
+        test(conf, web, webtwo, resPk, null, null);
+        conf = "faces_pokemon.xml";
+        web = "C:/Users/cardman/git/pokemonbean/resources_pk/rom/web_pk/";
+        test(conf, web, webtwo, resPk, null, null);
+        System.out.println();
         String folder = "C:/Users/cardman/git/pokemonbean/src/main/java";
+        String out = System.getProperty("outdir");
         for (String f: StreamTextFile.allSortedFiles(folder)) {
             if (!f.endsWith(".java")) {
                 continue;
             }
             String content_ = StreamTextFile.contentsOfFile(f);
+            String relative_ = f.substring(folder.length() + 1);
+            String exp_ = "/"+relative_;
+            relative_ = relative_.substring(0, relative_.length() - ".java".length());
+            relative_ = relative_.replace('/', '.');
+            new File(out+exp_).getParentFile().mkdirs();
             //convert file and add getters and setters
-            Converter.convertFile(content_, CustElUtil.GETTERS_SETTERS_FIELDS);
+            String output_ = Converter.convertFile(content_, relative_, CustElUtil.GETTERS_SETTERS_FIELDS);
+            StreamTextFile.saveTextFile(out+exp_, output_);
         }
         //add standards
     }

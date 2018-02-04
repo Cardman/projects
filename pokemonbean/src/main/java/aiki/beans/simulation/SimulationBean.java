@@ -642,18 +642,6 @@ public class SimulationBean extends CommonBean {
         return layers(_index).size() > CustList.ONE_ELEMENT;
     }
 
-//    @Accessible
-//    private String cancelButton() {
-//        Map<String,String> messages_ = getMessages(MSG_SIMULATION);
-//        return XmlParser.transformSpecialChars(messages_.getVal(CANCEL));
-//    }
-
-//    @Accessible
-//    private String cancelEvoButton() {
-//        Map<String,String> messages_ = getMessages(MSG_SIMULATION);
-//        return XmlParser.transformSpecialChars(messages_.getVal(CANCEL_EVO));
-//    }
-
     @Accessible
     private CustList<Level> layers(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
@@ -703,31 +691,6 @@ public class SimulationBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-
-//    @Accessible
-//    private boolean isCenter(Long _indexOne, Long _indexTwo) {
-//        return buildings(_indexOne).get(_indexTwo.intValue()) instanceof PokemonCenter;
-//    }
-
-//    @Accessible
-//    private boolean isGym(Long _indexOne, Long _indexTwo) {
-//        return buildings(_indexOne).get(_indexTwo.intValue()) instanceof Gym;
-//    }
-
-//    @Accessible
-//    private CustList<Building> buildings(Long _index) {
-//        Place pl_ = places.get(_index.intValue()).getPlace();
-//        if (!(pl_ instanceof City)) {
-//            return new CustList<>();
-//        }
-//        City c_ = (City) pl_;
-//        return c_.getBuildings().values();
-//    }
-
-//    @Accessible
-//    private boolean isCity(Long _index) {
-//        return places.get(_index.intValue()).getPlace() instanceof City;
-//    }
 
     @Accessible
     private String clickLevel(Long _indexOne, Long _indexTwo) {
@@ -1080,30 +1043,6 @@ public class SimulationBean extends CommonBean {
         stepNumber--;
     }
 
-//    @Accessible
-//    private String addButton() {
-//        Map<String,String> messages_ = getMessages(MSG_SIMULATION);
-//        return XmlParser.transformSpecialChars(messages_.getVal(ADD));
-//    }
-//
-//    @Accessible
-//    private String removeButton() {
-//        Map<String,String> messages_ = getMessages(MSG_SIMULATION);
-//        return XmlParser.transformSpecialChars(messages_.getVal(REMOVE));
-//    }
-//
-//    @Accessible
-//    private String selectButton() {
-//        Map<String,String> messages_ = getMessages(MSG_SIMULATION);
-//        return XmlParser.transformSpecialChars(messages_.getVal(SELECT));
-//    }
-
-//    @Accessible
-//    private String editButton() {
-//        Map<String,String> messages_ = getMessages(MSG_SIMULATION);
-//        return XmlParser.transformSpecialChars(messages_.getVal(EDIT));
-//    }
-
     @Accessible
     private String selectPk() {
         if (selectedAction == TeamCrud.NOTHING) {
@@ -1140,52 +1079,6 @@ public class SimulationBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-
-//    @Accessible
-//    private String edit() {
-//        CustList<Integer> indexes_ = new CustList<>();
-//        int i_ = CustList.FIRST_INDEX;
-//        for (PokemonPlayerDto p: team) {
-//            if (p.isSelected()) {
-//                indexes_.add(i_);
-//            }
-//            i_++;
-//        }
-//        if (indexes_.size() != DataBase.ONE_POSSIBLE_CHOICE) {
-//            return DataBase.EMPTY_STRING;
-//        }
-//        getForms().put(ITEMS_SET_EDIT, new StringList());
-//        getForms().put(POKEMON_INDEX_EDIT, indexes_.first());
-//        getForms().put(POKEMON_NAME_EDIT, team.get(indexes_.first()).getPokemon().getName());
-//        getForms().put(POKEMON_LEVEL_EDIT, team.get(indexes_.first()).getPokemon().getLevel());
-//        getForms().put(ITEM_EDIT, team.get(indexes_.first()).getPokemon().getItem());
-//        getForms().put(POKEMON_MOVES_EDIT, team.get(indexes_.first()).getMoves());
-//        getForms().put(POKEMON_EXPERIENCE, simulation.getTeam().get(indexes_.first()).getWonExpSinceLastLevel());
-//        getForms().put(POKEMON_HAPPINESS, simulation.getTeam().get(indexes_.first()).getHappiness());
-//        return EDIT_POKEMON_PLAYER;
-//    }
-//
-//    @Accessible
-//    private void remove() {
-//        CustList<Integer> indexes_ = new CustList<>();
-//        int i_ = CustList.FIRST_INDEX;
-//        for (PokemonPlayerDto p: team) {
-//            if (p.isSelected()) {
-//                indexes_.add(i_);
-//            }
-//            i_++;
-//        }
-//        if (indexes_.size() != DataBase.ONE_POSSIBLE_CHOICE) {
-//            return;
-//        }
-//        int index_ = indexes_.first();
-//        team.removeAt(index_);
-//        int size_ = team.size();
-//        for (int i = index_; i < size_;i++) {
-//            team.get(i).setIndex(i);
-//        }
-//        simulation.removePokemonPlayer(index_);
-//    }
 
     @Accessible
     private String add() {
@@ -1457,19 +1350,6 @@ public class SimulationBean extends CommonBean {
     private boolean isAvailableAbilities() {
         return simulation.isAvailableAbilities(selectedPk);
     }
-
-//    @Accessible
-//    private TreeMap<String, String> getDisplayedAbilities() {
-//        DataBase data_ = (DataBase) getDataBase();
-//        Map<String,String> translatedAbilities_;
-//        translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-//        TreeMap<String,String> abilities_ = new TreeMap<>(new ComparatorTrString<>(translatedAbilities_));
-//        abilities_.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
-//        for (String a: getAvailableAbilities()) {
-//            abilities_.put(a, translatedAbilities_.getVal(a));
-//        }
-//        return abilities_;
-//    }
 
     private StringList getAvailableAbilities() {
         return simulation.getAvailableAbilities(selectedPk);
@@ -1969,7 +1849,7 @@ public class SimulationBean extends CommonBean {
     }
 
     @Accessible
-    private NatTreeMap<Byte, StringList> getEvolutionsAfterFight() {
+    private NatTreeMap<Byte, StringList> getAllEvolutionsAfterFight() {
         DataBase data_ = (DataBase) getDataBase();
         NatTreeMap<Byte, StringList> tree_;
         tree_ = new NatTreeMap<Byte, StringList>();
@@ -2003,7 +1883,7 @@ public class SimulationBean extends CommonBean {
     }
 
     @Accessible
-    private NatTreeMap<Byte, NatTreeMap<String, StringList>> getAbilitiesAfterFight() {
+    private NatTreeMap<Byte, NatTreeMap<String, StringList>> getAllAbilitiesAfterFight() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> ab_ = data_.getTranslatedAbilities().getVal(getLanguage());
         StringMap<String> pk_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -2095,32 +1975,6 @@ public class SimulationBean extends CommonBean {
         return stepNumber + 1;
     }
 
-//    @Accessible
-//    private StringList getEvolutions(Long _index) {
-//        TreeMap<Byte,ChoiceOfEvolutionAndMoves> tree_;
-//        tree_ = new TreeMap<Byte, ChoiceOfEvolutionAndMoves>(new);
-//        tree_.putAllMap(simulation.getChoices());
-//        String n_ = tree_.getValue(_index.intValue()).getName();
-//        if (n_.isEmpty()) {
-//            return n_;
-//        }
-//        DataBase data_ = (DataBase) getDataBase();
-//        return data_.translatePokemon(n_);
-//    }
-
-//    @Accessible
-//    private String getAbilities(Long _index) {
-//        TreeMap<Byte,ChoiceOfEvolutionAndMoves> tree_;
-//        tree_ = new TreeMap<Byte, ChoiceOfEvolutionAndMoves>(new);
-//        tree_.putAllMap(simulation.getChoices());
-//        String n_ = tree_.getValue(_index.intValue()).getName();
-//        if (n_.isEmpty()) {
-//            return n_;
-//        }
-//        DataBase data_ = (DataBase) getDataBase();
-//        return data_.translatePokemon(n_);
-//    }
-
     @Accessible
     private String quit() {
         simulation = null;
@@ -2135,9 +1989,4 @@ public class SimulationBean extends CommonBean {
         ok = true;
         return LEVEL;
     }
-
-//    @Accessible
-//    private void test() {
-//
-//    }
 }

@@ -1,5 +1,8 @@
 package code.expressionlanguage;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.FinalMemberException;
@@ -81,7 +84,21 @@ public class CustElUtil {
                     if (e instanceof ConstantOperation && e.getOperations().getConstType() == ConstType.WORD) {
                         String className_ = previous_.getName();
                         String field_ = e.getOperations().getValues().firstValue();
-                        String key_ = StringList.concat(className_,".",field_);
+                        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+                        while (true) {
+                            boolean foundField_ = false;
+                            for (Field f: cl_.getDeclaredFields()) {
+                                if (StringList.quickEq(f.getName(), field_)) {
+                                    foundField_ = true;
+                                    break;
+                                }
+                            }
+                            if (foundField_) {
+                                break;
+                            }
+                            cl_ = cl_.getSuperclass();
+                        }
+                        String key_ = StringList.concat(cl_.getName(),".",field_);
                         if (!CustElUtil.GETTERS_SETTERS_FIELDS.contains(key_)) {
                             CustElUtil.GETTERS_SETTERS_FIELDS.put(key_, new BooleanList(write_));
                         } else {
@@ -99,7 +116,30 @@ public class CustElUtil {
                         }
                         MethodId mId_ = new MethodId(false, methodName_, params_);
                         CustElUtil.CLASSES.add(className_);
-                        CustElUtil.CALLS.add(new ClassMethodId(className_, mId_));
+                        StringList baseClassName_ = StringList.getAllTypes(className_);
+                        if (baseClassName_.size() > 1) {
+                            CustElUtil.CALLS.add(new ClassMethodId(className_, mId_));
+                        } else {
+                            Class<?> cl_ = ConstClasses.classForNameNotInit(baseClassName_.first());
+                            if (cl_.isInterface()) {
+                                CustElUtil.CALLS.add(new ClassMethodId(className_, mId_));
+                            } else {
+                                while (true) {
+                                    boolean foundMethod_ = false;
+                                    for (Method m: cl_.getDeclaredMethods()) {
+                                        if (StringList.quickEq(m.getName(), methodName_)) {
+                                            foundMethod_ = true;
+                                            break;
+                                        }
+                                    }
+                                    if (foundMethod_) {
+                                        break;
+                                    }
+                                    cl_ = cl_.getSuperclass();
+                                }
+                                CustElUtil.CALLS.add(new ClassMethodId(cl_.getName(), mId_));
+                            }
+                        }
                     }
                     CustElUtil.CLASSES.add(e.getResultClass().getName());
                 }

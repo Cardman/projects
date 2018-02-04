@@ -1,7 +1,12 @@
 package code.formathtml;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+
+import code.serialize.ConstClasses;
 import code.util.BooleanList;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
@@ -36,7 +41,7 @@ public final class Converter {
     private static final String KEY_WORD_FINAL = "final";
     private Converter() {
     }
-    public static String convertFile(String _fileContent, StringMap<BooleanList> _getSet) {
+    public static String convertFile(String _fileContent, String _typeName, StringMap<BooleanList> _getSet) {
         StringBuilder str_ = new StringBuilder();
         int i_ = CustList.FIRST_INDEX;
         int len_ = _fileContent.length();
@@ -116,7 +121,7 @@ public final class Converter {
         while (i_ < len_) {
             char currentChar_ = _fileContent.charAt(i_);
             if (commentedSingleLine_) {
-                str_.append(currentChar_);
+                instruction_.append(currentChar_);
                 if (currentChar_ == LINE_RETURN) {
                     commentedSingleLine_ = false;
                 }
@@ -124,11 +129,11 @@ public final class Converter {
                 continue;
             }
             if (commentedMultiLine_) {
-                str_.append(currentChar_);
+                instruction_.append(currentChar_);
                 if (currentChar_ == SECOND_COMMENT) {
                     char nextChar_ = _fileContent.charAt(i_ + 1);
                     if (nextChar_ == BEGIN_COMMENT) {
-                        str_.append(nextChar_);
+                        instruction_.append(nextChar_);
                         commentedMultiLine_ = false;
                         i_++;
                         i_++;
@@ -145,17 +150,17 @@ public final class Converter {
             if (currentChar_ == BEGIN_COMMENT && !const_) {
                 char nextChar_ = _fileContent.charAt(i_ + 1);
                 if (nextChar_ == BEGIN_COMMENT) {
-                    str_.append(currentChar_);
+                    instruction_.append(currentChar_);
                     commentedSingleLine_ = true;
-                    str_.append(nextChar_);
+                    instruction_.append(nextChar_);
                     i_++;
                     i_++;
                     continue;
                 }
                 if (nextChar_ == SECOND_COMMENT) {
-                    str_.append(currentChar_);
+                    instruction_.append(currentChar_);
                     commentedMultiLine_ = true;
-                    str_.append(nextChar_);
+                    instruction_.append(nextChar_);
                     i_++;
                     i_++;
                     continue;
@@ -194,6 +199,101 @@ public final class Converter {
             if (braces_.size() == 0 && currentChar_ == END_BLOCK) {
                 //add getters and setters here
                 //
+                for (EntryCust<String, BooleanList> s: _getSet.entryList()) {
+                    String key_ = s.getKey();
+                    String className_ = key_.substring(0, key_.lastIndexOf("."));
+                    if (!className_.equalsIgnoreCase(_typeName)) {
+                        continue;
+                    }
+                    String fieldName_ = key_.substring(key_.lastIndexOf(".") + 1);
+                    Class<?> foundClass_ = ConstClasses.classForNameNotInit(className_);
+                    String clRet_;
+                    try {
+                        Type field_ = foundClass_.getDeclaredField(fieldName_).getGenericType();
+                        if (field_ instanceof Class<?>) {
+                            clRet_ = ((Class<?>) field_).getName();
+                        } else {
+                            clRet_ = field_.toString();
+                        }
+                    } catch (Exception _0_) {
+                        clRet_ = "";
+                    }
+                    String imported_;
+                    if (!clRet_.contains(".")) {
+                        imported_ = clRet_;
+                    } else {
+                        StringBuilder importedType_ = new StringBuilder();
+                        int j_ = 0;
+                        for (String p: StringList.splitStringsSep(clRet_, "<",">",",")) {
+                            if (j_ % 2 == 0) {
+                                importedType_.append(p.substring(p.lastIndexOf(".") + 1));
+                            } else {
+                                importedType_.append(p);
+                            }
+                            j_++;
+                        }
+                        imported_ = importedType_.toString();
+                    }
+                    imported_ = StringList.removeAllSpaces(imported_);
+                    for (boolean w: s.getValue()) {
+                        if (!w) {
+                            char ch_ = fieldName_.charAt(0);
+                            String next_ = fieldName_.substring(1);
+                            String methodName_ = "get"+Character.toUpperCase(ch_)+next_;
+                            boolean add_ = true;
+                            for (Method m :foundClass_.getDeclaredMethods()) {
+                                if (StringList.quickEq(m.getName(), methodName_) && m.getParameterTypes().length == 0) {
+                                    add_ = false;
+                                    break;
+                                }
+                            }
+                            if (!add_) {
+                                continue;
+                            }
+                            StringBuilder getter_ = new StringBuilder();
+                            getter_.append("\n    public ");
+                            //return type
+                            getter_.append(imported_);
+                            getter_.append(" ");
+                            getter_.append(methodName_);
+                            getter_.append("() {\n");
+                            getter_.append("        return ");
+                            getter_.append(fieldName_);
+                            getter_.append(";\n");
+                            getter_.append("    }\n");
+                            instruction_.append(getter_);
+                        } else {
+                            char ch_ = fieldName_.charAt(0);
+                            String next_ = fieldName_.substring(1);
+                            String methodName_ = "set"+Character.toUpperCase(ch_)+next_;
+                            boolean add_ = true;
+                            for (Method m :foundClass_.getDeclaredMethods()) {
+                                if (StringList.quickEq(m.getName(), methodName_) && m.getParameterTypes().length == 1) {
+                                    add_ = false;
+                                    break;
+                                }
+                            }
+                            if (!add_) {
+                                continue;
+                            }
+                            StringBuilder setter_ = new StringBuilder();
+                            setter_.append("\n    public void ");
+                            setter_.append(methodName_);
+                            setter_.append("(");
+                            setter_.append(imported_);
+                            setter_.append(" _");
+                            setter_.append(fieldName_);
+                            setter_.append(") {\n");
+                            setter_.append("        ");
+                            setter_.append(fieldName_);
+                            setter_.append(" = _");
+                            setter_.append(fieldName_);
+                            setter_.append(";\n");
+                            setter_.append("    }\n");
+                            instruction_.append(setter_);
+                        }
+                    }
+                }
                 instruction_.append(currentChar_);
                 str_.append(instruction_);
                 break;
