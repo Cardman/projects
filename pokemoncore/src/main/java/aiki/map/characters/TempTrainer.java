@@ -6,7 +6,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class TempTrainer extends TrainerOneFight {
+public final class TempTrainer extends TrainerOneFight {
 
     private String imageMiniSecondTrainerFileName;
 

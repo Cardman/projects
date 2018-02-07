@@ -9,7 +9,7 @@ import code.util.EqList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class AreaApparition {
+public final class AreaApparition {
 
     static final byte ALWAYS_APPARITION = 1;
 

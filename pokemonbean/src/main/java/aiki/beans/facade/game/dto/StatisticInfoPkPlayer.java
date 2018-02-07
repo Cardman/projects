@@ -1,7 +1,7 @@
 package aiki.beans.facade.game.dto;
 import code.maths.Rate;
 
-public class StatisticInfoPkPlayer {
+public final class StatisticInfoPkPlayer {
 
     private String name;
 

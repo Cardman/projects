@@ -6,7 +6,7 @@ import code.util.CustList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Ally {
+public final class Ally {
 
     private CustList<PkTrainer> team;
 

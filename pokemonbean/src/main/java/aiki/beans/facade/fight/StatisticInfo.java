@@ -3,7 +3,7 @@ import code.bean.Accessible;
 import code.maths.Rate;
 import aiki.fight.enums.Statistic;
 
-public class StatisticInfo {
+public final class StatisticInfo {
 
     /***/
     private Statistic statistic;

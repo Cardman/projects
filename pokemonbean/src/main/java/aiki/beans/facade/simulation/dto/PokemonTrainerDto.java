@@ -4,7 +4,7 @@ import code.util.StringList;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.enums.Gender;
 
-public class PokemonTrainerDto {
+public final class PokemonTrainerDto {
 
     /***/
     @Accessible

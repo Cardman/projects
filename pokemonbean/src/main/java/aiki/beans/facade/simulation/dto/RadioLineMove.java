@@ -2,7 +2,7 @@ package aiki.beans.facade.simulation.dto;
 import code.bean.Accessible;
 import aiki.beans.facade.dto.MoveLine;
 
-public class RadioLineMove extends MoveLine {
+public final class RadioLineMove extends MoveLine {
 
     @Accessible
     private int index;

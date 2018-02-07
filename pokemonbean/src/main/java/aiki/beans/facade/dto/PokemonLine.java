@@ -2,7 +2,7 @@ package aiki.beans.facade.dto;
 import code.bean.Accessible;
 import code.util.StringList;
 
-public class PokemonLine {
+public final class PokemonLine {
 
     @Accessible
     private String displayName;

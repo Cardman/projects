@@ -919,6 +919,8 @@ public class FormatHtmlLookFor {
                         //System.out.println(CustElUtil.processAnalyzeEl(attribute_, begin_, _conf.toContextEl()));
                     }
                 } else if (StringList.quickEq(elt_.getTagName(),prefix_+IMPORT_BLOCK_TAG)) {
+                    String page_ = elt_.getAttribute("page");
+                    formatAnalyzeNumVariables(page_, _conf, ip_);
                     for (Element n: elt_.getChildElements()) {
                         if (!StringList.quickEq(n.getTagName(),prefix_+PACKAGE_BLOCK_TAG)) {
                             continue;
@@ -1209,6 +1211,7 @@ public class FormatHtmlLookFor {
                                 if (StringList.quickEq(res_, Object.class.getName())) {
                                     System.err.println(accessName_);
                                 }
+                                INPUT_CLASSES.add(res_);
                                 //System.out.println(CustElUtil.processAnalyzeEl(accessName_, 0, _conf.toContextEl()));
                             }
                         }
@@ -1426,7 +1429,8 @@ public class FormatHtmlLookFor {
         _conf.getLastPage().setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        CustElUtil.processAnalyzeEl(attribute_, 0, _conf.toContextEl());
+        String res_ = CustElUtil.processAnalyzeEl(attribute_, 0, _conf.toContextEl());
+        INPUT_CLASSES.add(res_);
         //System.out.println(CustElUtil.processAnalyzeEl(attribute_, 0, _conf.toContextEl()));
     }
 
@@ -1442,6 +1446,10 @@ public class FormatHtmlLookFor {
             if (StringList.quickEq(res_, Object.class.getName())) {
                 System.err.println(attribute_);
             }
+            if (StringList.quickEq(res_, "code.maths.Rate")) {
+                System.err.println(attribute_);
+            }
+            INPUT_CLASSES.add(res_);
             //System.out.println(CustElUtil.processAnalyzeEl(attribute_, 0, _conf.toContextEl()));
         }
     }

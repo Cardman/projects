@@ -1,7 +1,7 @@
 package aiki.beans.facade.fight;
 import code.maths.Rate;
 
-public class SufferedDamageCategory {
+public final class SufferedDamageCategory {
 
     private Rate round;
 

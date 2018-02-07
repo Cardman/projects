@@ -1,7 +1,7 @@
 package aiki.beans.facade.simulation.dto;
 import code.bean.Accessible;
 
-public class EvLine {
+public final class EvLine {
 
     @Accessible
     private short ev;

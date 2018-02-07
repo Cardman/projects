@@ -1,7 +1,7 @@
 package aiki.beans.facade.dto;
 import code.bean.Accessible;
 
-public class WeatherTypeLine {
+public final class WeatherTypeLine {
 
     @Accessible
     private String weather;

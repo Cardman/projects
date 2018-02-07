@@ -6,7 +6,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectPartnerStatus {
+public final class EffectPartnerStatus {
 
     private Rate multDamageAgainstFoe;
 

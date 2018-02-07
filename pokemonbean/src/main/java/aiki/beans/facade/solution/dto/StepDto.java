@@ -4,7 +4,7 @@ import code.util.CustList;
 import code.util.TreeMap;
 import aiki.map.util.PlaceLevel;
 
-public class StepDto {
+public final class StepDto {
 
     private final TreeMap<PlaceLevel,CustList<WildPokemonDto>> pokemon;
 

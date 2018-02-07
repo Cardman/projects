@@ -1,7 +1,7 @@
 package aiki.beans.facade.fight;
 import code.maths.Rate;
 
-public class MultPowerMoves {
+public final class MultPowerMoves {
 
     private Rate multSuffering;
 

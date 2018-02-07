@@ -1,7 +1,7 @@
 package aiki.beans.facade.solution.dto;
 import code.bean.Accessible;
 
-public class WildPokemonDto {
+public final class WildPokemonDto {
 
     @Accessible
     private String image;

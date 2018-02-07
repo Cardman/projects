@@ -14,6 +14,7 @@ import code.expressionlanguage.opers.ComparatorOrder;
 import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.FctOperation;
+import code.expressionlanguage.opers.InstanceOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PossibleIntermediateDotted;
@@ -21,6 +22,7 @@ import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.serialize.ConstClasses;
 import code.util.BooleanList;
@@ -34,7 +36,9 @@ public class CustElUtil {
 
     public static final StringMap<BooleanList> GETTERS_SETTERS_FIELDS = new StringMap<BooleanList>();
     public static final EqList<ClassMethodId> CALLS = new EqList<ClassMethodId>();
+    public static final EqList<ConstructorId> CONSTRUCTORS = new EqList<ConstructorId>();
     public static final StringList CLASSES = new StringList();
+    public static final StringList RES_CLASSES = new StringList();
     private static final String RETURN_LINE = "\n";
     private static final String EMPTY_STRING = "";
 
@@ -47,6 +51,8 @@ public class CustElUtil {
         CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
         boolean static_ = _conf.getLastPage().getGlobalClass() == null;
         analyze(true, all_, _conf,static_,static_,EMPTY_STRING,EMPTY_STRING);
+        RES_CLASSES.add(op_.getResultClass().getName());
+        RES_CLASSES.removeDuplicates();
         return op_.getResultClass().getName();
     }
     static void analyze(boolean _get,CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _staticBlock,String _fieldName, String _op) {
@@ -140,6 +146,17 @@ public class CustElUtil {
                                 CustElUtil.CALLS.add(new ClassMethodId(cl_.getName(), mId_));
                             }
                         }
+                        CustElUtil.CALLS.removeDuplicates();
+                    }
+                    if (e instanceof InstanceOperation) {
+                        String methodName_ = e.getOperations().getFctName();
+                        EqList<ClassName> params_ = new EqList<ClassName>();
+                        for (OperationNode c: getDirectChildren(e)) {
+                            params_.add(new ClassName(c.getResultClass().getName(), false));
+                        }
+                        ConstructorId mId_ = new ConstructorId(methodName_, params_);
+                        CONSTRUCTORS.add(mId_);
+                        CONSTRUCTORS.removeDuplicates();
                     }
                     CustElUtil.CLASSES.add(e.getResultClass().getName());
                 }
@@ -166,6 +183,8 @@ public class CustElUtil {
         CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
         boolean static_ = _conf.getLastPage().getGlobalClass() == null;
         analyze(true, all_, _conf,static_,static_,EMPTY_STRING,EMPTY_STRING);
+        RES_CLASSES.add(op_.getResultClass().getName());
+        RES_CLASSES.removeDuplicates();
         return op_.getResultClass().getName();
     }
 
@@ -196,6 +215,9 @@ public class CustElUtil {
         page_.setProcessingAttribute(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = opLeft_.getResultClass();
+        RES_CLASSES.add(clMatchLeft_.getName());
+        RES_CLASSES.add(clMatchRight_.getName());
+        RES_CLASSES.removeDuplicates();
         page_.setOffset(0);
         if (!_attrOp.isEmpty()) {
             page_.setProcessingAttribute(_attrOp);

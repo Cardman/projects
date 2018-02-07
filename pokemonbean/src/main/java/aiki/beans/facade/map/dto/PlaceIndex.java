@@ -2,7 +2,7 @@ package aiki.beans.facade.map.dto;
 import code.bean.Accessible;
 import aiki.map.places.Place;
 
-public class PlaceIndex {
+public final class PlaceIndex {
 
     private Place place;
 

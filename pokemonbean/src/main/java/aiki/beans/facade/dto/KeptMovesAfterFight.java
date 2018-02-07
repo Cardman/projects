@@ -1,7 +1,7 @@
 package aiki.beans.facade.dto;
 import code.util.StringList;
 
-public class KeptMovesAfterFight {
+public final class KeptMovesAfterFight {
 
     private StringList moves;
 

@@ -1,7 +1,7 @@
 package aiki.beans.facade.solution.dto;
 import code.bean.Accessible;
 
-public class PlaceTrainerDto {
+public final class PlaceTrainerDto {
 
     @Accessible
     private String place;

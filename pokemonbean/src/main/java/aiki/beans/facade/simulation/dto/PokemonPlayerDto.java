@@ -4,7 +4,7 @@ import code.util.StringList;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.WildPk;
 
-public class PokemonPlayerDto {
+public final class PokemonPlayerDto {
 
     private Pokemon pokemon = new WildPk();
 

@@ -13,10 +13,13 @@ import cards.tarot.RulesTarot;
 import cards.tarot.beans.TarotStandards;
 import code.bean.Accessible;
 import code.bean.Bean;
+import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustElUtil;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BeanLgNames;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -30,8 +33,10 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.ints.Displayable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
+import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class CheckGene {
@@ -171,6 +176,11 @@ public class CheckGene {
         String folder = absolute+"pokemonbean/src/main/java";
         StringList packages_ = new StringList();
         StringList allTypes_ = new StringList();
+        LgNames lgNames_ = new LgNames();
+        DefaultInitialization.basicStandards(lgNames_);
+        ContextEl context_ = new ContextEl();
+        lgNames_.setContext(context_);
+        context_.setStandards(lgNames_);
         StringMap<StringList> types_ = new StringMap<StringList>();
         for (String f: StreamTextFile.allSortedFiles(folder)) {
             if (!f.endsWith(".java")) {
@@ -193,6 +203,57 @@ public class CheckGene {
             String output_ = Converter.convertFile(content_, relative_, CustElUtil.GETTERS_SETTERS_FIELDS);
             StreamTextFile.saveTextFile(out+exp_, output_);
         }
+        lgNames_.build();
+        StringList remainClasses_ = new StringList();
+        for (ClassMethodId c: CustElUtil.CALLS) {
+            if (allTypes_.containsStr(c.getClassName())) {
+                continue;
+            }
+            if (c.getClassName().contains("<")) {
+                continue;
+            }
+            if (PrimitiveTypeUtil.isPrimitive(c.getClassName())) {
+                continue;
+            }
+            Class<?> cl_ = ConstClasses.classForNameNotInit(c.getClassName());
+            if (cl_.getTypeParameters().length > 0) {
+                continue;
+            }
+            if (lgNames_.getStandards().contains(c.getClassName())) {
+                continue;
+            }
+            remainClasses_.add(c.getClassName());
+        }
+        for (String s: CustElUtil.GETTERS_SETTERS_FIELDS.getKeys()) {
+            String clPart_ = s.substring(0, s.lastIndexOf('.'));
+            if (allTypes_.containsStr(clPart_)) {
+                continue;
+            }
+            remainClasses_.add(clPart_);
+        }
+        for (String c: CustElUtil.RES_CLASSES) {
+            if (allTypes_.containsStr(c)) {
+                continue;
+            }
+            if (c.contains("<")) {
+                continue;
+            }
+            if (PrimitiveTypeUtil.isPrimitive(c)) {
+                continue;
+            }
+            if (StringList.quickEq(c, "$void")) {
+                continue;
+            }
+            Class<?> cl_ = ConstClasses.classForNameNotInit(c);
+            if (cl_.getTypeParameters().length > 0) {
+                continue;
+            }
+            if (lgNames_.getStandards().contains(c)) {
+                continue;
+            }
+            remainClasses_.add(c);
+        }
+        remainClasses_.removeDuplicates();
         packages_.removeDuplicates();
         for (String p: packages_) {
             StringList classes_ = types_.getVal(p);
@@ -268,6 +329,7 @@ public class CheckGene {
         }
         String stds_ = "PokemonStandards";
         String pkg_ = "aiki.beans";
+        String fullName_ = pkg_;
         StringBuilder body_ = new StringBuilder();
         body_.append("package ");
         body_.append(pkg_);
@@ -275,6 +337,7 @@ public class CheckGene {
         for (String p: packages_) {
             body_.append("import ");
             body_.append(p);
+            body_.append(".");
             StringList baseNames_ = StringList.splitChars(p, '.');
             for (String a: baseNames_) {
                 char f_ = a.charAt(0);
@@ -307,25 +370,38 @@ public class CheckGene {
         body_.append("import code.expressionlanguage.stds.StandardMethod;\n");
         body_.append("import code.formathtml.DefaultInitialization;\n");
         body_.append("import code.formathtml.util.BeanLgNames;\n");
+        body_.append("import code.formathtml.util.BeanStruct;\n");
         body_.append("import code.util.CustList;\n");
         body_.append("import code.util.ObjectMap;\n");
         body_.append("import code.util.StringList;\n");
-        body_.append("import code.util.StringMap;\n\n");
+        body_.append("import code.util.StringMap;\n");
+        for (String r: allTypes_) {
+            Class<?> clInfo_ = ConstClasses.classForNameNotInit(r);
+            if (!Modifier.isPublic(clInfo_.getModifiers())) {
+                continue;
+            }
+            body_.append("import "+r+";\n");
+        }
+        for (String r: remainClasses_) {
+            body_.append("import "+r+";\n");
+        }
+        body_.append("\n");
         body_.append("public final class ");
+        fullName_+="."+stds_;
         body_.append(stds_);
         body_.append(" extends BeanLgNames {\n");
         body_.append("    ");
+        body_.append("public ");
         body_.append(stds_);
         body_.append("() {\n");
         body_.append("        setSelectedBoolean(\"sb\");\n");
         body_.append("        setCustList(\"ls\");\n");
-        body_.append("        setCustMap(\"lsm\");\n");
+        body_.append("        setCustMap(\"lse\");\n");
         body_.append("        DefaultInitialization.basicStandards(this);\n");
         body_.append("    }\n");
         body_.append("    public void buildOther() {\n");
         body_.append("        buildBeans();\n");
         for (String p: packages_) {
-            StringList classes_ = types_.getVal(p);
             StringList baseNames_ = StringList.splitChars(p, '.');
             StringBuilder newPart_ = new StringBuilder();
             for (String a: baseNames_) {
@@ -340,15 +416,317 @@ public class CheckGene {
 //            String fullName_ = p + "."+simpleName_;
             body_.append(simpleName_+".build(this);\n");
         }
+        for (String r: remainClasses_) {
+            body_.append("        ");
+            body_.append("build");
+            String simpleName_ = r.substring(r.lastIndexOf('.')+1);
+            body_.append(simpleName_+"(this);\n");
+        }
         body_.append("    }\n");
+        for (String r: remainClasses_) {
+            appendBuilder(body_, r);
+        }
+        body_.append("\n");
+        body_.append("    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {\n");
+        body_.append("        Object instance_ = _instance.getInstance();\n");
+        for (String p: packages_) {
+            StringList classes_ = types_.getVal(p);
+            StringList baseNames_ = StringList.splitChars(p, '.');
+            StringBuilder newPart_ = new StringBuilder();
+            for (String a: baseNames_) {
+                char f_ = a.charAt(0);
+                String next_ = a.substring(1);
+                newPart_.append(Character.toUpperCase(f_));
+                newPart_.append(next_);
+            }
+            newPart_.append("Std");
+            String simpleNamePkg_ = newPart_.toString();
+            for (String c: classes_) {
+                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+                if (!Modifier.isPublic(clInfo_.getModifiers())) {
+                    continue;
+                }
+                if (!hasReadField(c)) {
+                    continue;
+                }
+                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+                body_.append("        if (instance_ instanceof ");
+                body_.append(simpleName_);
+                body_.append(") {\n");
+                body_.append("            return ");
+                body_.append(simpleNamePkg_);
+                body_.append(".getResult");
+                body_.append(simpleName_);
+                body_.append("(_cont, _classField, _instance);\n");
+                body_.append("        }\n");
+            }
+        }
+        body_.append("        return new ResultErrorStd();\n");
+        body_.append("    }\n\n");
+        body_.append("    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {\n");
+        body_.append("        Object instance_ = _instance.getInstance();\n");
+        for (String p: packages_) {
+            StringList classes_ = types_.getVal(p);
+            StringList baseNames_ = StringList.splitChars(p, '.');
+            StringBuilder newPart_ = new StringBuilder();
+            for (String a: baseNames_) {
+                char f_ = a.charAt(0);
+                String next_ = a.substring(1);
+                newPart_.append(Character.toUpperCase(f_));
+                newPart_.append(next_);
+            }
+            newPart_.append("Std");
+            String simpleNamePkg_ = newPart_.toString();
+            for (String c: classes_) {
+                if (!hasWrittenField(c)) {
+                    continue;
+                }
+                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+                if (!Modifier.isPublic(clInfo_.getModifiers())) {
+                    continue;
+                }
+                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+                body_.append("        if (instance_ instanceof ");
+                body_.append(simpleName_);
+                body_.append(") {\n");
+                body_.append("            return ");
+                body_.append(simpleNamePkg_);
+                body_.append(".setResult");
+                body_.append(simpleName_);
+                body_.append("(_cont, _classField, _instance, _value);\n");
+                body_.append("        }\n");
+            }
+        }
+        body_.append("        return new ResultErrorStd();\n");
+        body_.append("    }\n\n");
+        body_.append("    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {\n");
+        body_.append("        Object instance_ = _instance.getInstance();\n");
+        for (String p: packages_) {
+            StringList classes_ = types_.getVal(p);
+            StringList baseNames_ = StringList.splitChars(p, '.');
+            StringBuilder newPart_ = new StringBuilder();
+            for (String a: baseNames_) {
+                char f_ = a.charAt(0);
+                String next_ = a.substring(1);
+                newPart_.append(Character.toUpperCase(f_));
+                newPart_.append(next_);
+            }
+            newPart_.append("Std");
+            String simpleNamePkg_ = newPart_.toString();
+            for (String c: classes_) {
+                if (!hasMethod(c)) {
+                    continue;
+                }
+                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+                if (!Modifier.isPublic(clInfo_.getModifiers())) {
+                    continue;
+                }
+                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+                body_.append("        if (instance_ instanceof ");
+                body_.append(simpleName_);
+                body_.append(") {\n");
+                body_.append("            return ");
+                body_.append(simpleNamePkg_);
+                body_.append(".invokeMethod");
+                body_.append(simpleName_);
+                body_.append("(_cont, _instance, _method, _args);\n");
+                body_.append("        }\n");
+            }
+        }
+        for (String c: remainClasses_) {
+            if (!hasMethod(c)) {
+                continue;
+            }
+            String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+            body_.append("        if (instance_ instanceof ");
+            body_.append(simpleName_);
+            body_.append(") {\n");
+            body_.append("            return invokeMethod");
+            body_.append(simpleName_);
+            body_.append("(_cont, _instance, _method, _args);\n");
+            body_.append("        }\n");
+        }
+        body_.append("        return new ResultErrorStd();\n");
+        body_.append("    }\n\n");
         body_.append("    public ResultErrorStd getOtherResult(ContextEl _cont, ConstructorId _method, Object... _args) {\n");
         body_.append("        ResultErrorStd res_ = new ResultErrorStd();\n");
+        body_.append("        String name_ = _method.getName();\n");
         for (String t: allTypes_) {
-            
+            Class<?> cl_ = ConstClasses.classForNameNotInit(t);
+            if (!Bean.class.isAssignableFrom(cl_)) {
+                continue;
+            }
+            if (Modifier.isAbstract(cl_.getModifiers())) {
+                continue;
+            }
+            body_.append("        if (StringList.quickEq(name_,\""+t+"\")) {\n");
+            body_.append("            "+cl_.getSimpleName()+" bean_ = new "+cl_.getSimpleName()+"();\n");
+            body_.append("            bean_.setClassName(\""+t+"\");\n");
+            body_.append("            res_.setResult(new BeanStruct(bean_));\n");
+            body_.append("            return res_;\n");
+            body_.append("        }\n");
+        }
+        body_.append("        return res_;\n");
+        body_.append("    }\n\n");
+        body_.append("    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {\n");
+        for (String t: allTypes_) {
+            Class<?> cl_ = ConstClasses.classForNameNotInit(t);
+            if (Bean.class.isAssignableFrom(cl_)) {
+                continue;
+            }
+            if (Validator.class.isAssignableFrom(cl_)) {
+                continue;
+            }
+            if (!Modifier.isPublic(cl_.getModifiers())) {
+                continue;
+            }
+            if (cl_ == SelectedBoolean.class) {
+                continue;
+            }
+            if (!Modifier.isFinal(cl_.getModifiers())) {
+                continue;
+            }
+            if (cl_ == Rate.class) {
+                body_.append("        if (_struct instanceof "+cl_.getSimpleName()+") {\n");
+                body_.append("            return \"r\";\n");
+                body_.append("        }\n");
+            } else if (cl_ == LgInt.class) {
+                body_.append("        if (_struct instanceof "+cl_.getSimpleName()+") {\n");
+                body_.append("            return \"li\";\n");
+                body_.append("        }\n");
+            } else {
+                body_.append("        if (_struct instanceof "+cl_.getSimpleName()+") {\n");
+                body_.append("            return \""+t+"\";\n");
+                body_.append("        }\n");
+            }
+        }
+        for (String t: remainClasses_) {
+            Class<?> cl_ = ConstClasses.classForNameNotInit(t);
+            if (cl_ == SelectedBoolean.class) {
+                continue;
+            }
+            if (!Modifier.isPublic(cl_.getModifiers())) {
+                continue;
+            }
+            if (!Modifier.isFinal(cl_.getModifiers())) {
+                continue;
+            }
+            if (cl_ == Rate.class) {
+                body_.append("        if (_struct instanceof "+cl_.getSimpleName()+") {\n");
+                body_.append("            return \"r\";\n");
+                body_.append("        }\n");
+            } else if (cl_ == LgInt.class) {
+                body_.append("        if (_struct instanceof "+cl_.getSimpleName()+") {\n");
+                body_.append("            return \"li\";\n");
+                body_.append("        }\n");
+            } else {
+                body_.append("        if (_struct instanceof "+cl_.getSimpleName()+") {\n");
+                body_.append("            return \""+t+"\";\n");
+                body_.append("        }\n");
+            }
+        }
+        for (String t: allTypes_) {
+            Class<?> cl_ = ConstClasses.classForNameNotInit(t);
+            if (Bean.class.isAssignableFrom(cl_)) {
+                continue;
+            }
+            if (!Modifier.isPublic(cl_.getModifiers())) {
+                continue;
+            }
+            if (Validator.class.isAssignableFrom(cl_)) {
+                continue;
+            }
+            if (Modifier.isFinal(cl_.getModifiers())) {
+                continue;
+            }
+            body_.append("        if (_struct instanceof "+cl_.getSimpleName()+") {\n");
+            body_.append("            return \""+t+"\";\n");
+            body_.append("        }\n");
+        }
+        for (String t: remainClasses_) {
+            Class<?> cl_ = ConstClasses.classForNameNotInit(t);
+            if (Modifier.isFinal(cl_.getModifiers())) {
+                continue;
+            }
+            if (!Modifier.isPublic(cl_.getModifiers())) {
+                continue;
+            }
+            body_.append("        if (_struct instanceof "+cl_.getSimpleName()+") {\n");
+            body_.append("            return \""+t+"\";\n");
+            body_.append("        }\n");
+        }
+        body_.append("        return getAliasObject();\n");
+        body_.append("    }\n");
+        FormatHtmlLookFor.SELECT_CLASSES.removeDuplicates();
+        body_.append("    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {\n");
+        body_.append("        ResultErrorStd res_ = new ResultErrorStd();\n");
+        body_.append("        Object instance_ = _instance.getInstance();\n");
+        for (String c: FormatHtmlLookFor.SELECT_CLASSES) {
+            if (StringList.quickEq(c, "sb")) {
+                continue;
+            }
+            Class<?> cl_ = ConstClasses.classForNameNotInit(c);
+            if (!cl_.isEnum()) {
+                continue;
+            }
+            if (cl_ == SelectedBoolean.class) {
+                continue;
+            }
+            String s_ = c.substring(c.lastIndexOf('.')+1);
+            body_.append("        if (instance_ instanceof "+s_+") {\n");
+            body_.append("            res_.setResult(new StringStruct((("+s_+")instance_).name()));\n");
+            body_.append("            return res_;\n");
+            body_.append("        }\n");
         }
         body_.append("        return res_;\n");
         body_.append("    }\n");
+        FormatHtmlLookFor.INPUT_CLASSES.removeDuplicates();
+        body_.append("    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {\n");
+        body_.append("        ResultErrorStd res_ = new ResultErrorStd();\n");
+        body_.append("        if (_values.isEmpty()) {\n");
+        body_.append("            res_.setError(getAliasError());\n");
+        body_.append("            return res_;\n");
+        body_.append("        }\n");
+        body_.append("        String value_ = _values.first();\n");
+        body_.append("        if (StringList.quickEq(_className,\"r\")){\n");
+        body_.append("            res_.setResult(new StdStruct(new Rate(value_),\"r\"));\n");
+        body_.append("            return res_;\n");
+        body_.append("        }\n");
+        body_.append("        Object instance_ = null;\n");
+        body_.append("        if (StringList.quickEq(_className,\"aiki.beans.facade.simulation.enums.TeamCrud\")){\n");
+        body_.append("            instance_ = TeamCrud.getTeamCrudByName(value_);\n");
+        body_.append("        }\n");
+        body_.append("        if (StringList.quickEq(_className,\"aiki.map.pokemon.enums.Gender\")){\n");
+        body_.append("            instance_ = Gender.getGenderByName(value_);\n");
+        body_.append("        }\n");
+        body_.append("        if (StringList.quickEq(_className,\"aiki.game.params.enums.DifficultyWinPointsFight\")){\n");
+        body_.append("            instance_ = DifficultyWinPointsFight.getDiffWonPtsByName(value_);\n");
+        body_.append("        }\n");
+        body_.append("        if (StringList.quickEq(_className,\"aiki.game.params.enums.DifficultyModelLaw\")){\n");
+        body_.append("            instance_ = DifficultyModelLaw.getModelByName(value_);\n");
+        body_.append("        }\n");
+        body_.append("        if (StringList.quickEq(_className,\"aiki.map.levels.enums.EnvironmentType\")){\n");
+        body_.append("            instance_ = EnvironmentType.getEnvByName(value_);\n");
+        body_.append("        }\n");
+        body_.append("        if (instance_ == null) {\n");
+        body_.append("            res_.setError(getAliasError());\n");
+        body_.append("        } else {\n");
+        body_.append("            res_.setResult(new StdStruct(instance_, _className));\n");
+        body_.append("        }\n");
+        body_.append("        return res_;\n");
+        body_.append("    }\n");
+        for (String c: remainClasses_) {
+            appendGetter(body_, c);
+        }
+        for (String c: remainClasses_) {
+            appendSetter(body_, c);
+        }
+        for (String c: remainClasses_) {
+            appendMethod(body_, c);
+        }
+        //public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
         body_.append("}\n");
+        StreamTextFile.saveTextFile(out+"/"+ fullName_.replace('.', '/')+".java", body_.toString());
         //add standards
     }
     private static void appendBuilder(StringBuilder _body, String _class) {
@@ -357,21 +735,38 @@ public class CheckGene {
         _body.append("(BeanLgNames _std) {\n");
         _body.append("        StandardClass type_;\n");
         _body.append("        StringMap<StandardField> fields_;\n");
-        _body.append("        StandardField field_;\n");
+//        for (String s: CustElUtil.GETTERS_SETTERS_FIELDS.getKeys()) {
+//            String clPart_ = s.substring(0, s.lastIndexOf('.'));
+//            if (StringList.quickEq(clPart_, _class)) {
+//                _body.append("        StandardField field_;\n");
+//                break;
+//            }
+//        }
         _body.append("        CustList<StandardConstructor> constructors_;\n");
         _body.append("        ObjectMap<MethodId, StandardMethod> methods_;\n");
-        _body.append("        StandardMethod method_;\n");
-        _body.append("        StringList params_;\n");
+        if (hasMethod(_class)) {
+            _body.append("        StandardMethod method_;\n");
+            _body.append("        StringList params_;\n");
+        }
         Class<?> clInfo_ = ConstClasses.classForNameNotInit(_class);
         boolean abs_ = Modifier.isAbstract(clInfo_.getModifiers());
         String superClass_ = clInfo_.getSuperclass().getName();
         _body.append("        methods_ = new ObjectMap<MethodId, StandardMethod>();\n");
         _body.append("        constructors_ = new CustList<StandardConstructor>();\n");
         _body.append("        fields_ = new StringMap<StandardField>();\n");
+        String alias_ = _class;
+        if (StringList.quickEq(_class, Rate.class.getName())) {
+            alias_ = "r";
+        } else if (StringList.quickEq(_class, LgInt.class.getName())) {
+            alias_ = "li";
+        }
         if (abs_) {
-            _body.append("        type_ = new StandardClass(\"").append(_class).append("\", fields_, constructors_, methods_, \"").append(superClass_).append("\", MethodModifier.ABSTRACT);\n");
+            _body.append("        type_ = new StandardClass(\"").append(alias_).append("\", fields_, constructors_, methods_, \"").append(superClass_).append("\", MethodModifier.ABSTRACT);\n");
         } else {
-            _body.append("        type_ = new StandardClass(\"").append(_class).append("\", fields_, constructors_, methods_, \"").append(superClass_).append("\", MethodModifier.NORMAL);\n");
+            _body.append("        type_ = new StandardClass(\"").append(alias_).append("\", fields_, constructors_, methods_, \"").append(superClass_).append("\", MethodModifier.NORMAL);\n");
+        }
+        if (Displayable.class.isAssignableFrom(clInfo_)) {
+            _body.append("        type_.getDirectInterfaces().add(_std.getAliasDisplayable());\n");
         }
         for (String s: CustElUtil.GETTERS_SETTERS_FIELDS.getKeys()) {
             String clPart_ = s.substring(0, s.lastIndexOf('.'));
@@ -381,7 +776,11 @@ public class CheckGene {
             String fPart_ = s.substring(s.lastIndexOf('.')+1);
             try {
                 Field info_ = clInfo_.getDeclaredField(fPart_);
-                if (info_.getType() == int.class) {
+                if (info_.getType() == boolean.class) {
+                    _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",_std.getAliasPrimBoolean(),false,false,type_));\n");
+                } else if (info_.getType() == Boolean.class) {
+                    _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",_std.getAliasBoolean(),false,false,type_));\n");
+                } else if (info_.getType() == int.class) {
                     _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",_std.getAliasPrimInteger(),false,false,type_));\n");
                 } else if (info_.getType() == long.class) {
                     _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",_std.getAliasPrimLong(),false,false,type_));\n");
@@ -404,9 +803,9 @@ public class CheckGene {
                 } else if (ListableEntries.class.isAssignableFrom(info_.getType())) {
                     _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",_std.getCustMap(),false,false,type_));\n");
                 } else if (Rate.class.isAssignableFrom(info_.getType())) {
-                    _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",\"$Rate\",false,false,type_));\n");
+                    _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",\"r\",false,false,type_));\n");
                 } else if (LgInt.class.isAssignableFrom(info_.getType())) {
-                    _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",\"$LgInt\",false,false,type_));\n");
+                    _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",\"li\",false,false,type_));\n");
                 } else {
                     _body.append("        fields_.put(\"").append(fPart_).append("\",new StandardField(\"").append(fPart_).append("\",\"").append(info_.getType().getName()).append("\",false,false,type_));\n");
                 }
@@ -453,7 +852,11 @@ public class CheckGene {
                 _body.append("        method_ = new StandardMethod(\"");
                 _body.append(m.getName());
                 _body.append("\",params_,");
-                if (m.getReturnType() == int.class) {
+                if (m.getReturnType() == boolean.class) {
+                    _body.append("_std.getAliasPrimBoolean()");
+                } else if (m.getReturnType() == Boolean.class) {
+                    _body.append("_std.getAliasBoolean()");
+                } else if (m.getReturnType() == int.class) {
                     _body.append("_std.getAliasPrimInteger()");
                 } else if (m.getReturnType() == long.class) {
                     _body.append("_std.getAliasPrimLong()");
@@ -476,9 +879,9 @@ public class CheckGene {
                 } else if (ListableEntries.class.isAssignableFrom(m.getReturnType())) {
                     _body.append("_std.getCustMap()");
                 } else if (Rate.class.isAssignableFrom(m.getReturnType())) {
-                    _body.append("\"$Rate\"");
+                    _body.append("\"r\"");
                 } else if (LgInt.class.isAssignableFrom(m.getReturnType())) {
-                    _body.append("\"$LgInt\"");
+                    _body.append("\"li\"");
                 } else {
                     _body.append("\"").append(m.getReturnType().getName()).append("\"");
                 }
@@ -487,10 +890,13 @@ public class CheckGene {
                 break;
             }
         }
-        _body.append("        _std.getStandards().put(\"").append(_class).append("\", type_);\n");
+        _body.append("        _std.getStandards().put(\"").append(alias_).append("\", type_);\n");
         _body.append("    }\n");
     }
     private static void appendGetter(StringBuilder _body, String _class) {
+        if (!hasReadField(_class)) {
+            return;
+        }
         Class<?> clInfo_ = ConstClasses.classForNameNotInit(_class);
         _body.append("    public static ResultErrorStd getResult");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
@@ -521,7 +927,6 @@ public class CheckGene {
             }
             String fPart_ = key_.substring(key_.lastIndexOf('.')+1);
             char first_ = fPart_.charAt(0);
-            String simpleNameLoc_ = clPart_.substring(clPart_.lastIndexOf('.') + 1);
             _body.append("        if (StringList.quickEq(_classField.getFieldName(),\"").append(fPart_).append("\")) {\n");
             _body.append("            res_.setResult(");
             String getter_ = "get"+Character.toUpperCase(first_)+fPart_.substring(1);
@@ -547,9 +952,9 @@ public class CheckGene {
             } else if (ListableEntries.class.isAssignableFrom(info_.getType())) {
                 _body.append("new StdStruct(instance_.").append(getter_).append("(),std_.getCustMap()));\n");
             } else if (Rate.class.isAssignableFrom(info_.getType())) {
-                _body.append("new StdStruct(instance_.").append(getter_).append("(),\"$Rate\"));\n");
+                _body.append("new StdStruct(instance_.").append(getter_).append("(),\"r\"));\n");
             } else if (LgInt.class.isAssignableFrom(info_.getType())) {
-                _body.append("new StdStruct(instance_.").append(getter_).append("(),\"$LgInt\"));\n");
+                _body.append("new StdStruct(instance_.").append(getter_).append("(),\"li\"));\n");
             } else {
                 _body.append("new StdStruct(instance_.").append(getter_).append("(),\"").append(info_.getType().getName()).append("\"));\n");
             }
@@ -560,6 +965,9 @@ public class CheckGene {
         _body.append("    }\n");
     }
     private static void appendSetter(StringBuilder _body, String _class) {
+        if (!hasWrittenField(_class)) {
+            return;
+        }
         Class<?> clInfo_ = ConstClasses.classForNameNotInit(_class);
         _body.append("    public static ResultErrorStd setResult");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
@@ -591,12 +999,10 @@ public class CheckGene {
             }
             String fPart_ = key_.substring(key_.lastIndexOf('.')+1);
             char first_ = fPart_.charAt(0);
-            String simpleNameLoc_ = clPart_.substring(clPart_.lastIndexOf('.') + 1);
             _body.append("        if (StringList.quickEq(_classField.getFieldName(),\"").append(fPart_).append("\")) {\n");
             _body.append("            instance_.");
             String setter_ = "set"+Character.toUpperCase(first_)+fPart_.substring(1)+"(";
             _body.append(setter_);
-            boolean end_ = true;
             Field info_;
             try {
                 info_ = clInfo_.getDeclaredField(fPart_);
@@ -631,7 +1037,13 @@ public class CheckGene {
         _body.append("    }\n");
     }
     private static void appendMethod(StringBuilder _body, String _class) {
+        if (!hasMethod(_class)) {
+            return;
+        }
         Class<?> clInfo_ = ConstClasses.classForNameNotInit(_class);
+        if (!Modifier.isPublic(clInfo_.getModifiers())) {
+            return;
+        }
         _body.append("    public static ResultErrorStd invokeMethod");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
         _body.append("(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {\n");
@@ -684,9 +1096,9 @@ public class CheckGene {
                 } else if (ListableEntries.class.isAssignableFrom(m.getReturnType())) {
                     _body.append("new StdStruct(instance_.").append(m.getName()).append("("+params_.join(",")+"),std_.getCustMap()));\n");
                 } else if (Rate.class.isAssignableFrom(m.getReturnType())) {
-                    _body.append("new StdStruct(instance_.").append(m.getName()).append("("+params_.join(",")+"),\"$Rate\"));\n");
+                    _body.append("new StdStruct(instance_.").append(m.getName()).append("("+params_.join(",")+"),\"r\"));\n");
                 } else if (LgInt.class.isAssignableFrom(m.getReturnType())) {
-                    _body.append("new StdStruct(instance_.").append(m.getName()).append("("+params_.join(",")+"),\"$LgInt\"));\n");
+                    _body.append("new StdStruct(instance_.").append(m.getName()).append("("+params_.join(",")+"),\"li\"));\n");
                 } else {
                     _body.append("new StdStruct(instance_.").append(m.getName()).append("("+params_.join(",")+"),\"").append(m.getReturnType().getName()).append("\"));\n");
                 }
@@ -696,7 +1108,58 @@ public class CheckGene {
             }
         }
         _body.append("        return res_;\n");
-        _body.append("   }\n");
+        _body.append("    }\n");
+    }
+    private static boolean hasWrittenField(String _class) {
+        for (EntryCust<String, BooleanList> s: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
+            boolean set_ = false;
+            for (boolean w: s.getValue()) {
+                if (w) {
+                    set_ = true;
+                    break;
+                }
+            }
+            if (!set_) {
+                continue;
+            }
+            String key_ = s.getKey();
+            String clPart_ = key_.substring(0, key_.lastIndexOf('.'));
+            if (!StringList.quickEq(clPart_, _class)) {
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
+    private static boolean hasReadField(String _class) {
+        for (EntryCust<String, BooleanList> s: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
+            boolean get_ = false;
+            for (boolean w: s.getValue()) {
+                if (!w) {
+                    get_ = true;
+                    break;
+                }
+            }
+            if (!get_) {
+                continue;
+            }
+            String key_ = s.getKey();
+            String clPart_ = key_.substring(0, key_.lastIndexOf('.'));
+            if (!StringList.quickEq(clPart_, _class)) {
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
+    private static boolean hasMethod(String _class) {
+        for (ClassMethodId e: CustElUtil.CALLS) {
+            if (!StringList.quickEq(e.getClassName(), _class)) {
+                continue;
+            }
+            return true;
+        }
+        return false;
     }
     private static String getSimpleOutput(Class<?> _class) {
         if (_class == int.class || _class == Integer.class) {
