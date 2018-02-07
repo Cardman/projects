@@ -4,6 +4,8 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import code.formathtml.DefaultInitialization;
+import code.formathtml.util.BeanLgNames;
 import code.gui.SessionEditorPane;
 import code.util.CustList;
 import code.util.Numbers;
@@ -51,6 +53,8 @@ public class ListenerClickTree implements TreeSelectionListener {
             indices_ = new Numbers<Integer>();
         }
         ElementHelp element_ = node.element(indices_).getElementLocal();
-        editor.reInitSession(element_.getFile());
+        BeanLgNames bean_ = new BeanLgNames();
+        DefaultInitialization.basicStandards(bean_);
+        editor.reInitSession(element_.getFile(), bean_);
     }
 }

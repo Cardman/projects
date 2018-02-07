@@ -102,8 +102,8 @@ public class SessionEditorPane extends EditorPane {
         process = _process;
     }
 
-    public void initialize(String _conf, JLabel _tooltip) {
-        initialize(_conf);
+    public void initialize(String _conf, JLabel _tooltip, BeanLgNames _lgNames) {
+        initialize(_conf, _lgNames);
         setTooltip(_tooltip);
         addMouseMotionListener(new TitleEvent(this));
     }
@@ -122,25 +122,6 @@ public class SessionEditorPane extends EditorPane {
             return;
         }
         getTooltip().setText(getTooltips().get(linkIndex_));
-    }
-
-    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public void initialize(String _conf) {
-        start();
-//        setCaretColor(Color.WHITE);
-        nav.loadConfiguration(_conf);
-        nav.initializeSession();
-//        setHtmlKit(new HTMLEditorKit());
-//        getHtmlKit().setAutoFormSubmission(false);
-//        setContentType(CONTENT_TYPE);
-//        setEditorKit(getHtmlKit());
-        setupText(true);
-//        setTitle();
-//        setEditable(false);
-//        if (getHyperlinkListeners().length == 0) {
-//            addHyperlinkListener(new HyperlinkClickEvent(this));
-//        }
-        directScroll();
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
@@ -202,6 +183,13 @@ public class SessionEditorPane extends EditorPane {
         setupText(true);
         finish(false);
     }
+    public void initializeHtml(String _conf, BeanLgNames _lgNames) {
+        start();
+        nav.loadConfiguration(_conf, _lgNames);
+        nav.initializeSession();
+        setupText(true);
+        finish(false);
+    }
 
     public void hyperlinkUpdate(HyperlinkEvent _event) {
 //        InputEvent i_ = _event.getInputEvent();
@@ -246,9 +234,9 @@ public class SessionEditorPane extends EditorPane {
 //        }
 //    }
 
-    public void initSession(String _conf) {
+    public void initSession(String _conf, BeanLgNames _lgNames) {
         start();
-        nav.loadConfiguration(_conf);
+        nav.loadConfiguration(_conf, _lgNames);
         nav.initializeSession();
 //        setHtmlKit(new HTMLEditorKit());
 //        getHtmlKit().setAutoFormSubmission(false);
@@ -296,9 +284,9 @@ public class SessionEditorPane extends EditorPane {
         }
     }
 
-    public void reInitSession(String _conf) {
+    public void reInitSession(String _conf, BeanLgNames _lgNames) {
         start();
-        nav.loadConfiguration(_conf);
+        nav.loadConfiguration(_conf, _lgNames);
         nav.initializeSession();
         setupText(true);
 //        setTitle();

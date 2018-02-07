@@ -242,7 +242,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor.setLanguage(Constants.getLanguage());
             editor.setDataBase(rulesPresidentMulti);
-            editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
+            editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }

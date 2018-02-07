@@ -241,7 +241,6 @@ public final class FrameGeneralHelp extends ChildFrame {
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
         editor.setLanguage(Constants.getLanguage());
         BeanLgNames bean_ = new BeanLgNames();
-        bean_.setSelectedBoolean("sb");
         DefaultInitialization.basicStandards(bean_);
         editor.initialize(racineBis.getFile(), bean_);
         if (field == null) {

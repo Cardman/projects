@@ -355,7 +355,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor.setLanguage(Constants.getLanguage());
             editor.setDataBase(rulesTarotMulti);
-            editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
+            editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
