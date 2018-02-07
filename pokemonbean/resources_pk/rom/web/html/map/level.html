@@ -40,7 +40,7 @@
 		<a c:command="web/html/index.html" href=""><c:message value="msg_levelmap,index"/></a><br/>
 		<a c:command="web/html/map/map.html" href=""><c:message value="msg_levelmap,map"/></a>
 		<div style="font-size: 0;">
-			<c:for key="p" map="tiles" value="b">
+			<c:for key="p" map="tiles" value="b" varClassName='java.lang.String'>
 				<c:if condition="isFirstRow(p;;)">
 					<br/>
 				</c:if>

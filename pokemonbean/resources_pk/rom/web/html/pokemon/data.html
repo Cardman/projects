@@ -32,7 +32,7 @@
 			</c:message>
 			<br/>
 			<ul>
-				<c:for list="possibleGenders" var="g">
+				<c:for list="possibleGenders" var="g" className='java.lang.String'>
 					<li>{g;}</li>
 				</c:for>
 			</ul>
@@ -41,7 +41,7 @@
 			</c:message>
 			<br/>
 			<ul>
-				<c:for list="types" var="t">
+				<c:for list="types" var="t" className='java.lang.String'>
 					<li>{t;}</li>
 				</c:for>
 			</ul>
@@ -105,7 +105,7 @@
 				<param value="expEvo"/>
 			</c:message>
 			<ul>
-				<c:for key="k" map="mapVars" value="v">
+				<c:for key="k" map="mapVars" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
 					<li>{k;} : {v;}</li>
 				</c:for>
 			</ul>
@@ -131,7 +131,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for list="statistics" var="s">
+					<c:for list="statistics" var="s" className='java.lang.String'>
 						<tr>
 							<td>{s;}</td>
 							<td>{getBase(s;;)}</td>
@@ -178,7 +178,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="l" map="technicalMoves" value="m">
+					<c:for key="l" map="technicalMoves" value="m" keyClassName='java.lang.Short' varClassName='java.lang.String'>
 						<tr>
 							<td>{l;}</td>
 							<td><a c:command="$clickTechnicalMove({l;;})" href="">{m;}</a></td>
@@ -200,7 +200,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="l" map="hiddenMoves" value="m">
+					<c:for key="l" map="hiddenMoves" value="m" keyClassName='java.lang.Short' varClassName='java.lang.String'>
 						<tr>
 							<td>{l;}</td>
 							<td><a c:command="$clickHiddenMove({l;;})" href="">{m;}</a></td>

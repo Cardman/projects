@@ -21,13 +21,13 @@
 			<p>
 				<c:message value="msg_effendround,reasons"/>
 				<ul>
-					<c:for list="reasonsEndRound" var="r">
+					<c:for list="reasonsEndRound" var="r" className='java.lang.String'>
 						<li>{r;}</li>
 					</c:for>
 				</ul>
 				<br/>
 				<ul>
-					<c:for key="c" map="mapVarsFailEndRound" value="r">
+					<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
 						<li>{c;} : {r;}</li>
 					</c:for>
 				</ul>

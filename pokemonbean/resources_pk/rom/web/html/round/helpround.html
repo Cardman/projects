@@ -339,7 +339,7 @@
 				</table>
 				<c:if condition="!mapAutoDamage.isEmpty()">
 					<ul>
-						<c:for key="c" map="mapAutoDamage" value="r">
+						<c:for key="c" map="mapAutoDamage" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
 							<li>{c;} : 
 								<c:message quoted="" value="msg_helpround,formula">
 									<param value="r;"/>
@@ -963,7 +963,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:for key="d" map="rates" value="f">
+				<c:for key="d" map="rates" value="f" varClassName='java.lang.String'>
 					<tr>
 						<td>{getTrDifficulty(d;;)}</td>
 						<td>{f;}</td>
@@ -973,7 +973,7 @@
 		</table>
 		<c:if condition="!varRates.isEmpty()">
 			<ul>
-				<c:for key="c" map="varRates" value="r">
+				<c:for key="c" map="varRates" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
 					<li>{c;} : 
 						<c:message quoted="" value="msg_helpround,formula">
 							<param value="r;"/>
@@ -1027,7 +1027,7 @@
 		<br/>
 		<c:if condition="!mapVar.isEmpty()">
 			<ul>
-				<c:for key="c" map="mapVar" value="r">
+				<c:for key="c" map="mapVar" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
 					<li>{c;} : 
 						<c:message quoted="" value="msg_helpround,formula">
 							<param value="r;"/>
@@ -1322,10 +1322,10 @@
 		<table>
 			<tr>
 				<td/>
-				<c:for list="types" var="t">
+				<c:for list="types" var="t" className='java.lang.String'>
 					<td>{t;}</td>
 				</c:for>
-				<c:for key="k" keyClassName="aiki.fight.util.TypesDuo" map="efficiency" value="r">
+				<c:for key="k" keyClassName="aiki.fight.util.TypesDuo" map="efficiency" value="r" varClassName='r'>
 					<c:if condition="nextRowAfter(k;;)">
 						<c:tr_end/>
 						<c:tr_begin/>
@@ -1918,7 +1918,7 @@
 		<br/>
 		<table>
 			<tbody>
-				<c:for key="b" map="boosts" value="r">
+				<c:for key="b" map="boosts" value="r" keyClassName='java.lang.Long' varClassName='r'>
 					<tr>
 						<td>{b;}</td>
 						<td>{r;}</td>
@@ -1931,7 +1931,7 @@
 		<br/>
 		<table>
 			<tbody>
-				<c:for key="b" map="boostsCh" value="r">
+				<c:for key="b" map="boostsCh" value="r" keyClassName='java.lang.Long' varClassName='r'>
 					<tr>
 						<td>{b;}</td>
 						<td>{r;}</td>
@@ -2090,7 +2090,7 @@
 		<br/>
 		<c:if condition="!varCatchingFormula.isEmpty()">
 			<ul>
-				<c:for key="c" map="varCatchingFormula" value="r">
+				<c:for key="c" map="varCatchingFormula" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
 					<li>{c;} : 
 						<c:message quoted="" value="msg_helpround,formula">
 							<param value="r;"/>
@@ -2110,7 +2110,7 @@
 		<br/>
 		<c:if condition="!varFleeingFormula.isEmpty()">
 			<ul>
-				<c:for key="c" map="varFleeingFormula" value="r">
+				<c:for key="c" map="varFleeingFormula" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
 					<li>{c;} : 
 						<c:message quoted="" value="msg_helpround,formula">
 							<param value="r;"/>

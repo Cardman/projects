@@ -31,7 +31,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:for key="m" map="enabledMoves" value="a" varClassName="aiki.game.fight.ActivityOfMove">
+				<c:for key="m" map="enabledMoves" value="a" keyClassName='java.lang.String' varClassName="aiki.game.fight.ActivityOfMove">
 					<tr>
 						<td>{m;}</td>
 						<c:if condition="isStillEnabled(m;;)">

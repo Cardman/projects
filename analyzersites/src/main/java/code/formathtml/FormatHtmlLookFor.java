@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustElUtil;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
@@ -48,6 +49,8 @@ import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.ints.Listable;
+import code.util.ints.ListableEntries;
 
 public class FormatHtmlLookFor {
     //
@@ -312,6 +315,26 @@ public class FormatHtmlLookFor {
                         ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
                         if (className_.isEmpty()) {
                             className_ = Object.class.getName();
+                        } else {
+                            try {
+                                String full_ = Templates.getFullTypeByBases(resIterable_, Listable.class.getName(), _conf.toContextEl());
+                                if (full_ != null) {
+                                    StringList compo_ = StringList.getAllTypes(full_);
+                                    if (compo_.size() > 1) {
+                                        if (PrimitiveTypeUtil.isPrimitive(className_, _conf.toContextEl())) {
+                                            System.out.println(compo_.get(1)+"/"+ ConstClasses.resolve(className_));
+                                        } else if (Templates.getFullTypeByBases(compo_.get(1), ConstClasses.resolve(className_), _conf.toContextEl()) == null) {
+                                            System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_LIST)+"/"+full_+"/"+className_);
+                                        }
+                                    } else {
+//                                        System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_LIST));
+                                    }
+                                } else {
+//                                    System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_LIST));
+                                }
+                            } catch (Exception _0) {
+                                System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_LIST));
+                            }
                         }
                         CustElUtil.CLASSES.add(className_);
 //                        String realClass_ = ConstClasses.resolve(className_);
@@ -346,6 +369,26 @@ public class FormatHtmlLookFor {
                         ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
                         if (className_.isEmpty()) {
                             className_ = Object.class.getName();
+                        } else {
+                            try {
+                                String full_ = Templates.getFullTypeByBases(resIterable_, ListableEntries.class.getName(), _conf.toContextEl());
+                                if (full_ != null) {
+                                    StringList compo_ = StringList.getAllTypes(full_);
+                                    if (compo_.size() > 1) {
+                                        if (PrimitiveTypeUtil.isPrimitive(className_, _conf.toContextEl())) {
+                                            System.out.println(compo_.get(1)+"/"+ ConstClasses.resolve(className_));
+                                        } else if (Templates.getFullTypeByBases(compo_.get(1), ConstClasses.resolve(className_), _conf.toContextEl()) == null) {
+                                            System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_MAP)+"/"+full_+"/"+className_);
+                                        }
+                                    } else {
+//                                        System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_MAP));
+                                    }
+                                } else {
+//                                    System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_MAP)+"/"+resIterable_);
+                                }
+                            } catch (Exception _0) {
+                                System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_MAP));
+                            }
                         }
                         CustElUtil.CLASSES.add(className_);
                         lv_.setClassName(ConstClasses.resolve(className_));
@@ -368,6 +411,26 @@ public class FormatHtmlLookFor {
                         ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
                         if (className_.isEmpty()) {
                             className_ = Object.class.getName();
+                        }  else {
+                            try {
+                                String full_ = Templates.getFullTypeByBases(resIterable_, ListableEntries.class.getName(), _conf.toContextEl());
+                                if (full_ != null) {
+                                    StringList compo_ = StringList.getAllTypes(full_);
+                                    if (compo_.size() > 1) {
+                                        if (PrimitiveTypeUtil.isPrimitive(className_, _conf.toContextEl())) {
+                                            System.out.println(compo_.get(2)+"/"+ ConstClasses.resolve(className_));
+                                        } else if (Templates.getFullTypeByBases(compo_.get(2), ConstClasses.resolve(className_), _conf.toContextEl()) == null) {
+                                            System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_MAP)+"/"+full_+"/"+className_);
+                                        }
+                                    } else {
+//                                        System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_MAP));
+                                    }
+                                } else {
+//                                    System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_MAP)+"/"+resIterable_);
+                                }
+                            } catch (Exception _0) {
+                                System.err.println("issue:"+elt_.getAttribute(ATTRIBUTE_MAP));
+                            }
                         }
                         CustElUtil.CLASSES.add(className_);
 //                        realClass_ = ConstClasses.resolve(className_);
@@ -414,7 +477,10 @@ public class FormatHtmlLookFor {
                         ip_.setProcessingAttribute(ATTRIBUTE_VAR_VALUE);
                         ip_.setLookForAttrValue(true);
                         ip_.setOffset(0);
-                        CustElUtil.processAnalyzeEl(mapAttr_, 0, _conf.toContextEl());
+                        String res_ = CustElUtil.processAnalyzeEl(mapAttr_, 0, _conf.toContextEl());
+                        if (StringList.quickEq(res_, Object.class.getName())) {
+                            System.err.println(mapAttr_);
+                        }
                         String class_ = elt_.getAttribute(ATTRIBUTE_CLASS_NAME);
                         SELECT_CLASSES.add(class_);
                         //TODO name
@@ -846,7 +912,10 @@ public class FormatHtmlLookFor {
                         if (attribute_.startsWith(CALL_METHOD)) {
                             begin_ = 1;
                         }
-                        CustElUtil.processAnalyzeEl(attribute_, begin_, _conf.toContextEl());
+                        String res_ = CustElUtil.processAnalyzeEl(attribute_, begin_, _conf.toContextEl());
+                        if (StringList.quickEq(res_, Object.class.getName())) {
+                            System.err.println(attribute_);
+                        }
                         //System.out.println(CustElUtil.processAnalyzeEl(attribute_, begin_, _conf.toContextEl()));
                     }
                 } else if (StringList.quickEq(elt_.getTagName(),prefix_+IMPORT_BLOCK_TAG)) {
@@ -1136,7 +1205,10 @@ public class FormatHtmlLookFor {
                             _conf.getLastPage().setLookForAttrValue(true);
                             _conf.getLastPage().setOffset(0);
                             if (!accessName_.isEmpty()) {
-                                CustElUtil.processAnalyzeEl(accessName_, 0, _conf.toContextEl());
+                                String res_ = CustElUtil.processAnalyzeEl(accessName_, 0, _conf.toContextEl());
+                                if (StringList.quickEq(res_, Object.class.getName())) {
+                                    System.err.println(accessName_);
+                                }
                                 //System.out.println(CustElUtil.processAnalyzeEl(accessName_, 0, _conf.toContextEl()));
                             }
                         }
@@ -1366,7 +1438,10 @@ public class FormatHtmlLookFor {
             _conf.getLastPage().setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
-            CustElUtil.processAnalyzeEl(attribute_, 0, _conf.toContextEl());
+            String res_ = CustElUtil.processAnalyzeEl(attribute_, 0, _conf.toContextEl());
+            if (StringList.quickEq(res_, Object.class.getName())) {
+                System.err.println(attribute_);
+            }
             //System.out.println(CustElUtil.processAnalyzeEl(attribute_, 0, _conf.toContextEl()));
         }
     }
@@ -1376,8 +1451,6 @@ public class FormatHtmlLookFor {
             ImportingPage _ip,
             Element _input, String _name) {
         String name_ = _name;
-        if (!StringList.isWord(_name))
-        System.out.println(_name);
         String className_;
         String end_ = EMPTY_STRING;
         int len_ = name_.length();
@@ -1520,6 +1593,9 @@ public class FormatHtmlLookFor {
                 }
                 _conf.getLastPage().setOffset(i_);
                 String className_ = CustElUtil.processAnalyzeEl(_pattern, context_, i_, LEFT_EL, RIGHT_EL);
+                if (PrimitiveTypeUtil.convert(className_, 0, context_).getInstance() == null) {
+                    System.err.println(_pattern+"/"+className_);
+                }
                 str_.append(PrimitiveTypeUtil.convert(className_, 0, context_).getInstance());
                 i_ = context_.getNextIndex();
                 continue;
@@ -1624,7 +1700,10 @@ public class FormatHtmlLookFor {
                     }
                 }
                 _conf.getLastPage().setOffset(i_);
-                CustElUtil.processAnalyzeEl(_pattern, context_, i_, LEFT_EL, RIGHT_EL);
+                String res_ = CustElUtil.processAnalyzeEl(_pattern, context_, i_, LEFT_EL, RIGHT_EL);
+                if (StringList.quickEq(res_, Object.class.getName())) {
+                    System.err.println(_pattern);
+                }
                 i_ = context_.getNextIndex();
                 continue;
             }

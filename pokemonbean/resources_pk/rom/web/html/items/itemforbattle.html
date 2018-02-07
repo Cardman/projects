@@ -23,13 +23,13 @@
 					<p>
 						<c:message value="msg_effendround,reasons"/>
 						<ul>
-							<c:for list="reasonsEndRound" var="r">
+							<c:for list="reasonsEndRound" var="r" className="java.lang.String">
 								<li>{r;}</li>
 							</c:for>
 						</ul>
 						<br/>
 						<ul>
-							<c:for key="c" map="mapVarsFailEndRound" value="r">
+							<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName="java.lang.String" varClassName="java.lang.String">
 								<li>{c;} : {r;}</li>
 							</c:for>
 						</ul>
@@ -146,7 +146,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="multStatRank" value="r">
+						<c:for key="s" map="multStatRank" value="r" varClassName="java.lang.Byte">
 							<tr>
 								<td>{getTrMultStatRank(s;;)}</td>
 								<td>{r;}</td>
@@ -167,7 +167,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="multStatPokemonRank" value="r">
+						<c:for key="s" map="multStatPokemonRank" value="r" varClassName="java.lang.Byte">
 							<tr>
 								<td>{getTrMultStatPkRank(s;;)}</td>
 								<td><a c:command="$clickMultStatPk({s;;})" href="">{getTrMultStatPk(s;;)}</a></td>
@@ -188,7 +188,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="boostStatisSuperEff" value="r">
+						<c:for key="s" map="boostStatisSuperEff" value="r" varClassName="java.lang.Byte">
 							<tr>
 								<td>{getTrMultStatisSuperEff(s;;)}</td>
 								<td>{r;}</td>
@@ -233,7 +233,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="multStat" value="r">
+						<c:for key="s" map="multStat" value="r" varClassName="java.lang.String">
 							<tr>
 								<td>{getTrMultStat(s;;)}</td>
 								<td>{r;}</td>
@@ -253,7 +253,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="failStatus" value="r">
+						<c:for key="s" map="failStatus" value="r" varClassName="java.lang.String">
 							<tr>
 								<td><a c:command="$clickFailStatus({s;;})" href="">{getTrFailStatus(s;;)}</a></td>
 								<td>{r;}</td>
@@ -265,7 +265,7 @@
 			</c:if>
 			<c:if condition="!mapVars.isEmpty()">
 				<ul>
-					<c:for key="k" map="mapVars" value="v">
+					<c:for key="k" map="mapVars" value="v" keyClassName="java.lang.String" varClassName="java.lang.String">
 						<li>{k;} :
 							<c:message quoted="" value="msg_itemforbattle,formula">
 								<param value="v;"/>
@@ -332,7 +332,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="winEvFight" value="r">
+						<c:for key="s" map="winEvFight" value="r" varClassName="java.lang.Short">
 							<tr>
 								<td>{getTrWinEvFight(s;;)}</td>
 								<td>{r;}</td>
@@ -353,7 +353,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="increasingMaxNbRoundTrap" value="r">
+						<c:for key="s" map="increasingMaxNbRoundTrap" value="r" varClassName="java.lang.Short">
 							<tr>
 								<td><a href="$clickTrapMove({s;;})">{getTrTrapMove(s;;)}</a></td>
 								<td>{r;}</td>
@@ -374,7 +374,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="increasingMaxNbRoundGlobalMove" value="r">
+						<c:for key="s" map="increasingMaxNbRoundGlobalMove" value="r" varClassName="java.lang.Short">
 							<tr>
 								<td><a href="$clickGlobalMove({s;;})">{getTrGlobalMove(s;;)}</a></td>
 								<td>{r;}</td>
@@ -395,7 +395,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="increasingMaxNbRoundTeamMove" value="r">
+						<c:for key="s" map="increasingMaxNbRoundTeamMove" value="r" varClassName="java.lang.Short">
 							<tr>
 								<td><a href="$clickTeamMove({s;;})">{getTrTeamMove(s;;)}</a></td>
 								<td>{r;}</td>

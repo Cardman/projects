@@ -157,7 +157,7 @@ public class CustBeanLgNames extends BeanLgNames {
             res_.setResult(new StdStruct(list_, _className));
             return res_;
         }
-        return super.getOtherStructToBeValidated(_values, _className, _context);
+        return res_;
     }
     @Override
     public ResultErrorStd setOtherElementAtIndex(Struct _struct, int _index, boolean _key,

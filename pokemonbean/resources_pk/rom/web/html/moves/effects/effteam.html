@@ -22,7 +22,7 @@
 			<c:if condition="!forbiddenBoost.isEmpty()">
 				<c:message value="msg_effteam,forbid_boost"/>
 				<ul>
-					<c:for list="forbiddenBoost" var="s">
+					<c:for list="forbiddenBoost" var="s" className='java.lang.String'>
 						<li>{s;}</li>
 					</c:for>
 				</ul>
@@ -33,7 +33,7 @@
 					<param value="defaultBoost"/>
 				</c:message>
 				<ul>
-					<c:for list="cancelChgtStatFoeTeam" var="s">
+					<c:for list="cancelChgtStatFoeTeam" var="s" className='java.lang.String'>
 						<li>{s;}</li>
 					</c:for>
 				</ul>
@@ -44,7 +44,7 @@
 					<param value="defaultBoost"/>
 				</c:message>
 				<ul>
-					<c:for list="cancelChgtStatTeam" var="s">
+					<c:for list="cancelChgtStatTeam" var="s" className='java.lang.String'>
 						<li>{s;}</li>
 					</c:for>
 				</ul>
@@ -53,7 +53,7 @@
 			<c:if condition="!protectAgainstLowStat.isEmpty()">
 				<c:message value="msg_effteam,protect_ag_law_statis"/>
 				<ul>
-					<c:for list="protectAgainstLowStat" var="s">
+					<c:for list="protectAgainstLowStat" var="s" className='java.lang.String'>
 						<li>{s;}</li>
 					</c:for>
 				</ul>
@@ -82,7 +82,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="multStatistic" value="r">
+						<c:for key="c" map="multStatistic" value="r" keyClassName='java.lang.String' varClassName='r'>
 							<tr>
 								<td>{c;}</td>
 								<td>{r;}</td>
@@ -106,7 +106,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="multStatisticFoe" value="r">
+						<c:for key="c" map="multStatisticFoe" value="r" keyClassName='java.lang.String' varClassName='r'>
 							<tr>
 								<td>{c;}</td>
 								<td>{r;}</td>
@@ -133,7 +133,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" keyClassName="aiki.fight.util.CategoryMult" map="multDamage" value="r">
+						<c:for key="c" keyClassName="aiki.fight.util.CategoryMult" map="multDamage" value="r" varClassName='r'>
 							<tr>
 								<td>{c;getCategory()}</td>
 								<td>{c;getMult()}</td>

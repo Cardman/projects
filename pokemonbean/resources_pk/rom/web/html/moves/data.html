@@ -11,14 +11,14 @@
 		<h2><c:message value="msg_movedata,type_cat"/></h2>
 		<c:message value="msg_movedata,typesBoost"/>
 		<ul>
-			<c:for list="boostedTypes" var="t">
+			<c:for list="boostedTypes" var="t" className='java.lang.String'>
 				<li>{t;}</li>
 			</c:for>
 		</ul>
 		<c:if condition="!hasDefaultTypes">
 			<c:message value="msg_movedata,type_title"/>
 			<ul>
-				<c:for list="types" var="t">
+				<c:for list="types" var="t" className='java.lang.String'>
 					<li>{t;}</li>
 				</c:for>
 			</ul>
@@ -33,7 +33,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="i" map="typesByOwnedItems" value="t">
+					<c:for key="i" map="typesByOwnedItems" value="t" varClassName='java.lang.String'>
 						<tr>
 							<c:if condition="isItem(i;;)">
 								<td><a c:command="$clickTypesByOwnedItems({i;;})">{getTrTypesByOwnedItems(i;;)}</a></td>
@@ -57,7 +57,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="i" map="typesByWeathers" value="t">
+					<c:for key="i" map="typesByWeathers" value="t" varClassName='java.lang.String'>
 						<tr>
 							<c:if condition="isWeather(i;;)">
 								<td><a c:command="$clickTypesByWeathers({i;;})">{getTrTypesByWeathers(i;;)}</a></td>
@@ -81,7 +81,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="i" map="typesByOwnedItems" value="t">
+					<c:for key="i" map="typesByOwnedItems" value="t" varClassName='java.lang.String'>
 						<tr>
 							<c:if condition="isItem(i;;)">
 								<td><a c:command="$clickTypesByOwnedItems({i;;})">{getTrTypesByOwnedItems(i;;)}</a></td>
@@ -105,7 +105,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="i" map="typesByWeathers" value="t">
+					<c:for key="i" map="typesByWeathers" value="t" varClassName='java.lang.String'>
 						<tr>
 							<c:if condition="isWeather(i;;)">
 								<td><a c:command="$clickTypesByWeathers({i;;})">{getTrTypesByWeathers(i;;)}</a></td>
@@ -237,7 +237,7 @@
 		<c:if condition="!mapVarsAccuracy.isEmpty()">
 			<br/>
 			<ul>
-				<c:for key="k" map="mapVarsAccuracy" value="v">
+				<c:for key="k" map="mapVarsAccuracy" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
 					<li>{k;} : 
 						<c:message quoted="" value="msg_movedata,formula">
 							<param value="v;"/>
@@ -443,7 +443,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="r" map="repeatRoundLaw" value="p">
+					<c:for key="r" map="repeatRoundLaw" value="p" keyClassName='li' varClassName="r">
 						<tr>
 							<td>{r;}</td>
 							<td>{p;}</td>
@@ -457,7 +457,7 @@
 			<h1><c:message value="msg_movedata,learning_move"/></h1>
 			<c:if condition="!movesLevelLearntByPokemon.isEmpty()">
 				<h2><c:message value="msg_movedata,by_growing"/></h2>
-				<c:for key="l" map="movesLevelLearntByPokemon" value="p" varClassName="ls">
+				<c:for key="l" map="movesLevelLearntByPokemon" value="p" keyClassName='java.lang.Short' varClassName="ls">
 					<h3>
 						<c:message value="msg_movedata,grow_level">
 							<param value="l;"/>

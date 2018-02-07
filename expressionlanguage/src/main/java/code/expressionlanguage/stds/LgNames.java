@@ -46,6 +46,7 @@ import code.util.comparators.ComparatorBoolean;
 import code.util.ints.Countable;
 import code.util.ints.Displayable;
 import code.util.ints.SimpleIterable;
+import code.util.pagination.SelectedBoolean;
 
 public class LgNames {
     public static final int DEFAULT_RADIX = 10;
@@ -205,6 +206,8 @@ public class LgNames {
     private String aliasSetNewString;
     private String aliasSimpleIteratorType;
     private String aliasSimpleIterableType;
+
+    private String selectedBoolean = "$sb";
 
     private StringMap<StandardType> standards = new StringMap<StandardType>();
 
@@ -916,6 +919,11 @@ public class LgNames {
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         standards.put(aliasSimpleIteratorType, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(selectedBoolean, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        getStandards().put(selectedBoolean, stdcl_);
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
@@ -3500,6 +3508,9 @@ public class LgNames {
         if (_struct instanceof SimpleItr) {
             return getAliasSimpleIteratorType();
         }
+        if (_struct instanceof SelectedBoolean) {
+            return getSelectedBoolean();
+        }
         return getOtherStructClassName(_struct, _context);
     }
     public String getOtherStructClassName(Object _struct, ContextEl _context) {
@@ -4335,6 +4346,12 @@ public class LgNames {
     }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;
+    }
+    public String getSelectedBoolean() {
+        return selectedBoolean;
+    }
+    public void setSelectedBoolean(String _selectedBoolean) {
+        selectedBoolean = _selectedBoolean;
     }
     public String getPrettyString() {
         StringBuilder str_ = new StringBuilder();

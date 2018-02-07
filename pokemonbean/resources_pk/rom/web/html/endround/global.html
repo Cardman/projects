@@ -32,7 +32,7 @@
 			<c:if condition="!immuneTypes.isEmpty()">
 				<c:message value="msg_effglobal,immune_types"/>
 				<ul>
-					<c:for list="immuneTypes" var="t">
+					<c:for list="immuneTypes" var="t" className="java.lang.String">
 						<li>{t;}</li>
 					</c:for>
 				</ul>

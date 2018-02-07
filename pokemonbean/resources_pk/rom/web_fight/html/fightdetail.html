@@ -16,7 +16,7 @@
 		</c:if>
 		<c:if condition="!sortedFightersWildFight.isEmpty()">
 			<c:message value="msg_fight,sorted_fighters_fct_choices_wild"/>
-			<c:for key="m" map="sortedFightersWildFight" value="f" varClassName="ls">
+			<c:for key="m" map="sortedFightersWildFight" value="f" keyClassName='java.lang.String' varClassName="ls">
 				{m;}<br/>
 				<ul>
 					<c:for list="f;" var="p">
@@ -122,7 +122,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="p" map="foeChoices" value="a" varClassName="aiki.game.fight.util.MoveTarget">
+					<c:for key="p" map="foeChoices" value="a" keyClassName='java.lang.Byte' varClassName="aiki.game.fight.util.MoveTarget">
 						<tr>
 							<td>{p;}</td>
 							<td>{getFoeFighterName(p;;)}</td>

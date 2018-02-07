@@ -1024,7 +1024,7 @@
 		</c:if>
 		<c:if condition="!mapVars.isEmpty()">
 			<ul>
-				<c:for key="k" map="mapVars" value="v" keyClassName="java.lang.String">
+				<c:for key="k" map="mapVars" value="v" keyClassName="java.lang.String" varClassName="java.lang.String">
 					<li>{k;} :
 						<c:message quoted="" value="msg_ability,formula">
 							<param value="v;"/>

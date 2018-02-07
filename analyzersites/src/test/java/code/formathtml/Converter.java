@@ -353,6 +353,7 @@ public final class Converter {
                             }
                         }
                         if (curLoc_ == '@' && !constLoc_) {
+                            newInstr_.delete(0, newInstr_.length());
                             int k_ = j_ + 1;
                             while (k_ < lenLoc_) {
                                 char locCurrentChar_ = instruction_.charAt(k_);

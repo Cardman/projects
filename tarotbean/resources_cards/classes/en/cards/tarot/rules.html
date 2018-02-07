@@ -22,7 +22,7 @@
 	<br/>
 	<h1>Allowed Bids at the beginning of the deal</h1>
 	<ul>
-		<c:for var="d" list="contrats">
+		<c:for var="d" list="contrats" className='$BidTarot'>
 			<li>{d;}</li>
 		</c:for>
 	</ul>
@@ -37,7 +37,7 @@
 		</thead>
 
 		<tbody>
-			<c:for key="h" value="n" map="poigneesAutorisees">
+			<c:for key="h" value="n" map="poigneesAutorisees" keyClassName='$Handfuls' varClassName='java.lang.Integer'>
 				<tr>
 					<td>{h;}</td>
 					<td>{n;}</td>
@@ -50,7 +50,7 @@
 	Allowed miseres:<br/>
 	<c:if condition="!miseres.isEmpty()">
 		<ul>
-			<c:for var="m" list="miseres">
+			<c:for var="m" list="miseres" className='$Miseres'>
 				<li>{m;}</li>
 			</c:for>
 		</ul>

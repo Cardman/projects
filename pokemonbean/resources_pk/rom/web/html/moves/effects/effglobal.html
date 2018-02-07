@@ -68,7 +68,7 @@
 			<c:if condition="!immuneTypes.isEmpty()">
 				<c:message value="msg_effglobal,immune_types"/>
 				<ul>
-					<c:for list="immuneTypes" var="t">
+					<c:for list="immuneTypes" var="t" className='java.lang.String'>
 						<li>{t;}</li>
 					</c:for>
 				</ul>
@@ -91,7 +91,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" keyClassName="aiki.fight.util.TypesDuo" map="efficiencyMoves" value="r">
+						<c:for key="c" keyClassName="aiki.fight.util.TypesDuo" map="efficiencyMoves" value="r" varClassName='r'>
 							<tr>
 								<td>{c;getDamageType()}</td>
 								<td>{c;getPokemonType()}</td>
@@ -105,7 +105,7 @@
 			<c:if condition="!disableImmuAgainstTypes.isEmpty()">
 				<c:message value="msg_effglobal,disable_immu_types"/>
 				<ul>
-					<c:for list="disableImmuAgainstTypes" var="t">
+					<c:for list="disableImmuAgainstTypes" var="t" className='java.lang.String'>
 						<li>{t;}</li>
 					</c:for>
 				</ul>
@@ -152,7 +152,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="multPowerMoves" value="r">
+						<c:for key="c" map="multPowerMoves" value="r" varClassName='r'>
 							<tr>
 								<td><a c:command="$clickMultMovePower({c;;})" href="">{getTrMultMovePower(c;;)}</a></td>
 								<td>{r;}</td>
@@ -176,7 +176,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="multDamageTypesMoves" value="r">
+						<c:for key="c" map="multDamageTypesMoves" value="r" keyClassName='java.lang.String' varClassName='r'>
 							<tr>
 								<td>{c;}</td>
 								<td>{r;}</td>
@@ -189,7 +189,7 @@
 			<c:if condition="!cancelChgtStat.isEmpty()">
 				<c:message value="msg_effglobal,cancel_chgt_statis"/>
 				<ul>
-					<c:for list="cancelChgtStat" var="t">
+					<c:for list="cancelChgtStat" var="t" className='java.lang.String'>
 						<li>{t;}</li>
 					</c:for>
 				</ul>
@@ -209,7 +209,7 @@
 			<c:if condition="!changedTypesTerrain.isEmpty()">
 				<c:message value="msg_effglobal,changing_type_invoked"/>
 				<ul>
-					<c:for list="changedTypesTerrain" var="t">
+					<c:for list="changedTypesTerrain" var="t" className='java.lang.String'>
 						<li>{t;}</li>
 					</c:for>
 				</ul>
@@ -239,7 +239,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="multStatIfContainsType" value="r">
+						<c:for key="c" map="multStatIfContainsType" value="r" varClassName='r'>
 							<tr>
 								<td>{getTrMultStatIfDamgeTypeFirst(c;;)}</td>
 								<td>{getTrMultStatIfDamgeTypeSecond(c;;)}</td>
@@ -270,7 +270,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="multDamagePrepaRound" value="r">
+						<c:for key="c" map="multDamagePrepaRound" value="r" keyClassName='java.lang.String' varClassName='r'>
 							<tr>
 								<td>{c;}</td>
 								<td>{r;}</td>

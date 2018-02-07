@@ -9,7 +9,7 @@
 		<thead>
 			<tr>
 				<td></td>
-				<c:for var="p" list="nicknames">
+				<c:for var="p" list="nicknames" className='java.lang.String'>
 					<td>{p;}</td>
 				</c:for>
 			</tr>
@@ -18,7 +18,7 @@
 			<c:for var="l" list="linesDeal" className='cards.president.beans.LineDeal'>
 				<tr>
 					<td>{l;number}</td>
-					<c:for var="s" list="l;scores">
+					<c:for var="s" list="l;scores" className='java.lang.Long'>
 						<td>{s;}</td>
 					</c:for>
 				</tr>

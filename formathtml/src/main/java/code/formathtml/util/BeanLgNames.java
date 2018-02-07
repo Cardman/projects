@@ -45,14 +45,13 @@ public class BeanLgNames extends LgNames {
 
     private static final String ON = "on";
     private final String aliasStringMapObject = "code.util.StringMapObject";
-    private final String custList = "$custlist";
     private final String custEntry = "$custentry";
     private final String valueChangedEvent = "code.formathtml.util.ValueChangeEvent";
-    private final String custMap = "$custmap";
     private final String custEntries = "$custentries";
     private final String validator = "code.bean.validator.Validator";
     private final String bean = "code.bean.Bean";
-    private String selectedBoolean;
+    private String custList = "$custlist";
+    private String custMap = "$custmap";
     private String aliasRate;
     private String aliasDataBase;
 
@@ -124,9 +123,6 @@ public class BeanLgNames extends LgNames {
         cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
         cl_.setIterative(custEntry);
         getStandards().put(custEntries, cl_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        cl_ = new StandardClass(selectedBoolean, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        getStandards().put(selectedBoolean, cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(custEntry, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
@@ -265,6 +261,12 @@ public class BeanLgNames extends LgNames {
         if (_struct instanceof Bean) {
             return ((Bean)_struct).getClassName();
         }
+        if (_struct instanceof Validator) {
+            return ((Validator)_struct).getClassName();
+        }
+        if (_struct instanceof Translator) {
+            return ((Translator)_struct).getClassName();
+        }
         if (_struct instanceof SimpleList) {
             return getCustList();
         }
@@ -354,6 +356,15 @@ public class BeanLgNames extends LgNames {
                 res_.setResult(new CharStruct(_values.first().charAt(0)));
                 return res_;
             }
+            if (StringList.quickEq(_className, getSelectedBoolean())) {
+                SelectedBoolean en_ = SelectedBoolean.getBoolByName(_values.first());
+                if (en_ == null) {
+                    res_.setError(getAliasError());
+                } else {
+                    res_.setResult(new StdStruct(en_, _className));
+                }
+                return res_;
+            }
         } catch (Throwable _0) {
             res_.setError(getAliasCast());
             return res_;
@@ -421,12 +432,6 @@ public class BeanLgNames extends LgNames {
         aliasRate = _aliasRate;
     }
 
-    public String getSelectedBoolean() {
-        return selectedBoolean;
-    }
-    public void setSelectedBoolean(String _selectedBoolean) {
-        selectedBoolean = _selectedBoolean;
-    }
     public String getAliasDataBase() {
         return aliasDataBase;
     }
@@ -441,8 +446,14 @@ public class BeanLgNames extends LgNames {
     public String getCustList() {
         return custList;
     }
+    public void setCustList(String _custList) {
+        custList = _custList;
+    }
     public String getCustMap() {
         return custMap;
+    }
+    public void setCustMap(String _custMap) {
+        custMap = _custMap;
     }
     public String getCustEntries() {
         return custEntries;

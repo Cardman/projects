@@ -32,7 +32,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="hitsLaw" value="r">
+						<c:for key="c" map="hitsLaw" value="r" keyClassName='java.lang.Long' varClassName='r'>
 							<tr>
 								<td>{c;}</td>
 								<td>{r;}</td>
@@ -68,7 +68,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:for key="c" map="damageLaw" value="r">
+								<c:for key="c" map="damageLaw" value="r" keyClassName='java.lang.String' varClassName='r'>
 									<tr>
 										<td>{c;}</td>
 										<td>{r;}</td>
@@ -80,7 +80,7 @@
 					</c:if>
 					<c:if condition="!mapVarsDamage.isEmpty()">
 						<ul>
-							<c:for key="k" map="mapVarsDamage" value="v">
+							<c:for key="k" map="mapVarsDamage" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
 								<li>{k;} :
 									<c:message quoted="" value="msg_effdamage,formula">
 										<param value="v;"/>
@@ -105,7 +105,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:for key="c" map="multDamageAgainst" value="r">
+							<c:for key="c" map="multDamageAgainst" value="r" keyClassName='java.lang.String' varClassName='r'>
 								<tr>
 									<td>{c;}</td>
 									<td>{r;}</td>
@@ -128,7 +128,7 @@
 					</c:if>
 					<c:if condition="!mapVarsDamage.isEmpty()">
 						<ul>
-							<c:for key="k" map="mapVarsDamage" value="v">
+							<c:for key="k" map="mapVarsDamage" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
 								<li>{k;} :
 									<c:message quoted="" value="msg_effdamage,formula">
 										<param value="v;"/>
@@ -154,7 +154,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:for key="c" map="chLaw" value="r">
+							<c:for key="c" map="chLaw" value="r" keyClassName='r' varClassName='r'>
 								<tr>
 									<td>{c;}</td>
 									<td>{r;}</td>
@@ -221,7 +221,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="boostStatisOnceKoFoe" value="r">
+						<c:for key="c" map="boostStatisOnceKoFoe" value="r" varClassName='java.lang.Byte'>
 							<tr>
 								<td>{getTranslatedStatisKo(c;;)}</td>
 								<td>{r;}</td>

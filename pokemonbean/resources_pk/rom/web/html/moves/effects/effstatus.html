@@ -30,7 +30,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="lawStatus" value="r">
+						<c:for key="c" map="lawStatus" value="r" varClassName='r'>
 							<tr>
 								<c:if condition="isStatus(c;;)">
 									<td><a c:command="$clickLink({index},{c;;})" href="">{getTrLink(c;;)}</a></td>
@@ -47,7 +47,7 @@
 				<br/>
 				<c:if condition="!mapVarsStatus.isEmpty()">
 					<ul>
-						<c:for key="k" map="mapVarsStatus" value="v">
+						<c:for key="k" map="mapVarsStatus" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
 							<li>{k;} :
 								<c:message quoted="" value="msg_effstatus,formula">
 									<param value="v;"/>

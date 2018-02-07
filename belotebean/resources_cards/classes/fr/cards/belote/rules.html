@@ -15,7 +15,7 @@
 	</c:if>
 	<h1>Annonces autoris&eacute;es</h1>
 	<ul>
-		<c:for var="b" list="encheresAutorisees">
+		<c:for var="b" list="encheresAutorisees" className='$BidBelote'>
 			<li>{b;}</li>
 		</c:for>
 	</ul>
@@ -30,7 +30,7 @@
 	<br/>
 	<h1>Ench&egrave;res autoris&eacute;es au d&eacute;but de la partie</h1>
 	<ul>
-		<c:for var="d" list="annoncesAutorisees">
+		<c:for var="d" list="annoncesAutorisees" className='$DeclaresBelote'>
 			<li>{d;}</li>
 		</c:for>
 	</ul>

@@ -19,10 +19,10 @@
 			<c:for var="l" list="linesDeclaring" className='cards.tarot.beans.SumDeclaringPlayer'>
 				<li>{l;nickname}''s declaring ({l;status}): <br/>
 					<ul>
-						<c:for key="h" value="p" map="l;handfuls">
+						<c:for key="h" value="p" map="l;handfuls" keyClassName='$Handfuls' varClassName='java.lang.Short'>
 							<li>{h;} : {p;}</li>
 						</c:for>
-						<c:for key="m" value="p" map="l;miseres">
+						<c:for key="m" value="p" map="l;miseres" keyClassName='$Miseres' varClassName='java.lang.Short'>
 							<li>{m;} : {p;}</li>
 						</c:for>
 						<li>Sum : {l;sum}</li>
@@ -114,10 +114,10 @@
 			<c:for var="l" list="linesDeclaring" className='cards.tarot.beans.SumDeclaringPlayer'>
 				<li>{l;nickname}''s declaring: <br/>
 					<ul>
-						<c:for key="h" value="p" map="l;handfuls">
+						<c:for key="h" value="p" map="l;handfuls" keyClassName='$Handfuls' varClassName='java.lang.Short'>
 							<li>{h;}</li>
 						</c:for>
-						<c:for key="m" value="p" map="l;miseres">
+						<c:for key="m" value="p" map="l;miseres" keyClassName='$Miseres' varClassName='java.lang.Short'>
 							<li>{m;}</li>
 						</c:for>
 					</ul>

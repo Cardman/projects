@@ -27,7 +27,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="b" map="happiness" value="w">
+						<c:for key="b" map="happiness" value="w" varClassName="java.lang.Short">
 							<tr>
 								<c:if condition="!isBall(b;;)">
 									<td><c:message value="msg_boost,happiness_other_ball"/></td>
@@ -54,7 +54,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="evs" value="w">
+						<c:for key="s" map="evs" value="w" varClassName="java.lang.Short">
 							<tr>
 								<td>{getTrEv(s;;)}</td>
 								<td>{w;}</td>
