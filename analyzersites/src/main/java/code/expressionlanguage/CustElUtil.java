@@ -2,7 +2,10 @@ package code.expressionlanguage;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 
+import code.bean.Accessible;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.FinalMemberException;
@@ -24,6 +27,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.ConstClasses;
 import code.util.BooleanList;
 import code.util.CustList;
@@ -133,8 +137,18 @@ public class CustElUtil {
                                 while (true) {
                                     boolean foundMethod_ = false;
                                     for (Method m: cl_.getDeclaredMethods()) {
-                                        if (StringList.quickEq(m.getName(), methodName_)) {
+                                        if (m.getAnnotation(Accessible.class) == null && !Modifier.isPublic(m.getModifiers())) {
+                                            continue;
+                                        }
+                                        if (StringList.quickEq(m.getName(), methodName_) && m.getParameterTypes().length == params_.size()) {
                                             foundMethod_ = true;
+                                            int i_ = 0;
+                                            params_ = new EqList<ClassName>();
+                                            for (Type t: m.getGenericParameterTypes()) {
+                                                params_.add(new ClassName(NativeTypeUtil.getFormattedType(m.getParameterTypes()[i_].getName(), t.toString(), 0, t), false));
+                                                i_++;
+                                            }
+                                            mId_ = new MethodId(false, methodName_, params_);
                                             break;
                                         }
                                     }

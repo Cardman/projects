@@ -14,31 +14,17 @@ import code.util.StringMap;
 public final class Converter {
 
     private static final char END_LINE = ';';
-    private static final char END_IMPORTS = ';';
     private static final char LINE_RETURN = '\n';
-    private static final char TAB = '\t';
     private static final char BEGIN_COMMENT = '/';
     private static final char SECOND_COMMENT = '*';
-    private static final char PKG = '.';
-    private static final String EMPTY_STRING = "";
-    private static final char SEP_ENUM_CONST = ',';
-    private static final char BEGIN_TEMPLATE = '<';
-    private static final char END_TEMPLATE = '>';
     private static final char BEGIN_BLOCK = '{';
     private static final char END_BLOCK = '}';
-    private static final char BEGIN_CALLING = '(';
-    private static final char SEP_CALLING = ',';
-    private static final char END_CALLING = ')';
-    private static final char PART_SEPARATOR = '=';
     private static final char DEL_CHAR = '\'';
     private static final char DEL_STRING = '"';
     private static final char ESCAPE = '\\';
     private static final String KEY_WORD_PUBLIC = "public";
     private static final String KEY_WORD_PROTECTED = "protected";
     private static final String KEY_WORD_PRIVATE = "private";
-    private static final String KEY_WORD_STATIC = "static";
-    private static final String KEY_WORD_ABSTRACT = "abstract";
-    private static final String KEY_WORD_FINAL = "final";
     private Converter() {
     }
     public static String convertFile(String _fileContent, String _typeName, StringMap<BooleanList> _getSet) {
@@ -211,7 +197,7 @@ public final class Converter {
                     try {
                         Type field_ = foundClass_.getDeclaredField(fieldName_).getGenericType();
                         if (field_ instanceof Class<?>) {
-                            clRet_ = ((Class<?>) field_).getName();
+                            clRet_ = ((Class<?>) field_).getSimpleName();
                         } else {
                             clRet_ = field_.toString();
                         }
@@ -485,7 +471,7 @@ public final class Converter {
             if (constChar_) {
                 instruction_.append(currentChar_);
                 if (currentChar_ == ESCAPE) {
-                    instruction_.append(instruction_.charAt(i_+1));
+                    instruction_.append(_fileContent.charAt(i_+1));
                     i_++;
                     i_++;
                     continue;
