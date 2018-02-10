@@ -467,4 +467,7 @@ public class BeanLgNames extends LgNames {
     public String getCustEntry() {
         return custEntry;
     }
+    public String getValidator() {
+        return validator;
+    }
 }

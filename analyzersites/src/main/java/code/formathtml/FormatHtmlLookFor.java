@@ -345,7 +345,11 @@ public class FormatHtmlLookFor {
 //                                //System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_html, elt_, 0, "", 4)+" "+resIterable_+" "+className_+" as "+realClass_);
 //                            }
 //                        }
-                        lv_.setClassName(ConstClasses.resolve(className_));
+                        if (_conf.toContextEl().getClasses() == null) {
+                            lv_.setClassName(ConstClasses.resolve(className_));
+                        } else {
+                            lv_.setClassName(className_);
+                        }
                         String indexClassName_;
                         indexClassName_ = elt_.getAttribute(ATTRIBUTE_INDEX_CLASS_NAME);
                         if (indexClassName_.isEmpty()) {
@@ -391,7 +395,11 @@ public class FormatHtmlLookFor {
                             }
                         }
                         CustElUtil.CLASSES.add(className_);
-                        lv_.setClassName(ConstClasses.resolve(className_));
+                        if (_conf.toContextEl().getClasses() == null) {
+                            lv_.setClassName(ConstClasses.resolve(className_));
+                        } else {
+                            lv_.setClassName(className_);
+                        }
 //                        String realClass_ = ConstClasses.resolve(className_);
 //                        if (classForName(_conf, 0, realClass_).getTypeParameters().length == 0) {
 //                            String all_ = Templates.getFullTypeByBases(resIterable_, ListableEntries.class.getName(), _conf.toContextEl());
@@ -445,7 +453,11 @@ public class FormatHtmlLookFor {
 //                                }
 //                            }
 //                        }
-                        lv_.setClassName(ConstClasses.resolve(className_));
+                        if (_conf.toContextEl().getClasses() == null) {
+                            lv_.setClassName(ConstClasses.resolve(className_));
+                        } else {
+                            lv_.setClassName(className_);
+                        }
                         lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
                         varsLoop_.put(value_, lv_);
                     }
@@ -1211,6 +1223,7 @@ public class FormatHtmlLookFor {
                                 if (StringList.quickEq(res_, Object.class.getName())) {
                                     System.err.println(accessName_);
                                 }
+                                SELECT_CLASSES.add(res_);
                                 INPUT_CLASSES.add(res_);
                                 //System.out.println(CustElUtil.processAnalyzeEl(accessName_, 0, _conf.toContextEl()));
                             }

@@ -927,7 +927,34 @@ public class LgNames {
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
-        TypeUtil.buildInherits(_cont, standards.getKeys());
+        StringList types_ = new StringList(standards.getKeys());
+        int len_ = types_.size();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            for (int j = i + 1; j < len_; j++) {
+                String typeOne_ = types_.get(i);
+                String typeTwo_ = types_.get(j);
+                boolean inheritOne_ = false;
+                String type_ = typeOne_;
+                while (!StringList.quickEq(type_, typeTwo_)) {
+                    StandardType st_ = standards.getVal(type_);
+                    if (!(st_ instanceof StandardClass)) {
+                        break;
+                    }
+                    StandardClass sc_ = (StandardClass) st_;
+                    type_ = sc_.getSuperClass();
+                    if (type_.isEmpty()) {
+                        break;
+                    }
+                }
+                if (StringList.quickEq(type_, typeTwo_)) {
+                    inheritOne_ = true;
+                }
+                if (inheritOne_) {
+                    types_.swapIndexes(i, j);
+                }
+            }
+        }
+        TypeUtil.buildInherits(_cont, types_);
         for (StandardType t: standards.values()) {
             TypeUtil.buildOverrides(t, _cont);
         }
@@ -2014,6 +2041,9 @@ public class LgNames {
                     Object obj_ = argsObj_[0];
                     result_.setResult(new StringStruct(String.valueOf(obj_)));
                 }
+            } else if (StringList.quickEq(name_, lgNames_.getAliasIsEmpty())) {
+                String one_ = (String) instance_;
+                result_.setResult(new BooleanStruct(one_.length() == 0));
             } else if (StringList.quickEq(name_, lgNames_.getAliasIntern())) {
                 String one_ = (String) instance_;
                 result_.setResult(new StringStruct(one_.intern()));

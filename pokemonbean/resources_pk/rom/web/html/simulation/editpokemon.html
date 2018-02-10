@@ -75,20 +75,20 @@
 			</form>
 			<form action="" c:command="$edit" method="post" name="adding">
 				<c:message value="msg_simulation,exp_pk"/>
-				<input c:validator="positive_rate_validator" c:varValue="experience" id="experienceId" name="experience" type="text"/><span c:for="experienceId" class="errormessage" valueMessage="msg_simulation,rate_issue"> </span><br/>
+				<input c:validator="positive_rate_validator" c:varValue="experience" id="experienceId" name="experience" type="text"/><span c:for="experienceId" class="errormessage" c:valueMessage="msg_simulation,rate_issue"> </span><br/>
 				<c:message value="msg_simulation,catching_ball"/>
 				<c:select className="java.lang.String" default="" map="balls" name="ball" update="" varValue="ball"/><br/>
 				<c:message value="msg_simulation,happiness_pk"/>
-				<input c:validator="short_validator" c:varValue="happiness" id="happinessId" name="happiness" type="text"/><span c:for="happinessId" class="errormessage" valueMessage="msg_simulation,short_issue"> </span><br/>
+				<input c:validator="short_validator" c:varValue="happiness" id="happinessId" name="happiness" type="text"/><span c:for="happinessId" class="errormessage" c:valueMessage="msg_simulation,short_issue"> </span><br/>
 				<c:message value="msg_simulation,remaining_hp"/>
-				<input c:validator="positive_rate_validator" c:varValue="remainingHp" id="remainingHpId" name="remainingHp" type="text"/><span c:for="remainingHpId" class="errormessage" valueMessage="msg_simulation,rate_issue"> </span><br/>
+				<input c:validator="positive_rate_validator" c:varValue="remainingHp" id="remainingHpId" name="remainingHp" type="text"/><span c:for="remainingHpId" class="errormessage" c:valueMessage="msg_simulation,rate_issue"> </span><br/>
 				<c:message value="msg_simulation,heal_hp"/>
 				<input c:varValue="heal" name="heal" type="checkbox"/>
 				<br/>
 				<c:message value="msg_simulation,ev"/>
 				<br/>
 				<c:for key="s" map="ev" value="e" varClassName="aiki.beans.facade.simulation.dto.EvLine">
-					{getTranslatedStatistic(s;;)}: <input c:validator="short_validator" c:varValue="e;ev" id="id`s;;`" name="e;ev" type="text"/><span c:for="id`s;;`" class="errormessage" valueMessage="msg_simulation,short_issue"> </span><br/>
+					{getTranslatedStatistic(s;;)}: <input c:validator="short_validator" c:varValue="e;ev" id="id`s;;`" name="e;ev" type="text"/><span c:for="id`s;;`" class="errormessage" c:valueMessage="msg_simulation,short_issue"> </span><br/>
 				</c:for>
 				<br/>
 				<input type="submit" value="OK"/>

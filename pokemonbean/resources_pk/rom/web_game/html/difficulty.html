@@ -12,19 +12,19 @@
 			<c:message value="msg_difficulty,allow_switch_places"/>
 			<input c:varValue="allowedSwitchPlacesEndRound" name="allowedSwitchPlacesEndRound" type="checkbox"/><br/>
 			<c:message value="msg_difficulty,win_trainer_exp"/>
-			<input c:validator="rate_validator" c:varValue="winTrainerExp" id="winTrainerExpRate" name="winTrainerExp" type="text"/><span c:for="winTrainerExpRate" class="errormessage" valueMessage="msg_difficulty,rate_issue"> </span><br/>
+			<input c:validator="rate_validator" c:varValue="winTrainerExp" id="winTrainerExpRate" name="winTrainerExp" type="text"/><span c:for="winTrainerExpRate" class="errormessage" c:valueMessage="msg_difficulty,rate_issue"> </span><br/>
 			<c:message value="msg_difficulty,winning_exp_pts_fight"/>
-			<input c:validator="rate_validator" c:varValue="rateWinningExpPtsFight" id="winExpRateFight" name="rateWinningExpPtsFight" type="text"/><span c:for="winExpRateFight" class="errormessage" valueMessage="msg_difficulty,rate_issue"> </span><br/>
+			<input c:validator="rate_validator" c:varValue="rateWinningExpPtsFight" id="winExpRateFight" name="rateWinningExpPtsFight" type="text"/><span c:for="winExpRateFight" class="errormessage" c:valueMessage="msg_difficulty,rate_issue"> </span><br/>
 			<c:message value="msg_difficulty,end_fight"/>
 			<input c:varValue="endFightIfOneTeamKo" name="endFightIfOneTeamKo" type="checkbox"/><br/>
 			<c:message value="msg_difficulty,iv_player"/>
-			<input c:validator="short_validator" c:varValue="ivPlayer" id="ivPlayerId" name="ivPlayer" type="text"/><span c:for="ivPlayerId" class="errormessage" valueMessage="msg_difficulty,short_issue"> </span><br/>
+			<input c:validator="short_validator" c:varValue="ivPlayer" id="ivPlayerId" name="ivPlayer" type="text"/><span c:for="ivPlayerId" class="errormessage" c:valueMessage="msg_difficulty,short_issue"> </span><br/>
 			<c:message value="msg_difficulty,iv_foe"/>
-			<input c:validator="short_validator" c:varValue="ivFoe" id="ivFoeId" name="ivFoe" type="text"/><span c:for="ivFoeId" class="errormessage" valueMessage="msg_difficulty,short_issue"> </span><br/>
+			<input c:validator="short_validator" c:varValue="ivFoe" id="ivFoeId" name="ivFoe" type="text"/><span c:for="ivFoeId" class="errormessage" c:valueMessage="msg_difficulty,short_issue"> </span><br/>
 			<c:message value="msg_difficulty,rate_win_money_base"/>
-			<input c:validator="rate_validator" c:varValue="rateWinMoneyBase" id="rateWinMoneyBaseId" name="rateWinMoneyBase" type="text"/><span c:for="rateWinMoneyBaseId" class="errormessage" valueMessage="msg_difficulty,rate_issue"> </span><br/>
+			<input c:validator="rate_validator" c:varValue="rateWinMoneyBase" id="rateWinMoneyBaseId" name="rateWinMoneyBase" type="text"/><span c:for="rateWinMoneyBaseId" class="errormessage" c:valueMessage="msg_difficulty,rate_issue"> </span><br/>
 			<c:message value="msg_difficulty,rate_win_money_loose"/>
-			<input c:validator="rate_validator" c:varValue="rateLooseMoneyWin" id="rateLooseMoneyWinId" name="rateLooseMoneyWin" type="text"/><span c:for="rateLooseMoneyWinId" class="errormessage" valueMessage="msg_difficulty,rate_issue"> </span><br/>
+			<input c:validator="rate_validator" c:varValue="rateLooseMoneyWin" id="rateLooseMoneyWinId" name="rateLooseMoneyWin" type="text"/><span c:for="rateLooseMoneyWinId" class="errormessage" c:valueMessage="msg_difficulty,rate_issue"> </span><br/>
 			<c:message value="msg_difficulty,restored_moves"/>
 			<input c:varValue="restoredMovesEndFight" name="restoredMovesEndFight" type="checkbox"/><br/>
 			<c:message value="msg_difficulty,closing"/>

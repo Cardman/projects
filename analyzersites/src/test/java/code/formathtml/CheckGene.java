@@ -6,15 +6,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import aiki.beans.validators.PositiveRateValidator;
 import aiki.beans.validators.RateValidator;
 import aiki.beans.validators.ShortValidator;
 import aiki.beans.validators.UnselectedRadio;
-import cards.tarot.RulesTarot;
-import cards.tarot.beans.TarotStandards;
 import code.bean.Accessible;
 import code.bean.Bean;
 import code.bean.validator.Validator;
@@ -25,16 +22,18 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BeanLgNames;
+import code.maths.LgInt;
+import code.maths.Rate;
 import code.serialize.ConstClasses;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.stream.StreamTextFile;
 import code.util.BooleanList;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.ints.Displayable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
@@ -368,7 +367,13 @@ public class CheckGene {
             body_.append(simpleName_);
             body_.append(" {\n");
             for (String c: classes_) {
-                body_.append("    public static final String TYPE"+convertToUnderscore(c.substring(c.lastIndexOf('.')+1))+" = \""+c+"\";\n");
+                if (StringList.quickEq(c, LgInt.class.getName())) {
+                    body_.append("    public static final String TYPE"+convertToUnderscore(c.substring(c.lastIndexOf('.')+1))+" = \"li\";\n");
+                } else if (StringList.quickEq(c, Rate.class.getName())) {
+                    body_.append("    public static final String TYPE"+convertToUnderscore(c.substring(c.lastIndexOf('.')+1))+" = \"r\";\n");
+                } else {
+                    body_.append("    public static final String TYPE"+convertToUnderscore(c.substring(c.lastIndexOf('.')+1))+" = \""+c+"\";\n");
+                }
             }
             body_.append("\n");
             StringList methodsNames_ = new StringList();
@@ -482,12 +487,22 @@ public class CheckGene {
         body_.append(stds_);
         body_.append(" extends BeanLgNames {\n");
         for (String c: remainClasses_) {
-            body_.append("    public static final String TYPE"+convertToUnderscore(c.substring(c.lastIndexOf('.')+1))+" = \""+c+"\";\n");
+            if (StringList.quickEq(c, LgInt.class.getName())) {
+                body_.append("    public static final String TYPE"+convertToUnderscore(c.substring(c.lastIndexOf('.')+1))+" = \"li\";\n");
+            } else if (StringList.quickEq(c, Rate.class.getName())) {
+                body_.append("    public static final String TYPE"+convertToUnderscore(c.substring(c.lastIndexOf('.')+1))+" = \"r\";\n");
+            } else {
+                body_.append("    public static final String TYPE"+convertToUnderscore(c.substring(c.lastIndexOf('.')+1))+" = \""+c+"\";\n");
+            }
         }
-        body_.append("    public static final String TYPE_RATE_VALIDATOR = \""+RateValidator.class.getName()+"\";\n");
-        body_.append("    public static final String TYPE_POSITIVE_RATE_VALIDATOR = \""+PositiveRateValidator.class.getName()+"\";\n");
-        body_.append("    public static final String TYPE_SHORT_VALIDATOR = \""+ShortValidator.class.getName()+"\";\n");
-        body_.append("    public static final String TYPE_UNSELECTED_RADIO = \""+UnselectedRadio.class.getName()+"\";\n");
+        body_.append("    public static final String TYPE_FULL_RATE_VALIDATOR = \""+RateValidator.class.getName()+"\";\n");
+        body_.append("    public static final String TYPE_FULL_POSITIVE_RATE_VALIDATOR = \""+PositiveRateValidator.class.getName()+"\";\n");
+        body_.append("    public static final String TYPE_FULL_SHORT_VALIDATOR = \""+ShortValidator.class.getName()+"\";\n");
+        body_.append("    public static final String TYPE_FULL_UNSELECTED_RADIO = \""+UnselectedRadio.class.getName()+"\";\n");
+        body_.append("    public static final String TYPE_RATE_VALIDATOR = \""+RateValidator.class.getSimpleName()+"\";\n");
+        body_.append("    public static final String TYPE_POSITIVE_RATE_VALIDATOR = \""+PositiveRateValidator.class.getSimpleName()+"\";\n");
+        body_.append("    public static final String TYPE_SHORT_VALIDATOR = \""+ShortValidator.class.getSimpleName()+"\";\n");
+        body_.append("    public static final String TYPE_UNSELECTED_RADIO = \""+UnselectedRadio.class.getSimpleName()+"\";\n");
         body_.append("\n");
         StringList methodsNames_ = new StringList();
         for (ClassMethodId e: CustElUtil.CALLS) {
@@ -542,150 +557,283 @@ public class CheckGene {
             String simpleName_ = r.substring(r.lastIndexOf('.')+1);
             body_.append(simpleName_+"(this);\n");
         }
+        for (String v: new String[]{"RateValidator","PositiveRateValidator","ShortValidator","UnselectedRadio"}) {
+            body_.append("        ");
+            body_.append("build");
+            body_.append(v+"(this);\n");
+        }
         body_.append("    }\n");
         for (String r: remainClasses_) {
             appendBuilder(body_, r);
         }
+        for (String v: new String[]{"RateValidator","PositiveRateValidator","ShortValidator","UnselectedRadio"}) {
+            appendEmptyBuilder(body_, v);
+        }
         body_.append("\n");
         body_.append("    public Validator buildValidator(Element _element) {\n");
         body_.append("        String clName_ = _element.getTagName();\n");
-        body_.append("        if (StringList.quickEq(clName_, TYPE_RATE_VALIDATOR)){\n");
+        body_.append("        if (StringList.quickEq(clName_, TYPE_FULL_RATE_VALIDATOR)){\n");
         body_.append("            RateValidator v_ = new RateValidator();\n");
         body_.append("            return v_;\n");
         body_.append("        }\n");
-        body_.append("        if (StringList.quickEq(clName_, TYPE_POSITIVE_RATE_VALIDATOR)){\n");
+        body_.append("        if (StringList.quickEq(clName_, TYPE_FULL_POSITIVE_RATE_VALIDATOR)){\n");
         body_.append("            PositiveRateValidator v_ = new PositiveRateValidator();\n");
         body_.append("            return v_;\n");
         body_.append("        }\n");
-        body_.append("        if (StringList.quickEq(clName_, TYPE_SHORT_VALIDATOR)){\n");
+        body_.append("        if (StringList.quickEq(clName_, TYPE_FULL_SHORT_VALIDATOR)){\n");
         body_.append("            ShortValidator v_ = new ShortValidator();\n");
         body_.append("            return v_;\n");
         body_.append("        }\n");
-        body_.append("        if (StringList.quickEq(clName_, TYPE_UNSELECTED_RADIO)){\n");
+        body_.append("        if (StringList.quickEq(clName_, TYPE_FULL_UNSELECTED_RADIO)){\n");
         body_.append("            UnselectedRadio v_ = new UnselectedRadio();\n");
         body_.append("            return v_;\n");
         body_.append("        }\n");
         body_.append("        return null;\n");
         body_.append("    }\n");
+        StringList allInheritingTypes_ = new StringList();
+        for (String p: packages_) {
+            allInheritingTypes_.addAllElts(types_.getVal(p));
+        }
+        allInheritingTypes_.addAllElts(remainClasses_);
+        allInheritingTypes_.removeDuplicates();
+        int lenInh_ = allInheritingTypes_.size();
+        for (int i = CustList.FIRST_INDEX; i < lenInh_; i++) {
+            for (int j = i + 1; j < lenInh_; j++) {
+                String typeOne_ = allInheritingTypes_.get(j);
+                String typeTwo_ = allInheritingTypes_.get(i);
+                boolean inheritOne_ = false;
+                String type_ = typeOne_;
+                while (!StringList.quickEq(type_, typeTwo_)) {
+                    Class<?> st_ = ConstClasses.classForNameNotInit(type_);
+                    if (st_.isInterface()) {
+                        break;
+                    }
+                    if (st_.getSuperclass() == null) {
+                        break;
+                    }
+                    type_ = st_.getSuperclass().getName();
+                }
+                if (StringList.quickEq(type_, typeTwo_)) {
+                    inheritOne_ = true;
+                }
+                if (inheritOne_) {
+                    allInheritingTypes_.swapIndexes(i, j);
+                }
+            }
+        }
         body_.append("    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {\n");
         body_.append("        Object instance_ = _instance.getInstance();\n");
-        for (String p: packages_) {
-            StringList classes_ = types_.getVal(p);
-            StringList baseNames_ = StringList.splitChars(p, '.');
-            StringBuilder newPart_ = new StringBuilder();
-            for (String a: baseNames_) {
-                char f_ = a.charAt(0);
-                String next_ = a.substring(1);
-                newPart_.append(Character.toUpperCase(f_));
-                newPart_.append(next_);
-            }
-            newPart_.append("Std");
-            String simpleNamePkg_ = newPart_.toString();
-            for (String c: classes_) {
-                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
-                if (!Modifier.isPublic(clInfo_.getModifiers())) {
-                    continue;
-                }
-                if (!hasReadField(c)) {
-                    continue;
-                }
-                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
-                body_.append("        if (instance_ instanceof ");
-                body_.append(simpleName_);
-                body_.append(") {\n");
-                body_.append("            return ");
-                body_.append(simpleNamePkg_);
-                body_.append(".getResult");
-                body_.append(simpleName_);
-                body_.append("(_cont, _classField, _instance);\n");
-                body_.append("        }\n");
-            }
-        }
-        body_.append("        return new ResultErrorStd();\n");
-        body_.append("    }\n\n");
-        body_.append("    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {\n");
-        body_.append("        Object instance_ = _instance.getInstance();\n");
-        for (String p: packages_) {
-            StringList classes_ = types_.getVal(p);
-            StringList baseNames_ = StringList.splitChars(p, '.');
-            StringBuilder newPart_ = new StringBuilder();
-            for (String a: baseNames_) {
-                char f_ = a.charAt(0);
-                String next_ = a.substring(1);
-                newPart_.append(Character.toUpperCase(f_));
-                newPart_.append(next_);
-            }
-            newPart_.append("Std");
-            String simpleNamePkg_ = newPart_.toString();
-            for (String c: classes_) {
-                if (!hasWrittenField(c)) {
-                    continue;
-                }
-                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
-                if (!Modifier.isPublic(clInfo_.getModifiers())) {
-                    continue;
-                }
-                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
-                body_.append("        if (instance_ instanceof ");
-                body_.append(simpleName_);
-                body_.append(") {\n");
-                body_.append("            return ");
-                body_.append(simpleNamePkg_);
-                body_.append(".setResult");
-                body_.append(simpleName_);
-                body_.append("(_cont, _classField, _instance, _value);\n");
-                body_.append("        }\n");
-            }
-        }
-        body_.append("        return new ResultErrorStd();\n");
-        body_.append("    }\n\n");
-        body_.append("    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {\n");
-        body_.append("        Object instance_ = _instance.getInstance();\n");
-        for (String p: packages_) {
-            StringList classes_ = types_.getVal(p);
-            StringList baseNames_ = StringList.splitChars(p, '.');
-            StringBuilder newPart_ = new StringBuilder();
-            for (String a: baseNames_) {
-                char f_ = a.charAt(0);
-                String next_ = a.substring(1);
-                newPart_.append(Character.toUpperCase(f_));
-                newPart_.append(next_);
-            }
-            newPart_.append("Std");
-            String simpleNamePkg_ = newPart_.toString();
-            for (String c: classes_) {
-                if (!hasMethod(c)) {
-                    continue;
-                }
-                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
-                if (!Modifier.isPublic(clInfo_.getModifiers())) {
-                    continue;
-                }
-                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
-                body_.append("        if (instance_ instanceof ");
-                body_.append(simpleName_);
-                body_.append(") {\n");
-                body_.append("            return ");
-                body_.append(simpleNamePkg_);
-                body_.append(".invokeMethod");
-                body_.append(simpleName_);
-                body_.append("(_cont, _instance, _method, _args);\n");
-                body_.append("        }\n");
-            }
-        }
-        for (String c: remainClasses_) {
-            if (!hasMethod(c)) {
+        for (String c: allInheritingTypes_) {
+            Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+            if (!Modifier.isPublic(clInfo_.getModifiers())) {
                 continue;
             }
+            if (!hasReadField(c)) {
+                continue;
+            }
+            String p = c.substring(0, c.lastIndexOf('.'));
+            StringList baseNames_ = StringList.splitChars(p, '.');
+            StringBuilder newPart_ = new StringBuilder();
+            for (String a: baseNames_) {
+                char f_ = a.charAt(0);
+                String next_ = a.substring(1);
+                newPart_.append(Character.toUpperCase(f_));
+                newPart_.append(next_);
+            }
+            newPart_.append("Std");
+            String simpleNamePkg_ = newPart_.toString();
             String simpleName_ = c.substring(c.lastIndexOf('.')+1);
             body_.append("        if (instance_ instanceof ");
             body_.append(simpleName_);
             body_.append(") {\n");
-            body_.append("            return invokeMethod");
+            body_.append("            return ");
+            body_.append(simpleNamePkg_);
+            body_.append(".getResult");
+            body_.append(simpleName_);
+            body_.append("(_cont, _classField, _instance);\n");
+            body_.append("        }\n");
+        }
+//        for (String p: packages_) {
+//            StringList classes_ = types_.getVal(p);
+//            StringList baseNames_ = StringList.splitChars(p, '.');
+//            StringBuilder newPart_ = new StringBuilder();
+//            for (String a: baseNames_) {
+//                char f_ = a.charAt(0);
+//                String next_ = a.substring(1);
+//                newPart_.append(Character.toUpperCase(f_));
+//                newPart_.append(next_);
+//            }
+//            newPart_.append("Std");
+//            String simpleNamePkg_ = newPart_.toString();
+//            for (String c: classes_) {
+//                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+//                if (!Modifier.isPublic(clInfo_.getModifiers())) {
+//                    continue;
+//                }
+//                if (!hasReadField(c)) {
+//                    continue;
+//                }
+//                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+//                body_.append("        if (instance_ instanceof ");
+//                body_.append(simpleName_);
+//                body_.append(") {\n");
+//                body_.append("            return ");
+//                body_.append(simpleNamePkg_);
+//                body_.append(".getResult");
+//                body_.append(simpleName_);
+//                body_.append("(_cont, _classField, _instance);\n");
+//                body_.append("        }\n");
+//            }
+//        }
+        body_.append("        return new ResultErrorStd();\n");
+        body_.append("    }\n\n");
+        body_.append("    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {\n");
+        body_.append("        Object instance_ = _instance.getInstance();\n");
+        for (String c: allInheritingTypes_) {
+            Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+            if (!Modifier.isPublic(clInfo_.getModifiers())) {
+                continue;
+            }
+            if (!hasWrittenField(c)) {
+                continue;
+            }
+            String p = c.substring(0, c.lastIndexOf('.'));
+            StringList baseNames_ = StringList.splitChars(p, '.');
+            StringBuilder newPart_ = new StringBuilder();
+            for (String a: baseNames_) {
+                char f_ = a.charAt(0);
+                String next_ = a.substring(1);
+                newPart_.append(Character.toUpperCase(f_));
+                newPart_.append(next_);
+            }
+            newPart_.append("Std");
+            String simpleNamePkg_ = newPart_.toString();
+            String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+            body_.append("        if (instance_ instanceof ");
+            body_.append(simpleName_);
+            body_.append(") {\n");
+            body_.append("            return ");
+            body_.append(simpleNamePkg_);
+            body_.append(".setResult");
+            body_.append(simpleName_);
+            body_.append("(_cont, _classField, _instance, _value);\n");
+            body_.append("        }\n");
+        }
+//        for (String p: packages_) {
+//            StringList classes_ = types_.getVal(p);
+//            StringList baseNames_ = StringList.splitChars(p, '.');
+//            StringBuilder newPart_ = new StringBuilder();
+//            for (String a: baseNames_) {
+//                char f_ = a.charAt(0);
+//                String next_ = a.substring(1);
+//                newPart_.append(Character.toUpperCase(f_));
+//                newPart_.append(next_);
+//            }
+//            newPart_.append("Std");
+//            String simpleNamePkg_ = newPart_.toString();
+//            for (String c: classes_) {
+//                if (!hasWrittenField(c)) {
+//                    continue;
+//                }
+//                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+//                if (!Modifier.isPublic(clInfo_.getModifiers())) {
+//                    continue;
+//                }
+//                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+//                body_.append("        if (instance_ instanceof ");
+//                body_.append(simpleName_);
+//                body_.append(") {\n");
+//                body_.append("            return ");
+//                body_.append(simpleNamePkg_);
+//                body_.append(".setResult");
+//                body_.append(simpleName_);
+//                body_.append("(_cont, _classField, _instance, _value);\n");
+//                body_.append("        }\n");
+//            }
+//        }
+        body_.append("        return new ResultErrorStd();\n");
+        body_.append("    }\n\n");
+        body_.append("    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {\n");
+        body_.append("        Object instance_ = _instance.getInstance();\n");
+        for (String c: allInheritingTypes_) {
+            Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+            if (!Modifier.isPublic(clInfo_.getModifiers())) {
+                continue;
+            }
+            if (!hasMethod(c)) {
+                continue;
+            }
+            String p = c.substring(0, c.lastIndexOf('.'));
+            StringList baseNames_ = StringList.splitChars(p, '.');
+            StringBuilder newPart_ = new StringBuilder();
+            for (String a: baseNames_) {
+                char f_ = a.charAt(0);
+                String next_ = a.substring(1);
+                newPart_.append(Character.toUpperCase(f_));
+                newPart_.append(next_);
+            }
+            newPart_.append("Std");
+            String simpleNamePkg_ = newPart_.toString();
+            String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+            body_.append("        if (instance_ instanceof ");
+            body_.append(simpleName_);
+            body_.append(") {\n");
+            body_.append("            return ");
+            if (simpleNamePkg_.startsWith("AikiBeans")) {
+                body_.append(simpleNamePkg_+".");
+            } else {
+                body_.append("PokemonStandards.");
+            }
+            body_.append("invokeMethod");
             body_.append(simpleName_);
             body_.append("(_cont, _instance, _method, _args);\n");
             body_.append("        }\n");
         }
+//        for (String p: packages_) {
+//            StringList classes_ = types_.getVal(p);
+//            StringList baseNames_ = StringList.splitChars(p, '.');
+//            StringBuilder newPart_ = new StringBuilder();
+//            for (String a: baseNames_) {
+//                char f_ = a.charAt(0);
+//                String next_ = a.substring(1);
+//                newPart_.append(Character.toUpperCase(f_));
+//                newPart_.append(next_);
+//            }
+//            newPart_.append("Std");
+//            String simpleNamePkg_ = newPart_.toString();
+//            for (String c: classes_) {
+//                if (!hasMethod(c)) {
+//                    continue;
+//                }
+//                Class<?> clInfo_ = ConstClasses.classForNameNotInit(c);
+//                if (!Modifier.isPublic(clInfo_.getModifiers())) {
+//                    continue;
+//                }
+//                String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+//                body_.append("        if (instance_ instanceof ");
+//                body_.append(simpleName_);
+//                body_.append(") {\n");
+//                body_.append("            return ");
+//                body_.append(simpleNamePkg_);
+//                body_.append(".invokeMethod");
+//                body_.append(simpleName_);
+//                body_.append("(_cont, _instance, _method, _args);\n");
+//                body_.append("        }\n");
+//            }
+//        }
+//        for (String c: remainClasses_) {
+//            if (!hasMethod(c)) {
+//                continue;
+//            }
+//            String simpleName_ = c.substring(c.lastIndexOf('.')+1);
+//            body_.append("        if (instance_ instanceof ");
+//            body_.append(simpleName_);
+//            body_.append(") {\n");
+//            body_.append("            return invokeMethod");
+//            body_.append(simpleName_);
+//            body_.append("(_cont, _instance, _method, _args);\n");
+//            body_.append("        }\n");
+//        }
         body_.append("        return new ResultErrorStd();\n");
         body_.append("    }\n\n");
         body_.append("    public ResultErrorStd getOtherResult(ContextEl _cont, ConstructorId _method, Object... _args) {\n");
@@ -811,6 +959,9 @@ public class CheckGene {
             if (StringList.quickEq(c, "sb")) {
                 continue;
             }
+            if (PrimitiveTypeUtil.isPrimitive(c)) {
+                continue;
+            }
             Class<?> cl_ = ConstClasses.classForNameNotInit(c);
             if (!cl_.isEnum()) {
                 continue;
@@ -827,7 +978,7 @@ public class CheckGene {
         body_.append("        return res_;\n");
         body_.append("    }\n");
         FormatHtmlLookFor.INPUT_CLASSES.removeDuplicates();
-        body_.append("    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {\n");
+        body_.append("    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {\n");
         body_.append("        ResultErrorStd res_ = new ResultErrorStd();\n");
         body_.append("        if (_values.isEmpty()) {\n");
         body_.append("            res_.setError(getAliasError());\n");
@@ -835,6 +986,10 @@ public class CheckGene {
         body_.append("        }\n");
         body_.append("        String value_ = _values.first();\n");
         body_.append("        if (StringList.quickEq(_className,TYPE_RATE)){\n");
+        body_.append("            if (!Rate.isValid(value_)) {\n");
+        body_.append("                res_.setError(getAliasError());\n");
+        body_.append("                return res_;\n");
+        body_.append("            }\n");
         body_.append("            res_.setResult(new StdStruct(new Rate(value_),TYPE_RATE));\n");
         body_.append("            return res_;\n");
         body_.append("        }\n");
@@ -875,6 +1030,24 @@ public class CheckGene {
         StreamTextFile.saveTextFile(out+"/"+ fullName_.replace('.', '/')+".java", body_.toString());
         //add standards
     }
+    private static void appendEmptyBuilder(StringBuilder _body, String _class) {
+        _body.append("    private static void build");
+        _body.append(_class.substring(_class.lastIndexOf('.')+1));
+        _body.append("(BeanLgNames _std) {\n");
+        _body.append("        StandardClass type_;\n");
+        _body.append("        StringMap<StandardField> fields_;\n");
+        _body.append("        CustList<StandardConstructor> constructors_;\n");
+        _body.append("        ObjectMap<MethodId, StandardMethod> methods_;\n");
+        _body.append("        methods_ = new ObjectMap<MethodId, StandardMethod>();\n");
+        _body.append("        constructors_ = new CustList<StandardConstructor>();\n");
+        _body.append("        fields_ = new StringMap<StandardField>();\n");
+        String alias_ = "TYPE"+convertToUnderscore(_class.substring(_class.lastIndexOf('.')+1));
+        _body.append("        type_ = new StandardClass(").append(alias_).append(", fields_, constructors_, methods_, ");
+        _body.append("_std.getValidator()").append(",");
+        _body.append(" MethodModifier.NORMAL);\n");
+        _body.append("        _std.getStandards().put(").append(alias_).append(", type_);\n");
+        _body.append("    }\n");
+    }
     private static void appendBuilder(StringBuilder _body, String _class) {
         _body.append("    private static void build");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
@@ -909,8 +1082,10 @@ public class CheckGene {
 //        }
 //        _body.append("        type_ = new StandardClass(\"").append(alias_).append("\", fields_, constructors_, methods_, ");
         _body.append("        type_ = new StandardClass(").append(alias_).append(", fields_, constructors_, methods_, ");
-        if (StringList.quickEq(superClass_, Object.class.getName()) || StringList.quickEq(superClass_, Enum.class.getName()) || StringList.quickEq(superClass_, Validator.class.getName())) {
+        if (StringList.quickEq(superClass_, Object.class.getName()) || StringList.quickEq(superClass_, Enum.class.getName())) {
             _body.append("_std.getAliasObject()").append(",");
+        } else if (StringList.quickEq(superClass_, Validator.class.getName())) {
+            _body.append("_std.getValidator()").append(",");
         } else if (StringList.quickEq(superClass_, Bean.class.getName())) {
             _body.append("_std.getBean()").append(",");
         } else {
@@ -1063,10 +1238,19 @@ public class CheckGene {
             return;
         }
         Class<?> clInfo_ = ConstClasses.classForNameNotInit(_class);
+        Class<?> firstSuperClass_ = clInfo_.getSuperclass();
+        while (firstSuperClass_ != Object.class) {
+            if (hasReadField(firstSuperClass_.getName())) {
+                break;
+            }
+            firstSuperClass_ = firstSuperClass_.getSuperclass();
+        }
         _body.append("    public static ResultErrorStd getResult");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
         _body.append("(ContextEl _cont, ClassField _classField, Struct _instance) {\n");
-        _body.append("        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();\n");
+        if (hasReadFieldStd(_class)) {
+            _body.append("        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();\n");
+        }
         _body.append("        ResultErrorStd res_ = new ResultErrorStd();\n");
         _body.append("        ");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
@@ -1128,7 +1312,11 @@ public class CheckGene {
             _body.append("            return res_;\n");
             _body.append("        }\n");
         }
-        _body.append("        return res_;\n");
+        if (firstSuperClass_ == Object.class) {
+            _body.append("        return res_;\n");
+        } else {
+            _body.append("        return "+getStandardType(firstSuperClass_.getName(), "getResult")+"(_cont, _classField, _instance);\n");
+        }
         _body.append("    }\n");
     }
     private static void appendSetter(StringBuilder _body, int _index, String _class) {
@@ -1136,10 +1324,17 @@ public class CheckGene {
             return;
         }
         Class<?> clInfo_ = ConstClasses.classForNameNotInit(_class);
+        Class<?> firstSuperClass_ = clInfo_.getSuperclass();
+        while (firstSuperClass_ != Object.class) {
+            if (hasWrittenField(firstSuperClass_.getName())) {
+                break;
+            }
+            firstSuperClass_ = firstSuperClass_.getSuperclass();
+        }
         _body.append("    public static ResultErrorStd setResult");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
         _body.append("(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {\n");
-        _body.append("        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();\n");
+        //_body.append("        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();\n");
         _body.append("        ResultErrorStd res_ = new ResultErrorStd();\n");
         _body.append("        ");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
@@ -1201,7 +1396,11 @@ public class CheckGene {
             _body.append("            return res_;\n");
             _body.append("        }\n");
         }
-        _body.append("        return res_;\n");
+        if (firstSuperClass_ == Object.class) {
+            _body.append("        return res_;\n");
+        } else {
+            _body.append("        return "+getStandardType(firstSuperClass_.getName(), "setResult")+"(_cont, _classField, _instance, _value);\n");
+        }
         _body.append("    }\n");
     }
     private static void appendMethod(StringBuilder _body, int _index, String _class) {
@@ -1212,10 +1411,19 @@ public class CheckGene {
         if (!Modifier.isPublic(clInfo_.getModifiers())) {
             return;
         }
+        Class<?> firstSuperClass_ = clInfo_.getSuperclass();
+        while (firstSuperClass_ != Object.class) {
+            if (hasMethod(firstSuperClass_.getName())) {
+                break;
+            }
+            firstSuperClass_ = firstSuperClass_.getSuperclass();
+        }
         _body.append("    public static ResultErrorStd invokeMethod");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
         _body.append("(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {\n");
-        _body.append("        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();\n");
+        if (hasMethodStd(_class)) {
+            _body.append("        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();\n");
+        }
         _body.append("        ");
         _body.append(_class.substring(_class.lastIndexOf('.')+1));
         _body.append(" instance_ = (");
@@ -1277,7 +1485,11 @@ public class CheckGene {
                 break;
             }
         }
-        _body.append("        return res_;\n");
+        if (firstSuperClass_ == Object.class) {
+            _body.append("        return res_;\n");
+        } else {
+            _body.append("        return "+getStandardType(firstSuperClass_.getName(), "invokeMethod")+"(_cont, _instance, _method, _args);\n");
+        }
         _body.append("    }\n");
     }
     private static boolean hasWrittenField(String _class) {
@@ -1301,6 +1513,42 @@ public class CheckGene {
         }
         return false;
     }
+    private static boolean hasReadFieldStd(String _class) {
+        for (EntryCust<String, BooleanList> s: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
+            boolean get_ = false;
+            for (boolean w: s.getValue()) {
+                if (!w) {
+                    get_ = true;
+                    break;
+                }
+            }
+            if (!get_) {
+                continue;
+            }
+            String key_ = s.getKey();
+            String clPart_ = key_.substring(0, key_.lastIndexOf('.'));
+            if (!StringList.quickEq(clPart_, _class)) {
+                continue;
+            }
+            String fPart_ = key_.substring(key_.lastIndexOf('.')+1);
+            Field info_;
+            try {
+                Class<?> clInfo_ = ConstClasses.classForNameNotInit(_class);
+                info_ = clInfo_.getDeclaredField(fPart_);
+                if (Listable.class.isAssignableFrom(info_.getType())) {
+                    return true;
+                }
+                if (ListableEntries.class.isAssignableFrom(info_.getType())) {
+                    return true;
+                }
+                if (SelectedBoolean.class.isAssignableFrom(info_.getType())) {
+                    return true;
+                }
+            } catch (Exception _0) {
+            }
+        }
+        return false;
+    }
     private static boolean hasReadField(String _class) {
         for (EntryCust<String, BooleanList> s: CustElUtil.GETTERS_SETTERS_FIELDS.entryList()) {
             boolean get_ = false;
@@ -1319,6 +1567,35 @@ public class CheckGene {
                 continue;
             }
             return true;
+        }
+        return false;
+    }
+    private static boolean hasMethodStd(String _class) {
+        Class<?> clInfo_ = ConstClasses.classForNameNotInit(_class);
+        for (ClassMethodId e: CustElUtil.CALLS) {
+            if (!StringList.quickEq(e.getClassName(), _class)) {
+                continue;
+            }
+            for (Method m: clInfo_.getDeclaredMethods()) {
+                if (m.getAnnotation(Accessible.class) == null && !Modifier.isPublic(m.getModifiers())) {
+                    continue;
+                }
+                if (!StringList.quickEq(e.getConstraints().getName(), m.getName()) || e.getConstraints().getParametersTypes().size() != m.getParameterTypes().length) {
+                    continue;
+                }
+                if (m.getReturnType() == void.class) {
+                    continue;
+                }
+                if (Listable.class.isAssignableFrom(m.getReturnType())) {
+                    return true;
+                }
+                if (ListableEntries.class.isAssignableFrom(m.getReturnType())) {
+                    return true;
+                }
+                if (SelectedBoolean.class.isAssignableFrom(m.getReturnType())) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -1383,6 +1660,21 @@ public class CheckGene {
         }
         return params_;
     }
+    private static String getStandardType(String _string, String _method) {
+        if (!_string.startsWith("aiki.beans.")) {
+            return "PokemonStandards."+_method+_string.substring(_string.lastIndexOf('.')+1);
+        }
+        StringList baseNames_ = StringList.splitChars(_string.substring(0, _string.lastIndexOf('.')), '.');
+        StringBuilder newPart_ = new StringBuilder();
+        for (String a: baseNames_) {
+            char f_ = a.charAt(0);
+            String next_ = a.substring(1);
+            newPart_.append(Character.toUpperCase(f_));
+            newPart_.append(next_);
+        }
+        newPart_.append("Std");
+        return newPart_.toString() + "."+_method+_string.substring(_string.lastIndexOf('.')+1);
+    }
     private static String importedType(String _string) {
         if (!_string.startsWith("aiki.beans.")) {
             return "PokemonStandards.TYPE"+convertToUnderscore(_string.substring(_string.lastIndexOf('.')+1));
@@ -1412,32 +1704,32 @@ public class CheckGene {
         }
         return ret_.toString();
     }
-    @Ignore
-    @Test
-    public void confCardsTest() {
-        String absolute = System.getProperty("absolute");
-        if (absolute == null) {
-            Assert.fail("no input use -Dabsolute='mydir'");
-        }
-        String resPk;
-        String web;
-        String conf;
-        web = absolute+"resources_cards/";
-        resPk = "";
-        conf = "conf/rules_tarot.xml";
-        testOneFile(conf, web, absolute, resPk, new TarotStandards(), new RulesTarot());
-    }
-    @Ignore
-    @Test
-    public void execCards() {
-        Constants.setSystemLanguage("fr");
-        Navigation nav_ = new Navigation();
-        nav_.setLanguage("fr");
-        nav_.setDataBase(new RulesTarot());
-        nav_.loadConfiguration("resources_cards/conf/rules_tarot.xml", new TarotStandards());
-        nav_.initializeSession();
-        System.out.println(nav_.getHtmlText());
-    }
+//    @Ignore
+//    @Test
+//    public void confCardsTest() {
+//        String absolute = System.getProperty("absolute");
+//        if (absolute == null) {
+//            Assert.fail("no input use -Dabsolute='mydir'");
+//        }
+//        String resPk;
+//        String web;
+//        String conf;
+//        web = absolute+"resources_cards/";
+//        resPk = "";
+//        conf = "conf/rules_tarot.xml";
+//        testOneFile(conf, web, absolute, resPk, new TarotStandards(), new RulesTarot());
+//    }
+//    @Ignore
+//    @Test
+//    public void execCards() {
+//        Constants.setSystemLanguage("fr");
+//        Navigation nav_ = new Navigation();
+//        nav_.setLanguage("fr");
+//        nav_.setDataBase(new RulesTarot());
+//        nav_.loadConfiguration("resources_cards/conf/rules_tarot.xml", new TarotStandards());
+//        nav_.initializeSession();
+//        System.out.println(nav_.getHtmlText());
+//    }
     public static void init(Configuration _conf, boolean _cust) {
         _conf.setHtmlPage(new HtmlPage());
         _conf.setDocument(null);
@@ -1495,6 +1787,7 @@ public class CheckGene {
 ////            conf_.removeLastPage();
 //        }
 //    }
+    @SuppressWarnings("unused")
     private static void testOneFile(String conf, String web, String webtwo, String resPk, BeanLgNames _stds, Object _db) {
         String contentConf_ = StreamTextFile.contentsOfFile(web+conf);
         Configuration conf_ = new Configuration();
