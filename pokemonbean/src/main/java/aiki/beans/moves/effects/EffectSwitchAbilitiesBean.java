@@ -1,9 +1,8 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.moves.effects.EffectSwitchAbilities;
 import aiki.fight.moves.effects.enums.ExchangeType;
+import code.util.StringMap;
 
 public class EffectSwitchAbilitiesBean extends EffectBean {
 
@@ -18,42 +17,28 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
         exchangeAbility = effect_.getExchangeAbility();
         constAbility = effect_.getConstAbility();
     }
-
-    @Accessible
-    private boolean giveToTarget() {
+    public boolean giveToTarget() {
         return exchangeAbility == ExchangeType.GIVE_TO_TARGET;
     }
-
-    @Accessible
-    private boolean giveToUser() {
+    public boolean giveToUser() {
         return exchangeAbility == ExchangeType.GIVE_TO_THROWER;
     }
-
-    @Accessible
-    private boolean giveConst() {
+    public boolean giveConst() {
         return exchangeAbility == ExchangeType.GIVE_CONST;
     }
-
-    @Accessible
-    private boolean switchAbilities() {
+    public boolean switchAbilities() {
         return exchangeAbility == ExchangeType.EXCHANGE;
     }
-
-    @Accessible
-    private boolean isDefAbility() {
+    public boolean isDefAbility() {
         return !constAbility.isEmpty();
     }
-
-    @Accessible
-    private String getTrAbility(int _index) {
+    public String getTrAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect(_index);
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(effect_.getConstAbility());
     }
-
-    @Accessible
-    private String clickAbility(Long _index) {
+    public String clickAbility(Long _index) {
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect(_index.intValue());
         getForms().put(ABILITY, effect_.getConstAbility());
         return ABILITY;

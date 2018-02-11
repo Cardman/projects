@@ -20,7 +20,6 @@ import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypeDamageBoost;
 import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
-import code.bean.Accessible;
 import code.maths.Rate;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -31,284 +30,98 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public class AbilityBean extends CommonBean {
-
-    @Accessible
     private final String effectSendBean="web/html/sending/effsending.html";
-
-    @Accessible
     private String name;
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private boolean achievedDisappearedPk;
-
-    @Accessible
     private boolean breakProtection;
-
-    @Accessible
     private StringList breakProtectionMoves;
-
-    @Accessible
     private boolean cancelSecEffectOther;
-
-    @Accessible
     private boolean cancelSecEffectOwner;
-
-    @Accessible
     private boolean chgtTypeByDamage;
-
-    @Accessible
     private boolean copyMovesTypes;
-
-    @Accessible
     private boolean forbidUseBerryAgainstFoes;
-
-    @Accessible
     private boolean giveItemToAllyHavingUsed;
-
-    @Accessible
     private boolean healedStatusBySwitch;
-
-    @Accessible
     private boolean ignFoeStatisBoost;
-
-    @Accessible
     private boolean immuCh;
-
-    @Accessible
     private boolean immuDamageAllyMoves;
-
-    @Accessible
     private boolean immuDamageRecoil;
-
-    @Accessible
     private boolean immuDamageTrappingMoves;
-
-    @Accessible
     private boolean immuRechargeRound;
-
-    @Accessible
     private StringList immuRechargeRoundMoves;
-
-    @Accessible
     private boolean immuSufferedDamageLowEff;
-
-    @Accessible
     private boolean inflictingDamageInsteadOfSuffering;
-
-    @Accessible
     private boolean mumy;
-
-    @Accessible
     private boolean nbHits;
-
-    @Accessible
     private boolean plate;
-
-    @Accessible
     private boolean reverseEffectsPowerMovesTypesGlobal;
-
-    @Accessible
     private StringList reverseEffectsPowerMovesTypesGlobalAbilities;
-
-    @Accessible
     private boolean slowing;
-
-    @Accessible
     private boolean takeItemByDamagingMove;
-
-    @Accessible
     private String multDamage;
-
-    @Accessible
     private String multPower;
-
-    @Accessible
     private String typeForMoves;
-
-    @Accessible
     private Rate healHpWhileUsingBerry;
-
-    @Accessible
     private Rate healedHpRateBySwitch;
-
-    @Accessible
     private Rate maxHpForUsingBerry;
-
-    @Accessible
     private Rate multAllyDamage;
-
-    @Accessible
     private Rate multDamageCh;
-
-    @Accessible
     private Rate multEvtRateCh;
-
-    @Accessible
     private Rate multEvtRateSecEffectOwner;
-
-    @Accessible
     private Rate multStab;
-
-    @Accessible
     private Rate multSufferedDamageSuperEff;
-
-    @Accessible
     private Rate multVarBoost;
-
-    @Accessible
     private Rate recoilDamageFoe;
-
-    @Accessible
     private Rate recoilDamageFoeByKoOwner;
-
-    @Accessible
     private StringList ignAbility;
-
-    @Accessible
     private StringList ignFoeTeamMove;
-
-    @Accessible
     private StringList immuAbility;
-
-    @Accessible
     private StringList immuAllyFromMoves;
-
-    @Accessible
     private StringList immuMove;
-
-    @Accessible
     private StringList immuStatusBeginRound;
-
-    @Accessible
     private StringList immuWeather;
-
-    @Accessible
     private int decreaseNecStepsHatch;
-
-    @Accessible
     private int nbUsedPp;
-
-    @Accessible
     private TreeMap<String, Rate> singleStatus;
-
-    @Accessible
     private EnumList<Statistic> immuLowStat;
-
-    @Accessible
     private EnumList<Statistic> maxStatisticsIfCh;
-
-    @Accessible
     private EqList<StatisticStatus> immuLowStatIfStatus;
-
-    @Accessible
     private EqList<TypesDuo> breakFoeImmune;
-
-    @Accessible
     private TreeMap<Statistic, Byte> bonusStatRank;
-
-    @Accessible
     private TreeMap<Statistic, Byte> boostStatRankEndRound;
-
-    @Accessible
     private TreeMap<Statistic, Byte> boostStatRankProtected;
-
-    @Accessible
     private TreeMap<Statistic, Byte> lowStatFoeHit;
-
-    @Accessible
     private TreeMap<Statistic, Byte> multStatIfKoFoe;
-
-    @Accessible
     private TreeMap<Statistic, Byte> multStatIfLowStat;
-
-    @Accessible
     private TreeMap<Statistic, String> multStat;
-
-    @Accessible
     private TreeMap<Statistic, Rate> multStatAlly;
-
-    @Accessible
     private TreeMap<StatisticCategory, Byte> multStatIfDamageCat;
-
-    @Accessible
     private TreeMap<StatisticCategory, Rate> multStatIfCat;
-
-    @Accessible
     private TreeMap<StatisticStatus, Byte> multStatIfStatutRank;
-
-    @Accessible
     private TreeMap<StatisticType, Byte> multStatIfDamgeType;
-
-    @Accessible
     private TreeMap<WeatherType, Rate> healHpByTypeIfWeather;
-
-    @Accessible
     private TreeMap<String, TypeDamageBoost> changingBoostTypes;
-
-    @Accessible
     private TreeMap<String, Short> increasedPrio;
-
-    @Accessible
     private TreeMap<String, Short> increasedPrioTypes;
-
-    @Accessible
     private TreeMap<String, String> chgtTypeByWeather;
-
-    @Accessible
     private TreeMap<String, String> failStatus;
-
-    @Accessible
     private TreeMap<String, String> forwardStatus;
-
-    @Accessible
     private TreeMap<String, Rate> divideStatusRound;
-
-    @Accessible
     private TreeMap<String, Rate> healHpByWeather;
-
-    @Accessible
     private TreeMap<String, Rate> multDamageFoe;
-
-    @Accessible
     private TreeMap<String, Rate> multPowerMovesTypesGlobal;
-
-    @Accessible
     private TreeMap<String,EnumList<Statistic>> immuLowStatisTypes;
-
-    @Accessible
     private TreeMap<String, StringList> immuMoveTypesByWeather;
-
-    @Accessible
     private TreeMap<String, StringList> immuStatus;
-
-    @Accessible
     private TreeMap<String, StringList> immuStatusTypes;
-
-    @Accessible
     private boolean endRound;
-
-    @Accessible
     private int endRoundRank;
-
-    @Accessible
     private StringList reasonsEndRound;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFailEndRound;
-
-    @Accessible
     private boolean sending;
-
-    @Accessible
     private NatTreeMap<String,String> mapVars;
-
-    @Accessible
     private Rate defEff = Rate.one();
-
-    @Accessible
     private StringList pokemon = new StringList();
 
     @Override
@@ -751,742 +564,924 @@ public class AbilityBean extends CommonBean {
     public EffectWhileSending getEffectSending() {
         return getAbility().getEffectSending().first();
     }
-
-    @Accessible
-    private boolean decreaseNecStepsHatchInt() {
+    public boolean decreaseNecStepsHatchInt() {
         return decreaseNecStepsHatch > 0;
     }
-
-    @Accessible
-    private boolean nbUsedPpInt() {
+    public boolean nbUsedPpInt() {
         return nbUsedPp > 0;
     }
-
-    @Accessible
-    private String getTrImmuMove(Long _index) {
+    public String getTrImmuMove(Long _index) {
         String type_ = immuMove.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-
-    @Accessible
-    private String clickIndex() {
+    public String clickIndex() {
         if (!getForms().contains(ABILITIES_SET)) {
             getForms().put(ABILITIES_SET, new StringList());
         }
         return ABILITIES;
     }
-
-    @Accessible
-    private String clickImmuMove(Long _index) {
+    public String clickImmuMove(Long _index) {
         String type_ = immuMove.get(_index.intValue());
         getForms().put(MOVE, type_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrImmuAllyFromMoves(Long _index) {
+    public String getTrImmuAllyFromMoves(Long _index) {
         String type_ = immuAllyFromMoves.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-
-    @Accessible
-    private String clickImmuAllyFromMoves(Long _index) {
+    public String clickImmuAllyFromMoves(Long _index) {
         String type_ = immuAllyFromMoves.get(_index.intValue());
         getForms().put(MOVE, type_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrWeather(Long _index) {
+    public String getTrWeather(Long _index) {
         String type_ = immuWeather.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-
-    @Accessible
-    private String clickWeather(Long _index) {
+    public String clickWeather(Long _index) {
         String type_ = immuWeather.get(_index.intValue());
         getForms().put(MOVE, type_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrIgnAbility(Long _index) {
+    public String getTrIgnAbility(Long _index) {
         String type_ = ignAbility.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(type_);
     }
-
-    @Accessible
-    private String clickIgnAbility(Long _index) {
+    public String clickIgnAbility(Long _index) {
         String type_ = ignAbility.get(_index.intValue());
         getForms().put(ABILITY, type_);
         return ABILITY;
     }
-
-    @Accessible
-    private String getTrIgnFoeTeamMove(Long _index) {
+    public String getTrIgnFoeTeamMove(Long _index) {
         String type_ = ignFoeTeamMove.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-
-    @Accessible
-    private String clickIgnFoeTeamMove(Long _index) {
+    public String clickIgnFoeTeamMove(Long _index) {
         String type_ = ignFoeTeamMove.get(_index.intValue());
         getForms().put(MOVE, type_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrImmuAbility(Long _index) {
+    public String getTrImmuAbility(Long _index) {
         String type_ = immuAbility.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(type_);
     }
-
-    @Accessible
-    private String clickImmuAbility(Long _index) {
+    public String clickImmuAbility(Long _index) {
         String type_ = immuAbility.get(_index.intValue());
         getForms().put(ABILITY, type_);
         return ABILITY;
     }
-
-    @Accessible
-    private String getTrImmuStatusBeginRound(Long _index) {
+    public String getTrImmuStatusBeginRound(Long _index) {
         String type_ = immuStatusBeginRound.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
-
-    @Accessible
-    private String clickImmuStatusBeginRound(Long _index) {
+    public String clickImmuStatusBeginRound(Long _index) {
         String type_ = immuStatusBeginRound.get(_index.intValue());
         getForms().put(STATUS, type_);
         return STATUS;
     }
-
-    @Accessible
-    private boolean isStatus(Long _index) {
+    public boolean isStatus(Long _index) {
         return !singleStatus.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String getTrSingleStatus(Long _index) {
+    public String getTrSingleStatus(Long _index) {
         String type_ = singleStatus.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
-
-    @Accessible
-    private String clickSingleStatus(Long _index) {
+    public String clickSingleStatus(Long _index) {
         String type_ = singleStatus.getKey(_index.intValue());
         getForms().put(STATUS, type_);
         return STATUS;
     }
-
-    @Accessible
-    private AbilityData getAbility() {
+    public AbilityData getAbility() {
         DataBase data_ = (DataBase) getDataBase();
         return data_.getAbility(name);
     }
-
-    @Accessible
-    private String getTrBreakProtectionMoves(Long _index) {
+    public String getTrBreakProtectionMoves(Long _index) {
         String move_ = breakProtectionMoves.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickBreakProtectionMoves(Long _index) {
+    public String clickBreakProtectionMoves(Long _index) {
         String move_ = breakProtectionMoves.get(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrImmuRechargeRoundMoves(Long _index) {
+    public String getTrImmuRechargeRoundMoves(Long _index) {
         String move_ = immuRechargeRoundMoves.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickImmuRechargeRoundMoves(Long _index) {
+    public String clickImmuRechargeRoundMoves(Long _index) {
         String move_ = immuRechargeRoundMoves.get(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrReversePowerTypesAbilities(Long _index) {
+    public String getTrReversePowerTypesAbilities(Long _index) {
         String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translationsAbilities_.getVal(move_);
     }
-
-    @Accessible
-    private String clickReversePowerTypesAbilities(Long _index) {
+    public String clickReversePowerTypesAbilities(Long _index) {
         String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index.intValue());
         getForms().put(ABILITY, move_);
         return ABILITY;
     }
-
-    @Accessible
-    private String getTrMultStat(Long _index) {
+    public String getTrMultStat(Long _index) {
         Statistic type_ = multStat.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-
-    @Accessible
-    private String getTrImmuLowStat(Long _index) {
+    public String getTrImmuLowStat(Long _index) {
         Statistic type_ = immuLowStat.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-
-    @Accessible
-    private String getTrMaxStatisticsIfCh(Long _index) {
+    public String getTrMaxStatisticsIfCh(Long _index) {
         Statistic type_ = maxStatisticsIfCh.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-
-    @Accessible
-    private boolean isMoveByWeather(Long _index) {
+    public boolean isMoveByWeather(Long _index) {
         return !immuMoveTypesByWeather.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String getTrImmuMoveByWeather(Long _index) {
+    public String getTrImmuMoveByWeather(Long _index) {
         String move_ = immuMoveTypesByWeather.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickImmuMoveByWeather(Long _index) {
+    public String clickImmuMoveByWeather(Long _index) {
         String move_ = immuMoveTypesByWeather.getKey(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrImmuTypeByWeather(Long _indexOne, Long _indexTwo) {
+    public String getTrImmuTypeByWeather(Long _indexOne, Long _indexTwo) {
         String move_ = immuMoveTypesByWeather.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-
-    @Accessible
-    private boolean isMoveByStatus(Long _index) {
+    public boolean isMoveByStatus(Long _index) {
         return !immuStatus.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String getTrImmuStatusWeather(Long _index) {
+    public String getTrImmuStatusWeather(Long _index) {
         String move_ = immuStatus.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickImmuStatusWeather(Long _index) {
+    public String clickImmuStatusWeather(Long _index) {
         String move_ = immuStatus.getKey(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrImmuStatus(Long _indexOne, Long _indexTwo) {
+    public String getTrImmuStatus(Long _indexOne, Long _indexTwo) {
         String move_ = immuStatus.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(move_);
     }
-
-    @Accessible
-    private String clickImmuStatus(Long _indexOne, Long _indexTwo) {
+    public String clickImmuStatus(Long _indexOne, Long _indexTwo) {
         String move_ = immuStatus.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         getForms().put(STATUS, move_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrImmuStatusTypes(Long _index) {
+    public String getTrImmuStatusTypes(Long _index) {
         String move_ = immuStatusTypes.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrImmuStatusValue(Long _indexOne, Long _indexTwo) {
+    public String getTrImmuStatusValue(Long _indexOne, Long _indexTwo) {
         String move_ = immuStatusTypes.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(move_);
     }
-
-    @Accessible
-    private String clickImmuStatusTypes(Long _indexOne, Long _indexTwo) {
+    public String clickImmuStatusTypes(Long _indexOne, Long _indexTwo) {
         String move_ = immuStatusTypes.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         getForms().put(STATUS, move_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrForwardStatusKey(Long _index) {
+    public String getTrForwardStatusKey(Long _index) {
         String status_ = forwardStatus.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String clickForwardStatusKey(Long _index) {
+    public String clickForwardStatusKey(Long _index) {
         String status_ = forwardStatus.getKey(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrForwardStatusValue(Long _index) {
+    public String getTrForwardStatusValue(Long _index) {
         String status_ = forwardStatus.getValue(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String clickForwardStatusValue(Long _index) {
+    public String clickForwardStatusValue(Long _index) {
         String status_ = forwardStatus.getValue(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrFailStatus(Long _index) {
+    public String getTrFailStatus(Long _index) {
         String status_ = failStatus.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String clickFailStatus(Long _index) {
+    public String clickFailStatus(Long _index) {
         String status_ = failStatus.getKey(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrImmuLowStatIfStatusKey(Long _index) {
+    public String getTrImmuLowStatIfStatusKey(Long _index) {
         String status_ = immuLowStatIfStatus.get(_index.intValue()).getStatus();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String clickImmuLowStatIfStatusKey(Long _index) {
+    public String clickImmuLowStatIfStatusKey(Long _index) {
         String status_ = immuLowStatIfStatus.get(_index.intValue()).getStatus();
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrImmuLowStatIfStatusValue(Long _index) {
+    public String getTrImmuLowStatIfStatusValue(Long _index) {
         Statistic status_ = immuLowStatIfStatus.get(_index.intValue()).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-
-    @Accessible
-    private boolean isChgtTypeByWeather(Long _index) {
+    public boolean isChgtTypeByWeather(Long _index) {
         return !chgtTypeByWeather.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String getTrChgtTypeByWeatherKey(Long _index) {
+    public String getTrChgtTypeByWeatherKey(Long _index) {
         String status_ = chgtTypeByWeather.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-
-    @Accessible
-    private String clickChgtTypeByWeatherKey(Long _index) {
+    public String clickChgtTypeByWeatherKey(Long _index) {
         String status_ = chgtTypeByWeather.getKey(_index.intValue());
         getForms().put(MOVE, status_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrChgtTypeByWeatherValue(Long _index) {
+    public String getTrChgtTypeByWeatherValue(Long _index) {
         String status_ = chgtTypeByWeather.getValue(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrDivideStatusRoundKey(Long _index) {
+    public String getTrDivideStatusRoundKey(Long _index) {
         String status_ = divideStatusRound.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String clickDivideStatusRoundKey(Long _index) {
+    public String clickDivideStatusRoundKey(Long _index) {
         String status_ = divideStatusRound.getKey(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private boolean isHealHpByWeather(Long _index) {
+    public boolean isHealHpByWeather(Long _index) {
         return !healHpByWeather.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String getTrHealHpByWeatherKey(Long _index) {
+    public String getTrHealHpByWeatherKey(Long _index) {
         String status_ = healHpByWeather.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-
-    @Accessible
-    private String clickHealHpByWeatherKey(Long _index) {
+    public String clickHealHpByWeatherKey(Long _index) {
         String status_ = healHpByWeather.getKey(_index.intValue());
         getForms().put(MOVE, status_);
         return MOVE;
     }
-
-    @Accessible
-    private boolean isHealHpByTypeIfWeather(Long _index) {
+    public boolean isHealHpByTypeIfWeather(Long _index) {
         return !healHpByTypeIfWeather.getKey(_index.intValue()).getWeather().isEmpty();
     }
-
-    @Accessible
-    private String getTrHealHpByTypeIfWeatherKey(Long _index) {
+    public String getTrHealHpByTypeIfWeatherKey(Long _index) {
         String status_ = healHpByTypeIfWeather.getKey(_index.intValue()).getWeather();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-
-    @Accessible
-    private String clickHealHpByTypeIfWeatherKey(Long _index) {
+    public String clickHealHpByTypeIfWeatherKey(Long _index) {
         String status_ = healHpByTypeIfWeather.getKey(_index.intValue()).getWeather();
         getForms().put(MOVE, status_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrHealHpByTypeIfWeatherKeySec(Long _index) {
+    public String getTrHealHpByTypeIfWeatherKeySec(Long _index) {
         String status_ = healHpByTypeIfWeather.getKey(_index.intValue()).getType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrMultStatIfDamageCatKey(Long _index) {
+    public String getTrMultStatIfDamageCatKey(Long _index) {
         Statistic status_ = multStatIfDamageCat.getKey(_index.intValue()).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrMultStatIfDamageCatKeySec(Long _index) {
+    public String getTrMultStatIfDamageCatKeySec(Long _index) {
         String status_ = multStatIfDamageCat.getKey(_index.intValue()).getCategory();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         return translationsCategories_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrMultStatIfCatKey(Long _index) {
+    public String getTrMultStatIfCatKey(Long _index) {
         Statistic status_ = multStatIfCat.getKey(_index.intValue()).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrMultStatIfCatKeySec(Long _index) {
+    public String getTrMultStatIfCatKeySec(Long _index) {
         String status_ = multStatIfCat.getKey(_index.intValue()).getCategory();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         return translationsCategories_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrMultStatIfDamgeType(Long _index) {
+    public String getTrMultStatIfDamgeType(Long _index) {
         Statistic status_ = multStatIfDamgeType.getKey(_index.intValue()).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrMultStatIfDamgeTypeSec(Long _index) {
+    public String getTrMultStatIfDamgeTypeSec(Long _index) {
         String status_ = multStatIfDamgeType.getKey(_index.intValue()).getType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrMultStatIfStatutRank(Long _index) {
+    public String getTrMultStatIfStatutRank(Long _index) {
         Statistic status_ = multStatIfStatutRank.getKey(_index.intValue()).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrMultStatIfStatutRankSec(Long _index) {
+    public String getTrMultStatIfStatutRankSec(Long _index) {
         String status_ = multStatIfStatutRank.getKey(_index.intValue()).getStatus();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String clickMultStatIfStatutRankSec(Long _index) {
+    public String clickMultStatIfStatutRankSec(Long _index) {
         String status_ = multStatIfStatutRank.getKey(_index.intValue()).getStatus();
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrMultPowerMovesTypesGlobalKey(Long _index) {
+    public String getTrMultPowerMovesTypesGlobalKey(Long _index) {
         String status_ = multPowerMovesTypesGlobal.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-
-    @Accessible
-    private String clickMultPowerMovesTypesGlobalKey(Long _index) {
+    public String clickMultPowerMovesTypesGlobalKey(Long _index) {
         String status_ = multPowerMovesTypesGlobal.getKey(_index.intValue());
         getForms().put(MOVE, status_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrImmuLowStatisTypes(Long _index) {
+    public String getTrImmuLowStatisTypes(Long _index) {
         String move_ = immuLowStatisTypes.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrImmuLowStatisValue(Long _indexOne, Long _indexTwo) {
+    public String getTrImmuLowStatisValue(Long _indexOne, Long _indexTwo) {
         Statistic move_ = immuLowStatisTypes.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrBreakFoeImmuneKey(Long _index) {
+    public String getTrBreakFoeImmuneKey(Long _index) {
         String status_ = breakFoeImmune.get(_index.intValue()).getDamageType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrBreakFoeImmuneValue(Long _index) {
+    public String getTrBreakFoeImmuneValue(Long _index) {
         String status_ = breakFoeImmune.get(_index.intValue()).getPokemonType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String getTrBonusStatRank(Long _index) {
+    public String getTrBonusStatRank(Long _index) {
         Statistic move_ = bonusStatRank.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrBoostStatRankEndRound(Long _index) {
+    public String getTrBoostStatRankEndRound(Long _index) {
         Statistic move_ = boostStatRankEndRound.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrBoostStatRankProtected(Long _index) {
+    public String getTrBoostStatRankProtected(Long _index) {
         Statistic move_ = boostStatRankProtected.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrLowStatFoeHit(Long _index) {
+    public String getTrLowStatFoeHit(Long _index) {
         Statistic move_ = lowStatFoeHit.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrMultStatIfKoFoe(Long _index) {
+    public String getTrMultStatIfKoFoe(Long _index) {
         Statistic move_ = multStatIfKoFoe.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrMultStatIfLowStat(Long _index) {
+    public String getTrMultStatIfLowStat(Long _index) {
         Statistic move_ = multStatIfLowStat.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrMultStatAlly(Long _index) {
+    public String getTrMultStatAlly(Long _index) {
         Statistic move_ = multStatAlly.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrIncreasedPrio(Long _index) {
+    public String getTrIncreasedPrio(Long _index) {
         String move_ = increasedPrio.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         return translationsCategories_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrIncreasedPrioTypes(Long _index) {
+    public String getTrIncreasedPrioTypes(Long _index) {
         String move_ = increasedPrioTypes.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrMultDamageFoe(Long _index) {
+    public String getTrMultDamageFoe(Long _index) {
         String move_ = multDamageFoe.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrChangingBoostTypesOld(Long _index) {
+    public String getTrChangingBoostTypesOld(Long _index) {
         String move_ = changingBoostTypes.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrChangingBoostTypesNew(Long _index) {
+    public String getTrChangingBoostTypesNew(Long _index) {
         String move_ = changingBoostTypes.getValue(_index.intValue()).getType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-
-    @Accessible
-    private String getTrPokemon(Long _index) {
+    public String getTrPokemon(Long _index) {
         String pk_ = pokemon.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemons_;
         translationsPokemons_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translationsPokemons_.getVal(pk_);
     }
-
-    @Accessible
-    private String clickPokemon(Long _index) {
+    public String clickPokemon(Long _index) {
         String pk_ = pokemon.get(_index.intValue());
         getForms().put(PK, pk_);
         return POKEMON;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public boolean getEndRound() {
+        return endRound;
+    }
+
+    public int getEndRoundRank() {
+        return endRoundRank;
+    }
+
+    public StringList getReasonsEndRound() {
+        return reasonsEndRound;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+        return mapVarsFailEndRound;
+    }
+
+    public boolean getSending() {
+        return sending;
+    }
+
+    public String getEffectSendBean() {
+        return effectSendBean;
+    }
+
+    public boolean getAchievedDisappearedPk() {
+        return achievedDisappearedPk;
+    }
+
+    public boolean getBreakProtection() {
+        return breakProtection;
+    }
+
+    public StringList getBreakProtectionMoves() {
+        return breakProtectionMoves;
+    }
+
+    public boolean getCancelSecEffectOther() {
+        return cancelSecEffectOther;
+    }
+
+    public boolean getCancelSecEffectOwner() {
+        return cancelSecEffectOwner;
+    }
+
+    public boolean getChgtTypeByDamage() {
+        return chgtTypeByDamage;
+    }
+
+    public TreeMap<String,String> getChgtTypeByWeather() {
+        return chgtTypeByWeather;
+    }
+
+    public boolean getCopyMovesTypes() {
+        return copyMovesTypes;
+    }
+
+    public boolean getForbidUseBerryAgainstFoes() {
+        return forbidUseBerryAgainstFoes;
+    }
+
+    public boolean getGiveItemToAllyHavingUsed() {
+        return giveItemToAllyHavingUsed;
+    }
+
+    public boolean getHealedStatusBySwitch() {
+        return healedStatusBySwitch;
+    }
+
+    public boolean getIgnFoeStatisBoost() {
+        return ignFoeStatisBoost;
+    }
+
+    public boolean getImmuCh() {
+        return immuCh;
+    }
+
+    public boolean getImmuDamageAllyMoves() {
+        return immuDamageAllyMoves;
+    }
+
+    public boolean getImmuDamageRecoil() {
+        return immuDamageRecoil;
+    }
+
+    public boolean getImmuDamageTrappingMoves() {
+        return immuDamageTrappingMoves;
+    }
+
+    public boolean getImmuRechargeRound() {
+        return immuRechargeRound;
+    }
+
+    public StringList getImmuRechargeRoundMoves() {
+        return immuRechargeRoundMoves;
+    }
+
+    public boolean getImmuSufferedDamageLowEff() {
+        return immuSufferedDamageLowEff;
+    }
+
+    public boolean getInflictingDamageInsteadOfSuffering() {
+        return inflictingDamageInsteadOfSuffering;
+    }
+
+    public boolean getMumy() {
+        return mumy;
+    }
+
+    public boolean getNbHits() {
+        return nbHits;
+    }
+
+    public boolean getPlate() {
+        return plate;
+    }
+
+    public boolean getReverseEffectsPowerMovesTypesGlobal() {
+        return reverseEffectsPowerMovesTypesGlobal;
+    }
+
+    public StringList getReverseEffectsPowerMovesTypesGlobalAbilities() {
+        return reverseEffectsPowerMovesTypesGlobalAbilities;
+    }
+
+    public boolean getSlowing() {
+        return slowing;
+    }
+
+    public boolean getTakeItemByDamagingMove() {
+        return takeItemByDamagingMove;
+    }
+
+    public Rate getHealHpWhileUsingBerry() {
+        return healHpWhileUsingBerry;
+    }
+
+    public Rate getMaxHpForUsingBerry() {
+        return maxHpForUsingBerry;
+    }
+
+    public Rate getMultAllyDamage() {
+        return multAllyDamage;
+    }
+
+    public Rate getMultDamageCh() {
+        return multDamageCh;
+    }
+
+    public Rate getMultEvtRateCh() {
+        return multEvtRateCh;
+    }
+
+    public Rate getMultEvtRateSecEffectOwner() {
+        return multEvtRateSecEffectOwner;
+    }
+
+    public Rate getMultStab() {
+        return multStab;
+    }
+
+    public Rate getMultSufferedDamageSuperEff() {
+        return multSufferedDamageSuperEff;
+    }
+
+    public Rate getMultVarBoost() {
+        return multVarBoost;
+    }
+
+    public Rate getRecoilDamageFoe() {
+        return recoilDamageFoe;
+    }
+
+    public Rate getRecoilDamageFoeByKoOwner() {
+        return recoilDamageFoeByKoOwner;
+    }
+
+    public int getDecreaseNecStepsHatch() {
+        return decreaseNecStepsHatch;
+    }
+
+    public int getNbUsedPp() {
+        return nbUsedPp;
+    }
+
+    public StringList getImmuMove() {
+        return immuMove;
+    }
+
+    public StringList getImmuAllyFromMoves() {
+        return immuAllyFromMoves;
+    }
+
+    public StringList getImmuWeather() {
+        return immuWeather;
+    }
+
+    public StringList getIgnAbility() {
+        return ignAbility;
+    }
+
+    public StringList getIgnFoeTeamMove() {
+        return ignFoeTeamMove;
+    }
+
+    public StringList getImmuAbility() {
+        return immuAbility;
+    }
+
+    public StringList getImmuStatusBeginRound() {
+        return immuStatusBeginRound;
+    }
+
+    public String getTypeForMoves() {
+        return typeForMoves;
+    }
+
+    public TreeMap<String,TypeDamageBoost> getChangingBoostTypes() {
+        return changingBoostTypes;
+    }
+
+    public String getMultPower() {
+        return multPower;
+    }
+
+    public String getMultDamage() {
+        return multDamage;
+    }
+
+    public TreeMap<String,Rate> getHealHpByWeather() {
+        return healHpByWeather;
+    }
+
+    public TreeMap<WeatherType,Rate> getHealHpByTypeIfWeather() {
+        return healHpByTypeIfWeather;
+    }
+
+    public EnumList<Statistic> getImmuLowStat() {
+        return immuLowStat;
+    }
+
+    public EqList<StatisticStatus> getImmuLowStatIfStatus() {
+        return immuLowStatIfStatus;
+    }
+
+    public TreeMap<String,EnumList<Statistic>> getImmuLowStatisTypes() {
+        return immuLowStatisTypes;
+    }
+
+    public EnumList<Statistic> getMaxStatisticsIfCh() {
+        return maxStatisticsIfCh;
+    }
+
+    public TreeMap<String,Rate> getSingleStatus() {
+        return singleStatus;
+    }
+
+    public TreeMap<String,StringList> getImmuMoveTypesByWeather() {
+        return immuMoveTypesByWeather;
+    }
+
+    public TreeMap<String,StringList> getImmuStatus() {
+        return immuStatus;
+    }
+
+    public TreeMap<String,StringList> getImmuStatusTypes() {
+        return immuStatusTypes;
+    }
+
+    public TreeMap<String,Rate> getDivideStatusRound() {
+        return divideStatusRound;
+    }
+
+    public TreeMap<String,String> getForwardStatus() {
+        return forwardStatus;
+    }
+
+    public EqList<TypesDuo> getBreakFoeImmune() {
+        return breakFoeImmune;
+    }
+
+    public Rate getDefEff() {
+        return defEff;
+    }
+
+    public TreeMap<Statistic,String> getMultStat() {
+        return multStat;
+    }
+
+    public TreeMap<StatisticCategory,Byte> getMultStatIfDamageCat() {
+        return multStatIfDamageCat;
+    }
+
+    public TreeMap<StatisticType,Byte> getMultStatIfDamgeType() {
+        return multStatIfDamgeType;
+    }
+
+    public TreeMap<StatisticCategory,Rate> getMultStatIfCat() {
+        return multStatIfCat;
+    }
+
+    public TreeMap<StatisticStatus,Byte> getMultStatIfStatutRank() {
+        return multStatIfStatutRank;
+    }
+
+    public TreeMap<Statistic,Byte> getBonusStatRank() {
+        return bonusStatRank;
+    }
+
+    public TreeMap<Statistic,Byte> getBoostStatRankEndRound() {
+        return boostStatRankEndRound;
+    }
+
+    public TreeMap<Statistic,Byte> getBoostStatRankProtected() {
+        return boostStatRankProtected;
+    }
+
+    public TreeMap<Statistic,Byte> getLowStatFoeHit() {
+        return lowStatFoeHit;
+    }
+
+    public TreeMap<Statistic,Byte> getMultStatIfKoFoe() {
+        return multStatIfKoFoe;
+    }
+
+    public TreeMap<Statistic,Byte> getMultStatIfLowStat() {
+        return multStatIfLowStat;
+    }
+
+    public TreeMap<Statistic,Rate> getMultStatAlly() {
+        return multStatAlly;
+    }
+
+    public TreeMap<String,Short> getIncreasedPrio() {
+        return increasedPrio;
+    }
+
+    public TreeMap<String,Short> getIncreasedPrioTypes() {
+        return increasedPrioTypes;
+    }
+
+    public TreeMap<String,Rate> getMultDamageFoe() {
+        return multDamageFoe;
+    }
+
+    public TreeMap<String,Rate> getMultPowerMovesTypesGlobal() {
+        return multPowerMovesTypesGlobal;
+    }
+
+    public TreeMap<String,String> getFailStatus() {
+        return failStatus;
+    }
+
+    public NatTreeMap<String,String> getMapVars() {
+        return mapVars;
+    }
+
+    public Rate getHealedHpRateBySwitch() {
+        return healedHpRateBySwitch;
+    }
+
+    public StringList getPokemon() {
+        return pokemon;
     }
 }

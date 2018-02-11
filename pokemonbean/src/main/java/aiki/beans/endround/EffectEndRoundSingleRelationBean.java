@@ -1,17 +1,12 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
+import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.NatCmpTreeMap;
 import code.util.NatTreeMap;
-import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 
 public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
-
-    @Accessible
     private NatTreeMap<Long, Rate> rateDamageFunctionOfNbRounds;
-
-    @Accessible
     private NatCmpTreeMap<LgInt, Rate> lawForEnablingEffect;
 
     @Override
@@ -30,5 +25,13 @@ public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
             lawForEnablingEffect_.put(k.intPart(), effect_.getLawForEnablingEffect().normalizedRate(k));
         }
         lawForEnablingEffect = lawForEnablingEffect_;
+    }
+
+    public NatTreeMap<Long,Rate> getRateDamageFunctionOfNbRounds() {
+        return rateDamageFunctionOfNbRounds;
+    }
+
+    public NatCmpTreeMap<LgInt,Rate> getLawForEnablingEffect() {
+        return lawForEnablingEffect;
     }
 }

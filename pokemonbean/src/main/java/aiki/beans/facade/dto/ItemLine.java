@@ -1,18 +1,9 @@
 package aiki.beans.facade.dto;
-import code.bean.Accessible;
 
 public final class ItemLine {
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private String name;
-
-    @Accessible
     private String descriptionClass;
-
-    @Accessible
     private int price;
 
     public String getDisplayName() {

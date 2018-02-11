@@ -1,21 +1,16 @@
 package aiki.beans.effects;
-import code.bean.Accessible;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.effects.EffectCombo;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class CombosBean extends CommonBean {
-
-    @Accessible
     private final String combo="web/html/combo/combo.html";
-
-    @Accessible
     private ComboDto combos;
 
     @Override
@@ -50,9 +45,7 @@ public class CombosBean extends CommonBean {
         }
         return combos_;
     }
-
-    @Accessible
-    private EqList<StringList> getCombosKey() {
+    public EqList<StringList> getCombosKey() {
         DataBase data_ = (DataBase) getDataBase();
         EqList<StringList> combos_;
         combos_ = new EqList<StringList>();
@@ -79,5 +72,13 @@ public class CombosBean extends CommonBean {
 //        combos_.sort(new ComparatorStringList(data_, getLanguage(), true));
         combos_.sortElts(new ComparatorStringList(data_, getLanguage(), false));
         return combos_;
+    }
+
+    public String getCombo() {
+        return combo;
+    }
+
+    public ComboDto getCombos() {
+        return combos;
     }
 }

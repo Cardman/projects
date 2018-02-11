@@ -1,19 +1,10 @@
 package aiki.beans.facade.dto;
-import code.bean.Accessible;
 import code.util.StringList;
 
 public final class PokemonLine {
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private String name;
-
-    @Accessible
     private StringList types;
-
-    @Accessible
     private int evolutions;
 
     public String getDisplayName() {

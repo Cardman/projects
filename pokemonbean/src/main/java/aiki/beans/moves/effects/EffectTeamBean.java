@@ -1,5 +1,10 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
+import aiki.DataBase;
+import aiki.beans.facade.comparators.ComparatorCategoryMult;
+import aiki.comparators.ComparatorTrStrings;
+import aiki.fight.enums.Statistic;
+import aiki.fight.moves.effects.EffectTeam;
+import aiki.fight.util.CategoryMult;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.NatTreeMap;
@@ -7,55 +12,21 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.Listable;
-import aiki.DataBase;
-import aiki.beans.facade.comparators.ComparatorCategoryMult;
-import aiki.comparators.ComparatorTrStrings;
-import aiki.fight.enums.Statistic;
-import aiki.fight.moves.effects.EffectTeam;
-import aiki.fight.util.CategoryMult;
 
 public class EffectTeamBean extends EffectBean {
-
-    @Accessible
     private boolean forbiddingHealing;
-
-    @Accessible
     private StringList forbiddenBoost;
-
-    @Accessible
     private StringList unusableMoves;
-
-    @Accessible
     private StringList cancelChgtStatFoeTeam;
-
-    @Accessible
     private StringList cancelChgtStatTeam;
-
-    @Accessible
     private TreeMap<CategoryMult, Rate> multDamage;
-
-    @Accessible
     private NatTreeMap<String, Rate> multStatistic;
-
-    @Accessible
     private NatTreeMap<String, Rate> multStatisticFoe;
-
-    @Accessible
     private StringList protectAgainstLowStat;
-
-    @Accessible
     private boolean protectAgainstCh;
-
-    @Accessible
     private StringList protectAgainstStatus;
-
-    @Accessible
     private StringList disableFoeTeamEffects;
-
-    @Accessible
     private StringList disableFoeTeamStatus;
-
-    @Accessible
     private int defaultBoost;
 
     @Override
@@ -139,9 +110,7 @@ public class EffectTeamBean extends EffectBean {
         disableFoeTeamStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         disableFoeTeamStatus = disableFoeTeamStatus_;
     }
-
-    @Accessible
-    private String clickStatus(Long _indexEffect, Long _index) {
+    public String clickStatus(Long _indexEffect, Long _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect.intValue());
         String st_ = getProtectAgainstStatus(effect_).get(_index.intValue());
         getForms().put(STATUS, st_);
@@ -159,17 +128,13 @@ public class EffectTeamBean extends EffectBean {
         protectAgainstStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         return protectAgainstStatus_;
     }
-
-    @Accessible
-    private String getTrStatus(Long _index) {
+    public String getTrStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String st_ = protectAgainstStatus.get(_index.intValue());
         return translatedStatus_.getVal(st_);
     }
-
-    @Accessible
-    private String clickUnusableMove(Long _indexEffect, Long _index) {
+    public String clickUnusableMove(Long _indexEffect, Long _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -183,17 +148,13 @@ public class EffectTeamBean extends EffectBean {
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrUnusableMove(Long _index) {
+    public String getTrUnusableMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = unusableMoves.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickDisableFoeTeamEffects(Long _indexEffect, Long _index) {
+    public String clickDisableFoeTeamEffects(Long _indexEffect, Long _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -207,17 +168,13 @@ public class EffectTeamBean extends EffectBean {
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrDisableFoeTeamEffects(Long _index) {
+    public String getTrDisableFoeTeamEffects(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = disableFoeTeamEffects.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickDisableFoeTeamStatus(Long _indexEffect, Long _index) {
+    public String clickDisableFoeTeamStatus(Long _indexEffect, Long _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -231,17 +188,69 @@ public class EffectTeamBean extends EffectBean {
         getForms().put(STATUS, st_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrDisableFoeTeamStatus(Long _index) {
+    public String getTrDisableFoeTeamStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedStatus().getVal(getLanguage());
         String st_ = disableFoeTeamStatus.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private Listable<CategoryMult> getCatMult() {
+    public Listable<CategoryMult> getCatMult() {
         return multDamage.getKeys();
+    }
+
+    public boolean getForbiddingHealing() {
+        return forbiddingHealing;
+    }
+
+    public boolean getProtectAgainstCh() {
+        return protectAgainstCh;
+    }
+
+    public StringList getForbiddenBoost() {
+        return forbiddenBoost;
+    }
+
+    public StringList getCancelChgtStatFoeTeam() {
+        return cancelChgtStatFoeTeam;
+    }
+
+    public int getDefaultBoost() {
+        return defaultBoost;
+    }
+
+    public StringList getCancelChgtStatTeam() {
+        return cancelChgtStatTeam;
+    }
+
+    public StringList getProtectAgainstLowStat() {
+        return protectAgainstLowStat;
+    }
+
+    public StringList getProtectAgainstStatus() {
+        return protectAgainstStatus;
+    }
+
+    public NatTreeMap<String,Rate> getMultStatistic() {
+        return multStatistic;
+    }
+
+    public NatTreeMap<String,Rate> getMultStatisticFoe() {
+        return multStatisticFoe;
+    }
+
+    public TreeMap<CategoryMult,Rate> getMultDamage() {
+        return multDamage;
+    }
+
+    public StringList getUnusableMoves() {
+        return unusableMoves;
+    }
+
+    public StringList getDisableFoeTeamEffects() {
+        return disableFoeTeamEffects;
+    }
+
+    public StringList getDisableFoeTeamStatus() {
+        return disableFoeTeamStatus;
     }
 }

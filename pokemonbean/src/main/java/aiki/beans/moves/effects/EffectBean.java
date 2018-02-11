@@ -1,33 +1,20 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.util.NatTreeMap;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.enums.TargetChoice;
+import code.util.NatTreeMap;
+import code.util.StringList;
 
 public class EffectBean extends CommonBean {
 
     private Effect effect;
-
-    @Accessible
     private final String effectBean="web/html/moves/effects/eff.html";
-
-    @Accessible
     private String move;
-
-    @Accessible
     private int index;
-
-    @Accessible
     private StringList reasons;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFail;
-
-    @Accessible
     private boolean needSuccessFirstEffect;
 
     @Override
@@ -152,8 +139,35 @@ public class EffectBean extends CommonBean {
     public boolean isNothing() {
         return effect.getTargetChoice() == TargetChoice.NOTHING;
     }
-    @Accessible
-    private TargetChoice getTargetChoice() {
+    public TargetChoice getTargetChoice() {
         return effect.getTargetChoice();
+    }
+
+    public void setIndex(int _index) {
+        index = _index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setMove(String _move) {
+        move = _move;
+    }
+
+    public StringList getReasons() {
+        return reasons;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFail() {
+        return mapVarsFail;
+    }
+
+    public boolean getNeedSuccessFirstEffect() {
+        return needSuccessFirstEffect;
+    }
+
+    public String getEffectBean() {
+        return effectBean;
     }
 }

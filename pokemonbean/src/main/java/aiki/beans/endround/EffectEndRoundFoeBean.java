@@ -1,11 +1,8 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.moves.effects.EffectEndRoundFoe;
+import code.maths.Rate;
 
 public class EffectEndRoundFoeBean extends EffectEndRoundBean {
-
-    @Accessible
     private Rate inflictedRateHpTarget;
 
     @Override
@@ -13,5 +10,9 @@ public class EffectEndRoundFoeBean extends EffectEndRoundBean {
         super.beforeDisplaying();
         EffectEndRoundFoe effect_ = (EffectEndRoundFoe) getEffect();
         inflictedRateHpTarget = effect_.getInflictedRateHpTarget();
+    }
+
+    public Rate getInflictedRateHpTarget() {
+        return inflictedRateHpTarget;
     }
 }

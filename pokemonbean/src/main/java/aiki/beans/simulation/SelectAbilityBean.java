@@ -1,17 +1,12 @@
 package aiki.beans.simulation;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class SelectAbilityBean extends CommonBean {
-
-    @Accessible
     private StringList sortedAbilities = new StringList();
-
-    @Accessible
     private String typedAbility = DataBase.EMPTY_STRING;
 
     @Override
@@ -20,14 +15,10 @@ public class SelectAbilityBean extends CommonBean {
 //        typedAbility = StringList.replace(typedAbility, QUOTE, ESCAPED_QUOTE);
         typedAbility = escapedStringQuote(typedAbility);
     }
-
-    @Accessible
-    private static String cancel() {
+    public static String cancel() {
         return ABILITY;
     }
-
-    @Accessible
-    private String search() {
+    public String search() {
         StringList sortedAbilities_;
         sortedAbilities_ = new StringList();
         DataBase data_ = (DataBase) getDataBase();
@@ -48,19 +39,27 @@ public class SelectAbilityBean extends CommonBean {
         getForms().put(ABILITIES_SET, sortedAbilities_);
         return ABILITIES;
     }
-
-    @Accessible
-    private String clickAbility(Long _index) {
+    public String clickAbility(Long _index) {
         getForms().put(POKEMON_ABILITY_EDIT, sortedAbilities.get(_index.intValue()));
         return ABILITY;
     }
-
-    @Accessible
-    private String getTrAbility(Long _index) {
+    public String getTrAbility(Long _index) {
         String ability_ = sortedAbilities.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translationsAbilities_.getVal(ability_);
+    }
+
+    public void setTypedAbility(String _typedAbility) {
+        typedAbility = _typedAbility;
+    }
+
+    public String getTypedAbility() {
+        return typedAbility;
+    }
+
+    public StringList getSortedAbilities() {
+        return sortedAbilities;
     }
 }

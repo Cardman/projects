@@ -1,5 +1,11 @@
 package aiki.beans.game;
-import code.bean.Accessible;
+import aiki.beans.facade.comparators.ComparatorPlaceNumber;
+import aiki.comparators.ComparatorPairStringNumber;
+import aiki.comparators.ComparatorTrStrings;
+import aiki.facade.FacadeGame;
+import aiki.fight.pokemon.TrainerPlaceNames;
+import aiki.game.GameProgression;
+import aiki.map.DataMap;
 import code.bean.Bean;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
@@ -8,71 +14,26 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import aiki.beans.facade.comparators.ComparatorPlaceNumber;
-import aiki.comparators.ComparatorPairStringNumber;
-import aiki.comparators.ComparatorTrStrings;
-import aiki.facade.FacadeGame;
-import aiki.fight.pokemon.TrainerPlaceNames;
-import aiki.game.GameProgression;
-import aiki.map.DataMap;
 
 public class GameProgressionBean extends Bean {
-
-    @Accessible
     private String heroImage;
-
-    @Accessible
     private String heroImageOppositeSex;
-
-    @Accessible
     private String nickname;
-
-    @Accessible
     private boolean finishedGame;
-
-    @Accessible
     private String endGameImage;
-
-    @Accessible
     private NatTreeMap<String,EqList<StringList>> notAtAllFamiliesBase;
-
-    @Accessible
     private NatTreeMap<String,EqList<StringList>> partialFamiliesBaseNotCaught;
-
-    @Accessible
     private NatTreeMap<String,EqList<StringList>> partialFamiliesBaseCaught;
-
-    @Accessible
     private NatTreeMap<String,EqList<StringList>> fullFamiliesBase;
-
-    @Accessible
     private EqList<TrainerPlaceNames> beatenImportantTrainers;
-
-    @Accessible
     private EqList<TrainerPlaceNames> unBeatenImportantTrainers;
-
-    @Accessible
     private TreeMap<Short,Integer> remainingOtherTrainerPlaces;
-
-    @Accessible
     private StringList visitedPlaces;
-
-    @Accessible
     private StringList unVisitedPlaces;
-
-    @Accessible
     private LgInt money;
-
-    @Accessible
     private int remainStepsRepel;
-
-    @Accessible
     private int nbRemainingEggs;
-
-    @Accessible
     private int nbRemainingNotMaxLevel;
-
-    @Accessible
     private int nbRemainingNotMaxHappiness;
 
     @Override
@@ -153,65 +114,45 @@ public class GameProgressionBean extends Bean {
         nbRemainingNotMaxHappiness = progression_.getNbRemainingNotMaxHappiness();
         nbRemainingNotMaxLevel = progression_.getNbRemainingNotMaxLevel();
     }
-
-    @Accessible
-    private String getRemainingOtherTrainersPlaceName(Long _index) {
+    public String getRemainingOtherTrainersPlaceName(Long _index) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         short key_ = remainingOtherTrainerPlaces.getKey(_index.intValue());
         DataMap dataMap_ = facade_.getMap();
         return dataMap_.getPlaces().getVal(key_).getName();
     }
-
-    @Accessible
-    private String getTrPokemonNotAll(Long _key, Long _indexList, Long _indexElt) {
+    public String getTrPokemonNotAll(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getTrPokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
-
-    @Accessible
-    private String getImagePokemonNotAll(Long _key, Long _indexList, Long _indexElt) {
+    public String getImagePokemonNotAll(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getImagePokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
-
-    @Accessible
-    private String getTrPokemonPartialNot(Long _key, Long _indexList, Long _indexElt) {
+    public String getTrPokemonPartialNot(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getTrPokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
-
-    @Accessible
-    private String getImagePokemonPartialNot(Long _key, Long _indexList, Long _indexElt) {
+    public String getImagePokemonPartialNot(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getImagePokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
-
-    @Accessible
-    private String getTrPokemonPartial(Long _key, Long _indexList, Long _indexElt) {
+    public String getTrPokemonPartial(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getTrPokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
-
-    @Accessible
-    private String getImagePokemonPartial(Long _key, Long _indexList, Long _indexElt) {
+    public String getImagePokemonPartial(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getImagePokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
-
-    @Accessible
-    private String getTrPokemonFull(Long _key, Long _indexList, Long _indexElt) {
+    public String getTrPokemonFull(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getTrPokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
-
-    @Accessible
-    private String getImagePokemonFull(Long _key, Long _indexList, Long _indexElt) {
+    public String getImagePokemonFull(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getImagePokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
-
-    @Accessible
-    private StringList getKeyPokemon(Long _key, Long _indexList) {
+    public StringList getKeyPokemon(Long _key, Long _indexList) {
         EqList<StringList> values_ = partialFamiliesBaseCaught.getValue(_key.intValue());
         StringList value_ = values_.get(_indexList.intValue());
         return value_;
@@ -230,5 +171,77 @@ public class GameProgressionBean extends Bean {
         String pkName_ = value_.get(_indexElt.intValue());
         String img_ = _facade.getData().getMaxiPkFront().getVal(pkName_);
         return ConverterBufferedImage.surroundImage(img_);
+    }
+
+    public boolean getFinishedGame() {
+        return finishedGame;
+    }
+
+    public String getHeroImage() {
+        return heroImage;
+    }
+
+    public String getHeroImageOppositeSex() {
+        return heroImageOppositeSex;
+    }
+
+    public String getEndGameImage() {
+        return endGameImage;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public EqList<TrainerPlaceNames> getUnBeatenImportantTrainers() {
+        return unBeatenImportantTrainers;
+    }
+
+    public EqList<TrainerPlaceNames> getBeatenImportantTrainers() {
+        return beatenImportantTrainers;
+    }
+
+    public TreeMap<Short,Integer> getRemainingOtherTrainerPlaces() {
+        return remainingOtherTrainerPlaces;
+    }
+
+    public StringList getUnVisitedPlaces() {
+        return unVisitedPlaces;
+    }
+
+    public StringList getVisitedPlaces() {
+        return visitedPlaces;
+    }
+
+    public int getNbRemainingNotMaxLevel() {
+        return nbRemainingNotMaxLevel;
+    }
+
+    public int getNbRemainingNotMaxHappiness() {
+        return nbRemainingNotMaxHappiness;
+    }
+
+    public int getNbRemainingEggs() {
+        return nbRemainingEggs;
+    }
+
+    public int getRemainStepsRepel() {
+        return remainStepsRepel;
+    }
+
+    public LgInt getMoney() {
+        return money;
+    }
+
+    public NatTreeMap<String,EqList<StringList>> getFullFamiliesBase() {
+        return fullFamiliesBase;
+    }
+
+    public NatTreeMap<String,EqList<StringList>> getNotAtAllFamiliesBase() {
+        return notAtAllFamiliesBase;
+    }
+
+    public NatTreeMap<String,EqList<StringList>> getPartialFamiliesBaseNotCaught() {
+        return partialFamiliesBaseNotCaught;
     }
 }

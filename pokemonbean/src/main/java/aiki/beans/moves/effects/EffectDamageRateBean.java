@@ -1,14 +1,9 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.moves.effects.EffectDamageRate;
+import code.maths.Rate;
 
 public class EffectDamageRateBean extends EffectBean {
-
-    @Accessible
     private boolean winHp;
-
-    @Accessible
     private Rate rateDamage;
 
     @Override
@@ -17,5 +12,13 @@ public class EffectDamageRateBean extends EffectBean {
         EffectDamageRate effect_ = (EffectDamageRate) getEffect();
         winHp = effect_.getRateDamage().isZeroOrGt();
         rateDamage = effect_.getRateDamage().absNb();
+    }
+
+    public boolean getWinHp() {
+        return winHp;
+    }
+
+    public Rate getRateDamage() {
+        return rateDamage;
     }
 }

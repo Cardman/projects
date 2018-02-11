@@ -1,18 +1,13 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.effects.EffectSwitchMoveTypes;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class EffectSwitchMoveTypesBean extends EffectBean {
-
-    @Accessible
     private StringList replacingTypes;
-
-    @Accessible
     private TreeMap<String,String> changeTypes;
 
     @Override
@@ -35,20 +30,24 @@ public class EffectSwitchMoveTypesBean extends EffectBean {
         }
         changeTypes = changeTypes_;
     }
-
-    @Accessible
-    private String getTrReplacingTypes(Long _index) {
+    public String getTrReplacingTypes(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String st_ = replacingTypes.get(_index.intValue());
         return translatedTypes_.getVal(st_);
     }
-
-    @Accessible
-    private String getTrChangedTypes(Long _index) {
+    public String getTrChangedTypes(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String st_ = changeTypes.getKey(_index.intValue());
         return translatedTypes_.getVal(st_);
+    }
+
+    public StringList getReplacingTypes() {
+        return replacingTypes;
+    }
+
+    public TreeMap<String,String> getChangeTypes() {
+        return changeTypes;
     }
 }

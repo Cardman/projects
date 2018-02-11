@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
+import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
@@ -59,7 +60,7 @@ public final class DialogDifficulty extends Dialog {
         session.setDataBase(_facade);
         session.setFrame(this);
         session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DIFF);
+        session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DIFF, new PokemonStandards());
 //        try {
 ////            session.setFiles(_facade.getData().getWebGame(), Resources.ACCESS_TO_DEFAULT_FILES);
 //            session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);

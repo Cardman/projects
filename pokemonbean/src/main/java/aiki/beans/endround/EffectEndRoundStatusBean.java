@@ -1,14 +1,9 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
+import code.maths.Rate;
 
 public class EffectEndRoundStatusBean extends EffectEndRoundBean{
-
-    @Accessible
     private final String endRoundStatusHtml="web/html/endround/status.html";
-
-    @Accessible
     private Rate inflictedRateHpTarget;
 
     @Override
@@ -16,5 +11,13 @@ public class EffectEndRoundStatusBean extends EffectEndRoundBean{
         super.beforeDisplaying();
         EffectEndRoundStatus effect_ = (EffectEndRoundStatus) getEffect();
         inflictedRateHpTarget = effect_.getInflictedRateHpTarget();
+    }
+
+    public Rate getInflictedRateHpTarget() {
+        return inflictedRateHpTarget;
+    }
+
+    public String getEndRoundStatusHtml() {
+        return endRoundStatusHtml;
     }
 }

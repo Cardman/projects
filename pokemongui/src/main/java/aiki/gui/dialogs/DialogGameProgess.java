@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
+import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import code.gui.Dialog;
@@ -52,7 +53,7 @@ public final class DialogGameProgess extends Dialog {
         //session.setDialog(dialog);
         session.setFrame(this);
         session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PROG);
+        session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PROG, new PokemonStandards());
 //        try {
 ////            session.setFiles(_facade.getData().getWebProg(), Resources.ACCESS_TO_DEFAULT_FILES);
 //            session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);

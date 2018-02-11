@@ -1,11 +1,4 @@
 package aiki.beans.simulation;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
@@ -17,40 +10,24 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class EditPokemonBean extends CommonBean {
-
-    @Accessible
     private String namePk = DataBase.EMPTY_STRING;
-
-    @Accessible
     private short level;
-
-    @Accessible
     private Rate experience;
-
-    @Accessible
     private short happiness;
-
-    @Accessible
     private boolean heal;
-
-    @Accessible
     private Rate remainingHp;
-
-    @Accessible
     private TreeMap<Statistic, EvLine> ev;
-
-    @Accessible
     private String item = DataBase.EMPTY_STRING;
-
-    @Accessible
     private CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
-
-    @Accessible
     private String ball;
-
-    @Accessible
     private TreeMap<String,String> balls;
 
     @Override
@@ -109,16 +86,12 @@ public class EditPokemonBean extends CommonBean {
         }
         moves.sortElts(new ComparatorMoves());
     }
-
-    @Accessible
-    private String chooseItem() {
+    public String chooseItem() {
         getForms().put(IS_POKEMON_PLAYER_MOVES, true);
         getForms().put(ITEMS_SET_EDIT, new StringList());
         return POKEMON_EDIT;
     }
-
-    @Accessible
-    private String translateName() {
+    public String translateName() {
         if (namePk.isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
@@ -127,9 +100,7 @@ public class EditPokemonBean extends CommonBean {
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translationsPokemon_.getVal(namePk);
     }
-
-    @Accessible
-    private String translateItem() {
+    public String translateItem() {
         if (item.isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
@@ -138,29 +109,21 @@ public class EditPokemonBean extends CommonBean {
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         return translationsItems_.getVal(item);
     }
-
-    @Accessible
-    private String addMoves() {
+    public String addMoves() {
         getForms().put(IS_POKEMON_PLAYER_MOVES, true);
         getForms().put(MOVES_SET, new StringList());
         return POKEMON_EDIT;
     }
-
-    @Accessible
-    private String getTranslatedStatistic(Long _index) {
+    public String getTranslatedStatistic(Long _index) {
         Statistic st_ = ev.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return tr_.getVal(st_);
     }
-
-    @Accessible
-    private static String cancel() {
+    public static String cancel() {
         return SIMULATION;
     }
-
-    @Accessible
-    private void deleteMoves() {
+    public void deleteMoves() {
         StringList keptMoves_ = new StringList();
         for (SelectLineMove s: moves) {
             if (!s.isSelected()) {
@@ -169,9 +132,7 @@ public class EditPokemonBean extends CommonBean {
         }
         getForms().put(POKEMON_MOVES_EDIT, keptMoves_);
     }
-
-    @Accessible
-    private String edit() {
+    public String edit() {
         getForms().put(ITEM_EDIT, item);
         getForms().put(POKEMON_EXPERIENCE, experience);
         getForms().put(POKEMON_HAPPINESS, happiness);
@@ -197,5 +158,65 @@ public class EditPokemonBean extends CommonBean {
         }
         getForms().put(POKEMON_MOVES_EDIT, selected_);
         return SIMULATION;
+    }
+
+    public short getLevel() {
+        return level;
+    }
+
+    public String getNamePk() {
+        return namePk;
+    }
+
+    public CustList<SelectLineMove> getMoves() {
+        return moves;
+    }
+
+    public void setExperience(Rate _experience) {
+        experience = _experience;
+    }
+
+    public Rate getExperience() {
+        return experience;
+    }
+
+    public TreeMap<String,String> getBalls() {
+        return balls;
+    }
+
+    public String getBall() {
+        return ball;
+    }
+
+    public void setBall(String _ball) {
+        ball = _ball;
+    }
+
+    public void setHappiness(short _happiness) {
+        happiness = _happiness;
+    }
+
+    public short getHappiness() {
+        return happiness;
+    }
+
+    public void setRemainingHp(Rate _remainingHp) {
+        remainingHp = _remainingHp;
+    }
+
+    public Rate getRemainingHp() {
+        return remainingHp;
+    }
+
+    public void setHeal(boolean _heal) {
+        heal = _heal;
+    }
+
+    public boolean getHeal() {
+        return heal;
+    }
+
+    public TreeMap<Statistic,EvLine> getEv() {
+        return ev;
     }
 }

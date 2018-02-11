@@ -1,15 +1,8 @@
 package aiki.beans.facade.solution.dto;
-import code.bean.Accessible;
 
 public final class WildPokemonDto {
-
-    @Accessible
     private String image;
-
-    @Accessible
     private String name;
-
-    @Accessible
     private String gender;
 
     public WildPokemonDto(String _image, String _name, String _gender) {
@@ -24,5 +17,9 @@ public final class WildPokemonDto {
 
     public String getGender() {
         return gender;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

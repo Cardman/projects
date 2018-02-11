@@ -2,7 +2,6 @@ package aiki.beans.moves.effects;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.effects.EffectStatus;
-import code.bean.Accessible;
 import code.maths.Rate;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -10,22 +9,12 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public class EffectStatusBean extends EffectBean {
-
-    @Accessible
     private TreeMap<String, Rate> lawStatus;
-
-    @Accessible
     private StringList deletedStatus;
 
     private NatTreeMap<String, String> localFailStatus;
-
-    @Accessible
     private boolean koUserHealSubst;
-
-    @Accessible
     private boolean statusFromUser;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsStatus;
 
     @Override
@@ -67,17 +56,13 @@ public class EffectStatusBean extends EffectBean {
         koUserHealSubst = effect_.getKoUserHealSubst();
         statusFromUser = effect_.getStatusFromUser();
     }
-
-    @Accessible
-    private String clickLink(Long _indexEffect, Long _index) {
+    public String clickLink(Long _indexEffect, Long _index) {
         TreeMap<String, Rate> lawStatus_ = getLawStatus(_indexEffect);
         String status_ = lawStatus_.getKey(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrLink(Long _index) {
+    public String getTrLink(Long _index) {
         String status_ = lawStatus.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -95,17 +80,13 @@ public class EffectStatusBean extends EffectBean {
         }
         return lawStatus_;
     }
-
-    @Accessible
-    private String clickLinkDeleted(Long _indexEffect, Long _index) {
+    public String clickLinkDeleted(Long _indexEffect, Long _index) {
         StringList deletedStatus_ = getDeletedStatus(_indexEffect);
         String status_ = deletedStatus_.get(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrLinkDeleted(Long _index) {
+    public String getTrLinkDeleted(Long _index) {
         String status_ = deletedStatus.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -124,18 +105,34 @@ public class EffectStatusBean extends EffectBean {
         deletedStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         return deletedStatus_;
     }
-
-    @Accessible
-    private boolean isStatus(Long _index) {
+    public boolean isStatus(Long _index) {
         return !lawStatus.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String getFail(Long _index) {
+    public String getFail(Long _index) {
         String status_ = lawStatus.getKey(_index.intValue());
         if (!localFailStatus.contains(status_)) {
             return DataBase.EMPTY_STRING;
         }
         return localFailStatus.getVal(status_);
+    }
+
+    public TreeMap<String,Rate> getLawStatus() {
+        return lawStatus;
+    }
+
+    public NatTreeMap<String,String> getMapVarsStatus() {
+        return mapVarsStatus;
+    }
+
+    public StringList getDeletedStatus() {
+        return deletedStatus;
+    }
+
+    public boolean getKoUserHealSubst() {
+        return koUserHealSubst;
+    }
+
+    public boolean getStatusFromUser() {
+        return statusFromUser;
     }
 }

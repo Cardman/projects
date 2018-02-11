@@ -2,45 +2,26 @@ package aiki.beans.moves.effects;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectStatistic;
-import code.bean.Accessible;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
 public class EffectStatisticBean extends EffectBean {
-
-    @Accessible
     private NatTreeMap<String, Byte> statisVarRank;
 
     private NatTreeMap<String, String> localFailStatis;
-
-    @Accessible
     private Rate evtRate;
-
-    @Accessible
     private String evtRatePerCent;
-
-    @Accessible
     private StringList copyBoost;
-
-    @Accessible
     private StringList swapBoostStatis;
 
     private NatTreeMap<String, String> localFailSwapBoostStatis;
 
     private NatTreeMap<String, Rate> lawBoost;
-
-    @Accessible
     private StringList cancelLowStat;
-
-    @Accessible
     private StringList cancelChgtStat;
-
-    @Accessible
     private int defaultBoost;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsStatistics;
 
     @Override
@@ -117,42 +98,66 @@ public class EffectStatisticBean extends EffectBean {
         }
         copyBoost = copyBoost_;
     }
-
-    @Accessible
-    private boolean notEmptyVarBoost() {
+    public boolean notEmptyVarBoost() {
         return !statisVarRank.isEmpty();
     }
-
-    @Accessible
-    private boolean randomStatis() {
+    public boolean randomStatis() {
         return !lawBoost.isEmpty();
     }
-
-    @Accessible
-    private Rate getRate(Long _index) {
+    public Rate getRate(Long _index) {
         return lawBoost.getValue(_index.intValue());
     }
-
-    @Accessible
-    private String getFail(Long _index) {
+    public String getFail(Long _index) {
         String stat_ = statisVarRank.getKey(_index.intValue());
         if (!localFailStatis.contains(stat_)) {
             return DataBase.EMPTY_STRING;
         }
         return localFailStatis.getVal(stat_);
     }
-
-    @Accessible
-    private String getSwapFail(Long _index) {
+    public String getSwapFail(Long _index) {
         String stat_ = swapBoostStatis.get(_index.intValue());
         if (!localFailSwapBoostStatis.contains(stat_)) {
             return DataBase.EMPTY_STRING;
         }
         return localFailSwapBoostStatis.getVal(stat_);
     }
-
-    @Accessible
-    private boolean isAlwaysEnabled() {
+    public boolean isAlwaysEnabled() {
         return Rate.eq(evtRate, Rate.one());
+    }
+
+    public Rate getEvtRate() {
+        return evtRate;
+    }
+
+    public String getEvtRatePerCent() {
+        return evtRatePerCent;
+    }
+
+    public NatTreeMap<String,Byte> getStatisVarRank() {
+        return statisVarRank;
+    }
+
+    public NatTreeMap<String,String> getMapVarsStatistics() {
+        return mapVarsStatistics;
+    }
+
+    public StringList getSwapBoostStatis() {
+        return swapBoostStatis;
+    }
+
+    public StringList getCancelLowStat() {
+        return cancelLowStat;
+    }
+
+    public int getDefaultBoost() {
+        return defaultBoost;
+    }
+
+    public StringList getCancelChgtStat() {
+        return cancelChgtStat;
+    }
+
+    public StringList getCopyBoost() {
+        return copyBoost;
     }
 }

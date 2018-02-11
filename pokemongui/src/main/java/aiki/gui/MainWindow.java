@@ -21,6 +21,7 @@ import javax.swing.WindowConstants;
 import aiki.DataBase;
 import aiki.ImageHeroKey;
 import aiki.Resources;
+import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
 import aiki.game.params.LoadingGame;
@@ -1050,7 +1051,7 @@ public final class MainWindow extends NetGroupFrame {
 //        htmlDialogs.first().getSession().setFiles(facade.getData().getWebFiles(), Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().setDataBase(facade.getData());
-        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA);
+        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA, new PokemonStandards());
         htmlDialogs.first().pack();
 //        try {
 ////            if (successfulCompile) {

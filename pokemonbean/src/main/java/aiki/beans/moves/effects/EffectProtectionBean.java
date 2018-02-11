@@ -1,26 +1,13 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.moves.effects.EffectProtection;
+import code.maths.Rate;
 
 public class EffectProtectionBean extends EffectBean {
-
-    @Accessible
     private boolean protSingle;
-
-    @Accessible
     private Rate protSingleAgainstKo;
-
-    @Accessible
     private boolean protTeamAgainstMultTargets;
-
-    @Accessible
     private boolean protTeamAgainstPrio;
-
-    @Accessible
     private boolean protTeamAgainstStatusMoves;
-
-    @Accessible
     private boolean protTeamAgainstDamageMoves;
 
     @Override
@@ -33,5 +20,29 @@ public class EffectProtectionBean extends EffectBean {
         protTeamAgainstPrio = effect_.getProtTeamAgainstPrio();
         protTeamAgainstStatusMoves = effect_.isProtTeamAgainstStatusMoves();
         protTeamAgainstDamageMoves = effect_.isProtTeamAgainstDamageMoves();
+    }
+
+    public boolean getProtSingle() {
+        return protSingle;
+    }
+
+    public Rate getProtSingleAgainstKo() {
+        return protSingleAgainstKo;
+    }
+
+    public boolean getProtTeamAgainstMultTargets() {
+        return protTeamAgainstMultTargets;
+    }
+
+    public boolean getProtTeamAgainstPrio() {
+        return protTeamAgainstPrio;
+    }
+
+    public boolean getProtTeamAgainstStatusMoves() {
+        return protTeamAgainstStatusMoves;
+    }
+
+    public boolean getProtTeamAgainstDamageMoves() {
+        return protTeamAgainstDamageMoves;
     }
 }

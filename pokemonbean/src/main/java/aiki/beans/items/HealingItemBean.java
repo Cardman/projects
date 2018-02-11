@@ -1,20 +1,13 @@
 package aiki.beans.items;
-import code.bean.Accessible;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.items.HealingItem;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class HealingItemBean extends ItemBean {
-
-    @Accessible
     private final String healingItemBean="web/html/items/healingitem.html";
-
-    @Accessible
     private TreeMap<String, Short> happiness;
-
-    @Accessible
     private boolean healingTeam;
 
     @Override
@@ -31,25 +24,31 @@ public class HealingItemBean extends ItemBean {
         }
         happiness = happiness_;
     }
-
-    @Accessible
-    private boolean isBall(Long _index) {
+    public boolean isBall(Long _index) {
         String item_ = happiness.getKey(_index.intValue());
         return !item_.isEmpty();
     }
-
-    @Accessible
-    private String getTrHappiness(Long _index) {
+    public String getTrHappiness(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         String item_ = happiness.getKey(_index.intValue());
         return translatedItems_.getVal(item_);
     }
-
-    @Accessible
-    private String clickHappiness(Long _index) {
+    public String clickHappiness(Long _index) {
         String item_ = happiness.getKey(_index.intValue());
         getForms().put(ITEM, item_);
         return BALL;
+    }
+
+    public String getHealingItemBean() {
+        return healingItemBean;
+    }
+
+    public boolean getHealingTeam() {
+        return healingTeam;
+    }
+
+    public TreeMap<String,Short> getHappiness() {
+        return happiness;
     }
 }

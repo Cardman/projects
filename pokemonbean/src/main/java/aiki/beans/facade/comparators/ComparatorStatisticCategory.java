@@ -1,13 +1,13 @@
 package aiki.beans.facade.comparators;
 import java.util.Comparator;
 
-import code.util.EnumMap;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticCategory;
+import code.util.EnumMap;
+import code.util.StringMap;
 
 public final class ComparatorStatisticCategory implements Comparator<StatisticCategory> {
 

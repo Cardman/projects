@@ -1,9 +1,9 @@
 package aiki.beans.facade;
+import aiki.DataBase;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import aiki.DataBase;
 
 final class Formatting {
 

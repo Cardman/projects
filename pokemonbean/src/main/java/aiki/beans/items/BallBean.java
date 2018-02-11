@@ -1,15 +1,10 @@
 package aiki.beans.items;
-import code.bean.Accessible;
-import code.util.NatTreeMap;
 import aiki.DataBase;
 import aiki.fight.items.Ball;
+import code.util.NatTreeMap;
 
 public class BallBean extends ItemBean {
-
-    @Accessible
     private String catchingRate;
-
-    @Accessible
     private NatTreeMap<String,String> mapVars;
 
     @Override
@@ -25,5 +20,13 @@ public class BallBean extends ItemBean {
 //        catchingRate = catchingRate.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        catchingRate = catchingRate.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
         mapVars = data_.getDescriptions(item_.getCatchingRate(),getLanguage());
+    }
+
+    public String getCatchingRate() {
+        return catchingRate;
+    }
+
+    public NatTreeMap<String,String> getMapVars() {
+        return mapVars;
     }
 }

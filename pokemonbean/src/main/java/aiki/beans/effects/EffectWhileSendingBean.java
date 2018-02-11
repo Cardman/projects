@@ -5,7 +5,6 @@ import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectStatistic;
-import code.bean.Accessible;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -14,65 +13,29 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class EffectWhileSendingBean extends CommonBean {
-
-    @Accessible
     private EffectWhileSending effect;
-
-    @Accessible
     private boolean disableWeather;
-
-    @Accessible
     private String enabledWeather;
-
-    @Accessible
     private boolean copyingAbility;
-
-    @Accessible
     private boolean plate;
-
-    @Accessible
     private boolean statistic;
-
-    @Accessible
     private Rate multWeight;
-
-    @Accessible
     private NatTreeMap<String, Byte> statisVarRank;
 
     private NatTreeMap<String, String> localFailStatis;
-
-    @Accessible
     private Rate evtRate;
-
-    @Accessible
     private String evtRatePerCent;
-
-    @Accessible
     private StringList copyBoost;
-
-    @Accessible
     private StringList swapBoostStatis;
 
     private NatTreeMap<String, String> localFailSwapBoostStatis;
 
     private NatTreeMap<String, Rate> lawBoost;
-
-    @Accessible
     private StringList cancelLowStat;
-
-    @Accessible
     private StringList cancelChgtStat;
-
-    @Accessible
     private int defaultBoost;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsStatistics;
-
-    @Accessible
     private StringList reasons;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFail;
 
     @Override
@@ -179,55 +142,111 @@ public class EffectWhileSendingBean extends CommonBean {
             cancelChgtStat = new StringList();
         }
     }
-
-    @Accessible
-    private String getTrWeather() {
+    public String getTrWeather() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(enabledWeather);
     }
-
-    @Accessible
-    private String clickWeather() {
+    public String clickWeather() {
         getForms().put(MOVE, enabledWeather);
         return MOVE;
     }
-
-    @Accessible
-    private boolean notEmptyVarBoost() {
+    public boolean notEmptyVarBoost() {
         return !statisVarRank.isEmpty();
     }
-
-    @Accessible
-    private boolean randomStatis() {
+    public boolean randomStatis() {
         return !lawBoost.isEmpty();
     }
-
-    @Accessible
-    private Rate getRate(Long _index) {
+    public Rate getRate(Long _index) {
         return lawBoost.getValue(_index.intValue());
     }
-
-    @Accessible
-    private String getFail(Long _index) {
+    public String getFail(Long _index) {
         String stat_ = statisVarRank.getKey(_index.intValue());
         if (!localFailStatis.contains(stat_)) {
             return DataBase.EMPTY_STRING;
         }
         return localFailStatis.getVal(stat_);
     }
-
-    @Accessible
-    private String getSwapFail(Long _index) {
+    public String getSwapFail(Long _index) {
         String stat_ = swapBoostStatis.get(_index.intValue());
         if (!localFailSwapBoostStatis.contains(stat_)) {
             return DataBase.EMPTY_STRING;
         }
         return localFailSwapBoostStatis.getVal(stat_);
     }
-
-    @Accessible
-    private boolean isAlwaysEnabled() {
+    public boolean isAlwaysEnabled() {
         return Rate.eq(evtRate, Rate.one());
+    }
+
+    public void setEffect(EffectWhileSending _effect) {
+        effect = _effect;
+    }
+
+    public boolean getDisableWeather() {
+        return disableWeather;
+    }
+
+    public String getEnabledWeather() {
+        return enabledWeather;
+    }
+
+    public boolean getCopyingAbility() {
+        return copyingAbility;
+    }
+
+    public boolean getPlate() {
+        return plate;
+    }
+
+    public Rate getMultWeight() {
+        return multWeight;
+    }
+
+    public boolean getStatistic() {
+        return statistic;
+    }
+
+    public StringList getReasons() {
+        return reasons;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFail() {
+        return mapVarsFail;
+    }
+
+    public Rate getEvtRate() {
+        return evtRate;
+    }
+
+    public String getEvtRatePerCent() {
+        return evtRatePerCent;
+    }
+
+    public NatTreeMap<String,Byte> getStatisVarRank() {
+        return statisVarRank;
+    }
+
+    public NatTreeMap<String,String> getMapVarsStatistics() {
+        return mapVarsStatistics;
+    }
+
+    public StringList getSwapBoostStatis() {
+        return swapBoostStatis;
+    }
+
+    public StringList getCancelLowStat() {
+        return cancelLowStat;
+    }
+
+    public int getDefaultBoost() {
+        return defaultBoost;
+    }
+
+    public StringList getCancelChgtStat() {
+        return cancelChgtStat;
+    }
+
+    public StringList getCopyBoost() {
+        return copyBoost;
     }
 }

@@ -1,14 +1,4 @@
 package aiki.beans.moves;
-import code.bean.Accessible;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
@@ -71,6 +61,15 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.NatCmpTreeMap;
+import code.util.NatTreeMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class MoveBean extends CommonBean {
 
@@ -108,118 +107,42 @@ public class MoveBean extends CommonBean {
     private static final String PAGE_SWITCHPOSITION = "web/html/moves/effects/effswitchposition.html";
     private static final String PAGE_VARPP = "web/html/moves/effects/effvarpp.html";
     private static final String PAGE_WINMONEY = "web/html/moves/effects/effwinmoney.html";
-
-    @Accessible
     private String name;
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private short pp;
-
-    @Accessible
     private boolean hasDefaultTypes;
-
-    @Accessible
     private StringList types;
-
-    @Accessible
     private String category;
-
-    @Accessible
     private StringList boostedTypes;
-
-    @Accessible
     private byte priority;
-
-    @Accessible
     private String accuracy;
-
-    @Accessible
     private Numbers<Integer> effects;
-
-    @Accessible
     private short nbPrepaRound;
-
-    @Accessible
     private boolean disappearBeforeUse;
-
-    @Accessible
     private NatCmpTreeMap<LgInt,Rate> repeatRoundLaw;
-
-    @Accessible
     private short rankIncrementNbRound;
-
-    @Accessible
     private boolean rechargeRound;
-
-    @Accessible
     private boolean constUserChoice;
-
-    @Accessible
     private boolean secEffectIfNoDamage;
-
-    @Accessible
     private TreeMap<String, Numbers<Integer>> secEffectsByItem;
-
-    @Accessible
     private boolean ignVarAccurUserNeg;
-
-    @Accessible
     private boolean ignVarEvasTargetPos;
-
-    @Accessible
     private StringList achieveDisappearedPkUsingMove;
 
     private SwitchType switchType;
-
-//    @Accessible
-//    private CustList<ItemTypeLine> typesByOwnedItem;
-
-    @Accessible
     private TreeMap<String,String> typesByOwnedItems;
-
-//    @Accessible
-//    private CustList<WeatherTypeLine> typesByWeather;
-
-    @Accessible
     private TreeMap<String,String> typesByWeathers;
-
-    @Accessible
     private TargetChoice targetChoice;
-
-    @Accessible
     private StringList deletedStatus;
-
-    @Accessible
     private StringList requiredStatus;
-
-    @Accessible
     private StringList abilities;
-
-    @Accessible
     private StringList items;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsAccuracy;
-
-    @Accessible
     private boolean cannotKo;
-
-    @Accessible
     private StringList affectedByMoves;
-
-    @Accessible
     private NatTreeMap<Short,StringList> movesLevelLearntByPokemon;
-
-    @Accessible
     private StringList movesTmLearntByPokemon;
-
-    @Accessible
     private StringList movesHmLearntByPokemon;
-
-    @Accessible
     private StringList movesMtLearntByPokemon;
 
     @Override
@@ -511,9 +434,7 @@ public class MoveBean extends CommonBean {
         movesMtLearntByPokemon_.sortElts(new ComparatorTrStrings(translatedPokemon_));
         movesMtLearntByPokemon = movesMtLearntByPokemon_;
     }
-
-    @Accessible
-    private String clickMoves() {
+    public String clickMoves() {
         getForms().put(MOVES_SET, new StringList());
         return MOVES;
     }
@@ -559,9 +480,7 @@ public class MoveBean extends CommonBean {
         }
         return moves_;
     }
-
-    @Accessible
-    private boolean typesDependOnWeatherAndItem() {
+    public boolean typesDependOnWeatherAndItem() {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
@@ -572,9 +491,7 @@ public class MoveBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean typesDependOnlyOnItem() {
+    public boolean typesDependOnlyOnItem() {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
@@ -585,9 +502,7 @@ public class MoveBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean typesDependOnlyOnWeather() {
+    public boolean typesDependOnlyOnWeather() {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
@@ -598,98 +513,70 @@ public class MoveBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean isDamagingMove() {
+    public boolean isDamagingMove() {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return moveData_ instanceof DamagingMoveData;
     }
-
-    @Accessible
-    private boolean isDamagingDirectMove() {
+    public boolean isDamagingDirectMove() {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         DamagingMoveData damaging_ = (DamagingMoveData) moveData_;
         return damaging_.isDirect();
     }
-
-    @Accessible
-    private boolean isZeroPriority() {
+    public boolean isZeroPriority() {
         return priority == 0;
     }
-
-    @Accessible
-    private boolean isConstAccuracy() {
+    public boolean isConstAccuracy() {
         return Rate.isValid(accuracy);
     }
-
-    @Accessible
-    private boolean isZeroPrepaRound() {
+    public boolean isZeroPrepaRound() {
         return nbPrepaRound == 0;
     }
-
-    @Accessible
-    private boolean isBeforePrimaryEffect(int _long) {
+    public boolean isBeforePrimaryEffect(int _long) {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long < moveData_.indexOfPrimaryEffect();
     }
-
-    @Accessible
-    private boolean isPrimaryEffect(int _long) {
+    public boolean isPrimaryEffect(int _long) {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long == moveData_.indexOfPrimaryEffect();
     }
-
-    @Accessible
-    private boolean isAfterPrimaryEffect(int _long) {
+    public boolean isAfterPrimaryEffect(int _long) {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long > moveData_.indexOfPrimaryEffect();
     }
-
-    @Accessible
-    private boolean isEndRoundEffect(int _long) {
+    public boolean isEndRoundEffect(int _long) {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return moveData_.getEffet(_long) instanceof EffectEndRound;
     }
-
-    @Accessible
-    private boolean isRepeatedRound() {
+    public boolean isRepeatedRound() {
         return !repeatRoundLaw.isEmpty();
     }
-
-    @Accessible
-    private boolean switchAfterUsingMove() {
+    public boolean switchAfterUsingMove() {
         return switchType == SwitchType.LANCEUR;
     }
-
-    @Accessible
-    private String getTrAchieveDisappearedPkUsingMove(Long _index) {
+    public String getTrAchieveDisappearedPkUsingMove(Long _index) {
         String move_ = achieveDisappearedPkUsingMove.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickRequiredStatus(Long _index) {
+    public String clickRequiredStatus(Long _index) {
         String key_ = getRequiredStatusKey(_index);
         getForms().put(STATUS, key_);
         return STATUS;
     }
-
-    @Accessible
-    private String getRequiredStatus(Long _index) {
+    public String getRequiredStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String key_ = getRequiredStatusKey(_index);
@@ -699,16 +586,12 @@ public class MoveBean extends CommonBean {
     private String getRequiredStatusKey(Long _index) {
         return requiredStatus.get(_index.intValue());
     }
-
-    @Accessible
-    private String clickDeletedStatus(Long _index) {
+    public String clickDeletedStatus(Long _index) {
         String key_ = getDeletedStatusKey(_index);
         getForms().put(STATUS, key_);
         return STATUS;
     }
-
-    @Accessible
-    private String getDeletedStatus(Long _index) {
+    public String getDeletedStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String key_ = getDeletedStatusKey(_index);
@@ -718,14 +601,10 @@ public class MoveBean extends CommonBean {
     private String getDeletedStatusKey(Long _index) {
         return deletedStatus.get(_index.intValue());
     }
-
-    @Accessible
-    private boolean isItem(Long _index) {
+    public boolean isItem(Long _index) {
         return !typesByOwnedItems.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String clickTypesByOwnedItems(Long _index) {
+    public String clickTypesByOwnedItems(Long _index) {
         String item_ = typesByOwnedItems.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         getForms().put(ITEM, item_);
@@ -774,37 +653,27 @@ public class MoveBean extends CommonBean {
         }
         return ITEM;
     }
-
-    @Accessible
-    private String getTrTypesByOwnedItems(Long _index) {
+    public String getTrTypesByOwnedItems(Long _index) {
         String item_ = typesByOwnedItems.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         return translatedItems_.getVal(item_);
     }
-
-    @Accessible
-    private boolean isWeather(Long _index) {
+    public boolean isWeather(Long _index) {
         return !typesByWeathers.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String clickTypesByWeathers(Long _index) {
+    public String clickTypesByWeathers(Long _index) {
         String item_ = typesByWeathers.getKey(_index.intValue());
         getForms().put(MOVE, item_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrTypesByWeathers(Long _index) {
+    public String getTrTypesByWeathers(Long _index) {
         String item_ = typesByWeathers.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(item_);
     }
-
-    @Accessible
-    private String clickItemSecEffect(Long _index) {
+    public String clickItemSecEffect(Long _index) {
         String item_ = getItemSecEffect(_index);
         DataBase data_ = (DataBase) getDataBase();
         getForms().put(ITEM, item_);
@@ -853,9 +722,7 @@ public class MoveBean extends CommonBean {
         }
         return ITEM;
     }
-
-    @Accessible
-    private String translateItemSecEffect(Long _index) {
+    public String translateItemSecEffect(Long _index) {
         String it_ = getItemSecEffect(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
@@ -866,24 +733,18 @@ public class MoveBean extends CommonBean {
         String it_ = secEffectsByItem.getKey(_index.intValue());
         return it_;
     }
-
-    @Accessible
-    private String clickAbility(Long _index) {
+    public String clickAbility(Long _index) {
         String key_ = abilities.get(_index.intValue());
         getForms().put(ABILITY, key_);
         return ABILITY;
     }
-
-    @Accessible
-    private String getTrAbility(Long _index) {
+    public String getTrAbility(Long _index) {
         String ab_ = abilities.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
-
-    @Accessible
-    private String clickItem(Long _index) {
+    public String clickItem(Long _index) {
         String key_ = items.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         getForms().put(ITEM, key_);
@@ -932,94 +793,70 @@ public class MoveBean extends CommonBean {
         }
         return ITEM;
     }
-
-    @Accessible
-    private String getTrItem(Long _index) {
+    public String getTrItem(Long _index) {
         String ab_ = items.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedItems().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
-
-    @Accessible
-    private String clickMove(Long _index) {
+    public String clickMove(Long _index) {
         String key_ = affectedByMoves.get(_index.intValue());
         getForms().put(MOVE, key_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrMove(Long _index) {
+    public String getTrMove(Long _index) {
         String ab_ = affectedByMoves.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
-
-    @Accessible
-    private String clickPokemon(Long _indexLevel, Long _indexPk) {
+    public String clickPokemon(Long _indexLevel, Long _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel.intValue());
         String pk_ = pks_.get(_indexPk.intValue());
         getForms().put(PK, pk_);
         return POKEMON;
     }
-
-    @Accessible
-    private String getTrPokemon(Long _indexLevel, Long _indexPk) {
+    public String getTrPokemon(Long _indexLevel, Long _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String pk_ = pks_.get(_indexPk.intValue());
         return translatedPokemon_.getVal(pk_);
     }
-
-    @Accessible
-    private String clickPokemonTm(Long _indexPk) {
+    public String clickPokemonTm(Long _indexPk) {
         String pk_ = movesTmLearntByPokemon.get(_indexPk.intValue());
         getForms().put(PK, pk_);
         return POKEMON;
     }
-
-    @Accessible
-    private String getTrPokemonTm(Long _indexPk) {
+    public String getTrPokemonTm(Long _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String pk_ = movesTmLearntByPokemon.get(_indexPk.intValue());
         return translatedPokemon_.getVal(pk_);
     }
-
-    @Accessible
-    private String clickPokemonHm(Long _indexPk) {
+    public String clickPokemonHm(Long _indexPk) {
         String pk_ = movesHmLearntByPokemon.get(_indexPk.intValue());
         getForms().put(PK, pk_);
         return POKEMON;
     }
-
-    @Accessible
-    private String getTrPokemonHm(Long _indexPk) {
+    public String getTrPokemonHm(Long _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String pk_ = movesHmLearntByPokemon.get(_indexPk.intValue());
         return translatedPokemon_.getVal(pk_);
     }
-
-    @Accessible
-    private String clickPokemonMt(Long _indexPk) {
+    public String clickPokemonMt(Long _indexPk) {
         String pk_ = movesMtLearntByPokemon.get(_indexPk.intValue());
         getForms().put(PK, pk_);
         return POKEMON;
     }
-
-    @Accessible
-    private String getTrPokemonMt(Long _indexPk) {
+    public String getTrPokemonMt(Long _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String pk_ = movesMtLearntByPokemon.get(_indexPk.intValue());
         return translatedPokemon_.getVal(pk_);
     }
-
-    @Accessible
-    private boolean canBeLearnt() {
+    public boolean canBeLearnt() {
         if (!movesLevelLearntByPokemon.isEmpty()) {
             return true;
         }
@@ -1073,9 +910,7 @@ public class MoveBean extends CommonBean {
     public boolean isNothing() {
         return targetChoice == TargetChoice.NOTHING;
     }
-
-    @Accessible
-    private String getPage(Long _long) {
+    public String getPage(Long _long) {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
@@ -1183,5 +1018,141 @@ public class MoveBean extends CommonBean {
             return PAGE_WINMONEY;
         }
         return DataBase.EMPTY_STRING;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public StringList getBoostedTypes() {
+        return boostedTypes;
+    }
+
+    public boolean getHasDefaultTypes() {
+        return hasDefaultTypes;
+    }
+
+    public StringList getTypes() {
+        return types;
+    }
+
+    public TreeMap<String,String> getTypesByOwnedItems() {
+        return typesByOwnedItems;
+    }
+
+    public TreeMap<String,String> getTypesByWeathers() {
+        return typesByWeathers;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public short getPp() {
+        return pp;
+    }
+
+    public byte getPriority() {
+        return priority;
+    }
+
+    public String getAccuracy() {
+        return accuracy;
+    }
+
+    public NatTreeMap<String,String> getMapVarsAccuracy() {
+        return mapVarsAccuracy;
+    }
+
+    public boolean getIgnVarAccurUserNeg() {
+        return ignVarAccurUserNeg;
+    }
+
+    public boolean getIgnVarEvasTargetPos() {
+        return ignVarEvasTargetPos;
+    }
+
+    public short getNbPrepaRound() {
+        return nbPrepaRound;
+    }
+
+    public boolean getDisappearBeforeUse() {
+        return disappearBeforeUse;
+    }
+
+    public StringList getDeletedStatus() {
+        return deletedStatus;
+    }
+
+    public StringList getRequiredStatus() {
+        return requiredStatus;
+    }
+
+    public StringList getAchieveDisappearedPkUsingMove() {
+        return achieveDisappearedPkUsingMove;
+    }
+
+    public StringList getAbilities() {
+        return abilities;
+    }
+
+    public StringList getItems() {
+        return items;
+    }
+
+    public boolean getCannotKo() {
+        return cannotKo;
+    }
+
+    public StringList getAffectedByMoves() {
+        return affectedByMoves;
+    }
+
+    public TreeMap<String,Numbers<Integer>> getSecEffectsByItem() {
+        return secEffectsByItem;
+    }
+
+    public Numbers<Integer> getEffects() {
+        return effects;
+    }
+
+    public boolean getSecEffectIfNoDamage() {
+        return secEffectIfNoDamage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean getRechargeRound() {
+        return rechargeRound;
+    }
+
+    public boolean getConstUserChoice() {
+        return constUserChoice;
+    }
+
+    public short getRankIncrementNbRound() {
+        return rankIncrementNbRound;
+    }
+
+    public NatCmpTreeMap<LgInt,Rate> getRepeatRoundLaw() {
+        return repeatRoundLaw;
+    }
+
+    public NatTreeMap<Short,StringList> getMovesLevelLearntByPokemon() {
+        return movesLevelLearntByPokemon;
+    }
+
+    public StringList getMovesTmLearntByPokemon() {
+        return movesTmLearntByPokemon;
+    }
+
+    public StringList getMovesHmLearntByPokemon() {
+        return movesHmLearntByPokemon;
+    }
+
+    public StringList getMovesMtLearntByPokemon() {
+        return movesMtLearntByPokemon;
     }
 }

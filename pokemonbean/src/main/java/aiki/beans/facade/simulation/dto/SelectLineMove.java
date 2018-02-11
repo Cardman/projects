@@ -1,10 +1,7 @@
 package aiki.beans.facade.simulation.dto;
-import code.bean.Accessible;
 import aiki.beans.facade.dto.MoveLine;
 
 public final class SelectLineMove extends MoveLine {
-
-    @Accessible
     private boolean selected;
 
     public boolean isSelected() {
@@ -13,5 +10,9 @@ public final class SelectLineMove extends MoveLine {
 
     public void setSelected(boolean _selected) {
         selected = _selected;
+    }
+
+    public boolean getSelected() {
+        return selected;
     }
 }

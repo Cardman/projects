@@ -1,10 +1,9 @@
 package aiki.beans;
-import code.bean.Accessible;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
+import code.util.StringList;
 
 public class WelcomeBean extends CommonBean {
 
@@ -36,54 +35,38 @@ public class WelcomeBean extends CommonBean {
             moves.addAllElts(data_.getMoves().getKeys());
         }
     }
-
-    @Accessible
-    private String seeAllMoves() {
+    public String seeAllMoves() {
         getForms().put(MOVES_SET, new StringList());
         getForms().removeKey(LEARNT);
         return MOVES;
     }
-
-    @Accessible
-    private String seeLearntMoves() {
+    public String seeLearntMoves() {
         getForms().put(MOVES_SET, new StringList());
         getForms().put(LEARNT, true);
         return MOVES;
     }
-
-    @Accessible
-    private String seeNotLearntMoves() {
+    public String seeNotLearntMoves() {
         getForms().put(MOVES_SET, new StringList());
         getForms().put(LEARNT, false);
         return MOVES;
     }
-
-    @Accessible
-    private String clickAbilities() {
+    public String clickAbilities() {
         getForms().put(ABILITIES_SET, new StringList());
         return ABILITIES;
     }
-
-    @Accessible
-    private String clickStatus() {
+    public String clickStatus() {
         getForms().put(STATUS_SET, new StringList());
         return STATUS_SET;
     }
-
-    @Accessible
-    private String clickItems() {
+    public String clickItems() {
         getForms().put(ITEMS_SET, new StringList());
         return ITEMS;
     }
-
-    @Accessible
-    private String clickPokedex() {
+    public String clickPokedex() {
         getForms().put(POKEMON_SET, new StringList());
         return POKEMON_SET;
     }
-
-    @Accessible
-    private String clickSimulation() {
+    public String clickSimulation() {
         getForms().put(SIMULATION_STATE, SimulationSteps.DIFF);
         return SIMULATION;
     }

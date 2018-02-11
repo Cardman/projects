@@ -1,13 +1,4 @@
 package aiki.beans.fight;
-import code.bean.Accessible;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorMoveTeamPosition;
 import aiki.beans.facade.comparators.ComparatorStatisticInfo;
@@ -25,210 +16,77 @@ import aiki.game.fight.MoveTeamPosition;
 import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.CopiedMove;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class FighterBean extends CommonFightBean {
-
-    @Accessible
     private String name;
 
     private String keyName;
-
-    @Accessible
     private String nickname;
-
-    @Accessible
     private String gender;
-
-    @Accessible
     private Rate weight;
-
-    @Accessible
     private Rate height;
-
-    @Accessible
     private String weightStr;
-
-    @Accessible
     private String heightStr;
-
-    @Accessible
     private String currentName;
-
-    @Accessible
     private String currentGender;
-
-    @Accessible
     private String item;
-
-    @Accessible
     private String expItem;
-
-    @Accessible
     private String ability;
-
-    @Accessible
     private String currentAbility;
-
-    @Accessible
     private NatTreeMap<String,Short> status;
-
-    @Accessible
     private TreeMap<MoveTeamPosition,Short> statusRelat;
-
-    @Accessible
     private StringList types;
-
-    @Accessible
     private NatTreeMap<String,UsesOfMove> moves;
-
-    @Accessible
     private NatTreeMap<String,UsesOfMove> currentMoves;
-
-    @Accessible
     private CustList<StatisticInfo> statistics;
-
-    @Accessible
     private Rate remainingHp;
-
-    @Accessible
     private String remainingHpStr;
-
-    @Accessible
     private String remainingHpStrPerCent;
-
-    @Accessible
     private Rate clone;
-
-    @Accessible
     private String cloneStr;
-
-    @Accessible
     private StringList protectedAgainstMoveTypes;
-
-    @Accessible
     private NatTreeMap<String,ActivityOfMove> enabledMoves;
-
-    @Accessible
     private NatTreeMap<String,Boolean> enabledMovesForAlly;
-
-    @Accessible
     private NatTreeMap<String,MultPowerMoves> damageRateByType;
-
-    @Accessible
     private byte groundPlace;
-
-    @Accessible
     private Rate wonExpSinceLastLevel;
-
-    @Accessible
     private Rate necessaryPointsNextLevel;
-
-    @Accessible
     private short level;
-
-    @Accessible
     private short happiness;
-
-    @Accessible
     private TreeMap<MoveTeamPosition,Boolean> incrUserAccuracy;
-
-    @Accessible
     private NatTreeMap<String,Integer> nbUsesMoves;
-
-    @Accessible
     private short nbPrepaRound;
-
-    @Accessible
     private boolean needingToRecharge;
-
-    @Accessible
     private TreeMap<MoveTeamPosition,AffectedMove> trackingMoves;
-
-    @Accessible
     private TreeMap<MoveTeamPosition,ActivityOfMove> trappingMoves;
-
-    @Accessible
     private NatTreeMap<String,SufferedDamageCategory> damageSufferedCateg;
-
-    @Accessible
     private NatTreeMap<String,CopiedMove> copiedMoves;
-
-    @Accessible
     private LgInt nbRepeatingSuccessfulMoves;
-
-    @Accessible
     private TreeMap<MoveTeamPosition,String> privateMoves;
-
-    @Accessible
     private boolean belongingToPlayer;
-
-    /***/
-    @Accessible
     private String lastUsedItem;
-
-    /***/
-    @Accessible
     private LgInt nbRounds;
-
-    /***/
-    @Accessible
     private boolean acted;
-
-    /***/
-    @Accessible
     private byte groundPlaceSubst;
-
-    /***/
-    @Accessible
-    private Rate wonExp;
-
-    /***/
-    @Accessible
     private String usedBallCatching;
-
-    /***/
-    @Accessible
     private boolean disappeared;
-
-    /***/
-    @Accessible
     private String lastSufferedMove;
-
-    /***/
-    @Accessible
     private StringList lastSufferedMoveTypes;
-
-    /***/
-    @Accessible
     private String lastUsedMove;
-
-    /***/
-    @Accessible
     private String usedMoveLastRound;
-
-    /***/
-    @Accessible
     private StringList alreadyInvokedMovesRound;
-
-    /***/
-    @Accessible
     private String lastSuccessfulMove;
-
-    /***/
-    @Accessible
     private boolean usingItem;
-
-    /***/
-    @Accessible
     private boolean successfulMove;
-
-    /***/
-    @Accessible
     private boolean changed;
-
-    /***/
-    @Accessible
-    private NatTreeMap<String,Boolean> enabledImmuAbilities;
 
     @Override
     public void beforeDisplaying() {
@@ -310,12 +168,6 @@ public class FighterBean extends CommonFightBean {
             protectedAgainstMoveTypes.add(translationsTypes_.getVal(t));
         }
         protectedAgainstMoveTypes.sort();
-//        TreeMap<String,Boolean> enabledImmuAbilities_;
-//        enabledImmuAbilities_ = new TreeMap<new>(new);
-//        for (String a: fighter_.getEnabledImmuAbilities().getKeys()) {
-//            enabledImmuAbilities_.put(translationsAbilities_.getVal(a), fighter_.getEnabledImmuAbilities().getVal(a));
-//        }
-        enabledImmuAbilities = new NatTreeMap<String,Boolean>();
         if (fighter_.getUsedBallCatching().isEmpty()) {
             usedBallCatching = DataBase.EMPTY_STRING;
         } else {
@@ -430,7 +282,6 @@ public class FighterBean extends CommonFightBean {
         copiedMoves = copiedMoves_;
         groundPlace = fighter_.getGroundPlace();
         groundPlaceSubst = fighter_.getGroundPlaceSubst();
-        wonExp = fighter_.getWonExp();
         disappeared = fighter_.isDisappeared();
         if (fighter_.getLastSufferedMove().isEmpty()) {
             lastSufferedMove = DataBase.EMPTY_STRING;
@@ -613,92 +464,302 @@ public class FighterBean extends CommonFightBean {
         diff_.removeNb(wonExpSinceLastLevel);
         return diff_;
     }
-
-    @Accessible
-    private boolean isBack() {
+    public boolean isBack() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
         Number noFighter_ = (Number) getForms().getVal(NO_FIGHTER);
         Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_.byteValue()).getMembers().getVal(noFighter_.byteValue());
         return fighter_.estArriere();
     }
-
-    @Accessible
-    private boolean isBackSubst() {
+    public boolean isBackSubst() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
         Number noFighter_ = (Number) getForms().getVal(NO_FIGHTER);
         Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_.byteValue()).getMembers().getVal(noFighter_.byteValue());
         return fighter_.getGroundPlaceSubst() == Fighter.BACK;
     }
-
-    @Accessible
-    private boolean isFoeStatusRelatTeam(Long _index) {
+    public boolean isFoeStatusRelatTeam(Long _index) {
         MoveTeamPosition mt_ = statusRelat.getKey(_index.intValue());
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-
-    @Accessible
-    private String getStatusRelatTeam(Long _index) {
+    public String getStatusRelatTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = statusRelat.getKey(_index.intValue());
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
-
-    @Accessible
-    private boolean isEnabled(Long _index) {
+    public boolean isEnabled(Long _index) {
         return statusRelat.getValue(_index.intValue()) > 0;
     }
-
-    @Accessible
-    private boolean isFoePrivateMovesTeam(Long _index) {
+    public boolean isFoePrivateMovesTeam(Long _index) {
         MoveTeamPosition mt_ = privateMoves.getKey(_index.intValue());
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-
-    @Accessible
-    private String getIncrPrivateMovesTeam(Long _index) {
+    public String getIncrPrivateMovesTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = privateMoves.getKey(_index.intValue());
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
-
-    @Accessible
-    private boolean isFoeTrappingMovesTeam(Long _index) {
+    public boolean isFoeTrappingMovesTeam(Long _index) {
         MoveTeamPosition mt_ = trappingMoves.getKey(_index.intValue());
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-
-    @Accessible
-    private String getIncrTrappingMovesTeam(Long _index) {
+    public String getIncrTrappingMovesTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = trappingMoves.getKey(_index.intValue());
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
-
-    @Accessible
-    private boolean isFoeTrackingMovesTeam(Long _index) {
+    public boolean isFoeTrackingMovesTeam(Long _index) {
         MoveTeamPosition mt_ = trackingMoves.getKey(_index.intValue());
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-
-    @Accessible
-    private String getIncrTrackingMovesTeam(Long _index) {
+    public String getIncrTrackingMovesTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = trackingMoves.getKey(_index.intValue());
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
-
-    @Accessible
-    private boolean isFoeIncrUserAccuracyTeam(Long _index) {
+    public boolean isFoeIncrUserAccuracyTeam(Long _index) {
         MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index.intValue());
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-
-    @Accessible
-    private String getIncrUserAccuracyTeam(Long _index) {
+    public String getIncrUserAccuracyTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index.intValue());
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean getChanged() {
+        return changed;
+    }
+
+    public String getCurrentName() {
+        return currentName;
+    }
+
+    public String getCurrentGender() {
+        return currentGender;
+    }
+
+    public String getUsedBallCatching() {
+        return usedBallCatching;
+    }
+
+    public boolean getBelongingToPlayer() {
+        return belongingToPlayer;
+    }
+
+    public byte getGroundPlaceSubst() {
+        return groundPlaceSubst;
+    }
+
+    public byte getGroundPlace() {
+        return groundPlace;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public short getHappiness() {
+        return happiness;
+    }
+
+    public short getLevel() {
+        return level;
+    }
+
+    public Rate getWonExpSinceLastLevel() {
+        return wonExpSinceLastLevel;
+    }
+
+    public Rate getNecessaryPointsNextLevel() {
+        return necessaryPointsNextLevel;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public Rate getWeight() {
+        return weight;
+    }
+
+    public String getWeightStr() {
+        return weightStr;
+    }
+
+    public Rate getHeight() {
+        return height;
+    }
+
+    public String getHeightStr() {
+        return heightStr;
+    }
+
+    public Rate getRemainingHp() {
+        return remainingHp;
+    }
+
+    public String getRemainingHpStr() {
+        return remainingHpStr;
+    }
+
+    public String getRemainingHpStrPerCent() {
+        return remainingHpStrPerCent;
+    }
+
+    public Rate getClone() {
+        return clone;
+    }
+
+    public String getCloneStr() {
+        return cloneStr;
+    }
+
+    public String getAbility() {
+        return ability;
+    }
+
+    public String getCurrentAbility() {
+        return currentAbility;
+    }
+
+    public boolean getActed() {
+        return acted;
+    }
+
+    public String getLastUsedItem() {
+        return lastUsedItem;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public String getExpItem() {
+        return expItem;
+    }
+
+    public boolean getUsingItem() {
+        return usingItem;
+    }
+
+    public StringList getTypes() {
+        return types;
+    }
+
+    public NatTreeMap<String,UsesOfMove> getMoves() {
+        return moves;
+    }
+
+    public NatTreeMap<String,UsesOfMove> getCurrentMoves() {
+        return currentMoves;
+    }
+
+    public LgInt getNbRounds() {
+        return nbRounds;
+    }
+
+    public NatTreeMap<String,CopiedMove> getCopiedMoves() {
+        return copiedMoves;
+    }
+
+    public CustList<StatisticInfo> getStatistics() {
+        return statistics;
+    }
+
+    public NatTreeMap<String,MultPowerMoves> getDamageRateByType() {
+        return damageRateByType;
+    }
+
+    public StringList getProtectedAgainstMoveTypes() {
+        return protectedAgainstMoveTypes;
+    }
+
+    public NatTreeMap<String,SufferedDamageCategory> getDamageSufferedCateg() {
+        return damageSufferedCateg;
+    }
+
+    public NatTreeMap<String,ActivityOfMove> getEnabledMoves() {
+        return enabledMoves;
+    }
+
+    public NatTreeMap<String,Boolean> getEnabledMovesForAlly() {
+        return enabledMovesForAlly;
+    }
+
+    public NatTreeMap<String,Integer> getNbUsesMoves() {
+        return nbUsesMoves;
+    }
+
+    public LgInt getNbRepeatingSuccessfulMoves() {
+        return nbRepeatingSuccessfulMoves;
+    }
+
+    public boolean getSuccessfulMove() {
+        return successfulMove;
+    }
+
+    public String getLastSuccessfulMove() {
+        return lastSuccessfulMove;
+    }
+
+    public String getLastUsedMove() {
+        return lastUsedMove;
+    }
+
+    public String getUsedMoveLastRound() {
+        return usedMoveLastRound;
+    }
+
+    public short getNbPrepaRound() {
+        return nbPrepaRound;
+    }
+
+    public StringList getAlreadyInvokedMovesRound() {
+        return alreadyInvokedMovesRound;
+    }
+
+    public String getLastSufferedMove() {
+        return lastSufferedMove;
+    }
+
+    public StringList getLastSufferedMoveTypes() {
+        return lastSufferedMoveTypes;
+    }
+
+    public boolean getDisappeared() {
+        return disappeared;
+    }
+
+    public boolean getNeedingToRecharge() {
+        return needingToRecharge;
+    }
+
+    public NatTreeMap<String,Short> getStatus() {
+        return status;
+    }
+
+    public TreeMap<MoveTeamPosition,Short> getStatusRelat() {
+        return statusRelat;
+    }
+
+    public TreeMap<MoveTeamPosition,String> getPrivateMoves() {
+        return privateMoves;
+    }
+
+    public TreeMap<MoveTeamPosition,ActivityOfMove> getTrappingMoves() {
+        return trappingMoves;
+    }
+
+    public TreeMap<MoveTeamPosition,AffectedMove> getTrackingMoves() {
+        return trackingMoves;
+    }
+
+    public TreeMap<MoveTeamPosition,Boolean> getIncrUserAccuracy() {
+        return incrUserAccuracy;
     }
 }

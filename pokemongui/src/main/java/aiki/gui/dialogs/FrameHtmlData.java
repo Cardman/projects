@@ -10,6 +10,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
+import aiki.beans.PokemonStandards;
 import aiki.gui.MainWindow;
 import code.gui.ChildFrame;
 import code.gui.LabelButton;
@@ -109,7 +110,7 @@ public final class FrameHtmlData extends ChildFrame {
     public void initSession(String _fileResConf) {
         session.setFiles( Resources.ACCESS_TO_DEFAULT_FILES);
         setVisible(true);
-        session.initializeOnlyConf(_fileResConf);
+        session.initializeOnlyConf(_fileResConf, new PokemonStandards());
 //        try {
 //            session.initializeOnlyConf(_fileResConf);
 //        } catch (Throwable _0) {
@@ -145,7 +146,7 @@ public final class FrameHtmlData extends ChildFrame {
     }
 
     public void reset() {
-        session.reset();
+        session.reset(new PokemonStandards());
     }
 
     public SessionEditorPane getSession() {

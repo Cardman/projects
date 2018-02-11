@@ -1,12 +1,4 @@
 package aiki.beans.fight;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.ObjectMap;
-import code.util.SortableCustList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorMoveTarget;
 import aiki.beans.facade.fight.KeyHypothesis;
@@ -16,24 +8,21 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.util.MoveTarget;
+import code.maths.Rate;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.ObjectMap;
+import code.util.SortableCustList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class FightCalculationBean extends CommonFightBean {
-
-    @Accessible
     private TreeMap<MoveTarget, MoveTarget> allyChoice;
-
-    @Accessible
     private NatTreeMap<Byte,MoveTarget> foeChoices;
 
     private NatTreeMap<Byte,Boolean> foeChoicesTargets;
-
-    @Accessible
     private SortableCustList<KeyHypothesis> damage;
-
-    @Accessible
     private EqList<TeamPosition> sortedFighters;
-
-    @Accessible
     private NatTreeMap<String,EqList<TeamPosition>> sortedFightersWildFight;
 
     @Override
@@ -111,43 +100,29 @@ public class FightCalculationBean extends CommonFightBean {
         foeChoices = foeChoices_;
         foeChoicesTargets = foeChoicesTargets_;
     }
-
-    @Accessible
-    private String getFighterWildFight(Long _indexOne, Long _indexTwo) {
+    public String getFighterWildFight(Long _indexOne, Long _indexTwo) {
         TeamPosition f_ = sortedFightersWildFight.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         return getFighterAtPosition(dataBaseFight_, f_);
     }
-
-    @Accessible
-    private String getFighter(Long _index) {
+    public String getFighter(Long _index) {
         TeamPosition f_ = sortedFighters.get(_index.intValue());
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         return getFighterAtPosition(dataBaseFight_, f_);
     }
-
-    @Accessible
-    private boolean isFoeTargetChoiceTeam(Long _index) {
+    public boolean isFoeTargetChoiceTeam(Long _index) {
         return allyChoice.getKey(_index.intValue()).getTarget().getTeam() == Fight.FOE;
     }
-
-    @Accessible
-    private boolean isFoeTargetTeam(Long _index) {
+    public boolean isFoeTargetTeam(Long _index) {
         return allyChoice.getValue(_index.intValue()).getTarget().getTeam() == Fight.FOE;
     }
-
-    @Accessible
-    private boolean isBackTargetChoiceTeam(Long _index) {
+    public boolean isBackTargetChoiceTeam(Long _index) {
         return allyChoice.getKey(_index.intValue()).getTarget().getPosition() == Fighter.BACK;
     }
-
-    @Accessible
-    private boolean isBackTargetTeam(Long _index) {
+    public boolean isBackTargetTeam(Long _index) {
         return allyChoice.getValue(_index.intValue()).getTarget().getPosition() == Fighter.BACK;
     }
-
-    @Accessible
-    private String getTargetNameAllyChoiceCondition(Long _index) {
+    public String getTargetNameAllyChoiceCondition(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         MoveTarget mTarget_ = allyChoice.getKey(_index.byteValue());
@@ -155,9 +130,7 @@ public class FightCalculationBean extends CommonFightBean {
         Fighter fighter_ = fight_.getFighter(key_);
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
-
-    @Accessible
-    private String getTargetNameAllyChoice(Long _index) {
+    public String getTargetNameAllyChoice(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         MoveTarget mTarget_ = allyChoice.getValue(_index.byteValue());
@@ -165,14 +138,10 @@ public class FightCalculationBean extends CommonFightBean {
         Fighter fighter_ = fight_.getFighter(key_);
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
-
-    @Accessible
-    private boolean isChosenTarget(Long _index) {
+    public boolean isChosenTarget(Long _index) {
         return foeChoicesTargets.getValue(_index.intValue());
     }
-
-    @Accessible
-    private String getTargetNameFoeChoice(Long _index) {
+    public String getTargetNameFoeChoice(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         MoveTarget mTarget_ = foeChoices.getVal(_index.byteValue());
@@ -180,9 +149,7 @@ public class FightCalculationBean extends CommonFightBean {
         Fighter fighter_ = fight_.getFighter(key_);
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
-
-    @Accessible
-    private String getFoeFighterName(Long _index) {
+    public String getFoeFighterName(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         Team team_ = fight_.getFoeTeam();
@@ -190,9 +157,27 @@ public class FightCalculationBean extends CommonFightBean {
         Fighter f_ = team_.refPartMembres(key_);
         return dataBaseFight_.translatePokemon(f_.getName());
     }
-
-    @Accessible
-    private boolean isFoeTargetChTeam(Long _index) {
+    public boolean isFoeTargetChTeam(Long _index) {
         return foeChoices.getValue(_index.intValue()).getTarget().getTeam() == Fight.FOE;
+    }
+
+    public EqList<TeamPosition> getSortedFighters() {
+        return sortedFighters;
+    }
+
+    public NatTreeMap<String,EqList<TeamPosition>> getSortedFightersWildFight() {
+        return sortedFightersWildFight;
+    }
+
+    public SortableCustList<KeyHypothesis> getDamage() {
+        return damage;
+    }
+
+    public TreeMap<MoveTarget,MoveTarget> getAllyChoice() {
+        return allyChoice;
+    }
+
+    public NatTreeMap<Byte,MoveTarget> getFoeChoices() {
+        return foeChoices;
     }
 }

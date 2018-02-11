@@ -1,12 +1,9 @@
 package aiki.beans.facade.map.dto;
-import code.bean.Accessible;
 import aiki.map.places.Place;
 
 public final class PlaceIndex {
 
     private Place place;
-
-    @Accessible
     private int index;
 
     public Place getPlace() {

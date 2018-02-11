@@ -133,7 +133,7 @@ public class SessionEditorPane extends EditorPane {
         directScroll();
     }
 
-    public void initializeOnlyConf(String _conf) {
+    public void initializeOnlyConf(String _conf, BeanLgNames _stds) {
         if (processing) {
             return;
         }
@@ -168,20 +168,12 @@ public class SessionEditorPane extends EditorPane {
 //            } catch (Exception _0) {
 //            }
 //        }
-        requestThread = new ThreadAnchorForm(this, nav, _conf);
+        requestThread = new ThreadAnchorForm(this, nav, _conf, _stds);
         requestThread.start();
         if (!process.isEmpty()) {
             LoadingWeb load_ = new LoadingWeb(this, process, frame, dialog);
             load_.start();
         }
-    }
-
-    public void initializeHtml(String _conf) {
-        start();
-        nav.loadConfiguration(_conf);
-        nav.initializeSession();
-        setupText(true);
-        finish(false);
     }
     public void initializeHtml(String _conf, BeanLgNames _lgNames) {
         start();
@@ -266,7 +258,7 @@ public class SessionEditorPane extends EditorPane {
         }
     }
 
-    public void reset() {
+    public void reset(BeanLgNames _lgNames) {
         if (processing) {
             return;
         }
@@ -276,7 +268,7 @@ public class SessionEditorPane extends EditorPane {
 //            } catch (Exception _0) {
 //            }
 //        }
-        requestThread = new ThreadAnchorForm(this, nav.getSession().getFirstUrl());
+        requestThread = new ThreadAnchorForm(this, nav.getSession().getFirstUrl(), _lgNames);
         requestThread.start();
         if (!process.isEmpty()) {
             LoadingWeb load_ = new LoadingWeb(this, process, frame, dialog);

@@ -20,9 +20,6 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.resources.ResourceFiles;
-import code.serialize.SerializeXmlObject;
-import code.serialize.exceptions.InexistingValueForEnum;
-import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
@@ -156,31 +153,6 @@ public final class Navigation {
         }
         for (String f: _images.getKeys()) {
             files.put(f, _images.getVal(f));
-        }
-    }
-
-    public void loadConfiguration(String _conf) {
-        boolean found_ = false;
-        String fileName_ = EMPTY_STRING;
-        for (EntryCust<String, String> e: files.entryList()) {
-            if (e.getKey().equalsIgnoreCase(_conf)) {
-                fileName_ = e.getKey();
-                found_ = true;
-                break;
-            }
-        }
-        String content_;
-        if (found_) {
-            content_ = files.getVal(fileName_);
-        } else {
-            content_ = ResourceFiles.ressourceFichier(_conf);
-        }
-        session = (Configuration) SerializeXmlObject.newObjectFromXmlString(content_);
-        session.init();
-        if (session.getMathFactory() == null) {
-            if (dataBase instanceof WithMathFactory) {
-                session.setMathFactory(((WithMathFactory)dataBase).getMathFactory());
-            }
         }
     }
 
@@ -614,9 +586,7 @@ public final class Navigation {
     }
 
     /**
-    @throws RuntimeClassNotFoundException
-    @throws InexistingValueForEnum
-    @throws NoSuchDeclaredMethodException*/
+    @throws RuntimeClassNotFoundException*/
     private void updateBean(NatTreeMap<Long, NodeContainer> _containers) {
         Document doc_ = session.getDocument();
         for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {

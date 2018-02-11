@@ -1,9 +1,4 @@
 package aiki.beans.items;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.ItemLine;
@@ -23,24 +18,18 @@ import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class ItemsBean extends CommonBean {
-
-    @Accessible
     private CustList<ItemLine> items = new CustList<ItemLine>();
-
-    @Accessible
     private StringList sortedItems = new StringList();
-
-    @Accessible
     private String typedName = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String typedPrice;
 
     private Integer price;
-
-    @Accessible
     private String typedClass = DataBase.EMPTY_STRING;
 
     @Override
@@ -70,9 +59,7 @@ public class ItemsBean extends CommonBean {
         typedName = escapedStringQuote(typedName);
         typedClass = escapedStringQuote(typedClass);
     }
-
-    @Accessible
-    private String search() {
+    public String search() {
         if (!typedPrice.isEmpty()) {
             price = Integer.parseInt(typedPrice);
         } else {
@@ -168,9 +155,7 @@ public class ItemsBean extends CommonBean {
         }
         return ITEMS;
     }
-
-    @Accessible
-    private String clickLink(Long _index) {
+    public String clickLink(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         String item_ = items.get(_index.intValue()).getName();
         getForms().put(ITEM, item_);
@@ -219,11 +204,37 @@ public class ItemsBean extends CommonBean {
         }
         return ITEM;
     }
-
-    @Accessible
-    private String getMiniImage(Long _number) {
+    public String getMiniImage(Long _number) {
         String item_ = items.get(_number.intValue()).getName();
         DataBase data_ = (DataBase) getDataBase();
         return ConverterBufferedImage.surroundImage(data_.getMiniItems().getVal(item_));
+    }
+
+    public void setTypedName(String _typedName) {
+        typedName = _typedName;
+    }
+
+    public String getTypedName() {
+        return typedName;
+    }
+
+    public void setTypedPrice(String _typedPrice) {
+        typedPrice = _typedPrice;
+    }
+
+    public String getTypedPrice() {
+        return typedPrice;
+    }
+
+    public void setTypedClass(String _typedClass) {
+        typedClass = _typedClass;
+    }
+
+    public String getTypedClass() {
+        return typedClass;
+    }
+
+    public CustList<ItemLine> getItems() {
+        return items;
     }
 }

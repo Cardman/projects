@@ -1,30 +1,17 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
+import code.maths.Rate;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
-
-    @Accessible
     private Rate deleteAllStatus;
-
-    @Accessible
     private Rate recoilDamage;
-
-    @Accessible
     private Rate healHp;
-
-    @Accessible
     private TreeMap<String,Rate> healHpByOwnerTypes;
-
-    @Accessible
     private TreeMap<String,Rate> multDamageStatus;
-
-    @Accessible
     private String userStatusEndRound;
 
     @Override
@@ -53,32 +40,24 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         }
         healHpByOwnerTypes = healHpByOwnerTypes_;
     }
-
-    @Accessible
-    private String getTrUserStatus() {
+    public String getTrUserStatus() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(userStatusEndRound);
     }
-
-    @Accessible
-    private String clickUserStatus(Long _index) {
+    public String clickUserStatus(Long _index) {
         EffectEndRoundIndividual effect_ = (EffectEndRoundIndividual) getEffect(_index);
         getForms().put(STATUS, effect_.getUserStatusEndRound());
         return STATUS;
     }
-
-    @Accessible
-    private String getTrDamageStatus(Long _index) {
+    public String getTrDamageStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(multDamageStatus.getKey(_index.intValue()));
     }
-
-    @Accessible
-    private String clickDamageStatus(Long _indexOne,Long _indexTwo) {
+    public String clickDamageStatus(Long _indexOne,Long _indexTwo) {
         EffectEndRoundIndividual effect_ = (EffectEndRoundIndividual) getEffect(_indexOne);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
@@ -91,17 +70,37 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         getForms().put(STATUS, multDamageStatus_.getKey(_indexTwo.intValue()));
         return STATUS;
     }
-
-    @Accessible
-    private boolean isType(Long _index) {
+    public boolean isType(Long _index) {
         return !healHpByOwnerTypes.getKey(_index.intValue()).isEmpty();
     }
-
-    @Accessible
-    private String getTrType(Long _index) {
+    public String getTrType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_;
         translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(healHpByOwnerTypes.getKey(_index.intValue()));
+    }
+
+    public Rate getDeleteAllStatus() {
+        return deleteAllStatus;
+    }
+
+    public Rate getRecoilDamage() {
+        return recoilDamage;
+    }
+
+    public Rate getHealHp() {
+        return healHp;
+    }
+
+    public String getUserStatusEndRound() {
+        return userStatusEndRound;
+    }
+
+    public TreeMap<String,Rate> getMultDamageStatus() {
+        return multDamageStatus;
+    }
+
+    public TreeMap<String,Rate> getHealHpByOwnerTypes() {
+        return healHpByOwnerTypes;
     }
 }

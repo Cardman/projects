@@ -1,12 +1,4 @@
 package aiki.beans.fight;
-import code.bean.Accessible;
-import code.maths.LgInt;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.facade.FacadeGame;
@@ -17,34 +9,22 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.StacksOfUses;
 import aiki.game.fight.TargetCoords;
 import aiki.game.fight.Team;
+import code.maths.LgInt;
+import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class TeamBean extends CommonFightBean {
-
-    @Accessible
     private TreeMap<StringList,ActivityOfMove> enabledMovesByGroup;
-
-    @Accessible
     private NatTreeMap<String,ActivityOfMove> enabledMoves;
-
-    @Accessible
     private NatTreeMap<String,LgInt> enabledMovesWhileSendingFoeUses;
-
-    @Accessible
     private NatTreeMap<String,Integer> nbUsesMoves;
-
-    /***/
-    @Accessible
     private NatTreeMap<String,NatTreeMap<Byte,StacksOfUses>> healAfter;
-
-    /***/
-    @Accessible
     private NatTreeMap<String,NatTreeMap<Byte,Anticipation>> movesAnticipation;
-
-    /***/
-    @Accessible
     private NatTreeMap<Byte,Numbers<Byte> > playerFightersAgainstFoe;
-
-    @Accessible
     private boolean foeTeam;
 
     @Override
@@ -147,16 +127,12 @@ public class TeamBean extends CommonFightBean {
             playerFightersAgainstFoe.put(p, numbers_);
         }
     }
-
-    @Accessible
-    private Numbers<Byte> getMembers() {
+    public Numbers<Byte> getMembers() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
         return getMembers(dataBaseFight_, noTeam_.byteValue());
     }
-
-    @Accessible
-    private String getTrPokemonLink(Long _index) {
+    public String getTrPokemonLink(Long _index) {
         byte index_ = getMembers().get(_index.intValue());
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
@@ -179,36 +155,24 @@ public class TeamBean extends CommonFightBean {
         }
         return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
-
-    @Accessible
-    private String clickFighter(Long _index) {
+    public String clickFighter(Long _index) {
         getForms().put(NO_FIGHTER, _index);
         return FIGHTER;
     }
-
-    @Accessible
-    private String getKey(Long _index) {
+    public String getKey(Long _index) {
         return enabledMovesByGroup.getKey(_index.intValue()).join(MOVES_SEPARATOR);
     }
-
-    @Accessible
-    private boolean isFoeMovesAnticipationTeam(Long _indexOne,Long _indexTwo) {
+    public boolean isFoeMovesAnticipationTeam(Long _indexOne,Long _indexTwo) {
         return movesAnticipation.getValue(_indexOne.intValue()).getValue(_indexTwo.intValue()).getTargetPosition().getTeam() == Fight.FOE;
     }
-
-    @Accessible
-    private boolean isBackMovesAnticipationTeam(Long _indexOne,Long _indexTwo) {
+    public boolean isBackMovesAnticipationTeam(Long _indexOne,Long _indexTwo) {
         return movesAnticipation.getValue(_indexOne.intValue()).getValue(_indexTwo.intValue()).getTargetPosition().getPosition() == Fighter.BACK;
     }
-
-    @Accessible
-    private String getPlayerFigtherAgainstFoe(Long _index) {
+    public String getPlayerFigtherAgainstFoe(Long _index) {
         byte key_ = playerFightersAgainstFoe.getKey(_index.intValue());
         return getDisplayName(key_, _index);
     }
-
-    @Accessible
-    private String getFoeFigtherAgainstFoe(Long _indexOne, Long _indexTwo) {
+    public String getFoeFigtherAgainstFoe(Long _indexOne, Long _indexTwo) {
         byte key_ = playerFightersAgainstFoe.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         return getDisplayFoeName(key_, _indexTwo);
     }
@@ -255,5 +219,37 @@ public class TeamBean extends CommonFightBean {
             return data_.translatePokemon(fighter_.getName());
         }
         return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+    }
+
+    public boolean getFoeTeam() {
+        return foeTeam;
+    }
+
+    public NatTreeMap<String,ActivityOfMove> getEnabledMoves() {
+        return enabledMoves;
+    }
+
+    public TreeMap<StringList,ActivityOfMove> getEnabledMovesByGroup() {
+        return enabledMovesByGroup;
+    }
+
+    public NatTreeMap<String,LgInt> getEnabledMovesWhileSendingFoeUses() {
+        return enabledMovesWhileSendingFoeUses;
+    }
+
+    public NatTreeMap<String,Integer> getNbUsesMoves() {
+        return nbUsesMoves;
+    }
+
+    public NatTreeMap<String,NatTreeMap<Byte,StacksOfUses>> getHealAfter() {
+        return healAfter;
+    }
+
+    public NatTreeMap<String,NatTreeMap<Byte,Anticipation>> getMovesAnticipation() {
+        return movesAnticipation;
+    }
+
+    public NatTreeMap<Byte,Numbers<Byte>> getPlayerFightersAgainstFoe() {
+        return playerFightersAgainstFoe;
     }
 }

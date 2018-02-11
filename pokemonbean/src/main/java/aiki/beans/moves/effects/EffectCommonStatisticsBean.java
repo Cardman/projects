@@ -1,19 +1,14 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCommonStatistics;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.TreeMap;
 
 public class EffectCommonStatisticsBean extends EffectBean {
-
-    @Accessible
     private TreeMap<Statistic, String> commonValue;
-
-    @Accessible
     private NatTreeMap<String, String> mapVarsCommonStatistics;
 
     @Override
@@ -42,12 +37,18 @@ public class EffectCommonStatisticsBean extends EffectBean {
         commonValue = commonValue_;
         mapVarsCommonStatistics = mapVarsCommonStatistics_;
     }
-
-    @Accessible
-    private String getTrStatistic(Long _index) {
+    public String getTrStatistic(Long _index) {
         Statistic st_ = commonValue.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
+    }
+
+    public TreeMap<Statistic,String> getCommonValue() {
+        return commonValue;
+    }
+
+    public NatTreeMap<String,String> getMapVarsCommonStatistics() {
+        return mapVarsCommonStatistics;
     }
 }

@@ -1,10 +1,4 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringEnv;
 import aiki.comparators.ComparatorTrStrings;
@@ -13,40 +7,23 @@ import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectInvoke;
 import aiki.map.levels.enums.EnvironmentType;
+import code.maths.Rate;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class EffectInvokeBean extends EffectBean {
-
-    @Accessible
     private TreeMap<EnvironmentType, String> moveFctEnv;
-
-    @Accessible
     private StringList globalMoves;
-
-    @Accessible
     private boolean invokingMoveButUser;
-
-    @Accessible
     private boolean invokingTargetChosenMove;
-
-    @Accessible
     private boolean invokingUserMoveWhileSleep;
-
-    @Accessible
     private boolean invokingAllyMove;
-
-    @Accessible
     private boolean invokingTargetSuccesfulMove;
-
-    @Accessible
     private boolean invokingSufferedMove;
-
-    @Accessible
     private TreeMap<String, String> invokingMoveByUserTypes;
-
-    @Accessible
     private StringList movesNotToBeInvoked;
-
-    @Accessible
     private Rate rateInvokationMove;
 
     @Override
@@ -102,86 +79,108 @@ public class EffectInvokeBean extends EffectBean {
         }
         invokingMoveByUserTypes = invokingMoveByUserTypes_;
     }
-
-    @Accessible
-    private String clickMoveFctEnv(Long _index) {
+    public String clickMoveFctEnv(Long _index) {
         String st_ = moveFctEnv.getValue(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrEnv(Long _index) {
+    public String getTrEnv(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<EnvironmentType,String> translatedMoves_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         EnvironmentType st_ = moveFctEnv.getKey(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String getTrMoveFctEnv(Long _index) {
+    public String getTrMoveFctEnv(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = moveFctEnv.getValue(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String getTrGlobalMoveFctEnv(Long _index) {
+    public String getTrGlobalMoveFctEnv(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = globalMoves.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickGlobalMoveFctEnv(Long _index) {
+    public String clickGlobalMoveFctEnv(Long _index) {
         String st_ = globalMoves.get(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String clickMoveNotInvok(Long _index) {
+    public String clickMoveNotInvok(Long _index) {
         String st_ = movesNotToBeInvoked.get(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrMoveNotInvok(Long _index) {
+    public String getTrMoveNotInvok(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = movesNotToBeInvoked.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickMoveUserTypes(Long _index) {
+    public String clickMoveUserTypes(Long _index) {
         String st_ = invokingMoveByUserTypes.getValue(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private boolean isType(Long _index) {
+    public boolean isType(Long _index) {
         String st_ = invokingMoveByUserTypes.getKey(_index.intValue());
         return !st_.isEmpty();
     }
-
-    @Accessible
-    private String getTrUserTypes(Long _index) {
+    public String getTrUserTypes(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String st_ = invokingMoveByUserTypes.getKey(_index.intValue());
         return translatedTypes_.getVal(st_);
     }
-
-    @Accessible
-    private String getTrMoveUserTypes(Long _index) {
+    public String getTrMoveUserTypes(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = invokingMoveByUserTypes.getValue(_index.intValue());
         return translatedMoves_.getVal(st_);
+    }
+
+    public boolean getInvokingMoveButUser() {
+        return invokingMoveButUser;
+    }
+
+    public boolean getInvokingTargetChosenMove() {
+        return invokingTargetChosenMove;
+    }
+
+    public boolean getInvokingUserMoveWhileSleep() {
+        return invokingUserMoveWhileSleep;
+    }
+
+    public boolean getInvokingAllyMove() {
+        return invokingAllyMove;
+    }
+
+    public boolean getInvokingTargetSuccesfulMove() {
+        return invokingTargetSuccesfulMove;
+    }
+
+    public boolean getInvokingSufferedMove() {
+        return invokingSufferedMove;
+    }
+
+    public Rate getRateInvokationMove() {
+        return rateInvokationMove;
+    }
+
+    public TreeMap<EnvironmentType,String> getMoveFctEnv() {
+        return moveFctEnv;
+    }
+
+    public StringList getGlobalMoves() {
+        return globalMoves;
+    }
+
+    public TreeMap<String,String> getInvokingMoveByUserTypes() {
+        return invokingMoveByUserTypes;
+    }
+
+    public StringList getMovesNotToBeInvoked() {
+        return movesNotToBeInvoked;
     }
 }

@@ -1,9 +1,4 @@
 package aiki.beans.moves;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.MoveLine;
@@ -11,43 +6,23 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.EffectDamage;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class MovesBean extends CommonBean {
-
-    @Accessible
     private final String movesBean="web/html/moves/moveline.html";
-
-    @Accessible
     private CustList<MoveLine> moves = new CustList<MoveLine>();
-
-    @Accessible
     private StringList sortedMoves = new StringList();
-
-    @Accessible
     private String category = DataBase.EMPTY_STRING;
-
-    @Accessible
     private StringMap<String> categories = new StringMap<String>();
-
-    @Accessible
     private String typedName = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String typedType = DataBase.EMPTY_STRING;
-
-    @Accessible
     private boolean wholeWord;
-
-    @Accessible
     private String minPower = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String maxPower = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String minAccuracy = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String maxAccuracy = DataBase.EMPTY_STRING;
 
     @Override
@@ -153,9 +128,7 @@ public class MovesBean extends CommonBean {
         minAccuracy = escapedStringQuote(minAccuracy);
         maxAccuracy = escapedStringQuote(maxAccuracy);
     }
-
-    @Accessible
-    private String search() {
+    public String search() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -268,10 +241,88 @@ public class MovesBean extends CommonBean {
         }
         return MOVES;
     }
-
-    @Accessible
-    private String clickLink(Long _number) {
+    public String clickLink(Long _number) {
         getForms().put(MOVE,moves.get(_number.intValue()).getName());
         return MOVE;
+    }
+
+    public void setTypedName(String _typedName) {
+        typedName = _typedName;
+    }
+
+    public String getTypedName() {
+        return typedName;
+    }
+
+    public StringMap<String> getCategories() {
+        return categories;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String _category) {
+        category = _category;
+    }
+
+    public void setTypedType(String _typedType) {
+        typedType = _typedType;
+    }
+
+    public String getTypedType() {
+        return typedType;
+    }
+
+    public void setWholeWord(boolean _wholeWord) {
+        wholeWord = _wholeWord;
+    }
+
+    public boolean getWholeWord() {
+        return wholeWord;
+    }
+
+    public void setMinAccuracy(String _minAccuracy) {
+        minAccuracy = _minAccuracy;
+    }
+
+    public String getMinAccuracy() {
+        return minAccuracy;
+    }
+
+    public void setMaxAccuracy(String _maxAccuracy) {
+        maxAccuracy = _maxAccuracy;
+    }
+
+    public String getMaxAccuracy() {
+        return maxAccuracy;
+    }
+
+    public void setMinPower(String _minPower) {
+        minPower = _minPower;
+    }
+
+    public String getMinPower() {
+        return minPower;
+    }
+
+    public void setMaxPower(String _maxPower) {
+        maxPower = _maxPower;
+    }
+
+    public String getMaxPower() {
+        return maxPower;
+    }
+
+    public CustList<MoveLine> getMoves() {
+        return moves;
+    }
+
+    public String getMovesBean() {
+        return movesBean;
+    }
+
+    public StringList getSortedMoves() {
+        return sortedMoves;
     }
 }

@@ -47,7 +47,6 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.bean.Accessible;
 import code.images.ConverterBufferedImage;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -59,41 +58,17 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public class MapLevelBean extends CommonBean {
-
-    @Accessible
     private TreeMap<Point,String> tiles;
-
-    @Accessible
     private boolean proponeLink;
-
-    @Accessible
     private boolean proponeTile;
-
-    @Accessible
     private boolean seeArea;
-
-    @Accessible
     private TreeMap<Direction, Boolean> dirs;
-
-    @Accessible
     private String placeName;
-
-    @Accessible
     private int levelIndex;
-
-    @Accessible
     private boolean outside;
-
-    @Accessible
     private boolean road;
-
-    @Accessible
     private boolean pokemonCenter;
-
-    @Accessible
     private boolean gym;
-
-    @Accessible
     private boolean possibleMultiLayer;
 
     @Override
@@ -171,15 +146,11 @@ public class MapLevelBean extends CommonBean {
             dirs.put(dir_, b_);
         }
     }
-
-    @Accessible
-    private boolean isFirstRow(Long _index) {
+    public boolean isFirstRow(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         return pt_.getx() == CustList.FIRST_INDEX;
     }
-
-    @Accessible
-    private String clickTile() {
+    public String clickTile() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         Number lev_ = (Number) getForms().getVal(LEVEL_MAP_INDEX);
@@ -398,9 +369,7 @@ public class MapLevelBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-
-    @Accessible
-    private String clickDirectedLink(Long _index) {
+    public String clickDirectedLink(Long _index) {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
         Direction dir_ = dirs.getKey(_index.intValue());
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
@@ -449,9 +418,7 @@ public class MapLevelBean extends CommonBean {
     public boolean isRight(Long _index) {
         return dirs.getKey(_index.intValue()) == Direction.RIGHT;
     }
-
-    @Accessible
-    private String clickLink() {
+    public String clickLink() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         Number lev_ = (Number) getForms().getVal(LEVEL_MAP_INDEX);
@@ -479,9 +446,7 @@ public class MapLevelBean extends CommonBean {
         }
         return LEVEL;
     }
-
-    @Accessible
-    private String seeArea() {
+    public String seeArea() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         Number lev_ = (Number) getForms().getVal(LEVEL_MAP_INDEX);
@@ -503,9 +468,7 @@ public class MapLevelBean extends CommonBean {
         }
         return AREA;
     }
-
-    @Accessible
-    private String clickTileOnMap(Long _index) {
+    public String clickTileOnMap(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         getForms().put(CURRENT_TILE, pt_);
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
@@ -600,9 +563,7 @@ public class MapLevelBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-
-    @Accessible
-    private boolean withoutTitle(Long _index) {
+    public boolean withoutTitle(Long _index) {
         if (isStorage(_index)) {
             return false;
         }
@@ -620,9 +581,7 @@ public class MapLevelBean extends CommonBean {
         }
         return true;
     }
-
-    @Accessible
-    private boolean isAccessibleByBeatingSomeTrainers(Long _index) {
+    public boolean isAccessibleByBeatingSomeTrainers(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         Number lev_ = (Number) getForms().getVal(LEVEL_MAP_INDEX);
@@ -634,9 +593,7 @@ public class MapLevelBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         return data_.getMap().getAccessCondition().contains(coords_);
     }
-
-    @Accessible
-    private boolean isStorage(Long _index) {
+    public boolean isStorage(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
@@ -657,9 +614,7 @@ public class MapLevelBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean isHealer(Long _index) {
+    public boolean isHealer(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
@@ -688,9 +643,7 @@ public class MapLevelBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean isHost(Long _index) {
+    public boolean isHost(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
@@ -719,9 +672,7 @@ public class MapLevelBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean isFossile(Long _index) {
+    public boolean isFossile(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
@@ -750,9 +701,7 @@ public class MapLevelBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean isMoveTutors(Long _index) {
+    public boolean isMoveTutors(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
@@ -787,4 +736,52 @@ public class MapLevelBean extends CommonBean {
         Direction dir_ = dirs.getKey(_index.intValue());
 
     }*/
+
+    public boolean getPossibleMultiLayer() {
+        return possibleMultiLayer;
+    }
+
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    public int getLevelIndex() {
+        return levelIndex;
+    }
+
+    public boolean getOutside() {
+        return outside;
+    }
+
+    public boolean getRoad() {
+        return road;
+    }
+
+    public boolean getGym() {
+        return gym;
+    }
+
+    public boolean getPokemonCenter() {
+        return pokemonCenter;
+    }
+
+    public TreeMap<Point,String> getTiles() {
+        return tiles;
+    }
+
+    public boolean getProponeTile() {
+        return proponeTile;
+    }
+
+    public boolean getProponeLink() {
+        return proponeLink;
+    }
+
+    public boolean getSeeArea() {
+        return seeArea;
+    }
+
+    public TreeMap<Direction,Boolean> getDirs() {
+        return dirs;
+    }
 }

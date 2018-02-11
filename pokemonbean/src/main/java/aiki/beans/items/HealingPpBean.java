@@ -1,19 +1,10 @@
 package aiki.beans.items;
-import code.bean.Accessible;
 import aiki.fight.items.HealingPp;
 
 public class HealingPpBean extends HealingItemBean {
-
-    @Accessible
     private long healedMovePp;
-
-    @Accessible
     private long healingAllMovesFullpp;
-
-    @Accessible
     private boolean healingAllMovesPp;
-
-    @Accessible
     private boolean healingMoveFullpp;
 
     @Override
@@ -25,14 +16,26 @@ public class HealingPpBean extends HealingItemBean {
         healingAllMovesPp = item_.isHealingAllMovesPp();
         healingMoveFullpp = item_.getHealingMoveFullpp();
     }
-
-    @Accessible
-    private boolean limitedPpMove() {
+    public boolean limitedPpMove() {
         return healedMovePp > 0;
     }
-
-    @Accessible
-    private boolean limitedPpMoves() {
+    public boolean limitedPpMoves() {
         return healingAllMovesFullpp > 0;
+    }
+
+    public boolean getHealingAllMovesPp() {
+        return healingAllMovesPp;
+    }
+
+    public boolean getHealingMoveFullpp() {
+        return healingMoveFullpp;
+    }
+
+    public long getHealedMovePp() {
+        return healedMovePp;
+    }
+
+    public long getHealingAllMovesFullpp() {
+        return healingAllMovesFullpp;
     }
 }

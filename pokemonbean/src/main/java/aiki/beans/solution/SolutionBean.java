@@ -17,7 +17,6 @@ import aiki.map.places.League;
 import aiki.map.places.Place;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
-import code.bean.Accessible;
 import code.images.ConverterBufferedImage;
 import code.util.CustList;
 import code.util.EqList;
@@ -27,8 +26,6 @@ import code.util.TreeMap;
 public class SolutionBean extends CommonBean {
 
     private Solution solution;
-
-    @Accessible
     private CustList<StepDto> steps = new CustList<StepDto>();
 
     @Override
@@ -84,9 +81,7 @@ public class SolutionBean extends CommonBean {
             steps.add(s_);
         }
     }
-
-    @Accessible
-    EqList<PlaceLevel> getPlaces(Long _indexStep) {
+    public EqList<PlaceLevel> getPlaces(Long _indexStep) {
         StepDto step_ = steps.get(_indexStep.intValue());
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
@@ -103,9 +98,7 @@ public class SolutionBean extends CommonBean {
         keys_.sortElts(new ComparatorPlaceLevel());
         return keys_;
     }
-
-    @Accessible
-    String getPlace(Long _indexStep, Long _indexPlace) {
+    public String getPlace(Long _indexStep, Long _indexPlace) {
         StepDto step_ = steps.get(_indexStep.intValue());
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
@@ -129,9 +122,7 @@ public class SolutionBean extends CommonBean {
         }
         return StringList.concat(name_,SPACE,Long.toString(key_.getLevel()));
     }
-
-    @Accessible
-    CustList<WildPokemonDto> getPokemonList(Long _indexStep, Long _indexLevelPlace) {
+    public CustList<WildPokemonDto> getPokemonList(Long _indexStep, Long _indexLevelPlace) {
         StepDto step_ = steps.get(_indexStep.intValue());
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
@@ -148,9 +139,7 @@ public class SolutionBean extends CommonBean {
         keys_.sortElts(new ComparatorPlaceLevel());
         return step_.getPokemon().getVal(keys_.get(_indexLevelPlace.intValue()));
     }
-
-    @Accessible
-    String getPokemonName(Long _indexStep, Long _indexLevelPlace, Long _indexPokemon) {
+    public String getPokemonName(Long _indexStep, Long _indexLevelPlace, Long _indexPokemon) {
         Step step_ = solution.getSteps().get(_indexStep.intValue());
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
         keys_.addAllElts(step_.getCaughtPokemonPlaceLevel().getKeys());
@@ -166,5 +155,9 @@ public class SolutionBean extends CommonBean {
 //        });
         keys_.sortElts(new ComparatorPlaceLevel());
         return step_.getCaughtPokemonPlaceLevel().getVal(keys_.get(_indexLevelPlace.intValue())).get(_indexPokemon.intValue()).getName();
+    }
+
+    public CustList<StepDto> getSteps() {
+        return steps;
     }
 }

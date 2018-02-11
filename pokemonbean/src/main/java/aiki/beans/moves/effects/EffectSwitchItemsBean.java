@@ -1,5 +1,4 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
 import aiki.fight.moves.effects.EffectSwitchItems;
 import aiki.fight.moves.effects.enums.MoveItemType;
 
@@ -13,39 +12,25 @@ public class EffectSwitchItemsBean extends EffectBean {
         EffectSwitchItems effect_ = (EffectSwitchItems) getEffect();
         moveObject = effect_.getMoveObject();
     }
-
-    @Accessible
-    private boolean takeItem() {
+    public boolean takeItem() {
         return moveObject == MoveItemType.TAKE_OBJET;
     }
-
-    @Accessible
-    private boolean useItemAsPossible() {
+    public boolean useItemAsPossible() {
         return moveObject == MoveItemType.USE_OBJECT_AS_POSSIBLE;
     }
-
-    @Accessible
-    private boolean removeTargetItem() {
+    public boolean removeTargetItem() {
         return moveObject == MoveItemType.REMOVE_TARGET_OBJECT;
     }
-
-    @Accessible
-    private boolean giveTargetItem() {
+    public boolean giveTargetItem() {
         return moveObject == MoveItemType.GIVE_OBJECT_TARGET;
     }
-
-    @Accessible
-    private boolean switchItems() {
+    public boolean switchItems() {
         return moveObject == MoveItemType.EXCHANGE_OBJECTS;
     }
-
-    @Accessible
-    private boolean deleteTargetBerry() {
+    public boolean deleteTargetBerry() {
         return moveObject == MoveItemType.DELETE_DEF_TARGET_BERRY;
     }
-
-    @Accessible
-    private boolean resuseLastItem() {
+    public boolean resuseLastItem() {
         return moveObject == MoveItemType.REUSE_LAST_OBJECT;
     }
 }

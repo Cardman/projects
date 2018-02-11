@@ -26,7 +26,6 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
-import code.bean.Accessible;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -51,80 +50,30 @@ public class PokemonBean extends CommonBean {
     private static final String PAGE_STONE ="web/html/pokemon/evolutions/evostone.html";
     private static final String PAGE_TYPE ="web/html/pokemon/evolutions/evotype.html";
     private static final String PAGE_TEAM ="web/html/pokemon/evolutions/evoteam.html";
-
-    @Accessible
     private String name;
-
-    @Accessible
     private String backImage;
-
-    @Accessible
     private String frontImage;
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private Rate weight;
-
-    @Accessible
     private Rate height;
-
-    @Accessible
     private StringList possibleGenders;
-
-    @Accessible
     private StringList types;
-
-    @Accessible
     private StringList abilities;
-
-    @Accessible
     private short catchingRate;
-
-    @Accessible
     private StringList evolutions;
-
-    @Accessible
     private EnumList<Statistic> statisticsEnum;
-
-    @Accessible
     private StringList statistics;
-
-    @Accessible
     private String evoBase;
-
-    @Accessible
     private String expEvo;
-
-    @Accessible
     private long expRate;
-
-    @Accessible
     private EqList<LevelMove> levMoves;
-
-    @Accessible
     private NatTreeMap<Short, String> technicalMoves;
-
-    @Accessible
     private NatTreeMap<Short, String> hiddenMoves;
-
-    @Accessible
     private StringList moveTutors;
-
-    @Accessible
     private LgInt hatchingSteps;
-
-    @Accessible
     private StringList eggGroupsPk;
-
-    @Accessible
     private NatTreeMap<String,String> mapVars;
-
-    @Accessible
     private CustList<PlaceIndex> places;
-
-    @Accessible
     private TreeMap<MiniMapCoords, String> images;
 
     private TreeMap<MiniMapCoords, String> namesPlaces;
@@ -256,9 +205,7 @@ public class PokemonBean extends CommonBean {
         eggGroupsPk.removeDuplicates();
         hatchingSteps = pk_.getHatchingSteps();
     }
-
-    @Accessible
-    private String getMiniMapImage(Long _index) {
+    public String getMiniMapImage(Long _index) {
         String image_ = images.getValue(_index.intValue());
         MiniMapCoords key_ = images.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
@@ -277,38 +224,26 @@ public class PokemonBean extends CommonBean {
         }
         return ConverterBufferedImage.surroundImage(image_);
     }
-
-    @Accessible
-    private String getPlaceName(Long _index) {
+    public String getPlaceName(Long _index) {
         return namesPlaces.getValue(_index.intValue());
     }
-
-    @Accessible
-    private boolean isFirstRow(Long _index) {
+    public boolean isFirstRow(Long _index) {
         MiniMapCoords key_ = images.getKey(_index.intValue());
         return key_.getXcoords() == CustList.FIRST_INDEX;
     }
-
-    @Accessible
-    private String roundWeight() {
+    public String roundWeight() {
         return weight.evaluate(2);
     }
-
-    @Accessible
-    private String roundHeight() {
+    public String roundHeight() {
         return height.evaluate(2);
     }
-
-    @Accessible
-    private String clickPokedex() {
+    public String clickPokedex() {
         if (!getForms().contains(POKEMON_SET)) {
             getForms().put(POKEMON_SET, new StringList());
         }
         return POKEMON_SET;
     }
-
-    @Accessible
-    private String getPage(Long _index) {
+    public String getPage(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Evolution evo_ = pk_.getEvolutions().getVal(getEvo(_index));
@@ -342,102 +277,76 @@ public class PokemonBean extends CommonBean {
     private String getEvo(Long _index) {
         return evolutions.get(_index.intValue());
     }
-
-    @Accessible
-    private String getTrAbility(Long _index) {
+    public String getTrAbility(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         return data_.translateAbility(abilities.get(_index.intValue()));
     }
-
-    @Accessible
-    private String clickAbility(Long _index) {
+    public String clickAbility(Long _index) {
         getForms().put(ABILITY,abilities.get(_index.intValue()));
         return ABILITY;
     }
-
-    @Accessible
-    private String clickBase() {
+    public String clickBase() {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         getForms().put(PK,pk_.getBaseEvo());
         return POKEMON;
     }
-
-    @Accessible
-    private short getBase(Long _index) {
+    public short getBase(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Statistic stat_ = statisticsEnum.get(_index.intValue());
         StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
         return statEv_.getBase();
     }
-
-    @Accessible
-    private short getEv(Long _index) {
+    public short getEv(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Statistic stat_ = statisticsEnum.get(_index.intValue());
         StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
         return statEv_.getEv();
     }
-
-    @Accessible
-    private String clickMove(Long _index) {
+    public String clickMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         String move_ = pk_.getLevMoves().get(_index.intValue()).getMove();
         getForms().put(MOVE,move_);
         return MOVE;
     }
-
-    @Accessible
-    private String clickTechnicalMove(Long _index) {
+    public String clickTechnicalMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         String move_ = data_.getTm().getVal(technicalMoves.getKey(_index.intValue()));
         getForms().put(MOVE,move_);
         return MOVE;
     }
-
-    @Accessible
-    private String clickHiddenMove(Long _index) {
+    public String clickHiddenMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         String move_ = data_.getHm().getVal(hiddenMoves.getKey(_index.intValue()));
         getForms().put(MOVE,move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getMoveTutor(Long _index) {
+    public String getMoveTutor(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(moveTutors.get(_index.intValue()));
     }
-
-    @Accessible
-    private String clickMoveTutors(Long _index) {
+    public String clickMoveTutors(Long _index) {
         String move_ = moveTutors.get(_index.intValue());
         getForms().put(MOVE,move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getEggPk(Long _index) {
+    public String getEggPk(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translationsPokemon_.getVal(eggGroupsPk.get(_index.intValue()));
     }
-
-    @Accessible
-    private String clickEggPk(Long _index) {
+    public String clickEggPk(Long _index) {
         String pk_ = eggGroupsPk.get(_index.intValue());
         getForms().put(PK,pk_);
         return POKEMON;
     }
-
-    @Accessible
-    private boolean isAppearingAnyWhere() {
+    public boolean isAppearingAnyWhere() {
         int nbPlaces_ = places.size();
         for (int i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
             int nbLayers_ = layers((long)i).size();
@@ -449,20 +358,14 @@ public class PokemonBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean isMultiLayer(Long _index) {
+    public boolean isMultiLayer(Long _index) {
         return layers(_index).size() > CustList.SECOND_INDEX;
     }
-
-    @Accessible
-    private CustList<Level> layers(Long _index) {
+    public CustList<Level> layers(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
         return pl_.getLevelsList();
     }
-
-    @Accessible
-    private boolean isAppearingPlace(Long _index) {
+    public boolean isAppearingPlace(Long _index) {
         int nbLayers_ = layers(_index).size();
         for (int j = CustList.FIRST_INDEX; j < nbLayers_; j++) {
             if (isAppearing(_index,(long) j)) {
@@ -471,9 +374,7 @@ public class PokemonBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private boolean isAppearing(Long _indexOne, Long _indexTwo) {
+    public boolean isAppearing(Long _indexOne, Long _indexTwo) {
         Place pl_ = places.get(_indexOne.intValue()).getPlace();
         Level level_ = pl_.getLevels().getVal(_indexTwo.byteValue());
         if (!(level_ instanceof LevelWithWildPokemon)) {
@@ -499,9 +400,7 @@ public class PokemonBean extends CommonBean {
         }
         return false;
     }
-
-    @Accessible
-    private String clickLevel(Long _indexOne, Long _indexTwo) {
+    public String clickLevel(Long _indexOne, Long _indexTwo) {
         getForms().removeKey(INSIDE);
         getForms().put(LEVEL_MAP_INDEX, _indexTwo.intValue());
         getForms().put(PLACE_MAP_INDEX, _indexOne.byteValue());
@@ -512,5 +411,101 @@ public class PokemonBean extends CommonBean {
             getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         return LEVEL;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getBackImage() {
+        return backImage;
+    }
+
+    public String getFrontImage() {
+        return frontImage;
+    }
+
+    public Rate getWeight() {
+        return weight;
+    }
+
+    public Rate getHeight() {
+        return height;
+    }
+
+    public StringList getPossibleGenders() {
+        return possibleGenders;
+    }
+
+    public StringList getTypes() {
+        return types;
+    }
+
+    public StringList getAbilities() {
+        return abilities;
+    }
+
+    public short getCatchingRate() {
+        return catchingRate;
+    }
+
+    public StringList getEvolutions() {
+        return evolutions;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEvoBase() {
+        return evoBase;
+    }
+
+    public String getExpEvo() {
+        return expEvo;
+    }
+
+    public NatTreeMap<String,String> getMapVars() {
+        return mapVars;
+    }
+
+    public long getExpRate() {
+        return expRate;
+    }
+
+    public StringList getStatistics() {
+        return statistics;
+    }
+
+    public EqList<LevelMove> getLevMoves() {
+        return levMoves;
+    }
+
+    public NatTreeMap<Short,String> getTechnicalMoves() {
+        return technicalMoves;
+    }
+
+    public NatTreeMap<Short,String> getHiddenMoves() {
+        return hiddenMoves;
+    }
+
+    public StringList getMoveTutors() {
+        return moveTutors;
+    }
+
+    public StringList getEggGroupsPk() {
+        return eggGroupsPk;
+    }
+
+    public LgInt getHatchingSteps() {
+        return hatchingSteps;
+    }
+
+    public CustList<PlaceIndex> getPlaces() {
+        return places;
+    }
+
+    public TreeMap<MiniMapCoords,String> getImages() {
+        return images;
     }
 }

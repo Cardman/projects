@@ -1,49 +1,23 @@
 package aiki.beans.moves;
-import code.bean.Accessible;
-import code.util.StringList;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.MoveLine;
+import code.util.StringList;
 
 public class MoveLineBean extends CommonBean {
-
-    @Accessible
     private MoveLine moveLine;
-
-    @Accessible
     private String displayName;
-
-    @Accessible
-    private String name;
-
-    @Accessible
     private short pp;
-
-    @Accessible
     private StringList types;
-
-    @Accessible
     private String category;
-
-    @Accessible
     private short priority;
-
-    @Accessible
     private String accuracy;
-
-    @Accessible
     private String power;
-
-    @Accessible
     private StringList sortedMoves;
-
-    @Accessible
     private long index;
 
     @Override
     public void beforeDisplaying() {
-        //super.beforeDisplaying();
         displayName = moveLine.getDisplayName();
-        name = moveLine.getName();
         pp = moveLine.getPp();
         types = moveLine.getTypes();
         category = moveLine.getCategory();
@@ -51,10 +25,56 @@ public class MoveLineBean extends CommonBean {
         accuracy = moveLine.getAccuracy();
         power = moveLine.getPower();
     }
-
-    @Accessible
-    private String clickMove(Long _index) {
+    public String clickMove(Long _index) {
         getForms().put(MOVE, sortedMoves.get(_index.intValue()));
         return MOVE;
+    }
+
+    public long getIndex() {
+        return index;
+    }
+
+    public void setIndex(long _index) {
+        index = _index;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public short getPp() {
+        return pp;
+    }
+
+    public StringList getTypes() {
+        return types;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public MoveLine getMoveLine() {
+        return moveLine;
+    }
+
+    public void setMoveLine(MoveLine _moveLine) {
+        moveLine = _moveLine;
+    }
+
+    public short getPriority() {
+        return priority;
+    }
+
+    public String getAccuracy() {
+        return accuracy;
+    }
+
+    public String getPower() {
+        return power;
+    }
+
+    public void setSortedMoves(StringList _sortedMoves) {
+        sortedMoves = _sortedMoves;
     }
 }

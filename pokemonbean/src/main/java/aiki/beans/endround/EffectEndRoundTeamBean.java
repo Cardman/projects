@@ -1,14 +1,9 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
+import code.maths.Rate;
 
 public class EffectEndRoundTeamBean extends EffectEndRoundBean {
-
-    @Accessible
     private Rate deleteAllStatus;
-
-    @Accessible
     private Rate deleteAllStatusAlly;
 
     @Override
@@ -17,5 +12,13 @@ public class EffectEndRoundTeamBean extends EffectEndRoundBean {
         EffectEndRoundTeam effect_ = (EffectEndRoundTeam) getEffect();
         deleteAllStatus = effect_.getDeleteAllStatus();
         deleteAllStatusAlly = effect_.getDeleteAllStatusAlly();
+    }
+
+    public Rate getDeleteAllStatus() {
+        return deleteAllStatus;
+    }
+
+    public Rate getDeleteAllStatusAlly() {
+        return deleteAllStatusAlly;
     }
 }

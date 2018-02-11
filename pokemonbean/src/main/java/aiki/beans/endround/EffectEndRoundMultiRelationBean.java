@@ -1,15 +1,12 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.effects.EffectEndRoundMultiRelation;
+import code.maths.Rate;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
-
-    @Accessible
     private TreeMap<String,Rate> damageByStatus;
 
     @Override
@@ -26,17 +23,13 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
         }
         damageByStatus = damageByStatus_;
     }
-
-    @Accessible
-    private String getTrDamageStatus(Long _index) {
+    public String getTrDamageStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(damageByStatus.getKey(_index.intValue()));
     }
-
-    @Accessible
-    private String clickDamageStatus(Long _indexOne,Long _indexTwo) {
+    public String clickDamageStatus(Long _indexOne,Long _indexTwo) {
         EffectEndRoundMultiRelation effect_ = (EffectEndRoundMultiRelation) getEffect(_indexOne);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
@@ -48,5 +41,9 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
         }
         getForms().put(STATUS, multDamageStatus_.getKey(_indexTwo.intValue()));
         return STATUS;
+    }
+
+    public TreeMap<String,Rate> getDamageByStatus() {
+        return damageByStatus;
     }
 }

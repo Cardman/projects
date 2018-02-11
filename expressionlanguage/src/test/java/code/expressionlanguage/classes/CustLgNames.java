@@ -485,22 +485,23 @@ public class CustLgNames extends LgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
+        String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
-            if (StringList.quickEq(_classField.getFieldName(), aliasIntegerField)) {
+            if (StringList.quickEq(fieldName_, aliasIntegerField)) {
                 Composite cpt_ = (Composite) _instance.getInstance();
                 res_.setResult(new IntStruct(cpt_.getInteger()));
                 return res_;
             }
         }
         if (StringList.quickEq(_classField.getClassName(), aliasBeanOne)) {
-            if (StringList.quickEq(_classField.getFieldName(), aliasCompositeField)) {
+            if (StringList.quickEq(fieldName_, aliasCompositeField)) {
                 BeanOne cpt_ = (BeanOne) _instance.getInstance();
                 res_.setResult(new StdStruct(cpt_.getComposite(), aliasComposite));
                 return res_;
             }
         }
         if (StringList.quickEq(_classField.getClassName(), aliasStrangeInit)) {
-            if (StringList.quickEq(_classField.getFieldName(), aliasNotRead)) {
+            if (StringList.quickEq(fieldName_, aliasNotRead)) {
                 try {
                     res_.setResult(new StringStruct(StrangeInit.NOT_READ));
                     return res_;
@@ -511,7 +512,7 @@ public class CustLgNames extends LgNames {
             }
         }
         if (StringList.quickEq(_classField.getClassName(), aliasArrayContainer)) {
-            if (StringList.quickEq(_classField.getFieldName(), "array")) {
+            if (StringList.quickEq(fieldName_, "array")) {
                 ArrayContainer cpt_ = (ArrayContainer) _instance.getInstance();
                 res_.setResult(new StdStruct(cpt_.getArray(), PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger())));
                 return res_;
@@ -523,8 +524,9 @@ public class CustLgNames extends LgNames {
     public ResultErrorStd setOtherResult(ContextEl _cont,
             ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
+        String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
-            if (StringList.quickEq(_classField.getFieldName(), aliasIntegerField)) {
+            if (StringList.quickEq(fieldName_, aliasIntegerField)) {
                 Composite cpt_ = (Composite) _instance.getInstance();
                 cpt_.setInteger((Integer) _value.getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);

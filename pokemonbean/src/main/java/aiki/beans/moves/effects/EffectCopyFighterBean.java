@@ -1,10 +1,7 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
 import aiki.fight.moves.effects.EffectCopyFighter;
 
 public class EffectCopyFighterBean extends EffectBean {
-
-    @Accessible
     private short ppForMoves;
 
     @Override
@@ -12,5 +9,9 @@ public class EffectCopyFighterBean extends EffectBean {
         super.beforeDisplaying();
         EffectCopyFighter effect_ = (EffectCopyFighter) getEffect();
         ppForMoves = effect_.getPpForMoves();
+    }
+
+    public short getPpForMoves() {
+        return ppForMoves;
     }
 }

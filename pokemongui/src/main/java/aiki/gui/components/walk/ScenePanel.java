@@ -16,6 +16,7 @@ import javax.swing.ToolTipManager;
 
 import aiki.DataBase;
 import aiki.Resources;
+import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
@@ -897,7 +898,7 @@ public class ScenePanel extends JPanel {
     }
 
     public void seeNetPokemonDetail() {
-        receivedPk.initializeHtml(Resources.ACCESS_TO_DEFAULT_PK);
+        receivedPk.initializeHtml(Resources.ACCESS_TO_DEFAULT_PK, new PokemonStandards());
 //        try {
 ////            if (window.isSuccessfulCompile()) {
 ////                receivedPk.initialize(Resources.CONFIG_PK);

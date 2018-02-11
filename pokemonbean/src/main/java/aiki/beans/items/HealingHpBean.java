@@ -1,11 +1,8 @@
 package aiki.beans.items;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.items.HealingHp;
+import code.maths.Rate;
 
 public class HealingHpBean extends HealingItemBean {
-
-    @Accessible
     private Rate hp;
 
     @Override
@@ -13,5 +10,9 @@ public class HealingHpBean extends HealingItemBean {
         super.beforeDisplaying();
         HealingHp item_ = (HealingHp) getItem();
         hp = item_.getHp();
+    }
+
+    public Rate getHp() {
+        return hp;
     }
 }

@@ -1,10 +1,4 @@
 package aiki.beans.simulation;
-import code.bean.Accessible;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
@@ -14,34 +8,21 @@ import aiki.comparators.ComparatorTrStringGender;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.map.pokemon.enums.Gender;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class EditTrainerPokemonBean extends CommonBean {
-
-    @Accessible
     private boolean add;
-
-    @Accessible
     private String namePk = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String ability = DataBase.EMPTY_STRING;
-
-    @Accessible
     private Gender gender = Gender.NO_GENDER;
-
-    @Accessible
     private short level;
-
-    @Accessible
     private TreeMap<Gender,String> genders;
-
-    @Accessible
     private String item = DataBase.EMPTY_STRING;
-
-    @Accessible
     private CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
-
-    @Accessible
     private boolean allyPk;
 
     @Override
@@ -96,41 +77,29 @@ public class EditTrainerPokemonBean extends CommonBean {
         genders = new TreeMap<Gender, String>(new ComparatorTrStringGender(translatedGenders_));
         genders.putAllMap(translatedGenders_);
     }
-
-    @Accessible
-    private String cancel() {
+    public String cancel() {
         getForms().put(ADDING_TRAINER_PK, TeamCrud.NOTHING);
         return SIMULATION;
     }
-
-    @Accessible
-    private String chooseAbility() {
+    public String chooseAbility() {
         getForms().put(ABILITIES_SET, new StringList());
         return POKEMON_EDIT;
     }
-
-    @Accessible
-    private String chooseItem() {
+    public String chooseItem() {
         getForms().put(IS_POKEMON_PLAYER_MOVES, false);
         getForms().put(ITEMS_SET_EDIT, new StringList());
         return POKEMON_EDIT;
     }
-
-    @Accessible
-    private String chooseName() {
+    public String chooseName() {
         getForms().put(POKEMON_SET, new StringList());
         return POKEMON_EDIT;
     }
-
-    @Accessible
-    private String addMoves() {
+    public String addMoves() {
         getForms().put(IS_POKEMON_PLAYER_MOVES, false);
         getForms().put(MOVES_SET, new StringList());
         return POKEMON_EDIT;
     }
-
-    @Accessible
-    private void deleteMoves() {
+    public void deleteMoves() {
         StringList keptMoves_ = new StringList();
         for (SelectLineMove s: moves) {
             if (!s.isSelected()) {
@@ -139,9 +108,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         }
         getForms().put(POKEMON_MOVES_EDIT, keptMoves_);
     }
-
-    @Accessible
-    private String validateTrainerPk() {
+    public String validateTrainerPk() {
         DataBase data_ = (DataBase) getDataBase();
         if (level <= data_.getMinLevel()) {
             level = (short) data_.getMinLevel();
@@ -173,31 +140,61 @@ public class EditTrainerPokemonBean extends CommonBean {
         getForms().put(POKEMON_ABILITY_EDIT, ability);
         return VALIDATE_TRAINER_PK;
     }
-
-    @Accessible
-    private String getTranslatedName() {
+    public String getTranslatedName() {
         if (namePk.isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
         DataBase data_ = (DataBase) getDataBase();
         return data_.translatePokemon(namePk);
     }
-
-    @Accessible
-    private String getTranslatedAbility() {
+    public String getTranslatedAbility() {
         if (ability.isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
         DataBase data_ = (DataBase) getDataBase();
         return data_.translateAbility(ability);
     }
-
-    @Accessible
-    private String getTranslatedItem() {
+    public String getTranslatedItem() {
         if (item.isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
         DataBase data_ = (DataBase) getDataBase();
         return data_.translateItem(item);
+    }
+
+    public CustList<SelectLineMove> getMoves() {
+        return moves;
+    }
+
+    public TreeMap<Gender,String> getGenders() {
+        return genders;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender _gender) {
+        gender = _gender;
+    }
+
+    public void setLevel(short _level) {
+        level = _level;
+    }
+
+    public short getLevel() {
+        return level;
+    }
+
+    public boolean getAdd() {
+        return add;
+    }
+
+    public void setAllyPk(boolean _allyPk) {
+        allyPk = _allyPk;
+    }
+
+    public boolean getAllyPk() {
+        return allyPk;
     }
 }

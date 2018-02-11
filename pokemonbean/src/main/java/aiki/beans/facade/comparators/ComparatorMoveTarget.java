@@ -1,8 +1,8 @@
 package aiki.beans.facade.comparators;
 import java.util.Comparator;
 
-import code.util.Numbers;
 import aiki.game.fight.util.MoveTarget;
+import code.util.Numbers;
 
 public final class ComparatorMoveTarget implements Comparator<MoveTarget> {
 

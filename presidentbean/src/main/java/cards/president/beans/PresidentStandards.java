@@ -128,69 +128,70 @@ public final class PresidentStandards extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
+        String fieldName_ = _classField.getFieldName();
         if (_instance.getInstance() instanceof PresidentBean) {
-            if (StringList.quickEq(_classField.getFieldName(), NICKNAMES)) {
+            if (StringList.quickEq(fieldName_, NICKNAMES)) {
                 res_.setResult(new StdStruct(((PresidentBean)_instance.getInstance()).getNicknames(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), LINES_DEAL)) {
+            if (StringList.quickEq(fieldName_, LINES_DEAL)) {
                 res_.setResult(new StdStruct(((PresidentBean)_instance.getInstance()).getLinesDeal(), getCustList()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof LineDeal) {
-            if (StringList.quickEq(_classField.getFieldName(), SCORES)) {
+            if (StringList.quickEq(fieldName_, SCORES)) {
                 res_.setResult(new StdStruct(((LineDeal)_instance.getInstance()).getScores(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), NUMBER)) {
+            if (StringList.quickEq(fieldName_, NUMBER)) {
                 res_.setResult(new IntStruct(((LineDeal)_instance.getInstance()).getNumber()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof RulesPresidentBean) {
             RulesPresidentBean rules_ = (RulesPresidentBean) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), NB_PLAYERS)) {
+            if (StringList.quickEq(fieldName_, NB_PLAYERS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), NB_STACKS)) {
+            if (StringList.quickEq(fieldName_, NB_STACKS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), NB_CARDS_PER_PLAYER_MIN)) {
+            if (StringList.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MIN)) {
                 res_.setResult(new ByteStruct(rules_.getNbCardsPerPlayerMin()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), NB_CARDS_PER_PLAYER_MAX)) {
+            if (StringList.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MAX)) {
                 res_.setResult(new ByteStruct(rules_.getNbCardsPerPlayerMax()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), CARTES_BATTUES)) {
+            if (StringList.quickEq(fieldName_, CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(rules_.getCartesBattues()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), EQUALTY)) {
+            if (StringList.quickEq(fieldName_, EQUALTY)) {
                 res_.setResult(new StringStruct(rules_.getEqualty()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), POSSIBLE_REVERSING)) {
+            if (StringList.quickEq(fieldName_, POSSIBLE_REVERSING)) {
                 res_.setResult(new BooleanStruct(rules_.isPossibleReversing()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), HAS_TO_PLAY)) {
+            if (StringList.quickEq(fieldName_, HAS_TO_PLAY)) {
                 res_.setResult(new BooleanStruct(rules_.isHasToPlay()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), LOOSING_IF_FINISH_BY_BEST_CARDS)) {
+            if (StringList.quickEq(fieldName_, LOOSING_IF_FINISH_BY_BEST_CARDS)) {
                 res_.setResult(new BooleanStruct(rules_.isLoosingIfFinishByBestCards()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), SWITCH_CARDS)) {
+            if (StringList.quickEq(fieldName_, SWITCH_CARDS)) {
                 res_.setResult(new BooleanStruct(rules_.isSwitchCards()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), LOOSER_STARTS_FIRST)) {
+            if (StringList.quickEq(fieldName_, LOOSER_STARTS_FIRST)) {
                 res_.setResult(new BooleanStruct(rules_.isLooserStartsFirst()));
                 return res_;
             }

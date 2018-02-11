@@ -1,8 +1,4 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
@@ -12,41 +8,24 @@ import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectEndRound;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EffectEndRoundBean extends CommonBean {
-
-    @Accessible
     private final String endRoundHtml="web/html/endround/eff.html";
 
     private EffectEndRound effect;
-
-    @Accessible
     private long index;
 
     private EndRoundMainElements element;
-
-    @Accessible
     private String move;
-
-    @Accessible
     private String ability;
-
-    @Accessible
     private String status;
-
-    @Accessible
     private String item;
-
-    @Accessible
     private StringList moves;
-
-    @Accessible
     private int endRoundRank;
-
-    @Accessible
     private StringList reasonsEndRound;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFailEndRound;
 
     @Override
@@ -176,9 +155,7 @@ public class EffectEndRoundBean extends CommonBean {
         }
         return effect_;
     }
-
-    @Accessible
-    private String clickMoves(Long _indexOne, Long _indexTwo) {
+    public String clickMoves(Long _indexOne, Long _indexTwo) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_indexOne.intValue());
         StringList moves_ = StringList.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
@@ -188,9 +165,7 @@ public class EffectEndRoundBean extends CommonBean {
         getForms().put(MOVE, moves_.get(_indexTwo.intValue()));
         return MOVE;
     }
-
-    @Accessible
-    private String getTrMoves(Long _indexTwo) {
+    public String getTrMoves(Long _indexTwo) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get((int) index);
         StringList moves_ = StringList.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
@@ -199,33 +174,25 @@ public class EffectEndRoundBean extends CommonBean {
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
         return translatedMoves_.getVal(moves_.get(_indexTwo.intValue()));
     }
-
-    @Accessible
-    private String clickMove(Long _index) {
+    public String clickMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
         getForms().put(MOVE, element_.getElement());
         return MOVE;
     }
-
-    @Accessible
-    private String clickAbility(Long _index) {
+    public String clickAbility(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
         getForms().put(ABILITY, element_.getElement());
         return ABILITY;
     }
-
-    @Accessible
-    private String clickItem(Long _index) {
+    public String clickItem(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
         getForms().put(ITEM, element_.getElement());
         return ITEM;
     }
-
-    @Accessible
-    private String clickStatus(Long _index) {
+    public String clickStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
         getForms().put(STATUS, element_.getElement());
@@ -235,5 +202,49 @@ public class EffectEndRoundBean extends CommonBean {
     private StringList getFailEndRoundReasons() {
         EffectEndRound effect_ = effect;
         return getReasons(effect_.getFailEndRound());
+    }
+
+    public String getMove() {
+        return move;
+    }
+
+    public long getIndex() {
+        return index;
+    }
+
+    public void setIndex(long _index) {
+        index = _index;
+    }
+
+    public String getAbility() {
+        return ability;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public StringList getMoves() {
+        return moves;
+    }
+
+    public int getEndRoundRank() {
+        return endRoundRank;
+    }
+
+    public StringList getReasonsEndRound() {
+        return reasonsEndRound;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+        return mapVarsFailEndRound;
+    }
+
+    public String getEndRoundHtml() {
+        return endRoundHtml;
     }
 }

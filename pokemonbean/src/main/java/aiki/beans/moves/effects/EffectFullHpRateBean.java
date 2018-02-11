@@ -1,23 +1,14 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
+import aiki.DataBase;
+import aiki.fight.moves.effects.EffectFullHpRate;
 import code.maths.Rate;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import aiki.DataBase;
-import aiki.fight.moves.effects.EffectFullHpRate;
 
 public class EffectFullHpRateBean extends EffectBean {
-
-    @Accessible
     private Rate leftUserHp;
-
-    @Accessible
     private String restoredHp;
-
-    @Accessible
     private Rate closestFoeDamageRateHp;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsRestored;
 
     @Override
@@ -42,5 +33,21 @@ public class EffectFullHpRateBean extends EffectBean {
         }
         mapVarsRestored = mapVarsAccuracy_;
         closestFoeDamageRateHp = effect_.getClosestFoeDamageRateHp();
+    }
+
+    public Rate getLeftUserHp() {
+        return leftUserHp;
+    }
+
+    public String getRestoredHp() {
+        return restoredHp;
+    }
+
+    public NatTreeMap<String,String> getMapVarsRestored() {
+        return mapVarsRestored;
+    }
+
+    public Rate getClosestFoeDamageRateHp() {
+        return closestFoeDamageRateHp;
     }
 }

@@ -1,20 +1,13 @@
 package aiki.beans.items;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.items.HealingStatus;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class HealingStatusBean extends HealingItemBean {
-
-    @Accessible
     private final String healingStatusBean="web/html/items/healingstatus.html";
-
-    @Accessible
     private StringList status;
-
-    @Accessible
     private boolean healingKo;
 
     @Override
@@ -32,19 +25,27 @@ public class HealingStatusBean extends HealingItemBean {
         status_.sortElts(new ComparatorTrStrings(translatedStatus_));
         status = status_;
     }
-
-    @Accessible
-    private String getTrStatus(Long _index) {
+    public String getTrStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String status_ = status.get(_index.intValue());
         return translatedStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String clickStatus(Long _index) {
+    public String clickStatus(Long _index) {
         String status_ = status.get(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
+    }
+
+    public String getHealingStatusBean() {
+        return healingStatusBean;
+    }
+
+    public boolean getHealingKo() {
+        return healingKo;
+    }
+
+    public StringList getStatus() {
+        return status;
     }
 }

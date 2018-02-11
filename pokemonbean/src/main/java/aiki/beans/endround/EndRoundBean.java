@@ -1,7 +1,4 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.util.CustList;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.fight.EndRoundMainElements;
@@ -20,6 +17,8 @@ import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
 import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
+import code.util.CustList;
+import code.util.StringList;
 
 public class EndRoundBean extends CommonBean {
 
@@ -34,9 +33,7 @@ public class EndRoundBean extends CommonBean {
     private static final String PAGE_MULTIRELATION = "web/html/endround/multirelation.html";
     private static final String PAGE_POSITIONRELATION = "web/html/endround/positionrelation.html";
     private static final String PAGE_POSITIONTARGET = "web/html/endround/positiontarget.html";
-
-    @Accessible
-    private String getPage(Long _index) {
+    public String getPage(Long _index) {
         CustList<EndRoundMainElements> evts_ = getEvts();
         EndRoundMainElements elt_ = evts_.get(_index.intValue());
         if (elt_.isIncrementNumberOfRounds()) {
@@ -108,9 +105,7 @@ public class EndRoundBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-
-    @Accessible
-    private CustList<EndRoundMainElements> getEvts() {
+    public CustList<EndRoundMainElements> getEvts() {
         DataBase data_ = (DataBase) getDataBase();
         return data_.getEvtEndRound();
     }

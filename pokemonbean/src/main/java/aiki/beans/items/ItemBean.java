@@ -1,32 +1,19 @@
 package aiki.beans.items;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.fight.items.Item;
+import code.images.ConverterBufferedImage;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class ItemBean extends CommonBean {
-
-    @Accessible
     private final String itemBean="web/html/items/item.html";
 
     private Item item;
-
-    @Accessible
     private String name;
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private int price;
-
-    @Accessible
     private String description;
-
-    @Accessible
     private String itemImage;
 
     @Override
@@ -47,9 +34,7 @@ public class ItemBean extends CommonBean {
 //        description = translationsClasses_.getVal(item.getClass().getName());
         description = translationsClasses_.getVal(item.getItemType());
     }
-
-    @Accessible
-    private String clickItems() {
+    public String clickItems() {
         if (!getForms().contains(ITEMS_SET)) {
             getForms().put(ITEMS_SET, new StringList());
         }
@@ -71,5 +56,25 @@ public class ItemBean extends CommonBean {
 
     protected void setName(String _name) {
         name = _name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getItemBean() {
+        return itemBean;
+    }
+
+    public String getItemImage() {
+        return itemImage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }

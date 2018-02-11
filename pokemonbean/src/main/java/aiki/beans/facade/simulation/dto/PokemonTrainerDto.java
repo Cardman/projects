@@ -1,35 +1,15 @@
 package aiki.beans.facade.simulation.dto;
-import code.bean.Accessible;
-import code.util.StringList;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.enums.Gender;
+import code.util.StringList;
 
 public final class PokemonTrainerDto {
-
-    /***/
-    @Accessible
     private String name;
-
-    /***/
-    @Accessible
     private short level;
-
-    /***/
-    @Accessible
     private Gender gender;
-
-    /**non modifiable une fois affecte a l'objet.*/
-    @Accessible
     private String ability;
-
-    /**si la chaine de caractere est vide alors le pokemon ne porte pas d'objet, sinon cette chaine vaut le nom de l'objet. */
-    @Accessible
     private String item;
-
-    @Accessible
     private StringList moves = new StringList();
-
-    @Accessible
     private int index;
 
     public static PokemonTrainerDto fromPokemonTrainer(PkTrainer _pk) {

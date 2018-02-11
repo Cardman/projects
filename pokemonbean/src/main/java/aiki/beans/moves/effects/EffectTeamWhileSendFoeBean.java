@@ -1,5 +1,10 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
+import aiki.DataBase;
+import aiki.beans.CommonBean;
+import aiki.comparators.ComparatorStatisticTr;
+import aiki.comparators.ComparatorTrStrings;
+import aiki.fight.enums.Statistic;
+import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.NatTreeMap;
@@ -7,34 +12,14 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.Listable;
-import aiki.DataBase;
-import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorStatisticTr;
-import aiki.comparators.ComparatorTrStrings;
-import aiki.fight.enums.Statistic;
-import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 
 public class EffectTeamWhileSendFoeBean extends EffectBean {
-
-    @Accessible
     private NatTreeMap<Short, String> statusByNbUses;
-
-    @Accessible
     private StringList deletedByFoeTypes;
-
-    @Accessible
     private String damageRateAgainstFoe;
-
-    @Accessible
     private TreeMap<Statistic,Byte> statistics;
-
-    @Accessible
     private StringList reasonsSending;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFailSending;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsDamageSentFoe;
 
     @Override
@@ -106,34 +91,26 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         }
         mapVarsDamageSentFoe = mapVarsDamageSentFoe_;
     }
-
-    @Accessible
-    private String getTranslatedStatistic(Long _index) {
+    public String getTranslatedStatistic(Long _index) {
         Statistic st_ = getSortedStatistics().get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
-
-//    @Accessible
-    private Listable<Statistic> getSortedStatistics() {
+    public Listable<Statistic> getSortedStatistics() {
         EnumList<Statistic> list_;
         list_ = new EnumList<Statistic>(statistics.getKeys());
         DataBase data_ = (DataBase) getDataBase();
         list_.sortElts(new ComparatorStatisticTr(data_, getLanguage()));
         return list_;
     }
-
-    @Accessible
-    private String getTranslatedType(Long _index) {
+    public String getTranslatedType(Long _index) {
         String type_ = deletedByFoeTypes.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
-
-    @Accessible
-    private String clickStatus(Long _indexEffect, Long _index) {
+    public String clickStatus(Long _indexEffect, Long _index) {
         NatTreeMap<Short, String> statusByNbUses_;
         statusByNbUses_ = new NatTreeMap<Short, String>();
         EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect(_indexEffect.intValue());
@@ -145,9 +122,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTranslatedStatus(Long _index) {
+    public String getTranslatedStatus(Long _index) {
         String status_ = statusByNbUses.getValue(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -157,5 +132,33 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
     private StringList getFailSendingReasons() {
         EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect();
         return getReasons(effect_.getFailSending());
+    }
+
+    public String getDamageRateAgainstFoe() {
+        return damageRateAgainstFoe;
+    }
+
+    public NatTreeMap<String,String> getMapVarsDamageSentFoe() {
+        return mapVarsDamageSentFoe;
+    }
+
+    public TreeMap<Statistic,Byte> getStatistics() {
+        return statistics;
+    }
+
+    public NatTreeMap<Short,String> getStatusByNbUses() {
+        return statusByNbUses;
+    }
+
+    public StringList getReasonsSending() {
+        return reasonsSending;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFailSending() {
+        return mapVarsFailSending;
+    }
+
+    public StringList getDeletedByFoeTypes() {
+        return deletedByFoeTypes;
     }
 }

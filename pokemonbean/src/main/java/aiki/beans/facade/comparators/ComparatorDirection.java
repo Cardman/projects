@@ -1,8 +1,8 @@
 package aiki.beans.facade.comparators;
 import java.util.Comparator;
 
-import code.util.Numbers;
 import aiki.map.enums.Direction;
+import code.util.Numbers;
 
 public final class ComparatorDirection implements Comparator<Direction> {
 

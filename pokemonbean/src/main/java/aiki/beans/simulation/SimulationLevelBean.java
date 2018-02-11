@@ -1,9 +1,4 @@
 package aiki.beans.simulation;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
@@ -25,34 +20,20 @@ import aiki.map.places.Road;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.ObjectMap;
+import code.util.TreeMap;
 
 public class SimulationLevelBean extends CommonBean {
-
-    @Accessible
     private TreeMap<Point,String> tiles;
-
-    @Accessible
     private int noFight;
-
-    @Accessible
     private String placeName;
-
-    @Accessible
     private int levelIndex;
-
-    @Accessible
     private boolean outside;
-
-    @Accessible
     private boolean road;
-
-    @Accessible
     private boolean pokemonCenter;
-
-    @Accessible
     private boolean gym;
-
-    @Accessible
     private boolean possibleMultiLayer;
 
     @Override
@@ -115,20 +96,14 @@ public class SimulationLevelBean extends CommonBean {
             }
         }
     }
-
-    @Accessible
-    private boolean isFirstRow(Long _index) {
+    public boolean isFirstRow(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         return pt_.getx() == CustList.FIRST_INDEX;
     }
-
-    @Accessible
-    private static String cancel() {
+    public static String cancel() {
         return SIMULATION;
     }
-
-    @Accessible
-    private String clickTile(Long _index) {
+    public String clickTile(Long _index) {
         if (noFight < 0) {
             noFight = 0;
         }
@@ -213,5 +188,41 @@ public class SimulationLevelBean extends CommonBean {
             }
         }
         return DataBase.EMPTY_STRING;
+    }
+
+    public boolean getPossibleMultiLayer() {
+        return possibleMultiLayer;
+    }
+
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    public int getLevelIndex() {
+        return levelIndex;
+    }
+
+    public boolean getOutside() {
+        return outside;
+    }
+
+    public boolean getRoad() {
+        return road;
+    }
+
+    public boolean getGym() {
+        return gym;
+    }
+
+    public boolean getPokemonCenter() {
+        return pokemonCenter;
+    }
+
+    public int getNoFight() {
+        return noFight;
+    }
+
+    public TreeMap<Point,String> getTiles() {
+        return tiles;
     }
 }

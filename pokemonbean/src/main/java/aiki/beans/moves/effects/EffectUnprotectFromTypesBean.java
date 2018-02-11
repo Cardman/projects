@@ -1,26 +1,17 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.util.TypesDuo;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EffectUnprotectFromTypesBean extends EffectBean {
-
-    @Accessible
     private EqList<TypesDuo> types;
-
-    @Accessible
     private StringList disableImmuAgainstTypes;
-
-    @Accessible
     private StringList disableImmuFromMoves;
-
-    @Accessible
     private StringList attackTargetWithTypes;
 
     @Override
@@ -65,42 +56,32 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
         attackTargetWithTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
         attackTargetWithTypes = attackTargetWithTypes_;
     }
-
-    @Accessible
-    private String getTrDamageType(Long _index) {
+    public String getTrDamageType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = types.get(_index.intValue()).getDamageType();
         return translatedTypes_.getVal(type_);
     }
-
-    @Accessible
-    private String getTrPokemonType(Long _index) {
+    public String getTrPokemonType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = types.get(_index.intValue()).getPokemonType();
         return translatedTypes_.getVal(type_);
 
     }
-
-    @Accessible
-    private String getTrDisableImmuType(Long _index) {
+    public String getTrDisableImmuType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = disableImmuAgainstTypes.get(_index.intValue());
         return translatedTypes_.getVal(type_);
 
     }
-
-    @Accessible
-    private String clickMove(Long _indexEffect, Long _index) {
+    public String clickMove(Long _indexEffect, Long _index) {
         String type_ = getDisableImmuFromMoves(_indexEffect.intValue()).get(_index.intValue());
         getForms().put(MOVE, type_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrDisableImmuMove(Long _index) {
+    public String getTrDisableImmuMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String type_ = disableImmuFromMoves.get(_index.intValue());
@@ -123,12 +104,26 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
         disableImmuFromMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
         return disableImmuFromMoves_;
     }
-
-    @Accessible
-    private String getTrAttackTargetType(Long _index) {
+    public String getTrAttackTargetType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = attackTargetWithTypes.get(_index.intValue());
         return translatedTypes_.getVal(type_);
+    }
+
+    public EqList<TypesDuo> getTypes() {
+        return types;
+    }
+
+    public StringList getDisableImmuAgainstTypes() {
+        return disableImmuAgainstTypes;
+    }
+
+    public StringList getDisableImmuFromMoves() {
+        return disableImmuFromMoves;
+    }
+
+    public StringList getAttackTargetWithTypes() {
+        return attackTargetWithTypes;
     }
 }

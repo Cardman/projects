@@ -1,8 +1,4 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.MoveData;
@@ -10,19 +6,14 @@ import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectBatonPass;
 import aiki.fight.moves.effects.EffectClone;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
+import code.maths.Rate;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EffectCloneBean extends EffectBean {
-
-    @Accessible
     private Rate hpRateClone;
-
-    @Accessible
     private StringList movesEndRound;
-
-    @Accessible
     private StringList movesBatonPass;
-
-    @Accessible
     private StringList movesSending;
 
     @Override
@@ -72,49 +63,53 @@ public class EffectCloneBean extends EffectBean {
         movesSending_.sortElts(new ComparatorTrStrings(translatedMoves_));
         movesSending = movesSending_;
     }
-
-    @Accessible
-    private String clickMoveEndRound(Long _index) {
+    public String clickMoveEndRound(Long _index) {
         String move_ = movesEndRound.get(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrMovesEndRound(Long _index) {
+    public String getTrMovesEndRound(Long _index) {
         String move_ = movesEndRound.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickMoveBatonPass(Long _index) {
+    public String clickMoveBatonPass(Long _index) {
         String move_ = movesBatonPass.get(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrMovesBatonPass(Long _index) {
+    public String getTrMovesBatonPass(Long _index) {
         String move_ = movesBatonPass.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickMoveSending(Long _index) {
+    public String clickMoveSending(Long _index) {
         String move_ = movesSending.get(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrMovesSending(Long _index) {
+    public String getTrMovesSending(Long _index) {
         String move_ = movesSending.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
+    }
+
+    public Rate getHpRateClone() {
+        return hpRateClone;
+    }
+
+    public StringList getMovesEndRound() {
+        return movesEndRound;
+    }
+
+    public StringList getMovesBatonPass() {
+        return movesBatonPass;
+    }
+
+    public StringList getMovesSending() {
+        return movesSending;
     }
 }

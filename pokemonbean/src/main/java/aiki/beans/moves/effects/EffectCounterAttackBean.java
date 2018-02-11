@@ -1,33 +1,22 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCounterAttack;
+import code.maths.Rate;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class EffectCounterAttackBean extends EffectBean {
-
-    @Accessible
     private TreeMap<String,Rate> sufferingDamageTypes;
-
-    @Accessible
     private TreeMap<Statistic, Byte> droppedStatDirectMove;
-
-    @Accessible
     private Rate sufferingDamageDirectMove;
-
-    @Accessible
     private StringList reasonsProtect;
-
-    @Accessible
     private StringList reasonsCounter;
 
     private NatTreeMap<String,String> mapVarsFailCounter;
@@ -103,17 +92,13 @@ public class EffectCounterAttackBean extends EffectBean {
     public NatTreeMap<String, String> getMapVarsFailCounter() {
         return mapVarsFailCounter;
     }
-
-    @Accessible
-    private String getTrSufferingDamageTypes(Long _index) {
+    public String getTrSufferingDamageTypes(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String st_ = sufferingDamageTypes.getKey(_index.intValue());
         return translatedTypes_.getVal(st_);
     }
-
-    @Accessible
-    private String getTrDroppedStatDirectMove(Long _index) {
+    public String getTrDroppedStatDirectMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic st_ = droppedStatDirectMove.getKey(_index.intValue());
@@ -128,5 +113,25 @@ public class EffectCounterAttackBean extends EffectBean {
     private StringList getFailCounterReasons() {
         EffectCounterAttack effect_ = (EffectCounterAttack) getEffect();
         return getReasons(effect_.getCounterFail());
+    }
+
+    public TreeMap<String,Rate> getSufferingDamageTypes() {
+        return sufferingDamageTypes;
+    }
+
+    public TreeMap<Statistic,Byte> getDroppedStatDirectMove() {
+        return droppedStatDirectMove;
+    }
+
+    public Rate getSufferingDamageDirectMove() {
+        return sufferingDamageDirectMove;
+    }
+
+    public StringList getReasonsProtect() {
+        return reasonsProtect;
+    }
+
+    public StringList getReasonsCounter() {
+        return reasonsCounter;
     }
 }

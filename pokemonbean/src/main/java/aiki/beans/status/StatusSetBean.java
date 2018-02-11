@@ -1,17 +1,12 @@
 package aiki.beans.status;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class StatusSetBean extends CommonBean {
-
-    @Accessible
     private StringList sortedStatus = new StringList();
-
-    @Accessible
     private String typedStatus = DataBase.EMPTY_STRING;
 
     @Override
@@ -19,9 +14,7 @@ public class StatusSetBean extends CommonBean {
         sortedStatus = (StringList) getForms().getVal(STATUS_SET);
         typedStatus = escapedStringQuote(typedStatus);
     }
-
-    @Accessible
-    private String search() {
+    public String search() {
         StringList sortedAbilities_;
         sortedAbilities_ = new StringList();
         DataBase data_ = (DataBase) getDataBase();
@@ -42,19 +35,27 @@ public class StatusSetBean extends CommonBean {
         getForms().put(STATUS_SET, sortedAbilities_);
         return STATUS_SET;
     }
-
-    @Accessible
-    private String clickStatus(Long _index) {
+    public String clickStatus(Long _index) {
         getForms().put(STATUS, sortedStatus.get(_index.intValue()));
         return STATUS;
     }
-
-    @Accessible
-    private String getTrStatus(Long _index) {
+    public String getTrStatus(Long _index) {
         String ability_ = sortedStatus.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(ability_);
+    }
+
+    public void setTypedStatus(String _typedStatus) {
+        typedStatus = _typedStatus;
+    }
+
+    public String getTypedStatus() {
+        return typedStatus;
+    }
+
+    public StringList getSortedStatus() {
+        return sortedStatus;
     }
 }

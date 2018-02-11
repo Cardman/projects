@@ -10,14 +10,11 @@ import aiki.map.enums.Direction;
 import aiki.map.levels.Level;
 import aiki.map.places.City;
 import aiki.map.places.Place;
-import code.bean.Accessible;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Listable;
 
 public class MapBean extends CommonBean {
-
-    @Accessible
     private CustList<PlaceIndex> places;
 
     @Override
@@ -33,30 +30,20 @@ public class MapBean extends CommonBean {
         }
         places.sortElts(new ComparatorPlaceIndex());
     }
-
-    @Accessible
-    private boolean isMultiLayer(Long _index) {
+    public boolean isMultiLayer(Long _index) {
         return layers(_index).size() > CustList.ONE_ELEMENT;
     }
-
-    @Accessible
-    private CustList<Level> layers(Long _index) {
+    public CustList<Level> layers(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
         return pl_.getLevelsList();
     }
-
-    @Accessible
-    private boolean isCenter(Long _indexOne, Long _indexTwo) {
+    public boolean isCenter(Long _indexOne, Long _indexTwo) {
         return buildings(_indexOne).get(_indexTwo.intValue()) instanceof PokemonCenter;
     }
-
-    @Accessible
-    private boolean isGym(Long _indexOne, Long _indexTwo) {
+    public boolean isGym(Long _indexOne, Long _indexTwo) {
         return buildings(_indexOne).get(_indexTwo.intValue()) instanceof Gym;
     }
-
-    @Accessible
-    private Listable<Building> buildings(Long _index) {
+    public Listable<Building> buildings(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
         if (!(pl_ instanceof City)) {
             return new CustList<Building>();
@@ -64,14 +51,10 @@ public class MapBean extends CommonBean {
         City c_ = (City) pl_;
         return c_.getBuildings().values();
     }
-
-    @Accessible
-    private boolean isCity(Long _index) {
+    public boolean isCity(Long _index) {
         return places.get(_index.intValue()).getPlace() instanceof City;
     }
-
-    @Accessible
-    private String clickLevel(Long _indexOne, Long _indexTwo) {
+    public String clickLevel(Long _indexOne, Long _indexTwo) {
         getForms().removeKey(INSIDE);
         getForms().put(LEVEL_MAP_INDEX, _indexTwo.intValue());
         getForms().put(PLACE_MAP_INDEX, _indexOne.byteValue());
@@ -82,5 +65,9 @@ public class MapBean extends CommonBean {
             getForms().put(StringList.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         return LEVEL;
+    }
+
+    public CustList<PlaceIndex> getPlaces() {
+        return places;
     }
 }

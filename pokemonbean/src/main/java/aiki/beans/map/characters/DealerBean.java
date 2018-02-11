@@ -1,7 +1,4 @@
 package aiki.beans.map.characters;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
@@ -21,6 +18,8 @@ import aiki.fight.items.ItemForBattle;
 import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.map.characters.DealerItem;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class DealerBean extends CommonBean {
 
@@ -30,18 +29,14 @@ public class DealerBean extends CommonBean {
     public void beforeDisplaying() {
         dealer = (DealerItem) getForms().getVal(DEALER);
     }
-
-    @Accessible
-    private String getItem(Long _index) {
+    public String getItem(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         String item_ = getItems().get(_index.intValue());
         return translationsItems_.getVal(item_);
     }
-
-    @Accessible
-    private StringList getItems() {
+    public StringList getItems() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
@@ -49,9 +44,7 @@ public class DealerBean extends CommonBean {
         items_.sortElts(new ComparatorTrStrings(translationsItems_));
         return items_;
     }
-
-    @Accessible
-    private String clickItem(Long _index) {
+    public String clickItem(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         String item_ = getItems().get(_index.intValue());
         getForms().put(ITEM, item_);
@@ -100,18 +93,14 @@ public class DealerBean extends CommonBean {
         }
         return ITEM;
     }
-
-    @Accessible
-    private String getTm(Long _index) {
+    public String getTm(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = getAllTm().get(_index.intValue());
         return translationsMoves_.getVal(move_);
     }
-
-    @Accessible
-    private StringList getAllTm() {
+    public StringList getAllTm() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -122,9 +111,7 @@ public class DealerBean extends CommonBean {
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
         return moves_;
     }
-
-    @Accessible
-    private String clickTm(Long _index) {
+    public String clickTm(Long _index) {
         String move_ = getAllTm().get(_index.intValue());
         getForms().put(MOVE, move_);
         return MOVE;

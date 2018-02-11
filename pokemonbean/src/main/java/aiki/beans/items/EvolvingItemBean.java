@@ -1,16 +1,13 @@
 package aiki.beans.items;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.Evolution;
 import aiki.fight.pokemon.evolution.EvolutionItem;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EvolvingItemBean extends ItemBean {
-
-    @Accessible
     private StringList pokemon;
 
     @Override
@@ -40,19 +37,19 @@ public class EvolvingItemBean extends ItemBean {
         pokemon_.sortElts(new ComparatorTrStrings(translatedPokemon_));
         pokemon = pokemon_;
     }
-
-    @Accessible
-    private String getTrPokemon(Long _index) {
+    public String getTrPokemon(Long _index) {
         String type_ = pokemon.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(type_);
     }
-
-    @Accessible
-    private String clickPokemon(Long _index) {
+    public String clickPokemon(Long _index) {
         String type_ = pokemon.get(_index.intValue());
         getForms().put(PK, type_);
         return POKEMON;
+    }
+
+    public StringList getPokemon() {
+        return pokemon;
     }
 }

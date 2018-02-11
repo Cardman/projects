@@ -362,281 +362,282 @@ public final class TarotStandards extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
+        String fieldName_ = _classField.getFieldName();
         if (_instance.getInstance() instanceof DetailsResultsTarotBean) {
             DetailsResultsTarotBean instance_ = (DetailsResultsTarotBean) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), RATE)) {
+            if (StringList.quickEq(fieldName_, RATE)) {
                 res_.setResult(new IntStruct(instance_.getRate()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), MULTIPLIED_TMP)) {
+            if (StringList.quickEq(fieldName_, MULTIPLIED_TMP)) {
                 res_.setResult(new IntStruct(instance_.getMultipliedTmp()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), SUM_PLAYERS)) {
+            if (StringList.quickEq(fieldName_, SUM_PLAYERS)) {
                 res_.setResult(new IntStruct(instance_.getSumPlayers()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), ADDITIONNAL_BONUSES_ATTACK)) {
+            if (StringList.quickEq(fieldName_, ADDITIONNAL_BONUSES_ATTACK)) {
                 res_.setResult(new IntStruct(instance_.getAdditionnalBonusesAttack()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), ADDITIONNAL_BONUSES_DEFENSE)) {
+            if (StringList.quickEq(fieldName_, ADDITIONNAL_BONUSES_DEFENSE)) {
                 res_.setResult(new IntStruct(instance_.getAdditionnalBonusesDefense()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), DIFF_ATTACK_DEFENSE_BONUSES)) {
+            if (StringList.quickEq(fieldName_, DIFF_ATTACK_DEFENSE_BONUSES)) {
                 res_.setResult(new IntStruct(instance_.getDiffAttackDefenseBonuses()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), BASE_POINTS)) {
+            if (StringList.quickEq(fieldName_, BASE_POINTS)) {
                 res_.setResult(new ShortStruct(instance_.getBasePoints()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), DIFFERENCE_SCORE_TAKER)) {
+            if (StringList.quickEq(fieldName_, DIFFERENCE_SCORE_TAKER)) {
                 res_.setResult(new ShortStruct(instance_.getDifferenceScoreTaker()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), PLAYER_SMALL)) {
+            if (StringList.quickEq(fieldName_, PLAYER_SMALL)) {
                 res_.setResult(new StringStruct(instance_.getPlayerSmall()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), PLAYER_SMALL)) {
+            if (StringList.quickEq(fieldName_, PLAYER_SMALL)) {
                 res_.setResult(new StringStruct(instance_.getSmall()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), LINES_DECLARING)) {
+            if (StringList.quickEq(fieldName_, LINES_DECLARING)) {
                 res_.setResult(new StdStruct(instance_.getLinesDeclaring(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), PLAYERS_SCORES)) {
+            if (StringList.quickEq(fieldName_, PLAYERS_SCORES)) {
                 res_.setResult(new StdStruct(instance_.getPlayersScores(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), ORDERED_PLAYERS)) {
+            if (StringList.quickEq(fieldName_, ORDERED_PLAYERS)) {
                 res_.setResult(new StdStruct(instance_.getOrderedPlayers(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), POINTS_PLAYERS)) {
+            if (StringList.quickEq(fieldName_, POINTS_PLAYERS)) {
                 res_.setResult(new StdStruct(instance_.getPointsPlayers(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), BONUSES)) {
+            if (StringList.quickEq(fieldName_, BONUSES)) {
                 res_.setResult(new StdStruct(instance_.getBonuses(), getCustList()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof SumDeclaringPlayer) {
             SumDeclaringPlayer instance_ = (SumDeclaringPlayer) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), SUM)) {
+            if (StringList.quickEq(fieldName_, SUM)) {
                 res_.setResult(new IntStruct(instance_.getSum()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), STATUS)) {
+            if (StringList.quickEq(fieldName_, STATUS)) {
                 res_.setResult(new StringStruct(instance_.getStatus()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), NICKNAME)) {
+            if (StringList.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getNickname()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), HANDFULS)) {
+            if (StringList.quickEq(fieldName_, HANDFULS)) {
                 res_.setResult(new StdStruct(instance_.getHandfuls(),getCustMap()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), MISERES)) {
+            if (StringList.quickEq(fieldName_, MISERES)) {
                 res_.setResult(new StdStruct(instance_.getMiseres(),getCustMap()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof ScoresPlayers) {
             ScoresPlayers instance_ = (ScoresPlayers) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), SUM)) {
+            if (StringList.quickEq(fieldName_, SUM)) {
                 res_.setResult(new StdStruct(instance_.getRate(),TYPE_RATE));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), NICKNAME)) {
+            if (StringList.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getNickname()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), SCORE)) {
+            if (StringList.quickEq(fieldName_, SCORE)) {
                 res_.setResult(new ShortStruct(instance_.getScore()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof RankingPlayerVariantGame) {
             RankingPlayerVariantGame instance_ = (RankingPlayerVariantGame) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), NICKNAME)) {
+            if (StringList.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getNickname()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), POSITION_DIFF)) {
+            if (StringList.quickEq(fieldName_, POSITION_DIFF)) {
                 res_.setResult(new ShortStruct(instance_.getPositionDiff()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), POSITION_OUDLERS)) {
+            if (StringList.quickEq(fieldName_, POSITION_OUDLERS)) {
                 res_.setResult(new ShortStruct(instance_.getPositionOudlers()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), POSITION_CHARACTERS)) {
+            if (StringList.quickEq(fieldName_, POSITION_CHARACTERS)) {
                 res_.setResult(new ShortStruct(instance_.getPositionCharacters()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), POSITION_STRENGTH_CHARACTERS)) {
+            if (StringList.quickEq(fieldName_, POSITION_STRENGTH_CHARACTERS)) {
                 res_.setResult(new ShortStruct(instance_.getPositionStrengthCharacters()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), FINAL_POSITION)) {
+            if (StringList.quickEq(fieldName_, FINAL_POSITION)) {
                 res_.setResult(new ShortStruct(instance_.getFinalPosition()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof PointsPlayerVariantGame) {
             PointsPlayerVariantGame instance_ = (PointsPlayerVariantGame) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), NICKNAME)) {
+            if (StringList.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getNickname()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), RATE)) {
+            if (StringList.quickEq(fieldName_, RATE)) {
                 res_.setResult(new ShortStruct(instance_.getRate()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), SCORE)) {
+            if (StringList.quickEq(fieldName_, SCORE)) {
                 res_.setResult(new ShortStruct(instance_.getScore()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), MINIMUM_POINTS)) {
+            if (StringList.quickEq(fieldName_, MINIMUM_POINTS)) {
                 res_.setResult(new ShortStruct(instance_.getMinimumPoints()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), DIFFERENCE_SCORE)) {
+            if (StringList.quickEq(fieldName_, DIFFERENCE_SCORE)) {
                 res_.setResult(new StdStruct(instance_.getDifferenceScore(), TYPE_RATE));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), POINTS_TRICKS)) {
+            if (StringList.quickEq(fieldName_, POINTS_TRICKS)) {
                 res_.setResult(new StdStruct(instance_.getPointsTricks(), TYPE_RATE));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof BonusesPlayers) {
             BonusesPlayers instance_ = (BonusesPlayers) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), NICKNAME)) {
+            if (StringList.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getNickname()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), BONUS)) {
+            if (StringList.quickEq(fieldName_, BONUS)) {
                 res_.setResult(new ShortStruct(instance_.getBonus()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof ResultsTarotBean) {
             ResultsTarotBean instance_ = (ResultsTarotBean) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), NUMBER_OUDLERS_TAKER)) {
+            if (StringList.quickEq(fieldName_, NUMBER_OUDLERS_TAKER)) {
                 res_.setResult(new ByteStruct(instance_.getNumberOudlersTaker()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), NEEDLY_SCORES_TAKER)) {
+            if (StringList.quickEq(fieldName_, NEEDLY_SCORES_TAKER)) {
                 res_.setResult(new ShortStruct(instance_.getNeedlyScoresTaker()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), SCORE_TAKER)) {
+            if (StringList.quickEq(fieldName_, SCORE_TAKER)) {
                 res_.setResult(new ShortStruct(instance_.getScoreTaker()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), DIFFERENCE_SCORE_TAKER)) {
+            if (StringList.quickEq(fieldName_, DIFFERENCE_SCORE_TAKER)) {
                 res_.setResult(new ShortStruct(instance_.getDifferenceScoreTaker()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), ADDITIONNAL_BONUSES_ATTACK)) {
+            if (StringList.quickEq(fieldName_, ADDITIONNAL_BONUSES_ATTACK)) {
                 res_.setResult(new ShortStruct(instance_.getAdditionnalBonusesAttack()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), ADDITIONNAL_BONUSES_DEFENSE)) {
+            if (StringList.quickEq(fieldName_, ADDITIONNAL_BONUSES_DEFENSE)) {
                 res_.setResult(new ShortStruct(instance_.getAdditionnalBonusesDefense()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), SCORE_TAKER_WITHOUT_DECLARING)) {
+            if (StringList.quickEq(fieldName_, SCORE_TAKER_WITHOUT_DECLARING)) {
                 res_.setResult(new ShortStruct(instance_.getScoreTakerWithoutDeclaring()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), MAX_DOUBLED_DIFFERENCE)) {
+            if (StringList.quickEq(fieldName_, MAX_DOUBLED_DIFFERENCE)) {
                 res_.setResult(new ShortStruct(instance_.getMaxDoubledDifference()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), MAX_DIFFERENCE)) {
+            if (StringList.quickEq(fieldName_, MAX_DIFFERENCE)) {
                 res_.setResult(new ShortStruct(instance_.getMaxDifference()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), INITIAL_USER_POSITION)) {
+            if (StringList.quickEq(fieldName_, INITIAL_USER_POSITION)) {
                 res_.setResult(new ShortStruct(instance_.getInitialUserPosition()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), FINAL_USER_POSITION)) {
+            if (StringList.quickEq(fieldName_, FINAL_USER_POSITION)) {
                 res_.setResult(new ShortStruct(instance_.getFinalUserPosition()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), TAKER)) {
+            if (StringList.quickEq(fieldName_, TAKER)) {
                 res_.setResult(new StringStruct(instance_.getTaker()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), ALONE_TRUMP_ACE_PLAYER)) {
+            if (StringList.quickEq(fieldName_, ALONE_TRUMP_ACE_PLAYER)) {
                 res_.setResult(new StringStruct(instance_.getAloneTrumpAcePlayer()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), CALLED_PLAYERS)) {
+            if (StringList.quickEq(fieldName_, CALLED_PLAYERS)) {
                 res_.setResult(new StdStruct(instance_.getCalledPlayers(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), CALLED_CARDS_LIST)) {
+            if (StringList.quickEq(fieldName_, CALLED_CARDS_LIST)) {
                 res_.setResult(new StdStruct(instance_.getCalledCardsList(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), LINES_DEAL)) {
+            if (StringList.quickEq(fieldName_, LINES_DEAL)) {
                 res_.setResult(new StdStruct(instance_.getLinesDeal(), getCustList()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof LineDeal) {
             LineDeal instance_ = (LineDeal) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), NUMBER)) {
+            if (StringList.quickEq(fieldName_, NUMBER)) {
                 res_.setResult(new IntStruct(instance_.getNumber()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), SCORES)) {
+            if (StringList.quickEq(fieldName_, SCORES)) {
                 res_.setResult(new StdStruct(instance_.getScores(), getCustList()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof RulesTarotBean) {
             RulesTarotBean instance_ = (RulesTarotBean) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), CARTES_BATTUES)) {
+            if (StringList.quickEq(fieldName_, CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(instance_.getCartesBattues()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), REPARTITION)) {
+            if (StringList.quickEq(fieldName_, REPARTITION)) {
                 res_.setResult(new StringStruct(instance_.getRepartition()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), MODE)) {
+            if (StringList.quickEq(fieldName_, MODE)) {
                 res_.setResult(new StringStruct(instance_.getMode()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), FIN_PARTIE_TAROT)) {
+            if (StringList.quickEq(fieldName_, FIN_PARTIE_TAROT)) {
                 res_.setResult(new StringStruct(instance_.getFinPartieTarot()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), DISCARD_AFTER_CALL)) {
+            if (StringList.quickEq(fieldName_, DISCARD_AFTER_CALL)) {
                 res_.setResult(new BooleanStruct(instance_.isDiscardAfterCall()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), CONTRATS)) {
+            if (StringList.quickEq(fieldName_, CONTRATS)) {
                 res_.setResult(new StdStruct(instance_.getContrats(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), POIGNEES_AUTORISEES)) {
+            if (StringList.quickEq(fieldName_, POIGNEES_AUTORISEES)) {
                 res_.setResult(new StdStruct(instance_.getPoigneesAutorisees(), getCustMap()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), MISERES)) {
+            if (StringList.quickEq(fieldName_, MISERES)) {
                 res_.setResult(new StdStruct(instance_.getMiseres(), getCustList()));
                 return res_;
             }

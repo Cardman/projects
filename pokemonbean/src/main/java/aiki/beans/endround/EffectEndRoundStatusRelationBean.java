@@ -1,11 +1,8 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
+import code.maths.Rate;
 
 public class EffectEndRoundStatusRelationBean extends EffectEndRoundStatusBean {
-
-    @Accessible
     private Rate thievedHpRateTargetToUser;
 
     @Override
@@ -13,5 +10,9 @@ public class EffectEndRoundStatusRelationBean extends EffectEndRoundStatusBean {
         super.beforeDisplaying();
         EffectEndRoundStatusRelation effect_ = (EffectEndRoundStatusRelation) getEffect();
         thievedHpRateTargetToUser = effect_.getThievedHpRateTargetToUser();
+    }
+
+    public Rate getThievedHpRateTargetToUser() {
+        return thievedHpRateTargetToUser;
     }
 }

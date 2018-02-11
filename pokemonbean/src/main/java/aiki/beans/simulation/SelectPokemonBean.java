@@ -1,12 +1,4 @@
 package aiki.beans.simulation;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.PokemonLine;
@@ -14,31 +6,22 @@ import aiki.comparators.ComparatorTrStringBoolean;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.pagination.SelectedBoolean;
 
 public class SelectPokemonBean extends CommonBean {
-
-    @Accessible
     private CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
-
-    @Accessible
     private String typedName = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String typedType = DataBase.EMPTY_STRING;
-
-    @Accessible
     private SelectedBoolean hasEvo = SelectedBoolean.YES_AND_NO;
-
-    @Accessible
     private SelectedBoolean isEvo = SelectedBoolean.YES_AND_NO;
-
-    @Accessible
     private SelectedBoolean isLeg = SelectedBoolean.YES_AND_NO;
-
-    @Accessible
     private boolean wholeWord;
-
-    @Accessible
     private TreeMap<SelectedBoolean,String> booleans;
 
     @Override
@@ -72,14 +55,10 @@ public class SelectPokemonBean extends CommonBean {
         typedName = escapedStringQuote(typedName);
         typedType = escapedStringQuote(typedType);
     }
-
-    @Accessible
-    private static String cancel() {
+    public static String cancel() {
         return POKEMON;
     }
-
-    @Accessible
-    private String search() {
+    public String search() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -149,19 +128,71 @@ public class SelectPokemonBean extends CommonBean {
         }
         return POKEMON_SET;
     }
-
-    @Accessible
-    private String getMiniImage(Long _number) {
+    public String getMiniImage(Long _number) {
         String name_ = pokedex.get(_number.intValue()).getName();
         DataBase data_ = (DataBase) getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
         return ConverterBufferedImage.surroundImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
-
-    @Accessible
-    private String clickLink(Long _number) {
+    public String clickLink(Long _number) {
         getForms().put(POKEMON_NAME_EDIT,pokedex.get(_number.intValue()).getName());
         return POKEMON;
+    }
+
+    public void setTypedName(String _typedName) {
+        typedName = _typedName;
+    }
+
+    public String getTypedName() {
+        return typedName;
+    }
+
+    public void setTypedType(String _typedType) {
+        typedType = _typedType;
+    }
+
+    public String getTypedType() {
+        return typedType;
+    }
+
+    public void setWholeWord(boolean _wholeWord) {
+        wholeWord = _wholeWord;
+    }
+
+    public boolean getWholeWord() {
+        return wholeWord;
+    }
+
+    public TreeMap<SelectedBoolean,String> getBooleans() {
+        return booleans;
+    }
+
+    public SelectedBoolean getHasEvo() {
+        return hasEvo;
+    }
+
+    public void setHasEvo(SelectedBoolean _hasEvo) {
+        hasEvo = _hasEvo;
+    }
+
+    public SelectedBoolean getIsEvo() {
+        return isEvo;
+    }
+
+    public void setIsEvo(SelectedBoolean _isEvo) {
+        isEvo = _isEvo;
+    }
+
+    public SelectedBoolean getIsLeg() {
+        return isLeg;
+    }
+
+    public void setIsLeg(SelectedBoolean _isLeg) {
+        isLeg = _isLeg;
+    }
+
+    public CustList<PokemonLine> getPokedex() {
+        return pokedex;
     }
 }

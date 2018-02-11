@@ -1,13 +1,13 @@
 package aiki.beans.facade.fight;
+import aiki.DataBase;
+import aiki.facade.FacadeGame;
+import aiki.game.fight.Fight;
+import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
 import code.util.Numbers;
 import code.util.comparators.ComparatorBoolean;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
-import aiki.DataBase;
-import aiki.facade.FacadeGame;
-import aiki.game.fight.Fight;
-import aiki.game.fight.TeamPosition;
 
 
 public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {

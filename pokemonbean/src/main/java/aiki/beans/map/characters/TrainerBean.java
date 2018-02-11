@@ -1,8 +1,4 @@
 package aiki.beans.map.characters;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.map.characters.GymLeader;
@@ -10,22 +6,15 @@ import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.PokemonTeam;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.StringMap;
 
 public class TrainerBean extends CommonBean {
-
-    @Accessible
     private final String pageTeam = "web/html/map/elements/pokemon_team.html";
-
-    @Accessible
     private Trainer trainer;
-
-    @Accessible
     private String move = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String image;
-
-    @Accessible
     private String imageMini;
 
     @Override
@@ -39,9 +28,7 @@ public class TrainerBean extends CommonBean {
         image = ConverterBufferedImage.surroundImage(data_.getTrainer(trainer.getImageMaxiFileName()));
         imageMini = ConverterBufferedImage.surroundImage(data_.getPerson(trainer.getImageMiniFileName()));
     }
-
-    @Accessible
-    private String getName() {
+    public String getName() {
         if (trainer instanceof GymLeader) {
             return ((GymLeader)trainer).getName();
         }
@@ -50,17 +37,13 @@ public class TrainerBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-
-    @Accessible
-    private String getTrMove() {
+    public String getTrMove() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move);
     }
-
-    @Accessible
-    private String clickMove() {
+    public String clickMove() {
         getForms().put(MOVE, move);
         return MOVE;
     }
@@ -69,5 +52,25 @@ public class TrainerBean extends CommonBean {
             return ((TrainerMultiFights)trainer).getTeamsRewards();
         }
         return new CustList<PokemonTeam>();
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getImageMini() {
+        return imageMini;
+    }
+
+    public String getPageTeam() {
+        return pageTeam;
+    }
+
+    public Trainer getTrainer() {
+        return trainer;
+    }
+
+    public String getMove() {
+        return move;
     }
 }

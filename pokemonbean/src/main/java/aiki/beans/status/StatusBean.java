@@ -1,15 +1,4 @@
 package aiki.beans.status;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStringStatistic;
@@ -21,87 +10,45 @@ import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
+import code.images.ConverterBufferedImage;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NatCmpTreeMap;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class StatusBean extends CommonBean {
-
-    @Accessible
     private String name;
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private String animStatus;
 
     private StatusType statusType;
-
-    @Accessible
     private Rate catchingRate;
-
-    @Accessible
     private CustList<EffectPartnerStatus> effectsPartner;
-
-    @Accessible
     private boolean disabledEffIfSwitch;
-
-    @Accessible
     private int incrementEndRound;
-
-    @Accessible
     private boolean incrementingEndRound;
-
-    @Accessible
     private TreeMap<Statistic, Rate> multStat;
-
-    @Accessible
     private StringList reasons;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFail;
-
-    @Accessible
     private boolean endRound;
-
-    @Accessible
     private int endRoundRank;
-
-    @Accessible
     private StringList reasonsEndRound;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFailEndRound;
-
-    @Accessible
     private Rate rateForUsingAMove;
-
-    @Accessible
     private boolean notAttack;
-
-    @Accessible
     private NatCmpTreeMap<LgInt,Rate> lawForUsingAMoveNbRound;
-
-    @Accessible
     private Rate rateForUsingAMoveIfFoe;
-
-    @Accessible
     private boolean notAttackFoe;
-
-    @Accessible
     private Rate rateForFullHealIfMove;
-
-    @Accessible
     private Rate power;
-
-    @Accessible
     private String attack;
-
-    @Accessible
     private String defense;
-
-    @Accessible
     private boolean singleStatus;
-
-    @Accessible
     private boolean incrementingDamageByRounds;
 
     @Override
@@ -203,35 +150,125 @@ public class StatusBean extends CommonBean {
             power = Rate.zero();
         }
     }
-
-    @Accessible
-    private EffectPartnerStatus getEffectPartner() {
+    public EffectPartnerStatus getEffectPartner() {
         return effectsPartner.first();
     }
-
-    @Accessible
-    private boolean isSingle() {
+    public boolean isSingle() {
         return statusType == StatusType.INDIVIDUEL;
     }
-
-    @Accessible
-    private String clickIndex() {
+    public String clickIndex() {
         if (!getForms().contains(STATUS_SET)) {
             getForms().put(STATUS_SET, new StringList());
         }
         return STATUS_SET;
     }
-
-    @Accessible
-    private boolean incrementEndRoundInt() {
+    public boolean incrementEndRoundInt() {
         return incrementEndRound > 0;
     }
-
-    @Accessible
-    private String getTrMultStat(Long _index) {
+    public String getTrMultStat(Long _index) {
         Statistic type_ = multStat.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getAnimStatus() {
+        return animStatus;
+    }
+
+    public boolean getEndRound() {
+        return endRound;
+    }
+
+    public int getEndRoundRank() {
+        return endRoundRank;
+    }
+
+    public StringList getReasonsEndRound() {
+        return reasonsEndRound;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+        return mapVarsFailEndRound;
+    }
+
+    public boolean getSingleStatus() {
+        return singleStatus;
+    }
+
+    public boolean getIncrementingDamageByRounds() {
+        return incrementingDamageByRounds;
+    }
+
+    public Rate getCatchingRate() {
+        return catchingRate;
+    }
+
+    public boolean getDisabledEffIfSwitch() {
+        return disabledEffIfSwitch;
+    }
+
+    public int getIncrementEndRound() {
+        return incrementEndRound;
+    }
+
+    public boolean getIncrementingEndRound() {
+        return incrementingEndRound;
+    }
+
+    public TreeMap<Statistic,Rate> getMultStat() {
+        return multStat;
+    }
+
+    public StringList getReasons() {
+        return reasons;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFail() {
+        return mapVarsFail;
+    }
+
+    public Rate getRateForUsingAMove() {
+        return rateForUsingAMove;
+    }
+
+    public boolean getNotAttack() {
+        return notAttack;
+    }
+
+    public Rate getRateForUsingAMoveIfFoe() {
+        return rateForUsingAMoveIfFoe;
+    }
+
+    public boolean getNotAttackFoe() {
+        return notAttackFoe;
+    }
+
+    public Rate getRateForFullHealIfMove() {
+        return rateForFullHealIfMove;
+    }
+
+    public NatCmpTreeMap<LgInt,Rate> getLawForUsingAMoveNbRound() {
+        return lawForUsingAMoveNbRound;
+    }
+
+    public Rate getPower() {
+        return power;
+    }
+
+    public String getAttack() {
+        return attack;
+    }
+
+    public String getDefense() {
+        return defense;
+    }
+
+    public CustList<EffectPartnerStatus> getEffectsPartner() {
+        return effectsPartner;
     }
 }

@@ -1,8 +1,8 @@
 package aiki.beans.facade.comparators;
 import java.util.Comparator;
 
-import code.util.CustList;
 import aiki.fight.util.CategoryMult;
+import code.util.CustList;
 
 public final class ComparatorCategoryMult implements Comparator<CategoryMult> {
 

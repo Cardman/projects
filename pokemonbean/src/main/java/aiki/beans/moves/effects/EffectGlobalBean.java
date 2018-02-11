@@ -1,12 +1,4 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import code.util.ints.Listable;
 import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorStatisticType;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
@@ -19,88 +11,41 @@ import aiki.fight.moves.effects.EffectInvoke;
 import aiki.fight.moves.effects.EffectSwitchTypes;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
+import code.maths.Rate;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.ints.Listable;
 
 public class EffectGlobalBean extends EffectBean {
-
-    @Accessible
     private boolean weather;
-
-    @Accessible
     private boolean canceledIfUsed;
-
-    @Accessible
     private boolean reverseOrderOfSortBySpeed;
-
-    @Accessible
     private boolean puttingKo;
-
-    @Accessible
     private Rate multAccuracy;
-
-    @Accessible
     private boolean unusableItem;
-
-    @Accessible
     private StringList preventStatus;
-
-    @Accessible
     private StringList immuneTypes;
-
-    @Accessible
     private Rate damageEndRound;
-
-    @Accessible
     private Rate healingEndRound;
-
-    @Accessible
     private Rate healingEndRoundGround;
-
-    @Accessible
     private TreeMap<TypesDuo, Rate> efficiencyMoves;
-
-    @Accessible
     private StringList disableImmuAgainstTypes;
-
-    @Accessible
     private StringList cancelProtectingAbilities;
-
-    @Accessible
     private StringList unusableMoves;
-
-    @Accessible
     private NatTreeMap<String, Rate> multDamagePrepaRound;
-
-    @Accessible
     private StringList movesUsedByTargetedFighters;
-
-    @Accessible
     private Rate multEffectLovingAlly;
-
-    @Accessible
     private TreeMap<String, Rate> multPowerMoves;
-
-    @Accessible
     private TreeMap<StatisticType, Rate> multStatIfContainsType;
-
-    @Accessible
     private StringList cancelEffects;
-
-    @Accessible
     private NatTreeMap<String, Rate> multDamageTypesMoves;
-
-    @Accessible
     private StringList cancelChgtStat;
-
-    @Accessible
     private String invokedMoveTerrain;
-
-    @Accessible
     private StringList invokingMoves;
-
-    @Accessible
     private StringList changedTypesTerrain;
-
-    @Accessible
     private StringList invokingMovesChangingTypes;
 
     @Override
@@ -277,165 +222,229 @@ public class EffectGlobalBean extends EffectBean {
         movesUsedByTargetedFighters_.sortElts(new ComparatorTrStrings(translatedMoves_));
         movesUsedByTargetedFighters = movesUsedByTargetedFighters_;
     }
-
-    @Accessible
-    private Listable<TypesDuo> getTypesDuos() {
+    public Listable<TypesDuo> getTypesDuos() {
         return efficiencyMoves.getKeys();
     }
-
-    @Accessible
-    private String clickPreventedStatus(Long _index) {
+    public String clickPreventedStatus(Long _index) {
         String st_ = preventStatus.get(_index.intValue());
         getForms().put(STATUS, st_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrPreventedStatus(Long _index) {
+    public String getTrPreventedStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String st_ = preventStatus.get(_index.intValue());
         return translatedStatus_.getVal(st_);
     }
-
-    @Accessible
-    private String clickCancelledAbility(Long _index) {
+    public String clickCancelledAbility(Long _index) {
         String st_ = cancelProtectingAbilities.get(_index.intValue());
         getForms().put(ABILITY, st_);
         return ABILITY;
     }
-
-    @Accessible
-    private String getTrCancelledAbility(Long _index) {
+    public String getTrCancelledAbility(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         String st_ = cancelProtectingAbilities.get(_index.intValue());
         return translatedAbilities_.getVal(st_);
     }
-
-    @Accessible
-    private String clickUnusableMove(Long _index) {
+    public String clickUnusableMove(Long _index) {
         String st_ = unusableMoves.get(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrUnusableMoves(Long _index) {
+    public String getTrUnusableMoves(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = unusableMoves.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickCancelledEffect(Long _index) {
+    public String clickCancelledEffect(Long _index) {
         String st_ = cancelEffects.get(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrCancelledEffect(Long _index) {
+    public String getTrCancelledEffect(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = cancelEffects.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickMultMovePower(Long _index) {
+    public String clickMultMovePower(Long _index) {
         String st_ = multPowerMoves.getKey(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrMultMovePower(Long _index) {
+    public String getTrMultMovePower(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = multPowerMoves.getKey(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickInvokedMove() {
+    public String clickInvokedMove() {
         getForms().put(MOVE, invokedMoveTerrain);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrInvokedMoveTerrain() {
+    public String getTrInvokedMoveTerrain() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(invokedMoveTerrain);
     }
-
-    @Accessible
-    private String clickInvokingMove(Long _index) {
+    public String clickInvokingMove(Long _index) {
         String st_ = invokingMoves.get(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrInvokingMove(Long _index) {
+    public String getTrInvokingMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = invokingMoves.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickInvokingMoveTypes(Long _index) {
+    public String clickInvokingMoveTypes(Long _index) {
         String st_ = invokingMovesChangingTypes.get(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrInvokingMoveTypes(Long _index) {
+    public String getTrInvokingMoveTypes(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = invokingMovesChangingTypes.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickMovesTarget(Long _index) {
+    public String clickMovesTarget(Long _index) {
         String st_ = movesUsedByTargetedFighters.get(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private String getTrMovesTarget(Long _index) {
+    public String getTrMovesTarget(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = movesUsedByTargetedFighters.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String getTrMultStatIfDamgeTypeFirst(Long _index) {
+    public String getTrMultStatIfDamgeTypeFirst(Long _index) {
         Statistic statis_ = multStatIfContainsType.getKey(_index.intValue()).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(statis_);
     }
-
-    @Accessible
-    private String getTrMultStatIfDamgeTypeSecond(Long _index) {
+    public String getTrMultStatIfDamgeTypeSecond(Long _index) {
         String type_ = multStatIfContainsType.getKey(_index.intValue()).getType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(type_);
     }
-
-    @Accessible
-    private Listable<StatisticType> getStatisType() {
+    public Listable<StatisticType> getStatisType() {
         return multStatIfContainsType.getKeys();
+    }
+
+    public boolean getWeather() {
+        return weather;
+    }
+
+    public boolean getCanceledIfUsed() {
+        return canceledIfUsed;
+    }
+
+    public boolean getReverseOrderOfSortBySpeed() {
+        return reverseOrderOfSortBySpeed;
+    }
+
+    public boolean getUnusableItem() {
+        return unusableItem;
+    }
+
+    public boolean getPuttingKo() {
+        return puttingKo;
+    }
+
+    public Rate getMultAccuracy() {
+        return multAccuracy;
+    }
+
+    public Rate getDamageEndRound() {
+        return damageEndRound;
+    }
+
+    public Rate getHealingEndRoundGround() {
+        return healingEndRoundGround;
+    }
+
+    public Rate getHealingEndRound() {
+        return healingEndRound;
+    }
+
+    public Rate getMultEffectLovingAlly() {
+        return multEffectLovingAlly;
+    }
+
+    public StringList getPreventStatus() {
+        return preventStatus;
+    }
+
+    public StringList getImmuneTypes() {
+        return immuneTypes;
+    }
+
+    public TreeMap<TypesDuo,Rate> getEfficiencyMoves() {
+        return efficiencyMoves;
+    }
+
+    public StringList getDisableImmuAgainstTypes() {
+        return disableImmuAgainstTypes;
+    }
+
+    public StringList getCancelProtectingAbilities() {
+        return cancelProtectingAbilities;
+    }
+
+    public StringList getUnusableMoves() {
+        return unusableMoves;
+    }
+
+    public StringList getCancelEffects() {
+        return cancelEffects;
+    }
+
+    public TreeMap<String,Rate> getMultPowerMoves() {
+        return multPowerMoves;
+    }
+
+    public NatTreeMap<String,Rate> getMultDamageTypesMoves() {
+        return multDamageTypesMoves;
+    }
+
+    public StringList getCancelChgtStat() {
+        return cancelChgtStat;
+    }
+
+    public String getInvokedMoveTerrain() {
+        return invokedMoveTerrain;
+    }
+
+    public StringList getInvokingMoves() {
+        return invokingMoves;
+    }
+
+    public StringList getChangedTypesTerrain() {
+        return changedTypesTerrain;
+    }
+
+    public StringList getInvokingMovesChangingTypes() {
+        return invokingMovesChangingTypes;
+    }
+
+    public TreeMap<StatisticType,Rate> getMultStatIfContainsType() {
+        return multStatIfContainsType;
+    }
+
+    public NatTreeMap<String,Rate> getMultDamagePrepaRound() {
+        return multDamagePrepaRound;
+    }
+
+    public StringList getMovesUsedByTargetedFighters() {
+        return movesUsedByTargetedFighters;
     }
 }

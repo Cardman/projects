@@ -1,12 +1,7 @@
 package aiki.beans.facade.dto;
-import code.bean.Accessible;
 
 public final class ItemTypeLine {
-
-    @Accessible
     private String item;
-
-    @Accessible
     private String type;
 
     public ItemTypeLine() {

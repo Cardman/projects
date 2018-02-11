@@ -1,28 +1,17 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectGlobal;
+import code.maths.Rate;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
-
-    @Accessible
     private StringList immuneTypes;
-
-    @Accessible
     private Rate damageEndRound;
-
-    @Accessible
     private Rate healingEndRound;
-
-    @Accessible
     private Rate healingEndRoundGround;
-
-    @Accessible
     private boolean puttingKo;
 
     @Override
@@ -52,5 +41,25 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
         healingEndRound = effect_.getHealingEndRound();
         healingEndRoundGround = effect_.getHealingEndRoundGround();
         puttingKo = effect_.getPuttingKo();
+    }
+
+    public Rate getDamageEndRound() {
+        return damageEndRound;
+    }
+
+    public Rate getHealingEndRoundGround() {
+        return healingEndRoundGround;
+    }
+
+    public Rate getHealingEndRound() {
+        return healingEndRound;
+    }
+
+    public boolean getPuttingKo() {
+        return puttingKo;
+    }
+
+    public StringList getImmuneTypes() {
+        return immuneTypes;
     }
 }

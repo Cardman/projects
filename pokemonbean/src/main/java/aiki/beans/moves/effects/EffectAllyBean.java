@@ -1,11 +1,8 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.moves.effects.EffectAlly;
+import code.maths.Rate;
 
 public class EffectAllyBean extends EffectBean {
-
-    @Accessible
     private Rate multAllyDamage;
 
     @Override
@@ -13,5 +10,9 @@ public class EffectAllyBean extends EffectBean {
         super.beforeDisplaying();
         EffectAlly effect_ = (EffectAlly) getEffect();
         multAllyDamage = effect_.getMultAllyDamage();
+    }
+
+    public Rate getMultAllyDamage() {
+        return multAllyDamage;
     }
 }

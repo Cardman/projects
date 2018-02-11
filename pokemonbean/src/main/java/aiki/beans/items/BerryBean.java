@@ -1,10 +1,4 @@
 package aiki.beans.items;
-import code.bean.Accessible;
-import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
@@ -12,49 +6,26 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
+import code.maths.Rate;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class BerryBean extends ItemBean {
-
-    @Accessible
     private Rate healHpBySuperEffMove;
-
-    @Accessible
     private boolean lawForAttackFirst;
-
-    @Accessible
     private TreeMap<String, EfficiencyRate> multFoesDamage;
-
-    @Accessible
     private TreeMap<Statistic, BoostHpRate> multStat;
-
-    @Accessible
     private boolean withoutFail;
-
-    @Accessible
     private int healPp;
-
-    @Accessible
     private Rate healHp;
-
-    @Accessible
     private Rate maxHpHealingHp;
-
-    @Accessible
     private StringList healStatus;
-
-    @Accessible
     private Rate healHpRate;
-
-    @Accessible
     private Rate maxHpHealingHpRate;
-
-    @Accessible
     private TreeMap<String, Rate> damageRateRecoilFoe;
-
-    @Accessible
     private String categoryBoosting;
-
-    @Accessible
     private TreeMap<Statistic, Byte> boostStatis;
 
     @Override
@@ -111,56 +82,98 @@ public class BerryBean extends ItemBean {
         }
         boostStatis = boostStatis_;
     }
-
-    @Accessible
-    private boolean isHealingPp() {
+    public boolean isHealingPp() {
         return healPp > 0;
     }
-
-    @Accessible
-    private String getTrMultFoesDamage(Long _index) {
+    public String getTrMultFoesDamage(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = multFoesDamage.getKey(_index.intValue());
         return translatedTypes_.getVal(type_);
     }
-
-    @Accessible
-    private String getTrMultStat(Long _index) {
+    public String getTrMultStat(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic type_ = multStat.getKey(_index.intValue());
         return translatedStatistics_.getVal(type_);
     }
-
-    @Accessible
-    private String getTrBoostStat(Long _index) {
+    public String getTrBoostStat(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic type_ = boostStatis.getKey(_index.intValue());
         return translatedStatistics_.getVal(type_);
     }
-
-    @Accessible
-    private String getTrStatus(Long _index) {
+    public String getTrStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String status_ = healStatus.get(_index.intValue());
         return translatedStatus_.getVal(status_);
     }
-
-    @Accessible
-    private String clickStatus(Long _index) {
+    public String clickStatus(Long _index) {
         String status_ = healStatus.get(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
     }
-
-    @Accessible
-    private String getTrCategRecoil(Long _index) {
+    public String getTrCategRecoil(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         String status_ = damageRateRecoilFoe.getKey(_index.intValue());
         return translatedCategories_.getVal(status_);
+    }
+
+    public Rate getHealHpBySuperEffMove() {
+        return healHpBySuperEffMove;
+    }
+
+    public boolean getLawForAttackFirst() {
+        return lawForAttackFirst;
+    }
+
+    public boolean getWithoutFail() {
+        return withoutFail;
+    }
+
+    public int getHealPp() {
+        return healPp;
+    }
+
+    public Rate getHealHp() {
+        return healHp;
+    }
+
+    public Rate getMaxHpHealingHp() {
+        return maxHpHealingHp;
+    }
+
+    public Rate getHealHpRate() {
+        return healHpRate;
+    }
+
+    public Rate getMaxHpHealingHpRate() {
+        return maxHpHealingHpRate;
+    }
+
+    public TreeMap<String,EfficiencyRate> getMultFoesDamage() {
+        return multFoesDamage;
+    }
+
+    public TreeMap<Statistic,BoostHpRate> getMultStat() {
+        return multStat;
+    }
+
+    public StringList getHealStatus() {
+        return healStatus;
+    }
+
+    public TreeMap<String,Rate> getDamageRateRecoilFoe() {
+        return damageRateRecoilFoe;
+    }
+
+    public TreeMap<Statistic,Byte> getBoostStatis() {
+        return boostStatis;
+    }
+
+    public String getCategoryBoosting() {
+        return categoryBoosting;
     }
 }

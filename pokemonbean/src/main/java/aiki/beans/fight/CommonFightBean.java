@@ -1,13 +1,13 @@
 package aiki.beans.fight;
-import code.bean.Bean;
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
+import code.bean.Bean;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.StringList;
 
 public class CommonFightBean extends Bean {
 

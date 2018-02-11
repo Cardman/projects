@@ -1,15 +1,12 @@
 package aiki.beans.pokemon.evolutions;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.EvolutionMove;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EvolutionMoveBean extends EvolutionBean {
-
-    @Accessible
     private String move;
 
     @Override
@@ -21,9 +18,7 @@ public class EvolutionMoveBean extends EvolutionBean {
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         move = translationsMoves_.getVal(evo_.getMove());
     }
-
-    @Accessible
-    protected String clickMove(Long _index) {
+    public String clickMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(getBase());
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
@@ -33,5 +28,9 @@ public class EvolutionMoveBean extends EvolutionBean {
         EvolutionMove evo_ = (EvolutionMove) pk_.getEvolutions().getVal(evolutions_.get(_index.intValue()));
         getForms().put(MOVE,evo_.getMove());
         return MOVE;
+    }
+
+    public String getMove() {
+        return move;
     }
 }

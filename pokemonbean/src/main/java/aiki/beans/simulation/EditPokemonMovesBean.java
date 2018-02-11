@@ -1,8 +1,4 @@
 package aiki.beans.simulation;
-import code.bean.Accessible;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
@@ -11,34 +7,18 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.game.fight.FightSimulation;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EditPokemonMovesBean extends CommonBean {
-
-    @Accessible
     private CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
-
-    @Accessible
-    private StringList sortedMoves = new StringList();
-
-    @Accessible
     private String category = DataBase.EMPTY_STRING;
-
-    @Accessible
     private StringMap<String> categories = new StringMap<String>();
-
-    @Accessible
     private String typedName = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String typedType = DataBase.EMPTY_STRING;
-
-    @Accessible
     private boolean wholeWord;
-
-    @Accessible
     private boolean player;
-
-    @Accessible
     private boolean availableMovesOnly;
 
     @Override
@@ -77,18 +57,14 @@ public class EditPokemonMovesBean extends CommonBean {
         }
         moves.sortElts(new ComparatorMoves());
     }
-
-    @Accessible
-    private String cancel() {
+    public String cancel() {
         getForms().put(MOVES_SET, new StringList());
         if (player) {
             return EDIT_POKEMON_PLAYER;
         }
         return POKEMON_EDIT;
     }
-
-    @Accessible
-    private String addMoves() {
+    public String addMoves() {
         StringList currentMoves_ = (StringList) getForms().getVal(POKEMON_MOVES_EDIT);
         StringList keptMoves_ = new StringList();
         for (SelectLineMove s: moves) {
@@ -104,9 +80,7 @@ public class EditPokemonMovesBean extends CommonBean {
         }
         return POKEMON_EDIT;
     }
-
-    @Accessible
-    private void search() {
+    public void search() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -162,5 +136,57 @@ public class EditPokemonMovesBean extends CommonBean {
         }
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
         getForms().put(MOVES_SET, moves_);
+    }
+
+    public void setTypedName(String _typedName) {
+        typedName = _typedName;
+    }
+
+    public String getTypedName() {
+        return typedName;
+    }
+
+    public StringMap<String> getCategories() {
+        return categories;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String _category) {
+        category = _category;
+    }
+
+    public void setTypedType(String _typedType) {
+        typedType = _typedType;
+    }
+
+    public String getTypedType() {
+        return typedType;
+    }
+
+    public void setWholeWord(boolean _wholeWord) {
+        wholeWord = _wholeWord;
+    }
+
+    public boolean getWholeWord() {
+        return wholeWord;
+    }
+
+    public boolean getPlayer() {
+        return player;
+    }
+
+    public void setAvailableMovesOnly(boolean _availableMovesOnly) {
+        availableMovesOnly = _availableMovesOnly;
+    }
+
+    public boolean getAvailableMovesOnly() {
+        return availableMovesOnly;
+    }
+
+    public CustList<SelectLineMove> getMoves() {
+        return moves;
     }
 }

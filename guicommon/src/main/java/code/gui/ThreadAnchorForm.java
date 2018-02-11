@@ -17,6 +17,7 @@ import javax.swing.text.html.FormSubmitEvent;
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.formathtml.exceptions.RenderingException;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FormInputCoords;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
@@ -60,6 +61,8 @@ public final class ThreadAnchorForm extends Thread {
     private String fileName;
 
     private boolean usedUrl;
+
+    private BeanLgNames stds;
 
     private boolean refresh;
 
@@ -208,18 +211,20 @@ public final class ThreadAnchorForm extends Thread {
     }
 
     /**This class thread is independant from EDT*/
-    public ThreadAnchorForm(SessionEditorPane _session, String _anchorRef) {
+    public ThreadAnchorForm(SessionEditorPane _session, String _anchorRef, BeanLgNames _stds) {
         session = _session;
         session.start();
         usedUrl = true;
+        stds = _stds;
         anchorRef = _anchorRef;
         initTimer();
     }
 
-    public ThreadAnchorForm(SessionEditorPane _session, Navigation _navigation, String _fileName) {
+    public ThreadAnchorForm(SessionEditorPane _session, Navigation _navigation, String _fileName, BeanLgNames _stds) {
         session = _session;
         session.start();
         usedUrl = true;
+        stds = _stds;
         navigation = _navigation;
         fileName = _fileName;
         initTimer();
@@ -275,7 +280,7 @@ public final class ThreadAnchorForm extends Thread {
                 return;
             }
             if (usedUrl) {
-                navigation.loadConfiguration(fileName);
+                navigation.loadConfiguration(fileName, stds);
                 HtmlPage htmlPage_ = session.getHtmlPage();
                 htmlPage_.setUrl(-1);
                 session.getNav().initializeSession();

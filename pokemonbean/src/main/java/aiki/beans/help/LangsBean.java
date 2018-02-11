@@ -12,7 +12,6 @@ import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
-import code.bean.Accessible;
 import code.util.EnumList;
 import code.util.StringList;
 import code.util.TreeMap;
@@ -21,50 +20,20 @@ import code.util.ints.Listable;
 import code.util.pagination.SelectedBoolean;
 
 public class LangsBean extends CommonBean {
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedCategories;
-
-    @Accessible
     private TreeMap<LanguageElementKey,String> translatedEnvironment;
-
-    @Accessible
     private TreeMap<LanguageElementKey,String> translatedBooleans;
-
-    @Accessible
     private TreeMap<LanguageElementKey,String> translatedGenders;
-
-    @Accessible
     private TreeMap<LanguageElementKey,String> translatedStatistics;
-
-    @Accessible
     private TreeMap<LanguageElementKey,String> translatedTargets;
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedTypes;
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedPokemon;
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedMoves;
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedItems;
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedAbilities;
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedStatus;
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedClassesDescriptions;
-
-    @Accessible
     private TreeMap<LanguageElementStringKey,String> translatedFctMath;
-
-    @Accessible
     private StringList languages;
 
     @Override
@@ -144,163 +113,105 @@ public class LangsBean extends CommonBean {
             }
         }
     }
-
-    @Accessible
-    private String getTrLang(Long _index) {
+    public String getTrLang(Long _index) {
         String lang_ = languages.get(_index.intValue());
         return Constants.getDisplayLanguage(lang_);
     }
-
-    @Accessible
-    private StringList getKeysCategories() {
+    public StringList getKeysCategories() {
         return getStringKeys(translatedCategories);
     }
-
-    @Accessible
-    private StringList getRowCategory(Long _index) {
+    public StringList getRowCategory(Long _index) {
 //        return getRowByKey(translatedCategories, getKeys(translatedCategories).get(_index.intValue()));
         return getRowByStringKey(languages, translatedCategories, _index.intValue());
     }
-
-    @Accessible
-    private EnumList<EnvironmentType> getKeysEnvironments() {
+    public EnumList<EnvironmentType> getKeysEnvironments() {
         return getEnvKeys(translatedEnvironment);
     }
-
-    @Accessible
-    private StringList getRowEnvironment(Long _index) {
+    public StringList getRowEnvironment(Long _index) {
 //        return getRowByKey(translatedEnvironment, getKeys(translatedEnvironment).get(_index.intValue()));
         return getEnvRowByKey(languages, translatedEnvironment, _index.intValue());
     }
-
-    @Accessible
-    private EnumList<SelectedBoolean> getKeysBooleans() {
+    public EnumList<SelectedBoolean> getKeysBooleans() {
         return getSelectedBooleanKeys(translatedBooleans);
     }
-
-    @Accessible
-    private StringList getRowBoolean(Long _index) {
+    public StringList getRowBoolean(Long _index) {
 //        return getRowByKey(translatedBooleans, getKeys(translatedBooleans).get(_index.intValue()));
         return getSelectedBooleanRowByKey(languages, translatedBooleans, _index.intValue());
     }
-
-    @Accessible
-    private EnumList<Gender> getKeysGenders() {
+    public EnumList<Gender> getKeysGenders() {
         return getGenderKeys(translatedGenders);
     }
-
-    @Accessible
-    private StringList getRowGender(Long _index) {
+    public StringList getRowGender(Long _index) {
 //        return getRowByKey(translatedGenders, getKeys(translatedGenders).get(_index.intValue()));
         return getGenderRowByKey(languages, translatedGenders, _index.intValue());
     }
-
-    @Accessible
-    private EnumList<Statistic> getKeysStatistics() {
+    public EnumList<Statistic> getKeysStatistics() {
         return getStatisticKeys(translatedStatistics);
     }
-
-    @Accessible
-    private StringList getRowStatistic(Long _index) {
+    public StringList getRowStatistic(Long _index) {
 //        return getRowByKey(translatedStatistics, getKeys(translatedStatistics).get(_index.intValue()));
         return getStatisticRowByKey(languages, translatedStatistics, _index.intValue());
     }
-
-    @Accessible
-    private EnumList<TargetChoice> getKeysTargets() {
+    public EnumList<TargetChoice> getKeysTargets() {
         return getTargetKeys(translatedTargets);
     }
-
-    @Accessible
-    private StringList getRowTarget(Long _index) {
+    public StringList getRowTarget(Long _index) {
 //        return getRowByKey(translatedTargets, getKeys(translatedTargets).get(_index.intValue()));
         return getTargetRowByKey(languages, translatedTargets, _index.intValue());
     }
-
-    @Accessible
-    private StringList getKeysTypes() {
+    public StringList getKeysTypes() {
         return getStringKeys(translatedTypes);
     }
-
-    @Accessible
-    private StringList getRowType(Long _index) {
+    public StringList getRowType(Long _index) {
 //        return getRowByKey(translatedTypes, getKeys(translatedTypes).get(_index.intValue()));
         return getRowByStringKey(languages, translatedTypes, _index.intValue());
     }
-
-    @Accessible
-    private StringList getKeysPokemon() {
+    public StringList getKeysPokemon() {
         return getStringKeys(translatedPokemon);
     }
-
-    @Accessible
-    private StringList getRowPokemon(Long _index) {
+    public StringList getRowPokemon(Long _index) {
 //        return getRowByKey(translatedPokemon, getKeys(translatedPokemon).get(_index.intValue()));
         return getRowByStringKey(languages, translatedPokemon, _index.intValue());
     }
-
-    @Accessible
-    private StringList getKeysMoves() {
+    public StringList getKeysMoves() {
         return getStringKeys(translatedMoves);
     }
-
-    @Accessible
-    private StringList getRowMove(Long _index) {
+    public StringList getRowMove(Long _index) {
 //        return getRowByKey(translatedMoves, getKeys(translatedMoves).get(_index.intValue()));
         return getRowByStringKey(languages, translatedMoves, _index.intValue());
     }
-
-    @Accessible
-    private StringList getKeysItems() {
+    public StringList getKeysItems() {
         return getStringKeys(translatedItems);
     }
-
-    @Accessible
-    private StringList getRowItem(Long _index) {
+    public StringList getRowItem(Long _index) {
 //        return getRowByKey(translatedItems, getKeys(translatedItems).get(_index.intValue()));
         return getRowByStringKey(languages, translatedItems, _index.intValue());
     }
-
-    @Accessible
-    private StringList getKeysAbilities() {
+    public StringList getKeysAbilities() {
         return getStringKeys(translatedAbilities);
     }
-
-    @Accessible
-    private StringList getRowAbility(Long _index) {
+    public StringList getRowAbility(Long _index) {
 //        return getRowByKey(translatedAbilities, getKeys(translatedAbilities).get(_index.intValue()));
         return getRowByStringKey(languages,translatedAbilities, _index.intValue());
     }
-
-    @Accessible
-    private StringList getKeysStatus() {
+    public StringList getKeysStatus() {
         return getStringKeys(translatedStatus);
     }
-
-    @Accessible
-    private StringList getRowStatus(Long _index) {
+    public StringList getRowStatus(Long _index) {
 //        return getRowByKey(translatedStatus, getKeys(translatedStatus).get(_index.intValue()));
         return getRowByStringKey(languages, translatedStatus, _index.intValue());
     }
-
-    @Accessible
-    private StringList getKeysDesc() {
+    public StringList getKeysDesc() {
         return getStringKeys(translatedClassesDescriptions);
     }
-
-    @Accessible
-    private StringList getRowDesc(Long _index) {
+    public StringList getRowDesc(Long _index) {
 //        return getRowByKey(translatedClassesDescriptions, getKeys(translatedClassesDescriptions).get(_index.intValue()));
         return getRowByStringKey(languages, translatedClassesDescriptions, _index.intValue());
     }
-
-    @Accessible
-    private StringList getKeysMath() {
+    public StringList getKeysMath() {
         return getStringKeys(translatedFctMath);
     }
-
-    @Accessible
-    private StringList getRowMath(Long _index) {
+    public StringList getRowMath(Long _index) {
 //        return getRowByKey(translatedFctMath, getKeys(translatedFctMath).get(_index.intValue()));
         return getRowByStringKey(languages, translatedFctMath, _index.intValue());
     }
@@ -450,5 +361,9 @@ public class LangsBean extends CommonBean {
             list_.add(entries_.get(i));
         }
         return list_;
+    }
+
+    public StringList getLanguages() {
+        return languages;
     }
 }

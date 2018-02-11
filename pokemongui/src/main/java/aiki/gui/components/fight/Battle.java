@@ -14,6 +14,7 @@ import javax.swing.WindowConstants;
 
 import aiki.DataBase;
 import aiki.Resources;
+import aiki.beans.PokemonStandards;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
@@ -1071,7 +1072,7 @@ public class Battle extends ChildFrame {
         htmlDialogs.first().setTitle(_messages_.getVal(TITLE));
 //        htmlDialogs.first().getSession().setFiles(facade.getData().getWebFight(), Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_FIGHT);
+        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_FIGHT, new PokemonStandards());
         htmlDialogs.first().pack();
 //        try {
 ////            if (window.isSuccessfulCompile()) {

@@ -1,30 +1,19 @@
 package aiki.beans.pokemon.evolutions;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.Evolution;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EvolutionBean extends CommonBean {
-
-    @Accessible
     private String displayBase;
-
-    @Accessible
     private String base;
 
     private Evolution evo;
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private String name;
-
-    @Accessible
     private long index;
 
     @Override
@@ -40,9 +29,7 @@ public class EvolutionBean extends CommonBean {
     protected Evolution getEvo() {
         return evo;
     }
-
-    @Accessible
-    private String clickEvo(Long _index) {
+    public String clickEvo(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(base);
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
@@ -55,5 +42,29 @@ public class EvolutionBean extends CommonBean {
 
     protected String getBase() {
         return base;
+    }
+
+    public void setIndex(long _index) {
+        index = _index;
+    }
+
+    public long getIndex() {
+        return index;
+    }
+
+    public void setName(String _name) {
+        name = _name;
+    }
+
+    public void setBase(String _base) {
+        base = _base;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getDisplayBase() {
+        return displayBase;
     }
 }

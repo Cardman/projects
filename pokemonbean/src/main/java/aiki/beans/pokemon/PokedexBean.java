@@ -1,12 +1,4 @@
 package aiki.beans.pokemon;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.PokemonLine;
@@ -14,37 +6,24 @@ import aiki.comparators.ComparatorTrStringBoolean;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.pagination.SelectedBoolean;
 
 public class PokedexBean extends CommonBean {
-
-    @Accessible
     private CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
-
-    @Accessible
     private String typedName = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String typedType = DataBase.EMPTY_STRING;
-
-    @Accessible
     private SelectedBoolean hasEvo = SelectedBoolean.YES_AND_NO;
-
-    @Accessible
     private String typedMinNbPossEvos = DataBase.EMPTY_STRING;
-
-    @Accessible
     private String typedMaxNbPossEvos = DataBase.EMPTY_STRING;
-
-    @Accessible
     private SelectedBoolean isEvo = SelectedBoolean.YES_AND_NO;
-
-    @Accessible
     private SelectedBoolean isLeg = SelectedBoolean.YES_AND_NO;
-
-    @Accessible
     private boolean wholeWord;
-
-    @Accessible
     private TreeMap<SelectedBoolean,String> booleans;
 
     @Override
@@ -80,9 +59,7 @@ public class PokedexBean extends CommonBean {
         typedMinNbPossEvos = escapedStringQuote(typedMinNbPossEvos);
         typedMaxNbPossEvos = escapedStringQuote(typedMaxNbPossEvos);
     }
-
-    @Accessible
-    private String search() {
+    public String search() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -170,19 +147,79 @@ public class PokedexBean extends CommonBean {
         }
         return POKEMON_SET;
     }
-
-    @Accessible
-    private String getMiniImage(Long _number) {
+    public String getMiniImage(Long _number) {
         String name_ = pokedex.get(_number.intValue()).getName();
         DataBase data_ = (DataBase) getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
         return ConverterBufferedImage.surroundImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
-
-    @Accessible
-    private String clickLink(Long _number) {
+    public String clickLink(Long _number) {
         getForms().put(PK,pokedex.get(_number.intValue()).getName());
         return POKEMON;
+    }
+
+    public void setTypedName(String _typedName) {
+        typedName = _typedName;
+    }
+
+    public String getTypedName() {
+        return typedName;
+    }
+
+    public void setTypedType(String _typedType) {
+        typedType = _typedType;
+    }
+
+    public String getTypedType() {
+        return typedType;
+    }
+
+    public void setWholeWord(boolean _wholeWord) {
+        wholeWord = _wholeWord;
+    }
+
+    public boolean getWholeWord() {
+        return wholeWord;
+    }
+
+    public void setTypedMinNbPossEvos(String _typedMinNbPossEvos) {
+        typedMinNbPossEvos = _typedMinNbPossEvos;
+    }
+
+    public String getTypedMinNbPossEvos() {
+        return typedMinNbPossEvos;
+    }
+
+    public void setTypedMaxNbPossEvos(String _typedMaxNbPossEvos) {
+        typedMaxNbPossEvos = _typedMaxNbPossEvos;
+    }
+
+    public String getTypedMaxNbPossEvos() {
+        return typedMaxNbPossEvos;
+    }
+
+    public TreeMap<SelectedBoolean,String> getBooleans() {
+        return booleans;
+    }
+
+    public SelectedBoolean getIsEvo() {
+        return isEvo;
+    }
+
+    public void setIsEvo(SelectedBoolean _isEvo) {
+        isEvo = _isEvo;
+    }
+
+    public SelectedBoolean getIsLeg() {
+        return isLeg;
+    }
+
+    public void setIsLeg(SelectedBoolean _isLeg) {
+        isLeg = _isLeg;
+    }
+
+    public CustList<PokemonLine> getPokedex() {
+        return pokedex;
     }
 }

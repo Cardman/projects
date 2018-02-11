@@ -1,5 +1,10 @@
 package aiki.beans.effects;
-import code.bean.Accessible;
+import aiki.DataBase;
+import aiki.beans.CommonBean;
+import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.fight.enums.Statistic;
+import aiki.fight.moves.effects.EffectCombo;
+import aiki.fight.moves.effects.EffectEndRound;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
@@ -7,48 +12,20 @@ import code.util.NatCmpTreeMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.TreeMap;
-import aiki.DataBase;
-import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStringStatistic;
-import aiki.fight.enums.Statistic;
-import aiki.fight.moves.effects.EffectCombo;
-import aiki.fight.moves.effects.EffectEndRound;
 
 public class EffectComboBean extends CommonBean {
-
-    @Accessible
     private ComboDto combos;
-
-    @Accessible
     private long index;
-
-    @Accessible
     private StringList moves;
 
     private EffectCombo effect;
-
-    @Accessible
     private Rate multEvtRateSecEff;
-
-    @Accessible
     private NatCmpTreeMap<LgInt,Rate> repeatedRoundsLaw;
-
-    @Accessible
     private short rankIncrementNbRound;
-
-    @Accessible
     private boolean endRound;
-
-    @Accessible
     private int endRoundRank;
-
-    @Accessible
     private StringList reasonsEndRound;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFailEndRound;
-
-    @Accessible
     private TreeMap<Statistic, Rate> multStatisticFoe;
 
     @Override
@@ -90,20 +67,64 @@ public class EffectComboBean extends CommonBean {
         }
         repeatedRoundsLaw = repeatedRoundsLaw_;
     }
-
-    @Accessible
-    private String getTrStatistic(Long _index) {
+    public String getTrStatistic(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic stat_ = multStatisticFoe.getKey(_index.intValue());
         return translatedStatistics_.getVal(stat_);
     }
-
-    @Accessible
-    private String clickMove(Long _indexOne, Long _indexTwo) {
+    public String clickMove(Long _indexOne, Long _indexTwo) {
         StringList moves_ = combos.getKey(_indexOne.intValue());
         getForms().put(MOVE, moves_.get(_indexTwo.intValue()));
         return MOVE;
+    }
+
+    public StringList getMoves() {
+        return moves;
+    }
+
+    public long getIndex() {
+        return index;
+    }
+
+    public void setIndex(long _index) {
+        index = _index;
+    }
+
+    public boolean getEndRound() {
+        return endRound;
+    }
+
+    public int getEndRoundRank() {
+        return endRoundRank;
+    }
+
+    public StringList getReasonsEndRound() {
+        return reasonsEndRound;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+        return mapVarsFailEndRound;
+    }
+
+    public Rate getMultEvtRateSecEff() {
+        return multEvtRateSecEff;
+    }
+
+    public TreeMap<Statistic,Rate> getMultStatisticFoe() {
+        return multStatisticFoe;
+    }
+
+    public short getRankIncrementNbRound() {
+        return rankIncrementNbRound;
+    }
+
+    public NatCmpTreeMap<LgInt,Rate> getRepeatedRoundsLaw() {
+        return repeatedRoundsLaw;
+    }
+
+    public void setCombos(ComboDto _combos) {
+        combos = _combos;
     }
 }

@@ -1,11 +1,11 @@
 package aiki.beans.facade.comparators;
 import java.util.Comparator;
 
+import aiki.DataBase;
+import aiki.comparators.ComparatorTrStrings;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import aiki.DataBase;
-import aiki.comparators.ComparatorTrStrings;
 
 public final class ComparatorStringList implements Comparator<StringList> {
 

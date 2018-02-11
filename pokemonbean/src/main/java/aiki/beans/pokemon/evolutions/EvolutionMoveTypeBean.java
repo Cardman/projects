@@ -1,12 +1,9 @@
 package aiki.beans.pokemon.evolutions;
-import code.bean.Accessible;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.pokemon.evolution.EvolutionMoveType;
+import code.util.StringMap;
 
 public class EvolutionMoveTypeBean extends EvolutionBean {
-
-    @Accessible
     private String type;
 
     @Override
@@ -17,5 +14,9 @@ public class EvolutionMoveTypeBean extends EvolutionBean {
         StringMap<String> translationsType_;
         translationsType_ = data_.getTranslatedTypes().getVal(getLanguage());
         type = translationsType_.getVal(evo_.getType());
+    }
+
+    public String getType() {
+        return type;
     }
 }

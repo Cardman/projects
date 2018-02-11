@@ -1,9 +1,4 @@
 package aiki.beans.map.pokemon;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
@@ -26,22 +21,16 @@ import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.TrainerOneFight;
 import aiki.map.pokemon.PkTrainer;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class PokemonTeamBean extends CommonBean {
-
-    @Accessible
     private int noFight;
-
-    @Accessible
     private Trainer trainer;
-
-    @Accessible
     private CustList<PkTrainer> team;
-
-    @Accessible
     private short reward;
-
-    @Accessible
     private short multiplicity;
 
     @Override
@@ -76,9 +65,7 @@ public class PokemonTeamBean extends CommonBean {
         }
         team = team_;
     }
-
-    @Accessible
-    private String getName(Long _index) {
+    public String getName(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -87,9 +74,7 @@ public class PokemonTeamBean extends CommonBean {
         String name_ = pk_.getName();
         return translationsPokemon_.getVal(name_);
     }
-
-    @Accessible
-    private String clickName(Long _noFight,Long _index) {
+    public String clickName(Long _noFight,Long _index) {
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
             list_ = ((TrainerOneFight)trainer).getTeam();
@@ -102,9 +87,7 @@ public class PokemonTeamBean extends CommonBean {
         getForms().put(PK, name_);
         return POKEMON;
     }
-
-    @Accessible
-    private String getImage(Long _index) {
+    public String getImage(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
@@ -118,9 +101,7 @@ public class PokemonTeamBean extends CommonBean {
         return ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
-
-    @Accessible
-    private String getAbility(Long _index) {
+    public String getAbility(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
@@ -129,9 +110,7 @@ public class PokemonTeamBean extends CommonBean {
         String ability_ = pk_.getAbility();
         return translationsAbilities_.getVal(ability_);
     }
-
-    @Accessible
-    private String clickAbility(Long _noFight,Long _index) {
+    public String clickAbility(Long _noFight,Long _index) {
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
             list_ = ((TrainerOneFight)trainer).getTeam();
@@ -144,9 +123,7 @@ public class PokemonTeamBean extends CommonBean {
         getForms().put(ABILITY, ability_);
         return ABILITY;
     }
-
-    @Accessible
-    private String getItem(Long _index) {
+    public String getItem(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
@@ -155,9 +132,7 @@ public class PokemonTeamBean extends CommonBean {
         String item_ = pk_.getItem();
         return translationsItems_.getVal(item_);
     }
-
-    @Accessible
-    private String clickItem(Long _noFight,Long _index) {
+    public String clickItem(Long _noFight,Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
@@ -214,9 +189,7 @@ public class PokemonTeamBean extends CommonBean {
         }
         return ITEM;
     }
-
-    @Accessible
-    private String getMove(Long _index, Long _moveIndex) {
+    public String getMove(Long _index, Long _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -225,9 +198,7 @@ public class PokemonTeamBean extends CommonBean {
         String move_ = pk_.getMoves().get(_moveIndex.intValue());
         return translationsMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickMove(Long _noFight,Long _index, Long _moveIndex) {
+    public String clickMove(Long _noFight,Long _index, Long _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -244,5 +215,29 @@ public class PokemonTeamBean extends CommonBean {
         String move_ = moves_.get(_moveIndex.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
+    }
+
+    public void setTrainer(Trainer _trainer) {
+        trainer = _trainer;
+    }
+
+    public short getReward() {
+        return reward;
+    }
+
+    public short getMultiplicity() {
+        return multiplicity;
+    }
+
+    public CustList<PkTrainer> getTeam() {
+        return team;
+    }
+
+    public int getNoFight() {
+        return noFight;
+    }
+
+    public void setNoFight(int _noFight) {
+        noFight = _noFight;
     }
 }

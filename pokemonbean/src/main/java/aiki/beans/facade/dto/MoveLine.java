@@ -1,37 +1,16 @@
 package aiki.beans.facade.dto;
-import code.bean.Accessible;
 import code.util.StringList;
 
 public class MoveLine {
-
-    @Accessible
     private String displayName;
-
-    @Accessible
     private String name;
-
-    @Accessible
     private short pp;
-
-    @Accessible
     private StringList types;
-
-    @Accessible
     private boolean damageMove;
-
-    @Accessible
     private String category;
-
-    @Accessible
     private boolean direct;
-
-    @Accessible
     private short priority;
-
-    @Accessible
     private String accuracy;
-
-    @Accessible
     private String power;
 
     public String getDisplayName() {

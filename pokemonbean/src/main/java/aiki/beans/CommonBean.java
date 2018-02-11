@@ -1,10 +1,10 @@
 package aiki.beans;
+import aiki.DataBase;
 import code.bean.Bean;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import aiki.DataBase;
 
 public class CommonBean extends Bean {
     protected static final String ABILITIES = "abilities";

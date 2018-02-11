@@ -1,26 +1,15 @@
 package aiki.beans.facade.fight;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.enums.Statistic;
+import code.maths.Rate;
 
 public final class StatisticInfo {
 
     /***/
     private Statistic statistic;
-
-    @Accessible
     private String displayStatistic;
-
-    @Accessible
     private short ev;
-
-    @Accessible
     private short iv;
-
-    @Accessible
     private Rate statisBase;
-
-    @Accessible
     private byte statisBoost;
 
     public Statistic getStatistic() {

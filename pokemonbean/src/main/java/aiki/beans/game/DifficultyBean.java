@@ -4,82 +4,35 @@ import aiki.facade.FacadeGame;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import code.bean.Accessible;
 import code.bean.Bean;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
 import code.util.NatTreeMap;
 
 public class DifficultyBean extends Bean {
-
-    @Accessible
     private boolean allowCatchingKo;
-
-    @Accessible
     private boolean allowedSwitchPlacesEndRound;
-
-    @Accessible
     private DifficultyWinPointsFight diffWinningExpPtsFight;
-
-    @Accessible
     private NatTreeMap<DifficultyWinPointsFight, String> winPointsFight;
-
-    @Accessible
     private Rate rateWinningExpPtsFight;
-
-    @Accessible
     private Rate winTrainerExp;
-
-    @Accessible
     private NatTreeMap<DifficultyModelLaw, String> damageRates;
-
-    @Accessible
     private DifficultyModelLaw damageRatePlayer;
-
-    @Accessible
     private NatCmpTreeMap<Rate,Rate> damageRatePlayerTable;
-
-    @Accessible
     private DifficultyModelLaw damageRateLawFoe;
-
-    @Accessible
     private NatCmpTreeMap<Rate,Rate> damageRateFoeTable;
-
-    @Accessible
     private boolean endFightIfOneTeamKo;
-
-    @Accessible
     private Rate rateWinMoneyBase;
-
-    @Accessible
     private Rate rateLooseMoneyWin;
-
-    @Accessible
     private short ivPlayer;
-
-    @Accessible
     private short ivFoe;
-
-    @Accessible
     private boolean stillPossibleFlee;
-
-    @Accessible
     private boolean restoredMovesEndFight;
-
-    @Accessible
     private boolean enabledClosing;
-
-    @Accessible
     private boolean randomWildFight;
-
-    @Accessible
     private boolean skipLearningMovesWhileNotGrowingLevel;
-
-    @Accessible
-    private short index = CustList.INDEX_NOT_FOUND_ELT;
 
     @Override
     public void beforeDisplaying() {
@@ -133,9 +86,7 @@ public class DifficultyBean extends Bean {
             damageRateFoeTable.put(e, law_.normalizedRate(e));
         }
     }
-
-    @Accessible
-    private void change() {
+    public void change() {
         FacadeGame facadeGame_ = (FacadeGame) getDataBase();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
         diff_.setDiffWinningExpPtsFight(diffWinningExpPtsFight);
@@ -156,5 +107,157 @@ public class DifficultyBean extends Bean {
         diff_.setDamageRateLawFoe(damageRateLawFoe);
         diff_.setDamageRatePlayer(damageRatePlayer);
         diff_.validate(facadeGame_.getData());
+    }
+
+    public NatTreeMap<DifficultyWinPointsFight,String> getWinPointsFight() {
+        return winPointsFight;
+    }
+
+    public DifficultyWinPointsFight getDiffWinningExpPtsFight() {
+        return diffWinningExpPtsFight;
+    }
+
+    public void setDiffWinningExpPtsFight(DifficultyWinPointsFight _diffWinningExpPtsFight) {
+        diffWinningExpPtsFight = _diffWinningExpPtsFight;
+    }
+
+    public void setAllowCatchingKo(boolean _allowCatchingKo) {
+        allowCatchingKo = _allowCatchingKo;
+    }
+
+    public boolean getAllowCatchingKo() {
+        return allowCatchingKo;
+    }
+
+    public void setAllowedSwitchPlacesEndRound(boolean _allowedSwitchPlacesEndRound) {
+        allowedSwitchPlacesEndRound = _allowedSwitchPlacesEndRound;
+    }
+
+    public boolean getAllowedSwitchPlacesEndRound() {
+        return allowedSwitchPlacesEndRound;
+    }
+
+    public void setWinTrainerExp(Rate _winTrainerExp) {
+        winTrainerExp = _winTrainerExp;
+    }
+
+    public Rate getWinTrainerExp() {
+        return winTrainerExp;
+    }
+
+    public void setRateWinningExpPtsFight(Rate _rateWinningExpPtsFight) {
+        rateWinningExpPtsFight = _rateWinningExpPtsFight;
+    }
+
+    public Rate getRateWinningExpPtsFight() {
+        return rateWinningExpPtsFight;
+    }
+
+    public void setEndFightIfOneTeamKo(boolean _endFightIfOneTeamKo) {
+        endFightIfOneTeamKo = _endFightIfOneTeamKo;
+    }
+
+    public boolean getEndFightIfOneTeamKo() {
+        return endFightIfOneTeamKo;
+    }
+
+    public void setIvPlayer(short _ivPlayer) {
+        ivPlayer = _ivPlayer;
+    }
+
+    public short getIvPlayer() {
+        return ivPlayer;
+    }
+
+    public void setIvFoe(short _ivFoe) {
+        ivFoe = _ivFoe;
+    }
+
+    public short getIvFoe() {
+        return ivFoe;
+    }
+
+    public void setRateWinMoneyBase(Rate _rateWinMoneyBase) {
+        rateWinMoneyBase = _rateWinMoneyBase;
+    }
+
+    public Rate getRateWinMoneyBase() {
+        return rateWinMoneyBase;
+    }
+
+    public void setRateLooseMoneyWin(Rate _rateLooseMoneyWin) {
+        rateLooseMoneyWin = _rateLooseMoneyWin;
+    }
+
+    public Rate getRateLooseMoneyWin() {
+        return rateLooseMoneyWin;
+    }
+
+    public void setRestoredMovesEndFight(boolean _restoredMovesEndFight) {
+        restoredMovesEndFight = _restoredMovesEndFight;
+    }
+
+    public boolean getRestoredMovesEndFight() {
+        return restoredMovesEndFight;
+    }
+
+    public void setEnabledClosing(boolean _enabledClosing) {
+        enabledClosing = _enabledClosing;
+    }
+
+    public boolean getEnabledClosing() {
+        return enabledClosing;
+    }
+
+    public void setRandomWildFight(boolean _randomWildFight) {
+        randomWildFight = _randomWildFight;
+    }
+
+    public boolean getRandomWildFight() {
+        return randomWildFight;
+    }
+
+    public void setStillPossibleFlee(boolean _stillPossibleFlee) {
+        stillPossibleFlee = _stillPossibleFlee;
+    }
+
+    public boolean getStillPossibleFlee() {
+        return stillPossibleFlee;
+    }
+
+    public void setSkipLearningMovesWhileNotGrowingLevel(boolean _skipLearningMovesWhileNotGrowingLevel) {
+        skipLearningMovesWhileNotGrowingLevel = _skipLearningMovesWhileNotGrowingLevel;
+    }
+
+    public boolean getSkipLearningMovesWhileNotGrowingLevel() {
+        return skipLearningMovesWhileNotGrowingLevel;
+    }
+
+    public NatTreeMap<DifficultyModelLaw,String> getDamageRates() {
+        return damageRates;
+    }
+
+    public DifficultyModelLaw getDamageRatePlayer() {
+        return damageRatePlayer;
+    }
+
+    public void setDamageRatePlayer(DifficultyModelLaw _damageRatePlayer) {
+        damageRatePlayer = _damageRatePlayer;
+    }
+
+    public NatCmpTreeMap<Rate,Rate> getDamageRatePlayerTable() {
+        return damageRatePlayerTable;
+    }
+
+    public DifficultyModelLaw getDamageRateLawFoe() {
+        return damageRateLawFoe;
+    }
+
+    public void setDamageRateLawFoe(DifficultyModelLaw _damageRateLawFoe) {
+        damageRateLawFoe = _damageRateLawFoe;
+    }
+
+    public NatCmpTreeMap<Rate,Rate> getDamageRateFoeTable() {
+        return damageRateFoeTable;
     }
 }

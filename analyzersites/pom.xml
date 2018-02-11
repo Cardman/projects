@@ -23,8 +23,8 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>pokemonbean</groupId>
-			<artifactId>pokemonbean</artifactId>
+			<groupId>pokemoncore</groupId>
+			<artifactId>pokemoncore</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
         <dependency>

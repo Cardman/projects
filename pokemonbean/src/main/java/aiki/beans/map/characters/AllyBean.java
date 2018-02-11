@@ -1,9 +1,4 @@
 package aiki.beans.map.characters;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
@@ -24,13 +19,13 @@ import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.map.characters.Ally;
 import aiki.map.pokemon.PkTrainer;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class AllyBean extends CommonBean {
-
-    @Accessible
     private Ally ally;
-
-    @Accessible
     private CustList<PkTrainer> team;
 
     @Override
@@ -56,9 +51,7 @@ public class AllyBean extends CommonBean {
         }
         team = team_;
     }
-
-    @Accessible
-    private String getImage(Long _index) {
+    public String getImage(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PkTrainer pk_;
         pk_ = team.get(_index.intValue());
@@ -66,9 +59,7 @@ public class AllyBean extends CommonBean {
         return ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
-
-    @Accessible
-    private String getName(Long _index) {
+    public String getName(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -77,18 +68,14 @@ public class AllyBean extends CommonBean {
         String name_ = pk_.getName();
         return translationsPokemon_.getVal(name_);
     }
-
-    @Accessible
-    private String clickName(Long _index) {
+    public String clickName(Long _index) {
         PkTrainer pk_;
         pk_ = team.get(_index.intValue());
         String name_ = pk_.getName();
         getForms().put(PK, name_);
         return POKEMON;
     }
-
-    @Accessible
-    private String getAbility(Long _index) {
+    public String getAbility(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
@@ -97,18 +84,14 @@ public class AllyBean extends CommonBean {
         String ability_ = pk_.getAbility();
         return translationsAbilities_.getVal(ability_);
     }
-
-    @Accessible
-    private String clickAbility(Long _index) {
+    public String clickAbility(Long _index) {
         PkTrainer pk_;
         pk_ = team.get(_index.intValue());
         String ability_ = pk_.getAbility();
         getForms().put(ABILITY, ability_);
         return ABILITY;
     }
-
-    @Accessible
-    private String getItem(Long _index) {
+    public String getItem(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
@@ -117,9 +100,7 @@ public class AllyBean extends CommonBean {
         String item_ = pk_.getItem();
         return translationsItems_.getVal(item_);
     }
-
-    @Accessible
-    private String clickItem(Long _index) {
+    public String clickItem(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PkTrainer pk_;
         pk_ = team.get(_index.intValue());
@@ -170,9 +151,7 @@ public class AllyBean extends CommonBean {
         }
         return ITEM;
     }
-
-    @Accessible
-    private String getMove(Long _index, Long _moveIndex) {
+    public String getMove(Long _index, Long _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -181,13 +160,19 @@ public class AllyBean extends CommonBean {
         String move_ = pk_.getMoves().get(_moveIndex.intValue());
         return translationsMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickMove(Long _index, Long _moveIndex) {
+    public String clickMove(Long _index, Long _moveIndex) {
         PkTrainer pk_;
         pk_ = team.get(_index.intValue());
         String move_ = pk_.getMoves().get(_moveIndex.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
+    }
+
+    public CustList<PkTrainer> getTeam() {
+        return team;
+    }
+
+    public void setAlly(Ally _ally) {
+        ally = _ally;
     }
 }

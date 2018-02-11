@@ -1,15 +1,12 @@
 package aiki.beans.pokemon.evolutions;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.EvolutionTeam;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EvolutionTeamBean extends EvolutionBean {
-
-    @Accessible
     private String other;
 
     @Override
@@ -21,9 +18,7 @@ public class EvolutionTeamBean extends EvolutionBean {
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         other = translationsPokemon_.getVal(evo_.getPokemon());
     }
-
-    @Accessible
-    private String clickTeam(Long _index) {
+    public String clickTeam(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(getBase());
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
@@ -33,5 +28,9 @@ public class EvolutionTeamBean extends EvolutionBean {
         EvolutionTeam evo_ = (EvolutionTeam) pk_.getEvolutions().getVal(evolutions_.get(_index.intValue()));
         getForms().put(PK,evo_.getPokemon());
         return POKEMON;
+    }
+
+    public String getOther() {
+        return other;
     }
 }

@@ -1,8 +1,8 @@
 package aiki.beans.facade.comparators;
 import java.util.Comparator;
 
-import code.util.Numbers;
 import aiki.fight.enums.Statistic;
+import code.util.Numbers;
 
 public final class ComparatorStatistic implements Comparator<Statistic> {
 

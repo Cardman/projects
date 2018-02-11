@@ -1,11 +1,8 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.maths.Rate;
 import aiki.fight.moves.effects.EffectWinMoney;
+import code.maths.Rate;
 
 public class EffectWinMoneyBean extends EffectBean {
-
-    @Accessible
     private Rate winningRateBySumTargetUser;
 
     @Override
@@ -13,5 +10,9 @@ public class EffectWinMoneyBean extends EffectBean {
         super.beforeDisplaying();
         EffectWinMoney effect_ = (EffectWinMoney) getEffect();
         winningRateBySumTargetUser = effect_.getWinningRateBySumTargetUser();
+    }
+
+    public Rate getWinningRateBySumTargetUser() {
+        return winningRateBySumTargetUser;
     }
 }

@@ -3,7 +3,6 @@ import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectDamage;
-import code.bean.Accessible;
 import code.maths.Rate;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -14,59 +13,23 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public class EffectDamageBean extends EffectBean {
-
-    @Accessible
     private byte chRate;
-
-    @Accessible
     private boolean constDamage;
-
-    @Accessible
     private NatTreeMap<String, Rate> damageLaw;
-
-    @Accessible
     private NatTreeMap<String, Rate> multDamageAgainst;
-
-    @Accessible
     private NatCmpTreeMap<Rate, Rate> chLaw;
-
-    @Accessible
     private NatTreeMap<Long, Rate> hitsLaw;
-
-    @Accessible
     private long nbHits;
-
-    @Accessible
     private String power;
-
-    @Accessible
     private boolean randMax;
-
-    @Accessible
     private boolean summingUserTeamOkFighter;
-
-    @Accessible
     private EnumList<Statistic> ignVarStatTargetPos;
-
-    @Accessible
     private EnumList<Statistic> ignVarStatUserNeg;
-
-    @Accessible
     private boolean userAttack;
-
-    @Accessible
     private String statisAtt;
-
-    @Accessible
     private boolean targetDefense;
-
-    @Accessible
     private String statisDef;
-
-    @Accessible
     private TreeMap<Statistic, Byte> boostStatisOnceKoFoe;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsDamage;
 
     @Override
@@ -165,30 +128,22 @@ public class EffectDamageBean extends EffectBean {
         randMax = effect_.getRandMax();
         mapVarsDamage = mapVarsAccuracy_;
     }
-
-    @Accessible
-    private boolean hasLawForDamage() {
+    public boolean hasLawForDamage() {
         EffectDamage effect_ = (EffectDamage) getEffect();
         return !effect_.getDamageLaw().events().isEmpty();
     }
-
-    @Accessible
-    private boolean hasDeterminatedLawForDamage() {
+    public boolean hasDeterminatedLawForDamage() {
         EffectDamage effect_ = (EffectDamage) getEffect();
         return effect_.getDamageLaw().events().size() == DataBase.ONE_POSSIBLE_CHOICE;
     }
-
-    @Accessible
-    private boolean counterDamageCat() {
+    public boolean counterDamageCat() {
         EffectDamage effect_ = (EffectDamage) getEffect();
         if (!effect_.getDamageLaw().events().isEmpty()) {
             return false;
         }
         return !effect_.getMultDamageAgainst().isEmpty();
     }
-
-    @Accessible
-    private boolean constPower() {
+    public boolean constPower() {
         EffectDamage effect_ = (EffectDamage) getEffect();
         if (!effect_.getDamageLaw().events().isEmpty()) {
             return false;
@@ -198,33 +153,97 @@ public class EffectDamageBean extends EffectBean {
         }
         return !power.isEmpty();
     }
-
-    @Accessible
-    private boolean hasConstPower() {
+    public boolean hasConstPower() {
         return Rate.isValid(power);
     }
-
-    @Accessible
-    private String getTranslatedStatisTarget(Long _index) {
+    public String getTranslatedStatisTarget(Long _index) {
         Statistic st_ = ignVarStatTargetPos.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
-
-    @Accessible
-    private String getTranslatedStatisUser(Long _index) {
+    public String getTranslatedStatisUser(Long _index) {
         Statistic st_ = ignVarStatUserNeg.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
-
-    @Accessible
-    private String getTranslatedStatisKo(Long _index) {
+    public String getTranslatedStatisKo(Long _index) {
         Statistic st_ = boostStatisOnceKoFoe.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
+    }
+
+    public NatTreeMap<Long,Rate> getHitsLaw() {
+        return hitsLaw;
+    }
+
+    public long getNbHits() {
+        return nbHits;
+    }
+
+    public boolean getConstDamage() {
+        return constDamage;
+    }
+
+    public String getPower() {
+        return power;
+    }
+
+    public NatTreeMap<String,Rate> getDamageLaw() {
+        return damageLaw;
+    }
+
+    public NatTreeMap<String,String> getMapVarsDamage() {
+        return mapVarsDamage;
+    }
+
+    public NatTreeMap<String,Rate> getMultDamageAgainst() {
+        return multDamageAgainst;
+    }
+
+    public byte getChRate() {
+        return chRate;
+    }
+
+    public NatCmpTreeMap<Rate,Rate> getChLaw() {
+        return chLaw;
+    }
+
+    public boolean getUserAttack() {
+        return userAttack;
+    }
+
+    public String getStatisAtt() {
+        return statisAtt;
+    }
+
+    public boolean getTargetDefense() {
+        return targetDefense;
+    }
+
+    public String getStatisDef() {
+        return statisDef;
+    }
+
+    public EnumList<Statistic> getIgnVarStatTargetPos() {
+        return ignVarStatTargetPos;
+    }
+
+    public EnumList<Statistic> getIgnVarStatUserNeg() {
+        return ignVarStatUserNeg;
+    }
+
+    public boolean getRandMax() {
+        return randMax;
+    }
+
+    public TreeMap<Statistic,Byte> getBoostStatisOnceKoFoe() {
+        return boostStatisOnceKoFoe;
+    }
+
+    public boolean getSummingUserTeamOkFighter() {
+        return summingUserTeamOkFighter;
     }
 }

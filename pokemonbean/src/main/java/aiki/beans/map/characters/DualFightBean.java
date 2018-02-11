@@ -1,32 +1,17 @@
 package aiki.beans.map.characters;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.map.characters.Ally;
 import aiki.map.characters.TempTrainer;
+import code.images.ConverterBufferedImage;
 
 public class DualFightBean extends CommonBean {
-
-    @Accessible
     private final String pageAlly = "web/html/map/elements/ally.html";
-
-    @Accessible
     private final String pageTeam = "web/html/map/elements/pokemon_team.html";
-
-    @Accessible
     private TempTrainer trainer;
-
-    @Accessible
     private Ally ally;
-
-    @Accessible
     private String image;
-
-    @Accessible
     private String imageMini;
-
-    @Accessible
     private String imageMiniSecond;
 
     @Override
@@ -37,5 +22,33 @@ public class DualFightBean extends CommonBean {
         image = ConverterBufferedImage.surroundImage(data_.getTrainer(trainer.getImageMaxiFileName()));
         imageMini = ConverterBufferedImage.surroundImage(data_.getPerson(trainer.getImageMiniFileName()));
         imageMiniSecond = ConverterBufferedImage.surroundImage(data_.getPerson(trainer.getImageMiniSecondTrainerFileName()));
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getImageMini() {
+        return imageMini;
+    }
+
+    public String getImageMiniSecond() {
+        return imageMiniSecond;
+    }
+
+    public String getPageAlly() {
+        return pageAlly;
+    }
+
+    public Ally getAlly() {
+        return ally;
+    }
+
+    public String getPageTeam() {
+        return pageTeam;
+    }
+
+    public TempTrainer getTrainer() {
+        return trainer;
     }
 }

@@ -1,14 +1,4 @@
 package aiki.beans.game;
-import code.bean.Accessible;
-import code.bean.Bean;
-import code.images.ConverterBufferedImage;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
@@ -20,69 +10,36 @@ import aiki.game.UsesOfMove;
 import aiki.game.fight.Fighter;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
+import code.bean.Bean;
+import code.images.ConverterBufferedImage;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class PokemonPlayerBean extends Bean {
-
-    @Accessible
     private String name;
-
-    @Accessible
     private String image;
-
-    @Accessible
     private short level;
-
-    @Accessible
     private String gender;
-
-    @Accessible
     private String ability;
-
-    @Accessible
     private String item;
-
-    @Accessible
     private Rate remainingHp;
-
-    @Accessible
     private String remainingHpPerCent;
-
-    @Accessible
     private Rate fullHp;
-
-    @Accessible
     private StringList types;
-
-    @Accessible
     private StringList status;
-
-    /**nickname du pokemon par defaut le nom du pokemon*/
-    @Accessible
     private String nickname;
-
-    @Accessible
     private NatTreeMap<String,UsesOfMove> moves;
-
-    @Accessible
     private CustList<StatisticInfoPkPlayer> statistics;
-
-    /**Points d'experience gagnes depuis la derniere montee de niveau*/
-    @Accessible
     private Rate wonExpSinceLastLevel;
-
-    @Accessible
     private Rate necessaryPointsNextLevel;
-
-    @Accessible
     private short happiness;
-
-    @Accessible
     private String usedBallCatching;
-
-    @Accessible
     private short nbStepsTeamLead;
-
-    @Accessible
     private TreeMap<String,String> evolutions;
 
     @Override
@@ -172,9 +129,7 @@ public class PokemonPlayerBean extends Bean {
         status = status_;
         nbStepsTeamLead = pkPlayer_.getNbStepsTeamLead();
     }
-
-    @Accessible
-    private String getEvo(Long _index) {
+    public String getEvo(Long _index) {
         String evo_ = evolutions.getKey(_index.intValue());
         FacadeGame facadeGame_ = (FacadeGame) getDataBase();
         DataBase data_ = facadeGame_.getData();
@@ -198,5 +153,85 @@ public class PokemonPlayerBean extends Bean {
         Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
         diff_.removeNb(wonExpSinceLastLevel);
         return diff_;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public TreeMap<String,String> getEvolutions() {
+        return evolutions;
+    }
+
+    public short getLevel() {
+        return level;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getAbility() {
+        return ability;
+    }
+
+    public String getUsedBallCatching() {
+        return usedBallCatching;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public Rate getRemainingHp() {
+        return remainingHp;
+    }
+
+    public String getRemainingHpPerCent() {
+        return remainingHpPerCent;
+    }
+
+    public Rate getFullHp() {
+        return fullHp;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public Rate getWonExpSinceLastLevel() {
+        return wonExpSinceLastLevel;
+    }
+
+    public Rate getNecessaryPointsNextLevel() {
+        return necessaryPointsNextLevel;
+    }
+
+    public short getHappiness() {
+        return happiness;
+    }
+
+    public short getNbStepsTeamLead() {
+        return nbStepsTeamLead;
+    }
+
+    public StringList getTypes() {
+        return types;
+    }
+
+    public StringList getStatus() {
+        return status;
+    }
+
+    public NatTreeMap<String,UsesOfMove> getMoves() {
+        return moves;
+    }
+
+    public CustList<StatisticInfoPkPlayer> getStatistics() {
+        return statistics;
     }
 }

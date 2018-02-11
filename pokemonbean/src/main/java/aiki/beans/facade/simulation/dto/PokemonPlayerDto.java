@@ -1,19 +1,14 @@
 package aiki.beans.facade.simulation.dto;
-import code.bean.Accessible;
-import code.util.StringList;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.WildPk;
+import code.util.StringList;
 
 public final class PokemonPlayerDto {
 
     private Pokemon pokemon = new WildPk();
 
     private StringList moves = new StringList();
-
-    @Accessible
     private boolean selected;
-
-    @Accessible
     private int index;
 
     public Pokemon getPokemon() {

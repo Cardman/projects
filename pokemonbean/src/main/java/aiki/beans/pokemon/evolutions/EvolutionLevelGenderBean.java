@@ -1,14 +1,11 @@
 package aiki.beans.pokemon.evolutions;
-import code.bean.Accessible;
-import code.util.EnumMap;
 import aiki.DataBase;
 import aiki.fight.pokemon.evolution.EvolutionLevelGender;
 import aiki.map.pokemon.enums.Gender;
+import code.util.EnumMap;
 
 
 public class EvolutionLevelGenderBean extends EvolutionLevelBean {
-
-    @Accessible
     private String gender;
 
     @Override
@@ -19,5 +16,9 @@ public class EvolutionLevelGenderBean extends EvolutionLevelBean {
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         EvolutionLevelGender evo_ = (EvolutionLevelGender) getEvo();
         gender = translationsGenders_.getVal(evo_.getGender());
+    }
+
+    public String getGender() {
+        return gender;
     }
 }

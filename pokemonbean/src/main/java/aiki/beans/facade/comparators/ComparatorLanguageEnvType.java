@@ -1,15 +1,15 @@
 package aiki.beans.facade.comparators;
 import java.util.Comparator;
 
+import aiki.DataBase;
+import aiki.beans.help.LanguageElementKey;
+import aiki.map.levels.enums.EnvironmentType;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import aiki.DataBase;
-import aiki.beans.help.LanguageElementKey;
-import aiki.map.levels.enums.EnvironmentType;
 
 public final class ComparatorLanguageEnvType implements Comparator<LanguageElementKey> {
 

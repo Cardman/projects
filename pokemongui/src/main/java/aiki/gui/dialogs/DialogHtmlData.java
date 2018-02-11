@@ -11,6 +11,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
+import aiki.beans.PokemonStandards;
 import code.gui.Dialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
@@ -125,7 +126,7 @@ public final class DialogHtmlData extends Dialog {
 //    }
     public void initSession() {
         session.setFrame(this);
-        session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PK);
+        session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PK, new PokemonStandards());
 //        try {
 //            session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PK);
 //        } catch (Throwable _0) {

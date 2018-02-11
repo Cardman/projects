@@ -1,9 +1,4 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringEnv;
 import aiki.comparators.ComparatorTrStrings;
@@ -14,23 +9,19 @@ import aiki.fight.moves.effects.EffectSwitchTypes;
 import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.map.levels.enums.EnvironmentType;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class EffectSwitchTypesBean extends EffectBean {
-
-    @Accessible
     private TreeMap<EnvironmentType, String> chgtTypeByEnv;
-
-    @Accessible
     private StringList globalMoves;
 
     private ConstValuesType constValuesType;
 
     private ExchangeType exchangeTypes;
-
-    @Accessible
     private StringList constTypes;
-
-    @Accessible
     private StringList addedTypes;
 
     @Override
@@ -84,78 +75,70 @@ public class EffectSwitchTypesBean extends EffectBean {
         addedTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
         addedTypes = addedTypes_;
     }
-
-    @Accessible
-    private boolean isConstTypes() {
+    public boolean isConstTypes() {
         return constValuesType != ConstValuesType.NOTHING;
     }
-
-    @Accessible
-    private boolean isResTypes() {
+    public boolean isResTypes() {
         return constValuesType == ConstValuesType.TYPES_ATTAQUES_RES;
     }
-
-    @Accessible
-    private boolean isUserTypes() {
+    public boolean isUserTypes() {
         return constValuesType == ConstValuesType.LANCEUR_ATTAQUES_TYPES;
     }
-
-    @Accessible
-    private String getTrEnv(Long _index) {
+    public String getTrEnv(Long _index) {
         EnvironmentType env_ = chgtTypeByEnv.getKey(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<EnvironmentType,String> translatedTypes_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         return translatedTypes_.getVal(env_);
     }
-
-    @Accessible
-    private String getTrGlobalMoveFctEnv(Long _index) {
+    public String getTrGlobalMoveFctEnv(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = globalMoves.get(_index.intValue());
         return translatedMoves_.getVal(st_);
     }
-
-    @Accessible
-    private String clickGlobalMoveFctEnv(Long _index) {
+    public String clickGlobalMoveFctEnv(Long _index) {
         String st_ = globalMoves.get(_index.intValue());
         getForms().put(MOVE, st_);
         return MOVE;
     }
-
-    @Accessible
-    private boolean giveToTarget() {
+    public boolean giveToTarget() {
         return exchangeTypes == ExchangeType.GIVE_TO_TARGET;
     }
-
-    @Accessible
-    private boolean giveToUser() {
+    public boolean giveToUser() {
         return exchangeTypes == ExchangeType.GIVE_TO_THROWER;
     }
-
-    @Accessible
-    private boolean giveConst() {
+    public boolean giveConst() {
         return exchangeTypes == ExchangeType.GIVE_CONST;
     }
-
-    @Accessible
-    private boolean switchTypes() {
+    public boolean switchTypes() {
         return exchangeTypes == ExchangeType.EXCHANGE;
     }
-
-    @Accessible
-    private String getTrConstType(Long _index) {
+    public String getTrConstType(Long _index) {
         String type_ = constTypes.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
-
-    @Accessible
-    private String getTrAddedType(Long _index) {
+    public String getTrAddedType(Long _index) {
         String type_ = addedTypes.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
+    }
+
+    public TreeMap<EnvironmentType,String> getChgtTypeByEnv() {
+        return chgtTypeByEnv;
+    }
+
+    public StringList getGlobalMoves() {
+        return globalMoves;
+    }
+
+    public StringList getAddedTypes() {
+        return addedTypes;
+    }
+
+    public StringList getConstTypes() {
+        return constTypes;
     }
 }

@@ -1,20 +1,13 @@
 package aiki.beans.moves.effects;
-import code.bean.Accessible;
-import code.util.NatTreeMap;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.fight.moves.effects.EffectEndRound;
+import code.util.NatTreeMap;
+import code.util.StringList;
 
 public class EffectEndRoundMoveBean extends EffectBean {
-
-    @Accessible
     private int endRoundRank;
-
-    @Accessible
     private StringList reasonsEndRound;
-
-    @Accessible
     private NatTreeMap<String,String> mapVarsFailEndRound;
 
     @Override
@@ -55,5 +48,17 @@ public class EffectEndRoundMoveBean extends EffectBean {
     private StringList getFailEndRoundReasons() {
         EffectEndRound effect_ = (EffectEndRound) getEffect();
         return getReasons(effect_.getFailEndRound());
+    }
+
+    public int getEndRoundRank() {
+        return endRoundRank;
+    }
+
+    public StringList getReasonsEndRound() {
+        return reasonsEndRound;
+    }
+
+    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+        return mapVarsFailEndRound;
     }
 }

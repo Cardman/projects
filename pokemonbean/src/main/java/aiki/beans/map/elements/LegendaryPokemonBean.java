@@ -1,9 +1,4 @@
 package aiki.beans.map.elements;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
@@ -24,82 +19,66 @@ import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
+import code.images.ConverterBufferedImage;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class LegendaryPokemonBean extends CommonBean {
-
-    @Accessible
     private Pokemon pokemon;
 
     @Override
     public void beforeDisplaying() {
         pokemon = (Pokemon) getForms().getVal(LEG_PK);
     }
-
-    @Accessible
-    private String getImage() {
+    public String getImage() {
         DataBase data_ = (DataBase) getDataBase();
         String name_ = pokemon.getName();
         return ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
-
-    @Accessible
-    private String getName() {
+    public String getName() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String name_ = pokemon.getName();
         return translationsPokemon_.getVal(name_);
     }
-
-    @Accessible
-    private String clickName() {
+    public String clickName() {
         String name_ = pokemon.getName();
         getForms().put(PK, name_);
         return POKEMON;
     }
-
-    @Accessible
-    private short getLevel() {
+    public short getLevel() {
         return pokemon.getLevel();
     }
-
-    @Accessible
-    private String getGender() {
+    public String getGender() {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Gender gender_ = pokemon.getGender();
         return translationsGenders_.getVal(gender_);
     }
-
-    @Accessible
-    private String getAbility() {
+    public String getAbility() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         String ability_ = pokemon.getAbility();
         return translationsAbilities_.getVal(ability_);
     }
-
-    @Accessible
-    private String clickAbility() {
+    public String clickAbility() {
         String ability_ = pokemon.getAbility();
         getForms().put(ABILITY, ability_);
         return ABILITY;
     }
-
-    @Accessible
-    private String getItem() {
+    public String getItem() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         String item_ = pokemon.getItem();
         return translationsItems_.getVal(item_);
     }
-
-    @Accessible
-    private String clickItem() {
+    public String clickItem() {
         DataBase data_ = (DataBase) getDataBase();
         String item_ = pokemon.getItem();
         getForms().put(ITEM, item_);
@@ -148,30 +127,28 @@ public class LegendaryPokemonBean extends CommonBean {
         }
         return ITEM;
     }
-
-    @Accessible
-    private String getMove(Long _moveIndex) {
+    public String getMove(Long _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = getMovesAtLevel().get(_moveIndex.intValue());
         return translationsMoves_.getVal(move_);
     }
-
-    @Accessible
-    private String clickMove(Long _moveIndex) {
+    public String clickMove(Long _moveIndex) {
         String move_ = getMovesAtLevel().get(_moveIndex.intValue());
         getForms().put(MOVE, move_);
         return MOVE;
     }
-
-    @Accessible
-    private StringList getMovesAtLevel() {
+    public StringList getMovesAtLevel() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_ = data_.getPokemon(pokemon.getName()).getMovesAtLevel(pokemon.getLevel(), data_.getNbMaxMoves());
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
         return moves_;
+    }
+
+    public Pokemon getPokemon() {
+        return pokemon;
     }
 }

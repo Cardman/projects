@@ -1,32 +1,19 @@
 package aiki.beans.fight;
-import code.bean.Accessible;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.NatTreeMap;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.NatTreeMap;
+import code.util.StringMap;
 
 public class FightBean extends CommonFightBean {
-
-    @Accessible
     private byte mult;
-
-    @Accessible
     private NatTreeMap<String,ActivityOfMove> enabledMoves;
-
-    @Accessible
     private NatTreeMap<String,Boolean> stillEnabledMoves;
-
-    @Accessible
     private short nbFleeAttempt;
-
-    @Accessible
     private LgInt nbRounds;
-
-    @Accessible
     private Rate winningMoney;
 
     @Override
@@ -53,22 +40,36 @@ public class FightBean extends CommonFightBean {
         }
         stillEnabledMoves = stillEnabledMoves_;
     }
-
-    @Accessible
-    private boolean isStillEnabled(Long _index) {
+    public boolean isStillEnabled(Long _index) {
         String key_ = enabledMoves.getKey(_index.intValue());
         return stillEnabledMoves.contains(key_);
     }
-
-    @Accessible
-    private String clickPlayer() {
+    public String clickPlayer() {
         getForms().put(NO_TEAM, Fight.PLAYER);
         return TEAM;
     }
-
-    @Accessible
-    private String clickFoe() {
+    public String clickFoe() {
         getForms().put(NO_TEAM, Fight.FOE);
         return TEAM;
+    }
+
+    public byte getMult() {
+        return mult;
+    }
+
+    public LgInt getNbRounds() {
+        return nbRounds;
+    }
+
+    public short getNbFleeAttempt() {
+        return nbFleeAttempt;
+    }
+
+    public Rate getWinningMoney() {
+        return winningMoney;
+    }
+
+    public NatTreeMap<String,ActivityOfMove> getEnabledMoves() {
+        return enabledMoves;
     }
 }
