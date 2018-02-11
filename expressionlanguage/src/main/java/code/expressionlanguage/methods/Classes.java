@@ -997,7 +997,7 @@ public final class Classes {
                 return;
             }
         }
-        TypeUtil.buildInherits(_context, classesInheriting);
+        TypeUtil.buildInherits(_context, classesBodies.getKeys(), classesInheriting);
         LgNames stds_ = _context.getStandards();
         for (EntryCust<String, RootBlock> s: classesBodies.entryList()) {
             String c = s.getKey();

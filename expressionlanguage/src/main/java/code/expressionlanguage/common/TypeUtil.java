@@ -39,48 +39,30 @@ public final class TypeUtil {
     private TypeUtil() {
     }
 
-    public static void buildInherits(ContextEl _context, StringList _types) {
+    public static void buildInherits(ContextEl _context, StringList _types, StringList _inheritingClasses) {
         Classes classes_ = _context.getClasses();
         String objectClassName_ = _context.getStandards().getAliasObject();
         for (String c: _types) {
             GeneType dBl_ = _context.getClassBody(c);
-            StringList all_ = dBl_.getAllSuperClasses();
-            StringList direct_ = dBl_.getDirectSuperClasses(_context);
-            all_.addAllElts(direct_);
-            for (String b: direct_) {
-                if (StringList.quickEq(b, objectClassName_)) {
-                    continue;
-                }
-                GeneType bBl_ = _context.getClassBody(b);
-                all_.addAllElts(bBl_.getAllSuperClasses());
-            }
+            buildInherits(dBl_, _context);
         }
-        for (String c: _types) {
+        for (String c: _inheritingClasses) {
             GeneType bl_ = _context.getClassBody(c);
             if (!(bl_ instanceof GeneClass)) {
                 continue;
             }
-            StringList all_ = bl_.getAllInterfaces();
-            StringList direct_ = ((GeneClass) bl_).getDirectInterfaces(_context);
-            all_.addAllElts(direct_);
-            for (String i: direct_) {
-                GeneInterface i_ = (GeneInterface) _context.getClassBody(i);
-                all_.addAllElts(i_.getAllInterfaces());
-            }
             if (!(bl_ instanceof RootBlock)) {
                 continue;
             }
+            StringList all_ = bl_.getAllInterfaces();
             RootBlock cust_ = (RootBlock) bl_;
             StringList needed_ = new StringList();
             for (String s: cust_.getDirectSuperClasses(_context)) {
                 if (!StringList.quickEq(s, objectClassName_)) {
                     RootBlock super_ = classes_.getClassBody(s);
-                    all_.addAllElts(super_.getAllInterfaces());
                     needed_.addAllElts(super_.getAllSortedInterfaces());
                 }
             }
-            all_.removeAllObj(objectClassName_);
-            all_.removeDuplicates();
             cust_.getAllSortedInterfaces().addAllElts(classes_.getSortedSuperInterfaces(all_,_context));
             cust_.getAllNeededSortedInterfaces().addAllElts(cust_.getAllSortedInterfaces());
             cust_.getAllNeededSortedInterfaces().removeAllElements(needed_);
@@ -95,6 +77,73 @@ public final class TypeUtil {
             } else {
                 c.getAllSuperTypes().addAllElts(((GeneInterface)c).getAllSuperClasses());
             }
+        }
+    }
+    public static void buildInherits(GeneType _type,ContextEl _context) {
+        String typeName_ = _type.getFullName();
+        String aliasObject_ = _context.getStandards().getAliasObject();
+        if (_type instanceof GeneClass) {
+            GeneClass type_ = (GeneClass) _context.getClassBody(typeName_);
+            typeName_ = type_.getSuperClass(_context);
+            while (true) {
+                _type.getAllSuperClasses().add(typeName_);
+                if (StringList.quickEq(typeName_, aliasObject_)) {
+                    break;
+                }
+                type_ = (GeneClass) _context.getClassBody(typeName_);
+                typeName_ = type_.getSuperClass(_context);
+            }
+            typeName_ = _type.getFullName();
+            type_ = (GeneClass) _context.getClassBody(typeName_);
+            StringList allSuperInterfaces_ = new StringList(type_.getDirectInterfaces(_context));
+            StringList currentSuperInterfaces_ = new StringList(type_.getDirectInterfaces(_context));
+            for (String s: _type.getAllSuperClasses()) {
+                allSuperInterfaces_.addAllElts(((GeneClass)_context.getClassBody(s)).getDirectInterfaces(_context));
+                currentSuperInterfaces_.addAllElts(((GeneClass)_context.getClassBody(s)).getDirectInterfaces(_context));
+            }
+            while (true) {
+                StringList newSuperInterfaces_ = new StringList();
+                for (String c: currentSuperInterfaces_) {
+                    if (StringList.quickEq(c, aliasObject_)) {
+                        continue;
+                    }
+                    GeneInterface superType_ = (GeneInterface) _context.getClassBody(c);
+                    for (String s: superType_.getDirectSuperClasses(_context)) {
+                        newSuperInterfaces_.add(s);
+                        allSuperInterfaces_.add(s);
+                    }
+                }
+                if (newSuperInterfaces_.isEmpty()) {
+                    break;
+                }
+                currentSuperInterfaces_ = newSuperInterfaces_;
+            }
+            allSuperInterfaces_.removeAllObj(aliasObject_);
+            allSuperInterfaces_.removeDuplicates();
+            type_.getAllInterfaces().addAllElts(allSuperInterfaces_);
+        } else {
+            GeneInterface type_ = (GeneInterface) _context.getClassBody(typeName_);
+            StringList allSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
+            StringList currentSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
+            while (true) {
+                StringList newSuperInterfaces_ = new StringList();
+                for (String c: currentSuperInterfaces_) {
+                    if (StringList.quickEq(c, aliasObject_)) {
+                        continue;
+                    }
+                    GeneInterface superType_ = (GeneInterface) _context.getClassBody(c);
+                    for (String s: superType_.getDirectSuperClasses(_context)) {
+                        newSuperInterfaces_.add(s);
+                        allSuperInterfaces_.add(s);
+                    }
+                }
+                if (newSuperInterfaces_.isEmpty()) {
+                    break;
+                }
+                currentSuperInterfaces_ = newSuperInterfaces_;
+            }
+            allSuperInterfaces_.removeDuplicates();
+            type_.getAllSuperClasses().addAllElts(allSuperInterfaces_);
         }
     }
     public static void buildOverrides(GeneType _type,ContextEl _context) {

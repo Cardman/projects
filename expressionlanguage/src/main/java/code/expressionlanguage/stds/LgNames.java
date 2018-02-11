@@ -927,34 +927,8 @@ public class LgNames {
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
-        StringList types_ = new StringList(standards.getKeys());
-        int len_ = types_.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            for (int j = i + 1; j < len_; j++) {
-                String typeOne_ = types_.get(i);
-                String typeTwo_ = types_.get(j);
-                boolean inheritOne_ = false;
-                String type_ = typeOne_;
-                while (!StringList.quickEq(type_, typeTwo_)) {
-                    StandardType st_ = standards.getVal(type_);
-                    if (!(st_ instanceof StandardClass)) {
-                        break;
-                    }
-                    StandardClass sc_ = (StandardClass) st_;
-                    type_ = sc_.getSuperClass();
-                    if (type_.isEmpty()) {
-                        break;
-                    }
-                }
-                if (StringList.quickEq(type_, typeTwo_)) {
-                    inheritOne_ = true;
-                }
-                if (inheritOne_) {
-                    types_.swapIndexes(i, j);
-                }
-            }
-        }
-        TypeUtil.buildInherits(_cont, types_);
+        StringList keys_ = standards.getKeys();
+        TypeUtil.buildInherits(_cont, keys_, keys_);
         for (StandardType t: standards.values()) {
             TypeUtil.buildOverrides(t, _cont);
         }
@@ -3545,39 +3519,6 @@ public class LgNames {
     }
     public String getOtherStructClassName(Object _struct, ContextEl _context) {
         return getAliasObject();
-    }
-    public String getClassName(Object _stds, Struct _from, ClassMethodId _method, ContextEl _context, Argument... _args) {
-        if (_stds instanceof Double) {
-            return getAliasDouble();
-        }
-        if (_stds instanceof Float) {
-            return getAliasFloat();
-        }
-        if (_stds instanceof Long) {
-            return getAliasLong();
-        }
-        if (_stds instanceof Integer) {
-            return getAliasInteger();
-        }
-        if (_stds instanceof Character) {
-            return getAliasCharacter();
-        }
-        if (_stds instanceof Short) {
-            return getAliasShort();
-        }
-        if (_stds instanceof Byte) {
-            return getAliasByte();
-        }
-        if (_stds instanceof String) {
-            return getAliasString();
-        }
-        if (_stds instanceof StringBuilder) {
-            return getAliasStringBuilder();
-        }
-        return getOtherClassName(_stds, _from, _method, _context, _args);
-    }
-    public String getOtherClassName(Object _stds, Struct _from, ClassMethodId _method, ContextEl _context, Argument... _args) {
-        return EMPTY_STRING;
     }
     public StringMap<StandardType> getStandards() {
         return standards;

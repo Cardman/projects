@@ -362,6 +362,15 @@ final class ExtractObject {
         classNameForName(_conf, _offest, _className);
     }
     static void classNameForName(Configuration _conf, int _offest, String _className) {
+        if (_conf.toContextEl().getClasses() != null) {
+            if (_conf.getStandards().getStandards().contains(_className)) {
+                return;
+            }
+            if (PrimitiveTypeUtil.isPrimitive(_className, _conf.toContextEl())) {
+                return;
+            }
+            throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_conf.joinPages()));
+        }
         if (_conf.getStandards().getStandards().contains(_className)) {
             return;
         }

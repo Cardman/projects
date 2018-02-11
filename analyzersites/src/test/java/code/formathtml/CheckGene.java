@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import aiki.beans.validators.PositiveRateValidator;
@@ -149,6 +150,7 @@ public class CheckGene {
             System.out.println(e);
         }
     }
+    @Ignore
     @Test
     public void readSrcFiles() {
         String absolute = System.getProperty("absolute");

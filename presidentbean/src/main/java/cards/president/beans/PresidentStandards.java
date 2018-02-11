@@ -19,6 +19,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanStruct;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -26,8 +27,28 @@ import code.util.StringMap;
 
 public final class PresidentStandards extends BeanLgNames {
 
+    private static final String SAME_AMOUNT = "sameAmount";
+    private static final String NB_CARDS_PER_PLAYER_MAX = "nbCardsPerPlayerMax";
+    private static final String NB_CARDS_PER_PLAYER_MIN = "nbCardsPerPlayerMin";
+    private static final String NB_STACKS = "nbStacks";
+    private static final String NB_PLAYERS = "nbPlayers";
+    private static final String LOOSER_STARTS_FIRST = "looserStartsFirst";
+    private static final String SWITCH_CARDS = "switchCards";
+    private static final String LOOSING_IF_FINISH_BY_BEST_CARDS = "loosingIfFinishByBestCards";
+    private static final String HAS_TO_PLAY = "hasToPlay";
+    private static final String POSSIBLE_REVERSING = "possibleReversing";
+    private static final String EQUALTY = "equalty";
+    private static final String CARTES_BATTUES = "cartesBattues";
+    private static final String SCORES = "scores";
+    private static final String NUMBER = "number";
+    private static final String LINES_DEAL = "linesDeal";
+    private static final String NICKNAMES = "nicknames";
+    private static final String TYPE_RULES_PRESIDENT = "RulesPresident";
+    private static final String TYPE_RESULTS_PRESIDENT = "ResultsPresident";
+    private static final String TYPE_RULES_PRESIDENT_BEAN = "cards.president.beans.RulesPresidentBean";
+    private static final String TYPE_LINE_DEAL = "cards.president.beans.LineDeal";
+    private static final String TYPE_PRESIDENT_BEAN = "cards.president.beans.PresidentBean";
     public PresidentStandards() {
-        setSelectedBoolean("sb");
         DefaultInitialization.basicStandards(this);
     }
     @Override
@@ -45,61 +66,61 @@ public final class PresidentStandards extends BeanLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass("cards.president.beans.PresidentBean", fields_, constructors_, methods_, "code.bean.Bean", MethodModifier.FINAL);
-        fields_.put("nicknames", new StandardField("nicknames", getCustList(), false, false, std_));
-        fields_.put("linesDeal", new StandardField("linesDeal", getCustList(), false, false, std_));
-        getStandards().put("cards.president.beans.PresidentBean", std_);
+        std_ = new StandardClass(TYPE_PRESIDENT_BEAN, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        fields_.put(NICKNAMES, new StandardField(NICKNAMES, getCustList(), false, false, std_));
+        fields_.put(LINES_DEAL, new StandardField(LINES_DEAL, getCustList(), false, false, std_));
+        getStandards().put(TYPE_PRESIDENT_BEAN, std_);
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass("cards.president.beans.LineDeal", fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        fields_.put("number", new StandardField("number", getAliasPrimInteger(), false, false, std_));
-        fields_.put("scores", new StandardField("scores", getCustList(), false, false, std_));
-        getStandards().put("cards.president.beans.LineDeal", std_);
+        std_ = new StandardClass(TYPE_LINE_DEAL, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        fields_.put(NUMBER, new StandardField(NUMBER, getAliasPrimInteger(), false, false, std_));
+        fields_.put(SCORES, new StandardField(SCORES, getCustList(), false, false, std_));
+        getStandards().put(TYPE_LINE_DEAL, std_);
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass("cards.president.beans.RulesPresidentBean", fields_, constructors_, methods_, "code.bean.Bean", MethodModifier.FINAL);
-        fields_.put("cartesBattues", new StandardField("cartesBattues", getAliasString(), false, false, std_));
-        fields_.put("equalty", new StandardField("equalty", getAliasString(), false, false, std_));
-        fields_.put("possibleReversing", new StandardField("possibleReversing", getAliasPrimBoolean(), false, false, std_));
-        fields_.put("hasToPlay", new StandardField("hasToPlay", getAliasPrimBoolean(), false, false, std_));
-        fields_.put("loosingIfFinishByBestCards", new StandardField("loosingIfFinishByBestCards", getAliasPrimBoolean(), false, false, std_));
-        fields_.put("switchCards", new StandardField("switchCards", getAliasPrimBoolean(), false, false, std_));
-        fields_.put("looserStartsFirst", new StandardField("looserStartsFirst", getAliasPrimBoolean(), false, false, std_));
-        fields_.put("nbPlayers", new StandardField("nbPlayers", getAliasPrimInteger(), false, false, std_));
-        fields_.put("nbStacks", new StandardField("nbStacks", getAliasPrimInteger(), false, false, std_));
-        fields_.put("nbCardsPerPlayerMin", new StandardField("nbCardsPerPlayerMin", getAliasPrimByte(), false, false, std_));
-        fields_.put("nbCardsPerPlayerMax", new StandardField("nbCardsPerPlayerMax", getAliasPrimByte(), false, false, std_));
+        std_ = new StandardClass(TYPE_RULES_PRESIDENT_BEAN, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        fields_.put(CARTES_BATTUES, new StandardField(CARTES_BATTUES, getAliasString(), false, false, std_));
+        fields_.put(EQUALTY, new StandardField(EQUALTY, getAliasString(), false, false, std_));
+        fields_.put(POSSIBLE_REVERSING, new StandardField(POSSIBLE_REVERSING, getAliasPrimBoolean(), false, false, std_));
+        fields_.put(HAS_TO_PLAY, new StandardField(HAS_TO_PLAY, getAliasPrimBoolean(), false, false, std_));
+        fields_.put(LOOSING_IF_FINISH_BY_BEST_CARDS, new StandardField(LOOSING_IF_FINISH_BY_BEST_CARDS, getAliasPrimBoolean(), false, false, std_));
+        fields_.put(SWITCH_CARDS, new StandardField(SWITCH_CARDS, getAliasPrimBoolean(), false, false, std_));
+        fields_.put(LOOSER_STARTS_FIRST, new StandardField(LOOSER_STARTS_FIRST, getAliasPrimBoolean(), false, false, std_));
+        fields_.put(NB_PLAYERS, new StandardField(NB_PLAYERS, getAliasPrimInteger(), false, false, std_));
+        fields_.put(NB_STACKS, new StandardField(NB_STACKS, getAliasPrimInteger(), false, false, std_));
+        fields_.put(NB_CARDS_PER_PLAYER_MIN, new StandardField(NB_CARDS_PER_PLAYER_MIN, getAliasPrimByte(), false, false, std_));
+        fields_.put(NB_CARDS_PER_PLAYER_MAX, new StandardField(NB_CARDS_PER_PLAYER_MAX, getAliasPrimByte(), false, false, std_));
         params_ = new StringList();
-        method_ = new StandardMethod("sameAmount", params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(SAME_AMOUNT, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
-        getStandards().put("cards.president.beans.RulesPresidentBean", std_);
+        getStandards().put(TYPE_RULES_PRESIDENT_BEAN, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        std_ = new StandardClass("ResultsPresident", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        getStandards().put("ResultsPresident", std_);
+        std_ = new StandardClass(TYPE_RESULTS_PRESIDENT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        getStandards().put(TYPE_RESULTS_PRESIDENT, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        std_ = new StandardClass("RulesPresident", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        getStandards().put("RulesPresident", std_);
+        std_ = new StandardClass(TYPE_RULES_PRESIDENT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        getStandards().put(TYPE_RULES_PRESIDENT, std_);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(_method.getName(), "cards.president.beans.PresidentBean")) {
+        if (StringList.quickEq(_method.getName(), TYPE_PRESIDENT_BEAN)) {
             PresidentBean details_ = new PresidentBean();
-            details_.setClassName("cards.president.beans.PresidentBean");
-            res_.setResult(new StdStruct(details_, "cards.president.beans.PresidentBean"));
+            details_.setClassName(TYPE_PRESIDENT_BEAN);
+            res_.setResult(new BeanStruct(details_));
             return res_;
         }
-        if (StringList.quickEq(_method.getName(), "cards.president.beans.RulesPresidentBean")) {
+        if (StringList.quickEq(_method.getName(), TYPE_RULES_PRESIDENT_BEAN)) {
             RulesPresidentBean details_ = new RulesPresidentBean();
-            details_.setClassName("cards.president.beans.RulesPresidentBean");
-            res_.setResult(new StdStruct(details_, "cards.president.beans.RulesPresidentBean"));
+            details_.setClassName(TYPE_RULES_PRESIDENT_BEAN);
+            res_.setResult(new BeanStruct(details_));
             return res_;
         }
         return super.getOtherResult(_cont, _method, _args);
@@ -108,68 +129,68 @@ public final class PresidentStandards extends BeanLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (_instance.getInstance() instanceof PresidentBean) {
-            if (StringList.quickEq(_classField.getFieldName(), "nicknames")) {
+            if (StringList.quickEq(_classField.getFieldName(), NICKNAMES)) {
                 res_.setResult(new StdStruct(((PresidentBean)_instance.getInstance()).getNicknames(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "linesDeal")) {
+            if (StringList.quickEq(_classField.getFieldName(), LINES_DEAL)) {
                 res_.setResult(new StdStruct(((PresidentBean)_instance.getInstance()).getLinesDeal(), getCustList()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof LineDeal) {
-            if (StringList.quickEq(_classField.getFieldName(), "scores")) {
+            if (StringList.quickEq(_classField.getFieldName(), SCORES)) {
                 res_.setResult(new StdStruct(((LineDeal)_instance.getInstance()).getScores(), getCustList()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "number")) {
+            if (StringList.quickEq(_classField.getFieldName(), NUMBER)) {
                 res_.setResult(new IntStruct(((LineDeal)_instance.getInstance()).getNumber()));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof RulesPresidentBean) {
             RulesPresidentBean rules_ = (RulesPresidentBean) _instance.getInstance();
-            if (StringList.quickEq(_classField.getFieldName(), "nbPlayers")) {
+            if (StringList.quickEq(_classField.getFieldName(), NB_PLAYERS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "nbStacks")) {
+            if (StringList.quickEq(_classField.getFieldName(), NB_STACKS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "nbCardsPerPlayerMin")) {
+            if (StringList.quickEq(_classField.getFieldName(), NB_CARDS_PER_PLAYER_MIN)) {
                 res_.setResult(new ByteStruct(rules_.getNbCardsPerPlayerMin()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "nbCardsPerPlayerMax")) {
+            if (StringList.quickEq(_classField.getFieldName(), NB_CARDS_PER_PLAYER_MAX)) {
                 res_.setResult(new ByteStruct(rules_.getNbCardsPerPlayerMax()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "cartesBattues")) {
+            if (StringList.quickEq(_classField.getFieldName(), CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(rules_.getCartesBattues()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "equalty")) {
+            if (StringList.quickEq(_classField.getFieldName(), EQUALTY)) {
                 res_.setResult(new StringStruct(rules_.getEqualty()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "possibleReversing")) {
+            if (StringList.quickEq(_classField.getFieldName(), POSSIBLE_REVERSING)) {
                 res_.setResult(new BooleanStruct(rules_.isPossibleReversing()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "hasToPlay")) {
+            if (StringList.quickEq(_classField.getFieldName(), HAS_TO_PLAY)) {
                 res_.setResult(new BooleanStruct(rules_.isHasToPlay()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "loosingIfFinishByBestCards")) {
+            if (StringList.quickEq(_classField.getFieldName(), LOOSING_IF_FINISH_BY_BEST_CARDS)) {
                 res_.setResult(new BooleanStruct(rules_.isLoosingIfFinishByBestCards()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "switchCards")) {
+            if (StringList.quickEq(_classField.getFieldName(), SWITCH_CARDS)) {
                 res_.setResult(new BooleanStruct(rules_.isSwitchCards()));
                 return res_;
             }
-            if (StringList.quickEq(_classField.getFieldName(), "looserStartsFirst")) {
+            if (StringList.quickEq(_classField.getFieldName(), LOOSER_STARTS_FIRST)) {
                 res_.setResult(new BooleanStruct(rules_.isLooserStartsFirst()));
                 return res_;
             }
@@ -181,7 +202,7 @@ public final class PresidentStandards extends BeanLgNames {
             ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (_instance.getInstance() instanceof RulesPresidentBean) {
-            if (StringList.quickEq(_method.getConstraints().getName(), "sameAmount")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
                 res_.setResult(new BooleanStruct(((RulesPresidentBean)_instance.getInstance()).sameAmount()));
                 return res_;
             }
@@ -191,7 +212,7 @@ public final class PresidentStandards extends BeanLgNames {
     @Override
     public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
         if (_struct instanceof LineDeal) {
-            return "cards.president.beans.LineDeal";
+            return TYPE_LINE_DEAL;
         }
         return getAliasObject();
     }
