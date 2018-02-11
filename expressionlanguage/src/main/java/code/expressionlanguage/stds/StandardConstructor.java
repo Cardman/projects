@@ -11,7 +11,7 @@ public final class StandardConstructor extends StandardNamedFunction implements 
 
     private static final String DEFAULT_NAME = "";
 
-    protected StandardConstructor(StringList _parametersTypes, boolean _varargs, StandardType _type) {
+    public StandardConstructor(StringList _parametersTypes, boolean _varargs, StandardType _type) {
         super(DEFAULT_NAME, _parametersTypes, DEFAULT_NAME, _varargs, _type);
     }
 

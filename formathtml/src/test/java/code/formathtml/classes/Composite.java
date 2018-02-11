@@ -41,8 +41,7 @@ public class Composite implements Displayable {
         this(0);
     }
 
-    @Accessible
-    private Composite(String _string) {
+    public Composite(String _string) {
         string = _string;
     }
 
@@ -148,8 +147,7 @@ public class Composite implements Displayable {
         map = _map;
     }
 
-    @Accessible
-    private StringList keys() {
+    public StringList keys() {
         StringList list_ = new StringList(map.getKeys());
         list_.sort();
         return list_;
@@ -163,8 +161,7 @@ public class Composite implements Displayable {
         myMap = _myMap;
     }
 
-    @Accessible
-    String internMethod() {
+    public String internMethod() {
         return "sample";
     }
 
@@ -183,5 +180,25 @@ public class Composite implements Displayable {
     @Override
     public String display() {
         return new StringBuilder().append(integer).append(",").append(privateInt).append(",").append(strings.display()).append(",").append(tree).append(",").append(map).append(",").append(myMap).toString();
+    }
+
+    public char getMyChar() {
+        return myChar;
+    }
+
+    public void setMyChar(char _myChar) {
+        myChar = _myChar;
+    }
+
+    public boolean isDisplayed() {
+        return displayed;
+    }
+
+    public void setDisplayed(boolean _displayed) {
+        displayed = _displayed;
+    }
+
+    public void setChanging(ValueChangeEvent _changing) {
+        changing = _changing;
     }
 }

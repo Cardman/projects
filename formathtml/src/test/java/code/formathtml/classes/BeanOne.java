@@ -122,8 +122,7 @@ public class BeanOne extends Bean {
         changing = _changing;
     }
 
-    @Accessible
-    String invokeMethod(Long _index) {
+    public String invokeMethod(Long _index) {
         composite.getStrings().add(_index.toString());
         return "returned value";
     }
@@ -140,27 +139,23 @@ public class BeanOne extends Bean {
         return map;
     }
 
-    @Accessible
-    StringList getKeys() {
+    public StringList getKeys() {
         StringList list_ = new StringList(map.getKeys());
         list_.sort();
         return list_;
     }
 
-    @Accessible
-    int getDouble(Long _index) {
+    public int getDouble(Long _index) {
         return 2 * _index.intValue();
     }
 
-    @Accessible
-    Numbers<Integer> getList(Long _index) {
+    public Numbers<Integer> getList(Long _index) {
         if (_index >= numbers.size()) {
             return numbers.getValue(numbers.size() - 1);
         }
         return numbers.getValue(_index.intValue());
     }
 
-    @Accessible
     public EnumNumber getDefaultChoice() {
         if (chosenNumber == null) {
             return EnumNumber.THREE;
@@ -168,18 +163,99 @@ public class BeanOne extends Bean {
         return EnumNumber.values()[EnumNumber.values().length - chosenNumber.ordinal() - 1];
     }
 
-    @Accessible
-    String goToPage() {
+    public String goToPage() {
         return "page";
     }
 
-    @Accessible
-    String goToNullPage() {
+    public String goToNullPage() {
         return null;
     }
 
-    @Accessible
-    String goToPage(Long _index) {
+    public String goToPage(Long _index) {
         return StringList.concatNbs("page",_index);
+    }
+
+    public EnumNumbers getCombobox() {
+        return combobox;
+    }
+
+    public void setCombobox(EnumNumbers _combobox) {
+        combobox = _combobox;
+    }
+
+    public NatTreeMap<EnumNumber, String> getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(NatTreeMap<EnumNumber, String> _translations) {
+        translations = _translations;
+    }
+
+    public NatTreeMap<String, Numbers<Integer>> getNumbers() {
+        return numbers;
+    }
+
+    public void setNumbers(NatTreeMap<String, Numbers<Integer>> _numbers) {
+        numbers = _numbers;
+    }
+
+    public EnumNumber getChosenNumber() {
+        return chosenNumber;
+    }
+
+    public void setChosenNumber(EnumNumber _chosenNumber) {
+        chosenNumber = _chosenNumber;
+    }
+
+    public EnumNumbers getChosenNumbers() {
+        return chosenNumbers;
+    }
+
+    public void setChosenNumbers(EnumNumbers _chosenNumbers) {
+        chosenNumbers = _chosenNumbers;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String _message) {
+        message = _message;
+    }
+
+    public String getSelectedString() {
+        return selectedString;
+    }
+
+    public void setSelectedString(String _selectedString) {
+        selectedString = _selectedString;
+    }
+
+    public String getCommonClass() {
+        return commonClass;
+    }
+
+    public void setCommonClass(String _commonClass) {
+        commonClass = _commonClass;
+    }
+
+    public void setChanging(ValueChangeEvent _changing) {
+        changing = _changing;
+    }
+
+    public void setTree(NatTreeMap<String, Integer> _tree) {
+        tree = _tree;
+    }
+
+    public void setMap(StringMap<Integer> _map) {
+        map = _map;
+    }
+
+    public void setComposites(CustList<Composite> _composites) {
+        composites = _composites;
+    }
+
+    public void setStrings(StringList _strings) {
+        strings = _strings;
     }
 }

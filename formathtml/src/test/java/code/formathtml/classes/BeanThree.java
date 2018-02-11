@@ -61,4 +61,12 @@ public class BeanThree extends Bean {
     public void setIndexTwo(int _indexTwo) {
         indexTwo = _indexTwo;
     }
+
+    public void setNumbers(Numbers<Integer> _numbers) {
+        numbers = _numbers;
+    }
+
+    public void setNumbersTwo(Numbers<Integer> _numbersTwo) {
+        numbersTwo = _numbersTwo;
+    }
 }

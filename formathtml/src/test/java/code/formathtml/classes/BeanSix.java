@@ -28,4 +28,16 @@ public class BeanSix extends Bean {
     public EnumNumber getMyEnumThree() {
         return myEnumThree;
     }
+
+    public void setMyEnumOne(EnumNumber _myEnumOne) {
+        myEnumOne = _myEnumOne;
+    }
+
+    public void setMyEnumTwo(EnumNumber _myEnumTwo) {
+        myEnumTwo = _myEnumTwo;
+    }
+
+    public void setMyEnumThree(EnumNumber _myEnumThree) {
+        myEnumThree = _myEnumThree;
+    }
 }

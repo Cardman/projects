@@ -19,18 +19,15 @@ public class BeanFour extends Bean {
         return invisibleField;
     }
 
-    @Accessible
-    private void setInvisibleField(Integer _invisibleField) {
+    public void setInvisibleField(Integer _invisibleField) {
         invisibleField = _invisibleField;
     }
 
-    @Accessible
-    private void setInvisibleIntField(int _invisibleField) {
+    public void setInvisibleIntField(int _invisibleField) {
         invisibleField = _invisibleField;
     }
 
-    @Accessible
-    private void setter(String _invisibleField) {
+    public void setter(String _invisibleField) {
         hello = _invisibleField.substring(-1);
     }
 
@@ -48,5 +45,9 @@ public class BeanFour extends Bean {
 
     public String getHello() {
         return hello;
+    }
+
+    public void setInvisibleField(int _invisibleField) {
+        invisibleField = _invisibleField;
     }
 }

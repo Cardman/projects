@@ -52,8 +52,7 @@ public class BeanTwo extends Bean {
         }
     }
 
-    @Accessible
-    CustList<EnumNumber> getChosenNumbers() {
+    public CustList<EnumNumber> getChosenNumbers() {
         CustList<EnumNumber> enums_ = new CustList<EnumNumber>();
         enums_.add(EnumNumber.ONE);
         enums_.add(EnumNumber.TWO);
@@ -61,8 +60,7 @@ public class BeanTwo extends Bean {
         return enums_;
     }
 
-    @Accessible
-    String go(Long _index) {
+    public String go(Long _index) {
         getForms().put("checked", checked);
         getForms().put("typedString", typedString);
         getForms().put("chosenNumber", chosenNumber);
@@ -77,8 +75,7 @@ public class BeanTwo extends Bean {
         return "no_change";
     }
 
-    @Accessible
-    String go() {
+    public String go() {
         getForms().put("checked", checked);
         getForms().put("typedString", typedString);
         getForms().put("chosenNumber", chosenNumber);
@@ -93,8 +90,7 @@ public class BeanTwo extends Bean {
         return "no_change";
     }
 
-    @Accessible
-    String goTextArea() {
+    public String goTextArea() {
         getForms().put("checked", checked);
         getForms().put("typedString", typedString);
         getForms().put("chosenNumber", chosenNumber);
@@ -109,8 +105,7 @@ public class BeanTwo extends Bean {
         return "no_change";
     }
 
-    @Accessible
-    void validate() {
+    public void validate() {
         if (typedString == null) {
             typedString = "";
         }
@@ -124,8 +119,7 @@ public class BeanTwo extends Bean {
         getForms().put("field", field);
     }
 
-    @Accessible
-    String choose(Long _index) {
+    public String choose(Long _index) {
         return Long.toString(_index);
     }
 
@@ -204,5 +198,13 @@ public class BeanTwo extends Bean {
 
     public void setNewOld(String _newOld) {
         newOld = _newOld;
+    }
+
+    public String getChoose() {
+        return choose;
+    }
+
+    public void setChoose(String _choose) {
+        choose = _choose;
     }
 }

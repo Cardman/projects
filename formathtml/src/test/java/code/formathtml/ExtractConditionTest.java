@@ -525,6 +525,78 @@ public class ExtractConditionTest {
         ExtractCondition.evaluateGenericCondition(elt_, conf_, ip_);
     }
 
+//    @Test
+//    public void print() {
+//        ContextEl context_ = new ContextEl();
+//        context_.setClasses(new Classes());
+//        BeanLgNames lgNames_ = InitializationLgNames.initStandards(context_);
+//        StringBuilder method_ = new StringBuilder("    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {\n");
+//        method_.append("        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();\n");
+//        method_.append("        ResultErrorStd res_ = new ResultErrorStd();\n");
+//        method_.append("        Object instance_ =  _instance.getInstance();\n");
+//        method_.append("        Object value_ =  _value.getInstance();\n");
+//        method_.append("        String className_ = _classField.getClassName();\n");
+//        method_.append("        String fieldName_ = _classField.getFieldName();\n");
+//        for (EntryCust<String, StandardType> t: lgNames_.getStandards().entryList()) {
+//            if (t.getValue().getFields().isEmpty()) {
+//                continue;
+//            }
+//            method_.append("        if (StringList.quickEq(className_,\""+t.getKey()+"\")) {\n");
+//            String st_ = t.getKey().substring(t.getKey().lastIndexOf('.')+1);
+//            method_.append("            "+st_+" i_ = ("+st_+")instance_;\n");
+//            for (EntryCust<String, StandardField> f: t.getValue().getFields().entryList()) {
+//                method_.append("            if (StringList.quickEq(fieldName_,\""+f.getKey()+"\")) {\n");
+//                String fType_ = f.getValue().getClassName();
+//                method_.append("                i_.set"+camel(f.getValue().getFieldName())+"(");
+//                if (StringList.quickEq(fType_, lgNames_.getAliasPrimBoolean()) || StringList.quickEq(fType_, lgNames_.getAliasBoolean())) {
+//                    method_.append("(Boolean)value_");
+//                } else if (StringList.quickEq(fType_, lgNames_.getAliasDouble()) || StringList.quickEq(fType_, lgNames_.getAliasPrimDouble())){
+//                    method_.append("(Double)value_");
+//                } else if (StringList.quickEq(fType_, lgNames_.getAliasFloat()) || StringList.quickEq(fType_, lgNames_.getAliasPrimFloat())){
+//                    method_.append("(Float)value_");
+//                } else if (StringList.quickEq(fType_, lgNames_.getAliasLong()) || StringList.quickEq(fType_, lgNames_.getAliasPrimLong())){
+//                    method_.append("(Long)value_");
+//                } else if (StringList.quickEq(fType_, lgNames_.getAliasInteger()) || StringList.quickEq(fType_, lgNames_.getAliasPrimInteger())){
+//                    method_.append("(Integer)value_");
+//                } else if (StringList.quickEq(fType_, lgNames_.getAliasCharacter()) || StringList.quickEq(fType_, lgNames_.getAliasPrimChar())){
+//                    method_.append("(Character)value_");
+//                } else if (StringList.quickEq(fType_, lgNames_.getAliasShort()) || StringList.quickEq(fType_, lgNames_.getAliasPrimShort())){
+//                    method_.append("(Short)value_");
+//                } else if (StringList.quickEq(fType_, lgNames_.getAliasByte()) || StringList.quickEq(fType_, lgNames_.getAliasPrimByte())){
+//                    method_.append("(Byte)value_");
+//                } else if (StringList.quickEq(fType_, lgNames_.getAliasString())){
+//                    method_.append("(String)value_");
+//                } else if (StringList.quickEq(fType_, StringList.class.getName())){
+//                    method_.append("(StringList)value_");
+//                } else if (StringList.quickEq(fType_, EnumNumber.class.getName())){
+//                    method_.append("(EnumNumber)value_");
+//                } else if (StringList.quickEq(fType_, EnumNumbers.class.getName())){
+//                    method_.append("(EnumNumbers)value_");
+//                } else if (StringList.quickEq(fType_, Composite.class.getName())){
+//                    method_.append("(Composite)value_");
+//                } else if (StringList.quickEq(fType_, Rate.class.getName())){
+//                    method_.append("(Rate)value_");
+//                } else if (StringList.quickEq(fType_, "[$int")){
+//                    method_.append("(int[])value_");
+//                } else {
+//                    System.err.println(fType_);
+//                    //get_.append("                res_.setResult(new StdStruct(i_.set"+camel(f.getValue().getFieldName())+"(),\""+fType_+"\"));\n");
+//                }
+//                method_.append(");\n");
+//                method_.append("                res_.setResult(NullStruct.NULL_VALUE);\n");
+//                method_.append("                return res_;\n");
+//                method_.append("            }\n");
+//            }
+//            method_.append("        }\n");
+//        }
+//        method_.append("        return res_;\n");
+//        method_.append("    }\n");
+//        System.out.println(method_);
+//    }
+//    private static String camel(String _string) {
+//        char f_ = _string.charAt(0);
+//        return Character.toUpperCase(f_)+_string.substring(1);
+//    }
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
