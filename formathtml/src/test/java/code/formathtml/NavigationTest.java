@@ -7618,6 +7618,7 @@ public class NavigationTest {
         nav_.setSession(conf_);
         nav_.setFiles(files_);
         nav_.setDataBase(d_);
+        nav_.getSession().setDataBaseClassName("code.formathtml.classes.SimpleDataBase");
         nav_.initializeSession();
         String res_ = "";
         res_ += "<html xmlns:c='javahtml'>";

@@ -15,6 +15,7 @@ public final class InitializationLgNames {
         _cont.setStandards(lgNames_);
         lgNames_.setSelectedBoolean("sb");
         lgNames_.setAliasRate("java.lang.Long");
+        lgNames_.setAliasDataBase("code.formathtml.classes.SimpleDataBase");
         basicStandards(lgNames_);
         lgNames_.build();
         lgNames_.setupOverrides(_cont);

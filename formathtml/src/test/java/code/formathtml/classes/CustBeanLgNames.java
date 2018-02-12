@@ -5,6 +5,9 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.DoubleStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
@@ -20,10 +23,12 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.ints.SimpleIterable;
 
 public class CustBeanLgNames extends BeanLgNames {
 
@@ -58,7 +63,7 @@ public class CustBeanLgNames extends BeanLgNames {
         method_ = new StandardMethod("getReverse",params_,"code.util.StringList", false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger());
-        method_ = new StandardMethod("get",params_,getAliasObject(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod("get",params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put("code.util.StringList", cl_);
         buildBeanOne();
@@ -81,6 +86,26 @@ public class CustBeanLgNames extends BeanLgNames {
         buildRateEq();
         buildSimpleDataBase();
         buildNatTreeMapStringInteger();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        cl_ = new StandardClass("code.formathtml.classes.MyValidator", fields_, constructors_, methods_, getValidator(), MethodModifier.FINAL);
+        getStandards().put("code.formathtml.classes.MyValidator", cl_);
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        cl_ = new StandardClass("code.formathtml.classes.MyValidatorEnum", fields_, constructors_, methods_, getValidator(), MethodModifier.FINAL);
+        getStandards().put("code.formathtml.classes.MyValidatorEnum", cl_);
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        cl_ = new StandardClass("code.formathtml.classes.MyValidatorEnums", fields_, constructors_, methods_, getValidator(), MethodModifier.FINAL);
+        getStandards().put("code.formathtml.classes.MyValidatorEnums", cl_);
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        cl_ = new StandardClass("code.formathtml.classes.UnselectedRadio", fields_, constructors_, methods_, getValidator(), MethodModifier.FINAL);
+        getStandards().put("code.formathtml.classes.UnselectedRadio", cl_);
     }
     private void buildBeanOne() {
         StringMap<StandardField> fields_;
@@ -519,7 +544,7 @@ public class CustBeanLgNames extends BeanLgNames {
         method_ = new StandardMethod("last",params_,getAliasObject(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod("clear",params_,getAliasObject(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod("clear",params_,getAliasVoid(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,cl_);
@@ -574,9 +599,6 @@ public class CustBeanLgNames extends BeanLgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod("getCombobox",params_,getCustList(), false, MethodModifier.NORMAL,cl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod("getComposites",params_,getCustList(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod("getComboboxMap",params_,getCustMap(), false, MethodModifier.NORMAL,cl_);
@@ -673,6 +695,10 @@ public class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,"code.formathtml.classes.BeanOne")) {
             BeanOne i_ = (BeanOne)instance_;
             if (StringList.quickEq(fieldName_,"chosenNumber")) {
+                if (i_.getChosenNumber() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 res_.setResult(new StdStruct(i_.getChosenNumber(),"code.formathtml.classes.EnumNumber"));
                 return res_;
             }
@@ -705,6 +731,10 @@ public class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_,"selectedString")) {
+                if (i_.getSelectedString() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 res_.setResult(new StringStruct(i_.getSelectedString()));
                 return res_;
             }
@@ -713,6 +743,10 @@ public class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_,"tree")) {
+                if (i_.getTree() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 res_.setResult(new StdStruct(i_.getTree(),"lse"));
                 return res_;
             }
@@ -724,14 +758,26 @@ public class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_,"choose")) {
+                if (i_.getChoose() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 res_.setResult(new StringStruct(i_.getChoose()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_,"chosenNumber")) {
+                if (i_.getChosenNumber() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 res_.setResult(new StdStruct(i_.getChosenNumber(),"code.formathtml.classes.EnumNumber"));
                 return res_;
             }
             if (StringList.quickEq(fieldName_,"field")) {
+                if (i_.getField() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 res_.setResult(new StringStruct(i_.getField()));
                 return res_;
             }
@@ -760,6 +806,10 @@ public class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_,"typedString")) {
+                if (i_.getTypedString() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 res_.setResult(new StringStruct(i_.getTypedString()));
                 return res_;
             }
@@ -851,6 +901,10 @@ public class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_,"string")) {
+                if (i_.getString() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 res_.setResult(new StringStruct(i_.getString()));
                 return res_;
             }
@@ -1055,6 +1109,583 @@ public class CustBeanLgNames extends BeanLgNames {
     }
 
     @Override
+    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        try {
+            Object instance_ =  _instance.getInstance();
+            String className_ = _method.getClassName();
+            String methodName_ = _method.getConstraints().getName();
+            if (StringList.quickEq(className_,"code.util.StringList")) {
+                StringList i_ = (StringList)instance_;
+                if (StringList.quickEq(methodName_,"getReverse")) {
+                    res_.setResult(new StdStruct(i_.getReverse(),"code.util.StringList"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"get")) {
+                    res_.setResult(new StdStruct(i_.get((Integer)_args[0]),getAliasString()));
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.BeanOne")) {
+                BeanOne i_ = (BeanOne)instance_;
+                if (StringList.quickEq(methodName_,"goToPage")) {
+                    if (_method.getConstraints().getParametersTypes().size() == 0) {
+                        res_.setResult(new StringStruct(i_.goToPage()));
+                        return res_;
+                    }
+                    if (_method.getConstraints().getParametersTypes().size() == 1) {
+                        res_.setResult(new StringStruct(i_.goToPage((Long)_args[0])));
+                        return res_;
+                    }
+                }
+                if (StringList.quickEq(methodName_,"getList")) {
+                    res_.setResult(new StdStruct(i_.getList((Long)_args[0]),"ls"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getDouble")) {
+                    res_.setResult(new IntStruct(i_.getDouble((Long)_args[0])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"goToNullPage")) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"invokeMethod")) {
+                    res_.setResult(new StringStruct(i_.invokeMethod((Long)_args[0])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"hasMoreThanOne")) {
+                    res_.setResult(new BooleanStruct(i_.hasMoreThanOne()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComposite")) {
+                    res_.setResult(new StdStruct(i_.getComposite(),"code.formathtml.classes.Composite"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getDefaultChoice")) {
+                    res_.setResult(new StdStruct(i_.getDefaultChoice(),"code.formathtml.classes.EnumNumber"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComposites")) {
+                    res_.setResult(new StdStruct(i_.getComposites(),"ls"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getSpanClass")) {
+                    res_.setResult(new StringStruct(i_.getSpanClass((Long)_args[0])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getSpanClasses")) {
+                    res_.setResult(new StringStruct(i_.getSpanClasses((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getStandard")) {
+                    String str_ = i_.getStandard((String)_args[0]);
+                    if (str_ == null) {
+                        res_.setResult(NullStruct.NULL_VALUE);
+                        return res_;
+                    }
+                    res_.setResult(new StringStruct(str_));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getTrans")) {
+                    res_.setResult(new StringStruct(i_.getTrans((Long)_args[0])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"validateStrings")) {
+                    i_.validateStrings();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.BeanTwo")) {
+                BeanTwo i_ = (BeanTwo)instance_;
+                if (StringList.quickEq(methodName_,"go")) {
+                    if (_method.getConstraints().getParametersTypes().size() == 0) {
+                        res_.setResult(new StringStruct(i_.go()));
+                        return res_;
+                    }
+                    if (_method.getConstraints().getParametersTypes().size() == 1) {
+                        res_.setResult(new StringStruct(i_.go((Long)_args[0])));
+                        return res_;
+                    }
+                }
+                if (StringList.quickEq(methodName_,"getChosenNumbers")) {
+                    res_.setResult(new StdStruct(i_.getChosenNumbers(),"ls"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"goTextArea")) {
+                    res_.setResult(new StringStruct(i_.goTextArea()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setTypedInt")) {
+                    i_.setTypedInt((Integer)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setTypedString")) {
+                    i_.setTypedString((String)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"validate")) {
+                    i_.validate();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.BeanFour")) {
+                BeanFour i_ = (BeanFour)instance_;
+                if (StringList.quickEq(methodName_,"setInvisibleField")) {
+                    i_.setInvisibleField((Integer)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setInvisibleIntField")) {
+                    i_.setInvisibleIntField((Integer)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setter")) {
+                    i_.setter((String)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.BeanFive")) {
+                BeanFive i_ = (BeanFive)instance_;
+                if (StringList.quickEq(methodName_,"go")) {
+                    res_.setResult(new StringStruct(i_.go()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getDefaultChoices")) {
+                    res_.setResult(new StdStruct(i_.getDefaultChoices(),"ls"));
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.BeanSeven")) {
+                BeanSeven i_ = (BeanSeven)instance_;
+                if (StringList.quickEq(methodName_,"getTree")) {
+                    res_.setResult(new StdStruct(i_.getTree(),"code.formathtml.classes.NatTreeMapStringInteger"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getStrings")) {
+                    res_.setResult(new StdStruct(i_.getStrings(),"code.util.StringList"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getDouble")) {
+                    res_.setResult(new DoubleStruct(i_.getDouble((Double)_args[0])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"goTwoArgs")) {
+                    res_.setResult(new StringStruct(i_.goTwoArgs((Integer)_args[0],(Integer)_args[1])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"validateIntsSave")) {
+                    i_.validateIntsSave();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"validateMap")) {
+                    i_.validateMap();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"validateStrings")) {
+                    i_.validateStrings();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"validateStringsSave")) {
+                    i_.validateStringsSave();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.BeanEight")) {
+                BeanEight i_ = (BeanEight)instance_;
+                if (StringList.quickEq(methodName_,"getDataBase")) {
+                    res_.setResult(new StdStruct(i_.getDataBase(),"code.formathtml.classes.SimpleDataBase"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"isCheckBox")) {
+                    res_.setResult(new BooleanStruct(i_.isCheckBox()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComboNumber")) {
+                    res_.setResult(new StdStruct(i_.getComboNumber(),"code.formathtml.classes.EnumNumber"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComboNumberTwo")) {
+                    res_.setResult(new StdStruct(i_.getComboNumberTwo(),"code.formathtml.classes.EnumNumber"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComboNumbers")) {
+                    res_.setResult(new StdStruct(i_.getComboNumbers(),"code.formathtml.classes.EnumNumbers"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getCombobox")) {
+                    res_.setResult(new StdStruct(i_.getCombobox(),"ls"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComposites")) {
+                    res_.setResult(new StdStruct(i_.getComposites(),"ls"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComboboxMap")) {
+                    res_.setResult(new StdStruct(i_.getComboboxMap(),"lse"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getTypedString")) {
+                    res_.setResult(new StringStruct(i_.getTypedString()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getTypedText")) {
+                    res_.setResult(new StringStruct(i_.getTypedText()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getRadioLong")) {
+                    res_.setResult(new LongStruct(i_.getRadioLong()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setup")) {
+                    res_.setResult(new StringStruct(i_.setup()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setCheckBox")) {
+                    i_.setCheckBox((Boolean)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setComboNumber")) {
+                    i_.setComboNumber((EnumNumber)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setComboNumberTwo")) {
+                    i_.setComboNumberTwo((EnumNumber)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setComboNumbers")) {
+                    i_.setComboNumbers((EnumNumbers)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setRadioLong")) {
+                    i_.setRadioLong((Long)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setTypedString")) {
+                    i_.setTypedString((String)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setTypedText")) {
+                    i_.setTypedText((String)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.Composite")) {
+                Composite i_ = (Composite)instance_;
+                if (StringList.quickEq(methodName_,"internMethod")) {
+                    res_.setResult(new StringStruct(i_.internMethod()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"privateMethod")) {
+                    res_.setResult(new StringStruct(i_.privateMethod()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getString")) {
+                    res_.setResult(new StringStruct(i_.getString()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getStrings")) {
+                    res_.setResult(new StdStruct(i_.getStrings(),"code.util.StringList"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"summum")) {
+                    res_.setResult(new IntStruct(i_.summum((Integer)_args[0])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getStringElt")) {
+                    res_.setResult(new StringStruct(i_.getStringElt((Integer)_args[0])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setString")) {
+                    i_.setString((String)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"updateValue")) {
+                    i_.updateValue((ValueChangeEvent)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.BeanUtil")) {
+                if (StringList.quickEq(methodName_,"sum")) {
+                    res_.setResult(new IntStruct(BeanUtil.sum((Integer)_args[0],(Integer)_args[1])));
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.EncapsFields")) {
+                EncapsFields i_ = (EncapsFields)instance_;
+                if (StringList.quickEq(methodName_,"isCheckBox")) {
+                    res_.setResult(new BooleanStruct(i_.isCheckBox()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComboNumber")) {
+                    res_.setResult(new StdStruct(i_.getComboNumber(),"code.formathtml.classes.EnumNumber"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComboNumberTwo")) {
+                    res_.setResult(new StdStruct(i_.getComboNumberTwo(),"code.formathtml.classes.EnumNumber"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComboNumbers")) {
+                    res_.setResult(new StdStruct(i_.getComboNumbers(),"code.formathtml.classes.EnumNumbers"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getCombobox")) {
+                    res_.setResult(new StdStruct(i_.getCombobox(),"ls"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getComboboxMap")) {
+                    res_.setResult(new StdStruct(i_.getComboboxMap(),"lse"));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getTypedString")) {
+                    res_.setResult(new StringStruct(i_.getTypedString()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getTypedText")) {
+                    res_.setResult(new StringStruct(i_.getTypedText()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getRadioLong")) {
+                    res_.setResult(new LongStruct(i_.getRadioLong()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setCheckBox")) {
+                    i_.setCheckBox((Boolean)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setComboNumber")) {
+                    i_.setComboNumber((EnumNumber)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setComboNumberTwo")) {
+                    i_.setComboNumberTwo((EnumNumber)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setComboNumbers")) {
+                    i_.setComboNumbers((EnumNumbers)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setRadioLong")) {
+                    i_.setRadioLong((Long)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setTypedString")) {
+                    i_.setTypedString((String)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"setTypedText")) {
+                    i_.setTypedText((String)_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.GeneObjs")) {
+                GeneObjs i_ = (GeneObjs)instance_;
+                if (StringList.quickEq(methodName_,"add")) {
+                    i_.add(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"get")) {
+                    res_.setResult(new StdStruct(i_.get((Integer)_args[0]),getAliasObject()));
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.GeneObjects")) {
+                GeneObjects i_ = (GeneObjects)instance_;
+                if (StringList.quickEq(methodName_,"add")) {
+                    i_.add(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"last")) {
+                    res_.setResult(new StdStruct(i_.last(),getAliasObject()));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"clear")) {
+                    i_.clear();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.PickableList")) {
+                PickableList i_ = (PickableList)instance_;
+                if (StringList.quickEq(methodName_,"removeAndExistAfter")) {
+                    res_.setResult(new BooleanStruct(i_.removeAndExistAfter((Integer)_args[0])));
+                    return res_;
+                }
+                if (StringList.quickEq(methodName_,"getList")) {
+                    res_.setResult(new StdStruct(i_.getList(),"code.formathtml.classes.GeneObjects"));
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.RateEq")) {
+                RateEq i_ = (RateEq)instance_;
+                if (StringList.quickEq(methodName_,"eq")) {
+                    res_.setResult(new BooleanStruct(i_.eq((RateEq) _args[0])));
+                    return res_;
+                }
+            }
+            if (StringList.quickEq(className_,"code.formathtml.classes.SimpleDataBase")) {
+                SimpleDataBase i_ = (SimpleDataBase)instance_;
+                if (StringList.quickEq(methodName_,"getValue")) {
+                    res_.setResult(new IntStruct(i_.getValue()));
+                    return res_;
+                }
+            }
+            return res_;
+        } catch (NullPointerException _0) {
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+    }
+    @Override
+    public ResultErrorStd getOtherResult(ContextEl _cont, ConstructorId _method, Object... _args) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        String className_ = _method.getName();
+        if (StringList.quickEq(className_,"code.formathtml.classes.Composite")) {
+            if (_method.getParametersTypes().isEmpty()) {
+                res_.setResult(new StdStruct(new Composite(),"code.formathtml.classes.Composite"));
+                return res_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                res_.setResult(new StdStruct(new Composite((String)_args[0]),"code.formathtml.classes.Composite"));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.RateEq")) {
+            if (StringList.quickEq(_method.getParametersTypes().first(), getAliasString())) {
+                res_.setResult(new StdStruct(new RateEq((String)_args[0]),"code.formathtml.classes.RateEq"));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getParametersTypes().first(), "code.formathtml.classes.RateEq")) {
+                res_.setResult(new StdStruct(new RateEq((RateEq)_args[0]),"code.formathtml.classes.RateEq"));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.GeneObjs")) {
+            if (_method.getParametersTypes().isEmpty()) {
+                res_.setResult(new StdStruct(new GeneObjs(),"code.formathtml.classes.GeneObjs"));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getParametersTypes().first(), PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()))) {
+                res_.setResult(new StdStruct(new GeneObjs((Object[])_args[0]),"code.formathtml.classes.GeneObjs"));
+                return res_;
+            }
+            if (StringList.quickEq(_method.getParametersTypes().first(), getCustList())) {
+                res_.setResult(new StdStruct(new GeneObjs(((SimpleIterable)_args[0]).toArray()),"code.formathtml.classes.GeneObjs"));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,"code.util.StringList")) {
+            res_.setResult(new StdStruct(new StringList(),"code.util.StringList"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.BeanOne")) {
+            res_.setResult(new StdStruct(new BeanOne(),"code.formathtml.classes.BeanOne"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.BeanTwo")) {
+            res_.setResult(new StdStruct(new BeanTwo(),"code.formathtml.classes.BeanTwo"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.BeanThree")) {
+            res_.setResult(new StdStruct(new BeanThree(),"code.formathtml.classes.BeanThree"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.BeanFour")) {
+            res_.setResult(new StdStruct(new BeanFour(),"code.formathtml.classes.BeanFour"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.BeanFive")) {
+            res_.setResult(new StdStruct(new BeanFive(),"code.formathtml.classes.BeanFive"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.BeanSix")) {
+            res_.setResult(new StdStruct(new BeanSix(),"code.formathtml.classes.BeanSix"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.BeanSeven")) {
+            res_.setResult(new StdStruct(new BeanSeven(),"code.formathtml.classes.BeanSeven"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.BeanEight")) {
+            res_.setResult(new StdStruct(new BeanEight(),"code.formathtml.classes.BeanEight"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.EnumNumbers")) {
+            res_.setResult(new StdStruct(new EnumNumbers(),"code.formathtml.classes.EnumNumbers"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.EncapsFields")) {
+            res_.setResult(new StdStruct(new EncapsFields(),"code.formathtml.classes.EncapsFields"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.GeneObjects")) {
+            res_.setResult(new StdStruct(new GeneObjects(),"code.formathtml.classes.GeneObjects"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.PickableList")) {
+            res_.setResult(new StdStruct(new PickableList(),"code.formathtml.classes.PickableList"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.SimpleDataBase")) {
+            res_.setResult(new StdStruct(new SimpleDataBase(),"code.formathtml.classes.SimpleDataBase"));
+            return res_;
+        }
+        if (StringList.quickEq(className_,"code.formathtml.classes.NatTreeMapStringInteger")) {
+            res_.setResult(new StdStruct(new NatTreeMapStringInteger(),"code.formathtml.classes.NatTreeMapStringInteger"));
+            return res_;
+        }
+        return res_;
+    }
+//
+//    @Override
+//    public String getOtherStructClassName(Object _struct, ContextEl _context) {
+//        if (_struct instanceof EnumNumber) {
+//            return "code.formathtml.classes.EnumNumber";
+//        }
+//        if (_struct instanceof EnumNumbers) {
+//            return "code.formathtml.classes.EnumNumbers";
+//        }
+//        if (_struct instanceof Composite) {
+//            return "code.formathtml.classes.Composite";
+//        }
+//        if (_struct instanceof GeneObjects) {
+//            return "code.formathtml.classes.GeneObjects";
+//        }
+//        if (_struct instanceof GeneObjs) {
+//            return "code.formathtml.classes.GeneObjs";
+//        }
+//        return getAliasObject();
+//    }
+
+    @Override
     public StringList getDefaultValues(ContextEl _cont, String _className,
             String _value) {
         if (StringList.quickEq(_className, "code.formathtml.classes.EnumNumber")) {
@@ -1194,6 +1825,15 @@ public class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             ((NatTreeMapStringInteger)_struct.getInstance()).setValue(_index, (Integer) _element.getInstance());
+            return res_;
+        }
+        return res_;
+    }
+    @Override
+    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (_instance.getInstance() instanceof EnumNumber) {
+            res_.setResult(new StringStruct(((EnumNumber)_instance.getInstance()).name()));
             return res_;
         }
         return res_;

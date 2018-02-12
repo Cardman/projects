@@ -84,7 +84,7 @@ public final class StdStruct implements Struct {
     }
     @Override
     public boolean isNull() {
-        return false;
+        return instance == null;
     }
 
     @Override
@@ -98,6 +98,9 @@ public final class StdStruct implements Struct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
+        if (instance == null) {
+            return null;
+        }
         return className;
     }
 

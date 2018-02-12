@@ -27,6 +27,7 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.ReplacementStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -1236,6 +1237,26 @@ public class LgNames {
                     String typeInst_ = lgNames_.getStructClassName(_struct, _cont);
                     StringList allTypes_ = StringList.getAllTypes(typeInst_);
                     Object resObj_ = ((SimpleItr)instance_).next();
+                    if (resObj_ == null) {
+                        result_.setResult(NullStruct.NULL_VALUE);
+                        return result_;
+                    }
+                    if (resObj_ instanceof Character) {
+                        result_.setResult(new CharStruct((Character) resObj_));
+                        return result_;
+                    }
+                    if (resObj_ instanceof Boolean) {
+                        result_.setResult(new BooleanStruct((Boolean) resObj_));
+                        return result_;
+                    }
+                    if (resObj_ instanceof Number) {
+                        result_.setResult(NumberStruct.wrapNb((Number) resObj_));
+                        return result_;
+                    }
+                    if (resObj_ instanceof String) {
+                        result_.setResult(new StringStruct((String) resObj_));
+                        return result_;
+                    }
                     result_.setResult(StdStruct.wrapStd(resObj_, allTypes_.last()));
                     return result_;
                 }

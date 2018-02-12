@@ -17,6 +17,7 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringStruct;
@@ -168,6 +169,10 @@ public class BeanLgNames extends LgNames {
             }
             if (StringList.quickEq(_method.getConstraints().getName(), "getDataBase")) {
                 Object db_ = ((Bean)_instance.getInstance()).getDataBase();
+                if (getAliasDataBase() != null) {
+                    res_.setResult(new StdStruct(db_, getAliasDataBase()));
+                    return res_;
+                }
                 res_.setResult(new StdStruct(db_, getAliasObject()));
                 return res_;
             }
@@ -211,11 +216,51 @@ public class BeanLgNames extends LgNames {
             SimpleEntry db_ = (SimpleEntry)_instance.getInstance();
             if (StringList.quickEq(_method.getConstraints().getName(), "getKey")) {
                 Object key_ = db_.getKey();
+                if (key_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (key_ instanceof Character) {
+                    res_.setResult(new CharStruct((Character) key_));
+                    return res_;
+                }
+                if (key_ instanceof Boolean) {
+                    res_.setResult(new BooleanStruct((Boolean) key_));
+                    return res_;
+                }
+                if (key_ instanceof Number) {
+                    res_.setResult(NumberStruct.wrapNb((Number) key_));
+                    return res_;
+                }
+                if (key_ instanceof String) {
+                    res_.setResult(new StringStruct((String) key_));
+                    return res_;
+                }
                 res_.setResult(new StdStruct(key_, getStructClassName(key_, _cont)));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), "getValue")) {
                 Object value_ = db_.getValue();
+                if (value_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (value_ instanceof Character) {
+                    res_.setResult(new CharStruct((Character) value_));
+                    return res_;
+                }
+                if (value_ instanceof Boolean) {
+                    res_.setResult(new BooleanStruct((Boolean) value_));
+                    return res_;
+                }
+                if (value_ instanceof Number) {
+                    res_.setResult(NumberStruct.wrapNb((Number) value_));
+                    return res_;
+                }
+                if (value_ instanceof String) {
+                    res_.setResult(new StringStruct((String) value_));
+                    return res_;
+                }
                 res_.setResult(new StdStruct(value_, getStructClassName(value_, _cont)));
                 return res_;
             }
