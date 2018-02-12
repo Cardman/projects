@@ -1562,6 +1562,9 @@ public class CustBeanLgNames extends BeanLgNames {
         } catch (NullPointerException _0) {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
+        } catch (Throwable _0) {
+            res_.setError(getAliasError());
+            return res_;
         }
     }
     @Override
