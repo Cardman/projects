@@ -19,8 +19,8 @@ import code.util.StringMapObject;
 public class FormatHtmlTryCatchTest {
 
     private static final String DIV_ZERO = "code.expressionlanguage.exceptions.DivideZeroException";
-    private static final String EXCEPTION = "java.lang.RuntimeException";
-    private static final String NPE = "java.lang.NullPointerException";
+    private static final String EXCEPTION = "java.lang.Exception";
+    private static final String NPE = "code.util.exceptions.NullObjectException";
 
     @Test
     public void processHtml132Test() {

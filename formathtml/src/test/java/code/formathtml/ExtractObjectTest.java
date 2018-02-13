@@ -12,7 +12,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyStrangeTranslator;
 import code.formathtml.classes.MyTranslator;
@@ -677,7 +677,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(2L,(Long)((StdStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "1+1")).getInstance());
+        assertEq(2L,((NumberStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "1+1")).getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -782,7 +782,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(6L,(Long)((StdStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "`composite.integer`+1")).getInstance());
+        assertEq(6L,((NumberStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "`composite.integer`+1")).getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);

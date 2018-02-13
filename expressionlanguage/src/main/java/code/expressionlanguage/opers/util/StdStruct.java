@@ -80,11 +80,17 @@ public final class StdStruct implements Struct {
         if (_element instanceof Boolean) {
             return new BooleanStruct((Boolean) _element);
         }
+        if (_element instanceof String) {
+            return new StringStruct((String) _element);
+        }
+        if (_element instanceof StringBuilder) {
+            return new StringBuilderStruct((StringBuilder) _element);
+        }
         return new StdStruct(_element, _alias);
     }
     @Override
     public boolean isNull() {
-        return instance == null;
+        return false;
     }
 
     @Override
@@ -98,9 +104,6 @@ public final class StdStruct implements Struct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        if (instance == null) {
-            return null;
-        }
         return className;
     }
 

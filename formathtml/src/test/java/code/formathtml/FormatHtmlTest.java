@@ -30,7 +30,6 @@ import code.formathtml.classes.RateEq;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.exceptions.KeyValueException;
 import code.formathtml.exceptions.RenderingException;
-import code.serialize.ConstClasses;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringList;
@@ -970,7 +969,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" varClassName='"+ConstClasses.LISTABLE_ALIAS+"' map=\"numbers\">{k;};<c:set var=\"v\" expression=\"v;size()\" className=\"java.lang.Integer\"/><c:set var=\"v\" expression=\"v;.longValue()\" className=\"java.lang.Long\"/><c:for var=\"w\" list=\"getList(v;.)\">{w;}</c:for><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" varClassName='ls' map=\"numbers\">{k;};<c:set var=\"v\" expression=\"v;size()\" className=\"java.lang.Integer\"/><c:set var=\"v\" expression=\"v;.longValue()\" className=\"java.lang.Long\"/><c:for var=\"w\" list=\"getList(v;.)\">{w;}</c:for><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2522,7 +2521,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"v\" expression='$null'/><c:for key=\"k\" value=\"v\" map=\"numbers\" varClassName='"+ConstClasses.LISTABLE_ALIAS+"'><c:for var=\"w\" list=\"v;\"><span id=\"numbers[`k;;`]sortedNumberKeys!value.getReverse()[`w;;`]\"/></c:for></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"v\" expression='$null'/><c:for key=\"k\" value=\"v\" map=\"numbers\" varClassName='ls'><c:for var=\"w\" list=\"v;\"><span id=\"numbers[`k;;`]sortedNumberKeys!value.getReverse()[`w;;`]\"/></c:for></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -9260,7 +9259,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className='java.lang.Iterable'/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className='java.lang.Object'/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

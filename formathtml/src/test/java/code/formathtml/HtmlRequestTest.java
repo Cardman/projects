@@ -24,7 +24,6 @@ import code.formathtml.classes.MyTranslator;
 import code.formathtml.util.BeanStruct;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
-import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.Numbers;
 import code.util.StringList;
@@ -509,17 +508,17 @@ public class HtmlRequestTest {
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethod", Argument.numberToArgument("7L"));
     }
-
-    @Test(expected=BadAccessException.class)
-    public void invokeMethodWithNumbers3FailTest() {
-        BeanOne bean_ = new BeanOne();
-        bean_.getComposite().setInteger(8);
-        Configuration conf_ = newConfiguration();
-        setup(conf_);
-        conf_.addPage(new ImportingPage(true));
-        conf_.getLastPage().setGlobalArgumentObj(bean_);
-        HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "composite.privateMethod");
-    }
+//
+//    @Test(expected=BadAccessException.class)
+//    public void invokeMethodWithNumbers3FailTest() {
+//        BeanOne bean_ = new BeanOne();
+//        bean_.getComposite().setInteger(8);
+//        Configuration conf_ = newConfiguration();
+//        setup(conf_);
+//        conf_.addPage(new ImportingPage(true));
+//        conf_.getLastPage().setGlobalArgumentObj(bean_);
+//        HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "composite.privateMethod");
+//    }
 
 
     @Test

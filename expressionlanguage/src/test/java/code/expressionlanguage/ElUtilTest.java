@@ -2,6 +2,7 @@ package code.expressionlanguage;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -71,7 +72,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$class(\"java.lang.Number\",5)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(5L, (Number)res_);
     }
     @Test
@@ -80,7 +81,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Long.MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(Long.MAX_VALUE, (Number)res_);
     }
 
@@ -90,7 +91,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(1+2)*3",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(9L, (Number)res_);
     }
 
@@ -100,7 +101,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1--1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(2L, (Number)res_);
     }
 
@@ -110,7 +111,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+2*3",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(7L, (Number)res_);
     }
 
@@ -120,7 +121,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("--1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(1L, (Number)res_);
     }
 
@@ -130,7 +131,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(-8l)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
     }
 
@@ -140,7 +141,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(8l)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
     }
 
@@ -152,7 +153,7 @@ public class ElUtilTest {
         addBean(context_, b_, ALIAS_BEAN_ONE);
         Argument arg_ = ElUtil.processEl("composite.integer",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -162,7 +163,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("40908c",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Character.class, res_.getClass());
+        assertTrue(res_ instanceof Character);
         assertEq((char)40908, ((Character)res_).charValue());
     }
 
@@ -172,7 +173,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\u9fcb'",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Character.class, res_.getClass());
+        assertTrue(res_ instanceof Character);
         assertEq((char)40907, ((Character)res_).charValue());
     }
 
@@ -182,7 +183,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\\\'",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Character.class, res_.getClass());
+        assertTrue(res_ instanceof Character);
         assertEq('\\', ((Character)res_).charValue());
     }
 
@@ -192,7 +193,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\''",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Character.class, res_.getClass());
+        assertTrue(res_ instanceof Character);
         assertEq('\'', ((Character)res_).charValue());
     }
 
@@ -202,7 +203,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\"'",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Character.class, res_.getClass());
+        assertTrue(res_ instanceof Character);
         assertEq('"', ((Character)res_).charValue());
     }
 
@@ -212,7 +213,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\n'",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Character.class, res_.getClass());
+        assertTrue(res_ instanceof Character);
         assertEq('\n', ((Character)res_).charValue());
     }
 
@@ -230,7 +231,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;.integer",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -248,7 +249,7 @@ public class ElUtilTest {
         context_.getLastPage().getVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;integer",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0,(Number) res_);
     }
 
@@ -258,7 +259,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$instanceof(\"java.lang.Number\",5)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
 
@@ -268,7 +269,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$instanceof(\"java.lang.Number\",'5')",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);
     }
 
@@ -278,7 +279,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("!$instanceof(\"java.lang.Number\",'5')",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
 
@@ -289,7 +290,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
 
@@ -299,7 +300,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1!=2",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);
     }
 
@@ -309,7 +310,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2&1+0=8",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);
     }
 
@@ -319,7 +320,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1!=2|1+7=8",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
 
@@ -329,7 +330,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2&(1+0=8|3*3=9)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
     @Test
@@ -338,7 +339,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2|1+6=8&1=1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
 
@@ -349,7 +350,7 @@ public class ElUtilTest {
         //CustList worked but is generic so it will take args TODO
         Argument arg_ = ElUtil.processEl("$new "+STRING_LIST+"()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(StringList.class, res_.getClass());
+        assertTrue(res_ instanceof StringList);
         assertEq(new StringList(), (StringList)res_);
     }
 
@@ -361,7 +362,7 @@ public class ElUtilTest {
         addBean(context_, b_, ALIAS_BEAN_ONE);
         Argument arg_ = ElUtil.processEl("composite.integer",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -371,7 +372,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2|1/0>8",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
 
@@ -384,7 +385,7 @@ public class ElUtilTest {
 //        addBean(context_, b_);
 //        Argument arg_ = ElUtil.processEl("arrayInt[1i]",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(Integer.class, res_.getClass());
+//        assertTrue(res_ instanceof Integer);
 //        assertEq(3, (Number)res_);
 //    }
 
@@ -394,7 +395,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(-8i)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(8, (Number)res_);
     }
 
@@ -404,7 +405,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(8i)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(8, (Number)res_);
     }
 
@@ -415,7 +416,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(-8I)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(8, (Number)res_);
     }
 
@@ -425,7 +426,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(8I)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(8, (Number)res_);
     }
 
@@ -436,7 +437,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(-8L)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
     }
 
@@ -446,7 +447,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(8L)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
     }
 
@@ -458,7 +459,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenTwo($null)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("one", (String)res_);
     }
 
@@ -470,7 +471,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenTwo($class(\"java.lang.Object\",$null))",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("two", (String)res_);
     }
 
@@ -480,7 +481,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$instanceof(\"java.lang.Object\",$null)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);
     }
 
@@ -492,7 +493,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("Long", (String)res_);
     }
 
@@ -504,7 +505,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1l)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("long", (String)res_);
     }
 
@@ -516,7 +517,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("Double", (String)res_);
     }
 
@@ -528,7 +529,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0d)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("double", (String)res_);
     }
 
@@ -540,7 +541,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0F)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("double", (String)res_);
     }
 
@@ -552,7 +553,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0f)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("double", (String)res_);
     }
 
@@ -563,7 +564,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$class(\""+IONE+"\",$new "+MY_IMPL+"()).testOne()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("one", (String)res_);
     }
 
@@ -574,7 +575,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$"+MY_IMPL_HAT+".ovOne($new "+MY_IMPL+"())",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("three", (String)res_);
     }
 
@@ -645,7 +646,7 @@ public class ElUtilTest {
 //        addImportingPage(context_);
 //        Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardThree(1i).getPrivateInfo()",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(Integer.class, res_.getClass());
+//        assertTrue(res_ instanceof Integer);
 //        assertEq(1, (Number)res_);
 //    }
 
@@ -658,7 +659,7 @@ public class ElUtilTest {
 //        addBean(context_, b_);
 //        Argument arg_ = ElUtil.processEl("$new InternStandardTwo().$new InternStandardThree(1i).getPrivateInfo()",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(Integer.class, res_.getClass());
+//        assertTrue(res_ instanceof Integer);
 //        assertEq(1, (Number)res_);
 //    }
 
@@ -668,7 +669,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INHERITED_COMPOSITE+"().getPrivateInt()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -690,7 +691,7 @@ public class ElUtilTest {
 //        context_.getLastPage().getLocalVars().putAllMap(localVars_);
 //        Argument arg_ = ElUtil.processEl("summum(v;.)",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(Integer.class, res_.getClass());
+//        assertTrue(res_ instanceof Integer);
 //        assertEq(13, (Number)res_);
 //    }
 
@@ -715,7 +716,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("f;.format($vararg(\"java.lang.String\"),$firstopt(v;.),2;.,v;.)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("varargs:7 8 7", (String)res_);
     }
 
@@ -740,7 +741,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("f;.format($vararg(\"java.lang.String\"))",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("varargs:{0} {1} {2}", (String)res_);
     }
 
@@ -765,7 +766,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("f;.format(v;.,2;.,v;.)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("varargs:7 8 7", (String)res_);
     }
 
@@ -790,7 +791,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("f;.format()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("varargs:{0} {1} {2}", (String)res_);
     }
 
@@ -811,7 +812,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$new "+COMPOSITE+"($vararg(\"java.lang.String\"),$firstopt(v;.),2;.).getStrings()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(StringList.class, res_.getClass());
+        assertTrue(res_ instanceof StringList);
         assertEq(new StringList("bonjour","tout"), (StringList)res_);
     }
 
@@ -887,7 +888,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("arrays;.[0i]",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -913,7 +914,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("arrays;.[0i].length",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(2, (Number)res_);
     }
 
@@ -923,7 +924,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("!!$false",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Boolean.class, res_.getClass());
+        assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);
     }
 
@@ -934,7 +935,7 @@ public class ElUtilTest {
         addBeanClassName(context_,context_.getStandards().getAliasByte());
         Argument arg_ = ElUtil.processEl("MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Byte.class, res_.getClass());
+        assertTrue(res_ instanceof Byte);
         assertEq((byte)127, (Number)res_);
     }
 
@@ -944,7 +945,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Byte.MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Byte.class, res_.getClass());
+        assertTrue(res_ instanceof Byte);
         assertEq((byte)127, (Number)res_);
     }
 
@@ -954,7 +955,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+STRING_LIST+"()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(StringList.class, res_.getClass());
+        assertTrue(res_ instanceof StringList);
         assertEq(new StringList(), (StringList)res_);
     }
 
@@ -966,7 +967,7 @@ public class ElUtilTest {
 //        addBeanClassName(context_,"StringList");
 //        Argument arg_ = ElUtil.processEl("isNumber(\"8\")",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(Boolean.class, res_.getClass());
+//        assertTrue(res_ instanceof Boolean);
 //        assertEq(true, (Boolean)res_);
 //    }
 
@@ -978,7 +979,7 @@ public class ElUtilTest {
 //        addBeanClassName(context_,"StringList");
 //        Argument arg_ = ElUtil.processEl("getMetaCharacters().size()",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(Integer.class, res_.getClass());
+//        assertTrue(res_ instanceof Integer);
 //        assertEq(3, (Number)res_);
 //    }
 
@@ -998,7 +999,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\\\"+\"World\").length()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(11, (Number)res_);
     }
 
@@ -1008,7 +1009,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\"\"+\"World\").length()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(11, (Number)res_);
     }
 
@@ -1018,7 +1019,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\\\"+'\\\\').length()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(7, (Number)res_);
     }
     @Test
@@ -1027,7 +1028,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\"\"+'\\'').length()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(7, (Number)res_);
     }
 
@@ -1052,7 +1053,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("(f;.format($vararg(\"java.lang.String\"),$firstopt(v;.),2;.,v;.)+'\\'').length()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(14, (Number)res_);
     }
 
@@ -1070,7 +1071,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$static$$math.abs(v;.[0i]+2)*2",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(20L, (Number)res_);
     }
 
@@ -1088,7 +1089,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("(v;.[0i]+2)*2",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(20L, (Number)res_);
     }
 //    @Ignore
@@ -1120,7 +1121,7 @@ public class ElUtilTest {
 //        context_.getLastPage().getLocalVars().putAllMap(localVars_);
 //        Argument arg_ = ElUtil.processEl("v;.news",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(String.class, res_.getClass());
+//        assertTrue(res_ instanceof String);
 //        assertEq("", (String)res_);
 //    }
 //
@@ -1138,7 +1139,7 @@ public class ElUtilTest {
 //        context_.getLastPage().getLocalVars().putAllMap(localVars_);
 //        Argument arg_ = ElUtil.processEl("v;.news.length()",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(Integer.class, res_.getClass());
+//        assertTrue(res_ instanceof Integer);
 //        assertEq(0, (Number)res_);
 //    }
 
@@ -1150,7 +1151,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$bool(1>0,0i,1i)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -1162,7 +1163,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$bool(1<0,0i,1i)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(1, (Number)res_);
     }
 
@@ -1174,7 +1175,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$bool(1>0,0i,1i/0i)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -1186,7 +1187,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$bool(1<0,1i/0i,1i)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(1,(Number) res_);
     }
 
@@ -1203,7 +1204,7 @@ public class ElUtilTest {
 //        context_.getLastPage().getLocalVars().putAllMap(localVars_);
 //        Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"(0i).getClass().getName()",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(String.class, res_.getClass());
+//        assertTrue(res_ instanceof String);
 //        assertEq("[$int", (String)res_);
 //    }
 //
@@ -1220,7 +1221,7 @@ public class ElUtilTest {
 //        context_.getLastPage().getLocalVars().putAllMap(localVars_);
 //        Argument arg_ = ElUtil.processEl("$new "+ARR_INTEGER+"(0i).getClass().getName()",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(String.class, res_.getClass());
+//        assertTrue(res_ instanceof String);
 //        assertEq("[java.lang.Integer", (String)res_);
 //    }
 //
@@ -1237,7 +1238,7 @@ public class ElUtilTest {
 //        context_.getLastPage().getLocalVars().putAllMap(localVars_);
 //        Argument arg_ = ElUtil.processEl("$new "+ARR_ARR_INT+"(0i).getClass().getName()",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(String.class, res_.getClass());
+//        assertTrue(res_ instanceof String);
 //        assertEq("[[$int", (String)res_);
 //    }
 //
@@ -1254,7 +1255,7 @@ public class ElUtilTest {
 //        context_.getLastPage().getLocalVars().putAllMap(localVars_);
 //        Argument arg_ = ElUtil.processEl("$new "+ARR_ARR_INTEGER+"(0i).getClass().getName()",0, context_);
 //        Object res_ = arg_.getObject();
-//        assertSame(String.class, res_.getClass());
+//        assertTrue(res_ instanceof String);
 //        assertEq("[[java.lang.Integer", (String)res_);
 //    }
 
@@ -1266,7 +1267,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"(1i)[0i]",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -1325,7 +1326,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"} ", context_, 2 ,'{','}');
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("9 hello world {every body ;)", (String)res_);
         assertEq(43, context_.getNextIndex());
     }
@@ -1336,7 +1337,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" {(\"hello \"+\"world\").length()} ", context_, 2 ,'{','}');
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(11, (Number)res_);
         assertEq(30, context_.getNextIndex());
     }
@@ -1355,7 +1356,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(arg;.)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("Long", (String)res_);
     }
 
@@ -1373,7 +1374,7 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(arg;.)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("long", (String)res_);
     }
 
@@ -1403,7 +1404,7 @@ public class ElUtilTest {
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$static$pkg$Ex.exmeth()", 0, cont_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(9, (Number)res_);
     }
 
@@ -1423,7 +1424,7 @@ public class ElUtilTest {
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$static$pkg$Ex.exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(15,(Number) res_);
     }
 
@@ -1452,7 +1453,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+IMPL_FOUR+"().method()",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(1,(Number) res_);
     }
 
@@ -1471,7 +1472,7 @@ public class ElUtilTest {
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$classchoice$pkg$Ex$$exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(15,(Number) res_);
     }
 
@@ -1491,7 +1492,7 @@ public class ElUtilTest {
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$classchoice$pkg$Ex$$inst;;;", 0, cont_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(2,(Number) res_);
     }
 
@@ -1503,7 +1504,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFour($null)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("Long", (String)res_);
     }
 
@@ -1521,7 +1522,7 @@ public class ElUtilTest {
         context_.getLastPage().getCatchVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;..integer",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
 
@@ -1533,7 +1534,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFour(1L)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("Long", (String)res_);
     }
 
@@ -1545,7 +1546,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFour(1l)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("long", (String)res_);
     }
 
@@ -1557,7 +1558,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFive(1L)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("Long", (String)res_);
     }
 
@@ -1569,7 +1570,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenFive(1l)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("double", (String)res_);
     }
 
@@ -1581,7 +1582,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenSix(1L)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("Long", (String)res_);
     }
 
@@ -1593,7 +1594,7 @@ public class ElUtilTest {
         addBean(context_, b_, COMPOSITE);
         Argument arg_ = ElUtil.processEl("getOverridenSix(1l)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("long",(String) res_);
     }
 
@@ -1603,7 +1604,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(1b+2b)*3",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(9L, (Number)res_);
     }
 
@@ -1613,7 +1614,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(1s+2b)*3",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(9L, (Number)res_);
     }
 
@@ -1623,7 +1624,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("--1b",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(1, (Number)res_);
     }
 
@@ -1633,7 +1634,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-1b",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Byte.class, res_.getClass());
+        assertTrue(res_ instanceof Byte);
         assertEq(-1, (Number)res_);
     }
 
@@ -1657,7 +1658,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-.25e0+.5",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.25d, (Number)res_);
     }
 
@@ -1667,13 +1668,13 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, 2 ,'{','}');
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("9 hello world {every body ;)", (String)res_);
         int nextIndex_ = context_.getNextIndex();
         assertEq(43, nextIndex_);
         arg_ = ElUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, nextIndex_+1 ,'{','}');
         res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(40, (Number) res_);
         nextIndex_ = context_.getNextIndex();
         assertEq(48, nextIndex_);
@@ -1686,13 +1687,13 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" {(\"hello \"+\"world\").length()}{5*8} ", context_, 2 ,'{','}');
         Object res_ = arg_.getObject();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(11, (Number)res_);
         int nextIndex_ = context_.getNextIndex();
         assertEq(30, nextIndex_);
         arg_ = ElUtil.processEl(" {(\"hello \"+\"world\").length()}{5*8} ", context_, nextIndex_+1 ,'{','}');
         res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(40, (Number) res_);
         nextIndex_ = context_.getNextIndex();
         assertEq(35, nextIndex_);
@@ -1704,7 +1705,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1_0+2*3",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(16L, (Number)res_);
     }
 
@@ -1714,7 +1715,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.mod(-8l,3l)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(1L, (Number)res_);
     }
 
@@ -1724,7 +1725,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$$math.quot(-8l,3l)",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(-3L, (Number)res_);
     }
 
@@ -1759,7 +1760,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(1 + 2) * 3.0",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(9L, (Number)res_);
     }
 
@@ -1769,7 +1770,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" 2.0 + $static$$math. quot( -8l, 3l) + 3.0",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(2L, (Number)res_);
     }
     
@@ -1779,7 +1780,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1 + 2 ",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Long.class, res_.getClass());
+        assertTrue(res_ instanceof Long);
         assertEq(3L, (Number)res_);
     }
 
@@ -1789,7 +1790,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1. + 2. ",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(3L, (Number)res_);
     }
 
@@ -1799,7 +1800,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1.d + 2.d ",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(3L, (Number)res_);
     }
 
@@ -1809,7 +1810,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-.2_5e0+.5",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.25d, (Number)res_);
     }
 
@@ -1819,7 +1820,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-.25e0_0+.5",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.25d, (Number)res_);
     }
 
@@ -1829,7 +1830,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1_0.d + 2.d ",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(12L, (Number)res_);
     }
     @Test
@@ -1838,7 +1839,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1.05e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(10.5d, (Number)res_);
     }
     @Test
@@ -1847,7 +1848,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1.00625e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(10.0625d, (Number)res_);
     }
     @Test
@@ -1856,7 +1857,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("100.625e-1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(10.0625d, (Number)res_);
     }
     @Test
@@ -1865,7 +1866,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("100.625",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(100.625d, (Number)res_);
     }
     @Test
@@ -1874,7 +1875,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("123456789123456789123456789.0",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(1.2345678912345678912e26, (Number)res_);
     }
     @Test
@@ -1883,7 +1884,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("123456789123456789123456789.",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(1.2345678912345678912e26, (Number)res_);
     }
     @Test
@@ -1892,7 +1893,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("123456789123456789123456789.e-1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(1.2345678912345678912e25, (Number)res_);
     }
     @Test
@@ -1901,7 +1902,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("123456789123456789123456789.e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(1.2345678912345678912e27, (Number)res_);
     }
     @Test
@@ -1910,7 +1911,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("123456.e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(1234560, (Number)res_);
     }
     @Test
@@ -1919,7 +1920,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(".078125e-1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(.078125e-1, (Number)res_);
     }
     @Test
@@ -1928,7 +1929,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("123456789123456789123456789.0e-36",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(1.2345678912345678912e-10, (Number)res_);
     }
     @Test
@@ -1937,7 +1938,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("0.0e-36",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.0, (Number)res_);
     }
     @Test
@@ -1946,7 +1947,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-0.0e-36",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(-0.0, (Number)res_);
     }
     @Test
@@ -1955,7 +1956,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("0.625e-1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.0625, (Number)res_);
     }
     @Test
@@ -1964,7 +1965,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(".625e-1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.0625, (Number)res_);
     }
     @Test
@@ -1973,7 +1974,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("0.625e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(6.25, (Number)res_);
     }
     @Test
@@ -1982,7 +1983,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(".625e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(6.25, (Number)res_);
     }
     @Test
@@ -1991,7 +1992,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("0.625e0",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.625, (Number)res_);
     }
     @Test
@@ -2000,7 +2001,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(".625e0",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.625, (Number)res_);
     }
     @Test
@@ -2009,7 +2010,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-.625e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(-6.25, (Number)res_);
     }
     @Test
@@ -2018,7 +2019,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-.6e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(-6.0, (Number)res_);
     }
     @Test
@@ -2027,7 +2028,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-.60e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(-6.0, (Number)res_);
     }
     @Test
@@ -2036,7 +2037,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(".6e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(6.0, (Number)res_);
     }
     @Test
@@ -2045,7 +2046,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(".6e2",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(60.0, (Number)res_);
     }
     @Test
@@ -2054,7 +2055,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("123456789123456789123456789.1e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(1.2345678912345678912e27, (Number)res_);
     }
     @Test
@@ -2063,7 +2064,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("100.e-1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(10.0, (Number)res_);
     }
     @Test
@@ -2072,7 +2073,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-100.e-1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(-10.0, (Number)res_);
     }
     @Test
@@ -2081,7 +2082,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-1.e1",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(-10.0, (Number)res_);
     }
     @Test
@@ -2090,7 +2091,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-1.",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(-1.0, (Number)res_);
     }
     @Test
@@ -2099,7 +2100,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1e-123456789123456789123",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(0.0, (Number)res_);
     }
     @Test
@@ -2108,7 +2109,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-1e-123456789123456789123",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(-0.0, (Number)res_);
     }
     @Test
@@ -2117,7 +2118,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1e123456789123456789123",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(Double.POSITIVE_INFINITY, (Number)res_);
     }
     @Test
@@ -2126,7 +2127,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-1e123456789123456789123",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Double.class, res_.getClass());
+        assertTrue(res_ instanceof Double);
         assertEq(Double.NEGATIVE_INFINITY, (Number)res_);
     }
     @Test
@@ -2135,7 +2136,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\u9FCB'",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(Character.class, res_.getClass());
+        assertTrue(res_ instanceof Character);
         assertEq((char)40907, ((Character)res_).charValue());
     }
     @Test
@@ -2144,7 +2145,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("\"\\u9FCB\"",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("\u9fcb", (String)res_);
     }
     @Test
@@ -2153,7 +2154,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("\"\\u9fcb\"",0, context_);
         Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
+        assertTrue(res_ instanceof String);
         assertEq("\u9fcb", (String)res_);
     }
     @Test(expected=NoSuchDeclaredMethodException.class)
@@ -2877,7 +2878,7 @@ public class ElUtilTest {
         ElUtil.processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "2i", "=",cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
-        assertSame(Integer.class, res_.getClass());
+        assertTrue(res_ instanceof Integer);
         assertEq(2,(Number) res_);
     }
 

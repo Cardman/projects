@@ -87,8 +87,6 @@ public class Configuration {
 
     private transient volatile boolean interrupt;
 
-    private transient boolean customLgNames;
-
     public final void init() {
         htmlPage = new HtmlPage();
         document = null;
@@ -113,8 +111,6 @@ public class Configuration {
         if (standards == null) {
             standards = new BeanLgNames();
             DefaultInitialization.basicStandards(standards);
-        } else {
-            customLgNames = true;
         }
         standards.setContext(context);
         standards.build();
@@ -299,9 +295,7 @@ public class Configuration {
             return context;
         }
         ContextEl context_ = new ContextEl();
-        if (customLgNames) {
-            context_.setClasses(new Classes());
-        }
+        context_.setClasses(new Classes());
         context_.setStandards(standards);
         context_.setAccessValue(accessValue);
         context_.setCurrentUrl(currentUrl);

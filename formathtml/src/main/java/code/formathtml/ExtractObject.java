@@ -306,7 +306,7 @@ final class ExtractObject {
             if (_evalBool) {
                 return new BooleanStruct(mathFact_.evaluateDirectlyBoolean(numExpr_));
             } else {
-                return new StdStruct(mathFact_.evaluateDirectlyRate(numExpr_), rateClass_);
+                return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), rateClass_);
             }
         } catch (Throwable _0) {
             String err_ = _conf.getStandards().getAliasError();
@@ -363,13 +363,17 @@ final class ExtractObject {
     }
     static void classNameForName(Configuration _conf, int _offest, String _className) {
         if (_conf.toContextEl().getClasses() != null) {
-            if (_conf.getStandards().getStandards().contains(_className)) {
+            String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(_className).getComponent();
+            if (_conf.getStandards().getStandards().contains(compo_)) {
                 return;
             }
-            if (PrimitiveTypeUtil.isPrimitive(_className, _conf.toContextEl())) {
+            if (_conf.toContextEl().getClasses().isCustomType(compo_)) {
                 return;
             }
-            throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_conf.joinPages()));
+            if (PrimitiveTypeUtil.isPrimitive(compo_, _conf.toContextEl())) {
+                return;
+            }
+            throw new RuntimeClassNotFoundException(StringList.concat(compo_,RETURN_LINE,_conf.joinPages()));
         }
         if (_conf.getStandards().getStandards().contains(_className)) {
             return;
