@@ -298,7 +298,7 @@ final class ExtractObject {
             if (_evalBool) {
                 return new BooleanStruct(mathFact_.evaluateDirectlyBoolean(numExpr_));
             } else {
-                return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), rateClass_);
+                return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.toContextEl(), rateClass_);
             }
         } catch (Throwable _0) {
             String err_ = _conf.getStandards().getAliasError();

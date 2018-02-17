@@ -9,9 +9,9 @@ import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import code.resources.BaseSixtyFourUtil;
 import code.resources.ClipStream;
 import code.resources.ResourceFiles;
+import code.util.opers.BaseSixtyFourUtil;
 
 public final class StreamSoundFile {
 

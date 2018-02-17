@@ -5,6 +5,7 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.ObjectMap;
+import code.util.StringList;
 
 public final class StdStruct implements Struct {
 
@@ -91,7 +92,7 @@ public final class StdStruct implements Struct {
         return new StdStruct(_element, lgNames_.getStructClassName(_element, _context));
     }
 
-    public static Struct wrapStd(Object _element, String _alias) {
+    public static Struct wrapStd(Object _element, ContextEl _context, String _alias) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -125,7 +126,12 @@ public final class StdStruct implements Struct {
         if (_element instanceof StringBuilder) {
             return new StringBuilderStruct((StringBuilder) _element);
         }
-        return new StdStruct(_element, _alias);
+        LgNames lgNames_ = _context.getStandards();
+        String className_ = lgNames_.getStructClassName(_element, _context);
+        if (StringList.quickEq(className_, lgNames_.getAliasObject())) {
+            return new StdStruct(_element, _alias);
+        }
+        return new StdStruct(_element, className_);
     }
     @Override
     public boolean isNull() {

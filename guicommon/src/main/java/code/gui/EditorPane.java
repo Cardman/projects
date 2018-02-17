@@ -13,9 +13,9 @@ import javax.swing.text.html.HTMLEditorKit;
 import code.sml.Attr;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.sml.ElementList;
 import code.sml.NamedNodeMap;
 import code.sml.Node;
-import code.sml.NodeList;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -90,7 +90,7 @@ public class EditorPane extends JTextPane {
     void setupText(String _text, boolean _autoSubmission) {
         tooltips.clear();
         Document doc_ = DocumentBuilder.parseSax(_text);
-        NodeList nodes_ = doc_.getElementsByTagName(TAG_A);
+        ElementList nodes_ = doc_.getElementsByTagName(TAG_A);
         int size_ = nodes_.getLength();
         for (int i = CustList.FIRST_INDEX;i<size_;i++) {
             Node node_ = nodes_.item(i);

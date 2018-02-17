@@ -78,6 +78,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.sml.Element;
+import code.sml.ElementList;
 import code.sml.NamedNodeMap;
 import code.sml.Node;
 import code.sml.NodeList;
@@ -299,7 +300,7 @@ public final class FormatHtml {
         if (doc_ == null) {
             throw new XmlParseException(StringList.concat(res_.getLocation().display(),RETURN_LINE,_conf.joinPages()));
         }
-        NodeList bodies_ = doc_.getElementsByTagName(TAG_BODY);
+        ElementList bodies_ = doc_.getElementsByTagName(TAG_BODY);
         if (bodies_.getLength() != CustList.ONE_ELEMENT) {
             return null;
         }
@@ -1238,10 +1239,10 @@ public final class FormatHtml {
                     inputs_.setForm(_currentForm - 1);
                     inputs_.setInput(indexes_.getNb());
                     StringList allOptions_ = new StringList();
-                    NodeList elts_ = selectTag_.getElementsByTagName(TAG_OPTION);
+                    ElementList elts_ = selectTag_.getElementsByTagName(TAG_OPTION);
                     int nbElts_ = elts_.getLength();
                     for (int i = 0; i < nbElts_; i++) {
-                        Element opt_ = (Element) elts_.item(i);
+                        Element opt_ = elts_.item(i);
                         allOptions_.add(opt_.getAttribute(ATTRIBUTE_VALUE));
                     }
                     _conf.getHtmlPage().getSelects().put(inputs_, allOptions_);
@@ -2771,12 +2772,12 @@ public final class FormatHtml {
             }
         }
         if (StringList.quickEq(_tag.getTagName(),TAG_LINK)) {
-            NodeList heads_ = _doc.getElementsByTagName(TAG_HEAD);
+            ElementList heads_ = _doc.getElementsByTagName(TAG_HEAD);
             attributesNames_.removeAllString(ATTRIBUTE_HREF);
             attributesNames_.removeAllString(ATTRIBUTE_REL);
             String href_ = getCssHref(_tag);
             if (href_ != null && heads_.getLength() == CustList.ONE_ELEMENT){
-                Element head_ = (Element) heads_.item(CustList.FIRST_INDEX);
+                Element head_ = heads_.item(CustList.FIRST_INDEX);
                 CustList<Element> children_ = new CustList<Element>();
                 for (Element c: head_.getChildElements()) {
                     if (!StringList.quickEq(c.getTagName(), TAG_STYLE)) {
@@ -2827,11 +2828,11 @@ public final class FormatHtml {
             }
         }
         if (StringList.quickEq(_tag.getTagName(),TAG_STYLE)) {
-            NodeList links_ = _doc.getElementsByTagName(TAG_LINK);
+            ElementList links_ = _doc.getElementsByTagName(TAG_LINK);
             int len_ = links_.getLength();
             StringList refs_ = new StringList();
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                Element link_ = (Element) links_.item(i);
+                Element link_ = links_.item(i);
                 String href_ = getCssHref(link_);
                 if (href_ != null) {
                     refs_.add(href_);

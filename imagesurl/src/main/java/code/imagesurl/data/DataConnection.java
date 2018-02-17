@@ -5,8 +5,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import code.images.ConverterBufferedImage;
-import code.resources.BaseSixtyFourUtil;
 import code.util.StringList;
+import code.util.opers.BaseSixtyFourUtil;
 
 class DataConnection extends URLConnection {
 

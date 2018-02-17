@@ -27,7 +27,7 @@ import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
-import code.sml.NodeList;
+import code.sml.ElementList;
 import code.sml.util.ExtractFromFiles;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamSoundFile;
@@ -249,11 +249,11 @@ public class MainWindow extends GroupFrame {
                     }
                     txt_ = escapedXml_.toString();
                     Document doc_ = DocumentBuilder.parseSax(txt_);
-                    NodeList e_ = doc_.getElementsByTagName(MEDIA);
+                    ElementList e_ = doc_.getElementsByTagName(MEDIA);
                     int len_ = e_.getLength();
                     songsList.clear();
                     for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        Element elt_ = (Element) e_.item(i);
+                        Element elt_ = e_.item(i);
                         String v_ = elt_.getAttribute(SRC);
                         if (!v_.endsWith(WAV)) {
                             if (!v_.endsWith(TXT)) {

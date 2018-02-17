@@ -22,13 +22,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import code.resources.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.PairEq;
 import code.util.PairNumber;
 import code.util.StringList;
+import code.util.opers.BaseSixtyFourUtil;
 import code.util.opers.PairUtil;
 
 public final class ConverterBufferedImage {

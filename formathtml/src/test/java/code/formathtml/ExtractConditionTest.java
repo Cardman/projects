@@ -16,7 +16,7 @@ import code.formathtml.util.BeanStruct;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
-import code.sml.NodeList;
+import code.sml.ElementList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -534,8 +534,8 @@ public class ExtractConditionTest {
     }
 
     private static Element getElement(Document _doc, String _tag, int _index) {
-        NodeList elts_ = _doc.getElementsByTagName(_tag);
-        return (Element) elts_.item(_index);
+        ElementList elts_ = _doc.getElementsByTagName(_tag);
+        return elts_.item(_index);
     }
 
     private static void addImportingPage(Configuration _conf, boolean _rendering) {

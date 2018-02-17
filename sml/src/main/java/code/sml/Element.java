@@ -560,8 +560,8 @@ public final class Element extends Node {
         return elements_;
     }
 
-    public NodeList getElementsByTagName(String _tagName) {
-        NodeList elements_ = new NodeList();
+    public ElementList getElementsByTagName(String _tagName) {
+        ElementList elements_ = new ElementList();
         Element root_ = this;
         if (StringList.quickEq(getTagName(), _tagName)) {
             elements_.add(root_);

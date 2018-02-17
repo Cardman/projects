@@ -10,6 +10,11 @@ import code.serialize.exceptions.NoAttributeForSerializable;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.NoValueException;
 import code.serialize.exceptions.RefException;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.ElementList;
+import code.sml.Node;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -17,11 +22,6 @@ import code.util.StringMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.ChangeableMap;
 import code.util.ints.Viewable;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.Element;
-import code.sml.Node;
-import code.sml.NodeList;
 
 public final class SerializeXmlObject {
 
@@ -67,7 +67,7 @@ public final class SerializeXmlObject {
             StringMap<String> _fields) {
         try {
             Document doc_ = DocumentBuilder.parseSax(_xmlFile);
-            NodeList list_ = doc_.getElementsByTagName(ALL);
+            ElementList list_ = doc_.getElementsByTagName(ALL);
             int length_ = list_.getLength();
             for (int i = CustList.FIRST_INDEX; i < length_; i++) {
                 Node node_ = list_.item(i);
@@ -112,7 +112,7 @@ public final class SerializeXmlObject {
             StringMap<String> _classes) {
         try {
             Document doc_ = DocumentBuilder.parseSax(_xmlFile);
-            NodeList list_ = doc_.getElementsByTagName(ALL);
+            ElementList list_ = doc_.getElementsByTagName(ALL);
             int length_ = list_.getLength();
             for (int i = CustList.FIRST_INDEX; i < length_; i++) {
                 Node node_ = list_.item(i);

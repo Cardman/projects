@@ -125,7 +125,7 @@ public final class Document extends Node {
         return documentElement.getElementsByTagName();
     }
 
-    public NodeList getElementsByTagName(String _tagName) {
+    public ElementList getElementsByTagName(String _tagName) {
         return documentElement.getElementsByTagName(_tagName);
     }
     @Override

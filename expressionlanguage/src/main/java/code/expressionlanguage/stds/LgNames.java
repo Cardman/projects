@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustBase;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.NumberInfos;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -2885,6 +2886,7 @@ public class LgNames {
         String charType_ = lgNames_.getAliasCharacter();
         String stringType_ = lgNames_.getAliasString();
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
+        String objectType_ = lgNames_.getAliasObject();
         String replType_ = lgNames_.getAliasReplacement();
         String intPrimType_ = lgNames_.getAliasPrimInteger();
         String charPrimType_ = lgNames_.getAliasPrimChar();
@@ -3132,6 +3134,8 @@ public class LgNames {
                     result_.setResult(new StringBuilderStruct(new StringBuilder(two_)));
                 }
             }
+        } else if (StringList.quickEq(type_, objectType_)) {
+            result_.setResult(new StdStruct(new CustBase(), objectType_));
         } else {
             result_ = lgNames_.getOtherResult(_cont, _method, argsObj_);
         }

@@ -24,6 +24,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.sml.Element;
+import code.sml.ElementList;
 import code.sml.NodeList;
 import code.sml.Text;
 import code.sml.exceptions.XmlParseException;
@@ -556,10 +557,10 @@ public final class Navigation {
             }
         }
         //begin deleting previous errors
-        NodeList spansForm_ = formElement_.getElementsByTagName(TAG_SPAN);
+        ElementList spansForm_ = formElement_.getElementsByTagName(TAG_SPAN);
         int lengthSpansForom_ = spansForm_.getLength();
         for (int j = CustList.FIRST_INDEX; j < lengthSpansForom_; j++) {
-            Element elt_ = (Element) spansForm_.item(j);
+            Element elt_ = spansForm_.item(j);
             if (!elt_.hasAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_FOR))) {
                 continue;
             }
@@ -643,10 +644,10 @@ public final class Navigation {
         containersMap_ = htmlPage_.getContainers();
         NatTreeMap<Long, NodeContainer> containers_ = containersMap_.getVal(_id);
         for (String i : _errors.getKeys()) {
-            NodeList spans_ = _formElement.getElementsByTagName(TAG_SPAN);
+            ElementList spans_ = _formElement.getElementsByTagName(TAG_SPAN);
             int lengthSpans_ = spans_.getLength();
             for (int j = CustList.FIRST_INDEX; j < lengthSpans_; j++) {
-                Element elt_ = (Element) spans_.item(j);
+                Element elt_ = spans_.item(j);
                 if (!StringList.quickEq(elt_.getAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_FOR)),i)) {
                     continue;
                 }
@@ -666,10 +667,10 @@ public final class Navigation {
                 elt_.appendChild(text_);
             }
         }
-        NodeList inputs_ = _doc.getElementsByTagName(TAG_INPUT);
+        ElementList inputs_ = _doc.getElementsByTagName(TAG_INPUT);
         int lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
-            Element elt_ = (Element) inputs_.item(i);
+            Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(NUMBER_INPUT);
             if (idInput_.isEmpty()) {
                 continue;
@@ -710,16 +711,16 @@ public final class Navigation {
         inputs_ = _doc.getElementsByTagName(TAG_SELECT);
         lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
-            Element elt_ = (Element) inputs_.item(i);
+            Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(NUMBER_INPUT);
             if (idInput_.isEmpty()) {
                 continue;
             }
             NodeContainer nCont_ = containers_.getVal(Long.parseLong(idInput_));
-            NodeList options_ = elt_.getElementsByTagName(TAG_OPTION);
+            ElementList options_ = elt_.getElementsByTagName(TAG_OPTION);
             int optionsLen_ = options_.getLength();
             for (int j = CustList.FIRST_INDEX; j < optionsLen_; j++) {
-                Element option_ = (Element) options_.item(j);
+                Element option_ = options_.item(j);
                 if (nCont_.getNodeInformation().getValue().containsStr(option_.getAttribute(ATTRIBUTE_VALUE))) {
                     option_.setAttribute(SELECTED, SELECTED);
                 } else {
@@ -730,7 +731,7 @@ public final class Navigation {
         inputs_ = _doc.getElementsByTagName(TEXT_AREA);
         lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
-            Element elt_ = (Element) inputs_.item(i);
+            Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(NUMBER_INPUT);
             if (idInput_.isEmpty()) {
                 continue;
@@ -770,10 +771,10 @@ public final class Navigation {
         String textToDisplay_ = _text;
         tooltips.clear();
         Document doc_ = session.getDocument();
-        NodeList nodes_ = doc_.getElementsByTagName(TAG_A);
+        ElementList nodes_ = doc_.getElementsByTagName(TAG_A);
         int size_ = nodes_.getLength();
         for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-            Element node_ = (Element) nodes_.item(i);
+            Element node_ = nodes_.item(i);
             if (node_.getAttribute(ATTRIBUTE_HREF).isEmpty()) {
                 continue;
             }
@@ -787,11 +788,11 @@ public final class Navigation {
         nodes_ = doc_.getElementsByTagName(TAG_HEAD);
         size_ = nodes_.getLength();
         for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-            Element node_ = (Element) nodes_.item(i);
-            NodeList subNodes_ = node_.getElementsByTagName(TAG_TITLE);
+            Element node_ = nodes_.item(i);
+            ElementList subNodes_ = node_.getElementsByTagName(TAG_TITLE);
             int subListSize_ = subNodes_.getLength();
             for (int j = CustList.FIRST_INDEX; j < subListSize_; j++) {
-                Element subNode_ = (Element) subNodes_.item(j);
+                Element subNode_ = subNodes_.item(j);
                 title = subNode_.getTextContent().trim();
             }
         }
