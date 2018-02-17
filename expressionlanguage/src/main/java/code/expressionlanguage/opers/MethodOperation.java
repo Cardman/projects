@@ -1,7 +1,9 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.NatTreeMap;
 
 public abstract class MethodOperation extends OperationNode {
@@ -15,6 +17,30 @@ public abstract class MethodOperation extends OperationNode {
         children = new NatTreeMap<Integer,String>();
         calculateChildren();
     }
+    @Override
+    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
+        OperationNode op_ = this;
+        while (op_ != null) {
+            if (_nodes.getVal(op_).getArgument() != null) {
+                return true;
+            }
+            op_ = op_.getParent();
+        }
+        return false;
+    }
+
+    @Override
+    public final boolean isCalculated() {
+        OperationNode op_ = this;
+        while (op_ != null) {
+            if (op_.getArgument() != null) {
+                return true;
+            }
+            op_ = op_.getParent();
+        }
+        return false;
+    }
+ 
     public final void appendChild(OperationNode _child) {
         if (firstChild == null) {
             firstChild = _child;

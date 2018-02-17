@@ -79,7 +79,7 @@ public class SimulationBean extends CommonBean {
     private boolean enabledClosing;
     private boolean randomWildFight;
     private boolean skipLearningMovesWhileNotGrowingLevel;
-    private CustList<PlaceIndex> places;
+    private CustList<PlaceIndex> places = new CustList<PlaceIndex>();
 
     private Coords coords;
     private boolean freeTeams;

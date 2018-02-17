@@ -14,7 +14,7 @@ public class SelectItemBean extends CommonBean {
     private CustList<ItemLine> items = new CustList<ItemLine>();
     private StringList sortedItems = new StringList();
     private String typedName = DataBase.EMPTY_STRING;
-    private String typedPrice;
+    private String typedPrice = DataBase.EMPTY_STRING;
 
     private Integer price;
     private String typedClass = DataBase.EMPTY_STRING;
@@ -42,9 +42,7 @@ public class SelectItemBean extends CommonBean {
             item_.setDescriptionClass(class_);
             items.add(item_);
         }
-        if (typedPrice != null) {
-            typedPrice = escapedStringQuote(typedPrice);
-        }
+        typedPrice = escapedStringQuote(typedPrice);
         typedName = escapedStringQuote(typedName);
         typedClass = escapedStringQuote(typedClass);
     }

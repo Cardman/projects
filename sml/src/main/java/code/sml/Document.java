@@ -15,7 +15,7 @@ public final class Document extends Node {
         return tabWidth;
     }
 
-    public Attr createAttribute(String _name) {
+    Attr createAttribute(String _name) {
         Attr attr_ = new Attr();
         attr_.setName(_name);
         return attr_;
@@ -36,7 +36,7 @@ public final class Document extends Node {
         text_.setTextContent(_data);
         return text_;
     }
-    protected Text createEscapedTextNode(String _data) {
+    Text createEscapedTextNode(String _data) {
         Text text_ = new Text(this);
         text_.setEscapedTextContent(_data);
         return text_;

@@ -213,7 +213,7 @@ final class ExtractObject {
                             _ip.getLocalVars().put(patName_, lv_);
                             String navName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
-                            lv_.setElement(_conf, _conf.getStandards().getAliasObject());
+                            lv_.setElement(_conf, _conf.toContextEl());
                             lv_.setClassName(_conf.getStandards().getAliasObject());
                             _ip.getLocalVars().put(navName_, lv_);
                             String beanName_ = _ip.getNextTempVar();

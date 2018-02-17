@@ -592,7 +592,7 @@ public class CustLgNames extends LgNames {
         if (_struct instanceof ArrayBis) {
             return aliasArrayBis;
         }
-        return super.getOtherStructClassName(_struct, _context);
+        return getAliasObject();
     }
     public String getAliasInts() {
         return aliasInts;

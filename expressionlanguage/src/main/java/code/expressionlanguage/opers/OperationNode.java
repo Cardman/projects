@@ -8,6 +8,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
@@ -215,6 +216,9 @@ public abstract class OperationNode {
     public static OperationNode createOperationNode(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         if (_op.getOperators().isEmpty()) {
+            if (_op.getConstType() == ConstType.STATIC_ACCESS) {
+                return new StaticAccessOperation(_index, _indexChild, _m, _op);
+            }
             return new ConstantOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
@@ -265,33 +269,9 @@ public abstract class OperationNode {
         return getIndexChild() == CustList.FIRST_INDEX;
     }
 
-    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        if (isPossibleInitClass()) {
-            return false;
-        }
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
+    public abstract boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes);
 
-    public final boolean isCalculated() {
-        if (isPossibleInitClass()) {
-            return false;
-        }
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
+    public abstract boolean isCalculated();
 
     public abstract boolean isPossibleInitClass();
 
@@ -544,10 +524,8 @@ public abstract class OperationNode {
         ConstructorId ctor_ = signatures_.first().getConstraints();
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
-        if (ctor_.isVararg() && _varargOnly == -1) {
-            if (varArgWrap(_conf, glClass_, clCurName_, ctor_, _args)) {
-                out_.setVarArgToCall(true);
-            }
+        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, clCurName_, ctor_, _args)) {
+            out_.setVarArgToCall(true);
         }
         out_.setRealId(ctor_);
         out_.setConstId(ctor_.format(clCurName_, _conf));

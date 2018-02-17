@@ -17,7 +17,6 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringStruct;
@@ -44,6 +43,22 @@ import code.util.pagination.SelectedBoolean;
 
 public class BeanLgNames extends LgNames {
 
+    private static final String VALIDATE = "validate";
+    private static final String GET_INDEXES = "getIndexes";
+    private static final String GET_OLD_VALUE = "getOldValue";
+    private static final String GET_NEW_VALUE = "getNewValue";
+    private static final String GET_VALUE = "getValue";
+    private static final String GET_KEY = "getKey";
+    private static final String ENTRIES = "entries";
+    private static final String SET_FORMS = "setForms";
+    private static final String GET_FORMS = "getForms";
+    private static final String SET_LANGUAGE = "setLanguage";
+    private static final String GET_LANGUAGE = "getLanguage";
+    private static final String SET_SCOPE = "setScope";
+    private static final String GET_SCOPE = "getScope";
+    private static final String SET_DATA_BASE = "setDataBase";
+    private static final String GET_DATA_BASE = "getDataBase";
+    private static final String BEFORE_DISPLAYING = "beforeDisplaying";
     private static final String ON = "on";
     private final String aliasStringMapObject = "code.util.StringMapObject";
     private final String custEntry = "$custentry";
@@ -65,36 +80,36 @@ public class BeanLgNames extends LgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardMethod method_;
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass("code.bean.Bean", fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        std_ = new StandardClass(bean, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         StringList params_;
         params_ = new StringList();
-        method_ = new StandardMethod("beforeDisplaying", params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(BEFORE_DISPLAYING, params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod("getDataBase", params_, getAliasObject(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(GET_DATA_BASE, params_, getAliasObject(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasObject());
-        method_ = new StandardMethod("setDataBase", params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(SET_DATA_BASE, params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod("getScope", params_, getAliasString(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(GET_SCOPE, params_, getAliasString(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod("setScope", params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(SET_SCOPE, params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod("getLanguage", params_, getAliasString(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(GET_LANGUAGE, params_, getAliasString(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod("setLanguage", params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(SET_LANGUAGE, params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod("getForms", params_, aliasStringMapObject, false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(GET_FORMS, params_, aliasStringMapObject, false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasStringMapObject);
-        method_ = new StandardMethod("setForms", params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(SET_FORMS, params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
-        getStandards().put("code.bean.Bean", std_);
+        getStandards().put(bean, std_);
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -112,7 +127,7 @@ public class BeanLgNames extends LgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(custMap, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod("entries", params_, getAliasSimpleIterableType(), false, MethodModifier.NORMAL, cl_);
+        method_ = new StandardMethod(ENTRIES, params_, getAliasSimpleIterableType(), false, MethodModifier.NORMAL, cl_);
         methods_.put(method_.getId(), method_);
         cl_.getDirectInterfaces().add(getAliasCountable());
         cl_.getDirectInterfaces().add(custEntries);
@@ -127,28 +142,28 @@ public class BeanLgNames extends LgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(custEntry, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod("getKey", params_, getAliasObject(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_KEY, params_, getAliasObject(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod("getValue", params_, getAliasObject(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_VALUE, params_, getAliasObject(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(custEntry, cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(valueChangedEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod("getNewValue", params_, getAliasObject(), false, MethodModifier.NORMAL, cl_);
+        method_ = new StandardMethod(GET_NEW_VALUE, params_, getAliasObject(), false, MethodModifier.NORMAL, cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod("getOldValue", params_, getAliasObject(), false, MethodModifier.NORMAL, cl_);
+        method_ = new StandardMethod(GET_OLD_VALUE, params_, getAliasObject(), false, MethodModifier.NORMAL, cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod("getIndexes", params_, getCustList(), false, MethodModifier.NORMAL, cl_);
+        method_ = new StandardMethod(GET_INDEXES, params_, getCustList(), false, MethodModifier.NORMAL, cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(valueChangedEvent, cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(validator, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
         params_ = new StringList(getAliasObject(),getAliasObject(),getAliasObject());
-        method_ = new StandardMethod("validate", params_, getAliasObject(), false, MethodModifier.NORMAL, cl_);
+        method_ = new StandardMethod(VALIDATE, params_, getAliasObject(), false, MethodModifier.NORMAL, cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(validator, cl_);
     }
@@ -157,17 +172,17 @@ public class BeanLgNames extends LgNames {
             ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (_instance.getInstance() instanceof Bean) {
-            if (StringList.quickEq(_method.getConstraints().getName(), "beforeDisplaying")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), BEFORE_DISPLAYING)) {
                 ((Bean)_instance.getInstance()).beforeDisplaying();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "setDataBase")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), SET_DATA_BASE)) {
                 ((Bean)_instance.getInstance()).setDataBase(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getDataBase")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_DATA_BASE)) {
                 Object db_ = ((Bean)_instance.getInstance()).getDataBase();
                 if (getAliasDataBase() != null) {
                     res_.setResult(new StdStruct(db_, getAliasDataBase()));
@@ -176,32 +191,32 @@ public class BeanLgNames extends LgNames {
                 res_.setResult(new StdStruct(db_, getAliasObject()));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getForms")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_FORMS)) {
                 StringMapObject resMap_ = ((Bean)_instance.getInstance()).getForms();
                 res_.setResult(new StringMapObjectStruct(resMap_));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "setForms")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), SET_FORMS)) {
                 ((Bean)_instance.getInstance()).setForms((StringMapObject)_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getLanguage")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_LANGUAGE)) {
                 String resMap_ = ((Bean)_instance.getInstance()).getLanguage();
                 res_.setResult(new StringStruct(resMap_));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "setLanguage")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), SET_LANGUAGE)) {
                 ((Bean)_instance.getInstance()).setLanguage((String)_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getScope")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_SCOPE)) {
                 String resMap_ = ((Bean)_instance.getInstance()).getScope();
                 res_.setResult(new StringStruct(resMap_));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "setScope")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), SET_SCOPE)) {
                 ((Bean)_instance.getInstance()).setScope((String)_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -214,70 +229,30 @@ public class BeanLgNames extends LgNames {
         }
         if (_instance.getInstance() instanceof SimpleEntry) {
             SimpleEntry db_ = (SimpleEntry)_instance.getInstance();
-            if (StringList.quickEq(_method.getConstraints().getName(), "getKey")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_KEY)) {
                 Object key_ = db_.getKey();
-                if (key_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (key_ instanceof Character) {
-                    res_.setResult(new CharStruct((Character) key_));
-                    return res_;
-                }
-                if (key_ instanceof Boolean) {
-                    res_.setResult(new BooleanStruct((Boolean) key_));
-                    return res_;
-                }
-                if (key_ instanceof Number) {
-                    res_.setResult(NumberStruct.wrapNb((Number) key_));
-                    return res_;
-                }
-                if (key_ instanceof String) {
-                    res_.setResult(new StringStruct((String) key_));
-                    return res_;
-                }
-                res_.setResult(new StdStruct(key_, getStructClassName(key_, _cont)));
+                res_.setResult(StdStruct.wrapStd(key_, _cont));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getValue")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_VALUE)) {
                 Object value_ = db_.getValue();
-                if (value_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (value_ instanceof Character) {
-                    res_.setResult(new CharStruct((Character) value_));
-                    return res_;
-                }
-                if (value_ instanceof Boolean) {
-                    res_.setResult(new BooleanStruct((Boolean) value_));
-                    return res_;
-                }
-                if (value_ instanceof Number) {
-                    res_.setResult(NumberStruct.wrapNb((Number) value_));
-                    return res_;
-                }
-                if (value_ instanceof String) {
-                    res_.setResult(new StringStruct((String) value_));
-                    return res_;
-                }
-                res_.setResult(new StdStruct(value_, getStructClassName(value_, _cont)));
+                res_.setResult(StdStruct.wrapStd(value_, _cont));
                 return res_;
             }
         }
         if (_instance.getInstance() instanceof ValueChangeEvent) {
             ValueChangeEvent db_ = (ValueChangeEvent)_instance.getInstance();
-            if (StringList.quickEq(_method.getConstraints().getName(), "getNewValue")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_NEW_VALUE)) {
                 Object key_ = db_.getNewValue();
                 res_.setResult(new StdStruct(key_, getStructClassName(key_, _cont)));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getOldValue")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_OLD_VALUE)) {
                 Object value_ = db_.getOldValue();
                 res_.setResult(new StdStruct(value_, getStructClassName(value_, _cont)));
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), "getIndexes")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), GET_INDEXES)) {
                 Numbers<Long> value_ = db_.getIndexes();
                 res_.setResult(new StdStruct(value_, StringList.concat(custList,Templates.TEMPLATE_BEGIN,getAliasLong(),Templates.TEMPLATE_END)));
                 return res_;
@@ -285,7 +260,7 @@ public class BeanLgNames extends LgNames {
         }
         if (_instance.getInstance() instanceof Validator) {
             Validator validator_ = (Validator) _instance.getInstance();
-            if (StringList.quickEq(_method.getConstraints().getName(), "validate")) {
+            if (StringList.quickEq(_method.getConstraints().getName(), VALIDATE)) {
                 Message message_ = validator_.validate(_args[0], _args[1], _args[2]);
                 if (message_ == null) {
                     res_.setResult(NullStruct.NULL_VALUE);

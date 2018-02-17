@@ -154,7 +154,7 @@ final class HtmlRequest {
             String tmp_ = ip_.getNextTempVar();
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(_conf.getStandards().getValueChangedEvent());
-            locVar_.setElement(chg_, _conf.getStandards().getValueChangedEvent());
+            locVar_.setElement(chg_, _conf.toContextEl());
             ip_.getLocalVars().put(tmp_, locVar_);
             StringBuilder str_ = new StringBuilder(method_);
             str_.append(LEFT_PAR);

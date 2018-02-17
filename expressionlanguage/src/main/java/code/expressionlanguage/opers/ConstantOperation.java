@@ -61,7 +61,7 @@ import code.util.StringList;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
-public final class ConstantOperation extends OperationNode implements SettableElResult, PossibleIntermediateDotted {
+public final class ConstantOperation extends LeafOperation implements SettableElResult, PossibleIntermediateDotted {
     private static final String ATTRIBUTE = "attribute";
     private static final String INDEX = "index";
     private static final String CATCH_VARIABLE = "catch variable";
@@ -98,6 +98,29 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+    }
+    @Override
+    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
+        OperationNode op_ = this;
+        while (op_ != null) {
+            if (_nodes.getVal(op_).getArgument() != null) {
+                return true;
+            }
+            op_ = op_.getParent();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isCalculated() {
+        OperationNode op_ = this;
+        while (op_ != null) {
+            if (op_.getArgument() != null) {
+                return true;
+            }
+            op_ = op_.getParent();
+        }
+        return false;
     }
 
     @Override
@@ -289,46 +312,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             a_.setObject(strBuilder_.toString().charAt(0));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
-            return;
-        }
-        if (op_.getConstType() == ConstType.STATIC_ACCESS) {
-            String type_ = str_.substring(STATIC_ACCESS.length() + 2);
-            StringBuilder class_ = new StringBuilder();
-            if (type_.startsWith(String.valueOf(EXTERN_CLASS))) {
-                class_.append(type_);
-            } else {
-                for (char p: type_.toCharArray()) {
-                    if (Character.isWhitespace(p)) {
-                        continue;
-                    }
-                    if (StringList.isWordChar(p)) {
-                        class_.append(p);
-                    } else if (p == EXTERN_CLASS){
-                        class_.append(DOT_VAR);
-                    } else {
-                        class_.append(INTERN_CLASS);
-                    }
-                }
-            }
-            String classStr_ = StringList.removeAllSpaces(class_.toString());
-            String base_ = StringList.getAllTypes(classStr_).first();
-            String glClass_ = _conf.getLastPage().getGlobalClass();
-            Classes classes_ = _conf.getClasses();
-            checkExistBase(_conf, false, base_, false, 0);
-            if (classes_ != null && classes_.isCustomType(classStr_)) {
-                String curClassBase_ = null;
-                if (glClass_ != null) {
-                    curClassBase_ = StringList.getAllTypes(glClass_).first();
-                }
-                if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
-                    throw new BadAccessException(StringList.concat(classStr_,RETURN_LINE,_conf.joinPages()));
-                }
-                possibleInitClass = true;
-            }
-            a_ = new Argument();
-            argClName_ = classStr_;
-            setArguments(a_);
-            setStaticResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         str_ = StringList.removeAllSpaces(str_);
@@ -669,9 +652,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
         if (argres_.isInitClass()) {
             ProcessXmlMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
-            if (isPossibleInitClass()) {
-                return;
-            }
             argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
         }
         Argument arg_ = argres_.getArgument();
@@ -695,26 +675,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         String cast_;
         null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
-        if (isPossibleInitClass()) {
-            String className_ = getResultClass().getName();
-            if (!_conf.getClasses().isInitialized(className_)) {
-                _conf.getClasses().initialize(className_);
-                InitializatingClass inv_ = new InitializatingClass(className_);
-                return ArgumentCall.newCall(inv_);
-            }
-        }
-        Argument cur_ = _argument;
-        if (cur_ != null) {
-            return ArgumentCall.newArgument(cur_);
-        }
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         PageEl ip_ = _conf.getLastPage();
-        if (StringList.quickEq(str_, CURRENT_INTANCE)) {
+        if (getOperations().getConstType() == ConstType.THIS_KEYWORD) {
             Struct struct_ = ip_.getGlobalArgument().getStruct();
             a_ = new Argument();
             a_.setStruct(struct_);
@@ -1006,11 +973,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     @Override
     public boolean isPossibleInitClass() {
         return possibleInitClass;
-    }
-
-    @Override
-    public OperationNode getFirstChild() {
-        return null;
     }
 
     @Override

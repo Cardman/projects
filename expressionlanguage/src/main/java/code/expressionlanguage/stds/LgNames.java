@@ -27,7 +27,6 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.ReplacementStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -800,6 +799,9 @@ public class LgNames {
         params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
         method_ = new StandardMethod(aliasDelete, params_, aliasStringBuilder, false, MethodModifier.NORMAL,stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean, false, MethodModifier.NORMAL,stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger);
         method_ = new StandardMethod(aliasDeleteCharAt, params_, aliasStringBuilder, false, MethodModifier.NORMAL,stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1234,30 +1236,8 @@ public class LgNames {
         if (instance_ instanceof SimpleItr) {
             try {
                 if (StringList.quickEq(name_, lgNames_.getAliasNext())) {
-                    String typeInst_ = lgNames_.getStructClassName(_struct, _cont);
-                    StringList allTypes_ = StringList.getAllTypes(typeInst_);
                     Object resObj_ = ((SimpleItr)instance_).next();
-                    if (resObj_ == null) {
-                        result_.setResult(NullStruct.NULL_VALUE);
-                        return result_;
-                    }
-                    if (resObj_ instanceof Character) {
-                        result_.setResult(new CharStruct((Character) resObj_));
-                        return result_;
-                    }
-                    if (resObj_ instanceof Boolean) {
-                        result_.setResult(new BooleanStruct((Boolean) resObj_));
-                        return result_;
-                    }
-                    if (resObj_ instanceof Number) {
-                        result_.setResult(NumberStruct.wrapNb((Number) resObj_));
-                        return result_;
-                    }
-                    if (resObj_ instanceof String) {
-                        result_.setResult(new StringStruct((String) resObj_));
-                        return result_;
-                    }
-                    result_.setResult(StdStruct.wrapStd(resObj_, allTypes_.last()));
+                    result_.setResult(StdStruct.wrapStd(resObj_, _cont));
                     return result_;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasHasNext())) {
@@ -1860,11 +1840,11 @@ public class LgNames {
                         result_.setResult(new BooleanStruct(one_.regionMatches(two_, three_, four_, five_)));
                     }
                 } else {
-                    Boolean two_ = (Boolean) argsObj_[1];
-                    Integer three_ = (Integer) argsObj_[2];
-                    String four_ = (String) argsObj_[THREE_ARGS];
-                    Integer five_ = (Integer) argsObj_[FOUR_ARGS];
-                    Integer six_ = (Integer) argsObj_[FIVE_ARGS];
+                    Boolean two_ = (Boolean) argsObj_[0];
+                    Integer three_ = (Integer) argsObj_[1];
+                    String four_ = (String) argsObj_[2];
+                    Integer five_ = (Integer) argsObj_[THREE_ARGS];
+                    Integer six_ = (Integer) argsObj_[FOUR_ARGS];
                     if (four_ == null) {
                         result_.setError(lgNames_.getAliasNullPe());
                     } else {
@@ -2025,12 +2005,16 @@ public class LgNames {
                     result_.setResult(new StringStruct(String.valueOf(chars_)));
                 } else if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
                     char[] chars_ = (char[]) argsObj_[0];
-                    Integer two_ = (Integer) argsObj_[1];
-                    Integer three_ = (Integer) argsObj_[2];
-                    if (two_ < 0 || three_ < 0 || two_ + three_ > chars_.length) {
-                        result_.setError(lgNames_.getAliasBadIndex());
+                    if (chars_ == null) {
+                        result_.setError(lgNames_.getAliasNullPe());
                     } else {
-                        result_.setResult(new StringStruct(String.valueOf(chars_, two_, three_)));
+                        Integer two_ = (Integer) argsObj_[1];
+                        Integer three_ = (Integer) argsObj_[2];
+                        if (two_ < 0 || three_ < 0 || two_ + three_ > chars_.length) {
+                            result_.setError(lgNames_.getAliasBadIndex());
+                        } else {
+                            result_.setResult(new StringStruct(String.valueOf(chars_, two_, three_)));
+                        }
                     }
                 } else {
                     Object obj_ = argsObj_[0];
@@ -2136,7 +2120,7 @@ public class LgNames {
                 result_.setResult(new IntStruct(one_.length()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasInsert())) {
                 Integer two_ = (Integer) argsObj_[0];
-                if (list_.size() == 2 && StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
+                if (list_.size() == 2 && StringList.quickEq(list_.get(1), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
                     char[] three_ = (char[]) argsObj_[1];
                     if (two_ < 0 || two_ > one_.length()) {
                         result_.setError(lgNames_.getAliasBadIndex());
@@ -2153,7 +2137,7 @@ public class LgNames {
                         result_.setResult(new StringBuilderStruct(one_.insert(two_, three_)));
                     }
                 } else {
-                    if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
+                    if (StringList.quickEq(list_.get(1), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
                         char[] three_ = (char[]) argsObj_[1];
                         if (three_ == null) {
                             result_.setError(lgNames_.getAliasNullPe());
@@ -2699,6 +2683,12 @@ public class LgNames {
         return (float)double_;
     }
     public static NumberInfos trySplitDouble(String _nb) {
+        if (_nb == null) {
+            return null;
+        }
+        if (_nb.isEmpty()) {
+            return null;
+        }
         NumberInfos infos_ = new NumberInfos();
         int i_ = 0;
         if (!Character.isDigit(_nb.charAt(i_))) {
@@ -2899,6 +2889,7 @@ public class LgNames {
         String replType_ = lgNames_.getAliasReplacement();
         String intPrimType_ = lgNames_.getAliasPrimInteger();
         String charPrimType_ = lgNames_.getAliasPrimChar();
+        String bytePrimType_ = lgNames_.getAliasPrimByte();
         String byteType_ = lgNames_.getAliasByte();
         String shortType_ = lgNames_.getAliasShort();
         String intType_ = lgNames_.getAliasInteger();
@@ -3040,7 +3031,7 @@ public class LgNames {
             if (list_.isEmpty()) {
                 result_.setResult(new StringStruct(EMPTY_STRING));
             } else if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(byteType_))) {
+                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_))) {
                     byte[] one_ = (byte[]) argsObj_[0];
                     if (one_ == null) {
                         result_.setError(lgNames_.getAliasNullPe());
@@ -3075,7 +3066,7 @@ public class LgNames {
                     }
                 }
             } else if (list_.size() == THREE_ARGS) {
-                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(byteType_))) {
+                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_))) {
                     byte[] two_ = (byte[]) argsObj_[0];
                     if (two_ == null) {
                         result_.setError(lgNames_.getAliasNullPe());

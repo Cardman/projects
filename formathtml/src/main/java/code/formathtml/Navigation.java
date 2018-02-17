@@ -513,21 +513,22 @@ public final class Navigation {
                 String err_ = resError_.getError();
                 throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(new CustomError(session.joinPages()),err_));
             }
+            ContextEl context_ = session.toContextEl();
             Struct obj_ = resError_.getResult();
             LocalVariable lv_ = new LocalVariable();
             String valName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
             lv_.setStruct(validator_);
-            lv_.setClassName(validator_.getClassName(session.toContextEl()));
+            lv_.setClassName(validator_.getClassName(context_));
             ip_.getLocalVars().put(valName_, lv_);
             String navName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(this, objClass_);
+            lv_.setElement(this, context_);
             lv_.setClassName(objClass_);
             ip_.getLocalVars().put(navName_, lv_);
             String nodName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(node_, objClass_);
+            lv_.setElement(node_, context_);
             lv_.setClassName(objClass_);
             ip_.getLocalVars().put(nodName_, lv_);
             String objName_ = ip_.getNextTempVar();

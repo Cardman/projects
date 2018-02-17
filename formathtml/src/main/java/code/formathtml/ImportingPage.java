@@ -1,6 +1,7 @@
 package code.formathtml;
 import code.bean.Bean;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -165,9 +166,9 @@ public final class ImportingPage {
         pageEl.setGlobalArgumentStruct(_obj);
     }
 
-    public void setGlobalArgumentObj(Object _obj, String _className) {
+    public void setGlobalArgumentObj(Object _obj, String _className, ContextEl _context) {
         pageEl.setGlobalClass(_className);
-        pageEl.setGlobalArgumentStruct(StdStruct.wrapStd(_obj, _className));
+        pageEl.setGlobalArgumentStruct(StdStruct.wrapStd(_obj, _context));
     }
 
     public void setGlobalArgumentObj(Bean _obj) {

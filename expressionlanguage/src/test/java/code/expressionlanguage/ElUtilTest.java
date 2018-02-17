@@ -3170,7 +3170,7 @@ public class ElUtilTest {
         _conf.addPage(new PageEl());
     }
     private static void addBean(ContextEl _conf, Object _bean, String _beanClass) {
-        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.wrapStd(_bean, _beanClass));
+        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.wrapStd(_bean, _conf));
         _conf.getLastPage().setGlobalClass(_beanClass);
     }
 
