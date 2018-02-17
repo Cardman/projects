@@ -14,7 +14,6 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.classes.Ints;
-import code.expressionlanguage.classes.PickableList;
 import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
@@ -36,15 +35,15 @@ public class ProcessXmlMethodTest {
     private static final String ARR_ARR_OBJECT = "[[java.lang.Object";
     private static final String ARR_CUST = "[pkg.ExThree";
     private static final String ARR_ARR_CUST = "[[pkg.ExThree";
-    private static final String NUMBERS = Ints.class.getName();
-    private static final String PICKABLE_LIST = PickableList.class.getName();
+    private static final String NUMBERS = "code.expressionlanguage.classes.Ints";
+    private static final String PICKABLE_LIST = "code.expressionlanguage.classes.PickableList";
     private static final String CUST = NUMBERS;
     private static final String PUBLIC_ACCESS = "PUBLIC";
     private static final String PROTECTED_ACCESS = "PROTECTED";
     private static final String PACKAGE_ACCESS = "PACKAGE";
     private static final String PRIVATE_ACCESS = "PRIVATE";
-    private static final String INTEGER = Integer.class.getName();
-    private static final String STRING = String.class.getName();
+    private static final String INTEGER = "java.lang.Integer";
+    private static final String STRING = "java.lang.String";
 
     @Test
     public void calculateArgument1Test() {

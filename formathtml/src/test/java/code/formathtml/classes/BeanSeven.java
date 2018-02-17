@@ -1,5 +1,4 @@
 package code.formathtml.classes;
-import code.bean.Accessible;
 import code.bean.Bean;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
@@ -11,46 +10,34 @@ import code.util.StringMap;
 @SuppressWarnings("static-method")
 public class BeanSeven extends Bean {
 
-    @Accessible
     private Composite composite = new Composite();
 
-    @Accessible
     private CustList<EnumNumber> combobox = new CustList<EnumNumber>(EnumNumber.values());
 
-    @Accessible
     private NatTreeMap<EnumNumber, String> translations = new NatTreeMap<EnumNumber, String>();
 
-    @Accessible
     private NatTreeMap<String,Numbers<Integer>> numbers = new NatTreeMap<String,Numbers<Integer>>();
 
-    @Accessible
     private EnumNumber chosenNumber = EnumNumber.ONE;
 
-    @Accessible
     private CustList<EnumNumber> chosenNumbers = new CustList<EnumNumber>(EnumNumber.ONE,EnumNumber.FOUR);
 
-    @Accessible
     private String message="Test {0}";
 
     private ValueChangeEvent changing;
 
-    @Accessible
     private NatTreeMapStringInteger tree = new NatTreeMapStringInteger();
 
-    @Accessible
     private StringMap<Integer> map = new StringMap<Integer>();
 
-    @Accessible
     private String selectedString = "ONE";
 
     private CustList<Composite> composites = new CustList<Composite>();
 
-    @Accessible
     private String commonClass = "abba";
 
     private StringList strings = new StringList();
 
-    @Accessible
     private int[] arrayInt = new int[2];
 
     public BeanSeven() {

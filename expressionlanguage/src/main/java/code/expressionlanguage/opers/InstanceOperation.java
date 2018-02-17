@@ -1,8 +1,4 @@
 package code.expressionlanguage.opers;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
@@ -18,6 +14,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
+import code.expressionlanguage.exceptions.BadAccessException;
 import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
@@ -30,7 +27,6 @@ import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.PrimitiveTypeException;
-import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
@@ -49,8 +45,6 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.types.NativeTypeUtil;
-import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -65,8 +59,6 @@ public final class InstanceOperation extends InvokingOperation {
     private boolean possibleInitClass;
 
     private String methodName;
-
-    private Constructor<?> contructor;
 
     private ConstructorId constId;
 
@@ -195,7 +187,6 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     void analyzeCtor(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
-        Classes classes_ = _conf.getClasses();
         String realClassName_ = _realClassName;
         LgNames stds_ = _conf.getStandards();
         if (StringList.quickEq(realClassName_, stds_.getAliasVoid())) {
@@ -203,80 +194,43 @@ public final class InstanceOperation extends InvokingOperation {
         }
         int varargOnly_ = lookOnlyForVarArg();
         ConstrustorIdVarArg ctorRes_ = null;
-        if (classes_ != null) {
-            checkCorrect(_conf, realClassName_, false, 0);
-            if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
-                throw new PrimitiveTypeException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-            }
-            ClassMetaInfo custClass_ = null;
-            custClass_ = _conf.getClassMetaInfo(realClassName_);
-            if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
-                throw new AbstractClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-            }
-            if (custClass_.getCategory() == ClassCategory.INTERFACE) {
-                throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-            }
-            if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (_fieldName.isEmpty() || _nodes.last() != this) {
-                    throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-                }
-                fieldName = _fieldName;
-            }
-            ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
-            constId = ctorRes_.getRealId();
-            className = ctorRes_.getConstId().getName();
-            if (ctorRes_.isVarArgToCall()) {
-                naturalVararg = constId.getParametersTypes().size() - 1;
-                lastType = constId.getParametersTypes().last();
-            }
-            String glClass_ = _conf.getLastPage().getGlobalClass();
-            CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
-            String curClassBase_ = null;
-            if (glClass_ != null) {
-                curClassBase_ = StringList.getAllTypes(glClass_).first();
-            }
-            if (!ctors_.isEmpty() && !Classes.canAccess(curClassBase_, ctors_.first(), _conf)) {
-                GeneConstructor ctr_ = ctors_.first();
-                throw new BadAccessException(StringList.concat(ctr_.getId().getSignature(),RETURN_LINE,_conf.joinPages()));
-            }
-            possibleInitClass = true;
-            setResultClass(new ClassArgumentMatching(realClassName_));
-            return;
-        }
+
+        checkCorrect(_conf, realClassName_, false, 0);
         if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
             throw new PrimitiveTypeException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
-        Class<?> cl_;
-        try {
-            cl_ = PrimitiveTypeUtil.getSingleNativeClass(realClassName_);
-        } catch (RuntimeClassNotFoundException _0_) {
-            throw new RuntimeClassNotFoundException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-        }
-        if (cl_.isEnum()) {
-            throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-        }
-        if (cl_.isInterface()) {
-            throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
-        }
-        if (_intern && isStaticAccess() && !Modifier.isStatic(cl_.getModifiers())) {
-            throw new StaticAccessException(_conf.joinPages());
-        }
-        if (Modifier.isAbstract(cl_.getModifiers())) {
+        ClassMetaInfo custClass_ = null;
+        custClass_ = _conf.getClassMetaInfo(realClassName_);
+        if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
             throw new AbstractClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
-        ClassArgumentMatching arg_ = new ClassArgumentMatching(realClassName_);
-        Constructor<?> const_ = getDeclaredConstructor(_conf, varargOnly_, 0, arg_, ClassArgumentMatching.toArgArray(_firstArgs));
-        if (!canBeUsed(const_, _conf)) {
-            throw new BadAccessException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+        if (custClass_.getCategory() == ClassCategory.INTERFACE) {
+            throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
         }
-        contructor = const_;
-        if (contructor.isVarArgs() && varargOnly_ == -1) {
-            Class<?>[] params_ = contructor.getParameterTypes();
-            naturalVararg = params_.length - 1;
-            lastType = NativeTypeUtil.getPrettyType(params_[naturalVararg]);
-            lastType = PrimitiveTypeUtil.getQuickComponentType(lastType);
+        if (custClass_.getCategory() == ClassCategory.ENUM) {
+            if (_fieldName.isEmpty() || _nodes.last() != this) {
+                throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+            }
+            fieldName = _fieldName;
         }
-        setAccess(contructor, _conf);
+        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
+        constId = ctorRes_.getRealId();
+        className = ctorRes_.getConstId().getName();
+        if (ctorRes_.isVarArgToCall()) {
+            naturalVararg = constId.getParametersTypes().size() - 1;
+            lastType = constId.getParametersTypes().last();
+        }
+        String glClass_ = _conf.getLastPage().getGlobalClass();
+        CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
+        String curClassBase_ = null;
+        if (glClass_ != null) {
+            curClassBase_ = StringList.getAllTypes(glClass_).first();
+        }
+        if (!ctors_.isEmpty() && !Classes.canAccess(curClassBase_, ctors_.first(), _conf)) {
+            GeneConstructor ctr_ = ctors_.first();
+            throw new BadAccessException(StringList.concat(ctr_.getId().getSignature(),RETURN_LINE,_conf.joinPages()));
+        }
+        possibleInitClass = true;
         setResultClass(new ClassArgumentMatching(realClassName_));
     }
 
@@ -388,7 +342,6 @@ public final class InstanceOperation extends InvokingOperation {
         className_ = StringList.removeAllSpaces(className_);
         boolean elts_ = false;
         String realClassName_;
-        String instanceClassName_;
         if (className_.endsWith(ARR_DYN)) {
             elts_ = true;
             int len_ = className_.length();
@@ -397,7 +350,6 @@ public final class InstanceOperation extends InvokingOperation {
             realClassName_ = className_;
         }
         PageEl page_ = _conf.getLastPage();
-        Classes classes_ = _conf.getClasses();
         realClassName_ = page_.formatVarType(realClassName_, _conf);
         if (realClassName_.startsWith(ARR)) {
             int[] args_;
@@ -422,44 +374,25 @@ public final class InstanceOperation extends InvokingOperation {
                 }
             }
             realClassName_ = realClassName_.substring(ARR.length());
-            boolean cust_ = false;
-            instanceClassName_ = realClassName_;
-            if (classes_ != null) {
-                cust_ = true;
-            }
             Argument a_ = new Argument();
             if (elts_) {
-                if (cust_) {
-                    Numbers<Integer> dims_;
-                    dims_ = new Numbers<Integer>();
-                    dims_.add(nbCh_);
-                    Struct str_ = PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf);
-                    for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-                        Argument chArg_ = _arguments.get(i);
-                        ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
-                    }
-                    a_.setStruct(str_);
-                    return ArgumentCall.newArgument(a_);
-                }
-                Object array_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                Struct strArr_ = new StdStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(realClassName_));
+                Numbers<Integer> dims_;
+                dims_ = new Numbers<Integer>();
+                dims_.add(nbCh_);
+                Struct str_ = PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf);
                 for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                     Argument chArg_ = _arguments.get(i);
-                    ArrOperation.setCheckedElement(strArr_, i, chArg_, _conf);
+                    ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
                 }
-                a_.setStruct(strArr_);
+                a_.setStruct(str_);
                 return ArgumentCall.newArgument(a_);
-            } else if (cust_) {
+            } else {
                 Numbers<Integer> dims_;
                 dims_ = new Numbers<Integer>();
                 for (int d: args_) {
                     dims_.add(d);
                 }
                 a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf));
-                return ArgumentCall.newArgument(a_);
-            } else {
-                Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                a_.setStruct(new StdStruct(o_, PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));
                 return ArgumentCall.newArgument(a_);
             }
         }
@@ -504,11 +437,6 @@ public final class InstanceOperation extends InvokingOperation {
 //            needed_ = arg_;
 //            _arguments.add(CustList.FIRST_INDEX, arg_);
 //        }
-        if (constId == null) {
-            String className_ = methodName.trim().substring(INSTANCE.length()+1);
-            className_ = StringList.removeAllSpaces(className_);
-            return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, naturalVararg > -1, contructor,className_, Argument.toArgArray(_arguments)));
-        }
         String base_ = StringList.getAllTypes(className).first();
         if (!_conf.getClasses().isCustomType(base_)) {
             ResultErrorStd res_ = LgNames.newInstance(_conf, naturalVararg > -1, constId, Argument.toArgArray(_arguments));
@@ -562,20 +490,6 @@ public final class InstanceOperation extends InvokingOperation {
         }
         InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, constId, needed_, _arguments, InstancingStep.NEWING, called_);
         return ArgumentCall.newCall(inv_);
-    }
-    static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int... _args) {
-        Class<?> cl_;
-        try {
-            if (PrimitiveTypeUtil.isPrimitive(_instanceClassName)) {
-                cl_ = PrimitiveTypeUtil.getPrimitiveClass(_instanceClassName);
-            } else {
-                cl_ = PrimitiveTypeUtil.getSingleNativeClass(_instanceClassName);
-            }
-        } catch (RuntimeClassNotFoundException _0) {
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(_realClassName,RETURN_LINE,_conf.joinPages())),err_));
-        }
-        return Array.newInstance(cl_, _args);
     }
 
     @Override

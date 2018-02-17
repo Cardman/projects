@@ -5,6 +5,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.util.StringList;
+import code.util.exceptions.NullObjectException;
 
 
 public final class MultOperation extends NumericOperation {

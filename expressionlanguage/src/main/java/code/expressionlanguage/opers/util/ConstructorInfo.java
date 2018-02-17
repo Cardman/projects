@@ -1,21 +1,11 @@
 package code.expressionlanguage.opers.util;
-import java.lang.reflect.Constructor;
-
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.util.StringList;
 import code.util.ints.Displayable;
 
 public final class ConstructorInfo implements Parametrable, Displayable {
 
-    private static final String RIGHT_PAR = ")";
-
-    private static final String LEFT_PAR = "(";
-
     private ConstructorId constr;
 
     private ConstructorId constraints;
-
-    private Constructor<?> constructor;
 
     private String className;
 
@@ -23,10 +13,7 @@ public final class ConstructorInfo implements Parametrable, Displayable {
 
     @Override
     public String display() {
-        if (constructor == null) {
-            return constr.getSignature();
-        }
-        return StringList.concat(constructor.getDeclaringClass().getName(),LEFT_PAR,parameters.display(),RIGHT_PAR);
+        return constr.getSignature();
     }
 
     public ConstructorId getConstr() {
@@ -43,14 +30,6 @@ public final class ConstructorInfo implements Parametrable, Displayable {
 
     public void setConstraints(ConstructorId _constraints) {
         constraints = _constraints;
-    }
-
-    public Constructor<?> getMethod() {
-        return constructor;
-    }
-
-    public void setMethod(Constructor<?> _method) {
-        constructor = _method;
     }
 
     @Override
@@ -73,9 +52,6 @@ public final class ConstructorInfo implements Parametrable, Displayable {
 
     @Override
     public String getReturnType() {
-        if (constructor != null) {
-            return PrimitiveTypeUtil.getAliasArrayClass(constructor.getDeclaringClass());
-        }
         return constraints.getName();
     }
 
@@ -86,10 +62,7 @@ public final class ConstructorInfo implements Parametrable, Displayable {
 
     @Override
     public boolean isVararg() {
-        if (constructor == null) {
-            return constraints.isVararg();
-        }
-        return constructor.isVarArgs();
+        return constraints.isVararg();
     }
 
     @Override

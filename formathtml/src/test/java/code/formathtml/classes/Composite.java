@@ -1,5 +1,4 @@
 package code.formathtml.classes;
-import code.bean.Accessible;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.StringList;
 import code.util.StringMap;
@@ -9,32 +8,24 @@ import code.util.ints.Displayable;
 @SuppressWarnings("static-method")
 public class Composite implements Displayable {
 
-    @Accessible
     private int integer;
 
     private int privateInt;
 
     private ValueChangeEvent changing;
 
-    @Accessible
     private StringList strings;
 
-    @Accessible
     private TreeMap<String,Integer> tree;
 
-    @Accessible
     private StringMap<Integer> map;
 
-    @Accessible
     private MyMap<String, Integer> myMap;
 
-    @Accessible
     private String string;
 
-    @Accessible
     private char myChar = 't';
 
-    @Accessible
     private boolean displayed = true;
 
     public Composite() {

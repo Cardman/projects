@@ -1,5 +1,4 @@
 package code.formathtml.classes;
-import code.bean.Accessible;
 import code.bean.Bean;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
@@ -8,34 +7,24 @@ import code.util.StringList;
 @SuppressWarnings("static-method")
 public class BeanTwo extends Bean {
 
-    @Accessible
     private boolean checked;
 
-    @Accessible
     private String typedString;
 
-    @Accessible
     private EnumNumber chosenNumber;
 
-    @Accessible
     private int typedInt;
 
-    @Accessible
     private Rate rate;
 
-    @Accessible
     private Boolean nullableCheckbox;
 
-    @Accessible
     private Long nullableInt;
 
-    @Accessible
     private String newOld = "";
 
-    @Accessible
     private String field;
 
-    @Accessible
     private String choose;//1_2;
 
     public BeanTwo() {

@@ -1,21 +1,16 @@
 package code.formathtml.classes;
-import code.bean.Accessible;
 import code.bean.Bean;
 import code.util.CustList;
 import code.util.Numbers;
 
 public class BeanThree extends Bean {
 
-    @Accessible
     private Numbers<Integer> numbers = new Numbers<Integer>();
 
-    @Accessible
     private int index = CustList.INDEX_NOT_FOUND_ELT;
 
-    @Accessible
     private Numbers<Integer> numbersTwo = new Numbers<Integer>();
 
-    @Accessible
     private int indexTwo = CustList.INDEX_NOT_FOUND_ELT;
 
     public BeanThree() {

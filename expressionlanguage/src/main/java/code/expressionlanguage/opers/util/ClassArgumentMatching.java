@@ -4,7 +4,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ClassArgumentMatching {
 
@@ -43,21 +42,6 @@ public final class ClassArgumentMatching {
             return true;
         }
         return false;
-    }
-    public Class<?> getClazz() {
-        String className_ = StringList.getAllTypes(className).first();
-        if (PrimitiveTypeUtil.isPrimitive(className_)) {
-            return PrimitiveTypeUtil.getPrimitiveClass(className_);
-        }
-        return PrimitiveTypeUtil.getSingleNativeClass(className_);
-    }
-
-    public Class<?> getClassOrNull() {
-        try {
-            return getClazz();
-        } catch (RuntimeClassNotFoundException _0) {
-            return null;
-        }
     }
 
     public boolean isArray() {

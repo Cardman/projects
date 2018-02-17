@@ -30,7 +30,7 @@ public class ProcessXmlMethodTwoTest {
     private static final String CUST_LIST_FULL = CUST_PKG+".CustList";
     private static final String CUST_ITER_PATH = CUST_PKG+"/CustIter."+Classes.EXT;
     private static final String CUST_LIST_PATH = CUST_PKG+"/CustList."+Classes.EXT;
-    private static final String INTEGER = Integer.class.getName();
+    private static final String INTEGER = "java.lang.Integer";
     @Test
     public void instanceArgument95Test() {
         StringMap<String> files_ = new StringMap<String>();

@@ -3,7 +3,6 @@ import cards.consts.Suit;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.bean.Accessible;
 import code.bean.Bean;
 import code.images.ConverterBufferedImage;
 import code.util.StringList;
@@ -12,7 +11,6 @@ import code.util.comparators.ComparatorEnum;
 
 public class TarotUsedCardsBean extends Bean {
 
-    @Accessible
     private TreeMap<Suit, StringList> images = new TreeMap<Suit, StringList>(new ComparatorEnum<Suit>());
 
     @Override
@@ -24,14 +22,5 @@ public class TarotUsedCardsBean extends Bean {
             }
             images.put(s, list_);
         }
-    }
-
-    @Accessible
-    private String getSuitOrCard(Long _index) {
-        Suit suit_ = images.getKey(_index.intValue());
-        if (suit_ != Suit.UNDEFINED) {
-            return suit_.display();
-        }
-        return CardTarot.EXCUSE.display();
     }
 }

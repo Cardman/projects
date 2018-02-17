@@ -6,11 +6,9 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringList;
@@ -111,32 +109,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Argument argRem_ = new Argument();
             String g_ = _children.first().getResultClass().getName();
             g_ = _context.getLastPage().formatVarType(g_, _context);
-            Classes classes_ = _context.getClasses();
-            boolean native_ = true;
-            if (classes_ != null) {
-                native_ = false;
+            int len_ = optArgs_.size();
+            Struct[] array_ = new Struct[len_];
+            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
+            Struct str_ = new ArrayStruct(array_,clArr_);
+            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                Argument chArg_ = optArgs_.get(i);
+                ArrOperation.setCheckedElement(str_, i, chArg_, _context);
             }
-            if (native_) {
-                int len_ = optArgs_.size();
-                Object array_;
-                array_ = InstanceOperation.newClassicArray(_context, g_, g_, len_);
-                Struct arr_ = new StdStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(g_));
-                for (int i = 0; i < len_; i++) {
-                    Argument chArg_ = optArgs_.get(i);
-                    ArrOperation.setCheckedElement(arr_, i, chArg_, _context);
-                }
-                argRem_.setStruct(arr_);
-            } else {
-                int len_ = optArgs_.size();
-                Struct[] array_ = new Struct[len_];
-                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
-                Struct str_ = new ArrayStruct(array_,clArr_);
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    Argument chArg_ = optArgs_.get(i);
-                    ArrOperation.setCheckedElement(str_, i, chArg_, _context);
-                }
-                argRem_.setStruct(str_);
-            }
+            argRem_.setStruct(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
         }
@@ -153,33 +134,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
             }
             Argument argRem_ = new Argument();
-            Classes classes_ = _context.getClasses();
             String g_ = _lastType;
-            boolean native_ = true;
-            if (classes_ != null) {
-                native_ = false;
+            int len_ = optArgs_.size();
+            Struct[] array_ = new Struct[len_];
+            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
+            Struct str_ = new ArrayStruct(array_,clArr_);
+            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                Argument chArg_ = optArgs_.get(i);
+                ArrOperation.setCheckedElement(str_, i, chArg_, _context);
             }
-            if (native_) {
-                int len_ = optArgs_.size();
-                Object array_;
-                array_ = InstanceOperation.newClassicArray(_context, g_, g_, len_);
-                Struct arr_ = new StdStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(g_));
-                for (int i = 0; i < len_; i++) {
-                    Argument chArg_ = optArgs_.get(i);
-                    ArrOperation.setCheckedElement(arr_, i, chArg_, _context);
-                }
-                argRem_.setStruct(arr_);
-            } else {
-                int len_ = optArgs_.size();
-                Struct[] array_ = new Struct[len_];
-                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
-                Struct str_ = new ArrayStruct(array_,clArr_);
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    Argument chArg_ = optArgs_.get(i);
-                    ArrOperation.setCheckedElement(str_, i, chArg_, _context);
-                }
-                argRem_.setStruct(str_);
-            }
+            argRem_.setStruct(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
         }

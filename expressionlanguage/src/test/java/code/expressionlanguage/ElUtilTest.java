@@ -11,11 +11,6 @@ import code.expressionlanguage.classes.ArrayContainer;
 import code.expressionlanguage.classes.BeanOne;
 import code.expressionlanguage.classes.Composite;
 import code.expressionlanguage.classes.CustLgNames;
-import code.expressionlanguage.classes.FailMethods;
-import code.expressionlanguage.classes.IOne;
-import code.expressionlanguage.classes.ImplFour;
-import code.expressionlanguage.classes.MyImpl;
-import code.expressionlanguage.classes.StrangeInit;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
@@ -23,6 +18,8 @@ import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
+import code.expressionlanguage.exceptions.NoSuchDeclaredFieldException;
+import code.expressionlanguage.exceptions.NoSuchDeclaredMethodException;
 import code.expressionlanguage.exceptions.NotStringException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.SettingMemberException;
@@ -38,8 +35,6 @@ import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.serialize.exceptions.NoSuchDeclaredFieldException;
-import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -51,18 +46,18 @@ public class ElUtilTest {
     private static final String ARR_ARR_INT = "[[$int";
     private static final String ARR_INTEGER = "[java.lang.Integer";
     private static final String ARR_ARR_INTEGER = "[[java.lang.Integer";
-    private static final String STRING_LIST = StringList.class.getName();
+    private static final String STRING_LIST = "code.util.StringList";
     private static final String INHERITED_COMPOSITE = "code.expressionlanguage.classes.InheritedComposite";
     private static final String COMPOSITE = "code.expressionlanguage.classes.Composite";
     private static final String COMPOSITE_HAT = StringList.replace(COMPOSITE, ".", "$");
-    private static final String STRANGE_INIT = StrangeInit.class.getName();
+    private static final String STRANGE_INIT = "code.expressionlanguage.classes.StrangeInit";
     private static final String STRANGE_INIT_HAT = StringList.replace(STRANGE_INIT, ".", "$");
-    private static final String FAIL_METHODS = FailMethods.class.getName();
+    private static final String FAIL_METHODS = "code.expressionlanguage.classes.FailMethods";
     private static final String FAIL_METHODS_HAT = StringList.replace(FAIL_METHODS, ".", "$");
-    private static final String IONE = IOne.class.getName();
-    private static final String IMPL_FOUR = ImplFour.class.getName();
-    private static final String MY_IMPL = MyImpl.class.getName();
-    private static final String MY_IMPL_HAT = StringList.replace(MY_IMPL, ".", "$");
+//    private static final String IONE = IOne.class.getName();
+//    private static final String IMPL_FOUR = ImplFour.class.getName();
+//    private static final String MY_IMPL = MyImpl.class.getName();
+//    private static final String MY_IMPL_HAT = StringList.replace(MY_IMPL, ".", "$");
     private static final String PUBLIC_ACCESS = "PUBLIC";
     private static final String ALIAS_BEAN_ONE = "code.expressionlanguage.classes.BeanOne";
 
@@ -226,7 +221,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StdStruct(compos_, custLgNames_.getAliasComposite()));
-        lv_.setClassName(Composite.class.getName());
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;.integer",0, context_);
@@ -244,7 +239,7 @@ public class ElUtilTest {
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
         LoopVariable lv_ = new LoopVariable();
         lv_.setStruct(new StdStruct(compos_, custLgNames_.getAliasComposite()));
-        lv_.setClassName(Composite.class.getName());
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;integer",0, context_);
@@ -557,27 +552,27 @@ public class ElUtilTest {
         assertEq("double", (String)res_);
     }
 
-    @Ignore
-    @Test
-    public void processEl46Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$class(\""+IONE+"\",$new "+MY_IMPL+"()).testOne()",0, context_);
-        Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("one", (String)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl46Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$class(\""+IONE+"\",$new "+MY_IMPL+"()).testOne()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertTrue(res_ instanceof String);
+//        assertEq("one", (String)res_);
+//    }
 
-    @Ignore
-    @Test
-    public void processEl47Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$static$"+MY_IMPL_HAT+".ovOne($new "+MY_IMPL+"())",0, context_);
-        Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("three", (String)res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl47Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$static$"+MY_IMPL_HAT+".ovOne($new "+MY_IMPL+"())",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertTrue(res_ instanceof String);
+//        assertEq("three", (String)res_);
+//    }
 
 //    @Ignore
 //    @Test
@@ -798,16 +793,16 @@ public class ElUtilTest {
     @Ignore
     @Test
     public void processEl62Test() {
+        ContextEl context_ = contextEl();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement("bonjour");
-        lv_.setClassName(String.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasString());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
         lv_.setElement("tout");
-        lv_.setClassName(String.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasString());
         localVars_.put("2", lv_);
-        ContextEl context_ = contextEl();
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$new "+COMPOSITE+"($vararg(\"java.lang.String\"),$firstopt(v;.),2;.).getStrings()",0, context_);
@@ -1351,7 +1346,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1l);
-        lv_.setClassName(Long.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(arg;.)",0, context_);
@@ -1446,16 +1441,16 @@ public class ElUtilTest {
         assertEq("pkg.Ex",res_.getClassName(cont_));
     }
 
-    @Ignore
-    @Test
-    public void processEl108Test() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("$new "+IMPL_FOUR+"().method()",0, context_);
-        Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(1,(Number) res_);
-    }
+//    @Ignore
+//    @Test
+//    public void processEl108Test() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        Argument arg_ = ElUtil.processEl("$new "+IMPL_FOUR+"().method()",0, context_);
+//        Object res_ = arg_.getObject();
+//        assertTrue(res_ instanceof Integer);
+//        assertEq(1,(Number) res_);
+//    }
 
     @Test
     public void processEl109Test() {
@@ -1517,7 +1512,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StdStruct(compos_, custLgNames_.getAliasComposite()));
-        lv_.setClassName(Composite.class.getName());
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
         context_.getLastPage().getCatchVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;..integer",0, context_);
@@ -2173,22 +2168,22 @@ public class ElUtilTest {
         ElUtil.processEl("$class(\"Object\",$null)",0, context_);
     }
 
-    @Ignore
-    @Test(expected=NoSuchDeclaredMethodException.class)
-    public void processEl3FailTest() {
-        ContextEl context_ = contextEl();
-        addImportingPage(context_);
-        ElUtil.processEl("$static$"+MY_IMPL_HAT+".ovTwo($new "+MY_IMPL+"())",0, context_);
-    }
+//    @Ignore
+//    @Test(expected=NoSuchDeclaredMethodException.class)
+//    public void processEl3FailTest() {
+//        ContextEl context_ = contextEl();
+//        addImportingPage(context_);
+//        ElUtil.processEl("$static$"+MY_IMPL_HAT+".ovTwo($new "+MY_IMPL+"())",0, context_);
+//    }
 
 
     @Test(expected=InvokeException.class)
     public void processEl4FailTest() {
+        ContextEl context_ = contextEl();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("arg", lv_);
-        ContextEl context_ = contextEl();
         addImportingPage(context_);
         addBean(context_,new Composite(), COMPOSITE);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2310,7 +2305,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1l);
-        lv_.setClassName(Long.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processEl("get(arg;.)",0, context_);
@@ -2331,7 +2326,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1l);
-        lv_.setClassName(Long.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processEl("$static$"+FAIL_METHODS_HAT+".fail().arg;.",0, context_);
@@ -2345,7 +2340,7 @@ public class ElUtilTest {
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
         LoopVariable lv_ = new LoopVariable();
         lv_.setElement(1l);
-        lv_.setClassName(Long.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElUtil.processEl("$static$"+FAIL_METHODS_HAT+".fail().arg;",0, context_);
@@ -2358,7 +2353,7 @@ public class ElUtilTest {
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
         LoopVariable lv_ = new LoopVariable();
         lv_.setElement(1l);
-        lv_.setClassName(Long.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElUtil.processEl("$static$"+FAIL_METHODS_HAT+".fail().arg;;",0, context_);
@@ -2547,7 +2542,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         Composite c_ = new Composite();
         lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
-        lv_.setClassName(Composite.class.getName());
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
@@ -2615,7 +2610,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         Composite c_ = new Composite();
         lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
-        lv_.setClassName(Composite.class.getName());
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
@@ -2742,9 +2737,9 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct[] c_ = new Struct[1];
-        c_[0] = new StdStruct(new ArrayContainer(),ArrayContainer.class.getName());
-        lv_.setStruct(new ArrayStruct(c_, "["+ArrayContainer.class.getName()));
-        lv_.setClassName("["+ArrayContainer.class.getName());
+        c_[0] = new StdStruct(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
+        lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.[0i].array[0i]", "1i", "=",context_);
@@ -2758,9 +2753,9 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct[] c_ = new Struct[1];
-        c_[0] = new StdStruct(new ArrayContainer(),ArrayContainer.class.getName());
-        lv_.setStruct(new ArrayStruct(c_, "["+ArrayContainer.class.getName()));
-        lv_.setClassName("["+ArrayContainer.class.getName());
+        c_[0] = new StdStruct(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
+        lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.[0i].getArray()[0i]", "1i", "=",context_);
@@ -2774,9 +2769,9 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct[] c_ = new Struct[1];
-        c_[0] = new StdStruct(new ArrayContainer(),ArrayContainer.class.getName());
-        lv_.setStruct(new ArrayStruct(c_, "["+ArrayContainer.class.getName()));
-        lv_.setClassName("["+ArrayContainer.class.getName());
+        c_[0] = new StdStruct(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
+        lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "1i", "=",context_);
@@ -2792,7 +2787,7 @@ public class ElUtilTest {
 //        LocalVariable lv_ = new LocalVariable();
 //        Composite c_ = new Composite("cont");
 //        lv_.setElement(c_);
-//        lv_.setClassName(Composite.class.getName());
+//        lv_.setClassName("code.expressionlanguage.classes.Composite");
 //        localVars_.put("v", lv_);
 //        context_.getLastPage().getLocalVars().putAllMap(localVars_);
 //        assertNotNull(c_.getStrings());
@@ -2810,7 +2805,7 @@ public class ElUtilTest {
 //        LocalVariable lv_ = new LocalVariable();
 //        Composite c_ = new Composite();
 //        lv_.setElement(c_);
-//        lv_.setClassName(Composite.class.getName());
+//        lv_.setClassName("code.expressionlanguage.classes.Composite");
 //        localVars_.put("v", lv_);
 //        lv_ = new LocalVariable();
 //        lv_.setElement(new StringList("cont"));
@@ -2830,8 +2825,8 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_,ArrayContainer.class.getName()));
-        lv_.setClassName(ArrayContainer.class.getName());
+        lv_.setStruct(new StdStruct(c_,"code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.getArray()[0i]", "1i", "=",context_);
@@ -2845,8 +2840,8 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_,ArrayContainer.class.getName()));
-        lv_.setClassName(ArrayContainer.class.getName());
+        lv_.setStruct(new StdStruct(c_,"code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.getCompo()[0i].getArray()[0i]", "1i", "=",context_);
@@ -2856,7 +2851,7 @@ public class ElUtilTest {
     @Test
     public void processAffect21Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+Integer.class.getName()+"'/>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.Integer'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
@@ -2870,7 +2865,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(null);
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         cont_.getLastPage().getLocalVars().putAllMap(localVars_);
         Struct arg_;
@@ -2885,7 +2880,7 @@ public class ElUtilTest {
     @Test
     public void processAffect22Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+Integer.class.getName()+"'/>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.Integer'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
@@ -2899,7 +2894,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(null);
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         cont_.getLastPage().getLocalVars().putAllMap(localVars_);
         Struct arg_;
@@ -3016,7 +3011,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         Composite c_ = new Composite();
         lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
-        lv_.setClassName(Composite.class.getName());
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
@@ -3045,10 +3040,10 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         Composite c_ = new Composite();
         lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
-        lv_.setClassName(Composite.class.getName());
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
@@ -3063,11 +3058,11 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer[] c_ = new ArrayContainer[1];
         c_[0] = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_, "["+ArrayContainer.class.getName()));
-        lv_.setClassName("["+ArrayContainer.class.getName());
+        lv_.setStruct(new StdStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "v2;.", "=",context_);
@@ -3083,7 +3078,7 @@ public class ElUtilTest {
         lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.", "v2;.", "=",context_);
@@ -3100,7 +3095,7 @@ public class ElUtilTest {
         lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","$this", "$null", "=",context_);
@@ -3116,7 +3111,7 @@ public class ElUtilTest {
         lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.", "$this", "=",context_);
@@ -3139,7 +3134,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(null);
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         cont_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "v;.", "=",cont_);
@@ -3156,11 +3151,11 @@ public class ElUtilTest {
         Struct[] exp_ = new Struct[1];
         exp_[0] = NullStruct.NULL_VALUE;
         lv_.setStruct(new ArrayStruct(exp_, PrimitiveTypeUtil.getPrettyArrayType(stringType_)));
-        lv_.setClassName("["+Object.class.getName());
+        lv_.setClassName("["+context_.getStandards().getAliasObject());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
         lv_.setElement(1);
-        lv_.setClassName(Integer.class.getName());
+        lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.[0i]", "v2;.", "=",context_);

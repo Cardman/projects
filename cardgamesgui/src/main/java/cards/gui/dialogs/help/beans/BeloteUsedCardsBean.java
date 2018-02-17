@@ -4,7 +4,6 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import cards.gui.labels.GraphicBeloteCard;
-import code.bean.Accessible;
 import code.bean.Bean;
 import code.images.ConverterBufferedImage;
 import code.util.StringList;
@@ -13,7 +12,6 @@ import code.util.comparators.ComparatorEnum;
 
 public class BeloteUsedCardsBean extends Bean {
 
-    @Accessible
     private TreeMap<Suit, StringList> images = new TreeMap<Suit, StringList>(new ComparatorEnum<Suit>());
 
     @Override

@@ -2,7 +2,6 @@ package code.formathtml;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
-import code.expressionlanguage.AccessValue;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.methods.Classes;
@@ -56,8 +55,6 @@ public class Configuration {
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
-    private AccessValue accessValue = new HtmlAccessValue();
-
     private String filesConfName;
 
     private ContextEl context;
@@ -98,9 +95,6 @@ public class Configuration {
             prefix = EMPTY_STRING;
         } else {
             prefix = StringList.concat(prefix,SEP);
-        }
-        if (accessValue == null) {
-            accessValue = new HtmlAccessValue();
         }
         if (lateValidators == null) {
             lateValidators = new StringMap<String>();
@@ -243,12 +237,7 @@ public class Configuration {
         addPage(new ImportingPage(false));
         Struct strBean_ = ElUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, toContextEl()).getStruct();
         if (_dataBase != null) {
-            String className_;
-            if (toContextEl().getClasses() == null) {
-                className_ = standards.getAliasObject();
-            } else {
-                className_ = getDataBaseClassName();
-            }
+            String className_ = getDataBaseClassName();
             ExtractObject.setDataBase(this, strBean_, new StdStruct(_dataBase, className_));
         } else {
             ExtractObject.setDataBase(this, strBean_, NullStruct.NULL_VALUE);
@@ -297,7 +286,6 @@ public class Configuration {
         ContextEl context_ = new ContextEl();
         context_.setClasses(new Classes());
         context_.setStandards(standards);
-        context_.setAccessValue(accessValue);
         context_.setCurrentUrl(currentUrl);
         context_.setHtml(html);
         context_.setMathFactory(mathFactory);
@@ -307,10 +295,6 @@ public class Configuration {
             context_.addPage(i.getPageEl());
         }
         return context_;
-    }
-
-    public AccessValue getAccessValue() {
-        return accessValue;
     }
 
     public String getFirstUrl() {

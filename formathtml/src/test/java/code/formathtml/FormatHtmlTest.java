@@ -13,20 +13,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
-import code.formathtml.classes.AbstractBean;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanSeven;
 import code.formathtml.classes.BeanSix;
 import code.formathtml.classes.BeanThree;
 import code.formathtml.classes.BeanTwo;
-import code.formathtml.classes.BeanUtil;
-import code.formathtml.classes.Composite;
-import code.formathtml.classes.EnumNumber;
-import code.formathtml.classes.EnumNumbers;
-import code.formathtml.classes.GeneObjs;
 import code.formathtml.classes.MyTranslator;
-import code.formathtml.classes.RateEq;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.exceptions.KeyValueException;
 import code.formathtml.exceptions.RenderingException;
@@ -36,7 +29,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
 import code.util.consts.Constants;
-import code.util.ints.ListableEntries;
 
 @SuppressWarnings("static-method")
 public class FormatHtmlTest {
@@ -47,17 +39,17 @@ public class FormatHtmlTest {
     private static final String ARR_ARR_INTEGER = "[[java.lang.Integer";
     private static final String ARR_ARR_OBJECT = "[[java.lang.Object";
     private static final String ARR_STRING = "[java.lang.String";
-    private static final String STRING_LIST = StringList.class.getName();
-    private static final String GENE_OBJS = GeneObjs.class.getName();
+    private static final String STRING_LIST = "code.util.StringList";
+    private static final String GENE_OBJS = "code.formathtml.classes.GeneObjs";
 
     private static final String PKG = "code.formathtml.classes";
-    private static final String ENUM = EnumNumber.class.getName();
-    private static final String ENUMS = EnumNumbers.class.getName();
-    private static final String BEAN_UTIL = BeanUtil.class.getName();
+    private static final String ENUM = "code.formathtml.classes.EnumNumber";
+    private static final String ENUMS = "code.formathtml.classes.EnumNumbers";
+    private static final String BEAN_UTIL = "code.formathtml.classes.BeanUtil";
     private static final String BEAN_UTIL_HAT = StringList.replace(BEAN_UTIL, ".", "$");
-    private static final String RATE_EQ = RateEq.class.getName();
-    private static final String COMPOSITE = Composite.class.getName();
-    private static final String ABSTRACT = AbstractBean.class.getName();
+    private static final String RATE_EQ = "code.formathtml.classes.RateEq";
+    private static final String COMPOSITE = "code.formathtml.classes.Composite";
+    private static final String ABSTRACT = "code.formathtml.classes.AbstractBean";
 
     @BeforeClass
     public static void initialize() {
@@ -4346,7 +4338,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className=\"util.Map\"/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className=\""+ListableEntries.class.getName()+"\"/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className=\"lse\"/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();

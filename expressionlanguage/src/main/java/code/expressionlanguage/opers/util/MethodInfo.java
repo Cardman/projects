@@ -1,6 +1,4 @@
 package code.expressionlanguage.opers.util;
-import java.lang.reflect.Method;
-
 import code.util.ints.Displayable;
 
 public final class MethodInfo implements Parametrable, Displayable {
@@ -13,8 +11,6 @@ public final class MethodInfo implements Parametrable, Displayable {
 
     private MethodId constraints;
 
-    private Method method;
-
     private ParametersGroup parameters;
 
     private String className;
@@ -26,18 +22,9 @@ public final class MethodInfo implements Parametrable, Displayable {
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
-        if (method == null) {
-            str_.append(className);
-            str_.append(DOT);
-            str_.append(constraints.getSignature());
-            str_.append(LEFT_PAR);
-            str_.append(parameters.display());
-            str_.append(RIGHT_PAR);
-            return str_.toString();
-        }
-        str_.append(method.getDeclaringClass().getName());
+        str_.append(className);
         str_.append(DOT);
-        str_.append(method.getName());
+        str_.append(constraints.getSignature());
         str_.append(LEFT_PAR);
         str_.append(parameters.display());
         str_.append(RIGHT_PAR);
@@ -50,14 +37,6 @@ public final class MethodInfo implements Parametrable, Displayable {
 
     public void setConstraints(MethodId _constraints) {
         constraints = _constraints;
-    }
-
-    public Method getMethod() {
-        return method;
-    }
-
-    public void setMethod(Method _method) {
-        method = _method;
     }
 
     @Override
@@ -98,10 +77,7 @@ public final class MethodInfo implements Parametrable, Displayable {
 
     @Override
     public boolean isVararg() {
-        if (method == null) {
-            return constraints.isVararg();
-        }
-        return method.isVarArgs();
+        return constraints.isVararg();
     }
 
     @Override

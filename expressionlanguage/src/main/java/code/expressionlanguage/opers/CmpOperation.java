@@ -15,6 +15,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
+import code.util.exceptions.NullObjectException;
 
 public final class CmpOperation extends PrimitiveBoolOperation {
 

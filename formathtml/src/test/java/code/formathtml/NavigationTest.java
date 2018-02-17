@@ -14,6 +14,7 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.exceptions.NoSuchDeclaredMethodException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.Struct;
 import code.formathtml.classes.BeanEight;
@@ -23,7 +24,6 @@ import code.formathtml.classes.BeanSeven;
 import code.formathtml.classes.BeanSix;
 import code.formathtml.classes.BeanThree;
 import code.formathtml.classes.BeanTwo;
-import code.formathtml.classes.Composite;
 import code.formathtml.classes.EnumNumber;
 import code.formathtml.classes.EnumNumbers;
 import code.formathtml.classes.Ints;
@@ -39,7 +39,6 @@ import code.formathtml.exceptions.FormNotFoundException;
 import code.formathtml.exceptions.RenderingException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
-import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.sml.DocumentBuilder;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -51,10 +50,10 @@ import code.util.StringMapObject;
 @SuppressWarnings("static-method")
 public class NavigationTest {
 
-    private static final String ENUM = EnumNumber.class.getName();
-    private static final String ENUMS = EnumNumbers.class.getName();
-    private static final String RATE = Rate.class.getName();
-    private static final String COMPOSITE = Composite.class.getName();
+    private static final String ENUM = "code.formathtml.classes.EnumNumber";
+    private static final String ENUMS = "code.formathtml.classes.EnumNumbers";
+    private static final String RATE = "code.formathtml.classes.Rate";
+    private static final String COMPOSITE = "code.formathtml.classes.Composite";
 
     @Test
     public void initializeSession1Test() {

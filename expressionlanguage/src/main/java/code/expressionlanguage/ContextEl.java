@@ -35,8 +35,6 @@ public final class ContextEl {
     private static final String RETURN_LINE = "\n";
     private static final int DEFAULT_TAB_WIDTH = 4;
 
-    private AccessValue accessValue;
-
     private MathFactory mathFactory;
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
@@ -230,14 +228,6 @@ public final class ContextEl {
             return;
         }
         importing.last().addToOffset(_offset);
-    }
-
-    public AccessValue getAccessValue() {
-        return accessValue;
-    }
-
-    public void setAccessValue(AccessValue _accessValue) {
-        accessValue = _accessValue;
     }
 
     public MathFactory getMathFactory() {

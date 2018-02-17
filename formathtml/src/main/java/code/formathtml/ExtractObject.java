@@ -5,11 +5,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.exceptions.InvokingException;
+import code.expressionlanguage.exceptions.RuntimeInstantiationException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.DoubleStruct;
@@ -27,25 +29,15 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
 import code.formathtml.exceptions.InexistingTranslatorException;
-import code.formathtml.util.StringMapObjectStruct;
 import code.formathtml.util.TranslatorStruct;
-import code.serialize.ConstClasses;
-import code.serialize.exceptions.InvokingException;
-import code.serialize.exceptions.RuntimeInstantiationException;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.SimpleItr;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.StringMapObject;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
-import code.util.ints.Displayable;
 import code.util.ints.MathFactory;
-import code.util.ints.SimpleEntries;
-import code.util.ints.SimpleEntry;
-import code.util.ints.SimpleIterable;
 
 final class ExtractObject {
 
@@ -83,7 +75,7 @@ final class ExtractObject {
     private static final char QUOTE = 39;
     private static final String QUOTE_DOUBLE = "\"";
     private static final String GET_STRING ="getString";
-    private static final String NAME ="name";
+//    private static final String NAME ="name";
     private static final String ITERATOR ="iterator";
     private static final String HAS_NEXT ="hasNext";
     private static final String NEXT ="next";
@@ -362,46 +354,10 @@ final class ExtractObject {
         classNameForName(_conf, _offest, _className);
     }
     static void classNameForName(Configuration _conf, int _offest, String _className) {
-        if (_conf.toContextEl().getClasses() != null) {
-            String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(_className).getComponent();
-            if (_conf.getStandards().getStandards().contains(compo_)) {
-                return;
-            }
-            if (_conf.toContextEl().getClasses().isCustomType(compo_)) {
-                return;
-            }
-            if (PrimitiveTypeUtil.isPrimitive(compo_, _conf.toContextEl())) {
-                return;
-            }
-            throw new RuntimeClassNotFoundException(StringList.concat(compo_,RETURN_LINE,_conf.joinPages()));
-        }
-        if (_conf.getStandards().getStandards().contains(_className)) {
+        if (OperationNode.okType(_conf.toContextEl(), _className)) {
             return;
         }
-        try {
-            if (PrimitiveTypeUtil.isPrimitive(_className, _conf.toContextEl())) {
-                if (!PrimitiveTypeUtil.isExistentPrimitive(_className, _conf.toContextEl())) {
-                    throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_conf.joinPages()));
-                }
-                return;
-            }
-            if (StringList.quickEq(_className, ConstClasses.LISTABLE_ALIAS)) {
-                return;
-            }
-            if (StringList.quickEq(_className, ConstClasses.LISTABLE_ENTRIES_ALIAS)) {
-                return;
-            }
-            String className_ = ConstClasses.getMapping(_className);
-            if (className_ != null) {
-                PrimitiveTypeUtil.getSingleNativeClass(className_);
-                return;
-            }
-            PrimitiveTypeUtil.getSingleNativeClass(_className);
-            return;
-        } catch (Throwable _0) {
-            _conf.getLastPage().addToOffset(_offest);
-            throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_conf.joinPages()));
-        }
+        throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_conf.joinPages()));
     }
     static void beforeDiplaying(Configuration _conf, Struct _it, boolean _addpage) {
         if (_it == null) {
@@ -420,103 +376,42 @@ final class ExtractObject {
     }
 
     static Struct getDataBase(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            Bean inst_ = (Bean) instance_;
-            Struct out_ = new StdStruct(inst_.getDataBase(), _conf.getStandards().getAliasObject());
-            return out_;
-        }
         return getResult(_conf, 0, GET_DATA_BASE, _it, _conf.getStandards().getBean());
     }
 
     static void setDataBase(Configuration _conf, Struct _it, Struct _dataBase) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            Bean inst_ = (Bean) instance_;
-            inst_.setDataBase(_dataBase.getInstance());
-            return;
-        }
         setBeanResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, _conf.getStandards().getAliasObject());
     }
 
     static String getLanguage(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            Bean inst_ = (Bean) instance_;
-            return inst_.getLanguage();
-        }
         return (String) getResult(_conf, 0, GET_LANGUAGE, _it, _conf.getStandards().getBean()).getInstance();
     }
 
     static void setLanguage(Configuration _conf, Struct _it, String _scope) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            Bean inst_ = (Bean) instance_;
-            inst_.setLanguage(_scope);
-            return;
-        }
         setBeanResult(_conf, 0, SET_LANGUAGE, _it, new StringStruct(_scope), _conf.getStandards().getAliasString());
     }
 
     static String getScope(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            Bean inst_ = (Bean) instance_;
-            return inst_.getScope();
-        }
         return (String) getResult(_conf, 0, GET_SCOPE, _it, _conf.getStandards().getBean()).getInstance();
     }
 
     static void setScope(Configuration _conf, Struct _it, String _scope) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            Bean inst_ = (Bean) instance_;
-            inst_.setScope(_scope);
-            return;
-        }
         setBeanResult(_conf, 0, SET_SCOPE, _it, new StringStruct(_scope), _conf.getStandards().getAliasString());
     }
 
     static Struct getForms(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            Bean inst_ = (Bean) instance_;
-            return new StringMapObjectStruct(inst_.getForms());
-        }
         return getResult(_conf, 0, GET_FORMS, _it, _conf.getStandards().getBean());
     }
 
     static void setForms(Configuration _conf, Struct _it, Struct _forms) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            Bean inst_ = (Bean) instance_;
-            inst_.setForms((StringMapObject) _forms.getInstance());
-            return;
-        }
         setBeanResult(_conf, 0, SET_FORMS, _it, _forms, _conf.getStandards().getAliasStringMapObject());
     }
 
     static Struct getKey(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            SimpleEntry inst_ = (SimpleEntry) instance_;
-            Object key_ = inst_.getKey();
-            String className_ = _conf.getStandards().getStructClassName(key_, _conf.toContextEl());
-            Struct out_ = StdStruct.wrapStd(key_, className_);
-            return out_;
-        }
         return getResult(_conf, 0, GET_KEY, _it, _conf.getStandards().getCustEntry());
     }
 
     static Struct getValue(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            SimpleEntry inst_ = (SimpleEntry) instance_;
-            Object value_ = inst_.getValue();
-            String className_ = _conf.getStandards().getStructClassName(value_, _conf.toContextEl());
-            Struct out_ = StdStruct.wrapStd(value_, className_);
-            return out_;
-        }
         return getResult(_conf, 0, GET_VALUE, _it, _conf.getStandards().getCustEntry());
     }
 
@@ -576,78 +471,39 @@ final class ExtractObject {
         }
         ContextEl context_ = _conf.toContextEl();
         String method_;
-        if (context_.getClasses() != null) {
-            String param_ = context_.getStandards().getAliasDisplayable();
-            String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
-            Mapping map_ = new Mapping();
-            map_.setArg(arg_);
-            map_.setParam(param_);
-            if (Templates.isCorrect(map_, context_)) {
-                method_ = _conf.getStandards().getAliasDisplay();
-            }  else {
-                method_ = _conf.getStandards().getAliasToString();
-            }
-        } else {
-            Object instance_ = _obj.getInstance();
-            if (instance_ instanceof Displayable) {
-                method_ = _conf.getStandards().getAliasDisplay();
-            } else {
-                method_ = _conf.getStandards().getAliasToString();
-            }
+        String param_ = context_.getStandards().getAliasDisplayable();
+        String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
+        Mapping map_ = new Mapping();
+        map_.setArg(arg_);
+        map_.setParam(param_);
+        if (Templates.isCorrect(map_, context_)) {
+            method_ = _conf.getStandards().getAliasDisplay();
+        }  else {
+            method_ = _conf.getStandards().getAliasToString();
         }
         return (String) getResult(_conf, 0, method_, _obj, _conf.getStandards().getStructClassName(_obj, context_)).getInstance();
     }
     static Struct iterator(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            SimpleIterable inst_ = (SimpleIterable) instance_;
-            Struct out_ = StdStruct.wrapStd(inst_.simpleIterator(), _conf.getStandards().getAliasIteratorType());
-            return out_;
-        }
         return getResult(_conf, 0, ITERATOR, _it, _conf.getStandards().getStructClassName(_it, _conf.toContextEl()));
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            SimpleItr inst_ = (SimpleItr) instance_;
-            return inst_.hasNext();
-        }
         if (_it instanceof StdStruct) {
             return (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType()).getInstance();
         }
         return (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasIteratorType()).getInstance();
     }
     static Struct next(Configuration _conf, Struct _it) {
-        if (_conf.toContextEl().getClasses() == null) {
-            Object instance_ = _it.getInstance();
-            SimpleItr inst_ = (SimpleItr) instance_;
-            Object next_ = inst_.next();
-            String className_ = _conf.getStandards().getStructClassName(next_, _conf.toContextEl());
-            Struct out_ = StdStruct.wrapStd(next_, className_);
-            return out_;
-        }
         if (_it instanceof StdStruct) {
             return getResult(_conf, 0, NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType());
         }
         return getResult(_conf, 0, NEXT, _it, _conf.getStandards().getAliasIteratorType());
     }
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
-        if (_conf.toContextEl().getClasses() == null) {
-            SimpleEntries inst_ = (SimpleEntries) _container.getInstance();
-            Struct out_ = StdStruct.wrapStd(inst_.entries(), _conf.getStandards().getCustEntries());
-            return out_;
-        }
         return getResult(_conf, 0, ENTRY_LIST, _container, _conf.getStandards().getCustMap());
     }
 
     static String getStringKey(Configuration _conf, Struct _instance) {
         ContextEl cont_ = _conf.toContextEl();
-        if (cont_.getClasses() == null) {
-            if (_instance.getInstance().getClass().isEnum()) {
-                return (String) getResult(_conf, 0, NAME, _instance, _instance.getClassName(cont_)).getInstance();
-            }
-            return toString(_conf, _instance);
-        }
         if (_instance instanceof EnumStruct) {
             return ((EnumStruct) _instance).getName();
         }

@@ -68,7 +68,6 @@ public class LgNames {
     private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
     private static final byte THREE_ARGS = 3;
     private static final byte FOUR_ARGS = 4;
-    private static final byte FIVE_ARGS = 5;
     private static final byte MAX_DIGITS_DOUBLE = 18;
     private ContextEl context;
     private String aliasObject;

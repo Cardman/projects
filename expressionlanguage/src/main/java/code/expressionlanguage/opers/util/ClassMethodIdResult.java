@@ -1,7 +1,5 @@
 package code.expressionlanguage.opers.util;
 
-import java.lang.reflect.Method;
-
 import code.util.CustList;
 
 public class ClassMethodIdResult {
@@ -9,8 +7,6 @@ public class ClassMethodIdResult {
     private ClassMethodId id;
     private MethodId realId;
     private String realClass;
-
-    private Method method;
 
     private SearchingMemberStatus status;
 
@@ -44,14 +40,6 @@ public class ClassMethodIdResult {
 
     public void setRealClass(String _realClass) {
         realClass = _realClass;
-    }
-
-    public Method getMethod() {
-        return method;
-    }
-
-    public void setMethod(Method _method) {
-        method = _method;
     }
 
     public SearchingMemberStatus getStatus() {

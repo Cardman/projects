@@ -9,7 +9,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Classes;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
-import code.formathtml.classes.PickableList;
 import code.formathtml.classes.SimpleMathFactory;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -19,7 +18,7 @@ import code.util.StringMap;
 @SuppressWarnings("static-method")
 public class FormatHtmlWhileTest {
 
-    private static final String PICKABLE_LIST = PickableList.class.getName();
+    private static final String PICKABLE_LIST = "code.formathtml.classes.PickableList";
 
     @Test
     public void processHtml212Test() {

@@ -1,12 +1,10 @@
 package code.formathtml.classes;
-import code.bean.Accessible;
 import code.bean.Bean;
 
 public class BeanFour extends Bean {
 
     private int invisibleField;
 
-    @Accessible
     private String hello;
 
     private Composite composite = new Composite();

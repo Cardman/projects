@@ -3,7 +3,6 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 
-import code.bean.Accessible;
 import code.expressionlanguage.AccessValue;
 import code.expressionlanguage.ContextEl;
 
@@ -22,6 +21,7 @@ public class HtmlAccessValue extends AccessValue {
 
     @Override
     public boolean canAccess(AccessibleObject _f, ContextEl _context) {
-        return _f.isAnnotationPresent(Accessible.class);
+//        return _f.isAnnotationPresent(Accessible.class);
+        return true;
     }
 }

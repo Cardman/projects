@@ -1,8 +1,4 @@
 package code.expressionlanguage.opers;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
@@ -18,6 +14,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.exceptions.AbstractMethodException;
+import code.expressionlanguage.exceptions.BadAccessException;
 import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
@@ -25,12 +22,12 @@ import code.expressionlanguage.exceptions.CustomFoundMethodException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
+import code.expressionlanguage.exceptions.NoSuchDeclaredMethodException;
 import code.expressionlanguage.exceptions.NotBooleanException;
 import code.expressionlanguage.exceptions.NotEqualableException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NotStringException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
-import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VarargException;
@@ -64,9 +61,6 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.types.NativeTypeUtil;
-import code.serialize.exceptions.BadAccessException;
-import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -82,8 +76,6 @@ public final class FctOperation extends InvokingOperation {
     private static final int BOOLEAN_ARGS = 3;
 
     private String methodName;
-
-    private Method method;
 
     private ConstructorId constId;
 
@@ -214,7 +206,7 @@ public final class FctOperation extends InvokingOperation {
             String base_ = StringList.getAllTypes(clCurName_).first();
             superConstructorCall = true;
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-            UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
+            UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
             String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(_conf), _conf);
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
@@ -361,37 +353,30 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(clCurName_, stds_.getAliasVoid())) {
             throw new VoidArgumentException(_conf.joinPages());
         }
-        if (classes_ != null) {
-            String objectClassName_ = stds_.getAliasObject();
-            if (clCurName_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                String glClass_ = _conf.getLastPage().getGlobalClass();
-                String curClassBase_ = StringList.getAllTypes(glClass_).first();
-                GeneType gl_ = _conf.getClassBody(curClassBase_);
-                StringMap<StringList> mapping_ = new StringMap<StringList>();
-                for (TypeVar t: gl_.getParamTypes()) {
-                    mapping_.put(t.getName(), t.getConstraints());
-                }
-                for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1), objectClassName_)) {
-                    analyzeCustomClass(_conf, u, false);
-                    if (foundBound) {
-                        return;
-                    }
-                }
-                throw new NoSuchDeclaredMethodException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
+        String objectClassName_ = stds_.getAliasObject();
+        if (clCurName_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            String glClass_ = _conf.getLastPage().getGlobalClass();
+            String curClassBase_ = StringList.getAllTypes(glClass_).first();
+            GeneType gl_ = _conf.getClassBody(curClassBase_);
+            StringMap<StringList> mapping_ = new StringMap<StringList>();
+            for (TypeVar t: gl_.getParamTypes()) {
+                mapping_.put(t.getName(), t.getConstraints());
             }
-            analyzeCustomClass(_conf, clCurName_, true);
-            return;
+            for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1), objectClassName_)) {
+                analyzeCustomClass(_conf, u, false);
+                if (foundBound) {
+                    return;
+                }
+            }
+            throw new NoSuchDeclaredMethodException(StringList.concat(trimMeth_,RETURN_LINE,_conf.joinPages()));
         }
+        analyzeCustomClass(_conf, clCurName_, true);
 //        if (firstArgs_.isEmpty()) {
 //            if (StringList.quickEq(trimMeth_, GET_CLASS)) {
 //                setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(ClassMetaInfo.class)));
 //                return;
 //            }
 //        }
-        if (clCur_.getClassOrNull() == null) {
-            throw new RuntimeClassNotFoundException(StringList.concat(clCur_.getName(),RETURN_LINE,_conf.joinPages()));
-        }
-        analyzeNativeClass(_conf, clCurName_, true);
     }
 
     private void analyzeCustomClass(ContextEl _conf, String _subType, boolean _failIfError) {
@@ -549,43 +534,7 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
         foundBound = true;
     }
-    private void analyzeNativeClass(ContextEl _conf, String _subType, boolean _failIfError) {
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        if (PrimitiveTypeUtil.isPrimitive(_subType, _conf)) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-            throw new PrimitiveTypeException(StringList.concat(_subType,RETURN_LINE,_conf.joinPages()));
-        }
-        ClassArgumentMatching clVar_ = new ClassArgumentMatching(_subType);
-        String trimMeth_ = methodName.trim();
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-        int varargOnly_ = lookOnlyForVarArg();
-        Method m_ = getDeclaredMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
-        if (m_ == null) {
-            return;
-        }
-        if (!canBeUsed(m_, _conf)) {
-            if (_failIfError) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                throw new BadAccessException(StringList.concat(m_.toGenericString(),RETURN_LINE,_conf.joinPages()));
-            }
-            return;
-        }
-        method = m_;
-        if (m_.isVarArgs() && varargOnly_ == -1) {
-            Class<?>[] params_ = m_.getParameterTypes();
-            naturalVararg = params_.length - 1;
-            lastType = NativeTypeUtil.getPrettyType(params_[naturalVararg]);
-            lastType = PrimitiveTypeUtil.getQuickComponentType(lastType);
-        }
-        staticMethod = Modifier.isStatic(m_.getModifiers());
-        setAccess(m_, _conf);
-        int nbParams_ = m_.getTypeParameters().length;
-        Type type_ = m_.getGenericReturnType();
-        String pre_ = NativeTypeUtil.getFormattedType(m_.getReturnType().getName(), type_.toString(), nbParams_, type_);
-        setResultClass(new ClassArgumentMatching(pre_));
-        foundBound = true;
-    }
+
 
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
@@ -687,7 +636,7 @@ public final class FctOperation extends InvokingOperation {
             gl_ = StringList.getAllTypes(gl_).first();
             String base_ = StringList.getAllTypes(gl_).first();
             gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
-            UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
+            UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
             CustList<Argument> firstArgs_;
             String calledCtor_ = base_;
             String calledCtorTemp_ = gl_;
@@ -865,29 +814,6 @@ public final class FctOperation extends InvokingOperation {
         }
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
-        if (classMethodId == null) {
-            firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
-            Object obj_ = arg_.getObject();
-            if (!staticMethod && arg_.isNull()) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            }
-//            if (firstArgs_.isEmpty()) {
-//                if (StringList.quickEq(trimMeth_, GET_CLASS)) {
-//                    Argument argres_ = new Argument();
-//                    ClassMetaInfo res_ = new ClassMetaInfo(arg_.getObjectClassName(_conf), null, null, null, null, null,false,false);
-//                    argres_.setObject(res_);
-//                    return ArgumentCall.newArgument(argres_);
-//                }
-//            }
-//            String clCur_ = getPreviousResultClass().getName();
-            int nbParams_ = method.getTypeParameters().length;
-            Type type_ = method.getGenericReturnType();
-            String pre_ = NativeTypeUtil.getFormattedType(method.getReturnType().getName(), type_.toString(), nbParams_, type_);
-            Struct ret_ = invokeMethod(_conf, 0, naturalVararg > -1, EMPTY_STRING, method, obj_, pre_, Argument.toArgArray(firstArgs_));
-            Argument argres_ = new Argument();
-            argres_.setStruct(ret_);
-            return ArgumentCall.newArgument(argres_);
-        }
         MethodId methodId_ = classMethodId.getConstraints();
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
@@ -1001,8 +927,8 @@ public final class FctOperation extends InvokingOperation {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             ClassMetaInfo custClass_ = null;
             classNameFound_ = classMethodId.getClassName();
-            if (classes_.isCustomType(classNameFound_) && !_conf.getClasses().isInitialized(classNameFound_)) {
-                _conf.getClasses().initialize(classNameFound_);
+            if (classes_.isCustomType(classNameFound_) && !classes_.isInitialized(classNameFound_)) {
+                classes_.initialize(classNameFound_);
                 InitializatingClass inv_ = new InitializatingClass(classNameFound_);
                 return ArgumentCall.newCall(inv_);
             }

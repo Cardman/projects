@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -13,7 +12,6 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exceptions.SetterException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
-import code.serialize.ConstClasses;
 import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.Numbers;
@@ -106,12 +104,7 @@ final class HtmlRequest {
                 ip_.setGlobalArgumentStruct(obj_, _conf);
                 String tmp_ = ip_.getNextTempVar();
                 LocalVariable locVar_ = new LocalVariable();
-                Classes classes_ = _conf.toContextEl().getClasses();
-                if (classes_ == null) {
-                    locVar_.setClassName(ConstClasses.resolve(className_));
-                } else {
-                    locVar_.setClassName(className_);
-                }
+                locVar_.setClassName(className_);
                 locVar_.setStruct(_attribute);
                 ip_.getLocalVars().put(tmp_, locVar_);
                 ElUtil.processEl(StringList.concat(varMethod_,LEFT_PAR,tmp_,GET_LOC_VAR,RIGHT_PAR), 0, _conf.toContextEl());
