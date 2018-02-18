@@ -72,9 +72,10 @@ public final class MetaDocument {
                 }
             }
             boolean skipChildrenBuild_ = false;
+            String tagName_ = MetaComponent.EMPTY_STRING;
             if (current_ instanceof Element) {
                 Element elt_ = (Element) current_;
-                String tagName_ = elt_.getTagName();
+                tagName_ = elt_.getTagName();
                 boolean newLine_ = false;
                 if (StringList.quickEq(tagName_, "br")) {
                     skipChildrenBuild_ = true;
@@ -87,13 +88,23 @@ public final class MetaDocument {
                     rowGroup_ = 0;
                     partGroup_++;
                 }
+                MetaContainer curPar_ = currentParent_.getParent();
+                boolean li_ = false;
+                if (!stacks_.isEmpty()) {
+                    if (StringList.quickEq(stacks_.last(), "li")) {
+                        li_ = true;
+                    }
+                }
                 if (newLine_) {
-                    MetaContainer curPar_ = currentParent_.getParent();
                     if (StringList.quickEq(tagName_, "hr")) {
                         MetaSeparator sep_ = new MetaSeparator(curPar_);
                         curPar_.appendChild(sep_);
                     }
                     MetaContainer line_ = new MetaLine(curPar_);
+                    if (li_) {
+                        MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
+                        line_.appendChild(ind_);
+                    }
                     curPar_.appendChild(line_);
                     currentParent_ = line_;
                 }
@@ -212,17 +223,15 @@ public final class MetaDocument {
                     MetaInput input_ = new MetaTextArea(currentParent_, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
                     currentParent_.appendChild(input_);
                 }
-                MetaContainer curPar_ = currentParent_.getParent();
-                boolean li_ = false;
-                if (!stacks_.isEmpty()) {
-                    if (StringList.quickEq(stacks_.last(), "li")) {
-                        li_ = true;
-                    }
-                }
                 if (StringList.quickEq(tagName_, "p")) {
                     MetaContainer bl_ = new MetaParagraph(curPar_);
                     MetaContainer line_ = new MetaLine(bl_);
                     bl_.appendChild(line_);
+                  //indent
+                    if (li_) {
+                        MetaLabel ind_ = new MetaIndentNbLabel(curPar_);
+                        curPar_.appendChild(ind_);
+                    }
                     curPar_.appendChild(bl_);
                     containers_.add(bl_);
                     currentParent_ = line_;
@@ -236,15 +245,12 @@ public final class MetaDocument {
                         bl_ = new MetaOrderedList(line_);
                     }
                     //indent
-                    int nbLis_ = lis_.size();
-                    for (int i = 0; i < nbLis_; i++) {
-                        MetaIndentLabel ind_ = new MetaIndentLabel(line_, 1);
-                        line_.appendChild(ind_);
-                    }
                     if (li_) {
-                        MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
+                        MetaLabel ind_ = new MetaIndentNbLabel(line_);
                         line_.appendChild(ind_);
                     }
+                    MetaLabel ind_ = new MetaIndentLabel(line_,1);
+                    line_.appendChild(ind_);
                     line_.appendChild(bl_);
                     curPar_.appendChild(line_);
                     containers_.add(curPar_);
@@ -275,11 +281,6 @@ public final class MetaDocument {
                     MetaContainer line_ = new MetaLine(curPar_);
                     MetaTable bl_ = new MetaTable(line_);
                     //indent
-                    int nbLis_ = lis_.size();
-                    for (int i = 0; i < nbLis_; i++) {
-                        MetaIndentLabel ind_ = new MetaIndentLabel(line_, 1);
-                        line_.appendChild(ind_);
-                    }
                     if (li_) {
                         MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
                         line_.appendChild(ind_);
@@ -304,7 +305,15 @@ public final class MetaDocument {
                     rowGroup_ = 0;
                     partGroup_++;
                     MetaTable table_ = tables_.last();
-                    MetaContainer bl_ = new MetaCell(table_);
+                    Integer rows_ = LgNames.parseInt(elt_.getAttribute("rowspan"));
+                    if (rows_ == null) {
+                        rows_ = 1;
+                    }
+                    Integer cols_ = LgNames.parseInt(elt_.getAttribute("colspan"));
+                    if (cols_ == null) {
+                        cols_ = 1;
+                    }
+                    MetaContainer bl_ = new MetaCell(table_, rows_, cols_);
                     MetaContainer line_ = new MetaLine(bl_);
                     bl_.appendChild(line_);
                     Node nextSib_ = elt_.getNextSibling();
@@ -320,11 +329,6 @@ public final class MetaDocument {
                         width_ = 1;
                     }
                     MetaContainer line_ = new MetaLine(curPar_);
-                    int nbLis_ = lis_.size();
-                    for (int i = 0; i < nbLis_; i++) {
-                        MetaIndentLabel ind_ = new MetaIndentLabel(line_, 1);
-                        line_.appendChild(ind_);
-                    }
                     if (li_) {
                         MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
                         line_.appendChild(ind_);
@@ -336,10 +340,10 @@ public final class MetaDocument {
                     containers_.add(map_);
                     currentParent_ = map_;
                 }
-                stacks_.add(tagName_);
             }
             Node next_ = current_.getFirstChild();
             if (next_ != null && !skipChildrenBuild_) {
+                stacks_.add(tagName_);
                 current_ = next_;
                 continue;
             }
@@ -348,7 +352,8 @@ public final class MetaDocument {
                 current_ = next_;
                 continue;
             }
-            String lastTag_ = stacks_.last();
+            Element par_ = current_.getParentNode();
+            String lastTag_ = par_.getTagName();
             MetaContainer nextParent_ = unstack(containers_, tables_, lastTag_);
             if (nextParent_ != null) {
                 currentParent_ = nextParent_;
@@ -372,13 +377,24 @@ public final class MetaDocument {
                 partGroup_++;
             }
             stacks_.removeLast();
-            Element par_ = current_.getParentNode();
+            boolean li_ = false;
+            if (!stacks_.isEmpty()) {
+                if (StringList.quickEq(stacks_.last(), "li")) {
+                    li_ = true;
+                }
+            }
+            if (li_ && nextParent_ != null) {
+                MetaContainer curPar_ = currentParent_;
+                MetaIndentNbLabel indent_ = new MetaIndentNbLabel(curPar_);
+                curPar_.appendChild(indent_);
+            }
             if (par_ == body_) {
                 break;
             }
             next_ = par_.getNextSibling();
             while (next_ == null) {
-                lastTag_ = stacks_.last();
+                Element grandPar_ = par_.getParentNode();
+                lastTag_ = grandPar_.getTagName();
                 nextParent_ = unstack(containers_, tables_, lastTag_);
                 if (nextParent_ != null) {
                     currentParent_ = nextParent_;
@@ -402,11 +418,21 @@ public final class MetaDocument {
                     partGroup_++;
                 }
                 stacks_.removeLast();
-                Element grandPar_ = par_.getParentNode();
+                li_ = false;
+                if (!stacks_.isEmpty()) {
+                    if (StringList.quickEq(stacks_.last(), "li")) {
+                        li_ = true;
+                    }
+                }
+                if (li_ && nextParent_ != null) {
+                    MetaContainer curPar_ = currentParent_;
+                    MetaIndentNbLabel indent_ = new MetaIndentNbLabel(curPar_);
+                    curPar_.appendChild(indent_);
+                }
                 if (grandPar_ == body_) {
                     break;
                 }
-                next_ = par_.getNextSibling();
+                next_ = grandPar_.getNextSibling();
                 par_ = grandPar_;
             }
             if (next_ == null) {

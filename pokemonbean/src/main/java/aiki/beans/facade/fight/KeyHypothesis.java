@@ -138,7 +138,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         str_.append(isBelongsToUser());
         str_.append(SEPARATOR);
         str_.append(getNumberTarget());
-        return null;
+        return str_.toString();
     }
 
 
