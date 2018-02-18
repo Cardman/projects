@@ -15,7 +15,16 @@ import code.util.StringMap;
 
 public final class MetaDocument {
 
-    private final MetaBlock root;
+    private MetaBlock root;
+    private StringList stacks;
+
+    private MetaContainer currentParent;
+    private int partGroup = 0;
+    private int rowGroup = 0;
+    private CustList<MetaContainer> containers;
+    private CustList<MetaTable> tables;
+    private Numbers<Integer> lis;
+    private BooleanList ordered;
 
     private MetaDocument(Document _document) {
         ElementList style_ = _document.getElementsByTagName("style");
@@ -26,17 +35,17 @@ public final class MetaDocument {
         }
         Element body_ = _document.getElementsByTagName("body").first();
         root = new MetaBlock(null);
-        StringList stacks_ = new StringList();
+        stacks = new StringList();
         MetaLine mainLine_ = new MetaLine(root);
         root.appendChild(mainLine_);
-        MetaContainer currentParent_ = mainLine_;
+        currentParent = mainLine_;
         Node current_ = body_;
-        CustList<MetaContainer> containers_ = new CustList<MetaContainer>();
-        CustList<MetaTable> tables_ = new CustList<MetaTable>();
-        int partGroup_ = 0;
-        int rowGroup_ = 0;
-        Numbers<Integer> lis_ = new Numbers<Integer>();
-        BooleanList ordered_ = new BooleanList();
+        containers = new CustList<MetaContainer>();
+        tables = new CustList<MetaTable>();
+        partGroup = 0;
+        rowGroup = 0;
+        lis = new Numbers<Integer>();
+        ordered = new BooleanList();
         while (true) {
             if (current_ instanceof Text) {
                 Text txt_ = (Text) current_;
@@ -66,9 +75,14 @@ public final class MetaDocument {
                     }
                     styleLoc_.setBold(bold_);
                     styleLoc_.setItalic(italic_);
-                    MetaSearchableLabel label_ = new MetaSearchableLabel(currentParent_, text_, title_, anchor_, partGroup_, rowGroup_);
+                    MetaSearchableLabel label_;
+                    if (anchor_ == null) {
+                        label_ = new MetaPlainLabel(currentParent, text_, title_, partGroup, rowGroup);
+                    } else {
+                        label_ = new MetaAnchorLabel(currentParent, text_, title_, anchor_, partGroup, rowGroup);
+                    }
                     label_.setStyle(styleLoc_);
-                    currentParent_.appendChild(label_);
+                    currentParent.appendChild(label_);
                 }
             }
             boolean skipChildrenBuild_ = false;
@@ -80,18 +94,18 @@ public final class MetaDocument {
                 if (StringList.quickEq(tagName_, "br")) {
                     skipChildrenBuild_ = true;
                     newLine_ = true;
-                    rowGroup_++;
+                    rowGroup++;
                 }
                 if (StringList.quickEq(tagName_, "hr")) {
                     skipChildrenBuild_ = true;
                     newLine_ = true;
-                    rowGroup_ = 0;
-                    partGroup_++;
+                    rowGroup = 0;
+                    partGroup++;
                 }
-                MetaContainer curPar_ = currentParent_.getParent();
+                MetaContainer curPar_ = currentParent.getParent();
                 boolean li_ = false;
-                if (!stacks_.isEmpty()) {
-                    if (StringList.quickEq(stacks_.last(), "li")) {
+                if (!stacks.isEmpty()) {
+                    if (StringList.quickEq(stacks.last(), "li")) {
                         li_ = true;
                     }
                 }
@@ -106,7 +120,7 @@ public final class MetaDocument {
                         line_.appendChild(ind_);
                     }
                     curPar_.appendChild(line_);
-                    currentParent_ = line_;
+                    currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "img")) {
                     String title_ = MetaComponent.EMPTY_STRING;
@@ -125,22 +139,22 @@ public final class MetaDocument {
                     }
                     if (elt_.getAttribute("src").contains(";")) {
                         Integer delay_ = LgNames.parseInt(elt_.getAttribute("delay"));
-                        MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent_, StringList.splitStrings(elt_.getAttribute("src"), ";"), title_, delay_, anchor_);
+                        MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringList.splitStrings(elt_.getAttribute("src"), ";"), title_, delay_, anchor_);
                         imgs_.setStyle(styleLoc_);
-                        currentParent_.appendChild(imgs_);
+                        currentParent.appendChild(imgs_);
                     } else {
-                        MetaSimpleImage imgs_ = new MetaSimpleImage(currentParent_, elt_.getAttribute("src"), title_, anchor_);
+                        MetaSimpleImage imgs_ = new MetaSimpleImage(currentParent, elt_.getAttribute("src"), title_, anchor_);
                         imgs_.setStyle(styleLoc_);
-                        currentParent_.appendChild(imgs_);
+                        currentParent.appendChild(imgs_);
                     }
                     skipChildrenBuild_ = true;
-                    rowGroup_ = 0;
-                    partGroup_++;
+                    rowGroup = 0;
+                    partGroup++;
                 }
                 if (StringList.quickEq(tagName_, "select")) {
                     skipChildrenBuild_ = true;
-                    rowGroup_ = 0;
-                    partGroup_++;
+                    rowGroup = 0;
+                    partGroup++;
                     if (elt_.hasAttribute("multiple")) {
                         Numbers<Integer> selected_ = new Numbers<Integer>();
                         NatTreeMap<String, String> elts_ = new NatTreeMap<String, String>();
@@ -156,8 +170,8 @@ public final class MetaDocument {
                         if (vis_ == null) {
                             vis_ = 1;
                         }
-                        MetaInput input_ = new MetaComboList(currentParent_, LgNames.parseInt(elt_.getAttribute("n-i")), elts_, selected_, vis_);
-                        currentParent_.appendChild(input_);
+                        MetaInput input_ = new MetaComboList(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elts_, selected_, vis_);
+                        currentParent.appendChild(input_);
                     } else {
                         int selected_ = 0;
                         NatTreeMap<String, String> elts_ = new NatTreeMap<String, String>();
@@ -169,8 +183,8 @@ public final class MetaDocument {
                             elts_.put(c.getAttribute("value"), c.getTextContent());
                             i_++;
                         }
-                        MetaInput input_ = new MetaComboBox(currentParent_, LgNames.parseInt(elt_.getAttribute("n-i")), elts_, selected_);
-                        currentParent_.appendChild(input_);
+                        MetaInput input_ = new MetaComboBox(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elts_, selected_);
+                        currentParent.appendChild(input_);
                     }
                 }
                 if (StringList.quickEq(tagName_, "input")) {
@@ -181,14 +195,14 @@ public final class MetaDocument {
                         if (cols_ == null) {
                             cols_ = 32;
                         }
-                        MetaInput input_ = new MetaTextField(currentParent_, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
-                        currentParent_.appendChild(input_);
+                        MetaInput input_ = new MetaTextField(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
+                        currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "checkbox")) {
-                        MetaInput input_ = new MetaCheckedBox(currentParent_, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
-                        currentParent_.appendChild(input_);
+                        MetaInput input_ = new MetaCheckedBox(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
+                        currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "radio")) {
-                        MetaInput input_ = new MetaRadioButton(currentParent_, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"), elt_.getAttribute("value"));
-                        currentParent_.appendChild(input_);
+                        MetaInput input_ = new MetaRadioButton(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"), elt_.getAttribute("value"));
+                        currentParent.appendChild(input_);
                     } else {
                         //button
                         Element form_ = null;
@@ -201,17 +215,17 @@ public final class MetaDocument {
                             }
                             par_ = par_.getParentNode();
                         }
-                        MetaInput button_ = new MetaButton(currentParent_, LgNames.parseInt(elt_.getAttribute("n-i")), form_, elt_.getAttribute("value"));
+                        MetaInput button_ = new MetaButton(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), form_, elt_.getAttribute("value"));
                         button_.setStyle(styleLoc_);
-                        currentParent_.appendChild(button_);
+                        currentParent.appendChild(button_);
                     }
-                    rowGroup_ = 0;
-                    partGroup_++;
+                    rowGroup = 0;
+                    partGroup++;
                 }
                 if (StringList.quickEq(tagName_, "textarea")) {
                     skipChildrenBuild_ = true;
-                    rowGroup_ = 0;
-                    partGroup_++;
+                    rowGroup = 0;
+                    partGroup++;
                     Integer rows_ = LgNames.parseInt(elt_.getAttribute("rows"));
                     if (rows_ == null) {
                         rows_ = 32;
@@ -220,8 +234,8 @@ public final class MetaDocument {
                     if (cols_ == null) {
                         cols_ = 32;
                     }
-                    MetaInput input_ = new MetaTextArea(currentParent_, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
-                    currentParent_.appendChild(input_);
+                    MetaInput input_ = new MetaTextArea(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
+                    currentParent.appendChild(input_);
                 }
                 if (StringList.quickEq(tagName_, "p")) {
                     MetaContainer bl_ = new MetaParagraph(curPar_);
@@ -233,8 +247,8 @@ public final class MetaDocument {
                         curPar_.appendChild(ind_);
                     }
                     curPar_.appendChild(bl_);
-                    containers_.add(bl_);
-                    currentParent_ = line_;
+                    containers.add(bl_);
+                    currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "ul") || StringList.quickEq(tagName_, "ol")) {
                     MetaContainer line_ = new MetaLine(curPar_);
@@ -253,29 +267,29 @@ public final class MetaDocument {
                     line_.appendChild(ind_);
                     line_.appendChild(bl_);
                     curPar_.appendChild(line_);
-                    containers_.add(curPar_);
-                    containers_.add(bl_);
-                    lis_.add(1);
-                    ordered_.add(StringList.quickEq(tagName_, "ol"));
-                    currentParent_ = bl_;
+                    containers.add(curPar_);
+                    containers.add(bl_);
+                    lis.add(1);
+                    ordered.add(StringList.quickEq(tagName_, "ol"));
+                    currentParent = bl_;
                 }
                 if (StringList.quickEq(tagName_, "li")) {
-                    rowGroup_ = 0;
-                    partGroup_++;
-                    MetaContainer list_ = containers_.last();
+                    rowGroup = 0;
+                    partGroup++;
+                    MetaContainer list_ = containers.last();
                     MetaContainer bl_ = new MetaListItem(list_);
                     MetaContainer line_ = new MetaLine(bl_);
                     MetaLabel nb_;
-                    if (ordered_.last()) {
-                        nb_ = new MetaNumberedLabel(line_, lis_.last(), MetaNumberBase.NUMBER);
+                    if (ordered.last()) {
+                        nb_ = new MetaNumberedLabel(line_, lis.last(), MetaNumberBase.NUMBER);
                     } else {
                         nb_ = new MetaPointLabel(line_, MetaPointForm.DISK);
                     }
                     line_.appendChild(nb_);
-                    lis_.setLast(lis_.last()+1);
+                    lis.setLast(lis.last()+1);
                     bl_.appendChild(line_);
                     list_.appendChild(bl_);
-                    currentParent_ = line_;
+                    currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "table")) {
                     MetaContainer line_ = new MetaLine(curPar_);
@@ -287,24 +301,24 @@ public final class MetaDocument {
                     }
                     line_.appendChild(bl_);
                     curPar_.appendChild(line_);
-                    containers_.add(curPar_);
-                    containers_.add(bl_);
-                    currentParent_ = bl_;
-                    tables_.add(bl_);
+                    containers.add(curPar_);
+                    containers.add(bl_);
+                    currentParent = bl_;
+                    tables.add(bl_);
                 }
                 if (StringList.quickEq(tagName_, "caption")) {
-                    rowGroup_ = 0;
-                    partGroup_++;
-                    MetaTable table_ = tables_.last();
+                    rowGroup = 0;
+                    partGroup++;
+                    MetaTable table_ = tables.last();
                     MetaContainer line_ = new MetaCaption(table_);
                     table_.addRemainder();
                     table_.appendChild(line_);
-                    currentParent_ = line_;
+                    currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "td") || StringList.quickEq(tagName_, "th")) {
-                    rowGroup_ = 0;
-                    partGroup_++;
-                    MetaTable table_ = tables_.last();
+                    rowGroup = 0;
+                    partGroup++;
+                    MetaTable table_ = tables.last();
                     Integer rows_ = LgNames.parseInt(elt_.getAttribute("rowspan"));
                     if (rows_ == null) {
                         rows_ = 1;
@@ -321,7 +335,7 @@ public final class MetaDocument {
                         table_.addRemainder();
                     }
                     table_.appendChild(bl_);
-                    currentParent_ = line_;
+                    currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "map")) {
                     Integer width_ = LgNames.parseInt(elt_.getAttribute("width"));
@@ -336,14 +350,14 @@ public final class MetaDocument {
                     MetaContainer map_ = new MetaImageMap(line_, width_);
                     line_.appendChild(map_);
                     curPar_.appendChild(line_);
-                    containers_.add(curPar_);
-                    containers_.add(map_);
-                    currentParent_ = map_;
+                    containers.add(curPar_);
+                    containers.add(map_);
+                    currentParent = map_;
                 }
             }
             Node next_ = current_.getFirstChild();
             if (next_ != null && !skipChildrenBuild_) {
-                stacks_.add(tagName_);
+                stacks.add(tagName_);
                 current_ = next_;
                 continue;
             }
@@ -354,40 +368,7 @@ public final class MetaDocument {
             }
             Element par_ = current_.getParentNode();
             String lastTag_ = par_.getTagName();
-            MetaContainer nextParent_ = unstack(containers_, tables_, lastTag_);
-            if (nextParent_ != null) {
-                currentParent_ = nextParent_;
-            }
-            if (StringList.quickEq(lastTag_, "table")) {
-                rowGroup_ = 0;
-                partGroup_++;
-            }
-            if (StringList.quickEq(lastTag_, "ul") || StringList.quickEq(lastTag_, "ol")) {
-                rowGroup_ = 0;
-                partGroup_++;
-                lis_.removeLast();
-                ordered_.removeLast();
-            }
-            if (StringList.quickEq(lastTag_, "p")) {
-                rowGroup_ = 0;
-                partGroup_++;
-            }
-            if (StringList.quickEq(lastTag_, "map")) {
-                rowGroup_ = 0;
-                partGroup_++;
-            }
-            stacks_.removeLast();
-            boolean li_ = false;
-            if (!stacks_.isEmpty()) {
-                if (StringList.quickEq(stacks_.last(), "li")) {
-                    li_ = true;
-                }
-            }
-            if (li_ && nextParent_ != null) {
-                MetaContainer curPar_ = currentParent_;
-                MetaIndentNbLabel indent_ = new MetaIndentNbLabel(curPar_);
-                curPar_.appendChild(indent_);
-            }
+            unstack(lastTag_);
             if (par_ == body_) {
                 break;
             }
@@ -395,40 +376,7 @@ public final class MetaDocument {
             while (next_ == null) {
                 Element grandPar_ = par_.getParentNode();
                 lastTag_ = grandPar_.getTagName();
-                nextParent_ = unstack(containers_, tables_, lastTag_);
-                if (nextParent_ != null) {
-                    currentParent_ = nextParent_;
-                }
-                if (StringList.quickEq(lastTag_, "table")) {
-                    rowGroup_ = 0;
-                    partGroup_++;
-                }
-                if (StringList.quickEq(lastTag_, "ul") || StringList.quickEq(lastTag_, "ol")) {
-                    rowGroup_ = 0;
-                    partGroup_++;
-                    lis_.removeLast();
-                    ordered_.removeLast();
-                }
-                if (StringList.quickEq(lastTag_, "p")) {
-                    rowGroup_ = 0;
-                    partGroup_++;
-                }
-                if (StringList.quickEq(lastTag_, "map")) {
-                    rowGroup_ = 0;
-                    partGroup_++;
-                }
-                stacks_.removeLast();
-                li_ = false;
-                if (!stacks_.isEmpty()) {
-                    if (StringList.quickEq(stacks_.last(), "li")) {
-                        li_ = true;
-                    }
-                }
-                if (li_ && nextParent_ != null) {
-                    MetaContainer curPar_ = currentParent_;
-                    MetaIndentNbLabel indent_ = new MetaIndentNbLabel(curPar_);
-                    curPar_.appendChild(indent_);
-                }
+                unstack(lastTag_);
                 if (grandPar_ == body_) {
                     break;
                 }
@@ -441,42 +389,71 @@ public final class MetaDocument {
             current_ = next_;
         }
     }
-    private static MetaContainer unstack(CustList<MetaContainer> _containers, CustList<MetaTable> _tables, String _last) {
+    private void unstack(String _last) {
+        MetaContainer line_ = null;
         if (StringList.quickEq(_last, "ul") || StringList.quickEq(_last, "ol")) {
-            _containers.removeLast();
-            MetaContainer last_ = _containers.last();
-            _containers.removeLast();
-            MetaContainer line_ = new MetaLine(last_);
+            containers.removeLast();
+            MetaContainer last_ = containers.last();
+            containers.removeLast();
+            line_ = new MetaLine(last_);
             last_.appendChild(line_);
-            return line_;
         }
         if (StringList.quickEq(_last, "table")) {
-            _containers.removeLast();
-            MetaContainer last_ = _containers.last();
-            _containers.removeLast();
-            MetaContainer line_ = new MetaLine(last_);
+            containers.removeLast();
+            MetaContainer last_ = containers.last();
+            containers.removeLast();
+            line_ = new MetaLine(last_);
             last_.appendChild(line_);
-            _tables.removeLast();
-            return line_;
+            tables.removeLast();
         }
         if (StringList.quickEq(_last, "p")) {
-            MetaContainer last_ = _containers.last();
-            _containers.removeLast();
-            MetaContainer line_ = new MetaLine(last_);
+            MetaContainer last_ = containers.last();
+            containers.removeLast();
+            line_ = new MetaLine(last_);
             last_.appendChild(line_);
-            _tables.removeLast();
-            return line_;
+            tables.removeLast();
         }
         if (StringList.quickEq(_last, "map")) {
-            _containers.removeLast();
-            MetaContainer last_ = _containers.last();
-            _containers.removeLast();
-            MetaContainer line_ = new MetaLine(last_);
+            containers.removeLast();
+            MetaContainer last_ = containers.last();
+            containers.removeLast();
+            line_ = new MetaLine(last_);
             last_.appendChild(line_);
-            _tables.removeLast();
-            return line_;
+            tables.removeLast();
         }
-        return null;
+        if (line_ != null) {
+            currentParent = line_;
+        }
+        if (StringList.quickEq(_last, "table")) {
+            rowGroup = 0;
+            partGroup++;
+        }
+        if (StringList.quickEq(_last, "ul") || StringList.quickEq(_last, "ol")) {
+            rowGroup = 0;
+            partGroup++;
+            lis.removeLast();
+            ordered.removeLast();
+        }
+        if (StringList.quickEq(_last, "p")) {
+            rowGroup = 0;
+            partGroup++;
+        }
+        if (StringList.quickEq(_last, "map")) {
+            rowGroup = 0;
+            partGroup++;
+        }
+        stacks.removeLast();
+        boolean li_ = false;
+        if (!stacks.isEmpty()) {
+            if (StringList.quickEq(stacks.last(), "li")) {
+                li_ = true;
+            }
+        }
+        if (li_ && line_ != null) {
+            MetaContainer curPar_ = currentParent;
+            MetaIndentNbLabel indent_ = new MetaIndentNbLabel(curPar_);
+            curPar_.appendChild(indent_);
+        }
     }
     public MetaBlock getRoot() {
         return root;

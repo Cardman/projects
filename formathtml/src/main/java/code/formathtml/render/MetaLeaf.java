@@ -16,7 +16,6 @@ public abstract class MetaLeaf extends MetaComponent {
     }
     @Override
     public MetaComponent getLastChild() {
-        // TODO Auto-generated method stub
         return null;
     }
 }
