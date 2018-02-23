@@ -2,7 +2,6 @@ package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -20,17 +19,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.SessionEditorPane;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.StringList;
-import code.util.comparators.ComparatorBoolean;
-import code.util.consts.Constants;
 import cards.consts.GameType;
 import cards.consts.Status;
 import cards.facade.enumerations.GameEnum;
@@ -107,6 +95,17 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.gui.NumComboBox;
+import code.gui.SessionEditorPane;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.NumberMap;
+import code.util.StringList;
+import code.util.comparators.ComparatorBoolean;
+import code.util.consts.Constants;
 
 public class ContainerMultiTarot extends ContainerTarot implements ContainerMulti{
 
@@ -240,10 +239,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     @Override
     public void updateFirst(PlayersNamePresent _players) {
-        getMultiStop().setEnabled(true);
-        getTricksHands().setEnabled(true);
-        getTeams().setEnabled(true);
-        getLoad().setEnabled(false);
+        getMultiStop().setEnabledMenu(true);
+        getTricksHands().setEnabledMenu(true);
+        getTeams().setEnabledMenu(true);
+        getLoad().setEnabledMenu(false);
         nbChoosenPlayers = _players.getNbPlayers();
         rulesTarotMulti = _players.getRulesTarot();
         JPanel container_=new JPanel();
@@ -503,7 +502,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void displaySlamButton() {
         getPanneauBoutonsJeu().removeAll();
         getSlamButton().setEnabledLabel(true);
-        getSlamButton().setVisible(true);
+        getSlamButton().setVisibleButton(true);
         getPanneauBoutonsJeu().add(getSlamButton());
 //        ajouterBoutonJeuChelemTarotMulti(BidTarot.SLAM.toString());
         getValidateDog().setEnabledLabel(true);
@@ -557,8 +556,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void canPlayTarot(AllowPlayingTarot _declaration) {
         canPlayLabel.setText(getMessages().getVal(MainWindow.CAN_PLAY));
         setCanPlay(true);
-        getOwner().getTricksHands().setEnabled(true);
-        getOwner().getTeams().setEnabled(true);
+        getOwner().getTricksHands().setEnabledMenu(true);
+        getOwner().getTeams().setEnabledMenu(true);
         if (!_declaration.isFirstRoundPlaying()) {
             setChoosenHandful(Handfuls.NO);
             for (Miseres m: getSelectedMiseres().getKeys()) {
@@ -688,8 +687,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollDeclaringHandful().setVisible(false);
         setCanPlay(false);
         canPlayLabel.setText(EMPTY_STRING);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
         /*On place les cartes de l'utilisateur*/
         updateCardsInPanelTarotJeuMulti(getPanelHand(), playerHand);
         pack();
@@ -772,7 +771,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return hasCreatedServer;
     }
     private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetTarot tapis_=new CarpetTarot();
@@ -937,11 +936,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true);
         JPanel boutons_=getPanneauBoutonsJeu();
         boutons_.removeAll();
-        getValidateDog().setVisible(true);
+        getValidateDog().setVisibleButton(true);
         getValidateDog().setEnabledLabel(false);
         getPanneauBoutonsJeu().add(getValidateDog());
         getSlamButton().setEnabledLabel(true);
-        getSlamButton().setVisible(false);
+        getSlamButton().setVisibleButton(false);
         getPanneauBoutonsJeu().add(getSlamButton());
 //        addButtonValidateDogTarotMulti(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
         getPanneauBoutonsJeu().validate();
@@ -963,7 +962,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getValidateDog().setEnabledLabel(chienFait_);
         if(chienFait_) {
             getSlamButton().setEnabledLabel(true);
-            getSlamButton().setVisible(true);
+            getSlamButton().setVisibleButton(true);
 //            getPanneauBoutonsJeu().add(getSlamButton());
 //            ajouterBoutonJeuChelemTarotMulti(BidTarot.SLAM.toString());
             getPanneauBoutonsJeu().validate();
@@ -982,7 +981,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        JPanel boutons_=getPanneauBoutonsJeu();
 //        LabelButton valide_=(LabelButton)boutons_.getComponent(0);
         getValidateDog().setEnabledLabel(false);
-        getSlamButton().setVisible(false);
+        getSlamButton().setVisibleButton(false);
 //        if(boutons_.getComponentCount()==2) {
 //            boutons_.remove(1);
 //            boutons_.validate();
@@ -1091,10 +1090,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void endGame(ResultsGame _res) {
 
         /*Descativer aide au jeu*/
-        getHelpGame().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
-        Container container_=new Container();
+        getHelpGame().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
+        JPanel container_=new JPanel();
         JScrollPane ascenseur_;
         container_.setLayout(new BorderLayout());
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
@@ -1206,7 +1205,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void delegateServer() {
         hasCreatedServer = true;
         if (!Net.isProgressingGame()) {
-            Container container_ = getContentPane();
+            JPanel container_ = getContentPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);

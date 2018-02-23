@@ -1,6 +1,5 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -71,7 +70,7 @@ public final class DialogSoft extends DialogCards {
     }
     private void setDialogue(String _menu) {
         menu = _menu;
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         if(StringList.quickEq(menu,MainWindow.LAUNCHING)) {
             //Lancement du logiciel

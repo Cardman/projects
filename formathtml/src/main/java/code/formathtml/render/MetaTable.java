@@ -8,8 +8,12 @@ public final class MetaTable extends MetaContainer {
     public MetaTable(MetaContainer _parent) {
         super(_parent, MetaLayout.BAG);
     }
-    public void addRemainder() {
-        remainders.add(getChildren().size());
+    public void addRemainder(boolean _previous) {
+        if (_previous) {
+            remainders.add(getChildren().size() - 1);
+        } else {
+            remainders.add(getChildren().size());
+        }
     }
     public boolean isRemainder(int _index) {
         return remainders.containsObj(_index);

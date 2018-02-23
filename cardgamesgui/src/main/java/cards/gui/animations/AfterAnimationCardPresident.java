@@ -17,7 +17,7 @@ public final class AfterAnimationCardPresident extends Thread {
     public void run() {
         GamePresident currentGame_=container.partiePresident();
         //Desactiver le menu Partie/Pause
-        container.getPause().setEnabled(false);
+        container.getPause().setEnabledMenu(false);
         if (currentGame_.keepPlayingCurrentGame()) {
             container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurPresident();

@@ -1,5 +1,4 @@
 package cards.gui;
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.InputEvent;
@@ -7,12 +6,10 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.Socket;
 
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
@@ -489,44 +486,44 @@ public final class MainWindow extends NetGroupFrame {
 
     //file menu
 
-    private JMenu file;
-    private JMenuItem load;
-    private JMenuItem save;
-    private JMenuItem change;
-    private JMenuItem exit;
+    private Menu file;
+    private MenuItem load;
+    private MenuItem save;
+    private MenuItem change;
+    private MenuItem exit;
 
     //deal menu
 
-    private JMenu deal;
-    private JMenuItem consulting;
-    private JCheckBoxMenuItem pause;
-    private JMenuItem helpGame;
-    private JMenuItem tricksHands;
-    private JMenuItem teams;
-    private JMenu edit;
-    private EnumMap<GameEnum,JMenuItem> editGames = new EnumMap<GameEnum,JMenuItem>();
-    private JMenu demo;
-    private EnumMap<GameEnum,JMenuItem> demoGames = new EnumMap<GameEnum,JMenuItem>();
-    private JMenu training;
-    private EnumMap<ChoiceTarot,JMenuItem> trainingTarot = new EnumMap<ChoiceTarot,JMenuItem>();
-    private JMenuItem multiStop;
+    private Menu deal;
+    private MenuItem consulting;
+    private CheckBoxMenuItem pause;
+    private MenuItem helpGame;
+    private MenuItem tricksHands;
+    private MenuItem teams;
+    private Menu edit;
+    private EnumMap<GameEnum,MenuItem> editGames = new EnumMap<GameEnum,MenuItem>();
+    private Menu demo;
+    private EnumMap<GameEnum,MenuItem> demoGames = new EnumMap<GameEnum,MenuItem>();
+    private Menu training;
+    private EnumMap<ChoiceTarot,MenuItem> trainingTarot = new EnumMap<ChoiceTarot,MenuItem>();
+    private MenuItem multiStop;
 
     //parameters menu
 
-    private JMenu parameters;
-    private EnumMap<GameEnum,JMenuItem> rulesGames = new EnumMap<GameEnum,JMenuItem>();
-    private JMenuItem players;
-    private JMenuItem launching;
-    private JMenuItem timing;
-    private JMenuItem interact;
-    private JMenuItem language;
-    private JMenuItem displaying;
-    private EnumMap<GameEnum,JMenuItem> displayingGames = new EnumMap<GameEnum,JMenuItem>();
+    private Menu parameters;
+    private EnumMap<GameEnum,MenuItem> rulesGames = new EnumMap<GameEnum,MenuItem>();
+    private MenuItem players;
+    private MenuItem launching;
+    private MenuItem timing;
+    private MenuItem interact;
+    private MenuItem language;
+    private Menu displaying;
+    private EnumMap<GameEnum,MenuItem> displayingGames = new EnumMap<GameEnum,MenuItem>();
 
     //parameters help
 
-    private JMenu help;
-    private JMenuItem generalHelp;
+    private Menu help;
+    private MenuItem generalHelp;
 
     //labels at main menu
 
@@ -631,12 +628,12 @@ public final class MainWindow extends NetGroupFrame {
         if(parametres.getLancement().isEmpty()) {
             menuPrincipal();
         } else {
-            getTricksHands().setEnabled(false);
-            getTeams().setEnabled(false);
-            getMultiStop().setEnabled(false);
-            getLoad().setEnabled(true);
-            getEdit().setEnabled(true);
-            getTraining().setEnabled(true);
+            getTricksHands().setEnabledMenu(false);
+            getTeams().setEnabledMenu(false);
+            getMultiStop().setEnabledMenu(false);
+            getLoad().setEnabledMenu(true);
+            getEdit().setEnabledMenu(true);
+            getTraining().setEnabledMenu(true);
             if(parametres.getLancement().first()==GameEnum.BELOTE) {
                 containerGame = new ContainerSingleBelote(this);
             } else if(parametres.getLancement().first()==GameEnum.PRESIDENT) {
@@ -644,7 +641,7 @@ public final class MainWindow extends NetGroupFrame {
             } else {
                 containerGame = new ContainerSingleTarot(this);
             }
-            change.setEnabled(true);
+            change.setEnabledMenu(true);
             containerGame.modify();
         }
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -659,7 +656,7 @@ public final class MainWindow extends NetGroupFrame {
         return getMessages().getVal(TOO_MANY);
     }
 
-    private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,Container _container) {
+    private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,JPanel _container) {
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
         bouton_.addMouseListener(new ListenerBeginGame(_nomJeu, this));
@@ -1158,23 +1155,23 @@ public final class MainWindow extends NetGroupFrame {
     }
     public void menuMultiGames() {
         containerGame = new ContainerGame(this);
-        change.setEnabled(false);
+        change.setEnabledMenu(false);
         //Activer le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         //desactiver le menu Partie/conseil
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
-        getEdit().setEnabled(false);
-        getTraining().setEnabled(false);
-        for (JMenuItem m: getRulesGames().values()) {
-            m.setEnabled(false);
+        getPause().setEnabledMenu(false);
+        getEdit().setEnabledMenu(false);
+        getTraining().setEnabledMenu(false);
+        for (MenuItem m: getRulesGames().values()) {
+            m.setEnabledMenu(false);
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
@@ -1190,9 +1187,9 @@ public final class MainWindow extends NetGroupFrame {
             goHelpMenu = new JLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
         }
         container_.add(goHelpMenu);
-        getLoad().setEnabled(false);
-        getSave().setEnabled(false);
-        getChange().setEnabled(false);
+        getLoad().setEnabledMenu(false);
+        getSave().setEnabledMenu(false);
+        getChange().setEnabledMenu(false);
         container_.add(clock);
         container_.add(lastSavedGameDate);
         setContentPane(container_);
@@ -1200,19 +1197,19 @@ public final class MainWindow extends NetGroupFrame {
     }
     public void menuSoloGames() {
         containerGame = new ContainerGame(this);
-        change.setEnabled(false);
+        change.setEnabledMenu(false);
         //Activer le menu Partie/Demo
-        getDemo().setEnabled(true);
+        getDemo().setEnabledMenu(true);
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         //desactiver le menu Partie/conseil
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         containerGame.setChangerPileFin(false);
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
@@ -1228,8 +1225,8 @@ public final class MainWindow extends NetGroupFrame {
             goHelpMenu = new JLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
         }
         container_.add(goHelpMenu);
-        getSave().setEnabled(false);
-        getChange().setEnabled(false);
+        getSave().setEnabledMenu(false);
+        getChange().setEnabledMenu(false);
         container_.add(clock);
         container_.add(lastSavedGameDate);
         setContentPane(container_);
@@ -1237,24 +1234,24 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void menuPrincipal() {
-        getMultiStop().setEnabled(false);
-        getTricksHands().setEnabled(false);
-        getTeams().setEnabled(false);
+        getMultiStop().setEnabledMenu(false);
+        getTricksHands().setEnabledMenu(false);
+        getTeams().setEnabledMenu(false);
         containerGame = new ContainerGame(this);
-        change.setEnabled(false);
+        change.setEnabledMenu(false);
         //Activer le menu Partie/Demo
-        getDemo().setEnabled(true);
+        getDemo().setEnabledMenu(true);
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         //desactiver le menu Partie/conseil
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
-        getLoad().setEnabled(true);
-        getEdit().setEnabled(true);
-        getTraining().setEnabled(true);
-        for (JMenuItem m: getRulesGames().values()) {
-            m.setEnabled(true);
+        getPause().setEnabledMenu(false);
+        getLoad().setEnabledMenu(true);
+        getEdit().setEnabledMenu(true);
+        getTraining().setEnabledMenu(true);
+        for (MenuItem m: getRulesGames().values()) {
+            m.setEnabledMenu(true);
         }
         getContentPane().removeAll();
         containerGame.finirParties();
@@ -1277,8 +1274,8 @@ public final class MainWindow extends NetGroupFrame {
         getContentPane().add(goHelpMenu);
         getContentPane().add(clock);
         getContentPane().add(lastSavedGameDate);
-        getSave().setEnabled(false);
-        getChange().setEnabled(false);
+        getSave().setEnabledMenu(false);
+        getChange().setEnabledMenu(false);
     }
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
@@ -1335,25 +1332,25 @@ public final class MainWindow extends NetGroupFrame {
         load=new MenuItem(getMessages().getVal(LOAD));
         load.addActionListener(new LoadGameEvent(this));
         load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
-        file.add(load);
+        file.addMenuItem(load);
         /* Fichier/Sauvegarder "accessible que lorsqu'on joue une partie de cartes"*/
         save=new MenuItem(getMessages().getVal(SAVE));
         save.addActionListener(new SaveGameEvent(this));
         save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
-        file.add(save);
+        file.addMenuItem(save);
         file.addSeparator();
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
         on y revient lorsque c'est accessible*/
         change=new MenuItem(getMessages().getVal(CHANGE));
-        change.setEnabled(false);
+        change.setEnabledMenu(false);
         change.addActionListener(new ChangeGameEvent(this));
         change.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,InputEvent.CTRL_DOWN_MASK));
-        file.add(change);
+        file.addMenuItem(change);
         file.addSeparator();
         exit=new MenuItem(getMessages().getVal(EXIT));
         exit.addActionListener(new QuitEvent(this));
         exit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
-        file.add(exit);
+        file.addMenuItem(exit);
         getJMenuBar().add(file);
     }
     public void loadGame() {
@@ -1455,7 +1452,7 @@ public final class MainWindow extends NetGroupFrame {
                 containerGame_.load();
                 partieSauvegardee=false;
                 containerGame = containerGame_;
-                change.setEnabled(true);
+                change.setEnabledMenu(true);
             } else if (_deal instanceof GamePresident) {
                 CheckerGamePresidentWithRules.check((GamePresident) _deal);
                 containerGame_ = new ContainerSinglePresident(this);
@@ -1463,7 +1460,7 @@ public final class MainWindow extends NetGroupFrame {
                 containerGame_.load();
                 partieSauvegardee=false;
                 containerGame = containerGame_;
-                change.setEnabled(true);
+                change.setEnabledMenu(true);
             } else if (_deal instanceof GameTarot) {
                 CheckerGameTarotWithRules.check((GameTarot) _deal);
                 containerGame_ = new ContainerSingleTarot(this);
@@ -1471,7 +1468,7 @@ public final class MainWindow extends NetGroupFrame {
                 containerGame_.load();
                 partieSauvegardee=false;
                 containerGame = containerGame_;
-                change.setEnabled(true);
+                change.setEnabledMenu(true);
             } else {
                 erreurDeChargement(_nomFichier);
             }
@@ -1570,61 +1567,61 @@ public final class MainWindow extends NetGroupFrame {
         deal=new Menu(getMessages().getVal(DEAL));
         /* Partie/Conseil "accessible uniquement en cours de partie et
         dans les jeux non solitaires"*/
-        JMenuItem sousMenu_;
+        MenuItem sousMenu_;
         consulting=new MenuItem(getMessages().getVal(CONSULTING));
         consulting.setAccelerator(KeyStroke.getKeyStroke(F_ONE));
         consulting.addActionListener(new ConsultEvent(this));
-        deal.add(consulting);
+        deal.addMenuItem(consulting);
         /* Partie/Pause Permet de mettre le jeu en pause*/
         pause=new CheckBoxMenuItem(getMessages().getVal(PAUSE));
         pause.setAccelerator(KeyStroke.getKeyStroke(PAUSE));
         pause.addActionListener(new PauseEvent(this));
-        deal.add(pause);
+        deal.addMenuItem(pause);
         /* Partie/Pause Permet d avoir de l aide*/
         helpGame=new MenuItem(getMessages().getVal(HELP_GAME));
         helpGame.setAccelerator(KeyStroke.getKeyStroke(F_TWO));
         helpGame.addActionListener(new DisplayHelpGameEvent(this));
-        deal.add(helpGame);
+        deal.addMenuItem(helpGame);
         tricksHands=new MenuItem(getMessages().getVal(TRICKS_HANDS));
 
         tricksHands.addActionListener(new DisplayTricksHandsEvent(this));
-        deal.add(tricksHands);
+        deal.addMenuItem(tricksHands);
         teams=new MenuItem(getMessages().getVal(TEAMS));
         teams.addActionListener(new DisplayTeamsEvent(this));
-        deal.add(teams);
+        deal.addMenuItem(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        edit=new JMenu(getMessages().getVal(EDIT));
-        JMenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.display());
+        edit=new Menu(getMessages().getVal(EDIT));
+        MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.display());
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.BELOTE));
-        edit.add(sousSousMenu_);
+        edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.BELOTE, sousSousMenu_);
         sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.display());
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.PRESIDENT));
-        edit.add(sousSousMenu_);
+        edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.PRESIDENT, sousSousMenu_);
         sousSousMenu_ = new MenuItem(GameEnum.TAROT.display());
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.TAROT));
-        edit.add(sousSousMenu_);
+        edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.TAROT, sousSousMenu_);
-        deal.add(edit);
+        deal.addMenuItem(edit);
         /* Partie/Demo "Permet de voir la demostration d une partie"*/
         demo=new Menu(getMessages().getVal(DEMO));
         sousMenu_=new MenuItem(GameEnum.BELOTE.display());
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
-        demo.add(sousMenu_);
+        demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.BELOTE, sousSousMenu_);
         sousMenu_=new MenuItem(GameEnum.PRESIDENT.display());
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.PRESIDENT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
-        demo.add(sousMenu_);
+        demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.PRESIDENT, sousSousMenu_);
         sousMenu_=new MenuItem(GameEnum.TAROT.display());
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.TAROT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
-        demo.add(sousMenu_);
+        demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.TAROT, sousSousMenu_);
-        deal.add(demo);
+        deal.addMenuItem(demo);
         /* Partie/Entrainement "accessible n'importe quand pour pouvoir s'entrainer"*/
         training=new Menu(getMessages().getVal(TRAINING));
         /* Partie/Entrainement au Tarot*/
@@ -1633,13 +1630,13 @@ public final class MainWindow extends NetGroupFrame {
 
             sousMenu_=new MenuItem(ct_.display());
             sousMenu_.addActionListener(new ListenerTrainingTarot(this, ct_));
-            training.add(sousMenu_);
+            training.addMenuItem(sousMenu_);
             trainingTarot.put(ct_, sousMenu_);
         }
-        deal.add(training);
+        deal.addMenuItem(training);
         multiStop = new MenuItem(getMessages().getVal(MULTI_STOP));
         multiStop.addActionListener(new QuitMultiEvent(this));
-        deal.add(multiStop);
+        deal.addMenuItem(multiStop);
         getJMenuBar().add(deal);
     }
     public void consult() {
@@ -1702,19 +1699,19 @@ public final class MainWindow extends NetGroupFrame {
                                 containerGame.saveCurrentGame(fichier_);
                                 containerGame = new ContainerSingleBelote(this);
                                 ((ContainerSingleBelote)containerGame).editerBelote(partie_);
-                                change.setEnabled(true);
+                                change.setEnabledMenu(true);
                             }
                         } else {
                             containerGame = new ContainerSingleBelote(this);
                             ((ContainerSingleBelote)containerGame).editerBelote(partie_);
-                            change.setEnabled(true);
+                            change.setEnabledMenu(true);
                         }
                     }
                 }
             } else {
                 containerGame = new ContainerSingleBelote(this);
                 ((ContainerSingleBelote)containerGame).editerBelote(partie_);
-                change.setEnabled(true);
+                change.setEnabledMenu(true);
             }
         } else if (_game == GameEnum.PRESIDENT) {
             if (!edit.isEnabled()) {
@@ -1740,19 +1737,19 @@ public final class MainWindow extends NetGroupFrame {
 
                                 containerGame = new ContainerSinglePresident(this);
                                 ((ContainerSinglePresident) containerGame).editerPresident(partie_);
-                                change.setEnabled(true);
+                                change.setEnabledMenu(true);
                             }
                         } else {
                             containerGame = new ContainerSinglePresident(this);
                             ((ContainerSinglePresident) containerGame).editerPresident(partie_);
-                            change.setEnabled(true);
+                            change.setEnabledMenu(true);
                         }
                     }
                 }
             } else {
                 containerGame = new ContainerSinglePresident(this);
                 ((ContainerSinglePresident) containerGame).editerPresident(partie_);
-                change.setEnabled(true);
+                change.setEnabledMenu(true);
             }
         } else if (_game == GameEnum.TAROT) {
             if (!edit.isEnabled()) {
@@ -1778,19 +1775,19 @@ public final class MainWindow extends NetGroupFrame {
 
                                 containerGame = new ContainerSingleTarot(this);
                                 ((ContainerSingleTarot) containerGame).editerTarot(partie_);
-                                change.setEnabled(true);
+                                change.setEnabledMenu(true);
                             }
                         } else {
                             containerGame = new ContainerSingleTarot(this);
                             ((ContainerSingleTarot) containerGame).editerTarot(partie_);
-                            change.setEnabled(true);
+                            change.setEnabledMenu(true);
                         }
                     }
                 }
             } else {
                 containerGame = new ContainerSingleTarot(this);
                 ((ContainerSingleTarot) containerGame).editerTarot(partie_);
-                change.setEnabled(true);
+                change.setEnabledMenu(true);
             }
         }
     }
@@ -1837,12 +1834,12 @@ public final class MainWindow extends NetGroupFrame {
                     }
                 }
                 containerGame = new ContainerSingleTarot(this);
-                change.setEnabled(true);
+                change.setEnabledMenu(true);
                 ((ContainerSingleTarot) containerGame).jouerDonneEntrainement(_ct);
             }
         } else {
             containerGame = new ContainerSingleTarot(this);
-            change.setEnabled(true);
+            change.setEnabledMenu(true);
             ((ContainerSingleTarot) containerGame).jouerDonneEntrainement(_ct);
         }
     }
@@ -1861,37 +1858,37 @@ public final class MainWindow extends NetGroupFrame {
     private void initParametersMenu() {
         /* Parametres */
         parameters=new Menu(getMessages().getVal(PARAMETERS));
-        JMenuItem sousMenu_=new MenuItem(GameEnum.BELOTE.display());
+        MenuItem sousMenu_=new MenuItem(GameEnum.BELOTE.display());
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.SHIFT_DOWN_MASK));
-        parameters.add(sousMenu_);
+        parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.BELOTE, sousMenu_);
         sousMenu_=new MenuItem(GameEnum.PRESIDENT.display());
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.PRESIDENT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.SHIFT_DOWN_MASK));
-        parameters.add(sousMenu_);
+        parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.PRESIDENT, sousMenu_);
         sousMenu_=new MenuItem(GameEnum.TAROT.display());
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.TAROT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.SHIFT_DOWN_MASK));
-        parameters.add(sousMenu_);
+        parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.TAROT, sousMenu_);
         players=new MenuItem(getMessages().getVal(PLAYERS));
         players.addActionListener(new ManageNicknameEvent(this));
         players.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,InputEvent.CTRL_DOWN_MASK+InputEvent.ALT_DOWN_MASK));
-        parameters.add(players);
+        parameters.addMenuItem(players);
         launching=new MenuItem(getMessages().getVal(LAUNCHING));
         launching.addActionListener(new ManageSoftEvent(this, LAUNCHING));
         launching.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,InputEvent.CTRL_DOWN_MASK));
-        parameters.add(launching);
+        parameters.addMenuItem(launching);
         timing=new MenuItem(getMessages().getVal(TIMING));
         timing.addActionListener(new ManageSoftEvent(this, TIMING));
         timing.setAccelerator(KeyStroke.getKeyStroke(F_FOUR));
-        parameters.add(timing);
+        parameters.addMenuItem(timing);
         interact=new MenuItem(getMessages().getVal(INTERACT));
         interact.addActionListener(new ManageSoftEvent(this, INTERACT));
         interact.setAccelerator(KeyStroke.getKeyStroke(F_FIVE));
-        parameters.add(interact);
+        parameters.addMenuItem(interact);
         language=new MenuItem(getMessages().getVal(LANGUAGE));
         language.addActionListener(new ManageLanguageEvent(this));
 //        if (Standalone.isStandalone()) {
@@ -1899,22 +1896,22 @@ public final class MainWindow extends NetGroupFrame {
 //            parameters.add(language);
 //        }
         language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
-        parameters.add(language);
+        parameters.addMenuItem(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         displaying=new Menu(getMessages().getVal(DISPLAYING));
-        JMenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.display());
+        MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.display());
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.BELOTE));
-        displaying.add(sousSousMenu_);
+        displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
         sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.display());
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.PRESIDENT));
-        displaying.add(sousSousMenu_);
+        displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.PRESIDENT, sousSousMenu_);
         sousSousMenu_ = new MenuItem(GameEnum.TAROT.display());
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.TAROT));
-        displaying.add(sousSousMenu_);
+        displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.TAROT, sousSousMenu_);
-        parameters.add(displaying);
+        parameters.addMenuItem(displaying);
         getJMenuBar().add(parameters);
     }
     public void manageRules(GameEnum _game) {
@@ -2001,7 +1998,7 @@ public final class MainWindow extends NetGroupFrame {
         generalHelp=new MenuItem(getMessages().getVal(GENERAL_HELP));
         generalHelp.addActionListener(new DisplayHelpEvent(this));
         generalHelp.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
-        help.add(generalHelp);
+        help.addMenuItem(generalHelp);
         getJMenuBar().add(help);
 
     }
@@ -2090,7 +2087,7 @@ public final class MainWindow extends NetGroupFrame {
             } else if(_jeuBouton==GameEnum.TAROT) {
                 containerGame = new ContainerSingleTarot(this);
             }
-            change.setEnabled(true);
+            change.setEnabledMenu(true);
             containerGame.modify();
             return;
         }
@@ -2235,119 +2232,119 @@ public final class MainWindow extends NetGroupFrame {
         single = _single;
     }
 
-    public JMenu getFile() {
+    public Menu getFile() {
         return file;
     }
 
-    public JMenuItem getLoad() {
+    public MenuItem getLoad() {
         return load;
     }
 
-    public JMenuItem getSave() {
+    public MenuItem getSave() {
         return save;
     }
 
-    public JMenuItem getChange() {
+    public MenuItem getChange() {
         return change;
     }
 
-    public JMenuItem getExit() {
+    public MenuItem getExit() {
         return exit;
     }
 
-    public JMenu getDeal() {
+    public Menu getDeal() {
         return deal;
     }
 
-    public JMenuItem getConsulting() {
+    public MenuItem getConsulting() {
         return consulting;
     }
 
-    public JCheckBoxMenuItem getPause() {
+    public CheckBoxMenuItem getPause() {
         return pause;
     }
 
-    public JMenuItem getHelpGame() {
+    public MenuItem getHelpGame() {
         return helpGame;
     }
 
-    public JMenuItem getTricksHands() {
+    public MenuItem getTricksHands() {
         return tricksHands;
     }
 
-    public JMenuItem getTeams() {
+    public MenuItem getTeams() {
         return teams;
     }
 
-    public JMenu getEdit() {
+    public Menu getEdit() {
         return edit;
     }
 
-    public EnumMap<GameEnum,JMenuItem> getEditGames() {
+    public EnumMap<GameEnum,MenuItem> getEditGames() {
         return editGames;
     }
 
-    public JMenu getDemo() {
+    public Menu getDemo() {
         return demo;
     }
 
-    public EnumMap<GameEnum,JMenuItem> getDemoGames() {
+    public EnumMap<GameEnum,MenuItem> getDemoGames() {
         return demoGames;
     }
 
-    public JMenu getTraining() {
+    public Menu getTraining() {
         return training;
     }
 
-    public EnumMap<ChoiceTarot,JMenuItem> getTrainingTarot() {
+    public EnumMap<ChoiceTarot,MenuItem> getTrainingTarot() {
         return trainingTarot;
     }
 
-    public JMenuItem getMultiStop() {
+    public MenuItem getMultiStop() {
         return multiStop;
     }
 
-    public JMenu getParameters() {
+    public Menu getParameters() {
         return parameters;
     }
 
-    public EnumMap<GameEnum,JMenuItem> getRulesGames() {
+    public EnumMap<GameEnum,MenuItem> getRulesGames() {
         return rulesGames;
     }
 
-    public JMenuItem getPlayers() {
+    public MenuItem getPlayers() {
         return players;
     }
 
-    public JMenuItem getLaunching() {
+    public MenuItem getLaunching() {
         return launching;
     }
 
-    public JMenuItem getTiming() {
+    public MenuItem getTiming() {
         return timing;
     }
 
-    public JMenuItem getInteract() {
+    public MenuItem getInteract() {
         return interact;
     }
 
-    public JMenuItem getLanguage() {
+    public MenuItem getLanguage() {
         return language;
     }
 
-    public JMenuItem getDisplaying() {
+    public Menu getDisplaying() {
         return displaying;
     }
 
-    public EnumMap<GameEnum,JMenuItem> getDisplayingGames() {
+    public EnumMap<GameEnum,MenuItem> getDisplayingGames() {
         return displayingGames;
     }
 
-    public JMenu getHelp() {
+    public Menu getHelp() {
         return help;
     }
 
-    public JMenuItem getGeneralHelp() {
+    public MenuItem getGeneralHelp() {
         return generalHelp;
     }
 

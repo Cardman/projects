@@ -1,6 +1,7 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
+
+import javax.swing.JPanel;
 
 import cards.belote.RulesBelote;
 import cards.gui.MainWindow;
@@ -29,7 +30,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     @Override
     public void setDialogue() {
         validated = false;
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         initMessageName();
         initJt(null);

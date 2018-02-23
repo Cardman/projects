@@ -8,9 +8,39 @@ public abstract class MetaContainer extends MetaComponent {
 
     private final MetaLayout layout;
 
+    private boolean addEmpty;
+
     public MetaContainer(MetaContainer _parent, MetaLayout _layout) {
         super(_parent);
         layout = _layout;
+    }
+
+    public boolean isAddEmpty() {
+        return addEmpty;
+    }
+
+    public void setAddEmpty(boolean _addEmpty) {
+        addEmpty = _addEmpty;
+    }
+
+    public final boolean containsOnlyEndLine() {
+        if (children.size() != 1) {
+            return false;
+        }
+        return children.first() instanceof MetaEndLine;
+    }
+
+    public final boolean onlyBlanks() {
+        if (addEmpty) {
+            return false;
+        }
+        for (MetaComponent c: children) {
+            if (c instanceof MetaIndent) {
+                continue;
+            }
+            return false;
+        }
+        return true;
     }
 
     public final void appendChild(MetaComponent _child) {

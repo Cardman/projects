@@ -67,12 +67,11 @@ public class LabelButton extends JLabel {
         setPreferredSize(new Dimension(w_, h_));
     }
 
-    @Override
-    public void setVisible(boolean _aFlag) {
+    public void setVisibleButton(boolean _aFlag) {
         if (!_aFlag) {
             entered = false;
         }
-        super.setVisible(_aFlag);
+        setVisible(_aFlag);
     }
 
     @Override

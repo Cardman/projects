@@ -1,7 +1,6 @@
 package cards.gui.animations;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -13,13 +12,6 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import code.gui.LabelButton;
-import code.gui.ThreadInvoker;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.belote.HandBelote;
@@ -35,6 +27,13 @@ import cards.gui.containers.ContainerSimuBelote;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
+import code.gui.LabelButton;
+import code.gui.ThreadInvoker;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -101,11 +100,11 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
     public void setSimulationGui() {
         container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
-        container.getHelpGame().setEnabled(false);
+        container.getHelpGame().setEnabledMenu(false);
         //desactiver le menu Partie/Demo
-        container.getDemo().setEnabled(false);
+        container.getDemo().setEnabledMenu(false);
         //Activer le menu Partie/Pause
-        container.getPause().setEnabled(true);
+        container.getPause().setEnabledMenu(true);
         EqList<HandBelote> mainsUtilisateurs_=new EqList<HandBelote>();
         GameBelote partie_=partieBeloteSimulee();
         partie_.simuler(Constants.getLanguage());
@@ -135,7 +134,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         }
         JPanel contentPane_ = new JPanel();
         contentPane_.setLayout(new BoxLayout(contentPane_, BoxLayout.PAGE_AXIS));
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetBelote tapis_=new CarpetBelote();
@@ -183,7 +182,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
-        container.setContentPane(new JScrollPane(contentPane_));
+        container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();
 //        LabelButton bouton_=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
 //        bouton_.addMouseListener(new MouseAdapter() {

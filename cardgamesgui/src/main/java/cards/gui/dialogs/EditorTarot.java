@@ -1,6 +1,5 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -129,7 +128,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers) {
         getJt().removeAll();
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         initMessageName();
         Numbers<Integer> decks_ = new Numbers<Integer>();
@@ -156,7 +155,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private void distribuer() {
 
         setTitle(getMessages().getVal(DEALING_CARDS));
-        Container c=new Container();
+        JPanel c=new JPanel();
         c.setLayout(new BorderLayout());
         JPanel panneau_=new JPanel();
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();

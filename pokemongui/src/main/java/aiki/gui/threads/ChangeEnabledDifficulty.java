@@ -1,19 +1,19 @@
 package aiki.gui.threads;
-import javax.swing.JMenuItem;
+import code.gui.MenuItem;
 
 public final class ChangeEnabledDifficulty extends Thread {
 
-    private JMenuItem difficulty;
+    private MenuItem difficulty;
 
     private boolean enabled;
 
-    public ChangeEnabledDifficulty(JMenuItem _difficulty, boolean _enabled) {
+    public ChangeEnabledDifficulty(MenuItem _difficulty, boolean _enabled) {
         difficulty = _difficulty;
         enabled = _enabled;
     }
 
     @Override
     public void run() {
-        difficulty.setEnabled(enabled);
+        difficulty.setEnabledMenu(enabled);
     }
 }

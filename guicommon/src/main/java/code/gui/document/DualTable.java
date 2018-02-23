@@ -10,10 +10,6 @@ public final class DualTable extends DualContainer {
 
     private GridBagConstraints constraints;
 
-    private int row;
-
-    private int col;
-
     public DualTable(DualContainer _container, MetaTable _component, RenderedPage _page) {
         super(_container, _component, _page);
         GridBagLayout lay_ = new GridBagLayout();
@@ -43,19 +39,11 @@ public final class DualTable extends DualContainer {
                 constraints.gridheight = 1;
             }
         } else {
-            constraints.gridwidth = ((MetaCell)_dual.getComponent()).getRowspan();
-            constraints.gridheight = ((MetaCell)_dual.getComponent()).getColspan();
+            constraints.gridheight = ((MetaCell)_dual.getComponent()).getRowspan();
+            constraints.gridwidth = ((MetaCell)_dual.getComponent()).getColspan();
         }
-        constraints.gridx = row;
-        constraints.gridy = col;
         getLayout().setConstraints(_dual.getGraphic(), constraints);
         super.add(_dual);
-        if (rem_) {
-            row++;
-            col = 0;
-        } else {
-            col++;
-        }
     }
 
     public GridBagLayout getLayout() {

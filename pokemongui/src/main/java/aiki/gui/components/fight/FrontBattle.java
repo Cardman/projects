@@ -6,14 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
-import code.gui.SetStyle;
-import code.images.ConverterBufferedImage;
-import code.maths.LgInt;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
@@ -33,8 +27,14 @@ import aiki.game.fight.animations.InfosAnimationStatistic;
 import aiki.game.fight.enums.FightState;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.FrameHtmlData;
+import code.gui.SetStyle;
+import code.images.ConverterBufferedImage;
+import code.maths.LgInt;
+import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.StringMap;
 
-public class FrontBattle extends JPanel {
+public class FrontBattle extends JLabel {
 
     private static final int NB_IMAGES = 128;
 
@@ -140,7 +140,7 @@ public class FrontBattle extends JPanel {
             target_.setLevel(fighter_.getLevel());
             target_.setPercentHp(fighter_.rateRemainHp());
             target_.setPercentExp(fighter_.wonExpRate(facade.getData()));
-            target_.set(true, facade, fighter_.getName());
+            target_.set(this, true, facade, fighter_.getName());
             if (target_.getFinalWidth() > maxWidth) {
                 maxWidth = target_.getFinalWidth();
             }
@@ -160,7 +160,7 @@ public class FrontBattle extends JPanel {
             if (caught_) {
                 target_.setBall(facade.getData().getDefaultBall());
             }
-            target_.set(false, facade, fighter_.getName());
+            target_.set(this, false, facade, fighter_.getName());
             if (target_.getFinalWidth() > maxWidth) {
                 maxWidth = target_.getFinalWidth();
             }
@@ -496,11 +496,11 @@ public class FrontBattle extends JPanel {
                 user_.setLevel(target_.getLevel());
                 user_.setPercentHp(target_.getPercentHp());
                 user_.setPercentExp(target_.getPercentExp());
-                user_.set(true, facade, target_.getFighterName());
+                user_.set(this, true, facade, target_.getFighterName());
                 target_.setLevel(level_);
                 target_.setPercentHp(rateRemaingHp_);
                 target_.setPercentExp(percentExp_);
-                target_.set(true, facade, name_);
+                target_.set(this, true, facade, name_);
             } else {
                 TargetLabel user_ = foeTargets.getVal((byte) animation_.getFromFighter().getPosition());
                 TargetLabel target_ = foeTargets.getVal((byte) animation_.getToFighter().getPosition());
@@ -511,11 +511,11 @@ public class FrontBattle extends JPanel {
                 user_.setLevel(target_.getLevel());
                 user_.setPercentHp(target_.getPercentHp());
                 user_.setPercentExp(target_.getPercentExp());
-                user_.set(false, facade, target_.getFighterName());
+                user_.set(this, false, facade, target_.getFighterName());
                 target_.setLevel(level_);
                 target_.setPercentHp(rateRemaingHp_);
                 target_.setPercentExp(percentExp_);
-                target_.set(false, facade, name_);
+                target_.set(this, false, facade, name_);
             }
 //            if (!animation_.getSubstitute().isEmpty()) {
 //                TargetLabel label_;
@@ -644,22 +644,22 @@ public class FrontBattle extends JPanel {
                 if (animation_.isKoToFighter()) {
                     if (animation_.isPlayerToFighter()) {
                         playerTargets.getVal((byte) animation_.getToFighter().getPosition()).setKo(true);
-                        playerTargets.getVal((byte) animation_.getToFighter().getPosition()).apply(facade);
+                        playerTargets.getVal((byte) animation_.getToFighter().getPosition()).apply(this, facade);
                         //koPlayerTargets.add((byte) animation_.getToFighter().getPosition());
                     } else {
                         foeTargets.getVal((byte) animation_.getToFighter().getPosition()).setKo(true);
-                        foeTargets.getVal((byte) animation_.getToFighter().getPosition()).apply(facade);
+                        foeTargets.getVal((byte) animation_.getToFighter().getPosition()).apply(this, facade);
                         //koFoeTargets.add((byte) animation_.getToFighter().getPosition());
                     }
                 }
                 if (animation_.isKoFromFighter()) {
                     if (animation_.isPlayerFromFighter()) {
                         playerTargets.getVal((byte) animation_.getFromFighter().getPosition()).setKo(true);
-                        playerTargets.getVal((byte) animation_.getFromFighter().getPosition()).apply(facade);
+                        playerTargets.getVal((byte) animation_.getFromFighter().getPosition()).apply(this, facade);
                         //koPlayerTargets.add((byte) animation_.getFromFighter().getPosition());
                     } else {
                         foeTargets.getVal((byte) animation_.getFromFighter().getPosition()).setKo(true);
-                        foeTargets.getVal((byte) animation_.getFromFighter().getPosition()).apply(facade);
+                        foeTargets.getVal((byte) animation_.getFromFighter().getPosition()).apply(this, facade);
                         //koFoeTargets.add((byte) animation_.getFromFighter().getPosition());
                     }
                 }
@@ -683,7 +683,7 @@ public class FrontBattle extends JPanel {
                         label_.setPercentHp(LgInt.zero());
                         label_.setPercentExp(LgInt.zero());
                         label_.setKo(false);
-                        label_.set(animation_.isPlayer(), facade, DataBase.EMPTY_STRING);
+                        label_.set(this, animation_.isPlayer(), facade, DataBase.EMPTY_STRING);
                     } else {
                         //substitute
                         TargetLabel label_;
@@ -700,7 +700,7 @@ public class FrontBattle extends JPanel {
                         label_.setPercentHp(animation_.getRateRemainHp());
                         label_.setPercentExp(animation_.getWonExpRate());
                         label_.setKo(animation_.isKo());
-                        label_.set(animation_.isPlayer(), facade, animation_.getSubstituteName());
+                        label_.set(this, animation_.isPlayer(), facade, animation_.getSubstituteName());
                     }
                 }
             } else {
@@ -711,11 +711,11 @@ public class FrontBattle extends JPanel {
                     if (animation_.isPlayer()) {
                         //koPlayerTargets.add((byte) animation_.getSubstituted().getPosition());
                         playerTargets.getVal((byte) animation_.getSubstituted().getPosition()).setKo(true);
-                        playerTargets.getVal((byte) animation_.getSubstituted().getPosition()).apply(facade);
+                        playerTargets.getVal((byte) animation_.getSubstituted().getPosition()).apply(this, facade);
                     } else {
                         //koFoeTargets.add((byte) animation_.getSubstituted().getPosition());
                         foeTargets.getVal((byte) animation_.getSubstituted().getPosition()).setKo(true);
-                        foeTargets.getVal((byte) animation_.getSubstituted().getPosition()).apply(facade);
+                        foeTargets.getVal((byte) animation_.getSubstituted().getPosition()).apply(this, facade);
                     }
                 }
             }
@@ -799,7 +799,7 @@ public class FrontBattle extends JPanel {
                 } else {
                     label_.setStatistics(new CustList<BufferedImage>());
                 }
-                label_.apply(facade);
+                label_.apply(this, facade);
                 drawImage = false;
                 imageNumber ++;
                 imageNumber ++;
@@ -846,7 +846,7 @@ public class FrontBattle extends JPanel {
                     } else {
                         label_.setStatistics(new CustList<BufferedImage>());
                     }
-                    label_.apply(facade);
+                    label_.apply(this, facade);
                     drawImage = false;
                     imageNumber ++;
                     imageNumber ++;
@@ -887,11 +887,11 @@ public class FrontBattle extends JPanel {
                 if (animation_.isPlayer()) {
                     //koPlayerTargets.add((byte) animation_.getUser().getPosition());
                     playerTargets.getVal((byte) animation_.getUser().getPosition()).setKo(true);
-                    playerTargets.getVal((byte) animation_.getUser().getPosition()).apply(facade);
+                    playerTargets.getVal((byte) animation_.getUser().getPosition()).apply(this, facade);
                 } else {
                     //koFoeTargets.add((byte) animation_.getUser().getPosition());
                     foeTargets.getVal((byte) animation_.getUser().getPosition()).setKo(true);
-                    foeTargets.getVal((byte) animation_.getUser().getPosition()).apply(facade);
+                    foeTargets.getVal((byte) animation_.getUser().getPosition()).apply(this, facade);
                 }
             }
         }
@@ -907,10 +907,10 @@ public class FrontBattle extends JPanel {
 
     void translate() {
         for (TargetLabel t: foeTargets.values()) {
-            t.apply(facade);
+            t.apply(this, facade);
         }
         for (TargetLabel t: playerTargets.values()) {
-            t.apply(facade);
+            t.apply(this, facade);
         }
         repaint();
     }
@@ -1262,12 +1262,11 @@ public class FrontBattle extends JPanel {
         }
     }
 
-    @Override
-    public void setVisible(boolean _aFlag) {
+    public void setVisibleFrontBattle(boolean _aFlag) {
         if (!_aFlag) {
             battle.setVisible(false);
         }
-        super.setVisible(_aFlag);
+        setVisible(_aFlag);
     }
 
     public void openActions() {

@@ -15,8 +15,7 @@ import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 
-/** This class inherits from JLabel because of calling getFontMetrics for knowing sizes*/
-public class TargetLabel extends JLabel {
+public class TargetLabel {
 
     private static final String PER_CENT = " %";
 
@@ -48,8 +47,8 @@ public class TargetLabel extends JLabel {
 
     private CustList<BufferedImage> statistics = new CustList<BufferedImage>();
 
-    public int getWidthStatistic(FacadeGame _facade) {
-        FontMetrics fMet_ = getFontMetrics(getFont());
+    public static int getWidthStatistic(JLabel _parent, FacadeGame _facade) {
+        FontMetrics fMet_ = _parent.getFontMetrics(_parent.getFont());
         int minValueStatis_ = _facade.getData().getMinBoost();
         int maxValueStatis_ = _facade.getData().getMaxBoost();
         int maxWidthValue_ = CustList.SIZE_EMPTY;
@@ -70,8 +69,8 @@ public class TargetLabel extends JLabel {
         return maxWidthValue_;
     }
 
-    public int getHeightStatistic(FacadeGame _facade) {
-        FontMetrics fMet_ = getFontMetrics(getFont());
+    public static int getHeightStatistic(JLabel _parent, FacadeGame _facade) {
+        FontMetrics fMet_ = _parent.getFontMetrics(_parent.getFont());
         int maxWidthValue_ = fMet_.getHeight();
         int add_ = CustList.SIZE_EMPTY;
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
@@ -82,7 +81,7 @@ public class TargetLabel extends JLabel {
         return maxWidthValue_ + add_;
     }
 
-    public void apply(FacadeGame _facade) {
+    public void apply(JLabel _parent, FacadeGame _facade) {
         DataBase data_ = _facade.getData();
         int widthImage_ = _facade.getMaxWidthPk();
         int width_ = _facade.getMaxWidthPk();
@@ -97,42 +96,42 @@ public class TargetLabel extends JLabel {
                 img_ = ConverterBufferedImage.decodeToImage(b_);
                 imgWidth_ = img_.getWidth();
             }
-            int w_ = getFontMetrics(getFont()).stringWidth(fighterTranslatedName);
+            int w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(fighterTranslatedName);
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = getFontMetrics(getFont()).stringWidth(Short.toString(level));
+            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(Short.toString(level));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = getFontMetrics(getFont()).stringWidth(StringList.concat(percentExp.toNumberString(),PER_CENT));
+            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(StringList.concat(percentExp.toNumberString(),PER_CENT));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = getFontMetrics(getFont()).stringWidth(StringList.concat(percentHp.toNumberString(),PER_CENT));
+            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(StringList.concat(percentHp.toNumberString(),PER_CENT));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = deltaWidth_ + getWidthStatistic(_facade);
+            w_ = deltaWidth_ + getWidthStatistic(_parent, _facade);
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
         }
         int height_ = _facade.getMaxHeightPk();
         int heightImage_ = _facade.getMaxHeightPk();
-        int heightString_ = getFontMetrics(getFont()).getHeight();
+        int heightString_ = _parent.getFontMetrics(_parent.getFont()).getHeight();
         int h_ = heightString_;
         //h_ += getHeightStatistic(_facade);
 //        if (!ball.isEmpty()) {
@@ -143,14 +142,14 @@ public class TargetLabel extends JLabel {
 //        }
         int heightIni_ = height_;
         int headerHeight_ = CustList.SIZE_EMPTY;
-        headerHeight_ += getFontMetrics(getFont()).getHeight();
-        headerHeight_ += getFontMetrics(getFont()).getHeight();
-        headerHeight_ += getFontMetrics(getFont()).getHeight();
-        headerHeight_ += getFontMetrics(getFont()).getHeight();
-        if (headerHeight_ > getHeightStatistic(_facade)) {
+        headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
+        headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
+        headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
+        headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
+        if (headerHeight_ > getHeightStatistic(_parent,_facade)) {
             height_ += headerHeight_;
         } else {
-            height_ += getHeightStatistic(_facade);
+            height_ += getHeightStatistic(_parent,_facade);
         }
 //        height_ += getFontMetrics(getFont()).getHeight();
 //        height_ += getFontMetrics(getFont()).getHeight();
@@ -246,10 +245,10 @@ public class TargetLabel extends JLabel {
         //setPreferredSize(new Dimension(width, height));
     }
 
-    public void set(boolean _playerTeam,FacadeGame _facade, String _name) {
+    public void set(JLabel _parent, boolean _playerTeam,FacadeGame _facade, String _name) {
         playerTeam = _playerTeam;
         fighterName = _name;
-        apply(_facade);
+        apply(_parent, _facade);
 //        DataBase data_ = _facade.getData();
 //        int widthImage_ = _facade.getMaxWidthPk();
 //        int width_ = _facade.getMaxWidthPk();

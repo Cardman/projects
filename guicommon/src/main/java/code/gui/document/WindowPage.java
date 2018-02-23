@@ -61,14 +61,23 @@ public class WindowPage implements Runnable {
         while (true) {
             if (meta_ instanceof MetaContainer) {
                 MetaContainer container_ = (MetaContainer) meta_;
-                if (container_ instanceof MetaTable) {
-                    cur_.add(new DualTable((DualContainer) cur_,(MetaTable) container_, page));
-                } else if (container_ instanceof MetaImageMap) {
-                    cur_.add(new DualImageMap((DualContainer) cur_,(MetaImageMap) container_, page));
-                } else {
-                    cur_.add(new DualPanel((DualContainer) cur_,container_, page));
-                }
                 int count_ = container_.getChildren().size();
+                if (count_ > 0 || container_.isAddEmpty()) {
+                    if (container_ instanceof MetaTable) {
+                        cur_.add(new DualTable((DualContainer) cur_,(MetaTable) container_, page));
+                    } else if (container_ instanceof MetaImageMap) {
+                        cur_.add(new DualImageMap((DualContainer) cur_,(MetaImageMap) container_, page));
+                    } else {
+                        cur_.add(new DualPanel((DualContainer) cur_,container_, page));
+                    }
+                    if (container_.containsOnlyEndLine()) {
+                        JComponent c_ = cur_.getGraphic();
+                        Font font_ = c_.getFont();
+                        FontMetrics fMetrics_ = c_.getFontMetrics(font_);
+                        int em_ = cur_.getComponent().getStyle().getEmToPixels();
+                        cur_.getChildren().last().getGraphic().setPreferredSize(new Dimension(em_, fMetrics_.getHeight()));
+                    }
+                }
                 if (count_ > 0) {
                     meta_ = container_.getFirstChild();
                     cur_ = cur_.getChildren().last();

@@ -36,7 +36,7 @@ public final class AnimationCardTarot extends Thread {
             }
         }
         //Activer le menu Partie/Pause
-        container.getPause().setEnabled(true);
+        container.getPause().setEnabledMenu(true);
         while (true) {
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterPetitAuBoutPliEnCours();

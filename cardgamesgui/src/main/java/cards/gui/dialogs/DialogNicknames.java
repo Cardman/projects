@@ -1,6 +1,5 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -62,7 +61,7 @@ public final class DialogNicknames extends DialogCards {
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public void setDialogue() {
         getJt().removeAll();
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         //Panneau pseudos des joueurs belote
         JPanel sousPanneau_=new JPanel();

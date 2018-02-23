@@ -1,6 +1,7 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
+
+import javax.swing.JPanel;
 
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ValidateRulesEvent;
@@ -32,7 +33,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers) {
         validated = false;
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         initMessageName();
         initJt(null, _enabledChangingNbPlayers, _nbPlayers);

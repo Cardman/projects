@@ -15,6 +15,6 @@ public final class ChangingPause extends Thread {
 
     @Override
     public void run() {
-        container.getPause().setEnabled(enabled);
+        container.getPause().setEnabledMenu(enabled);
     }
 }

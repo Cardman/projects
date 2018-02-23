@@ -44,9 +44,8 @@ public class CheckBoxMenuItem extends JCheckBoxMenuItem implements EnabledMenu {
         parentMenu = _parentMenu;
     }
 
-    @Override
-    public void setEnabled(boolean _b) {
-        super.setEnabled(_b);
+    public void setEnabledMenu(boolean _b) {
+        setEnabled(_b);
         MenuItemUtils.setEnabled(_b, this);
     }
 }

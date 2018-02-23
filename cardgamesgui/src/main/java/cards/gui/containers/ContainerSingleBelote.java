@@ -1,7 +1,6 @@
 package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -16,19 +15,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.gui.ThreadInvoker;
-import code.maths.Rate;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.belote.BidBeloteSuit;
 import cards.belote.DealBelote;
 import cards.belote.DeclareHandBelote;
@@ -83,6 +69,19 @@ import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
 import cards.main.LaunchingCards;
 import cards.network.common.select.TeamsPlayers;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.gui.SessionEditorPane;
+import code.gui.ThreadInvoker;
+import code.maths.Rate;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle {
 
@@ -153,14 +152,14 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     @Override
     public void load() {
         //Activer le menu Fichier/Sauvegarder
-        getSave().setEnabled(true);
+        getSave().setEnabledMenu(true);
         //Activer le menu Fichier/Changer de mode
-        getChange().setEnabled(true);
+        getChange().setEnabledMenu(true);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         setChangerPileFin(false);
         setaJoueCarte(false);
         byte nombreDeJoueurs_;
@@ -170,11 +169,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         placerBelote();
         pack();
         StringList pseudos_=pseudosBelote();
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         if(partie_.keepBidding()) {
             BidBeloteSuit contrat_=partie_.getContrat();
             //Desactiver les conseils
-            getConsulting().setEnabled(false);
+            getConsulting().setEnabledMenu(false);
             afficherMainUtilisateurBelote(false);
             byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
             for(BidBeloteSuit b: partie_.tousContrats()) {
@@ -189,7 +188,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             } else {
                 if(partie_.keepBidding()) {
                     //Activer les conseils
-                    getConsulting().setEnabled(true);
+                    getConsulting().setEnabledMenu(true);
                     setCanBid(true);
                     if (!partie_.getRegles().dealAll()) {
                         for(BidBeloteSuit e:partie_.allowedBids()) {
@@ -209,7 +208,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
             return;
         }
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         if (partie_.unionPlis().isEmpty() && partie_.getPliEnCours().estVide()) {
             afficherMainUtilisateurBelote(false);
             if (!partie_.getRegles().dealAll() && partie_.getDistribution().main().total() == partie_.getRegles().getRepartition().getNombreCartesParJoueur()) {
@@ -401,13 +400,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     public void placerBoutonsAvantJeuUtilisateurBelote(boolean _premierTour) {
         //Activer les conseils
-        getConsulting().setEnabled(true);
-        getHelpGame().setEnabled(true);
+        getConsulting().setEnabledMenu(true);
+        getHelpGame().setEnabledMenu(true);
         setRaisonCourante(EMPTY);
         GameBelote partie_=partieBelote();
         afficherMainUtilisateurBelote(true);
-        getOwner().getTricksHands().setEnabled(true);
-        getOwner().getTeams().setEnabled(true);
+        getOwner().getTricksHands().setEnabledMenu(true);
+        getOwner().getTeams().setEnabledMenu(true);
         if(!partie_.cartesBeloteRebelote().estVide()) {
             annonceBeloteRebelote = false;
             JPanel panneau_ =getPanneauBoutonsJeu();
@@ -437,8 +436,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     public void placerBoutonsFinPliUtilisateurBelote() {
         //Activer les conseils
-        getConsulting().setEnabled(false);
-        getHelpGame().setEnabled(true);
+        getConsulting().setEnabledMenu(false);
+        getHelpGame().setEnabledMenu(true);
         GameBelote partie_=partieBelote();
         if(!partie_.keepPlayingCurrentGame()) {
             addButtonEndDealBelote(getMessages().getVal(MainWindow.END_DEAL), true);
@@ -450,31 +449,31 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     public void editerBelote(GameBelote _partie) {
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         setaJoueCarte(false);
         setPartieSauvegardee(false);
         getPar().jouerBelote(_partie);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         setChangerPileFin(false);
         mettreEnPlaceIhmBelote();
     }
     private void placerBelote() {
         //Activer le menu Fichier/Sauvegarder
-        getSave().setEnabled(true);
+        getSave().setEnabledMenu(true);
         //Activer le menu Fichier/Changer de mode
-        getChange().setEnabled(true);
+        getChange().setEnabledMenu(true);
         //Activer les conseils
-        getConsulting().setEnabled(true);
+        getConsulting().setEnabledMenu(true);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         placerIhmBelote();
     }
     private void placerIhmBelote() {
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GameBelote partie_=partieBelote();
@@ -552,11 +551,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     @Override
     public void modify() {
         //Activer le menu Fichier/Sauvegarder
-        getSave().setEnabled(true);
+        getSave().setEnabledMenu(true);
         //Activer le menu Fichier/Changer de mode
-        getChange().setEnabled(true);
+        getChange().setEnabledMenu(true);
         //Activer les conseils
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         HandBelote pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
         try {
@@ -594,9 +593,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     private void debutPliBelote(boolean _premierPliFait) {
         //Activer le sous-menu conseil
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         //Activer le sous-menu aide au jeu
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         StringList pseudos_=pseudosBelote();
         boolean premierTour_;
         GameBelote partie_=partieBelote();
@@ -650,11 +649,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void finPliBelote(CardBelote _carteJouee) {
         setCanPlay(false);
         //Activer le menu Partie/Pause
-        getPause().setEnabled(true);
+        getPause().setEnabledMenu(true);
         //Desactiver le sous-menu conseil
-        getConsulting().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
         GameBelote partie_=partieBelote();
         boolean premierTour_;
         premierTour_=partie_.premierTour();
@@ -697,7 +696,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tapisBelote().setCarteBelote(DealBelote.NUMERO_UTILISATEUR,_carteJouee);
         pause();
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         getPanneauBoutonsJeu().repaint();
@@ -709,10 +708,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     public void finPartieBelote() {
         /*Descativer aide au jeu*/
-        getHelpGame().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
-        Container container_=new Container();
+        getHelpGame().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
+        JPanel container_=new JPanel();
         JScrollPane ascenseur_;
         container_.setLayout(new BorderLayout());
         JPanel panneau_=new JPanel();

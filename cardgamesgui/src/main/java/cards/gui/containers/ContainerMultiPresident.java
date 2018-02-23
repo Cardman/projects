@@ -1,7 +1,6 @@
 package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -110,10 +109,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
-        getMultiStop().setEnabled(true);
-        getTricksHands().setEnabled(true);
-        getTeams().setEnabled(true);
-        getLoad().setEnabled(false);
+        getMultiStop().setEnabledMenu(true);
+        getTricksHands().setEnabledMenu(true);
+        getTeams().setEnabledMenu(true);
+        getLoad().setEnabledMenu(false);
         rulesPresidentMulti = _players.getRulesPresident();
         nbChoosenPlayers = _players.getNbPlayers();
         JPanel container_ = new JPanel();
@@ -313,12 +312,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void discard() {
         //The deal is now ready
         setCanDiscard(false);
-        getGivingCardsOk().setVisible(false);
+        getGivingCardsOk().setVisibleButton(false);
         setCanPlay(false);
         playerHandPresident.supprimerCartes(getGivenCards());
         playerHandPresident.sortCards(getDisplayingPresident().getDecroissant(), false);
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
-        getNoPlay().setVisible(true);
+        getNoPlay().setVisibleButton(true);
         pack();
         DiscardedCards dis_ = new DiscardedCards();
         dis_.setPlace(indexInGame);
@@ -336,7 +335,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getGivenCards().supprimerCartes();
         getGivenCards().ajouterCartes(_readObject.getGiven());
         updateCardsInPanelPresidentGiven();
-        getNoPlay().setVisible(true);
+        getNoPlay().setVisibleButton(true);
         pack();
         RefreshedHandPresident r_ = new RefreshedHandPresident();
         r_.setPlace(indexInGame);
@@ -356,12 +355,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
             getNoPlay().setText(getMessages().getVal(MainWindow.PASS_TRICK));
         }
         getNoPlay().setEnabledLabel(_readObject.isEnabledPass());
-        getNoPlay().setVisible(true);
+        getNoPlay().setVisibleButton(true);
 //        getPanneauBoutonsJeu().add(getNoPlay());
         getPanneauBoutonsJeu().validate();
         getPanneauBoutonsJeu().repaint();
-        getOwner().getTricksHands().setEnabled(true);
-        getOwner().getTeams().setEnabled(true);
+        getOwner().getTricksHands().setEnabledMenu(true);
+        getOwner().getTeams().setEnabledMenu(true);
         pack();
     }
 
@@ -420,8 +419,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         playerHandPresident.sortCards(getDisplayingPresident().getDecroissant(), _card.isReversed());
         getPanneauBoutonsJeu().removeAll();
         setCanPlay(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
         /* On place les cartes de l'utilisateur */
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, _card.isReversed());
         pack();
@@ -483,7 +482,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     private void placerIhmPresidentMulti(NumberMap<Byte,Playing> _status, int _nbMax) {
-        Container container_ = new Container();
+        JPanel container_ = new JPanel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
@@ -538,7 +537,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getNoPlay().addMouseListener(new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(new JScrollPane(sousPanneau_));
-        getNoPlay().setVisible(false);
+        getNoPlay().setVisibleButton(false);
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
         container_.add(panneau2_,BorderLayout.EAST);
@@ -641,10 +640,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
     @Override
     public void endGame(ResultsGame _res) {
         /*Descativer aide au jeu*/
-        getHelpGame().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
-        Container container_=new Container();
+        getHelpGame().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
 
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
@@ -744,7 +743,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void delegateServer() {
         hasCreatedServer = true;
         if (!Net.isProgressingGame()) {
-            Container container_ = getContentPane();
+            JPanel container_ = getContentPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);

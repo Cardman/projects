@@ -1,8 +1,6 @@
 package cards.gui.containers;
-import java.awt.Container;
 import java.awt.Rectangle;
 
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -11,15 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 
-import code.gui.Packable;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
 import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
 import cards.facade.Games;
@@ -36,6 +25,18 @@ import cards.president.RulesPresident;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.ChoiceTarot;
+import code.gui.CheckBoxMenuItem;
+import code.gui.Menu;
+import code.gui.MenuItem;
+import code.gui.Packable;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.Constants;
 
 public class ContainerGame implements Packable, Containable {
 
@@ -167,10 +168,10 @@ public class ContainerGame implements Packable, Containable {
     public MainWindow getOwner() {
         return getWindow();
     }
-    protected Container getContentPane() {
-        return getWindow().getContentPane();
+    protected JPanel getContentPane() {
+        return (JPanel) getWindow().getContentPane();
     }
-    public void setContentPane(Container _container) {
+    public void setContentPane(JPanel _container) {
         getWindow().setContentPane(_container);
     }
     public void saveCurrentGame(String _file) {
@@ -404,19 +405,19 @@ public class ContainerGame implements Packable, Containable {
         pseudosJoueurs = _pseudosJoueurs;
     }
 
-    public JMenu getFile() {
+    public Menu getFile() {
         return window.getFile();
     }
 
-    public JMenuItem getLoad() {
+    public MenuItem getLoad() {
         return window.getLoad();
     }
 
-    public JMenuItem getSave() {
+    public MenuItem getSave() {
         return window.getSave();
     }
 
-    public JMenuItem getChange() {
+    public MenuItem getChange() {
         return window.getChange();
     }
 
@@ -428,87 +429,87 @@ public class ContainerGame implements Packable, Containable {
         return window.getDeal();
     }
 
-    public JMenuItem getConsulting() {
+    public MenuItem getConsulting() {
         return window.getConsulting();
     }
 
-    public JCheckBoxMenuItem getPause() {
+    public CheckBoxMenuItem getPause() {
         return window.getPause();
     }
 
-    public JMenuItem getHelpGame() {
+    public MenuItem getHelpGame() {
         return window.getHelpGame();
     }
 
-    public JMenuItem getTricksHands() {
+    public MenuItem getTricksHands() {
         return window.getTricksHands();
     }
 
-    public JMenuItem getTeams() {
+    public MenuItem getTeams() {
         return window.getTeams();
     }
 
-    public JMenu getEdit() {
+    public Menu getEdit() {
         return window.getEdit();
     }
 
-    public EnumMap<GameEnum,JMenuItem> getEditGames() {
+    public EnumMap<GameEnum,MenuItem> getEditGames() {
         return window.getEditGames();
     }
 
-    public JMenu getDemo() {
+    public Menu getDemo() {
         return window.getDemo();
     }
 
-    public EnumMap<GameEnum,JMenuItem> getDemoGames() {
+    public EnumMap<GameEnum,MenuItem> getDemoGames() {
         return window.getDemoGames();
     }
 
-    public JMenu getTraining() {
+    public Menu getTraining() {
         return window.getTraining();
     }
 
-    public EnumMap<ChoiceTarot,JMenuItem> getTrainingTarot() {
+    public EnumMap<ChoiceTarot,MenuItem> getTrainingTarot() {
         return window.getTrainingTarot();
     }
 
-    public JMenuItem getMultiStop() {
+    public MenuItem getMultiStop() {
         return window.getMultiStop();
     }
 
-    public JMenu getParameters() {
+    public Menu getParameters() {
         return window.getParameters();
     }
 
-    public EnumMap<GameEnum,JMenuItem> getRulesGames() {
+    public EnumMap<GameEnum,MenuItem> getRulesGames() {
         return window.getRulesGames();
     }
 
-    public JMenuItem getPlayers() {
+    public MenuItem getPlayers() {
         return window.getPlayers();
     }
 
-    public JMenuItem getLaunching() {
+    public MenuItem getLaunching() {
         return window.getLaunching();
     }
 
-    public JMenuItem getTiming() {
+    public MenuItem getTiming() {
         return window.getTiming();
     }
 
-    public JMenuItem getInteract() {
+    public MenuItem getInteract() {
         return window.getInteract();
     }
 
-    public JMenuItem getLanguage() {
+    public MenuItem getLanguage() {
         return window.getLanguage();
     }
 
-    public JMenuItem getDisplaying() {
+    public Menu getDisplaying() {
         return window.getDisplaying();
     }
 
-    public EnumMap<GameEnum,JMenuItem> getDisplayingGames() {
+    public EnumMap<GameEnum,MenuItem> getDisplayingGames() {
         return window.getDisplayingGames();
     }
 

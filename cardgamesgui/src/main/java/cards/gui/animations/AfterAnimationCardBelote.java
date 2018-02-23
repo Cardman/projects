@@ -17,7 +17,7 @@ public final class AfterAnimationCardBelote extends Thread {
     public void run() {
         GameBelote currentGame_=container.partieBelote();
         //Desactiver le menu Partie/Pause
-        container.getPause().setEnabled(false);
+        container.getPause().setEnabledMenu(false);
         if(currentGame_.keepPlayingCurrentTrick()) {
             container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurBelote(currentGame_.premierTour());

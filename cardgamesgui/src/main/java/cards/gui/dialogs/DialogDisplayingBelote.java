@@ -1,6 +1,5 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JCheckBox;
@@ -75,7 +74,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 
     public void setDialogue() {
         initMessageName();
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         JPanel panneau_=new JPanel();
         panneau_.setLayout(new GridLayout(0,2));

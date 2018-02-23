@@ -25,6 +25,7 @@ public final class MetaDocument {
     private CustList<MetaTable> tables;
     private Numbers<Integer> lis;
     private BooleanList ordered;
+    private CustList<MetaContainer> dynamicNewLines = new CustList<MetaContainer>();
 
     private MetaDocument(Document _document) {
         ElementList style_ = _document.getElementsByTagName("style");
@@ -114,6 +115,8 @@ public final class MetaDocument {
                         MetaSeparator sep_ = new MetaSeparator(curPar_);
                         curPar_.appendChild(sep_);
                     }
+                    MetaEndLine end_ = new MetaEndLine(currentParent);
+                    currentParent.appendChild(end_);
                     MetaContainer line_ = new MetaLine(curPar_);
                     if (li_) {
                         MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
@@ -238,15 +241,22 @@ public final class MetaDocument {
                     currentParent.appendChild(input_);
                 }
                 if (StringList.quickEq(tagName_, "p")) {
-                    MetaContainer bl_ = new MetaParagraph(curPar_);
+                    MetaContainer surline_ = new MetaLine(curPar_);
+                    MetaContainer bl_ = new MetaParagraph(surline_);
+                    MetaContainer preline_ = new MetaLine(bl_);
+                    MetaEndLine end_ = new MetaEndLine(preline_);
+                    preline_.appendChild(end_);
+                    bl_.appendChild(preline_);
                     MetaContainer line_ = new MetaLine(bl_);
                     bl_.appendChild(line_);
                   //indent
                     if (li_) {
-                        MetaLabel ind_ = new MetaIndentNbLabel(curPar_);
-                        curPar_.appendChild(ind_);
+                        MetaLabel ind_ = new MetaIndentNbLabel(surline_);
+                        surline_.appendChild(ind_);
                     }
-                    curPar_.appendChild(bl_);
+                    surline_.appendChild(bl_);
+                    curPar_.appendChild(surline_);
+                    containers.add(curPar_);
                     containers.add(bl_);
                     currentParent = line_;
                 }
@@ -311,7 +321,8 @@ public final class MetaDocument {
                     partGroup++;
                     MetaTable table_ = tables.last();
                     MetaContainer line_ = new MetaCaption(table_);
-                    table_.addRemainder();
+                    line_.setAddEmpty(true);
+                    table_.addRemainder(false);
                     table_.appendChild(line_);
                     currentParent = line_;
                 }
@@ -330,10 +341,6 @@ public final class MetaDocument {
                     MetaContainer bl_ = new MetaCell(table_, rows_, cols_);
                     MetaContainer line_ = new MetaLine(bl_);
                     bl_.appendChild(line_);
-                    Node nextSib_ = elt_.getNextSibling();
-                    if (!(nextSib_ instanceof Element) || !StringList.quickEq(((Element)nextSib_).getTagName(), tagName_)) {
-                        table_.addRemainder();
-                    }
                     table_.appendChild(bl_);
                     currentParent = line_;
                 }
@@ -388,6 +395,11 @@ public final class MetaDocument {
             }
             current_ = next_;
         }
+        for (MetaContainer c: dynamicNewLines) {
+            if (c.onlyBlanks()) {
+                c.getChildren().clear();
+            }
+        }
     }
     private void unstack(String _last) {
         MetaContainer line_ = null;
@@ -408,6 +420,12 @@ public final class MetaDocument {
         }
         if (StringList.quickEq(_last, "p")) {
             MetaContainer last_ = containers.last();
+            MetaLine postline_ = new MetaLine(last_);
+            MetaEndLine end_ = new MetaEndLine(postline_);
+            postline_.appendChild(end_);
+            last_.appendChild(postline_);
+            containers.removeLast();
+            last_ = containers.last();
             containers.removeLast();
             line_ = new MetaLine(last_);
             last_.appendChild(line_);
@@ -420,6 +438,10 @@ public final class MetaDocument {
             line_ = new MetaLine(last_);
             last_.appendChild(line_);
             tables.removeLast();
+        }
+        if (StringList.quickEq(_last, "tr")) {
+            MetaTable table_ = tables.last();
+            table_.addRemainder(true);
         }
         if (line_ != null) {
             currentParent = line_;
@@ -450,6 +472,7 @@ public final class MetaDocument {
             }
         }
         if (li_ && line_ != null) {
+            dynamicNewLines.add(currentParent);
             MetaContainer curPar_ = currentParent;
             MetaIndentNbLabel indent_ = new MetaIndentNbLabel(curPar_);
             curPar_.appendChild(indent_);

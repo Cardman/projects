@@ -828,9 +828,9 @@ public class ScenePanel extends JPanel {
 
     //called while connection to a server succeeds.
     public void setNetworkPanel() {
-        window.getZipLoad().setEnabled(false);
-        window.getGameLoad().setEnabled(false);
-        window.getNewGame().setEnabled(false);
+        window.getZipLoad().setEnabledMenu(false);
+        window.getGameLoad().setEnabledMenu(false);
+        window.getNewGame().setEnabledMenu(false);
         facade.openMenu();
         panelMenu.setVisible(false);
         panelNetWork = new JPanel();

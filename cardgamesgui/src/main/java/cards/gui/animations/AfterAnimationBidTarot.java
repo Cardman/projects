@@ -26,11 +26,11 @@ public final class AfterAnimationBidTarot extends Thread {
         StringList pseudosTarot_ = container.pseudosTarot();
         GameTarot gameTarot_=container.partieTarot();
         //Desactiver le menu Partie/Pause
-        container.getPause().setEnabled(false);
+        container.getPause().setEnabledMenu(false);
         container.getPanneauBoutonsJeu().removeAll();
         if(gameTarot_.keepBidding()) {
             //Activer les conseils
-            container.getConsulting().setEnabled(true);
+            container.getConsulting().setEnabledMenu(true);
             container.setCanBid(true);
             for(BidTarot b:gameTarot_.allowedBids()) {
                 container.ajouterBoutonContratTarot(b.display(),b,b.estDemandable(gameTarot_.getContrat()));
@@ -81,7 +81,7 @@ public final class AfterAnimationBidTarot extends Thread {
             if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR&&partie_.getContrat()!=BidTarot.SLAM) {
 //                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                 container.getSlamButton().setEnabledLabel(true);
-                container.getSlamButton().setVisible(true);
+                container.getSlamButton().setVisibleButton(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
             } else {
                 if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {

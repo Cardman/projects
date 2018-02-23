@@ -9,9 +9,7 @@ import java.net.Socket;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -181,29 +179,29 @@ public final class MainWindow extends NetGroupFrame {
 
     private LoadingGame loadingConf;
 
-    private JMenu file;
+    private Menu file;
 
-    private JMenuItem zipLoad;
+    private MenuItem zipLoad;
 
-    private JMenuItem gameLoad;
+    private MenuItem gameLoad;
 
-    private JMenuItem gameSave;
+    private MenuItem gameSave;
 
-    private JMenuItem language;
+    private MenuItem language;
 
-    private JMenuItem params;
+    private MenuItem params;
 
-    private JMenuItem quit;
+    private MenuItem quit;
 
-    private JMenu dataGame;
+    private Menu dataGame;
 
-    private JMenuItem dataWeb;
+    private MenuItem dataWeb;
 
-    private JMenuItem dataBattle;
+    private MenuItem dataBattle;
 
-    private JMenuItem newGame;
+    private MenuItem newGame;
 
-    private JMenuItem difficulty;
+    private MenuItem difficulty;
 
     private JPanel mainPanel;
 
@@ -267,10 +265,10 @@ public final class MainWindow extends NetGroupFrame {
         scenePanel = new ScenePanel(this, facade);
         initBattle();
         initMenuBar();
-        gameLoad.setEnabled(false);
-        gameSave.setEnabled(false);
-        dataGame.setEnabled(false);
-        battle.setVisible(false);
+        gameLoad.setEnabledMenu(false);
+        gameSave.setEnabledMenu(false);
+        dataGame.setEnabledMenu(false);
+        battle.setVisibleFrontBattle(false);
         mainPanel.add(battle);
         mainPanel.add(scenePanel);
         time = new Clock();
@@ -513,7 +511,7 @@ public final class MainWindow extends NetGroupFrame {
         facade.newGame(nickname.getText(), chosenSex);
         drawGame();
         savedGame = false;
-        gameSave.setEnabled(true);
+        gameSave.setEnabledMenu(true);
         loadingConf.setLastSavedGame(DataBase.EMPTY_STRING);
     }
 
@@ -620,13 +618,13 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void afterLoadZip() {
-        dataGame.setEnabled(true);
-        gameLoad.setEnabled(true);
-        gameSave.setEnabled(false);
+        dataGame.setEnabledMenu(true);
+        gameLoad.setEnabledMenu(true);
+        gameSave.setEnabledMenu(false);
     }
 
     public void afterLoadGame() {
-        gameSave.setEnabled(true);
+        gameSave.setEnabledMenu(true);
         drawGame();
         savedGame = true;
     }
@@ -648,11 +646,11 @@ public final class MainWindow extends NetGroupFrame {
 //        if (battle != null) {
 //            mainPanel.remove(battle);
 //        }
-        difficulty.setEnabled(true);
-        battle.setVisible(false);
+        difficulty.setEnabledMenu(true);
+        battle.setVisibleFrontBattle(false);
         scenePanel.setVisible(true);
         inBattle = false;
-        dataBattle.setEnabled(false);
+        dataBattle.setEnabledMenu(false);
         scenePanel.drawGameWalking(_setPreferredSize);
     }
 
@@ -675,31 +673,31 @@ public final class MainWindow extends NetGroupFrame {
         zipLoad = new MenuItem();
         zipLoad.addActionListener(new LoadZipEvent(this));
         zipLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.CTRL_DOWN_MASK));
-        file.add(zipLoad);
+        file.addMenuItem(zipLoad);
         gameLoad = new MenuItem();
         gameLoad.addActionListener(new LoadGameEvent(this));
         gameLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
-        file.add(gameLoad);
+        file.addMenuItem(gameLoad);
         gameSave = new MenuItem();
         gameSave.addActionListener(new SaveGameEvent(this));
         gameSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
-        file.add(gameSave);
+        file.addMenuItem(gameSave);
         file.addSeparator();
         language = new MenuItem();
         language.addActionListener(new ManageLanguageEvent(this));
 //        if (Standalone.isStandalone()) {
 //            file.add(language);
 //        }
-        file.add(language);
+        file.addMenuItem(language);
         params = new MenuItem();
         params.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));
         params.addActionListener(new ManageParamsEvent(this));
-        file.add(params);
+        file.addMenuItem(params);
         file.addSeparator();
         quit = new MenuItem();
         quit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
         quit.addActionListener(new QuitEvent(this));
-        file.add(quit);
+        file.addMenuItem(quit);
         bar_.add(file);
         dataGame = new Menu();
 //        dataGame = new JMenuItem();
@@ -728,21 +726,21 @@ public final class MainWindow extends NetGroupFrame {
         dataWeb = new MenuItem();
         dataWeb.setAccelerator(KeyStroke.getKeyStroke(F_ONE));
         dataWeb.addActionListener(new ShowDataWebEvent(this));
-        dataGame.add(dataWeb);
+        dataGame.addMenuItem(dataWeb);
         dataBattle = new MenuItem();
-        dataBattle.setEnabled(false);
+        dataBattle.setEnabledMenu(false);
         dataBattle.setAccelerator(KeyStroke.getKeyStroke(F_TWO));
         dataBattle.addActionListener(new ShowDataFightEvent(this));
-        dataGame.add(dataBattle);
+        dataGame.addMenuItem(dataBattle);
         newGame = new MenuItem();
         newGame.addActionListener(new ProponeNewGameEvent(this));
         newGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
-        dataGame.add(newGame);
+        dataGame.addMenuItem(newGame);
         difficulty = new MenuItem();
-        difficulty.setEnabled(false);
+        difficulty.setEnabledMenu(false);
         difficulty.addActionListener(new ManageDifficultyEvent(this));
         difficulty.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
-        dataGame.add(difficulty);
+        dataGame.addMenuItem(difficulty);
         bar_.add(dataGame);
         setJMenuBar(bar_);
     }
@@ -847,7 +845,7 @@ public final class MainWindow extends NetGroupFrame {
 //            opening_.start();
             Game game_ = load(fileName_, facade.getData());
             facade.load(game_);
-            gameSave.setEnabled(true);
+            gameSave.setEnabledMenu(true);
             facade.changeCamera();
             drawGame();
             savedGame = true;
@@ -1125,7 +1123,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void reinitComponents() {
-        battle.setVisible(false);
+        battle.setVisibleFrontBattle(false);
         scenePanel.reinit();
     }
 
@@ -1155,9 +1153,9 @@ public final class MainWindow extends NetGroupFrame {
         setSavedGame(false);
         facade.closeTrading();
         scenePanel.exitInteraction();
-        getZipLoad().setEnabled(true);
-        getGameLoad().setEnabled(true);
-        getNewGame().setEnabled(true);
+        getZipLoad().setEnabledMenu(true);
+        getGameLoad().setEnabledMenu(true);
+        getNewGame().setEnabledMenu(true);
     }
 
 //    public boolean loop(Object _readObject) {
@@ -1363,10 +1361,10 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void setFight(boolean _pack, boolean _animate, boolean _wild) {
-        difficulty.setEnabled(false);
+        difficulty.setEnabledMenu(false);
         facade.setChangeToFightScene(false);
         enabledMove = false;
-        battle.setVisible(true);
+        battle.setVisibleFrontBattle(true);
         scenePanel.setVisible(false);
 //        mainPanel.remove(scenePanel);
         //initBattle();
@@ -1377,7 +1375,7 @@ public final class MainWindow extends NetGroupFrame {
         }
 //        mainPanel.add(battle, CustList.FIRST_INDEX);
         inBattle = true;
-        dataBattle.setEnabled(true);
+        dataBattle.setEnabledMenu(true);
         if (_pack) {
             pack();
         }
@@ -1399,7 +1397,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void interact() {
-        difficulty.setEnabled(true);
+        difficulty.setEnabledMenu(true);
         scenePanel.interact();
     }
 
@@ -1575,15 +1573,15 @@ public final class MainWindow extends NetGroupFrame {
         return DIALOG;
     }
 
-    public JMenuItem getZipLoad() {
+    public MenuItem getZipLoad() {
         return zipLoad;
     }
 
-    public JMenuItem getGameLoad() {
+    public MenuItem getGameLoad() {
         return gameLoad;
     }
 
-    public JMenuItem getNewGame() {
+    public MenuItem getNewGame() {
         return newGame;
     }
 

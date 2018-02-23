@@ -32,17 +32,15 @@ public class Menu extends JMenu implements EnabledMenu {
         parentMenu = _parentMenu;
     }
 
-    @Override
-    public void setEnabled(boolean _b) {
-        super.setEnabled(_b);
+    public void setEnabledMenu(boolean _b) {
+        setEnabled(_b);
         MenuItemUtils.setEnabled(_b, this);
     }
 
-    @Override
-    public JMenuItem add(JMenuItem _menuItem) {
+    public void addMenuItem(JMenuItem _menuItem) {
         if (_menuItem instanceof EnabledMenu) {
             ((EnabledMenu)_menuItem).setParentMenu(this);
         }
-        return super.add(_menuItem);
+        add(_menuItem);
     }
 }

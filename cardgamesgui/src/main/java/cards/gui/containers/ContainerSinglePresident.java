@@ -1,7 +1,6 @@
 package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -15,19 +14,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.gui.ThreadInvoker;
-import code.maths.Rate;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.TreeMap;
-import code.util.consts.Constants;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
@@ -66,6 +52,19 @@ import cards.president.TricksHandsPresident;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.gui.SessionEditorPane;
+import code.gui.ThreadInvoker;
+import code.maths.Rate;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.TreeMap;
+import code.util.consts.Constants;
 
 public class ContainerSinglePresident extends ContainerPresident implements
         ContainerSingle {
@@ -112,24 +111,24 @@ public class ContainerSinglePresident extends ContainerPresident implements
     @Override
     public void load() {
         //Activer le menu Fichier/Sauvegarder
-        getSave().setEnabled(true);
+        getSave().setEnabledMenu(true);
         //Activer le menu Fichier/Changer de mode
-        getChange().setEnabled(true);
+        getChange().setEnabledMenu(true);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
-        getConsulting().setEnabled(false);
+        getPause().setEnabledMenu(false);
+        getConsulting().setEnabledMenu(false);
         setChangerPileFin(false);
         setaJoueCarte(false);
         GamePresident partie_=partiePresident();
         getOwner().setTitle(GameEnum.PRESIDENT.display());
         placerPresident();
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         if (partie_.availableSwitchingCards() && !partie_.readyToPlay()) {
             setCanDiscard(true);
-            getConsulting().setEnabled(true);
+            getConsulting().setEnabledMenu(true);
             getReceivedCards().supprimerCartes();
             getReceivedCards().ajouterCartes(partie_.getSwitchedCards().getVal(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
             updateCardsInPanelPresidentReceived();
@@ -147,7 +146,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             pack();
             return;
         }
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         if (partie_.availableSwitchingCards()) {
             Numbers<Byte> l_ = partie_.getLoosers(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
             if (!l_.isEmpty()) {
@@ -168,7 +167,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 updateCardsInPanelPresidentGiven();
             }
         }
-        getNoPlay().setVisible(true);
+        getNoPlay().setVisibleButton(true);
         if (partie_.getNextPlayer() == DealPresident.NUMERO_UTILISATEUR) {
             tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
 //            tapisPresident().repaintValidate();
@@ -219,11 +218,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void discard() {
         //The deal is now ready
         setCanDiscard(false);
-        getGivingCardsOk().setVisible(false);
+        getGivingCardsOk().setVisibleButton(false);
         GamePresident g_ = partiePresident();
         g_.giveWorstCards(getGivenCards());
         afficherMainUtilisateurPresident(false);
-        getNoPlay().setVisible(true);
+        getNoPlay().setVisibleButton(true);
         pack();
         animationPlaying = new AnimationCardPresident(this);
         animationPlaying.start();
@@ -265,9 +264,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     public void placerBoutonsAvantJeuUtilisateurPresident() {
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         //Activer les conseils
-        getConsulting().setEnabled(true);
+        getConsulting().setEnabledMenu(true);
         setRaisonCourante(EMPTY);
         afficherMainUtilisateurPresident(true);
         getPanneauBoutonsJeu().removeAll();
@@ -282,14 +281,14 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        getPanneauBoutonsJeu().add(getNoPlay());
         getPanneauBoutonsJeu().validate();
         getPanneauBoutonsJeu().repaint();
-        getOwner().getTricksHands().setEnabled(true);
-        getOwner().getTeams().setEnabled(true);
+        getOwner().getTricksHands().setEnabledMenu(true);
+        getOwner().getTeams().setEnabledMenu(true);
     }
 
     public void placerBoutonsFinPliUtilisateurPresident() {
         //Activer les conseils
-        getConsulting().setEnabled(false);
-        getHelpGame().setEnabled(true);
+        getConsulting().setEnabledMenu(false);
+        getHelpGame().setEnabledMenu(true);
         GamePresident partie_=partiePresident();
         if(!partie_.keepPlayingCurrentGame()) {
             addButtonEndDealPresident(getMessages().getVal(MainWindow.END_DEAL), true);
@@ -300,33 +299,33 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public void editerPresident(GamePresident _partie) {
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         setaJoueCarte(false);
         setPartieSauvegardee(false);
         getPar().jouerPresident(_partie);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         setChangerPileFin(false);
         mettreEnPlaceIhmPresident();
     }
 
     private void placerPresident() {
         //Activer le menu Fichier/Sauvegarder
-        getSave().setEnabled(true);
+        getSave().setEnabledMenu(true);
         //Activer le menu Fichier/Changer de mode
-        getChange().setEnabled(true);
+        getChange().setEnabledMenu(true);
         //Activer les conseils
-        getConsulting().setEnabled(true);
+        getConsulting().setEnabledMenu(true);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         placerIhmPresident();
     }
 
     private void placerIhmPresident() {
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GamePresident partie_=partiePresident();
@@ -369,7 +368,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getNoPlay().addMouseListener(new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(new JScrollPane(sousPanneau_));
-        getNoPlay().setVisible(false);
+        getNoPlay().setVisibleButton(false);
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
         container_.add(panneau2_,BorderLayout.EAST);
@@ -416,14 +415,14 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 getGivenCards().ajouterCartes(game_.getSwitchedCards().getVal(DealPresident.NUMERO_UTILISATEUR));
                 updateCardsInPanelPresidentGiven();
             }
-            getNoPlay().setVisible(true);
+            getNoPlay().setVisibleButton(true);
             pack();
         } else {
             game_.giveWorstCards();
-            getNoPlay().setVisible(true);
+            getNoPlay().setVisibleButton(true);
             pack();
         }
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         animationPlaying = new AnimationCardPresident(this);
         animationPlaying.start();
     }
@@ -431,11 +430,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
     @Override
     public void modify() {
         //Activer le menu Fichier/Sauvegarder
-        getSave().setEnabled(true);
+        getSave().setEnabledMenu(true);
         //Activer le menu Fichier/Changer de mode
-        getChange().setEnabled(true);
+        getChange().setEnabledMenu(true);
         //Activer les conseils
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         HandPresident pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
         try {
@@ -476,9 +475,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     private void debutPliPresident() {
         //Activer le sous-menu conseil
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         //Activer le sous-menu aide au jeu
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         /*Si on n'a pas encore fait de pli a la belote*/
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
         JPanel panneau_=getPanneauBoutonsJeu();
@@ -537,11 +536,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
     private void processUserActions() {
         GamePresident partie_=partiePresident();
         //Activer le menu Partie/Pause
-        getPause().setEnabled(true);
+        getPause().setEnabledMenu(true);
         //Desactiver le sous-menu conseil
-        getConsulting().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
         ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,partie_.getPlayedCards().display(),RETURN_LINE));
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
@@ -553,7 +552,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
         pause();
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
 //        getNoPlay().setVisible(true);
@@ -568,10 +567,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public void finPartiePresident() {
         /*Descativer aide au jeu*/
-        getHelpGame().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
-        Container container_=new Container();
+        getHelpGame().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
+        JPanel container_=new JPanel();
         JScrollPane ascenseur_;
         container_.setLayout(new BorderLayout());
 

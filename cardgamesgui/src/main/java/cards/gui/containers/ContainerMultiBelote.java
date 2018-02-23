@@ -1,7 +1,6 @@
 package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -16,18 +15,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.SessionEditorPane;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.comparators.ComparatorBoolean;
-import code.util.consts.Constants;
 import cards.belote.BidBeloteSuit;
 import cards.belote.DealBelote;
 import cards.belote.DeclareHandBelote;
@@ -94,6 +81,18 @@ import cards.network.common.select.SelectTeams;
 import cards.network.common.select.SelectTricksHands;
 import cards.network.common.select.TeamsPlayers;
 import cards.network.threads.Net;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.gui.NumComboBox;
+import code.gui.SessionEditorPane;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.comparators.ComparatorBoolean;
+import code.util.consts.Constants;
 
 public class ContainerMultiBelote extends ContainerBelote implements
         ContainerMulti {
@@ -254,10 +253,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
-        getMultiStop().setEnabled(true);
-        getTricksHands().setEnabled(true);
-        getTeams().setEnabled(true);
-        getLoad().setEnabled(false);
+        getMultiStop().setEnabledMenu(true);
+        getTricksHands().setEnabledMenu(true);
+        getTeams().setEnabledMenu(true);
+        getLoad().setEnabledMenu(false);
         rulesBeloteMulti = _players.getRulesBelote();
         nbChoosenPlayers = _players.getNbPlayers();
         JPanel container_ = new JPanel();
@@ -472,8 +471,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void canPlayBelote(AllowPlayingBelote _declaration) {
         canPlayLabel.setText(getMessages().getVal(MainWindow.CAN_PLAY));
         setCanPlay(true);
-        getOwner().getTricksHands().setEnabled(true);
-        getOwner().getTeams().setEnabled(true);
+        getOwner().getTricksHands().setEnabledMenu(true);
+        getOwner().getTeams().setEnabledMenu(true);
         annonceBeloteRebelote = false;
         if (_declaration.isPossibleBeloteRebelote()) {
             JPanel panneau_ = getPanneauBoutonsJeu();
@@ -627,8 +626,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         getPanneauBoutonsJeu().removeAll();
         setCanPlay(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
         /* On place les cartes de l'utilisateur */
         updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote);
         pack();
@@ -715,7 +714,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
-        Container container_ = new Container();
+        JPanel container_ = new JPanel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
@@ -852,10 +851,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public void endGame(ResultsGame _res) {
         /*Descativer aide au jeu*/
-        getHelpGame().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
-        Container container_=new Container();
+        getHelpGame().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
+        JPanel container_=new JPanel();
         JScrollPane ascenseur_;
         container_.setLayout(new BorderLayout());
 
@@ -972,7 +971,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void delegateServer() {
         hasCreatedServer = true;
         if (!Net.isProgressingGame()) {
-            Container container_ = getContentPane();
+            JPanel container_ = getContentPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);

@@ -1,8 +1,8 @@
 package cards.gui.dialogs;
-import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
@@ -187,12 +187,12 @@ public final class FrameGeneralHelp extends ChildFrame {
         DefaultMutableTreeNode root_ = new DefaultMutableTreeNode(
                 racineBis.nom());
         boolean wasNull_ = editor == null;
-        Container container_;
+        JPanel container_;
         if (wasNull_) {
-            container_ = new Container();
+            container_ = new JPanel();
             container_.setLayout(new BoxLayout(container_, BoxLayout.PAGE_AXIS));
         } else {
-            container_ = getContentPane();
+            container_ = (JPanel) getContentPane();
             container_.removeAll();
         }
         for (Numbers<Integer> chemin_ : cles_) {

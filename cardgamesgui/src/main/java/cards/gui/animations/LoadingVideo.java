@@ -1,18 +1,18 @@
 package cards.gui.animations;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import code.gui.SplashWindow;
-import code.util.StringList;
 import cards.belote.GameBelote;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
+import code.gui.SplashWindow;
+import code.util.StringList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -28,7 +28,7 @@ public final class LoadingVideo extends Thread {
         barreProgression=new JProgressBar();
         barreProgression.setValue(0);
         barreProgression.setPreferredSize(new Dimension(200,50));
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new GridLayout(0,1));
         label=new JLabel(StringList.simpleNumberFormat(container.getMessages().getVal(MainWindow.LOADING), barreProgression.getValue()));
         container_.add(label);

@@ -19,12 +19,12 @@ public final class AfterAnimationBidBelote extends Thread {
     @Override
     public void run() {
         //Desactiver le menu Partie/Pause
-        container.getPause().setEnabled(false);
+        container.getPause().setEnabledMenu(false);
         GameBelote gameBelote_=container.partieBelote();
         container.getPanneauBoutonsJeu().removeAll();
         if(gameBelote_.keepBidding()) {
             //Activer les conseils
-            container.getConsulting().setEnabled(true);
+            container.getConsulting().setEnabledMenu(true);
             container.setCanBid(true);
             if (!gameBelote_.getRegles().dealAll()) {
                 for(BidBeloteSuit e:gameBelote_.allowedBids()){

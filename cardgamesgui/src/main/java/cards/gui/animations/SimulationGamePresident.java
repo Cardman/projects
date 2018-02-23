@@ -1,7 +1,6 @@
 package cards.gui.animations;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -13,11 +12,6 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import code.gui.LabelButton;
-import code.gui.ThreadInvoker;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
@@ -32,6 +26,11 @@ import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
+import code.gui.LabelButton;
+import code.gui.ThreadInvoker;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
 
 /**Thread safe class*/
 public final class SimulationGamePresident extends Thread implements SimulationGame {
@@ -104,18 +103,18 @@ public final class SimulationGamePresident extends Thread implements SimulationG
     public void setSimulationGui() {
         container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
-        container.getHelpGame().setEnabled(false);
+        container.getHelpGame().setEnabledMenu(false);
         //desactiver le menu Partie/Demo
-        container.getDemo().setEnabled(false);
+        container.getDemo().setEnabledMenu(false);
         //Activer le menu Partie/Pause
-        container.getPause().setEnabled(true);
+        container.getPause().setEnabledMenu(true);
         GamePresident partie_ = partiePresidentSimulee();
         RulesPresident rules_ = partie_.getRegles();
         int maxDeals_ = Math.min(FileConst.MAX_DEALS, container.getDisplayingPresident().getNbDeals());
         partie_.simulate(maxDeals_);
         JPanel contentPane_ = new JPanel();
         contentPane_.setLayout(new BoxLayout(contentPane_, BoxLayout.PAGE_AXIS));
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetPresident tapis_=new CarpetPresident();
@@ -156,7 +155,7 @@ public final class SimulationGamePresident extends Thread implements SimulationG
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
-        container.setContentPane(new JScrollPane(contentPane_));
+        container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();
         panneau_.add(stopButton);
         HandPresident notSorted_ = partie_.getUserHands().first().first().first();

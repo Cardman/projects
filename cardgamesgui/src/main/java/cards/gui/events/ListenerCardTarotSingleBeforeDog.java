@@ -58,7 +58,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 container.getValidateDog().setEnabledLabel(true);
                 container.getPanneauBoutonsJeu().add(container.getValidateDog());
                 container.getSlamButton().setEnabledLabel(true);
-                container.getSlamButton().setVisible(true);
+                container.getSlamButton().setVisibleButton(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
 //                container.addButtonValidateDogTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
                 container.pack();
@@ -79,7 +79,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
                 container.getSlamButton().setEnabledLabel(true);
-                container.getSlamButton().setVisible(true);
+                container.getSlamButton().setVisibleButton(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
 //                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                 container.addButtonNextTrickTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);

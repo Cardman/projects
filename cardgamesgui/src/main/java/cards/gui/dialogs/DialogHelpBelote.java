@@ -1,6 +1,5 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -50,7 +49,7 @@ public final class DialogHelpBelote extends Dialog {
             EnumMap<Suit,HandBelote> _repartitionJouees,
             Suit _couleurDemandee,BidBeloteSuit _bid,
             StringList _pseudos) {
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new FlowLayout());
         JPanel panneau2_=new JPanel();
         JPanel panneau3_;

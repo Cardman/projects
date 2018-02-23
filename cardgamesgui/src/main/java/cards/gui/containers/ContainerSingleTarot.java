@@ -2,7 +2,6 @@ package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -20,20 +19,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.gui.ThreadInvoker;
-import code.maths.Rate;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Status;
@@ -93,6 +78,20 @@ import cards.tarot.enumerations.ChoiceTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.gui.SessionEditorPane;
+import code.gui.ThreadInvoker;
+import code.maths.Rate;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 public class ContainerSingleTarot extends ContainerTarot implements ContainerSingle {
 
@@ -125,17 +124,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     private void placerTarot() {
         //Activer le menu Fichier/Sauvegarder
-        getSave().setEnabled(true);
+        getSave().setEnabledMenu(true);
         //Activer le menu Fichier/Changer de mode
-        getChange().setEnabled(true);
+        getChange().setEnabledMenu(true);
         //Activer les conseils
-        getConsulting().setEnabled(true);
+        getConsulting().setEnabledMenu(true);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         placerIhmTarot();
     }
     private void placerIhmTarot() {
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GameTarot partie_=partieTarot();
@@ -219,7 +218,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void jouerDonneEntrainement(ChoiceTarot _ct) {
         choixTarot = _ct;
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         setChangerPileFin(false);
 
         GameTarot.setChargementSimulation(0);
@@ -227,7 +226,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getAnimChargement().start();
         setPasse(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         setaJoueCarte(false);
         byte nombreJoueurs_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
         byte nombreCartes_=(byte) getReglesTarot().getRepartition().getNombreCartesParJoueur();
@@ -241,14 +240,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     @Override
     public void load() {
         //Activer le menu Fichier/Sauvegarder
-        getSave().setEnabled(true);
+        getSave().setEnabledMenu(true);
         //Activer le menu Fichier/Changer de mode
-        getChange().setEnabled(true);
+        getChange().setEnabledMenu(true);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         setChangerPileFin(false);
         setaJoueCarte(false);
         byte nombreDeJoueurs_;
@@ -258,10 +257,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         placerTarot();
         pack();
         StringList pseudos_=pseudosTarot();
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         if (!partie_.avecContrat()) {
             //Desactiver les conseils
-            getConsulting().setEnabled(false);
+            getConsulting().setEnabledMenu(false);
             boolean firstRound_ = true;
             for (TrickTarot t: partie_.unionPlis(true)) {
                 if (!t.getVuParToutJoueur()) {
@@ -284,7 +283,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if (firstRound_ && pliEnCours_.estVide() && !pliEnCours_.getVuParToutJoueur()) {
                 partie_.setPliEnCours(true);
             }
-            getHelpGame().setEnabled(true);
+            getHelpGame().setEnabledMenu(true);
             if (!partie_.keepPlayingCurrentGame()) {
                 finPartieTarot();
                 pack();
@@ -297,7 +296,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.keepBidding()) {
             BidTarot contrat_=partie_.getContrat();
             //Desactiver les conseils
-            getConsulting().setEnabled(false);
+            getConsulting().setEnabledMenu(false);
             afficherMainUtilisateurTarot(false);
             byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
             for(BidTarot b: partie_.tousContrats()) {
@@ -310,7 +309,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 getAnimContratTarot().start();
             } else {
                 //Activer les conseils
-                getConsulting().setEnabled(true);
+                getConsulting().setEnabledMenu(true);
                 setCanBid(true);
                 for(BidTarot ench_:partie_.allowedBids()) {
                     ajouterBoutonContratTarot(ench_.display(),ench_,ench_.estDemandable(contrat_));
@@ -343,12 +342,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                         }
                     }
                     if (!existCard_) {
-                        getConsulting().setEnabled(false);
+                        getConsulting().setEnabledMenu(false);
                         addButtonTakeDogCardsTarot(getMessages().getVal(MainWindow.TAKE_CARDS), true);
                         afficherMainUtilisateurTarot(false);
                     } else {
                         TrickTarot ecart_=partie_.getPliEnCours();
-                        getConsulting().setEnabled(ecart_.estVide());
+                        getConsulting().setEnabledMenu(ecart_.estVide());
                         setChien(ecart_.getCartes(),true);
                         afficherMainUtilisateurTarotChien();
                         placerBoutonsAppel();
@@ -356,7 +355,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     }
                 } else {
                     TrickTarot ecart_=partie_.getPliEnCours();
-                    getConsulting().setEnabled(ecart_.estVide());
+                    getConsulting().setEnabledMenu(ecart_.estVide());
                     setChien(ecart_.getCartes(),true);
                     getValidateDog().setEnabledLabel(ecart_.total()==partie_.getDistribution().derniereMain().total());
                     getPanneauBoutonsJeu().add(getValidateDog());
@@ -372,7 +371,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
                 if (partie_.unionPlis(true).isEmpty()) {
-                    getConsulting().setEnabled(false);
+                    getConsulting().setEnabledMenu(false);
                     boolean existCard_ = false;
                     for (CardTarot c: partie_.getDistribution().derniereMain()) {
                         if (partie_.getDistribution().main().contient(c)) {
@@ -381,7 +380,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                         }
                     }
                     if (!partie_.getPliEnCours().estVide()) {
-                        getConsulting().setEnabled(false);
+                        getConsulting().setEnabledMenu(false);
                         TrickTarot ecart_=partie_.getPliEnCours();
                         setChien(ecart_.getCartes(),true);
                         //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
@@ -390,7 +389,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                         if (ecart_.total()==partie_.getDistribution().derniereMain().total()) {
 //                            ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                             getSlamButton().setEnabledLabel(true);
-                            getSlamButton().setVisible(true);
+                            getSlamButton().setVisibleButton(true);
                             getPanneauBoutonsJeu().add(getSlamButton());
                         }
                         afficherMainUtilisateurTarotChien();
@@ -415,7 +414,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     return;
                 }
             } else {
-                getConsulting().setEnabled(false);
+                getConsulting().setEnabledMenu(false);
                 if (partie_.unionPlis(true).isEmpty()) {
                     byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
                     for(BidTarot b: partie_.tousContrats()) {
@@ -451,15 +450,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 }
             }
         } else {
-            getConsulting().setEnabled(false);
+            getConsulting().setEnabledMenu(false);
             if (partie_.unionPlis(true).isEmpty()) {
                 afficherMainUtilisateurTarot(false);
                 if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
                     if (partie_.getContrat()!=BidTarot.SLAM) {
 //                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                        getConsulting().setEnabled(true);
+                        getConsulting().setEnabledMenu(true);
                         getSlamButton().setEnabledLabel(true);
-                        getSlamButton().setVisible(true);
+                        getSlamButton().setVisibleButton(true);
                         getPanneauBoutonsJeu().add(getSlamButton());
                     }
                     addButtonNextTrickTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), true);
@@ -474,9 +473,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
                     if (partie_.getContrat()!=BidTarot.SLAM) {
 //                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                        getConsulting().setEnabled(true);
+                        getConsulting().setEnabledMenu(true);
                         getSlamButton().setEnabledLabel(true);
-                        getSlamButton().setVisible(true);
+                        getSlamButton().setVisibleButton(true);
                         getPanneauBoutonsJeu().add(getSlamButton());
                     }
                     addButtonNextTrickTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), true);
@@ -487,8 +486,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 return;
             }
         }
-        getConsulting().setEnabled(false);
-        getHelpGame().setEnabled(true);
+        getConsulting().setEnabledMenu(false);
+        getHelpGame().setEnabledMenu(true);
         afficherMainUtilisateurTarot(false);
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             HandTarot atouts_=partie_.getPlisAttaque().first().getCartes().couleur(Suit.TRUMP);
@@ -691,15 +690,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         updateCardsInPanelTarotDog(tapisTarot().getCenterDeck(), _main, false);
     }
     public void placerBoutonsAvantJeuUtilisateurTarot(boolean _premierTour) {
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         //Activer les conseils
-        getConsulting().setEnabled(true);
+        getConsulting().setEnabledMenu(true);
         try {
             partieTarot().changerConfiance();
         } catch (RuntimeException _0) {
         }
-        getOwner().getTricksHands().setEnabled(true);
-        getOwner().getTeams().setEnabled(true);
+        getOwner().getTricksHands().setEnabledMenu(true);
+        getOwner().getTeams().setEnabledMenu(true);
         afficherMainUtilisateurTarot(true);
         setRaisonCourante(EMPTY);
         setChoosenHandful(Handfuls.NO);
@@ -748,9 +747,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
     }
     public void placerBoutonsFinPliUtilisateurTarot() {
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         //Activer les conseils
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         GameTarot partie_=partieTarot();
         if(!partie_.keepPlayingCurrentGame()) {
             addButtonEndDealTarot(getMessages().getVal(MainWindow.END_DEAL), true);
@@ -762,7 +761,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public void placerBoutonsAppel() {
         //Activer les conseils
-        getConsulting().setEnabled(true);
+        getConsulting().setEnabledMenu(true);
         GameTarot partie_=partieTarot();
         setCanCall(true);
         getPanneauBoutonsJeu().removeAll();
@@ -771,9 +770,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
     public void debutPliTarot(boolean _premierPliFait) {
         //Activer le sous-menu conseil
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         //Activer le sous-menu aide au jeu
-        getHelpGame().setEnabled(true);
+        getHelpGame().setEnabledMenu(true);
         boolean premierTour_;
         GameTarot partie_=partieTarot();
         premierTour_=partie_.premierTour();
@@ -941,11 +940,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void finPliTarot(CardTarot _carteJouee) {
         setCanPlay(false);
         //Activer le menu Partie/Pause
-        getPause().setEnabled(true);
+        getPause().setEnabledMenu(true);
         //Desactiver le sous-menu conseil
-        getConsulting().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
         GameTarot partie_=partieTarot();
         if(partie_.getCarteAppelee().contient(_carteJouee)) {
             getMini().setStatus(Status.CALLED_PLAYER, DealTarot.NUMERO_UTILISATEUR);
@@ -960,7 +959,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tapisTarot().setCarteTarot(DealTarot.NUMERO_UTILISATEUR,_carteJouee);
         pause();
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         getPanneauBoutonsJeu().repaint();
@@ -971,10 +970,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
     public void finPartieTarot() {
         /*Descativer aide au jeu*/
-        getHelpGame().setEnabled(false);
-        getOwner().getTricksHands().setEnabled(false);
-        getOwner().getTeams().setEnabled(false);
-        Container container_=new Container();
+        getHelpGame().setEnabledMenu(false);
+        getOwner().getTricksHands().setEnabledMenu(false);
+        getOwner().getTeams().setEnabledMenu(false);
+        JPanel container_=new JPanel();
         JScrollPane ascenseur_;
         container_.setLayout(new BorderLayout());
 
@@ -1162,9 +1161,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //    }
     @Override
     public void modify() {
-        getSave().setEnabled(true);
-        getChange().setEnabled(true);
-        getConsulting().setEnabled(false);
+        getSave().setEnabledMenu(true);
+        getChange().setEnabledMenu(true);
+        getConsulting().setEnabledMenu(false);
         HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
         try {
@@ -1202,15 +1201,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
     public void editerTarot(GameTarot _partie) {
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabled(false);
+        getHelpGame().setEnabledMenu(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabled(false);
+        getPause().setEnabledMenu(false);
         setaJoueCarte(false);
         setPartieSauvegardee(false);
         getPar().jouerTarot(_partie);
         //Desactiver le menu Partie/Demo
-        getDemo().setEnabled(false);
+        getDemo().setEnabledMenu(false);
         setChangerPileFin(false);
         mettreEnPlaceIhmTarot();
     }
@@ -1290,14 +1289,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void prendreCartesChien() {
         GameTarot partie_=partieTarot();
         partie_.ajouterCartesUtilisateur();
-        getConsulting().setEnabled(true);
+        getConsulting().setEnabledMenu(true);
         tapisTarot().retirerCartes();
         afficherMainUtilisateurTarotChien();
         getPanneauBoutonsJeu().removeAll();
         if (partie_.getRegles().getDiscardAfterCall()) {
             getValidateDog().setEnabledLabel(false);
             getPanneauBoutonsJeu().add(getValidateDog());
-            getSlamButton().setVisible(false);
+            getSlamButton().setVisibleButton(false);
             getPanneauBoutonsJeu().add(getSlamButton());
             //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
         } else {
@@ -1306,7 +1305,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         pack();
     }
     public void ajouterUneCarteAuChien(CardTarot _ct) {
-        getConsulting().setEnabled(false);
+        getConsulting().setEnabledMenu(false);
         GameTarot partie_=partieTarot();
         partie_.ajouterUneCarteDansPliEnCours(DealTarot.NUMERO_UTILISATEUR,_ct);
         afficherMainUtilisateurTarotChien();
@@ -1319,7 +1318,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if(chienFait_) {
                 //ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                 getSlamButton().setEnabledLabel(true);
-                getSlamButton().setVisible(true);
+                getSlamButton().setVisibleButton(true);
             }
             //boutons_.validate();
         }
@@ -1328,7 +1327,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void retirerUneCarteDuChien(CardTarot _ct) {
         GameTarot partie_=partieTarot();
         partie_.retirerUneCarteDuChien(_ct);
-        getConsulting().setEnabled(partie_.getPliEnCours().estVide());
+        getConsulting().setEnabledMenu(partie_.getPliEnCours().estVide());
         partie_.ajouterUtilisateur(_ct);
         afficherMainUtilisateurTarotChien();
         setChien(partie_.getPliEnCours().getCartes(),true);
@@ -1339,7 +1338,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            if(boutons_.getComponentCount()==2) {
 //                boutons_.remove(1);
 //            }
-            getSlamButton().setVisible(false);
+            getSlamButton().setVisibleButton(false);
         }
         pack();
     }

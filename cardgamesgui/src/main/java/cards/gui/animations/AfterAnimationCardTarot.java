@@ -17,7 +17,7 @@ public final class AfterAnimationCardTarot extends Thread {
     public void run() {
         GameTarot currentGame_=container.partieTarot();
         //Desactiver le menu Partie/Pause
-        container.getPause().setEnabled(false);
+        container.getPause().setEnabledMenu(false);
         if(currentGame_.keepPlayingCurrentTrick()) {
             container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurTarot(currentGame_.premierTour());

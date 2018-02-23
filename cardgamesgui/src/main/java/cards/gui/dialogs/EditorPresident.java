@@ -1,6 +1,5 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
@@ -124,7 +123,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers) {
         getJt().removeAll();
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new BorderLayout());
         initMessageName();
         Numbers<Integer> decks_ = new Numbers<Integer>();
@@ -152,7 +151,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     private void distribuer() {
         setTitle(getMessages().getVal(DEALING_CARDS));
-        Container c=new Container();
+        JPanel c=new JPanel();
         c.setLayout(new BorderLayout());
         JPanel panneau_=new JPanel();
         byte nbCartesPJ_;

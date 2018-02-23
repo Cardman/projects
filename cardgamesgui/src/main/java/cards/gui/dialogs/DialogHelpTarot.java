@@ -1,6 +1,5 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -39,7 +38,7 @@ public final class DialogHelpTarot extends Dialog {
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
     public static void setDialogueTarot(EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,EnumMap<Suit,EqList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,StringList _pseudos) {
-        Container container_=new Container();
+        JPanel container_=new JPanel();
         container_.setLayout(new FlowLayout());
         JPanel panneau2_=new JPanel();
         JPanel panneau3_;
