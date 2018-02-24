@@ -60,7 +60,7 @@ public class SessionEditorPane extends EditorPane {
 
     private JTextField field;
 
-    private Component searchText;
+    private LabelButton searchText;
 
     private int index = CustList.INDEX_NOT_FOUND_ELT;
 
@@ -516,7 +516,7 @@ public class SessionEditorPane extends EditorPane {
         return searchText;
     }
 
-    public void setSearchText(Component _searchText) {
+    public void setSearchText(LabelButton _searchText) {
         searchText = _searchText;
     }
 

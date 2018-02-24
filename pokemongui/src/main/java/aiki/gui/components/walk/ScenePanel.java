@@ -950,7 +950,7 @@ public class ScenePanel extends JPanel {
     }
 
     public void interactScene() {
-        if (!buttonInteract.isEnabled()) {
+        if (!buttonInteract.isEnabledLabel()) {
             return;
         }
         facade.interact();

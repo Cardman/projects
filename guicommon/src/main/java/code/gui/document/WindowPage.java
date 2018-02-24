@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaAnimatedImage;
+import code.formathtml.render.MetaButton;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaDocument;
@@ -27,6 +28,7 @@ import code.formathtml.render.MetaPlainLabel;
 import code.formathtml.render.MetaSeparator;
 import code.formathtml.render.MetaSimpleImage;
 import code.formathtml.render.MetaTable;
+import code.formathtml.render.MetaTextField;
 import code.sml.Document;
 import code.util.CustList;
 import code.util.IdMap;
@@ -119,6 +121,10 @@ public class WindowPage implements Runnable {
                 cur_.add(new DualIndentNbLabel((DualContainer) cur_,(MetaIndentNbLabel) meta_, page, width_));
             } else if (meta_ instanceof MetaNumberedLabel) {
                 cur_.add(new DualNumberedLabel((DualContainer) cur_,(MetaNumberedLabel) meta_, page));
+            } else if (meta_ instanceof MetaButton) {
+                cur_.add(new DualButton((DualContainer) cur_,(MetaButton) meta_, page, anims_));
+            } else if (meta_ instanceof MetaTextField) {
+                cur_.add(new DualTextField((DualContainer) cur_,(MetaTextField) meta_, page));
             }
             MetaComponent nextSibling_ = getNextSibling(meta_);
             if (nextSibling_ != null) {
