@@ -26,6 +26,7 @@ public final class MetaDocument {
     private Numbers<Integer> lis;
     private BooleanList ordered;
     private CustList<MetaContainer> dynamicNewLines = new CustList<MetaContainer>();
+    private StringMap<Integer> indexesButtons = new StringMap<Integer>();
 
     private MetaDocument(Document _document) {
         ElementList style_ = _document.getElementsByTagName("style");
@@ -204,7 +205,13 @@ public final class MetaDocument {
                         MetaInput input_ = new MetaCheckedBox(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "radio")) {
-                        MetaInput input_ = new MetaRadioButton(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"), elt_.getAttribute("value"));
+                        String name_ = elt_.getAttribute("name");
+                        if (indexesButtons.contains(name_)) {
+                            indexesButtons.put(name_, indexesButtons.getVal(name_) + 1);
+                        } else {
+                            indexesButtons.put(name_, 0);
+                        }
+                        MetaInput input_ = new MetaRadioButton(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), indexesButtons.getVal(name_),elt_.hasAttribute("checked"), elt_.getAttribute("value"));
                         currentParent.appendChild(input_);
                     } else {
                         //button
@@ -239,6 +246,22 @@ public final class MetaDocument {
                     }
                     MetaInput input_ = new MetaTextArea(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
                     currentParent.appendChild(input_);
+                }
+                if (StringList.quickEq(tagName_, "form")) {
+                    MetaContainer surline_ = new MetaLine(curPar_);
+                    MetaContainer bl_ = new MetaForm(surline_);
+                    MetaContainer line_ = new MetaLine(bl_);
+                    bl_.appendChild(line_);
+                  //indent
+                    if (li_) {
+                        MetaLabel ind_ = new MetaIndentNbLabel(surline_);
+                        surline_.appendChild(ind_);
+                    }
+                    surline_.appendChild(bl_);
+                    curPar_.appendChild(surline_);
+                    containers.add(curPar_);
+                    containers.add(bl_);
+                    currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "p")) {
                     MetaContainer surline_ = new MetaLine(curPar_);
@@ -411,6 +434,15 @@ public final class MetaDocument {
             last_.appendChild(line_);
         }
         if (StringList.quickEq(_last, "table")) {
+            containers.removeLast();
+            MetaContainer last_ = containers.last();
+            containers.removeLast();
+            line_ = new MetaLine(last_);
+            last_.appendChild(line_);
+            tables.removeLast();
+        }
+        if (StringList.quickEq(_last, "form")) {
+            indexesButtons.clear();
             containers.removeLast();
             MetaContainer last_ = containers.last();
             containers.removeLast();

@@ -22,14 +22,20 @@ public final class SimpleSelectEltList extends MouseAdapter {
         grList.setFirstIndex(index);
         grList.setLastIndex(index);
         CustCellRender r_ = grList.getRender();
-        Object v_ = grList.getList().get(index);
-        Component c_;
         if (_e.isPopupTrigger()) {
+            Object v_ = grList.getList().get(index);
+            Component c_;
             c_ = r_.getListCellRendererComponent(grList, v_, index, false, false);
+            r_.paintComponent(c_);
         } else {
-            c_ = r_.getListCellRendererComponent(grList, v_, index, true, false);
+            int len_ = grList.getListComponents().size();
+            for (int i = 0; i < len_; i++) {
+                Object v_ = grList.getList().get(i);
+                Component c_;
+                c_ = r_.getListCellRendererComponent(grList, v_, i, index == i, false);
+                r_.paintComponent(c_);
+            }
         }
-        r_.paintComponent(c_);
         ListSelection listener_ = grList.getListener();
         if (listener_ != null) {
             Object s_ = grList.getListComponents().get(index);

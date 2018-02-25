@@ -23,13 +23,38 @@ public class GraphicList {
 
     private int lastIndex = -1;
 
+    private boolean simple;
+
     public GraphicList(boolean _simple, Object... _objects) {
         list = new CustList<Object>(_objects);
+        simple = _simple;
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         buildList();
+    }
+
+    protected void buildList() {
+        rebuild();
+    }
+
+    public void rebuild() {
+        CustCellRender r_ = getRender();
+        if (r_ == null) {
+            return;
+        }
+        JPanel panel_ = getPanel();
+        panel_.removeAll();
         int index_ = 0;
-        if (_simple) {
+        for (Object o: getList()) {
+            JLabel lab_ = new JLabel();
+            getListComponents().add(lab_);
+            panel_.add(lab_);
+            Component c_ = r_.getListCellRendererComponent(this, o, index_, false, false);
+            r_.paintComponent(c_);
+            index_++;
+        }
+        index_ = 0;
+        if (simple) {
             for (Component c: listComponents) {
                 c.addMouseListener(new SimpleSelectEltList(this, index_));
                 index_++;
@@ -42,21 +67,6 @@ public class GraphicList {
             }
         }
     }
-
-    protected void buildList() {
-        CustCellRender r_ = getRender();
-        JPanel panel_ = getPanel();
-        int index_ = 0;
-        for (Object o: getList()) {
-            JLabel lab_ = new JLabel();
-            getListComponents().add(lab_);
-            panel_.add(lab_);
-            Component c_ = r_.getListCellRendererComponent(this, o, index_, false, false);
-            r_.paintComponent(c_);
-            index_++;
-        }
-    }
-
     public ListSelection getListener() {
         return listener;
     }

@@ -22,7 +22,7 @@ public final class DualButton extends DualInput {
         JLabel label_ = getGraphic();
         label_.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        label_.addMouseListener(new FormEvent(_component.getForm(), _page, _anims));
+        label_.addMouseListener(new FormEvent(_component.getForm(), this, _page, _anims));
         value = _component.getValue();
     }
 

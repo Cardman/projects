@@ -18,6 +18,7 @@ import code.formathtml.render.MetaButton;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaDocument;
+import code.formathtml.render.MetaForm;
 import code.formathtml.render.MetaImageMap;
 import code.formathtml.render.MetaIndentLabel;
 import code.formathtml.render.MetaIndentNbLabel;
@@ -69,6 +70,8 @@ public class WindowPage implements Runnable {
                         cur_.add(new DualTable((DualContainer) cur_,(MetaTable) container_, page));
                     } else if (container_ instanceof MetaImageMap) {
                         cur_.add(new DualImageMap((DualContainer) cur_,(MetaImageMap) container_, page));
+                    } else if (container_ instanceof MetaForm) {
+                        cur_.add(new DualForm((DualContainer) cur_, (MetaForm) container_, page));
                     } else {
                         cur_.add(new DualPanel((DualContainer) cur_,container_, page));
                     }

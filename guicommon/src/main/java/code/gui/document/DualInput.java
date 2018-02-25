@@ -11,6 +11,17 @@ public abstract class DualInput extends DualLeaf {
         super(_container, _component, _graphic, _page);
     }
 
+    public DualForm getParentForm() {
+        DualContainer parent_ = getContainer();
+        while (parent_ != null) {
+            if (parent_ instanceof DualForm) {
+                break;
+            }
+            parent_ = parent_.getContainer();
+        }
+        return (DualForm) parent_;
+    }
+
     public int getGroup() {
         return getComponent().getGroup();
     }
