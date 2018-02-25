@@ -1,12 +1,12 @@
 package aiki.gui.threads;
 import javax.swing.SwingUtilities;
 
-import code.util.CustList;
-import code.util.consts.Constants;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
+import code.util.CustList;
+import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

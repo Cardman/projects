@@ -1,6 +1,6 @@
 package aiki.network.stream;
-import code.util.annot.RwXml;
 import aiki.map.pokemon.PokemonPlayer;
+import code.util.annot.RwXml;
 
 @RwXml
 public class SentPokemon {

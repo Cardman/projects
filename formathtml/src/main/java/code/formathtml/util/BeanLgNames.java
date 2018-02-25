@@ -319,6 +319,10 @@ public class BeanLgNames extends LgNames {
             res_.setResult(new StringStruct(_values.first()));
             return res_;
         }
+        if (StringList.quickEq(_className, getCustList())) {
+            res_.setResult(new StdStruct(_values, _className));
+            return res_;
+        }
         try {
             if (StringList.quickEq(_className, getAliasDouble()) || StringList.quickEq(_className, getAliasPrimDouble())) {
                 if (_values.isEmpty() || _values.first().trim().isEmpty()) {

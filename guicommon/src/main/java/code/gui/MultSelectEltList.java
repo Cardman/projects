@@ -1,61 +1,71 @@
 package code.gui;
 
-import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.JLabel;
 
-public final class MultSelectEltList extends MouseAdapter {
+public final class MultSelectEltList extends MouseAdapter implements IndexableListener {
 
-    private GraphicList grList;
+    private GraphicListable grList;
 
     private int index;
 
-    public MultSelectEltList(GraphicList _grList, int _index) {
+    public MultSelectEltList(GraphicListable _grList, int _index) {
         grList = _grList;
         index = _index;
     }
 
     @Override
     public void mouseReleased(MouseEvent _e) {
+        Object[] array_ = grList.getList().toArray();
+        boolean sel_ = !_e.isPopupTrigger();
         if (!_e.isShiftDown()) {
             grList.setFirstIndex(index);
             grList.setLastIndex(index);
             CustCellRender r_ = grList.getRender();
-            Object v_ = grList.getList().get(index);
-            Component c_;
-            if (_e.isPopupTrigger()) {
+            Object v_ = array_[index];
+            JLabel c_;
+            if (!sel_) {
                 c_ = r_.getListCellRendererComponent(grList, v_, index, false, false);
             } else {
                 c_ = r_.getListCellRendererComponent(grList, v_, index, true, false);
             }
             c_.requestFocus();
             r_.paintComponent(c_);
-            ListSelection listener_ = grList.getListener();
-            if (listener_ != null) {
-                Object s_ = grList.getListComponents().get(index);
-                ListSelectionEvent ev_ = new ListSelectionEvent(s_, index, index, false);
-                listener_.valueChanged(ev_);
+            if (sel_) {
+                grList.addRange();
+            } else {
+                grList.clearRange();
             }
+            SelectionUtil.selectEvent(index, index, grList, false);
             return;
         }
         grList.setLastIndex(index);
-        boolean sel_ = !_e.isPopupTrigger();
         int min_ = Math.min(grList.getFirstIndex(), grList.getLastIndex());
         int max_ = Math.max(grList.getFirstIndex(), grList.getLastIndex());
         CustCellRender r_ = grList.getRender();
         for (int i = min_; i <= max_; i++) {
-            Object v_ = grList.getList().get(i);
-            Component c_;
+            Object v_ = array_[i];
+            JLabel c_;
             c_ = r_.getListCellRendererComponent(grList, v_, i, sel_, false);
             r_.paintComponent(c_);
         }
-        ListSelection listener_ = grList.getListener();
-        if (listener_ != null) {
-            Object s_ = grList.getListComponents().get(index);
-            ListSelectionEvent ev_ = new ListSelectionEvent(s_, index, index, false);
-            listener_.valueChanged(ev_);
+        if (sel_) {
+            grList.addRange();
+        } else {
+            grList.clearRange();
         }
+        SelectionUtil.selectEvent(min_, max_, grList, false);
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
+    }
+
+    @Override
+    public void setIndex(int _index) {
+        index = _index;
     }
 }

@@ -9,14 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import code.gui.AutoCompleteDocument;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.pagination.SearchingMode;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.labels.PokemonLabel;
@@ -28,6 +20,14 @@ import aiki.gui.components.listeners.NewSearchEvent;
 import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingPokemonPlayer;
+import code.gui.AutoCompleteDocument;
+import code.gui.LabelButton;
+import code.gui.NumComboBox;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.pagination.SearchingMode;
 
 public final class PaginatorPokemon extends Paginator {
 

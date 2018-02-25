@@ -5,10 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import code.gui.StringCellRenderer;
-import code.images.ConverterBufferedImage;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
+import code.gui.StringCellRenderer;
+import code.images.ConverterBufferedImage;
 
 public class PokemonDataRenderer extends StringCellRenderer {
 

@@ -1,8 +1,9 @@
 package cards.gui.labels.selection;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+
+import javax.swing.JLabel;
 
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
@@ -15,7 +16,7 @@ public class CardTarotCellRenderer extends CommonCellRenderer{
     private CardTarot card;
     private boolean selectionne;
     @Override
-    public Component getListCellRendererComponent(Object _value,
+    public JLabel getListCellRendererComponent(Object _value,
             int _index, boolean _isSelected, boolean _cellHasFocus) {
         card=(CardTarot)_value;
         selectionne=_isSelected;

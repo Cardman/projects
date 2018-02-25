@@ -1,17 +1,18 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JLabel;
+
+import aiki.facade.FacadeGame;
+import aiki.game.fight.BallNumberRate;
 import code.gui.CommonCellRenderer;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import aiki.facade.FacadeGame;
-import aiki.game.fight.BallNumberRate;
 
 public class BallRenderer extends CommonCellRenderer {
 
@@ -59,7 +60,7 @@ public class BallRenderer extends CommonCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(Object _value, int _index,
+    public JLabel getListCellRendererComponent(Object _value, int _index,
             boolean _isSelected, boolean _cellHasFocus) {
         selected = _isSelected;
         ball = (BallNumberRate)_value;

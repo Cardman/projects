@@ -1,6 +1,6 @@
 package aiki.gui.components;
-import code.gui.ComboBox;
 import aiki.map.pokemon.enums.Gender;
+import code.gui.ComboBox;
 
 public final class ComboBoxGender extends ComboBox<Gender> {
 

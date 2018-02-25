@@ -2762,7 +2762,7 @@ public final class FormatHtml {
                 attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
                 attributesNames_.removeAllString(ATTRIBUTE_SRC);
                 String content_ = ExtractFromResources.getContentFile(_conf, _files,src_,_resourcesFolder);
-                if (keep_) {
+                if (keep_ || _conf.isUncompressed()) {
                     _tag.setAttribute(ATTRIBUTE_SRC, content_);
                 } else {
                     content_ = surroundImage(content_, wrap_);
@@ -3219,9 +3219,13 @@ public final class FormatHtml {
                 returnedVarValue_.add(ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getStruct());
             } else {
                 Struct o_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getStruct();
-                Struct it_ = ExtractObject.iterator(_conf, o_);
-                while (ExtractObject.hasNext(_conf, it_)) {
-                    returnedVarValue_.add(ExtractObject.next(_conf, it_));
+                if (o_.isNull()) {
+                    returnedVarValue_ = null;
+                } else {
+                    Struct it_ = ExtractObject.iterator(_conf, o_);
+                    while (ExtractObject.hasNext(_conf, it_)) {
+                        returnedVarValue_.add(ExtractObject.next(_conf, it_));
+                    }
                 }
             }
         }

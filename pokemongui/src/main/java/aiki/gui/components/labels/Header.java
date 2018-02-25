@@ -5,9 +5,9 @@ import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
+import aiki.gui.components.Paginator;
 import code.util.CustList;
 import code.util.PairNumber;
-import aiki.gui.components.Paginator;
 
 public class Header extends JLabel {
 

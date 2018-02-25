@@ -1,8 +1,8 @@
 package aiki.network.stream;
-import code.util.CustList;
-import code.util.annot.RwXml;
 import aiki.ExchangedData;
 import aiki.map.pokemon.UsablePokemon;
+import code.util.CustList;
+import code.util.annot.RwXml;
 
 @RwXml
 public class CheckCompatibility {

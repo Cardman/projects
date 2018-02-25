@@ -88,6 +88,10 @@ public final class ReadConfiguration {
                 _configuration.setContext(loadContext(c));
                 continue;
             }
+            if (StringList.quickEq(fieldName_, "uncompressed")) {
+                _configuration.setUncompressed(Boolean.parseBoolean(c.getAttribute("value")));
+                continue;
+            }
         }
         if (!found_) {
             ContextEl context_ = new ContextEl();

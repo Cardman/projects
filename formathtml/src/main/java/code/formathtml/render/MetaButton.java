@@ -9,9 +9,16 @@ public final class MetaButton extends MetaInput {
     private final String value;
 
     public MetaButton(MetaContainer _parent, int _group, Element _form, String _value) {
-        super(_parent, _group);
+        super(_parent, _group, getNameOrEmpty(_form));
         form = _form;
         value = _value;
+    }
+
+    private static String getNameOrEmpty(Element _form) {
+        if (_form == null) {
+            return "";
+        }
+        return _form.getAttribute("name");
     }
 
     public Element getForm() {

@@ -5,13 +5,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import aiki.facade.FacadeGame;
 import code.gui.StringCellRenderer;
 import code.images.ConverterBufferedImage;
-import aiki.facade.FacadeGame;
 
 public class ItemRenderer extends StringCellRenderer {
 
-    private static int _sideLength_;
+    private int sideLength;
 
     private FacadeGame facade;
 
@@ -29,7 +29,7 @@ public class ItemRenderer extends StringCellRenderer {
 
     public ItemRenderer(FacadeGame _facade) {
         facade = _facade;
-        _sideLength_ = facade.getMap().getSideLength();
+        sideLength = facade.getMap().getSideLength();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ItemRenderer extends StringCellRenderer {
                 maxWordWidth = w_;
             }
         }
-        setPreferredSize(new Dimension(maxWordWidth+_sideLength_ *2,_sideLength_));
+        setPreferredSize(new Dimension(maxWordWidth+sideLength *2,sideLength));
         return this;
     }
 
@@ -58,9 +58,9 @@ public class ItemRenderer extends StringCellRenderer {
     protected void paintComponent(Graphics _g) {
         _g.drawImage(miniItem, 0, 0, null);
         _g.setColor(Color.BLACK);
-        _g.drawString(displayName, _sideLength_, getHeight());
-        _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), maxWordWidth+_sideLength_, getHeight());
-        _g.drawString(Integer.toString(price), maxWordWidth+_sideLength_ * 2, getHeight());
+        _g.drawString(displayName, sideLength, getHeight());
+        _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), maxWordWidth+sideLength, getHeight());
+        _g.drawString(Integer.toString(price), maxWordWidth+sideLength * 2, getHeight());
         if (selected) {
             _g.setColor(Color.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);

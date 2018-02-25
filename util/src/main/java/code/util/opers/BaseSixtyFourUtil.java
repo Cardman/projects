@@ -128,6 +128,27 @@ public final class BaseSixtyFourUtil {
         o_++;
         return out_;
     }
+    public static String getSringByImage(int[][] _image) {
+        int w_ = _image[0].length;
+        StringBuilder str_ = new StringBuilder(4+_image[0].length*_image.length*4);
+        byte[] bytes_ = new byte[THREE_COLORS_BYTES];
+        bytes_[0] = (byte) ((w_ / (256*256))%256);
+        bytes_[1] = (byte) ((w_ / 256)%256);
+        bytes_[2] = (byte) (w_ %256);
+        str_.append(printThreeBytes(bytes_));
+        int h_ = _image.length;
+        for (int i = 0; i < h_; i++) {
+            for (int j = 0; j < w_; j++) {
+                bytes_ = new byte[THREE_COLORS_BYTES];
+                int p_ = _image[i][j];
+                bytes_[0] = (byte) ((p_ / (256*256))%256);
+                bytes_[1] = (byte) ((p_ / 256)%256);
+                bytes_[2] = (byte) (p_ %256);
+                str_.append(printThreeBytes(bytes_));
+            }
+        }
+        return str_.toString();
+    }
     public static byte[] parseBaseSixtyFourBinary(String _text) {
         int buflen_ = guessLength(_text);
         byte[] out_ = new byte[buflen_];

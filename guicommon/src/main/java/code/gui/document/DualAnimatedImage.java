@@ -13,6 +13,7 @@ import code.util.consts.Constants;
 
 
 public class DualAnimatedImage extends DualImage {
+    private String href;
 
     private int index;
 
@@ -23,10 +24,18 @@ public class DualAnimatedImage extends DualImage {
     public DualAnimatedImage(DualContainer _container, MetaAnimatedImage _component, RenderedPage _page, CustList<DualAnimatedImage> _anims) {
         super(_container, _component, _page);
         Element anchor_ = _component.getAnchor();
+        href = "";
         if (anchor_ != null) {
             JLabel label_ = getGraphic();
             label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            label_.addMouseListener(new AnchorEvent(anchor_, _page, _anims));
+            label_.addMouseListener(new AnchorEvent(anchor_, _page, _anims, this));
+            if (!anchor_.getAttribute("command").isEmpty()) {
+                href = anchor_.getAttribute("command");
+            } else if (!anchor_.getAttribute("href").isEmpty()) {
+                href = anchor_.getAttribute("href");
+            } else {
+                href = "";
+            }
         }
         delay = _component.getDelay();
         if (delay <= 0) {
@@ -75,5 +84,8 @@ public class DualAnimatedImage extends DualImage {
             y_++;
         }
         getGraphic().setIcon(new ImageIcon(imgBuf_));
+    }
+    public String getHref() {
+        return href;
     }
 }

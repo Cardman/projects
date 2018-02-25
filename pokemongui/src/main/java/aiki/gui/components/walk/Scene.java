@@ -8,13 +8,13 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.TreeMap;
 import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.TreeMap;
 
 public class Scene extends JLabel implements MouseListener {
 

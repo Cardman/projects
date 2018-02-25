@@ -1,6 +1,6 @@
 package aiki.gui.components;
-import code.gui.ComboBox;
 import aiki.fight.moves.enums.TargetChoice;
+import code.gui.ComboBox;
 
 public final class ComboBoxTargetChoice extends ComboBox<TargetChoice> {
 

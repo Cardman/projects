@@ -5,13 +5,13 @@ import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
-import code.images.ConverterBufferedImage;
-import code.util.NatTreeMap;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.ChosenMoveInfos;
+import code.images.ConverterBufferedImage;
+import code.util.NatTreeMap;
+import code.util.StringList;
 
 public class MoveLabel extends JLabel {
 

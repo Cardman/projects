@@ -1,6 +1,6 @@
 package aiki.gui.dialogs;
-import code.gui.ProgressingDialog;
 import aiki.DataBase;
+import code.gui.ProgressingDialog;
 
 public final class ProgressingDialogPokemon extends ProgressingDialog {
 

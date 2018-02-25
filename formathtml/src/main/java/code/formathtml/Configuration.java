@@ -20,10 +20,8 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
-import code.util.annot.RwXml;
 import code.util.ints.MathFactory;
 
-@RwXml
 public class Configuration {
     private static final String INSTANCE = "$new ";
 
@@ -65,6 +63,8 @@ public class Configuration {
     private String prefix = EMPTY_STRING;
     private BeanLgNames standards;
     private String dataBaseClassName;
+
+    private boolean uncompressed;
 
     private final transient StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
@@ -510,5 +510,13 @@ public class Configuration {
 
     public void setDataBaseClassName(String _dataBaseClassName) {
         dataBaseClassName = _dataBaseClassName;
+    }
+
+    public boolean isUncompressed() {
+        return uncompressed;
+    }
+
+    public void setUncompressed(boolean _uncompressed) {
+        uncompressed = _uncompressed;
     }
 }

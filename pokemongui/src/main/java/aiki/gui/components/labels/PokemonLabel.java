@@ -4,23 +4,23 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import aiki.facade.FacadeGame;
+import aiki.map.pokemon.enums.Gender;
+import aiki.util.SortingPokemonPlayer;
 import code.images.ConverterBufferedImage;
 import code.util.EnumMap;
 import code.util.Numbers;
 import code.util.StringList;
-import aiki.facade.FacadeGame;
-import aiki.map.pokemon.enums.Gender;
-import aiki.util.SortingPokemonPlayer;
 
 public class PokemonLabel extends SelectableLabel {
 
     private static final String SPACE = " ";
 
-    private static int _sideLength_;
-
     private static final int FIRST_LINE = HEIGTH_CHARS;
 
     private static final int SECOND_LINE = FIRST_LINE + HEIGTH_CHARS;
+
+    private int sideLength;
 
     private SortingPokemonPlayer pokemon;
 
@@ -48,7 +48,7 @@ public class PokemonLabel extends SelectableLabel {
             String miniItem_ = _facade.getData().getMiniItems().getVal(pokemon.getKeyItem());
             miniImageItem = ConverterBufferedImage.decodeToImage(miniItem_);
         }
-        _sideLength_ = _facade.getMap().getSideLength();
+        sideLength = _facade.getMap().getSideLength();
     }
 
     public void refresh(EnumMap<Gender,String> _tr) {
@@ -62,11 +62,11 @@ public class PokemonLabel extends SelectableLabel {
     public void setNameCoord(int _xName, int _thirdColumn) {
         xName = _xName;
         thirdColumn = _thirdColumn;
-        int h_ = _sideLength_;
+        int h_ = sideLength;
         if (h_ < SECOND_LINE) {
             h_ = SECOND_LINE;
         }
-        setPreferredSize(new Dimension(thirdColumn + xName + _sideLength_ * 2,h_));
+        setPreferredSize(new Dimension(thirdColumn + xName + sideLength * 2,h_));
     }
 
     public int getThirdColumnWidth() {
@@ -82,13 +82,13 @@ public class PokemonLabel extends SelectableLabel {
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);
         _g.drawImage(miniImagePk, 0, 0, null);
-        _g.drawString(pokemon.getName(), _sideLength_, FIRST_LINE);
-        _g.drawString(Integer.toString(pokemon.getLevel()), xName + _sideLength_, FIRST_LINE);
-        _g.drawString(pokemon.getAbility(), _sideLength_, SECOND_LINE);
-        _g.drawString(gender, xName + _sideLength_, SECOND_LINE);
+        _g.drawString(pokemon.getName(), sideLength, FIRST_LINE);
+        _g.drawString(Integer.toString(pokemon.getLevel()), xName + sideLength, FIRST_LINE);
+        _g.drawString(pokemon.getAbility(), sideLength, SECOND_LINE);
+        _g.drawString(gender, xName + sideLength, SECOND_LINE);
         //_g.drawString(pokemon.getItem(), xItem, h_);
         if (withItem) {
-            _g.drawImage(miniImageItem, thirdColumn + xName + _sideLength_, 0, null);
+            _g.drawImage(miniImageItem, thirdColumn + xName + sideLength, 0, null);
         }
         super.paintComponent(_g);
     }

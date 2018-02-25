@@ -34,7 +34,7 @@ public class BeanFive extends Bean {
 
     private StringList selectedStrings = new StringList("ONE","FOUR");
 
-    private EnumNumbers chosenNumbersNull;
+    private StringList chosenNumbersNull;
 
     public BeanFive() {
         composite.setStrings(new StringList());
@@ -198,11 +198,11 @@ public class BeanFive extends Bean {
         selectedStrings = _selectedStrings;
     }
 
-    public EnumNumbers getChosenNumbersNull() {
+    public StringList getChosenNumbersNull() {
         return chosenNumbersNull;
     }
 
-    public void setChosenNumbersNull(EnumNumbers _chosenNumbersNull) {
+    public void setChosenNumbersNull(StringList _chosenNumbersNull) {
         chosenNumbersNull = _chosenNumbersNull;
     }
 

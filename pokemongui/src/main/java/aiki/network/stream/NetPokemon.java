@@ -1,7 +1,7 @@
 package aiki.network.stream;
+import aiki.map.pokemon.PokemonPlayer;
 import code.util.NatTreeMap;
 import code.util.annot.RwXml;
-import aiki.map.pokemon.PokemonPlayer;
 
 @RwXml
 public class NetPokemon {

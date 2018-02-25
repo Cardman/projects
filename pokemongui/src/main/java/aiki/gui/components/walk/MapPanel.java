@@ -4,13 +4,13 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import code.images.ConverterBufferedImage;
-import code.util.TreeMap;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.labels.TileLabel;
 import aiki.gui.listeners.TileListener;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
+import code.images.ConverterBufferedImage;
+import code.util.TreeMap;
 
 public class MapPanel extends JPanel {
 

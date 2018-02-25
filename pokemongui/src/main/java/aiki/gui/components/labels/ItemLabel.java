@@ -4,14 +4,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import code.images.ConverterBufferedImage;
-import code.util.Numbers;
 import aiki.facade.FacadeGame;
 import aiki.util.SortingItem;
+import code.images.ConverterBufferedImage;
+import code.util.Numbers;
 
 public class ItemLabel extends SelectableLabel {
 
-    private static int _sideLength_;
 
     private static final int FIRST_LINE = HEIGTH_CHARS;
 
@@ -20,6 +19,8 @@ public class ItemLabel extends SelectableLabel {
     private static final int THIRD_LINE = SECOND_LINE + HEIGTH_CHARS;
 
     private static final int FOURTH_LINE = THIRD_LINE + HEIGTH_CHARS;
+
+    private int sideLength;
 
     private SortingItem item;
 
@@ -32,8 +33,8 @@ public class ItemLabel extends SelectableLabel {
     public void setImagesResults(FacadeGame _facade) {
         String miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
         miniImageItem = ConverterBufferedImage.decodeToImage(miniItem_);
-        _sideLength_ = _facade.getMap().getSideLength();
-        int h_ = _sideLength_;
+        sideLength = _facade.getMap().getSideLength();
+        int h_ = sideLength;
         if (h_ < FOURTH_LINE) {
             h_ = FOURTH_LINE;
         }
@@ -51,10 +52,10 @@ public class ItemLabel extends SelectableLabel {
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.drawImage(miniImageItem, 0, 0, null);
         _g.setColor(Color.BLACK);
-        _g.drawString(item.getName(), _sideLength_, FIRST_LINE);
-        _g.drawString(item.getItemClass(), _sideLength_, SECOND_LINE);
-        _g.drawString(Integer.toString(item.getPrice()), _sideLength_, THIRD_LINE);
-        _g.drawString(item.getNumber().toNumberString(), _sideLength_, FOURTH_LINE);
+        _g.drawString(item.getName(), sideLength, FIRST_LINE);
+        _g.drawString(item.getItemClass(), sideLength, SECOND_LINE);
+        _g.drawString(Integer.toString(item.getPrice()), sideLength, THIRD_LINE);
+        _g.drawString(item.getNumber().toNumberString(), sideLength, FOURTH_LINE);
         super.paintComponent(_g);
     }
 }

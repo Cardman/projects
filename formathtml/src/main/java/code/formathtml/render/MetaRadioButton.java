@@ -8,11 +8,15 @@ public final class MetaRadioButton extends MetaInput {
 
     private final int indexButton;
 
-    public MetaRadioButton(MetaContainer _parent, int _group, int _indexButton,boolean _checked, String _value) {
-        super(_parent, _group);
+    public MetaRadioButton(MetaContainer _parent, String _name, int _group, int _indexButton,boolean _checked, String _value) {
+        super(_parent, _group, _name);
         checked = _checked;
         indexButton = _indexButton;
         value = _value;
+    }
+
+    public int getIndexButton() {
+        return indexButton;
     }
 
     public String getValue() {

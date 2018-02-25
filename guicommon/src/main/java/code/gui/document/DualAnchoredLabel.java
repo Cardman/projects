@@ -15,12 +15,26 @@ import code.util.CustList;
 
 public final class DualAnchoredLabel extends DualLabel {
 
+    private String href;
+
     public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page, CustList<DualAnimatedImage> _anims) {
         super(_container, _component, new JLabel(), _page);
         JLabel label_ = getGraphic();
         label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, _anims));
+        label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, _anims, this));
         WindowPage._texts_.put(getGraphic(), _component.getText());
+        if (!_component.getAnchor().getAttribute("command").isEmpty()) {
+            href = _component.getAnchor().getAttribute("command");
+        } else if (!_component.getAnchor().getAttribute("href").isEmpty()) {
+            href = _component.getAnchor().getAttribute("href");
+        } else {
+            href = "";
+        }
+    }
+
+    @Override
+    public String getHref() {
+        return href;
     }
 
     @Override

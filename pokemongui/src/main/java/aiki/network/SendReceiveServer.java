@@ -1,10 +1,6 @@
 package aiki.network;
 import java.net.Socket;
 
-import code.network.AddingPlayer;
-import code.network.BasicServer;
-import code.util.CustList;
-import code.util.NatTreeMap;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.Bye;
 import aiki.network.stream.CheckCompatibility;
@@ -15,6 +11,10 @@ import aiki.network.stream.Ok;
 import aiki.network.stream.Quit;
 import aiki.network.stream.Ready;
 import aiki.network.stream.SentPokemon;
+import code.network.AddingPlayer;
+import code.network.BasicServer;
+import code.util.CustList;
+import code.util.NatTreeMap;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

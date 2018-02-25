@@ -54,7 +54,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -84,7 +84,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -114,7 +114,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -145,7 +145,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -176,7 +176,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -207,7 +207,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -238,7 +238,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -269,7 +269,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -300,7 +300,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -331,7 +331,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -361,7 +361,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -391,7 +391,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -422,7 +422,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -453,7 +453,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -484,7 +484,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -515,7 +515,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -546,7 +546,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -577,7 +577,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -609,7 +609,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();
@@ -640,7 +640,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Element elt_ = (Element) doc_.getElementsByTagName("c:message").item(0);
+        Element elt_ = doc_.getElementsByTagName("c:message").item(0);
 //        Element elt_ = (Element) doc_.getElementsByTagName("c_message").item(0);
 //        Map<String,LoopVariable> vars_ = new Map<String,LoopVariable>();
 //        LoopVariable global_ = new LoopVariable();

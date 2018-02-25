@@ -204,6 +204,10 @@ public final class Navigation {
         return htmlText;
     }
 
+    public Document getDocument() {
+        return session.getDocument();
+    }
+
     public String getHtmlTextFormatted() {
         return session.getDocument().exportHtml();
     }

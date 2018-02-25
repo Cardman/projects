@@ -1,24 +1,30 @@
 package code.formathtml.render;
 
-import code.util.ints.SortableMap;
+import code.util.StringList;
 
 public final class MetaComboBox extends MetaInput {
 
-    private final SortableMap<String,String> choices;
     private final int selected;
+    private final StringList choicesValues;
+    private final StringList choicesStrings;
 
-    public MetaComboBox(MetaContainer _parent, int _group, SortableMap<String,String> _choices) {
-        this(_parent, _group, _choices, 0);
+    public MetaComboBox(MetaContainer _parent, String _name, int _group, StringList _choicesStrings, StringList _choicesValues) {
+        this(_parent, _name, _group, _choicesStrings, _choicesValues, 0);
     }
 
-    public MetaComboBox(MetaContainer _parent, int _group, SortableMap<String,String> _choices, int _selected) {
-        super(_parent, _group);
-        choices = _choices;
+    public MetaComboBox(MetaContainer _parent, String _name, int _group, StringList _choicesStrings, StringList _choicesValues, int _selected) {
+        super(_parent, _group, _name);
+        choicesValues = _choicesValues;
+        choicesStrings = _choicesStrings;
         selected = _selected;
     }
 
-    public SortableMap<String, String> getChoices() {
-        return choices;
+    public StringList getChoicesStrings() {
+        return choicesStrings;
+    }
+
+    public StringList getChoicesValues() {
+        return choicesValues;
     }
 
     public int getSelected() {

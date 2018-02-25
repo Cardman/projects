@@ -1,10 +1,10 @@
 package aiki.main;
+import aiki.game.params.LoadingGame;
+import aiki.gui.MainWindow;
 import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.util.StringMap;
-import aiki.game.params.LoadingGame;
-import aiki.gui.MainWindow;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/

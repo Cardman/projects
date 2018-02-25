@@ -6,14 +6,14 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 
+import aiki.DataBase;
+import aiki.facade.FacadeGame;
+import aiki.fight.enums.Statistic;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.StringList;
-import aiki.DataBase;
-import aiki.facade.FacadeGame;
-import aiki.fight.enums.Statistic;
 
 public class TargetLabel {
 

@@ -1,8 +1,9 @@
 package cards.gui.labels.selection;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+
+import javax.swing.JLabel;
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
@@ -15,7 +16,7 @@ public class CardBeloteCellRenderer extends CommonCellRenderer{
     private CardBelote card;
     private boolean selectionne;
     @Override
-    public Component getListCellRendererComponent(Object _value,
+    public JLabel getListCellRendererComponent(Object _value,
             int _index, boolean _isSelected, boolean _cellHasFocus) {
         card=(CardBelote)_value;
         selectionne=_isSelected;

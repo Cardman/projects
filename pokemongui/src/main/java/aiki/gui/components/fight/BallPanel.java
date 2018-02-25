@@ -10,11 +10,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
+import aiki.facade.FacadeGame;
+import aiki.game.fight.BallNumberRate;
 import code.gui.CustListModel;
 import code.gui.Jl;
 import code.util.NatTreeMap;
-import aiki.facade.FacadeGame;
-import aiki.game.fight.BallNumberRate;
 
 public class BallPanel extends JPanel {
 

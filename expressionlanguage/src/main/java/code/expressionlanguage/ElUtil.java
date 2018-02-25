@@ -118,6 +118,8 @@ public final class ElUtil {
             mapping_.setArg(clMatchRight_.getName());
             mapping_.setParam(clMatchLeft_.getName());
             if (!Templates.isCorrect(mapping_, _conf)) {
+                System.out.println(clMatchRight_.getName());
+                System.out.println(clMatchLeft_.getName());
                 throw new DynamicCastClassException(_conf.joinPages());
             }
         }

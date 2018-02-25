@@ -1,8 +1,9 @@
 package cards.gui.labels.selection;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+
+import javax.swing.JLabel;
 
 import cards.consts.Suit;
 import code.gui.CommonCellRenderer;
@@ -15,7 +16,7 @@ public class SuitCellRenderer extends CommonCellRenderer {
     private boolean selectionne;
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/
     @Override
-    public Component getListCellRendererComponent(Object _value,
+    public JLabel getListCellRendererComponent(Object _value,
             int _index, boolean _isSelected, boolean _cellHasFocus) {
         couleur=(Suit)_value;
         selectionne=_isSelected;

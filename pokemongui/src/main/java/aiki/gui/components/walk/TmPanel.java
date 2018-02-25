@@ -10,11 +10,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
+import aiki.facade.FacadeGame;
 import code.gui.StringJl;
 import code.gui.StringListModel;
 import code.util.CustList;
 import code.util.StringList;
-import aiki.facade.FacadeGame;
 
 public class TmPanel extends JPanel {
 

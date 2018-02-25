@@ -1,7 +1,7 @@
 package aiki.main;
-import code.gui.ThreadInvoker;
 import aiki.DataBase;
 import aiki.gui.MainWindow;
+import code.gui.ThreadInvoker;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

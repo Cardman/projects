@@ -10,16 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import code.gui.AutoCompleteDocument;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.consts.Constants;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.labels.HealingItemLabel;
@@ -31,6 +21,16 @@ import aiki.gui.components.listeners.NewSearchEvent;
 import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingHealingItem;
+import code.gui.AutoCompleteDocument;
+import code.gui.LabelButton;
+import code.gui.NumComboBox;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.consts.Constants;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 public final class PaginatorHealingItem extends Paginator {
 

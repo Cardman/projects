@@ -10,12 +10,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
+import aiki.facade.FacadeGame;
+import aiki.gui.listeners.PokemonSelection;
 import code.gui.StringJl;
 import code.gui.StringListModel;
 import code.util.CustList;
 import code.util.TreeMap;
-import aiki.facade.FacadeGame;
-import aiki.gui.listeners.PokemonSelection;
 
 public class PokemonPanel extends JPanel {
 

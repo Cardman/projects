@@ -28,18 +28,19 @@ public final class LabelButtonUtil {
         return paintButton(_label, _text, _enabled, DEFAULT_FOREGROUND, DISABLED, Color.WHITE);
     }
 
-    public static void setTextDefaultLabel(JLabel _label, String _text,
+    public static void setTextDefaultLabel(JLabel _label, String _text, int _w,
             Color _front, Color _back) {
-        BufferedImage img_ = paintDefaultLabel(_label, _text, _front, _back);
+        BufferedImage img_ = paintDefaultLabel(_label, _text, _w, _front, _back);
         _label.setIcon(new ImageIcon(img_));
     }
 
-    public static BufferedImage paintDefaultLabel(JLabel _label, String _text,
+    public static BufferedImage paintDefaultLabel(JLabel _label, String _text, int _w,
             Color _front, Color _back) {
         Font font_ = _label.getFont();
         FontMetrics fontMetrics_ = _label.getFontMetrics(font_);
         int h_ = fontMetrics_.getHeight();
         int w_ = fontMetrics_.stringWidth(_text);
+        w_ = Math.max(_w, w_);
         BufferedImage img_ = new BufferedImage(w_ + 2, h_ + 2, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();
         gr_.setFont(font_);

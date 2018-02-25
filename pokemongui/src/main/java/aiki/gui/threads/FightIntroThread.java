@@ -1,9 +1,9 @@
 package aiki.gui.threads;
 import java.awt.image.BufferedImage;
 
-import code.images.ConverterBufferedImage;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
+import code.images.ConverterBufferedImage;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

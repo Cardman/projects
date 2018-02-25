@@ -10,14 +10,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
-import code.gui.CustListModel;
-import code.gui.Jl;
-import code.util.NatTreeMap;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.gui.listeners.BackFighterSelection;
 import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
+import code.gui.CustListModel;
+import code.gui.Jl;
+import code.util.NatTreeMap;
 
 public class FighterPanel extends JPanel {
 

@@ -128,6 +128,7 @@ public class CustBeanLgNames extends BeanLgNames {
     private static final String COMMON_CLASS = "commonClass";
     private static final String COMBOBOX = "combobox";
     private static final String CHOSEN_NUMBERS = "chosenNumbers";
+    private static final String CHOSEN_NUMBERS_NULL = "chosenNumbersNull";
     private static final String CHOSEN_NUMBER = "chosenNumber";
     private static final String GET = "get";
     private static final String GET_REVERSE = "getReverse";
@@ -176,7 +177,7 @@ public class CustBeanLgNames extends BeanLgNames {
         StandardMethod method_;
         StringList params_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_STRING_LIST, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_STRING_LIST, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
         cl_.getDirectInterfaces().add(getAliasCountable());
         cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
         cl_.getDirectInterfaces().add(getAliasDisplayable());
@@ -390,6 +391,7 @@ public class CustBeanLgNames extends BeanLgNames {
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_BEAN_FIVE, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
         fields_.put(CHOSEN_NUMBERS,new StandardField(CHOSEN_NUMBERS,TYPE_ENUM_NUMBERS,false,false,cl_));
+        fields_.put(CHOSEN_NUMBERS_NULL,new StandardField(CHOSEN_NUMBERS_NULL,getCustList(),false,false,cl_));
         fields_.put(COMBOBOX,new StandardField(COMBOBOX,TYPE_ENUM_NUMBERS,false,false,cl_));
         fields_.put(SELECTED_STRINGS,new StandardField(SELECTED_STRINGS,TYPE_STRING_LIST,false,false,cl_));
         fields_.put(TRANSLATIONS,new StandardField(TRANSLATIONS,getCustMap(),false,false,cl_));
@@ -962,11 +964,30 @@ public class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_FIVE)) {
             BeanFive i_ = (BeanFive)instance_;
             if (StringList.quickEq(fieldName_,CHOSEN_NUMBERS)) {
-                res_.setResult(new StdStruct(i_.getChosenNumbers(),TYPE_ENUM_NUMBERS));
+                EnumNumbers nbs_ = i_.getChosenNumbers();
+                if (nbs_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(new StdStruct(nbs_,TYPE_ENUM_NUMBERS));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,CHOSEN_NUMBERS_NULL)) {
+                StringList nbs_ = i_.getChosenNumbersNull();
+                if (nbs_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(new StdStruct(nbs_,TYPE_STRING_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_,COMBOBOX)) {
-                res_.setResult(new StdStruct(i_.getCombobox(),TYPE_ENUM_NUMBERS));
+                EnumNumbers nbs_ = i_.getCombobox();
+                if (nbs_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(new StdStruct(nbs_,TYPE_ENUM_NUMBERS));
                 return res_;
             }
             if (StringList.quickEq(fieldName_,SELECTED_STRINGS)) {
@@ -1170,6 +1191,11 @@ public class CustBeanLgNames extends BeanLgNames {
             BeanFive i_ = (BeanFive)instance_;
             if (StringList.quickEq(fieldName_,CHOSEN_NUMBERS)) {
                 i_.setChosenNumbers((EnumNumbers)value_);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,CHOSEN_NUMBERS_NULL)) {
+                i_.setChosenNumbersNull((StringList)value_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

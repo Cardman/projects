@@ -3,8 +3,14 @@ package code.gui.document;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import code.formathtml.HtmlPage;
+import code.formathtml.Navigation;
+import code.formathtml.util.FormInputCoords;
+import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.StringList;
 
 public class FormEvent extends MouseAdapter {
 
@@ -32,12 +38,56 @@ public class FormEvent extends MouseAdapter {
         for (DualAnimatedImage d: anims) {
             d.getImageThread().setAnimated(false);
         }
+        Navigation nav_ = page.getNavigation();
+        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        htmlPage_.setForm(true);
+        String nbForm_ = form.getAttribute("n-f");
+        htmlPage_.setUrl(Long.parseLong(nbForm_));
+        NatTreeMap<Long,NodeContainer> inputsMap_;
+        inputsMap_ = htmlPage_.getContainers().getVal(Long.parseLong(nbForm_));
         DualComponent current_ = form_.getChildren().first();
         while (true) {
             if (current_ instanceof DualInput) {
                 DualInput input_ = (DualInput) current_;
                 if (input_.getParentForm() == form_) {
-                    System.out.println(input_.getValue());
+                    long nbId_ = input_.getGroup();
+                    NodeContainer nCont_ = inputsMap_.getVal(nbId_);
+                    if (input_ instanceof DualTextArea) {
+                        nCont_.setEnabled(true);
+                        DualTextArea area_ = (DualTextArea) input_;
+                        nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
+                    } else if (input_ instanceof DualTextField) {
+                        nCont_.setEnabled(true);
+                        DualTextField area_ = (DualTextField) input_;
+                        nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
+                    } else if (input_ instanceof DualCheckedBox) {
+                        nCont_.setEnabled(true);
+                        DualCheckedBox ch_ = (DualCheckedBox) input_;
+                        nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
+                    } else if (input_ instanceof DualRadionButton) {
+                        DualRadionButton ch_ = (DualRadionButton) input_;
+                        nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
+                        if (!ch_.getValue().isEmpty()) {
+                            nCont_.setEnabled(true);
+                        } else if (nCont_.getNodeInformation().getValue().isEmpty()) {
+                            nCont_.setEnabled(false);
+                        }
+                    } else if (input_ instanceof DualComboBox) {
+                        nCont_.setEnabled(true);
+                        FormInputCoords fi_ = new FormInputCoords();
+                        fi_.setForm(Long.parseLong(nbForm_));
+                        fi_.setInput(nbId_);
+                        DualComboBox c_ = (DualComboBox) input_;
+                        if (c_.getSelectedIndexes().isEmpty()) {
+                            nCont_.getNodeInformation().setValue(new StringList());
+                        } else {
+                            nCont_.getNodeInformation().setValue(new StringList(c_.getValue()));
+                        }
+                    } else if (input_ instanceof DualComboList) {
+                        nCont_.setEnabled(true);
+                        DualComboList c_ = (DualComboList) input_;
+                        nCont_.getNodeInformation().setValue(c_.getValue());
+                    }
                 }
             }
             CustList<DualComponent> ch_ = current_.getChildren();
@@ -68,6 +118,7 @@ public class FormEvent extends MouseAdapter {
             }
             current_ = n_;
         }
+        nav_.processFormRequest();
     }
     private static DualComponent getNextSibling(DualComponent _current) {
         DualContainer par_ = _current.getContainer();

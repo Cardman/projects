@@ -5,16 +5,22 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Window;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.RootPaneContainer;
 import javax.swing.SwingUtilities;
 
+import code.formathtml.Navigation;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaAnimatedImage;
 import code.formathtml.render.MetaButton;
+import code.formathtml.render.MetaCheckedBox;
+import code.formathtml.render.MetaComboBox;
+import code.formathtml.render.MetaComboList;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaDocument;
@@ -26,13 +32,16 @@ import code.formathtml.render.MetaListItem;
 import code.formathtml.render.MetaNumberedLabel;
 import code.formathtml.render.MetaOrderedList;
 import code.formathtml.render.MetaPlainLabel;
+import code.formathtml.render.MetaRadioButton;
 import code.formathtml.render.MetaSeparator;
 import code.formathtml.render.MetaSimpleImage;
 import code.formathtml.render.MetaTable;
+import code.formathtml.render.MetaTextArea;
 import code.formathtml.render.MetaTextField;
 import code.sml.Document;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringMap;
 
 public class WindowPage implements Runnable {
 
@@ -46,8 +55,11 @@ public class WindowPage implements Runnable {
 
     private MetaDocument meta;
 
-    public WindowPage(Document _document, RootPaneContainer _frame) {
-        document = _document;
+    private Navigation navigation;
+
+    public WindowPage(Navigation _navigation, RootPaneContainer _frame) {
+        document = _navigation.getDocument();
+        navigation = _navigation;
         meta = MetaDocument.newInstance(document);
         frame = _frame;
         SwingUtilities.invokeLater(this);
@@ -55,11 +67,12 @@ public class WindowPage implements Runnable {
 
     @Override
     public void run() {
-        page = new RenderedPage(meta, frame);
+        page = new RenderedPage(meta, frame, navigation);
         MetaComponent metaroot_ = meta.getRoot();
         MetaComponent meta_ = metaroot_.getFirstChild();
         DualContainer root_ = page.getPage();
         DualComponent cur_ = root_;
+        CustList<StringMap<ButtonGroup>> radiosGroup_ = new CustList<StringMap<ButtonGroup>>();
         CustList<DualAnimatedImage> anims_ = new CustList<DualAnimatedImage>();
         while (true) {
             if (meta_ instanceof MetaContainer) {
@@ -71,6 +84,7 @@ public class WindowPage implements Runnable {
                     } else if (container_ instanceof MetaImageMap) {
                         cur_.add(new DualImageMap((DualContainer) cur_,(MetaImageMap) container_, page));
                     } else if (container_ instanceof MetaForm) {
+                        radiosGroup_.add(new StringMap<ButtonGroup>());
                         cur_.add(new DualForm((DualContainer) cur_, (MetaForm) container_, page));
                     } else {
                         cur_.add(new DualPanel((DualContainer) cur_,container_, page));
@@ -128,6 +142,29 @@ public class WindowPage implements Runnable {
                 cur_.add(new DualButton((DualContainer) cur_,(MetaButton) meta_, page, anims_));
             } else if (meta_ instanceof MetaTextField) {
                 cur_.add(new DualTextField((DualContainer) cur_,(MetaTextField) meta_, page));
+            } else if (meta_ instanceof MetaTextArea) {
+                cur_.add(new DualTextArea((DualContainer) cur_,(MetaTextArea) meta_, page));
+            } else if (meta_ instanceof MetaCheckedBox) {
+                cur_.add(new DualCheckedBox((DualContainer) cur_,(MetaCheckedBox) meta_, page));
+            } else if (meta_ instanceof MetaRadioButton) {
+                MetaRadioButton radio_ = (MetaRadioButton) meta_;
+                DualRadionButton dual_ = new DualRadionButton((DualContainer) cur_,radio_, page);
+                cur_.add(dual_);
+                JRadioButton radioButton_ = dual_.getGraphic();
+                if (!radiosGroup_.isEmpty()) {
+                    StringMap<ButtonGroup> grs_ = radiosGroup_.last();
+                    if (radio_.getIndexButton() == 0) {
+                        ButtonGroup gr_ = new ButtonGroup();
+                        grs_.put(radio_.getName(), gr_);
+                        gr_.add(radioButton_);
+                    } else {
+                        grs_.getVal(radio_.getName()).add(radioButton_);
+                    }
+                }
+            } else if (meta_ instanceof MetaComboBox) {
+                cur_.add(new DualComboBox((DualContainer) cur_,(MetaComboBox) meta_, page));
+            } else if (meta_ instanceof MetaComboList) {
+                cur_.add(new DualComboList((DualContainer) cur_,(MetaComboList) meta_, page));
             }
             MetaComponent nextSibling_ = getNextSibling(meta_);
             if (nextSibling_ != null) {
@@ -136,6 +173,9 @@ public class WindowPage implements Runnable {
             }
             MetaComponent parent_ =  meta_.getParent();
             cur_ = cur_.getContainer();
+            if (parent_ instanceof MetaForm) {
+                radiosGroup_.removeLast();
+            }
             if (parent_ == metaroot_) {
                 break;
             }
@@ -143,6 +183,9 @@ public class WindowPage implements Runnable {
             while (nextSibling_ == null) {
                 MetaComponent grParent_ = parent_.getParent();
                 cur_ = cur_.getContainer();
+                if (grParent_ instanceof MetaForm) {
+                    radiosGroup_.removeLast();
+                }
                 if (grParent_ == metaroot_) {
                     break;
                 }
@@ -154,7 +197,6 @@ public class WindowPage implements Runnable {
             }
             meta_ = nextSibling_;
         }
-        walk(page.getPage().getGraphic());
         JScrollPane panel_ = new JScrollPane(page.getPage().getGraphic());
         panel_.setPreferredSize(new Dimension(300, 200));
         frame.setContentPane(panel_);
@@ -162,6 +204,9 @@ public class WindowPage implements Runnable {
         for (DualAnimatedImage a: anims_) {
             a.start();
         }
+    }
+    public Navigation getNavigation() {
+        return navigation;
     }
     private static void walk(JPanel _panel) {
         JComponent root_ = _panel;

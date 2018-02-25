@@ -4,9 +4,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
+import aiki.gui.components.ComboBoxSearchingMode;
 import code.gui.AutoCompleteDocument;
 import code.util.pagination.SearchingMode;
-import aiki.gui.components.ComboBoxSearchingMode;
 
 public class ChangedModeEvent implements ActionListener {
 

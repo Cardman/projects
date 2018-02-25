@@ -1,9 +1,9 @@
 package aiki.gui.threads;
 import javax.swing.SwingUtilities;
 
-import code.util.consts.Constants;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
+import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

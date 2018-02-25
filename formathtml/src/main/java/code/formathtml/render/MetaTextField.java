@@ -6,8 +6,8 @@ public final class MetaTextField extends MetaInput {
 
     private final String value;
 
-    public MetaTextField(MetaContainer _parent, int _group, int _cols, String _value) {
-        super(_parent, _group);
+    public MetaTextField(MetaContainer _parent, String _name, int _group, int _cols, String _value) {
+        super(_parent, _group, _name);
         cols = _cols;
         value = _value;
     }

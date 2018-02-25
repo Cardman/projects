@@ -121,6 +121,84 @@ public final class BaseSixtyFourUtilTest {
         assertEq(92, bytes_[1]);
         assertEq(-2, bytes_[2]);
     }
+
+    @Test
+    public void printThreeBytes1Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAAA");
+        assertEq("AAAA", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes2Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAAB");
+        assertEq("AAAB", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes3Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAA/");
+        assertEq("AAA/", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes4Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AABA");
+        assertEq("AABA", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes5Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAB/");
+        assertEq("AAB/", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes6Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AACA");
+        assertEq("AACA", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes7Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAAZ");
+        assertEq("AAAZ", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes8Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAAa");
+        assertEq("AAAa", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes9Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAAz");
+        assertEq("AAAz", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes10Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAA0");
+        assertEq("AAA0", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes11Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAA9");
+        assertEq("AAA9", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes12Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAA+");
+        assertEq("AAA+", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
+
+    @Test
+    public void printThreeBytes13Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("/1z+");
+        assertEq("/1z+", BaseSixtyFourUtil.printThreeBytes(bytes_));
+    }
     @Test
     public void getImageByString1Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABAAAA");
@@ -312,6 +390,178 @@ public final class BaseSixtyFourUtilTest {
         assertEq(1, img_.length);
         assertEq(128, img_[0].length);
         checkZero(img_[0]);
+    }
+    @Test
+    public void getSringByImage1Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABAAAA");
+        assertEq("AAABAAAA", BaseSixtyFourUtil.getSringByImage(img_));
+    }
+    @Test
+    public void getSringByImage2Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABABAB");
+        assertEq("AAABABAB", BaseSixtyFourUtil.getSringByImage(img_));
+    }
+    @Test
+    public void getSringByImage3Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAACABABbaba");
+        assertEq("AAACABABbaba", BaseSixtyFourUtil.getSringByImage(img_));
+    }
+    @Test
+    public void getSringByImage4Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABABABbaba");
+        assertEq("AAABABABbaba", BaseSixtyFourUtil.getSringByImage(img_));
+    }
+    @Test
+    public void getSringByImage5Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAAB////");
+        assertEq("AAAB////", BaseSixtyFourUtil.getSringByImage(img_));
+    }
+    @Test
+    public void getSringByImage6Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAACbabaABAB");
+        assertEq("AAACbabaABAB", BaseSixtyFourUtil.getSringByImage(img_));
+    }
+
+    @Test
+    public void getSringByImage7Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABbabaABAB");
+        assertEq("AAABbabaABAB", BaseSixtyFourUtil.getSringByImage(img_));
+    }
+
+    @Test
+    public void getSringByImage8Test() {
+        StringBuilder imgStr_ = new StringBuilder(4+4*128);
+        imgStr_.append("AACA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        imgStr_.append("AAAA");
+        int[][] img_ = BaseSixtyFourUtil.getImageByString(imgStr_.toString());
+        assertEq(imgStr_.toString(), BaseSixtyFourUtil.getSringByImage(img_));
     }
 
     private static void checkZero(int[] _array) {

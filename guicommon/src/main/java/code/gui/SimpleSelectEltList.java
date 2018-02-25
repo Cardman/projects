@@ -1,18 +1,17 @@
 package code.gui;
 
-import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.JLabel;
 
-public final class SimpleSelectEltList extends MouseAdapter {
+public final class SimpleSelectEltList extends MouseAdapter implements IndexableListener {
 
-    private GraphicList grList;
+    private GraphicListable grList;
 
     private int index;
 
-    public SimpleSelectEltList(GraphicList _grList, int _index) {
+    public SimpleSelectEltList(GraphicListable _grList, int _index) {
         grList = _grList;
         index = _index;
     }
@@ -22,25 +21,36 @@ public final class SimpleSelectEltList extends MouseAdapter {
         grList.setFirstIndex(index);
         grList.setLastIndex(index);
         CustCellRender r_ = grList.getRender();
-        if (_e.isPopupTrigger()) {
-            Object v_ = grList.getList().get(index);
-            Component c_;
+        Object[] array_ = grList.getList().toArray();
+        boolean sel_ = !_e.isPopupTrigger();
+        if (!sel_) {
+            Object v_ = array_[index];
+            JLabel c_;
             c_ = r_.getListCellRendererComponent(grList, v_, index, false, false);
             r_.paintComponent(c_);
         } else {
             int len_ = grList.getListComponents().size();
             for (int i = 0; i < len_; i++) {
-                Object v_ = grList.getList().get(i);
-                Component c_;
+                Object v_ = array_[i];
+                JLabel c_;
                 c_ = r_.getListCellRendererComponent(grList, v_, i, index == i, false);
                 r_.paintComponent(c_);
             }
         }
-        ListSelection listener_ = grList.getListener();
-        if (listener_ != null) {
-            Object s_ = grList.getListComponents().get(index);
-            ListSelectionEvent ev_ = new ListSelectionEvent(s_, index, index, false);
-            listener_.valueChanged(ev_);
+        grList.clearAllRange();
+        if (sel_) {
+            grList.addRange();
         }
+        SelectionUtil.selectEvent(index, index, grList, false);
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
+    }
+
+    @Override
+    public void setIndex(int _index) {
+        index = _index;
     }
 }

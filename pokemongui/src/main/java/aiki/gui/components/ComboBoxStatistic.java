@@ -1,6 +1,6 @@
 package aiki.gui.components;
-import code.gui.ComboBox;
 import aiki.fight.enums.Statistic;
+import code.gui.ComboBox;
 
 public final class ComboBoxStatistic extends ComboBox<Statistic> {
 

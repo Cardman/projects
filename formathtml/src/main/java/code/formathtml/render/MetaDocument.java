@@ -8,7 +8,6 @@ import code.sml.Node;
 import code.sml.Text;
 import code.util.BooleanList;
 import code.util.CustList;
-import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
@@ -157,61 +156,66 @@ public final class MetaDocument {
                 }
                 if (StringList.quickEq(tagName_, "select")) {
                     skipChildrenBuild_ = true;
+                    String name_ = elt_.getAttribute("name");
                     rowGroup = 0;
                     partGroup++;
                     if (elt_.hasAttribute("multiple")) {
                         Numbers<Integer> selected_ = new Numbers<Integer>();
-                        NatTreeMap<String, String> elts_ = new NatTreeMap<String, String>();
+                        StringList values_ = new StringList();
+                        StringList strings_ = new StringList();
                         int i_ = 0;
                         for (Element c: elt_.getChildElements()) {
                             if (c.hasAttribute("selected")) {
                                 selected_.add(i_);
                             }
-                            elts_.put(c.getAttribute("value"), c.getTextContent());
+                            values_.add(c.getAttribute("value"));
+                            strings_.add(c.getTextContent());
                             i_++;
                         }
                         Integer vis_ = LgNames.parseInt(elt_.getAttribute("rows"));
                         if (vis_ == null) {
                             vis_ = 1;
                         }
-                        MetaInput input_ = new MetaComboList(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elts_, selected_, vis_);
+                        MetaInput input_ = new MetaComboList(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
                         currentParent.appendChild(input_);
                     } else {
                         int selected_ = 0;
-                        NatTreeMap<String, String> elts_ = new NatTreeMap<String, String>();
+                        StringList values_ = new StringList();
+                        StringList strings_ = new StringList();
                         int i_ = 0;
                         for (Element c: elt_.getChildElements()) {
                             if (c.hasAttribute("selected")) {
                                 selected_ = i_;
                             }
-                            elts_.put(c.getAttribute("value"), c.getTextContent());
+                            values_.add(c.getAttribute("value"));
+                            strings_.add(c.getTextContent());
                             i_++;
                         }
-                        MetaInput input_ = new MetaComboBox(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elts_, selected_);
+                        MetaInput input_ = new MetaComboBox(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_);
                         currentParent.appendChild(input_);
                     }
                 }
                 if (StringList.quickEq(tagName_, "input")) {
                     skipChildrenBuild_ = true;
                     String type_ = elt_.getAttribute("type");
+                    String name_ = elt_.getAttribute("name");
                     if (StringList.quickEq(type_, "text")) {
                         Integer cols_ = LgNames.parseInt(elt_.getAttribute("cols"));
                         if (cols_ == null) {
                             cols_ = 32;
                         }
-                        MetaInput input_ = new MetaTextField(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaTextField(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "checkbox")) {
-                        MetaInput input_ = new MetaCheckedBox(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
+                        MetaInput input_ = new MetaCheckedBox(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "radio")) {
-                        String name_ = elt_.getAttribute("name");
                         if (indexesButtons.contains(name_)) {
                             indexesButtons.put(name_, indexesButtons.getVal(name_) + 1);
                         } else {
                             indexesButtons.put(name_, 0);
                         }
-                        MetaInput input_ = new MetaRadioButton(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), indexesButtons.getVal(name_),elt_.hasAttribute("checked"), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaRadioButton(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), indexesButtons.getVal(name_),elt_.hasAttribute("checked"), elt_.getAttribute("value"));
                         currentParent.appendChild(input_);
                     } else {
                         //button
@@ -233,6 +237,7 @@ public final class MetaDocument {
                     partGroup++;
                 }
                 if (StringList.quickEq(tagName_, "textarea")) {
+                    String name_ = elt_.getAttribute("name");
                     skipChildrenBuild_ = true;
                     rowGroup = 0;
                     partGroup++;
@@ -244,7 +249,7 @@ public final class MetaDocument {
                     if (cols_ == null) {
                         cols_ = 32;
                     }
-                    MetaInput input_ = new MetaTextArea(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
+                    MetaInput input_ = new MetaTextArea(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
                     currentParent.appendChild(input_);
                 }
                 if (StringList.quickEq(tagName_, "form")) {

@@ -17,6 +17,10 @@ public abstract class DualLabel extends DualLeaf {
         super(_container, _component, _label, _page);
     }
 
+    public String getHref() {
+        return "";
+    }
+
     @Override
     protected void postAdd() {
         JLabel current_ = getGraphic();

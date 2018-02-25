@@ -1,16 +1,17 @@
 package code.gui;
 
-import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public final class MultSelectKeyEltList extends KeyAdapter {
+import javax.swing.JLabel;
 
-    private GraphicList grList;
+public final class MultSelectKeyEltList extends KeyAdapter implements IndexableListener {
+
+    private GraphicListable grList;
 
     private int index;
 
-    public MultSelectKeyEltList(GraphicList _grList, int _index) {
+    public MultSelectKeyEltList(GraphicListable _grList, int _index) {
         grList = _grList;
         index = _index;
     }
@@ -26,18 +27,34 @@ public final class MultSelectKeyEltList extends KeyAdapter {
         CustCellRender r_ = grList.getRender();
         boolean sel_ = !_e.isShiftDown();
         int index_ = 0;
-        for (Object v: grList.getList()) {
-            Component c_;
+        Object[] array_ = grList.getList().toArray();
+        for (Object v: array_) {
+            JLabel c_;
             c_ = r_.getListCellRendererComponent(grList, v, index_, sel_, false);
             r_.paintComponent(c_);
             index_++;
         }
         if (!sel_) {
-            grList.setLastIndex(-1);
+            grList.setFirstIndex(0);
+            grList.setLastIndex(array_.length);
+            grList.clearRange();
             grList.setFirstIndex(-1);
+            grList.setLastIndex(-1);
         } else {
-            grList.setLastIndex(0);
-            grList.setFirstIndex(grList.getList().size());
+            grList.setFirstIndex(0);
+            grList.setLastIndex(array_.length);
+            grList.addRange();
         }
+        SelectionUtil.selectEvent(0, array_.length, grList, false);
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
+    }
+
+    @Override
+    public void setIndex(int _index) {
+        index = _index;
     }
 }

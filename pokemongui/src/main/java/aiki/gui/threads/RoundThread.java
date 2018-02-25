@@ -1,8 +1,8 @@
 package aiki.gui.threads;
-import code.util.consts.Constants;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.gui.components.fight.Battle;
+import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

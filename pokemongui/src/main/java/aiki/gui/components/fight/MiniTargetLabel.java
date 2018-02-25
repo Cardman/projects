@@ -6,9 +6,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 
-import code.images.ConverterBufferedImage;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
+import code.images.ConverterBufferedImage;
 
 public class MiniTargetLabel extends JLabel {
 

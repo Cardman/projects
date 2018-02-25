@@ -1,8 +1,6 @@
 package code.bean;
 import code.util.StringMapObject;
-import code.util.annot.RwXml;
 
-@RwXml
 public class Bean {
 
     private transient Object dataBase;

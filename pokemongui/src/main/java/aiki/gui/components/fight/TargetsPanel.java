@@ -4,14 +4,14 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import code.util.BooleanList;
-import code.util.CustList;
-import code.util.NatTreeMap;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
+import code.util.BooleanList;
+import code.util.CustList;
+import code.util.NatTreeMap;
 
 public class TargetsPanel extends JPanel {
 

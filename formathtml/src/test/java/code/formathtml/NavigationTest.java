@@ -8273,6 +8273,87 @@ public class NavigationTest {
         assertSame(EnumNumber.FIVE, bean_.getComposites().get(1).getComboNumberTwo());
     }
 
+    @Test
+    public void processFormRequest88Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" name=\"chosenNumbersNull\" varValue=\"chosenNumbersNull\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        BeanOne bean_ = new BeanOne();
+        //bean_.setClassName(BeanOne.class.getName());
+        bean_.setScope("request");
+        BeanFive beanTwo_ = new BeanFive();
+        //beanTwo_.setClassName(BeanTwo.class.getName());
+        beanTwo_.setScope("request");
+        Configuration conf_ = newConfiguration();
+        conf_.setSepPrefix("c");
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.getBeans().put("bean_two", beanTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page2.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
+        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        Navigation nav_ = newNavigation();
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.initializeSession();
+        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        NatTreeMap<Long, NodeContainer> containers_ = containersMap_.getVal(0l);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0l);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("TWO");
+        values_.add("THREE");
+        ni_.setValue(values_);
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processFormRequest();
+        setupBeansAfter(conf_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
+        StringMapObject map_ = bean_.getForms();
+        assertEq(3, map_.size());
+        StringList stLi_ = (StringList) map_.getVal("selectedStrings");
+        assertEq(2, stLi_.size());
+        assertEq("ONE", stLi_.first());
+        assertEq("FOUR", stLi_.last());
+        StringList l_ = (StringList) map_.getVal("chosenNumbersNull");
+        assertEq(2, l_.size());
+        assertEq("TWO", l_.first());
+        assertEq("THREE", l_.last());
+        assertTrue(map_.contains("chosenNumbers"));
+        EnumNumbers enums_ = (EnumNumbers) map_.getVal("chosenNumbers");
+        assertEq(2, enums_.size());
+        assertEq(EnumNumber.ONE, enums_.first());
+        assertEq(EnumNumber.FOUR, enums_.last());
+        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        assertEq(0,nav_.getTooltips().size());
+    }
+
     @Test(expected=InvokeRedinedMethException.class)
     public void processFormRequest1FailTest() {
         String locale_ = "LOCALE";

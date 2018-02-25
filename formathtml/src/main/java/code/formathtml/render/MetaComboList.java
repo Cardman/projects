@@ -1,20 +1,22 @@
 package code.formathtml.render;
 
 import code.util.Numbers;
-import code.util.ints.SortableMap;
+import code.util.StringList;
 
 public final class MetaComboList extends MetaInput {
     private final int visible;
-    private final SortableMap<String,String> choices;
+    private final StringList choicesValues;
+    private final StringList choicesStrings;
     private final Numbers<Integer> selected;
 
-    public MetaComboList(MetaContainer _parent, int _group, SortableMap<String,String> _choices) {
-        this(_parent, _group, _choices, new Numbers<Integer>(), 1);
+    public MetaComboList(MetaContainer _parent, String _name, int _group, StringList _choicesStrings, StringList _choicesValues) {
+        this(_parent, _name, _group, _choicesStrings, _choicesValues, new Numbers<Integer>(), 1);
     }
 
-    public MetaComboList(MetaContainer _parent, int _group, SortableMap<String,String> _choices, Numbers<Integer> _selected, int _visible) {
-        super(_parent, _group);
-        choices = _choices;
+    public MetaComboList(MetaContainer _parent, String _name, int _group, StringList _choicesStrings, StringList _choicesValues, Numbers<Integer> _selected, int _visible) {
+        super(_parent, _group, _name);
+        choicesValues = _choicesValues;
+        choicesStrings = _choicesStrings;
         selected = _selected;
         visible = _visible;
     }
@@ -23,8 +25,12 @@ public final class MetaComboList extends MetaInput {
         return visible;
     }
 
-    public SortableMap<String, String> getChoices() {
-        return choices;
+    public StringList getChoicesStrings() {
+        return choicesStrings;
+    }
+
+    public StringList getChoicesValues() {
+        return choicesValues;
     }
 
     public Numbers<Integer> getSelected() {

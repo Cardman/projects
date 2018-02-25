@@ -3,12 +3,12 @@ import java.io.File;
 
 import javax.swing.SwingUtilities;
 
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.exceptions.GameLoadException;
 import aiki.game.params.LoadingGame;
 import aiki.gui.MainWindow;
+import code.util.StringList;
+import code.util.StringMap;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

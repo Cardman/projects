@@ -4,13 +4,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import code.images.ConverterBufferedImage;
 import aiki.facade.FacadeGame;
 import aiki.util.SortingEgg;
+import code.images.ConverterBufferedImage;
 
 public class EggLabel extends SelectableLabel {
 
-    private static int _sideLength_;
+    private int sideLength;
 
     private SortingEgg egg;
 
@@ -31,7 +31,7 @@ public class EggLabel extends SelectableLabel {
     public void setImagesResults(FacadeGame _facade) {
         String miniPk_ = _facade.getData().getMiniPk().getVal(egg.getKeyName());
         miniImagePk = ConverterBufferedImage.decodeToImage(miniPk_);
-        _sideLength_ = _facade.getMap().getSideLength();
+        sideLength = _facade.getMap().getSideLength();
         remainSteps = (int) (_facade.getData().getPokemon(egg.getKeyName()).getHatchingSteps().ll() - egg.getSteps());
         xRemainSteps = getFontMetrics(getFont()).stringWidth(Integer.toString(remainSteps));
     }
@@ -43,7 +43,7 @@ public class EggLabel extends SelectableLabel {
     public void setNameCoord(int _xName, int _xSteps, int _height) {
         xName = _xName;
         xSteps = _xSteps;
-        setPreferredSize(new Dimension(xName + xSteps + xRemainSteps + _sideLength_,_height));
+        setPreferredSize(new Dimension(xName + xSteps + xRemainSteps + sideLength,_height));
     }
 
     @Override
@@ -53,9 +53,9 @@ public class EggLabel extends SelectableLabel {
         _g.setColor(Color.BLACK);
         int h_ = getFont().getSize();
         _g.drawImage(miniImagePk, 0, 0, null);
-        _g.drawString(egg.getName(), _sideLength_, h_);
-        _g.drawString(Integer.toString(egg.getSteps()), xName + _sideLength_, h_);
-        _g.drawString(Integer.toString(remainSteps), xName + xSteps + _sideLength_, h_);
+        _g.drawString(egg.getName(), sideLength, h_);
+        _g.drawString(Integer.toString(egg.getSteps()), xName + sideLength, h_);
+        _g.drawString(Integer.toString(remainSteps), xName + xSteps + sideLength, h_);
         super.paintComponent(_g);
     }
 }

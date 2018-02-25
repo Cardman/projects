@@ -1,6 +1,6 @@
 package aiki.main;
-import code.gui.GroupFrame;
 import aiki.gui.MainWindow;
+import code.gui.GroupFrame;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/

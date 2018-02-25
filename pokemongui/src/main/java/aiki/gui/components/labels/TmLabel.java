@@ -3,14 +3,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import code.images.ConverterBufferedImage;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.MoveData;
 import aiki.util.SortingMove;
+import code.images.ConverterBufferedImage;
+import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.StringList;
 
 public class TmLabel extends SelectableLabel {
 
