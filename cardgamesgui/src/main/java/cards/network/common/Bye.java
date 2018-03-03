@@ -3,7 +3,7 @@ import code.network.Exiting;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Bye extends Exiting {
+public final class Bye extends Exiting {
 
     private boolean forced;
 

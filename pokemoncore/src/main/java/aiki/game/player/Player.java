@@ -153,8 +153,7 @@ public class Player {
     //values are true <==> a move has to be forgotten
     private transient NumberMap<Byte,Boolean> indexesOfPokemonTeamMoves = new NumberMap<Byte,Boolean>();
 
-    @RwXml
-    Player(){
+    public Player(){
     }
 
     public Player(String _pseudo,Sex _sexeHeros,Difficulty _diff,boolean _avecPkIni,DataBase _import){
@@ -1148,7 +1147,7 @@ public class Player {
     }
 
     void achatCt(short _ct,DataBase _import){
-        if (inventory.getTm().containsObj(_ct)) {
+        if (inventory.gotTm().containsObj(_ct)) {
             return;
         }
         getTm(_ct);

@@ -2,7 +2,7 @@ package aiki.network.stream;
 import code.util.annot.RwXml;
 
 @RwXml
-public class PlayerActionBeforeGame {
+public abstract class PlayerActionBeforeGame {
 
     private int index;
 

@@ -625,4 +625,12 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         return retString_.join(SEPARATOR);
     }
 
+    public EnumList<CardTarot> getCards() {
+        return cards;
+    }
+
+    public void setCards(EnumList<CardTarot> _cards) {
+        cards = _cards;
+    }
+
 }

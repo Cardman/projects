@@ -35,7 +35,6 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
 
     private int denominator;
 
-    @RwXml
     public EvolvedPart() {
         instrument = Part.DEFAULT_INSTRUMENT;
         channel = Part.DEFAULT_CHANNEL;
@@ -253,5 +252,9 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
 
     public void setDenominator(int _denominator) {
         denominator = _denominator;
+    }
+
+    public void setPhrases(EqList<EvolvedPhrase> _phrases) {
+        phrases = _phrases;
     }
 }

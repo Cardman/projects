@@ -1,6 +1,6 @@
 package cards.network.common.displaying;
 
 
-public class Pause {
+public final class Pause {
 
 }

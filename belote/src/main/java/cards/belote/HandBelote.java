@@ -675,4 +675,10 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
         }
         return retString_.join(SEPARATOR);
     }
+    public EnumList<CardBelote> getCards() {
+        return cards;
+    }
+    public void setCards(EnumList<CardBelote> _cards) {
+        cards = _cards;
+    }
 }

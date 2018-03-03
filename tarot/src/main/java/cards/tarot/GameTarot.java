@@ -14829,4 +14829,113 @@ public final class GameTarot {
     public static void setChargementSimulation(int _chargementSimulation) {
         GameTarot._chargementSimulation_ = _chargementSimulation;
     }
+
+    public DealTarot getDeal() {
+        return deal;
+    }
+
+    public void setDeal(DealTarot _deal) {
+        deal = _deal;
+    }
+
+    public CustList<EnumList<Handfuls>> getDeclaresHandfuls() {
+        return declaresHandfuls;
+    }
+
+    public void setDeclaresHandfuls(CustList<EnumList<Handfuls>> _declaresHandfuls) {
+        declaresHandfuls = _declaresHandfuls;
+    }
+
+    public EqList<EnumList<Miseres>> getDeclaresMiseres() {
+        return declaresMiseres;
+    }
+
+    public void setDeclaresMiseres(EqList<EnumList<Miseres>> _declaresMiseres) {
+        declaresMiseres = _declaresMiseres;
+    }
+
+    public BooleanList getDeclaresSlam() {
+        return declaresSlam;
+    }
+
+    public void setDeclaresSlam(BooleanList _declaresSlam) {
+        declaresSlam = _declaresSlam;
+    }
+
+    public BooleanList getSmallBound() {
+        return smallBound;
+    }
+
+    public void setSmallBound(BooleanList _smallBound) {
+        smallBound = _smallBound;
+    }
+
+    public EqList<HandTarot> getHandfuls() {
+        return handfuls;
+    }
+
+    public void setHandfuls(EqList<HandTarot> _handfuls) {
+        handfuls = _handfuls;
+    }
+
+    public CustList<BooleanList> getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(CustList<BooleanList> _confidence) {
+        confidence = _confidence;
+    }
+
+    public TrickTarot getProgressingTrick() {
+        return progressingTrick;
+    }
+
+    public void setProgressingTrick(TrickTarot _progressingTrick) {
+        progressingTrick = _progressingTrick;
+    }
+
+    public HandTarot getCalledCards() {
+        return calledCards;
+    }
+
+    public void setCalledCards(HandTarot _calledCards) {
+        calledCards = _calledCards;
+    }
+
+    public EnumList<BidTarot> getBids() {
+        return bids;
+    }
+
+    public void setBids(EnumList<BidTarot> _bids) {
+        bids = _bids;
+    }
+
+    public long getNumber() {
+        return number;
+    }
+
+    public void setNumber(long _number) {
+        number = _number;
+    }
+
+    public RulesTarot getRules() {
+        return rules;
+    }
+
+    public void setRules(RulesTarot _rules) {
+        rules = _rules;
+    }
+
+    public void setType(GameType _type) {
+        type = _type;
+    }
+
+    public void setTricks(CustList<TrickTarot> _tricks) {
+        tricks = _tricks;
+    }
+
+    public void setScores(Numbers<Short> _scores) {
+        scores = _scores;
+    }
+
 }

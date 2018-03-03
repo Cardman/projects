@@ -306,7 +306,7 @@ public class MainWindow extends GroupFrame {
                 PackingWindowAfter.pack(this);
                 clipStream.getClip().start();
                 clipStream.getClip().addLineListener(new SpeakingEvent(this));
-                play.setText(PAUSE);
+                play.setTextAndSize(PAUSE);
                 currentSong.setText(songsList.get(noSong));
                 String strBegin_ = getStringTime(0);
                 elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getClip().getMicrosecondLength()));
@@ -390,13 +390,13 @@ public class MainWindow extends GroupFrame {
     public void updateClip(LineEvent _event) {
         if (_event.getType().toString().equalsIgnoreCase(START)) {
             //LineEvent.Type.START
-            play.setText(PAUSE);
+            play.setTextAndSize(PAUSE);
         } else if (_event.getType().toString().equalsIgnoreCase(STOP_EVT)) {
             //LineEvent.Type.STOP
             //The end of a song pass here
 //            System.out.println(lastFrame);
 //            System.out.println(clip.getLongFramePosition());
-            play.setText(PLAY);
+            play.setTextAndSize(PLAY);
             if (!pausing) {
                 next = true;
                 playSong = true;
@@ -411,7 +411,7 @@ public class MainWindow extends GroupFrame {
             }
         } else if (_event.getType().toString().equalsIgnoreCase(CLOSE)) {
             //LineEvent.Type.CLOSE
-            play.setText(PLAY);
+            play.setTextAndSize(PLAY);
             clipStream = null;
             pausing = false;
             if (!playSong) {

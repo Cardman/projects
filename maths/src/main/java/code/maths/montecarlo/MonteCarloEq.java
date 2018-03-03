@@ -41,7 +41,10 @@ public final class MonteCarloEq<E extends Equallable<E>> extends AbMonteCarlo<E>
     }
 
     @Override
-    protected ObjectNotNullMap<E,LgInt> getLaw() {
+    public ObjectNotNullMap<E,LgInt> getLaw() {
         return law;
+    }
+    public void setLaw(ObjectNotNullMap<E, LgInt> _law) {
+        law = _law;
     }
 }

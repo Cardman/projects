@@ -229,4 +229,22 @@ public final class DealBelote implements Iterable<HandBelote> {
     public Iterator<HandBelote> iterator() {
         return deal.iterator();
     }
+    public EqList<HandBelote> getDeal() {
+        return deal;
+    }
+    public void setDeal(EqList<HandBelote> _deal) {
+        deal = _deal;
+    }
+    public byte getDealer() {
+        return dealer;
+    }
+    public void setDealer(byte _dealer) {
+        dealer = _dealer;
+    }
+    public long getNbDeals() {
+        return nbDeals;
+    }
+    public void setNbDeals(long _nbDeals) {
+        nbDeals = _nbDeals;
+    }
 }

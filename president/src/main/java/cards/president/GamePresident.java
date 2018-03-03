@@ -2685,4 +2685,56 @@ public final class GamePresident {
     public CustList<NumberMap<Byte,HandPresident>> getSwitchedCardsDeals() {
         return switchedCardsDeals;
     }
+
+    public DealPresident getDeal() {
+        return deal;
+    }
+
+    public void setDeal(DealPresident _deal) {
+        deal = _deal;
+    }
+
+    public Numbers<Short> getScores() {
+        return scores;
+    }
+
+    public void setScores(Numbers<Short> _scores) {
+        scores = _scores;
+    }
+
+    public long getNumber() {
+        return number;
+    }
+
+    public void setNumber(long _number) {
+        number = _number;
+    }
+
+    public RulesPresident getRules() {
+        return rules;
+    }
+
+    public void setRules(RulesPresident _rules) {
+        rules = _rules;
+    }
+
+    public void setType(GameType _type) {
+        type = _type;
+    }
+
+    public void setProgressingTrick(TrickPresident _progressingTrick) {
+        progressingTrick = _progressingTrick;
+    }
+
+    public void setTricks(CustList<TrickPresident> _tricks) {
+        tricks = _tricks;
+    }
+
+    public void setRanks(Numbers<Byte> _ranks) {
+        ranks = _ranks;
+    }
+
+    public void setSwitchedCards(NumberMap<Byte, HandPresident> _switchedCards) {
+        switchedCards = _switchedCards;
+    }
 }

@@ -1,6 +1,6 @@
 package cards.network.tarot.actions;
 
 
-public class TakeCard {
+public final class TakeCard {
 
 }

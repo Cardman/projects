@@ -293,6 +293,7 @@ public final class MainWindow extends NetGroupFrame {
             Quit quit_ = new Quit();
             quit_.setClosing(true);
             quit_.setPlace(indexInGame);
+            quit_.setLocale(Constants.getLanguage());
             try {
                 sendObject(quit_);
             } catch (RuntimeException _0) {
@@ -1212,6 +1213,7 @@ public final class MainWindow extends NetGroupFrame {
                 p_.setArriving(true);
                 p_.setIndex(indexInGame);
                 p_.setLanguage(Constants.getLanguage());
+                p_.setPseudo(facade.getGame().getPlayer().getNickname());
                 Net.sendObject(_socket,p_);
                 return;
             }
@@ -1223,6 +1225,7 @@ public final class MainWindow extends NetGroupFrame {
             p_.setIndex(indexInGame);
             //p_.setPseudo(pseudo());
             p_.setLanguage(Constants.getLanguage());
+            p_.setPseudo(facade.getGame().getPlayer().getNickname());
             if (indexInGame == CustList.FIRST_INDEX) {
                 scenePanel.setNetworkPanel();
             }

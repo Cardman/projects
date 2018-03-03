@@ -39,8 +39,11 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     }
 
     @Override
-    protected BooleanMap<LgInt> getLaw() {
+    public BooleanMap<LgInt> getLaw() {
         return law;
     }
 
+    public void setLaw(BooleanMap<LgInt> _law) {
+        law = _law;
+    }
 }

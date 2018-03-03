@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.belote.DeclareHandBelote;
 
 @RwXml
-public class AllowPlayingBelote {
+public final class AllowPlayingBelote {
 
     private boolean firstRoundPlaying;
 

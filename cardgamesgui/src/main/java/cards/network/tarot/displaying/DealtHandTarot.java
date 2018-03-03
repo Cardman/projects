@@ -6,7 +6,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.DealingTarot;
 
 @RwXml
-public class DealtHandTarot {
+public final class DealtHandTarot {
 
     private HandTarot cards;
 

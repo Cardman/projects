@@ -4,7 +4,7 @@ import cards.network.common.PlayerActionGame;
 import cards.tarot.enumerations.BidTarot;
 
 @RwXml
-public class BiddingTarot extends PlayerActionGame {
+public final class BiddingTarot extends PlayerActionGame {
 
     private BidTarot bid;
 

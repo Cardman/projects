@@ -251,7 +251,7 @@ public final class FrameGeneralHelp extends ChildFrame {
             editor.setField(field);
             editor.addFinder();
         }
-        search.setText(messages.getVal(SEARCH_LABEL));
+        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
 //        } catch (RuntimeException _0) {
 //            _0.printStackTrace();
 //        }

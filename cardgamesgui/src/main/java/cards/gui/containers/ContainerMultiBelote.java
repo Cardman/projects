@@ -226,6 +226,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         BiddingBelote bid_ = new BiddingBelote();
         bid_.setPlace(indexInGame);
         bid_.setBidBelote(bidLoc_);
+        bid_.setLocale(Constants.getLanguage());
         getOwner().sendObject(bid_);
     }
 
@@ -239,6 +240,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         BiddingBelote bid_ = new BiddingBelote();
         bid_.setPlace(indexInGame);
         bid_.setBidBelote(bidLoc_);
+        bid_.setLocale(Constants.getLanguage());
         getOwner().sendObject(bid_);
     }
 
@@ -346,6 +348,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
         choice_.setPlace(indexInGame);
+        choice_.setPlacesPlayers(new NatTreeMap<Integer, Byte>());
         getOwner().sendObject(choice_);
     }
     @Override
@@ -417,6 +420,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         pack();
         Dealt dealt_ = new Dealt();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
 
@@ -465,6 +469,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         //pack();
         DoneBidding dealt_ = new DoneBidding();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
 
@@ -556,6 +561,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         pack();
         DonePlaying dealt_ = new DonePlaying();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
 
@@ -638,6 +644,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ref_.setDeclaringBeloteRebelote(_card.isDeclaringBeloteRebelote());
         ref_.setDeclare(_card.getDeclare());
         ref_.setPlace(indexInGame);
+        ref_.setLocale(Constants.getLanguage());
         getOwner().sendObject(ref_);
 
     }
@@ -648,6 +655,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         //pack();
         DonePause d_ = new DonePause();
         d_.setPlace(indexInGame);
+        d_.setLocale(Constants.getLanguage());
         getOwner().sendObject(d_);
     }
 
@@ -658,6 +666,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         SelectTeams select_ = new SelectTeams();
         select_.setPlace(indexInGame);
+        select_.setLocale(Constants.getLanguage());
         getOwner().sendObject(select_);
     }
 
@@ -668,6 +677,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         SelectTricksHands select_ = new SelectTricksHands();
         select_.setPlace(indexInGame);
+        select_.setLocale(Constants.getLanguage());
         getOwner().sendObject(select_);
     }
 
@@ -927,6 +937,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         //PackingWindowAfter.pack(this, true);
         Ok ok_ = new Ok();
         ok_.setPlace(indexInGame);
+        ok_.setLocale(Constants.getLanguage());
         getOwner().sendObject(ok_);
     }
 

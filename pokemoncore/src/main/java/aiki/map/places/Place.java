@@ -12,7 +12,7 @@ import code.util.NumberMap;
 public abstract class Place {
 
     public boolean hasValidImage(DataBase _data) {
-        for (Level l : getLevels().values()) {
+        for (Level l : getLevelsMap().values()) {
             if (!l.hasValidImage(_data)) {
                 return false;
             }
@@ -24,7 +24,7 @@ public abstract class Place {
     public abstract boolean isEmptyForAdding(Coords _coords);
     public abstract void validateForEditing(DataBase _data);
     public abstract Level getLevelByCoords(Coords _coords);
-    public abstract NumberMap<Byte,Level> getLevels();
+    public abstract NumberMap<Byte,Level> getLevelsMap();
     public abstract CustList<Level> getLevelsList();
     public abstract Person getPerson(Coords _coords);
     public abstract boolean containsPerson(Coords _coords);

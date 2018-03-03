@@ -7,7 +7,7 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 
 @RwXml
-public class RefreshHandPlayingPresident extends PlayerActionGame {
+public final class RefreshHandPlayingPresident extends PlayerActionGame {
 
     private CardPresident playedCard;
 

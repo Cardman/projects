@@ -424,6 +424,9 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return new VectTwoDims(_b, _a);
     }
 
+    public void setPoints(EqList<CustPoint> _points) {
+        points = _points;
+    }
 //    static int det(VectTwoDims _a, VectTwoDims _b) {
 //        return _a.getDeltax()*_b.getDeltay()-_a.getDeltay()*_b.getDeltax();
 //    }

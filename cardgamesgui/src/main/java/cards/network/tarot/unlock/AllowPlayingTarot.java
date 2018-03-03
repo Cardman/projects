@@ -6,7 +6,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 
 @RwXml
-public class AllowPlayingTarot {
+public final class AllowPlayingTarot {
 
     private boolean firstRoundPlaying;
 

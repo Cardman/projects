@@ -17,14 +17,14 @@ public class InventoryValidationTest extends InitializationDataBase {
     @Test(expected=GameLoadException.class)
     public void validate2Test() {
         Inventory inventory_ = new Inventory(_data_);
-        inventory_.getItemsField().put(INVALID_DATA_KEY, LgInt.one());
+        inventory_.getItems().put(INVALID_DATA_KEY, LgInt.one());
         inventory_.validate(_data_);
     }
 
     @Test(expected=GameLoadException.class)
     public void validate3Test() {
         Inventory inventory_ = new Inventory(_data_);
-        inventory_.getItemsField().clear();
+        inventory_.getItems().clear();
         inventory_.validate(_data_);
     }
 

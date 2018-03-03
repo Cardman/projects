@@ -5,7 +5,7 @@ import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 
 @RwXml
-public class DealtHandPresident {
+public final class DealtHandPresident {
 
     private HandPresident cards;
 

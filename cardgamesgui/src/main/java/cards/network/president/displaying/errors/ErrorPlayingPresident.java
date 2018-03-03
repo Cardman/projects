@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.president.enumerations.CardPresident;
 
 @RwXml
-public class ErrorPlayingPresident {
+public final class ErrorPlayingPresident {
 
     private CardPresident card;
 

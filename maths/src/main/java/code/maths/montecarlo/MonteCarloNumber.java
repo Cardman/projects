@@ -196,12 +196,16 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     }
 
     @Override
-    protected ObjectNotNullMap<Rate,LgInt> getLaw() {
+    public ObjectNotNullMap<Rate,LgInt> getLaw() {
         return law;
     }
 
     @Override
     public EqList<Rate> events() {
         return law.getKeys();
+    }
+
+    public void setLaw(ObjectNotNullMap<Rate, LgInt> _law) {
+        law = _law;
     }
 }

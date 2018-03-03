@@ -92,6 +92,9 @@ public final class ResultsBelote extends ResultsGame {
     public StringList getNicknames() {
         return nicknames;
     }
+    public void setNicknames(StringList _nicknames) {
+        nicknames = _nicknames;
+    }
     public byte getUser() {
         return user;
     }
@@ -100,5 +103,8 @@ public final class ResultsBelote extends ResultsGame {
     }
     public String getLoc() {
         return loc;
+    }
+    public void setLoc(String _loc) {
+        loc = _loc;
     }
 }

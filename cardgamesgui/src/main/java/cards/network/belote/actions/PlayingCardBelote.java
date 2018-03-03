@@ -5,7 +5,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.network.common.PlayerActionGame;
 
 @RwXml
-public class PlayingCardBelote extends PlayerActionGame {
+public final class PlayingCardBelote extends PlayerActionGame {
 
     private CardBelote playedCard;
 

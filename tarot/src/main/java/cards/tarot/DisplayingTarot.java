@@ -53,4 +53,22 @@ public final class DisplayingTarot {
     public void setDecroissant(boolean _decroissant) {
         decreasing = _decroissant;
     }
+    public boolean isClockwise() {
+        return clockwise;
+    }
+    public void setClockwise(boolean _clockwise) {
+        clockwise = _clockwise;
+    }
+    public EnumList<Suit> getSuits() {
+        return suits;
+    }
+    public void setSuits(EnumList<Suit> _suits) {
+        suits = _suits;
+    }
+    public boolean isDecreasing() {
+        return decreasing;
+    }
+    public void setDecreasing(boolean _decreasing) {
+        decreasing = _decreasing;
+    }
 }

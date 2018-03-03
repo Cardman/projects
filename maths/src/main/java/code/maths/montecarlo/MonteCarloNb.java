@@ -40,7 +40,10 @@ public final class MonteCarloNb<E extends Number> extends AbMonteCarlo<E> {
     }
 
     @Override
-    protected NumberMap<E,LgInt> getLaw() {
+    public NumberMap<E,LgInt> getLaw() {
         return law;
+    }
+    public void setLaw(NumberMap<E, LgInt> _law) {
+        law = _law;
     }
 }

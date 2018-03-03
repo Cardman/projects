@@ -18,8 +18,7 @@ public class Inventory {
 
     private NumberMap<Short,Boolean> hm;
 
-    @RwXml
-    Inventory() {
+    public Inventory() {
     }
 
     public Inventory(DataBase _dataBase) {
@@ -101,7 +100,7 @@ public class Inventory {
         return hm.getKeys();
     }
 
-    public Numbers<Short> getTm() {
+    public Numbers<Short> gotTm() {
         Numbers<Short> n_;
         n_ = new Numbers<Short>();
         for (EntryCust<Short,Boolean> e: tm.entryList()) {
@@ -112,7 +111,7 @@ public class Inventory {
         return n_;
     }
 
-    public Numbers<Short> getHm() {
+    public Numbers<Short> gotHm() {
         Numbers<Short> n_;
         n_ = new Numbers<Short>();
         for (EntryCust<Short,Boolean> e: hm.entryList()) {
@@ -123,11 +122,30 @@ public class Inventory {
         return n_;
     }
 
-    StringList getItems() {
+    StringList getItemsKeys() {
         return items.getKeys();
     }
 
-    StringMap<LgInt> getItemsField() {
+    public StringMap<LgInt> getItems() {
         return items;
+    }
+    public void setItems(StringMap<LgInt> _items) {
+        items = _items;
+    }
+
+    public NumberMap<Short, Boolean> getTm() {
+        return tm;
+    }
+
+    public void setTm(NumberMap<Short, Boolean> _tm) {
+        tm = _tm;
+    }
+
+    public NumberMap<Short, Boolean> getHm() {
+        return hm;
+    }
+
+    public void setHm(NumberMap<Short, Boolean> _hm) {
+        hm = _hm;
     }
 }

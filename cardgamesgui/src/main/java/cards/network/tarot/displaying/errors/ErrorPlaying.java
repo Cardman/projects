@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.tarot.enumerations.CardTarot;
 
 @RwXml
-public class ErrorPlaying {
+public final class ErrorPlaying {
 
     private CardTarot card;
 

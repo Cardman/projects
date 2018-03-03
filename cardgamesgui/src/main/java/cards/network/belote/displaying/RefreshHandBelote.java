@@ -4,7 +4,7 @@ import cards.belote.HandBelote;
 import cards.network.common.PlayerActionGame;
 
 @RwXml
-public class RefreshHandBelote extends PlayerActionGame {
+public final class RefreshHandBelote extends PlayerActionGame {
 
     private HandBelote refreshedHand;
 

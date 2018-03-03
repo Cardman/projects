@@ -60,6 +60,7 @@ import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import cards.president.TricksHandsPresident;
 import cards.president.beans.PresidentStandards;
+import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
@@ -202,6 +203,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
         choice_.setPlace(indexInGame);
+        choice_.setPlacesPlayers(new NatTreeMap<Integer, Byte>());
         getOwner().sendObject(choice_);
     }
 
@@ -268,6 +270,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         pack();
         Dealt dealt_ = new Dealt();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
 
@@ -322,6 +325,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         DiscardedCards dis_ = new DiscardedCards();
         dis_.setPlace(indexInGame);
         dis_.setDiscarded(getGivenCards());
+        dis_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dis_);
     }
 
@@ -339,6 +343,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         pack();
         RefreshedHandPresident r_ = new RefreshedHandPresident();
         r_.setPlace(indexInGame);
+        r_.setLocale(Constants.getLanguage());
         getOwner().sendObject(r_);
     }
 
@@ -350,9 +355,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
         if (_readObject.getStatus() == Playing.HAS_TO_EQUAL) {
-            getNoPlay().setText(getMessages().getVal(MainWindow.NO_PLAY_NOW));
+            getNoPlay().setTextAndSize(getMessages().getVal(MainWindow.NO_PLAY_NOW));
         } else {
-            getNoPlay().setText(getMessages().getVal(MainWindow.PASS_TRICK));
+            getNoPlay().setTextAndSize(getMessages().getVal(MainWindow.PASS_TRICK));
         }
         getNoPlay().setEnabledLabel(_readObject.isEnabledPass());
         getNoPlay().setVisibleButton(true);
@@ -395,6 +400,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         pack();
         DonePlaying dealt_ = new DonePlaying();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
 
@@ -408,6 +414,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         pl_.setLocale(Constants.getLanguage());
         pl_.setPlace(indexInGame);
         pl_.setPass(true);
+        pl_.setPlayedCard(CardPresident.WHITE);
+        pl_.setPlayedHand(new HandPresident());
+        pl_.setStatus(new NumberMap<Byte, Playing>());
         getOwner().sendObject(pl_);
     }
 
@@ -430,6 +439,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ref_.setStatus(_card.getStatus());
         ref_.setNextPlayer(_card.getNextPlayer());
         ref_.setPlace(indexInGame);
+        ref_.setPlayedCard(CardPresident.WHITE);
+        ref_.setLocale(Constants.getLanguage());
         getOwner().sendObject(ref_);
 
     }
@@ -441,6 +452,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         //pack();
         DonePause d_ = new DonePause();
         d_.setPlace(indexInGame);
+        d_.setLocale(Constants.getLanguage());
         getOwner().sendObject(d_);
     }
 
@@ -451,6 +463,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         SelectTricksHands select_ = new SelectTricksHands();
         select_.setPlace(indexInGame);
+        select_.setLocale(Constants.getLanguage());
         getOwner().sendObject(select_);
     }
 
@@ -698,6 +711,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         //PackingWindowAfter.pack(this, true);
         Ok ok_ = new Ok();
         ok_.setPlace(indexInGame);
+        ok_.setLocale(Constants.getLanguage());
         getOwner().sendObject(ok_);
     }
 

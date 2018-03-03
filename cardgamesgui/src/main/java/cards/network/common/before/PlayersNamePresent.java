@@ -7,7 +7,7 @@ import cards.president.RulesPresident;
 import cards.tarot.RulesTarot;
 
 @RwXml
-public class PlayersNamePresent {
+public final class PlayersNamePresent {
 
     private NumberMap<Integer,String> pseudos;
 

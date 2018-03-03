@@ -40,8 +40,11 @@ public final class MonteCarloString extends AbMonteCarlo<String> {
     }
 
     @Override
-    protected StringMap<LgInt> getLaw() {
+    public StringMap<LgInt> getLaw() {
         return law;
     }
 
+    public void setLaw(StringMap<LgInt> _law) {
+        law = _law;
+    }
 }

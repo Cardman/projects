@@ -1,6 +1,6 @@
 package cards.network.common;
 
 
-public class PlayerAction {
+public abstract class PlayerAction {
 
 }

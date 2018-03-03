@@ -4,7 +4,7 @@ import cards.network.common.PlayerActionGame;
 import cards.tarot.enumerations.CardTarot;
 
 @RwXml
-public class DiscardedCard extends PlayerActionGame {
+public final class DiscardedCard extends PlayerActionGame {
 
     private CardTarot card;
 

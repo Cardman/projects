@@ -139,4 +139,20 @@ public final class BidBeloteSuit implements Equallable<BidBeloteSuit>, Displayab
         pts_.insert(0, bid.display());
         return pts_.toString();
     }
+
+    public BidBelote getBid() {
+        return bid;
+    }
+
+    public void setBid(BidBelote _bid) {
+        bid = _bid;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public void setSuit(Suit _suit) {
+        suit = _suit;
+    }
 }

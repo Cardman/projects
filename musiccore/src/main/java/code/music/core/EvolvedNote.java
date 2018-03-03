@@ -31,8 +31,7 @@ public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNo
     private int durationDen;
     private int dynamic = Note.DEFAULT_DYNAMIC;
 
-    @RwXml
-    private EvolvedNote() {
+    public EvolvedNote() {
     }
 
     public EvolvedNote(Gamme _value, int _level, double _duration, int _dynamic) {

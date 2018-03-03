@@ -182,4 +182,17 @@ public final class TricksHandsTarot {
                 .supprimerCartes(derniereMain());
         }
     }
+    public EqList<HandTarot> getCardsHandsAtInitialState() {
+        return cardsHandsAtInitialState;
+    }
+    public void setCardsHandsAtInitialState(
+            EqList<HandTarot> _cardsHandsAtInitialState) {
+        cardsHandsAtInitialState = _cardsHandsAtInitialState;
+    }
+    public void setDistribution(DealTarot _distribution) {
+        distribution = _distribution;
+    }
+    public void setTricks(CustList<TrickTarot> _tricks) {
+        tricks = _tricks;
+    }
 }

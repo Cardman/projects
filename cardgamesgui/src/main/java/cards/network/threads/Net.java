@@ -292,6 +292,7 @@ public final class Net {
             }
             DelegateServer d_ = new DelegateServer();
             d_.setGames(Net.getGames());
+            d_.setNicknames(new NumberMap<Integer,String>());
             Net.sendObject(Net.getSocketByPlace(p),d_);
             return true;
         }

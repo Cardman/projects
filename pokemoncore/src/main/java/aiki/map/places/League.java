@@ -106,7 +106,7 @@ public class League extends Place {
     }
 
     @Override
-    public NumberMap<Byte,Level> getLevels() {
+    public NumberMap<Byte,Level> getLevelsMap() {
         NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
         for (LevelLeague l: rooms) {
             levels_.put((byte) levels_.size(), l);

@@ -4,7 +4,7 @@ import code.util.annot.RwXml;
 import cards.belote.BidBeloteSuit;
 
 @RwXml
-public class AllowBiddingBelote {
+public final class AllowBiddingBelote {
 
     private EqList<BidBeloteSuit> bids;
 

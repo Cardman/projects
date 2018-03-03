@@ -4,7 +4,7 @@ import code.util.annot.RwXml;
 import cards.facade.Games;
 
 @RwXml
-public class DelegateServer {
+public final class DelegateServer {
 
     private Games games;
 

@@ -212,12 +212,16 @@ public class Cave extends Campaign {
         return levels.getVal(_coords.getLevel().getLevelIndex());
     }
     @Override
-    public NumberMap<Byte,Level> getLevels() {
+    public NumberMap<Byte,Level> getLevelsMap() {
         NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
         for (EntryCust<Byte,LevelCave> e: levels.entryList()) {
             levels_.put(e.getKey(), e.getValue());
         }
         return levels_;
+    }
+
+    public NumberMap<Byte, LevelCave> getLevels() {
+        return levels;
     }
 
     @Override

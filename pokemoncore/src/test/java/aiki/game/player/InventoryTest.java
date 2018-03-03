@@ -13,12 +13,12 @@ public class InventoryTest extends InitializationDataBase{
     @Test
     public void new_Inventory_DataBase_1Test() {
         Inventory obj_ = new Inventory(_data_);
-        assertEq(100,obj_.getItems().size());
-        assertTrue(obj_.getItems().containsObj(MUSCLE));
-        assertTrue(obj_.getItems().containsObj(PP_PLUS));
-        assertTrue(obj_.getItems().containsObj(GRELOT));
-        assertTrue(obj_.getItems().containsObj(PIERRE_LUNE));
-        assertTrue(obj_.getItems().containsObj(PIERRE_SOLEIL));
+        assertEq(100,obj_.getItemsKeys().size());
+        assertTrue(obj_.getItemsKeys().containsObj(MUSCLE));
+        assertTrue(obj_.getItemsKeys().containsObj(PP_PLUS));
+        assertTrue(obj_.getItemsKeys().containsObj(GRELOT));
+        assertTrue(obj_.getItemsKeys().containsObj(PIERRE_LUNE));
+        assertTrue(obj_.getItemsKeys().containsObj(PIERRE_SOLEIL));
         assertEq(4,obj_.getAllTm().size());
         assertTrue(obj_.getAllTm().containsObj((short) 5));
         assertEq(1,obj_.getAllHm().size());
@@ -54,15 +54,15 @@ public class InventoryTest extends InitializationDataBase{
     public void getTm1Test() {
         Inventory obj_ = new Inventory(_data_);
         obj_.getTm((short) 1);
-        assertEq(1,obj_.getTm().size());
-        assertTrue(obj_.getTm().containsObj((short) 1));
+        assertEq(1,obj_.gotTm().size());
+        assertTrue(obj_.gotTm().containsObj((short) 1));
     }
 
     @Test
     public void getHm1Test() {
         Inventory obj_ = new Inventory(_data_);
         obj_.getHm((short) 1);
-        assertEq(1,obj_.getHm().size());
-        assertTrue(obj_.getHm().containsObj((short) 1));
+        assertEq(1,obj_.gotHm().size());
+        assertTrue(obj_.gotHm().containsObj((short) 1));
     }
 }

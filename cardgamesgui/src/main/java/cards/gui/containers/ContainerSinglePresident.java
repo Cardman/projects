@@ -273,9 +273,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getPanneauBoutonsJeu().add(assemble());
         GamePresident g_ = partiePresident();
         if (g_.getStatus(DealPresident.NUMERO_UTILISATEUR) == Playing.HAS_TO_EQUAL) {
-            getNoPlay().setText(getMessages().getVal(MainWindow.NO_PLAY_NOW));
+            getNoPlay().setTextAndSize(getMessages().getVal(MainWindow.NO_PLAY_NOW));
         } else {
-            getNoPlay().setText(getMessages().getVal(MainWindow.PASS_TRICK));
+            getNoPlay().setTextAndSize(getMessages().getVal(MainWindow.PASS_TRICK));
         }
         getNoPlay().setEnabledLabel(!g_.getProgressingTrick().estVide());
 //        getPanneauBoutonsJeu().add(getNoPlay());

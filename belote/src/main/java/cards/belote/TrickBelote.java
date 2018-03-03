@@ -227,4 +227,16 @@ public final class TrickBelote implements Iterable<CardBelote> {
     void setEntameur(int _i) {
         starter = (byte) _i;
     }
+    public byte getStarter() {
+        return starter;
+    }
+    public void setStarter(byte _starter) {
+        starter = _starter;
+    }
+    public HandBelote getCards() {
+        return cards;
+    }
+    public void setCards(HandBelote _cards) {
+        cards = _cards;
+    }
 }

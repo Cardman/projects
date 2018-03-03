@@ -5,7 +5,6 @@ import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 
 @CheckedData
@@ -26,8 +25,7 @@ public final class Anticipation implements Displayable{
         targetPosition = new TargetCoords();
     }
 
-    @RwXml
-    Anticipation(String _value) {
+    public Anticipation(String _value) {
         StringList elts_ = StringList.splitChars(_value, SEPARATOR);
         damage = new Rate(elts_.first());
         nbRounds = Byte.parseByte(elts_.get(CustList.SECOND_INDEX));

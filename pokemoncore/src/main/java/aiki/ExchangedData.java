@@ -9,7 +9,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class ExchangedData {
+public final class ExchangedData {
 
     private StringList abilities;
     private StringList items;
@@ -17,8 +17,7 @@ public class ExchangedData {
     private PokemonPlayer pokemon;
     private int indexTeam;
 
-    @RwXml
-    ExchangedData(){}
+    public ExchangedData(){}
 
     public ExchangedData(DataBase _dataBase) {
         genderRepartitions = new StringMap<GenderRepartition>();
@@ -70,8 +69,25 @@ public class ExchangedData {
         return abilities;
     }
 
+    public void setAbilities(StringList _abilities) {
+        abilities = _abilities;
+    }
+
     public StringList getItems() {
         return items;
+    }
+
+    public void setItems(StringList _items) {
+        items = _items;
+    }
+
+    public StringMap<GenderRepartition> getGenderRepartitions() {
+        return genderRepartitions;
+    }
+
+    public void setGenderRepartitions(
+            StringMap<GenderRepartition> _genderRepartitions) {
+        genderRepartitions = _genderRepartitions;
     }
 
     public PokemonPlayer getPokemon() {
@@ -90,7 +106,4 @@ public class ExchangedData {
         indexTeam = _indexTeam;
     }
 
-    StringMap<GenderRepartition> getGenderRepartitions() {
-        return genderRepartitions;
-    }
 }

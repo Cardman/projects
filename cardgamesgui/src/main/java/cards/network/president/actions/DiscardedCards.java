@@ -4,7 +4,7 @@ import cards.network.common.PlayerActionGame;
 import cards.president.HandPresident;
 
 @RwXml
-public class DiscardedCards extends PlayerActionGame {
+public final class DiscardedCards extends PlayerActionGame {
 
     private HandPresident discarded;
 

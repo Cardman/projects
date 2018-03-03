@@ -31,7 +31,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
         starter=_pentameur;
     }
 
-    void setSeenByAllPlayers(boolean _seenByAllPlayers) {
+    public void setSeenByAllPlayers(boolean _seenByAllPlayers) {
         seenByAllPlayers = _seenByAllPlayers;
     }
     public boolean getVuParToutJoueur() {
@@ -330,5 +330,20 @@ public final class TrickTarot implements Iterable<CardTarot> {
 
     void setEntameur(int _i) {
         starter = (byte) _i;
+    }
+    public byte getStarter() {
+        return starter;
+    }
+    public void setStarter(byte _starter) {
+        starter = _starter;
+    }
+    public HandTarot getCards() {
+        return cards;
+    }
+    public void setCards(HandTarot _cards) {
+        cards = _cards;
+    }
+    public boolean isSeenByAllPlayers() {
+        return seenByAllPlayers;
     }
 }

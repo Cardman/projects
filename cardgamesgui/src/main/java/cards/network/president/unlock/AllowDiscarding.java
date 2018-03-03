@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.president.HandPresident;
 
 @RwXml
-public class AllowDiscarding {
+public final class AllowDiscarding {
 
     private HandPresident receivedCards;
 

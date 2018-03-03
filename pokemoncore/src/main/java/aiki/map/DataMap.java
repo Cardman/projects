@@ -481,8 +481,8 @@ public class DataMap {
         StringMap<EnumList<Gender>> directCatchPk_ = new StringMap<EnumList<Gender>>();
         for (short p_: places.getKeys()) {
             Place pl_ = places.getVal(p_);
-            for (byte l: pl_.getLevels().getKeys()) {
-                Level level_ = pl_.getLevels().getVal(l);
+            for (byte l: pl_.getLevelsMap().getKeys()) {
+                Level level_ = pl_.getLevelsMap().getVal(l);
                 if (!(level_ instanceof LevelWithWildPokemon)) {
                     continue;
                 }
@@ -576,7 +576,7 @@ public class DataMap {
                 continue;
             }
             NumberMap<Byte,Level> levels_;
-            levels_ = pl_.getLevels();
+            levels_ = pl_.getLevelsMap();
             LevelWithWildPokemon level_ = (LevelWithWildPokemon) levels_.getVal(c.getLevel().getLevelIndex());
             AreaApparition area_ = level_.getAreaByPoint(c.getLevel().getPoint());
             if (!area_.isVirtual()) {
@@ -1050,8 +1050,8 @@ public class DataMap {
                 }
             }
             if (place_ instanceof Cave) {
-                for (byte k: ((Cave)place_).getLevels().getKeys()) {
-                    LevelCave levelCave_ = (LevelCave)((Cave)place_).getLevels().getVal(k);
+                for (byte k: ((Cave)place_).getLevelsMap().getKeys()) {
+                    LevelCave levelCave_ = (LevelCave)((Cave)place_).getLevelsMap().getVal(k);
                     for (Point p: levelCave_.getLegendaryPks().getKeys()) {
                         Coords c_ = new Coords();
                         c_.setNumberPlace(s);
@@ -1114,7 +1114,7 @@ public class DataMap {
                 beatGymLeader.add(c_);
             }
             if (place_ instanceof Campaign) {
-                NumberMap<Byte,Level> levels_ = ((Campaign)place_).getLevels();
+                NumberMap<Byte,Level> levels_ = ((Campaign)place_).getLevelsMap();
                 for (EntryCust<Byte,Level> e: levels_.entryList()) {
                     LevelWithWildPokemon wild_ = (LevelWithWildPokemon)e.getValue();
                     for (EntryCust<Point,CharacterInRoadCave> c: wild_.getCharacters().entryList()) {
@@ -1615,7 +1615,7 @@ public class DataMap {
                 Condition cond_ = initCondition(coords_,gymCond_);
                 return_.put(coords_,cond_);
             }
-            LevelCave level_ = (LevelCave)cave_.getLevels().getVal(_id.getLevel().getLevelIndex());
+            LevelCave level_ = (LevelCave)cave_.getLevelsMap().getVal(_id.getLevel().getLevelIndex());
             if (level_.getLinksOtherLevels().contains(_id.getLevel().getPoint())) {
                 Link link_ = level_.getLinksOtherLevels().getVal(_id.getLevel().getPoint());
                 Coords coords_ = link_.getCoords();
@@ -2110,7 +2110,7 @@ public class DataMap {
     }
     public void joinLevelCave(short _place,LevelPoint _l1,LevelPoint _l2, String _imgName) {
         Cave cave_ = (Cave)places.getVal(_place);
-        LevelCave l1_ = (LevelCave)cave_.getLevels().getVal(_l1.getLevelIndex());
+        LevelCave l1_ = (LevelCave)cave_.getLevelsMap().getVal(_l1.getLevelIndex());
         ObjectMap<Point,Link> links_ = l1_.getLinksOtherLevels();
         if (links_.contains(_l1.getPoint())) {
             Link link_ = links_.getVal(_l1.getPoint());
@@ -2128,17 +2128,17 @@ public class DataMap {
     }
     public void unjoinLevelCave(short _place,LevelPoint _l1) {
         Cave cave_ = (Cave)places.getVal(_place);
-        LevelCave l1_ = (LevelCave)cave_.getLevels().getVal(_l1.getLevelIndex());
+        LevelCave l1_ = (LevelCave)cave_.getLevelsMap().getVal(_l1.getLevelIndex());
         ObjectMap<Point,Link> links_ = l1_.getLinksOtherLevels();
         Link link_ = links_.getVal(_l1.getPoint());
         links_.removeKey(_l1.getPoint());
-        l1_ = (LevelCave)cave_.getLevels().getVal(link_.getCoords().getLevel().getLevelIndex());
+        l1_ = (LevelCave)cave_.getLevelsMap().getVal(link_.getCoords().getLevel().getLevelIndex());
         links_ = l1_.getLinksOtherLevels();
         links_.removeKey(link_.getCoords().getLevel().getPoint());
     }
     void unjoinLevelCave(short _place,byte _level) {
         Cave cave_ = (Cave)places.getVal(_place);
-        LevelCave l1_ =(LevelCave)cave_.getLevels().getVal(_level);
+        LevelCave l1_ =(LevelCave)cave_.getLevelsMap().getVal(_level);
         ObjectMap<Point,Link> links_ = l1_.getLinksOtherLevels();
         EqList<Point> keys_ = links_.getKeys();
         for (Point p: keys_) {
@@ -2283,13 +2283,13 @@ public class DataMap {
         }
         if (place_ instanceof League) {
             LevelPoint lPoint_ = _coords.getLevel();
-            LevelLeague levelLeague_ =  (LevelLeague)((League)place_).getLevels().getVal(lPoint_.getLevelIndex());
+            LevelLeague levelLeague_ =  (LevelLeague)((League)place_).getLevelsMap().getVal(lPoint_.getLevelIndex());
             if (lPoint_.getLevelIndex() == CustList.FIRST_INDEX) {
                 if (Point.eq(((League)place_).getBegin(), pt_)) {
                     return false;
                 }
             } else {
-                LevelLeague levelLeagueBack_ =  (LevelLeague)((League)place_).getLevels().getVal((byte) (lPoint_.getLevelIndex()-1));
+                LevelLeague levelLeagueBack_ =  (LevelLeague)((League)place_).getLevelsMap().getVal((byte) (lPoint_.getLevelIndex()-1));
                 if (Point.eq(levelLeagueBack_.getNextLevelTarget(), pt_)) {
                     return false;
                 }
@@ -2313,7 +2313,7 @@ public class DataMap {
         }
         LevelPoint lPoint_ = _coords.getLevel();
         if (place_ instanceof Cave) {
-            LevelCave levelCave_ = (LevelCave)((Cave)place_).getLevels().getVal(lPoint_.getLevelIndex());
+            LevelCave levelCave_ = (LevelCave)((Cave)place_).getLevelsMap().getVal(lPoint_.getLevelIndex());
             if (levelCave_.getLinksOtherLevels().contains(pt_)) {
                 return false;
             }
@@ -2366,7 +2366,7 @@ public class DataMap {
         }
         if (place_ instanceof League) {
             LevelPoint lPoint_ = _link.getLevel();
-            LevelLeague levelLeague_ = (LevelLeague)((League)place_).getLevels().getVal(lPoint_.getLevelIndex());
+            LevelLeague levelLeague_ = (LevelLeague)((League)place_).getLevelsMap().getVal(lPoint_.getLevelIndex());
             if (lPoint_.getLevelIndex() == CustList.FIRST_INDEX) {
                 if (Point.eq(((League)place_).getBegin(), pt_)) {
                     if (Point.eq(levelLeague_.getAccessPoint(), _target)) {
@@ -2375,7 +2375,7 @@ public class DataMap {
                     ((League)place_).getBegin().affect(_target);
                 }
             } else {
-                LevelLeague levelLeagueBack_ = (LevelLeague)((League)place_).getLevels().getVal((byte) (lPoint_.getLevelIndex()-1));
+                LevelLeague levelLeagueBack_ = (LevelLeague)((League)place_).getLevelsMap().getVal((byte) (lPoint_.getLevelIndex()-1));
                 if (Point.eq(levelLeagueBack_.getNextLevelTarget(), pt_)) {
                     if (Point.eq(levelLeague_.getAccessPoint(), _target)) {
                         return;
@@ -2385,7 +2385,7 @@ public class DataMap {
             }
             if (Point.eq(levelLeague_.getAccessPoint(), pt_)) {
                 if (lPoint_.getLevelIndex() > 0) {
-                    LevelLeague levelLeagueBack_ = (LevelLeague)((League)place_).getLevels().getVal((byte) (lPoint_.getLevelIndex()-1));
+                    LevelLeague levelLeagueBack_ = (LevelLeague)((League)place_).getLevelsMap().getVal((byte) (lPoint_.getLevelIndex()-1));
                     if (Point.eq(levelLeagueBack_.getNextLevelTarget(), _target)) {
                         return;
                     }
@@ -2416,7 +2416,7 @@ public class DataMap {
                 if (placeTarget_.getLinksWithOtherPlaces().contains(lPoint_)) {
                     otherLink_ = placeTarget_.getLinksWithOtherPlaces().getVal(lPoint_);
                 } else {
-                    LevelCave levelCave_ = (LevelCave)placeTarget_.getLevels().getVal(lPoint_.getLevelIndex());
+                    LevelCave levelCave_ = (LevelCave)placeTarget_.getLevelsMap().getVal(lPoint_.getLevelIndex());
                     if (levelCave_.getLinksOtherLevels().contains(pt_)) {
                         otherLink_ = levelCave_.getLinksOtherLevels().getVal(pt_);
                     } else {
@@ -2441,7 +2441,7 @@ public class DataMap {
                 if (placeTarget_.getLinksWithOtherPlaces().contains(lPoint_)) {
                     otherLink_ = placeTarget_.getLinksWithOtherPlaces().getVal(lPoint_);
                 } else {
-                    LevelCave levelCave_ = (LevelCave)placeTarget_.getLevels().getVal(lPoint_.getLevelIndex());
+                    LevelCave levelCave_ = (LevelCave)placeTarget_.getLevelsMap().getVal(lPoint_.getLevelIndex());
                     if (levelCave_.getLinksOtherLevels().contains(pt_)) {
                         otherLink_ = levelCave_.getLinksOtherLevels().getVal(pt_);
                     } else {
@@ -2455,7 +2455,7 @@ public class DataMap {
         }
         LevelPoint lPoint_ = _link.getLevel();
         if (place_ instanceof Cave) {
-            LevelCave levelCave_ = (LevelCave)((Cave)place_).getLevels().getVal(lPoint_.getLevelIndex());
+            LevelCave levelCave_ = (LevelCave)((Cave)place_).getLevelsMap().getVal(lPoint_.getLevelIndex());
             if (levelCave_.getLinksOtherLevels().contains(_target)) {
                 return;
             }
@@ -2469,7 +2469,7 @@ public class DataMap {
             if (levelCave_.getLinksOtherLevels().contains(pt_)) {
                 link_ = levelCave_.getLinksOtherLevels().getVal(pt_);
                 other_ = link_.getCoords().getLevel();
-                LevelCave otherLevelCave_ = (LevelCave)((Cave)place_).getLevels().getVal(other_.getLevelIndex());
+                LevelCave otherLevelCave_ = (LevelCave)((Cave)place_).getLevelsMap().getVal(other_.getLevelIndex());
                 Link otherLink_ = otherLevelCave_.getLinksOtherLevels().getVal(other_.getPoint());
                 otherLink_.getCoords().getLevel().getPoint().affect(_target);
             } else {
@@ -2758,13 +2758,13 @@ public class DataMap {
         }
         if (place_ instanceof League) {
             LevelPoint lPoint_ = _link.getLevel();
-            LevelLeague levelLeague_ =  (LevelLeague)((League)place_).getLevels().getVal(lPoint_.getLevelIndex());
+            LevelLeague levelLeague_ =  (LevelLeague)((League)place_).getLevelsMap().getVal(lPoint_.getLevelIndex());
             if (lPoint_.getLevelIndex() == CustList.FIRST_INDEX) {
                 if (Point.eq(((League)place_).getBegin(), pt_)) {
                     ((League)place_).getBegin().affect(new Point());
                 }
             } else {
-                LevelLeague levelLeagueBack_ = (LevelLeague)((League)place_).getLevels().getVal((byte) (lPoint_.getLevelIndex()-1));
+                LevelLeague levelLeagueBack_ = (LevelLeague)((League)place_).getLevelsMap().getVal((byte) (lPoint_.getLevelIndex()-1));
                 if (Point.eq(levelLeagueBack_.getNextLevelTarget(), pt_)) {
                     levelLeagueBack_.getNextLevelTarget().affect(new Point());
                 }
@@ -2782,7 +2782,7 @@ public class DataMap {
                 if (placeTarget_.getLinksWithOtherPlaces().contains(lPoint_)) {
                     placeTarget_.getLinksWithOtherPlaces().removeKey(lPoint_);
                 } else {
-                    LevelCave levelCave_ = (LevelCave)placeTarget_.getLevels().getVal(lPoint_.getLevelIndex());
+                    LevelCave levelCave_ = (LevelCave)placeTarget_.getLevelsMap().getVal(lPoint_.getLevelIndex());
                     if (levelCave_.getLinksOtherLevels().contains(pt_)) {
                         levelCave_.getLinksOtherLevels().removeKey(pt_);
                     } else {
@@ -2801,7 +2801,7 @@ public class DataMap {
                 if (placeTarget_.getLinksWithOtherPlaces().contains(lPoint_)) {
                     placeTarget_.getLinksWithOtherPlaces().removeKey(lPoint_);
                 } else {
-                    LevelCave levelCave_ = (LevelCave)placeTarget_.getLevels().getVal(lPoint_.getLevelIndex());
+                    LevelCave levelCave_ = (LevelCave)placeTarget_.getLevelsMap().getVal(lPoint_.getLevelIndex());
                     if (levelCave_.getLinksOtherLevels().contains(pt_)) {
                         levelCave_.getLinksOtherLevels().removeKey(pt_);
                     } else {
@@ -2813,13 +2813,13 @@ public class DataMap {
         }
         LevelPoint lPoint_ = _link.getLevel();
         if (place_ instanceof Cave) {
-            LevelCave levelCave_ = (LevelCave)((Cave)place_).getLevels().getVal(lPoint_.getLevelIndex());
+            LevelCave levelCave_ = (LevelCave)((Cave)place_).getLevelsMap().getVal(lPoint_.getLevelIndex());
             LevelPoint other_;
             Link link_;
             if (levelCave_.getLinksOtherLevels().contains(pt_)) {
                 link_ = levelCave_.getLinksOtherLevels().getVal(pt_);
                 other_ = link_.getCoords().getLevel();
-                LevelCave otherLevelCave_ = (LevelCave)((Cave)place_).getLevels().getVal(other_.getLevelIndex());
+                LevelCave otherLevelCave_ = (LevelCave)((Cave)place_).getLevelsMap().getVal(other_.getLevelIndex());
                 otherLevelCave_.getLinksOtherLevels().removeKey(other_.getPoint());
             } else {
                 if (((Cave)place_).getLinksWithOtherPlaces().contains(lPoint_)) {
@@ -2859,8 +2859,8 @@ public class DataMap {
     public void deleteLevelCave(short _cave, byte _level) {
         Cave cave_ = (Cave) places.getVal(_cave);
         unjoinLevelCave(_cave, _level);
-        cave_.getLevels().removeKey(_level);
-        if (cave_.getLevels().isEmpty()) {
+        cave_.getLevelsMap().removeKey(_level);
+        if (cave_.getLevelsMap().isEmpty()) {
             deleteCave(_cave);
         }
     }

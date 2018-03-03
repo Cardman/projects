@@ -29,7 +29,7 @@ public abstract class ResultsGame {
         return globalResultsPageTitle;
     }
 
-    protected final void setGlobalResultsPageTitle(String _globalResultsPageTitle) {
+    public final void setGlobalResultsPageTitle(String _globalResultsPageTitle) {
         globalResultsPageTitle = _globalResultsPageTitle;
     }
 
@@ -37,7 +37,7 @@ public abstract class ResultsGame {
         return detailResultsTitle;
     }
 
-    protected final void setDetailResultsTitle(String _detailResultsTitle) {
+    public final void setDetailResultsTitle(String _detailResultsTitle) {
         detailResultsTitle = _detailResultsTitle;
     }
 
@@ -63,4 +63,16 @@ public abstract class ResultsGame {
 
     public abstract void initialize(StringList _pseudos,
             CustList<Numbers<Long>> _scores);
+
+    public void setRenderedPages(StringMap<String> _renderedPages) {
+        renderedPages = _renderedPages;
+    }
+
+    public void setSigmas(EqList<Rate> _sigmas) {
+        sigmas = _sigmas;
+    }
+
+    public void setSums(Numbers<Long> _sums) {
+        sums = _sums;
+    }
 }

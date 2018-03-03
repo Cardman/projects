@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.belote.BidBeloteSuit;
 
 @RwXml
-public class ErrorBiddingBelote {
+public final class ErrorBiddingBelote {
 
     private BidBeloteSuit bid;
 

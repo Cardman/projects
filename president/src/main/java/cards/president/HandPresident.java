@@ -247,4 +247,11 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
         return retString_.join(SEPARATOR);
     }
 
+    public EnumList<CardPresident> getCards() {
+        return cards;
+    }
+
+    public void setCards(EnumList<CardPresident> _cards) {
+        cards = _cards;
+    }
 }

@@ -1,6 +1,7 @@
 package cards.gui.events;
 import java.awt.event.MouseEvent;
 
+import code.util.consts.Constants;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.CalledCards;
 import cards.tarot.HandTarot;
@@ -34,6 +35,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
             CalledCards calledCards_ = new CalledCards();
             calledCards_.setCalledCards(cartesAppel_);
             calledCards_.setDiscarding(true);
+            calledCards_.setLocale(Constants.getLanguage());
             container.getOwner().sendObject(calledCards_);
         }
         container.setCanCall(false);
@@ -41,6 +43,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
         cartesAppel_.ajouter(getCarteVerif());
         CalledCards calledCards_ = new CalledCards();
         calledCards_.setCalledCards(cartesAppel_);
+        calledCards_.setLocale(Constants.getLanguage());
         container.getOwner().sendObject(calledCards_);
     }
 }

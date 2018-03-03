@@ -6466,4 +6466,85 @@ public final class GameBelote {
     public static void setChargementSimulation(int _chargementSimulation) {
         GameBelote._chargementSimulation_ = _chargementSimulation;
     }
+
+    public DealBelote getDeal() {
+        return deal;
+    }
+
+    public void setDeal(DealBelote _deal) {
+        deal = _deal;
+    }
+
+    public EqList<DeclareHandBelote> getDeclares() {
+        return declares;
+    }
+
+    public void setDeclares(EqList<DeclareHandBelote> _declares) {
+        declares = _declares;
+    }
+
+    public EqList<HandBelote> getDeclaresBeloteRebelote() {
+        return declaresBeloteRebelote;
+    }
+
+    public void setDeclaresBeloteRebelote(EqList<HandBelote> _declaresBeloteRebelote) {
+        declaresBeloteRebelote = _declaresBeloteRebelote;
+    }
+
+    public BooleanList getWonLastTrick() {
+        return wonLastTrick;
+    }
+
+    public void setWonLastTrick(BooleanList _wonLastTrick) {
+        wonLastTrick = _wonLastTrick;
+    }
+
+    public CustList<TrickBelote> getTricks() {
+        return tricks;
+    }
+
+    public void setTricks(CustList<TrickBelote> _tricks) {
+        tricks = _tricks;
+    }
+
+    public TrickBelote getProgressingTrick() {
+        return progressingTrick;
+    }
+
+    public void setProgressingTrick(TrickBelote _progressingTrick) {
+        progressingTrick = _progressingTrick;
+    }
+
+    public EqList<BidBeloteSuit> getBids() {
+        return bids;
+    }
+
+    public void setBids(EqList<BidBeloteSuit> _bids) {
+        bids = _bids;
+    }
+
+    public long getNumber() {
+        return number;
+    }
+
+    public void setNumber(long _number) {
+        number = _number;
+    }
+
+    public RulesBelote getRules() {
+        return rules;
+    }
+
+    public void setRules(RulesBelote _rules) {
+        rules = _rules;
+    }
+
+    public void setType(GameType _type) {
+        type = _type;
+    }
+
+    public void setScores(Numbers<Short> _scores) {
+        scores = _scores;
+    }
+
 }

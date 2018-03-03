@@ -213,4 +213,52 @@ public final class RulesTarot {
     public void setDiscardAfterCall(boolean _discardAfterCall) {
         discardAfterCall = _discardAfterCall;
     }
+
+    public MixCardsChoice getMixedCards() {
+        return mixedCards;
+    }
+
+    public void setMixedCards(MixCardsChoice _mixedCards) {
+        mixedCards = _mixedCards;
+    }
+
+    public EnumMap<BidTarot, Boolean> getAllowedBids() {
+        return allowedBids;
+    }
+
+    public void setAllowedBids(EnumMap<BidTarot, Boolean> _allowedBids) {
+        allowedBids = _allowedBids;
+    }
+
+    public DealingTarot getDealing() {
+        return dealing;
+    }
+
+    public void setDealing(DealingTarot _dealing) {
+        dealing = _dealing;
+    }
+
+    public EnumMap<Handfuls, Integer> getAllowedHandfuls() {
+        return allowedHandfuls;
+    }
+
+    public void setAllowedHandfuls(EnumMap<Handfuls, Integer> _allowedHandfuls) {
+        allowedHandfuls = _allowedHandfuls;
+    }
+
+    public EndDealTarot getEndDealTarot() {
+        return endDealTarot;
+    }
+
+    public void setEndDealTarot(EndDealTarot _endDealTarot) {
+        endDealTarot = _endDealTarot;
+    }
+
+    public int getNbDeals() {
+        return nbDeals;
+    }
+
+    public void setNbDeals(int _nbDeals) {
+        nbDeals = _nbDeals;
+    }
 }

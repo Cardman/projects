@@ -23,7 +23,6 @@ public class EvolvedScore implements XmlTransientable, MidListable<EvolvedPart>,
 
     private String name = STRING;
 
-    @RwXml
     public EvolvedScore() {
         score = new Score();
     }
@@ -179,5 +178,9 @@ public class EvolvedScore implements XmlTransientable, MidListable<EvolvedPart>,
 
     public void setName(String _name) {
         name = _name;
+    }
+
+    public void setParts(EqList<EvolvedPart> _parts) {
+        parts = _parts;
     }
 }

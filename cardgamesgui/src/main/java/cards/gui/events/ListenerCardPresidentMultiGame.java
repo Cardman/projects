@@ -1,10 +1,13 @@
 package cards.gui.events;
 import java.awt.event.MouseEvent;
 
-import code.util.consts.Constants;
 import cards.gui.containers.ContainerMultiPresident;
 import cards.network.president.actions.PlayingCardPresident;
+import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
+import cards.president.enumerations.Playing;
+import code.util.NumberMap;
+import code.util.consts.Constants;
 
 public class ListenerCardPresidentMultiGame extends
         AbstractListenerCardPresident {
@@ -33,9 +36,11 @@ public class ListenerCardPresidentMultiGame extends
         PlayingCardPresident pl_ = new PlayingCardPresident();
         pl_.setPlace(container.getIndexInGame());
         pl_.setPlayedCard(getCarteVerif());
+        pl_.setPlayedHand(new HandPresident());
         pl_.setIndex(getIndexVerif());
         pl_.setPass(false);
         pl_.setLocale(Constants.getLanguage());
+        pl_.setStatus(new NumberMap<Byte, Playing>());
         container.getOwner().sendObject(pl_);
     }
 }

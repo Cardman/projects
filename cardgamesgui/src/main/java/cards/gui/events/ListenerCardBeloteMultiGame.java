@@ -2,6 +2,7 @@ package cards.gui.events;
 import java.awt.event.MouseEvent;
 
 import code.util.consts.Constants;
+import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.PlayingCardBelote;
@@ -34,6 +35,7 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
         pl_.setDeclaring(container.isAnnonceBelote());
         pl_.setDeclaringBeloteRebelote(container.isAnnonceBeloteRebelote());
         pl_.setPlayedCard(getCarteVerif());
+        pl_.setDeclare(new DeclareHandBelote());
         pl_.setLocale(Constants.getLanguage());
         container.getOwner().sendObject(pl_);
     }

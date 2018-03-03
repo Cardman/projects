@@ -4,7 +4,7 @@ import cards.belote.BidBeloteSuit;
 import cards.network.common.PlayerActionGame;
 
 @RwXml
-public class BiddingBelote extends PlayerActionGame {
+public final class BiddingBelote extends PlayerActionGame {
 
     private BidBeloteSuit bidBelote;
 

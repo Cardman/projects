@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.tarot.HandTarot;
 
 @RwXml
-public class CallableCardsDiscard {
+public final class CallableCardsDiscard {
 
     private HandTarot callableCards;
 

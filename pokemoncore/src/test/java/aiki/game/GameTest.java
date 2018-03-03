@@ -793,7 +793,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
         assertTrue(game_.getTakenObjects().getVal(newCoords(2, 0, 7, 5)));
-        assertTrue(game_.getPlayer().getInventory().getTm().containsObj((short) 2));
+        assertTrue(game_.getPlayer().getInventory().gotTm().containsObj((short) 2));
     }
 
     @Test
@@ -808,7 +808,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
         assertTrue(game_.getTakenObjects().getVal(newCoords(2, 0, 8, 5)));
-        assertTrue(game_.getPlayer().getInventory().getHm().containsObj((short) 1));
+        assertTrue(game_.getPlayer().getInventory().gotHm().containsObj((short) 1));
     }
 
     @Test
@@ -823,7 +823,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
         assertTrue(game_.getTakenObjects().getVal(newCoords(0, 0, 0, 1)));
-        assertTrue(game_.getPlayer().getInventory().getTm().containsObj((short) 5));
+        assertTrue(game_.getPlayer().getInventory().gotTm().containsObj((short) 5));
         assertEq(new LgInt("1"), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
     }
 

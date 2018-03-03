@@ -571,8 +571,7 @@ public final class Fight {
     /***/
     private transient CustList<AnimationInt> effects = new CustList<AnimationInt>();
 
-    @RwXml
-    Fight() {
+    public Fight() {
         damage.setDamage(Rate.zero());
         damage.setDamageClone(Rate.zero());
         damage.setDamageCount(Rate.zero());
@@ -912,15 +911,15 @@ public final class Fight {
         return l_;
     }
 
-    void setFirstPositPlayerFighters(NumberMap<Byte,Byte> _firstPositPlayerFighters) {
+    public void setFirstPositPlayerFighters(NumberMap<Byte,Byte> _firstPositPlayerFighters) {
         firstPositPlayerFighters = _firstPositPlayerFighters;
     }
 
-    NumberMap<Byte,Byte> getFirstPositFoeFighters() {
+    public NumberMap<Byte,Byte> getFirstPositFoeFighters() {
         return firstPositFoeFighters;
     }
 
-    void setFirstPositFoeFighters(NumberMap<Byte,Byte> _firstPositFoeFighters) {
+    public void setFirstPositFoeFighters(NumberMap<Byte,Byte> _firstPositFoeFighters) {
         firstPositFoeFighters = _firstPositFoeFighters;
     }
 
@@ -936,11 +935,11 @@ public final class Fight {
         return allyChoice.values();
     }
 
-    ObjectMap<MoveTarget,MoveTarget> getAllyChoice() {
+    public ObjectMap<MoveTarget,MoveTarget> getAllyChoice() {
         return allyChoice;
     }
 
-    void setAllyChoice(ObjectMap<MoveTarget,MoveTarget> _allyChoice) {
+    public void setAllyChoice(ObjectMap<MoveTarget,MoveTarget> _allyChoice) {
         allyChoice = _allyChoice;
     }
 
@@ -1225,7 +1224,7 @@ public final class Fight {
         return caughtEvolutions;
     }
 
-    void setCaughtEvolutions(StringList _caughtEvolutions) {
+    public void setCaughtEvolutions(StringList _caughtEvolutions) {
         caughtEvolutions = _caughtEvolutions;
     }
 

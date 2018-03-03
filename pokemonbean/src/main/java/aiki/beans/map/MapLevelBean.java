@@ -208,7 +208,7 @@ public class MapLevelBean extends CommonBean {
                 getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
                 return LEVEL;
             }
-            LevelCave level_ = (LevelCave) c_.getLevels().getVal(lev_.byteValue());
+            LevelCave level_ = (LevelCave) c_.getLevelsMap().getVal(lev_.byteValue());
             if (level_.getLinksOtherLevels().contains(pt_)) {
                 Coords coords_ = level_.getLinksOtherLevels().getVal(pt_).getCoords();
                 getForms().put(LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
@@ -279,7 +279,7 @@ public class MapLevelBean extends CommonBean {
         }
         if (p_ instanceof Campaign) {
             Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
+            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal(lev_.byteValue());
             if (l_.getDualFights().contains(pt_)) {
                 getForms().put(TRAINER, l_.getDualFights().getVal(pt_).getFoeTrainer());
                 getForms().put(ALLY, l_.getDualFights().getVal(pt_).getAlly());

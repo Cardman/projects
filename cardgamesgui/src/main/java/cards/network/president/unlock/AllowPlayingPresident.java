@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.president.enumerations.Playing;
 
 @RwXml
-public class AllowPlayingPresident {
+public final class AllowPlayingPresident {
 
     private boolean enabledPass;
 

@@ -2,7 +2,6 @@ package aiki.game.fight;
 import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
-import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -26,8 +25,7 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Dis
         teamPosition = _cbt;
     }
 
-    @RwXml
-    MoveTeamPosition(String _value) {
+    public MoveTeamPosition(String _value) {
         StringList elts_ = StringList.splitChars(_value, SEPARATOR);
         move = elts_.first();
         teamPosition = new TeamPosition(elts_.last());

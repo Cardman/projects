@@ -40,7 +40,10 @@ public final class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
     }
 
     @Override
-    protected EnumMap<E,LgInt> getLaw() {
+    public EnumMap<E,LgInt> getLaw() {
         return law;
+    }
+    public void setLaw(EnumMap<E, LgInt> _law) {
+        law = _law;
     }
 }

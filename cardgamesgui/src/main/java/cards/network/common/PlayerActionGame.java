@@ -2,7 +2,7 @@ package cards.network.common;
 import code.util.annot.RwXml;
 
 @RwXml
-public class PlayerActionGame extends PlayerAction {
+public abstract class PlayerActionGame extends PlayerAction {
 
     private byte place;
 

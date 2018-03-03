@@ -440,4 +440,22 @@ public final class DealTarot implements Iterable<HandTarot> {
     public Iterator<HandTarot> iterator() {
         return deal.iterator();
     }
+    public EqList<HandTarot> getDeal() {
+        return deal;
+    }
+    public void setDeal(EqList<HandTarot> _deal) {
+        deal = _deal;
+    }
+    public byte getDealer() {
+        return dealer;
+    }
+    public void setDealer(byte _dealer) {
+        dealer = _dealer;
+    }
+    public long getNbDeals() {
+        return nbDeals;
+    }
+    public void setNbDeals(long _nbDeals) {
+        nbDeals = _nbDeals;
+    }
 }

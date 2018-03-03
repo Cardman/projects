@@ -2,7 +2,7 @@ package cards.network.common;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Quit extends PlayerActionGame {
+public final class Quit extends PlayerActionGame {
 
     private boolean closing;
 

@@ -194,4 +194,10 @@ public final class TrickPresident implements Iterable<HandPresident> {
         starter = (byte) _i;
         players = new Numbers<Byte>();
     }
+    public EqList<HandPresident> getCards() {
+        return cards;
+    }
+    public void setCards(EqList<HandPresident> _cards) {
+        cards = _cards;
+    }
 }

@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.president.HandPresident;
 
 @RwXml
-public class ReceivedGivenCards {
+public final class ReceivedGivenCards {
 
     private HandPresident received;
 

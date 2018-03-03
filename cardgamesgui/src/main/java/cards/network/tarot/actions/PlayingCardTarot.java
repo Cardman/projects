@@ -8,7 +8,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 
 @RwXml
-public class PlayingCardTarot extends PlayerActionGame {
+public final class PlayingCardTarot extends PlayerActionGame {
 
     private CardTarot playedCard;
 
@@ -20,7 +20,7 @@ public class PlayingCardTarot extends PlayerActionGame {
 
     private EnumList<Miseres> miseres;
 
-    private boolean aCalledCard;
+    private boolean calledCard;
 
     private byte takerIndex;
 
@@ -64,12 +64,12 @@ public class PlayingCardTarot extends PlayerActionGame {
         miseres = _miseres;
     }
 
-    public boolean isaCalledCard() {
-        return aCalledCard;
+    public boolean isCalledCard() {
+        return calledCard;
     }
 
-    public void setaCalledCard(boolean _aCalledCard) {
-        aCalledCard = _aCalledCard;
+    public void setCalledCard(boolean _calledCard) {
+        calledCard = _calledCard;
     }
 
     public byte getTakerIndex() {

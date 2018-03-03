@@ -50,7 +50,7 @@ import code.util.ints.SimpleIterable;
 import code.util.pagination.SelectedBoolean;
 
 public class LgNames {
-    public static final int DEFAULT_RADIX = 10;
+    protected static final int DEFAULT_RADIX = 10;
     protected static final String EMPTY_STRING = "";
     protected static final String RETURN_LINE = "\n";
     protected static final String SPACE = " ";

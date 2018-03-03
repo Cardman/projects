@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.network.common.PlayerActionGame;
 
 @RwXml
-public class SeenDiscardedTrumps extends PlayerActionGame {
+public final class SeenDiscardedTrumps extends PlayerActionGame {
 
     private boolean declaringSlam;
 

@@ -89,5 +89,40 @@ public final class SoftParams {
     public void sauvegarder(String _fichier){
         StreamTextFile.saveObject(_fichier, this);
     }
-
+    public EnumList<GameEnum> getLaunching() {
+        return launching;
+    }
+    public void setLaunching(EnumList<GameEnum> _launching) {
+        launching = _launching;
+    }
+    public int getDelayWaitingBids() {
+        return delayWaitingBids;
+    }
+    public void setDelayWaitingBids(int _delayWaitingBids) {
+        delayWaitingBids = _delayWaitingBids;
+    }
+    public int getDelayWaitingCards() {
+        return delayWaitingCards;
+    }
+    public void setDelayWaitingCards(int _delayWaitingCards) {
+        delayWaitingCards = _delayWaitingCards;
+    }
+    public int getDelayWaitingTricks() {
+        return delayWaitingTricks;
+    }
+    public void setDelayWaitingTricks(int _delayWaitingTricks) {
+        delayWaitingTricks = _delayWaitingTricks;
+    }
+    public boolean isWaitTrickClick() {
+        return waitTrickClick;
+    }
+    public void setWaitTrickClick(boolean _waitTrickClick) {
+        waitTrickClick = _waitTrickClick;
+    }
+    public boolean isPlayCardClick() {
+        return playCardClick;
+    }
+    public void setPlayCardClick(boolean _playCardClick) {
+        playCardClick = _playCardClick;
+    }
 }

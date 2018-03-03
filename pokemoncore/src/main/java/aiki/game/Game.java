@@ -206,8 +206,7 @@ public class Game {
 
     private transient StringList fullAccessiblePlaces = new StringList();
 
-    @RwXml
-    Game(){
+    public Game(){
         difficulty = new Difficulty();
         beatGymTrainer = new NumberMap<Short,EqList<Point>>();
         reinitInteraction=false;
@@ -2276,7 +2275,7 @@ public class Game {
 //            return;
 //        }
         LevelPoint lPoint_ = voisin_.getLevel();
-        LevelCave levelCave_ = (LevelCave)cave_.getLevels().getVal(lPoint_.getLevelIndex());
+        LevelCave levelCave_ = (LevelCave)cave_.getLevelsMap().getVal(lPoint_.getLevelIndex());
         if (levelCave_.getLinksOtherLevels().contains(lPoint_.getPoint())) {
             nbSteps++;
             playerCoords.affect(levelCave_.getLinksOtherLevels().getVal(lPoint_.getPoint()).getCoords());
@@ -2378,7 +2377,7 @@ public class Game {
         }
         //pl_ instanceof Campaign
         Campaign campaign_ = (Campaign) pl_;
-        LevelWithWildPokemon level_ = (LevelWithWildPokemon) campaign_.getLevels().getVal(_voisin.getLevel().getLevelIndex());
+        LevelWithWildPokemon level_ = (LevelWithWildPokemon) campaign_.getLevelsMap().getVal(_voisin.getLevel().getLevelIndex());
         if (level_.getCharacters().contains(_voisin.getLevel().getPoint())) {
             CharacterInRoadCave char_ = level_.getCharacters().getVal(_voisin.getLevel().getPoint());
             if (char_ instanceof Trainer) {
@@ -2855,7 +2854,7 @@ public class Game {
         showEndGame = _showEndGame;
     }
 
-    ObjectMap<NbFightCoords,Boolean> getBeatTrainer() {
+    public ObjectMap<NbFightCoords,Boolean> getBeatTrainer() {
         return beatTrainer;
     }
 

@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.tarot.enumerations.Handfuls;
 
 @RwXml
-public class ErrorHandful {
+public final class ErrorHandful {
 
     private Handfuls handful;
 

@@ -6,7 +6,7 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.DealingBelote;
 
 @RwXml
-public class DealtHandBelote {
+public final class DealtHandBelote {
 
     private HandBelote cards;
 

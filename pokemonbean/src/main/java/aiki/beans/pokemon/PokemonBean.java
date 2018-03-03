@@ -376,7 +376,7 @@ public class PokemonBean extends CommonBean {
     }
     public boolean isAppearing(Long _indexOne, Long _indexTwo) {
         Place pl_ = places.get(_indexOne.intValue()).getPlace();
-        Level level_ = pl_.getLevels().getVal(_indexTwo.byteValue());
+        Level level_ = pl_.getLevelsMap().getVal(_indexTwo.byteValue());
         if (!(level_ instanceof LevelWithWildPokemon)) {
             return false;
         }

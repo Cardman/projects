@@ -4,7 +4,7 @@ import code.util.Numbers;
 import code.util.annot.RwXml;
 
 @RwXml
-public class TeamsPlayers {
+public final class TeamsPlayers {
 
     private EqList<Numbers<Byte>> teams;
 

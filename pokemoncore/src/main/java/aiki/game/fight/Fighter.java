@@ -348,9 +348,7 @@ public final class Fighter {
 
     private transient Comment comment = new Comment();
 
-    @RwXml
-    Fighter(){
-
+    public Fighter(){
     }
 
     public Fighter(PokemonPlayer _pokemon,DataBase _import,byte _placeTerrain){
@@ -2671,7 +2669,7 @@ public final class Fighter {
         return i_;
     }
 
-    StringMap<Short> getStatus() {
+    public StringMap<Short> getStatus() {
         return status;
     }
 
@@ -2683,7 +2681,7 @@ public final class Fighter {
         return status.contains(_status);
     }
 
-    void setStatus(StringMap<Short> _status) {
+    public void setStatus(StringMap<Short> _status) {
         status = _status;
     }
 
@@ -2709,7 +2707,7 @@ public final class Fighter {
         return i_;
     }
 
-    ObjectMap<MoveTeamPosition,Short> getStatusRelat() {
+    public ObjectMap<MoveTeamPosition,Short> getStatusRelat() {
         return statusRelat;
     }
 
@@ -2717,7 +2715,7 @@ public final class Fighter {
         return statusRelat.getKeys();
     }
 
-    void setStatusRelat(ObjectMap<MoveTeamPosition,Short> _statusRelat) {
+    public void setStatusRelat(ObjectMap<MoveTeamPosition,Short> _statusRelat) {
         statusRelat = _statusRelat;
     }
 
@@ -2749,11 +2747,11 @@ public final class Fighter {
         return moves.getKeys();
     }
 
-    StringMap<UsesOfMove> getMoves() {
+    public StringMap<UsesOfMove> getMoves() {
         return moves;
     }
 
-    void setMoves(StringMap<UsesOfMove> _moves) {
+    public void setMoves(StringMap<UsesOfMove> _moves) {
         moves = _moves;
     }
 
@@ -2765,11 +2763,11 @@ public final class Fighter {
         return currentMoves.getKeys();
     }
 
-    StringMap<UsesOfMove> getCurrentMoves() {
+    public StringMap<UsesOfMove> getCurrentMoves() {
         return currentMoves;
     }
 
-    void setCurrentMoves(StringMap<UsesOfMove> _currentMoves) {
+    public void setCurrentMoves(StringMap<UsesOfMove> _currentMoves) {
         currentMoves = _currentMoves;
     }
 

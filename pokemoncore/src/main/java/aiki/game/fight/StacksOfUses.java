@@ -3,7 +3,6 @@ import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 
 
@@ -25,8 +24,7 @@ public final class StacksOfUses implements Displayable {
     public StacksOfUses() {
     }
 
-    @RwXml
-    StacksOfUses(String _value) {
+    public StacksOfUses(String _value) {
         StringList elts_ = StringList.splitChars(_value, SEPARATOR);
         nbRounds = Byte.parseByte(elts_.first());
         firstStacked = StringList.quickEq(elts_.get(CustList.SECOND_INDEX), TRUE);

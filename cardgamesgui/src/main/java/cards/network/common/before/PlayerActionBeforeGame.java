@@ -3,7 +3,7 @@ import code.util.annot.RwXml;
 import cards.network.common.PlayerAction;
 
 @RwXml
-public class PlayerActionBeforeGame extends PlayerAction {
+public abstract class PlayerActionBeforeGame extends PlayerAction {
 
     private int index;
 

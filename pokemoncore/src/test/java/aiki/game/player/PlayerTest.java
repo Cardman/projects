@@ -261,7 +261,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         assertEq(0, player_.getBox().size());
         assertEq(new LgInt("3000"), player_.getMoney());
-        assertEq(100, player_.getInventory().getItems().size());
+        assertEq(100, player_.getInventory().getItemsKeys().size());
         assertEq(LgInt.zero(), player_.getInventory().getNumber(ACCRO_GRIFFE));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CERIZ));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CHERIM));
@@ -402,7 +402,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         assertEq(0, player_.getBox().size());
         assertEq(new LgInt("3000"), player_.getMoney());
-        assertEq(100, player_.getInventory().getItems().size());
+        assertEq(100, player_.getInventory().getItemsKeys().size());
         assertEq(LgInt.zero(), player_.getInventory().getNumber(ACCRO_GRIFFE));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CERIZ));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CHERIM));
@@ -516,7 +516,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(0, player_.getPokemonPlayerList().size());
         assertEq(0, player_.getBox().size());
         assertEq(new LgInt("3000"), player_.getMoney());
-        assertEq(100, player_.getInventory().getItems().size());
+        assertEq(100, player_.getInventory().getItemsKeys().size());
         assertEq(LgInt.zero(), player_.getInventory().getNumber(ACCRO_GRIFFE));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CERIZ));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CHERIM));
@@ -630,7 +630,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(0, player_.getPokemonPlayerList().size());
         assertEq(0, player_.getBox().size());
         assertEq(new LgInt("3000"), player_.getMoney());
-        assertEq(100, player_.getInventory().getItems().size());
+        assertEq(100, player_.getInventory().getItemsKeys().size());
         assertEq(LgInt.zero(), player_.getInventory().getNumber(ACCRO_GRIFFE));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CERIZ));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CHERIM));
@@ -772,7 +772,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         assertEq(0, player_.getBox().size());
         assertEq(new LgInt("3000"), player_.getMoney());
-        assertEq(100, player_.getInventory().getItems().size());
+        assertEq(100, player_.getInventory().getItemsKeys().size());
         assertEq(LgInt.zero(), player_.getInventory().getNumber(ACCRO_GRIFFE));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CERIZ));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CHERIM));
@@ -914,7 +914,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         assertEq(0, player_.getBox().size());
         assertEq(new LgInt("3000"), player_.getMoney());
-        assertEq(100, player_.getInventory().getItems().size());
+        assertEq(100, player_.getInventory().getItemsKeys().size());
         assertEq(LgInt.zero(), player_.getInventory().getNumber(ACCRO_GRIFFE));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CERIZ));
         assertEq(LgInt.zero(), player_.getInventory().getNumber(BAIE_CHERIM));
@@ -1453,8 +1453,8 @@ public class PlayerTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
         player_.getHm((short) 1);
-        assertEq(1, player_.getInventory().getHm().size());
-        assertTrue(player_.getInventory().getHm().containsObj((short)1));
+        assertEq(1, player_.getInventory().gotHm().size());
+        assertTrue(player_.getInventory().gotHm().containsObj((short)1));
     }
 
     @Test
@@ -1463,8 +1463,8 @@ public class PlayerTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
         player_.getTm((short) 2);
-        assertEq(1, player_.getInventory().getTm().size());
-        assertTrue(player_.getInventory().getTm().containsObj((short)2));
+        assertEq(1, player_.getInventory().gotTm().size());
+        assertTrue(player_.getInventory().gotTm().containsObj((short)2));
     }
 
     @Test

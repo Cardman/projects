@@ -4,7 +4,7 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 
 @RwXml
-public class ErrorPlayingBelote {
+public final class ErrorPlayingBelote {
 
     private HandBelote cards;
 

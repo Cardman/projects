@@ -6,6 +6,9 @@ import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
 public final class Numbers<T extends Number> extends AbEqList<T> implements Equallable<Numbers<T>>, Displayable {
+    private static final int DEFAULT_RADIX = 10;
+    private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
+    private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
 
     public Numbers() {
     }
@@ -187,6 +190,54 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
 
     public static int[] wrapIntArray(int... _ints) {
         return _ints;
+    }
+    //this long parser is very naive
+    public static long parseLongZero(String _string) {
+        if (_string.isEmpty()) {
+            return 0;
+        }
+        long result_ = 0;
+        boolean negative_ = false;
+        int i_ = 0;
+        int max_ = _string.length();
+        long limit_;
+        long multmin_;
+        int digit_;
+
+        if (_string.charAt(0) == '-') {
+            negative_ = true;
+            limit_ = Long.MIN_VALUE;
+            i_++;
+        } else {
+            limit_ = -Long.MAX_VALUE;
+        }
+        if (negative_) {
+            multmin_ = MULTMIN_RADIX_TEN;
+        } else {
+            multmin_ = N_MULTMAX_RADIX_TEN;
+        }
+        int ch_ = _string.charAt(i_);
+        i_++;
+        digit_ = ch_ - '0';
+        result_ = -digit_;
+        while (i_ < max_) {
+            // Accumulating negatively avoids surprises near MAX_VALUE
+            ch_ = _string.charAt(i_);
+            i_++;
+            digit_ = ch_ - '0';
+            if (result_ < multmin_) {
+                return 0;
+            }
+            result_ *= DEFAULT_RADIX;
+            if (result_ < limit_ + digit_) {
+                return 0;
+            }
+            result_ -= digit_;
+        }
+        if (negative_) {
+            return result_;
+        }
+        return -result_;
     }
 
     public EqList<Numbers<Integer>> getAllIndexes() {

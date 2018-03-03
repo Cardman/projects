@@ -18,7 +18,7 @@ public class RefreshingDone extends PlayerActionGame {
 
     private EnumList<Miseres> miseres;
 
-    private boolean aCalledCard;
+    private boolean calledCard;
 
     public CardTarot getCard() {
         return card;
@@ -52,11 +52,11 @@ public class RefreshingDone extends PlayerActionGame {
         miseres = _miseres;
     }
 
-    public boolean isaCalledCard() {
-        return aCalledCard;
+    public boolean isCalledCard() {
+        return calledCard;
     }
 
-    public void setaCalledCard(boolean _aCalledCard) {
-        aCalledCard = _aCalledCard;
+    public void setCalledCard(boolean _calledCard) {
+        calledCard = _calledCard;
     }
 }

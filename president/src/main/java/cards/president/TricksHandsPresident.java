@@ -314,4 +314,25 @@ public final class TricksHandsPresident {
         }
         return l_;
     }
+
+    public EqList<HandPresident> getCardsHandsAtInitialState() {
+        return cardsHandsAtInitialState;
+    }
+
+    public void setCardsHandsAtInitialState(
+            EqList<HandPresident> _cardsHandsAtInitialState) {
+        cardsHandsAtInitialState = _cardsHandsAtInitialState;
+    }
+
+    public void setDistribution(DealPresident _distribution) {
+        distribution = _distribution;
+    }
+
+    public void setTricks(CustList<TrickPresident> _tricks) {
+        tricks = _tricks;
+    }
+
+    public void setProgressingTrick(TrickPresident _progressingTrick) {
+        progressingTrick = _progressingTrick;
+    }
 }

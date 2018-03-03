@@ -4,7 +4,7 @@ import code.util.annot.RwXml;
 import cards.tarot.enumerations.BidTarot;
 
 @RwXml
-public class AllowBiddingTarot {
+public final class AllowBiddingTarot {
 
     private EnumList<BidTarot> bids;
 

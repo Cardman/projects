@@ -941,7 +941,7 @@ public final class Team {
         return healAfter.getVal(_move).getVal(_key);
     }
 
-    StringMap<NumberMap<Byte,StacksOfUses>> getHealAfter() {
+    public StringMap<NumberMap<Byte,StacksOfUses>> getHealAfter() {
         return healAfter;
     }
 
@@ -966,7 +966,7 @@ public final class Team {
         return movesAnticipation.values();
     }
 
-    StringMap<NumberMap<Byte,Anticipation>> getMovesAnticipation() {
+    public StringMap<NumberMap<Byte,Anticipation>> getMovesAnticipation() {
         return movesAnticipation;
     }
 

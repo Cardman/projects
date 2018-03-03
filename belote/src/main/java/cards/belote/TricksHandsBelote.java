@@ -168,5 +168,17 @@ public final class TricksHandsBelote {
             cardsHandsAtInitialState.get(joueur_).supprimerCartes(cardsHandsAtInitialState.last());
         }
     }
-
+    public EqList<HandBelote> getCardsHandsAtInitialState() {
+        return cardsHandsAtInitialState;
+    }
+    public void setCardsHandsAtInitialState(
+            EqList<HandBelote> _cardsHandsAtInitialState) {
+        cardsHandsAtInitialState = _cardsHandsAtInitialState;
+    }
+    public void setDistribution(DealBelote _distribution) {
+        distribution = _distribution;
+    }
+    public void setTricks(CustList<TrickBelote> _tricks) {
+        tricks = _tricks;
+    }
 }

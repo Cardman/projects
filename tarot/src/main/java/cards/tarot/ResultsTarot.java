@@ -174,4 +174,11 @@ public final class ResultsTarot extends ResultsGame{
         return loc;
     }
 
+    public void setNicknames(StringList _nicknames) {
+        nicknames = _nicknames;
+    }
+
+    public void setLoc(String _loc) {
+        loc = _loc;
+    }
 }

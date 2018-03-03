@@ -15,7 +15,6 @@ import aiki.util.LawNumber;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.serialize.SerializeXmlObject;
 import code.util.EnumMap;
 import code.util.NumberMap;
 import code.util.ObjectMap;
@@ -870,14 +869,6 @@ public class InitializationDataBase {
         initTranslations(data_);
         data_.setEndGameImage(NULL_REF);
         //OK data, no homonyms
-        SerializeXmlObject.setCheckReferences(false);
-        SerializeXmlObject.checkNullPointers(data_.getPokedex());
-        SerializeXmlObject.checkNullPointers(data_.getMoves());
-        SerializeXmlObject.checkNullPointers(data_.getItems());
-        SerializeXmlObject.checkNullPointers(data_.getAbilities());
-        SerializeXmlObject.checkNullPointers(data_.getStatus());
-        SerializeXmlObject.checkNullPointers(data_.getMap());
-        SerializeXmlObject.checkNullPointers(data_.getCombos());
         data_.validateCore();
         data_.validateConstants();
         data_.setCheckTranslation(false);

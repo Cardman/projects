@@ -172,4 +172,68 @@ public final class RulesBelote {
     public void setNombreParties(int _nombreParties) {
         nbDeals = _nombreParties;
     }
+
+    public MixCardsChoice getMixedCards() {
+        return mixedCards;
+    }
+
+    public void setMixedCards(MixCardsChoice _mixedCards) {
+        mixedCards = _mixedCards;
+    }
+
+    public EnumMap<DeclaresBelote, Boolean> getAllowedDeclares() {
+        return allowedDeclares;
+    }
+
+    public void setAllowedDeclares(EnumMap<DeclaresBelote, Boolean> _allowedDeclares) {
+        allowedDeclares = _allowedDeclares;
+    }
+
+    public boolean isUnderTrumpFoe() {
+        return underTrumpFoe;
+    }
+
+    public void setUnderTrumpFoe(boolean _underTrumpFoe) {
+        underTrumpFoe = _underTrumpFoe;
+    }
+
+    public BeloteTrumpPartner getTrumpPartner() {
+        return trumpPartner;
+    }
+
+    public void setTrumpPartner(BeloteTrumpPartner _trumpPartner) {
+        trumpPartner = _trumpPartner;
+    }
+
+    public EnumMap<BidBelote, Boolean> getAllowedBids() {
+        return allowedBids;
+    }
+
+    public void setAllowedBids(EnumMap<BidBelote, Boolean> _allowedBids) {
+        allowedBids = _allowedBids;
+    }
+
+    public DealingBelote getDealing() {
+        return dealing;
+    }
+
+    public void setDealing(DealingBelote _dealing) {
+        dealing = _dealing;
+    }
+
+    public boolean isClassicCountPoints() {
+        return classicCountPoints;
+    }
+
+    public void setClassicCountPoints(boolean _classicCountPoints) {
+        classicCountPoints = _classicCountPoints;
+    }
+
+    public int getNbDeals() {
+        return nbDeals;
+    }
+
+    public void setNbDeals(int _nbDeals) {
+        nbDeals = _nbDeals;
+    }
 }

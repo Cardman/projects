@@ -27,7 +27,6 @@ public final class EvolvedPhrase implements XmlTransientable, MidListable<Evolve
 
     private int denominator;
 
-    @RwXml
     public EvolvedPhrase() {
         phrase = new Phrase();
         numerator = Phrase.DEFAULT_NUMERATOR;
@@ -203,4 +202,7 @@ public final class EvolvedPhrase implements XmlTransientable, MidListable<Evolve
         denominator = _denominator;
     }
 
+    public void setNotes(EqList<EvolvedNote> _notes) {
+        notes = _notes;
+    }
 }

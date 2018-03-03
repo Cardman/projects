@@ -1715,7 +1715,7 @@ public class FacadeGame implements WithMathFactory {
     public void searchTmToUse() {
         StringList list_ = new StringList();
         Inventory inventory_ = game.getPlayer().getInventory();
-        for (short i: inventory_.getTm()) {
+        for (short i: inventory_.gotTm()) {
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }
@@ -1725,7 +1725,7 @@ public class FacadeGame implements WithMathFactory {
     StringList getOwnedMoves() {
         StringList list_ = new StringList();
         Inventory inventory_ = game.getPlayer().getInventory();
-        for (short i: inventory_.getTm()) {
+        for (short i: inventory_.gotTm()) {
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }

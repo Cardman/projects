@@ -3482,7 +3482,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             Campaign c_ = (Campaign) p;
-            for (Level l: c_.getLevels().values()) {
+            for (Level l: c_.getLevelsMap().values()) {
                 LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                 for (CharacterInRoadCave c: level_.getCharacters().values()) {
                     if (c instanceof TrainerMultiFights) {
@@ -3527,7 +3527,7 @@ public class DataBase implements WithMathFactory {
                     String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
                     links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
                 }
-                for (Level l: cave_.getLevels().values()) {
+                for (Level l: cave_.getLevelsMap().values()) {
                     LevelCave lCave_ = (LevelCave)l;
                     for (Link k: lCave_.getLinksOtherLevels().values()) {
                         String f_ = k.getFileName();
@@ -4301,7 +4301,7 @@ public class DataBase implements WithMathFactory {
             p.getEvolutions().move(_oldName, _newName);
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     for (AreaApparition a: level_.getWildPokemonAreas()) {
@@ -4504,7 +4504,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     for (CharacterInRoadCave t: level_.getCharacters().values()) {
@@ -4634,7 +4634,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     for (AreaApparition a: level_.getWildPokemonAreas()) {
@@ -4777,7 +4777,7 @@ public class DataBase implements WithMathFactory {
             a.getIgnAbility().replace(_oldName, _newName);
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     for (AreaApparition a: level_.getWildPokemonAreas()) {
@@ -5493,7 +5493,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     for (AreaApparition a: level_.getWildPokemonAreas()) {
@@ -5728,7 +5728,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     for (CharacterInRoadCave t: level_.getCharacters().values()) {
@@ -5830,7 +5830,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     for (AreaApparition a: level_.getWildPokemonAreas()) {
@@ -5964,7 +5964,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     for (AreaApparition a: level_.getWildPokemonAreas()) {
@@ -6365,7 +6365,7 @@ public class DataBase implements WithMathFactory {
             p.getTechnicalMoves().removeObj(_tm);
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     EqList<Point> keys_ = new EqList<Point>();
@@ -6402,7 +6402,7 @@ public class DataBase implements WithMathFactory {
             p.getHiddenMoves().removeObj(_tm);
         }
         for (Place p: map.getPlaces().values()) {
-            for (Level l: p.getLevels().values()) {
+            for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
                     EqList<Point> keys_ = new EqList<Point>();

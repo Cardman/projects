@@ -200,6 +200,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollCallableCards().setVisible(false);
         ValidateDog v_ = new ValidateDog();
         v_.setPlace(indexInGame);
+        v_.setLocale(Constants.getLanguage());
         getOwner().sendObject(v_);
     }
 //    private void addButtonValidateDogTarotMulti(String _texte,boolean _apte) {
@@ -331,6 +332,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
         choice_.setPlace(indexInGame);
+        choice_.setPlacesPlayers(new NatTreeMap<Integer, Byte>());
         getOwner().sendObject(choice_);
     }
     @Override
@@ -380,6 +382,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //PackingWindowAfter.pack(this, true);
         Dealt dealt_ = new Dealt();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
 
@@ -419,6 +422,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //pack();
         DoneBidding dealt_ = new DoneBidding();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
 
@@ -456,6 +460,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!_dog.isHumanTaker()) {
             ShowDog show_ = new ShowDog();
             show_.setPlace(indexInGame);
+            show_.setLocale(Constants.getLanguage());
             getOwner().sendObject(show_);
         }
     }
@@ -478,6 +483,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!_dog.isHumanTaker()) {
             ShowDog show_ = new ShowDog();
             show_.setPlace(indexInGame);
+            show_.setLocale(Constants.getLanguage());
             getOwner().sendObject(show_);
         }
     }
@@ -489,6 +495,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         CalledCardKnown dealt_ = new CalledCardKnown();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
     public void errorDiscardingCard(ErrorDiscarding _error) {
@@ -533,6 +540,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         SeenDiscardedTrumps dis_ = new SeenDiscardedTrumps();
         dis_.setDeclaringSlam(_discardedTrumps.isDeclaringSlam());
         dis_.setPlace(indexInGame);
+        dis_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dis_);
     }
     public void displaySlam(BiddingSlamAfter _bidding) {
@@ -542,6 +550,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getEvents().append(StringList.concat(getPseudoByPlace(bid_.getPlace()),INTRODUCTION_PTS,MainWindow.SLAM,RETURN_LINE));
 
         DoneDisplaySlam dis_ = new DoneDisplaySlam();
+        dis_.setLocale(Constants.getLanguage());
         dis_.setPlace(indexInGame);
         getOwner().sendObject(dis_);
     }
@@ -618,7 +627,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         byte relative_ = relative(card_.getPlace());
         tapisTarot().setCarteTarot(relative_, card_.getPlayedCard());
         String pseudo_ = getPseudoByPlace(card_.getPlace());
-        if (_card.isaCalledCard()) {
+        if (_card.isCalledCard()) {
             getMini().setStatus(Status.CALLED_PLAYER, relative_);
             ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Status.CALLED_PLAYER.display()));
 
@@ -650,6 +659,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //pack();
         DonePlaying dealt_ = new DonePlaying();
         dealt_.setPlace(indexInGame);
+        dealt_.setLocale(Constants.getLanguage());
         getOwner().sendObject(dealt_);
     }
 
@@ -698,7 +708,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ref_.setChoosenHandful(_card.getChoosenHandful());
         ref_.setHandful(_card.getHandful());
         ref_.setMiseres(_card.getMiseres());
-        ref_.setaCalledCard(_card.isaCalledCard());
+        ref_.setCalledCard(_card.isCalledCard());
+        ref_.setLocale(Constants.getLanguage());
         ref_.setPlace(indexInGame);
         getOwner().sendObject(ref_);
     }
@@ -709,6 +720,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //PackingWindowAfter.pack(this, true);
         DonePause d_ = new DonePause();
         d_.setPlace(indexInGame);
+        d_.setLocale(Constants.getLanguage());
         getOwner().sendObject(d_);
     }
     @Override
@@ -718,6 +730,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         SelectTeams select_ = new SelectTeams();
         select_.setPlace(indexInGame);
+        select_.setLocale(Constants.getLanguage());
         getOwner().sendObject(select_);
     }
     @Override
@@ -727,6 +740,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         SelectTricksHands select_ = new SelectTricksHands();
         select_.setPlace(indexInGame);
+        select_.setLocale(Constants.getLanguage());
         getOwner().sendObject(select_);
     }
     public void showTricksHands(TricksHandsTarot _tricks) {
@@ -897,6 +911,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //PackingWindowAfter.pack(this, true);
         BiddingSlamAfter bid_ = new BiddingSlamAfter();
         bid_.setPlace(indexInGame);
+        bid_.setLocale(Constants.getLanguage());
         getOwner().sendObject(bid_);
     }
     public void displayTrumpsForHandfulMulti(HandTarot _trumps) {
@@ -1161,6 +1176,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //PackingWindowAfter.pack(this, true);
         Ok ok_ = new Ok();
         ok_.setPlace(indexInGame);
+        ok_.setLocale(Constants.getLanguage());
         getOwner().sendObject(ok_);
     }
 

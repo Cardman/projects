@@ -140,7 +140,7 @@ public final class FrameHtmlData extends ChildFrame {
 
     public void refresh() {
         messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
-        search.setText(messages.getVal(SEARCH_LABEL));
+        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         session.setLanguage(Constants.getLanguage());
         session.refresh();
     }

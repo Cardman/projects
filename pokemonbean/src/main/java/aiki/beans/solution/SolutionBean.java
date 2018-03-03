@@ -117,7 +117,7 @@ public class SolutionBean extends CommonBean {
         PlaceLevel key_ = keys_.get(_indexPlace.intValue());
         Place place_ = data_.getMap().getPlaces().getVal(key_.getPlace());
         String name_ = place_.getName();
-        if (place_.getLevels().size() == DataBase.ONE_POSSIBLE_CHOICE) {
+        if (place_.getLevelsMap().size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return name_;
         }
         return StringList.concat(name_,SPACE,Long.toString(key_.getLevel()));
