@@ -3,7 +3,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import code.util.annot.RwXml;
 
 @RwXml
-public class SentPokemon {
+public final class SentPokemon {
 
     private byte index;
 

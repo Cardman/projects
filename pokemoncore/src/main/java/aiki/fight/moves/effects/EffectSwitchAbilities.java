@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectSwitchAbilities extends Effect {
+public final class EffectSwitchAbilities extends Effect {
 
     private ExchangeType exchangeAbility;
     private String constAbility;

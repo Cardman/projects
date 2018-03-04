@@ -5,7 +5,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectProtectFromTypes extends Effect {
+public final class EffectProtectFromTypes extends Effect {
 
     private StringList immuAgainstTypes;
 

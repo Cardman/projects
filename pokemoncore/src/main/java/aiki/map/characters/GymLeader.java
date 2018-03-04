@@ -6,7 +6,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class GymLeader extends TrainerOneFight implements Fightable{
+public final class GymLeader extends TrainerOneFight implements Fightable{
 
     /**Technical move given to the user after the fight*/
     private short tm;

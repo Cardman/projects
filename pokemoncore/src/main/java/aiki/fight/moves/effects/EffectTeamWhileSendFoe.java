@@ -12,7 +12,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectTeamWhileSendFoe extends Effect {
+public final class EffectTeamWhileSendFoe extends Effect {
 
     @CheckedData
     private String failSending;

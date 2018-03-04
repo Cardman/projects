@@ -1,9 +1,9 @@
 package cards.belote.enumerations;
+import cards.consts.Order;
 import code.format.Format;
 import code.util.EnumList;
 import code.util.consts.Constants;
 import code.util.ints.Displayable;
-import cards.consts.Order;
 
 public enum BidBelote implements Displayable {
     FOLD(0,true),

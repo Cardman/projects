@@ -13,7 +13,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class Block {
+public final class Block {
 
     private short width;
 

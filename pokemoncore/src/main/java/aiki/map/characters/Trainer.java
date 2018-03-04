@@ -6,7 +6,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class Trainer extends Person {
+public abstract class Trainer extends Person {
 
     private byte multiplicityFight = 1;
 

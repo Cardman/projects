@@ -4,7 +4,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class ChoiceOfEvolutionAndMoves {
+public final class ChoiceOfEvolutionAndMoves {
 
     private String name = DataBase.EMPTY_STRING;
 

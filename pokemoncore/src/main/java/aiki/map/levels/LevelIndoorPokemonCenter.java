@@ -13,7 +13,7 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class LevelIndoorPokemonCenter extends Level{
+public final class LevelIndoorPokemonCenter extends Level{
 
     private ObjectMap<Point,Person> gerants;
 

@@ -6,7 +6,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class DualFight implements Fightable {
+public final class DualFight implements Fightable {
 
     private Ally ally;
 

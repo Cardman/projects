@@ -7,14 +7,14 @@ import junitparams.Parameters;
 
 import org.junit.Test;
 
-import code.util.EnumMap;
-import code.util.EqList;
 import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
+import code.util.EnumMap;
+import code.util.EqList;
 
 public class GameBeloteWithTrumpSuitSixTest extends GameBeloteTest {
     static Object[] rulesTrumpingPartner() {

@@ -5,7 +5,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class GerantPokemon extends Person {
+public final class GerantPokemon extends Person {
 
     private GeranceType gerance;
 

@@ -23,7 +23,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class StatusMoveData extends MoveData {
+public final class StatusMoveData extends MoveData {
     public static final String MOVE = "aiki.fight.moves.StatusMoveData";
 
     private boolean thievableMove;

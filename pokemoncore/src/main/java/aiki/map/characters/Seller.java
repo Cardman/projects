@@ -8,7 +8,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Seller extends Person {
+public final class Seller extends Person {
 
     @CheckedData
     private SellType sell;

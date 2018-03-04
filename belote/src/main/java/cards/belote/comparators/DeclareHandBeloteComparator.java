@@ -1,11 +1,11 @@
 package cards.belote.comparators;
 import java.util.Comparator;
 
-import code.util.CustList;
 import cards.belote.DeclareHandBelote;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
+import code.util.CustList;
 
 public final class DeclareHandBeloteComparator implements Comparator<DeclareHandBelote> {
 

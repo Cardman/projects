@@ -9,7 +9,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectSwitchPointView extends Effect {
+public final class EffectSwitchPointView extends Effect {
 
     private PointViewChangementType pointViewChangement;
     @Override

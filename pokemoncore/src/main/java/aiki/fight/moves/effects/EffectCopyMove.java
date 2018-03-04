@@ -7,7 +7,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectCopyMove extends Effect {
+public final class EffectCopyMove extends Effect {
 
     @CheckedData
     private short copyingMoveForUser;

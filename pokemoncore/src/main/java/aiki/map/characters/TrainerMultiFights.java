@@ -6,7 +6,7 @@ import code.util.CustList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class TrainerMultiFights extends Trainer implements CharacterInRoadCave, Fightable {
+public final class TrainerMultiFights extends Trainer implements CharacterInRoadCave, Fightable {
 
     private CustList<PokemonTeam> teamsRewards;
 

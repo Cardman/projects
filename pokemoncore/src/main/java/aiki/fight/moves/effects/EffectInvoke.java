@@ -11,7 +11,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectInvoke extends Effect {
+public final class EffectInvoke extends Effect {
 
     private EnumMap<EnvironmentType,String> moveFctEnv;
     @CheckedData

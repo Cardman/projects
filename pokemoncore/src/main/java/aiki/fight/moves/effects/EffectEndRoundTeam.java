@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectEndRoundTeam extends EffectEndRound {
+public final class EffectEndRoundTeam extends EffectEndRound {
 
     private Rate deleteAllStatus;
     private Rate deleteAllStatusAlly;

@@ -10,7 +10,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class Difficulty {
+public final class Difficulty {
 
     /***/
     private boolean allowCatchingKo;

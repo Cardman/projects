@@ -4,7 +4,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class TileMiniMap {
+public final class TileMiniMap {
 
     private String file;
 

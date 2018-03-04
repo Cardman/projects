@@ -1,11 +1,11 @@
 package cards.belote;
 import java.util.Iterator;
 
+import cards.belote.enumerations.CardBelote;
+import cards.consts.Suit;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.annot.RwXml;
-import cards.belote.enumerations.CardBelote;
-import cards.consts.Suit;
 
 @RwXml
 public final class TrickBelote implements Iterable<CardBelote> {

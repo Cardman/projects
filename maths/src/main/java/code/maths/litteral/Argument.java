@@ -8,7 +8,7 @@ public final class Argument {
     private MathType mathType;
 
     public static Rate parseNumber(String _nb) {
-        return Rate.newRate(_nb);
+        return new Rate(_nb);
     }
 
     public static Argument numberToArgument(String _nb) {

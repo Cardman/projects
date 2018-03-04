@@ -8,10 +8,10 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.util.Numbers;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import code.util.Numbers;
 
 @RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")

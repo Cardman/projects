@@ -18,7 +18,7 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class LevelWithWildPokemon extends Level {
+public abstract class LevelWithWildPokemon extends Level {
 
     private CustList<AreaApparition> wildPokemonAreas;
 

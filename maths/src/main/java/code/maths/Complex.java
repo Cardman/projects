@@ -31,7 +31,7 @@ public final class Complex implements Equallable<Complex>, Displayable {
     @FromAndToString
     public static Complex newFract(String _arg) {
         StringList args_ = StringList.splitStrings(_arg, SEPARATOR);
-        return new Complex(Rate.newRate(args_.first()), Rate.newRate(args_.last()));
+        return new Complex(new Rate(args_.first()), new Rate(args_.last()));
     }
 
     public Complex conjug() {

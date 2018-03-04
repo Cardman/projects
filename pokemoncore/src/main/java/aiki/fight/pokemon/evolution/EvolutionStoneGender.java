@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EvolutionStoneGender extends EvolutionStone implements GenderConstraints {
+public final class EvolutionStoneGender extends EvolutionStone implements GenderConstraints {
 
     private Gender gender;
 

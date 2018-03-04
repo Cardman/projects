@@ -14,7 +14,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectGlobal extends Effect {
+public final class EffectGlobal extends Effect {
 
     @CheckedData
     private boolean priseEnComptePkLanceur;

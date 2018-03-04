@@ -10,7 +10,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
+public final class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
 
     private StringMap<Rate> multDamageStatus;
 

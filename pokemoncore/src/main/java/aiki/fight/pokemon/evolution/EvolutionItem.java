@@ -9,7 +9,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EvolutionItem extends Evolution {
+public final class EvolutionItem extends Evolution {
 
     private String item;
 

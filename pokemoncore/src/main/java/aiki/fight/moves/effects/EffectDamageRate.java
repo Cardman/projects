@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectDamageRate extends Effect {
+public final class EffectDamageRate extends Effect {
 
     private Rate rateDamage;
 

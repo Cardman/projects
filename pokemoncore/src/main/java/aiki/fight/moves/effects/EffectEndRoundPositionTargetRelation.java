@@ -6,7 +6,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.serialize.CheckedData;
 
 @CheckedData
-public class EffectEndRoundPositionTargetRelation extends EffectEndRound {
+public final class EffectEndRoundPositionTargetRelation extends EffectEndRound {
 
     @Override
     public void validate(DataBase _data) {

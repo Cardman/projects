@@ -7,7 +7,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectOrder extends Effect {
+public final class EffectOrder extends Effect {
 
     private boolean targetAttacksLast;
 

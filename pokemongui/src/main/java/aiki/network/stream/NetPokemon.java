@@ -4,7 +4,7 @@ import code.util.NatTreeMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class NetPokemon {
+public final class NetPokemon {
 
     private NatTreeMap<Byte,PokemonPlayer> tradablePokemon;
 

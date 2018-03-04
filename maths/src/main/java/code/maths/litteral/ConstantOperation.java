@@ -73,7 +73,7 @@ public final class ConstantOperation extends OperationNode {
         a_.setArgClass(getResultClass());
         if (getResultClass() == MathType.RATE) {
             try {
-                a_.setObject(Rate.newRate(_conf.getVal(str_)));
+                a_.setObject(new Rate(_conf.getVal(str_)));
             } catch (FormatException _0) {
                 throw new BadDivisionException(StringList.concat(_0.getMessage(),RETURN_LINE,String.valueOf(getIndexInEl())));
             }

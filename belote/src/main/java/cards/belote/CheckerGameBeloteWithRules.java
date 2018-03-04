@@ -1,10 +1,10 @@
 package cards.belote;
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.consts.Constants;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.exceptions.BeloteRulesException;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.consts.Constants;
 
 public final class CheckerGameBeloteWithRules {
 

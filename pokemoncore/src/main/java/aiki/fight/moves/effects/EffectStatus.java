@@ -9,7 +9,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectStatus extends Effect {
+public final class EffectStatus extends Effect {
 
     private MonteCarloString lawStatus;
     private StringList deletedStatus;

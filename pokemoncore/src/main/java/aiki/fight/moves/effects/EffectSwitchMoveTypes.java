@@ -6,7 +6,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectSwitchMoveTypes extends Effect {
+public final class EffectSwitchMoveTypes extends Effect {
 
     private StringMap<String> changeTypes;
 

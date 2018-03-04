@@ -54,7 +54,7 @@ import code.util.comparators.NaturalComparator;
 import code.util.consts.Constants;
 
 @RwXml
-public class Player {
+public final class Player {
 
     private static StringMap<String> _messages_ = new StringMap<String>();
 

@@ -14,7 +14,7 @@ import code.util.NumberMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class League extends Place {
+public final class League extends Place {
 
     @CheckedData
     private String name;

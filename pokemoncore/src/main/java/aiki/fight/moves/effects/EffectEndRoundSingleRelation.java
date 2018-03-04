@@ -10,7 +10,7 @@ import code.util.NumberMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectEndRoundSingleRelation extends EffectEndRound {
+public final class EffectEndRoundSingleRelation extends EffectEndRound {
 
     private NumberMap<Long,Rate> rateDamageFunctionOfNbRounds;
     private MonteCarloNumber lawForEnablingEffect;

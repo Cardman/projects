@@ -3,7 +3,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class MovesAbilities {
+public final class MovesAbilities {
 
     private StringList moves;
 

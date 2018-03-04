@@ -3,7 +3,6 @@ import static cards.belote.EquallableBeloteUtil.assertEq;
 
 import org.junit.Test;
 
-import code.util.EqList;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
@@ -11,6 +10,7 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.exceptions.BeloteRulesException;
 import cards.consts.GameType;
 import cards.consts.Suit;
+import code.util.EqList;
 
 @SuppressWarnings("static-method")
 public class CheckerGameBeloteWithRulesTest {

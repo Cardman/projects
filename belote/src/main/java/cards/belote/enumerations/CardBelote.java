@@ -1,13 +1,13 @@
 package cards.belote.enumerations;
+import cards.belote.BidBeloteSuit;
+import cards.consts.CardChar;
+import cards.consts.Order;
+import cards.consts.Suit;
 import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
 import code.util.consts.Constants;
 import code.util.ints.Displayable;
-import cards.belote.BidBeloteSuit;
-import cards.consts.CardChar;
-import cards.consts.Order;
-import cards.consts.Suit;
 /**
     */
 public enum CardBelote implements Displayable {

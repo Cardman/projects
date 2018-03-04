@@ -100,12 +100,12 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     }
 
     /**server and client*/
-    public static void sendObject(Socket _socket,Object _serializable) {
+    static void sendObject(Socket _socket,Object _serializable) {
         sendText(_socket,SerializeXmlObject.toXmlString(_serializable));
     }
 
     /**client*/
-    public void sendQuit(Object _serializable) {
+    protected void sendQuit(Object _serializable) {
         try {
             PrintWriter out_ = new PrintWriter(socket.getOutputStream(), true);
             out_.println(SerializeXmlObject.toXmlString(_serializable));

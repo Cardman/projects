@@ -10,7 +10,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Inventory {
+public final class Inventory {
 
     private StringMap<LgInt> items;
 

@@ -4,16 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NumberMap;
-import code.util.StringList;
-import code.util.StringMap;
-import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.EndTurnType;
 import aiki.fight.enums.Statistic;
@@ -55,7 +45,17 @@ import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.Status;
+import aiki.fight.status.StatusSimple;
 import aiki.fight.status.StatusType;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NumberMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class DataBaseTest {
@@ -1374,7 +1374,7 @@ public class DataBaseTest {
         DataBase data_ = new DataBase();
         data_.initializeMembers();
         Status status_;
-        status_ = new Status();
+        status_ = new StatusSimple();
         status_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
         data_.completeMembers("PAR", status_);
         assertEq(0, data_.getEvtEndRound().size());
@@ -1385,7 +1385,7 @@ public class DataBaseTest {
         DataBase data_ = new DataBase();
         data_.initializeMembers();
         Status status_;
-        status_ = new Status();
+        status_ = new StatusSimple();
         status_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
         EffectEndRoundSingleStatus eff_ = new EffectEndRoundSingleStatus();
         eff_.setEndRoundRank(2);
@@ -1404,7 +1404,7 @@ public class DataBaseTest {
         DataBase data_ = new DataBase();
         data_.initializeMembers();
         Status status_;
-        status_ = new Status();
+        status_ = new StatusSimple();
         status_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
         EffectEndRoundStatusRelation eff_ = new EffectEndRoundStatusRelation();
         eff_.setEndRoundRank(2);
@@ -1423,7 +1423,7 @@ public class DataBaseTest {
         DataBase data_ = new DataBase();
         data_.initializeMembers();
         Status status_;
-        status_ = new Status();
+        status_ = new StatusSimple();
         status_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
         status_.setIncrementingEndRound(true);
         status_.setIncrementEndRound(4);
@@ -1442,7 +1442,7 @@ public class DataBaseTest {
         DataBase data_ = new DataBase();
         data_.initializeMembers();
         Status status_;
-        status_ = new Status();
+        status_ = new StatusSimple();
         status_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
         status_.setIncrementingEndRound(true);
         status_.setIncrementEndRound(4);

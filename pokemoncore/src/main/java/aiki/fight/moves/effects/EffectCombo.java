@@ -8,7 +8,7 @@ import code.util.CustList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectCombo {
+public final class EffectCombo {
 
     @CheckedData
     private Rate multEvtRateSecEff;

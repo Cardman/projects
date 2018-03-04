@@ -7,7 +7,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectCopyFighter extends Effect {
+public final class EffectCopyFighter extends Effect {
 
     private short ppForMoves;
 

@@ -26,7 +26,7 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Cave extends Campaign {
+public final class Cave extends Campaign {
 
     @CheckedData
     private String name;

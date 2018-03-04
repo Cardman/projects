@@ -2,7 +2,7 @@ package aiki.network.stream;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Ready extends PlayerActionBeforeGame {
+public final class Ready extends PlayerActionBeforeGame {
 
     private boolean ready;
 

@@ -22,7 +22,7 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Road extends Campaign implements InitializedPlace{
+public final class Road extends Campaign implements InitializedPlace{
 
     @CheckedData
     private String name;

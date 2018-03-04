@@ -7,7 +7,7 @@ import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.EffectCombo;
 
 @RwXml
-public class Combos {
+public final class Combos {
 
     private ObjectMap<StringList,EffectCombo> effects;
 

@@ -10,10 +10,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.util.CustList;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import code.util.CustList;
 
 @RunWith(JUnitParamsRunner.class)
 @Ignore

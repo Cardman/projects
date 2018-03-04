@@ -14,7 +14,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectDamage extends Effect {
+public final class EffectDamage extends Effect {
 
     @CheckedData
     private byte chRate;

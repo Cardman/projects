@@ -8,7 +8,7 @@ import code.util.EnumMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectCommonStatistics extends Effect {
+public final class EffectCommonStatistics extends Effect {
 
     private EnumMap<Statistic,String> commonValue;
 

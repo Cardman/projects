@@ -3,7 +3,7 @@ import code.network.AddingPlayer;
 import code.util.annot.RwXml;
 
 @RwXml
-public class NewPlayer extends PlayerActionBeforeGame implements AddingPlayer {
+public final class NewPlayer extends PlayerActionBeforeGame implements AddingPlayer {
 
     private String pseudo;
 

@@ -6,7 +6,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class TrainerLeague extends TrainerOneFight implements Fightable {
+public final class TrainerLeague extends TrainerOneFight implements Fightable {
 
     private String name;
 

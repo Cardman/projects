@@ -1,0 +1,210 @@
+package code.maths.sml;
+
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloBoolean;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.montecarlo.MonteCarloString;
+import code.sml.DocumentReaderCoreUtil;
+import code.sml.Element;
+import code.sml.ElementList;
+import code.util.BooleanList;
+import code.util.BooleanMap;
+import code.util.CollCapacity;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.ObjectNotNullMap;
+import code.util.StringList;
+import code.util.StringMap;
+
+public final class DocumentReaderMathUtil {
+
+    public static LgInt getLgInt(Element _boolean) {
+        try {
+            return LgInt.newLgInt(_boolean.getAttribute("value"));
+        } catch (Exception _0) {
+            return LgInt.zero();
+        }
+    }
+
+    public static Rate getRate(Element _boolean) {
+        try {
+            return Rate.newRate(_boolean.getAttribute("value"));
+        } catch (Exception _0) {
+            return Rate.zero();
+        }
+    }
+
+
+    public static EqList<LgInt> getEqLgInt(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        EqList<LgInt> list_ = new EqList<LgInt>(new CollCapacity(len_));
+        for (Element c: childElements_) {
+            list_.add(getLgInt(c));
+        }
+        return list_;
+    }
+
+    public static EqList<Rate> getEqRate(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        EqList<Rate> list_ = new EqList<Rate>(new CollCapacity(len_));
+        for (Element c: childElements_) {
+            list_.add(getRate(c));
+        }
+        return list_;
+    }
+
+    public static StringMap<LgInt> getStringMapLgInt(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        StringMap<LgInt> map_ = new StringMap<LgInt>(cap_);
+        StringList keys_ = new StringList(cap_);
+        EqList<LgInt> values_ = new EqList<LgInt>(cap_);
+        for (Element c: childElements_) {
+            if (hasKey(c)) {
+                keys_.add(DocumentReaderCoreUtil.getString(c));
+            } else {
+                values_.add(getLgInt(c));
+            }
+        }
+        int min_ = Math.min(keys_.size(), values_.size());
+        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+            map_.put(keys_.get(i), values_.get(i));
+        }
+        return map_;
+    }
+
+    public static StringMap<Rate> getStringMapRate(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        StringMap<Rate> map_ = new StringMap<Rate>(cap_);
+        StringList keys_ = new StringList(cap_);
+        EqList<Rate> values_ = new EqList<Rate>(cap_);
+        for (Element c: childElements_) {
+            if (hasKey(c)) {
+                keys_.add(DocumentReaderCoreUtil.getString(c));
+            } else {
+                values_.add(getRate(c));
+            }
+        }
+        int min_ = Math.min(keys_.size(), values_.size());
+        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+            map_.put(keys_.get(i), values_.get(i));
+        }
+        return map_;
+    }
+
+
+    public static ObjectNotNullMap<Rate,LgInt> getEqMapRateLgInt(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        ObjectNotNullMap<Rate,LgInt> map_ = new ObjectNotNullMap<Rate,LgInt>(cap_);
+        EqList<Rate> keys_ = new EqList<Rate>(cap_);
+        EqList<LgInt> values_ = new EqList<LgInt>(cap_);
+        for (Element c: childElements_) {
+            if (hasKey(c)) {
+                keys_.add(getRate(c));
+            } else {
+                values_.add(getLgInt(c));
+            }
+        }
+        int min_ = Math.min(keys_.size(), values_.size());
+        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+            map_.put(keys_.get(i), values_.get(i));
+        }
+        return map_;
+    }
+
+    public static BooleanMap<LgInt> getBooleanMapLgInt(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        BooleanMap<LgInt> map_ = new BooleanMap<LgInt>(cap_);
+        BooleanList keys_ = new BooleanList(cap_);
+        EqList<LgInt> values_ = new EqList<LgInt>(cap_);
+        for (Element c: childElements_) {
+            if (hasKey(c)) {
+                keys_.add(DocumentReaderCoreUtil.getBoolean(c));
+            } else {
+                values_.add(getLgInt(c));
+            }
+        }
+        int min_ = Math.min(keys_.size(), values_.size());
+        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+            map_.put(keys_.get(i), values_.get(i));
+        }
+        return map_;
+    }
+    public static MonteCarloBoolean getMonteCarloBoolean(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        MonteCarloBoolean law_ = new MonteCarloBoolean(cap_);
+        law_.setLaw(new BooleanMap<LgInt>());
+        for (Element c: childElements_) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringList.quickEq(fieldName_, "law")) {
+                law_.setLaw(getBooleanMapLgInt(c));
+            }
+        }
+        return law_;
+    }
+    public static MonteCarloString getMonteCarloString(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        MonteCarloString law_ = new MonteCarloString(cap_);
+        law_.setLaw(new StringMap<LgInt>());
+        for (Element c: childElements_) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringList.quickEq(fieldName_, "law")) {
+                law_.setLaw(getStringMapLgInt(c));
+            }
+        }
+        return law_;
+    }
+    public static MonteCarloNumber getMonteCarloNumber(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        MonteCarloNumber law_ = new MonteCarloNumber(cap_);
+        law_.setLaw(new ObjectNotNullMap<Rate,LgInt>(cap_));
+        for (Element c: childElements_) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringList.quickEq(fieldName_, "law")) {
+                law_.setLaw(getEqMapRateLgInt(c));
+            }
+        }
+        return law_;
+    }
+    public static NumberMap<Long,Rate> getNumberMapLongRate(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        NumberMap<Long,Rate> map_ = new NumberMap<Long,Rate>(cap_);
+        Numbers<Long> keys_ = new Numbers<Long>(cap_);
+        EqList<Rate> values_ = new EqList<Rate>(cap_);
+        for (Element c: childElements_) {
+            if (hasKey(c)) {
+                keys_.add(DocumentReaderCoreUtil.getLong(c));
+            } else {
+                values_.add(getRate(c));
+            }
+        }
+        int min_ = Math.min(keys_.size(), values_.size());
+        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+            map_.put(keys_.get(i), values_.get(i));
+        }
+        return map_;
+    }
+    private static boolean hasKey(Element _elt) {
+        return _elt.hasAttribute("key");
+    }
+}

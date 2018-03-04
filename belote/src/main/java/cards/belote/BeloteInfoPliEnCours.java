@@ -1,10 +1,10 @@
 package cards.belote;
+import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.Numbers;
-import cards.consts.Suit;
 
 final class BeloteInfoPliEnCours {
 

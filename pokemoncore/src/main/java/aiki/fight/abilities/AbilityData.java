@@ -27,7 +27,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class AbilityData {
+public final class AbilityData {
 
     private EqList<TypesDuo> breakFoeImmune;
 

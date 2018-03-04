@@ -13,7 +13,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectTeam extends Effect {
+public final class EffectTeam extends Effect {
 
     @CheckedData
     private boolean forbiddingHealing;

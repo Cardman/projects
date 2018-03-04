@@ -1,8 +1,8 @@
 package cards.belote.comparators;
 import java.util.Comparator;
 
-import code.util.CustList;
 import cards.belote.BidBeloteSuit;
+import code.util.CustList;
 
 public final class BidBeloteSuitComparator implements Comparator<BidBeloteSuit> {
 

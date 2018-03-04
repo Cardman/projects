@@ -9,7 +9,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectEndRoundPositionRelation extends EffectEndRound {
+public final class EffectEndRoundPositionRelation extends EffectEndRound {
 
     private Rate healHp;
 

@@ -1,0 +1,797 @@
+package scripts;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
+import org.junit.Test;
+
+import code.gui.TopLeftFrame;
+import code.maths.LgInt;
+import code.maths.montecarlo.MonteCarloString;
+import code.maths.sml.DocumentWriterMathUtil;
+import code.serialize.ConstClasses;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.ElementList;
+import code.sml.FromAndToString;
+import code.stream.StreamTextFile;
+import code.util.BooleanList;
+import code.util.BooleanMap;
+import code.util.CollCapacity;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.annot.RwXml;
+
+public class Scripts {
+
+    //the git repo
+    private static final String FOLDER = "";
+
+    @Test
+    public void typesRead() {
+        String folder = FOLDER;
+        for (File fs: new File(folder).listFiles()) {
+            if (fs.getAbsolutePath().endsWith(".git")) {
+                continue;
+            }
+            String fo = StringList.replaceBackSlash(fs.getAbsolutePath());
+            for (String f: StreamTextFile.allSortedFiles(fo)){
+                if (!f.contains("/src/main/java/")) {
+                    continue;
+                }
+                if (!f.endsWith(".java")) {
+                    continue;
+                }
+                if (f.contains("package-info")) {
+                    continue;
+                }
+                String rel = f.substring(fo.length()+"/src/main/java/".length(), f.length() - ".java".length());
+                rel = rel.replace("/", ".");
+                try {
+                    Class<?> cur_ = ConstClasses.classForNameNotInit(rel);
+                    if (cur_.getAnnotation(RwXml.class) == null) {
+                        continue;
+                    }
+                    if (!Modifier.isAbstract(cur_.getModifiers())) {
+                        if (!Modifier.isFinal(cur_.getModifiers())) {
+                            System.out.println(rel);
+                        }
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+    @Test
+    public void fieldsRead() {
+        String folder = FOLDER;
+        StringList types_ = new StringList();
+        StringMap<String> exports_ = new StringMap<String>();
+        String reader = "DocumentReader";
+        String writer = "DocumentWriter";
+        String end = "Util.java";
+        String belote = FOLDER+"belote/src/main/java/cards/belote/sml/";
+        String beloteEnd = "Belote";
+        String president = FOLDER+"president/src/main/java/cards/president/sml/";
+        String presidentEnd = "President";
+        String tarot = FOLDER+"tarot/src/main/java/cards/tarot/sml/";
+        String tarotEnd = "Tarot";
+        String cardsCom = FOLDER+"cardgamescommon/src/main/java/cards/consts/sml/";
+        String cardsComEnd = "CardsCommon";
+        String cardsRes = FOLDER+"cardgamesresults/src/main/java/cards/gameresults/sml/";
+        String cardsResEnd = "CardsResults";
+        String cardsUnion = FOLDER+"cardgamesunion/src/main/java/cards/facade/sml/";
+        String cardsUnionEnd = "CardsUnion";
+        String cardsFolder = FOLDER+"cardgamesgui/src/main/java/cards/network/sml/";
+        String cardsFolderEnd = "CardsMulti";
+        String pkCore = FOLDER+"pokemoncore/src/main/java/aiki/sml/";
+        String pkCoreEnd = "AikiCore";
+        String pkNet = FOLDER+"pokemongui/src/main/java/aiki/network/sml/";
+        String pkNetEnd = "AikiMulti";
+        String maths = FOLDER+"maths/src/main/java/code/maths/sml/";
+        String mathsEnd = "MathsAdv";
+        String music = FOLDER+"musiccore/src/main/java/code/music/sml/";
+        String musicEnd = "Music";
+        StringList allTypesPro_ = new StringList();
+        for (File fs: new File(folder).listFiles()) {
+            if (fs.getAbsolutePath().endsWith(".git")) {
+                continue;
+            }
+            String fo = StringList.replaceBackSlash(fs.getAbsolutePath());
+            for (String f: StreamTextFile.allSortedFiles(fo)){
+                if (!f.contains("/src/main/java/")) {
+                    continue;
+                }
+                if (!f.endsWith(".java")) {
+                    continue;
+                }
+                if (f.contains("package-info")) {
+                    continue;
+                }
+                String rel = f.substring(fo.length()+"/src/main/java/".length(), f.length() - ".java".length());
+                rel = rel.replace("/", ".");
+                try {
+                    Class<?> cur_ = ConstClasses.classForNameNotInit(rel);
+                    allTypesPro_.add(cur_.getName());
+                } catch (Exception e) {
+                    
+                }
+            }
+        }
+        for (File fs: new File(folder).listFiles()) {
+            if (fs.getAbsolutePath().endsWith(".git")) {
+                continue;
+            }
+            String fo = StringList.replaceBackSlash(fs.getAbsolutePath());
+            for (String f: StreamTextFile.allSortedFiles(fo)){
+                if (!f.contains("/src/main/java/")) {
+                    continue;
+                }
+                if (!f.endsWith(".java")) {
+                    continue;
+                }
+                if (f.contains("package-info")) {
+                    continue;
+                }
+                String rel = f.substring(fo.length()+"/src/main/java/".length(), f.length() - ".java".length());
+                rel = rel.replace("/", ".");
+                try {
+                    Class<?> cur_ = ConstClasses.classForNameNotInit(rel);
+                    if (cur_.getAnnotation(RwXml.class) == null) {
+                        continue;
+                    }
+                    types_.add(cur_.getName());
+                    for (Field i: cur_.getDeclaredFields()) {
+                        if (Modifier.isStatic(i.getModifiers())) {
+                            continue;
+                        }
+                        if (Modifier.isTransient(i.getModifiers())) {
+                            continue;
+                        }
+                        Type type_ = i.getGenericType();
+                        if (type_ instanceof Class<?>) {
+                            String cl_ = ((Class<?>)type_).getName();
+                            types_.add(cl_);
+                        } else {
+                            StringList currentTypes_ = new StringList(StringList.removeAllSpaces(type_.toString()));
+                            StringList allTypes_ = new StringList(StringList.removeAllSpaces(type_.toString()));
+                            while (true) {
+                                StringList newTypes_ = new StringList();
+                                for (String c: currentTypes_) {
+                                    for (String t: StringList.getAllTypes(c)) {
+                                        if (t.contains("<")) {
+                                            newTypes_.add(t);
+                                        }
+                                        allTypes_.add(StringList.removeAllSpaces(t));
+                                    }
+                                }
+                                if (newTypes_.isEmpty()) {
+                                    break;
+                                }
+                                currentTypes_ = newTypes_;
+                            }
+                            types_.addAllElts(allTypes_);
+                        }
+                    }
+//                    System.out.println(cur_.getName());
+                } catch (Exception _0) {
+//                    _0.printStackTrace();
+                }
+            }
+        }
+        StringList subTypes_ = new StringList();
+        for (String s: types_) {
+            try {
+                Class<?> cur_ = ConstClasses.classForNameNotInit(s);
+                for (String t: allTypesPro_) {
+                    try {
+                        Class<?> curt_ = ConstClasses.classForNameNotInit(t);
+                        if (cur_.isAssignableFrom(curt_)) {
+                            subTypes_.add(t);
+                        }
+                    } catch (Exception _0_) {
+                    }
+                }
+            } catch (Exception _0) {
+            }
+        }
+        types_.addAllElts(subTypes_);
+        types_.sort();
+        types_.removeDuplicates();
+        StringList filter_ = new StringList();
+        for (String f: allTypesPro_) {
+            if (f.startsWith("code.exp")) {
+                continue;
+            }
+            if (f.contains(".gui.")) {
+                continue;
+            }
+            filter_.add(f);
+        }
+        filter_.add(TopLeftFrame.class.getName());
+        StringMap<String> importsReaders_ = new StringMap<String>();
+        StringMap<String> importsWriters_ = new StringMap<String>();
+        for (String t: types_) {
+            if (!t.contains(".")) {
+                continue;
+            }
+            String outKeyDir = "";
+            String outKeyFileReader = "";
+            String outKeyFileWriter = "";
+            String pkg_ = "";
+            if (t.startsWith("cards.belote.")) {
+                outKeyDir = belote;
+                outKeyFileReader = belote+writer+beloteEnd+end;
+                outKeyFileWriter = belote+reader+beloteEnd+end;
+            } else if (t.startsWith("cards.president.")) {
+                outKeyDir = president;
+                outKeyFileReader = president+writer+presidentEnd+end;
+                outKeyFileWriter = president+reader+presidentEnd+end;
+            } else if (t.startsWith("cards.tarot.")) {
+                outKeyDir = tarot;
+                outKeyFileReader = tarot+writer+tarotEnd+end;
+                outKeyFileWriter = tarot+reader+tarotEnd+end;
+            } else if (t.startsWith("cards.consts.")) {
+                outKeyDir = cardsCom;
+                outKeyFileReader = cardsCom+writer+cardsComEnd+end;
+                outKeyFileWriter = cardsCom+reader+cardsComEnd+end;
+            } else if (t.startsWith("cards.gameresults.")) {
+                outKeyDir = cardsRes;
+                outKeyFileReader = cardsRes+writer+cardsResEnd+end;
+                outKeyFileWriter = cardsRes+reader+cardsResEnd+end;
+            } else if (t.startsWith("cards.facade.")) {
+                outKeyDir = cardsUnion;
+                outKeyFileReader = cardsUnion+writer+cardsUnionEnd+end;
+                outKeyFileWriter = cardsUnion+reader+cardsUnionEnd+end;
+            } else if (t.startsWith("cards.network.")) {
+                outKeyDir = cardsFolder;
+                outKeyFileReader = cardsFolder+writer+cardsFolderEnd+end;
+                outKeyFileWriter = cardsFolder+reader+cardsFolderEnd+end;
+            } else if (t.startsWith("aiki.network.") || t.startsWith("aiki.ExchangedData")) {
+                outKeyDir = pkNet;
+                outKeyFileReader = pkNet+writer+pkNetEnd+end;
+                outKeyFileWriter = pkNet+reader+pkNetEnd+end;
+            } else if (t.startsWith("aiki.") && !t.startsWith("aiki.beans.") && !t.startsWith("aiki.comparators.")) {
+                outKeyDir = pkCore;
+                outKeyFileReader = pkCore+writer+pkCoreEnd+end;
+                outKeyFileWriter = pkCore+reader+pkCoreEnd+end;
+            } else if (t.startsWith("code.maths.")) {
+                outKeyDir = maths;
+                outKeyFileReader = maths+writer+mathsEnd+end;
+                outKeyFileWriter = maths+reader+mathsEnd+end;
+            } else if (t.startsWith("code.music.")) {
+                outKeyDir = music;
+                outKeyFileReader = music+writer+musicEnd+end;
+                outKeyFileWriter = music+reader+musicEnd+end;
+            } else {
+                if (t.startsWith("aiki.beans.")) {
+                    continue;
+                }
+                if (t.startsWith("aiki.comparators.")) {
+                    continue;
+                }
+                if (t.startsWith("code.expressionlanguage.")) {
+                    continue;
+                }
+                if (t.startsWith("code.gui.")) {
+                    continue;
+                }
+                if (t.startsWith("code.sml.")) {
+                    continue;
+                }
+                if (t.startsWith("code.serialize.")) {
+                    continue;
+                }
+                if (t.startsWith("code.stream.")) {
+                    continue;
+                }
+                if (t.contains("<aiki.") || t.contains(",aiki.")) {
+                    outKeyDir = pkCore;
+                    outKeyFileReader = pkCore+writer+pkCoreEnd+end;
+                    outKeyFileWriter = pkCore+reader+pkCoreEnd+end;
+                } else if (t.contains("<cards.belote.") || t.contains(",cards.belote.")) {
+                    outKeyDir = belote;
+                    outKeyFileReader = belote+writer+beloteEnd+end;
+                    outKeyFileWriter = belote+reader+beloteEnd+end;
+                } else if (t.contains("<cards.president.") || t.contains(",cards.president.")) {
+                    outKeyDir = president;
+                    outKeyFileReader = president+writer+presidentEnd+end;
+                    outKeyFileWriter = president+reader+presidentEnd+end;
+                } else if (t.contains("<cards.tarot.") || t.contains(",cards.tarot.")) {
+                    outKeyDir = tarot;
+                    outKeyFileReader = tarot+writer+tarotEnd+end;
+                    outKeyFileWriter = tarot+reader+tarotEnd+end;
+                } else if (t.contains("<cards.facade.") || t.contains(",cards.facade.")) {
+                    outKeyDir = cardsUnion;
+                    outKeyFileReader = cardsUnion+writer+cardsUnionEnd+end;
+                    outKeyFileWriter = cardsUnion+reader+cardsUnionEnd+end;
+                } else if (t.contains("<cards.consts.") || t.contains(",cards.consts.")) {
+                    outKeyDir = cardsCom;
+                    outKeyFileReader = cardsCom+writer+cardsComEnd+end;
+                    outKeyFileWriter = cardsCom+reader+cardsComEnd+end;
+                } else if (t.contains("<code.maths.") || t.contains(",code.maths.")) {
+                    outKeyDir = maths;
+                    outKeyFileReader = maths+writer+mathsEnd+end;
+                    outKeyFileWriter = maths+reader+mathsEnd+end;
+                } else if (t.contains("<code.music.") || t.contains(",code.music.")) {
+                    outKeyDir = music;
+                    outKeyFileReader = music+writer+musicEnd+end;
+                    outKeyFileWriter = music+reader+musicEnd+end;
+                } else {
+//                    System.out.println(t);
+                    continue;
+                }
+            }
+            importsReaders_.put(t, outKeyFileReader);
+            importsWriters_.put(t, outKeyFileWriter);
+        }
+//        System.out.println(types_.join("\n"));
+        for (String t: types_) {
+            if (!t.contains(".")) {
+                continue;
+            }
+            String outKeyDir = "";
+            String outKeyFileReader = "";
+            String outKeyFileWriter = "";
+            String pkg_ = "";
+            if (t.startsWith("cards.belote.")) {
+                outKeyDir = belote;
+                outKeyFileReader = belote+writer+beloteEnd+end;
+                outKeyFileWriter = belote+reader+beloteEnd+end;
+            } else if (t.startsWith("cards.president.")) {
+                outKeyDir = president;
+                outKeyFileReader = president+writer+presidentEnd+end;
+                outKeyFileWriter = president+reader+presidentEnd+end;
+            } else if (t.startsWith("cards.tarot.")) {
+                outKeyDir = tarot;
+                outKeyFileReader = tarot+writer+tarotEnd+end;
+                outKeyFileWriter = tarot+reader+tarotEnd+end;
+            } else if (t.startsWith("cards.consts.")) {
+                outKeyDir = cardsCom;
+                outKeyFileReader = cardsCom+writer+cardsComEnd+end;
+                outKeyFileWriter = cardsCom+reader+cardsComEnd+end;
+            } else if (t.startsWith("cards.gameresults.")) {
+                outKeyDir = cardsRes;
+                outKeyFileReader = cardsRes+writer+cardsResEnd+end;
+                outKeyFileWriter = cardsRes+reader+cardsResEnd+end;
+            } else if (t.startsWith("cards.facade.")) {
+                outKeyDir = cardsUnion;
+                outKeyFileReader = cardsUnion+writer+cardsUnionEnd+end;
+                outKeyFileWriter = cardsUnion+reader+cardsUnionEnd+end;
+            } else if (t.startsWith("cards.network.")) {
+                outKeyDir = cardsFolder;
+                outKeyFileReader = cardsFolder+writer+cardsFolderEnd+end;
+                outKeyFileWriter = cardsFolder+reader+cardsFolderEnd+end;
+            } else if (t.startsWith("aiki.network.") || t.startsWith("aiki.ExchangedData")) {
+                outKeyDir = pkNet;
+                outKeyFileReader = pkNet+writer+pkNetEnd+end;
+                outKeyFileWriter = pkNet+reader+pkNetEnd+end;
+            } else if (t.startsWith("aiki.") && !t.startsWith("aiki.beans.") && !t.startsWith("aiki.comparators.")) {
+                outKeyDir = pkCore;
+                outKeyFileReader = pkCore+writer+pkCoreEnd+end;
+                outKeyFileWriter = pkCore+reader+pkCoreEnd+end;
+            } else if (t.startsWith("code.maths.")) {
+                outKeyDir = maths;
+                outKeyFileReader = maths+writer+mathsEnd+end;
+                outKeyFileWriter = maths+reader+mathsEnd+end;
+            } else if (t.startsWith("code.music.")) {
+                outKeyDir = music;
+                outKeyFileReader = music+writer+musicEnd+end;
+                outKeyFileWriter = music+reader+musicEnd+end;
+            } else {
+                if (t.startsWith("aiki.beans.")) {
+                    continue;
+                }
+                if (t.startsWith("aiki.comparators.")) {
+                    continue;
+                }
+                if (t.startsWith("code.expressionlanguage.")) {
+                    continue;
+                }
+                if (t.startsWith("code.gui.")) {
+                    continue;
+                }
+                if (t.startsWith("code.sml.")) {
+                    continue;
+                }
+                if (t.startsWith("code.serialize.")) {
+                    continue;
+                }
+                if (t.startsWith("code.stream.")) {
+                    continue;
+                }
+                if (t.contains("<aiki.") || t.contains(",aiki.")) {
+                    outKeyDir = pkCore;
+                    outKeyFileReader = pkCore+writer+pkCoreEnd+end;
+                    outKeyFileWriter = pkCore+reader+pkCoreEnd+end;
+                } else if (t.contains("<cards.belote.") || t.contains(",cards.belote.")) {
+                    outKeyDir = belote;
+                    outKeyFileReader = belote+writer+beloteEnd+end;
+                    outKeyFileWriter = belote+reader+beloteEnd+end;
+                } else if (t.contains("<cards.president.") || t.contains(",cards.president.")) {
+                    outKeyDir = president;
+                    outKeyFileReader = president+writer+presidentEnd+end;
+                    outKeyFileWriter = president+reader+presidentEnd+end;
+                } else if (t.contains("<cards.tarot.") || t.contains(",cards.tarot.")) {
+                    outKeyDir = tarot;
+                    outKeyFileReader = tarot+writer+tarotEnd+end;
+                    outKeyFileWriter = tarot+reader+tarotEnd+end;
+                } else if (t.contains("<cards.facade.") || t.contains(",cards.facade.")) {
+                    outKeyDir = cardsUnion;
+                    outKeyFileReader = cardsUnion+writer+cardsUnionEnd+end;
+                    outKeyFileWriter = cardsUnion+reader+cardsUnionEnd+end;
+                } else if (t.contains("<cards.consts.") || t.contains(",cards.consts.")) {
+                    outKeyDir = cardsCom;
+                    outKeyFileReader = cardsCom+writer+cardsComEnd+end;
+                    outKeyFileWriter = cardsCom+reader+cardsComEnd+end;
+                } else if (t.contains("<code.maths.") || t.contains(",code.maths.")) {
+                    outKeyDir = maths;
+                    outKeyFileReader = maths+writer+mathsEnd+end;
+                    outKeyFileWriter = maths+reader+mathsEnd+end;
+                } else if (t.contains("<code.music.") || t.contains(",code.music.")) {
+                    outKeyDir = music;
+                    outKeyFileReader = music+writer+musicEnd+end;
+                    outKeyFileWriter = music+reader+musicEnd+end;
+                } else {
+//                    System.out.println(t);
+                    continue;
+                }
+            }
+            pkg_ = outKeyDir.substring(outKeyDir.indexOf("/src/main/java/")+"/src/main/java/".length());
+            pkg_ = pkg_.replace("/", ".");
+            pkg_ = pkg_.substring(0, pkg_.length() - 1);
+            String contentReader_ = "";
+            String contentWriter_ = "";
+            if (!outKeyDir.isEmpty()) {
+                contentReader_ = exports_.getVal(outKeyFileReader);
+                contentWriter_ = exports_.getVal(outKeyFileWriter);
+                if (contentReader_ == null) {
+                    String header_ = "package "+pkg_+";\n";
+                    header_+= "import code.sml.Element;\n";
+                    header_+= "import code.sml.Document;\n";
+                    String res_ = outKeyFileReader.substring(outKeyDir.length());
+                    res_ =res_.substring(0, res_.length() - ".java".length());
+                    header_+="public final class "+res_+" {\n";
+                    contentReader_ = header_;
+                }
+                if (contentWriter_ == null) {
+                    String header_ = "package "+pkg_+";\n";
+                    header_+= "import code.sml.Element;\n";
+                    header_+= "import code.sml.Document;\n";
+                    String res_ = outKeyFileWriter.substring(outKeyDir.length());
+                    res_ =res_.substring(0, res_.length() - ".java".length());
+                    header_+="public final class "+res_+" {\n";
+                    contentWriter_ = header_;
+                }
+                if (t.contains("<")) {
+                    String base_ = StringList.getAllTypes(t).first();
+                    try {
+                        Class<?> cur_ = ConstClasses.classForNameNotInit(base_);
+                        if (cur_ == CustList.class) {
+                            String simple_ = "";
+                            for (String p: StringList.splitStringsSep(t, "<" ,">" ,",")) {
+                                if (p.equals("<")) {
+                                    simple_ += p;
+                                    continue;
+                                }
+                                if (p.equals(">")) {
+                                    simple_ += p;
+                                    continue;
+                                }
+                                if (p.equals(",")) {
+                                    simple_ += p;
+                                    continue;
+                                }
+                                String last_ = p.substring(p.lastIndexOf(".")+1);
+                                if (last_.isEmpty()) {
+                                    continue;
+                                }
+                                simple_ += last_;
+                            }
+                            String comp_ = StringList.getAllTypes(t).last();
+                            String compSimple_ = comp_.substring(comp_.lastIndexOf(".")+1);
+                            String k_ = importsReaders_.getVal(comp_);
+                            k_ = StringList.splitStrings(k_, "/").last();
+                            k_ = k_.substring(0, k_.length() - ".java".length());
+                            contentReader_ += "    public static "+simple_+" getList"+StringList.getAllTypes(simple_).last()+"(Element _elt) {\n";
+                            contentReader_ += "        ElementList childElements_ = _elt.getChildElements();\n";
+                            contentReader_ += "        int len_ = childElements_.getLength();\n";
+                            contentReader_ += "        CollCapacity cap_ = new CollCapacity(len_);\n";
+                            contentReader_ += "        "+simple_+" list_ = new "+simple_+"(cap_);\n";
+                            contentReader_ += "        for (Element c: childElements_) {\n";
+                            contentReader_ += "            list_.add("+k_+".get"+compSimple_+"(c));\n";
+                            contentReader_ += "        }\n";
+                            contentReader_ += "        return list_;\n";
+                            contentReader_ += "    }\n\n";
+                            exports_.put(outKeyFileReader, contentReader_);
+                            k_ = importsWriters_.getVal(comp_);
+                            k_ = StringList.splitStrings(k_, "/").last();
+                            k_ = k_.substring(0, k_.length() - ".java".length());
+                            contentWriter_ += "    public static Element setList"+StringList.getAllTypes(simple_).last()+"("+simple_+" _object, String _fieldName, Document _document) {\n";
+                            contentWriter_ += "        Element elt_ = _document.createElement(\"l\");\n";
+                            contentWriter_ += "        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);\n";
+                            contentWriter_ += "        for ("+StringList.getAllTypes(simple_).last()+" s: _object) {\n";
+                            contentWriter_ += "            elt_.appendChild("+k_+".set"+compSimple_+"(s,\"\",_document));\n";
+                            contentWriter_ += "        }\n";
+                            contentWriter_ += "        return elt_;\n";
+                            contentWriter_ += "    }\n\n";
+                            exports_.put(outKeyFileWriter, contentWriter_);
+//                            
+//                            
+//                            
+//                            BooleanMap<LgInt> map_ = new BooleanMap<LgInt>(cap_);
+//                            BooleanList keys_ = new BooleanList(cap_);
+//                            EqList<LgInt> values_ = new EqList<LgInt>(cap_);
+                            
+                            //getList
+                            
+//                            ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+//                            Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                        }
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        Class<?> cur_ = ConstClasses.classForNameNotInit(t);
+                        if (cur_.getTypeParameters().length >0) {
+                            
+                            continue;
+                        }
+                        if (cur_.isEnum()) {
+                            String type_ = cur_.getSimpleName();
+                            contentReader_ += "    public static "+type_+" get"+type_+"(Element _elt) {\n";
+                            contentReader_ += "        for ("+type_+" e: "+type_+".values()) {\n";
+                            contentReader_ += "            if (StringList.quickEq(e.name(),_elt.getAttribute(\"value\"))) {\n";
+                            contentReader_ += "                return e;\n";
+                            contentReader_ += "            }\n";
+                            contentReader_ += "        }\n";
+                            contentReader_ += "        return null;\n";
+                            contentReader_ += "    }\n\n";
+                            exports_.put(outKeyFileReader, contentReader_);
+                            contentWriter_ += "    public static Element set"+type_+"("+type_+" _object, String _fieldName, Document _document) {\n";
+                            contentWriter_ += "        Element elt_ = _document.createElement(\""+type_+"\");\n";
+                            contentWriter_ += "        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);\n";
+                            contentWriter_ += "        elt_.setAttribute(\"value\",_object.name());\n";
+                            contentWriter_ += "        return elt_;\n";
+                            contentWriter_ += "    }\n\n";
+                            exports_.put(outKeyFileWriter, contentWriter_);
+                            continue;
+                        }
+                        Method m_ = getFromStringMethod(cur_);
+                        if (m_ != null) {
+                            String type_ = cur_.getSimpleName();
+                            contentReader_ += "    public static "+type_+" get"+type_+"(Element _elt) {\n";
+                            contentReader_ += "        return "+type_+"."+m_.getName()+"(_elt.getAttribute(\"value\"));\n";
+                            contentReader_ += "    }\n\n";
+                            exports_.put(outKeyFileReader, contentReader_);
+                            m_ = getToStringMethod(cur_);
+                            contentWriter_ += "    public static Element set"+type_+"("+type_+" _object, String _fieldName, Document _document) {\n";
+                            contentWriter_ += "        Element elt_ = _document.createElement(\""+type_+"\");\n";
+                            contentWriter_ += "        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);\n";
+                            contentWriter_ += "        elt_.setAttribute(\"value\", _object."+m_.getName()+"());\n";
+                            contentWriter_ += "        return elt_;\n";
+                            contentWriter_ += "    }\n\n";
+                            exports_.put(outKeyFileWriter, contentWriter_);
+                            continue;
+                        }
+                        if (!Modifier.isFinal(cur_.getModifiers())) {
+                            String type_ = cur_.getSimpleName();
+                            if (cur_.getAnnotation(RwXml.class) != null) {
+                                contentReader_ += "    public static void get"+type_+"("+type_+" _object, String _fieldName, String _value, Element _element) {\n";
+                                for (Field f: cur_.getDeclaredFields()) {
+                                    if (Modifier.isStatic(f.getModifiers())) {
+                                        continue;
+                                    }
+                                    if (Modifier.isTransient(f.getModifiers())) {
+                                        continue;
+                                    }
+                                    char firstCap_ = Character.toUpperCase(f.getName().charAt(0));
+                                    String nextPart_ = f.getName().substring(1);
+                                    String set_ = "set"+firstCap_+nextPart_;
+                                    contentReader_+="        if (StringList.quickEq(_fieldName, \""+f.getName()+"\")) {\n";
+                                    if (f.getType().isEnum()) {
+                                        String k_ = importsReaders_.getVal(f.getType().getName());
+                                        k_ = StringList.splitStrings(k_, "/").last();
+                                        k_ = k_.substring(0, k_.length() - ".java".length());
+                                        contentReader_+="            _object."+set_+"("+k_+".get"+f.getType().getSimpleName()+"(_element));\n";
+                                        contentReader_+="            return;\n";
+                                    } else if (f.getType().getTypeParameters().length == 0) {
+                                        if (f.getType().getName().startsWith("code.maths.")) {
+                                            contentReader_+="            _object."+set_+"(DocumentReaderMathUtil.get"+f.getType().getSimpleName()+"(_element));\n";
+                                            contentReader_+="            return;\n";
+                                        } else {
+                                            contentReader_+="            _object."+set_+"(DocumentReaderCoreUtil.get"+f.getType().getSimpleName()+"(_element));\n";
+                                            contentReader_+="            return;\n";
+                                        }
+                                    } else if (f.getType() == StringMap.class){
+                                        if (f.getGenericType().toString().contains("<code.maths.") || f.getGenericType().toString().contains(", code.maths.")) {
+                                            ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+                                            Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                                            contentReader_+="            _object."+set_+"(DocumentReaderMathUtil.getStringMap"+c_.getSimpleName()+"(_element));\n";
+                                            contentReader_+="            return;\n";
+                                        } else {
+                                            ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+                                            Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                                            contentReader_+="            _object."+set_+"(DocumentReaderCoreUtil.getStringMap"+c_.getSimpleName()+"(_element));\n";
+                                            contentReader_+="            return;\n";
+                                        }
+                                    } else if (f.getType() == CustList.class){
+                                        ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+                                        Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                                        contentReader_+="            _object."+set_+"(getList"+c_.getSimpleName()+"(_element));\n";
+                                        contentReader_+="            return;\n";
+                                    } else if (f.getType() == Numbers.class){
+                                        ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+                                        Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                                        contentReader_+="            _object."+set_+"(DocumentReaderCoreUtil.getNumbers"+c_.getSimpleName()+"(_element));\n";
+                                        contentReader_+="            return;\n";
+                                    }
+                                    contentReader_+="        }\n";
+                                }
+                                if (cur_.getSuperclass() != Object.class) {
+                                    contentReader_+="        get"+cur_.getSuperclass().getSimpleName()+"(_object, _fieldName, _value, _element);\n";
+                                }
+                                contentReader_ += "    }\n\n";
+                                exports_.put(outKeyFileReader, contentReader_);
+
+                                contentWriter_ += "    public static void set"+type_+"("+type_+" _object, Element _element) {\n";
+                                for (Field f: cur_.getDeclaredFields()) {
+                                    if (Modifier.isStatic(f.getModifiers())) {
+                                        continue;
+                                    }
+                                    if (Modifier.isTransient(f.getModifiers())) {
+                                        continue;
+                                    }
+                                    char firstCap_ = Character.toUpperCase(f.getName().charAt(0));
+                                    String nextPart_ = f.getName().substring(1);
+                                    String get_ = "get"+firstCap_+nextPart_;
+                                    String is_ = "is"+firstCap_+nextPart_;
+                                    String g_ = "";
+                                    try {
+                                        cur_.getDeclaredMethod(get_);
+                                        g_ = get_;
+                                    } catch (Exception _0_) {
+                                        g_ = is_;
+                                    }
+                                    contentWriter_+="        if (StringList.quickEq(_fieldName, \""+f.getName()+"\")) {\n";
+                                    if (f.getType().isEnum()) {
+                                        String k_ = importsWriters_.getVal(f.getType().getName());
+                                        k_ = StringList.splitStrings(k_, "/").last();
+                                        k_ = k_.substring(0, k_.length() - ".java".length());
+                                        contentWriter_+="            _element.appendChild("+k_+".set"+f.getType().getSimpleName()+"(_object."+g_+"(),\""+f.getName()+"\",_element));\n";
+                                        contentWriter_+="            return;\n";
+                                    } else if (f.getType().getTypeParameters().length == 0) {
+                                        if (f.getType().getName().startsWith("code.maths.")) {//, String _fieldName, Document _document
+                                            contentWriter_+="            _element.appendChild(DocumentWriterMathUtil.set"+f.getType().getSimpleName()+"(_object."+g_+"(),\""+f.getName()+"\",_element));\n";
+                                            contentWriter_+="            return;\n";
+                                        } else {
+                                            contentWriter_+="            _element.appendChild(DocumentWriterCoreUtil.set"+f.getType().getSimpleName()+"(_object."+g_+"(),\""+f.getName()+"\",_element));\n";
+                                            contentWriter_+="            return;\n";
+                                        }
+                                    } else if (f.getType() == StringMap.class){
+                                        if (f.getGenericType().toString().contains("<code.maths.") || f.getGenericType().toString().contains(", code.maths.")) {
+                                            ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+                                            Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                                            contentWriter_+="            _element.appendChild(DocumentWriterMathUtil.setStringMap"+c_.getSimpleName()+"(_object."+g_+"(),\""+f.getName()+"\",_element));\n";
+                                            contentWriter_+="            return;\n";
+                                        } else {
+                                            ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+                                            Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                                            contentWriter_+="            _element.appendChild(DocumentWriterCoreUtil.setStringMap"+c_.getSimpleName()+"(_object."+g_+"(),\""+f.getName()+"\",_element));\n";
+                                            contentWriter_+="            return;\n";
+                                        }
+                                    } else if (f.getType() == CustList.class){
+                                        ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+                                        Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                                        contentWriter_+="            _element.appendChild(setList"+c_.getSimpleName()+"(_object."+g_+"(),\""+f.getName()+"\",_element));\n";
+                                        contentWriter_+="            return;\n";
+                                    } else if (f.getType() == Numbers.class){
+                                        ParameterizedType pt_ = (ParameterizedType) f.getGenericType();
+                                        Class<?> c_ = (Class<?>) pt_.getActualTypeArguments()[0];
+                                        contentWriter_+="            _element.appendChild(DocumentWriterMathUtil.setNumbers"+c_.getSimpleName()+"(_object."+g_+"(),\""+f.getName()+"\",_element));\n";
+                                        contentWriter_+="            return;\n";
+                                    }
+                                    contentWriter_+="        }\n";
+                                }
+                                if (cur_.getSuperclass() != Object.class) {
+                                    contentReader_+="        get"+cur_.getSuperclass().getSimpleName()+"(_object, _element);\n";
+                                }
+                                contentWriter_ += "    }\n\n";
+                                exports_.put(outKeyFileWriter, contentWriter_);
+                            }
+                        }
+                    } catch (Exception _0_) {
+                    }
+                }
+                
+            }
+//            String rel = t.substring(fo.length()+"/src/main/java/".length(), f.length() - ".java".length());
+//            rel = rel.replace("/", ".");
+        }
+        for (EntryCust<String, String> e: exports_.entryList()) {
+//            new File(e.getKey()).getParentFile().mkdirs();
+            String out_ = e.getValue();
+            out_ += "}";
+//            System.out.println(new File(e.getKey()).exists());
+            System.out.println(e.getKey());
+            System.out.println(out_);
+//            StreamTextFile.saveTextFile(e.getKey(), out_);
+        }
+    }
+    static Method getFromStringMethod(Class<?> _class) {
+        return getFromStringMethod(_class, String.class);
+    }
+
+    static Method getFromStringMethod(Class<?> _class, Class<?> _classArg) {
+        Method method_ = null;
+        for (Method methClass_: _class.getMethods()) {
+            if (!Modifier.isStatic(methClass_.getModifiers())) {
+                continue;
+            }
+            if (!methClass_.isAnnotationPresent(FromAndToString.class)) {
+                continue;
+            }
+            //void methods return class is void.class
+            Class<?> returnType_ = methClass_.getReturnType();
+            if (returnType_ == null) {
+                continue;
+            }
+            if (!_class.isAssignableFrom(returnType_)) {
+                continue;
+            }
+            Class<?>[] param_ = methClass_.getParameterTypes();
+            if (param_.length != CustList.ONE_ELEMENT) {
+                continue;
+            }
+            if (param_[CustList.FIRST_INDEX] != _classArg) {
+                continue;
+            }
+            if (method_ == null) {
+                method_ = methClass_;
+            } else {
+                method_ = null;
+                break;
+            }
+        }
+        return method_;
+    }
+
+    static Method getToStringMethod(Class<?> _class) {
+        return getToStringMethod(_class, String.class);
+    }
+
+    static Method getToStringMethod(Class<?> _class, Class<?> _classReturn) {
+        Method method_ = null;
+        for (Method methClass_: _class.getMethods()) {
+            if (Modifier.isStatic(methClass_.getModifiers())) {
+                continue;
+            }
+            if (!methClass_.isAnnotationPresent(FromAndToString.class)) {
+                continue;
+            }
+            if (methClass_.getReturnType() != _classReturn) {
+                continue;
+            }
+            Class<?>[] param_ = methClass_.getParameterTypes();
+            if (param_.length > CustList.SIZE_EMPTY) {
+                continue;
+            }
+            if (method_ == null) {
+                method_ = methClass_;
+            } else {
+                method_ = null;
+                break;
+            }
+        }
+        return method_;
+    }
+}

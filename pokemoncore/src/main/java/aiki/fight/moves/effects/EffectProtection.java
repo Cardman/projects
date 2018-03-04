@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectProtection extends Effect {
+public final class EffectProtection extends Effect {
 
     private boolean protSingle;
     private Rate protSingleAgainstKo;

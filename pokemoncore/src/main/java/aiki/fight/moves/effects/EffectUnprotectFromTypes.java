@@ -7,7 +7,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectUnprotectFromTypes extends Effect {
+public final class EffectUnprotectFromTypes extends Effect {
 
     private EqList<TypesDuo> types;
 

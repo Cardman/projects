@@ -1,16 +1,16 @@
 package cards.belote;
 import java.util.Iterator;
 
+import cards.belote.enumerations.CardBelote;
+import cards.consts.MixCardsChoice;
+import cards.consts.Order;
+import cards.consts.Suit;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.annot.RwXml;
-import cards.belote.enumerations.CardBelote;
-import cards.consts.MixCardsChoice;
-import cards.consts.Order;
-import cards.consts.Suit;
 
 @RwXml
 public final class DealBelote implements Iterable<HandBelote> {

@@ -3,13 +3,13 @@ import static cards.belote.EquallableBeloteUtil.assertEq;
 
 import org.junit.Test;
 
-import code.util.EnumList;
-import code.util.EnumMap;
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import code.util.EnumList;
+import code.util.EnumMap;
 
 @SuppressWarnings("static-method")
 public class ComparatorBeloteTest {

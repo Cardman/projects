@@ -16,10 +16,12 @@ import aiki.fight.pokemon.evolution.EvolutionHappiness;
 import aiki.fight.pokemon.evolution.EvolutionItem;
 import aiki.fight.pokemon.evolution.EvolutionLevel;
 import aiki.fight.pokemon.evolution.EvolutionLevelGender;
+import aiki.fight.pokemon.evolution.EvolutionLevelSimple;
 import aiki.fight.pokemon.evolution.EvolutionMove;
 import aiki.fight.pokemon.evolution.EvolutionMoveType;
 import aiki.fight.pokemon.evolution.EvolutionStone;
 import aiki.fight.pokemon.evolution.EvolutionStoneGender;
+import aiki.fight.pokemon.evolution.EvolutionStoneSimple;
 import aiki.fight.pokemon.evolution.EvolutionTeam;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
@@ -5322,7 +5324,7 @@ final class InitializationPokedex {
     }
 
     private static EvolutionLevel defaultEvolutionNiveau() {
-        EvolutionLevel object_ = new EvolutionLevel();
+        EvolutionLevel object_ = new EvolutionLevelSimple();
         return object_;
     }
 
@@ -5338,7 +5340,7 @@ final class InitializationPokedex {
     }
 
     private static EvolutionStone defaultEvolutionPierreEvolutive() {
-        EvolutionStone object_ = new EvolutionStone();
+        EvolutionStone object_ = new EvolutionStoneSimple();
         object_.setStone(NULL_REF);
         return object_;
     }

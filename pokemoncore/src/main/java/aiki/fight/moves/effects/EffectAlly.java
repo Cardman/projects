@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectAlly extends Effect {
+public final class EffectAlly extends Effect {
 
     private Rate multAllyDamage;
 

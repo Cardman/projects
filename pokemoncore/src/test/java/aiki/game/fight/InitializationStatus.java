@@ -16,6 +16,8 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.Status;
 import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
+import aiki.fight.status.StatusBeginRoundSimple;
+import aiki.fight.status.StatusSimple;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 
@@ -349,7 +351,7 @@ final class InitializationStatus {
     }
 
     private static Status defaultStatut() {
-        Status object_ = new Status();
+        Status object_ = new StatusSimple();
         object_.setStatusType(StatusType.INDIVIDUEL);
         object_.setCatchingRate(Rate.zero());
         object_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
@@ -371,7 +373,7 @@ final class InitializationStatus {
     }
 
     private static StatusBeginRound defaultStatusBeginRound() {
-        StatusBeginRound object_ = new StatusBeginRound();
+        StatusBeginRound object_ = new StatusBeginRoundSimple();
         object_.setLawForUsingAMove(new MonteCarloBoolean());
         object_.setLawForUsingAMoveNbRound(new MonteCarloNumber());
         object_.setLawForUsingAMoveIfFoe(new MonteCarloBoolean());

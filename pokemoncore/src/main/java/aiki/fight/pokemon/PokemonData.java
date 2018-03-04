@@ -20,7 +20,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class PokemonData {
+public final class PokemonData {
 
     private static final int RATE_BASE = 8;
 

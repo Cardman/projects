@@ -7,7 +7,7 @@ import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @RwXml
-public class HostPokemonDuo {
+public final class HostPokemonDuo {
 
     private PokemonPlayer firstPokemon;
 

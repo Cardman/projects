@@ -1,7 +1,7 @@
 package cards.belote;
+import cards.belote.enumerations.DeclaresBelote;
 import code.util.annot.RwXml;
 import code.util.ints.Equallable;
-import cards.belote.enumerations.DeclaresBelote;
 
 @RwXml
 public final class DeclareHandBelote implements Equallable<DeclareHandBelote> {

@@ -3,7 +3,7 @@ import aiki.util.Point;
 import code.serialize.CheckedData;
 
 @CheckedData
-public class LevelOutdoor extends Level {
+public final class LevelOutdoor extends Level {
 
     @Override
     public boolean isEmptyForAdding(Point _point) {

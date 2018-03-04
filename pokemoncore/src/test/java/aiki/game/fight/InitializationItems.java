@@ -1,15 +1,7 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingSimple;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
@@ -21,6 +13,8 @@ import aiki.fight.items.HealingHp;
 import aiki.fight.items.HealingHpStatus;
 import aiki.fight.items.HealingItem;
 import aiki.fight.items.HealingPp;
+import aiki.fight.items.HealingSimpleItem;
+import aiki.fight.items.HealingSimpleStatus;
 import aiki.fight.items.HealingStatus;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.items.Repel;
@@ -31,6 +25,15 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import aiki.fight.util.StatisticPokemon;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloBoolean;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class InitializationItems {
 
@@ -790,7 +793,7 @@ final class InitializationItems {
     }
 
     private static HealingItem defaultHealingItem() {
-        HealingItem object_ = new HealingItem();
+        HealingItem object_ = new HealingSimpleItem();
         object_.setHappiness(new StringMap<Short>());
         return object_;
     }
@@ -811,7 +814,7 @@ final class InitializationItems {
     }
 
     private static HealingStatus defaultSoinStatut() {
-        HealingStatus object_ = new HealingStatus();
+        HealingStatus object_ = new HealingSimpleStatus();
         object_.setStatus(new StringList());
         object_.setHappiness(new StringMap<Short>());
         return object_;
@@ -837,7 +840,7 @@ final class InitializationItems {
     }
 
     private static EffectWhileSending defaultEffectWhileSending() {
-        EffectWhileSending object_ = new EffectWhileSending();
+        EffectWhileSending object_ = new EffectWhileSendingSimple();
         object_.setEnabledWeather(NULL_REF);
         object_.setMultWeight(Rate.zero());
         return object_;

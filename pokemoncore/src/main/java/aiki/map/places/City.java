@@ -27,7 +27,7 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class City extends Place implements InitializedPlace{
+public final class City extends Place implements InitializedPlace{
 
     /**key access to building, which is shown as a block*/
     private ObjectMap<Point,Building> buildings;

@@ -6,7 +6,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class Person {
+public abstract class Person {
 
     private String imageMiniFileName;
 

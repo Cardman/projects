@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectEndRoundFoe extends EffectEndRound {
+public final class EffectEndRoundFoe extends EffectEndRound {
 
     private Rate inflictedRateHpTarget;
 

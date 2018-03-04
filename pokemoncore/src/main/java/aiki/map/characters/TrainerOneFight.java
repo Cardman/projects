@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class TrainerOneFight extends Trainer {
+public abstract class TrainerOneFight extends Trainer {
 
     @CheckedData
     private short reward;

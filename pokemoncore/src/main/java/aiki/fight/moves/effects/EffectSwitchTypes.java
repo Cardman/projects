@@ -12,7 +12,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectSwitchTypes extends Effect {
+public final class EffectSwitchTypes extends Effect {
 
     private EnumMap<EnvironmentType,String> chgtTypeByEnv;
     @CheckedData

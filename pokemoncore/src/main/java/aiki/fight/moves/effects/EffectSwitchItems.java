@@ -9,7 +9,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectSwitchItems extends Effect {
+public final class EffectSwitchItems extends Effect {
 
     private MoveItemType moveObject;
 

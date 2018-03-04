@@ -11,7 +11,7 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class LevelIndoorGym extends Level {
+public final class LevelIndoorGym extends Level {
 
     private ObjectMap<Point,GymTrainer> gymTrainers;
 

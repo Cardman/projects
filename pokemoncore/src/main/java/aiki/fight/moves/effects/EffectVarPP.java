@@ -6,7 +6,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectVarPP extends Effect {
+public final class EffectVarPP extends Effect {
 
     private short deletePp;
 

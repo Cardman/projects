@@ -1,11 +1,11 @@
 package cards.belote;
+import cards.belote.enumerations.BidBelote;
+import cards.consts.Order;
+import cards.consts.Suit;
 import code.util.EqList;
 import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
-import cards.belote.enumerations.BidBelote;
-import cards.consts.Order;
-import cards.consts.Suit;
 
 @RwXml
 public final class BidBeloteSuit implements Equallable<BidBeloteSuit>, Displayable {

@@ -12,7 +12,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectEndRoundIndividual extends EffectEndRound {
+public final class EffectEndRoundIndividual extends EffectEndRound {
 
     @CheckedData
     private Rate deleteAllStatus;

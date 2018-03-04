@@ -6,7 +6,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class DealerItem extends Person implements CharacterInRoadCave{
+public final class DealerItem extends Person implements CharacterInRoadCave{
 
     private StringList items;
 

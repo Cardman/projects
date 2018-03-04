@@ -1,6 +1,6 @@
 package cards.belote;
-import static junitparams.JUnitParamsRunner.$;
 import static cards.belote.EquallableBeloteUtil.assertEq;
+import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import junitparams.JUnitParamsRunner;
@@ -9,16 +9,16 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
 
 @RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")

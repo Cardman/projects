@@ -1,6 +1,6 @@
 package aiki.network.stream;
 
 
-public class Ok {
+public final class Ok {
 
 }

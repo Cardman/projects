@@ -1,9 +1,9 @@
 package cards.belote.enumerations;
+import cards.consts.CardChar;
 import code.format.Format;
 import code.util.EnumList;
 import code.util.consts.Constants;
 import code.util.ints.Displayable;
-import cards.consts.CardChar;
 
 public enum DeclaresBelote  implements Displayable {
     UNDEFINED,

@@ -8,7 +8,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 
 @RwXml
-public class RefreshingDone extends PlayerActionGame {
+public final class RefreshingDone extends PlayerActionGame {
 
     private CardTarot card;
 

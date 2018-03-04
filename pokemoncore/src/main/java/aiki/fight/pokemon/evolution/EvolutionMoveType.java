@@ -6,7 +6,7 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EvolutionMoveType extends Evolution {
+public final class EvolutionMoveType extends Evolution {
 
     private String type;
 

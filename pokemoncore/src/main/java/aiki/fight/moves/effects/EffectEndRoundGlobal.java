@@ -10,7 +10,7 @@ import code.serialize.CheckedData;
 /**
  */
 @CheckedData
-public class EffectEndRoundGlobal extends EffectEndRound {
+public final class EffectEndRoundGlobal extends EffectEndRound {
 
     @Override
     public void validate(DataBase _data) {

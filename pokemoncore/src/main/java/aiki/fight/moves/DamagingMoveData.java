@@ -18,7 +18,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class DamagingMoveData extends MoveData {
+public final class DamagingMoveData extends MoveData {
     public static final String MOVE = "aiki.fight.moves.DamagingMoveData";
 
     private String category;

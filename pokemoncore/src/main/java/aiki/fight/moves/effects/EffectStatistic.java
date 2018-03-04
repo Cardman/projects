@@ -12,7 +12,7 @@ import code.util.EnumMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectStatistic extends Effect {
+public final class EffectStatistic extends Effect {
 
     private EnumMap<Statistic,Byte> statisVarRank;
     private EnumMap<Statistic,String> localFailStatis;

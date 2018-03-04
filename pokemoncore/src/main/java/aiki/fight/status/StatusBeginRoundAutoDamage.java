@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class StatusBeginRoundAutoDamage extends StatusBeginRound {
+public final class StatusBeginRoundAutoDamage extends StatusBeginRound {
 
     private Rate power;
 

@@ -7,7 +7,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectWinMoney extends Effect {
+public final class EffectWinMoney extends Effect {
 
     private Rate winningRateBySumTargetUser;
 

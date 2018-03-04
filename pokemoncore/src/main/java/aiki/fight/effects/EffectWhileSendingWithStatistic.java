@@ -4,7 +4,7 @@ import aiki.fight.moves.effects.EffectStatistic;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectWhileSendingWithStatistic extends EffectWhileSending {
+public final class EffectWhileSendingWithStatistic extends EffectWhileSending {
 
     private EffectStatistic effect;
 

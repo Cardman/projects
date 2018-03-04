@@ -13,7 +13,7 @@ import code.util.ints.Listable;
 import code.util.ints.MidListable;
 
 @RwXml
-public class EvolvedScore implements XmlTransientable, MidListable<EvolvedPart>, Displayable {
+public final class EvolvedScore implements XmlTransientable, MidListable<EvolvedPart>, Displayable {
 
     private static final String STRING = "";
 

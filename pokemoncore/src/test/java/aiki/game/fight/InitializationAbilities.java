@@ -1,19 +1,8 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloEnum;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingSimple;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
@@ -28,6 +17,18 @@ import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypeDamageBoost;
 import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloEnum;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class InitializationAbilities {
 
@@ -841,7 +842,7 @@ final class InitializationAbilities {
     }
 
     private static EffectWhileSending defaultEffectWhileSending() {
-        EffectWhileSending object_ = new EffectWhileSending();
+        EffectWhileSending object_ = new EffectWhileSendingSimple();
         object_.setEnabledWeather(NULL_REF);
         object_.setMultWeight(Rate.zero());
         return object_;

@@ -8,7 +8,7 @@ import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @RwXml
-public class LevelLeague extends Level {
+public final class LevelLeague extends Level {
 
     @CheckedData
     private Point trainerCoords;

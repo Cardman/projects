@@ -6,7 +6,7 @@ import aiki.util.Point;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Gym extends Building {
+public final class Gym extends Building {
 
     private LevelIndoorGym level;
 

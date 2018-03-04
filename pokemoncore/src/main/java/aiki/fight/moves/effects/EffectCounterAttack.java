@@ -8,7 +8,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectCounterAttack extends Effect {
+public final class EffectCounterAttack extends Effect {
 
     private StringMap<Rate> sufferingDamageTypes;
 

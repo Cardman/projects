@@ -2,6 +2,6 @@ package aiki.map.levels;
 import code.serialize.CheckedData;
 
 @CheckedData
-public class LevelRoad extends LevelWithWildPokemon {
+public final class LevelRoad extends LevelWithWildPokemon {
 
 }

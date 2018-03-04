@@ -6,7 +6,7 @@ import code.util.CustList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class PokemonTeam {
+public final class PokemonTeam {
 
     private CustList<PkTrainer> team;
 

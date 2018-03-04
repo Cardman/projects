@@ -9,7 +9,7 @@ import code.util.annot.RwXml;
 
 @CheckedData
 @RwXml
-public class EffectRestriction extends Effect {
+public final class EffectRestriction extends Effect {
 
     private boolean forbidTargetUsingItem;
     private MoveChoiceRestrictionType choiceRestriction;

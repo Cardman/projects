@@ -87,7 +87,7 @@ import code.util.annot.RwXml;
 import code.util.consts.Constants;
 
 @RwXml
-public class Game {
+public final class Game {
 
     private static final int NB_HOSTED_POKEMON = 2;
 

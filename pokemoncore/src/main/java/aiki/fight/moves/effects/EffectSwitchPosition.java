@@ -5,7 +5,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.serialize.CheckedData;
 
 @CheckedData
-public class EffectSwitchPosition extends Effect {
+public final class EffectSwitchPosition extends Effect {
 
     @Override
     public void validate(DataBase _data) {

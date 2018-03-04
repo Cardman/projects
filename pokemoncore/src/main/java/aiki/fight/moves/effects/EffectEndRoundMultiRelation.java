@@ -9,7 +9,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectEndRoundMultiRelation extends EffectEndRound {
+public final class EffectEndRoundMultiRelation extends EffectEndRound {
 
     private StringMap<Rate> damageByStatus;
     private StringMap<Rate> multDamageStatus;

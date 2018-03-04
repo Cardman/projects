@@ -8,7 +8,7 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class LevelCave extends LevelWithWildPokemon {
+public final class LevelCave extends LevelWithWildPokemon {
 
     private ObjectMap<Point,Link> linksOtherLevels;
 

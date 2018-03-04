@@ -6,7 +6,7 @@ import code.util.StringMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class EffectMultUsedMovePower extends Effect {
+public final class EffectMultUsedMovePower extends Effect {
 
     private StringMap<Rate> multMovePowerFctType;
 
