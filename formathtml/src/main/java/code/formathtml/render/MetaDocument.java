@@ -229,7 +229,7 @@ public final class MetaDocument {
                             }
                             par_ = par_.getParentNode();
                         }
-                        MetaInput button_ = new MetaButton(currentParent, LgNames.parseInt(elt_.getAttribute("n-i")), form_, elt_.getAttribute("value"));
+                        MetaInput button_ = new MetaButton(currentParent, -1, form_, elt_.getAttribute("value"));
                         button_.setStyle(styleLoc_);
                         currentParent.appendChild(button_);
                     }
