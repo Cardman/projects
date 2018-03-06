@@ -1,6 +1,8 @@
 package code.formathtml.render;
 
 import code.util.CustList;
+import code.util.EqList;
+import code.util.IdMap;
 
 public final class FindNextElement {
 
@@ -13,6 +15,7 @@ public final class FindNextElement {
     private int end;
     private MetaDocument document;
     private boolean setup;
+    private IdMap<MetaSearchableLabel, EqList<SegmentPart>> segments = new IdMap<MetaSearchableLabel, EqList<SegmentPart>>();
 
     public FindNextElement(MetaDocument _document) {
         document = _document;
@@ -40,13 +43,12 @@ public final class FindNextElement {
                     group_ = l_.getPartGroup();
                     row_ = l_.getRowGroup();
                     reset();
-                    cur_ = l_;
                 } else if (l_.getRowGroup() != row_) {
                     row_ = l_.getRowGroup();
                     reset();
-                    cur_ = l_;
                 }
             }
+            cur_ = next_;
         }
         while (true) {
             boolean keep_ = true;
@@ -81,6 +83,8 @@ public final class FindNextElement {
                 cur_ = next_;
             }
             if (!keep_) {
+                label = null;
+                reset();
                 break;
             }
         }
@@ -113,11 +117,34 @@ public final class FindNextElement {
             end = _label.getText().length() - (relIndexEnd_ - index_ - _text.length());
             index = index_ + _text.length();
             label = _label;
+            int lenMinusOne_ = len_ - 1;
+            if (beginLabel + 1 <= lenMinusOne_) {
+                MetaSearchableLabel l_ = labels.get(beginLabel);
+                addSegment(l_, new SegmentPart(offset, l_.getText().length()));
+                for (int i = beginLabel + 1; i < lenMinusOne_; i++) {
+                    l_ = labels.get(i);
+                    addSegment(l_, new SegmentPart(0, l_.getText().length()));
+                }
+                addSegment(label, new SegmentPart(0, end));
+            } else {
+                addSegment(label, new SegmentPart(offset, end));
+            }
+        }
+    }
+    private void addSegment(MetaSearchableLabel _label, SegmentPart _seg) {
+        EqList<SegmentPart> segs_ = segments.getVal(_label);
+        if (segs_ == null) {
+            segs_ = new EqList<SegmentPart>(_seg);
+            segments.put(_label, segs_);
+        } else {
+            segs_.add(_seg);
+            segs_.removeDuplicates();
         }
     }
     private void reset() {
         line.delete(0, line.length());
         labels.clear();
+        segments.clear();
         index = 0;
     }
     private MetaComponent getNextElement(MetaComponent _current) {
@@ -163,6 +190,13 @@ public final class FindNextElement {
             return null;
         }
         return ch_.get(index_);
+    }
+    public IdMap<MetaSearchableLabel, EqList<SegmentPart>> getSegments() {
+        return segments;
+    }
+    public void setSegments(
+            IdMap<MetaSearchableLabel, EqList<SegmentPart>> _segments) {
+        segments = _segments;
     }
     public StringBuilder getLine() {
         return line;
