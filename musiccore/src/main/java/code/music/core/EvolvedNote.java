@@ -5,15 +5,12 @@ import java.math.MathContext;
 import jm.constants.Pitches;
 import jm.music.data.Note;
 import code.music.enums.Gamme;
-import code.serialize.XmlTransientable;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@RwXml
-public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNote>, Displayable {
+public final class EvolvedNote implements Equallable<EvolvedNote>, Displayable {
 
     private static final String SEPARATOR = "/";
     private static final String SEPARATOR_TIME = ",";
@@ -39,14 +36,14 @@ public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNo
     }
 
     public EvolvedNote(Gamme _value, int _level, boolean _diese, double _duration, int _dynamic) {
-        note = new Note(_value.getPitch() + DELTA * _level + diese(_diese), _duration);
+        note = new Note(_value.getPitch() + DELTA * _level + diese(_diese), _duration, _dynamic);
         note.setDuration(_duration);
         value = _value;
         dynamic = _dynamic;
     }
 
     public EvolvedNote(double _duration, int _dynamic) {
-        note = new Note(Pitches.REST, _duration);
+        note = new Note(Pitches.REST, _duration, _dynamic);
         note.setDuration(_duration);
         pause = true;
         dynamic = _dynamic;
@@ -236,11 +233,6 @@ public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNo
         return StringList.concat(value.name(),diese_,Integer.toString(level),SEPARATOR_TIME,time_,SEPARATOR_TIME,dyn_);
     }
 
-    @Override
-    public void beforeSave() {
-    }
-
-    @Override
     public void afterLoad() {
         //pitch < MIN_PITCH && pitch > REST + 2
         int pitch_;

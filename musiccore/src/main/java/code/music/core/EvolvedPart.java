@@ -4,16 +4,13 @@ import java.util.ListIterator;
 
 import jm.music.data.Part;
 import jm.music.data.Phrase;
-import code.serialize.XmlTransientable;
 import code.util.EqList;
-import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 import code.util.ints.MidListable;
 
-@RwXml
-public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedPhrase>, Equallable<EvolvedPart>, Displayable {
+public final class EvolvedPart implements MidListable<EvolvedPhrase>, Equallable<EvolvedPart>, Displayable {
 
     private static final String SEP_TWO = "/";
 
@@ -75,11 +72,6 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
         }
     }
 
-    @Override
-    public void beforeSave() {
-    }
-
-    @Override
     public void afterLoad() {
         if (instrument < Part.DEFAULT_INSTRUMENT) {
             instrument = Part.DEFAULT_INSTRUMENT;
@@ -140,11 +132,6 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
     public Object[] toArray() {
         return phrases.toArray();
     }
-
-//    @Override
-//    public <T> T[] toArray(T[] _a) {
-//        return phrases.toArray(_a);
-//    }
 
     @Override
     public void add(EvolvedPhrase _e) {

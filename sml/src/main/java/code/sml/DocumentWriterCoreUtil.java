@@ -90,7 +90,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumbersShort(Numbers<Short> _object, String _fieldName, Document _document) {
+    public static Element setListShort(Numbers<Short> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("n");
         setFieldName(elt_, _fieldName);
         for (short s: _object) {
@@ -100,7 +100,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumbersInteger(Numbers<Integer> _object, String _fieldName, Document _document) {
+    public static Element setListInteger(Numbers<Integer> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("n");
         setFieldName(elt_, _fieldName);
         for (int s: _object) {
@@ -110,7 +110,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumbersLong(Numbers<Long> _object, String _fieldName, Document _document) {
+    public static Element setListLong(Numbers<Long> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("n");
         setFieldName(elt_, _fieldName);
         for (long s: _object) {
@@ -120,7 +120,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setCustBooleanList(CustList<BooleanList> _object, String _fieldName, Document _document) {
+    public static Element setListBooleanList(CustList<BooleanList> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("l");
         setFieldName(elt_, _fieldName);
         for (BooleanList s: _object) {
@@ -130,17 +130,17 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setCustNumbersLong(CustList<Numbers<Long>> _object, String _fieldName, Document _document) {
+    public static Element setListNumbersLong(CustList<Numbers<Long>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("l");
         setFieldName(elt_, _fieldName);
         for (Numbers<Long> s: _object) {
-            Element sub_ = setNumbersLong(s, "", _document);
+            Element sub_ = setListLong(s, "", _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
-    public static Element setEqNumbersByte(EqList<Numbers<Byte>> _object, String _fieldName, Document _document) {
+    public static Element setListListByte(EqList<Numbers<Byte>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("ql");
         setFieldName(elt_, _fieldName);
         for (Numbers<Byte> s: _object) {
@@ -228,7 +228,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNatTreeMapIntegerByte(NatTreeMap<Integer,Byte> _object, String _fieldName, Document _document) {
+    public static Element setMapIntegerByte(NatTreeMap<Integer,Byte> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("sm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Integer,Byte> s: _object.entryList()) {
@@ -241,7 +241,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumberMapByteByte(NumberMap<Byte,Byte> _object, String _fieldName, Document _document) {
+    public static Element setMapByteByte(NumberMap<Byte,Byte> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Byte,Byte> s: _object.entryList()) {
@@ -254,7 +254,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumberMapByteNumbersByte(NumberMap<Byte,Numbers<Byte>> _object, String _fieldName, Document _document) {
+    public static Element setMapByteListByte(NumberMap<Byte,Numbers<Byte>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Byte,Numbers<Byte>> s: _object.entryList()) {
@@ -267,7 +267,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumberMapShortBoolean(NumberMap<Short,Boolean> _object, String _fieldName, Document _document) {
+    public static Element setMapShortBoolean(NumberMap<Short,Boolean> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Short,Boolean> s: _object.entryList()) {
@@ -280,7 +280,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumberMapByteShortString(NumberMap<Short,String> _object, String _fieldName, Document _document) {
+    public static Element setMapByteShortString(NumberMap<Short,String> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Short,String> s: _object.entryList()) {
@@ -293,7 +293,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumberMapIntegerBoolean(NumberMap<Integer,Boolean> _object, String _fieldName, Document _document) {
+    public static Element setMapIntegerBoolean(NumberMap<Integer,Boolean> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Integer,Boolean> s: _object.entryList()) {
@@ -306,7 +306,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumberMapIntegerString(NumberMap<Integer,String> _object, String _fieldName, Document _document) {
+    public static Element setMapIntegerString(NumberMap<Integer,String> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Integer,String> s: _object.entryList()) {

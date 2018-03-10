@@ -30,7 +30,7 @@ public final class DocumentWriterMathUtil {
         elt_.setAttribute("value", _boolean.display());
         return elt_;
     }
-    public static Element setEqLgInt(EqList<LgInt> _object, String _fieldName, Document _document) {
+    public static Element setListLgInt(EqList<LgInt> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("ql");
         setFieldName(elt_, _fieldName);
         for (LgInt s: _object) {
@@ -40,7 +40,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setEqRate(EqList<Rate> _object, String _fieldName, Document _document) {
+    public static Element setListRate(EqList<Rate> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("ql");
         setFieldName(elt_, _fieldName);
         for (Rate s: _object) {
@@ -76,7 +76,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setEqMapRateLgInt(ObjectNotNullMap<Rate,LgInt> _object, String _fieldName, Document _document) {
+    public static Element setMapRateLgInt(ObjectNotNullMap<Rate,LgInt> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("sm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Rate,LgInt> s: _object.entryList()) {
@@ -119,10 +119,10 @@ public final class DocumentWriterMathUtil {
     public static Element setMonteCarloNumber(MonteCarloNumber _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("ms");
         setFieldName(elt_, _fieldName);
-        elt_.appendChild(setEqMapRateLgInt(_object.getLaw(), "law", _document));
+        elt_.appendChild(setMapRateLgInt(_object.getLaw(), "law", _document));
         return elt_;
     }
-    public static Element setNumberMapLongRate(NumberMap<Long,Rate> _object, String _fieldName, Document _document) {
+    public static Element setMapLongRate(NumberMap<Long,Rate> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Long,Rate> s: _object.entryList()) {

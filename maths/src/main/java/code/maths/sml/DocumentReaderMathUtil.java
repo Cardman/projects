@@ -38,7 +38,7 @@ public final class DocumentReaderMathUtil {
     }
 
 
-    public static EqList<LgInt> getEqLgInt(Element _elt) {
+    public static EqList<LgInt> getListLgInt(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         EqList<LgInt> list_ = new EqList<LgInt>(new CollCapacity(len_));
@@ -48,7 +48,7 @@ public final class DocumentReaderMathUtil {
         return list_;
     }
 
-    public static EqList<Rate> getEqRate(Element _elt) {
+    public static EqList<Rate> getListRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         EqList<Rate> list_ = new EqList<Rate>(new CollCapacity(len_));
@@ -101,7 +101,7 @@ public final class DocumentReaderMathUtil {
     }
 
 
-    public static ObjectNotNullMap<Rate,LgInt> getEqMapRateLgInt(Element _elt) {
+    public static ObjectNotNullMap<Rate,LgInt> getMapRateLgInt(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
@@ -179,12 +179,12 @@ public final class DocumentReaderMathUtil {
         for (Element c: childElements_) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "law")) {
-                law_.setLaw(getEqMapRateLgInt(c));
+                law_.setLaw(getMapRateLgInt(c));
             }
         }
         return law_;
     }
-    public static NumberMap<Long,Rate> getNumberMapLongRate(Element _elt) {
+    public static NumberMap<Long,Rate> getMapLongRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);

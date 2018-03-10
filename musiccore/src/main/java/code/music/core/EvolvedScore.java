@@ -5,15 +5,12 @@ import java.util.ListIterator;
 import jm.music.data.Part;
 import jm.music.data.Score;
 import jm.util.Play;
-import code.serialize.XmlTransientable;
 import code.util.EqList;
-import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 import code.util.ints.Listable;
 import code.util.ints.MidListable;
 
-@RwXml
-public final class EvolvedScore implements XmlTransientable, MidListable<EvolvedPart>, Displayable {
+public final class EvolvedScore implements MidListable<EvolvedPart>, Displayable {
 
     private static final String STRING = "";
 
@@ -29,6 +26,7 @@ public final class EvolvedScore implements XmlTransientable, MidListable<Evolved
 
     public EvolvedScore(Score _ph) {
         score = new Score();
+        name = _ph.getTitle();
         for (Part n: _ph.getPartArray()) {
             score.add(n);
             parts.add(new EvolvedPart(n));
@@ -54,11 +52,6 @@ public final class EvolvedScore implements XmlTransientable, MidListable<Evolved
         }
     }
 
-    @Override
-    public void beforeSave() {
-    }
-
-    @Override
     public void afterLoad() {
         score = new Score(name);
         for (EvolvedPart e: parts) {
@@ -100,11 +93,6 @@ public final class EvolvedScore implements XmlTransientable, MidListable<Evolved
     public Object[] toArray() {
         return parts.toArray();
     }
-
-//    @Override
-//    public <T> T[] toArray(T[] _a) {
-//        return parts.toArray(_a);
-//    }
 
     @Override
     public void add(EvolvedPart _e) {
