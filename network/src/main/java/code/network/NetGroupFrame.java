@@ -9,7 +9,6 @@ import java.net.UnknownHostException;
 import code.gui.GroupFrame;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
-import code.serialize.SerializeXmlObject;
 import code.stream.exceptions.RuntimeIOException;
 import code.util.StringList;
 
@@ -91,24 +90,22 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         }
     }
 
-    /**client
+    /**server and client
     Method allowing the client to send a serializable object by its socket
     @param _serializable the serializable object to be sent
     */
     public void sendObject(Object _serializable) {
-        sendObject(socket,_serializable);
+        sendText(socket, setObject(_serializable));
     }
 
-    /**server and client*/
-    static void sendObject(Socket _socket,Object _serializable) {
-        sendText(_socket,SerializeXmlObject.toXmlString(_serializable));
-    }
+    public abstract Object getObject(String _object);
+    public abstract String setObject(Object _object);
 
     /**client*/
-    protected void sendQuit(Object _serializable) {
+    protected void sendCheckedObject(Object _serializable) {
         try {
             PrintWriter out_ = new PrintWriter(socket.getOutputStream(), true);
-            out_.println(SerializeXmlObject.toXmlString(_serializable));
+            out_.println(setObject(_serializable));
         } catch (IOException _0) {
             throw new RuntimeIOException(_0.getMessage());
         }

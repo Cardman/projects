@@ -4,8 +4,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.CheckCompatibility;
-import code.serialize.SerializeXmlObject;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 
@@ -110,7 +110,7 @@ public final class Net {
 //        out_.println(SerializeXmlObject.toXmlString(_serializable));
 //    }
     public static void sendObject(Socket _socket,Object _serializable) {
-        Net.sendText(_socket,SerializeXmlObject.toXmlString(_serializable));
+        Net.sendText(_socket,DocumentWriterAikiMultiUtil.setObject(_serializable));
     }
 
     //bk: synchronized (only called from loop server)

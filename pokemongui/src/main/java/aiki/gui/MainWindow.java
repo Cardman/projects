@@ -63,6 +63,8 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.Net;
 import aiki.network.SendReceiveServer;
+import aiki.network.sml.DocumentReaderAikiMultiUtil;
+import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.CheckCompatibility;
 import aiki.network.stream.IndexOfArriving;
 import aiki.network.stream.InitTrading;
@@ -70,6 +72,8 @@ import aiki.network.stream.NetPokemon;
 import aiki.network.stream.NewPlayer;
 import aiki.network.stream.Ok;
 import aiki.network.stream.Quit;
+import aiki.sml.DocumentReaderAikiCoreUtil;
+import aiki.sml.DocumentWriterAikiCoreUtil;
 import code.gui.Clock;
 import code.gui.ConfirmDialog;
 import code.gui.FileOpenDialog;
@@ -347,12 +351,12 @@ public final class MainWindow extends NetGroupFrame {
                 path_ = StringList.replaceBackSlash(path_);
                 save(path_);
             }
-            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
+            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
             //LaunchingPokemon.decrement();
             dispose();
         } else if (indexInGame == CustList.INDEX_NOT_FOUND_ELT && !savedGame) {
             if (facade.getGame() == null) {
-                StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
+                StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
                 //LaunchingPokemon.decrement();
                 dispose();
                 return;
@@ -367,7 +371,7 @@ public final class MainWindow extends NetGroupFrame {
                     }
                 }
                 savedGame = true;
-                StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
+                StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
                 //LaunchingPokemon.decrement();
 //                ecrireCoordonnees();
 //                CustList<FrameHtmlData> frames_ = new CustList<>();
@@ -786,7 +790,7 @@ public final class MainWindow extends NetGroupFrame {
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
+            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
         String fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         if (fileName_.isEmpty()) {
@@ -833,7 +837,7 @@ public final class MainWindow extends NetGroupFrame {
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
+            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
         String fileName_ = fileDialogLoad(Resources.GAME_EXT, false);
         if (fileName_.isEmpty()) {
@@ -867,7 +871,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public static Game load(String _fileName,DataBase _data) {
-        Game game_ = (Game) StreamTextFile.loadObject(_fileName);
+        Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName));
         game_.checkAndInitialize(_data);
         return game_;
     }
@@ -897,7 +901,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         game_.setZippedRom(facade.getZipName());
-        StreamTextFile.saveObject(_fileName, game_);
+        StreamTextFile.saveTextFile(_fileName, DocumentWriterAikiCoreUtil.setGame(game_));
     }
 
     public void manageLanguage() {
@@ -926,7 +930,7 @@ public final class MainWindow extends NetGroupFrame {
         SoftParams.setSoftParams(this, loadingConf);
         SoftParams.setParams(loadingConf);
         if (SoftParams.isOk()) {
-            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
+            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
     }
 
@@ -1194,7 +1198,7 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public void gearClient(Socket _newSocket) {
         Net.getSockets().put(Net.getSockets().size(), _newSocket);
-        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket);
+        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this);
         sendReceiveServer_.start();
         Net.getConnectionsServer().put(Net.getSockets().size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();
@@ -1334,7 +1338,7 @@ public final class MainWindow extends NetGroupFrame {
             loadingConf.setLastRom(facade.getZipName());
             String configPath_ = StringList.replaceExtension(path_, Resources.GAME_EXT, Resources.CONF_EXT);
             //String configPath_ = path_.replaceAll(StringList.quote(Resources.GAME_EXT)+StringList.END_REG_EXP, Resources.CONF_EXT);
-            StreamTextFile.saveObject(configPath_, loadingConf);
+            StreamTextFile.saveTextFile(configPath_, DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
             //configPath_ +=
         }
         return path_;
@@ -1421,7 +1425,7 @@ public final class MainWindow extends NetGroupFrame {
     public void setLoadingConf(LoadingGame _loadingConf, boolean _save) {
         loadingConf = _loadingConf;
         if (_save) {
-            StreamTextFile.saveObject(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), loadingConf);
+            StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
     }
 
@@ -1595,5 +1599,15 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public String getApplicationName() {
         return LaunchingPokemon.getMainWindowClass();
+    }
+
+    @Override
+    public String setObject(Object _object) {
+        return DocumentWriterAikiMultiUtil.setObject(_object);
+    }
+
+    @Override
+    public Object getObject(String _object) {
+        return DocumentReaderAikiMultiUtil.getObject(_object);
     }
 }

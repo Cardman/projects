@@ -4,13 +4,14 @@ import java.io.Closeable;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-import code.serialize.SerializeXmlObject;
-
 /**Thread safe class*/
 public abstract class BasicServer extends SendReceive {
 
-    public BasicServer(Socket _socket) {
+    private NetGroupFrame net;
+
+    public BasicServer(Socket _socket, NetGroupFrame _net) {
         super(_socket);
+        net = _net;
     }
 
     @Override
@@ -27,7 +28,7 @@ public abstract class BasicServer extends SendReceive {
                 if (input_ == null) {
                     break;
                 }
-                Object readObject_ = SerializeXmlObject.newObjectFromXmlString(input_);
+                Object readObject_ = net.getObject(input_);
                 if (readObject_ == null) {
                     continue;
                 }

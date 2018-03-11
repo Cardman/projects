@@ -2,13 +2,17 @@ package cards.facade;
 import cards.belote.CheckerGameBeloteWithRules;
 import cards.belote.GameBelote;
 import cards.belote.RulesBelote;
+import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.exceptions.FileRulesException;
+import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.president.CheckerGamePresidentWithRules;
 import cards.president.GamePresident;
 import cards.president.RulesPresident;
+import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.CheckerGameTarotWithRules;
 import cards.tarot.GameTarot;
 import cards.tarot.RulesTarot;
+import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
@@ -90,21 +94,21 @@ public final class Games {
     public void sauvegarderPartieEnCours(String _nomFichier){
         if(enCoursDePartieBelote()){
             GameBelote game_ = partieBelote();
-            StreamTextFile.saveObject(_nomFichier, game_);
+            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterBeloteUtil.setGameBelote(game_));
         }
         if(enCoursDePartieTarot()){
             GameTarot game_ = partieTarot();
-            StreamTextFile.saveObject(_nomFichier, game_);
+            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterTarotUtil.setGameTarot(game_));
         }
         if(enCoursDePartiePresident()){
             GamePresident game_ = partiePresident();
-            StreamTextFile.saveObject(_nomFichier, game_);
+            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterPresidentUtil.setGamePresident(game_));
         }
     }
     /**Load a game card from a XML file
     @throws RuntimeException */
     public void chargerPartie(String _fichier) {
-        Object par_ = StreamTextFile.loadObject(_fichier);
+        Object par_ = DocumentReaderCardsUnionUtil.getObject(_fichier);
         if (par_ instanceof GameBelote) {
             CheckerGameBeloteWithRules.check((GameBelote) par_);
             jouerBelote((GameBelote)par_);
@@ -135,5 +139,23 @@ public final class Games {
     }
     public void setRulesPresident(RulesPresident _rulesPresident) {
         rulesPresident = _rulesPresident;
+    }
+    public void setPartiesBelote(CustList<GameBelote> _listGameBelote) {
+        partiesBelote = _listGameBelote;
+    }
+    public void setPartiesTarot(CustList<GameTarot> _listGameTarot) {
+        partiesTarot = _listGameTarot;
+    }
+    public void setPartiesPresident(CustList<GamePresident> _listGamePresident) {
+        partiesPresident = _listGamePresident;
+    }
+    public CustList<GameBelote> getPartiesBelote() {
+        return partiesBelote;
+    }
+    public CustList<GameTarot> getPartiesTarot() {
+        return partiesTarot;
+    }
+    public CustList<GamePresident> getPartiesPresident() {
+        return partiesPresident;
     }
 }

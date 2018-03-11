@@ -26,6 +26,7 @@ import cards.president.DealPresident;
 import cards.president.DisplayingPresident;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
+import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.ConfirmDialog;
 import code.gui.FileSaveDialog;
 import code.gui.LabelButton;
@@ -327,7 +328,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     /**Lorsqu'on veut sauvegarder une partie*/
     private void validerSauvegarde(String _s) {
-        StreamTextFile.saveObject(_s, partie);
+        StreamTextFile.saveTextFile(_s, DocumentWriterPresidentUtil.setGamePresident(partie));
     }
 
     @Override

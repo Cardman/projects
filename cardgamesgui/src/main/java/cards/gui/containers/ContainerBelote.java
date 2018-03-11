@@ -6,6 +6,7 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
@@ -131,8 +132,7 @@ public class ContainerBelote extends ContainerGame {
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandBelote chargerPileBelote() {
-        HandBelote pile_=(HandBelote)StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT));
-        return pile_;
+        return DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT)));
     }
     public String pseudo() {
         return getPseudosJoueurs().getPseudo();

@@ -52,6 +52,7 @@ import cards.president.TricksHandsPresident;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
+import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
 import code.gui.SessionEditorPane;
@@ -576,7 +577,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
         if(isChangerPileFin()) {
             GamePresident partie_=partiePresident();
-            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(partie_.getRegles().getNbStacks()),FileConst.DECK_EXT),partie_.empiler());
+            StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(partie_.getRegles().getNbStacks()),FileConst.DECK_EXT),DocumentWriterPresidentUtil.setHandPresident(partie_.empiler()));
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);

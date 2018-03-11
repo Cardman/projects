@@ -29,6 +29,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.enumerations.DeclaresBeloteRebelote;
+import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Status;
@@ -717,7 +718,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         JPanel panneau_=new JPanel();
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
-            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),partie_.empiler());
+            StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()));
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);

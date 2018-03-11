@@ -62,7 +62,7 @@ public class LanguageFrame extends JFrame implements SetterLanguage, Packable {
         SoftApplicationCore.saveLanguage(dir, _language);
         Constants.setSystemLanguage(_language);
         removeAll();
-        StringMap<Object> file_ = SoftApplicationCore.getFile(args);
+        StringMap<Object> file_ = soft.getFile(args);
         soft.launch(langue, file_);
     }
 

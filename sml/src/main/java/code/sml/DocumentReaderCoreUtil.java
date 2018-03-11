@@ -235,6 +235,27 @@ public final class DocumentReaderCoreUtil {
         return map_;
     }
 
+    public static StringMap<Numbers<Integer>> getStringMapListInteger(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        StringMap<Numbers<Integer>> map_ = new StringMap<Numbers<Integer>>(cap_);
+        StringList keys_ = new StringList(cap_);
+        CustList<Numbers<Integer>> values_ = new CustList<Numbers<Integer>>(cap_);
+        for (Element c: childElements_) {
+            if (hasKey(c)) {
+                keys_.add(getString(c));
+            } else {
+                values_.add(getListInteger(c));
+            }
+        }
+        int min_ = Math.min(keys_.size(), values_.size());
+        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
+            map_.put(keys_.get(i), values_.get(i));
+        }
+        return map_;
+    }
+
     public static StringMap<StringMap<String>> getStringMapStringMapString(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();

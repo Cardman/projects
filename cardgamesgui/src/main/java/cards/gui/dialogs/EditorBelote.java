@@ -11,6 +11,7 @@ import cards.belote.DealBelote;
 import cards.belote.DisplayingBelote;
 import cards.belote.GameBelote;
 import cards.belote.HandBelote;
+import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
@@ -331,7 +332,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
     /**Lorsqu'on veut sauvegarder une partie*/
     private void validerSauvegarde(String _s) {
-        StreamTextFile.saveObject(_s, partie);
+        StreamTextFile.saveTextFile(_s, DocumentWriterBeloteUtil.setGameBelote(partie));
     }
     private void erreur(BeloteCardsScrollableList _plc) {
         String mes_ = getMessages().getVal(ERROR_REPARTITION);

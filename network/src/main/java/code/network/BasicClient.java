@@ -6,7 +6,6 @@ import java.net.Socket;
 import javax.swing.SwingUtilities;
 
 import code.gui.ThreadInvoker;
-import code.serialize.SerializeXmlObject;
 
 /**Thread safe class*/
 public final class BasicClient extends SendReceive {
@@ -35,7 +34,7 @@ public final class BasicClient extends SendReceive {
                     break;
                 }
                 //on peut traiter les "timeout"
-                Object readObject_ = SerializeXmlObject.newObjectFromXmlString(input_);
+                Object readObject_ = window.getObject(input_);
                 if (readObject_ == null) {
                     continue;
                 }

@@ -6,7 +6,9 @@ import pokecards.gui.MainWindow;
 import aiki.game.Game;
 import aiki.game.params.LoadingGame;
 import aiki.main.LaunchingPokemon;
+import aiki.sml.DocumentReaderAikiCoreUtil;
 import cards.belote.GameBelote;
+import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.main.LaunchingCards;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
@@ -15,6 +17,7 @@ import code.gui.SoftApplication;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
 import code.serialize.exceptions.BadObjectException;
+import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
@@ -87,5 +90,19 @@ public class LaunchingPokecards extends SoftApplication {
     @Override
     protected final Image getImageIcon() {
         return null;
+    }
+
+    @Override
+    public Object getObject(String _fileName) {
+        Object game_ = DocumentReaderCardsUnionUtil.getObject(_fileName);
+        if (game_ != null) {
+            return game_;
+        }
+        String file_ = StreamTextFile.contentsOfFile(_fileName);
+        Object o_ = DocumentReaderAikiCoreUtil.getGame(file_);
+        if (o_ != null) {
+            return o_;
+        }
+        return DocumentReaderAikiCoreUtil.getLoadingGame(file_);
     }
 }

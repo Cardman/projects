@@ -80,7 +80,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setNumbersByte(Numbers<Byte> _object, String _fieldName, Document _document) {
+    public static Element setListByte(Numbers<Byte> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("n");
         setFieldName(elt_, _fieldName);
         for (byte s: _object) {
@@ -130,7 +130,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setListNumbersLong(CustList<Numbers<Long>> _object, String _fieldName, Document _document) {
+    public static Element setListListLong(CustList<Numbers<Long>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("l");
         setFieldName(elt_, _fieldName);
         for (Numbers<Long> s: _object) {
@@ -144,7 +144,7 @@ public final class DocumentWriterCoreUtil {
         Element elt_ = _document.createElement("ql");
         setFieldName(elt_, _fieldName);
         for (Numbers<Byte> s: _object) {
-            Element sub_ = setNumbersByte(s, "", _document);
+            Element sub_ = setListByte(s, "", _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -197,6 +197,19 @@ public final class DocumentWriterCoreUtil {
             setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = setString(s.getValue(), "", _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
+
+    public static Element setStringMapListInteger(StringMap<Numbers<Integer>> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement("sm");
+        setFieldName(elt_, _fieldName);
+        for (EntryCust<String, Numbers<Integer>> s: _object.entryList()) {
+            Element sub_ = setString(s.getKey(), "", _document);
+            setKey(sub_);
+            elt_.appendChild(sub_);
+            sub_ = setListInteger(s.getValue(), "", _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -261,7 +274,7 @@ public final class DocumentWriterCoreUtil {
             Element sub_ = setByte(s.getKey(), "", _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setNumbersByte(s.getValue(), "", _document);
+            sub_ = setListByte(s.getValue(), "", _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -280,7 +293,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setMapByteShortString(NumberMap<Short,String> _object, String _fieldName, Document _document) {
+    public static Element setMapShortString(NumberMap<Short,String> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
         for (EntryCust<Short,String> s: _object.entryList()) {

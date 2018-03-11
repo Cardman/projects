@@ -16,11 +16,17 @@ public abstract class SendReceive extends Thread {
     private int noThread;
 
 
+    private NetGroupFrame net;
+
     public SendReceive(Socket _socket) {
         setSocket(_socket);
         noThread = _nbThread_;
         _nbThread_++;
 
+    }
+
+    public NetGroupFrame getNet() {
+        return net;
     }
 
     protected int getNoThread() {

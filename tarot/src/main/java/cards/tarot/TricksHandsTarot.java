@@ -1,12 +1,12 @@
 package cards.tarot;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EqList;
-import code.util.annot.RwXml;
 import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EqList;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class TricksHandsTarot {

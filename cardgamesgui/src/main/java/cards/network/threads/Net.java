@@ -8,7 +8,7 @@ import cards.facade.Games;
 import cards.network.common.Bye;
 import cards.network.common.DelegateServer;
 import cards.network.common.Quit;
-import code.serialize.SerializeXmlObject;
+import cards.network.sml.DocumentWriterCardsMultiUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -145,8 +145,8 @@ public final class Net {
 //        out_.println(SerializeXmlObject.toXmlString(_serializable));
 //    }
     /**server and client*/
-    public static void sendObject(Socket _socket,Object _serializable) {
-        Net.sendText(_socket,SerializeXmlObject.toXmlString(_serializable));
+    public static void sendObject(Socket _socket, Object _serializable) {
+        Net.sendText(_socket,DocumentWriterCardsMultiUtil.setObject(_serializable));
     }
     //bk: synchronized
     /**server*/

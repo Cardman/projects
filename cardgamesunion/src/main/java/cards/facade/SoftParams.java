@@ -3,6 +3,7 @@ import code.stream.StreamTextFile;
 import code.util.EnumList;
 import code.util.annot.RwXml;
 import cards.facade.enumerations.GameEnum;
+import cards.facade.sml.DocumentWriterCardsUnionUtil;
 
 @RwXml
 public final class SoftParams {
@@ -87,7 +88,7 @@ public final class SoftParams {
 //        locale = _locale;
 //    }
     public void sauvegarder(String _fichier){
-        StreamTextFile.saveObject(_fichier, this);
+        StreamTextFile.saveTextFile(_fichier, DocumentWriterCardsUnionUtil.setSoftParams(this));
     }
     public EnumList<GameEnum> getLaunching() {
         return launching;

@@ -3,6 +3,7 @@ import java.net.Socket;
 
 import code.network.AddingPlayer;
 import code.network.BasicServer;
+import code.network.NetGroupFrame;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -109,8 +110,8 @@ public final class SendReceiveServer extends BasicServer {
     private static final String EMPTY_STRING = "";
 
     /**This class thread is independant from EDT*/
-    public SendReceiveServer(Socket _socket) {
-        super(_socket);
+    public SendReceiveServer(Socket _socket, NetGroupFrame _net) {
+        super(_socket, _net);
     }
 
 //    public void run() {

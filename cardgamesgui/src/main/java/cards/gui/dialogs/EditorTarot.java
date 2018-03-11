@@ -24,6 +24,7 @@ import cards.tarot.DealTarot;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
+import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.ConfirmDialog;
 import code.gui.FileSaveDialog;
 import code.gui.LabelButton;
@@ -330,7 +331,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     /**Lorsqu'on veut sauvegarder une partie*/
     private void validerSauvegarde(String _s) {
-        StreamTextFile.saveObject(_s, partie);
+        StreamTextFile.saveTextFile(_s, DocumentWriterTarotUtil.setGameTarot(partie));
     }
     @Override
     public void deplacerCartes() {

@@ -114,6 +114,8 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
+import aiki.sml.DocumentReaderAikiCoreUtil;
+import aiki.sml.DocumentWriterAikiCoreUtil;
 import aiki.util.Coords;
 import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
@@ -128,7 +130,6 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.resources.ResourceFiles;
 import code.serialize.CheckedData;
-import code.serialize.SerializeXmlObject;
 import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -2216,7 +2217,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            PokemonData f_ = (PokemonData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
+            PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), f_);
         }
         checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
@@ -2231,7 +2232,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            MoveData move_ = (MoveData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
+            MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), move_);
         }
         _perCentLoading_ = 10;
@@ -2271,7 +2272,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            Item o_ = (Item) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
+            Item o_ = DocumentReaderAikiCoreUtil.getItem(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), o_);
         }
         checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
@@ -2285,7 +2286,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            AbilityData ab_ = (AbilityData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
+            AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), ab_);
         }
         checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
@@ -2299,7 +2300,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            Status st_ = (Status) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,f)));
+            Status st_ = DocumentReaderAikiCoreUtil.getStatus(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), st_);
         }
         checkCaseOfFiles(STATUS_FOLDER, filesNames_);
@@ -2474,10 +2475,10 @@ public class DataBase implements WithMathFactory {
 
         imageTmHm = files_.getVal(StringList.concat(common_, IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT));
         storage = files_.getVal(StringList.concat(common_, IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT));
-        combos = (Combos) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,COMBOS)));
+        combos = DocumentReaderAikiCoreUtil.getCombos(files_.getVal(StringList.concat(common_,COMBOS)));
         completeMembersCombos();
         sortEndRound();
-        map = (DataMap) SerializeXmlObject.newObjectFromXmlString(files_.getVal(StringList.concat(common_,MAP_FILE)));
+        map = DocumentReaderAikiCoreUtil.getDataMap(files_.getVal(StringList.concat(common_,MAP_FILE)));
         constNum = new StringMap<Rate>();
         StringList linesNum_ = StringList.splitChars(files_.getVal(StringList.concat(common_,CONST_NUM)), RETURN_LINE_CHAR);
         for (String l:linesNum_) {
@@ -2920,9 +2921,9 @@ public class DataBase implements WithMathFactory {
         }
         imageTmHm = ResourceFiles.ressourceFichier(StringList.concat(common_,IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT));
         storage = ResourceFiles.ressourceFichier(StringList.concat(common_,IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT));
-        combos = (Combos) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,COMBOS)));
+        combos = DocumentReaderAikiCoreUtil.getCombos(ResourceFiles.ressourceFichier(StringList.concat(common_,COMBOS)));
         completeMembersCombos();
-        map = (DataMap) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,MAP_FILE)));
+        map = DocumentReaderAikiCoreUtil.getDataMap(ResourceFiles.ressourceFichier(StringList.concat(common_,MAP_FILE)));
         _perCentLoading_ += delta_;
         constNum = new StringMap<Rate>();
         StringList lines_ = StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,CONST_NUM)), RETURN_LINE_CHAR);
@@ -3301,7 +3302,7 @@ public class DataBase implements WithMathFactory {
         for (String f: translatedPokemon.getVal(Constants.getLanguage()).getKeys()) {
             String n_ = StringList.concat(POKEDEX_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(f);
-            PokemonData f_ = (PokemonData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), f_);
         }
         checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
@@ -3310,7 +3311,7 @@ public class DataBase implements WithMathFactory {
         for (String f: translatedMoves.getVal(Constants.getLanguage()).getKeys()) {
             String n_ = StringList.concat(MOVES_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(n_);
-            MoveData move_ = (MoveData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), move_);
         }
         checkCaseOfFiles(MOVES_FOLDER, filesNames_);
@@ -3318,7 +3319,7 @@ public class DataBase implements WithMathFactory {
         for (String f: translatedItems.getVal(Constants.getLanguage()).getKeys()) {
             String n_ = StringList.concat(ITEMS_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(n_);
-            Item o_ = (Item) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            Item o_ = DocumentReaderAikiCoreUtil.getItem(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), o_);
         }
         checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
@@ -3326,7 +3327,7 @@ public class DataBase implements WithMathFactory {
         for (String f: translatedAbilities.getVal(Constants.getLanguage()).getKeys()) {
             String n_ = StringList.concat(ABILITIES_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(n_);
-            AbilityData ab_ = (AbilityData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), ab_);
         }
         checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
@@ -3334,7 +3335,7 @@ public class DataBase implements WithMathFactory {
         for (String f: translatedStatus.getVal(Constants.getLanguage()).getKeys()) {
             String n_ = StringList.concat(STATUS_FOLDER,SEPARATOR_FILES,f,FILES_RES_EXT);
             filesNames_.add(n_);
-            Status st_ = (Status) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            Status st_ = DocumentReaderAikiCoreUtil.getStatus(ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
             completeMembers(StringList.toUpperCase(f), st_);
         }
         checkCaseOfFiles(STATUS_FOLDER, filesNames_);
@@ -6628,28 +6629,28 @@ public class DataBase implements WithMathFactory {
     public StringMap<String> getTextFiles(boolean _addImages) {
         StringMap<String> files_ = new StringMap<String>();
         for (String n: pokedex.getKeys()) {
-            String file_ = SerializeXmlObject.toXmlString(pokedex.getVal(n));
+            String file_ = DocumentWriterAikiCoreUtil.setPokemonData(pokedex.getVal(n));
             files_.put(StringList.concat(POKEDEX_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         for (String n: moves.getKeys()) {
-            String file_ = SerializeXmlObject.toXmlString(moves.getVal(n));
+            String file_ = DocumentWriterAikiCoreUtil.setMoveData(moves.getVal(n));
             files_.put(StringList.concat(MOVES_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         for (String n: items.getKeys()) {
-            String file_ = SerializeXmlObject.toXmlString(items.getVal(n));
+            String file_ = DocumentWriterAikiCoreUtil.setItem(items.getVal(n));
             files_.put(StringList.concat(ITEMS_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         for (String n: abilities.getKeys()) {
-            String file_ = SerializeXmlObject.toXmlString(abilities.getVal(n));
+            String file_ = DocumentWriterAikiCoreUtil.setAbilityData(abilities.getVal(n));
             files_.put(StringList.concat(ABILITIES_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
         for (String n: status.getKeys()) {
-            String file_ = SerializeXmlObject.toXmlString(status.getVal(n));
+            String file_ = DocumentWriterAikiCoreUtil.setStatus(status.getVal(n));
             files_.put(StringList.concat(STATUS_FOLDER,SEPARATOR_FILES,n,FILES_RES_EXT), file_);
         }
-        String file_ = SerializeXmlObject.toXmlString(combos);
+        String file_ = DocumentWriterAikiCoreUtil.setCombos(combos);
         files_.put(COMBOS, file_);
-        file_ = SerializeXmlObject.toXmlString(map);
+        file_ = DocumentWriterAikiCoreUtil.setDataMap(map);
         files_.put(MAP_FILE, file_);
         StringList lines_ = new StringList();
         for (String s: constNum.getKeys()) {

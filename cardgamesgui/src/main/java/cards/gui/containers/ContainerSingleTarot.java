@@ -78,6 +78,7 @@ import cards.tarot.enumerations.ChoiceTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
+import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
 import code.gui.SessionEditorPane;
@@ -979,7 +980,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         if(isChangerPileFin()) {
             GameTarot partie_=partieTarot();
-            StreamTextFile.saveObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),partie_.empiler());
+            StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),DocumentWriterTarotUtil.setHandTarot(partie_.empiler()));
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);

@@ -6,11 +6,11 @@ import aiki.DataBase;
 import aiki.Resources;
 import aiki.game.Game;
 import aiki.game.params.LoadingGame;
+import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.gui.LoadLanguage;
 import code.gui.SoftApplication;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
-import code.serialize.SerializeXmlObject;
 import code.serialize.exceptions.BadObjectException;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -81,7 +81,7 @@ public class LaunchingPokemon extends SoftApplication {
             try {
 //                String xmlString_ = StreamTextFile.contentsOfFile(getFolderJarPath()+fileConfig_);
                 String xmlString_ = StreamTextFile.contentsOfFile(StringList.concat(ConstFiles.getInitFolder(),fileConfig_));
-                param_ = (LoadingGame) SerializeXmlObject.newObjectFromXmlString(xmlString_);
+                param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
                 param_.setLastSavedGame(gameSavePath_);
                 param_.setLastRom(zip_);
             } catch (RuntimeException _0) {
@@ -92,9 +92,9 @@ public class LaunchingPokemon extends SoftApplication {
         }
         if (param_ == null) {
             try {
-//                String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_);
+                String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_);
 //                param_ = (LoadingGame) SerializeXmlObject.newObjectFromXmlStringOrNull(xmlString_);
-                param_ = (LoadingGame) StreamTextFile.loadObject(fileConfig_);
+                param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
             } catch (RuntimeException _0) {
             }
         }
@@ -155,5 +155,15 @@ public class LaunchingPokemon extends SoftApplication {
     @Override
     protected Image getImageIcon() {
         return getIcon();
+    }
+
+    @Override
+    public Object getObject(String _fileName) {
+        String file_ = StreamTextFile.contentsOfFile(_fileName);
+        Object o_ = DocumentReaderAikiCoreUtil.getGame(file_);
+        if (o_ != null) {
+            return o_;
+        }
+        return DocumentReaderAikiCoreUtil.getLoadingGame(file_);
     }
 }

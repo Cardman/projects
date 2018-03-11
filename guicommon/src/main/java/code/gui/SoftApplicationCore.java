@@ -7,9 +7,10 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
+import code.gui.stream.DocumentReaderGuiUtil;
+import code.gui.stream.DocumentWriterGuiUtil;
 import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
-import code.serialize.SerializeXmlObject;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -57,8 +58,8 @@ public abstract class SoftApplicationCore {
     }
 
     protected boolean prepareLanguage(String _dir, String[] _args, Image _icon) {
-        SerializeXmlObject.setReferences(false);
-        SerializeXmlObject.setCheckReferences(false);
+//        SerializeXmlObject.setReferences(false);
+//        SerializeXmlObject.setCheckReferences(false);
 //        SerializeXmlObject.setUpdateFinalFields(false);
         String language_ = loadLanguage(_dir);
         if (language_.isEmpty()) {
@@ -69,13 +70,13 @@ public abstract class SoftApplicationCore {
         return true;
     }
 
-    static StringMap<Object> getFile(String[] _args) {
+    StringMap<Object> getFile(String[] _args) {
         StringMap<Object> files_ = new StringMap<Object>();
         if (_args.length > 0) {
             String fileName_ = new File(_args[0]).getAbsolutePath();
             fileName_ = StringList.replaceBackSlash(fileName_);
             try {
-                files_.put(fileName_, StreamTextFile.loadObject(_args[0]));
+                files_.put(fileName_, getObject(_args[0]));
             } catch (RuntimeException _0) {
                 files_.put(fileName_, null);
             }
@@ -201,13 +202,15 @@ public abstract class SoftApplicationCore {
         launchWithoutLanguage(Constants.getLanguage(), new StringMap<Object>());
     }
 
+    public abstract Object getObject(String _fileName);
+
     protected abstract void launchWithoutLanguage(String _language, StringMap<Object> _obj);
 
     protected abstract void launch(String _language, StringMap<Object> _args);
 
     protected static TopLeftFrame loadCoords(String _folder, String _file) {
 //        return (TopLeftFrame) StreamTextFile.deserialiser(getFolderJarPath()+_file);
-        return (TopLeftFrame) StreamTextFile.loadObject(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file));
+        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file)));
     }
 
     public static void saveCoords(String _folder, String _file, int _x, int _y) {
@@ -215,7 +218,7 @@ public abstract class SoftApplicationCore {
         topLeft_.setWidth(_x);
         topLeft_.setHeight(_y);
 //        StreamTextFile.save(getFolderJarPath()+_file, topLeft_);
-        StreamTextFile.saveObject(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file), topLeft_);
+        StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file), DocumentWriterGuiUtil.setTopLeftFrame(topLeft_));
     }
 
     protected abstract Image getImageIcon();

@@ -5,12 +5,16 @@ import java.io.File;
 import javax.swing.SwingUtilities;
 
 import cards.belote.HandBelote;
+import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.enumerations.GameEnum;
+import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
+import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.HandTarot;
+import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.LoadLanguage;
 import code.gui.SetStyle;
 import code.gui.SoftApplication;
@@ -97,19 +101,19 @@ public class LaunchingCards extends SoftApplication {
         f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {
-            StreamTextFile.saveObject(f.getAbsolutePath(), mainB_);
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_));
         }
         f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
         HandTarot mainT_=HandTarot.pileBase();
         if(!f.exists()) {
-            StreamTextFile.saveObject(f.getAbsolutePath(), mainT_);
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_));
         }
         int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
         for (int i = CustList.ONE_ELEMENT; i <= maxStacks_; i++) {
             f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
             HandPresident h_ = HandPresident.stack(i);
             if(!f.exists()) {
-                StreamTextFile.saveObject(f.getAbsolutePath(), h_);
+                StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_));
             }
         }
         f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
@@ -155,5 +159,10 @@ public class LaunchingCards extends SoftApplication {
     @Override
     protected Image getImageIcon() {
         return getIcon();
+    }
+
+    @Override
+    public Object getObject(String _fileName) {
+        return DocumentReaderCardsUnionUtil.getObject(_fileName);
     }
 }

@@ -1,5 +1,6 @@
 package cards.facade;
 import cards.belote.enumerations.DealingBelote;
+import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
 import code.sml.util.ExtractFromFiles;
@@ -129,6 +130,6 @@ public final class Nicknames {
     }
 
     public void sauvegarder(String _fichier){
-        StreamTextFile.saveObject(_fichier, this);
+        StreamTextFile.saveTextFile(_fichier, DocumentWriterCardsUnionUtil.setNicknames(this));
     }
 }

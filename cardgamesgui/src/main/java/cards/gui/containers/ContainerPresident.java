@@ -11,6 +11,7 @@ import cards.gui.panels.CarpetPresident;
 import cards.main.LaunchingCards;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
+import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.LabelButton;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -90,8 +91,7 @@ public class ContainerPresident extends ContainerGame {
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandPresident chargerPilePresident(int _nbStacks) {
-        HandPresident pile_=(HandPresident)StreamTextFile.loadObject(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(_nbStacks),FileConst.DECK_EXT));
-        return pile_;
+        return DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(_nbStacks),FileConst.DECK_EXT)));
     }
 
     public void discard(byte _index) {
