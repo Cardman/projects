@@ -7,7 +7,7 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.util.annot.RwXml;
 
 @RwXml
-public class StatusBeginRound extends Status {
+public abstract class StatusBeginRound extends Status {
 
     private MonteCarloBoolean lawForUsingAMove;
     private MonteCarloNumber lawForUsingAMoveNbRound;

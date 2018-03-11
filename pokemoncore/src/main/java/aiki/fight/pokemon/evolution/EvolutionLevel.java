@@ -6,7 +6,7 @@ import code.util.annot.RwXml;
 
 
 @RwXml
-public class EvolutionLevel extends Evolution {
+public abstract class EvolutionLevel extends Evolution {
 
     private short level;
 

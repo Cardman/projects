@@ -4,6 +4,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import aiki.fight.enums.Statistic;
+import aiki.fight.pokemon.enums.ExpType;
+import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.fight.pokemon.evolution.Evolution;
+import aiki.fight.pokemon.evolution.EvolutionLevelGender;
+import aiki.fight.pokemon.evolution.EvolutionLevelSimple;
+import aiki.fight.util.LevelMove;
+import aiki.fight.util.StatBaseEv;
+import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
@@ -11,16 +20,6 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import aiki.fight.enums.Statistic;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.enums.ExpType;
-import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.fight.pokemon.evolution.Evolution;
-import aiki.fight.pokemon.evolution.EvolutionLevel;
-import aiki.fight.pokemon.evolution.EvolutionLevelGender;
-import aiki.fight.util.LevelMove;
-import aiki.fight.util.StatBaseEv;
-import aiki.map.pokemon.enums.Gender;
 
 @SuppressWarnings("static-method")
 public class PokemonDataTest {
@@ -125,7 +124,7 @@ public class PokemonDataTest {
     @Test
     public void getDirectEvolutions1Test() {
         StringMap<Evolution> evos_ = new StringMap<Evolution>();
-        evos_.put("RAICHU", new EvolutionLevel());
+        evos_.put("RAICHU", new EvolutionLevelSimple());
         EvolutionLevelGender evo_ = new EvolutionLevelGender();
         evo_.setGender(Gender.FEMALE);
         evos_.put("PIKA", evo_);
@@ -143,7 +142,7 @@ public class PokemonDataTest {
     @Test
     public void getDirectEvolutions2Test() {
         StringMap<Evolution> evos_ = new StringMap<Evolution>();
-        evos_.put("RAICHU", new EvolutionLevel());
+        evos_.put("RAICHU", new EvolutionLevelSimple());
         EvolutionLevelGender evo_ = new EvolutionLevelGender();
         evo_.setGender(Gender.FEMALE);
         evos_.put("PIKA", evo_);
@@ -161,7 +160,7 @@ public class PokemonDataTest {
     @Test
     public void getDirectEvolutions3Test() {
         StringMap<Evolution> evos_ = new StringMap<Evolution>();
-        evos_.put("RAICHU", new EvolutionLevel());
+        evos_.put("RAICHU", new EvolutionLevelSimple());
         EvolutionLevelGender evo_ = new EvolutionLevelGender();
         evo_.setGender(Gender.FEMALE);
         evos_.put("PIKA", evo_);
@@ -179,7 +178,7 @@ public class PokemonDataTest {
     @Test
     public void getDirectEvolutions4Test() {
         StringMap<Evolution> evos_ = new StringMap<Evolution>();
-        evos_.put("RAICHU", new EvolutionLevel());
+        evos_.put("RAICHU", new EvolutionLevelSimple());
         EvolutionLevelGender evo_ = new EvolutionLevelGender();
         evo_.setGender(Gender.FEMALE);
         evos_.put("PIKA", evo_);
@@ -195,7 +194,7 @@ public class PokemonDataTest {
     @Test
     public void getDirectEvolutions5Test() {
         StringMap<Evolution> evos_ = new StringMap<Evolution>();
-        evos_.put("RAICHU", new EvolutionLevel());
+        evos_.put("RAICHU", new EvolutionLevelSimple());
         EvolutionLevelGender evo_ = new EvolutionLevelGender();
         evo_.setGender(Gender.FEMALE);
         evos_.put("PIKA", evo_);
@@ -212,7 +211,7 @@ public class PokemonDataTest {
     @Test
     public void getDirectEvolutions6Test() {
         StringMap<Evolution> evos_ = new StringMap<Evolution>();
-        evos_.put("RAICHU", new EvolutionLevel());
+        evos_.put("RAICHU", new EvolutionLevelSimple());
         EvolutionLevelGender evo_ = new EvolutionLevelGender();
         evo_.setGender(Gender.FEMALE);
         evos_.put("PIKA", evo_);
@@ -229,7 +228,7 @@ public class PokemonDataTest {
     @Test
     public void getDirectEvolutions7Test() {
         StringMap<Evolution> evos_ = new StringMap<Evolution>();
-        evos_.put("RAICHU", new EvolutionLevel());
+        evos_.put("RAICHU", new EvolutionLevelSimple());
         EvolutionLevelGender evo_ = new EvolutionLevelGender();
         evo_.setGender(Gender.FEMALE);
         evos_.put("PIKA", evo_);

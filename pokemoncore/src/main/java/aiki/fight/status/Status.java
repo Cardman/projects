@@ -10,7 +10,7 @@ import code.util.EnumMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Status {
+public abstract class Status {
 
     private StatusType statusType;
     private Rate catchingRate;

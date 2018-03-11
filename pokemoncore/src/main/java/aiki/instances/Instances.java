@@ -1,5 +1,6 @@
 package aiki.instances;
 
+import aiki.DataBase;
 import aiki.fight.Combos;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;
@@ -22,6 +23,7 @@ import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
+import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectAccuracy;
 import aiki.fight.moves.effects.EffectAlly;
 import aiki.fight.moves.effects.EffectBatonPass;
@@ -42,6 +44,7 @@ import aiki.fight.moves.effects.EffectEndRoundPositionRelation;
 import aiki.fight.moves.effects.EffectEndRoundPositionTargetRelation;
 import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
+import aiki.fight.moves.effects.EffectEndRoundStatus;
 import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
 import aiki.fight.moves.effects.EffectFullHpRate;
@@ -72,6 +75,8 @@ import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import aiki.fight.moves.effects.enums.MoveItemType;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
+import aiki.fight.moves.enums.SwitchType;
+import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.pokemon.enums.GenderRepartition;
@@ -88,6 +93,7 @@ import aiki.fight.pokemon.evolution.EvolutionTeam;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusSimple;
+import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.CategoryMult;
@@ -136,6 +142,7 @@ import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
 import aiki.map.characters.Ally;
+import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DealerItem;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.GerantPokemon;
@@ -195,7 +202,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class Instances {
-
     public static Combos newCombos() {
         Combos object_ = new Combos();
         CollCapacity cap_ = new CollCapacity(0);
@@ -227,8 +233,8 @@ public final class Instances {
         object_.setMultSufferedDamageSuperEff(Rate.zero());
         object_.setMultEvtRateCh(Rate.zero());
         object_.setMultEvtRateSecEffectOwner(Rate.zero());
-        object_.setMultPower("");
-        object_.setMultDamage("");
+        object_.setMultPower(DataBase.EMPTY_STRING);
+        object_.setMultDamage(DataBase.EMPTY_STRING);
         object_.setMultStab(Rate.zero());
         object_.setBonusStatRank(new EnumMap<Statistic,Byte>(cap_));
         object_.setBoostStatRankProtected(new EnumMap<Statistic,Byte>(cap_));
@@ -249,7 +255,7 @@ public final class Instances {
         object_.setSingleStatus(new MonteCarloString(cap_));
         object_.setForwardStatus(new StringMap<String>(cap_));
         object_.setFailStatus(new StringMap<String>(cap_));
-        object_.setTypeForMoves("");
+        object_.setTypeForMoves(DataBase.EMPTY_STRING);
         object_.setMaxHpForUsingBerry(Rate.zero());
         object_.setHealHpByTypeIfWeather(new ObjectMap<WeatherType,Rate>(cap_));
         object_.setImmuMoveTypesByWeather(new StringMap<StringList>(cap_));
@@ -267,18 +273,22 @@ public final class Instances {
 
     public static EffectWhileSendingSimple newEffectWhileSendingSimple() {
         EffectWhileSendingSimple object_ = new EffectWhileSendingSimple();
+        object_.setEnabledWeather(DataBase.EMPTY_STRING);
+        object_.setMultWeight(Rate.zero());
         return object_;
     }
 
     public static EffectWhileSendingWithStatistic newEffectWhileSendingWithStatistic() {
         EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
         object_.setEffect(new EffectStatistic());
+        object_.setEnabledWeather(DataBase.EMPTY_STRING);
+        object_.setMultWeight(Rate.zero());
         return object_;
     }
 
     public static Ball newBall() {
         Ball object_ = new Ball();
-        object_.setCatchingRate("");
+        object_.setCatchingRate(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -294,7 +304,7 @@ public final class Instances {
         object_.setHealHpRate(Rate.zero());
         object_.setMaxHpHealingHpRate(Rate.zero());
         object_.setDamageRateRecoilFoe(new StringMap<Rate>(cap_));
-        object_.setCategoryBoosting("");
+        object_.setCategoryBoosting(DataBase.EMPTY_STRING);
         object_.setBoostStatis(new EnumMap<Statistic,Byte>(cap_));
         return object_;
     }
@@ -320,34 +330,46 @@ public final class Instances {
 
     public static Fossil newFossil() {
         Fossil object_ = new Fossil();
-        object_.setPokemon("");
+        object_.setPokemon(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static HealingHp newHealingHp() {
         HealingHp object_ = new HealingHp();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setHp(Rate.zero());
+        object_.setHappiness(new StringMap<Short>(cap_));
         return object_;
     }
 
     public static HealingHpStatus newHealingHpStatus() {
         HealingHpStatus object_ = new HealingHpStatus();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setHealedHpRate(Rate.zero());
+        object_.setStatus(new StringList(cap_));
+        object_.setHappiness(new StringMap<Short>(cap_));
         return object_;
     }
 
     public static HealingPp newHealingPp() {
         HealingPp object_ = new HealingPp();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setHappiness(new StringMap<Short>(cap_));
         return object_;
     }
 
     public static HealingSimpleItem newHealingSimpleItem() {
         HealingSimpleItem object_ = new HealingSimpleItem();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setHappiness(new StringMap<Short>(cap_));
         return object_;
     }
 
     public static HealingSimpleStatus newHealingSimpleStatus() {
         HealingSimpleStatus object_ = new HealingSimpleStatus();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setStatus(new StringList(cap_));
+        object_.setHappiness(new StringMap<Short>(cap_));
         return object_;
     }
 
@@ -369,8 +391,8 @@ public final class Instances {
         object_.setMultWinningHappiness(Rate.zero());
         object_.setMultWinningEv(Rate.zero());
         object_.setMultWinningExp(Rate.zero());
-        object_.setMultPower("");
-        object_.setMultDamage("");
+        object_.setMultPower(DataBase.EMPTY_STRING);
+        object_.setMultDamage(DataBase.EMPTY_STRING);
         object_.setMultDrainedHp(Rate.zero());
         object_.setDamageRecoil(Rate.zero());
         object_.setMultStatRank(new EnumMap<Statistic,Byte>(cap_));
@@ -401,34 +423,78 @@ public final class Instances {
 
     public static DamagingMoveData newDamagingMoveData() {
         DamagingMoveData object_ = new DamagingMoveData();
-        object_.setCategory("");
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setCategory(DataBase.EMPTY_STRING);
+        object_.setTypes(new StringList(cap_));
+        object_.setBoostedTypes(new StringList(cap_));
+        object_.setAccuracy(DataBase.EMPTY_STRING);
+        object_.setEffects(new CustList<Effect>(cap_));
+        object_.setRepeatRoundLaw(new MonteCarloNumber(cap_));
+        object_.setSecEffectsByItem(new StringMap<Numbers<Integer>>(cap_));
+        object_.setAchieveDisappearedPkUsingMove(new StringList(cap_));
+        object_.setSwitchType(SwitchType.NOTHING);
+        object_.setTypesByOwnedItem(new StringMap<String>(cap_));
+        object_.setTypesByWeather(new StringMap<String>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setDeletedStatus(new StringList(cap_));
+        object_.setRequiredStatus(new StringList(cap_));
         return object_;
     }
 
     public static StatusMoveData newStatusMoveData() {
         StatusMoveData object_ = new StatusMoveData();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setTypes(new StringList(cap_));
+        object_.setBoostedTypes(new StringList(cap_));
+        object_.setAccuracy(DataBase.EMPTY_STRING);
+        object_.setEffects(new CustList<Effect>(cap_));
+        object_.setRepeatRoundLaw(new MonteCarloNumber(cap_));
+        object_.setSecEffectsByItem(new StringMap<Numbers<Integer>>(cap_));
+        object_.setAchieveDisappearedPkUsingMove(new StringList(cap_));
+        object_.setSwitchType(SwitchType.NOTHING);
+        object_.setTypesByOwnedItem(new StringMap<String>(cap_));
+        object_.setTypesByWeather(new StringMap<String>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setDeletedStatus(new StringList(cap_));
+        object_.setRequiredStatus(new StringList(cap_));
         return object_;
     }
 
     public static EffectAccuracy newEffectAccuracy() {
         EffectAccuracy object_ = new EffectAccuracy();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectAlly newEffectAlly() {
         EffectAlly object_ = new EffectAlly();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setMultAllyDamage(Rate.zero());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectBatonPass newEffectBatonPass() {
         EffectBatonPass object_ = new EffectBatonPass();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectClone newEffectClone() {
         EffectClone object_ = new EffectClone();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setHpRateClone(Rate.zero());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -446,11 +512,18 @@ public final class Instances {
         EffectCommonStatistics object_ = new EffectCommonStatistics();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setCommonValue(new EnumMap<Statistic,String>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectCopyFighter newEffectCopyFighter() {
         EffectCopyFighter object_ = new EffectCopyFighter();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -458,6 +531,9 @@ public final class Instances {
         EffectCopyMove object_ = new EffectCopyMove();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setMovesNotToBeCopied(new StringList(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -467,8 +543,11 @@ public final class Instances {
         object_.setSufferingDamageTypes(new StringMap<Rate>(cap_));
         object_.setDroppedStatDirectMove(new EnumMap<Statistic,Byte>(cap_));
         object_.setSufferingDamageDirectMove(Rate.zero());
-        object_.setProtectFail("");
-        object_.setCounterFail("");
+        object_.setProtectFail(DataBase.EMPTY_STRING);
+        object_.setCounterFail(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -479,29 +558,46 @@ public final class Instances {
         object_.setMultDamageAgainst(new StringMap<Rate>(cap_));
         object_.setChLaw(new MonteCarloNumber(cap_));
         object_.setHitsLaw(new MonteCarloNumber(cap_));
-        object_.setPower("");
+        object_.setPower(DataBase.EMPTY_STRING);
         object_.setIgnVarStatTargetPos(new EnumList<Statistic>(cap_));
         object_.setIgnVarStatUserNeg(new EnumList<Statistic>(cap_));
         object_.setStatisAtt(Statistic.ATTACK);
         object_.setStatisDef(Statistic.DEFENSE);
         object_.setBoostStatisOnceKoFoe(new EnumMap<Statistic,Byte>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectDamageRate newEffectDamageRate() {
         EffectDamageRate object_ = new EffectDamageRate();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setRateDamage(Rate.zero());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectEndRoundFoe newEffectEndRoundFoe() {
         EffectEndRoundFoe object_ = new EffectEndRoundFoe();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setInflictedRateHpTarget(Rate.zero());
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectEndRoundGlobal newEffectEndRoundGlobal() {
         EffectEndRoundGlobal object_ = new EffectEndRoundGlobal();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -513,7 +609,11 @@ public final class Instances {
         object_.setHealHp(Rate.zero());
         object_.setHealHpByOwnerTypes(new StringMap<Rate>(cap_));
         object_.setMultDamageStatus(new StringMap<Rate>(cap_));
-        object_.setUserStatusEndRound("");
+        object_.setUserStatusEndRound(DataBase.EMPTY_STRING);
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -522,17 +622,31 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setDamageByStatus(new StringMap<Rate>(cap_));
         object_.setMultDamageStatus(new StringMap<Rate>(cap_));
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectEndRoundPositionRelation newEffectEndRoundPositionRelation() {
         EffectEndRoundPositionRelation object_ = new EffectEndRoundPositionRelation();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setHealHp(Rate.zero());
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectEndRoundPositionTargetRelation newEffectEndRoundPositionTargetRelation() {
         EffectEndRoundPositionTargetRelation object_ = new EffectEndRoundPositionTargetRelation();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -541,6 +655,10 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setRateDamageFunctionOfNbRounds(new NumberMap<Long,Rate>(cap_));
         object_.setLawForEnablingEffect(new MonteCarloNumber(cap_));
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -548,27 +666,47 @@ public final class Instances {
         EffectEndRoundSingleStatus object_ = new EffectEndRoundSingleStatus();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setMultDamageStatus(new StringMap<Rate>(cap_));
+        object_.setInflictedRateHpTarget(Rate.zero());
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectEndRoundStatusRelation newEffectEndRoundStatusRelation() {
         EffectEndRoundStatusRelation object_ = new EffectEndRoundStatusRelation();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setThievedHpRateTargetToUser(Rate.zero());
+        object_.setInflictedRateHpTarget(Rate.zero());
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectEndRoundTeam newEffectEndRoundTeam() {
         EffectEndRoundTeam object_ = new EffectEndRoundTeam();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setDeleteAllStatus(Rate.zero());
         object_.setDeleteAllStatusAlly(Rate.zero());
+        object_.setFailEndRound(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectFullHpRate newEffectFullHpRate() {
         EffectFullHpRate object_ = new EffectFullHpRate();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setLeftUserHp(Rate.zero());
-        object_.setRestoredHp("");
+        object_.setRestoredHp(DataBase.EMPTY_STRING);
         object_.setClosestFoeDamageRateHp(Rate.zero());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -593,8 +731,11 @@ public final class Instances {
         object_.setCancelEffects(new StringList(cap_));
         object_.setMultDamageTypesMoves(new StringMap<Rate>(cap_));
         object_.setCancelChgtStat(new EnumList<Statistic>(cap_));
-        object_.setInvokedMoveTerrain("");
+        object_.setInvokedMoveTerrain(DataBase.EMPTY_STRING);
         object_.setChangedTypesTerrain(new StringList(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -605,6 +746,9 @@ public final class Instances {
         object_.setInvokingMoveByUserTypes(new StringMap<String>(cap_));
         object_.setMovesNotToBeInvoked(new StringList(cap_));
         object_.setRateInvokationMove(Rate.zero());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -612,6 +756,9 @@ public final class Instances {
         EffectMultSufferedMovePower object_ = new EffectMultSufferedMovePower();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setMultMovePowerFctType(new StringMap<Rate>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -619,11 +766,18 @@ public final class Instances {
         EffectMultUsedMovePower object_ = new EffectMultUsedMovePower();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setMultMovePowerFctType(new StringMap<Rate>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectOrder newEffectOrder() {
         EffectOrder object_ = new EffectOrder();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -631,24 +785,39 @@ public final class Instances {
         EffectProtectFromTypes object_ = new EffectProtectFromTypes();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setImmuAgainstTypes(new StringList(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectProtection newEffectProtection() {
         EffectProtection object_ = new EffectProtection();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setProtSingleAgainstKo(Rate.zero());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectRemainedHpRate newEffectRemainedHpRate() {
         EffectRemainedHpRate object_ = new EffectRemainedHpRate();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setRateHp(Rate.zero());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectRestriction newEffectRestriction() {
         EffectRestriction object_ = new EffectRestriction();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setChoiceRestriction(MoveChoiceRestrictionType.NOTHING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -664,6 +833,9 @@ public final class Instances {
         object_.setLawBoost(new MonteCarloEnum<Statistic>(cap_));
         object_.setCancelLowStat(new EnumList<Statistic>(cap_));
         object_.setCancelChgtStat(new EnumList<Statistic>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -673,19 +845,30 @@ public final class Instances {
         object_.setLawStatus(new MonteCarloString(cap_));
         object_.setDeletedStatus(new StringList(cap_));
         object_.setLocalFailStatus(new StringMap<String>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectSwitchAbilities newEffectSwitchAbilities() {
         EffectSwitchAbilities object_ = new EffectSwitchAbilities();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setExchangeAbility(ExchangeType.NOTHING);
-        object_.setConstAbility("");
+        object_.setConstAbility(DataBase.EMPTY_STRING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectSwitchItems newEffectSwitchItems() {
         EffectSwitchItems object_ = new EffectSwitchItems();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setMoveObject(MoveItemType.EXCHANGE_OBJECTS);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -694,17 +877,28 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setChangeTypes(new StringMap<String>(cap_));
         object_.setReplacingTypes(new StringList(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectSwitchPointView newEffectSwitchPointView() {
         EffectSwitchPointView object_ = new EffectSwitchPointView();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setPointViewChangement(PointViewChangementType.NOTHING);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectSwitchPosition newEffectSwitchPosition() {
         EffectSwitchPosition object_ = new EffectSwitchPosition();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -716,6 +910,9 @@ public final class Instances {
         object_.setExchangeTypes(ExchangeType.NOTHING);
         object_.setConstTypes(new StringList(cap_));
         object_.setAddedTypes(new StringList(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -733,17 +930,23 @@ public final class Instances {
         object_.setProtectAgainstStatus(new StringList(cap_));
         object_.setDisableFoeTeamEffects(new StringList(cap_));
         object_.setDisableFoeTeamStatus(new StringList(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectTeamWhileSendFoe newEffectTeamWhileSendFoe() {
         EffectTeamWhileSendFoe object_ = new EffectTeamWhileSendFoe();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setFailSending("");
+        object_.setFailSending(DataBase.EMPTY_STRING);
         object_.setStatusByNbUses(new NumberMap<Short,String>(cap_));
         object_.setDeletedByFoeTypes(new StringList(cap_));
-        object_.setDamageRateAgainstFoe("");
+        object_.setDamageRateAgainstFoe(DataBase.EMPTY_STRING);
         object_.setStatistics(new EnumMap<Statistic,Byte>(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -754,17 +957,28 @@ public final class Instances {
         object_.setDisableImmuAgainstTypes(new StringList(cap_));
         object_.setDisableImmuFromMoves(new StringList(cap_));
         object_.setAttackTargetWithTypes(new StringList(cap_));
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectVarPP newEffectVarPP() {
         EffectVarPP object_ = new EffectVarPP();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
     public static EffectWinMoney newEffectWinMoney() {
         EffectWinMoney object_ = new EffectWinMoney();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setWinningRateBySumTargetUser(Rate.zero());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(DataBase.EMPTY_STRING);
+        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
         return object_;
     }
 
@@ -780,7 +994,7 @@ public final class Instances {
         object_.setMoveTutors(new StringList(cap_));
         object_.setHiddenMoves(new Numbers<Short>(cap_));
         object_.setTechnicalMoves(new Numbers<Short>(cap_));
-        object_.setBaseEvo("");
+        object_.setBaseEvo(DataBase.EMPTY_STRING);
         object_.setEvolutions(new StringMap<Evolution>(cap_));
         object_.setHeight(Rate.zero());
         object_.setExpEvo(ExpType.P);
@@ -796,7 +1010,7 @@ public final class Instances {
 
     public static EvolutionItem newEvolutionItem() {
         EvolutionItem object_ = new EvolutionItem();
-        object_.setItem("");
+        object_.setItem(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -813,48 +1027,78 @@ public final class Instances {
 
     public static EvolutionMove newEvolutionMove() {
         EvolutionMove object_ = new EvolutionMove();
-        object_.setMove("");
+        object_.setMove(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static EvolutionMoveType newEvolutionMoveType() {
         EvolutionMoveType object_ = new EvolutionMoveType();
-        object_.setType("");
+        object_.setType(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static EvolutionStoneGender newEvolutionStoneGender() {
         EvolutionStoneGender object_ = new EvolutionStoneGender();
         object_.setGender(Gender.NO_GENDER);
+        object_.setStone(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static EvolutionStoneSimple newEvolutionStoneSimple() {
         EvolutionStoneSimple object_ = new EvolutionStoneSimple();
+        object_.setStone(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static EvolutionTeam newEvolutionTeam() {
         EvolutionTeam object_ = new EvolutionTeam();
-        object_.setPokemon("");
+        object_.setPokemon(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static StatusBeginRoundAutoDamage newStatusBeginRoundAutoDamage() {
         StatusBeginRoundAutoDamage object_ = new StatusBeginRoundAutoDamage();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setPower(Rate.zero());
         object_.setAttack(Statistic.ATTACK);
         object_.setDefense(Statistic.DEFENSE);
+        object_.setStatusType(StatusType.INDIVIDUEL);
+        object_.setLawForUsingAMove(new MonteCarloBoolean(cap_));
+        object_.setLawForUsingAMoveNbRound(new MonteCarloNumber(cap_));
+        object_.setLawForUsingAMoveIfFoe(new MonteCarloBoolean(cap_));
+        object_.setLawForFullHealIfMove(new MonteCarloBoolean(cap_));
+        object_.setCatchingRate(Rate.zero());
+        object_.setEffectEndRound(new CustList<EffectEndRoundStatus>(cap_));
+        object_.setEffectsPartner(new CustList<EffectPartnerStatus>(cap_));
+        object_.setMultStat(new EnumMap<Statistic,Rate>(cap_));
+        object_.setFail(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static StatusBeginRoundSimple newStatusBeginRoundSimple() {
         StatusBeginRoundSimple object_ = new StatusBeginRoundSimple();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setLawForUsingAMove(new MonteCarloBoolean(cap_));
+        object_.setLawForUsingAMoveNbRound(new MonteCarloNumber(cap_));
+        object_.setLawForUsingAMoveIfFoe(new MonteCarloBoolean(cap_));
+        object_.setLawForFullHealIfMove(new MonteCarloBoolean(cap_));
+        object_.setStatusType(StatusType.INDIVIDUEL);
+        object_.setCatchingRate(Rate.zero());
+        object_.setEffectEndRound(new CustList<EffectEndRoundStatus>(cap_));
+        object_.setEffectsPartner(new CustList<EffectPartnerStatus>(cap_));
+        object_.setMultStat(new EnumMap<Statistic,Rate>(cap_));
+        object_.setFail(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static StatusSimple newStatusSimple() {
         StatusSimple object_ = new StatusSimple();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setCatchingRate(Rate.zero());
+        object_.setEffectEndRound(new CustList<EffectEndRoundStatus>(cap_));
+        object_.setEffectsPartner(new CustList<EffectPartnerStatus>(cap_));
+        object_.setMultStat(new EnumMap<Statistic,Rate>(cap_));
+        object_.setFail(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -868,7 +1112,7 @@ public final class Instances {
     public static Game newGame() {
         Game object_ = new Game();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setZippedRom("");
+        object_.setZippedRom(DataBase.EMPTY_STRING);
         object_.setPlayer(new Player());
         object_.setBeatGymTrainer(new NumberMap<Short,EqList<Point>>(cap_));
         object_.setBeatGymLeader(new ObjectMap<Coords,Boolean>(cap_));
@@ -894,9 +1138,9 @@ public final class Instances {
     public static ChoiceOfEvolutionAndMoves newChoiceOfEvolutionAndMoves() {
         ChoiceOfEvolutionAndMoves object_ = new ChoiceOfEvolutionAndMoves();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setName("");
+        object_.setName(DataBase.EMPTY_STRING);
         object_.setKeptMoves(new StringList(cap_));
-        object_.setAbility("");
+        object_.setAbility(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -910,7 +1154,7 @@ public final class Instances {
         object_.setTeams(new NumberMap<Byte,Team>(cap_));
         object_.setNbRounds(LgInt.zero());
         object_.setWinningMoney(Rate.zero());
-        object_.setCatchingBall("");
+        object_.setCatchingBall(DataBase.EMPTY_STRING);
         object_.setCurrentUser(new TeamPosition());
         object_.setState(FightState.RIEN);
         object_.setUsedItemsWhileRound(new StringMap<Short>(cap_));
@@ -926,18 +1170,18 @@ public final class Instances {
     public static Fighter newFighter() {
         Fighter object_ = new Fighter();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setName("");
-        object_.setNickname("");
+        object_.setName(DataBase.EMPTY_STRING);
+        object_.setNickname(DataBase.EMPTY_STRING);
         object_.setGender(Gender.NO_GENDER);
         object_.setWeight(Rate.zero());
         object_.setHeight(Rate.zero());
-        object_.setCurrentName("");
+        object_.setCurrentName(DataBase.EMPTY_STRING);
         object_.setCurrentGender(Gender.NO_GENDER);
-        object_.setLastUsedItem("");
-        object_.setItem("");
-        object_.setExpItem("");
-        object_.setAbility("");
-        object_.setCurrentAbility("");
+        object_.setLastUsedItem(DataBase.EMPTY_STRING);
+        object_.setItem(DataBase.EMPTY_STRING);
+        object_.setExpItem(DataBase.EMPTY_STRING);
+        object_.setAbility(DataBase.EMPTY_STRING);
+        object_.setCurrentAbility(DataBase.EMPTY_STRING);
         object_.setStatus(new StringMap<Short>(cap_));
         object_.setStatusRelat(new ObjectMap<MoveTeamPosition,Short>(cap_));
         object_.setNbRounds(LgInt.zero());
@@ -962,19 +1206,19 @@ public final class Instances {
         object_.setDamageRateSufferedByType(new StringMap<Rate>(cap_));
         object_.setWonExp(Rate.zero());
         object_.setWonExpSinceLastLevel(Rate.zero());
-        object_.setUsedBallCatching("");
+        object_.setUsedBallCatching(DataBase.EMPTY_STRING);
         object_.setIncrUserAccuracy(new ObjectMap<MoveTeamPosition,Boolean>(cap_));
         object_.setNbUsesMoves(new StringMap<Integer>(cap_));
         object_.setTrackingMoves(new ObjectMap<MoveTeamPosition,AffectedMove>(cap_));
         object_.setTrappingMoves(new ObjectMap<MoveTeamPosition,ActivityOfMove>(cap_));
-        object_.setLastSufferedMove("");
+        object_.setLastSufferedMove(DataBase.EMPTY_STRING);
         object_.setLastSufferedMoveTypes(new StringList(cap_));
         object_.setDamageSufferedCateg(new StringMap<Rate>(cap_));
         object_.setDamageSufferedCategRound(new StringMap<Rate>(cap_));
-        object_.setLastUsedMove("");
-        object_.setUsedMoveLastRound("");
+        object_.setLastUsedMove(DataBase.EMPTY_STRING);
+        object_.setUsedMoveLastRound(DataBase.EMPTY_STRING);
         object_.setAlreadyInvokedMovesRound(new StringList(cap_));
-        object_.setLastSuccessfulMove("");
+        object_.setLastSuccessfulMove(DataBase.EMPTY_STRING);
         object_.setCopiedMoves(new StringMap<CopiedMove>(cap_));
         object_.setNbRepeatingSuccessfulMoves(LgInt.zero());
         object_.setPrivateMoves(new ObjectMap<MoveTeamPosition,StringList>(cap_));
@@ -1008,21 +1252,23 @@ public final class Instances {
 
     public static ActionHealMove newActionHealMove() {
         ActionHealMove object_ = new ActionHealMove();
-        object_.setFirstChosenMove("");
+        object_.setFirstChosenMove(DataBase.EMPTY_STRING);
+        object_.setChosenHealingItem(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static ActionMove newActionMove() {
         ActionMove object_ = new ActionMove();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setFirstChosenMove("");
-        object_.setFinalChosenMove("");
+        object_.setFirstChosenMove(DataBase.EMPTY_STRING);
+        object_.setFinalChosenMove(DataBase.EMPTY_STRING);
         object_.setChosenTargets(new EqList<TargetCoords>(cap_));
         return object_;
     }
 
     public static ActionSimpleHeal newActionSimpleHeal() {
         ActionSimpleHeal object_ = new ActionSimpleHeal();
+        object_.setChosenHealingItem(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -1046,8 +1292,8 @@ public final class Instances {
 
     public static LoadingGame newLoadingGame() {
         LoadingGame object_ = new LoadingGame();
-        object_.setLastRom("");
-        object_.setLastSavedGame("");
+        object_.setLastRom(DataBase.EMPTY_STRING);
+        object_.setLastSavedGame(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -1063,8 +1309,7 @@ public final class Instances {
     public static Player newPlayer() {
         Player object_ = new Player();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setNickname("");
-//aiki.game.player.enums.Sex
+        object_.setNickname(DataBase.EMPTY_STRING);
         object_.setTeam(new CustList<UsablePokemon>(cap_));
         object_.setBox(new CustList<UsablePokemon>(cap_));
         object_.setInventory(new Inventory());
@@ -1084,7 +1329,7 @@ public final class Instances {
         object_.setPlaces(new NumberMap<Short,Place>(cap_));
         object_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>(cap_));
         object_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>(cap_));
-        object_.setUnlockedCity("");
+        object_.setUnlockedCity(DataBase.EMPTY_STRING);
         object_.setBegin(new Coords());
         object_.setFirstPokemon(new WildPk());
         return object_;
@@ -1093,12 +1338,16 @@ public final class Instances {
     public static Gym newGym() {
         Gym object_ = new Gym();
         object_.setLevel(new LevelIndoorGym());
+        object_.setImageFileName(DataBase.EMPTY_STRING);
+        object_.setExitCity(new Point());
         return object_;
     }
 
     public static PokemonCenter newPokemonCenter() {
         PokemonCenter object_ = new PokemonCenter();
         object_.setLevel(new LevelIndoorPokemonCenter());
+        object_.setImageFileName(DataBase.EMPTY_STRING);
+        object_.setExitCity(new Point());
         return object_;
     }
 
@@ -1114,6 +1363,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setItems(new StringList(cap_));
         object_.setTechnicalMoves(new Numbers<Short>(cap_));
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -1130,22 +1380,32 @@ public final class Instances {
     public static GerantPokemon newGerantPokemon() {
         GerantPokemon object_ = new GerantPokemon();
         object_.setGerance(GeranceType.HEAL);
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static GymLeader newGymLeader() {
         GymLeader object_ = new GymLeader();
-        object_.setName("");
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setName(DataBase.EMPTY_STRING);
+        object_.setTeam(new CustList<PkTrainer>(cap_));
+        object_.setImageMaxiFileName(DataBase.EMPTY_STRING);
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static GymTrainer newGymTrainer() {
         GymTrainer object_ = new GymTrainer();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setTeam(new CustList<PkTrainer>(cap_));
+        object_.setImageMaxiFileName(DataBase.EMPTY_STRING);
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static Healer newHealer() {
         Healer object_ = new Healer();
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -1155,18 +1415,27 @@ public final class Instances {
         object_.setSell(SellType.ITEM);
         object_.setItems(new StringList(cap_));
         object_.setTm(new Numbers<Short>(cap_));
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static TempTrainer newTempTrainer() {
         TempTrainer object_ = new TempTrainer();
-        object_.setImageMiniSecondTrainerFileName("");
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setImageMiniSecondTrainerFileName(DataBase.EMPTY_STRING);
+        object_.setTeam(new CustList<PkTrainer>(cap_));
+        object_.setImageMaxiFileName(DataBase.EMPTY_STRING);
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static TrainerLeague newTrainerLeague() {
         TrainerLeague object_ = new TrainerLeague();
-        object_.setName("");
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setName(DataBase.EMPTY_STRING);
+        object_.setTeam(new CustList<PkTrainer>(cap_));
+        object_.setImageMaxiFileName(DataBase.EMPTY_STRING);
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -1174,6 +1443,8 @@ public final class Instances {
         TrainerMultiFights object_ = new TrainerMultiFights();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTeamsRewards(new CustList<PokemonTeam>(cap_));
+        object_.setImageMaxiFileName(DataBase.EMPTY_STRING);
+        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -1187,7 +1458,7 @@ public final class Instances {
 
     public static Block newBlock() {
         Block object_ = new Block();
-        object_.setTileFileName("");
+        object_.setTileFileName(DataBase.EMPTY_STRING);
         object_.setType(EnvironmentType.ROAD);
         return object_;
     }
@@ -1196,6 +1467,14 @@ public final class Instances {
         LevelCave object_ = new LevelCave();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setLinksOtherLevels(new ObjectMap<Point,Link>(cap_));
+        object_.setWildPokemonAreas(new CustList<AreaApparition>(cap_));
+        object_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>(cap_));
+        object_.setDualFights(new ObjectMap<Point,DualFight>(cap_));
+        object_.setLegendaryPks(new ObjectMap<Point,WildPk>(cap_));
+        object_.setItems(new ObjectMap<Point,String>(cap_));
+        object_.setTm(new ObjectMap<Point,Short>(cap_));
+        object_.setHm(new ObjectMap<Point,Short>(cap_));
+        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
         return object_;
     }
 
@@ -1205,6 +1484,7 @@ public final class Instances {
         object_.setGymTrainers(new ObjectMap<Point,GymTrainer>(cap_));
         object_.setGymLeaderCoords(new Point());
         object_.setGymLeader(new GymLeader());
+        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
         return object_;
     }
 
@@ -1213,33 +1493,47 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setGerants(new ObjectMap<Point,Person>(cap_));
         object_.setStorageCoords(new Point());
+        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
         return object_;
     }
 
     public static LevelLeague newLevelLeague() {
         LevelLeague object_ = new LevelLeague();
+        CollCapacity cap_ = new CollCapacity(0);
         object_.setTrainerCoords(new Point());
         object_.setTrainer(new TrainerLeague());
         object_.setAccessPoint(new Point());
         object_.setNextLevelTarget(new Point());
-        object_.setFileName("");
+        object_.setFileName(DataBase.EMPTY_STRING);
+        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
         return object_;
     }
 
     public static LevelOutdoor newLevelOutdoor() {
         LevelOutdoor object_ = new LevelOutdoor();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
         return object_;
     }
 
     public static LevelRoad newLevelRoad() {
         LevelRoad object_ = new LevelRoad();
+        CollCapacity cap_ = new CollCapacity(0);
+        object_.setWildPokemonAreas(new CustList<AreaApparition>(cap_));
+        object_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>(cap_));
+        object_.setDualFights(new ObjectMap<Point,DualFight>(cap_));
+        object_.setLegendaryPks(new ObjectMap<Point,WildPk>(cap_));
+        object_.setItems(new ObjectMap<Point,String>(cap_));
+        object_.setTm(new ObjectMap<Point,Short>(cap_));
+        object_.setHm(new ObjectMap<Point,Short>(cap_));
+        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
         return object_;
     }
 
     public static Cave newCave() {
         Cave object_ = new Cave();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setName("");
+        object_.setName(DataBase.EMPTY_STRING);
         object_.setLevels(new NumberMap<Byte,LevelCave>(cap_));
         object_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint,Link>(cap_));
         return object_;
@@ -1250,7 +1544,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setBuildings(new ObjectMap<Point,Building>(cap_));
         object_.setLevel(new LevelOutdoor());
-        object_.setName("");
+        object_.setName(DataBase.EMPTY_STRING);
         object_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>(cap_));
         object_.setLinksWithCaves(new ObjectMap<Point,Link>(cap_));
         return object_;
@@ -1259,10 +1553,10 @@ public final class Instances {
     public static League newLeague() {
         League object_ = new League();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setName("");
+        object_.setName(DataBase.EMPTY_STRING);
         object_.setRooms(new CustList<LevelLeague>(cap_));
         object_.setAccessCoords(new Coords());
-        object_.setFileName("");
+        object_.setFileName(DataBase.EMPTY_STRING);
         object_.setBegin(new Point());
         return object_;
     }
@@ -1270,7 +1564,7 @@ public final class Instances {
     public static Road newRoad() {
         Road object_ = new Road();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setName("");
+        object_.setName(DataBase.EMPTY_STRING);
         object_.setLevel(new LevelRoad());
         object_.setLinksWithCaves(new ObjectMap<Point,Link>(cap_));
         object_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>(cap_));
@@ -1280,10 +1574,10 @@ public final class Instances {
     public static PkTrainer newPkTrainer() {
         PkTrainer object_ = new PkTrainer();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setName("");
+        object_.setName(DataBase.EMPTY_STRING);
         object_.setGender(Gender.NO_GENDER);
-        object_.setAbility("");
-        object_.setItem("");
+        object_.setAbility(DataBase.EMPTY_STRING);
+        object_.setItem(DataBase.EMPTY_STRING);
         object_.setMoves(new StringList(cap_));
         return object_;
     }
@@ -1291,17 +1585,17 @@ public final class Instances {
     public static PokemonPlayer newPokemonPlayer() {
         PokemonPlayer object_ = new PokemonPlayer();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setName("");
+        object_.setName(DataBase.EMPTY_STRING);
         object_.setGender(Gender.NO_GENDER);
-        object_.setAbility("");
-        object_.setItem("");
+        object_.setAbility(DataBase.EMPTY_STRING);
+        object_.setItem(DataBase.EMPTY_STRING);
         object_.setRemainingHp(Rate.zero());
         object_.setStatus(new StringList(cap_));
-        object_.setNickname("");
+        object_.setNickname(DataBase.EMPTY_STRING);
         object_.setMoves(new StringMap<UsesOfMove>(cap_));
         object_.setEv(new EnumMap<Statistic,Short>(cap_));
         object_.setWonExpSinceLastLevel(Rate.zero());
-        object_.setUsedBallCatching("");
+        object_.setUsedBallCatching(DataBase.EMPTY_STRING);
         return object_;
     }
 
@@ -1314,18 +1608,17 @@ public final class Instances {
 
     public static WildPk newWildPk() {
         WildPk object_ = new WildPk();
-        object_.setName("");
+        object_.setName(DataBase.EMPTY_STRING);
         object_.setGender(Gender.NO_GENDER);
-        object_.setAbility("");
-        object_.setItem("");
+        object_.setAbility(DataBase.EMPTY_STRING);
+        object_.setItem(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static TileMiniMap newTileMiniMap() {
         TileMiniMap object_ = new TileMiniMap();
-        object_.setFile("");
+        object_.setFile(DataBase.EMPTY_STRING);
         return object_;
     }
-
 
 }

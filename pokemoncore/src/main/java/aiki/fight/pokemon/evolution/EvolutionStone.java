@@ -7,7 +7,7 @@ import code.util.annot.RwXml;
 
 
 @RwXml
-public class EvolutionStone extends Evolution {
+public abstract class EvolutionStone extends Evolution {
 
     private String stone;
 
