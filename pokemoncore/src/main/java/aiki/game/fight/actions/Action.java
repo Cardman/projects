@@ -1,8 +1,6 @@
 package aiki.game.fight.actions;
-import code.serialize.CheckedData;
 
 
-@CheckedData
 public final class Action extends AbstractAction {
 
     @Override

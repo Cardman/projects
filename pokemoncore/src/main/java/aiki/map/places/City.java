@@ -18,7 +18,6 @@ import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -34,7 +33,6 @@ public final class City extends Place implements InitializedPlace{
 
     private LevelOutdoor level;
 
-    @CheckedData
     private String name;
 
     private ObjectMap<PlaceInterConnect,Coords> savedlinks;

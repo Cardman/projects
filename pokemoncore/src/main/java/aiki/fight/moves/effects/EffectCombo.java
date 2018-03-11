@@ -3,17 +3,14 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.annot.RwXml;
 
 @RwXml
 public final class EffectCombo {
 
-    @CheckedData
     private Rate multEvtRateSecEff;
     private MonteCarloNumber repeatedRoundsLaw;
-    @CheckedData
     private short rankIncrementNbRound;
     private CustList<EffectEndRoundFoe> effectEndRound;
     private CustList<EffectTeam> teamMove;

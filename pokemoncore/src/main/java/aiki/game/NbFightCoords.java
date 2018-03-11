@@ -1,6 +1,5 @@
 package aiki.game;
 import aiki.util.Coords;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
@@ -8,7 +7,6 @@ import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-@CheckedData
 public final class NbFightCoords implements Equallable<NbFightCoords>, Displayable {
 
     private static final char SEPARATOR = '\'';

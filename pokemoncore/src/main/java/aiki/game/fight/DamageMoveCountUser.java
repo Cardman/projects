@@ -1,8 +1,6 @@
 package aiki.game.fight;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 
-@CheckedData
 public class DamageMoveCountUser {
 
     private boolean criticalHit;

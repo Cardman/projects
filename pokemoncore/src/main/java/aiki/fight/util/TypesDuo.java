@@ -1,11 +1,9 @@
 package aiki.fight.util;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class TypesDuo implements Equallable<TypesDuo>, Displayable {
 
     private static final char SEPARATOR = ';';

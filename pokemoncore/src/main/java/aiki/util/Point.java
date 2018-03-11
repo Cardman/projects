@@ -1,13 +1,11 @@
 package aiki.util;
 import aiki.map.enums.Direction;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class Point implements Equallable<Point>, Displayable {
 
     static final char SEPARATOR = ',';

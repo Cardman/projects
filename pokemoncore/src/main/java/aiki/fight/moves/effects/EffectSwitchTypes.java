@@ -5,7 +5,6 @@ import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -15,9 +14,7 @@ import code.util.annot.RwXml;
 public final class EffectSwitchTypes extends Effect {
 
     private EnumMap<EnvironmentType,String> chgtTypeByEnv;
-    @CheckedData
     private ConstValuesType constValuesType;
-    @CheckedData
     private ExchangeType exchangeTypes;
     private StringList constTypes;
     private StringList addedTypes;

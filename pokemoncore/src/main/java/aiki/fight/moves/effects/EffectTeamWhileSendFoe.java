@@ -4,7 +4,6 @@ import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.NumberMap;
@@ -14,11 +13,9 @@ import code.util.annot.RwXml;
 @RwXml
 public final class EffectTeamWhileSendFoe extends Effect {
 
-    @CheckedData
     private String failSending;
     private NumberMap<Short,String> statusByNbUses;
     private StringList deletedByFoeTypes;
-    @CheckedData
     private String damageRateAgainstFoe;
 
     private EnumMap<Statistic,Byte> statistics;

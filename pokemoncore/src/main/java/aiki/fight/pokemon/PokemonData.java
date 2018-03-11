@@ -11,7 +11,6 @@ import aiki.fight.util.StatBaseEv;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.Numbers;
@@ -35,11 +34,9 @@ public final class PokemonData {
     private static final int BONUS_HP = 5;
 
     /**DONE*/
-    @CheckedData
     private int number;
 
     /**DONE*/
-    @CheckedData
     private Rate weight;
 
     /**DONE*/
@@ -52,7 +49,6 @@ public final class PokemonData {
     private EqList<LevelMove> levMoves;
 
     /**DONE*/
-    @CheckedData
     private GenderRepartition genderRep;
 
     /**DONE*/
@@ -68,41 +64,33 @@ public final class PokemonData {
     private Numbers<Short> technicalMoves;
 
     /**DONE*/
-    @CheckedData
     private String baseEvo;
 
     /**DONE*/
     private StringMap<Evolution> evolutions;
 
     /**DONE*/
-    @CheckedData
     private short catchingRate;
 
     /**DONE*/
-    @CheckedData
     private Rate height;
 
     /**DONE*/
-    @CheckedData
     private ExpType expEvo;
 
     /***/
-    @CheckedData
     private long expRate;
 
     /***/
     private StringList eggGroups;
 
     /**DONE*/
-    @CheckedData
     private LgInt hatchingSteps;
 
     /**DONE*/
-    @CheckedData
     private short happiness;
 
     /***/
-    @CheckedData
     private short happinessHatch;
 
     public void validate(DataBase _data) {

@@ -1,8 +1,6 @@
 package aiki.game.fight.enums;
-import code.serialize.CheckedData;
 
 
-@CheckedData
 public enum FightType {
     NOTHING(true,false),SAUVAGE(true,true),DRESSEUR,DRESSEUR_GYM,GYM_LEADER,DRESSEUR_LIGUE,TMP_TRAINER;
     private final boolean wild;

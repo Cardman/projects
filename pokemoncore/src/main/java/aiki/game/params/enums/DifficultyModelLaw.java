@@ -1,10 +1,8 @@
 package aiki.game.params.enums;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.ints.Listable;
 
 
-@CheckedData
 public enum DifficultyModelLaw {
     CONSTANT_MIN,CROISSANT,UNIFORME,DECROISSANT,CONSTANT_MAX;
     public static boolean equalsSet(Listable<DifficultyModelLaw> _list1,Listable<DifficultyModelLaw> _list2) {

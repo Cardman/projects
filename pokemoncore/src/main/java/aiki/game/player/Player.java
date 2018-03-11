@@ -38,7 +38,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -105,11 +104,9 @@ public final class Player {
     private static final String TAKEN_ITEM = "takenItem";
 
     /**nom du heros*/
-    @CheckedData
     private String nickname;
 
     /**sexe du heros*/
-    @CheckedData
     private Sex sex;
 
     /**Ensemble des pokemon et des oeufs presents dans l'equipe. (maximum 6)
@@ -126,11 +123,9 @@ public final class Player {
     private StringMap<Boolean> caughtPk;
 
     /***/
-    @CheckedData
     private LgInt money;
 
     /***/
-    @CheckedData
     private int remainingRepelSteps;
 
     /***/

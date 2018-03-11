@@ -1,8 +1,6 @@
 package aiki.game.fight.actions;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class ActionSwitch extends AbstractAction implements ChosenReplacing{
 

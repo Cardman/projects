@@ -1,12 +1,10 @@
 package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.exceptions.GameLoadException;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
-@CheckedData
 public final class Egg implements UsablePokemon, Displayable {
 
     static final char SEPARATOR = ';';

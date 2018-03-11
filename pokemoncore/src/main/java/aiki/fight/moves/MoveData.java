@@ -8,7 +8,6 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -20,47 +19,30 @@ public abstract class MoveData {
 
     private boolean notTranslated;
 
-    @CheckedData
     private short pp;
     private StringList types;
     private StringList boostedTypes;
-    @CheckedData
     private byte priority;
-    @CheckedData
     private String accuracy;
     private CustList<Effect> effects;
-    @CheckedData
     private short nbPrepaRound;
-    @CheckedData
     private boolean disappearBeforeUse;
     private MonteCarloNumber repeatRoundLaw;
-    @CheckedData
     private short rankIncrementNbRound;
-    @CheckedData
     private boolean rechargeRound;
-    @CheckedData
     private boolean constUserChoice;
-    @CheckedData
     private boolean stoppableMoveSolo;
-    @CheckedData
     private boolean stoppableMoveMulti;
-    @CheckedData
     private boolean stoppableMovePrio;
-    @CheckedData
     private boolean secEffectIfNoDamage;
     private StringMap<Numbers<Integer>> secEffectsByItem;
-    @CheckedData
     private boolean ignVarAccurUserNeg;
-    @CheckedData
     private boolean ignVarEvasTargetPos;
-    @CheckedData
     private boolean breakImmuTypeAbility;
     private StringList achieveDisappearedPkUsingMove;
-    @CheckedData
     private SwitchType switchType;
     private StringMap<String> typesByOwnedItem;
     private StringMap<String> typesByWeather;
-    @CheckedData
     private TargetChoice targetChoice;
     private StringList deletedStatus;
     private StringList requiredStatus;

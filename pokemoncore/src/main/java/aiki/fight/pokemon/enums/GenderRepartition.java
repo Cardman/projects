@@ -1,9 +1,7 @@
 package aiki.fight.pokemon.enums;
 import aiki.map.pokemon.enums.Gender;
-import code.serialize.CheckedData;
 import code.util.EnumList;
 
-@CheckedData
 public enum GenderRepartition {
     FEMALE(Gender.FEMALE),
     MALE(Gender.MALE),

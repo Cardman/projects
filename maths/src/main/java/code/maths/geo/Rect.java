@@ -1,5 +1,4 @@
 package code.maths.geo;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
@@ -8,7 +7,6 @@ import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
 @RwXml
-@CheckedData
 public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
 
     public static final int NB_POINTS = 4;

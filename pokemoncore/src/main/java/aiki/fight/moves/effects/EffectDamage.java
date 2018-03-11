@@ -6,7 +6,6 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -16,10 +15,8 @@ import code.util.annot.RwXml;
 @RwXml
 public final class EffectDamage extends Effect {
 
-    @CheckedData
     private byte chRate;
 
-    @CheckedData
     private boolean constDamage;
 
     private MonteCarloString damageLaw;
@@ -32,29 +29,22 @@ public final class EffectDamage extends Effect {
 
     private MonteCarloNumber hitsLaw;
 
-    @CheckedData
     private String power;
 
-    @CheckedData
     private boolean randMax;
 
-    @CheckedData
     private boolean summingUserTeamOkFighter;
 
     private EnumList<Statistic> ignVarStatTargetPos;
 
     private EnumList<Statistic> ignVarStatUserNeg;
 
-    @CheckedData
     private boolean userAttack;
 
-    @CheckedData
     private Statistic statisAtt;
 
-    @CheckedData
     private boolean targetDefense;
 
-    @CheckedData
     private Statistic statisDef;
 
     private EnumMap<Statistic,Byte> boostStatisOnceKoFoe;

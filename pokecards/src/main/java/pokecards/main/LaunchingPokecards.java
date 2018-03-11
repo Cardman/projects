@@ -16,7 +16,6 @@ import code.gui.LoadLanguage;
 import code.gui.SoftApplication;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
-import code.serialize.exceptions.BadObjectException;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -51,7 +50,7 @@ public class LaunchingPokecards extends SoftApplication {
             }
         } catch (ClassCastException _0) {
             topLeft_ = new TopLeftFrame();
-        } catch (BadObjectException _0) {
+        } catch (Throwable _0) {
             topLeft_ = new TopLeftFrame();
         }
         MainWindow w_ = getWindow();

@@ -4,11 +4,9 @@ import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class Difficulty {
 

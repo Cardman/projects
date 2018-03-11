@@ -6,7 +6,6 @@ import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
@@ -17,7 +16,6 @@ public final class LevelIndoorPokemonCenter extends Level{
 
     private ObjectMap<Point,Person> gerants;
 
-    @CheckedData
     private Point storageCoords;
 
     @Override

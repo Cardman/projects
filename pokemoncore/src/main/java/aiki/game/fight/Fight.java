@@ -30,7 +30,6 @@ import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.sml.util.ExtractFromFiles;
 import code.util.BooleanList;
 import code.util.CustList;
@@ -352,19 +351,15 @@ public final class Fight {
     private static StringMap<String> _messages_ = new StringMap<String>();
 
     /***/
-    @CheckedData
     private FightType fightType;
 
     /***/
-    @CheckedData
     private EnvironmentType envType;
 
     /***/
-    @CheckedData
     private byte mult;
 
     /***/
-    @CheckedData
     private byte playerMaxNumberFrontFighters;
 
     /***/
@@ -383,19 +378,15 @@ public final class Fight {
     private transient boolean fullHealing;
 
     /***/
-    @CheckedData
     private short nbFleeAttempt;
 
     /***/
-    @CheckedData
     private LgInt nbRounds;
 
     /***/
-    @CheckedData
     private Rate winningMoney;
 
     /***/
-    @CheckedData
     private String catchingBall;
 
     private transient boolean error;
@@ -422,18 +413,15 @@ public final class Fight {
     private transient boolean lettingUserAttackWithStatus = true;
 
     /***/
-    @CheckedData
     private boolean beginRound;
 
     /***/
     private transient boolean endRound;
 
     /***/
-    @CheckedData
     private TeamPosition currentUser;
 
     /***/
-    @CheckedData
     private FightState state;
 
     /***/

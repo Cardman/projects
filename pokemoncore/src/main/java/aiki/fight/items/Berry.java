@@ -5,7 +5,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -17,32 +16,24 @@ public final class Berry extends Item {
 
     public static final String ITEM = "aiki.fight.items.Berry";
 
-    @CheckedData
     private Rate healHpBySuperEffMove;
-    @CheckedData
     private boolean lawForAttackFirst;
 
     private StringMap<EfficiencyRate> multFoesDamage;
 
     private EnumMap<Statistic,BoostHpRate> multStat;
 
-    @CheckedData
     private boolean withoutFail;
-    @CheckedData
     private int healPp;
 
-    @CheckedData
     private Rate healHp;
 
-    @CheckedData
     private Rate maxHpHealingHp;
 
     private StringList healStatus;
 
-    @CheckedData
     private Rate healHpRate;
 
-    @CheckedData
     private Rate maxHpHealingHpRate;
 
     private StringMap<Rate> damageRateRecoilFoe;

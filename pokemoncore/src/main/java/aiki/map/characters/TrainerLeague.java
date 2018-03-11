@@ -1,10 +1,8 @@
 package aiki.map.characters;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class TrainerLeague extends TrainerOneFight implements Fightable {
 

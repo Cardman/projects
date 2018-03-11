@@ -1,6 +1,5 @@
 package aiki.game.fight.actions;
 import aiki.game.fight.TargetCoords;
-import code.serialize.CheckedData;
 import code.util.EqList;
 import code.util.annot.RwXml;
 
@@ -8,18 +7,15 @@ import code.util.annot.RwXml;
 public final class ActionMove extends AbstractAction implements ChosenMove,ChosenReplacing{
 
     /***/
-    @CheckedData
     private String firstChosenMove;
 
     /***/
-    @CheckedData
     private String finalChosenMove;
 
     /***/
     private EqList<TargetCoords> chosenTargets;
 
     /***/
-    @CheckedData
     private byte substitute;
 
     @Override

@@ -15,7 +15,6 @@ import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -31,66 +30,43 @@ public final class AbilityData {
 
     private EqList<TypesDuo> breakFoeImmune;
 
-    @CheckedData
     private boolean forbidUseBerryAgainstFoes;
     private StringMap<String> chgtTypeByWeather;
-    @CheckedData
     private boolean chgtTypeByDamage;
-    @CheckedData
     private Rate recoilDamageFoe;
-    @CheckedData
     private Rate recoilDamageFoeByKoOwner;
-    @CheckedData
     private int decreaseNecStepsHatch;
     private StringMap<Rate> divideStatusRound;
     private StringMap<Rate> healHpByWeather;
     private StringList ignAbility;
     private StringList ignFoeTeamMove;
-    @CheckedData
     private boolean ignFoeStatisBoost;
     private StringList immuMove;
     private EnumList<Statistic> immuLowStat;
 
     private EqList<StatisticStatus> immuLowStatIfStatus;
 
-    @CheckedData
     private boolean immuCh;
     private StringList immuWeather;
-    @CheckedData
     private boolean immuDamageTrappingMoves;
-    @CheckedData
     private boolean immuDamageAllyMoves;
-    @CheckedData
     private boolean immuDamageRecoil;
     private StringList immuAbility;
     private StringList immuStatusBeginRound;
-    @CheckedData
     private boolean immuRechargeRound;
     private StringMap<StringList> immuStatus;
-    @CheckedData
     private boolean slowing;
     private StringMap<Rate> multDamageFoe;
-    @CheckedData
     private Rate multDamageCh;
-    @CheckedData
     private Rate multAllyDamage;
-    @CheckedData
     private Rate multSufferedDamageSuperEff;
-    @CheckedData
     private boolean immuSufferedDamageLowEff;
-    @CheckedData
     private Rate multEvtRateCh;
-    @CheckedData
     private boolean cancelSecEffectOther;
-    @CheckedData
     private boolean cancelSecEffectOwner;
-    @CheckedData
     private Rate multEvtRateSecEffectOwner;
-    @CheckedData
     private String multPower;
-    @CheckedData
     private String multDamage;
-    @CheckedData
     private Rate multStab;
     private EnumMap<Statistic,Byte> bonusStatRank;
     private EnumMap<Statistic,Byte> boostStatRankProtected;
@@ -107,35 +83,23 @@ public final class AbilityData {
     private ObjectMap<StatisticType,Byte> multStatIfDamgeType;
 
     private EnumMap<Statistic,String> multStat;
-    @CheckedData
     private boolean inflictingDamageInsteadOfSuffering;
-    @CheckedData
     private Rate multVarBoost;
-    @CheckedData
     private int nbUsedPp;
-    @CheckedData
     private boolean nbHits;
-    @CheckedData
     private boolean breakProtection;
-    @CheckedData
     private boolean plate;
-    @CheckedData
     private boolean healedStatusBySwitch;
-    @CheckedData
     private Rate healedHpRateBySwitch;
     private StringMap<Short> increasedPrio;
     private StringMap<Short> increasedPrioTypes;
     private EnumList<Statistic> maxStatisticsIfCh;
     private MonteCarloString singleStatus;
-    @CheckedData
     private boolean achievedDisappearedPk;
     private StringMap<String> forwardStatus;
     private StringMap<String> failStatus;
-    @CheckedData
     private String typeForMoves;
-    @CheckedData
     private Rate maxHpForUsingBerry;
-    @CheckedData
     private boolean mumy;
 
     private ObjectMap<WeatherType,Rate> healHpByTypeIfWeather;
@@ -155,21 +119,16 @@ public final class AbilityData {
 
     private EnumMap<Statistic,Byte> lowStatFoeHit;
 
-    @CheckedData
     private boolean copyMovesTypes;
 
     private StringMap<Rate> multPowerMovesTypesGlobal;
 
-    @CheckedData
     private boolean reverseEffectsPowerMovesTypesGlobal;
 
-    @CheckedData
     private Rate healHpWhileUsingBerry;
 
-    @CheckedData
     private boolean takeItemByDamagingMove;
 
-    @CheckedData
     private boolean giveItemToAllyHavingUsed;
 
     public void validate(DataBase _data) {

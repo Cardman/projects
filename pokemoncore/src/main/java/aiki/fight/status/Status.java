@@ -5,7 +5,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.annot.RwXml;
@@ -13,20 +12,14 @@ import code.util.annot.RwXml;
 @RwXml
 public class Status {
 
-    @CheckedData
     private StatusType statusType;
-    @CheckedData
     private Rate catchingRate;
     private CustList<EffectEndRoundStatus> effectEndRound;
     private CustList<EffectPartnerStatus> effectsPartner;
-    @CheckedData
     private boolean disabledEffIfSwitch;
-    @CheckedData
     private int incrementEndRound;
-    @CheckedData
     private boolean incrementingEndRound;
     private EnumMap<Statistic,Rate> multStat;
-    @CheckedData
     private String fail;
     public void validate(DataBase _data) {
         if (statusType == null) {

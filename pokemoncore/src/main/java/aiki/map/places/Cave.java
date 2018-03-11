@@ -16,7 +16,6 @@ import aiki.map.tree.Tree;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -28,7 +27,6 @@ import code.util.annot.RwXml;
 @RwXml
 public final class Cave extends Campaign {
 
-    @CheckedData
     private String name;
 
     private NumberMap<Byte,LevelCave> levels;

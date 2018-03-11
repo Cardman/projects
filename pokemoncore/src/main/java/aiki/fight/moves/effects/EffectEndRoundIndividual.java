@@ -5,7 +5,6 @@ import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -14,15 +13,11 @@ import code.util.annot.RwXml;
 @RwXml
 public final class EffectEndRoundIndividual extends EffectEndRound {
 
-    @CheckedData
     private Rate deleteAllStatus;
-    @CheckedData
     private Rate recoilDamage;
-    @CheckedData
     private Rate healHp;
     private StringMap<Rate> healHpByOwnerTypes;
     private StringMap<Rate> multDamageStatus;
-    @CheckedData
     private String userStatusEndRound;
 
     @Override

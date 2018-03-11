@@ -32,7 +32,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
-import code.serialize.CheckedData;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -59,27 +58,21 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
 
     /***/
-    @CheckedData
     private String name;
 
     /***/
-    @CheckedData
     private short level;
 
     /***/
-    @CheckedData
     private Gender gender;
 
     /**non modifiable une fois affecte a l'objet.*/
-    @CheckedData
     private String ability;
 
     /**si la chaine de caractere est vide alors le pokemon ne porte pas d'objet, sinon cette chaine vaut le nom de l'objet. */
-    @CheckedData
     private String item;
 
     /***/
-    @CheckedData
     private Rate remainingHp;
 
     /***/
@@ -89,7 +82,6 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private transient EnumMap<Statistic,Short> iv;
 
     /**nickname du pokemon par defaut le nom du pokemon*/
-    @CheckedData
     private String nickname;
 
     /***/
@@ -99,19 +91,15 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private EnumMap<Statistic,Short> ev;
 
     /**Points d'experience gagnes depuis la derniere montee de niveau*/
-    @CheckedData
     private Rate wonExpSinceLastLevel;
 
     /**happiness du pokemon (0 a 255)*/
-    @CheckedData
     private short happiness;
 
     /**nom de la ball ayant capture le pokemon. Si ce nom est vide, alors le pokemon vient d'une eclosion ou d'un don.*/
-    @CheckedData
     private String usedBallCatching;
 
     /**Nombre de pas effectue en tete d'equipe.*/
-    @CheckedData
     private short nbStepsTeamLead;
 
     private transient Comment commentPk = new Comment();

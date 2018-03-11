@@ -2,7 +2,6 @@ package code.maths;
 import code.maths.exceptions.BadDivisionException;
 import code.maths.exceptions.FormatException;
 import code.maths.exceptions.NegatifExposantException;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
@@ -12,7 +11,6 @@ import code.util.StringList;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
-@CheckedData
 public final class Rate implements Cmp<Rate>, Displayable {
 
     public static final char SEP_NUM_DEN_CHAR = '/';

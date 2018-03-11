@@ -1,8 +1,6 @@
 package aiki.game.enums;
-import code.serialize.CheckedData;
 
 
-@CheckedData
 public enum InterfaceType {
     RIEN,
     VOL,

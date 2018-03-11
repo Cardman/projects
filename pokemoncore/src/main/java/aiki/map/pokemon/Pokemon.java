@@ -2,10 +2,8 @@ package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.pokemon.enums.Gender;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public abstract class Pokemon {
 

@@ -4,7 +4,6 @@ import aiki.exceptions.DataException;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
-import code.serialize.CheckedData;
 import code.util.EqList;
 import code.util.annot.RwXml;
 
@@ -15,10 +14,8 @@ public final class AreaApparition {
 
     private EqList<WildPk> wildPokemon;
 
-    @CheckedData
     private short avgNbSteps;
 
-    @CheckedData
     private byte multFight;
 
     private EqList<WildPk> wildPokemonFishing;

@@ -1,9 +1,7 @@
 package aiki.map.enums;
-import code.serialize.CheckedData;
 import code.util.StringList;
 
 
-@CheckedData
 public enum Direction {
     UP((byte)0,(byte)-1),DOWN((byte)0,(byte)1),LEFT((byte)-1,(byte)0),RIGHT((byte)1,(byte)0);
     private final byte xCoords;

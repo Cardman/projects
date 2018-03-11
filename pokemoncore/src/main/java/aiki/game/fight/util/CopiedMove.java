@@ -1,10 +1,8 @@
 package aiki.game.fight.util;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
-@CheckedData
 public final class CopiedMove implements Displayable {
 
     private static final char SEPARATOR = ',';

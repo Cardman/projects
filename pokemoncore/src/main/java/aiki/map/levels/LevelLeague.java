@@ -4,24 +4,19 @@ import aiki.exceptions.DataException;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @RwXml
 public final class LevelLeague extends Level {
 
-    @CheckedData
     private Point trainerCoords;
 
     private TrainerLeague trainer;
 
-    @CheckedData
     private Point accessPoint;
 
-    @CheckedData
     private Point nextLevelTarget;
 
-    @CheckedData
     private String fileName;
 
     @Override

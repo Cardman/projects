@@ -1,11 +1,9 @@
 package aiki.game.fight.util;
 import aiki.game.fight.ActivityOfMove;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
-@CheckedData
 public final class AffectedMove implements Displayable {
 
     private static final char SEPARATOR='/';

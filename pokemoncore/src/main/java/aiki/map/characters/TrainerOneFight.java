@@ -2,14 +2,12 @@ package aiki.map.characters;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.pokemon.PkTrainer;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.annot.RwXml;
 
 @RwXml
 public abstract class TrainerOneFight extends Trainer {
 
-    @CheckedData
     private short reward;
 
     private CustList<PkTrainer> team;

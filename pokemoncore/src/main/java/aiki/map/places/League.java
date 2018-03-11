@@ -8,7 +8,6 @@ import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.util.Coords;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.NumberMap;
 import code.util.annot.RwXml;
@@ -16,18 +15,14 @@ import code.util.annot.RwXml;
 @RwXml
 public final class League extends Place {
 
-    @CheckedData
     private String name;
 
     private CustList<LevelLeague> rooms;
 
-    @CheckedData
     private Coords accessCoords;
 
-    @CheckedData
     private String fileName;
 
-    @CheckedData
     private Point begin;
 
     @Override

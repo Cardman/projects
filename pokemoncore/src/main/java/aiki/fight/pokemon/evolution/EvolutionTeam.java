@@ -3,11 +3,9 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 
-@CheckedData
 @RwXml
 public final class EvolutionTeam extends Evolution {
 

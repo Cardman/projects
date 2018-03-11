@@ -3,11 +3,9 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.enums.Gender;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 
-@CheckedData
 @RwXml
 public final class EvolutionLevelGender extends EvolutionLevel implements GenderConstraints {
 

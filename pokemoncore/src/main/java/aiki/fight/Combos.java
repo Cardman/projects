@@ -1,10 +1,10 @@
 package aiki.fight;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.EffectCombo;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class Combos {

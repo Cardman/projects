@@ -17,7 +17,6 @@
 		<module>../bean</module>
 		<module>../util</module>
 		<module>../sml</module>
-		<module>../serialize</module>
 		<module>../stream</module>
 		<module>../musiccore</module>
 		<module>../formatconst</module>

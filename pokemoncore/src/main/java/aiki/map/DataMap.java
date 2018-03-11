@@ -62,7 +62,6 @@ import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -87,30 +86,22 @@ public final class DataMap {
 
     private ObjectMap<MiniMapCoords,TileMiniMap> miniMap;
 
-    @CheckedData
     private String unlockedCity;
 
-    @CheckedData
     private Coords begin;
 
-    @CheckedData
     private WildPk firstPokemon;
 
     //private Map<EnvironmentType,String> spritesGirlBoy;
 
-    @CheckedData
     private int screenWidth = 9;
 
-    @CheckedData
     private int screenHeight = 9;
 
-    @CheckedData
     private int spaceBetweenLeftAndHeros = 4;
 
-    @CheckedData
     private int spaceBetweenTopAndHeros = 4;
 
-    @CheckedData
     private int sideLength = 32;
 
     private transient Tree tree = new Tree();

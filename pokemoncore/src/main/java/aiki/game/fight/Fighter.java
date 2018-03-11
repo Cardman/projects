@@ -52,7 +52,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -101,51 +100,39 @@ public final class Fighter {
 //    private static final String CENT = Byte.toString(RATE_CENT);
 
     /**Only evolutions can change the name*/
-    @CheckedData
     private String name;
 
     /**Never mind*/
-    @CheckedData
     private String nickname;
 
     /**Gender does not change in a fight*/
-    @CheckedData
     private Gender gender;
 
     /**Never mind*/
-    @CheckedData
     private Rate weight;
 
     /**Never mind*/
-    @CheckedData
     private Rate height;
 
     /**Only evolutions and moves copy from fighter can change the current name; Never mind*/
-    @CheckedData
     private String currentName;
 
     /**Only moves copy from fighter can change the current gender; Never mind*/
-    @CheckedData
     private Gender currentGender;
 
     /**Only effect switch items (moves or abilities) can change the last used item*/
-    @CheckedData
     private String lastUsedItem;
 
     /**Only effect switch items (moves or abilities) can change the item*/
-    @CheckedData
     private String item;
 
     /**expItem does not change in a fight*/
-    @CheckedData
     private String expItem;
 
     /**Only evolutions can change the ability*/
-    @CheckedData
     private String ability;
 
     /**Only evolutions; moves copy from fighter and effect switch abilities can change the current ability; Never mind*/
-    @CheckedData
     private String currentAbility;
 
     /**The key set is not changed*/
@@ -155,7 +142,6 @@ public final class Fighter {
     private ObjectMap<MoveTeamPosition,Short> statusRelat;
 
     /**Never mind*/
-    @CheckedData
     private LgInt nbRounds;
 
     /**Never mind even if empty*/
@@ -180,13 +166,11 @@ public final class Fighter {
     private EnumMap<Statistic,Byte> statisBoost;
 
     /***/
-    @CheckedData
     private Rate remainingHp;
 
     private transient Rate varHp = Rate.zero();
 
     /**Never mind even if clone &gt; max hp*/
-    @CheckedData
     private Rate clone;
 
     /**Never mind*/
@@ -224,35 +208,27 @@ public final class Fighter {
 
     /**Changed after act (use a move; switch or heal)
     even if a switch interrupt the round*/
-    @CheckedData
     private boolean acted;
 
     /***/
-    @CheckedData
     private byte groundPlace;
 
     /***/
-    @CheckedData
     private byte groundPlaceSubst;
 
     /**Never mind even if high (added to wonExpSinceLastLevel for grow level)*/
-    @CheckedData
     private Rate wonExp;
 
     /**Never mind even if high*/
-    @CheckedData
     private Rate wonExpSinceLastLevel;
 
     /**Used for learning moves - evolving (experience); numeric string values*/
-    @CheckedData
     private short level;
 
     /**Never mind*/
-    @CheckedData
     private short happiness;
 
     /**Never mind*/
-    @CheckedData
     private String usedBallCatching;
 
     /**Never mind*/
@@ -262,15 +238,12 @@ public final class Fighter {
     private StringMap<Integer> nbUsesMoves;
 
     /***/
-    @CheckedData
     private short nbPrepaRound;
 
     /**if disappeared then nbPrepaRound &gt; 0*/
-    @CheckedData
     private boolean disappeared;
 
     /***/
-    @CheckedData
     private boolean needingToRecharge;
 
     /**Never mind*/
@@ -280,7 +253,6 @@ public final class Fighter {
     private ObjectMap<MoveTeamPosition,ActivityOfMove> trappingMoves;
 
     /**Never mind*/
-    @CheckedData
     private String lastSufferedMove;
 
     /**Never mind*/
@@ -293,18 +265,15 @@ public final class Fighter {
     private StringMap<Rate> damageSufferedCategRound;
 
     /**Never mind*/
-    @CheckedData
     private String lastUsedMove;
 
     /**Never mind*/
-    @CheckedData
     private String usedMoveLastRound;
 
     /**Never mind*/
     private StringList alreadyInvokedMovesRound;
 
     /**Never mind*/
-    @CheckedData
     private String lastSuccessfulMove;
 
     /**The key set does not change; the move value change only if copy move from fighter
@@ -312,19 +281,15 @@ public final class Fighter {
     private StringMap<CopiedMove> copiedMoves;
 
     /**Never mind*/
-    @CheckedData
     private LgInt nbRepeatingSuccessfulMoves;
 
     /**Never mind*/
-    @CheckedData
     private boolean usingItem;
 
     /**Never mind*/
-    @CheckedData
     private boolean successfulMove;
 
     /**Never mind*/
-    @CheckedData
     private boolean changed;
 
     /***/
@@ -334,7 +299,6 @@ public final class Fighter {
     private ObjectMap<MoveTeamPosition,StringList> privateMoves;
 
     /**Cannot be changed in a fight*/
-    @CheckedData
     private boolean belongingToPlayer;
 
     /***/

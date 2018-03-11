@@ -1,13 +1,11 @@
 package aiki.game.fight.util;
 import aiki.game.fight.TeamPosition;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCoords>, Displayable {
 
     private static final char SEPARATOR = ',';

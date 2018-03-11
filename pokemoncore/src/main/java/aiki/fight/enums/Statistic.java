@@ -1,10 +1,8 @@
 package aiki.fight.enums;
-import code.serialize.CheckedData;
 import code.util.EnumList;
 import code.util.StringList;
 import code.util.ints.Listable;
 
-@CheckedData
 public enum Statistic {
     HP(true,false),
     ATTACK(true,true),

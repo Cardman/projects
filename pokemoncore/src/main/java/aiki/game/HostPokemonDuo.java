@@ -3,7 +3,6 @@ import aiki.DataBase;
 import aiki.comments.Comment;
 import aiki.exceptions.GameLoadException;
 import aiki.map.pokemon.PokemonPlayer;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -13,7 +12,6 @@ public final class HostPokemonDuo {
 
     private PokemonPlayer secondPokemon;
 
-    @CheckedData
     private int nbSteps;
 
     public void validate(DataBase _data) {

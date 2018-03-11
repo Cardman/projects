@@ -1,12 +1,10 @@
 package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.map.pokemon.enums.Gender;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.annot.RwXml;
 import code.util.ints.Equallable;
 
-@CheckedData
 @RwXml
 public final class WildPk extends Pokemon implements Equallable<WildPk> {
 

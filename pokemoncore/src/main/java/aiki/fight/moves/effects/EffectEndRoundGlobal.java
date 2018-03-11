@@ -5,11 +5,9 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
-import code.serialize.CheckedData;
 
 /**
  */
-@CheckedData
 public final class EffectEndRoundGlobal extends EffectEndRound {
 
     @Override

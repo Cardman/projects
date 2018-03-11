@@ -1,13 +1,11 @@
 package aiki.map.util;
 import aiki.map.enums.Direction;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, Displayable {
 
     static final char SEPARATOR = ';';

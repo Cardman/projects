@@ -3,13 +3,11 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.enums.Direction;
 import aiki.util.Coords;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
-@CheckedData
 public final class Link implements Displayable{
 
     private static final char SEPARATOR = '\'';

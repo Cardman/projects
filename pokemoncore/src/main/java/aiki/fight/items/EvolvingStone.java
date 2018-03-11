@@ -1,7 +1,5 @@
 package aiki.fight.items;
-import code.serialize.CheckedData;
 
-@CheckedData
 public final class EvolvingStone extends Item {
 
     private static final String ITEM = "aiki.fight.items.EvolvingStone";

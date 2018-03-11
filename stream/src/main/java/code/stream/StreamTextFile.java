@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import code.resources.ResourceFiles;
-import code.serialize.SerializeXmlObject;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -302,24 +301,6 @@ public final class StreamTextFile {
         }
     }
 
-    public static Object loadObject(String _nomFichier) {
-        String content_ = contentsOfFile(_nomFichier);
-        try {
-            return SerializeXmlObject.fromXmlStringObject(content_);
-        } catch (Throwable _0) {
-            return null;
-        }
-    }
-
-    public static Object loadResourceObject(String _nomFichier) {
-        String content_ = ResourceFiles.ressourceFichier(_nomFichier);
-        try {
-            return SerializeXmlObject.fromXmlStringObject(content_);
-        } catch (Throwable _0) {
-            return null;
-        }
-    }
-
     public static void saveTextFile(String _nomFichier, String _text) {
         try {
             FileWriter fw_ = new FileWriter(new File(_nomFichier));
@@ -330,8 +311,5 @@ public final class StreamTextFile {
         } catch (RuntimeException _0) {
         } catch (IOException _0) {
         }
-    }
-    public static void saveObject(String _fileName, Object _object) {
-        saveTextFile(_fileName, SerializeXmlObject.toXmlString(_object));
     }
 }

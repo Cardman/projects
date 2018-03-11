@@ -3,10 +3,8 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class EffectClone extends Effect {
 

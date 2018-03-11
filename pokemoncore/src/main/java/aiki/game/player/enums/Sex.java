@@ -1,9 +1,7 @@
 package aiki.game.player.enums;
 import aiki.map.pokemon.enums.Gender;
-import code.serialize.CheckedData;
 import code.util.StringList;
 
-@CheckedData
 public enum Sex {
     GIRL(Gender.FEMALE),BOY(Gender.MALE);
     private final Gender gender;

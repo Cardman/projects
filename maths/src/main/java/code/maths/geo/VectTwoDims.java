@@ -1,11 +1,9 @@
 package code.maths.geo;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class VectTwoDims implements Equallable<VectTwoDims>, Displayable {
 
     private static final String SEPARATOR = ",";

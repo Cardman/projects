@@ -1,10 +1,8 @@
 package aiki.fight.moves.enums;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.ints.Listable;
 
 
-@CheckedData
 public enum TargetChoice {
     ADJ_ADV(false),
     ADJ_MULT(false),

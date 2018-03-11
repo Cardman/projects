@@ -129,7 +129,6 @@ import code.maths.litteral.EvolvedMathFactory;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.resources.ResourceFiles;
-import code.serialize.CheckedData;
 import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -325,18 +324,14 @@ public class DataBase implements WithMathFactory {
 
     private StringMap<PokemonData> pokedex = new StringMap<PokemonData>();
 
-    @CheckedData
     private Rate avgWeight = Rate.zero();
 
     private StringMap<MoveData> moves = new StringMap< MoveData>();
 
-    @CheckedData
     private NumberMap<Short,String> tm = new NumberMap<Short,String>();
 
-    @CheckedData
     private NumberMap<Short,LgInt> tmPrice = new NumberMap<Short,LgInt>();
 
-    @CheckedData
     private NumberMap<Short,String> hm = new NumberMap<Short,String>();
 
     private StringMap<Item> items = new StringMap<Item>();
@@ -345,239 +340,153 @@ public class DataBase implements WithMathFactory {
 
     private StringMap<Status> status = new StringMap<Status>();
 
-    @CheckedData
     private StringMap<String> miniPk = new StringMap<String>();
 
-    @CheckedData
     private StringMap<String> maxiPkBack = new StringMap<String>();
 
-    @CheckedData
     private StringMap<String> maxiPkFront = new StringMap<String>();
 
-    @CheckedData
     private int maxWidthPk;
 
-    @CheckedData
     private int maxHeightPk;
 
-    @CheckedData
     private StringMap<String> miniItems = new StringMap<String>();
 
-    @CheckedData
     private StringMap<String> trainers = new StringMap<String>();
 
-    @CheckedData
     private StringMap<String> people = new StringMap<String>();
 
-    @CheckedData
     private StringMap<String> typesImages = new StringMap<String>();
 
-    @CheckedData
     private StringMap<String> typesColors = new StringMap<String>();
 
-    @CheckedData
     private ObjectMap<ImageHeroKey,String> frontHeros = new ObjectMap<ImageHeroKey,String>();
 
-    @CheckedData
     private ObjectMap<ImageHeroKey,String> backHeros = new ObjectMap<ImageHeroKey,String>();
 
-    @CheckedData
     private ObjectMap<ImageHeroKey,String> overWorldHeros = new ObjectMap<ImageHeroKey,String>();
 
-    @CheckedData
     private StringMap<String> links = new StringMap<String>();
 
-    @CheckedData
     private StringMap<String> images = new StringMap<String>();
 
     private StringMap<ObjectMap<ScreenCoords,String>> imagesTiles = new StringMap<ObjectMap<ScreenCoords,String>>();
 
-    @CheckedData
     private StringMap<String> miniMap = new StringMap<String>();
 
-    @CheckedData
     private StringMap<Dims> imagesDimensions = new StringMap<Dims>();
 
-    @CheckedData
     private String imageTmHm = EMPTY_IMAGE;
 
-    @CheckedData
     private String storage = EMPTY_IMAGE;
 
     private DataMap map = new DataMap();
 
     private Combos combos = new Combos();
 
-    @CheckedData
     private StringMap<Rate> constNum = new StringMap<Rate>();
 //    @CheckedData
 //    private Map<String,String> constNotNum = new Map<>();
 
-    @CheckedData
     private String rateBoostCriticalHit;
 
-    @CheckedData
     private String rateFleeing;
 
-    @CheckedData
     private String defMove;
 
-    @CheckedData
     private String rateBoost;
 
-    @CheckedData
     private String damageFormula;
 
-    @CheckedData
     private String ballDef;
 
-    @CheckedData
     private String defaultEggGoup;
 
-    @CheckedData
     private String rateCatching;
 
-    @CheckedData
     private EnumMap<ExpType,String> expGrowth = new EnumMap<ExpType,String>();
 
-    @CheckedData
     private EnumMap<DifficultyWinPointsFight,String> rates = new EnumMap<DifficultyWinPointsFight,String>();
 
-    @CheckedData
     private ObjectMap<TypesDuo,Rate> tableTypes = new ObjectMap<TypesDuo,Rate>();
-    @CheckedData
     private StringList types = new StringList();
 
-    @CheckedData
     private EnumMap<DifficultyModelLaw,LawNumber> lawsDamageRate = new EnumMap<DifficultyModelLaw,LawNumber>();
 
-    @CheckedData
     private StringList movesProtAgainstStatusMoves;
-    @CheckedData
     private StringList movesProtAgainstDamageMoves;
-    @CheckedData
     private StringList movesProtAgainstPrio;
-    @CheckedData
     private StringList movesProtAgainstMultiTarget;
-    @CheckedData
     private StringList movesCountering;
-    @CheckedData
     private StringList movesProtSingleTarget;
-    @CheckedData
     private StringList movesProtSingleTargetAgainstKo;
-    @CheckedData
     private StringList movesCopyingTemp;
-    @CheckedData
     private StringList trappingMoves;
-    @CheckedData
     private StringList movesAccuracy;
-    @CheckedData
     private StringList movesActingMoveUses;
-    @CheckedData
     private StringList movesForbidding;
-    @CheckedData
     private StringList movesEffectIndiv;
-    @CheckedData
     private StringList movesEffectProt;
-    @CheckedData
     private StringList movesEffectUnprot;
-    @CheckedData
     private StringList movesEffectIndivIncr;
-    @CheckedData
     private StringList movesEffEndRoundIndiv;
-    @CheckedData
     private StringList movesEffEndRoundIndivIncr;
-    @CheckedData
     private StringList movesEffectTeam;
-    @CheckedData
     private StringList movesEffectWhileSending;
-    @CheckedData
     private StringList movesEffectGlobal;
-    @CheckedData
     private StringList movesEffectGlobalWeather;
-    @CheckedData
     private StringList movesEffectAlly;
-    @CheckedData
     private StringList movesHealingAfter;
-    @CheckedData
     private StringList movesFullHeal;
-    @CheckedData
     private StringList movesAnticipation;
-    @CheckedData
     private StringList movesConstChoices;
-    @CheckedData
     private StringList movesInvoking;
-    @CheckedData
     private StringList movesChangingTypes;
-    @CheckedData
     private StringList allCategories;
-    @CheckedData
     private StringList categories;
 
-    @CheckedData
     private StringList variables;
 
-    @CheckedData
     private StringList functions;
 
-    @CheckedData
     private StringList keys;
 
-    @CheckedData
     private StringMap<StringList> varParamsMove;
 
-    @CheckedData
     private CustList<EndRoundMainElements> evtEndRound;
 
-    @CheckedData
     private String endGameImage;
 
-    @CheckedData
     private StringList filesWithSameNameDifferentCase;
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedCategories = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<EnumMap<EnvironmentType,String>> translatedEnvironment = new StringMap<EnumMap<EnvironmentType,String>>();
 
-    @CheckedData
     private StringMap<EnumMap<SelectedBoolean,String>> translatedBooleans = new StringMap<EnumMap<SelectedBoolean,String>>();
 
-    @CheckedData
     private StringMap<EnumMap<DifficultyWinPointsFight,String>> translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight,String>>();
 
-    @CheckedData
     private StringMap<EnumMap<DifficultyModelLaw,String>> translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw,String>>();
 
-    @CheckedData
     private StringMap<EnumMap<Gender,String>> translatedGenders = new StringMap<EnumMap<Gender,String>>();
 
-    @CheckedData
     private StringMap<EnumMap<Statistic,String>> translatedStatistics = new StringMap<EnumMap<Statistic,String>>();
 
-    @CheckedData
     private StringMap<EnumMap<TargetChoice,String>> translatedTargets = new StringMap<EnumMap<TargetChoice,String>>();
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedTypes = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedPokemon = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedMoves = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedItems = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedAbilities = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedStatus = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedClassesDescriptions = new StringMap<StringMap<String>>();
 
 //    @CheckedData
@@ -616,28 +525,20 @@ public class DataBase implements WithMathFactory {
 //    @CheckedData
 //    private Map<String,String> javaBeansTmp = new Map<>();
 
-    @CheckedData
     private StringMap<String> animStatis = new StringMap<String>();
 
-    @CheckedData
     private StringMap<String> animStatus = new StringMap<String>();
 
-    @CheckedData
     private String animAbsorb = EMPTY_IMAGE;
 
-    @CheckedData
     private StringMap<StringMap<String>> litterals = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<StringMap<String>> translatedFctMath = new StringMap<StringMap<String>>();
 
-    @CheckedData
     private StringMap<PokemonFamily> families = new StringMap<PokemonFamily>();
 
-    @CheckedData
     private boolean checkTranslation;
 
-    @CheckedData
     private transient EvolvedMathFactory standardMathFactory = new EvolvedMathFactory();
 //  private transient StandardMathFactory standardMathFactory = new StandardMathFactory();
 //    public static String getBeansPackage() {

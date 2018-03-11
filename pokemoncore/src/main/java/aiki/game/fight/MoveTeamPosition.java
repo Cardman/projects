@@ -1,12 +1,10 @@
 package aiki.game.fight;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-@CheckedData
 public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Displayable {
 
     private static final char SEPARATOR=',';

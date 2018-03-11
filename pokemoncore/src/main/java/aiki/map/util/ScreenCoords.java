@@ -1,10 +1,8 @@
 package aiki.map.util;
-import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class ScreenCoords implements Equallable<ScreenCoords>, Displayable {
 
     private static final String SEPARATOR = ";";

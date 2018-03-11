@@ -3,7 +3,6 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.montecarlo.MonteCarloString;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
@@ -14,9 +13,7 @@ public final class EffectStatus extends Effect {
     private MonteCarloString lawStatus;
     private StringList deletedStatus;
     private StringMap<String> localFailStatus;
-    @CheckedData
     private boolean koUserHealSubst;
-    @CheckedData
     private boolean statusFromUser;
     @Override
     public void validate(DataBase _data) {

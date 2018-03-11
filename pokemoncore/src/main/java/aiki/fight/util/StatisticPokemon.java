@@ -1,12 +1,10 @@
 package aiki.fight.util;
 import aiki.fight.enums.Statistic;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class StatisticPokemon implements Equallable<StatisticPokemon>, Displayable {
 
     private static final char SEPARATOR = ';';

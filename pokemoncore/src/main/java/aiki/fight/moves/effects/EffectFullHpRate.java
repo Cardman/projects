@@ -2,10 +2,8 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class EffectFullHpRate extends Effect {
 

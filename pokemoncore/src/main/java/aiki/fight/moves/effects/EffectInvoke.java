@@ -3,7 +3,6 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -14,21 +13,14 @@ import code.util.annot.RwXml;
 public final class EffectInvoke extends Effect {
 
     private EnumMap<EnvironmentType,String> moveFctEnv;
-    @CheckedData
     private boolean invokingMoveButUser;
-    @CheckedData
     private boolean invokingTargetChosenMove;
-    @CheckedData
     private boolean invokingUserMoveWhileSleep;
-    @CheckedData
     private boolean invokingAllyMove;
-    @CheckedData
     private boolean invokingTargetSuccesfulMove;
-    @CheckedData
     private boolean invokingSufferedMove;
     private StringMap<String> invokingMoveByUserTypes;
     private StringList movesNotToBeInvoked;
-    @CheckedData
     private Rate rateInvokationMove;
 
     @Override

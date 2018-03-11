@@ -2,11 +2,9 @@ package aiki.fight.pokemon.evolution;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.pokemon.PokemonData;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 
-@CheckedData
 @RwXml
 public class EvolutionLevel extends Evolution {
 

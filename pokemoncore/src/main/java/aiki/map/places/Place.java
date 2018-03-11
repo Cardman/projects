@@ -4,11 +4,9 @@ import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.tree.PlaceArea;
 import aiki.util.Coords;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.NumberMap;
 
-@CheckedData
 public abstract class Place {
 
     public boolean hasValidImage(DataBase _data) {

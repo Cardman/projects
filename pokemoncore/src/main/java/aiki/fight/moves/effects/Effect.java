@@ -2,17 +2,14 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
-import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.annot.RwXml;
 
 @RwXml
 public abstract class Effect {
 
-    @CheckedData
     private TargetChoice targetChoice;
 
-    @CheckedData
     private String fail;
 
     private Numbers<Integer> requiredSuccessfulEffects;

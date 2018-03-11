@@ -3,7 +3,6 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringMap;
@@ -14,7 +13,6 @@ public final class Boost extends Item {
 
     private static final String ITEM = "aiki.fight.items.Boost";
 
-    @CheckedData
     private Rate winPp;
     private StringMap<Short> happiness;
     private EnumMap<Statistic,Short> evs;

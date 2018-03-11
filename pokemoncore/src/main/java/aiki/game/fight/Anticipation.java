@@ -1,13 +1,11 @@
 package aiki.game.fight;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
-@CheckedData
 public final class Anticipation implements Displayable{
 
     private static final char SEPARATOR=',';

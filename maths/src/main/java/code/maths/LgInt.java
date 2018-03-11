@@ -3,7 +3,6 @@ import code.maths.exceptions.BadDivisionException;
 import code.maths.exceptions.FormatException;
 import code.maths.exceptions.NegatifExposantException;
 import code.maths.exceptions.NegativeNumberException;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -21,7 +20,6 @@ Classe modelisant des entiers longs qui sont une extension du type <i>long</i>.<
 Ces entiers sont decoupes en groupes de chiffres et possedent un signe.<br/>
 Attention a eviter d'utiliser des nombres d'un milliard de chiffres, car la memoire vive est limitee.
  */
-@CheckedData
 public final class LgInt implements Cmp<LgInt>, Displayable {
 
     //extends ViewAdapter

@@ -1,7 +1,6 @@
 package aiki.map.characters;
 import aiki.DataBase;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.annot.RwXml;
 
@@ -14,7 +13,6 @@ public final class DualFight implements Fightable {
 
     private StringList names;
 
-    @CheckedData
     private Point pt;
 
     public void validate(DataBase _data) {

@@ -10,7 +10,6 @@ import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
-import code.serialize.CheckedData;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -75,11 +74,9 @@ public final class Team {
     private NumberMap<Byte,Numbers<Byte>> playerFightersAgainstFoe;
 
     /***/
-    @CheckedData
     private byte nbKoRound;
 
     /***/
-    @CheckedData
     private byte nbKoPreviousRound;
 
     /***/

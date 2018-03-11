@@ -2,7 +2,6 @@ package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.pokemon.enums.Gender;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.annot.RwXml;
 
@@ -10,23 +9,18 @@ import code.util.annot.RwXml;
 public final class PkTrainer extends Pokemon {
 
     /***/
-    @CheckedData
     private String name;
 
     /***/
-    @CheckedData
     private short level;
 
     /***/
-    @CheckedData
     private Gender gender;
 
     /**non modifiable une fois affecte a l'objet.*/
-    @CheckedData
     private String ability;
 
     /**si la chaine de caractere est vide alors le pokemon ne porte pas d'objet, sinon cette chaine vaut le nom de l'objet. */
-    @CheckedData
     private String item;
 
     private StringList moves;

@@ -4,7 +4,6 @@ import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.StatusType;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.annot.RwXml;
@@ -14,7 +13,6 @@ public final class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
 
     private StringMap<Rate> multDamageStatus;
 
-    @CheckedData
     private boolean incrementingDamageByRounds;
 
     @Override

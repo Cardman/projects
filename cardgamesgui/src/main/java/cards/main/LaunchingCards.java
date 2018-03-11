@@ -21,7 +21,6 @@ import code.gui.SoftApplication;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
-import code.serialize.exceptions.BadObjectException;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
@@ -53,7 +52,7 @@ public class LaunchingCards extends SoftApplication {
         } catch(ClassCastException _0) {
             _0.printStackTrace();
             coordonnees_ = new TopLeftFrame();
-        } catch(BadObjectException _0) {
+        } catch(Throwable _0) {
             _0.printStackTrace();
             coordonnees_ = new TopLeftFrame();
         }

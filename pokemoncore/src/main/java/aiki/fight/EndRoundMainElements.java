@@ -1,9 +1,7 @@
 package aiki.fight;
 import aiki.fight.enums.EndTurnType;
 import aiki.fight.moves.effects.enums.RelationType;
-import code.serialize.CheckedData;
 
-@CheckedData
 public class EndRoundMainElements {
 
     private short numberIncrement;

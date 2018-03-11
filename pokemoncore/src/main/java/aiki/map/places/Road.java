@@ -14,7 +14,6 @@ import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NumberMap;
@@ -24,7 +23,6 @@ import code.util.annot.RwXml;
 @RwXml
 public final class Road extends Campaign implements InitializedPlace{
 
-    @CheckedData
     private String name;
 
     private LevelRoad level;

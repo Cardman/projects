@@ -5,7 +5,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -16,7 +15,6 @@ public final class EffectStatistic extends Effect {
 
     private EnumMap<Statistic,Byte> statisVarRank;
     private EnumMap<Statistic,String> localFailStatis;
-    @CheckedData
     private Rate evtRate;
     private EnumList<Statistic> copyBoost;
     private EnumList<Statistic> swapBoostStatis;

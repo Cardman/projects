@@ -5,13 +5,11 @@ import aiki.map.tree.util.Dims;
 import aiki.util.Point;
 import code.images.ConverterBufferedImage;
 import code.images.Image;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class Block {
 

@@ -1,12 +1,10 @@
 package aiki.fight.util;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class CategoryMult implements Equallable<CategoryMult>, Displayable {
 
     private static final char SEPARATOR = ';';

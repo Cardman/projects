@@ -1,11 +1,9 @@
 package aiki.map.levels.enums;
-import code.serialize.CheckedData;
 import code.util.EnumList;
 import code.util.StringList;
 import code.util.ints.Listable;
 
 
-@CheckedData
 public enum EnvironmentType {
     BUILDING, DESERT, WATER, ICE, GRASS, SNOW, ROCK, ROAD, NOTHING;
     public static boolean equalsSet(Listable<EnvironmentType> _list1,Listable<EnvironmentType> _list2) {

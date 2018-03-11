@@ -2,16 +2,13 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
 public final class EffectCopyMove extends Effect {
 
-    @CheckedData
     private short copyingMoveForUser;
-    @CheckedData
     private boolean copyingMoveForUserDef;
     private StringList movesNotToBeCopied;
     @Override

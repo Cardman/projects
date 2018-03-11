@@ -1,9 +1,7 @@
 package aiki.map.characters;
 import aiki.map.characters.enums.GeranceType;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class GerantPokemon extends Person {
 

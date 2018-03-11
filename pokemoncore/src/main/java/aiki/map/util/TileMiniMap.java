@@ -1,8 +1,6 @@
 package aiki.map.util;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class TileMiniMap {
 

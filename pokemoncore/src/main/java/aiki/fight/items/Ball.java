@@ -1,9 +1,7 @@
 package aiki.fight.items;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 
-@CheckedData
 @RwXml
 public final class Ball extends Item {
 

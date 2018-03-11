@@ -1,11 +1,9 @@
 package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 
-@CheckedData
 @RwXml
 public final class EffectOrder extends Effect {
 

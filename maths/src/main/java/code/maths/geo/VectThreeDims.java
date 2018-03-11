@@ -2,13 +2,11 @@ package code.maths.geo;
 import code.maths.Rate;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Vect;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class VectThreeDims implements Equallable<VectThreeDims>, Displayable {
 
     private static final String SEPARATOR = ",";

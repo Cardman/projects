@@ -5,7 +5,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.CategoryMult;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.ObjectMap;
@@ -15,7 +14,6 @@ import code.util.annot.RwXml;
 @RwXml
 public final class EffectTeam extends Effect {
 
-    @CheckedData
     private boolean forbiddingHealing;
     private EnumList<Statistic> forbiddenBoost;
     private StringList unusableMoves;
@@ -27,7 +25,6 @@ public final class EffectTeam extends Effect {
     private EnumMap<Statistic,Rate> multStatistic;
     private EnumMap<Statistic,Rate> multStatisticFoe;
     private EnumList<Statistic> protectAgainstLowStat;
-    @CheckedData
     private boolean protectAgainstCh;
     private StringList protectAgainstStatus;
     private StringList disableFoeTeamEffects;

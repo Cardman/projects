@@ -2,7 +2,6 @@ package aiki.map.characters;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.characters.enums.SellType;
-import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.annot.RwXml;
@@ -10,7 +9,6 @@ import code.util.annot.RwXml;
 @RwXml
 public final class Seller extends Person {
 
-    @CheckedData
     private SellType sell;
 
     private StringList items;

@@ -1,10 +1,8 @@
 package aiki.fight.items;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public abstract class Item {
 

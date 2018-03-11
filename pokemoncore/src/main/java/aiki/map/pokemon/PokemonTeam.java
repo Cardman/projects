@@ -1,7 +1,6 @@
 package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.annot.RwXml;
 
@@ -10,7 +9,6 @@ public final class PokemonTeam {
 
     private CustList<PkTrainer> team;
 
-    @CheckedData
     private short reward;
 
     public void validate(DataBase _data) {

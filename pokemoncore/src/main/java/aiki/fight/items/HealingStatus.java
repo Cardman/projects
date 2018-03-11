@@ -1,7 +1,6 @@
 package aiki.fight.items;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.annot.RwXml;
 
@@ -10,7 +9,6 @@ public class HealingStatus extends HealingItem {
     public static final String ITEM = "aiki.fight.items.HealingStatus";
 
     private StringList status;
-    @CheckedData
     private boolean healingKo;
 
     @Override

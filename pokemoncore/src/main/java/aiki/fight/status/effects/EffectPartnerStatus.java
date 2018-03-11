@@ -1,10 +1,8 @@
 package aiki.fight.status.effects;
 import aiki.exceptions.DataException;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public final class EffectPartnerStatus {
 

@@ -71,7 +71,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
 import code.maths.montecarlo.MonteCarloString;
-import code.serialize.CheckedData;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -143,7 +142,6 @@ public final class Game {
     private Player player;
 
     /**nombre de dresseurs de la ligue battus (remis a zero une fois la ligue battue)*/
-    @CheckedData
     private byte rankLeague;
 
     private NumberMap<Short,EqList<Point>> beatGymTrainer;
@@ -160,11 +158,9 @@ public final class Game {
     private ObjectMap<Coords,Boolean> takenPokemon;
 
     /***/
-    @CheckedData
     private Coords playerCoords;
 
     /**(0,1);(1,0);(0,-1);(-1,0)*/
-    @CheckedData
     private Direction playerOrientation;
 
     /***/
@@ -174,16 +170,12 @@ public final class Game {
     private Fight fight;
 
     /***/
-    @CheckedData
     private Difficulty difficulty;
 
-    @CheckedData
     private int indexPeriodFishing;
 
-    @CheckedData
     private int indexPeriod;
 
-    @CheckedData
     private int indexStep;
 
     //private transient String comment;

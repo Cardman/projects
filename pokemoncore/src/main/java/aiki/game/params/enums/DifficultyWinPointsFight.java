@@ -1,10 +1,8 @@
 package aiki.game.params.enums;
-import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.ints.Listable;
 
 
-@CheckedData
 public enum DifficultyWinPointsFight {
     TRES_FACILE,FACILE,DIFFICILE,TRES_DIFFICILE;
     public static boolean equalsSet(Listable<DifficultyWinPointsFight> _list1,Listable<DifficultyWinPointsFight> _list2) {

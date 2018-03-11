@@ -6,7 +6,6 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
-import code.serialize.CheckedData;
 import code.util.EnumList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -16,31 +15,21 @@ import code.util.annot.RwXml;
 @RwXml
 public final class EffectGlobal extends Effect {
 
-    @CheckedData
     private boolean priseEnComptePkLanceur;
-    @CheckedData
     private boolean weather;
-    @CheckedData
     private boolean canceledIfUsed;
-    @CheckedData
     private boolean reverseOrderOfSortBySpeed;
-    @CheckedData
     private boolean puttingKo;
-    @CheckedData
     private Rate multAccuracy;
-    @CheckedData
     private boolean unusableItem;
     private StringList preventStatus;
 
     private StringList immuneTypes;
 
-    @CheckedData
     private Rate damageEndRound;
 
-    @CheckedData
     private Rate healingEndRound;
 
-    @CheckedData
     private Rate healingEndRoundGround;
 
     private ObjectMap<TypesDuo,Rate> efficiencyMoves;
@@ -53,7 +42,6 @@ public final class EffectGlobal extends Effect {
 
     private StringList movesUsedByTargetedFighters;
 
-    @CheckedData
     private Rate multEffectLovingAlly;
     private StringMap<Rate> multPowerMoves;
 
@@ -63,10 +51,8 @@ public final class EffectGlobal extends Effect {
     private StringMap<Rate> multDamageTypesMoves;
     private EnumList<Statistic> cancelChgtStat;
 
-    @CheckedData
     private String invokedMoveTerrain;
 
-    @CheckedData
     private StringList changedTypesTerrain;
 
     @Override

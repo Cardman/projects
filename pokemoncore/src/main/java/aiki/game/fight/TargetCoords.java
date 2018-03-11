@@ -1,5 +1,4 @@
 package aiki.game.fight;
-import code.serialize.CheckedData;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
@@ -7,7 +6,6 @@ import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@CheckedData
 public final class TargetCoords implements Equallable<TargetCoords>, Displayable {
 
     private static final char SEPARATOR=';';

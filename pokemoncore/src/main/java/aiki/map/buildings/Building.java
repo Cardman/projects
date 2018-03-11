@@ -4,10 +4,8 @@ import aiki.exceptions.DataException;
 import aiki.map.levels.Level;
 import aiki.map.tree.BuildingArea;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
-@CheckedData
 @RwXml
 public abstract class Building {
 

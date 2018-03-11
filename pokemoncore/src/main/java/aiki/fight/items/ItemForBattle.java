@@ -9,7 +9,6 @@ import aiki.fight.moves.effects.EffectEndRoundTeam;
 import aiki.fight.util.StatisticPokemon;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
-import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -24,49 +23,30 @@ public final class ItemForBattle extends Item {
     public static final String ITEM = "aiki.fight.items.ItemForBattle";
 
     private StringList typesPk;
-    @CheckedData
     private boolean cancelImmuType;
-    @CheckedData
     private boolean againstEvo;
-    @CheckedData
     private boolean attackLast;
-    @CheckedData
     private boolean boostExp;
     private StringList immuStatus;
-    @CheckedData
     private boolean immuLowStatis;
     private StringMap<Short> increasingMaxNbRoundTrap;
-    @CheckedData
     private boolean attacksSoon;
-    @CheckedData
     private boolean repellingWildPk;
     private StringList synchroStatus;
     private StringMap<String> failStatus;
-    @CheckedData
     private Rate protectAgainstKo;
-    @CheckedData
     private Rate protectAgainstKoIfFullHp;
-    @CheckedData
     private Rate drainedHpByDamageRate;
     private EnumMap<Statistic,Short> winEvFight;
     private MonteCarloBoolean lawForAttackFirst;
-    @CheckedData
     private Rate multTrappingDamage;
-    @CheckedData
     private Rate multWinningMoney;
-    @CheckedData
     private Rate multWinningHappiness;
-    @CheckedData
     private Rate multWinningEv;
-    @CheckedData
     private Rate multWinningExp;
-    @CheckedData
     private String multPower;
-    @CheckedData
     private String multDamage;
-    @CheckedData
     private Rate multDrainedHp;
-    @CheckedData
     private Rate damageRecoil;
     private EnumMap<Statistic,Byte> multStatRank;
 
@@ -81,14 +61,10 @@ public final class ItemForBattle extends Item {
     private StringList immuWeather;
     private EnumMap<Statistic,Byte> boostStatisSuperEff;
     private StringMap<EnumMap<Statistic,Byte>> boostStatisTypes;
-    @CheckedData
     private boolean detruitSiContact;
-    @CheckedData
     private boolean switchPossibleSiTouche;
-    @CheckedData
     private boolean switchForceAdvSiTouche;
     //private StringList sansEffetCapacite;
-    @CheckedData
     private boolean transfertObjSiContact;
     private CustList<EffectEndRound> effectEndRound;
     private CustList<EffectWhileSending> effectSending;

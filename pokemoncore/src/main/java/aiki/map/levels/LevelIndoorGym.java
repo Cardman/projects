@@ -5,7 +5,6 @@ import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
-import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.annot.RwXml;
@@ -15,7 +14,6 @@ public final class LevelIndoorGym extends Level {
 
     private ObjectMap<Point,GymTrainer> gymTrainers;
 
-    @CheckedData
     private Point gymLeaderCoords;
 
     private GymLeader gymLeader;

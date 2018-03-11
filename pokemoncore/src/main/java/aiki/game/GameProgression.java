@@ -1,10 +1,4 @@
 package aiki.game;
-import code.maths.LgInt;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.map.characters.TrainerMultiFights;
@@ -15,6 +9,12 @@ import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.util.Coords;
+import code.maths.LgInt;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class GameProgression {
 
