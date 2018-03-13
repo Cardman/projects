@@ -607,7 +607,6 @@ public final class Classes {
             next_ = createNextSibling(c_, _context);
             if (next_ != null) {
                 next_.getParent().appendChild(next_);
-                c_.setupNextSiblingGroup();
                 next_.setupMetrics(_context);
                 c_ = next_;
                 continue;
@@ -632,7 +631,6 @@ public final class Classes {
                 }
                 if (nextAfter_ != null) {
                     nextAfter_.getParent().appendChild(nextAfter_);
-                    next_.setupNextSiblingGroup();
                     nextAfter_.setupMetrics(_context);
                     c_ = nextAfter_;
                     continue;

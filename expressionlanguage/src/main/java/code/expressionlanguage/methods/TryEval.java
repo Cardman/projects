@@ -55,7 +55,8 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return true;
+        Block next_ = getNextSibling();
+        return next_ instanceof CatchEval || next_ instanceof FinallyEval;
     }
 
     @Override
@@ -76,9 +77,10 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
         Block n_ = getNextSibling();
+        int index_ = getIndexGroup();
         TryBlockStack tryStack_ = new TryBlockStack();
         while (n_ != null) {
-            if (!(n_ instanceof Eval)) {
+            if (n_.getIndexGroup() != index_) {
                 break;
             }
             tryStack_.getCatchBlocks().add((BracedBlock)n_);

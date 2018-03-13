@@ -28,6 +28,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             if (sibling_ == null) {
                 _child.setPreviousSibling(child_);
                 child_.setNextSibling(_child);
+                child_.setupNextSiblingGroup();
                 return;
             }
             child_ = sibling_;

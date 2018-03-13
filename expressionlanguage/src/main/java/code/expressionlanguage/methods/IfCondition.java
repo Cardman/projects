@@ -44,7 +44,8 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return true;
+        Block next_ = getNextSibling();
+        return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
     }
 
     @Override
@@ -71,9 +72,10 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         }
         IfBlockStack if_ = new IfBlockStack();
         if_.getBlocks().add(this);
+        int index_ = getIndexGroup();
         Block n_ = getNextSibling();
         while (n_ != null) {
-            if (!(n_ instanceof BlockCondition)) {
+            if (n_.getIndexGroup() != index_) {
                 break;
             }
             if_.getBlocks().add((BracedBlock)n_);

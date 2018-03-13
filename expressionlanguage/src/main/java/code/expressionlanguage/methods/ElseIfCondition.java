@@ -52,7 +52,8 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return true;
+        Block next_ = getNextSibling();
+        return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
     }
 
     @Override

@@ -93,7 +93,8 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return true;
+        Block next_ = getNextSibling();
+        return next_ instanceof CatchEval || next_ instanceof FinallyEval;
     }
 
     @Override
