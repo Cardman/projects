@@ -13,7 +13,6 @@ public final class DualIndentNbLabel extends DualLabel {
         super(_container, _component, new JLabel(), _page);
         JLabel lab_ = getGraphic();
         lab_.setPreferredSize(new Dimension(_width, _component.getStyle().getEmToPixels()));
-        WindowPage._texts_.put(getGraphic(), "");
     }
 
     @Override

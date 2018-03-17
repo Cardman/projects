@@ -2126,7 +2126,7 @@ public class ElUtilTest {
         assertEq(Double.NEGATIVE_INFINITY, (Number)res_);
     }
     @Test
-    public void processEl75Test() {
+    public void processEl175Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\u9FCB'",0, context_);
@@ -2135,7 +2135,7 @@ public class ElUtilTest {
         assertEq((char)40907, ((Character)res_).charValue());
     }
     @Test
-    public void processEl76Test() {
+    public void processEl176Test() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("\"\\u9FCB\"",0, context_);
@@ -2151,6 +2151,15 @@ public class ElUtilTest {
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("\u9fcb", (String)res_);
+    }
+    @Test
+    public void processEl178Test() {
+        ContextEl context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("$static$java$lang$Long .MAX_VALUE",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(Long.MAX_VALUE, (Number)res_);
     }
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {

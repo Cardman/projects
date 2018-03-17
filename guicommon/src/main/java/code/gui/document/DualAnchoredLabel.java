@@ -22,9 +22,11 @@ public final class DualAnchoredLabel extends DualLabel {
         JLabel label_ = getGraphic();
         label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
         label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, _anims, this));
-        WindowPage._texts_.put(getGraphic(), _component.getText());
-        if (!_component.getAnchor().getAttribute("command").isEmpty()) {
-            href = _component.getAnchor().getAttribute("command");
+        String prefix_ = getPage().getNavigation().getSession().getPrefix();
+        String command_ = new StringBuilder(prefix_).append("command").toString();
+        command_ = _component.getAnchor().getAttribute(command_);
+        if (!command_.isEmpty()) {
+            href = command_;
         } else if (!_component.getAnchor().getAttribute("href").isEmpty()) {
             href = _component.getAnchor().getAttribute("href");
         } else {

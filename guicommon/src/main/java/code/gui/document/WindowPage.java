@@ -7,14 +7,11 @@ import java.awt.Window;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.RootPaneContainer;
-import javax.swing.SwingUtilities;
 
-import code.formathtml.Navigation;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaAnimatedImage;
 import code.formathtml.render.MetaButton;
@@ -38,7 +35,6 @@ import code.formathtml.render.MetaSimpleImage;
 import code.formathtml.render.MetaTable;
 import code.formathtml.render.MetaTextArea;
 import code.formathtml.render.MetaTextField;
-import code.sml.Document;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -51,23 +47,17 @@ public class WindowPage implements Runnable {
 
     private RootPaneContainer frame;
 
-    private Document document;
-
     private MetaDocument meta;
 
-    private Navigation navigation;
-
-    public WindowPage(Navigation _navigation, RootPaneContainer _frame) {
-        document = _navigation.getDocument();
-        navigation = _navigation;
-        meta = MetaDocument.newInstance(document);
+    public WindowPage(MetaDocument _meta, RootPaneContainer _frame, RenderedPage _page) {
+        page = _page;
+        meta = _meta;
         frame = _frame;
-        SwingUtilities.invokeLater(this);
     }
 
     @Override
     public void run() {
-        page = new RenderedPage(meta, frame, navigation);
+        page.setPage(new DualPanel(null, meta.getRoot(), page));
         MetaComponent metaroot_ = meta.getRoot();
         MetaComponent meta_ = metaroot_.getFirstChild();
         DualContainer root_ = page.getPage();
@@ -205,51 +195,7 @@ public class WindowPage implements Runnable {
             a.start();
         }
     }
-    public Navigation getNavigation() {
-        return navigation;
-    }
-    private static void walk(JPanel _panel) {
-        JComponent root_ = _panel;
-        JComponent cur_ = root_;
-        while (true) {
-            System.out.println();
-            System.out.println(cur_.getClass());
-            if (cur_.getLayout() != null) {
-                System.out.println(cur_.getLayout().getClass());
-            }
-            if (cur_ instanceof JLabel) {
-                System.out.println(_texts_.getVal(cur_));
-            }
-            int count_ = cur_.getComponentCount();
-            System.out.println(count_);
-            if (count_ > 0) {
-                cur_ = (JComponent) cur_.getComponent(0);
-                continue;
-            }
-            JComponent nextSibling_ = getNextSibling(cur_);
-            if (nextSibling_ != null) {
-                cur_ = nextSibling_;
-                continue;
-            }
-            JComponent parent_ =  (JComponent) cur_.getParent();
-            if (parent_ == _panel) {
-                break;
-            }
-            nextSibling_ = getNextSibling(parent_);
-            while (nextSibling_ == null) {
-                JComponent grParent_ = (JComponent) parent_.getParent();
-                if (grParent_ == _panel) {
-                    break;
-                }
-                nextSibling_ = getNextSibling(grParent_);
-                parent_ = grParent_;
-            }
-            if (nextSibling_ == null) {
-                break;
-            }
-            cur_ = nextSibling_;
-        }
-    }
+
     private static MetaComponent getNextSibling(MetaComponent _component) {
         MetaContainer par_ = _component.getParent();
         int len_ = par_.getChildren().size();
@@ -264,25 +210,6 @@ public class WindowPage implements Runnable {
         int len_ = par_.getChildren().size();
         for (int i = 0; i < len_; i++) {
             if (par_.getChildren().get(i) == _component) {
-                return i;
-            }
-        }
-        return -1;
-    }
-    private static JComponent getNextSibling(JComponent _component) {
-        JComponent par_ = (JComponent) _component.getParent();
-        int len_ = par_.getComponentCount();
-        int index_ = getIndexChild(_component);
-        if (index_ + 1 >= len_) {
-            return null;
-        }
-        return (JComponent) par_.getComponent(index_ + 1);
-    }
-    private static int getIndexChild(JComponent _component) {
-        JComponent par_ = (JComponent) _component.getParent();
-        int len_ = par_.getComponentCount();
-        for (int i = 0; i < len_; i++) {
-            if (par_.getComponent(i) == _component) {
                 return i;
             }
         }

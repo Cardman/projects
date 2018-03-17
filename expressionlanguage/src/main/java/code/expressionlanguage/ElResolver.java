@@ -1418,12 +1418,13 @@ public final class ElResolver {
             }
             lastPrintChar_--;
         }
+        int strLen_ = _string.length();
         len_ = lastPrintChar_+1;
         if (_string.charAt(i_) == EXTERN_CLASS) {
             int begin_;
             int end_;
             begin_ = _d.getDelKeyWordStatic().indexOfObj(_offset + firstPrintChar_);
-            end_ = _d.getDelKeyWordStatic().indexOfObj(_offset + lastPrintChar_ + 1);
+            end_ = _d.getDelKeyWordStatic().indexOfObj(_offset + strLen_);
             if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.STATIC_ACCESS);

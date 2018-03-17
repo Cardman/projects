@@ -3,18 +3,25 @@ package code.gui.document;
 import javax.swing.RootPaneContainer;
 
 import code.formathtml.Navigation;
-import code.formathtml.render.MetaDocument;
+import code.formathtml.render.MetaComponent;
+import code.util.IdMap;
 
 public final class RenderedPage {
 
-    private final DualPanel page;
+    private DualPanel page;
     private final RootPaneContainer frame;
     private final Navigation navigation;
+    private IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
 
-    public RenderedPage(MetaDocument _document, RootPaneContainer _frame, Navigation _navigation) {
-        page = new DualPanel(null, _document.getRoot(), this);
+    public RenderedPage(RootPaneContainer _frame, Navigation _navigation) {
         frame = _frame;
         navigation = _navigation;
+    }
+    public void setPage(DualPanel _page) {
+        page = _page;
+    }
+    public IdMap<MetaComponent, DualComponent> getRefs() {
+        return refs;
     }
     public Navigation getNavigation() {
         return navigation;

@@ -60,7 +60,7 @@ public final class StaticAccessOperation extends LeafOperation {
         String argClName_;
         String type_ = str_.substring(STATIC_ACCESS.length() + 2);
         StringBuilder class_ = new StringBuilder();
-        if (type_.startsWith(String.valueOf(EXTERN_CLASS))) {
+        if (type_.trim().startsWith(String.valueOf(EXTERN_CLASS))) {
             class_.append(type_);
         } else {
             for (char p: type_.toCharArray()) {

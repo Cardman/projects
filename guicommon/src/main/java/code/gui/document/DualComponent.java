@@ -49,6 +49,7 @@ public abstract class DualComponent {
     }
 
     public void add(DualComponent _dual) {
+        page.getRefs().put(_dual.getComponent(), _dual);
         children.add(_dual);
         graphic.add(_dual.graphic);
         _dual.postAdd();

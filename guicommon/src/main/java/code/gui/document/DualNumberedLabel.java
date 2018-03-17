@@ -16,7 +16,6 @@ public final class DualNumberedLabel extends DualLabel {
             RenderedPage _page) {
         super(_container, _component, new JLabel(), _page);
         getGraphic().setOpaque(true);
-        WindowPage._texts_.put(getGraphic(), Integer.toString(_component.getNumber()));
     }
 
     @Override

@@ -118,7 +118,7 @@ public class FormEvent extends MouseAdapter {
             }
             current_ = n_;
         }
-        nav_.processFormRequest();
+        new ThreadActions(page, "", "", true, false, false).start();
     }
     private static DualComponent getNextSibling(DualComponent _current) {
         DualContainer par_ = _current.getContainer();
