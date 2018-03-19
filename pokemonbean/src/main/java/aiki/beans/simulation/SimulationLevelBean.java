@@ -97,6 +97,9 @@ public class SimulationLevelBean extends CommonBean {
         }
     }
     public boolean isFirstRow(Long _index) {
+        if (_index.intValue() == 0) {
+            return false;
+        }
         Point pt_ = tiles.getKey(_index.intValue());
         return pt_.getx() == CustList.FIRST_INDEX;
     }

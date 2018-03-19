@@ -27,6 +27,7 @@ import code.formathtml.render.MetaListItem;
 import code.formathtml.render.MetaNumberedLabel;
 import code.formathtml.render.MetaOrderedList;
 import code.formathtml.render.MetaPlainLabel;
+import code.formathtml.render.MetaPointLabel;
 import code.formathtml.render.MetaRadioButton;
 import code.formathtml.render.MetaSeparator;
 import code.formathtml.render.MetaSimpleImage;
@@ -123,6 +124,8 @@ public class WindowPage implements Runnable {
                 cur_.add(new DualIndentNbLabel((DualContainer) cur_,(MetaIndentNbLabel) meta_, page, width_));
             } else if (meta_ instanceof MetaNumberedLabel) {
                 cur_.add(new DualNumberedLabel((DualContainer) cur_,(MetaNumberedLabel) meta_, page));
+            } else if (meta_ instanceof MetaPointLabel) {
+                cur_.add(new DualMetaPointLabel((DualContainer) cur_,(MetaPointLabel) meta_, page));
             } else if (meta_ instanceof MetaButton) {
                 cur_.add(new DualButton((DualContainer) cur_,(MetaButton) meta_, page));
             } else if (meta_ instanceof MetaTextField) {

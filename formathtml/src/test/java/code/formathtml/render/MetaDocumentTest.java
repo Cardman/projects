@@ -150,7 +150,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         MetaNumberedLabel nb_ = (MetaNumberedLabel) ch_;
-        assertEq(1, nb_.getNumber());
+        assertEq("1", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
@@ -166,7 +166,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(2, nb_.getNumber());
+        assertEq("2", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -214,7 +214,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         MetaNumberedLabel nb_ = (MetaNumberedLabel) ch_;
-        assertEq(1, nb_.getNumber());
+        assertEq("1", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
@@ -230,7 +230,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(2, nb_.getNumber());
+        assertEq("2", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -278,7 +278,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         MetaNumberedLabel nb_ = (MetaNumberedLabel) ch_;
-        assertEq(1, nb_.getNumber());
+        assertEq("1", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
@@ -294,7 +294,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(2, nb_.getNumber());
+        assertEq("2", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -348,7 +348,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         MetaNumberedLabel nb_ = (MetaNumberedLabel) ch_;
-        assertEq(1, nb_.getNumber());
+        assertEq("1", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
@@ -375,7 +375,7 @@ public final class MetaDocumentTest {
         ch_ = lineSec_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(1, nb_.getNumber());
+        assertEq("1", nb_.getNumber());
         ch_ = lineSec_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -391,7 +391,7 @@ public final class MetaDocumentTest {
         ch_ = lineSec_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(2, nb_.getNumber());
+        assertEq("2", nb_.getNumber());
         ch_ = lineSec_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -407,7 +407,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(2, nb_.getNumber());
+        assertEq("2", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -457,7 +457,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         MetaNumberedLabel nb_ = (MetaNumberedLabel) ch_;
-        assertEq(1, nb_.getNumber());
+        assertEq("1", nb_.getNumber());
         ch_ = line_.getChildren().get(1);
         assertTrue(ch_ instanceof MetaPlainLabel);
         MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
@@ -485,7 +485,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(2, nb_.getNumber());
+        assertEq("2", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -540,7 +540,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         MetaNumberedLabel nb_ = (MetaNumberedLabel) ch_;
-        assertEq(1, nb_.getNumber());
+        assertEq("1", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
@@ -567,7 +567,7 @@ public final class MetaDocumentTest {
         ch_ = lineSec_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(1, nb_.getNumber());
+        assertEq("1", nb_.getNumber());
         ch_ = lineSec_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -583,7 +583,7 @@ public final class MetaDocumentTest {
         ch_ = lineSec_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(2, nb_.getNumber());
+        assertEq("2", nb_.getNumber());
         ch_ = lineSec_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
@@ -607,7 +607,7 @@ public final class MetaDocumentTest {
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaNumberedLabel);
         nb_ = (MetaNumberedLabel) ch_;
-        assertEq(2, nb_.getNumber());
+        assertEq("2", nb_.getNumber());
         ch_ = line_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;

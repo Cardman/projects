@@ -228,6 +228,9 @@ public class PokemonBean extends CommonBean {
         return namesPlaces.getValue(_index.intValue());
     }
     public boolean isFirstRow(Long _index) {
+        if (_index.intValue() == 0) {
+            return false;
+        }
         MiniMapCoords key_ = images.getKey(_index.intValue());
         return key_.getXcoords() == CustList.FIRST_INDEX;
     }

@@ -57,7 +57,7 @@ public class GraphicCombo implements GraphicComboInt, Input {
         gr_.fillPolygon(Numbers.wrapIntArray(s_/4,s_*3/4,s_/2), Numbers.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
         pseudoButton.setIcon(new ImageIcon(img_));
         pseudoButton.addMouseListener(new Popup(this));
-        currentSelected.setPreferredSize(new Dimension(128, s_));
+        currentSelected.setPreferredSize(new Dimension(5, s_));
         currentSelected.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         gr_.dispose();
         panel.add(currentSelected);
@@ -84,12 +84,12 @@ public class GraphicCombo implements GraphicComboInt, Input {
 
     @Override
     public void addItem(String _object) {
-        if (grList.getList().isEmpty()) {
-            int w_ = currentSelected.getPreferredSize().width;
+        grList.add(_object);
+        if (grList.getList().size() == 1) {
+            int w_ = grList.getMaxWidth();
             Font font_ = panel.getFont();
             FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
             int s_ = fontMetrics_.getHeight() + 2;
-            w_ = Math.max(w_, fontMetrics_.stringWidth(_object));
             BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
             Graphics2D gr_ = img_.createGraphics();
             gr_.setColor(Color.WHITE);
@@ -98,7 +98,6 @@ public class GraphicCombo implements GraphicComboInt, Input {
             gr_.drawString(_object, 0, s_ - 1);
             currentSelected.setIcon(new ImageIcon(img_));
         }
-        grList.add(_object);
     }
 
     @Override
@@ -118,8 +117,10 @@ public class GraphicCombo implements GraphicComboInt, Input {
 
     @Override
     public void removeAllItems() {
-        // TODO Auto-generated method stub
-
+        int len_ = grList.getList().size();
+        for (int i = len_ - 1; i > -1; i--) {
+            removeItem(i);
+        }
     }
 
     @Override
@@ -157,7 +158,7 @@ public class GraphicCombo implements GraphicComboInt, Input {
             int s_ = fontMetrics_.getHeight() + 2;
             if (!grList.getList().isEmpty()) {
                 String object_ = grList.getList().first();
-                int w_ = currentSelected.getPreferredSize().width;
+                int w_ = grList.getMaxWidth();
                 BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
                 Graphics2D gr_ = img_.createGraphics();
                 gr_.setColor(Color.WHITE);
@@ -166,7 +167,12 @@ public class GraphicCombo implements GraphicComboInt, Input {
                 gr_.drawString(object_, 0, s_ - 1);
                 currentSelected.setIcon(new ImageIcon(img_));
             } else {
-                currentSelected.setPreferredSize(new Dimension(128, s_));
+                int w_ = 5;
+                BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
+                Graphics2D gr_ = img_.createGraphics();
+                gr_.setColor(Color.WHITE);
+                gr_.fillRect(0, 0, w_, s_);
+                currentSelected.setIcon(new ImageIcon(img_));
             }
         }
     }
@@ -192,11 +198,10 @@ public class GraphicCombo implements GraphicComboInt, Input {
         if (selected_ == null) {
             return;
         }
-        int w_ = currentSelected.getPreferredSize().width;
+        int w_ = grList.getMaxWidth();
         Font font_ = panel.getFont();
         FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
         int s_ = fontMetrics_.getHeight() + 2;
-        w_ = Math.max(w_, fontMetrics_.stringWidth(selected_));
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();
         gr_.setColor(Color.WHITE);

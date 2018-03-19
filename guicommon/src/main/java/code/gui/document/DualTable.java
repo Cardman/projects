@@ -39,6 +39,8 @@ public final class DualTable extends DualContainer {
                 constraints.gridheight = 1;
             }
         } else {
+            //BorderFactory.createLineBorder(color);
+            //BorderFactory.createMatteBorder(top, left, bottom, right, color)
             constraints.gridheight = ((MetaCell)_dual.getComponent()).getRowspan();
             constraints.gridwidth = ((MetaCell)_dual.getComponent()).getColspan();
         }

@@ -1,8 +1,13 @@
 package code.gui.document;
 
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
+import code.formathtml.render.BorderEnum;
 import code.formathtml.render.MetaComponent;
+import code.formathtml.render.MetaStyle;
 import code.util.CustList;
 
 public abstract class DualComponent {
@@ -21,6 +26,10 @@ public abstract class DualComponent {
         graphic = _graphic;
         page = _page;
         setTitle(_component);
+        MetaStyle style_ = _component.getStyle();
+        if (style_.getBorder() == BorderEnum.SOLID) {
+            graphic.setBorder(BorderFactory.createLineBorder(new Color(style_.getBorderColor()), style_.getBorderSize()));
+        }
     }
 
     public CustList<DualComponent> getChildren() {

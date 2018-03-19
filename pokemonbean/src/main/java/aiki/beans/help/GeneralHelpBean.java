@@ -99,6 +99,9 @@ public class GeneralHelpBean extends CommonBean {
         return ConverterBufferedImage.surroundImage(image_);
     }
     public boolean isFirstRow(Long _index) {
+        if (_index.intValue() == 0) {
+            return false;
+        }
         MiniMapCoords key_ = miniMap.getKey(_index.intValue());
         return key_.getXcoords() == CustList.FIRST_INDEX;
     }

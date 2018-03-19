@@ -36,6 +36,7 @@ public final class ThreadActions extends Thread {
 
     public ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
         page = _page;
+        page.start();
         stds = _lgNames;
         anchor = _anchor;
         form = _form;
