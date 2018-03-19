@@ -14,20 +14,17 @@ public class AnchorEvent extends MouseAdapter {
 
     private RenderedPage page;
 
-    private CustList<DualAnimatedImage> anims;
-
     private DualLeaf leaf;
 
-    public AnchorEvent(Element _anchor, RenderedPage _page, CustList<DualAnimatedImage> _anims, DualLeaf _leaf) {
+    public AnchorEvent(Element _anchor, RenderedPage _page, DualLeaf _leaf) {
         anchor = _anchor;
         page = _page;
-        anims = _anims;
         leaf = _leaf;
     }
 
     @Override
     public void mouseReleased(MouseEvent _e) {
-        for (DualAnimatedImage d: anims) {
+        for (DualAnimatedImage d: page.getAnims()) {
             d.getImageThread().setAnimated(false);
         }
         Navigation nav_ = page.getNavigation();
@@ -46,7 +43,7 @@ public class AnchorEvent extends MouseAdapter {
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(false);
         htmlPage_.setUrl(na_);
-        new ThreadActions(page, anchorRef_, "", false, false, false).start();
-        
+        new ThreadActions(page, page.getStandards(), anchorRef_, "", false, false, false).start();
+        page.animateProcess();
     }
 }

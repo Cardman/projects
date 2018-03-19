@@ -52,6 +52,9 @@ public abstract class DualComponent {
         page.getRefs().put(_dual.getComponent(), _dual);
         children.add(_dual);
         graphic.add(_dual.graphic);
+        if (_dual instanceof DualAnimatedImage) {
+            page.getAnims().add((DualAnimatedImage) _dual);
+        }
         _dual.postAdd();
     }
 

@@ -3,14 +3,12 @@ package code.gui.document;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Window;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.RootPaneContainer;
 
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaAnimatedImage;
@@ -36,20 +34,17 @@ import code.formathtml.render.MetaTable;
 import code.formathtml.render.MetaTextArea;
 import code.formathtml.render.MetaTextField;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringMap;
 
 public class WindowPage implements Runnable {
 
-    public static IdMap<JComponent, String> _texts_ = new IdMap<JComponent, String>();
-
     private RenderedPage page;
 
-    private RootPaneContainer frame;
+    private JScrollPane frame;
 
     private MetaDocument meta;
 
-    public WindowPage(MetaDocument _meta, RootPaneContainer _frame, RenderedPage _page) {
+    public WindowPage(MetaDocument _meta, JScrollPane _frame, RenderedPage _page) {
         page = _page;
         meta = _meta;
         frame = _frame;
@@ -58,12 +53,13 @@ public class WindowPage implements Runnable {
     @Override
     public void run() {
         page.setPage(new DualPanel(null, meta.getRoot(), page));
+        page.setFinding(meta);
+        page.getAnims().clear();
         MetaComponent metaroot_ = meta.getRoot();
         MetaComponent meta_ = metaroot_.getFirstChild();
         DualContainer root_ = page.getPage();
         DualComponent cur_ = root_;
         CustList<StringMap<ButtonGroup>> radiosGroup_ = new CustList<StringMap<ButtonGroup>>();
-        CustList<DualAnimatedImage> anims_ = new CustList<DualAnimatedImage>();
         while (true) {
             if (meta_ instanceof MetaContainer) {
                 MetaContainer container_ = (MetaContainer) meta_;
@@ -97,15 +93,14 @@ public class WindowPage implements Runnable {
                 cur_.add(new DualPlainLabel((DualContainer) cur_,lab_, page));
             } else if (meta_ instanceof MetaAnchorLabel) {
                 MetaAnchorLabel lab_ = (MetaAnchorLabel) meta_;
-                cur_.add(new DualAnchoredLabel((DualContainer) cur_,lab_, page, anims_));
+                cur_.add(new DualAnchoredLabel((DualContainer) cur_,lab_, page));
             } else if (meta_ instanceof MetaSeparator) {
                 cur_.add(new DualSeparator((DualContainer) cur_,meta_, page));
             } else if (meta_ instanceof MetaSimpleImage) {
-                cur_.add(new DualSimpleImage((DualContainer) cur_,(MetaSimpleImage) meta_, page, anims_));
+                cur_.add(new DualSimpleImage((DualContainer) cur_,(MetaSimpleImage) meta_, page));
             } else if (meta_ instanceof MetaAnimatedImage) {
-                DualAnimatedImage a_ = new DualAnimatedImage((DualContainer) cur_,(MetaAnimatedImage) meta_, page, anims_);
+                DualAnimatedImage a_ = new DualAnimatedImage((DualContainer) cur_,(MetaAnimatedImage) meta_, page);
                 cur_.add(a_);
-                anims_.add(a_);
             } else if (meta_ instanceof MetaIndentLabel) {
                 cur_.add(new DualIndentLabel((DualContainer) cur_,(MetaIndentLabel) meta_, page));
             } else if (meta_ instanceof MetaIndentNbLabel) {
@@ -129,7 +124,7 @@ public class WindowPage implements Runnable {
             } else if (meta_ instanceof MetaNumberedLabel) {
                 cur_.add(new DualNumberedLabel((DualContainer) cur_,(MetaNumberedLabel) meta_, page));
             } else if (meta_ instanceof MetaButton) {
-                cur_.add(new DualButton((DualContainer) cur_,(MetaButton) meta_, page, anims_));
+                cur_.add(new DualButton((DualContainer) cur_,(MetaButton) meta_, page));
             } else if (meta_ instanceof MetaTextField) {
                 cur_.add(new DualTextField((DualContainer) cur_,(MetaTextField) meta_, page));
             } else if (meta_ instanceof MetaTextArea) {
@@ -187,11 +182,10 @@ public class WindowPage implements Runnable {
             }
             meta_ = nextSibling_;
         }
-        JScrollPane panel_ = new JScrollPane(page.getPage().getGraphic());
-        panel_.setPreferredSize(new Dimension(300, 200));
-        frame.setContentPane(panel_);
-        ((Window) frame).pack();
-        for (DualAnimatedImage a: anims_) {
+        frame.setViewportView(page.getPage().getGraphic());
+        frame.validate();
+        page.directScroll();
+        for (DualAnimatedImage a: page.getAnims()) {
             a.start();
         }
     }

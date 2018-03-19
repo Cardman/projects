@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
 
+import code.gui.document.ProcessingSession;
 import code.util.CustList;
 
 /**This class thread is independant from EDT,
@@ -13,14 +14,14 @@ public final class LoadingWeb extends Thread {
 
     private static final int DELTA = 100;
 
-    private SessionEditorPane session;
+    private ProcessingSession session;
 
     private ProgressingWebDialog dialog;
 
     private Timer timer;
 
     /**This class thread is independant from EDT*/
-    public LoadingWeb(SessionEditorPane _session, CustList<BufferedImage> _images, Iconifiable _frame, ProgressingWebDialog _dialog) {
+    public LoadingWeb(ProcessingSession _session, CustList<BufferedImage> _images, Iconifiable _frame, ProgressingWebDialog _dialog) {
         session = _session;
         dialog = _dialog;
         dialog.init(_frame, _images);

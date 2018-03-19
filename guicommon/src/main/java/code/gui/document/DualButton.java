@@ -10,19 +10,18 @@ import javax.swing.JLabel;
 
 import code.formathtml.render.MetaButton;
 import code.gui.LabelButtonUtil;
-import code.util.CustList;
 
 public final class DualButton extends DualInput {
 
     private String value;
 
     public DualButton(DualContainer _container, MetaButton _component,
-            RenderedPage _page, CustList<DualAnimatedImage> _anims) {
+            RenderedPage _page) {
         super(_container, _component, new JLabel(), _page);
         JLabel label_ = getGraphic();
         label_.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        label_.addMouseListener(new FormEvent(_component.getForm(), this, _page, _anims));
+        label_.addMouseListener(new FormEvent(_component.getForm(), this, _page));
         value = _component.getValue();
     }
 

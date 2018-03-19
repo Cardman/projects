@@ -20,13 +20,10 @@ public class FormEvent extends MouseAdapter {
 
     private RenderedPage page;
 
-    private CustList<DualAnimatedImage> anims;
-
-    public FormEvent(Element _form, DualButton _current, RenderedPage _page, CustList<DualAnimatedImage> _anims) {
+    public FormEvent(Element _form, DualButton _current, RenderedPage _page) {
         form = _form;
         current = _current;
         page = _page;
-        anims = _anims;
     }
 
     @Override
@@ -35,7 +32,7 @@ public class FormEvent extends MouseAdapter {
         if (form_ == null) {
             return;
         }
-        for (DualAnimatedImage d: anims) {
+        for (DualAnimatedImage d: page.getAnims()) {
             d.getImageThread().setAnimated(false);
         }
         Navigation nav_ = page.getNavigation();
@@ -118,7 +115,8 @@ public class FormEvent extends MouseAdapter {
             }
             current_ = n_;
         }
-        new ThreadActions(page, "", "", true, false, false).start();
+        new ThreadActions(page, page.getStandards(), "", "", true, false, false).start();
+        page.animateProcess();
     }
     private static DualComponent getNextSibling(DualComponent _current) {
         DualContainer par_ = _current.getContainer();

@@ -22,6 +22,7 @@ import javax.swing.text.html.HTMLEditorKit;
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.formathtml.util.BeanLgNames;
+import code.gui.document.ProcessingSession;
 import code.gui.events.FindEvent;
 import code.gui.events.HyperlinkClickEvent;
 import code.gui.events.TitleEvent;
@@ -29,7 +30,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class SessionEditorPane extends EditorPane {
+public class SessionEditorPane extends EditorPane implements ProcessingSession {
 
 //    private static final String DEPRECATION = "deprecation";
 
@@ -476,6 +477,7 @@ public class SessionEditorPane extends EditorPane {
         return nav.getHtmlPage();
     }
 
+    @Override
     public boolean isProcessing() {
         return processing;
     }

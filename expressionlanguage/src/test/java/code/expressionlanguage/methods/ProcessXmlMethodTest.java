@@ -3693,7 +3693,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -3745,7 +3745,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -3800,7 +3800,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -3857,7 +3857,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -3917,7 +3917,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -3978,7 +3978,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -4041,7 +4041,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -4107,7 +4107,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -4173,7 +4173,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -4952,7 +4952,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -5009,7 +5009,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -5067,7 +5067,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -5130,7 +5130,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
@@ -5198,7 +5198,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
+        xml_ += "<else>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
         xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";

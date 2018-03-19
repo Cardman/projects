@@ -8,20 +8,19 @@ import javax.swing.JLabel;
 
 import code.formathtml.render.MetaSimpleImage;
 import code.sml.Element;
-import code.util.CustList;
 
 
 public class DualSimpleImage extends DualImage {
     private String href;
 
-    public DualSimpleImage(DualContainer _container, MetaSimpleImage _component, RenderedPage _page, CustList<DualAnimatedImage> _anims) {
+    public DualSimpleImage(DualContainer _container, MetaSimpleImage _component, RenderedPage _page) {
         super(_container, _component, _page);
         Element anchor_ = _component.getAnchor();
         href = "";
         if (anchor_ != null) {
             JLabel label_ = getGraphic();
             label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            label_.addMouseListener(new AnchorEvent(anchor_, _page, _anims, this));
+            label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             if (!anchor_.getAttribute("command").isEmpty()) {
                 href = anchor_.getAttribute("command");
             } else if (!anchor_.getAttribute("href").isEmpty()) {

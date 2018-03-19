@@ -11,17 +11,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import code.formathtml.render.MetaAnchorLabel;
-import code.util.CustList;
+import code.formathtml.render.SegmentPart;
 
 public final class DualAnchoredLabel extends DualLabel {
 
     private String href;
 
-    public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page, CustList<DualAnimatedImage> _anims) {
+    public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page) {
         super(_container, _component, new JLabel(), _page);
         JLabel label_ = getGraphic();
         label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, _anims, this));
+        label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, this));
         String prefix_ = getPage().getNavigation().getSession().getPrefix();
         String command_ = new StringBuilder(prefix_).append("command").toString();
         command_ = _component.getAnchor().getAttribute(command_);
@@ -45,14 +45,22 @@ public final class DualAnchoredLabel extends DualLabel {
         Font font_ = lab_.getFont();
         FontMetrics fontMetrics_ = lab_.getFontMetrics(font_);
         int h_ = fontMetrics_.getHeight();
-        int w_ = fontMetrics_.stringWidth(getComponent().getText());
+        String text_ = getComponent().getText();
+        int w_ = fontMetrics_.stringWidth(text_);
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();
         gr_.setFont(font_);
         gr_.setColor(lab_.getBackground());
         gr_.fillRect(0, 0, w_, h_);
+        gr_.setColor(Color.ORANGE);
+        for (SegmentPart s: getSegments()) {
+            int beginIndex_ = s.getBegin();
+            int b_ = fontMetrics_.stringWidth(text_.substring(0, beginIndex_));
+            int d_ = fontMetrics_.stringWidth(text_.substring(beginIndex_, s.getEnd()));
+            gr_.fillRect(b_, 0, d_, h_);
+        }
         gr_.setColor(Color.BLUE);
-        gr_.drawString(getComponent().getText(), 0, h_ - 1);
+        gr_.drawString(text_, 0, h_ - 1);
         gr_.drawLine(0, h_ - 1, w_, h_ - 1);
         lab_.setIcon(new ImageIcon(img_));
         gr_.dispose();

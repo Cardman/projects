@@ -26,6 +26,7 @@ public final class MetaDocument {
     private BooleanList ordered;
     private CustList<MetaContainer> dynamicNewLines = new CustList<MetaContainer>();
     private StringMap<Integer> indexesButtons = new StringMap<Integer>();
+    private StringMap<MetaAnchorLabel> anchorsRef = new StringMap<MetaAnchorLabel>();
 
     private MetaDocument(Document _document) {
         ElementList style_ = _document.getElementsByTagName("style");
@@ -80,7 +81,11 @@ public final class MetaDocument {
                     if (anchor_ == null) {
                         label_ = new MetaPlainLabel(currentParent, text_, title_, partGroup, rowGroup);
                     } else {
+                        String name_ = anchor_.getAttribute("name");
                         label_ = new MetaAnchorLabel(currentParent, text_, title_, anchor_, partGroup, rowGroup);
+                        if (!name_.isEmpty()) {
+                            anchorsRef.put(name_, (MetaAnchorLabel) label_);
+                        }
                     }
                     label_.setStyle(styleLoc_);
                     currentParent.appendChild(label_);
@@ -428,6 +433,9 @@ public final class MetaDocument {
                 c.getChildren().clear();
             }
         }
+    }
+    public StringMap<MetaAnchorLabel> getAnchorsRef() {
+        return anchorsRef;
     }
     private void unstack(String _last) {
         MetaContainer line_ = null;

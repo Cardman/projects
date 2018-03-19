@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 
 import code.formathtml.render.MetaAnimatedImage;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.consts.Constants;
 
 
@@ -21,14 +20,14 @@ public class DualAnimatedImage extends DualImage {
 
     private AnimateImage imageThread;
 
-    public DualAnimatedImage(DualContainer _container, MetaAnimatedImage _component, RenderedPage _page, CustList<DualAnimatedImage> _anims) {
+    public DualAnimatedImage(DualContainer _container, MetaAnimatedImage _component, RenderedPage _page) {
         super(_container, _component, _page);
         Element anchor_ = _component.getAnchor();
         href = "";
         if (anchor_ != null) {
             JLabel label_ = getGraphic();
             label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            label_.addMouseListener(new AnchorEvent(anchor_, _page, _anims, this));
+            label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             if (!anchor_.getAttribute("command").isEmpty()) {
                 href = anchor_.getAttribute("command");
             } else if (!anchor_.getAttribute("href").isEmpty()) {
