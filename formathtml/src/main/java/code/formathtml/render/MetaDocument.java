@@ -206,9 +206,9 @@ public final class MetaDocument {
                     int i_ = 0;
                     while (i_ < len_) {
                         char currentChar_ = text_.charAt(i_);
-                        adjustedText_.append(currentChar_);
                         i_++;
                         if (Character.isWhitespace(currentChar_)) {
+                            adjustedText_.append(" ");
                             while (i_ < len_) {
                                 currentChar_ = text_.charAt(i_);
                                 if (!Character.isWhitespace(currentChar_)) {
@@ -216,6 +216,8 @@ public final class MetaDocument {
                                 }
                                 i_++;
                             }
+                        } else {
+                            adjustedText_.append(currentChar_);
                         }
                     }
                     text_ = adjustedText_.toString();
