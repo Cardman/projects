@@ -12,8 +12,14 @@ public final class MetaNumberedLabel extends MetaLabel {
         super(_parent);
         if (_base == MetaNumberBase.NUMBER) {
             number = Integer.toString(_number);
-        } else if (_base == MetaNumberBase.LETTER) {
+        } else if (_base == MetaNumberBase.LETTER || _base == MetaNumberBase.MAJ_LETTER) {
             number = "";
+            char firstLetter_;
+            if (_base == MetaNumberBase.LETTER) {
+                firstLetter_ = 'a';
+            } else {
+                firstLetter_ = 'A';
+            }
             Numbers<Integer> parts_ = new Numbers<Integer>();
             int current_ = _number;
             while (current_ > 0) {
@@ -21,23 +27,11 @@ public final class MetaNumberedLabel extends MetaLabel {
                 current_ /= 26;
             }
             StringBuilder str_ = new StringBuilder(parts_.size());
+            int delta_ = 0;
             for (int i: parts_.getReverse()) {
-                char diff_ = (char)(i - 'a');
+                char diff_ = (char)(i + firstLetter_ - delta_);
                 str_.append(diff_);
-            }
-            number = str_.toString();
-        } else if (_base == MetaNumberBase.MAJ_LETTER) {
-            number = "";
-            Numbers<Integer> parts_ = new Numbers<Integer>();
-            int current_ = _number;
-            while (current_ > 0) {
-                parts_.add(current_ % 26);
-                current_ /= 26;
-            }
-            StringBuilder str_ = new StringBuilder(parts_.size());
-            for (int i: parts_.getReverse()) {
-                char diff_ = (char)(i - 'A');
-                str_.append(diff_);
+                delta_ = 1;
             }
             number = str_.toString();
         } else {
@@ -86,8 +80,8 @@ public final class MetaNumberedLabel extends MetaLabel {
                 }
                 str_.append(" ");
             }
+            str_.deleteCharAt(str_.length() - 1);
             if (_base == MetaNumberBase.LATIN_MAJ) {
-                str_.deleteCharAt(str_.length() - 1);
                 number = StringList.toUpperCase(str_.toString());
             } else {
                 number = str_.toString();

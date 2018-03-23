@@ -729,6 +729,20 @@ public final class MetaDocument {
             }
             String key_ = p.substring(0, indexSep_).trim();
             String value_ = p.substring(indexSep_ + 1).trim();
+            if (StringList.quickEq(key_, "font-family")) {
+                _style.setFontFamily(value_);
+                continue;
+            }
+            if (StringList.quickEq(key_, "font-size")) {
+                if (value_.endsWith("px")) {
+                    String size_ = value_.substring(0, value_.length() - 2);
+                    Long val_ = LgNames.parseLongTen(size_);
+                    if (val_ != null) {
+                        _style.setSize(val_.intValue());
+                    }
+                }
+                continue;
+            }
             if (StringList.quickEq(key_, "color")) {
                 if (value_.startsWith("rgb")) {
                     Numbers<Integer> rates_ = new Numbers<Integer>();

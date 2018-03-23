@@ -554,8 +554,12 @@ public final class DocumentBuilder {
     private boolean indentWhileWriting;
 
     private int tabWidth = DEFAULT_TAB;
-
+    
     private DocumentBuilder(){
+    }
+
+    private DocumentBuilder(int _tabWidth){
+        setTabWidth(_tabWidth);
     }
 
     public static Element getFirstElementByAttribute(Document _doc, String _attr, String _value) {
@@ -593,9 +597,13 @@ public final class DocumentBuilder {
         }
         return element_;
     }
-
+    
     public static DocumentBuilder newDocumentBuilder() {
         return new DocumentBuilder();
+    }
+
+    public static DocumentBuilder newDocumentBuilder(int _tabWidth) {
+        return new DocumentBuilder(_tabWidth);
     }
 
     protected static String transformSpecialCharsLtGt(String _htmlText) {
@@ -2686,6 +2694,20 @@ public final class DocumentBuilder {
         } catch (RuntimeException _0) {
             return null;
         }
+    }
+
+    public static Document newXmlDocument(int _tabWidth) {
+        try {
+            DocumentBuilder builder_;
+            builder_ = newXmlDocumentBuilder(_tabWidth);
+            return builder_.newDocument();
+        } catch (RuntimeException _0) {
+            return null;
+        }
+    }
+    
+    private static DocumentBuilder newXmlDocumentBuilder(int _tabWidth) {
+        return DocumentBuilder.newDocumentBuilder(_tabWidth);
     }
 
     private static DocumentBuilder newXmlDocumentBuilder() {

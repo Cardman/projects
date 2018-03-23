@@ -34,7 +34,19 @@ public final class FindEvent extends MouseAdapter {
     }
     @Override
     public void mouseReleased(MouseEvent _e) {
-        finding.next(field.getText());
+        if (page.isProcessing()) {
+            return;
+        }
+        String text_ = field.getText();
+        if (text_.isEmpty()) {
+            for (DualLabel l: labels) {
+                l.clearSegments();
+                l.paint();
+            }
+            labels.clear();
+            return;
+        }
+        finding.next(text_);
         MetaSearchableLabel lab_ = finding.getLabel();
         if (lab_ == null) {
             for (DualLabel l: labels) {

@@ -574,7 +574,8 @@ public final class FormatHtml {
         Struct mainBean_ = bean_;
 
         ImportingPage ip_ = new ImportingPage(false);
-        ip_.setTabWidth(getTabWidth(_conf));
+        int tabWidth_ = getTabWidth(_conf);
+        ip_.setTabWidth(tabWidth_);
         ip_.setHtml(_conf.getHtml());
         ip_.setReadUrl(_conf.getCurrentUrl());
         ip_.setBeanName(_beanName);
@@ -586,7 +587,7 @@ public final class FormatHtml {
         _conf.addPage(ip_);
         checkSyntax(_conf, _docOrig, ip_.getHtml());
         Node en_ = r_;
-        Document doc_ = DocumentBuilder.newXmlDocument();
+        Document doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
         Node currentNode_ = doc_;
         ReadWriteHtml rw_ = new ReadWriteHtml();
         rw_.setRead(en_);
