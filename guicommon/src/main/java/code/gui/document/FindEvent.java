@@ -62,6 +62,7 @@ public final class FindEvent extends MouseAdapter {
                 l_.addSegment(s);
             }
             l_.paint();
+            labels.add(l_);
         }
         JScrollPane sc_ = page.getScroll();
         DualComponent r_ = page.getPage();

@@ -91,7 +91,7 @@ public class Configuration {
         if (context == null) {
             context = toContextEl();
         }
-        if (prefix == null) {
+        if (prefix == null || prefix.isEmpty()) {
             prefix = EMPTY_STRING;
         } else {
             prefix = StringList.concat(prefix,SEP);
