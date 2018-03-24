@@ -18,7 +18,7 @@ import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
 import code.gui.ChildFrame;
 import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.resources.ResourceFiles;
 import code.sml.Document;
@@ -70,7 +70,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 
     //private MainWindow window;
 
-    private SessionEditorPane editor;
+    private RenderedPage editor;
 
     private JTextField field;
 
@@ -231,7 +231,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        JSplitPane separateur_ = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 //                new JScrollPane(arbre_), new JScrollPane(zone_));
         if (wasNull_) {
-            editor = new SessionEditorPane();
+            editor = new RenderedPage(new JScrollPane());
         }
         JTree arbre_ = new JTree(root_);
         arbre_.setRootVisible(false);
@@ -257,7 +257,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        }
         //if (wasNull_) {
         JSplitPane separateur_ = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                new JScrollPane(arbre_), new JScrollPane(editor));
+                new JScrollPane(arbre_), editor.getScroll());
         separateur_.setPreferredSize(new Dimension(600, 550));
         separateur_.setDividerLocation(150);
         container_.add(separateur_);

@@ -664,7 +664,9 @@ public final class MetaDocument {
                             }
                         }
                         first_ = first_.getNextSibling();
-                        i_++;
+                        if (first_ instanceof Element) {
+                            i_++;
+                        }
                     }
                     MetaContainer line_ = new MetaLine(curPar_);
                     if (li_) {

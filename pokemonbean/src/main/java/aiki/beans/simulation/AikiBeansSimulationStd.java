@@ -163,6 +163,7 @@ public final class AikiBeansSimulationStd {
     private static final String VALIDATE_MOVES_ABILITY_AFTER_FIGHT = "validateMovesAbilityAfterFight";
     private static final String CHANGE_FIGHT_WHILE_END = "changeFightWhileEnd";
     private static final String VALIDATE_MOVES_AFTER_FIGHT = "validateMovesAfterFight";
+    private static final String GET_MAP_WIDTH = "getMapWidth";
     private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String CLICK_TILE = "clickTile";
     private static final String NAME_PK = "namePk";
@@ -930,6 +931,9 @@ public final class AikiBeansSimulationStd {
         fields_.put(TILES,new StandardField(TILES,_std.getCustMap(),false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(IS_FIRST_ROW,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
@@ -2526,6 +2530,10 @@ public final class AikiBeansSimulationStd {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {
             res_.setResult(new StringStruct(SimulationLevelBean.cancel()));
+            return res_;
+        }
+        if (StringList.quickEq(methodName_,GET_MAP_WIDTH)) {
+            res_.setResult(new IntStruct(instance_.getMapWidth()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {

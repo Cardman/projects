@@ -24,6 +24,7 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.images.Image;
 import code.util.NumberMap;
+import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -470,23 +471,23 @@ public class DataMapScreenTest {
     public void calculateBackgroundImagesFromTiles1Test() {
         dataMap.setSideLength(2);
         DataBase data_ = new DataBase();
-        StringMap<String> images_ = new StringMap<String>();
+        StringMap<int[][]> images_ = new StringMap<int[][]>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, voie_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE, getImageByString(voie_.join(Image.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, voieTwo_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE2, getImageByString(voieTwo_.join(Image.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, voieThree_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE3, getImageByString(voieThree_.join(Image.SEPARATOR_CHAR)));
         data_.getImages().putAllMap(images_);
         data_.setMap(dataMap);
         data_.setupPseudoImages();
@@ -497,7 +498,7 @@ public class DataMapScreenTest {
         begin_.getLevel().setPoint(new Point((short)1,(short)1));
         dataMap.calculateIntersectWithScreen(begin_);
         dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords, String> backGroundImages_ = dataMap.getBackgroundImages();
+        ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap.getBackgroundImages();
         assertEq(45, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,3)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,4)));
@@ -550,23 +551,23 @@ public class DataMapScreenTest {
     public void calculateBackgroundImagesFromTiles2Test() {
         dataMap.setSideLength(2);
         DataBase data_ = new DataBase();
-        StringMap<String> images_ = new StringMap<String>();
+        StringMap<int[][]> images_ = new StringMap<int[][]>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, voie_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE, getImageByString(voie_.join(Image.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, voieTwo_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE2, getImageByString(voieTwo_.join(Image.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, voieThree_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE3, getImageByString(voieThree_.join(Image.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -577,7 +578,7 @@ public class DataMapScreenTest {
         data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
         dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords, String> backGroundImages_ = dataMap.getBackgroundImages();
+        ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap.getBackgroundImages();
         assertEq(42, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,4)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,5)));
@@ -627,23 +628,23 @@ public class DataMapScreenTest {
     public void calculateBackgroundImagesFromTiles3Test() {
         dataMap.setSideLength(2);
         DataBase data_ = new DataBase();
-        StringMap<String> images_ = new StringMap<String>();
+        StringMap<int[][]> images_ = new StringMap<int[][]>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, voie_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE, getImageByString(voie_.join(Image.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, voieTwo_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE2, getImageByString(voieTwo_.join(Image.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, voieThree_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE3, getImageByString(voieThree_.join(Image.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -654,7 +655,7 @@ public class DataMapScreenTest {
         data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
         dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords, String> backGroundImages_ = dataMap.getBackgroundImages();
+        ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap.getBackgroundImages();
         assertEq(36, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(4,3)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(4,4)));
@@ -698,23 +699,23 @@ public class DataMapScreenTest {
     public void calculateBackgroundImagesFromTiles4Test() {
         dataMap.setSideLength(2);
         DataBase data_ = new DataBase();
-        StringMap<String> images_ = new StringMap<String>();
+        StringMap<int[][]> images_ = new StringMap<int[][]>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, voie_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE, getImageByString(voie_.join(Image.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, voieTwo_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE2, getImageByString(voieTwo_.join(Image.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, voieThree_.join(Image.SEPARATOR_CHAR));
+        images_.put(VOIE3, getImageByString(voieThree_.join(Image.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -725,7 +726,7 @@ public class DataMapScreenTest {
         data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
         dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords, String> backGroundImages_ = dataMap.getBackgroundImages();
+        ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap.getBackgroundImages();
         assertEq(33, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(0,0)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(0,1)));
@@ -760,5 +761,19 @@ public class DataMapScreenTest {
         assertTrue(backGroundImages_.contains(new ScreenCoords(7,1)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(8,0)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(8,1)));
+    }
+
+    private static int[][] getImageByString(String _string) {
+        Image i_ = new Image(_string);
+        Numbers<Integer> pixels_ = i_.getPixels();
+        int width_ = i_.getWidth();
+        int height_ = i_.getHeight();
+        int[][] img_ = new int[height_][width_];
+        for (int i = 0; i < height_; i++) {
+            for (int j = 0; j < width_; j++) {
+                img_[i][j] = pixels_.get(j + width_ * i);
+            }
+        }
+        return img_;
     }
 }

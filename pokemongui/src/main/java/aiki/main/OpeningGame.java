@@ -25,11 +25,13 @@ public final class OpeningGame extends Thread {
         ThreadInvoker.invokeNow(new ShowOpeningDialog(window));
         //Avoid to have a null dialog
         Constants.sleep(WAIT_VIDEO);
+        MainWindow.getDialog().startAnimation();
         while (DataBase.isLoading()) {
             setProgress(DataBase.getPerCentLoading());
 //            MainWindow.getDialog().setPerCent(String.valueOf(DataBase.getPerCentLoading()));
         }
         //Freeing resources
+        MainWindow.getDialog().stopAnimation();
         MainWindow.getDialog().setVisible(false);
         MainWindow.getDialog().getContentPane().removeAll();
         MainWindow.getDialog().stopTimer();

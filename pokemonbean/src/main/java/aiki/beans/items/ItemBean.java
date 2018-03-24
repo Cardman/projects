@@ -2,9 +2,9 @@ package aiki.beans.items;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.fight.items.Item;
-import code.images.ConverterBufferedImage;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class ItemBean extends CommonBean {
     private final String itemBean="web/html/items/item.html";
@@ -27,7 +27,7 @@ public class ItemBean extends CommonBean {
         if (name_ != null) {
             name = name_;
         }
-        itemImage = ConverterBufferedImage.surroundImage(data_.getMiniItems().getVal(name));
+        itemImage = BaseSixtyFourUtil.getSringByImage(data_.getMiniItems().getVal(name));
         displayName = translationsItems_.getVal(name);
         item = data_.getItem(name);
         price = item.getPrice();

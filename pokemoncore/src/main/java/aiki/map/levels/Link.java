@@ -41,10 +41,10 @@ public final class Link implements Displayable{
     }
 
     public boolean isValid(DataBase _data) {
-        return !_data.getLink(getFileName()).isEmpty();
+        return _data.getLink(getFileName()).length != 0;
     }
     public void validateForEditing(DataBase _data) {
-        if (_data.getLink(getFileName()).isEmpty()) {
+        if (_data.getLink(getFileName()).length == 0) {
             throw new DataException();
         }
     }

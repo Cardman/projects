@@ -13,6 +13,7 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.opers.BaseSixtyFourUtil;
 
 public final class VideoLoading {
 
@@ -52,8 +53,8 @@ public final class VideoLoading {
                 CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
                 int i_ = CustList.FIRST_INDEX;
                 while (true) {
-                    String txtFile_ = ResourceFiles.ressourceFichier(StringList.concat(VIDEO_DEFAULT,Long.toString(i_),DataBase.IMG_FILES_RES_EXT_TXT));
-                    if (txtFile_ == null) {
+                    int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(VIDEO_DEFAULT,Long.toString(i_),DataBase.IMG_FILES_RES_EXT_TXT)));
+                    if (txtFile_.length == 0) {
                         break;
                     }
                     BufferedImage image_ = ConverterBufferedImage.decodeToImage(txtFile_);

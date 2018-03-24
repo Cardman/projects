@@ -269,14 +269,11 @@
 				</c:for>
 			</ul>
 			<br/>
-			<div style="font-size: 0;">
+			<map width="{getMapWidth()}">
 				<c:for key="p" map="images" value="i">
-					<c:if condition="isFirstRow(p;;)">
-						<br/>
-					</c:if>
 					<a title="{getPlaceName(p;;)}"><c:img src="{getMiniMapImage(p;;)}"/></a>
 				</c:for>
-			</div>
+			</map>
 		</c:if>
 		<a c:command="$clickPokedex" href=""><c:message value="msg_pkdata,pokedex"/></a>
 	</body>

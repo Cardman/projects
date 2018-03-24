@@ -8,7 +8,7 @@ import aiki.game.Game;
 import aiki.game.params.LoadingGame;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.gui.LoadLanguage;
-import code.gui.SoftApplication;
+import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
 import code.stream.StreamTextFile;
@@ -16,7 +16,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 
-public class LaunchingPokemon extends SoftApplication {
+public class LaunchingPokemon extends SoftApplicationCore {
 
     private static final String TEMP_FOLDER = "pokemon";
 

@@ -43,9 +43,11 @@ public final class LoadingWeb extends Thread {
 
     @Override
     public void run() {
+        dialog.startAnimation();
         while (session.isProcessing()) {
             continue;
         }
+        dialog.stopAnimation();
         timer.stop();
         dialog.setVisible(false);
         dialog.getContentPane().removeAll();

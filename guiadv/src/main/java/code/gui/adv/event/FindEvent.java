@@ -1,8 +1,8 @@
-package code.gui.events;
+package code.gui.adv.event;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import code.gui.SessionEditorPane;
+import code.gui.adv.SessionEditorPane;
 
 public class FindEvent extends MouseAdapter {
 

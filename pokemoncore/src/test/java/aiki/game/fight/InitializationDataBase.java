@@ -867,7 +867,7 @@ public class InitializationDataBase {
         initTmHm(data_);
         data_.initTypesByTable();
         initTranslations(data_);
-        data_.setEndGameImage(NULL_REF);
+        data_.setEndGameImage(new int[0][0]);
         //OK data, no homonyms
         data_.validateCore();
         data_.validateConstants();

@@ -40,7 +40,7 @@ public class ItemRenderer extends StringCellRenderer {
         name = _item;
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
-        String img_ = facade.getData().getMiniItems().getVal(name);
+        int[][] img_ = facade.getData().getMiniItems().getVal(name);
         miniItem = ConverterBufferedImage.decodeToImage(img_);
         maxWordWidth = 0;
         for (String i: facade.getChosenItemsForBuyOrSell().getKeys()) {

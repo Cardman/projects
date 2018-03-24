@@ -6,7 +6,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ToolTipManager;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
@@ -15,7 +14,7 @@ import aiki.gui.MainWindow;
 import code.gui.ChildFrame;
 import code.gui.LabelButton;
 import code.gui.ProgressingWebDialog;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.sml.util.ExtractFromFiles;
 import code.util.StringMap;
@@ -32,7 +31,7 @@ public final class FrameHtmlData extends ChildFrame {
 //    private MainWindow parent;
 //    private Battle battle;
 
-    private SessionEditorPane session;
+    private RenderedPage session;
 
     private StringMap<String> messages;
 
@@ -40,7 +39,7 @@ public final class FrameHtmlData extends ChildFrame {
 
     private ProgressingWebDialog dialog;
 
-    public FrameHtmlData(MainWindow _parent, String _title, SessionEditorPane _session) {
+    public FrameHtmlData(MainWindow _parent, String _title, RenderedPage _session) {
         setAccessFile(DIALOG_ACCESS);
         messages = getMessages(Resources.MESSAGES_FOLDER);
         setDialogIcon(_parent);
@@ -54,22 +53,20 @@ public final class FrameHtmlData extends ChildFrame {
         session = _session;
         session.setFrame(this);
         session.setDialog(dialog);
-        session.setEditable(false);
-        ToolTipManager.sharedInstance().registerComponent(session);
         JPanel panel_ = new JPanel();
         JLabel area_ = new JLabel(TEXT);
         JTextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
         search = new LabelButton(messages.getVal(SEARCH_LABEL));
         field_ = new JTextField(20);
-        session.setLabel(area_);
+//        session.setLabel(area_);
         session.setSearchText(search);
         session.setField(field_);
         session.addFinder();
         panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
-        JScrollPane scrollSession_ = new JScrollPane(session);
+        JScrollPane scrollSession_ = session.getScroll();
         scrollSession_.setPreferredSize(new Dimension(400, 400));
 //        group_.add(scrollSession_);
         panel_.add(scrollSession_);
@@ -149,7 +146,7 @@ public final class FrameHtmlData extends ChildFrame {
         session.reset(new PokemonStandards());
     }
 
-    public SessionEditorPane getSession() {
+    public RenderedPage getSession() {
         return session;
     }
 

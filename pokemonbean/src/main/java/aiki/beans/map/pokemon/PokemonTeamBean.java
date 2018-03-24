@@ -21,10 +21,10 @@ import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.TrainerOneFight;
 import aiki.map.pokemon.PkTrainer;
-import code.images.ConverterBufferedImage;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class PokemonTeamBean extends CommonBean {
     private int noFight;
@@ -98,7 +98,7 @@ public class PokemonTeamBean extends CommonBean {
         PkTrainer pk_;
         pk_ = list_.get(_index.intValue());
         String name_ = pk_.getName();
-        return ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(name_));
+        return BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getAbility(Long _index) {

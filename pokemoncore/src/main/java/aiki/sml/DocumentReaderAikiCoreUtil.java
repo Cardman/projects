@@ -900,7 +900,7 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String TYPE_WILD_PK = "WildPk";
 
     public static Combos getCombos(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getCombos(doc_.getDocumentElement());
     }
 
@@ -921,7 +921,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static AbilityData getAbilityData(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getAbilityData(doc_.getDocumentElement());
     }
 
@@ -1479,7 +1479,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static Item getItem(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getItem(doc_.getDocumentElement());
     }
     private static Item getItem(Element _element) {
@@ -1799,7 +1799,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static MoveData getMoveData(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getMoveData(doc_.getDocumentElement());
     }
 
@@ -3255,7 +3255,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static PokemonData getPokemonData(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getPokemonData(doc_.getDocumentElement());
     }
 
@@ -3579,7 +3579,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static Status getStatus(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getStatus(doc_.getDocumentElement());
     }
 
@@ -3768,7 +3768,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static Game getGame(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getGame(doc_.getDocumentElement());
     }
 
@@ -4636,7 +4636,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static LoadingGame getLoadingGame(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getLoadingGame(doc_.getDocumentElement());
     }
 
@@ -4792,7 +4792,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static DataMap getDataMap(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         return getDataMap(doc_.getDocumentElement());
     }
 

@@ -72,7 +72,7 @@ public class HealingItemLabel extends SelectableLabel {
     public void setImagesResults(FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn) {
         fourthColumn = _fourthColumn;
         fifthColumn = _fifthColumn;
-        String miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
+        int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
         miniImageItem = ConverterBufferedImage.decodeToImage(miniItem_);
         sideLength = _facade.getMap().getSideLength();
         int h_ = sideLength;

@@ -2173,12 +2173,418 @@ public final class DocumentBuilder {
         }
         return false;
     }
-    public Document newDocument() {
-        return new Document(getTabWidth());
+    public FullDocument newDocument() {
+        return new FullDocument(getTabWidth());
+    }
+    public DocumentResult parseNoText(String _input) {
+        DocumentResult res_ = new DocumentResult();
+        NoTextDocument doc_ = new NoTextDocument(getTabWidth());
+        int len_ = _input.length();
+        int indexFoot_ = 0;
+        ReadingState state_ = ReadingState.HEADER;
+        boolean addChild_ = true;
+        char delimiterAttr_ = 0;
+        StringBuilder attributeName_ = new StringBuilder();
+        StringBuilder tagName_ = new StringBuilder();
+        StringList stack_ = new StringList();
+//        StringBuilder currentText_ = new StringBuilder();
+        Element currentElement_ = null;
+        boolean finished_ = false;
+//        StringBuilder currentComment_ = new StringBuilder();
+        StringBuilder attributeValue_ = new StringBuilder();
+        CustList<Attr> attrs_ = new CustList<Attr>();
+        if (_input.isEmpty()) {
+            res_.setLocation(new RowCol());
+            return res_;
+        }
+        int i_ = CustList.FIRST_INDEX;
+        if (_input.charAt(i_) != LT) {
+            RowCol rc_ = new RowCol();
+            rc_.setRow(1);
+            rc_.setCol(1);
+            res_.setLocation(rc_);
+            return res_;
+        }
+        i_++;
+        while (i_ < len_) {
+            char curChar_ = _input.charAt(i_);
+            if (state_ == ReadingState.HEADER) {
+                if (curChar_ == LT_CHAR) {
+                    break;
+                }
+                if (curChar_ == ENCODED) {
+                    break;
+                }
+                if (tagName_.length() == 0) {
+                    if (curChar_ == GT_CHAR) {
+                        break;
+                    }
+                    if (curChar_ == SLASH) {
+                        break;
+                    }
+                    if (Character.isWhitespace(curChar_)) {
+                        break;
+                    }
+                    tagName_.append(curChar_);
+                    i_++;
+                    continue;
+                }
+                if (curChar_ == GT_CHAR) {
+                    Element element_ = doc_.createElement(tagName_.toString());
+                    element_.setAttributes(new NamedNodeMap(attrs_));
+                    attrs_ = new CustList<Attr>();
+                    if (doc_.getDocumentElement() == null) {
+                        doc_.appendChild(element_);
+                    } else {
+                        currentElement_.appendChild(element_);
+                    }
+                    if (addChild_) {
+                        currentElement_ = element_;
+                        stack_.add(tagName_.append(GT_CHAR).toString());
+                    } else {
+                        if (stack_.isEmpty()) {
+                            finished_ = true;
+                            break;
+                        }
+                    }
+                    tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
+                    if (i_ + 2 >= len_) {
+                        break;
+                    }
+                    if (_input.charAt(i_ + 1) == LT_CHAR) {
+                        if (_input.charAt(i_ + 2) == SLASH) {
+                            i_++;
+                            //_input.charAt(i_) == '<'
+                            i_++;
+                            //_input.charAt(i_) == '/'
+                            i_++;
+                            //_input.charAt(i_) is the first character of end tag
+                            state_ = ReadingState.FOOTER;
+                            indexFoot_ = i_;
+                            continue;
+                        }
+                        i_++;
+                        i_++;
+                        state_ = ReadingState.HEADER;
+                        addChild_ = true;
+                        continue;
+                    }
+                    state_ = ReadingState.TEXT;
+                    i_++;
+                    continue;
+                }
+                if (Character.isWhitespace(curChar_)) {
+                    int nextPrintable_ = i_;
+                    while (nextPrintable_ < len_) {
+                        char next_ = _input.charAt(nextPrintable_);
+                        if (!Character.isWhitespace(next_)) {
+                            break;
+                        }
+                        nextPrintable_++;
+                    }
+                    if (nextPrintable_ == len_) {
+                        break;
+                    }
+                    state_ = ReadingState.ATTR_NAME;
+                    i_ = nextPrintable_;
+                    continue;
+                }
+                if (curChar_ != SLASH) {
+                    tagName_.append(curChar_);
+                    i_++;
+                    continue;
+                }
+                if (i_ + 1 >= len_) {
+                    break;
+                }
+                if (_input.charAt(i_ + 1) != GT_CHAR) {
+                    break;
+                }
+                addChild_ = false;
+                i_++;
+                continue;
+            }
+            if (state_ == ReadingState.ATTR_NAME) {
+                if (curChar_ == LT_CHAR) {
+                    break;
+                }
+                if (curChar_ == ENCODED) {
+                    break;
+                }
+                if (curChar_ == GT_CHAR) {
+                    break;
+                }
+                if (curChar_ == SLASH) {
+                    break;
+                }
+                if (!Character.isWhitespace(curChar_) && curChar_ != EQUALS) {
+                    attributeName_.append(curChar_);
+                    i_++;
+                    continue;
+                }
+                if (curChar_ != EQUALS) {
+                    //Character.isWhitespace(curChar_)
+                    int nextPrintable_ = i_;
+                    while (nextPrintable_ < len_) {
+                        char next_ = _input.charAt(nextPrintable_);
+                        if (!Character.isWhitespace(next_)) {
+                            break;
+                        }
+                        nextPrintable_++;
+                    }
+                    if (nextPrintable_ == len_) {
+                        break;
+                    }
+                    if (_input.charAt(nextPrintable_) != EQUALS) {
+                        break;
+                    }
+                    i_ = nextPrintable_;
+                }
+                if (i_ + 1 >= len_) {
+                    break;
+                }
+                char nextEq_ = _input.charAt(i_ + 1);
+                if (nextEq_ != APOS_CHAR && nextEq_ != QUOT_CHAR) {
+                    if (!Character.isWhitespace(nextEq_)) {
+                        break;
+                    }
+                    int nextPrintable_ = i_ + 1;
+                    while (nextPrintable_ < len_) {
+                        char next_ = _input.charAt(nextPrintable_);
+                        if (!Character.isWhitespace(next_)) {
+                            break;
+                        }
+                        nextPrintable_++;
+                    }
+                    if (nextPrintable_ == len_) {
+                        break;
+                    }
+                    char nextCharDel_ = _input.charAt(nextPrintable_);
+                    if (nextCharDel_ != APOS_CHAR && nextCharDel_ != QUOT_CHAR) {
+                        break;
+                    }
+                    i_ = nextPrintable_;
+                } else {
+                    i_++;
+                }
+                String foundName_ = attributeName_.toString();
+                boolean ok_ = true;
+                for (Attr a: attrs_) {
+                    if (StringList.quickEq(a.getName(), foundName_)) {
+                        ok_ = false;
+                        break;
+                    }
+                }
+                if (!ok_) {
+                    break;
+                }
+                char del_ = _input.charAt(i_);
+                delimiterAttr_ = del_;
+                state_ = ReadingState.ATTR_VALUE;
+                i_++;
+                continue;
+            }
+            if (state_ == ReadingState.ATTR_VALUE) {
+                if (curChar_ == LT_CHAR) {
+                    break;
+                }
+                if (curChar_ == GT_CHAR) {
+                    break;
+                }
+                if (curChar_ != delimiterAttr_) {
+                    attributeValue_.append(curChar_);
+                    i_++;
+                    continue;
+                }
+                Attr attr_ = CoreDocument.createAttribute(attributeName_.toString());
+                attr_.setEscapedValue(attributeValue_.toString());
+                attrs_.add(attr_);
+                attributeName_.delete(0, attributeName_.length());
+                attributeValue_.delete(0, attributeValue_.length());
+                int nextPrintable_ = i_ + 1;
+                while (nextPrintable_ < len_) {
+                    char next_ = _input.charAt(nextPrintable_);
+                    if (!Character.isWhitespace(next_)) {
+                        break;
+                    }
+                    nextPrintable_++;
+                }
+                if (nextPrintable_ == len_) {
+                    break;
+                }
+                char nextPr_ = _input.charAt(nextPrintable_);
+                boolean endHead_ = false;
+                if (nextPr_ == SLASH) {
+                    i_ = nextPrintable_ + 1;
+                    if (i_ >= len_) {
+                        break;
+                    }
+                    if (_input.charAt(i_) != GT_CHAR) {
+                        break;
+                    }
+                    endHead_ = true;
+                    addChild_ = false;
+                }
+                if (nextPr_ == GT_CHAR) {
+                    i_ = nextPrintable_;
+                    endHead_ = true;
+                }
+                if (endHead_) {
+                    Element element_ = doc_.createElement(tagName_.toString());
+                    element_.setAttributes(new NamedNodeMap(attrs_));
+                    attrs_ = new CustList<Attr>();
+                    if (doc_.getDocumentElement() == null) {
+                        doc_.appendChild(element_);
+                    } else {
+                        currentElement_.appendChild(element_);
+                    }
+                    if (addChild_) {
+                        currentElement_ = element_;
+                        stack_.add(tagName_.append(GT_CHAR).toString());
+                    } else {
+                        if (stack_.isEmpty()) {
+                            finished_ = true;
+                            break;
+                        }
+                    }
+                    tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
+                    if (i_ + 2 >= len_) {
+                        break;
+                    }
+                    if (_input.charAt(i_ + 1) == LT_CHAR) {
+                        if (_input.charAt(i_ + 2) == SLASH) {
+                            i_++;
+                            //_input.charAt(i_) == '<'
+                            i_++;
+                            //_input.charAt(i_) == '/'
+                            i_++;
+                            //_input.charAt(i_) is the first character of end tag
+                            state_ = ReadingState.FOOTER;
+                            indexFoot_ = i_;
+                            continue;
+                        }
+                        state_ = ReadingState.HEADER;
+                        addChild_ = true;
+                        i_++;
+                        i_++;
+                        continue;
+                    }
+                    state_ = ReadingState.TEXT;
+                    i_++;
+                    continue;
+                }
+                state_ = ReadingState.ATTR_NAME;
+                i_ = nextPrintable_;
+                continue;
+            }
+            if (state_ == ReadingState.TEXT) {
+                if (curChar_ == GT_CHAR) {
+                    break;
+                }
+                if (curChar_ != LT_CHAR) {
+//                    currentText_.append(curChar_);
+                    i_++;
+                    continue;
+                }
+//                Text attr_ = doc_.createEscapedTextNode(currentText_.toString());
+//                currentText_.delete(0, currentText_.length());
+//                currentElement_.appendChild(attr_);
+                if (i_ + 1 >= len_) {
+                    break;
+                }
+                if (_input.charAt(i_ + 1) == SLASH) {
+                    i_++;
+                    i_++;
+                    indexFoot_ = i_;
+                    state_ = ReadingState.FOOTER;
+                    continue;
+                }
+                i_++;
+                state_ = ReadingState.HEADER;
+                addChild_ = true;
+                continue;
+            }
+            if (state_ == ReadingState.FOOTER) {
+                int indexTag_ = i_ - indexFoot_;
+                String lastTag_ = stack_.last();
+                if (lastTag_.charAt(indexTag_) != _input.charAt(i_)) {
+                    break;
+                }
+                if (_input.charAt(i_) == GT_CHAR) {
+                    //end tag
+                    stack_.removeLast();
+                    Node parent_ = currentElement_.getParentNode();
+                    if (parent_ instanceof Element) {
+                        currentElement_ = (Element) parent_;
+                    }
+                    if (stack_.isEmpty()) {
+                        finished_ = true;
+                        break;
+                    }
+                    if (i_ + 2 >= len_) {
+                        break;
+                    }
+                    if (_input.charAt(i_ + 1) == LT_CHAR) {
+                        if (_input.charAt(i_ + 2) == SLASH) {
+                            i_++;
+                            //_input.charAt(i_) == '<'
+                            i_++;
+                            //_input.charAt(i_) == '/'
+                            i_++;
+                            //_input.charAt(i_) is the first character of end tag
+                            indexFoot_ = i_;
+                            state_ = ReadingState.FOOTER;
+                            continue;
+                        }
+                        i_++;
+                        i_++;
+                        state_ = ReadingState.HEADER;
+                        addChild_ = true;
+                        continue;
+                    }
+                    state_ = ReadingState.TEXT;
+                    i_++;
+                    continue;
+                }
+                i_++;
+                continue;
+            }
+        }
+        if (!finished_) {
+            int max_;
+            if (i_ < len_) {
+                max_ = i_;
+            } else {
+                max_ = len_ - 1;
+            }
+            int row_ = 1;
+            int col_ = 1;
+            int j_ = CustList.FIRST_INDEX;
+            while (j_ <= max_) {
+                char curChar_ = _input.charAt(j_);
+                if (curChar_ == LINE_RETURN) {
+                    row_++;
+                    col_ = 1;
+                } else {
+                    col_++;
+                    if (curChar_ == TAB) {
+                        col_ += doc_.getTabWidth() - 1;
+                    }
+                }
+                j_++;
+            }
+            RowCol rc_ = new RowCol();
+            rc_.setRow(row_);
+            rc_.setCol(col_);
+            res_.setLocation(rc_);
+            return res_;
+        }
+        res_.setDocument(doc_);
+        return res_;
     }
     public DocumentResult parse(String _input) {
         DocumentResult res_ = new DocumentResult();
-        Document doc_ = new Document(getTabWidth());
+        FullDocument doc_ = new FullDocument(getTabWidth());
         int len_ = _input.length();
         int indexFoot_ = 0;
         ReadingState state_ = ReadingState.HEADER;
@@ -2396,7 +2802,7 @@ public final class DocumentBuilder {
                     i_++;
                     continue;
                 }
-                Attr attr_ = doc_.createAttribute(attributeName_.toString());
+                Attr attr_ = CoreDocument.createAttribute(attributeName_.toString());
                 attr_.setEscapedValue(attributeValue_.toString());
                 attrs_.add(attr_);
                 attributeName_.delete(0, attributeName_.length());
@@ -2676,13 +3082,21 @@ public final class DocumentBuilder {
         DocumentResult result_ = builder_.parse(_xml);
         return result_;
     }
-
+    
     public static Document parseSax(String _xml) {
         if (_xml == null) {
             return null;
         }
         DocumentBuilder builder_ = newXmlDocumentBuilder();
         return builder_.parse(_xml).getDocument();
+    }
+
+    public static Document parseNoTextDocument(String _xml) {
+        if (_xml == null) {
+            return null;
+        }
+        DocumentBuilder builder_ = newXmlDocumentBuilder();
+        return builder_.parseNoText(_xml).getDocument();
     }
 
 
@@ -2696,7 +3110,7 @@ public final class DocumentBuilder {
         }
     }
 
-    public static Document newXmlDocument(int _tabWidth) {
+    public static FullDocument newXmlDocument(int _tabWidth) {
         try {
             DocumentBuilder builder_;
             builder_ = newXmlDocumentBuilder(_tabWidth);
@@ -2714,6 +3128,9 @@ public final class DocumentBuilder {
         return DocumentBuilder.newDocumentBuilder();
     }
 
+    public static String toXmlDocument(Document _doc) {
+        return _doc.export();
+    }
     public static String toXml(Node _doc) {
         if (_doc instanceof Text) {
             return DocumentBuilder.escape(((Text)_doc).getTextContent(), false);

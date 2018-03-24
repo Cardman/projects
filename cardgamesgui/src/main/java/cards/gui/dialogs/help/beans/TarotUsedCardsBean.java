@@ -4,7 +4,6 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.bean.Bean;
-import code.images.ConverterBufferedImage;
 import code.util.StringList;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorEnum;
@@ -18,7 +17,7 @@ public class TarotUsedCardsBean extends Bean {
         for (Suit s: Suit.values()) {
             StringList list_ = new StringList();
             for (CardTarot c: HandTarot.couleurComplete(s)) {
-                list_.add(ConverterBufferedImage.surroundImage(GraphicTarotCard.getTxtImage(c)));
+                list_.add(GraphicTarotCard.getTxtImage(c));
             }
             images.put(s, list_);
         }

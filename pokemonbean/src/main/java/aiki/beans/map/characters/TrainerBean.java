@@ -6,9 +6,9 @@ import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.PokemonTeam;
-import code.images.ConverterBufferedImage;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class TrainerBean extends CommonBean {
     private final String pageTeam = "web/html/map/elements/pokemon_team.html";
@@ -25,8 +25,8 @@ public class TrainerBean extends CommonBean {
             GymLeader gym_ = (GymLeader) trainer;
             move = data_.getTm().getVal(gym_.getTm());
         }
-        image = ConverterBufferedImage.surroundImage(data_.getTrainer(trainer.getImageMaxiFileName()));
-        imageMini = ConverterBufferedImage.surroundImage(data_.getPerson(trainer.getImageMiniFileName()));
+        image = BaseSixtyFourUtil.getSringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
+        imageMini = BaseSixtyFourUtil.getSringByImage(data_.getPerson(trainer.getImageMiniFileName()));
     }
     public String getName() {
         if (trainer instanceof GymLeader) {

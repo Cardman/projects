@@ -60,7 +60,7 @@ public class TargetLabel {
             }
         }
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            String type_ = _facade.getData().getAnimStatis().getVal(s.name());
+            int[][] type_ = _facade.getData().getAnimStatis().getVal(s.name());
             BufferedImage t_ = ConverterBufferedImage.decodeToImage(type_);
             if (t_.getWidth() > maxWidthValue_) {
                 maxWidthValue_ = t_.getWidth();
@@ -74,7 +74,7 @@ public class TargetLabel {
         int maxWidthValue_ = fMet_.getHeight();
         int add_ = CustList.SIZE_EMPTY;
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            String type_ = _facade.getData().getAnimStatis().getVal(s.name());
+            int[][] type_ = _facade.getData().getAnimStatis().getVal(s.name());
             BufferedImage t_ = ConverterBufferedImage.decodeToImage(type_);
             add_ = t_.getHeight();
         }
@@ -92,7 +92,7 @@ public class TargetLabel {
             int imgWidth_ = 0;
             if (!ball.isEmpty()) {
                 BufferedImage img_;
-                String b_ = _facade.getData().getMiniItems().getVal(ball);
+                int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
                 img_ = ConverterBufferedImage.decodeToImage(b_);
                 imgWidth_ = img_.getWidth();
             }
@@ -159,7 +159,7 @@ public class TargetLabel {
         int delta_ = height_ - heightIni_;
         if (!ball.isEmpty()) {
             BufferedImage img_;
-            String b_ = _facade.getData().getMiniItems().getVal(ball);
+            int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
             img_ = ConverterBufferedImage.decodeToImage(b_);
             if (delta_ < img_.getHeight()) {
                 delta_ = img_.getHeight();
@@ -204,7 +204,7 @@ public class TargetLabel {
             g_.drawString(fighterTranslatedName, 0, h_);
             if (!ball.isEmpty()) {
                 BufferedImage img_;
-                String b_ = _facade.getData().getMiniItems().getVal(ball);
+                int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
                 img_ = ConverterBufferedImage.decodeToImage(b_);
                 g_.drawImage(img_, width_ - img_.getWidth(), 0, null);
                 //h_ += img_.getHeight();

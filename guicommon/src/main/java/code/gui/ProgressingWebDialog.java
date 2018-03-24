@@ -3,10 +3,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import code.images.ConverterBufferedImage;
+import code.gui.animations.AnimatedImage;
 import code.util.CustList;
 
 public final class ProgressingWebDialog extends Dialog implements ProgressDialog {
@@ -20,6 +19,7 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
     private static final String PER_CENT = "";
 
     private JLabel anim;
+    private AnimatedImage animation;
 
     public ProgressingWebDialog() {
         setModal(false);
@@ -30,12 +30,10 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
             setDialogIcon(_window);
         }
         setLocationRelativeToWindow(_window);
-        byte[] data_ = null;
         if (!_images.isEmpty()) {
-            data_ = ConverterBufferedImage.toBytesGif(_images, TIME, true);
-        }
-        if (data_ != null) {
-            anim = new JLabel(new ImageIcon(data_));
+            anim = new JLabel();
+            anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
+            animation = new AnimatedImage(anim, _images, TIME * 10);
         } else {
             anim = new JLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
@@ -49,6 +47,19 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
         setVisible(true);
     }
 
+    public void startAnimation() {
+        if (animation == null) {
+            return;
+        }
+        animation.start();
+    }
+
+    public void stopAnimation() {
+        if (animation == null) {
+            return;
+        }
+        animation.stopAnimation();
+    }
 //    @Override
 //    public AnimatedLabel getAnim() {
 //        return anim;

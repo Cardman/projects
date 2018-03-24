@@ -1,6 +1,4 @@
 package code.images;
-import java.awt.image.BufferedImage;
-
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
@@ -211,14 +209,20 @@ public final class Image implements Displayable {
         return new PairNumber<Integer,Integer>(width_/_sideLength, heigth_/_sideLength);
     }
 
-    public static String clipSixtyFour(String _image,int _x,int _y,int _w,int _h) {
-        BufferedImage img_ = ConverterBufferedImage.decodeToImage(_image);
-        int xp_ = Math.min(_x+_w, img_.getWidth());
-        int yp_ = Math.min(_y+_h, img_.getHeight());
+    public static int[][] clipSixtyFour(int[][] _image,int _x,int _y,int _w,int _h) {
+        int xp_ = Math.min(_x+_w, _image[0].length);
+        int yp_ = Math.min(_y+_h, _image.length);
         int rw_ = xp_ - _x;
         int rh_ = yp_ - _y;
-        BufferedImage subImg_ = img_.getSubimage(_x, _y, rw_, rh_);
-        return ConverterBufferedImage.toBaseSixtyFour(subImg_);
+        int xMax_ = _x + rw_;
+        int yMax_ = _y + rh_;
+        int[][] subImg_ = new int[rh_][rw_];
+        for (int i = _y; i < yMax_; i++) {
+            for (int j = _x; j < xMax_; j++) {
+                subImg_[i-_y][j-_x] = _image[i][j];
+            }
+        }
+        return subImg_;
     }
 
     public static String clip(String _image,int _x,int _y,int _w,int _h) {

@@ -310,12 +310,11 @@ public final class StreamZipFile {
             isr_ = new InputStreamReader(stream_);
             br_ = new BufferedReader(isr_);
             while (true) {
-                String line_ = br_.readLine();
-                if (line_ == null) {
+                int char_ = br_.read();
+                if (char_ < 0) {
                     break;
                 }
-                fileBuilder_.append(line_);
-                fileBuilder_.append(RETURN_LINE);
+                fileBuilder_.append((char)char_);
             }
         } catch (Throwable _0) {
             throw new RuntimeIOException(_0.getMessage());
@@ -339,10 +338,6 @@ public final class StreamZipFile {
                 }
             }
         }
-        if (fileBuilder_.length() == CustList.SIZE_EMPTY) {
-            return fileBuilder_.toString();
-        }
-        fileBuilder_.deleteCharAt(fileBuilder_.length() - 1);
         return fileBuilder_.toString();
     }
 

@@ -21,6 +21,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.consts.Constants;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class GraphicTarotCard extends JLabel {
     static final String DEFAULT="Default";
@@ -36,8 +37,8 @@ public class GraphicTarotCard extends JLabel {
         peindreCarte=true;
         fullCard=_fullCard;
         card=_pc;
-        String file_ = ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT)));
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
@@ -66,8 +67,8 @@ public class GraphicTarotCard extends JLabel {
         this(_i,_fullCard);
         peindreCarte=true;
         card=_pc;
-        String file_ = ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT)));
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
@@ -99,13 +100,13 @@ public class GraphicTarotCard extends JLabel {
     }
 
     public static String getTxtImage(CardTarot _card) {
-        return ConverterBufferedImage.toBaseSixtyFour(getImage(_card));
+        return ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+                StreamTextFile.SEPARATEUR,_card.getImageFileName(FileConst.TXT_EXT)));
     }
 
     public static BufferedImage getImage(CardTarot _card) {
         BufferedImage img_;
-        String file_ = ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
-                StreamTextFile.SEPARATEUR,_card.getImageFileName(FileConst.TXT_EXT)));
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(getTxtImage(_card));
         img_ = ConverterBufferedImage.decodeToImage(file_);
         if (img_ == null) {
             return getDefaultImage(_card);
@@ -343,8 +344,8 @@ public class GraphicTarotCard extends JLabel {
         card=_pc;
         peinte=false;
         peindreCarte=true;
-        String file_ = ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT)));
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;

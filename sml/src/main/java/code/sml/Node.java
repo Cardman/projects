@@ -1,64 +1,26 @@
 package code.sml;
 
-public abstract class Node implements Info {
+public interface Node extends Info {
 
-    private Node firstChild;
+    public Node getNextSibling();
 
-    private Node nextSibling;
+    public Node getPreviousSibling();
 
-    private Node previousSibling;
+    public Node getFirstChild();
 
-    private Node lastChild;
+    public Node getLastChild();
 
-    private Document ownerDocument;
+    void setNextSibling(Node _node);
 
-    private Element parentNode;
+    void setPreviousSibling(Node _node);
 
-    protected Node(Document _ownerDocument) {
-        ownerDocument = _ownerDocument;
-    }
+    void setFirstChild(Node _node);
 
-    public final Node getNextSibling() {
-        return nextSibling;
-    }
+    void setLastChild(Node _node);
 
-    public final Node getPreviousSibling() {
-        return previousSibling;
-    }
-
-    public final Node getFirstChild() {
-        return firstChild;
-    }
-
-    public final Node getLastChild() {
-        return lastChild;
-    }
-
-    protected final void setNextSibling(Node _node) {
-        nextSibling = _node;
-    }
-
-    protected final void setPreviousSibling(Node _node) {
-        previousSibling = _node;
-    }
-
-    protected final void setFirstChild(Node _node) {
-        firstChild = _node;
-    }
-
-    protected final void setLastChild(Node _node) {
-        lastChild = _node;
-    }
-
-    public Document getOwnerDocument() {
-        return ownerDocument;
-    }
-    public Element getParentNode() {
-        return parentNode;
-    }
-    protected void setParentNode(Element _parentNode) {
-        parentNode = _parentNode;
-    }
+    Document getOwnerDocument();
+    Element getParentNode();
+    void setParentNode(Element _parentNode);
     public abstract NamedNodeMap getAttributes();
     public abstract NodeList getChildNodes();
     public abstract ElementList getChildElements();

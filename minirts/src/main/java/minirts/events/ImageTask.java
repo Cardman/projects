@@ -21,6 +21,7 @@ import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.StringList;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class ImageTask implements ActionListener {
 
@@ -53,7 +54,7 @@ public class ImageTask implements ActionListener {
             } else {
                 img_ = ResourceFiles.ressourceFichier(MainWindow.MOUSE_ARROW_FILE);
             }
-            or_ = ConverterBufferedImage.decodeToImage(img_);
+            or_ = ConverterBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(img_));
             Toolkit tool_ = Toolkit.getDefaultToolkit();
             int wCurs_ = or_.getWidth();
             int hCurs_ = or_.getHeight();

@@ -56,8 +56,8 @@ import aiki.main.VideoLoading;
 import code.gui.ChildFrame;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
 import code.gui.WrappedTextArea;
+import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.maths.Rate;
 import code.sml.util.ExtractFromFiles;
@@ -1046,9 +1046,8 @@ public class Battle extends ChildFrame {
             }
             return;
         }
-        SessionEditorPane session_;
-        session_ = new SessionEditorPane();
-        session_.getCaret().setSelectionVisible(false);
+        RenderedPage session_;
+        session_ = new RenderedPage(new JScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
         session_.setProcess(VideoLoading.getVideo());

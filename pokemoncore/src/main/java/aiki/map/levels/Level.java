@@ -26,7 +26,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.PairNumber;
 import code.util.annot.RwXml;
 import code.util.comparators.ComparatorBoolean;
 
@@ -105,19 +104,19 @@ public abstract class Level {
         return true;
     }
 
-    public static ObjectMap<Point,String> getLevelBackgroundImage(DataBase _data, Coords _coords) {
+    public static ObjectMap<Point,int[][]> getLevelBackgroundImage(DataBase _data, Coords _coords) {
         int sideLen_ = _data.getMap().getSideLength();
         Place pl_ = _data.getMap().getPlaces().getVal(_coords.getNumberPlace());
         Level lev_ = pl_.getLevelByCoords(_coords);
-        ObjectMap<Point,String> tiles_ = new ObjectMap<Point,String>();
+        ObjectMap<Point,int[][]> tiles_ = new ObjectMap<Point,int[][]>();
         for (Point p: lev_.getBlocks().getKeys()) {
             Block bl_ = lev_.getBlocks().getVal(p);
-            String image_ = _data.getImage(bl_.getTileFileName());
+            int[][] image_ = _data.getImage(bl_.getTileFileName());
             short w_ = bl_.getWidth();
             short h_ = bl_.getHeight();
             for (short x = CustList.FIRST_INDEX; x < w_; x++) {
                 for (short y = CustList.FIRST_INDEX; y < h_; y++) {
-                    String img_ = Image.clipSixtyFour(image_, x * sideLen_, y * sideLen_, sideLen_, sideLen_);
+                    int[][] img_ = Image.clipSixtyFour(image_, x * sideLen_, y * sideLen_, sideLen_, sideLen_);
                     tiles_.put(new Point((short)(x + p.getx()), (short)(y + p.gety())), img_);
                 }
             }
@@ -125,10 +124,10 @@ public abstract class Level {
         return tiles_;
     }
 
-    public static ObjectMap<Point,String> getLevelForegroundImage(DataBase _data, Coords _coords) {
+    public static ObjectMap<Point,int[][]> getLevelForegroundImage(DataBase _data, Coords _coords) {
         Place pl_ = _data.getMap().getPlaces().getVal(_coords.getNumberPlace());
         Level lev_ = pl_.getLevelByCoords(_coords);
-        ObjectMap<Point,String> frontTiles_ = new ObjectMap<Point,String>();
+        ObjectMap<Point,int[][]> frontTiles_ = new ObjectMap<Point,int[][]>();
         for (Place p: _data.getMap().getPlaces().values()) {
             if (!(p instanceof League)) {
                 continue;
@@ -884,11 +883,10 @@ public abstract class Level {
     }
 
     public void changeImage(Point _pt, String _imageName, DataBase _data) {
-        String image_ = _data.getImage(_imageName);
+        int[][] image_ = _data.getImage(_imageName);
         int sideLength_ = _data.getMap().getSideLength();
-        PairNumber<Integer,Integer> dims_ = Image.getDimensions(image_, sideLength_);
-        short newWidth_ = dims_.getFirst().shortValue();
-        short newHeight_ = dims_.getSecond().shortValue();
+        short newWidth_ = (short) (image_[0].length / sideLength_);
+        short newHeight_ = (short) (image_.length / sideLength_);
         changeImage(_pt, _imageName, newWidth_, newHeight_);
     }
 

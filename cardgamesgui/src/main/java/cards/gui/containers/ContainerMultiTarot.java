@@ -98,7 +98,7 @@ import cards.tarot.enumerations.Miseres;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatTreeMap;
@@ -124,7 +124,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private CustList<JLabel> playersPseudos = new CustList<JLabel>();
     private CustList<JLabel> playersPlaces = new CustList<JLabel>();
     private CustList<JCheckBox> playersReady = new CustList<JCheckBox>();
-    private SessionEditorPane editor;
+    private RenderedPage editor;
     private NatTreeMap<Integer,Byte> playersPlacesForGame = new NatTreeMap<Integer,Byte>();
     private NumberMap<Integer,String> playersPseudosForGame = new NumberMap<Integer,String>();
     private RulesTarot rulesTarotMulti=new RulesTarot();
@@ -280,7 +280,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         container_.add(panel_);
 
-        editor = new SessionEditorPane();
+        JScrollPane scroll_ = new JScrollPane();
+        editor = new RenderedPage(scroll_);
 
         try {
             //editor.setMainClass(SoftApplication.getMainClass());
@@ -292,8 +293,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             _0.printStackTrace();
         }
 
-        editor.setEditable(false);
-        JScrollPane scroll_ = new JScrollPane(editor);
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
         playersPlacesForGame = _players.getPlacesPlayers();
@@ -1116,7 +1115,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         JTabbedPane onglets_=new JTabbedPane();
         ResultsGame res_ = _res;
         setScores(res_.getScores());
-        SessionEditorPane editor_ = new SessionEditorPane();
+        JScrollPane scroll_=new JScrollPane();
+        RenderedPage editor_ = new RenderedPage(scroll_);
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -1126,11 +1126,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
-        editor_.setEditable(false);
-        JScrollPane scroll_=new JScrollPane(editor_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
-        editor_ = new SessionEditorPane();
+        ascenseur_=new JScrollPane();
+        editor_ = new RenderedPage(ascenseur_);
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -1140,8 +1139,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
-        editor_.setEditable(false);
-        ascenseur_=new JScrollPane(editor_);
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

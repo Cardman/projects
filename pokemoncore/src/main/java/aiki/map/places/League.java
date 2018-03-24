@@ -51,7 +51,7 @@ public final class League extends Place {
                 throw new DataException();
             }
         }
-        if (_data.getLink(fileName).isEmpty()) {
+        if (_data.getLink(fileName).length == 0) {
             throw new DataException();
         }
     }
@@ -64,7 +64,7 @@ public final class League extends Place {
         for (LevelLeague l: rooms) {
             l.validateForEditing(_data);
         }
-        if (_data.getLink(fileName).isEmpty()) {
+        if (_data.getLink(fileName).length == 0) {
             throw new DataException();
         }
     }

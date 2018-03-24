@@ -53,7 +53,7 @@ public final class LevelLeague extends Level {
         if (!trainer.hasValidImage(_data)) {
             return false;
         }
-        if (_data.getLink(fileName).isEmpty()) {
+        if (_data.getLink(fileName).length == 0) {
             return false;
         }
         return true;

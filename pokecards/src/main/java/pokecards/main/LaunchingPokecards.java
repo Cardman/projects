@@ -13,7 +13,7 @@ import cards.main.LaunchingCards;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
 import code.gui.LoadLanguage;
-import code.gui.SoftApplication;
+import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
 import code.stream.StreamTextFile;
@@ -21,7 +21,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 
-public class LaunchingPokecards extends SoftApplication {
+public class LaunchingPokecards extends SoftApplicationCore {
 
     public static final String COORDS = "pkcards.coords";
 

@@ -20,7 +20,7 @@ public final class FightTrainerIntroThread extends FightIntroThread {
     @Override
     public void run() {
         initHeros();
-        String name_ = getFacade().getTrainerImage();
+        int[][] name_ = getFacade().getTrainerImage();
         trainer = ConverterBufferedImage.decodeToImage(name_);
         getBattle().setHerosOppositeSex(getHerosOppositeSex(), getFacade().isDualFight());
         getBattle().drawAnimationFightIni(getHeros(), trainer);

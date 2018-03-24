@@ -1,6 +1,4 @@
 package aiki;
-import java.awt.image.BufferedImage;
-
 import aiki.comparators.ComparatorEndRoundMainElements;
 import aiki.exceptions.DataException;
 import aiki.fight.Combos;
@@ -141,7 +139,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
-import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -150,6 +147,7 @@ import code.util.ints.ListableEntries;
 import code.util.ints.MathFactory;
 import code.util.ints.NumericableString;
 import code.util.ints.WithMathFactory;
+import code.util.opers.BaseSixtyFourUtil;
 import code.util.pagination.SelectedBoolean;
 
 public class DataBase implements WithMathFactory {
@@ -310,8 +308,6 @@ public class DataBase implements WithMathFactory {
     private static final String STATUS_FORMULA = "status";
     private static final String TYPE_FORMULA = "type";
 
-    private static final String EMPTY_IMAGE = "0";
-
 //    private static final String COMPILE = "COMPILE";
 
     private static final char UNDERSCORE = '_';
@@ -340,45 +336,45 @@ public class DataBase implements WithMathFactory {
 
     private StringMap<Status> status = new StringMap<Status>();
 
-    private StringMap<String> miniPk = new StringMap<String>();
+    private StringMap<int[][]> miniPk = new StringMap<int[][]>();
 
-    private StringMap<String> maxiPkBack = new StringMap<String>();
+    private StringMap<int[][]> maxiPkBack = new StringMap<int[][]>();
 
-    private StringMap<String> maxiPkFront = new StringMap<String>();
+    private StringMap<int[][]> maxiPkFront = new StringMap<int[][]>();
 
     private int maxWidthPk;
 
     private int maxHeightPk;
 
-    private StringMap<String> miniItems = new StringMap<String>();
+    private StringMap<int[][]> miniItems = new StringMap<int[][]>();
 
-    private StringMap<String> trainers = new StringMap<String>();
+    private StringMap<int[][]> trainers = new StringMap<int[][]>();
 
-    private StringMap<String> people = new StringMap<String>();
+    private StringMap<int[][]> people = new StringMap<int[][]>();
 
-    private StringMap<String> typesImages = new StringMap<String>();
+    private StringMap<int[][]> typesImages = new StringMap<int[][]>();
 
     private StringMap<String> typesColors = new StringMap<String>();
 
-    private ObjectMap<ImageHeroKey,String> frontHeros = new ObjectMap<ImageHeroKey,String>();
+    private ObjectMap<ImageHeroKey,int[][]> frontHeros = new ObjectMap<ImageHeroKey,int[][]>();
 
-    private ObjectMap<ImageHeroKey,String> backHeros = new ObjectMap<ImageHeroKey,String>();
+    private ObjectMap<ImageHeroKey,int[][]> backHeros = new ObjectMap<ImageHeroKey,int[][]>();
 
-    private ObjectMap<ImageHeroKey,String> overWorldHeros = new ObjectMap<ImageHeroKey,String>();
+    private ObjectMap<ImageHeroKey,int[][]> overWorldHeros = new ObjectMap<ImageHeroKey,int[][]>();
 
-    private StringMap<String> links = new StringMap<String>();
+    private StringMap<int[][]> links = new StringMap<int[][]>();
 
-    private StringMap<String> images = new StringMap<String>();
+    private StringMap<int[][]> images = new StringMap<int[][]>();
 
-    private StringMap<ObjectMap<ScreenCoords,String>> imagesTiles = new StringMap<ObjectMap<ScreenCoords,String>>();
+    private StringMap<ObjectMap<ScreenCoords,int[][]>> imagesTiles = new StringMap<ObjectMap<ScreenCoords,int[][]>>();
 
-    private StringMap<String> miniMap = new StringMap<String>();
+    private StringMap<int[][]> miniMap = new StringMap<int[][]>();
 
     private StringMap<Dims> imagesDimensions = new StringMap<Dims>();
 
-    private String imageTmHm = EMPTY_IMAGE;
+    private int[][] imageTmHm = new int[0][0];
 
-    private String storage = EMPTY_IMAGE;
+    private int[][] storage = new int[0][0];
 
     private DataMap map = new DataMap();
 
@@ -455,7 +451,7 @@ public class DataBase implements WithMathFactory {
 
     private CustList<EndRoundMainElements> evtEndRound;
 
-    private String endGameImage;
+    private int[][] endGameImage = new int[0][0];
 
     private StringList filesWithSameNameDifferentCase;
 
@@ -525,11 +521,11 @@ public class DataBase implements WithMathFactory {
 //    @CheckedData
 //    private Map<String,String> javaBeansTmp = new Map<>();
 
-    private StringMap<String> animStatis = new StringMap<String>();
+    private StringMap<int[][]> animStatis = new StringMap<int[][]>();
 
-    private StringMap<String> animStatus = new StringMap<String>();
+    private StringMap<int[][]> animStatus = new StringMap<int[][]>();
 
-    private String animAbsorb = EMPTY_IMAGE;
+    private int[][] animAbsorb = new int[0][0];
 
     private StringMap<StringMap<String>> litterals = new StringMap<StringMap<String>>();
 
@@ -599,7 +595,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> _variables, Boolean _default) {
         return standardMathFactory.evaluateBoolean(_booleanString, _variables, _default);
     }
-    public ObjectMap<Point,String> getLevelImage(short _pl, byte _level) {
+    public ObjectMap<Point,int[][]> getLevelImage(short _pl, byte _level) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
@@ -607,7 +603,7 @@ public class DataBase implements WithMathFactory {
         return getLevelImage(coords_);
     }
 
-    public ObjectMap<Point,String> getLevelImage(short _pl, byte _level, Point _inside) {
+    public ObjectMap<Point,int[][]> getLevelImage(short _pl, byte _level, Point _inside) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
@@ -616,65 +612,65 @@ public class DataBase implements WithMathFactory {
         return getLevelImage(coords_);
     }
 
-    public ObjectMap<Point,String> getLevelImage(Coords _coords) {
-        ObjectMap<Point,String> tiles_ = Level.getLevelBackgroundImage(this, _coords);
-        ObjectMap<Point,String> frontTiles_ = Level.getLevelForegroundImage(this, _coords);
+    public ObjectMap<Point,int[][]> getLevelImage(Coords _coords) {
+        ObjectMap<Point,int[][]> tiles_ = Level.getLevelBackgroundImage(this, _coords);
+        ObjectMap<Point,int[][]> frontTiles_ = Level.getLevelForegroundImage(this, _coords);
         for (Point p: frontTiles_.getKeys()) {
             tiles_.put(p, stackImages(tiles_, frontTiles_, p));
         }
         return tiles_;
     }
 
-    public static String stackImages(ObjectMap<Point,String> _tiles, ObjectMap<Point,String> _frontTiles, Point _pt) {
-        String img_ = _frontTiles.getVal(_pt);
-        if (img_.isEmpty()) {
+    public static int[][] stackImages(ObjectMap<Point,int[][]> _tiles, ObjectMap<Point,int[][]> _frontTiles, Point _pt) {
+        int[][] img_ = _frontTiles.getVal(_pt);
+        if (img_.length == 0) {
             return _tiles.getVal(_pt);
         }
-        String imgBack_ = _tiles.getVal(_pt);
+        int[][] imgBack_ = _tiles.getVal(_pt);
         return ConverterBufferedImage.stackImages(imgBack_, img_);
     }
 
-    public void addPerson(String _fileName, String _img) {
+    public void addPerson(String _fileName, int[][] _img) {
         people.put(_fileName,_img);
     }
 
-    public void addBackHero(EnvironmentType _env, Sex _sex, String _img) {
+    public void addBackHero(EnvironmentType _env, Sex _sex, int[][] _img) {
         backHeros.put(new ImageHeroKey(_env, _sex), _img);
     }
 
-    public void addFrontHero(EnvironmentType _env, Sex _sex, String _img) {
+    public void addFrontHero(EnvironmentType _env, Sex _sex, int[][] _img) {
         frontHeros.put(new ImageHeroKey(_env, _sex), _img);
     }
 
-    public void addOverworldHero(EnvironmentType _env, Direction _dir, Sex _sex, String _img) {
+    public void addOverworldHero(EnvironmentType _env, Direction _dir, Sex _sex, int[][] _img) {
         overWorldHeros.put(new ImageHeroKey(_env, _dir, _sex), _img);
     }
 
-    public void addImage(String _fileName, String _img) {
+    public void addImage(String _fileName, int[][] _img) {
         images.put(_fileName,_img);
     }
 
-    public void addLink(String _fileName, String _img) {
+    public void addLink(String _fileName, int[][] _img) {
         links.put(_fileName,_img);
     }
 
-    public void addTrainerImage(String _fileName, String _img) {
+    public void addTrainerImage(String _fileName, int[][] _img) {
         trainers.put(_fileName,_img);
     }
 
-    public void addFrontImagePk(String _fileName, String _img) {
+    public void addFrontImagePk(String _fileName, int[][] _img) {
         maxiPkFront.put(_fileName,_img);
     }
 
-    public void addBackImagePk(String _fileName, String _img) {
+    public void addBackImagePk(String _fileName, int[][] _img) {
         maxiPkBack.put(_fileName,_img);
     }
 
-    public void addMiniImagePk(String _fileName, String _img) {
+    public void addMiniImagePk(String _fileName, int[][] _img) {
         miniPk.put(_fileName,_img);
     }
 
-    public void addImageObjects(String _fileName, String _img) {
+    public void addImageObjects(String _fileName, int[][] _img) {
         miniItems.put(_fileName,_img);
     }
 
@@ -1270,25 +1266,6 @@ public class DataBase implements WithMathFactory {
     }
 
     public void validateImages() {
-        deleteLineReturn(images);
-        deleteLineReturn(miniMap);
-        deleteLineReturn(links);
-        deleteLineReturn(maxiPkBack);
-        deleteLineReturn(maxiPkFront);
-        deleteLineReturn(miniPk);
-        deleteLineReturn(people);
-        deleteLineReturn(trainers);
-        deleteLineReturn(miniItems);
-        imageTmHm = StringList.removeStrings(imageTmHm, RETURN_LINE);
-        storage = StringList.removeStrings(storage, RETURN_LINE);
-        endGameImage = StringList.removeStrings(endGameImage, RETURN_LINE);
-        animAbsorb = StringList.removeStrings(animAbsorb, RETURN_LINE);
-        deleteLineReturn(overWorldHeros);
-        deleteLineReturn(frontHeros);
-        deleteLineReturn(backHeros);
-        deleteLineReturn(animStatis);
-        deleteLineReturn(animStatus);
-        deleteLineReturn(typesImages);
         if (!animStatus.containsAllAsKeys(status.getKeys())) {
             throw new DataException();
         }
@@ -1313,26 +1290,30 @@ public class DataBase implements WithMathFactory {
                 throw new DataException();
             }
         }
-        for (String i: links.values()) {
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(i);
-            if (dims_.getFirst() > map.getSideLength()) {
+        for (int[][] i: links.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
-            if (dims_.getSecond() > map.getSideLength()) {
+            if (i.length > map.getSideLength()) {
                 throw new DataException();
             }
-        }
-        for (String i: people.values()) {
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(i);
-            if (dims_.getFirst() > map.getSideLength()) {
-                throw new DataException();
-            }
-            if (dims_.getSecond() > map.getSideLength()) {
+            if (i[0].length > map.getSideLength()) {
                 throw new DataException();
             }
         }
-        for (String i: trainers.values()) {
-            if (ConverterBufferedImage.decodeToImage(i) == null) {
+        for (int[][] i: people.values()) {
+            if (i.length == 0) {
+                throw new DataException();
+            }
+            if (i.length > map.getSideLength()) {
+                throw new DataException();
+            }
+            if (i[0].length > map.getSideLength()) {
+                throw new DataException();
+            }
+        }
+        for (int[][] i: trainers.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
 //            if (!Image.isValid(i)) {
@@ -1348,12 +1329,14 @@ public class DataBase implements WithMathFactory {
                 }
             }
         }
-        for (String i: overWorldHeros.values()) {
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(i);
-            if (dims_.getFirst() > map.getSideLength()) {
+        for (int[][] i: overWorldHeros.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
-            if (dims_.getSecond() > map.getSideLength()) {
+            if (i.length > map.getSideLength()) {
+                throw new DataException();
+            }
+            if (i[0].length > map.getSideLength()) {
                 throw new DataException();
             }
         }
@@ -1371,124 +1354,126 @@ public class DataBase implements WithMathFactory {
                 throw new DataException();
             }
         }
-        for (String i: frontHeros.values()) {
-            if (ConverterBufferedImage.decodeToImage(i) == null) {
+        for (int[][] i: frontHeros.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
 //            if (!Image.isValid(i)) {
 //                throw new DataException();
 //            }
         }
-        for (String i: backHeros.values()) {
-            if (ConverterBufferedImage.decodeToImage(i) == null) {
+        for (int[][] i: backHeros.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
 //            if (!Image.isValid(i)) {
 //                throw new DataException();
 //            }
         }
-        for (String i: maxiPkBack.values()) {
-            BufferedImage img_ = ConverterBufferedImage.decodeToImage(i);
-            if (img_ == null) {
+        for (int[][] i: maxiPkBack.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
-            if (img_.getWidth() > maxWidthPk) {
-                maxWidthPk = img_.getWidth();
+            if (i[0].length > maxWidthPk) {
+                maxWidthPk = i[0].length;
             }
-            if (img_.getHeight() > maxHeightPk) {
-                maxHeightPk = img_.getHeight();
+            if (i.length > maxHeightPk) {
+                maxHeightPk = i.length;
             }
 //            if (!Image.isValid(i)) {
 //                throw new DataException();
 //            }
         }
-        for (String i: maxiPkFront.values()) {
-            BufferedImage img_ = ConverterBufferedImage.decodeToImage(i);
-            if (img_ == null) {
+        for (int[][] i: maxiPkFront.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
-            if (img_.getWidth() > maxWidthPk) {
-                maxWidthPk = img_.getWidth();
+            if (i[0].length > maxWidthPk) {
+                maxWidthPk = i[0].length;
             }
-            if (img_.getHeight() > maxHeightPk) {
-                maxHeightPk = img_.getHeight();
+            if (i.length > maxHeightPk) {
+                maxHeightPk = i.length;
             }
 //            if (!Image.isValid(i)) {
 //                throw new DataException();
 //            }
         }
-        for (String i: typesImages.values()) {
-            if (ConverterBufferedImage.decodeToImage(i) == null) {
+        for (int[][] i: typesImages.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
 //            if (!Image.isValid(i)) {
 //                throw new DataException();
 //            }
         }
-        for (String i: miniItems.values()) {
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(i);
-            if (dims_.getFirst() > map.getSideLength()) {
+        for (int[][] i: miniItems.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
-            if (dims_.getSecond() > map.getSideLength()) {
+            if (i.length > map.getSideLength()) {
                 throw new DataException();
             }
-        }
-        for (String i: miniMap.values()) {
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(i);
-            if (dims_.getFirst() != map.getSideLength()) {
-                throw new DataException();
-            }
-            if (dims_.getSecond() != map.getSideLength()) {
+            if (i[0].length > map.getSideLength()) {
                 throw new DataException();
             }
         }
-        for (String i: animStatis.getKeys()) {
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(animStatis.getVal(i));
-            if (dims_.getFirst() != map.getSideLength()) {
+        for (int[][] i: miniMap.values()) {
+            if (i.length != map.getSideLength()) {
                 throw new DataException();
             }
-            if (dims_.getSecond() != map.getSideLength()) {
-                throw new DataException();
-            }
-        }
-        for (String i: animStatus.values()) {
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(i);
-            if (dims_.getFirst() != map.getSideLength()) {
-                throw new DataException();
-            }
-            if (dims_.getSecond() != map.getSideLength()) {
+            if (i[0].length != map.getSideLength()) {
                 throw new DataException();
             }
         }
-        PairNumber<Integer,Integer> dimsAbs_ = ConverterBufferedImage.getDimensions(animAbsorb);
-        if (dimsAbs_.getFirst() != map.getSideLength()) {
+        for (int[][] i: animStatis.values()) {
+            if (i.length != map.getSideLength()) {
+                throw new DataException();
+            }
+            if (i[0].length != map.getSideLength()) {
+                throw new DataException();
+            }
+        }
+        for (int[][] i: animStatus.values()) {
+            if (i.length != map.getSideLength()) {
+                throw new DataException();
+            }
+            if (i[0].length != map.getSideLength()) {
+                throw new DataException();
+            }
+        }
+        if (animAbsorb.length != map.getSideLength()) {
             throw new DataException();
         }
-        if (dimsAbs_.getSecond() != map.getSideLength()) {
+        if (animAbsorb[0].length != map.getSideLength()) {
             throw new DataException();
         }
-        for (String i: miniPk.values()) {
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(i);
-            if (dims_.getFirst() > map.getSideLength()) {
+        for (int[][] i: miniPk.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
-            if (dims_.getSecond() > map.getSideLength()) {
+            if (i.length > map.getSideLength()) {
+                throw new DataException();
+            }
+            if (i[0].length > map.getSideLength()) {
                 throw new DataException();
             }
         }
-        PairNumber<Integer,Integer> dimsTmHm_ = ConverterBufferedImage.getDimensions(imageTmHm);
-        if (dimsTmHm_.getFirst() > map.getSideLength()) {
+        if (imageTmHm.length == 0) {
             throw new DataException();
         }
-        if (dimsTmHm_.getSecond() > map.getSideLength()) {
+        if (imageTmHm.length > map.getSideLength()) {
             throw new DataException();
         }
-        PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(storage);
-        if (dims_.getFirst() > map.getSideLength()) {
+        if (imageTmHm[0].length > map.getSideLength()) {
             throw new DataException();
         }
-        if (dims_.getSecond() > map.getSideLength()) {
+        if (storage.length == 0) {
+            throw new DataException();
+        }
+        if (storage.length > map.getSideLength()) {
+            throw new DataException();
+        }
+        if (storage[0].length > map.getSideLength()) {
             throw new DataException();
         }
         if (!miniPk.containsAllAsKeys(pokedex.getKeys())) {
@@ -1503,14 +1488,8 @@ public class DataBase implements WithMathFactory {
         if (!maxiPkFront.containsAllAsKeys(pokedex.getKeys())) {
             throw new DataException();
         }
-        if (!endGameImage.isEmpty()) {
-            if (ConverterBufferedImage.decodeToImage(endGameImage) == null) {
-                throw new DataException();
-            }
-            //ConverterBufferedImage.decodeToImage(endGameImage);
-//            if (!Image.isValid(endGameImage)) {
-//                throw new DataException();
-//            }
+        if (endGameImage.length == 0) {
+            throw new DataException();
         }
         for (TileMiniMap t: map.getMiniMap().values()) {
             if (!miniMap.contains(t.getFile())) {
@@ -1518,15 +1497,14 @@ public class DataBase implements WithMathFactory {
             }
         }
         int side_ = map.getSideLength();
-        for (EntryCust<String, String> i: images.entryList()) {
-            String img_ = i.getValue();
+        for (EntryCust<String, int[][]> i: images.entryList()) {
+            int[][] img_ = i.getValue();
             String name_ = i.getKey();
-            PairNumber<Integer,Integer> dimsBlock_ = ConverterBufferedImage.getDimensions(img_);
             Dims d_ = new Dims();
-            d_.setWidth((short) (dimsBlock_.getFirst()/side_));
-            d_.setHeight((short) (dimsBlock_.getSecond()/side_));
-            ObjectMap<ScreenCoords, String> tiles_;
-            tiles_ = new ObjectMap<ScreenCoords, String>();
+            d_.setWidth((short) (img_[0].length/side_));
+            d_.setHeight((short) (img_.length/side_));
+            ObjectMap<ScreenCoords, int[][]> tiles_;
+            tiles_ = new ObjectMap<ScreenCoords, int[][]>();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
@@ -1947,50 +1925,46 @@ public class DataBase implements WithMathFactory {
             e.getValue().validateForEditing();
         }
         map.validateForEditing(this);
-        for (String i: links.values()) {
-            if (!Image.isValidNotEmpty(i,map.getSideLength())) {
+        for (int[][] i: links.values()) {
+            if (i.length != map.getSideLength() || i[0].length != map.getSideLength()) {
                 throw new DataException();
             }
         }
-        for (String i: people.values()) {
-            if (!Image.isValidNotEmpty(i,map.getSideLength())) {
+        for (int[][] i: people.values()) {
+            if (i.length != map.getSideLength() || i[0].length != map.getSideLength()) {
                 throw new DataException();
             }
         }
-        for (String i: trainers.values()) {
-            if (!Image.isValid(i)) {
+        for (int[][] i: trainers.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
         }
-        for (String i: maxiPkBack.values()) {
-            if (!Image.isValid(i)) {
+        for (int[][] i: maxiPkBack.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
         }
-        for (String i: maxiPkFront.values()) {
-            if (!Image.isValid(i)) {
+        for (int[][] i: maxiPkFront.values()) {
+            if (i.length == 0) {
                 throw new DataException();
             }
         }
-        for (String i: miniItems.values()) {
-            if (!Image.isValidNotEmpty(i,map.getSideLength())) {
+        for (int[][] i: miniItems.values()) {
+            if (i.length != map.getSideLength() || i[0].length != map.getSideLength()) {
                 throw new DataException();
             }
         }
-        for (String i: miniPk.values()) {
-            if (!Image.isValidNotEmpty(i,map.getSideLength())) {
+        for (int[][] i: miniPk.values()) {
+            if (i.length != map.getSideLength() || i[0].length != map.getSideLength()) {
                 throw new DataException();
             }
         }
-        if (!StringList.quickEq(imageTmHm, EMPTY_IMAGE)) {
-            if (!Image.isValidNotEmpty(imageTmHm,map.getSideLength())) {
-                throw new DataException();
-            }
+        if (imageTmHm.length != map.getSideLength() || imageTmHm[0].length != map.getSideLength()) {
+            throw new DataException();
         }
-        if (!StringList.quickEq(storage, EMPTY_IMAGE)) {
-            if (!Image.isValidNotEmpty(storage,map.getSideLength())) {
-                throw new DataException();
-            }
+        if (storage.length != map.getSideLength() || storage[0].length != map.getSideLength()) {
+            throw new DataException();
         }
         if (!StringList.equalsSet(miniPk.getKeys(), pokedex.getKeys())) {
             throw new DataException();
@@ -1998,10 +1972,8 @@ public class DataBase implements WithMathFactory {
         if (!StringList.equalsSet(miniItems.getKeys(), items.getKeys())) {
             throw new DataException();
         }
-        if (!endGameImage.isEmpty()) {
-            if (!Image.isValid(endGameImage)) {
-                throw new DataException();
-            }
+        if (endGameImage.length == 0) {
+            throw new DataException();
         }
     }
 
@@ -2118,6 +2090,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
+            System.out.println(n_);
             PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), f_);
         }
@@ -2208,8 +2181,8 @@ public class DataBase implements WithMathFactory {
         _perCentLoading_ = 15;
         completeVariables();
         filesNames_.clear();
-        images = new StringMap<String>();
-        imagesTiles = new StringMap<ObjectMap<ScreenCoords,String>>();
+        images = new StringMap<int[][]>();
+        imagesTiles = new StringMap<ObjectMap<ScreenCoords,int[][]>>();
         StringList images_;
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES));
@@ -2217,12 +2190,12 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(s);
             //String key_ = s.replaceAll(BEGIN_REG_EXP+IMAGES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            images.put(key_, files_.getVal(StringList.concat(common_,s)));
+            images.put(key_, BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(IMAGES_FOLDER, filesNames_);
         filesNames_.clear();
 
-        miniMap = new StringMap<String>();
+        miniMap = new StringMap<int[][]>();
         StringList miniMap_;
 //        miniMap_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+MINI_MAP_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         miniMap_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES));
@@ -2230,34 +2203,34 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(s);
             //String key_ = s.replaceAll(BEGIN_REG_EXP+MINI_MAP_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            miniMap.put(key_, files_.getVal(StringList.concat(common_,s)));
+            miniMap.put(key_, BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(MINI_MAP_FOLDER, filesNames_);
 
         filesNames_.clear();
-        links = new StringMap<String>();
+        links = new StringMap<int[][]>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+LINKS_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(LINKS_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             filesNames_.add(s);
 //            String key_ = s.replaceAll(BEGIN_REG_EXP+LINKS_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            links.put(key_, files_.getVal(StringList.concat(common_,s)));
+            links.put(key_, BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(LINKS_FOLDER, filesNames_);
         filesNames_.clear();
-        people = new StringMap<String>();
+        people = new StringMap<int[][]>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+PEOPLE_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             filesNames_.add(s);
 //            String key_ = s.replaceAll(BEGIN_REG_EXP+PEOPLE_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            people.put(key_, files_.getVal(StringList.concat(common_,s)));
+            people.put(key_, BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(PEOPLE_FOLDER, filesNames_);
         filesNames_.clear();
-        frontHeros = new ObjectMap<ImageHeroKey,String>();
+        frontHeros = new ObjectMap<ImageHeroKey,int[][]>();
         for (String l: StringList.splitChars(files_.getVal(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_FRONT)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2266,9 +2239,9 @@ public class DataBase implements WithMathFactory {
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
             Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            frontHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
+            frontHeros.put(new ImageHeroKey(env_, sex_), BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
-        backHeros = new ObjectMap<ImageHeroKey,String>();
+        backHeros = new ObjectMap<ImageHeroKey,int[][]>();
         for (String l: StringList.splitChars(files_.getVal(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_BACK)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2277,9 +2250,9 @@ public class DataBase implements WithMathFactory {
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
             Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            backHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
+            backHeros.put(new ImageHeroKey(env_, sex_), BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
-        overWorldHeros = new ObjectMap<ImageHeroKey,String>();
+        overWorldHeros = new ObjectMap<ImageHeroKey,int[][]>();
         for (String l: StringList.splitChars(files_.getVal(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_MINI)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2289,24 +2262,24 @@ public class DataBase implements WithMathFactory {
             EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_.get(CustList.SECOND_INDEX));
             Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_), infos_.last());
+            overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_), BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+HERO_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(HERO_FOLDER,SEPARATOR_FILES));
         checkCaseOfFiles(HERO_FOLDER, filesNames_);
         filesNames_.clear();
-        trainers = new StringMap<String>();
+        trainers = new StringMap<int[][]>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+TRAINERS_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
             filesNames_.add(s);
 //            String key_ = s.replaceAll(BEGIN_REG_EXP+TRAINERS_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             String key_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
-            trainers.put(key_, files_.getVal(StringList.concat(common_,s)));
+            trainers.put(key_, BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(TRAINERS_FOLDER, filesNames_);
         filesNames_.clear();
-        maxiPkBack = new StringMap<String>();
+        maxiPkBack = new StringMap<int[][]>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+BACK_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
@@ -2314,11 +2287,11 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            maxiPkBack.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
+            maxiPkBack.put(StringList.toUpperCase(n_), BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
-        maxiPkFront = new StringMap<String>();
+        maxiPkFront = new StringMap<int[][]>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+FRONT_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
@@ -2326,11 +2299,11 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            maxiPkFront.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
+            maxiPkFront.put(StringList.toUpperCase(n_), BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
-        miniPk = new StringMap<String>();
+        miniPk = new StringMap<int[][]>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+MINI_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
@@ -2338,12 +2311,12 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            miniPk.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
+            miniPk.put(StringList.toUpperCase(n_), BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         _perCentLoading_ = 25;
         filesNames_.clear();
-        miniItems = new StringMap<String>();
+        miniItems = new StringMap<int[][]>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+OBJECTS_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
@@ -2354,12 +2327,12 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            miniItems.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
+            miniItems.put(StringList.toUpperCase(n_), BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
 
         filesNames_.clear();
-        typesImages = new StringMap<String>();
+        typesImages = new StringMap<int[][]>();
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+TYPES_IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES));
         for (String s: images_) {
@@ -2370,12 +2343,12 @@ public class DataBase implements WithMathFactory {
             //String n_ = s.replaceAll(BEGIN_REG_EXP+TYPES_IMAGES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            typesImages.put(StringList.toUpperCase(n_), files_.getVal(StringList.concat(common_,s)));
+            typesImages.put(StringList.toUpperCase(n_), BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,s))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
 
-        imageTmHm = files_.getVal(StringList.concat(common_, IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT));
-        storage = files_.getVal(StringList.concat(common_, IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT));
+        imageTmHm = BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_, IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT)));
+        storage = BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_, IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT)));
         combos = DocumentReaderAikiCoreUtil.getCombos(files_.getVal(StringList.concat(common_,COMBOS)));
         completeMembersCombos();
         sortEndRound();
@@ -2451,6 +2424,9 @@ public class DataBase implements WithMathFactory {
         lawsDamageRate = new EnumMap<DifficultyModelLaw,LawNumber>();
         StringList laws_ = StringList.splitChars(files_.getVal(StringList.concat(common_,LOIS_RANDOM)), RETURN_LINE_CHAR);
         for(String l:laws_){
+            if (l.isEmpty()) {
+                continue;
+            }
             StringList infos_=StringList.splitChars(l, TAB_CHAR);
             MonteCarloNumber law_ = new MonteCarloNumber();
 //            LawNumber valeur_=new LawNumber(new MonteCarloNumber(),(short)0);
@@ -2486,23 +2462,32 @@ public class DataBase implements WithMathFactory {
         expGrowth = new EnumMap<ExpType,String>();
         StringList courbes_ = StringList.splitChars(files_.getVal(StringList.concat(common_,COURBE_PTS_EXP)), RETURN_LINE_CHAR);
         for (String l: courbes_) {
+            if (l.isEmpty()) {
+                continue;
+            }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             expGrowth.put(ExpType.getExpTypeByName(infos_.first()), infos_.get(1));
         }
         rates = new EnumMap<DifficultyWinPointsFight,String>();
         StringList rates_ = StringList.splitChars(files_.getVal(StringList.concat(common_,RATE_WON_POINTS)), RETURN_LINE_CHAR);
         for (String l: rates_) {
+            if (l.isEmpty()) {
+                continue;
+            }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             rates.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), infos_.get(1));
         }
         typesColors = new StringMap<String>();
         StringList colorTypes_ = StringList.splitChars(files_.getVal(StringList.concat(common_, TYPES_COLOR_CODE,IMG_FILES_RES_EXT_TXT)), RETURN_LINE_CHAR);
         for (String l: colorTypes_) {
+            if (l.isEmpty()) {
+                continue;
+            }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             String colorStr_ = infos_.get(1);
             typesColors.put(infos_.first(), colorStr_);
         }
-        endGameImage = files_.getVal(StringList.concat(common_, END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT));
+        endGameImage = BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_, END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT)));
         translatedBooleans = new StringMap<EnumMap<SelectedBoolean,String>>();
         translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight,String>>();
         translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw,String>>();
@@ -2527,6 +2512,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_GENDERS);
             EnumMap<Gender,String> genders_ = new EnumMap<Gender, String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 genders_.put(Gender.getGenderByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2536,6 +2524,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_BOOLEANS);
             EnumMap<SelectedBoolean,String> booleans_ = new EnumMap<SelectedBoolean, String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 booleans_.put(SelectedBoolean.getBoolByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2545,6 +2536,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_DIFF_WIN_PTS);
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 diffWinPts_.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2554,6 +2548,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_DIFF_MODEL_LAW);
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2563,6 +2560,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_ENVIRONMENTS);
             EnumMap<EnvironmentType,String> environments_ = new EnumMap<EnvironmentType, String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 environments_.put(EnvironmentType.getEnvByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2572,6 +2572,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_STATISTICS);
             EnumMap<Statistic,String> statistics_ = new EnumMap<Statistic, String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 statistics_.put(Statistic.getStatisticByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2581,6 +2584,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_TARGETS);
             EnumMap<TargetChoice,String> targets_ = new EnumMap<TargetChoice, String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 targets_.put(TargetChoice.getTargetChoiceByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2590,6 +2596,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_CATEGORIES);
             StringMap<String> categories_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 categories_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2599,6 +2608,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_TYPES);
             StringMap<String> types_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 types_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2608,6 +2620,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_POKEMON);
             StringMap<String> pokemon_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 pokemon_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2617,6 +2632,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_MOVES);
             StringMap<String> moves_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 moves_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2626,6 +2644,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_ITEMS);
             StringMap<String> items_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 items_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2635,6 +2656,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_ABILITIES);
             StringMap<String> abilities_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 abilities_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2644,6 +2668,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_STATUS);
             StringMap<String> status_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 status_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2653,6 +2680,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_MATH);
             StringMap<String> fctsMath_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 fctsMath_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2662,6 +2692,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_CLASSES);
             StringMap<String> descrClasses_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 descrClasses_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
@@ -2671,6 +2704,9 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_ , TRANSLATION_LITTERAL);
             StringMap<String> litteral_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(StringList.concat(common_,fileName_)), RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 litteral_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.mid(CustList.SECOND_INDEX, infos_.size()).join(TAB)));
             }
@@ -2738,7 +2774,7 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            animStatis.put(StringList.toUpperCase(f_), files_.getVal(StringList.concat(common_,f)));
+            animStatis.put(StringList.toUpperCase(f_), BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,f))));
         }
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+ANIM_STATUS+SEPARATOR_FILES)) {}
         for (String f: listRelativePaths_.filterBeginIgnoreCase(StringList.concat(ANIM_STATUS,SEPARATOR_FILES))) {
@@ -2748,9 +2784,9 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            animStatus.put(StringList.toUpperCase(f_), files_.getVal(StringList.concat(common_,f)));
+            animStatus.put(StringList.toUpperCase(f_), BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,f))));
         }
-        animAbsorb = files_.getVal(StringList.concat(common_,ANIM_ABSORB));
+        animAbsorb = BaseSixtyFourUtil.getImageByString(files_.getVal(StringList.concat(common_,ANIM_ABSORB)));
         _perCentLoading_ = 40;
     }
 
@@ -2786,7 +2822,7 @@ public class DataBase implements WithMathFactory {
                 hm.put(cle_, StringList.toUpperCase(infos_.get(1)));
             }
         }
-        frontHeros = new ObjectMap<ImageHeroKey,String>();
+        frontHeros = new ObjectMap<ImageHeroKey,int[][]>();
         for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_FRONT)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2795,9 +2831,9 @@ public class DataBase implements WithMathFactory {
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
             Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            frontHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
+            frontHeros.put(new ImageHeroKey(env_, sex_), BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
-        backHeros = new ObjectMap<ImageHeroKey,String>();
+        backHeros = new ObjectMap<ImageHeroKey,int[][]>();
         for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_BACK)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2806,9 +2842,9 @@ public class DataBase implements WithMathFactory {
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
             Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            backHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
+            backHeros.put(new ImageHeroKey(env_, sex_), BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
-        overWorldHeros = new ObjectMap<ImageHeroKey,String>();
+        overWorldHeros = new ObjectMap<ImageHeroKey,int[][]>();
         for (String l: StringList.splitChars(ResourceFiles.ressourceFichier(StringList.concat(common_,HERO_FOLDER,SEPARATOR_FILES,HERO_MINI)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2818,10 +2854,10 @@ public class DataBase implements WithMathFactory {
             EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_.get(CustList.SECOND_INDEX));
             Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_), infos_.last());
+            overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_), BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
-        imageTmHm = ResourceFiles.ressourceFichier(StringList.concat(common_,IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT));
-        storage = ResourceFiles.ressourceFichier(StringList.concat(common_,IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT));
+        imageTmHm = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT)));
+        storage = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT)));
         combos = DocumentReaderAikiCoreUtil.getCombos(ResourceFiles.ressourceFichier(StringList.concat(common_,COMBOS)));
         completeMembersCombos();
         map = DocumentReaderAikiCoreUtil.getDataMap(ResourceFiles.ressourceFichier(StringList.concat(common_,MAP_FILE)));
@@ -2961,7 +2997,7 @@ public class DataBase implements WithMathFactory {
             String colorStr_ = infos_.get(1);
             typesColors.put(infos_.first(), colorStr_);
         }
-        endGameImage = ResourceFiles.ressourceFichier(StringList.concat(common_,END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT));
+        endGameImage = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT)));
         translatedBooleans = new StringMap<EnumMap<SelectedBoolean,String>>();
         translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight,String>>();
         translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw,String>>();
@@ -3191,13 +3227,13 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             String f_ = StringList.concat(ANIM_STATIS,SEPARATOR_FILES,f.name(),IMG_FILES_RES_EXT_TXT);
-            animStatis.put(f.name(), ResourceFiles.ressourceFichier(StringList.concat(common_,f_)));
+            animStatis.put(f.name(), BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,f_))));
         }
         for (String f: translatedStatus.getVal(Constants.getLanguage()).getKeys()) {
             String f_ = StringList.concat(ANIM_STATUS,SEPARATOR_FILES,f,IMG_FILES_RES_EXT_TXT);
-            animStatus.put(f, ResourceFiles.ressourceFichier(StringList.concat(common_,f_)));
+            animStatus.put(f, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,f_))));
         }
-        animAbsorb = ResourceFiles.ressourceFichier(StringList.concat(common_,ANIM_ABSORB));
+        animAbsorb = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,ANIM_ABSORB)));
         StringList filesNames_;
         filesNames_ = new StringList();
         for (String f: translatedPokemon.getVal(Constants.getLanguage()).getKeys()) {
@@ -3258,43 +3294,43 @@ public class DataBase implements WithMathFactory {
             }
             pk_.getMoveTutors().removeDuplicates();
         }
-        maxiPkBack = new StringMap<String>();
+        maxiPkBack = new StringMap<int[][]>();
         for (String s: pokedex.getKeys()) {
             String n_ = StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            maxiPkBack.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            maxiPkBack.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
-        maxiPkFront = new StringMap<String>();
+        maxiPkFront = new StringMap<int[][]>();
         for (String s: pokedex.getKeys()) {
             String n_ = StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            maxiPkFront.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            maxiPkFront.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
-        miniPk = new StringMap<String>();
+        miniPk = new StringMap<int[][]>();
         for (String s: pokedex.getKeys()) {
             String n_ = StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            miniPk.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            miniPk.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
-        miniItems = new StringMap<String>();
+        miniItems = new StringMap<int[][]>();
         for (String s: items.getKeys()) {
             String n_ = StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            miniItems.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            miniItems.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
-        typesImages = new StringMap<String>();
+        typesImages = new StringMap<int[][]>();
         for (String s: types) {
             String n_ = StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES,s,IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
-            typesImages.put(s, ResourceFiles.ressourceFichier(StringList.concat(common_,n_)));
+            typesImages.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_,n_))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         _perCentLoading_ += delta_;
@@ -3303,12 +3339,12 @@ public class DataBase implements WithMathFactory {
         map.initInteractiveElements();
         map.initializeTree();
         map.initializeAccessibility();
-        trainers = new StringMap<String>();
-        people = new StringMap<String>();
-        images = new StringMap<String>();
-        imagesTiles = new StringMap<ObjectMap<ScreenCoords,String>>();
-        links = new StringMap<String>();
-        miniMap = new StringMap<String>();
+        trainers = new StringMap<int[][]>();
+        people = new StringMap<int[][]>();
+        images = new StringMap<int[][]>();
+        imagesTiles = new StringMap<ObjectMap<ScreenCoords,int[][]>>();
+        links = new StringMap<int[][]>();
+        miniMap = new StringMap<int[][]>();
         for (Place p: map.getPlaces().values()) {
             if (p instanceof League) {
                 League l_ = (League) p;
@@ -3316,22 +3352,22 @@ public class DataBase implements WithMathFactory {
                     LevelLeague lev_ = (LevelLeague)l;
                     String f_ = lev_.getTrainer().getImageMaxiFileName();
                     String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
-                    trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    trainers.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     f_ = lev_.getTrainer().getImageMiniFileName();
                     file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
-                    people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    people.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     for (Block b_: l.getBlocks().values()) {
                         f_ = b_.getTileFileName();
                         file_=StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,f_);
-                        images.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                        images.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     }
                     f_ = lev_.getFileName();
                     file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
-                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    links.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 }
                 String f_ = l_.getFileName();
                 String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
-                links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                links.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 continue;
             }
             if (p instanceof City) {
@@ -3342,44 +3378,44 @@ public class DataBase implements WithMathFactory {
                         for (Trainer t: g_.getLevel().getGymTrainers().values()) {
                             String f_ = t.getImageMaxiFileName();
                             String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
-                            trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                            trainers.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                             f_ = t.getImageMiniFileName();
                             file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
-                            people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                            people.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                         }
                         String f_ = g_.getLevel().getGymLeader().getImageMaxiFileName();
                         String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
-                        trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                        trainers.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                         f_ = g_.getLevel().getGymLeader().getImageMiniFileName();
                         file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
-                        people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                        people.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     }
                     if (b instanceof PokemonCenter) {
                         PokemonCenter pkCenter_ = (PokemonCenter) b;
                         for (Person g: pkCenter_.getLevel().getGerants().values()) {
                             String f_ = g.getImageMiniFileName();
                             String file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
-                            people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                            people.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                         }
                     }
                     for (Block b_: b.getLevel().getBlocks().values()) {
                         String f_ = b_.getTileFileName();
                         String file_=StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,f_);
-                        images.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                        images.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     }
                     String f_ = b.getImageFileName();
                     String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
-                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    links.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 }
                 for (Block b_: c_.getLevel().getBlocks().values()) {
                     String f_ = b_.getTileFileName();
                     String file_=StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,f_);
-                    images.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    images.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 }
                 for (Link k: c_.getLinksWithCaves().values()) {
                     String f_ = k.getFileName();
                     String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
-                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    links.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 }
                 continue;
             }
@@ -3391,27 +3427,27 @@ public class DataBase implements WithMathFactory {
                         TrainerMultiFights tr_ = (TrainerMultiFights) c;
                         String f_ = tr_.getImageMaxiFileName();
                         String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
-                        trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                        trainers.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                         f_ = tr_.getImageMiniFileName();
                         file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
-                        people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                        people.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     }
                 }
                 for (DualFight d: level_.getDualFights().values()) {
                     String f_ = d.getFoeTrainer().getImageMaxiFileName();
                     String file_=StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,f_);
-                    trainers.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    trainers.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     f_ = d.getFoeTrainer().getImageMiniFileName();
                     file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
-                    people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    people.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     f_ = d.getFoeTrainer().getImageMiniSecondTrainerFileName();
                     file_=StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,f_);
-                    people.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    people.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 }
                 for (Block b_: l.getBlocks().values()) {
                     String f_ = b_.getTileFileName();
                     String file_=StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,f_);
-                    images.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    images.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 }
             }
             if (p instanceof InitializedPlace) {
@@ -3419,7 +3455,7 @@ public class DataBase implements WithMathFactory {
                 for (Link k: p_.getLinksWithCaves().values()) {
                     String f_ = k.getFileName();
                     String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
-                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    links.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 }
             }
             if (p instanceof Cave) {
@@ -3427,14 +3463,14 @@ public class DataBase implements WithMathFactory {
                 for (Link k: cave_.getLinksWithOtherPlaces().values()) {
                     String f_ = k.getFileName();
                     String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
-                    links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                    links.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                 }
                 for (Level l: cave_.getLevelsMap().values()) {
                     LevelCave lCave_ = (LevelCave)l;
                     for (Link k: lCave_.getLinksOtherLevels().values()) {
                         String f_ = k.getFileName();
                         String file_=StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,f_);
-                        links.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+                        links.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
                     }
                 }
             }
@@ -3442,67 +3478,51 @@ public class DataBase implements WithMathFactory {
         for (TileMiniMap t: map.getMiniMap().values()) {
             String f_ = t.getFile();
             String file_=StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES,f_);
-            miniMap.put(f_, ResourceFiles.ressourceFichier(StringList.concat(common_, file_)));
+            miniMap.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, file_))));
         }
-        miniMap.put(map.getUnlockedCity(), ResourceFiles.ressourceFichier(StringList.concat(common_, MINI_MAP_FOLDER,SEPARATOR_FILES , map.getUnlockedCity())));
+        miniMap.put(map.getUnlockedCity(), BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(common_, MINI_MAP_FOLDER,SEPARATOR_FILES , map.getUnlockedCity()))));
         _perCentLoading_ += delta_;
         initializeWildPokemon();
-        deleteLineReturn(images);
-        deleteLineReturn(miniMap);
-        deleteLineReturn(links);
-        deleteLineReturn(maxiPkBack);
-        deleteLineReturn(maxiPkFront);
-        deleteLineReturn(miniPk);
-        deleteLineReturn(people);
-        deleteLineReturn(trainers);
-        deleteLineReturn(miniItems);
-        imageTmHm = StringList.removeStrings(imageTmHm, RETURN_LINE);
-        storage = StringList.removeStrings(storage, RETURN_LINE);
-        endGameImage = StringList.removeStrings(endGameImage, RETURN_LINE);
-        animAbsorb = StringList.removeStrings(animAbsorb, RETURN_LINE);
-        deleteLineReturn(overWorldHeros);
-        deleteLineReturn(frontHeros);
-        deleteLineReturn(backHeros);
-        deleteLineReturn(animStatis);
-        deleteLineReturn(animStatus);
-        deleteLineReturn(typesImages);
         _perCentLoading_ += delta_;
 //        MonteCarloUtil.deleteZeroEventsDeeply(this,false);
         validateEvolutions();
-        for (String i: maxiPkBack.values()) {
-            BufferedImage img_ = ConverterBufferedImage.decodeToImage(i);
-            if (img_.getWidth() > maxWidthPk) {
-                maxWidthPk = img_.getWidth();
+        for (int[][] i: maxiPkBack.values()) {
+            if (i.length == 0) {
+                throw new DataException();
             }
-            if (img_.getHeight() > maxHeightPk) {
-                maxHeightPk = img_.getHeight();
+            if (i[0].length > maxWidthPk) {
+                maxWidthPk = i[0].length;
+            }
+            if (i.length > maxHeightPk) {
+                maxHeightPk = i.length;
             }
 //            if (!Image.isValid(i)) {
 //                throw new DataException();
 //            }
         }
-        for (String i: maxiPkFront.values()) {
-            BufferedImage img_ = ConverterBufferedImage.decodeToImage(i);
-            if (img_.getWidth() > maxWidthPk) {
-                maxWidthPk = img_.getWidth();
+        for (int[][] i: maxiPkFront.values()) {
+            if (i.length == 0) {
+                throw new DataException();
             }
-            if (img_.getHeight() > maxHeightPk) {
-                maxHeightPk = img_.getHeight();
+            if (i[0].length > maxWidthPk) {
+                maxWidthPk = i[0].length;
+            }
+            if (i.length > maxHeightPk) {
+                maxHeightPk = i.length;
             }
 //            if (!Image.isValid(i)) {
 //                throw new DataException();
 //            }
         }
         int side_ = map.getSideLength();
-        for (EntryCust<String, String> i: images.entryList()) {
-            String img_ = i.getValue();
+        for (EntryCust<String, int[][]> i: images.entryList()) {
+            int[][] img_ = i.getValue();
             String name_ = i.getKey();
-            PairNumber<Integer,Integer> dimsBlock_ = ConverterBufferedImage.getDimensions(img_);
             Dims d_ = new Dims();
-            d_.setWidth((short) (dimsBlock_.getFirst()/side_));
-            d_.setHeight((short) (dimsBlock_.getSecond()/side_));
-            ObjectMap<ScreenCoords, String> tiles_;
-            tiles_ = new ObjectMap<ScreenCoords, String>();
+            d_.setWidth((short) (img_[0].length/side_));
+            d_.setHeight((short) (img_.length/side_));
+            ObjectMap<ScreenCoords, int[][]> tiles_;
+            tiles_ = new ObjectMap<ScreenCoords, int[][]>();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
@@ -3515,23 +3535,40 @@ public class DataBase implements WithMathFactory {
     }
     public void setupPseudoImages() {
         int side_ = map.getSideLength();
-        for (EntryCust<String, String> i: images.entryList()) {
-            String img_ = i.getValue();
+        for (EntryCust<String, int[][]> i: images.entryList()) {
+            int[][] img_ = i.getValue();
             String name_ = i.getKey();
-            PairNumber<Integer,Integer> dimsBlock_ = Image.getDimensions(img_, side_);
             Dims d_ = new Dims();
-            d_.setWidth(dimsBlock_.getFirst().shortValue());
-            d_.setHeight(dimsBlock_.getSecond().shortValue());
-            ObjectMap<ScreenCoords, String> tiles_;
-            tiles_ = new ObjectMap<ScreenCoords, String>();
+            d_.setWidth((short) (img_[0].length/side_));
+            d_.setHeight((short) (img_.length/side_));
+            ObjectMap<ScreenCoords, int[][]> tiles_;
+            tiles_ = new ObjectMap<ScreenCoords, int[][]>();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.put(sc_, Image.clip(img_, x * side_, y * side_, side_, side_));
+                    tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y * side_, side_, side_));
                 }
             }
             imagesTiles.put(name_, tiles_);
         }
+        //TODO
+//        for (EntryCust<String, int[][]> i: images.entryList()) {
+//            int[][] img_ = i.getValue();
+//            String name_ = i.getKey();
+//            PairNumber<Integer,Integer> dimsBlock_ = Image.getDimensions(img_, side_);
+//            Dims d_ = new Dims();
+//            d_.setWidth(dimsBlock_.getFirst().shortValue());
+//            d_.setHeight(dimsBlock_.getSecond().shortValue());
+//            ObjectMap<ScreenCoords, int[][]> tiles_;
+//            tiles_ = new ObjectMap<ScreenCoords, int[][]>();
+//            for (short x = 0; x < d_.getWidth(); x++) {
+//                for (short y = 0; y < d_.getHeight(); y++) {
+//                    ScreenCoords sc_ = new ScreenCoords(x, y);
+//                    tiles_.put(sc_, Image.clip(img_, x * side_, y * side_, side_, side_));
+//                }
+//            }
+//            imagesTiles.put(name_, tiles_);
+//        }
     }
     public static void deleteLineReturn(StringMap<String> _map) {
         for (EntryCust<String,String> e: _map.entryList()) {
@@ -3682,8 +3719,8 @@ public class DataBase implements WithMathFactory {
         functions = new StringList();
         keys = new StringList();
         filesWithSameNameDifferentCase = new StringList();
-        animStatis = new StringMap<String>();
-        animStatus = new StringMap<String>();
+        animStatis = new StringMap<int[][]>();
+        animStatus = new StringMap<int[][]>();
 //        webProg = new Map<>();
 //        webFiles = new Map<>();
 //        webFight = new Map<>();
@@ -6895,28 +6932,28 @@ public class DataBase implements WithMathFactory {
 //        }
         if (_addImages) {
             for (String n: animStatis.getKeys()) {
-                files_.put(StringList.concat(ANIM_STATIS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), animStatis.getVal(n));
+                files_.put(StringList.concat(ANIM_STATIS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(animStatis.getVal(n)));
             }
             for (String n: animStatus.getKeys()) {
-                files_.put(StringList.concat(ANIM_STATUS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), animStatus.getVal(n));
+                files_.put(StringList.concat(ANIM_STATUS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(animStatus.getVal(n)));
             }
-            files_.put(ANIM_ABSORB, animAbsorb);
+            files_.put(ANIM_ABSORB, BaseSixtyFourUtil.getSringByImage(animAbsorb));
             for (String n: images.getKeys()) {
-                files_.put(StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,n), images.getVal(n));
+                files_.put(StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(images.getVal(n)));
             }
             for (String n: miniMap.getKeys()) {
-                files_.put(StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES,n), miniMap.getVal(n));
+                files_.put(StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(miniMap.getVal(n)));
             }
             for (String n: links.getKeys()) {
-                files_.put(StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,n), links.getVal(n));
+                files_.put(StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(links.getVal(n)));
             }
             for (String n: people.getKeys()) {
-                files_.put(StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,n), people.getVal(n));
+                files_.put(StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(people.getVal(n)));
             }
             StringList linesHeros_;
             linesHeros_ = new StringList();
             for (ImageHeroKey k: frontHeros.getKeys()) {
-                String image_ = frontHeros.getVal(k);
+                String image_ = BaseSixtyFourUtil.getSringByImage(frontHeros.getVal(k));
                 StringBuilder str_ = new StringBuilder();
                 str_.append(k.getType().name());
                 str_.append(SEPARATOR_KEY_HEROS);
@@ -6928,7 +6965,7 @@ public class DataBase implements WithMathFactory {
             files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_FRONT), linesHeros_.join(RETURN_LINE));
             linesHeros_.clear();
             for (ImageHeroKey k: backHeros.getKeys()) {
-                String image_ = backHeros.getVal(k);
+                String image_ = BaseSixtyFourUtil.getSringByImage(backHeros.getVal(k));
                 StringBuilder str_ = new StringBuilder();
                 str_.append(k.getType().name());
                 str_.append(SEPARATOR_KEY_HEROS);
@@ -6940,7 +6977,7 @@ public class DataBase implements WithMathFactory {
             files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_BACK), linesHeros_.join(RETURN_LINE));
             linesHeros_.clear();
             for (ImageHeroKey k: overWorldHeros.getKeys()) {
-                String image_ = overWorldHeros.getVal(k);
+                String image_ = BaseSixtyFourUtil.getSringByImage(overWorldHeros.getVal(k));
                 StringBuilder str_ = new StringBuilder();
                 str_.append(k.getType().name());
                 str_.append(SEPARATOR_KEY_HEROS);
@@ -6953,28 +6990,26 @@ public class DataBase implements WithMathFactory {
             }
             files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_MINI), linesHeros_.join(RETURN_LINE));
             for (String n: trainers.getKeys()) {
-                files_.put(StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,n), trainers.getVal(n));
+                files_.put(StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(trainers.getVal(n)));
             }
             for (String n: maxiPkFront.getKeys()) {
-                files_.put(StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), maxiPkFront.getVal(n));
+                files_.put(StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(maxiPkFront.getVal(n)));
             }
             for (String n: maxiPkBack.getKeys()) {
-                files_.put(StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), maxiPkBack.getVal(n));
+                files_.put(StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(maxiPkBack.getVal(n)));
             }
             for (String n: miniPk.getKeys()) {
-                files_.put(StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), miniPk.getVal(n));
+                files_.put(StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(miniPk.getVal(n)));
             }
             for (String n: miniItems.getKeys()) {
-                files_.put(StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), miniItems.getVal(n));
+                files_.put(StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(miniItems.getVal(n)));
             }
             for (String n: typesImages.getKeys()) {
-                files_.put(StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), typesImages.getVal(n));
+                files_.put(StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(typesImages.getVal(n)));
             }
-            files_.put(StringList.concat(IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT), imageTmHm);
-            files_.put(StringList.concat(IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT), storage);
-            if (!endGameImage.isEmpty()) {
-                files_.put(StringList.concat(END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT), endGameImage);
-            }
+            files_.put(StringList.concat(IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(imageTmHm));
+            files_.put(StringList.concat(IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(storage));
+            files_.put(StringList.concat(END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(endGameImage));
         }
         return files_;
     }
@@ -7416,15 +7451,15 @@ public class DataBase implements WithMathFactory {
         return lawsDamageRate;
     }
 
-    public StringMap<String> getMiniPk() {
+    public StringMap<int[][]> getMiniPk() {
         return miniPk;
     }
 
-    public StringMap<String> getMaxiPkBack() {
+    public StringMap<int[][]> getMaxiPkBack() {
         return maxiPkBack;
     }
 
-    public StringMap<String> getMaxiPkFront() {
+    public StringMap<int[][]> getMaxiPkFront() {
         return maxiPkFront;
     }
 
@@ -7436,11 +7471,11 @@ public class DataBase implements WithMathFactory {
         return maxWidthPk;
     }
 
-    public StringMap<String> getMiniItems() {
+    public StringMap<int[][]> getMiniItems() {
         return miniItems;
     }
 
-    public String getTrainer(String _name) {
+    public int[][] getTrainer(String _name) {
         return getValueCaseInsensitive(trainers, _name);
 //        if (!trainers.contains(_name)) {
 //            return DataBase.EMPTY_STRING;
@@ -7448,11 +7483,11 @@ public class DataBase implements WithMathFactory {
 //        return trainers.getVal(_name);
     }
 
-    public StringMap<String> getTrainers() {
+    public StringMap<int[][]> getTrainers() {
         return trainers;
     }
 
-    public String getPerson(String _name) {
+    public int[][] getPerson(String _name) {
         return getValueCaseInsensitive(people, _name);
 //        if (!people.contains(_name)) {
 //            return DataBase.EMPTY_STRING;
@@ -7460,23 +7495,23 @@ public class DataBase implements WithMathFactory {
 //        return people.getVal(_name);
     }
 
-    public StringMap<String> getPeople() {
+    public StringMap<int[][]> getPeople() {
         return people;
     }
 
-    public ObjectMap<ImageHeroKey,String> getFrontHeros() {
+    public ObjectMap<ImageHeroKey,int[][]> getFrontHeros() {
         return frontHeros;
     }
 
-    public ObjectMap<ImageHeroKey,String> getBackHeros() {
+    public ObjectMap<ImageHeroKey,int[][]> getBackHeros() {
         return backHeros;
     }
 
-    public ObjectMap<ImageHeroKey,String> getOverWorldHeros() {
+    public ObjectMap<ImageHeroKey,int[][]> getOverWorldHeros() {
         return overWorldHeros;
     }
 
-    public String getLink(String _name) {
+    public int[][] getLink(String _name) {
         return getValueCaseInsensitive(links, _name);
 //        if (!links.contains(_name)) {
 //            return DataBase.EMPTY_STRING;
@@ -7484,11 +7519,11 @@ public class DataBase implements WithMathFactory {
 //        return links.getVal(_name);
     }
 
-    public StringMap<String> getLinks() {
+    public StringMap<int[][]> getLinks() {
         return links;
     }
 
-    public String getImage(String _name) {
+    public int[][] getImage(String _name) {
         return getValueCaseInsensitive(images, _name);
 //        if (!images.contains(_name)) {
 //            return DataBase.EMPTY_STRING;
@@ -7496,21 +7531,21 @@ public class DataBase implements WithMathFactory {
 //        return images.getVal(_name);
     }
 
-    public StringMap<String> getImages() {
+    public StringMap<int[][]> getImages() {
         return images;
     }
 
-    public String getImageTile(String _name, ScreenCoords _coords) {
-        for (EntryCust<String, ObjectMap<ScreenCoords,String>> e: imagesTiles.entryList()) {
+    public int[][] getImageTile(String _name, ScreenCoords _coords) {
+        for (EntryCust<String, ObjectMap<ScreenCoords,int[][]>> e: imagesTiles.entryList()) {
             if(!e.getKey().equalsIgnoreCase(_name)) {
                 continue;
             }
             return e.getValue().getVal(_coords);
         }
-        return EMPTY_STRING;
+        return new int[0][0];
     }
 
-    public String getMiniMap(String _name) {
+    public int[][] getMiniMap(String _name) {
         return getValueCaseInsensitive(miniMap, _name);
 //        if (!miniMap.contains(_name)) {
 //            return DataBase.EMPTY_STRING;
@@ -7518,16 +7553,16 @@ public class DataBase implements WithMathFactory {
 //        return miniMap.getVal(_name);
     }
 
-    public static String getValueCaseInsensitive(StringMap<String> _map, String _name) {
-        for (EntryCust<String, String> e: _map.entryList()) {
+    public static int[][] getValueCaseInsensitive(StringMap<int[][]> _map, String _name) {
+        for (EntryCust<String, int[][]> e: _map.entryList()) {
             if (e.getKey().equalsIgnoreCase(_name)) {
                 return e.getValue();
             }
         }
-        return DataBase.EMPTY_STRING;
+        return new int[0][0];
     }
 
-    public StringMap<String> getMiniMap() {
+    public StringMap<int[][]> getMiniMap() {
         return miniMap;
     }
 
@@ -7535,19 +7570,19 @@ public class DataBase implements WithMathFactory {
         return imagesDimensions;
     }
 
-    public String getImageTmHm() {
+    public int[][] getImageTmHm() {
         return imageTmHm;
     }
 
-    public void setImageTmHm(String _imageTmHm) {
+    public void setImageTmHm(int[][] _imageTmHm) {
         imageTmHm = _imageTmHm;
     }
 
-    public String getStorage() {
+    public int[][] getStorage() {
         return storage;
     }
 
-    public void setStorage(String _storage) {
+    public void setStorage(int[][] _storage) {
         storage = _storage;
     }
 
@@ -7834,11 +7869,11 @@ public class DataBase implements WithMathFactory {
         return avgWeight;
     }
 
-    public String getEndGameImage() {
+    public int[][] getEndGameImage() {
         return endGameImage;
     }
 
-    public void setEndGameImage(String _endGameImage) {
+    public void setEndGameImage(int[][] _endGameImage) {
         endGameImage = _endGameImage;
     }
 
@@ -7998,19 +8033,19 @@ public class DataBase implements WithMathFactory {
         return typesColors;
     }
 
-    public StringMap<String> getTypesImages() {
+    public StringMap<int[][]> getTypesImages() {
         return typesImages;
     }
 
-    public StringMap<String> getAnimStatis() {
+    public StringMap<int[][]> getAnimStatis() {
         return animStatis;
     }
 
-    public StringMap<String> getAnimStatus() {
+    public StringMap<int[][]> getAnimStatus() {
         return animStatus;
     }
 
-    public String getAnimAbsorb() {
+    public int[][] getAnimAbsorb() {
         return animAbsorb;
     }
 

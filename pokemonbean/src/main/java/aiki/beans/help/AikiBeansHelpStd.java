@@ -32,6 +32,7 @@ public final class AikiBeansHelpStd {
     public static final String TYPE_LANGUAGE_ELEMENT_KEY = "aiki.beans.help.LanguageElementKey";
     public static final String TYPE_LANGUAGE_ELEMENT_STRING_KEY = "aiki.beans.help.LanguageElementStringKey";
 
+    private static final String GET_MAP_WIDTH = "getMapWidth";
     private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String GET_PLACE_NAME = "getPlaceName";
     private static final String GET_MINI_MAP_IMAGE = "getMiniMapImage";
@@ -2017,6 +2018,9 @@ public final class AikiBeansHelpStd {
         fields_.put(TM,new StandardField(TM,_std.getCustList(),false,false,type_));
         fields_.put(HM,new StandardField(HM,_std.getCustList(),false,false,type_));
         fields_.put(TYPES,new StandardField(TYPES,_std.getCustList(),false,false,type_));
+        params_ = new StringList();
+        method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL,type_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(IS_FIRST_ROW,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -4504,6 +4508,10 @@ public final class AikiBeansHelpStd {
         GeneralHelpBean instance_ = (GeneralHelpBean) _instance.getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
+        if (StringList.quickEq(methodName_,GET_MAP_WIDTH)) {
+            res_.setResult(new IntStruct(instance_.getMapWidth()));
+            return res_;
+        }
         if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {
             res_.setResult(new BooleanStruct(instance_.isFirstRow((Long)_args[0])));
             return res_;

@@ -36,6 +36,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class MainWindow extends GroupFrame {
     private static final String ACCESS = "player.gui.MainWindow";
@@ -170,7 +171,7 @@ public class MainWindow extends GroupFrame {
         BufferedImage image_ = null;
         try {
             String file_ = ResourceFiles.ressourceFichier(RESOURCES_FOLDER+StreamTextFile.SEPARATEUR+ ICON);
-            image_ = ConverterBufferedImage.decodeToImage(file_);
+            image_ = ConverterBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(file_));
         } catch (RuntimeException _0) {
         }
         return image_;

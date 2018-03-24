@@ -42,14 +42,11 @@
 		</c:message>
 		<c:message value="msg_generalhelp,goal_2"/>
 		<br/>
-		<div style="font-size: 0;">
+		<map style="font-size: 0;" width="{getMapWidth()}">
 			<c:for key="p" map="miniMap" value="i">
-				<c:if condition="isFirstRow(p;;)">
-					<br/>
-				</c:if>
 				<a title="{getPlaceName(p;;)}"><c:img src="{getMiniMapImage(p;;)}"/></a>
 			</c:for>
-		</div>
+		</map>
 		<c:message value="msg_generalhelp,goal_3"/>
 		<c:img src="{unlockedCity}"/>
 		<br/>

@@ -19,14 +19,19 @@ public class DualSimpleImage extends DualImage {
         href = "";
         if (anchor_ != null) {
             JLabel label_ = getGraphic();
-            label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
-            if (!anchor_.getAttribute("command").isEmpty()) {
-                href = anchor_.getAttribute("command");
+            String prefix_ = getPage().getNavigation().getSession().getPrefix();
+            String command_ = new StringBuilder(prefix_).append("command").toString();
+            command_ = _component.getAnchor().getAttribute(command_);
+            if (!command_.isEmpty()) {
+                href = command_;
             } else if (!anchor_.getAttribute("href").isEmpty()) {
                 href = anchor_.getAttribute("href");
             } else {
                 href = "";
+            }
+            if (!href.trim().isEmpty()) {
+                label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             }
         }
     }

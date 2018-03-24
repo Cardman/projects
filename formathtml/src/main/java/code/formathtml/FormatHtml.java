@@ -79,6 +79,7 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.sml.Element;
 import code.sml.ElementList;
+import code.sml.FullDocument;
 import code.sml.NamedNodeMap;
 import code.sml.Node;
 import code.sml.NodeList;
@@ -283,7 +284,7 @@ public final class FormatHtml {
         }
         _conf.setDocument(doc_);
         _conf.clearPages();
-        return DocumentBuilder.toXml(doc_);
+        return DocumentBuilder.toXmlDocument(doc_);
     }
 
     static BeanElement tryToOpenDocument(Element _importElement,
@@ -587,7 +588,7 @@ public final class FormatHtml {
         _conf.addPage(ip_);
         checkSyntax(_conf, _docOrig, ip_.getHtml());
         Node en_ = r_;
-        Document doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
+        FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
         Node currentNode_ = doc_;
         ReadWriteHtml rw_ = new ReadWriteHtml();
         rw_.setRead(en_);
@@ -682,10 +683,10 @@ public final class FormatHtml {
                 if (_0 instanceof WrapperException) {
                     realCaught_ = ((WrapperException)_0).getWrapped();
                 }
+                _0.printStackTrace();
                 if (!throwException(_conf, realCaught_)) {
                     continue;
                 }
-                _0.printStackTrace();
                 String error_ = _conf.getStandards().getAliasError();
                 throw new RenderingException(new StdStruct(new CustomError(_conf.joinPages()),error_));
             }

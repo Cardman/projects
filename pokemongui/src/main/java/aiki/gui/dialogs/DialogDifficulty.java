@@ -16,7 +16,7 @@ import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.Dialog;
 import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
 public final class DialogDifficulty extends Dialog {
@@ -34,7 +34,7 @@ public final class DialogDifficulty extends Dialog {
 
     private StringMap<String> messages;
 
-    private SessionEditorPane session;
+    private RenderedPage session;
 
     private FacadeGame facade;
 
@@ -55,7 +55,8 @@ public final class DialogDifficulty extends Dialog {
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);
-        session = new SessionEditorPane();
+        JScrollPane scrollSession_ = new JScrollPane();
+        session = new RenderedPage(scrollSession_);
         session.setLanguage(_facade.getLanguage());
         session.setDataBase(_facade);
         session.setFrame(this);
@@ -88,14 +89,13 @@ public final class DialogDifficulty extends Dialog {
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
         LabelButton search_ = new LabelButton(messages.getVal(SEARCH_LABEL));
         field_ = new JTextField(20);
-        session.setLabel(area_);
+//        session.setLabel(area_);
         session.setSearchText(search_);
         session.setField(field_);
         session.addFinder();
         panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
-        JScrollPane scrollSession_ = new JScrollPane(session);
         scrollSession_.setPreferredSize(new Dimension(400, 400));
 //        group_.add(scrollSession_);
 //        JScrollPane scrollTextArea_ = new JScrollPane(area_);

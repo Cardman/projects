@@ -128,9 +128,9 @@ public final class DataMap {
 
     private transient ObjectMap<ScreenCoords,Coords> tiles = new ObjectMap<ScreenCoords, Coords>();
 
-    private transient ObjectMap<ScreenCoords,String> backgroundImages = new ObjectMap<ScreenCoords, String>();
+    private transient ObjectMap<ScreenCoords,int[][]> backgroundImages = new ObjectMap<ScreenCoords, int[][]>();
 
-    private transient ObjectMap<ScreenCoords,StringList> foregroundImages = new ObjectMap<ScreenCoords, StringList>();
+    private transient ObjectMap<ScreenCoords,CustList<int[][]>> foregroundImages = new ObjectMap<ScreenCoords, CustList<int[][]>>();
 
     public void validate(DataBase _d) {
         if (screenWidth < 0 || screenHeight < 0) {
@@ -612,20 +612,20 @@ public final class DataMap {
             }
             placesMiniMap_.add(tile_.getPlace());
         }
-        StringList imagesCities_;
-        StringList imagesRoads_;
-        StringList imagesCaves_;
-        StringList imagesLeagues_;
-        StringList imagesOutside_;
-        StringList imageUnlockedCity_ = new StringList(_d.getMiniMap(unlockedCity));
-        imagesCities_ = new StringList();
-        imagesRoads_ = new StringList();
-        imagesCaves_ = new StringList();
-        imagesLeagues_ = new StringList();
-        imagesOutside_ = new StringList();
+        CustList<int[][]> imagesCities_;
+        CustList<int[][]> imagesRoads_;
+        CustList<int[][]> imagesCaves_;
+        CustList<int[][]> imagesLeagues_;
+        CustList<int[][]> imagesOutside_;
+        CustList<int[][]> imageUnlockedCity_ = new CustList<int[][]>(_d.getMiniMap(unlockedCity));
+        imagesCities_ = new CustList<int[][]>();
+        imagesRoads_ = new CustList<int[][]>();
+        imagesCaves_ = new CustList<int[][]>();
+        imagesLeagues_ = new CustList<int[][]>();
+        imagesOutside_ = new CustList<int[][]>();
         for (MiniMapCoords m: list_) {
             TileMiniMap tile_ = miniMap.getVal(m);
-            String image_ = _d.getMiniMap(tile_.getFile());
+            int[][] image_ = _d.getMiniMap(tile_.getFile());
             if (Numbers.eq(tile_.getPlace(), CustList.INDEX_NOT_FOUND_ELT)) {
                 imagesOutside_.add(image_);
                 continue;
@@ -648,15 +648,47 @@ public final class DataMap {
                 continue;
             }
         }
-        EqList<StringList> images_ = new EqList<StringList>();
+        CustList<CustList<int[][]>> images_ = new CustList<CustList<int[][]>>();
         images_.add(imagesOutside_);
         images_.add(imagesCities_);
         images_.add(imagesRoads_);
         images_.add(imagesCaves_);
         images_.add(imagesLeagues_);
         images_.add(imageUnlockedCity_);
-        if (!StringList.disjoints(images_)) {
-            throw new DataException();
+        int size_ = images_.size();
+        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
+            for (int j = CustList.FIRST_INDEX; j < size_; j++) {
+                if (i == j) {
+                    continue;
+                }
+                for (int[][] k : images_.get(i)) {
+                    int height_ = k.length;
+                    int width_ = k[0].length;
+                    for (int[][] l: images_.get(j)) {
+                        if (height_!= l.length) {
+                            continue;
+                        }
+                        if (width_ != l[0].length) {
+                            continue;
+                        }
+                        boolean eq_ = true;
+                        for (int m = 0; m < height_; m++) {
+                            for (int n = 0; n < width_; n++) {
+                                if (l[m][n] != k[m][n]) {
+                                    eq_ = false;
+                                    break;
+                                }
+                            }
+                            if (!eq_) {
+                                break;
+                            }
+                        }
+                        if (eq_) {
+                            throw new DataException();
+                        }
+                    }
+                }
+            }
         }
         if (!Numbers.equalsSetShorts(placesMiniMap_, places.getKeys())) {
             throw new DataException();
@@ -664,7 +696,7 @@ public final class DataMap {
         if (list_.size() != (maxWidth_ + 1) * (maxHeight_ + 1)) {
             throw new DataException();
         }
-        if (_d.getMiniMap(getUnlockedCity()).isEmpty()) {
+        if (_d.getMiniMap(getUnlockedCity()).length == 0) {
             throw new DataException();
         }
 //        if (!_d.getMiniMap().contains(getUnlockedCity())) {
@@ -1135,10 +1167,10 @@ public final class DataMap {
         }
     }
 
-    public TreeMap<MiniMapCoords, String> getImages(DataBase _data) {
-        TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
+    public TreeMap<MiniMapCoords,int[][]> getImages(DataBase _data) {
+        TreeMap<MiniMapCoords, int[][]> map_ = new TreeMap<MiniMapCoords, int[][]>(new ComparatorMiniMapCoords());
         for (MiniMapCoords m_: miniMap.getKeys()) {
-            String image_ = _data.getMiniMap(miniMap.getVal(m_).getFile());
+            int[][] image_ = _data.getMiniMap(miniMap.getVal(m_).getFile());
 //            map_.put(new MiniMapCoords(m_.getXcoords(), m_.getYcoords()), image_);
             map_.put(m_, image_);
         }
@@ -1168,13 +1200,13 @@ public final class DataMap {
         return DataBase.EMPTY_STRING;
     }
 
-    public String getImage(DataBase _data, int _x, int _y) {
+    public int[][] getImage(DataBase _data, int _x, int _y) {
         MiniMapCoords m_ = new MiniMapCoords((byte)_x,(byte) _y);
         if (miniMap.contains(m_)) {
             String place_ = miniMap.getVal(m_).getFile();
             return _data.getMiniMap(place_);
         }
-        return DataBase.EMPTY_STRING;
+        return new int[0][0];
     }
 
     public int getMapWidth() {
@@ -3130,7 +3162,7 @@ public final class DataMap {
             Block bl_ = level_.getBlockByPoint(pt_);
             ScreenCoords c_ = level_.getScreenCoordsByPoint(pt_);
             String file_ = bl_.getTileFileName();
-            String img_ = _data.getImageTile(file_, c_);
+            int[][] img_ = _data.getImageTile(file_, c_);
             backgroundImages.put(k, img_);
         }
     }
@@ -3242,11 +3274,11 @@ public final class DataMap {
         return tiles;
     }
 
-    public ObjectMap<ScreenCoords, String> getBackgroundImages() {
+    public ObjectMap<ScreenCoords, int[][]> getBackgroundImages() {
         return backgroundImages;
     }
 
-    public ObjectMap<ScreenCoords, StringList> getForegroundImages() {
+    public ObjectMap<ScreenCoords, CustList<int[][]>> getForegroundImages() {
         return foregroundImages;
     }
 

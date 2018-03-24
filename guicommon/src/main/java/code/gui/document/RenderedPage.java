@@ -46,6 +46,14 @@ public final class RenderedPage implements ProcessingSession {
 
     private CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
 
+    private LabelButton find;
+    private JTextField field;
+
+    public RenderedPage(JScrollPane _frame) {
+        scroll = _frame;
+        navigation = new Navigation();
+    }
+
     public RenderedPage(JScrollPane _frame, LabelButton _find, JTextField _field) {
         scroll = _frame;
         navigation = new Navigation();
@@ -289,5 +297,21 @@ public final class RenderedPage implements ProcessingSession {
     }
     public CustList<DualAnimatedImage> getAnims() {
         return anims;
+    }
+
+    public void setSearchText(LabelButton _search) {
+        find = _search;
+    }
+
+    public void setField(JTextField _field) {
+        field = _field;
+    }
+
+    public void addFinder() {
+        if (find.getMouseListeners().length > 0) {
+            return;
+        }
+        finding = new FindEvent(field, this);
+        find.addMouseListener(finding);
     }
 }

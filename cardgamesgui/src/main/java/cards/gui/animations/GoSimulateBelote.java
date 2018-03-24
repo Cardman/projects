@@ -6,13 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.gui.ThreadInvoker;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.belote.BidBeloteSuit;
 import cards.belote.DealBelote;
 import cards.belote.DeclareHandBelote;
@@ -32,6 +25,13 @@ import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuBelote;
 import cards.gui.dialogs.FileConst;
+import code.gui.LabelButton;
+import code.gui.ThreadInvoker;
+import code.gui.document.RenderedPage;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -355,7 +355,8 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
         res_.initialize(new StringList(nicknames_), container.getScores());
         res_.setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.setMessages(Constants.getLanguage());
-        SessionEditorPane editor_ = new SessionEditorPane();
+        JScrollPane scroll_=new JScrollPane();
+        RenderedPage editor_ = new RenderedPage(scroll_);
         try {
 //            editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -365,8 +366,6 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
-        editor_.setEditable(false);
-        JScrollPane scroll_=new JScrollPane(editor_);
         scroll_.setPreferredSize(new Dimension(300,300));
         panneau_.add(scroll_);
 //        LabelButton bouton_=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));

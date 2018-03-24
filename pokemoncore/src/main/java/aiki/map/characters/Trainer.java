@@ -23,7 +23,7 @@ public abstract class Trainer extends Person {
     public void validateForEditing(DataBase _data) {
         super.validateForEditing(_data);
         if (!imageMaxiFileName.isEmpty()) {
-            if (!_data.getTrainer(imageMaxiFileName).isEmpty()) {
+            if (_data.getTrainer(imageMaxiFileName).length == 0) {
                 throw new DataException();
             }
         }
@@ -34,7 +34,7 @@ public abstract class Trainer extends Person {
         if (!super.hasValidImage(_data)) {
             return false;
         }
-        if (_data.getTrainer(imageMaxiFileName).isEmpty()) {
+        if (_data.getTrainer(imageMaxiFileName).length == 0) {
             return false;
         }
         return true;

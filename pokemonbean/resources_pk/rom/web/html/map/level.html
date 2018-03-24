@@ -39,11 +39,8 @@
 	<body>
 		<a c:command="web/html/index.html" href=""><c:message value="msg_levelmap,index"/></a><br/>
 		<a c:command="web/html/map/map.html" href=""><c:message value="msg_levelmap,map"/></a><br/>
-		<div style="font-size: 0;">
+		<map width="{getMapWidth()}">
 			<c:for key="p" map="tiles" value="b" varClassName='java.lang.String'>
-				<c:if condition="isFirstRow(p;;)">
-					<br/>
-				</c:if>
 				<c:if condition="withoutTitle(p;;)">
 					<c:if condition="!isAccessibleByBeatingSomeTrainers(p;;)">
 						<a c:command="$clickTileOnMap({p;;})"><c:img border="0" src="{b;}"/></a>
@@ -68,7 +65,7 @@
 					<c:a c:command="$clickTileOnMap({p;;})" value="msg_levelmap,title_mt"><c:img border="0" src="{b;}"/></c:a>
 				</c:if>
 			</c:for>
-		</div>
+		</map>
 		<br/>
 		<c:if condition="proponeTile">
 			<a c:command="$clickTile"><c:message value="msg_levelmap,click_tile"/></a><br/>

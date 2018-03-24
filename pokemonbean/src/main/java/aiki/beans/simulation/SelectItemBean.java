@@ -4,10 +4,10 @@ import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.ItemLine;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.items.Item;
-import code.images.ConverterBufferedImage;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class SelectItemBean extends CommonBean {
     private String item = DataBase.EMPTY_STRING;
@@ -127,7 +127,7 @@ public class SelectItemBean extends CommonBean {
     public String getMiniImage(Long _number) {
         String item_ = items.get(_number.intValue()).getName();
         DataBase data_ = (DataBase) getDataBase();
-        return ConverterBufferedImage.surroundImage(data_.getMiniItems().getVal(item_));
+        return BaseSixtyFourUtil.getSringByImage(data_.getMiniItems().getVal(item_));
     }
 
     public void setTypedName(String _typedName) {

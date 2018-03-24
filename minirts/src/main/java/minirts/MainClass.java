@@ -2,9 +2,6 @@ package minirts;
 
 import javax.swing.SwingUtilities;
 
-import code.imagesurl.data.Handler;
-
-
 public final class MainClass extends Thread {
 
     public static void main(String[] _args) {
@@ -13,7 +10,6 @@ public final class MainClass extends Thread {
 
     @Override
     public void run() {
-        Handler.install();
         new MainWindow();
     }
 }

@@ -41,7 +41,7 @@ public class BallRenderer extends CommonCellRenderer {
         maxWidthRate = 0;
         maxWidthNumber = 0;
         for (BallNumberRate b: _balls.values()) {
-            String img_ = facade.getData().getMiniItems().getVal(b.getName());
+            int[][] img_ = facade.getData().getMiniItems().getVal(b.getName());
             BufferedImage b_ = ConverterBufferedImage.decodeToImage(img_);
             Rate r_ = b.getRate();
             int w_ = getFontMetrics(getFont()).stringWidth(r_.toNumberString());
@@ -64,7 +64,7 @@ public class BallRenderer extends CommonCellRenderer {
             boolean _isSelected, boolean _cellHasFocus) {
         selected = _isSelected;
         ball = (BallNumberRate)_value;
-        String img_ = facade.getData().getMiniItems().getVal(ball.getName());
+        int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());
         ballImage = ConverterBufferedImage.decodeToImage(img_);
         setPreferredSize(new Dimension(100, ballImage.getHeight()));
         return this;

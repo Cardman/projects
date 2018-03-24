@@ -4,7 +4,6 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.bean.Bean;
-import code.images.ConverterBufferedImage;
 import code.util.StringList;
 
 public class TarotSortedCardsBean extends Bean {
@@ -16,10 +15,10 @@ public class TarotSortedCardsBean extends Bean {
     @Override
     public void beforeDisplaying() {
         for (CardTarot c: HandTarot.couleurComplete(Suit.TRUMP)) {
-            imagesTrump.add(ConverterBufferedImage.surroundImage(GraphicTarotCard.getTxtImage(c)));
+            imagesTrump.add(GraphicTarotCard.getTxtImage(c));
         }
         for (CardTarot c: HandTarot.couleurComplete(Suit.HEART)) {
-            imagesSuit.add(ConverterBufferedImage.surroundImage(GraphicTarotCard.getTxtImage(c)));
+            imagesSuit.add(GraphicTarotCard.getTxtImage(c));
         }
     }
 }

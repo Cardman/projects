@@ -72,6 +72,7 @@ import code.util.TreeMap;
 import code.util.consts.Constants;
 import code.util.ints.MathFactory;
 import code.util.ints.WithMathFactory;
+import code.util.opers.BaseSixtyFourUtil;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
@@ -155,13 +156,13 @@ public class FacadeGame implements WithMathFactory {
     public String getFrontChosenHeros() {
         ImageHeroKey i_;
         i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex());
-        return data.getFrontHeros().getVal(i_);
+        return BaseSixtyFourUtil.getSringByImage(data.getFrontHeros().getVal(i_));
     }
 
     public String getFrontChosenHerosOppositeSex() {
         ImageHeroKey i_;
         i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex().getOppositeSex());
-        return data.getFrontHeros().getVal(i_);
+        return BaseSixtyFourUtil.getSringByImage(data.getFrontHeros().getVal(i_));
     }
 
 
@@ -357,11 +358,11 @@ public class FacadeGame implements WithMathFactory {
 //        }
     }
 
-    public ObjectMap<ScreenCoords, String> getBackgroundImages() {
+    public ObjectMap<ScreenCoords, int[][]> getBackgroundImages() {
         return data.getMap().getBackgroundImages();
     }
 
-    public ObjectMap<ScreenCoords, StringList> getForegroundImages() {
+    public ObjectMap<ScreenCoords, CustList<int[][]>> getForegroundImages() {
         return data.getMap().getForegroundImages();
     }
 
@@ -427,7 +428,7 @@ public class FacadeGame implements WithMathFactory {
         }
     }
 
-    public String getTrainerImage() {
+    public int[][] getTrainerImage() {
         return game.getTrainerImage(data);
     }
 
@@ -1206,8 +1207,8 @@ public class FacadeGame implements WithMathFactory {
         changeCamera();
     }
 
-    public TreeMap<MiniMapCoords, String> getImages() {
-        TreeMap<MiniMapCoords, String> miniMap_;
+    public TreeMap<MiniMapCoords, int[][]> getImages() {
+        TreeMap<MiniMapCoords, int[][]> miniMap_;
         miniMap_ = data.getMap().getImages(data);
         for (MiniMapCoords m: miniMap_.getKeys()) {
             TileMiniMap tile_ = data.getMap().getMiniMap().getVal(m);
@@ -1280,7 +1281,7 @@ public class FacadeGame implements WithMathFactory {
         return data.getMap().getName(_x, _y);
     }
 
-    public String getImage(int _x, int _y) {
+    public int[][] getImage(int _x, int _y) {
         return data.getMap().getImage(data, _x, _y);
     }
 
@@ -2318,15 +2319,15 @@ public class FacadeGame implements WithMathFactory {
     //%%%%end%%%% functions for learning move tutor
 
     //%%%%begin%%%% fight before round or before proponed switch
-    public String getMiniHeros() {
+    public int[][] getMiniHeros() {
         return game.getMiniHeros(data);
     }
 
-    public String getBackHeros() {
+    public int[][] getBackHeros() {
         return game.getBackHeros(data);
     }
 
-    public String getBackHerosSexOpposite() {
+    public int[][] getBackHerosSexOpposite() {
         return game.getBackHerosSexOpposite(data);
     }
 

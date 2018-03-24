@@ -197,12 +197,11 @@ public final class ResourceFiles {
             StringBuilder strBuilder_ = new StringBuilder();
             while (true) {
 
-                String ligne_ = _br.readLine();
-                if (ligne_ == null) {
+                int char_ = _br.read();
+                if (char_ < 0) {
                     break;
                 }
-                strBuilder_.append(ligne_);
-                strBuilder_.append(_saut);
+                strBuilder_.append((char)char_);
             }
             return strBuilder_.toString();
         } catch (IOException _0) {

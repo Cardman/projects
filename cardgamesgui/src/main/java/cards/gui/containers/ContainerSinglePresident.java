@@ -55,8 +55,8 @@ import cards.president.enumerations.Playing;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
 import code.gui.ThreadInvoker;
+import code.gui.document.RenderedPage;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -600,7 +600,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         res_.setMessages(Constants.getLanguage());
         setScores(res_.getScores());
 
-        SessionEditorPane editor_ = new SessionEditorPane();
+        JScrollPane scroll_=new JScrollPane();
+        RenderedPage editor_ = new RenderedPage(scroll_);
         try {
 //            editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -610,8 +611,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
-        editor_.setEditable(false);
-        JScrollPane scroll_=new JScrollPane(editor_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getType()==GameType.RANDOM) {

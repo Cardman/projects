@@ -19,10 +19,10 @@ import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
-import code.images.ConverterBufferedImage;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class LegendaryPokemonBean extends CommonBean {
     private Pokemon pokemon;
@@ -34,7 +34,7 @@ public class LegendaryPokemonBean extends CommonBean {
     public String getImage() {
         DataBase data_ = (DataBase) getDataBase();
         String name_ = pokemon.getName();
-        return ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(name_));
+        return BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {

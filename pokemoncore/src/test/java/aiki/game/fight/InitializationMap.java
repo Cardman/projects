@@ -1,4 +1,5 @@
 package aiki.game.fight;
+import code.images.Image;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
@@ -1551,74 +1552,74 @@ final class InitializationMap {
             }
         }
         for (String p: _data.getPokedex().getKeys()) {
-            _data.getMiniPk().put(p, "2;-15;-15;-15;-15");
+            _data.getMiniPk().put(p, getImageByString("2;-15;-15;-15;-15"));
         }
         for (String p: _data.getItems().getKeys()) {
-            _data.getMiniItems().put(p, "2;-16;-16;-16;-16");
+            _data.getMiniItems().put(p, getImageByString("2;-16;-16;-16;-16"));
         }
         StringList building_ = new StringList("18");
         for (int i = 0; i < 324; i++) {
             building_.add("-32985");
         }
-        _data.addImage(BUILDING, building_.join(";"));
+        _data.addImage(BUILDING, getImageByString(building_.join(";")));
         StringList default_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             default_.add("-1");
         }
-        _data.addImage(DAFAULT, default_.join(";"));
+        _data.addImage(DAFAULT, getImageByString(default_.join(";")));
         StringList desert_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             desert_.add("-3584");
         }
-        _data.addImage(DESERT, desert_.join(";"));
+        _data.addImage(DESERT, getImageByString(desert_.join(";")));
         StringList grass_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             grass_.add("-14503604");
         }
-        _data.addImage(GRASS, grass_.join(";"));
+        _data.addImage(GRASS, getImageByString(grass_.join(";")));
         StringList nothing_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             nothing_.add("-16777216");
         }
-        _data.addImage(NOTHING, nothing_.join(";"));
+        _data.addImage(NOTHING, getImageByString(nothing_.join(";")));
         StringList road_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             road_.add("-7369361");
         }
-        _data.addImage(ROAD, road_.join(";"));
+        _data.addImage(ROAD, getImageByString(road_.join(";")));
         StringList rock_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             rock_.add("-4621737");
         }
-        _data.addImage(ROCK, rock_.join(";"));
+        _data.addImage(ROCK, getImageByString(rock_.join(";")));
         StringList snow_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             snow_.add("-1");
         }
-        _data.addImage(SNOW, snow_.join(";"));
+        _data.addImage(SNOW, getImageByString(snow_.join(";")));
         StringList water_ = new StringList("4");
         for (int i = 0; i < 16; i++) {
             water_.add("-16776961");
         }
-        _data.addImage(WATER, water_.join(";"));
+        _data.addImage(WATER, getImageByString(water_.join(";")));
 //        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer", "2;-18000;-18000;-18000;-18000");
 //        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"person", "2;-1800;-1800;-1800;-1800");
 //        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer_one", "2;-19000;-19000;-19000;-19000");
 //        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer_two", "2;-19008;-19008;-19008;-19008");
 //        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"ally", "2;-19508;-19508;-19508;-19508");
 //        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"gerant", "2;-20508;-20508;-20508;-20508");
-        _data.addPerson(TRAINER, "2;-18000;-18000;-18000;-18000");
-        _data.addPerson(PERSON, "2;-1800;-1800;-1800;-1800");
-        _data.addPerson(TRAINER_ONE, "2;-19000;-19000;-19000;-19000");
-        _data.addPerson(TRAINER_TWO, "2;-19008;-19008;-19008;-19008");
-        _data.addPerson(ALLY, "2;-19508;-19508;-19508;-19508");
-        _data.addPerson(GERANT, "2;-20508;-20508;-20508;-20508");
+        _data.addPerson(TRAINER, getImageByString("2;-18000;-18000;-18000;-18000"));
+        _data.addPerson(PERSON, getImageByString("2;-1800;-1800;-1800;-1800"));
+        _data.addPerson(TRAINER_ONE, getImageByString("2;-19000;-19000;-19000;-19000"));
+        _data.addPerson(TRAINER_TWO, getImageByString("2;-19008;-19008;-19008;-19008"));
+        _data.addPerson(ALLY, getImageByString("2;-19508;-19508;-19508;-19508"));
+        _data.addPerson(GERANT, getImageByString("2;-20508;-20508;-20508;-20508"));
 
         //begin insertion
-        _data.addTrainerImage(TRAINER, "2;-18000;-18000;-18000;-18000");
-        _data.addTrainerImage(TRAINER_ONE, "2;-19000;-19000;-19000;-19000");
-        _data.addTrainerImage(TRAINER_TWO, "2;-19008;-19008;-19008;-19008");
-        _data.addTrainerImage(ALLY, "2;-19508;-19508;-19508;-19508");
+        _data.addTrainerImage(TRAINER, getImageByString("2;-18000;-18000;-18000;-18000"));
+        _data.addTrainerImage(TRAINER_ONE, getImageByString("2;-19000;-19000;-19000;-19000"));
+        _data.addTrainerImage(TRAINER_TWO, getImageByString("2;-19008;-19008;-19008;-19008"));
+        _data.addTrainerImage(ALLY, getImageByString("2;-19508;-19508;-19508;-19508"));
         //end insertion
 
         StringList herosBottom_ = new StringList("-2","-2","-2","-2","-2","-2");
@@ -1637,7 +1638,7 @@ final class InitializationMap {
                         herosTop_.add(String.valueOf(iHeros_));
                     }
                     herosTop_.addAllElts(herosBottom_);
-                    _data.getOverWorldHeros().put(key_, herosTop_.join(";"));
+                    _data.getOverWorldHeros().put(key_, getImageByString(herosTop_.join(";")));
                     iHeros_++;
                 }
             }
@@ -1650,20 +1651,20 @@ final class InitializationMap {
                     iHerosBis_++;
                 }
                 herosTop_.addAllElts(herosBottom_);
-                _data.getBackHeros().put(key_, herosTop_.join(";"));
+                _data.getBackHeros().put(key_, getImageByString(herosTop_.join(";")));
                 iHerosBis_++;
             }
         }
-        _data.addLink(LINK, "2;-255;-255;-255;-255");
-        _data.setImageTmHm("2;-800;-800;-800;-800");
-        _data.setStorage("2;-3;-3;-3;-3");
-        _data.getMiniMap().put(MINI, "2;118;218;112;200");
-        _data.getMiniMap().put(MINI1, "2;218;118;112;200");
-        _data.getMiniMap().put(MINI2, "2;218;112;118;200");
-        _data.getMiniMap().put(MINI3, "2;218;112;200;118");
-        _data.getMiniMap().put(MINI4, "2;218;200;112;118");
-        _data.getMiniMap().put(MINI5, "2;200;218;112;118");
-        _data.getMiniMap().put(MINI6, "2;200;218;212;118");
+        _data.addLink(LINK, getImageByString("2;-255;-255;-255;-255"));
+        _data.setImageTmHm(getImageByString("2;-800;-800;-800;-800"));
+        _data.setStorage(getImageByString("2;-3;-3;-3;-3"));
+        _data.getMiniMap().put(MINI, getImageByString("2;118;218;112;200"));
+        _data.getMiniMap().put(MINI1, getImageByString("2;218;118;112;200"));
+        _data.getMiniMap().put(MINI2, getImageByString("2;218;112;118;200"));
+        _data.getMiniMap().put(MINI3, getImageByString("2;218;112;200;118"));
+        _data.getMiniMap().put(MINI4, getImageByString("2;218;200;112;118"));
+        _data.getMiniMap().put(MINI5, getImageByString("2;200;218;112;118"));
+        _data.getMiniMap().put(MINI6, getImageByString("2;200;218;212;118"));
     }
 
     static void initMiniMap(DataBase _data) {
@@ -1963,5 +1964,19 @@ final class InitializationMap {
 
     private static Point newPoint(int _x,int _y) {
         return new Point((short)_x, (short)_y);
+    }
+
+    private static int[][] getImageByString(String _string) {
+        Image i_ = new Image(_string);
+        Numbers<Integer> pixels_ = i_.getPixels();
+        int width_ = i_.getWidth();
+        int height_ = i_.getHeight();
+        int[][] img_ = new int[height_][width_];
+        for (int i = 0; i < height_; i++) {
+            for (int j = 0; j < width_; j++) {
+                img_[i][j] = pixels_.get(j + width_ * i);
+            }
+        }
+        return img_;
     }
 }

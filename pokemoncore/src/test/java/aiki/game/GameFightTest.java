@@ -73,7 +73,7 @@ public class GameFightTest extends InitializationDataBase {
         LevelRoad l_ = road_.getLevelByCoords(closest_);
         TrainerMultiFights t_ = (TrainerMultiFights) l_.getCharacters().getVal(closest_.getLevel().getPoint());
         String fileName_ = t_.getImageMaxiFileName();
-        String img_ = _data_.getTrainer(fileName_);
+        int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
 
@@ -90,7 +90,7 @@ public class GameFightTest extends InitializationDataBase {
         LevelRoad l_ = road_.getLevelByCoords(closest_);
         DualFight t_ = l_.getDualFights().getVal(newPoint(2, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
-        String img_ = _data_.getTrainer(fileName_);
+        int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
 
@@ -107,7 +107,7 @@ public class GameFightTest extends InitializationDataBase {
         LevelRoad l_ = road_.getLevelByCoords(closest_);
         DualFight t_ = l_.getDualFights().getVal(newPoint(2, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
-        String img_ = _data_.getTrainer(fileName_);
+        int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
 
@@ -123,7 +123,7 @@ public class GameFightTest extends InitializationDataBase {
         LevelIndoorGym l_ = (LevelIndoorGym) city_.getLevelByCoords(closest_);
         GymLeader t_ = l_.getGymLeader();
         String fileName_ = t_.getImageMaxiFileName();
-        String img_ = _data_.getTrainer(fileName_);
+        int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
 
@@ -139,7 +139,7 @@ public class GameFightTest extends InitializationDataBase {
         LevelIndoorGym l_ = (LevelIndoorGym) city_.getLevelByCoords(closest_);
         GymTrainer t_ = l_.getGymTrainers().getVal(newPoint(1, 7));
         String fileName_ = t_.getImageMaxiFileName();
-        String img_ = _data_.getTrainer(fileName_);
+        int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
 
@@ -161,7 +161,7 @@ public class GameFightTest extends InitializationDataBase {
         LevelLeague l_ = city_.getLevelByCoords(closest_);
         TrainerLeague t_ = l_.getTrainer();
         String fileName_ = t_.getImageMaxiFileName();
-        String img_ = _data_.getTrainer(fileName_);
+        int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
 
@@ -173,7 +173,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
-        assertEq(NULL_REF,game_.getTrainerImage(_data_));
+        assertEq(new int[0][0],game_.getTrainerImage(_data_));
     }
 
     @Test
@@ -189,7 +189,7 @@ public class GameFightTest extends InitializationDataBase {
         LevelRoad l_ = road_.getLevelByCoords(closest_);
         DualFight t_ = l_.getDualFights().getVal(newPoint(4, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
-        String img_ = _data_.getTrainer(fileName_);
+        int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
 
@@ -206,7 +206,7 @@ public class GameFightTest extends InitializationDataBase {
         LevelRoad l_ = road_.getLevelByCoords(closest_);
         DualFight t_ = l_.getDualFights().getVal(newPoint(4, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
-        String img_ = _data_.getTrainer(fileName_);
+        int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
 
@@ -218,7 +218,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        String exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex));
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex));
         assertEq(exp_, game_.getBackHeros(_data_));
     }
 
@@ -230,7 +230,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        String exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex));
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex));
         assertEq(exp_, game_.getBackHeros(_data_));
     }
 
@@ -242,7 +242,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        String exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex.getOppositeSex()));
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex.getOppositeSex()));
         assertEq(exp_, game_.getBackHerosSexOpposite(_data_));
     }
 
@@ -254,7 +254,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        String exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex.getOppositeSex()));
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex.getOppositeSex()));
         assertEq(exp_, game_.getBackHerosSexOpposite(_data_));
     }
 

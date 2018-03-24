@@ -1,4 +1,4 @@
-package code.images;
+package code.imagesurl;
 import static code.images.EquallableImageUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -33,26 +33,26 @@ public class ConverterBufferedImageTest {
     public void toBaseSixtyFour1Test() {
         BufferedImage img_ = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         img_.setRGB(0, 0, Color.WHITE.getRGB());
-        assertEq("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=", ConverterBufferedImage.toBaseSixtyFour(img_));
+        assertEq("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=", ConverterBufferedImageAdv.toBaseSixtyFour(img_));
     }
 
     @Test
     public void toBaseSixtyFour2Test() {
         BufferedImage img_ = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         img_.setRGB(0, 0, Color.WHITE.getRGB());
-        assertEq("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=", ConverterBufferedImage.toBaseSixtyFour(img_, "png"));
+        assertEq("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=", ConverterBufferedImageAdv.toBaseSixtyFour(img_, "png"));
     }
 
     @Test
     public void toBaseSixtyFour3Test() {
         BufferedImage img_ = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         img_.setRGB(0, 0, ConverterBufferedImage.getTransparentWhite().getRGB());
-        assertEq(TRANSPARENT_WHITE, ConverterBufferedImage.toBaseSixtyFour(img_));
+        assertEq(TRANSPARENT_WHITE, ConverterBufferedImageAdv.toBaseSixtyFour(img_));
     }
 
     @Test
     public void decodeToImage1Test() {
-        BufferedImage img_ = ConverterBufferedImage.decodeToImage("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=");
+        BufferedImage img_ = ConverterBufferedImageAdv.decodeToImage("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=");
         assertEq(1, img_.getWidth());
         assertEq(1, img_.getHeight());
         assertEq(Color.WHITE.getRGB(), img_.getRGB(0, 0));
@@ -60,7 +60,7 @@ public class ConverterBufferedImageTest {
 
     @Test
     public void decodeToImage2Test() {
-        BufferedImage img_ = ConverterBufferedImage.decodeToImage("");
+        BufferedImage img_ = ConverterBufferedImageAdv.decodeToImage("");
         assertNull( img_);
     }
 
@@ -69,7 +69,7 @@ public class ConverterBufferedImageTest {
         BufferedImage img_ = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         img_.setRGB(0, 0, Color.WHITE.getRGB());
         CustList<BufferedImage> images_ = new CustList<BufferedImage>(img_);
-        assertEq("R0lGODlhAQABAPAAAP///////yH5BAABAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAAQABAEAIBAABBAQAOw==",ConverterBufferedImage.toBaseSixtyFourGif(images_, 1, true));
+        assertEq("R0lGODlhAQABAPAAAP///////yH5BAABAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAAQABAEAIBAABBAQAOw==",ConverterBufferedImageAdv.toBaseSixtyFourGif(images_, 1, true));
     }
 
     @Test
@@ -77,12 +77,12 @@ public class ConverterBufferedImageTest {
         BufferedImage img_ = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         img_.setRGB(0, 0, Color.WHITE.getRGB());
         CustList<BufferedImage> images_ = new CustList<BufferedImage>(img_);
-        assertEq("R0lGODlhAQABAPAAAP///////yH5BAABAAAALAAAAAABAAEAQAgEAAEEBAA7",ConverterBufferedImage.toBaseSixtyFourGif(images_, 1, false));
+        assertEq("R0lGODlhAQABAPAAAP///////yH5BAABAAAALAAAAAABAAEAQAgEAAEEBAA7",ConverterBufferedImageAdv.toBaseSixtyFourGif(images_, 1, false));
     }
 
     @Test
     public void getAnimation1Test() {
-        GifAnimation gif_ = ConverterBufferedImage.getAnimation("R0lGODlhAQABAPAAAP///////yH5BAABAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAAQABAEAIBAABBAQAOw==");
+        GifAnimation gif_ = ConverterBufferedImageAdv.getAnimation("R0lGODlhAQABAPAAAP///////yH5BAABAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAAQABAEAIBAABBAQAOw==");
         assertEq(1, gif_.getImages().size());
         assertEq(1, gif_.getImages().get(0).getHeight());
         assertEq(1, gif_.getImages().get(0).getWidth());
@@ -93,7 +93,7 @@ public class ConverterBufferedImageTest {
 
     @Test
     public void getAnimation2Test() {
-        GifAnimation gif_ = ConverterBufferedImage.getAnimation("R0lGODlhAQABAPAAAP///////yH5BAABAAAALAAAAAABAAEAQAgEAAEEBAA7");
+        GifAnimation gif_ = ConverterBufferedImageAdv.getAnimation("R0lGODlhAQABAPAAAP///////yH5BAABAAAALAAAAAABAAEAQAgEAAEEBAA7");
         assertEq(1, gif_.getImages().size());
         assertEq(1, gif_.getImages().get(0).getHeight());
         assertEq(1, gif_.getImages().get(0).getWidth());
@@ -104,34 +104,34 @@ public class ConverterBufferedImageTest {
 
     @Test
     public void getDimensions1Test() {
-        PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=");
+        PairNumber<Integer,Integer> dims_ = ConverterBufferedImageAdv.getDimensions("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=");
         assertEq(1, dims_.getFirst().intValue());
         assertEq(1, dims_.getSecond().intValue());
     }
 
     @Test
     public void stackImages1Test() {
-        assertEq("IMG", ConverterBufferedImage.stackImages("IMG", ""));
+        assertEq("IMG", ConverterBufferedImageAdv.stackImages("IMG", ""));
     }
 
     @Test
     public void stackImages2Test() {
         String back_ = TRANSPARENT_WHITE;
         String front_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=";
-        assertEq(front_, ConverterBufferedImage.stackImages(back_, front_));
+        assertEq(front_, ConverterBufferedImageAdv.stackImages(back_, front_));
     }
 
     @Test
     public void stackImages3Test() {
         String front_ = TRANSPARENT_WHITE;
         String back_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=";
-        assertEq(back_, ConverterBufferedImage.stackImages(back_, front_));
+        assertEq(back_, ConverterBufferedImageAdv.stackImages(back_, front_));
     }
 
     @Test
     public void centerImage1Test() {
         String front_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=";
-        BufferedImage img_ = ConverterBufferedImage.centerImage(front_, 3);
+        BufferedImage img_ = ConverterBufferedImageAdv.centerImage(front_, 3);
         assertEq(3, img_.getWidth());
         assertEq(3, img_.getHeight());
         assertEq(ConverterBufferedImage.getTransparentBlack().getRGB(), img_.getRGB(0, 0));
@@ -148,7 +148,7 @@ public class ConverterBufferedImageTest {
     @Test
     public void centerImage2Test() {
         String front_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=";
-        BufferedImage img_ = ConverterBufferedImage.centerImage(front_, 3, 3);
+        BufferedImage img_ = ConverterBufferedImageAdv.centerImage(front_, 3, 3);
         assertEq(3, img_.getWidth());
         assertEq(3, img_.getHeight());
         assertEq(ConverterBufferedImage.getTransparentBlack().getRGB(), img_.getRGB(0, 0));
@@ -165,7 +165,7 @@ public class ConverterBufferedImageTest {
     @Test
     public void centerImage3Test() {
         String front_ = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP4DwQACfsD/Wj6HMwAAAAASUVORK5CYII=";
-        BufferedImage img_ = ConverterBufferedImage.centerImage(front_, 3, 4);
+        BufferedImage img_ = ConverterBufferedImageAdv.centerImage(front_, 3, 4);
         assertEq(3, img_.getWidth());
         assertEq(4, img_.getHeight());
         assertEq(ConverterBufferedImage.getTransparentBlack().getRGB(), img_.getRGB(0, 0));

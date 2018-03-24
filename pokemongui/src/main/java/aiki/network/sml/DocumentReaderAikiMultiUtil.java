@@ -56,7 +56,7 @@ public final class DocumentReaderAikiMultiUtil {
     private static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
 
     public static Object getObject(String _input) {
-        Document doc_ = DocumentBuilder.parseSax(_input);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_input);
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);

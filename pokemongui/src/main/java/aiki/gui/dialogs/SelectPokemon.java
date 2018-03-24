@@ -12,7 +12,7 @@ import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.gui.events.ClosingDialogEvent;
 import code.util.StringMap;
 
@@ -81,9 +81,8 @@ public final class SelectPokemon extends SelectDialog {
         if (p_ == null) {
             return;
         }
-        SessionEditorPane session_;
-        session_ = new SessionEditorPane();
-        session_.getCaret().setSelectionVisible(false);
+        RenderedPage session_;
+        session_ = new RenderedPage(new JScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
         //session_.setFiles(facade.getData().getWebPk(), new Map<String,String>());
@@ -142,7 +141,7 @@ public final class SelectPokemon extends SelectDialog {
         return DIALOG.isOk();
     }
 
-    private static void showHtmlDialog(SessionEditorPane _session) {
+    private static void showHtmlDialog(RenderedPage _session) {
 //        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session);
     }

@@ -6,12 +6,12 @@ import aiki.comparators.ComparatorTrStringBoolean;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
-import code.images.ConverterBufferedImage;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.opers.BaseSixtyFourUtil;
 import code.util.pagination.SelectedBoolean;
 
 public class SelectPokemonBean extends CommonBean {
@@ -132,7 +132,7 @@ public class SelectPokemonBean extends CommonBean {
         String name_ = pokedex.get(_number.intValue()).getName();
         DataBase data_ = (DataBase) getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
-        return ConverterBufferedImage.surroundImage(data_.getMiniPk().getVal(name_));
+        return BaseSixtyFourUtil.getSringByImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
     public String clickLink(Long _number) {

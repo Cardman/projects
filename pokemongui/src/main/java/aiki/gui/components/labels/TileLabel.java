@@ -11,7 +11,7 @@ public class TileLabel extends JLabel {
 
     private BufferedImage image;
 
-    public TileLabel(String _image, int _sideLength) {
+    public TileLabel(int[][] _image, int _sideLength) {
         image = ConverterBufferedImage.decodeToImage(_image);
         setPreferredSize(new Dimension(_sideLength, _sideLength));
     }

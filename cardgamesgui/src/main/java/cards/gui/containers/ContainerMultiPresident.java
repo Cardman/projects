@@ -65,7 +65,7 @@ import cards.president.enumerations.Playing;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
@@ -90,7 +90,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private CustList<JLabel> playersPseudos = new CustList<JLabel>();
     private CustList<JLabel> playersPlaces = new CustList<JLabel>();
     private CustList<JCheckBox> playersReady = new CustList<JCheckBox>();
-    private SessionEditorPane editor;
+    private RenderedPage editor;
     private NatTreeMap<Integer, Byte> playersPlacesForGame = new NatTreeMap<Integer, Byte>();
     private NumberMap<Integer,String> playersPseudosForGame = new NumberMap<Integer,String>();
     private HandPresident playerHandPresident = new HandPresident();
@@ -151,7 +151,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         container_.add(panel_);
 
-        editor = new SessionEditorPane();
+        JScrollPane scroll_ = new JScrollPane();
+        editor = new RenderedPage(scroll_);
         try {
             //editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -162,8 +163,6 @@ public class ContainerMultiPresident extends ContainerPresident implements
             _0.printStackTrace();
         }
 
-        editor.setEditable(false);
-        JScrollPane scroll_ = new JScrollPane(editor);
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
 
@@ -666,7 +665,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ResultsGame res_ = _res;
         setScores(res_.getScores());
 
-        SessionEditorPane editor_ = new SessionEditorPane();
+        JScrollPane scroll_=new JScrollPane();
+        RenderedPage editor_ = new RenderedPage(scroll_);
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -676,8 +676,6 @@ public class ContainerMultiPresident extends ContainerPresident implements
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
-        editor_.setEditable(false);
-        JScrollPane scroll_=new JScrollPane(editor_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         container_.add(onglets_,BorderLayout.CENTER);

@@ -21,6 +21,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
+import code.util.opers.BaseSixtyFourUtil;
 
 public abstract class SoftApplicationCore {
 
@@ -91,7 +92,8 @@ public abstract class SoftApplicationCore {
     protected static BufferedImage getImage(String _folder, String _fileTxt) {
         //, String _filePng
         BufferedImage image_ = null;
-        String file_ = ResourceFiles.ressourceFichier(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
+        String icon_ = ResourceFiles.ressourceFichier(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(icon_);
         image_ = ConverterBufferedImage.decodeToImage(file_);
 //        try {
 //            String file_ = StreamTextFile.ressourceFichier(_folder, _fileTxt);
@@ -164,7 +166,7 @@ public abstract class SoftApplicationCore {
         document_.appendChild(info_);
         boolean indent_ = DocumentBuilder.isIndentXmlWhileWriting();
         DocumentBuilder.setIndentXmlWhileWriting(false);
-        StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), DocumentBuilder.toXml(document_));
+        StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), DocumentBuilder.toXmlDocument(document_));
         DocumentBuilder.setIndentXmlWhileWriting(indent_);
     }
 

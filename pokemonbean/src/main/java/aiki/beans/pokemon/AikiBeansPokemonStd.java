@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -51,6 +52,7 @@ public final class AikiBeansPokemonStd {
     private static final String LAYERS = "layers";
     private static final String IS_APPEARING = "isAppearing";
     private static final String CLICK_LEVEL = "clickLevel";
+    private static final String GET_MAP_WIDTH = "getMapWidth";
     private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String GET_PLACE_NAME = "getPlaceName";
     private static final String GET_MINI_MAP_IMAGE = "getMiniMapImage";
@@ -226,6 +228,9 @@ public final class AikiBeansPokemonStd {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(IS_FIRST_ROW,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
@@ -535,6 +540,10 @@ public final class AikiBeansPokemonStd {
         }
         if (StringList.quickEq(methodName_,CLICK_LEVEL)) {
             res_.setResult(new StringStruct(instance_.clickLevel((Long)_args[0],(Long)_args[1])));
+            return res_;
+        }
+        if (StringList.quickEq(methodName_,GET_MAP_WIDTH)) {
+            res_.setResult(new IntStruct(instance_.getMapWidth()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {

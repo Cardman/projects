@@ -32,6 +32,28 @@ public final class EquallablePkUtil {
     private EquallablePkUtil() {
     }
 
+    public static void assertEq(int[][] _expected, int[][] _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(equals(_expected, _result));
+    }
+    private static boolean equals(int[][] _expected, int[][] _result) {
+        int expHeight_ = _expected.length;
+        if (expHeight_ != _result.length) {
+            return false;
+        }
+        for (int i = 0; i < expHeight_; i++) {
+            int expWidth_ = _expected[i].length;
+            if (expWidth_ != _result[i].length) {
+                return false;
+            }
+            for (int j = 0; j < expWidth_; j++) {
+                if (_expected[i][j] != _result[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));

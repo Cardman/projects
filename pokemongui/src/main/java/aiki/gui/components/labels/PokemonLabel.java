@@ -41,11 +41,11 @@ public class PokemonLabel extends SelectableLabel {
     }
 
     public void setImagesResults(FacadeGame _facade) {
-        String miniPk_ = _facade.getData().getMiniPk().getVal(pokemon.getKeyName());
+        int[][] miniPk_ = _facade.getData().getMiniPk().getVal(pokemon.getKeyName());
         miniImagePk = ConverterBufferedImage.decodeToImage(miniPk_);
         withItem = !pokemon.getKeyItem().isEmpty();
         if (withItem) {
-            String miniItem_ = _facade.getData().getMiniItems().getVal(pokemon.getKeyItem());
+            int[][] miniItem_ = _facade.getData().getMiniItems().getVal(pokemon.getKeyItem());
             miniImageItem = ConverterBufferedImage.decodeToImage(miniItem_);
         }
         sideLength = _facade.getMap().getSideLength();

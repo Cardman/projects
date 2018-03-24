@@ -4,24 +4,24 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import code.formathtml.DefaultInitialization;
-import code.formathtml.util.BeanLgNames;
-import code.gui.SessionEditorPane;
-import code.util.CustList;
-import code.util.Numbers;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
+import code.formathtml.DefaultInitialization;
+import code.formathtml.util.BeanLgNames;
+import code.gui.document.RenderedPage;
+import code.util.CustList;
+import code.util.Numbers;
 
 public class ListenerClickTree implements TreeSelectionListener {
 
     private NodeHelp node;
 
-    private SessionEditorPane editor;
+    private RenderedPage editor;
 
     private JTree tree;
 
     public ListenerClickTree(NodeHelp _node,
-            SessionEditorPane _editor, JTree _tree) {
+            RenderedPage _editor, JTree _tree) {
         node = _node;
         editor = _editor;
         tree = _tree;

@@ -20,10 +20,10 @@ import aiki.map.places.Road;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.ConverterBufferedImage;
 import code.util.CustList;
-import code.util.ObjectMap;
+import code.util.EntryCust;
 import code.util.TreeMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class SimulationLevelBean extends CommonBean {
     private TreeMap<Point,String> tiles;
@@ -69,10 +69,8 @@ public class SimulationLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            ObjectMap<Point,String> map_ = data_.getLevelImage(pl_.shortValue(), CustList.FIRST_INDEX, ptInside_);
-            for (Point pt_: map_.getKeys()) {
-                String s_ = map_.getVal(pt_);
-                tiles.put(pt_, ConverterBufferedImage.surroundImage(s_));
+            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_.shortValue(), CustList.FIRST_INDEX, ptInside_).entryList()) {
+                tiles.put(pt_.getKey(), BaseSixtyFourUtil.getSringByImage(pt_.getValue()));
             }
         } else {
             outside = true;
@@ -89,12 +87,17 @@ public class SimulationLevelBean extends CommonBean {
             }
             placeName = data_.getMap().getPlaces().getVal(pl_.shortValue()).getName();
             levelIndex = lev_.intValue();
-            ObjectMap<Point,String> map_ = data_.getLevelImage(pl_.shortValue(), lev_.byteValue());
-            for (Point pt_: map_.getKeys()) {
-                String s_ = map_.getVal(pt_);
-                tiles.put(pt_, ConverterBufferedImage.surroundImage(s_));
+            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_.shortValue(), lev_.byteValue()).entryList()) {
+                tiles.put(pt_.getKey(), BaseSixtyFourUtil.getSringByImage(pt_.getValue()));
             }
         }
+    }
+    public int getMapWidth() {
+        int w_ = 0;
+        while (tiles.getKey(w_).gety() != CustList.SECOND_INDEX) {
+            w_++;
+        }
+        return w_;
     }
     public boolean isFirstRow(Long _index) {
         if (_index.intValue() == 0) {

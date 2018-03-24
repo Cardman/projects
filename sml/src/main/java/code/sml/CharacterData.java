@@ -1,6 +1,6 @@
 package code.sml;
 
-public abstract class CharacterData extends Node {
+public abstract class CharacterData extends FullNode {
     protected CharacterData(Document _ownerDocument) {
         super(_ownerDocument);
     }

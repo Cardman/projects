@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 
+import code.gui.document.ProcessingSession;
+
 public class Chronometer implements ActionListener {
 
     private static final String EMPTY_STRING = "";
@@ -12,11 +14,11 @@ public class Chronometer implements ActionListener {
 
     private JLabel area;
 
-    private SessionEditorPane session;
+    private ProcessingSession session;
 
     private long sec;
 
-    public Chronometer(JLabel _area, SessionEditorPane _session, long _sec) {
+    public Chronometer(JLabel _area, ProcessingSession _session, long _sec) {
         area = _area;
         sec = _sec;
         session = _session;

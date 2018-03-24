@@ -120,35 +120,40 @@ public final class ConverterBufferedImage {
         }
         return true;
     }
-
-    public static String stackImages(String _back, String _front) {
-        String img_ = _front;
-        if (img_.isEmpty()) {
+    public static int[][] stackImages(int[][] _back, int[][] _front) {
+        int[][] img_ = _front;
+        if (img_.length == 0) {
             return _back;
         }
-//        BufferedImage imgBuff_ = ConverterBufferedImage.toRenderedImageQuick(img_);
-        BufferedImage imgBuff_ = ConverterBufferedImage.decodeToImage(img_);
-        String imgBack_ = _back;
-//        BufferedImage imgBuffBack_ = ConverterBufferedImage.toRenderedImageQuick(imgBack_);
-        BufferedImage imgBuffBack_ = ConverterBufferedImage.decodeToImage(imgBack_);
-        int w_ = Math.max(imgBuffBack_.getWidth(), imgBuff_.getWidth());
-        int h_ = Math.max(imgBuffBack_.getHeight(), imgBuff_.getHeight());
-        int wMin_ = imgBuff_.getWidth();
-        int hMin_ = imgBuff_.getHeight();
-        BufferedImage combined_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
+        int w_ = Math.max(_back[0].length, _front[0].length);
+        int h_ = Math.max(_back.length, _front.length);
+        int wMin_ = _front[0].length;
+        int hMin_ = _front.length;
 
-        // paint both images, preserving the alpha channels
-        Graphics g_ = combined_.getGraphics();
-        g_.drawImage(imgBuffBack_, 0, 0, null);
-        g_.drawImage(imgBuff_, (w_ - wMin_) / 2, (h_ - hMin_) / 2, null);
-
-        //return ConverterBufferedImage.toString(combined_);
-        String str_ = ConverterBufferedImage.toBaseSixtyFour(combined_);
-        g_.dispose();
+        int[][] str_ = new int[h_][w_];
+        int hLoc_ = _back.length;
+        int wLoc_ = _back[0].length;
+        for (int i = 0; i < hLoc_; i++) {
+            for (int j = 0; j < wLoc_; j++) {
+                str_[i][j] =_back[i][j];
+            }
+        }
+        int offx_ = (w_ - wMin_) / 2;
+        int offy_ = (h_ - hMin_) / 2;
+        hLoc_ = _front.length + offy_;
+        wLoc_ = _front[0].length + offx_;
+        for (int i = offy_; i < hLoc_; i++) {
+            for (int j = offx_; j < wLoc_; j++) {
+                int pixel_ = _front[i-offy_][j-offx_];
+                if (pixel_ != 256*256*256 - 1) {
+                    str_[i][j] =pixel_;
+                }
+            }
+        }
         return str_;
     }
 
-    public static BufferedImage centerImage(String _front, int _side) {
+    public static BufferedImage centerImage(int[][] _front, int _side) {
         BufferedImage img_ = ConverterBufferedImage.decodeToImage(_front);
         int wMin_ = img_.getWidth();
         int hMin_ = img_.getHeight();
@@ -157,8 +162,7 @@ public final class ConverterBufferedImage {
         g_.drawImage(img_, (_side - wMin_) / 2, (_side - hMin_) / 2, null);
         return combined_;
     }
-
-    public static BufferedImage centerImage(String _front, int _width, int _height) {
+    public static BufferedImage centerImage(int[][] _front, int _width, int _height) {
         BufferedImage img_ = ConverterBufferedImage.decodeToImage(_front);
         int wMin_ = img_.getWidth();
         int hMin_ = img_.getHeight();
@@ -168,284 +172,10 @@ public final class ConverterBufferedImage {
         return combined_;
     }
 
-    public static String toBaseSixtyFour(String _txtImg) {
-        return toBaseSixtyFour(toRenderedImageQuick(_txtImg),IMG_EXT);
-    }
-
-    public static String toBaseSixtyFourQuick(String _txtImg) {
-        return toBaseSixtyFour(toRenderedImageQuick(_txtImg));
-    }
-
-    public static String toBaseSixtyFour(BufferedImage _buffer) {
-        String contourChart_ = EMPTY_STRING;
-        try {
-            ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
-            ImageIO.write( _buffer, IMG_EXT, baos_ );
-            baos_.flush();
-            byte[] imageInByte_ = baos_.toByteArray();
-            contourChart_ = BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_);
-        } catch (IOException _0) {
-        }
-        return contourChart_;
-    }
-
-    public static String toBaseSixtyFourGif(ImageReader _reader) {
-        String contourChart_ = EMPTY_STRING;
-        try {
-
-            ImageWriter writer_ = ImageIO.getImageWritersByFormatName(GIF).next();
-            ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
-            ImageOutputStream cios_ = ImageIO.createImageOutputStream(baos_);
-            writer_.setOutput(cios_);
-            int noi_ = _reader.getNumImages(true);
-            for (int i = 0; i < noi_; i++) {
-                BufferedImage image_ = _reader.read(i);
-                IIOMetadata metadata_ = _reader.getImageMetadata(i);
-
-                if (i == CustList.FIRST_INDEX) {
-                    writer_.prepareWriteSequence(metadata_);
-                }
-                writer_.writeToSequence(new IIOImage(image_, null, metadata_), null);
-            }
-
-            cios_.flush();
-            baos_.flush();
-            byte[] imageInByte_ = baos_.toByteArray();
-            StringBuilder sb_ = new StringBuilder();
-            sb_.append(BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_));
-            contourChart_ = sb_.toString();
-        } catch (IOException _0) {
-        }
-        return contourChart_;
-    }
-
-    public static String toBaseSixtyFourOptGif(ImageReader _reader) {
-        return BaseSixtyFourUtil.printBaseSixtyFourBinary(toBytesOptGif(_reader));
-    }
-
-    public static byte[] toBytesOptGif(ImageReader _reader) {
-        try {
-
-            int noi_ = _reader.getNumImages(true);
-
-            IIOMetadata metadata_ = _reader.getStreamMetadata();
-            boolean loop_ = false;
-            long hundreds_ = 0L;
-            if (metadata_ != null) {
-                String metaFormatName_ = metadata_.getNativeMetadataFormatName();
-                IIOMetadataNode root_ = (IIOMetadataNode) metadata_.getAsTree(metaFormatName_);
-                Element elt_ = getReadOnlyNode(root_, GRAPHIC_CONTROL_EXTENSION);
-                if (elt_ != null) {
-                    hundreds_ = Long.parseLong(elt_.getAttribute(DELAY_TIME));
-                }
-                Element appEntensionsNode_ = getReadOnlyNode(root_, APPLICATION_EXTENSIONS);
-                if (appEntensionsNode_ != null) {
-                    loop_ = true;
-                }
-            }
-
-            BufferedImage master_ = null;
-
-            CustList<BufferedImage> images_ = new CustList<BufferedImage>();
-
-            for (int i = CustList.FIRST_INDEX; i < noi_; i++) {
-                BufferedImage image_ = _reader.read(i);
-                metadata_ = _reader.getImageMetadata(i);
-                String metaFormatName_ = metadata_.getNativeMetadataFormatName();
-                IIOMetadataNode root_ = (IIOMetadataNode) metadata_.getAsTree(metaFormatName_);
-                Element elt_ = getReadOnlyNode(root_, GRAPHIC_CONTROL_EXTENSION);
-                if (elt_ != null) {
-                    hundreds_ = Long.parseLong(elt_.getAttribute(DELAY_TIME));
-                }
-                Element appEntensionsNode_ = getReadOnlyNode(root_, APPLICATION_EXTENSIONS);
-                if (appEntensionsNode_ != null) {
-                    loop_ = true;
-                }
-
-                Node tree_ = metadata_.getAsTree(JAVAX_IMAGEIO_GIF_IMAGE_1_0);
-                NodeList children_ = tree_.getChildNodes();
-
-                for (int j = CustList.FIRST_INDEX; j < children_.getLength(); j++) {
-                    Element nodeItem_ = (Element) children_.item(j);
-
-                    if(!StringList.quickEq(nodeItem_.getNodeName(),IMAGE_DESCRIPTOR)){
-                        continue;
-                    }
-                    if(i==CustList.FIRST_INDEX){
-                        int imageWidth_ = Integer.parseInt(nodeItem_.getAttribute(IMAGE_WIDTH));
-                        int imageHeight_ = Integer.parseInt(nodeItem_.getAttribute(IMAGE_HEIGHT));
-                        master_ = new BufferedImage(imageWidth_, imageHeight_, BufferedImage.TYPE_INT_ARGB);
-                    }
-                    int imageLeftPosition_ = Integer.parseInt(nodeItem_.getAttribute(IMAGE_LEFT_POSITION));
-                    int imageTopPosition_ = Integer.parseInt(nodeItem_.getAttribute(IMAGE_TOP_POSITION));
-                    master_.getGraphics().drawImage(image_, imageLeftPosition_, imageTopPosition_, null);
-                }
-                int w_ = master_.getWidth();
-                int h_ = master_.getHeight();
-                BufferedImage copy_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-                for (int j = CustList.FIRST_INDEX; j < w_; j++) {
-                    for (int k = CustList.FIRST_INDEX; k < h_; k++) {
-                        copy_.setRGB(j, k, master_.getRGB(j, k));
-                    }
-                }
-                images_.add(copy_);
-            }
-            return toBytesGif(images_, hundreds_, loop_);
-        } catch (IOException _0) {
-            return null;
-        }
-    }
-
-    public static String toBaseSixtyFourGif(CustList<BufferedImage> _images) {
-        String contourChart_ = EMPTY_STRING;
-        try {
-
-            ImageWriter writer_ = ImageIO.getImageWritersByFormatName(GIF).next();
-            ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
-            ImageOutputStream cios_ = ImageIO.createImageOutputStream(baos_);
-            writer_.setOutput(cios_);
-            int noi_ = _images.size();
-            ImageWriteParam writeParam_ = writer_.getDefaultWriteParam();
-            ImageTypeSpecifier typeSpecifier_ = ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_ARGB);
-            IIOMetadata metadata_ = writer_.getDefaultImageMetadata(typeSpecifier_, writeParam_);
-            for (int i = 0; i < noi_; i++) {
-                BufferedImage image_ = _images.get(i);
-
-                if (i == CustList.FIRST_INDEX) {
-                    writer_.prepareWriteSequence(metadata_);
-                }
-                writer_.writeToSequence(new IIOImage(image_, null, metadata_), null);
-            }
-
-            cios_.flush();
-            baos_.flush();
-            byte[] imageInByte_ = baos_.toByteArray();
-            StringBuilder sb_ = new StringBuilder();
-            sb_.append(BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_));
-            contourChart_ = sb_.toString();
-        } catch (IOException _0) {
-        }
-        return contourChart_;
-    }
-
-    public static String toBaseSixtyFourGif(GifAnimation _gif) {
-        return BaseSixtyFourUtil.printBaseSixtyFourBinary(toBytesGif(_gif));
-    }
-
-    public static String toBaseSixtyFourGif(CustList<BufferedImage> _images, long _delayHundreds, boolean _loop) {
-        return BaseSixtyFourUtil.printBaseSixtyFourBinary(toBytesGif(_images, _delayHundreds, _loop));
-    }
-
-    public static GifAnimation getAnimation(String _string) {
-        return getAnimation(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_string));
-    }
-
-    public static GifAnimation getAnimation(byte[] _data) {
-        try {
-            ByteArrayInputStream bis_ = new ByteArrayInputStream(_data);
-            ImageReader reader_ = ImageIO.getImageReadersByFormatName(GIF).next();
-            ImageInputStream ciis_ = ImageIO.createImageInputStream(bis_);
-            reader_.setInput(ciis_, false);
-            bis_.close();
-            GifAnimation gif_ = new GifAnimation();
-            int noi_ = reader_.getNumImages(true);
-            IIOMetadata image_ = reader_.getStreamMetadata();
-            boolean loop_ = false;
-            if (image_ != null) {
-                String metaFormatName_ = image_.getNativeMetadataFormatName();
-                IIOMetadataNode root_ = (IIOMetadataNode) image_.getAsTree(metaFormatName_);
-                Element elt_ = getReadOnlyNode(root_, GRAPHIC_CONTROL_EXTENSION);
-                if (elt_ != null) {
-                    gif_.setDelayMillis(Long.parseLong(elt_.getAttribute(DELAY_TIME)) * FACTOR_MILLIS_SECONDS);
-                }
-                Element appEntensionsNode_ = getReadOnlyNode(root_, APPLICATION_EXTENSIONS);
-                if (appEntensionsNode_ != null) {
-                    loop_ = true;
-                }
-            }
-            for (int i = CustList.FIRST_INDEX; i < noi_; i++) {
-                gif_.getImages().add(reader_.read(i));
-                image_ = reader_.getImageMetadata(i);
-                if (image_ != null) {
-                    String metaFormatName_ = image_.getNativeMetadataFormatName();
-                    IIOMetadataNode root_ = (IIOMetadataNode) image_.getAsTree(metaFormatName_);
-                    Element elt_ = getReadOnlyNode(root_, GRAPHIC_CONTROL_EXTENSION);
-                    if (elt_ != null) {
-                        gif_.setDelayMillis(Long.parseLong(elt_.getAttribute(DELAY_TIME)) * FACTOR_MILLIS_SECONDS);
-                    }
-                    Element appEntensionsNode_ = getReadOnlyNode(root_, APPLICATION_EXTENSIONS);
-                    if (appEntensionsNode_ != null) {
-                        loop_ = true;
-                    }
-                }
-            }
-            gif_.setLoop(loop_);
-            return gif_;
-        } catch (Exception _0) {
-            return null;
-        }
-    }
-
-    public static byte[] toBytesGif(GifAnimation _gif) {
-        return toBytesGif(_gif.getImages(), _gif.getDelayMillis() / FACTOR_MILLIS_SECONDS, _gif.isLoop());
-    }
-
-    public static byte[] toBytesGif(CustList<BufferedImage> _images, long _delayHundreds, boolean _loop) {
-        try {
-
-            ImageWriter writer_ = ImageIO.getImageWritersByFormatName(GIF).next();
-            ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
-            ImageOutputStream cios_ = ImageIO.createImageOutputStream(baos_);
-            writer_.setOutput(cios_);
-            int noi_ = _images.size();
-            ImageWriteParam writeParam_ = writer_.getDefaultWriteParam();
-            ImageTypeSpecifier typeSpecifier_ = ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_ARGB);
-            IIOMetadata metadata_ = writer_.getDefaultImageMetadata(typeSpecifier_, writeParam_);
-            setMeta(metadata_, _delayHundreds, _loop);
-
-            writer_.prepareWriteSequence(metadata_);
-            for (int i = 0; i < noi_; i++) {
-                BufferedImage image_ = _images.get(i);
-
-                metadata_ = writer_.getDefaultImageMetadata(typeSpecifier_, writeParam_);
-                setMeta(metadata_, _delayHundreds, _loop);
-//                writer_.writeToSequence(new IIOImage(image_, null, metadata_), null);
-                writer_.writeToSequence(new IIOImage(image_, null, metadata_), null);
-            }
-
-            writer_.endWriteSequence();
-            cios_.flush();
-            return baos_.toByteArray();
-        } catch (Exception _0) {
-        }
-        return null;
-    }
-
-    public static String toBaseSixtyFour(BufferedImage _buffer, String _format) {
-        String contourChart_ = EMPTY_STRING;
-        try {
-            ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
-            ImageIO.write( _buffer, _format, baos_ );
-            baos_.flush();
-            byte[] imageInByte_ = baos_.toByteArray();
-            StringBuilder sb_ = new StringBuilder();
-            sb_.append(DATA_IMAGE);
-            sb_.append(_format);
-            sb_.append(BASE64);
-            sb_.append(BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_));
-            contourChart_ = sb_.toString();
-        } catch (IOException _0) {
-        }
-        return contourChart_;
-    }
-
-    public static String getSquareColorSixtyFour(String _color, String _sep, int _sideLen) {
-        return toBaseSixtyFour(getSquareColor(_color, _sep, _sideLen));
-    }
 
     public static BufferedImage getSquareColor(String _color, String _sep, int _sideLen) {
         Color c_ = ConverterBufferedImage.getColor(_color, _sep);
-        BufferedImage image_ = new BufferedImage(_sideLen, _sideLen, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image_ = new BufferedImage(_sideLen, _sideLen, BufferedImage.TYPE_INT_RGB);
         for (int i = CustList.FIRST_INDEX;i<_sideLen;i++) {
             for (int j = CustList.FIRST_INDEX;j<_sideLen;j++) {
                 image_.setRGB(j, i, c_.getRGB());
@@ -453,134 +183,15 @@ public final class ConverterBufferedImage {
         }
         return image_;
     }
-
-    public static String surroundImage(String _image, String _format) {
-        String contourChart_ = EMPTY_STRING;
-        StringBuilder sb_ = new StringBuilder();
-        if (AVAILABLE_FORMATS.containsStr(_format)) {
-            sb_.append(DATA_IMAGE);
-            sb_.append(_format);
-            sb_.append(BASE64);
-        } else {
-            sb_.append(DATA_IMAGE);
-            sb_.append(IMG_EXT);
-            sb_.append(BASE64);
-        }
-        sb_.append(_image);
-        contourChart_ = sb_.toString();
-        return contourChart_;
-    }
-
-    public static String surroundImage(String _image) {
-        String contourChart_ = EMPTY_STRING;
-        StringBuilder sb_ = new StringBuilder();
-        sb_.append(DATA_IMAGE);
-        sb_.append(IMG_EXT);
-        sb_.append(BASE64);
-        sb_.append(_image);
-        contourChart_ = sb_.toString();
-        return contourChart_;
-    }
-
-    public static PairNumber<Integer,Integer> getDimensions(String _imageString) {
-        BufferedImage img_ = decodeToImage(_imageString);
-        return new PairNumber<Integer,Integer>(img_.getWidth(), img_.getHeight());
-    }
-
-    public static ImageWriter getGifImage(CustList<BufferedImage> _images, long _delayHundreds, boolean _loop) {
-        ImageWriter writer_ = ImageIO.getImageWritersByFormatName(GIF).next();
-        ImageWriteParam writeParam_ = writer_.getDefaultWriteParam();
-        ImageTypeSpecifier typeSpecifier_ = ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_ARGB);
-        IIOMetadata metadata_ = writer_.getDefaultImageMetadata(typeSpecifier_, writeParam_);
-        setMeta(metadata_, _delayHundreds, _loop);
-
-        try {
-            int noi_ = _images.size();
-            writer_.prepareWriteSequence(metadata_);
-            for (int i = 0; i < noi_; i++) {
-                BufferedImage image_ = _images.get(i);
-
-                metadata_ = writer_.getDefaultImageMetadata(typeSpecifier_, writeParam_);
-                setMeta(metadata_, _delayHundreds, _loop);
-                writer_.writeToSequence(new IIOImage(image_, null, metadata_), null);
+    
+    public static BufferedImage decodeToImage(int[][] _imageString) {
+        int height_ = _imageString.length;
+        int width_ = _imageString[0].length;
+        BufferedImage image_ = new BufferedImage(width_, height_, BufferedImage.TYPE_INT_ARGB);
+        for (int i = 0; i < height_; i++) {
+            for (int j = 0; j < width_; j++) {
+                image_.setRGB(j, i, new Color(_imageString[i][j]).getRGB());
             }
-            writer_.endWriteSequence();
-            return writer_;
-        } catch (IOException _0) {
-            return null;
-        }
-
-    }
-
-    private static void setMeta(IIOMetadata _meta, long _delayHundreds, boolean _loop) {
-        String metaFormatName_ = _meta.getNativeMetadataFormatName();
-        IIOMetadataNode root_ = (IIOMetadataNode) _meta.getAsTree(metaFormatName_);
-
-        if (_loop) {
-            IIOMetadataNode appEntensionsNode_ = getNode(root_, APPLICATION_EXTENSIONS);
-            IIOMetadataNode child_ = new IIOMetadataNode(APPLICATION_EXTENSION);
-            child_.setAttribute(APPLICATION_ID, NETSCAPE);
-            child_.setAttribute(AUTHENTICATION_CODE, TWO);
-            child_.setUserObject(Numbers.wrapByteArray((byte)1,(byte) 0,(byte) 0));
-            appEntensionsNode_.appendChild(child_);
-        }
-
-        Element elt_ = getNode(root_, GRAPHIC_CONTROL_EXTENSION);
-        elt_.setAttribute(DELAY_TIME, String.valueOf(_delayHundreds));
-        elt_.setAttribute(DISPOSAL_METHOD, NONE);
-        elt_.setAttribute(USER_INPUT_FLAG, FALSE);
-        elt_.setAttribute(TRANSPARENT_COLOR_FLAG, FALSE);
-        elt_.setAttribute(TRANSPARENT_COLOR_INDEX, ZERO);
-        try {
-            _meta.setFromTree(metaFormatName_, root_);
-        } catch (IIOInvalidTreeException _0) {
-        }
-    }
-    private static IIOMetadataNode getNode(IIOMetadataNode _rootNode, String _nodeName) {
-        int nNodes_ = _rootNode.getLength();
-        for (int i = CustList.FIRST_INDEX; i < nNodes_; i++) {
-            if (_rootNode.item(i).getNodeName().compareToIgnoreCase(_nodeName) == CustList.EQ_CMP) {
-                return (IIOMetadataNode) _rootNode.item(i);
-            }
-        }
-        IIOMetadataNode node_ = new IIOMetadataNode(_nodeName);
-        _rootNode.appendChild(node_);
-        return node_;
-    }
-    private static IIOMetadataNode getReadOnlyNode(IIOMetadataNode _rootNode, String _nodeName) {
-        int nNodes_ = _rootNode.getLength();
-        for (int i = CustList.FIRST_INDEX; i < nNodes_; i++) {
-            if (_rootNode.item(i).getNodeName().compareToIgnoreCase(_nodeName) == CustList.EQ_CMP) {
-                return (IIOMetadataNode) _rootNode.item(i);
-            }
-        }
-        return null;
-    }
-
-    public static ImageReader getGifImage(String _imageString) {
-        byte[] imageByte_;
-        try {
-            imageByte_ = BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString);
-            ByteArrayInputStream bis_ = new ByteArrayInputStream(imageByte_);
-            ImageReader reader_ = ImageIO.getImageReadersByFormatName(GIF).next();
-            ImageInputStream ciis_ = ImageIO.createImageInputStream(bis_);
-            reader_.setInput(ciis_, false);
-            bis_.close();
-            return reader_;
-        } catch (Exception _0) {
-            return null;
-        }
-    }
-
-    public static BufferedImage decodeToImage(String _imageString) {
-        BufferedImage image_ = null;
-        byte[] imageByte_;
-        try {
-            imageByte_ = BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString);
-            ByteArrayInputStream bis_ = new ByteArrayInputStream(imageByte_);
-            image_ = ImageIO.read(bis_);
-            bis_.close();
-        } catch (Exception _0) {
         }
         return image_;
     }
@@ -652,26 +263,6 @@ public final class ConverterBufferedImage {
         return builder_.toString();
     }
 
-    public static byte[] toBytesQuick(String _img) {
-        return toBytes(toRenderedImageQuick(_img));
-    }
-
-    public static byte[] toBytes(BufferedImage _buf) {
-        return toBytes(_buf,IMG_EXT);
-    }
-
-    public static byte[] toBytes(BufferedImage _buf, String _format) {
-        try {
-            ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
-            ImageIO.write(_buf, _format, baos_);
-            baos_.flush();
-            byte[] imageInByte_ = baos_.toByteArray();
-            baos_.close();
-            return imageInByte_;
-        } catch (IOException _0) {
-            return null;
-        }
-    }
 
     public static void transparentAllWhite(BufferedImage _buffered) {
         int h_ = _buffered.getHeight();
@@ -1031,5 +622,17 @@ public final class ConverterBufferedImage {
 
     public static StringList getAvailableFormats() {
         return new StringList(AVAILABLE_FORMATS);
+    }
+
+    public static String getSquareColorSixtyFour(String _color,
+            String _separatorRgb, int _sideLength) {
+        Color c_ = ConverterBufferedImage.getColor(_color, _separatorRgb);
+        int[][] pixels_ = new int[_sideLength][_sideLength];
+        for (int i = 0; i < _sideLength; i++) {
+            for (int j = 0; j < _sideLength; j++) {
+                pixels_[i][j] = c_.getRGB();
+            }
+        }
+        return BaseSixtyFourUtil.getSringByImage(pixels_);
     }
 }

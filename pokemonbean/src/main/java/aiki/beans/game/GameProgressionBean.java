@@ -7,13 +7,13 @@ import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.GameProgression;
 import aiki.map.DataMap;
 import code.bean.Bean;
-import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class GameProgressionBean extends Bean {
     private String heroImage;
@@ -40,11 +40,11 @@ public class GameProgressionBean extends Bean {
     public void beforeDisplaying() {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         StringMap<String> tr_ = facade_.getData().getTranslatedPokemon().getVal(getLanguage());
-        heroImage = ConverterBufferedImage.surroundImage(facade_.getFrontChosenHeros());
-        heroImageOppositeSex = ConverterBufferedImage.surroundImage(facade_.getFrontChosenHerosOppositeSex());
+        heroImage = facade_.getFrontChosenHeros();
+        heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex();
         GameProgression progression_ = facade_.getGameProgression();
         finishedGame = progression_.isFinishedGame();
-        endGameImage = ConverterBufferedImage.surroundImage(facade_.getData().getEndGameImage());
+        endGameImage = BaseSixtyFourUtil.getSringByImage(facade_.getData().getEndGameImage());
         nickname = progression_.getNickname();
         notAtAllFamiliesBase = new NatTreeMap<String,EqList<StringList>>();
         for (String b: progression_.getNotAtAllFamiliesBase().getKeys()) {
@@ -169,8 +169,8 @@ public class GameProgressionBean extends Bean {
         EqList<StringList> values_ = _treeMap.getValue(_key.intValue());
         StringList value_ = values_.get(_indexList.intValue());
         String pkName_ = value_.get(_indexElt.intValue());
-        String img_ = _facade.getData().getMaxiPkFront().getVal(pkName_);
-        return ConverterBufferedImage.surroundImage(img_);
+        int[][] img_ = _facade.getData().getMaxiPkFront().getVal(pkName_);
+        return BaseSixtyFourUtil.getSringByImage(img_);
     }
 
     public boolean getFinishedGame() {

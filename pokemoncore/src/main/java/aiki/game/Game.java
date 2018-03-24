@@ -513,12 +513,12 @@ public final class Game {
         for (ScreenCoords k: map_.getTiles().getKeys()) {
             Coords coords_ = map_.getTiles().getVal(k);
             if (!coords_.isValid()) {
-                map_.getForegroundImages().put(k, new StringList());
+                map_.getForegroundImages().put(k, new CustList<int[][]>());
                 continue;
             }
             Place place_ = map_.getPlaces().getVal(coords_.getNumberPlace());
             Level level_ = place_.getLevelByCoords(coords_);
-            StringList images_ = new StringList();
+            CustList<int[][]> images_ = new CustList<int[][]>();
             Point pt_ = coords_.getLevel().getPoint();
             for (Place p: map_.getPlaces().values()) {
                 if (!(p instanceof League)) {
@@ -627,11 +627,11 @@ public final class Game {
         }
         ScreenCoords center_;
         center_ = new ScreenCoords(map_.getSpaceBetweenLeftAndHeros()+_dx,map_.getSpaceBetweenTopAndHeros()+_dy);
-        StringList images_ = map_.getForegroundImages().getVal(center_);
+        CustList<int[][]> images_ = map_.getForegroundImages().getVal(center_);
         images_.add(getMiniHeros(_data));
     }
 
-    public String getMiniHeros(DataBase _data) {
+    public int[][] getMiniHeros(DataBase _data) {
         DataMap map_ = _data.getMap();
         EnvironmentType currentEnv_ = map_.currentBlock(playerCoords).getType();
         Sex sex_ = player.getSex();
@@ -644,7 +644,7 @@ public final class Game {
         return _data.getOverWorldHeros().getVal(key_);
     }
 
-    public String getBackHeros(DataBase _data) {
+    public int[][] getBackHeros(DataBase _data) {
         ImageHeroKey key_;
         EnvironmentType currentEnv_ = _data.getMap().currentBlock(playerCoords).getType();
         Sex sex_ = player.getSex();
@@ -656,7 +656,7 @@ public final class Game {
         return _data.getBackHeros().getVal(key_);
     }
 
-    public String getBackHerosSexOpposite(DataBase _data) {
+    public int[][] getBackHerosSexOpposite(DataBase _data) {
         ImageHeroKey key_;
         EnvironmentType currentEnv_ = _data.getMap().currentBlock(playerCoords).getType();
         Sex sex_ = player.getOppositeSex();
@@ -1165,9 +1165,9 @@ public final class Game {
         return false;
     }
 
-    public String getTrainerImage(DataBase _d) {
+    public int[][] getTrainerImage(DataBase _d) {
         if (!isFrontOfTrainer(_d)) {
-            return DataBase.EMPTY_STRING;
+            return new int[0][0];
         }
         DataMap d_=_d.getMap();
         Coords voisin_= closestTile(d_);

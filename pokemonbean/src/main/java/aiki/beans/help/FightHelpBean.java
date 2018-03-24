@@ -42,7 +42,6 @@ import aiki.fight.util.TypesDuo;
 import aiki.game.fight.Fight;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import code.images.ConverterBufferedImage;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
@@ -55,6 +54,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorEnum;
 import code.util.ints.Listable;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class FightHelpBean extends CommonBean {
 
@@ -2074,11 +2074,11 @@ public class FightHelpBean extends CommonBean {
     public String getAnimStatistic(Long _index) {
         Statistic d_ = statisticAnim.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
-        return ConverterBufferedImage.surroundImage(data_.getAnimStatis().getVal(d_.name()));
+        return BaseSixtyFourUtil.getSringByImage(data_.getAnimStatis().getVal(d_.name()));
     }
     public String getAnimAbsorb() {
         DataBase data_ = (DataBase) getDataBase();
-        return ConverterBufferedImage.surroundImage(data_.getAnimAbsorb());
+        return BaseSixtyFourUtil.getSringByImage(data_.getAnimAbsorb());
     }
     public String getTrLawRate(Long _index) {
         DifficultyModelLaw d_ = lawsRates.getKey(_index.intValue());

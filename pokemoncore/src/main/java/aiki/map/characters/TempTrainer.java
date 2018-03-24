@@ -21,7 +21,7 @@ public final class TempTrainer extends TrainerOneFight {
     @Override
     public void validateForEditing(DataBase _data) {
         super.validateForEditing(_data);
-        if (_data.getPerson(imageMiniSecondTrainerFileName).isEmpty()) {
+        if (_data.getPerson(imageMiniSecondTrainerFileName).length == 0) {
             throw new DataException();
         }
         setMultiplicityFight((byte) 2);
@@ -32,7 +32,7 @@ public final class TempTrainer extends TrainerOneFight {
         if (!super.hasValidImage(_data)) {
             return false;
         }
-        if (_data.getPerson(imageMiniSecondTrainerFileName).isEmpty()) {
+        if (_data.getPerson(imageMiniSecondTrainerFileName).length == 0) {
             return false;
         }
         return true;

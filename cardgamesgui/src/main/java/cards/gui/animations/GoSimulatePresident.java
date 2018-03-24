@@ -19,8 +19,8 @@ import cards.president.TrickPresident;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.Playing;
 import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
 import code.gui.ThreadInvoker;
+import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.NumberMap;
@@ -290,7 +290,8 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //        res_.initialize(new CustList<>(nicknames_), container.getScores(), currentGame_.getRanksDeals().get(noDeal + 1));
         res_.setUser(DealPresident.NUMERO_UTILISATEUR);
         res_.setMessages(Constants.getLanguage());
-        SessionEditorPane editor_ = new SessionEditorPane();
+        JScrollPane scroll_=new JScrollPane();
+        RenderedPage editor_ = new RenderedPage(scroll_);
         try {
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
             editor_.setLanguage(Constants.getLanguage());
@@ -299,8 +300,6 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
-        editor_.setEditable(false);
-        JScrollPane scroll_=new JScrollPane(editor_);
         scroll_.setPreferredSize(new Dimension(300,300));
         panneau_.add(scroll_);
         panneau_.add(stopButton);

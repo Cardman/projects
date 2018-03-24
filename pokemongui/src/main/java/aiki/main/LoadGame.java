@@ -19,10 +19,12 @@ public final class LoadGame extends Thread {
     public void run() {
 //        MainWindow.getDialog().setVisible(true);
         ThreadInvoker.invokeNow(new ShowLoadingDialog());
+        MainWindow.getDialog().startAnimation();
         while (DataBase.isLoading()) {
             setProgress(DataBase.getPerCentLoading());
 //            MainWindow.getDialog().setPerCent(String.valueOf(DataBase.getPerCentLoading()));
         }
+        MainWindow.getDialog().stopAnimation();
         MainWindow.getDialog().setVisible(false);
         MainWindow.getDialog().getContentPane().removeAll();
         MainWindow.getDialog().stopTimer();

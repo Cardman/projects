@@ -11,7 +11,6 @@ import aiki.game.fight.Fighter;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
 import code.bean.Bean;
-import code.images.ConverterBufferedImage;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -19,6 +18,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class PokemonPlayerBean extends Bean {
     private String name;
@@ -73,13 +73,12 @@ public class PokemonPlayerBean extends Bean {
         } else {
             usedBallCatching = translatedItems_.getVal(pkPlayer_.getUsedBallCatching());
         }
-        image = ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(pkPlayer_.getName()));
+        image = BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(pkPlayer_.getName()));
         TreeMap<String,String> evolutions_;
         evolutions_ = new TreeMap<String,String>(new ComparatorTrStrings(translatedPokemon_));
         for (String e: pkPlayer_.getDirectEvolutions(data_)) {
-            String img_ = data_.getMaxiPkFront().getVal(e);
-            img_ = ConverterBufferedImage.surroundImage(img_);
-            evolutions_.put(e, img_);
+            int[][] img_ = data_.getMaxiPkFront().getVal(e);
+            evolutions_.put(e, BaseSixtyFourUtil.getSringByImage(img_));
         }
         evolutions = evolutions_;
         ability = translatedAbilities_.getVal(pkPlayer_.getAbility());

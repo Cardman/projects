@@ -24,13 +24,13 @@ public abstract class Building {
     }
 
     public void validateForEditing(DataBase _data) {
-        if (_data.getLink(imageFileName).isEmpty()) {
+        if (_data.getLink(imageFileName).length == 0) {
             throw new DataException();
         }
     }
 
     public boolean hasValidImage(DataBase _data) {
-        if (_data.getLink(imageFileName).isEmpty()) {
+        if (_data.getLink(imageFileName).length == 0) {
             return false;
         }
         return getLevel().hasValidImage(_data);

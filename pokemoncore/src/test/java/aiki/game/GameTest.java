@@ -38,7 +38,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
-import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class GameTest extends InitializationDataBase {
@@ -2078,7 +2077,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2088,7 +2087,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2104,7 +2103,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2116,7 +2115,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2131,7 +2130,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(73, getEmptyTiles(foreGround_).size());
@@ -2146,7 +2145,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2172,7 +2171,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2182,7 +2181,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2198,7 +2197,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2208,7 +2207,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2223,7 +2222,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2235,7 +2234,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2250,7 +2249,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(73, getEmptyTiles(foreGround_).size());
@@ -2265,7 +2264,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2291,7 +2290,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2301,7 +2300,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2316,7 +2315,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2329,7 +2328,7 @@ public class GameTest extends InitializationDataBase {
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
         assertTrue(!_data_.getOverWorldHeros().contains(key_));
         key_ = new ImageHeroKey(EnvironmentType.ROAD, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2344,7 +2343,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2357,7 +2356,7 @@ public class GameTest extends InitializationDataBase {
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
         assertTrue(!_data_.getOverWorldHeros().contains(key_));
         key_ = new ImageHeroKey(EnvironmentType.ROAD, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2374,7 +2373,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2385,7 +2384,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2402,7 +2401,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2413,7 +2412,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2429,7 +2428,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(75, getEmptyTiles(foreGround_).size());
@@ -2443,15 +2442,15 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
     private EqList<ScreenCoords> getEmptyTiles(
-            ObjectMap<ScreenCoords, StringList> _foreGround) {
+            ObjectMap<ScreenCoords, CustList<int[][]>> _foreGround) {
         EqList<ScreenCoords> k_;
         k_ = new EqList<ScreenCoords>();
-        for (EntryCust<ScreenCoords, StringList> e: _foreGround.entryList()) {
+        for (EntryCust<ScreenCoords, CustList<int[][]>> e: _foreGround.entryList()) {
             if (e.getValue().isEmpty()) {
                 k_.add(e.getKey());
             }
@@ -2471,7 +2470,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(75, getEmptyTiles(foreGround_).size());
@@ -2485,7 +2484,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2501,7 +2500,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2513,7 +2512,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2529,7 +2528,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2541,7 +2540,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2557,7 +2556,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(74, getEmptyTiles(foreGround_).size());
@@ -2571,7 +2570,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2587,7 +2586,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(74, getEmptyTiles(foreGround_).size());
@@ -2601,7 +2600,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2617,7 +2616,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2629,7 +2628,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2645,7 +2644,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2657,7 +2656,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2673,7 +2672,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2686,7 +2685,7 @@ public class GameTest extends InitializationDataBase {
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
         assertTrue(!_data_.getOverWorldHeros().contains(key_));
         key_ = new ImageHeroKey(EnvironmentType.ROAD, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2702,7 +2701,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2715,7 +2714,7 @@ public class GameTest extends InitializationDataBase {
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
         assertTrue(!_data_.getOverWorldHeros().contains(key_));
         key_ = new ImageHeroKey(EnvironmentType.ROAD, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2731,7 +2730,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2741,7 +2740,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2757,7 +2756,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2767,7 +2766,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2783,7 +2782,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2793,7 +2792,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2809,7 +2808,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2819,7 +2818,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2835,7 +2834,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(79, getEmptyTiles(foreGround_).size());
@@ -2844,7 +2843,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2860,7 +2859,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(79, getEmptyTiles(foreGround_).size());
@@ -2869,7 +2868,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2885,7 +2884,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(79, getEmptyTiles(foreGround_).size());
@@ -2894,7 +2893,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2910,7 +2909,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
-        ObjectMap<ScreenCoords,StringList> foreGround_;
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(79, getEmptyTiles(foreGround_).size());
@@ -2919,7 +2918,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = _data_.getOverWorldHeros().getVal(key_);
+        int[][] img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 

@@ -4,13 +4,12 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
-import code.images.ConverterBufferedImage;
+import code.gui.animations.AnimatedImage;
 import code.util.CustList;
 
 public abstract class ProgressingDialog extends Dialog implements ProgressDialog {
@@ -35,6 +34,8 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
 
     private String titleDialog = "";
 
+    private AnimatedImage animation;
+
     public void init(Iconifiable _window, CustList<BufferedImage> _images, boolean _setVisibility) {
         if (_window != null) {
             setDialogIcon(_window);
@@ -45,8 +46,9 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         contentPane_.setLayout(new BoxLayout(contentPane_, BoxLayout.PAGE_AXIS));
         JPanel label_ = new JPanel();
         if (!_images.isEmpty()) {
-            byte[] data_ = ConverterBufferedImage.toBytesGif(_images, TIME, true);
-            anim = new JLabel(new ImageIcon(data_));
+            anim = new JLabel();
+            anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
+            animation = new AnimatedImage(anim, _images, TIME * 10);
         } else {
             anim = new JLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
@@ -75,6 +77,20 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         super.closeWindow();
         getContentPane().removeAll();
         stopTimer();
+    }
+
+    public void startAnimation() {
+        if (animation == null) {
+            return;
+        }
+        animation.start();
+    }
+
+    public void stopAnimation() {
+        if (animation == null) {
+            return;
+        }
+        animation.stopAnimation();
     }
 
     public void stopTimer() {

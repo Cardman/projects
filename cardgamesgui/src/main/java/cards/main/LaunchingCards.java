@@ -17,7 +17,6 @@ import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.LoadLanguage;
 import code.gui.SetStyle;
-import code.gui.SoftApplication;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
@@ -29,7 +28,7 @@ import code.util.StringMap;
 import code.util.consts.ConstFiles;
 /**
     le lancement du logiciel*/
-public class LaunchingCards extends SoftApplication {
+public class LaunchingCards extends SoftApplicationCore {
 
     private static final char LINE_RETURN = '\n';
     private static final String TEMP_FOLDER = "cards";

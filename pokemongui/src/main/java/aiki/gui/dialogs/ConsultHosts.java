@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import aiki.Resources;
 import aiki.facade.FacadeGame;
@@ -15,7 +16,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.gui.Dialog;
 import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -112,9 +113,8 @@ public final class ConsultHosts extends Dialog {
 
     public void seeHostedPokemon(boolean _first, Coords _coords) {
         facade.setHostedPokemon(_first, _coords);
-        SessionEditorPane session_;
-        session_ = new SessionEditorPane();
-        session_.getCaret().setSelectionVisible(false);
+        RenderedPage session_;
+        session_ = new RenderedPage(new JScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
 //        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
@@ -146,7 +146,7 @@ public final class ConsultHosts extends Dialog {
         showHtmlDialog(session_);
     }
 
-    private void showHtmlDialog(SessionEditorPane _session) {
+    private void showHtmlDialog(RenderedPage _session) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session);
     }

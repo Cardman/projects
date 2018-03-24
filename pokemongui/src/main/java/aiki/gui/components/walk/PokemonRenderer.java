@@ -74,7 +74,7 @@ public class PokemonRenderer extends CommonCellRenderer {
         selected = _selected;
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
-            String img_ = facade.getData().getMiniPk().getVal(pk_.getName());
+            int[][] img_ = facade.getData().getMiniPk().getVal(pk_.getName());
             miniImagePk = ConverterBufferedImage.decodeToImage(img_);
             remainHp = pk_.getRemainingHp().toNumberString();
             try {
@@ -101,7 +101,7 @@ public class PokemonRenderer extends CommonCellRenderer {
             }
         } else {
             Egg egg_ = (Egg) pokemon;
-            String img_ = facade.getData().getMiniPk().getVal(egg_.getName());
+            int[][] img_ = facade.getData().getMiniPk().getVal(egg_.getName());
             miniImagePk = ConverterBufferedImage.decodeToImage(img_);
             remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
         }

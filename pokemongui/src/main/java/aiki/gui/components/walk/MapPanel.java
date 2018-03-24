@@ -17,11 +17,11 @@ public class MapPanel extends JPanel {
     public void init(FacadeGame _facade, ScenePanel _scene) {
         setLayout(new GridLayout(_facade.getMapHeight(), _facade.getMapWidth(), 0, 0));
         removeAll();
-        TreeMap<MiniMapCoords, String> images_;
+        TreeMap<MiniMapCoords, int[][]> images_;
         images_ = _facade.getImages();
         int sideLength_ = _facade.getMap().getSideLength();
         for (MiniMapCoords t: images_.getKeys()) {
-            String img_ = images_.getVal(t);
+            int[][] img_ = images_.getVal(t);
             TileMiniMap info_ = _facade.getMap().getMiniMap().getVal(t);
             if (info_.isHeros() && info_.getPlace() == _facade.getGame().getPlayerCoords().getNumberPlace()) {
                 img_ = ConverterBufferedImage.stackImages(img_, _facade.getMiniHeros());

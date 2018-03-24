@@ -5,7 +5,6 @@ import cards.consts.Order;
 import cards.consts.Suit;
 import cards.gui.labels.GraphicBeloteCard;
 import code.bean.Bean;
-import code.images.ConverterBufferedImage;
 import code.util.StringList;
 
 public class BeloteSortedCardsBean extends Bean {
@@ -17,10 +16,10 @@ public class BeloteSortedCardsBean extends Bean {
     @Override
     public void beforeDisplaying() {
         for (CardBelote c: HandBelote.couleurComplete(Suit.HEART, Order.TRUMP)) {
-            imagesTrump.add(ConverterBufferedImage.surroundImage(GraphicBeloteCard.getTxtImage(c)));
+            imagesTrump.add(GraphicBeloteCard.getTxtImage(c));
         }
         for (CardBelote c: HandBelote.couleurComplete(Suit.SPADE, Order.SUIT)) {
-            imagesSuit.add(ConverterBufferedImage.surroundImage(GraphicBeloteCard.getTxtImage(c)));
+            imagesSuit.add(GraphicBeloteCard.getTxtImage(c));
         }
     }
 }

@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ToolTipManager;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
@@ -15,7 +14,7 @@ import aiki.beans.PokemonStandards;
 import code.gui.Dialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
 public final class DialogHtmlData extends Dialog {
@@ -29,7 +28,7 @@ public final class DialogHtmlData extends Dialog {
 
 //    private Timer timer;
 
-    private SessionEditorPane session;
+    private RenderedPage session;
 
     private StringMap<String> messages;
 
@@ -54,7 +53,7 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(Dialog _parent, String _title, SessionEditorPane _session) {
+    public static void setDialogHtmlData(Dialog _parent, String _title, RenderedPage _session) {
         //super(_parent, true);
         DIALOG.setDialogIcon(_parent);
         DIALOG.setTitle(_title);
@@ -69,7 +68,7 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(GroupFrame _parent, String _title, SessionEditorPane _session) {
+    public static void setDialogHtmlData(GroupFrame _parent, String _title, RenderedPage _session) {
         //super(_parent, true);
         DIALOG.setDialogIcon(_parent);
         DIALOG.setTitle(_title);
@@ -77,27 +76,25 @@ public final class DialogHtmlData extends Dialog {
         DIALOG.initSession();
     }
 
-    private void init(Window _parent, SessionEditorPane _session) {
+    private void init(Window _parent, RenderedPage _session) {
         messages = getMessages(Resources.MESSAGES_FOLDER);
         setLocationRelativeTo(_parent);
         session = _session;
         _session.setFrame(this);
-        _session.setEditable(false);
-        ToolTipManager.sharedInstance().registerComponent(_session);
         JPanel panel_ = new JPanel();
         JLabel area_ = new JLabel(TEXT);
         JTextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
         LabelButton search_ = new LabelButton(messages.getVal(SEARCH_LABEL));
         field_ = new JTextField(20);
-        _session.setLabel(area_);
+//        _session.setLabel(area_);
         _session.setSearchText(search_);
         _session.setField(field_);
         _session.addFinder();
         panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
-        JScrollPane scrollSession_ = new JScrollPane(_session);
+        JScrollPane scrollSession_ = _session.getScroll();
         scrollSession_.setPreferredSize(new Dimension(400, 400));
 //        group_.add(scrollSession_);
         panel_.add(scrollSession_);

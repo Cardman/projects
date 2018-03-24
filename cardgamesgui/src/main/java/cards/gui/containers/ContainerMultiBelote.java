@@ -84,7 +84,7 @@ import cards.network.threads.Net;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
-import code.gui.SessionEditorPane;
+import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.NatTreeMap;
@@ -112,7 +112,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private CustList<JLabel> playersPseudos = new CustList<JLabel>();
     private CustList<JLabel> playersPlaces = new CustList<JLabel>();
     private CustList<JCheckBox> playersReady = new CustList<JCheckBox>();
-    private SessionEditorPane editor;
+    private RenderedPage editor;
     private NatTreeMap<Integer, Byte> playersPlacesForGame = new NatTreeMap<Integer, Byte>();
     private NumberMap<Integer,String> playersPseudosForGame = new NumberMap<Integer,String>();
     private HandBelote playerHandBelote = new HandBelote();
@@ -297,7 +297,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         container_.add(panel_);
 
-        editor = new SessionEditorPane();
+        JScrollPane scroll_ = new JScrollPane();
+        editor = new RenderedPage(scroll_);
         try {
             //editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -308,8 +309,6 @@ public class ContainerMultiBelote extends ContainerBelote implements
             _0.printStackTrace();
         }
 
-        editor.setEditable(false);
-        JScrollPane scroll_ = new JScrollPane(editor);
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
 
@@ -875,7 +874,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ResultsGame res_ = _res;
         setScores(res_.getScores());
 
-        SessionEditorPane editor_ = new SessionEditorPane();
+        JScrollPane scroll_=new JScrollPane();
+        RenderedPage editor_ = new RenderedPage(scroll_);
         BeloteStandards stds_;
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
@@ -887,11 +887,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
-        editor_.setEditable(false);
-        JScrollPane scroll_=new JScrollPane(editor_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
-        editor_ = new SessionEditorPane();
+        ascenseur_=new JScrollPane();
+        editor_ = new RenderedPage(ascenseur_);
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
@@ -902,8 +901,6 @@ public class ContainerMultiBelote extends ContainerBelote implements
         } catch (RuntimeException _0) {
             _0.printStackTrace();
         }
-        editor_.setEditable(false);
-        ascenseur_=new JScrollPane(editor_);
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

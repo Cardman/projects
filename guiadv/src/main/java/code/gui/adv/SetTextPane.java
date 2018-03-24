@@ -1,4 +1,5 @@
-package code.gui;
+package code.gui.adv;
+
 
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),

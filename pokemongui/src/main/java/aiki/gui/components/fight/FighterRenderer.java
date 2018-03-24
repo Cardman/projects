@@ -48,7 +48,7 @@ public class FighterRenderer extends CommonCellRenderer {
         intRate = fighter.rateRemainHp();
         selected = _isSelected;
         String name_ = fighter.getName();
-        String img_ = facade.getData().getMiniPk().getVal(name_);
+        int[][] img_ = facade.getData().getMiniPk().getVal(name_);
         pkImage = ConverterBufferedImage.decodeToImage(img_);
         if (facade.getFight().getChoices().isEmpty()) {
             enabled = true;

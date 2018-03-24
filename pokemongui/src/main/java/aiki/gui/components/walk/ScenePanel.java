@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
-import javax.swing.ToolTipManager;
 
 import aiki.DataBase;
 import aiki.Resources;
@@ -85,8 +84,8 @@ import code.gui.ConfirmDialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Separator;
-import code.gui.SessionEditorPane;
 import code.gui.WrappedTextArea;
+import code.gui.document.RenderedPage;
 import code.maths.LgInt;
 import code.network.NetCreate;
 import code.network.SocketResults;
@@ -355,7 +354,7 @@ public class ScenePanel extends JPanel {
 
     //private GamePanel gamePanel;
 
-    private SessionEditorPane receivedPk;
+    private RenderedPage receivedPk;
 
     private JPanel panelNetWork;
 
@@ -861,19 +860,16 @@ public class ScenePanel extends JPanel {
         JPanel group_ = new JPanel();
         group_.setLayout(new BorderLayout());
         group_.add(new JLabel(_messages_.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
-        receivedPk = new SessionEditorPane();
-        receivedPk.setEditable(false);
-        receivedPk.getCaret().setSelectionVisible(false);
+        JScrollPane scrollSession_ = new JScrollPane();
+        receivedPk = new RenderedPage(scrollSession_);
         receivedPk.setLanguage(facade.getLanguage());
         receivedPk.setDataBase(facade);
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window);
-        ToolTipManager.sharedInstance().registerComponent(receivedPk);
 //        receivedPk.prepare();
         JPanel panel_ = new JPanel();
         panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
-        JScrollPane scrollSession_ = new JScrollPane(receivedPk);
         scrollSession_.setPreferredSize(new Dimension(400, 300));
         group_.add(scrollSession_, BorderLayout.CENTER);
         panelNetWork.add(group_);
@@ -1387,9 +1383,8 @@ public class ScenePanel extends JPanel {
 //        if (!(p_ instanceof PokemonPlayer)) {
 //            return;
 //        }
-        SessionEditorPane session_;
-        session_ = new SessionEditorPane();
-        session_.getCaret().setSelectionVisible(false);
+        RenderedPage session_;
+        session_ = new RenderedPage(new JScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
 //        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
@@ -1577,7 +1572,7 @@ public class ScenePanel extends JPanel {
         facade.exitInteract();
     }
 
-    private static void showHtmlDialog(GroupFrame _parent, SessionEditorPane _session) {
+    private static void showHtmlDialog(GroupFrame _parent, RenderedPage _session) {
 //        DialogHtmlData.setDialogHtmlData(_parent, _messages_.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(_parent, _messages_.getVal(TITLE_DETAIL), _session);
     }

@@ -20,10 +20,10 @@ import aiki.fight.items.SellingItem;
 import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
-import code.images.ConverterBufferedImage;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class AreaBean extends CommonBean {
     private AreaApparition area;
@@ -37,7 +37,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index.intValue());
         String name_ = pk_.getName();
-        return ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(name_));
+        return BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(Long _index) {
@@ -168,7 +168,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index.intValue());
         String name_ = pk_.getName();
-        return ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(name_));
+        return BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getNameFishing(Long _index) {

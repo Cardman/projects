@@ -27,6 +27,7 @@ import minirts.rts.Direction;
 import minirts.rts.Facade;
 import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
+import code.util.opers.BaseSixtyFourUtil;
 
 public final class MainWindow extends JFrame {
 
@@ -111,7 +112,7 @@ public final class MainWindow extends JFrame {
         buttons_.add(stop);
         Toolkit tool_ = Toolkit.getDefaultToolkit();
         String note_ = ResourceFiles.ressourceFichier(NOTE_FILE);
-        BufferedImage or_ = ConverterBufferedImage.decodeToImage(note_);
+        BufferedImage or_ = ConverterBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(note_));
         int wCurs_ = or_.getWidth();
         int hCurs_ = or_.getHeight();
         int[] pixels_ = new int[wCurs_ * hCurs_];

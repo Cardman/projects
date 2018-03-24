@@ -158,7 +158,7 @@ public class Scene extends JLabel implements MouseListener {
 //        background.clear();
 //        foreground.clear();
         for (ScreenCoords sc_: _facade.getBackgroundImages().getKeys()) {
-            String img_ = _facade.getBackgroundImages().getVal(sc_);
+            int[][] img_ = _facade.getBackgroundImages().getVal(sc_);
             BufferedImage buff_ = ConverterBufferedImage.decodeToImage(img_);
             ConverterBufferedImage.transparentAllWhite(buff_);
             background_.put(sc_, buff_);
@@ -167,8 +167,8 @@ public class Scene extends JLabel implements MouseListener {
 //        _sideLength_ = _facade.getMap().getSideLength();
         for (ScreenCoords sc_: _facade.getForegroundImages().getKeys()) {
             CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
-            for (String b: _facade.getForegroundImages().getVal(sc_)) {
-                if (b.isEmpty()) {
+            for (int[][] b: _facade.getForegroundImages().getVal(sc_)) {
+                if (b.length == 0) {
                     continue;
                 }
 //                BufferedImage buff_ = ConverterBufferedImage.centerImage(b, _sideLength_);

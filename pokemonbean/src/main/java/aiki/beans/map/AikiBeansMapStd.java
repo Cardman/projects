@@ -25,6 +25,7 @@ public final class AikiBeansMapStd {
     public static final String TYPE_MAP_BEAN = "aiki.beans.map.MapBean";
     public static final String TYPE_MAP_LEVEL_BEAN = "aiki.beans.map.MapLevelBean";
 
+    private static final String GET_MAP_WIDTH = "getMapWidth";
     private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String WITHOUT_TITLE = "withoutTitle";
     private static final String IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS = "isAccessibleByBeatingSomeTrainers";
@@ -108,6 +109,9 @@ public final class AikiBeansMapStd {
         fields_.put(PROPONE_LINK,new StandardField(PROPONE_LINK,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(SEE_AREA,new StandardField(SEE_AREA,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(DIRS,new StandardField(DIRS,_std.getCustMap(),false,false,type_));
+        params_ = new StringList();
+        method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL,type_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(IS_FIRST_ROW,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -250,6 +254,10 @@ public final class AikiBeansMapStd {
         MapLevelBean instance_ = (MapLevelBean) _instance.getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
+        if (StringList.quickEq(methodName_,GET_MAP_WIDTH)) {
+            res_.setResult(new IntStruct(instance_.getMapWidth()));
+            return res_;
+        }
         if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {
             res_.setResult(new BooleanStruct(instance_.isFirstRow((Long)_args[0])));
             return res_;

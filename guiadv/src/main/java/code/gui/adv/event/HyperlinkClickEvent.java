@@ -1,8 +1,8 @@
-package code.gui.events;
+package code.gui.adv.event;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
-import code.gui.SessionEditorPane;
+import code.gui.adv.SessionEditorPane;
 
 public class HyperlinkClickEvent implements HyperlinkListener {
 

@@ -10,7 +10,6 @@ import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
-import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
@@ -20,6 +19,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class StatusBean extends CommonBean {
     private String name;
@@ -55,7 +55,7 @@ public class StatusBean extends CommonBean {
     public void beforeDisplaying() {
         name = (String) getForms().getVal(STATUS);
         DataBase data_ = (DataBase) getDataBase();
-        animStatus = ConverterBufferedImage.surroundImage(data_.getAnimStatus().getVal(name));
+        animStatus = BaseSixtyFourUtil.getSringByImage(data_.getAnimStatus().getVal(name));
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         displayName = translatedStatus_.getVal(name);

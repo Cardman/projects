@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
@@ -83,12 +84,11 @@ import code.gui.LabelButton;
 import code.gui.LanguageDialog;
 import code.gui.Menu;
 import code.gui.MenuItem;
-import code.gui.SessionEditorPane;
 import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
+import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
-import code.images.ConverterBufferedImage;
 import code.network.AttemptConnecting;
 import code.network.BasicClient;
 import code.network.Exiting;
@@ -100,7 +100,6 @@ import code.util.EnumMap;
 import code.util.InsCaseStringMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
-import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
@@ -474,10 +473,9 @@ public final class MainWindow extends NetGroupFrame {
         for (Sex s: Sex.values()) {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
-            String imgTxt_ = facade.getData().getFrontHeros().getVal(i_);
-            PairNumber<Integer,Integer> dims_ = ConverterBufferedImage.getDimensions(imgTxt_);
+            int[][] imgTxt_ = facade.getData().getFrontHeros().getVal(i_);
             HeroLabel label_ = new HeroLabel(imgTxt_);
-            label_.setPreferredSize(new Dimension(dims_.getFirst(), dims_.getSecond()));
+            label_.setPreferredSize(new Dimension(imgTxt_[0].length, imgTxt_.length));
             label_.addMouseListener(new HeroSelect(this, s));
             herosLabels.put(s, label_);
             heros_.add(label_);
@@ -1020,9 +1018,8 @@ public final class MainWindow extends NetGroupFrame {
         }
 
         //JTextArea area_ = new JTextArea();
-        SessionEditorPane session_;
-        session_ = new SessionEditorPane();
-        session_.getCaret().setSelectionVisible(false);
+        RenderedPage session_;
+        session_ = new RenderedPage(new JScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade.getData());
         session_.setProcess(VideoLoading.getVideo());

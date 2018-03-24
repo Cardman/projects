@@ -23,16 +23,19 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.TileMiniMap;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class GeneralHelpBean extends CommonBean {
-    private TreeMap<MiniMapCoords, String> miniMap;
+    private TreeMap<MiniMapCoords, int[][]> miniMap;
 
     private TreeMap<MiniMapCoords, String> namesPlaces;
     private String unlockedCity;
@@ -66,7 +69,7 @@ public class GeneralHelpBean extends CommonBean {
         for (MiniMapCoords m: miniMap.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
         }
-        unlockedCity = ConverterBufferedImage.surroundImage(data_.getMiniMap(data_.getMap().getUnlockedCity()));
+        unlockedCity = BaseSixtyFourUtil.getSringByImage(data_.getMiniMap(data_.getMap().getUnlockedCity()));
         nbMaxTeam = data_.getNbMaxTeam();
         minLevel = data_.getMinLevel();
         maxLevel = data_.getMaxLevel();
@@ -95,8 +98,15 @@ public class GeneralHelpBean extends CommonBean {
         types.sortElts(new ComparatorTrStrings(data_.getTranslatedTypes().getVal(getLanguage())));
     }
     public String getMiniMapImage(Long _index) {
-        String image_ = miniMap.getValue(_index.intValue());
-        return ConverterBufferedImage.surroundImage(image_);
+        int[][] image_ = miniMap.getValue(_index.intValue());
+        return BaseSixtyFourUtil.getSringByImage(image_);
+    }
+    public int getMapWidth() {
+        int w_ = 0;
+        while (miniMap.getKey(w_).getYcoords() != CustList.SECOND_INDEX) {
+            w_++;
+        }
+        return w_;
     }
     public boolean isFirstRow(Long _index) {
         if (_index.intValue() == 0) {
@@ -121,7 +131,7 @@ public class GeneralHelpBean extends CommonBean {
     public String getImage() {
         DataBase data_ = (DataBase) getDataBase();
         String name_ = firstPokemon.getName();
-        return ConverterBufferedImage.surroundImage(data_.getMaxiPkFront().getVal(name_));
+        return BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
@@ -281,14 +291,14 @@ public class GeneralHelpBean extends CommonBean {
     public String getImageType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         String type_ = types.get(_index.intValue());
-        return ConverterBufferedImage.surroundImage(data_.getTypesImages().getVal(type_));
+        return BaseSixtyFourUtil.getSringByImage(data_.getTypesImages().getVal(type_));
     }
     public String getColorType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         String type_ = types.get(_index.intValue());
         String color_ = data_.getTypesColors().getVal(type_);
         String img_ = ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
-        return ConverterBufferedImage.surroundImage(img_);
+        return img_;
     }
 
     public int getMaxLevel() {
@@ -312,7 +322,13 @@ public class GeneralHelpBean extends CommonBean {
     }
 
     public TreeMap<MiniMapCoords,String> getMiniMap() {
-        return miniMap;
+        DataBase data_ = (DataBase) getDataBase();
+        TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
+        for (EntryCust<MiniMapCoords,TileMiniMap> m_: data_.getMap().getMiniMap().entryList()) {
+            int[][] image_ = data_.getMiniMap(m_.getValue().getFile());
+            map_.put(m_.getKey(), BaseSixtyFourUtil.getSringByImage(image_));
+        }
+        return map_;
     }
 
     public String getUnlockedCity() {

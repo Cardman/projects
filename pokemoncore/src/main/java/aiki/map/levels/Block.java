@@ -3,11 +3,8 @@ import aiki.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.tree.util.Dims;
 import aiki.util.Point;
-import code.images.ConverterBufferedImage;
-import code.images.Image;
 import code.util.CustList;
 import code.util.Numbers;
-import code.util.PairNumber;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -47,8 +44,8 @@ public final class Block {
     }
 
     public boolean hasValidImage(DataBase _data) {
-        String image_ = _data.getImage(tileFileName);
-        if (image_.isEmpty()) {
+        int[][] image_ = _data.getImage(tileFileName);
+        if (image_.length == 0) {
             return false;
         }
         int scale_ = _data.getMap().getSideLength();
@@ -66,11 +63,10 @@ public final class Block {
 //            return Pair.eq(dims_, _data.getImagesDimensions().getVal(tileFileName));
             return true;
         }
-        PairNumber<Integer,Integer> dimsBlock_ = ConverterBufferedImage.getDimensions(image_);
-        if (dimsBlock_.getFirst() != width * scale_) {
+        if (image_[0].length != width * scale_) {
             return false;
         }
-        if (dimsBlock_.getSecond() != height * scale_) {
+        if (image_.length != height * scale_) {
             return false;
         }
         _data.getImagesDimensions().put(tileFileName, dims_);
@@ -96,8 +92,11 @@ public final class Block {
 //            return Pair.eq(dims_, _data.getImagesDimensions().getVal(tileFileName));
             return true;
         }
-        String image_ = _data.getImage(tileFileName);
-        if (!Image.isValidNotEmpty(image_, width * scale_, height * scale_)) {
+        int[][] image_ = _data.getImage(tileFileName);
+        if (image_.length != height * scale_) {
+            return false;
+        }
+        if (image_[0].length != width * scale_) {
             return false;
         }
         _data.getImagesDimensions().put(tileFileName, dims_);

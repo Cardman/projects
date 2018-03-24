@@ -8,11 +8,11 @@ import code.images.ConverterBufferedImage;
 
 public class HeroLabel extends JLabel {
 
-    private String image;
+    private int[][] image;
 
     private boolean selected;
 
-    public HeroLabel(String _image) {
+    public HeroLabel(int[][] _image) {
         image = _image;
     }
 

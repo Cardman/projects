@@ -41,7 +41,7 @@ public class PokemonDataRenderer extends StringCellRenderer {
         selected = _isSelected;
         if (!_value.isEmpty()) {
             name = facade.translatePokemon(_value);
-            String img_ = facade.getData().getMiniPk().getVal(_value);
+            int[][] img_ = facade.getData().getMiniPk().getVal(_value);
             pkImage = ConverterBufferedImage.decodeToImage(img_);
             setPreferredSize(new Dimension(100, pkImage.getHeight()));
         } else {

@@ -32,14 +32,15 @@ public final class DualNumberedLabel extends DualLabel {
         Font copy_ = new Font(style_.getFontFamily(), style_.getBold() + style_.getItalic(), style_.getRealSize());
         FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);
         int h_ = fontMetrics_.getHeight();
-        int w_ = fontMetrics_.stringWidth(getComponent().getNumber());
-        BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
+        String tr_ = new StringBuilder(getComponent().getNumber()).append("  ").toString();
+        int diff_ = fontMetrics_.stringWidth(tr_);
+        BufferedImage img_ = new BufferedImage(diff_, h_, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();
         gr_.setFont(copy_);
         gr_.setColor(new Color(style_.getBgColor()));
-        gr_.fillRect(0, 0, w_, h_);
+        gr_.fillRect(0, 0, diff_, h_);
         gr_.setColor(new Color(style_.getFgColor()));
-        gr_.drawString(getComponent().getNumber(), 0, h_ - 1);
+        gr_.drawString(tr_, 0, h_ - 1);
         lab_.setIcon(new ImageIcon(img_));
         gr_.dispose();
     }
