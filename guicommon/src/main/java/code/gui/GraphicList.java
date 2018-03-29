@@ -38,6 +38,11 @@ public class GraphicList<T> implements GraphicListable {
     private boolean owned;
 
     public GraphicList(boolean _owned, boolean _simple, T... _objects) {
+        this(_owned, _simple, new Numbers<Integer>(), _objects);
+    }
+
+    public GraphicList(boolean _owned, boolean _simple, Numbers<Integer> _selectedIndexes, T... _objects) {
+        selectedIndexes = new Numbers<Integer>(selectedIndexes);
         owned = _owned;
         list = new CustList<T>(_objects);
         simple = _simple;
@@ -114,7 +119,7 @@ public class GraphicList<T> implements GraphicListable {
             JLabel lab_ = new JLabel();
             listComponents.add(lab_);
             panel_.add(lab_);
-            JLabel c_ = r_.getListCellRendererComponent(this, o, index_, false, false);
+            JLabel c_ = r_.getListCellRendererComponent(this, o, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
         }
@@ -168,6 +173,43 @@ public class GraphicList<T> implements GraphicListable {
         for (int i = min_; i <= max_; i++) {
             selectedIndexes.removeObj(i);
         }
+    }
+    public void setSelectedIndexes(int _min, int _max) {
+        if (simple) {
+            return;
+        }
+        int min_ = Math.min(_min, _max);
+        int max_ = Math.min(_min, _max);
+        for (int i = min_; i < max_; i++) {
+            selectedIndexes.add(i);
+        }
+        selectedIndexes.removeDuplicates();
+        CustCellRender r_ = getRender();
+        int index_ = 0;
+        Object[] array_ = getList().toArray();
+        for (Object v: array_) {
+            JLabel c_;
+            c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
+            r_.paintComponent(c_);
+            index_++;
+        }
+        SelectionEvent sel_ = new SelectionEvent(min_, max_, this);
+        SwingUtilities.invokeLater(sel_);
+    }
+    public void setSelectedIndice(int _min) {
+        selectedIndexes.add(_min);
+        selectedIndexes.removeDuplicates();
+        CustCellRender r_ = getRender();
+        int index_ = 0;
+        Object[] array_ = getList().toArray();
+        for (Object v: array_) {
+            JLabel c_;
+            c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
+            r_.paintComponent(c_);
+            index_++;
+        }
+        SelectionEvent sel_ = new SelectionEvent(_min, _min, this);
+        SwingUtilities.invokeLater(sel_);
     }
     public void clearSelection() {
         CustCellRender r_ = getRender();

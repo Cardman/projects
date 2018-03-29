@@ -1,7 +1,6 @@
 package code.gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -33,19 +32,28 @@ public class GraphicCombo implements GraphicComboInt, Input {
 
     private JPopupMenu menu = new JPopupMenu();
 
+    private int selectedIndex = -1;
+
     public GraphicCombo() {
         this(new StringList());
     }
 
     public GraphicCombo(StringList _list) {
-        this(new GraphicStringList(true, true, _list));
+        this(_list,0);
+    }
+
+    public GraphicCombo(StringList _list, int _selectedIndex) {
+        this(new GraphicStringList(true, true, _list),_selectedIndex);
     }
 
     public GraphicCombo(GraphicStringList _grList) {
+        this(_grList,0);
+    }
+
+    public GraphicCombo(GraphicStringList _grList, int _selectedIndex) {
         grList = _grList;
         grList.setListener(new ComboSelection(menu, this));
         menu.add(grList.getGlobal());
-        menu.addPopupMenuListener(new PopupListener(_grList));
         Font font_ = panel.getFont();
         FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
         int s_ = fontMetrics_.getHeight() + 2;
@@ -57,15 +65,15 @@ public class GraphicCombo implements GraphicComboInt, Input {
         gr_.fillPolygon(Numbers.wrapIntArray(s_/4,s_*3/4,s_/2), Numbers.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
         pseudoButton.setIcon(new ImageIcon(img_));
         pseudoButton.addMouseListener(new Popup(this));
-        currentSelected.setPreferredSize(new Dimension(5, s_));
         currentSelected.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         gr_.dispose();
         panel.add(currentSelected);
         panel.add(pseudoButton);
         panel.add(menu);
         if (!_grList.getList().isEmpty()) {
-            selectItem(0);
-            update();
+            selectItem(_selectedIndex);
+        } else {
+            setNoSelected();
         }
     }
 
@@ -75,11 +83,10 @@ public class GraphicCombo implements GraphicComboInt, Input {
 
     @Override
     public String getSelectedItem() {
-        if (grList.getSelectedIndexes().isEmpty()) {
+        if (selectedIndex == -1) {
             return null;
         }
-        int index_ = grList.getSelectedIndexes().first();
-        return grList.getList().get(index_);
+        return grList.getList().get(selectedIndex);
     }
 
     @Override
@@ -153,40 +160,23 @@ public class GraphicCombo implements GraphicComboInt, Input {
         int oldIndex_ = getSelectedIndex();
         grList.remove(_index);
         if (oldIndex_ == _index) {
-            Font font_ = panel.getFont();
-            FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
-            int s_ = fontMetrics_.getHeight() + 2;
             if (!grList.getList().isEmpty()) {
-                String object_ = grList.getList().first();
-                int w_ = grList.getMaxWidth();
-                BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-                Graphics2D gr_ = img_.createGraphics();
-                gr_.setColor(Color.WHITE);
-                gr_.fillRect(0, 0, w_, s_);
-                gr_.setColor(Color.BLACK);
-                gr_.drawString(object_, 0, s_ - 1);
-                currentSelected.setIcon(new ImageIcon(img_));
+                update();
             } else {
-                int w_ = 5;
-                BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-                Graphics2D gr_ = img_.createGraphics();
-                gr_.setColor(Color.WHITE);
-                gr_.fillRect(0, 0, w_, s_);
-                currentSelected.setIcon(new ImageIcon(img_));
+                selectedIndex = -1;
+                setNoSelected();
             }
         }
     }
 
     @Override
     public int getSelectedIndex() {
-        if (grList.getSelectedIndexes().isEmpty()) {
-            return -1;
-        }
-        return grList.getSelectedIndexes().first();
+        return selectedIndex;
     }
 
     @Override
     public void selectItem(int _index) {
+        selectedIndex = _index;
         grList.setFirstIndex(_index);
         grList.setLastIndex(_index);
         grList.addRange();
@@ -211,6 +201,18 @@ public class GraphicCombo implements GraphicComboInt, Input {
         currentSelected.setIcon(new ImageIcon(img_));
     }
 
+    void setNoSelected() {
+        Font font_ = panel.getFont();
+        FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
+        int s_ = fontMetrics_.getHeight() + 2;
+        int w_ = 5;
+        BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
+        Graphics2D gr_ = img_.createGraphics();
+        gr_.setColor(Color.WHITE);
+        gr_.fillRect(0, 0, w_, s_);
+        currentSelected.setIcon(new ImageIcon(img_));
+    }
+
     @Override
     public JPanel getGlobal() {
         return getPanel();
@@ -218,12 +220,15 @@ public class GraphicCombo implements GraphicComboInt, Input {
 
     @Override
     public Numbers<Integer> getSelectedIndexes() {
-        return grList.getSelectedIndexes();
+        if (selectedIndex == -1) {
+            return new Numbers<Integer>();
+        }
+        return new Numbers<Integer>(selectedIndex);
     }
 
     @Override
     public StringList getSelectedValues() {
-        if (grList.getSelectedIndexes().isEmpty()) {
+        if (selectedIndex == -1) {
             return new StringList();
         }
         return new StringList(getSelectedItem());

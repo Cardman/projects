@@ -2090,7 +2090,6 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            System.out.println(n_);
             PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(files_.getVal(StringList.concat(common_,f)));
             completeMembers(StringList.toUpperCase(n_), f_);
         }

@@ -16,8 +16,7 @@ public final class ComboSelection extends ListSelection {
     @Override
     public void valueChanged(SelectionInfo _e) {
         popup.setVisible(false);
-        int index_ = grList.getSelectedIndex();
-        SelectionUtil.selectEvent(index_, index_, grList, grList.getListener(), false);
+        grList.selectItem(_e.getFirstIndex());
     }
 
 }

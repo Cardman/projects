@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
-import code.formathtml.util.FormInputCoords;
 import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.util.CustList;
@@ -71,9 +70,6 @@ public class FormEvent extends MouseAdapter {
                         }
                     } else if (input_ instanceof DualComboBox) {
                         nCont_.setEnabled(true);
-                        FormInputCoords fi_ = new FormInputCoords();
-                        fi_.setForm(Long.parseLong(nbForm_));
-                        fi_.setInput(nbId_);
                         DualComboBox c_ = (DualComboBox) input_;
                         if (c_.getSelectedIndexes().isEmpty()) {
                             nCont_.getNodeInformation().setValue(new StringList());
@@ -102,7 +98,7 @@ public class FormEvent extends MouseAdapter {
                 break;
             }
             n_ = getNextSibling(par_);
-            while (n_ != null) {
+            while (n_ == null) {
                 DualContainer grPar_ = par_.getContainer();
                 if (grPar_ == form_) {
                     break;

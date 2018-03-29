@@ -9,7 +9,7 @@ public final class DualComboList extends DualInput {
 
     public DualComboList(DualContainer _container, MetaComboList _component,
              RenderedPage _page) {
-        super(_container, _component, new GraphicStringList(false, false, new StringList(_component.getChoicesStrings())), _page);
+        super(_container, _component, new GraphicStringList(false, false, new StringList(_component.getChoicesStrings()), _component.getSelected()), _page);
     }
 
     @Override
