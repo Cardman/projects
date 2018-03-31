@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.util.SortingItem;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.Numbers;
 
 public class ItemLabel extends SelectableLabel {
@@ -32,7 +32,7 @@ public class ItemLabel extends SelectableLabel {
 
     public void setImagesResults(FacadeGame _facade) {
         int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
-        miniImageItem = ConverterBufferedImage.decodeToImage(miniItem_);
+        miniImageItem = ConverterGraphicBufferedImage.decodeToImage(miniItem_);
         sideLength = _facade.getMap().getSideLength();
         int h_ = sideLength;
         if (h_ < FOURTH_LINE) {

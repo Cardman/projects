@@ -51,7 +51,7 @@ public class SolutionBean extends CommonBean {
                 CustList<WildPokemonDto> pokemon_ = new CustList<WildPokemonDto>();
                 for (GenderName pk_: step_.getCaughtPokemonPlaceLevel().getVal(key_)) {
                     String name_ = data_.getTranslatedPokemon().getVal(getLanguage()).getVal(pk_.getName());
-                    String image_ = BaseSixtyFourUtil.getSringByImage(data_.getMiniPk().getVal(pk_.getName()));
+                    String image_ = BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
                     String gender_ = data_.getTranslatedGenders().getVal(getLanguage()).getVal(pk_.getGender());
                     pokemon_.add(new WildPokemonDto(image_, name_, gender_));
                 }

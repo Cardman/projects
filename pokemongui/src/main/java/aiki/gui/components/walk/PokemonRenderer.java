@@ -13,7 +13,7 @@ import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.CommonCellRenderer;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
@@ -75,7 +75,7 @@ public class PokemonRenderer extends CommonCellRenderer {
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
             int[][] img_ = facade.getData().getMiniPk().getVal(pk_.getName());
-            miniImagePk = ConverterBufferedImage.decodeToImage(img_);
+            miniImagePk = ConverterGraphicBufferedImage.decodeToImage(img_);
             remainHp = pk_.getRemainingHp().toNumberString();
             try {
                 intRate = pk_.rateRemainHp(facade.getData());
@@ -87,7 +87,7 @@ public class PokemonRenderer extends CommonCellRenderer {
             withItem = !pk_.getItem().isEmpty();
             if (withItem) {
                 img_ = facade.getData().getMiniItems().getVal(pk_.getItem());
-                miniImageItem = ConverterBufferedImage.decodeToImage(img_);
+                miniImageItem = ConverterGraphicBufferedImage.decodeToImage(img_);
             }
             oldSelected = false;
             ko = pk_.isKo();
@@ -102,7 +102,7 @@ public class PokemonRenderer extends CommonCellRenderer {
         } else {
             Egg egg_ = (Egg) pokemon;
             int[][] img_ = facade.getData().getMiniPk().getVal(egg_.getName());
-            miniImagePk = ConverterBufferedImage.decodeToImage(img_);
+            miniImagePk = ConverterGraphicBufferedImage.decodeToImage(img_);
             remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
         }
         setPreferredSize(new Dimension(coords * 2 + sideLength * 2, sideLength));

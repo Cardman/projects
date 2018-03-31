@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import code.gui.CommonCellRenderer;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.Rate;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -42,7 +42,7 @@ public class BallRenderer extends CommonCellRenderer {
         maxWidthNumber = 0;
         for (BallNumberRate b: _balls.values()) {
             int[][] img_ = facade.getData().getMiniItems().getVal(b.getName());
-            BufferedImage b_ = ConverterBufferedImage.decodeToImage(img_);
+            BufferedImage b_ = ConverterGraphicBufferedImage.decodeToImage(img_);
             Rate r_ = b.getRate();
             int w_ = getFontMetrics(getFont()).stringWidth(r_.toNumberString());
             if (w_ > maxWidthRate) {
@@ -65,7 +65,7 @@ public class BallRenderer extends CommonCellRenderer {
         selected = _isSelected;
         ball = (BallNumberRate)_value;
         int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());
-        ballImage = ConverterBufferedImage.decodeToImage(img_);
+        ballImage = ConverterGraphicBufferedImage.decodeToImage(img_);
         setPreferredSize(new Dimension(100, ballImage.getHeight()));
         return this;
     }

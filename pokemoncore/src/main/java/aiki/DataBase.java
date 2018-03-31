@@ -1283,7 +1283,9 @@ public class DataBase implements WithMathFactory {
             throw new DataException();
         }
         for (String v: typesColors.values()) {
-            ConverterBufferedImage.validateColor(v, SEPARATOR_RGB);
+            if (ConverterBufferedImage.getIntColor(v, SEPARATOR_RGB) == -1) {
+                throw new DataException();
+            }
         }
         for (Place p: map.getPlaces().values()) {
             if (!p.hasValidImage(this)) {
@@ -6931,28 +6933,28 @@ public class DataBase implements WithMathFactory {
 //        }
         if (_addImages) {
             for (String n: animStatis.getKeys()) {
-                files_.put(StringList.concat(ANIM_STATIS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(animStatis.getVal(n)));
+                files_.put(StringList.concat(ANIM_STATIS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(animStatis.getVal(n)));
             }
             for (String n: animStatus.getKeys()) {
-                files_.put(StringList.concat(ANIM_STATUS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(animStatus.getVal(n)));
+                files_.put(StringList.concat(ANIM_STATUS,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(animStatus.getVal(n)));
             }
-            files_.put(ANIM_ABSORB, BaseSixtyFourUtil.getSringByImage(animAbsorb));
+            files_.put(ANIM_ABSORB, BaseSixtyFourUtil.getStringByImage(animAbsorb));
             for (String n: images.getKeys()) {
-                files_.put(StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(images.getVal(n)));
+                files_.put(StringList.concat(IMAGES_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getStringByImage(images.getVal(n)));
             }
             for (String n: miniMap.getKeys()) {
-                files_.put(StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(miniMap.getVal(n)));
+                files_.put(StringList.concat(MINI_MAP_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getStringByImage(miniMap.getVal(n)));
             }
             for (String n: links.getKeys()) {
-                files_.put(StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(links.getVal(n)));
+                files_.put(StringList.concat(LINKS_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getStringByImage(links.getVal(n)));
             }
             for (String n: people.getKeys()) {
-                files_.put(StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(people.getVal(n)));
+                files_.put(StringList.concat(PEOPLE_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getStringByImage(people.getVal(n)));
             }
             StringList linesHeros_;
             linesHeros_ = new StringList();
             for (ImageHeroKey k: frontHeros.getKeys()) {
-                String image_ = BaseSixtyFourUtil.getSringByImage(frontHeros.getVal(k));
+                String image_ = BaseSixtyFourUtil.getStringByImage(frontHeros.getVal(k));
                 StringBuilder str_ = new StringBuilder();
                 str_.append(k.getType().name());
                 str_.append(SEPARATOR_KEY_HEROS);
@@ -6964,7 +6966,7 @@ public class DataBase implements WithMathFactory {
             files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_FRONT), linesHeros_.join(RETURN_LINE));
             linesHeros_.clear();
             for (ImageHeroKey k: backHeros.getKeys()) {
-                String image_ = BaseSixtyFourUtil.getSringByImage(backHeros.getVal(k));
+                String image_ = BaseSixtyFourUtil.getStringByImage(backHeros.getVal(k));
                 StringBuilder str_ = new StringBuilder();
                 str_.append(k.getType().name());
                 str_.append(SEPARATOR_KEY_HEROS);
@@ -6976,7 +6978,7 @@ public class DataBase implements WithMathFactory {
             files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_BACK), linesHeros_.join(RETURN_LINE));
             linesHeros_.clear();
             for (ImageHeroKey k: overWorldHeros.getKeys()) {
-                String image_ = BaseSixtyFourUtil.getSringByImage(overWorldHeros.getVal(k));
+                String image_ = BaseSixtyFourUtil.getStringByImage(overWorldHeros.getVal(k));
                 StringBuilder str_ = new StringBuilder();
                 str_.append(k.getType().name());
                 str_.append(SEPARATOR_KEY_HEROS);
@@ -6989,26 +6991,26 @@ public class DataBase implements WithMathFactory {
             }
             files_.put(StringList.concat(HERO_FOLDER,SEPARATOR_FILES,HERO_MINI), linesHeros_.join(RETURN_LINE));
             for (String n: trainers.getKeys()) {
-                files_.put(StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getSringByImage(trainers.getVal(n)));
+                files_.put(StringList.concat(TRAINERS_FOLDER,SEPARATOR_FILES,n), BaseSixtyFourUtil.getStringByImage(trainers.getVal(n)));
             }
             for (String n: maxiPkFront.getKeys()) {
-                files_.put(StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(maxiPkFront.getVal(n)));
+                files_.put(StringList.concat(FRONT_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(maxiPkFront.getVal(n)));
             }
             for (String n: maxiPkBack.getKeys()) {
-                files_.put(StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(maxiPkBack.getVal(n)));
+                files_.put(StringList.concat(BACK_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(maxiPkBack.getVal(n)));
             }
             for (String n: miniPk.getKeys()) {
-                files_.put(StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(miniPk.getVal(n)));
+                files_.put(StringList.concat(MINI_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(miniPk.getVal(n)));
             }
             for (String n: miniItems.getKeys()) {
-                files_.put(StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(miniItems.getVal(n)));
+                files_.put(StringList.concat(OBJECTS_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(miniItems.getVal(n)));
             }
             for (String n: typesImages.getKeys()) {
-                files_.put(StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(typesImages.getVal(n)));
+                files_.put(StringList.concat(TYPES_IMAGES_FOLDER,SEPARATOR_FILES,n,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(typesImages.getVal(n)));
             }
-            files_.put(StringList.concat(IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(imageTmHm));
-            files_.put(StringList.concat(IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(storage));
-            files_.put(StringList.concat(END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getSringByImage(endGameImage));
+            files_.put(StringList.concat(IMAGE_TM_HM_FILES,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(imageTmHm));
+            files_.put(StringList.concat(IMAGE_STORAGE_FILES,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(storage));
+            files_.put(StringList.concat(END_GAME_IMAGE,IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil.getStringByImage(endGameImage));
         }
         return files_;
     }

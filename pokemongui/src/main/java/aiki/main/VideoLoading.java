@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import aiki.DataBase;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -57,7 +57,7 @@ public final class VideoLoading {
                     if (txtFile_.length == 0) {
                         break;
                     }
-                    BufferedImage image_ = ConverterBufferedImage.decodeToImage(txtFile_);
+                    BufferedImage image_ = ConverterGraphicBufferedImage.decodeToImage(txtFile_);
                     if (image_ == null) {
                         break;
                     }

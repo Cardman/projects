@@ -23,8 +23,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import code.images.ConverterBufferedImage;
 import code.images.GifAnimation;
+import code.images.Image;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
@@ -91,10 +91,6 @@ public class ConverterBufferedImageAdv {
 
     private static final String EMPTY_STRING = "";
 
-//    private static final int RGB_BITS = 24;
-
-//    private static final int ALHPA = 0xff;
-
     public static String stackImages(String _back, String _front) {
         String img_ = _front;
         if (img_.isEmpty()) {
@@ -120,6 +116,10 @@ public class ConverterBufferedImageAdv {
         String str_ = toBaseSixtyFour(combined_);
         g_.dispose();
         return str_;
+    }
+
+    public static StringList getAvailableFormats() {
+        return new StringList(AVAILABLE_FORMATS);
     }
 
     public static String clipSixtyFour(String _image,int _x,int _y,int _w,int _h) {
@@ -415,7 +415,7 @@ public class ConverterBufferedImageAdv {
     }
 
     public static byte[] toBytesQuick(String _img) {
-        return toBytes(ConverterBufferedImage.toRenderedImageQuick(_img));
+        return toBytes(toRenderedImageQuick(_img));
     }
 
     public static byte[] toBytes(BufferedImage _buf) {
@@ -463,17 +463,67 @@ public class ConverterBufferedImageAdv {
         return contourChart_;
     }
     public static String toBaseSixtyFour(String _txtImg) {
-        return toBaseSixtyFour(ConverterBufferedImage.toRenderedImageQuick(_txtImg),IMG_EXT);
+        return toBaseSixtyFour(toRenderedImageQuick(_txtImg),IMG_EXT);
     }
 
     public static String toBaseSixtyFourQuick(String _txtImg) {
-        return toBaseSixtyFour(ConverterBufferedImage.toRenderedImageQuick(_txtImg));
+        return toBaseSixtyFour(toRenderedImageQuick(_txtImg));
     }
 
-
+    public static BufferedImage toRenderedImageQuick(String _txt) {
+        StringList lines_ = StringList.splitChars(_txt, Image.SEPARATOR_CHAR);
+        int w_ = Integer.parseInt(lines_.first());
+        int h_;
+        if (w_ == 0) {
+            h_ = 0;
+        } else {
+            h_ = (lines_.size() - 1) / w_;
+        }
+        BufferedImage image_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
+        for (int i = CustList.FIRST_INDEX;i<h_;i++) {
+            for (int j = CustList.FIRST_INDEX;j<w_;j++) {
+                int index_ = j + w_ * i + 1;
+                int int_ = Integer.parseInt(lines_.get(index_));
+                if (int_ == -1) {
+                    image_.setRGB(j, i, getTransparentWhite().getRGB());
+                } else {
+                    image_.setRGB(j, i, int_);
+                }
+            }
+        }
+        return image_;
+    }
     public static String getSquareColorSixtyFour(String _color, String _sep, int _sideLen) {
-        return toBaseSixtyFour(ConverterBufferedImage.getSquareColor(_color, _sep, _sideLen));
+        return toBaseSixtyFour(getSquareColor(_color, _sep, _sideLen));
     }
+
+    public static Color getTransparentWhite() {
+        return new Color(Color.WHITE.getRed(), Color.WHITE.getBlue(), Color.WHITE.getGreen(), 0);
+    }
+
+    public static BufferedImage getSquareColor(String _color, String _sep, int _sideLen) {
+        Color c_ = getColor(_color, _sep);
+        BufferedImage image_ = new BufferedImage(_sideLen, _sideLen, BufferedImage.TYPE_INT_RGB);
+        for (int i = CustList.FIRST_INDEX;i<_sideLen;i++) {
+            for (int j = CustList.FIRST_INDEX;j<_sideLen;j++) {
+                image_.setRGB(j, i, c_.getRGB());
+            }
+        }
+        return image_;
+    }
+
+    public static void validateColor(String _color, String _separator) {
+        getColor(_color, _separator);
+    }
+    public static Color getColor(String _color, String _separator) {
+        StringList list_ = StringList.splitStrings(_color,_separator);
+        Numbers<Integer> ints_ = new Numbers<Integer>();
+        for (String c: list_) {
+            ints_.add(Integer.parseInt(c));
+        }
+        return new Color(ints_.first(), ints_.get(CustList.SECOND_INDEX), ints_.get(CustList.SECOND_INDEX+1));
+    }
+
     public static ImageWriter getGifImage(CustList<BufferedImage> _images, long _delayHundreds, boolean _loop) {
         ImageWriter writer_ = ImageIO.getImageWritersByFormatName(GIF).next();
         ImageWriteParam writeParam_ = writer_.getDefaultWriteParam();
@@ -575,6 +625,10 @@ public class ConverterBufferedImageAdv {
     public static PairNumber<Integer,Integer> getDimensions(String _imageString) {
         BufferedImage img_ = decodeToImage(_imageString);
         return new PairNumber<Integer,Integer>(img_.getWidth(), img_.getHeight());
+    }
+
+    public static String getDataImage() {
+        return DATA_IMAGE;
     }
 
 }

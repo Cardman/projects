@@ -44,7 +44,7 @@ public class GameProgressionBean extends Bean {
         heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex();
         GameProgression progression_ = facade_.getGameProgression();
         finishedGame = progression_.isFinishedGame();
-        endGameImage = BaseSixtyFourUtil.getSringByImage(facade_.getData().getEndGameImage());
+        endGameImage = BaseSixtyFourUtil.getStringByImage(facade_.getData().getEndGameImage());
         nickname = progression_.getNickname();
         notAtAllFamiliesBase = new NatTreeMap<String,EqList<StringList>>();
         for (String b: progression_.getNotAtAllFamiliesBase().getKeys()) {
@@ -170,7 +170,7 @@ public class GameProgressionBean extends Bean {
         StringList value_ = values_.get(_indexList.intValue());
         String pkName_ = value_.get(_indexElt.intValue());
         int[][] img_ = _facade.getData().getMaxiPkFront().getVal(pkName_);
-        return BaseSixtyFourUtil.getSringByImage(img_);
+        return BaseSixtyFourUtil.getStringByImage(img_);
     }
 
     public boolean getFinishedGame() {

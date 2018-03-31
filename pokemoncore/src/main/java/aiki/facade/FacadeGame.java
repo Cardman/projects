@@ -156,13 +156,13 @@ public class FacadeGame implements WithMathFactory {
     public String getFrontChosenHeros() {
         ImageHeroKey i_;
         i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex());
-        return BaseSixtyFourUtil.getSringByImage(data.getFrontHeros().getVal(i_));
+        return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(i_));
     }
 
     public String getFrontChosenHerosOppositeSex() {
         ImageHeroKey i_;
         i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex().getOppositeSex());
-        return BaseSixtyFourUtil.getSringByImage(data.getFrontHeros().getVal(i_));
+        return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(i_));
     }
 
 

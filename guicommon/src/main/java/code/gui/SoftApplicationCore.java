@@ -7,9 +7,9 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
-import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -94,7 +94,7 @@ public abstract class SoftApplicationCore {
         BufferedImage image_ = null;
         String icon_ = ResourceFiles.ressourceFichier(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
         int[][] file_ = BaseSixtyFourUtil.getImageByString(icon_);
-        image_ = ConverterBufferedImage.decodeToImage(file_);
+        image_ = ConverterGraphicBufferedImage.decodeToImage(file_);
 //        try {
 //            String file_ = StreamTextFile.ressourceFichier(_folder, _fileTxt);
 //            image_ = ConverterBufferedImage.decodeToImage(file_);

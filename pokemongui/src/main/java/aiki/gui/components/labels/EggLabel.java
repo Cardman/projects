@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.util.SortingEgg;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 
 public class EggLabel extends SelectableLabel {
 
@@ -30,7 +30,7 @@ public class EggLabel extends SelectableLabel {
 
     public void setImagesResults(FacadeGame _facade) {
         int[][] miniPk_ = _facade.getData().getMiniPk().getVal(egg.getKeyName());
-        miniImagePk = ConverterBufferedImage.decodeToImage(miniPk_);
+        miniImagePk = ConverterGraphicBufferedImage.decodeToImage(miniPk_);
         sideLength = _facade.getMap().getSideLength();
         remainSteps = (int) (_facade.getData().getPokemon(egg.getKeyName()).getHatchingSteps().ll() - egg.getSteps());
         xRemainSteps = getFontMetrics(getFont()).stringWidth(Integer.toString(remainSteps));

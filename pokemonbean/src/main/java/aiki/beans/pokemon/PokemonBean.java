@@ -115,9 +115,9 @@ public class PokemonBean extends CommonBean {
                 placesAppears.add(i);
             }
         }
-        backImage = BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkBack().getVal(name));
+        backImage = BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkBack().getVal(name));
         //ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkBack().getVal(name));
-        frontImage = BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(name));
+        frontImage = BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name));
         //ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name));
         PokemonData pk_ = data_.getPokemon(name);
         displayName = translationsPokemon_.getVal(name);
@@ -225,7 +225,7 @@ public class PokemonBean extends CommonBean {
             int[][] miniImg_ = data_.getMiniPk().getVal(name);
             image_ = ConverterBufferedImage.stackImages(image_, miniImg_);
         }
-        return BaseSixtyFourUtil.getSringByImage(image_);
+        return BaseSixtyFourUtil.getStringByImage(image_);
     }
     public String getPlaceName(Long _index) {
         return namesPlaces.getValue(_index.intValue());
@@ -523,7 +523,7 @@ public class PokemonBean extends CommonBean {
         TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
         for (EntryCust<MiniMapCoords,TileMiniMap> m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getValue().getFile());
-            map_.put(m_.getKey(), BaseSixtyFourUtil.getSringByImage(image_));
+            map_.put(m_.getKey(), BaseSixtyFourUtil.getStringByImage(image_));
         }
         return map_;
     }

@@ -2074,11 +2074,11 @@ public class FightHelpBean extends CommonBean {
     public String getAnimStatistic(Long _index) {
         Statistic d_ = statisticAnim.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
-        return BaseSixtyFourUtil.getSringByImage(data_.getAnimStatis().getVal(d_.name()));
+        return BaseSixtyFourUtil.getStringByImage(data_.getAnimStatis().getVal(d_.name()));
     }
     public String getAnimAbsorb() {
         DataBase data_ = (DataBase) getDataBase();
-        return BaseSixtyFourUtil.getSringByImage(data_.getAnimAbsorb());
+        return BaseSixtyFourUtil.getStringByImage(data_.getAnimAbsorb());
     }
     public String getTrLawRate(Long _index) {
         DifficultyModelLaw d_ = lawsRates.getKey(_index.intValue());

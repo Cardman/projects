@@ -17,7 +17,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import minirts.MainWindow;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
+import code.imagesurl.ConverterBufferedImageIo;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -54,7 +55,7 @@ public class ImageTask implements ActionListener {
             } else {
                 img_ = ResourceFiles.ressourceFichier(MainWindow.MOUSE_ARROW_FILE);
             }
-            or_ = ConverterBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(img_));
+            or_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(img_));
             Toolkit tool_ = Toolkit.getDefaultToolkit();
             int wCurs_ = or_.getWidth();
             int hCurs_ = or_.getHeight();
@@ -69,7 +70,7 @@ public class ImageTask implements ActionListener {
             }
             tmpImg_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
             g_.drawImage(tmpImg_, pt_.x, pt_.y, null);
-            ImageIO.write(b_, ConverterBufferedImage.IMG_EXT, new File(StringList.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,ConverterBufferedImage.IMG_EXT)));
+            ImageIO.write(b_, ConverterBufferedImageIo.IMG_EXT, new File(StringList.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,ConverterBufferedImageIo.IMG_EXT)));
         } catch (IOException e) {
             e.printStackTrace();
         }

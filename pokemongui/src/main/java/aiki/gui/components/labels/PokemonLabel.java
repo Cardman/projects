@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import aiki.facade.FacadeGame;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.EnumMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -42,11 +42,11 @@ public class PokemonLabel extends SelectableLabel {
 
     public void setImagesResults(FacadeGame _facade) {
         int[][] miniPk_ = _facade.getData().getMiniPk().getVal(pokemon.getKeyName());
-        miniImagePk = ConverterBufferedImage.decodeToImage(miniPk_);
+        miniImagePk = ConverterGraphicBufferedImage.decodeToImage(miniPk_);
         withItem = !pokemon.getKeyItem().isEmpty();
         if (withItem) {
             int[][] miniItem_ = _facade.getData().getMiniItems().getVal(pokemon.getKeyItem());
-            miniImageItem = ConverterBufferedImage.decodeToImage(miniItem_);
+            miniImageItem = ConverterGraphicBufferedImage.decodeToImage(miniItem_);
         }
         sideLength = _facade.getMap().getSideLength();
     }

@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import code.images.ConverterBufferedImage;
+import code.imagesurl.ConverterBufferedImageAdv;
 import code.util.StringList;
 import code.util.opers.BaseSixtyFourUtil;
 
@@ -28,7 +28,7 @@ class DataConnection extends URLConnection {
     @Override
     public InputStream getInputStream() {
         String data_ = url.toString();
-        String skippedPrefix_ = data_.substring(ConverterBufferedImage.getDataImage().length());
+        String skippedPrefix_ = data_.substring(ConverterBufferedImageAdv.getDataImage().length());
         for (String f: AVAILABLE_FORMATS) {
             if (skippedPrefix_.startsWith(f)) {
                 data_ = skippedPrefix_.substring(f.length()+SUFFIX.length());

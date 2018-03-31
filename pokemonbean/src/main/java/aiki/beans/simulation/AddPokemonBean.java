@@ -185,7 +185,7 @@ public class AddPokemonBean extends CommonBean {
         String name_ = pokedex.get(_number.intValue()).getName();
         DataBase data_ = (DataBase) getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
-        return BaseSixtyFourUtil.getSringByImage(data_.getMiniPk().getVal(name_));
+        return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
     public void clickLink(Long _number) {

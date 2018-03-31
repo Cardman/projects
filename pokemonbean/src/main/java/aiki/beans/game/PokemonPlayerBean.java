@@ -73,12 +73,12 @@ public class PokemonPlayerBean extends Bean {
         } else {
             usedBallCatching = translatedItems_.getVal(pkPlayer_.getUsedBallCatching());
         }
-        image = BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(pkPlayer_.getName()));
+        image = BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(pkPlayer_.getName()));
         TreeMap<String,String> evolutions_;
         evolutions_ = new TreeMap<String,String>(new ComparatorTrStrings(translatedPokemon_));
         for (String e: pkPlayer_.getDirectEvolutions(data_)) {
             int[][] img_ = data_.getMaxiPkFront().getVal(e);
-            evolutions_.put(e, BaseSixtyFourUtil.getSringByImage(img_));
+            evolutions_.put(e, BaseSixtyFourUtil.getStringByImage(img_));
         }
         evolutions = evolutions_;
         ability = translatedAbilities_.getVal(pkPlayer_.getAbility());

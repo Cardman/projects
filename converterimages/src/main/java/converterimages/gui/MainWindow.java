@@ -13,10 +13,11 @@ import code.gui.FolderOpenDialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.events.QuittingEvent;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.consts.Constants;
+import code.util.opers.BaseSixtyFourUtil;
 
 public class MainWindow extends GroupFrame {
 
@@ -99,7 +100,7 @@ public class MainWindow extends GroupFrame {
                 String f_ = StringList.replaceBackSlash(f);
                 try {
                     BufferedImage img_ = ImageIO.read(new File(pathExport.getText()+f));
-                    String txt_ = ConverterBufferedImage.toBaseSixtyFour(img_);
+                    String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
                     StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+StringList.replace(f_, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
                 } catch (IOException _0) {
                     _0.printStackTrace();
@@ -124,7 +125,7 @@ public class MainWindow extends GroupFrame {
                 String f_ = StringList.replaceBackSlash(f);
                 try {
                     String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f);
-                    BufferedImage img_ = ConverterBufferedImage.decodeToImage(readImage_);
+                    BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
                     ImageIO.write(img_, PNG_EXT, new File(path.getText()+StreamTextFile.SEPARATEUR+StringList.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT)));
                 } catch (IOException _0) {
                     _0.printStackTrace();

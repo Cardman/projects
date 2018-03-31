@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import code.gui.StringCellRenderer;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 
 public class PokemonDataRenderer extends StringCellRenderer {
 
@@ -42,7 +42,7 @@ public class PokemonDataRenderer extends StringCellRenderer {
         if (!_value.isEmpty()) {
             name = facade.translatePokemon(_value);
             int[][] img_ = facade.getData().getMiniPk().getVal(_value);
-            pkImage = ConverterBufferedImage.decodeToImage(img_);
+            pkImage = ConverterGraphicBufferedImage.decodeToImage(img_);
             setPreferredSize(new Dimension(100, pkImage.getHeight()));
         } else {
             name = DataBase.EMPTY_STRING;

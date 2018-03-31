@@ -637,7 +637,7 @@ public class SimulationBean extends CommonBean {
     public String getImageFoe(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
-        return BaseSixtyFourUtil.getSringByImage(data_.getMiniPk().getVal(pk_.getName()));
+        return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
     }
     public String getNameFoe(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -710,7 +710,7 @@ public class SimulationBean extends CommonBean {
     public String getImageAlly(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
-        return BaseSixtyFourUtil.getSringByImage(data_.getMiniPk().getVal(pk_.getName()));
+        return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
     }
     public String getNameAlly(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -882,7 +882,7 @@ public class SimulationBean extends CommonBean {
     public String getImage(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonPlayerDto pk_ = team.get(_index.intValue());
-        return BaseSixtyFourUtil.getSringByImage(data_.getMiniPk().getVal(pk_.getPokemon().getName()));
+        return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getPokemon().getName()));
     }
     public String getName(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -1234,7 +1234,7 @@ public class SimulationBean extends CommonBean {
     public String getImageAfterFight(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
-        return BaseSixtyFourUtil.getSringByImage(data_.getMiniPk().getVal(pk_.getName()));
+        return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
     }
     public String getNameAfterFight(Long _index) {
         DataBase data_ = (DataBase) getDataBase();

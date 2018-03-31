@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -23,8 +23,8 @@ public abstract class FightIntroThread extends Thread {
     }
 
     protected void initHeros() {
-        heros = ConverterBufferedImage.decodeToImage(facade.getBackHeros());
-        herosOppositeSex = ConverterBufferedImage.decodeToImage(facade.getBackHerosSexOpposite());
+        heros = ConverterGraphicBufferedImage.decodeToImage(facade.getBackHeros());
+        herosOppositeSex = ConverterGraphicBufferedImage.decodeToImage(facade.getBackHerosSexOpposite());
     }
 
     protected FacadeGame getFacade() {

@@ -128,7 +128,7 @@ public final class BaseSixtyFourUtil {
         o_++;
         return out_;
     }
-    public static String getSringByImage(int[][] _image) {
+    public static String getStringByImage(int[][] _image) {
         int w_ = _image[0].length;
         StringBuilder str_ = new StringBuilder(4+_image[0].length*_image.length*4);
         byte[] bytes_ = new byte[THREE_COLORS_BYTES];

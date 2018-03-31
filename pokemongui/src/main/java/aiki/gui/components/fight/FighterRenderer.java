@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import code.gui.CommonCellRenderer;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
@@ -49,7 +49,7 @@ public class FighterRenderer extends CommonCellRenderer {
         selected = _isSelected;
         String name_ = fighter.getName();
         int[][] img_ = facade.getData().getMiniPk().getVal(name_);
-        pkImage = ConverterBufferedImage.decodeToImage(img_);
+        pkImage = ConverterGraphicBufferedImage.decodeToImage(img_);
         if (facade.getFight().getChoices().isEmpty()) {
             enabled = true;
         } else {

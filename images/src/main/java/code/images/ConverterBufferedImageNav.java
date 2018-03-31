@@ -116,7 +116,7 @@ public final class ConverterBufferedImageNav {
                     img_[j][i] = _buffer.getRGB(i,j);
                 }
             }
-            return BaseSixtyFourUtil.getSringByImage(img_);
+            return BaseSixtyFourUtil.getStringByImage(img_);
         }
         String contourChart_ = EMPTY_STRING;
         try {
@@ -140,7 +140,7 @@ public final class ConverterBufferedImageNav {
                     img_[j][i] = _buffer.getRGB(i,j);
                 }
             }
-            return BaseSixtyFourUtil.getSringByImage(img_);
+            return BaseSixtyFourUtil.getStringByImage(img_);
         }
         String contourChart_ = EMPTY_STRING;
         try {

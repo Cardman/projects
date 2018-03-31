@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
@@ -21,7 +21,7 @@ public final class FightTrainerIntroThread extends FightIntroThread {
     public void run() {
         initHeros();
         int[][] name_ = getFacade().getTrainerImage();
-        trainer = ConverterBufferedImage.decodeToImage(name_);
+        trainer = ConverterGraphicBufferedImage.decodeToImage(name_);
         getBattle().setHerosOppositeSex(getHerosOppositeSex(), getFacade().isDualFight());
         getBattle().drawAnimationFightIni(getHeros(), trainer);
         while (getBattle().isKeepAnimation()) {

@@ -70,7 +70,7 @@ public class SimulationLevelBean extends CommonBean {
             }
             placeName = place_.getName();
             for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_.shortValue(), CustList.FIRST_INDEX, ptInside_).entryList()) {
-                tiles.put(pt_.getKey(), BaseSixtyFourUtil.getSringByImage(pt_.getValue()));
+                tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         } else {
             outside = true;
@@ -88,7 +88,7 @@ public class SimulationLevelBean extends CommonBean {
             placeName = data_.getMap().getPlaces().getVal(pl_.shortValue()).getName();
             levelIndex = lev_.intValue();
             for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_.shortValue(), lev_.byteValue()).entryList()) {
-                tiles.put(pt_.getKey(), BaseSixtyFourUtil.getSringByImage(pt_.getValue()));
+                tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         }
     }

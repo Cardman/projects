@@ -12,7 +12,7 @@ import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.CustList;
 import code.util.TreeMap;
 
@@ -159,8 +159,8 @@ public class Scene extends JLabel implements MouseListener {
 //        foreground.clear();
         for (ScreenCoords sc_: _facade.getBackgroundImages().getKeys()) {
             int[][] img_ = _facade.getBackgroundImages().getVal(sc_);
-            BufferedImage buff_ = ConverterBufferedImage.decodeToImage(img_);
-            ConverterBufferedImage.transparentAllWhite(buff_);
+            BufferedImage buff_ = ConverterGraphicBufferedImage.decodeToImage(img_);
+            ConverterGraphicBufferedImage.transparentAllWhite(buff_);
             background_.put(sc_, buff_);
         }
 //        background_.putAllMap(oldLine_);
@@ -172,8 +172,8 @@ public class Scene extends JLabel implements MouseListener {
                     continue;
                 }
 //                BufferedImage buff_ = ConverterBufferedImage.centerImage(b, _sideLength_);
-                BufferedImage buff_ = ConverterBufferedImage.decodeToImage(b);
-                ConverterBufferedImage.transparentAllWhite(buff_);
+                BufferedImage buff_ = ConverterGraphicBufferedImage.decodeToImage(b);
+                ConverterGraphicBufferedImage.transparentAllWhite(buff_);
                 imgs_.add(buff_);
             }
             foreground_.put(sc_, imgs_);

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import code.gui.StringCellRenderer;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 
 public class ItemRenderer extends StringCellRenderer {
 
@@ -41,7 +41,7 @@ public class ItemRenderer extends StringCellRenderer {
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
         int[][] img_ = facade.getData().getMiniItems().getVal(name);
-        miniItem = ConverterBufferedImage.decodeToImage(img_);
+        miniItem = ConverterGraphicBufferedImage.decodeToImage(img_);
         maxWordWidth = 0;
         for (String i: facade.getChosenItemsForBuyOrSell().getKeys()) {
             String disp_ = facade.translateItem(i);

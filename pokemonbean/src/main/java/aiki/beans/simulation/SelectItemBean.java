@@ -127,7 +127,7 @@ public class SelectItemBean extends CommonBean {
     public String getMiniImage(Long _number) {
         String item_ = items.get(_number.intValue()).getName();
         DataBase data_ = (DataBase) getDataBase();
-        return BaseSixtyFourUtil.getSringByImage(data_.getMiniItems().getVal(item_));
+        return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
     }
 
     public void setTypedName(String _typedName) {

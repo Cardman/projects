@@ -28,7 +28,7 @@ import aiki.game.fight.enums.FightState;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.FrameHtmlData;
 import code.gui.SetStyle;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -738,7 +738,7 @@ public class FrontBattle extends JLabel {
             StringMap<BufferedImage> types_ = new StringMap<BufferedImage>();
             for (String t: damage_.getTypes()) {
                 int[][] type_ = facade.getData().getTypesImages().getVal(t);
-                BufferedImage t_ = ConverterBufferedImage.decodeToImage(type_);
+                BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
                 types_.put(t, t_);
             }
             hMax_ = 0;
@@ -773,7 +773,7 @@ public class FrontBattle extends JLabel {
             int statSide_ = facade.getMap().getSideLength();
             for (InfosAnimationStatistic t: statis_.getInfos()) {
                 int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().name());
-                BufferedImage t_ = ConverterBufferedImage.decodeToImage(type_);
+                BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
                 String var_ = Byte.toString(t.getVariation());
                 int widthVar_ = fMet_.stringWidth(var_);
                 if (widthVar_ < statSide_) {
@@ -834,7 +834,7 @@ public class FrontBattle extends JLabel {
             if (!status_.getStatus().isEmpty()) {
                 if (TargetCoords.eq(status_.getFromFighter(), status_.getToFighter())) {
                     int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
-                    BufferedImage image_ = ConverterBufferedImage.decodeToImage(stTxt_);
+                    BufferedImage image_ = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
                     TargetLabel label_;
                     if (status_.isPlayerFromFighter()) {
                         label_ = playerTargets.getVal((byte) status_.getFromFighter().getPosition());
@@ -853,14 +853,14 @@ public class FrontBattle extends JLabel {
                     imageNumber ++;
                 } else {
                     int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
-                    image = ConverterBufferedImage.decodeToImage(stTxt_);
+                    image = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
                 }
             } else {
                 paintDefaultEffect = true;
             }
         } else if (_animation instanceof AnimationAbsorb) {
             int[][] stTxt_ = facade.getData().getAnimAbsorb();
-            image = ConverterBufferedImage.decodeToImage(stTxt_);
+            image = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
         } else if (_animation instanceof AnimationEffect) {
             AnimationEffect e_ = (AnimationEffect) _animation;
             if (TargetCoords.eq(e_.getFromFighter(), e_.getToFighter())) {
@@ -1000,7 +1000,7 @@ public class FrontBattle extends JLabel {
         xEnd_ += maxWidth / 2;
         yEnd_ += maxHeight / 2;
         int[][] img_ = facade.getData().getMiniItems().getVal(_ball);
-        image = ConverterBufferedImage.centerImage(img_, facade.getMap().getSideLength());
+        image = ConverterGraphicBufferedImage.centerImage(img_, facade.getMap().getSideLength());
         int remainImages_ = NB_IMAGES - imageNumber;
         if (remainImages_ > 0) {
             int xDelta_ = (xEnd_ - xIni) / remainImages_;

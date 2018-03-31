@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 
 public class TileLabel extends JLabel {
 
     private BufferedImage image;
 
     public TileLabel(int[][] _image, int _sideLength) {
-        image = ConverterBufferedImage.decodeToImage(_image);
+        image = ConverterGraphicBufferedImage.decodeToImage(_image);
         setPreferredSize(new Dimension(_sideLength, _sideLength));
     }
 

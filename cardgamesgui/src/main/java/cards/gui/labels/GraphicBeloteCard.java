@@ -14,7 +14,7 @@ import cards.consts.CardChar;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -39,7 +39,7 @@ public class GraphicBeloteCard extends JLabel {
         card=_pc;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
-        bufferedImage = ConverterBufferedImage.decodeToImage(file_);
+        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
         }
@@ -69,7 +69,7 @@ public class GraphicBeloteCard extends JLabel {
         card=_pc;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
-        bufferedImage = ConverterBufferedImage.decodeToImage(file_);
+        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
         }
@@ -102,7 +102,7 @@ public class GraphicBeloteCard extends JLabel {
     public static BufferedImage getImage(CardBelote _card) {
         BufferedImage img_;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(getTxtImage(_card));
-        img_ = ConverterBufferedImage.decodeToImage(file_);
+        img_ = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (img_ == null) {
             return getDefaultImage(_card);
         }
@@ -271,7 +271,7 @@ public class GraphicBeloteCard extends JLabel {
         peindreCarte=true;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
-        bufferedImage = ConverterBufferedImage.decodeToImage(file_);
+        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
         }

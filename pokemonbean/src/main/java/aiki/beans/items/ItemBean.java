@@ -27,7 +27,7 @@ public class ItemBean extends CommonBean {
         if (name_ != null) {
             name = name_;
         }
-        itemImage = BaseSixtyFourUtil.getSringByImage(data_.getMiniItems().getVal(name));
+        itemImage = BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(name));
         displayName = translationsItems_.getVal(name);
         item = data_.getItem(name);
         price = item.getPrice();

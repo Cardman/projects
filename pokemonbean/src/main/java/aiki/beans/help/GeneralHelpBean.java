@@ -69,7 +69,7 @@ public class GeneralHelpBean extends CommonBean {
         for (MiniMapCoords m: miniMap.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
         }
-        unlockedCity = BaseSixtyFourUtil.getSringByImage(data_.getMiniMap(data_.getMap().getUnlockedCity()));
+        unlockedCity = BaseSixtyFourUtil.getStringByImage(data_.getMiniMap(data_.getMap().getUnlockedCity()));
         nbMaxTeam = data_.getNbMaxTeam();
         minLevel = data_.getMinLevel();
         maxLevel = data_.getMaxLevel();
@@ -99,7 +99,7 @@ public class GeneralHelpBean extends CommonBean {
     }
     public String getMiniMapImage(Long _index) {
         int[][] image_ = miniMap.getValue(_index.intValue());
-        return BaseSixtyFourUtil.getSringByImage(image_);
+        return BaseSixtyFourUtil.getStringByImage(image_);
     }
     public int getMapWidth() {
         int w_ = 0;
@@ -131,7 +131,7 @@ public class GeneralHelpBean extends CommonBean {
     public String getImage() {
         DataBase data_ = (DataBase) getDataBase();
         String name_ = firstPokemon.getName();
-        return BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(name_));
+        return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
@@ -291,7 +291,7 @@ public class GeneralHelpBean extends CommonBean {
     public String getImageType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         String type_ = types.get(_index.intValue());
-        return BaseSixtyFourUtil.getSringByImage(data_.getTypesImages().getVal(type_));
+        return BaseSixtyFourUtil.getStringByImage(data_.getTypesImages().getVal(type_));
     }
     public String getColorType(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -326,7 +326,7 @@ public class GeneralHelpBean extends CommonBean {
         TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
         for (EntryCust<MiniMapCoords,TileMiniMap> m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getValue().getFile());
-            map_.put(m_.getKey(), BaseSixtyFourUtil.getSringByImage(image_));
+            map_.put(m_.getKey(), BaseSixtyFourUtil.getStringByImage(image_));
         }
         return map_;
     }

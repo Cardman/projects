@@ -8,7 +8,7 @@ import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.Paginator;
 import aiki.util.SortingHealingItem;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.sml.util.ExtractFromFiles;
 import code.util.Numbers;
 import code.util.StringList;
@@ -73,7 +73,7 @@ public class HealingItemLabel extends SelectableLabel {
         fourthColumn = _fourthColumn;
         fifthColumn = _fifthColumn;
         int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
-        miniImageItem = ConverterBufferedImage.decodeToImage(miniItem_);
+        miniImageItem = ConverterGraphicBufferedImage.decodeToImage(miniItem_);
         sideLength = _facade.getMap().getSideLength();
         int h_ = sideLength;
 //        if (h_ < FOURTH_LINE) {

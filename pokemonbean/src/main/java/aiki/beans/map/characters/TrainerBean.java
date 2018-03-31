@@ -25,8 +25,8 @@ public class TrainerBean extends CommonBean {
             GymLeader gym_ = (GymLeader) trainer;
             move = data_.getTm().getVal(gym_.getTm());
         }
-        image = BaseSixtyFourUtil.getSringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
-        imageMini = BaseSixtyFourUtil.getSringByImage(data_.getPerson(trainer.getImageMiniFileName()));
+        image = BaseSixtyFourUtil.getStringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
+        imageMini = BaseSixtyFourUtil.getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
     }
     public String getName() {
         if (trainer instanceof GymLeader) {

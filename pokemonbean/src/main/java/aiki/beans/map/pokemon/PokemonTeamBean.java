@@ -98,7 +98,7 @@ public class PokemonTeamBean extends CommonBean {
         PkTrainer pk_;
         pk_ = list_.get(_index.intValue());
         String name_ = pk_.getName();
-        return BaseSixtyFourUtil.getSringByImage(data_.getMaxiPkFront().getVal(name_));
+        return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getAbility(Long _index) {

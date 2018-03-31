@@ -37,7 +37,7 @@ public class MoveLabel extends JLabel {
         for (String t: infos.getTypes()) {
             String type_ = _facade.translateType(t);
             String rgb_ = _facade.getData().getTypesColors().getVal(t);
-            Color c_ = ConverterBufferedImage.getColor(rgb_, DataBase.SEPARATOR_RGB);
+            Color c_ = new Color(ConverterBufferedImage.getIntColor(rgb_, DataBase.SEPARATOR_RGB));
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }

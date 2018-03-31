@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 
 public class MiniTargetLabel extends JLabel {
 
@@ -23,7 +23,7 @@ public class MiniTargetLabel extends JLabel {
     public void set(FacadeGame _facade, String _name, int _index) {
         index = _index;
         DataBase data_ = _facade.getData();
-        image = ConverterBufferedImage.decodeToImage(data_.getMiniPk().getVal(_name));
+        image = ConverterGraphicBufferedImage.decodeToImage(data_.getMiniPk().getVal(_name));
         setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
     }
 

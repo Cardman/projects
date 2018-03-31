@@ -61,7 +61,7 @@ public class TmLabel extends SelectableLabel {
         for (String t: move_.getTypes()) {
             String type_ = _facade.translateType(t);
             String rgb_ = _facade.getData().getTypesColors().getVal(t);
-            Color c_ = ConverterBufferedImage.getColor(rgb_, DataBase.SEPARATOR_RGB);
+            Color c_ = new Color(ConverterBufferedImage.getIntColor(rgb_, DataBase.SEPARATOR_RGB));
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }

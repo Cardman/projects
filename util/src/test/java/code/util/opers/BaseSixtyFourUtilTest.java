@@ -394,38 +394,38 @@ public final class BaseSixtyFourUtilTest {
     @Test
     public void getSringByImage1Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABAAAA");
-        assertEq("AAABAAAA", BaseSixtyFourUtil.getSringByImage(img_));
+        assertEq("AAABAAAA", BaseSixtyFourUtil.getStringByImage(img_));
     }
     @Test
     public void getSringByImage2Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABABAB");
-        assertEq("AAABABAB", BaseSixtyFourUtil.getSringByImage(img_));
+        assertEq("AAABABAB", BaseSixtyFourUtil.getStringByImage(img_));
     }
     @Test
     public void getSringByImage3Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAACABABbaba");
-        assertEq("AAACABABbaba", BaseSixtyFourUtil.getSringByImage(img_));
+        assertEq("AAACABABbaba", BaseSixtyFourUtil.getStringByImage(img_));
     }
     @Test
     public void getSringByImage4Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABABABbaba");
-        assertEq("AAABABABbaba", BaseSixtyFourUtil.getSringByImage(img_));
+        assertEq("AAABABABbaba", BaseSixtyFourUtil.getStringByImage(img_));
     }
     @Test
     public void getSringByImage5Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAAB////");
-        assertEq("AAAB////", BaseSixtyFourUtil.getSringByImage(img_));
+        assertEq("AAAB////", BaseSixtyFourUtil.getStringByImage(img_));
     }
     @Test
     public void getSringByImage6Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAACbabaABAB");
-        assertEq("AAACbabaABAB", BaseSixtyFourUtil.getSringByImage(img_));
+        assertEq("AAACbabaABAB", BaseSixtyFourUtil.getStringByImage(img_));
     }
 
     @Test
     public void getSringByImage7Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABbabaABAB");
-        assertEq("AAABbabaABAB", BaseSixtyFourUtil.getSringByImage(img_));
+        assertEq("AAABbabaABAB", BaseSixtyFourUtil.getStringByImage(img_));
     }
 
     @Test
@@ -561,7 +561,7 @@ public final class BaseSixtyFourUtilTest {
         imgStr_.append("AAAA");
         imgStr_.append("AAAA");
         int[][] img_ = BaseSixtyFourUtil.getImageByString(imgStr_.toString());
-        assertEq(imgStr_.toString(), BaseSixtyFourUtil.getSringByImage(img_));
+        assertEq(imgStr_.toString(), BaseSixtyFourUtil.getStringByImage(img_));
     }
 
     private static void checkZero(int[] _array) {

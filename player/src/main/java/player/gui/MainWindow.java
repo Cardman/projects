@@ -20,7 +20,7 @@ import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.PackingWindowAfter;
 import code.gui.SetStyle;
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.resources.ClipStream;
 import code.resources.ResourceFiles;
@@ -171,7 +171,7 @@ public class MainWindow extends GroupFrame {
         BufferedImage image_ = null;
         try {
             String file_ = ResourceFiles.ressourceFichier(RESOURCES_FOLDER+StreamTextFile.SEPARATEUR+ ICON);
-            image_ = ConverterBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(file_));
+            image_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(file_));
         } catch (RuntimeException _0) {
         }
         return image_;

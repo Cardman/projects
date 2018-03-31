@@ -55,7 +55,7 @@ public class StatusBean extends CommonBean {
     public void beforeDisplaying() {
         name = (String) getForms().getVal(STATUS);
         DataBase data_ = (DataBase) getDataBase();
-        animStatus = BaseSixtyFourUtil.getSringByImage(data_.getAnimStatus().getVal(name));
+        animStatus = BaseSixtyFourUtil.getStringByImage(data_.getAnimStatus().getVal(name));
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         displayName = translatedStatus_.getVal(name);

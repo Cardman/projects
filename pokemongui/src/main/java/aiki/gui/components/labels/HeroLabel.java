@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
-import code.images.ConverterBufferedImage;
+import code.gui.images.ConverterGraphicBufferedImage;
 
 public class HeroLabel extends JLabel {
 
@@ -24,7 +24,7 @@ public class HeroLabel extends JLabel {
     protected void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
-        _g.drawImage(ConverterBufferedImage.decodeToImage(image), 0, 0, null);
+        _g.drawImage(ConverterGraphicBufferedImage.decodeToImage(image), 0, 0, null);
         if (selected) {
             _g.setColor(Color.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);
