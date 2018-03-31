@@ -1,7 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.FileRowCol;
+import code.expressionlanguage.FileIndex;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
@@ -61,9 +61,9 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     public EnumBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _name, String _packageName, AccessEnum _access,
-            String _templateDef, ObjectMap<FileRowCol, String> _directSuperTypes) {
-        super(_importingPage, _indexChild, _m, _name, _packageName, _access, _templateDef, _directSuperTypes);
+            BracedBlock _m, FileIndex _idRowCol, String _name, String _packageName, AccessEnum _access,
+            String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes) {
+        super(_importingPage, _indexChild, _m, _idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes);
         getDirectSuperTypes().add(StringList.concat(PredefinedClasses.ENUM_PARAM,LT,getFullName(),GT));
     }
 

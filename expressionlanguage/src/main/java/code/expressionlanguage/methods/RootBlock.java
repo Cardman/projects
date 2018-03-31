@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.FileIndex;
 import code.expressionlanguage.FileRowCol;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -57,13 +58,15 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     private final StringList directSuperTypes = new StringList();
 
-    private ObjectMap<FileRowCol, String> rowColDirectSuperTypes;
+    private ObjectMap<FileIndex, String> rowColDirectSuperTypes;
 
     private String realTemplateDef;
 
     private String realName;
 
     private String realPackageName;
+
+    private FileIndex idRowCol;
 
     RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -76,7 +79,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
     }
 
     RootBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _name, String _packageName, AccessEnum _access, String _templateDef, ObjectMap<FileRowCol, String> _directSuperTypes) {
+            BracedBlock _m, FileIndex _idRowCol,String _name, String _packageName, AccessEnum _access, String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes) {
         super(_importingPage, _indexChild, _m);
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         name = StringList.removeAllSpaces(_name);
@@ -87,12 +90,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         realPackageName = _packageName;
         templateDef = StringList.removeAllSpaces(_templateDef);
         rowColDirectSuperTypes = _directSuperTypes;
+        idRowCol = _idRowCol;
         for (String t: _directSuperTypes.values()) {
             directSuperTypes.add(StringList.removeAllSpaces(t));
         }
     }
 
-    protected StringList getDirectSuperTypes() {
+    public StringList getDirectSuperTypes() {
         return directSuperTypes;
     }
 

@@ -10,6 +10,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EqList;
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor {
@@ -19,6 +20,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     private boolean implicitCallSuper;
 
+    private StringList interfaces;
+    private Numbers<Integer> interfacesOffest;
+
     public ConstructorBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -26,11 +30,23 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     public ConstructorBlock(ContextEl _importingPage,
             int _indexChild, BracedBlock _m,
+            StringList _interfaces,
+            Numbers<Integer> _interfacesOffest,
             AccessEnum _access,
             String _retType, String _fctName,
             StringList _paramTypes,
             StringList _paramNames) {
         super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramNames);
+        interfaces = _interfaces;
+        interfacesOffest = _interfacesOffest;
+    }
+
+    public StringList getInterfaces() {
+        return interfaces;
+    }
+
+    public Numbers<Integer> getInterfacesOffest() {
+        return interfacesOffest;
     }
 
     @Override

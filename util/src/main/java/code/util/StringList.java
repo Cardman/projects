@@ -605,6 +605,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         while (i_ < len_) {
             if (Character.isWhitespace(_string.charAt(i_))) {
                 i_++;
+                continue;
             }
             return i_;
         }
@@ -617,6 +618,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         while (i_ >= min_) {
             if (Character.isWhitespace(_string.charAt(i_))) {
                 i_--;
+                continue;
             }
             return i_;
         }
