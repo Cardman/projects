@@ -735,26 +735,26 @@ public final class FileResolver {
                     index_++;
                     indexes_.setLast(index_);
                 } else if (currentChar_ == END_LINE) {
-                    if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_BREAK))) {
+                    if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_BREAK)) {
                         currentParent_.appendChild(new BreakBlock(_context, index_, currentParent_));
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_CONTINUE))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_CONTINUE)) {
                         currentParent_.appendChild(new ContinueBlock(_context, index_, currentParent_));
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_RETURN))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_RETURN)) {
                         String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_RETURN)).length());
                         currentParent_.appendChild(new ReturnMehod(_context, index_, currentParent_, exp_));
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_THROW))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_THROW)) {
                         String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_THROW)).length());
                         currentParent_.appendChild(new Throwing(_context, index_, currentParent_, exp_));
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_CASE))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_CASE)) {
                         String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_CASE)).length());
                         currentParent_.appendChild(new CaseCondition(_context, index_, currentParent_, exp_));
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_DEFAULT))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_DEFAULT)) {
                         currentParent_.appendChild(new DefaultCondition(_context, index_, currentParent_));
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_WHILE))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_WHILE)) {
                         String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_WHILE)).length());
                         exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
                         currentParent_.appendChild(new WhileCondition(_context, index_, currentParent_, exp_));
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_CATCH))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_CATCH)) {
                         String info_ = found_.trim().substring((prefixKeyWord(KEY_WORD_CATCH)).length());
                         info_ = info_.substring(info_.indexOf(BEGIN_CALLING)+1);
                         String declaringType_ = getDeclaringType(info_);
@@ -776,19 +776,19 @@ public final class FileResolver {
                         AccessEnum accessField_ = AccessEnum.PACKAGE;
                         String word_ = EMPTY_STRING;
                         int accessOffest_ = StringList.getFirstPrintableCharIndex(found_) + i_ - found_.length();
-                        if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_PRIVATE))) {
+                        if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_PRIVATE)) {
                             field_ = true;
                             accessField_ = AccessEnum.PRIVATE;
                             word_ = prefixKeyWord(KEY_WORD_PRIVATE);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_PACKAGE))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_PACKAGE)) {
                             field_ = true;
                             accessField_ = AccessEnum.PACKAGE;
                             word_ = prefixKeyWord(KEY_WORD_PACKAGE);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_PROTECTED))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_PROTECTED)) {
                             field_ = true;
                             accessField_ = AccessEnum.PROTECTED;
                             word_ = prefixKeyWord(KEY_WORD_PROTECTED);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_PUBLIC))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_PUBLIC)) {
                             field_ = true;
                             accessField_ = AccessEnum.PUBLIC;
                             word_ = prefixKeyWord(KEY_WORD_PUBLIC);
@@ -798,7 +798,7 @@ public final class FileResolver {
                         String afterAccess_ = found_.trim().substring(word_.length());
                         delta_ += StringList.getFirstPrintableCharIndex(afterAccess_);
                         if (field_) {
-                            if (afterAccess_.trim().startsWith(prefixKeyWord(KEY_WORD_ABSTRACT))) {
+                            if (startsWithPrefixKeyWord(afterAccess_.trim(),KEY_WORD_ABSTRACT)) {
                                 method_ = true;
                             }
                         }
@@ -855,7 +855,7 @@ public final class FileResolver {
                             int finalOffest_ = -1;
                             boolean static_ = false;
                             boolean final_ = false;
-                            if (info_.startsWith(prefixKeyWord(KEY_WORD_STATIC))) {
+                            if (startsWithPrefixKeyWord(info_, KEY_WORD_STATIC)) {
                                 staticOffest_ = i_ - found_.length() + delta_;
                                 static_ = true;
                                 String afterStatic_ = info_.substring((prefixKeyWord(KEY_WORD_STATIC)).length());
@@ -863,7 +863,7 @@ public final class FileResolver {
                                 delta_ += StringList.getFirstPrintableCharIndex(afterStatic_);
                                 info_ = afterStatic_.trim();
                             }
-                            if (info_.startsWith(prefixKeyWord(KEY_WORD_FINAL))) {
+                            if (startsWithPrefixKeyWord(info_,KEY_WORD_FINAL)) {
                                 finalOffest_ = i_ - found_.length() + delta_;
                                 final_ = true;
                                 String afterFinal_ = info_.substring((prefixKeyWord(KEY_WORD_FINAL)).length());
@@ -1033,19 +1033,19 @@ public final class FileResolver {
                     AccessEnum accessFct_ = AccessEnum.PACKAGE;
                     String word_ = EMPTY_STRING;
                     int accessOffest_ = StringList.getFirstPrintableCharIndex(found_) + i_ - found_.length();
-                    if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_PRIVATE))) {
+                    if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_PRIVATE)) {
                         fct_ = true;
                         accessFct_ = AccessEnum.PRIVATE;
                         word_ = prefixKeyWord(KEY_WORD_PRIVATE);
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_PACKAGE))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_PACKAGE)) {
                         fct_ = true;
                         accessFct_ = AccessEnum.PACKAGE;
                         word_ = prefixKeyWord(KEY_WORD_PACKAGE);
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_PROTECTED))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_PROTECTED)) {
                         fct_ = true;
                         accessFct_ = AccessEnum.PROTECTED;
                         word_ = prefixKeyWord(KEY_WORD_PROTECTED);
-                    } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_PUBLIC))) {
+                    } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_PUBLIC)) {
                         fct_ = true;
                         accessFct_ = AccessEnum.PUBLIC;
                         word_ = prefixKeyWord(KEY_WORD_PUBLIC);
@@ -1056,13 +1056,13 @@ public final class FileResolver {
                         modifierOffest_ += StringList.getFirstPrintableCharIndex(afterAccess_);
                         String info_ = afterAccess_.trim();
                         String modifier_ = EMPTY_STRING;
-                        if (info_.startsWith(prefixKeyWord(KEY_WORD_NORMAL))) {
+                        if (startsWithPrefixKeyWord(info_,KEY_WORD_NORMAL)) {
                             modifier_ = KEY_WORD_NORMAL;
-                        } else if (info_.startsWith(prefixKeyWord(KEY_WORD_ABSTRACT))) {
+                        } else if (startsWithPrefixKeyWord(info_,KEY_WORD_ABSTRACT)) {
                             modifier_ = KEY_WORD_ABSTRACT;
-                        } else if (info_.startsWith(prefixKeyWord(KEY_WORD_STATIC))) {
+                        } else if (startsWithPrefixKeyWord(info_,KEY_WORD_STATIC)) {
                             modifier_ = KEY_WORD_STATIC;
-                        }  else if (info_.startsWith(prefixKeyWord(KEY_WORD_FINAL))) {
+                        } else if (startsWithPrefixKeyWord(info_,KEY_WORD_FINAL)) {
                             modifier_ = KEY_WORD_FINAL;
                         }
                         if (!modifier_.isEmpty()) {
@@ -1116,7 +1116,7 @@ public final class FileResolver {
                             Numbers<Integer> interfacesOffests_ = new Numbers<Integer>();
                             int interfaceOffest_ = modifierOffest_;
                             int paramOffest_;
-                            if (info_.startsWith(prefixKeyWord(KEY_WORD_INTERFACES))) {
+                            if (startsWithPrefixKeyWord(info_,KEY_WORD_INTERFACES)) {
                                 int indexLeftPar_ = info_.indexOf(BEGIN_CALLING);
                                 interfaceOffest_ += indexLeftPar_ + 1;
                                 String interfacesInfo_ = info_.substring(indexLeftPar_ + 1, info_.indexOf(END_CALLING));
@@ -1170,7 +1170,7 @@ public final class FileResolver {
                             currentParent_.appendChild(br_);
                         }
                     } else {
-                        if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_CATCH))) {
+                        if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_CATCH)) {
                             String info_ = found_.trim().substring((prefixKeyWord(KEY_WORD_CATCH)).length());
                             info_ = info_.substring(info_.indexOf(BEGIN_CALLING)+1);
                             String declaringType_ = getDeclaringType(info_);
@@ -1178,42 +1178,42 @@ public final class FileResolver {
                             String variable_ = info_.substring(0, info_.indexOf(END_CALLING));
                             br_ = new CatchEval(_context, index_, currentParent_, declaringType_, variable_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_CASE))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_CASE)) {
                             String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_CASE)).length());
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
                             br_ = new CaseCondition(_context, index_, currentParent_, exp_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_DEFAULT))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_DEFAULT)) {
                             br_ = new DefaultCondition(_context, index_, currentParent_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_IF))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_IF)) {
                             String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_IF)).length());
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
                             br_ = new IfCondition(_context, index_, currentParent_, exp_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_ELSEIF))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_ELSEIF)) {
                             String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_ELSEIF)).length());
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
                             br_ = new ElseIfCondition(_context, index_, currentParent_, exp_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_WHILE))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_WHILE)) {
                             String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_WHILE)).length());
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
                             br_ = new WhileCondition(_context, index_, currentParent_, exp_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_ELSE))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_ELSE)) {
                             br_ = new ElseCondition(_context, index_, currentParent_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_DO))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_DO)) {
                             br_ = new DoBlock(_context, index_, currentParent_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_FINALLY))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_FINALLY)) {
                             br_ = new FinallyEval(_context, index_, currentParent_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_TRY))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_TRY)) {
                             br_ = new TryEval(_context, index_, currentParent_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_FOREACH))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_FOREACH)) {
                             String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_FOREACH)).length());
                             String indexClassName_ = EMPTY_STRING;
                             if (exp_.trim().indexOf(BEGIN_ARRAY) == 0) {
@@ -1227,7 +1227,7 @@ public final class FileResolver {
                             exp_ = exp_.substring(exp_.indexOf(FOR_BLOCKS) + 1, exp_.lastIndexOf(END_CALLING));
                             br_ = new ForEachLoop(_context, index_, currentParent_, declaringType_, variable_, exp_, indexClassName_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_FOR))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_FOR)) {
                             String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_FOR)).length());
                             String indexClassName_ = EMPTY_STRING;
                             if (exp_.trim().indexOf(BEGIN_ARRAY) == 0) {
@@ -1253,17 +1253,19 @@ public final class FileResolver {
                             String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
                             br_ = new ForIterativeLoop(_context, index_, currentParent_, declaringType_, variable_, init_, to_, eq_, step_, indexClassName_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_SWITCH))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_SWITCH)) {
                             String exp_ = found_.trim().substring((prefixKeyWord(KEY_WORD_SWITCH)).length());
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
                             br_ = new SwitchBlock(_context, index_, currentParent_, exp_);
                             currentParent_.appendChild(br_);
-                        } else if (found_.trim().startsWith(prefixKeyWord(KEY_WORD_STATIC))) {
+                        } else if (startsWithPrefixKeyWord(found_.trim(),KEY_WORD_STATIC)) {
                             br_ = new StaticBlock(_context, index_, currentParent_);
                             currentParent_.appendChild(br_);
                         } else if (found_.trim().isEmpty()) {
                             br_ = new InstanceBlock(_context, index_, currentParent_);
                             currentParent_.appendChild(br_);
+                        } else {
+                            break;
                         }
                     }
                     currentParent_ = br_;
@@ -1338,61 +1340,6 @@ public final class FileResolver {
                         declTypeName_.append(VARARG);
                     }
                     typeDeclaring_ = true;
-                    break;
-                }
-            }
-            declTypeName_.append(currentCharFound_);
-            indexInstr_++;
-        }
-        if (typeDeclaring_) {
-            return declTypeName_.toString();
-        }
-        return EMPTY_STRING;
-    }
-    private static String getDeclaringInterfacesType(String _found) {
-        int indexInstr_ = 0;
-        int instLen_ = _found.length();
-        boolean typeDeclaring_ = false;
-        StringBuilder declTypeName_ = new StringBuilder();
-        int nbOpenedTmp_ = 0;
-        boolean foundTmp_ = false;
-        while (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
-                if (foundTmp_) {
-                    typeDeclaring_ = true;
-                    break;
-                }
-                String nextPart_ = _found.substring(indexInstr_).trim();
-                String trimmed_ = declTypeName_.toString().trim();
-                if (trimmed_.length() > 0) {
-                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
-                    if (StringList.isWordChar(ch_)) {
-                        if (!nextPart_.isEmpty()) {
-                            if (StringList.isWordChar(nextPart_.charAt(0))) {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == SEP_CALLING && nbOpenedTmp_ == 0) {
-                typeDeclaring_ = true;
-                break;
-            }
-            if (currentCharFound_ == BEGIN_TEMPLATE) {
-                nbOpenedTmp_++;
-                foundTmp_ = true;
-            }
-            if (currentCharFound_ == END_TEMPLATE) {
-                nbOpenedTmp_--;
-                if (nbOpenedTmp_ == 0) {
-                    typeDeclaring_ = true;
-                    declTypeName_.append(currentCharFound_);
                     break;
                 }
             }
@@ -1609,6 +1556,18 @@ public final class FileResolver {
         return -1;
     }
 
+    private static boolean startsWithPrefixKeyWord(String _found, String _keyWord) {
+        String prefix_ = prefixKeyWord(_keyWord);
+        if (!_found.startsWith(prefix_)) {
+            return false;
+        }
+        String sub_ = _found.substring(prefix_.length());
+        if (sub_.isEmpty()) {
+            return true;
+        }
+        char first_ = sub_.charAt(0);
+        return !(StringList.isWordChar(first_) || first_ == KEY_WORD_PREFIX);
+    }
     private static String prefixKeyWord(String _keyWord) {
         return StringList.concat(String.valueOf(KEY_WORD_PREFIX), _keyWord);
     }

@@ -613,7 +613,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public static int getLastPrintableCharIndex(String _string) {
-        int i_ = _string.length();
+        int i_ = _string.length() - 1;
         int min_ = CustList.FIRST_INDEX;
         while (i_ >= min_) {
             if (Character.isWhitespace(_string.charAt(i_))) {
