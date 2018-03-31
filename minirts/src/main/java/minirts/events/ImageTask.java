@@ -18,13 +18,14 @@ import javax.imageio.ImageIO;
 
 import minirts.MainWindow;
 import code.gui.images.ConverterGraphicBufferedImage;
-import code.imagesurl.ConverterBufferedImageIo;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.opers.BaseSixtyFourUtil;
 
 public class ImageTask implements ActionListener {
+
+    private static final String PNG = "png";
 
     private static final String EXT = ".";
 
@@ -70,7 +71,7 @@ public class ImageTask implements ActionListener {
             }
             tmpImg_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
             g_.drawImage(tmpImg_, pt_.x, pt_.y, null);
-            ImageIO.write(b_, ConverterBufferedImageIo.IMG_EXT, new File(StringList.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,ConverterBufferedImageIo.IMG_EXT)));
+            ImageIO.write(b_, PNG, new File(StringList.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG)));
         } catch (IOException e) {
             e.printStackTrace();
         }
