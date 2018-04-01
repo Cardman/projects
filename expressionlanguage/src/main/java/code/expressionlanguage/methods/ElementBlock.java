@@ -25,6 +25,10 @@ public final class ElementBlock extends Leaf implements InfoBlock{
 
     private CustList<OperationNode> opValue;
 
+    private int fieldNameOffest;
+
+    private int valueOffest;
+
     public ElementBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -33,10 +37,20 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     public ElementBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _fieldName, String _value) {
+            BracedBlock _m, int _fieldNameOffest, String _fieldName, int _valueOffest,String _value) {
         super(_importingPage, _indexChild, _m);
+        fieldNameOffest = _fieldNameOffest;
+        valueOffest = _valueOffest;
         fieldName = _fieldName;
         value = _value;
+    }
+
+    public int getFieldNameOffest() {
+        return fieldNameOffest;
+    }
+
+    public int getValueOffest() {
+        return valueOffest;
     }
 
     public ExpressionLanguage getValueEl() {

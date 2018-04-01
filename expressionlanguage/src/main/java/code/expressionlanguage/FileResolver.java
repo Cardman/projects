@@ -520,7 +520,7 @@ public final class FileResolver {
         boolean constChar_ = false;
         boolean constString_ = false;
         StringBuilder instruction_ = new StringBuilder();
-        RowCol instructionLocation_ = new RowCol();
+        int instructionLocation_ = -1;
         Numbers<Integer> parentheses_ = new Numbers<Integer>();
         Numbers<Integer> indexes_ = new Numbers<Integer>();
         indexes_.add(0);
@@ -556,9 +556,7 @@ public final class FileResolver {
             if (commentedSingleLine_) {
                 if (currentChar_ == LINE_RETURN) {
                     commentedSingleLine_ = false;
-                    if (instruction_.toString().trim().isEmpty()) {
-                        instruction_.delete(0, instruction_.length());
-                    }
+                    instruction_.delete(0, instruction_.length());
                 }
                 i_ = incrementRowCol(i_, _file, tabWidth_, current_);
                 continue;
@@ -572,9 +570,7 @@ public final class FileResolver {
                     char nextChar_ = _file.charAt(i_ + 1);
                     if (nextChar_ == BEGIN_COMMENT) {
                         commentedMultiLine_ = false;
-                        if (instruction_.toString().trim().isEmpty()) {
-                            instruction_.delete(0, instruction_.length());
-                        }
+                        instruction_.delete(0, instruction_.length());
                         i_ = incrementRowCol(i_, _file, tabWidth_, current_);
                         i_ = incrementRowCol(i_, _file, tabWidth_, current_);
                         continue;
@@ -632,9 +628,7 @@ public final class FileResolver {
             }
             if (!endInstruction_) {
                 if (instruction_.length() == 0) {
-                    instructionLocation_ = new RowCol();
-                    instructionLocation_.setCol(current_.getCol());
-                    instructionLocation_.setRow(current_.getRow());
+                    instructionLocation_ = i_;
                 }
                 instruction_.append(currentChar_);
             }
@@ -723,15 +717,21 @@ public final class FileResolver {
                 }
                 if (enableByEndLine_ && enum_) {
                     String fieldName_;
+                    int fieldOffest_ = instructionLocation_ + StringList.getFirstPrintableCharIndex(found_);
+                    int expressionOffest_ = -1;
                     String expression_ = EMPTY_STRING;
                     int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
                     if (indexBeginCalling_ >= 0) {
                         fieldName_ = found_.substring(0, indexBeginCalling_);
                         expression_ = found_.substring(indexBeginCalling_ + 1, found_.lastIndexOf(END_CALLING));
+                        expressionOffest_ = instructionLocation_ + indexBeginCalling_ + 1;
+                        if (!expression_.isEmpty()) {
+                            expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
+                        }
                     } else {
                         fieldName_ = found_;
                     }
-                    currentParent_.appendChild(new ElementBlock(_context, index_, currentParent_, fieldName_, expression_));
+                    currentParent_.appendChild(new ElementBlock(_context, index_, currentParent_, fieldOffest_, fieldName_.trim(), expressionOffest_, expression_.trim()));
                     index_++;
                     indexes_.setLast(index_);
                 } else if (currentChar_ == END_LINE) {
