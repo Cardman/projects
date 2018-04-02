@@ -303,7 +303,7 @@ public final class FileResolverTest {
         assertEq("0i",for_.getInit());
         assertEq("1i",for_.getStep());
         assertEq("10i",for_.getExpression());
-        assertEq(" i",for_.getVariableName());
+        assertEq("i",for_.getVariableName());
         assertTrue(for_.isEq());
         Block grChild_ = instr_.getFirstChild();
         assertTrue(grChild_ instanceof ReturnMehod);
@@ -477,7 +477,7 @@ public final class FileResolverTest {
         assertEq("0i",for_.getInit());
         assertEq("1i",for_.getStep());
         assertEq("10i",for_.getExpression());
-        assertEq(" i",for_.getVariableName());
+        assertEq("i",for_.getVariableName());
         assertTrue(for_.isEq());
         Block grChild_ = instr_.getFirstChild();
         assertTrue(grChild_ instanceof ReturnMehod);

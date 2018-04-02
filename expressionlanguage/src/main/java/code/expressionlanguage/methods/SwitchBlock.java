@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
@@ -20,6 +21,7 @@ import code.util.NatTreeMap;
 public final class SwitchBlock extends BracedStack implements BreakableBlock {
 
     private final String value;
+    private int valueOffset;
 
     private CustList<OperationNode> opValue;
 
@@ -29,9 +31,14 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         value = _el.getAttribute(ATTRIBUTE_VALUE);
     }
 
-    public SwitchBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, String _value, OffsetsBlock _offset) {
+    public SwitchBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
-        value = _value;
+        value = _value.getInfo();
+        valueOffset = _value.getOffset();
+    }
+
+    public int getValueOffset() {
+        return valueOffset;
     }
 
     @Override

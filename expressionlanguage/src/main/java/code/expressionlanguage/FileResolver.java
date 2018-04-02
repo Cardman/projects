@@ -1387,20 +1387,37 @@ public final class FileResolver {
                             currentParent_.appendChild(br_);
                         } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_FOREACH)) {
                             String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_FOREACH)).length());
+                            int indexClassOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_FOREACH).length();
+                            int typeOffset_ = instructionLocation_ + trimmedInstruction_.indexOf(BEGIN_CALLING) + 1;
+                            if (!exp_.trim().isEmpty()) {
+                                indexClassOffest_ += StringList.getFirstPrintableCharIndex(exp_) + 1;
+                            }
                             String indexClassName_ = EMPTY_STRING;
                             if (exp_.trim().indexOf(BEGIN_ARRAY) == 0) {
                                 indexClassName_ = exp_.substring(0, exp_.indexOf(END_ARRAY));
+                                indexClassOffest_ += StringList.getFirstPrintableCharIndex(indexClassName_);
                                 exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1);
                             }
-                            exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
+                            String afterIndex_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
+                            typeOffset_ += StringList.getFirstPrintableCharIndex(afterIndex_);
+                            exp_ = afterIndex_;
                             String declaringType_ = getDeclaringType(exp_);
+                            int varOffset_ = typeOffset_ + declaringType_.length();
                             exp_ = exp_.substring(declaringType_.length());
                             String variable_ = exp_.substring(0, exp_.indexOf(FOR_BLOCKS));
+                            varOffset_ += StringList.getFirstPrintableCharIndex(variable_);
+                            int expOffset_ = varOffset_;
+                            expOffset_ += exp_.indexOf(FOR_BLOCKS) + 1;
                             exp_ = exp_.substring(exp_.indexOf(FOR_BLOCKS) + 1, exp_.lastIndexOf(END_CALLING));
-                            br_ = new ForEachLoop(_context, index_, currentParent_, declaringType_, variable_, exp_, indexClassName_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            br_ = new ForEachLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_), new OffsetStringInfo(varOffset_, variable_.trim()), new OffsetStringInfo(expOffset_, exp_), new OffsetStringInfo(indexClassOffest_, indexClassName_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                             currentParent_.appendChild(br_);
                         } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_FOR)) {
                             String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_FOR)).length());
+                            int indexClassOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_FOREACH).length();
+                            int typeOffset_ = instructionLocation_ + trimmedInstruction_.indexOf(BEGIN_CALLING) + 1;
+                            if (!exp_.trim().isEmpty()) {
+                                indexClassOffest_ += StringList.getFirstPrintableCharIndex(exp_) + 1;
+                            }
                             String indexClassName_ = EMPTY_STRING;
                             if (exp_.trim().indexOf(BEGIN_ARRAY) == 0) {
                                 indexClassName_ = exp_.substring(0, exp_.indexOf(END_ARRAY));
@@ -1408,13 +1425,17 @@ public final class FileResolver {
                             }
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
                             String declaringType_ = getDeclaringType(exp_);
+                            int varOffset_ = typeOffset_ + declaringType_.length();
                             exp_ = exp_.substring(declaringType_.length());
                             String variable_ = exp_.substring(0, exp_.indexOf(PART_SEPARATOR));
+                            varOffset_ += StringList.getFirstPrintableCharIndex(variable_);
                             exp_ = exp_.substring(exp_.indexOf(PART_SEPARATOR) + 1);
                             int nextElt_ = getIndex(exp_);
+                            int initOff_ = varOffset_ + nextElt_;
                             String init_ = exp_.substring(0, nextElt_);
                             exp_ = exp_.substring(init_.length()+1);
                             nextElt_ = getIndex(exp_);
+                            int toOff_ = initOff_ + nextElt_;
                             boolean eq_ = false;
                             String to_ = exp_.substring(0, nextElt_);
                             if (exp_.charAt(nextElt_ + 1) == END_LINE) {
@@ -1422,13 +1443,20 @@ public final class FileResolver {
                                 nextElt_++;
                             }
                             exp_ = exp_.substring(nextElt_ + 1);
+                            int expOff_ = toOff_ + nextElt_ + 1;
                             String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
-                            br_ = new ForIterativeLoop(_context, index_, currentParent_, declaringType_, variable_, init_, to_, eq_, step_, indexClassName_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            int stepOff_ = expOff_;
+                            br_ = new ForIterativeLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_,declaringType_), new OffsetStringInfo(varOffset_,variable_.trim()),
+                                    new OffsetStringInfo(initOff_,init_), new OffsetStringInfo(toOff_,to_),  new OffsetBooleanInfo(expOff_, eq_) , new OffsetStringInfo(stepOff_,step_), new OffsetStringInfo(indexClassOffest_,indexClassName_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                             currentParent_.appendChild(br_);
                         } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_SWITCH)) {
                             String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_SWITCH)).length());
+                            int valueOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_SWITCH).length();
+                            if (!exp_.trim().isEmpty()) {
+                                valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
+                            }
                             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
-                            br_ = new SwitchBlock(_context, index_, currentParent_, exp_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            br_ = new SwitchBlock(_context, index_, currentParent_, new OffsetStringInfo(valueOffest_, exp_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                             currentParent_.appendChild(br_);
                         } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_STATIC)) {
                             br_ = new StaticBlock(_context, index_, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));

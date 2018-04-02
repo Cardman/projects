@@ -3,6 +3,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetBooleanInfo;
+import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -28,18 +30,25 @@ import code.util.StringMap;
 public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     private final String className;
+    private int classNameOffset;
 
     private final String classIndexName;
+    private int classIndexNameOffset;
 
     private final String variableName;
+    private int variableNameOffset;
 
     private final String init;
+    private int initOffset;
 
     private final String expression;
+    private int expressionOffset;
 
     private final String step;
+    private int stepOffset;
 
     private final boolean eq;
+    private int eqOffset;
 
     private CustList<OperationNode> opInit;
 
@@ -66,22 +75,57 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     public ForIterativeLoop(ContextEl _importingPage, int _indexChild,
             BracedBlock _m,
-            String _className, String _variable,
-            String _from,
-            String _to, boolean _eq, String _step, String _classIndex, OffsetsBlock _offset) {
+            OffsetStringInfo _className, OffsetStringInfo _variable,
+            OffsetStringInfo _from,
+            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
-        className = _className;
-        variableName = _variable;
-        init = _from;
-        expression = _to;
-        step = _step;
-        eq = _eq;
-        String classIndex_ = _classIndex;
+        className = _className.getInfo();
+        classNameOffset = _className.getOffset();
+        variableName = _variable.getInfo();
+        variableNameOffset = _variable.getOffset();
+        init = _from.getInfo();
+        initOffset = _from.getOffset();
+        expression = _to.getInfo();
+        expressionOffset = _to.getOffset();
+        step = _step.getInfo();
+        stepOffset = _step.getOffset();
+        eq = _eq.isInfo();
+        eqOffset = _eq.getOffset();
+        String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
             classIndex_ = _importingPage.getStandards().getAliasPrimLong();
         }
         classIndexName = classIndex_;
+        classIndexNameOffset = _classIndex.getOffset();
         setAlwaysSkipped(true);
+    }
+
+    public int getClassNameOffset() {
+        return classNameOffset;
+    }
+
+    public int getClassIndexNameOffset() {
+        return classIndexNameOffset;
+    }
+
+    public int getVariableNameOffset() {
+        return variableNameOffset;
+    }
+
+    public int getInitOffset() {
+        return initOffset;
+    }
+
+    public int getExpressionOffset() {
+        return expressionOffset;
+    }
+
+    public int getStepOffset() {
+        return stepOffset;
+    }
+
+    public int getEqOffset() {
+        return eqOffset;
     }
 
     @Override
