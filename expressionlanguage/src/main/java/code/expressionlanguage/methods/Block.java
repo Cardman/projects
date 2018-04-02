@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.FileRowCol;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
@@ -117,16 +118,22 @@ public abstract class Block extends Blockable {
 
     private Metrics metrics = new Metrics();
 
+    private OffsetsBlock offset;
+
     Block(Element _el,int _indexChild, BracedBlock _m) {
         metrics.setAssociateElement(_el);
         parent = _m;
         indexChild = _indexChild;
         searching = new SearchingReturnThrow();
     }
-    Block(int _indexChild, BracedBlock _m) {
+    Block(int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
         parent = _m;
         indexChild = _indexChild;
         searching = new SearchingReturnThrow();
+        offset = _offset;
+    }
+    public OffsetsBlock getOffset() {
+        return offset;
     }
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
@@ -283,6 +290,13 @@ public abstract class Block extends Blockable {
             b_ = b_.getParent();
         }
         return null;
+    }
+    public final FileBlock getFile() {
+        Block b_ = this;
+        while (!(b_ instanceof FileBlock)) {
+            b_ = b_.getParent();
+        }
+        return (FileBlock) b_;
     }
     public final RootBlock getRooted() {
         Block b_ = this;

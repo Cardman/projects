@@ -3,6 +3,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
@@ -59,8 +60,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     public ForEachLoop(ContextEl _importingPage, int _indexChild,
             BracedBlock _m,
             String _className, String _variable,
-            String _expression, String _classIndex) {
-        super(_importingPage, _indexChild, _m);
+            String _expression, String _classIndex, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
         className = _className;
         variableName = _variable;
         expression = _expression;

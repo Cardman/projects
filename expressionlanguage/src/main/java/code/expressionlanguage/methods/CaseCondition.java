@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.exceptions.VoidArgumentException;
@@ -24,6 +26,8 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     private CustList<OperationNode> opValue;
     private boolean possibleSkipNexts;
 
+    private int valueOffset;
+
     public CaseCondition(Element _el, ContextEl _importingPage,
             int _indexChild, BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -31,9 +35,14 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     }
 
     public CaseCondition(ContextEl _importingPage,
-            int _indexChild, BracedBlock _m, String _expression) {
-        super(_importingPage, _indexChild, _m);
-        value = _expression;
+            int _indexChild, BracedBlock _m, OffsetStringInfo _value, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        value = _value.getInfo();
+        valueOffset = _value.getOffset();
+    }
+
+    public int getValueOffset() {
+        return valueOffset;
     }
 
     public String getValue() {

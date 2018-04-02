@@ -3,6 +3,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.OffsetAccessInfo;
+import code.expressionlanguage.OffsetBooleanInfo;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
@@ -26,15 +30,27 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     private final String fieldName;
 
+    private int fieldNameOffset;
+
     private final String className;
+
+    private int classNameOffset;
 
     private final String value;
 
+    private int valueOffset;
+
     private final boolean staticField;
+
+    private int staticFieldOffset;
 
     private final boolean finalField;
 
+    private int finalFieldOffset;
+
     private final AccessEnum access;
+
+    private int accessOffset;
 
     private CustList<OperationNode> opValue;
 
@@ -50,16 +66,46 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public FieldBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, AccessEnum _access,
-            boolean _static, boolean _final,
-            String _name, String _type, String _value) {
-        super(_importingPage, _indexChild, _m);
-        access = _access;
-        staticField = _static;
-        finalField = _final;
-        fieldName = _name;
-        className = _type;
-        value = _value;
+            BracedBlock _m, OffsetAccessInfo _access,
+            OffsetBooleanInfo _static, OffsetBooleanInfo _final,
+            OffsetStringInfo _name, OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        access = _access.getInfo();
+        accessOffset = _access.getOffset();
+        staticField = _static.isInfo();
+        staticFieldOffset = _static.getOffset();
+        finalField = _final.isInfo();
+        finalFieldOffset = _final.getOffset();
+        fieldName = _name.getInfo();
+        fieldNameOffset = _name.getOffset();
+        className = _type.getInfo();
+        classNameOffset = _type.getOffset();
+        value = _value.getInfo();
+        valueOffset = _value.getOffset();
+    }
+
+    public int getFieldNameOffset() {
+        return fieldNameOffset;
+    }
+
+    public int getClassNameOffset() {
+        return classNameOffset;
+    }
+
+    public int getValueOffset() {
+        return valueOffset;
+    }
+
+    public int getStaticFieldOffset() {
+        return staticFieldOffset;
+    }
+
+    public int getFinalFieldOffset() {
+        return finalFieldOffset;
+    }
+
+    public int getAccessOffset() {
+        return accessOffset;
     }
 
     public Struct getDefaultStruct(ContextEl _cont) {

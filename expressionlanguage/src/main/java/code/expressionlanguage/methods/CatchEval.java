@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
@@ -15,7 +17,11 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
 
     private final String className;
 
+    private int classNameOffset;
+
     private final String variableName;
+
+    private int variableNameOffset;
 
     public CatchEval(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -25,12 +31,20 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
     }
 
     public CatchEval(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _className, String _variable) {
-        super(_importingPage, _indexChild, _m);
-        className = _className;
-        variableName = _variable;
+            BracedBlock _m, OffsetStringInfo _className, OffsetStringInfo _variable, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        className = _className.getInfo();
+        classNameOffset = _className.getOffset();
+        variableName = _variable.getInfo();
+        variableNameOffset = _variable.getOffset();
     }
 
+    public int getClassNameOffset() {
+        return classNameOffset;
+    }
+    public int getVariableNameOffset() {
+        return variableNameOffset;
+    }
     public String getClassName() {
         return className;
     }

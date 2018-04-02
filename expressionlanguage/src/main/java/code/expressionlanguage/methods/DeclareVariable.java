@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
@@ -13,7 +15,11 @@ public final class DeclareVariable extends Leaf implements InitVariable {
 
     private final String variableName;
 
+    private int variableNameOffset;
+
     private final String className;
+
+    private int classNameOffset;
 
     DeclareVariable(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -23,10 +29,20 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     }
 
     public DeclareVariable(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _className, String _variableName) {
-        super(_importingPage, _indexChild, _m);
-        className = _className;
-        variableName = _variableName;
+            BracedBlock _m, OffsetStringInfo _className, OffsetStringInfo _variableName, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        className = _className.getInfo();
+        classNameOffset = _className.getOffset();
+        variableName = _variableName.getInfo();
+        variableNameOffset = _variableName.getOffset();
+    }
+
+    public int getVariableNameOffset() {
+        return variableNameOffset;
+    }
+
+    public int getClassNameOffset() {
+        return classNameOffset;
     }
 
     @Override

@@ -106,6 +106,7 @@ public final class Classes {
     private static final String VARARG = "...";
 
     private final StringMap<RootBlock> classesBodies;
+    private final StringMap<FileBlock> filesBodies;
 
     private final ObjectMap<ClassField,Struct> staticFields;
     private final StringMap<CustList<Struct>> values;
@@ -132,6 +133,7 @@ public final class Classes {
 
     public Classes(){
         classesBodies = new StringMap<RootBlock>();
+        filesBodies = new StringMap<FileBlock>();
         errorsDet = new ErrorList();
         staticFields = new ObjectMap<ClassField,Struct>();
         values = new StringMap<CustList<Struct>>();
@@ -140,23 +142,26 @@ public final class Classes {
         classesInheriting = new StringList();
         localVariablesNames = new StringList();
     }
-    private void processPredefinedClass(String _content, ContextEl _context) {
+    private void processPredefinedClass(String _fileName,String _content, ContextEl _context) {
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
         Document doc_ = res_.getDocument();
         _context.setHtml(_content);
         _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
         Element root_ = doc_.getDocumentElement();
-        Block bl_ = Block.createOperationNode(root_, _context, 0, null);
+        FileBlock fileBlock_ = new FileBlock();
+        Block bl_ = Block.createOperationNode(root_, _context, 0, fileBlock_);
+        fileBlock_.appendChild(bl_);
         int tabWidth_ = _context.getTabWidth();
         RootBlock cl_ = (RootBlock) bl_;
         ElementOffsetsNext e_ = _context.getElements();
         ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(_content, e_, root_, tabWidth_);
-        processCustomClass(cl_, true, _content, _context, ne_);
+        processCustomClass(_fileName, fileBlock_, cl_, true, _content, _context, ne_);
     }
-    private void processCustomClass(RootBlock _root, boolean _predefined, String _content, ContextEl _context, ElementOffsetsNext _elt) {
+    private void processCustomClass(String _fileName,FileBlock _fileBlock, RootBlock _root, boolean _predefined, String _content, ContextEl _context, ElementOffsetsNext _elt) {
         if (classesBodies.contains(_root.getFullName())) {
             throw new AlreadyExistingClassException(_root.getFullName());
         }
+        filesBodies.put(_fileName, _fileBlock);
         RootBlock bl_ = _root;
         ElementOffsetsNext ne_ = _elt;
         bl_.setAttributes(ne_.getAttributes());
@@ -252,6 +257,9 @@ public final class Classes {
         String fullName_ = cl_.getFullName();
         initializedClasses.put(fullName_, false);
         classesBodies.put(fullName_, cl_);
+    }
+    public void putFileBlock(String _fileName, FileBlock _fileBlock) {
+        filesBodies.put(_fileName, _fileBlock);
     }
     public void processBracedClass(RootBlock _root, boolean _predefined, ContextEl _context) {
         if (classesBodies.contains(_root.getFullName())) {
@@ -480,7 +488,8 @@ public final class Classes {
                 _context.setHtml(content_);
                 _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
                 Element root_ = doc_.getDocumentElement();
-                Block bl_ = Block.createOperationNode(root_, _context, 0, null);
+                FileBlock fileBlock_ = new FileBlock();
+                Block bl_ = Block.createOperationNode(root_, _context, 0, fileBlock_);
                 if (!(bl_ instanceof RootBlock)) {
                     throw new XmlParseException();
                 }
@@ -488,7 +497,8 @@ public final class Classes {
                 RootBlock cl_ = (RootBlock) bl_;
                 ElementOffsetsNext e_ = _context.getElements();
                 ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(content_, e_, root_, tabWidth_);
-                processCustomClass(cl_, false, content_, _context, ne_);
+                fileBlock_.appendChild(cl_);
+                processCustomClass(file_, fileBlock_, cl_, false, content_, _context, ne_);
             } catch (UnknownBlockException _0) {
                 RowCol where_ = _0.getRc();
                 UnexpectedTagName t_ = new UnexpectedTagName();
@@ -522,14 +532,15 @@ public final class Classes {
                 errorsDet.add(bad_);
             }
         }
+        LgNames stds_ = _context.getStandards();
         String content_ = PredefinedClasses.getIterableType(_context);
-        processPredefinedClass(content_, _context);
+        processPredefinedClass(stds_.getAliasIterable(), content_, _context);
         content_ = PredefinedClasses.getIteratorType(_context);
-        processPredefinedClass(content_, _context);
+        processPredefinedClass(stds_.getAliasIteratorType(), content_, _context);
         content_ = PredefinedClasses.getEnumType(_context);
-        processPredefinedClass(content_, _context);
+        processPredefinedClass(stds_.getAliasEnum(), content_, _context);
         content_ = PredefinedClasses.getEnumParamType(_context);
-        processPredefinedClass(content_, _context);
+        processPredefinedClass(stds_.getAliasEnumParam(), content_, _context);
         _context.setHtml(EMPTY_STRING);
     }
     public void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context) {

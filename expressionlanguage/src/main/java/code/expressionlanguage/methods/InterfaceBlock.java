@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.FileIndex;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.sml.Element;
@@ -33,8 +34,8 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     public InterfaceBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, FileIndex _idRowCol, String _name, String _packageName, AccessEnum _access,
-            String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes) {
-        super(_importingPage, _indexChild, _m, _idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes);
+            String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
     }
 
     @Override

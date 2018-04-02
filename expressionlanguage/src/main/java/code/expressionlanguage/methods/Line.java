@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
@@ -28,6 +30,8 @@ public final class Line extends Leaf implements StackableBlock {
 
     private final String expression;
 
+    private int expressionOffset;
+
     private CustList<OperationNode> opExp;
     private boolean callSuper;
 
@@ -40,9 +44,14 @@ public final class Line extends Leaf implements StackableBlock {
     }
 
     public Line(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _left) {
-        super(_importingPage, _indexChild, _m);
-        expression = _left;
+            BracedBlock _m, OffsetStringInfo _left, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        expression = _left.getInfo();
+        expressionOffset = _left.getOffset();
+    }
+
+    public int getExpressionOffset() {
+        return expressionOffset;
     }
 
     @Override

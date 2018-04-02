@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.exceptions.BadStaticException;
 import code.sml.Element;
@@ -12,8 +13,8 @@ public final class StaticBlock extends MemberCallingsBlock implements AloneBlock
         super(_el, _importingPage, _indexChild, _m);
     }
 
-    public StaticBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m) {
-        super(_importingPage, _indexChild, _m);
+    public StaticBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
     }
 
     @Override

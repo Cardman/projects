@@ -1,5 +1,8 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetAccessInfo;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
@@ -32,11 +35,11 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             int _indexChild, BracedBlock _m,
             StringList _interfaces,
             Numbers<Integer> _interfacesOffest,
-            AccessEnum _access,
-            String _retType, String _fctName,
-            StringList _paramTypes,
-            StringList _paramNames) {
-        super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramNames);
+            OffsetAccessInfo _access,
+            OffsetStringInfo _retType, OffsetStringInfo _fctName,
+            StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
+            StringList _paramNames, Numbers<Integer> _paramNamesOffset, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
         interfaces = _interfaces;
         interfacesOffest = _interfacesOffest;
     }

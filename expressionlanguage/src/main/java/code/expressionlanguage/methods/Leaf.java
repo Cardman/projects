@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetsBlock;
 import code.sml.Element;
 
 public abstract class Leaf extends Block implements WithEl {
@@ -9,8 +10,8 @@ public abstract class Leaf extends Block implements WithEl {
     }
 
     Leaf(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_indexChild, _m);
+            BracedBlock _m, OffsetsBlock _offset) {
+        super(_indexChild, _m, _offset);
     }
 
     @Override

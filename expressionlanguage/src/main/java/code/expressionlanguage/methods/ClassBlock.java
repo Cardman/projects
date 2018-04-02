@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.FileIndex;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
@@ -65,8 +66,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             BracedBlock _m, FileIndex _idRowCol, String _name, String _packageName, AccessEnum _access,
             String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes,
             boolean _finalType,
-            boolean _abstractType) {
-        super(_importingPage, _indexChild, _m, _idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes);
+            boolean _abstractType, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
         finalType = _finalType;
         abstractType = _abstractType;
     }

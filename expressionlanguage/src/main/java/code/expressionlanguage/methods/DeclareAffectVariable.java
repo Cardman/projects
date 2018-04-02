@@ -3,6 +3,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
@@ -21,9 +23,15 @@ import code.util.StringMap;
 
 public final class DeclareAffectVariable extends Leaf implements InitVariable {
 
+    private int variableNameOffset;
+
     private final String variableName;
 
+    private int classNameOffset;
+
     private final String className;
+
+    private int rightMemberOffset;
 
     private final String rightMember;
 
@@ -38,11 +46,26 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     }
 
     public DeclareAffectVariable(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _className, String _variableName, String _right) {
-        super(_importingPage, _indexChild, _m);
-        className = _className;
-        variableName = _variableName;
-        rightMember = _right;
+            BracedBlock _m, OffsetStringInfo _className, OffsetStringInfo _variableName, OffsetStringInfo _right, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        className = _className.getInfo();
+        classNameOffset = _className.getOffset();
+        variableName = _variableName.getInfo();
+        variableNameOffset = _variableName.getOffset();
+        rightMember = _right.getInfo();
+        rightMemberOffset = _right.getOffset();
+    }
+
+    public int getVariableNameOffset() {
+        return variableNameOffset;
+    }
+
+    public int getClassNameOffset() {
+        return classNameOffset;
+    }
+
+    public int getRightMemberOffset() {
+        return rightMemberOffset;
     }
 
     @Override

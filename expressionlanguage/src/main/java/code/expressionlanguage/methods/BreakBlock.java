@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.BadTagBreakException;
@@ -18,8 +19,8 @@ public final class BreakBlock extends Leaf implements CallingFinally {
     }
 
     public BreakBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_importingPage, _indexChild, _m);
+            BracedBlock _m, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
         setStoppable(true);
     }
 

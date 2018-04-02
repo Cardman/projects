@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
@@ -34,8 +35,8 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
     }
 
     public SemiAffectation(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _left, String _oper) {
-        super(_importingPage, _indexChild, _m);
+            BracedBlock _m, String _left, String _oper, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
         leftMember = _left;
         oper = _oper;
     }

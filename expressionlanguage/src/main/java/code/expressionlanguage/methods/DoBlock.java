@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.BadLoopException;
@@ -14,8 +15,8 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         super(_el, _importingPage, _indexChild, _m);
     }
 
-    public DoBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m) {
-        super(_importingPage, _indexChild, _m);
+    public DoBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
     }
 
     @Override

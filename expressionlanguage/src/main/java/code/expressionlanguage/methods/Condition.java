@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.exceptions.BadConditionExpressionException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
@@ -16,6 +18,8 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
 
     private String condition;
 
+    private int conditionOffset;
+
     private CustList<OperationNode> opCondition;
 
     public Condition(Element _el, ContextEl _importingPage, int _indexChild,
@@ -25,9 +29,14 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
     }
 
     public Condition(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _condition) {
-        super(_importingPage, _indexChild, _m);
-        condition = _condition;
+            BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        condition = _condition.getInfo();
+        conditionOffset = _condition.getOffset();
+    }
+
+    public int getConditionOffset() {
+        return conditionOffset;
     }
 
     @Override

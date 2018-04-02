@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.sml.Element;
 
@@ -13,8 +14,8 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     }
 
     BracedBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_indexChild, _m);
+            BracedBlock _m, OffsetsBlock _offset) {
+        super(_indexChild, _m, _offset);
     }
 
     public final void appendChild(Block _child) {

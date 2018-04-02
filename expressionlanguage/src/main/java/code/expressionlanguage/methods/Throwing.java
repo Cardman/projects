@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.exceptions.BadCatchException;
@@ -18,6 +20,8 @@ public final class Throwing extends Leaf implements StackableBlock {
 
     private final String expression;
 
+    private int expressionOffset;
+
     private CustList<OperationNode> opThrow;
 
     public Throwing(Element _el, ContextEl _importingPage, int _indexChild,
@@ -29,11 +33,16 @@ public final class Throwing extends Leaf implements StackableBlock {
     }
 
     public Throwing(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _expression) {
-        super(_importingPage, _indexChild, _m);
+            BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
         setExitable(true);
         setStoppable(true);
-        expression = _expression;
+        expression = _expression.getInfo();
+        expressionOffset = _expression.getOffset();
+    }
+
+    public int getExpressionOffset() {
+        return expressionOffset;
     }
 
     @Override

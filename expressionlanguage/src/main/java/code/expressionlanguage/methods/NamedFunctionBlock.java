@@ -1,23 +1,37 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetAccessInfo;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.Numbers;
 import code.util.StringList;
 
 public abstract class NamedFunctionBlock extends MemberCallingsBlock implements Returnable {
 
     private final String name;
 
+    private int nameOffset;
+
     private final StringList parametersTypes;
+
+    private Numbers<Integer> parametersTypesOffset;
 
     private final String returnType;
 
+    private int returnTypeOffset;
+
     private final StringList parametersNames;
 
+    private Numbers<Integer> parametersNamesOffset;
+
     private final AccessEnum access;
+
+    private int accessOffset;
 
     private final boolean varargs;
 
@@ -55,12 +69,14 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public NamedFunctionBlock(ContextEl _importingPage,
             int _indexChild, BracedBlock _m,
-            AccessEnum _access,
-            String _retType, String _fctName,
-            StringList _paramTypes,
-            StringList _paramNames) {
-        super(_importingPage, _indexChild, _m);
-        name = _fctName;
+            OffsetAccessInfo _access,
+            OffsetStringInfo _retType, OffsetStringInfo _fctName,
+            StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
+            StringList _paramNames, Numbers<Integer> _paramNamesOffset,
+            OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        name = _fctName.getInfo();
+        nameOffset = _fctName.getOffset();
         parametersTypes = new StringList();
         int i_ = CustList.FIRST_INDEX;
         int len_ = _paramTypes.size();
@@ -80,14 +96,38 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             i_++;
         }
         varargs = varargs_;
-        access = _access;
-        returnType = _retType;
+        access = _access.getInfo();
+        accessOffset = _access.getOffset();
+        returnType = _retType.getInfo();
+        returnTypeOffset = _retType.getOffset();
         parametersNames = new StringList();
         i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
             parametersNames.add(_paramNames.get(i_));
             i_++;
         }
+        parametersTypesOffset = _paramTypesOffset;
+        parametersNamesOffset = _paramNamesOffset;
+    }
+
+    public Numbers<Integer> getParametersTypesOffset() {
+        return parametersTypesOffset;
+    }
+
+    public Numbers<Integer> getParametersNamesOffset() {
+        return parametersNamesOffset;
+    }
+
+    public int getNameOffset() {
+        return nameOffset;
+    }
+
+    public int getAccessOffset() {
+        return accessOffset;
+    }
+
+    public int getReturnTypeOffset() {
+        return returnTypeOffset;
     }
 
     @Override

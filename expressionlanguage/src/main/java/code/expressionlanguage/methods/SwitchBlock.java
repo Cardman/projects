@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.exceptions.VoidArgumentException;
@@ -28,8 +29,8 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         value = _el.getAttribute(ATTRIBUTE_VALUE);
     }
 
-    public SwitchBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, String _value) {
-        super(_importingPage, _indexChild, _m);
+    public SwitchBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, String _value, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
         value = _value;
     }
 

@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.exceptions.BadFieldException;
@@ -37,12 +39,12 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     public ElementBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, int _fieldNameOffest, String _fieldName, int _valueOffest,String _value) {
-        super(_importingPage, _indexChild, _m);
-        fieldNameOffest = _fieldNameOffest;
-        valueOffest = _valueOffest;
-        fieldName = _fieldName;
-        value = _value;
+            BracedBlock _m, OffsetStringInfo _fieldName, OffsetStringInfo _value, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        fieldNameOffest = _fieldName.getOffset();
+        valueOffest = _value.getOffset();
+        fieldName = _fieldName.getInfo();
+        value = _value.getInfo();
     }
 
     public int getFieldNameOffest() {

@@ -2,8 +2,8 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.FileIndex;
-import code.expressionlanguage.FileRowCol;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
@@ -79,8 +79,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
     }
 
     RootBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, FileIndex _idRowCol,String _name, String _packageName, AccessEnum _access, String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes) {
-        super(_importingPage, _indexChild, _m);
+            BracedBlock _m, FileIndex _idRowCol,String _name, String _packageName, AccessEnum _access, String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         name = StringList.removeAllSpaces(_name);
         packageName = StringList.removeAllSpaces(_packageName);

@@ -1,5 +1,8 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetAccessInfo;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -10,9 +13,12 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.NatTreeMap;
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class MethodBlock extends NamedFunctionBlock implements GeneMethod {
+
+    private int modifierOffset;
 
     private final boolean staticMethod;
 
@@ -35,17 +41,23 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     }
     public MethodBlock(ContextEl _importingPage,
             int _indexChild, BracedBlock _m,
-            AccessEnum _access,
-            String _retType, String _fctName,
-            StringList _paramTypes,
-            StringList _paramNames,
-            String _modifier) {
-        super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramNames);
-        staticMethod = StringList.quickEq(_modifier, VALUE_STATIC);
-        finalMethod = StringList.quickEq(_modifier, VALUE_FINAL);
-        abstractMethod = StringList.quickEq(_modifier, VALUE_ABSTRACT);
-        normalMethod = StringList.quickEq(_modifier, VALUE_NORMAL);
+            OffsetAccessInfo _access,
+            OffsetStringInfo _retType, OffsetStringInfo _fctName,
+            StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
+            StringList _paramNames, Numbers<Integer> _paramNamesOffset,
+            OffsetStringInfo _modifier, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
+        modifierOffset = _modifier.getOffset();
+        String modifier_ = _modifier.getInfo();
+        staticMethod = StringList.quickEq(modifier_, VALUE_STATIC);
+        finalMethod = StringList.quickEq(modifier_, VALUE_FINAL);
+        abstractMethod = StringList.quickEq(modifier_, VALUE_ABSTRACT);
+        normalMethod = StringList.quickEq(modifier_, VALUE_NORMAL);
         declaringType = getRooted().getFullName();
+    }
+
+    public int getModifierOffset() {
+        return modifierOffset;
     }
 
     @Override

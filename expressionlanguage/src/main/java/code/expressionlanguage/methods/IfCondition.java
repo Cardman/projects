@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.BadIfException;
@@ -17,8 +19,8 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     }
 
     public IfCondition(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _condition) {
-        super(_importingPage, _indexChild, _m, _condition);
+            BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _condition, _offset);
     }
 
     @Override

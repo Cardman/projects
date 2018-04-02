@@ -1,6 +1,8 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetStringInfo;
+import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.util.ExpLanguages;
@@ -14,9 +16,15 @@ public final class Affectation extends Leaf implements StackableBlock {
 
     private final String leftMember;
 
+    private int leftMemberOffset;
+
     private final String oper;
 
+    private int operOffset;
+
     private final String rightMember;
+
+    private int rightMemberOffset;
 
     private CustList<OperationNode> opLeft;
 
@@ -31,11 +39,26 @@ public final class Affectation extends Leaf implements StackableBlock {
     }
 
     public Affectation(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _left, String _op, String _right) {
-        super(_importingPage, _indexChild, _m);
-        leftMember = _left;
-        oper = _op;
-        rightMember = _right;
+            BracedBlock _m, OffsetStringInfo _left, OffsetStringInfo _op, OffsetStringInfo _right, OffsetsBlock _offset) {
+        super(_importingPage, _indexChild, _m, _offset);
+        leftMember = _left.getInfo();
+        leftMemberOffset = _left.getOffset();
+        oper = _op.getInfo();
+        operOffset = _op.getOffset();
+        rightMember = _right.getInfo();
+        rightMemberOffset = _right.getOffset();
+    }
+
+    public int getLeftMemberOffset() {
+        return leftMemberOffset;
+    }
+
+    public int getOperOffset() {
+        return operOffset;
+    }
+
+    public int getRightMemberOffset() {
+        return rightMemberOffset;
     }
 
     public String getLeftMember() {
