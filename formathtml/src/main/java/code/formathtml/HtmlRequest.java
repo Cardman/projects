@@ -126,7 +126,7 @@ final class HtmlRequest {
                 ip_.getLocalVars().put(nameValue_, lv_);
                 String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
                 String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
-                ElUtil.processAffect(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf.toContextEl(), true, true);
+                ElRenderUtil.processAffect(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
                 ip_.getLocalVars().removeKey(nameVar_);
                 ip_.getLocalVars().removeKey(nameValue_);
             } catch (Throwable _0) {

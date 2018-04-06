@@ -80,6 +80,18 @@ public final class PageEl {
 
     private boolean staticContext;
 
+    private int globalOffset;
+
+    private int translatedOffset;
+
+    public void setTranslatedOffset(int _translatedOffset) {
+        translatedOffset = _translatedOffset;
+    }
+
+    public void setGlobalOffset(int _globalOffset) {
+        globalOffset = _globalOffset;
+    }
+
     public String getInfos(ContextEl _context) {
         StringBuilder str_ = new StringBuilder(getCommonInfosAndRc(getTrace(), _context));
         str_.insert(0, SEP_INFO);

@@ -1041,7 +1041,7 @@ public final class FileResolver {
                         }
                         if (fct_) {
                             String afterAccess_ = trimmedInstruction_.substring(word_.length());
-                            if (currentChar_ == BEGIN_BLOCK || startsWithPrefixKeyWord(afterAccess_.trim(), KEY_WORD_ABSTRACT)) {
+                            if (currentChar_ == BEGIN_BLOCK || startsWithPrefixKeyWord(afterAccess_.trim(), KEY_WORD_ABSTRACT) || afterAccess_.trim().startsWith(String.valueOf(BEGIN_CALLING))) {
                                 int modifierOffest_ = accessOffest_ + word_.length();
                                 modifierOffest_ += StringList.getFirstPrintableCharIndex(afterAccess_);
                                 String info_ = afterAccess_.trim();
@@ -1105,7 +1105,7 @@ public final class FileResolver {
                                         paramOffest_ += call_ + 1;
                                         paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
                                     }
-                                    br_ = new MethodBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, declaringType_), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsType_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                    br_ = new MethodBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsType_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                     currentParent_.appendChild(br_);
                                 } else {
                                     StringList interfaces_ = new StringList();
@@ -1210,7 +1210,7 @@ public final class FileResolver {
                                     fieldName_ = afterType_;
                                     sepOffest_ = fieldNameOffest_;
                                 }
-                                br_ = new FieldBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_), new OffsetStringInfo(fieldNameOffest_,fieldName_.trim()), new OffsetStringInfo(typeOffest_,declaringType_), new OffsetStringInfo(sepOffest_, expression_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                br_ = new FieldBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_), new OffsetStringInfo(fieldNameOffest_,fieldName_.trim()), new OffsetStringInfo(typeOffest_,declaringType_.trim()), new OffsetStringInfo(sepOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                 currentParent_.appendChild(br_);
                             }
                         } else if (trimmedInstruction_.endsWith(INCR)) {

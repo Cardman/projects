@@ -41,6 +41,8 @@ public final class ImportingPage {
 
     private PageEl pageEl = new PageEl();
 
+    private String processingAttribute = EMPTY_STRING;
+
     private CustList<BlockHtml> blockStacks = new CustList<BlockHtml>();
 
     private String beanName;
@@ -87,9 +89,8 @@ public final class ImportingPage {
             page_.append(SEP_INFO).append(processingHtml.getHtml()).append(SEP_INFO);
         }
         int off_ = pageEl.getOffset();
-        String attribute_ = pageEl.getProcessingAttribute();
         int tabWidth_ = pageEl.getTabWidth();
-        RowCol rc_ = processingHtml.getRowCol(attribute_, off_, tabWidth_);
+        RowCol rc_ = processingHtml.getRowCol(processingAttribute, off_, tabWidth_);
         StringBuilder str_ = new StringBuilder(READ_URL);
         str_.append(SEP_KEY_VAL);
         str_.append(readUrl);
@@ -331,11 +332,11 @@ public final class ImportingPage {
     }
 
     public String getProcessingAttribute() {
-        return pageEl.getProcessingAttribute();
+        return processingAttribute;
     }
 
     public void setProcessingAttribute(String _processingAttribute) {
-        pageEl.setProcessingAttribute(_processingAttribute);
+        processingAttribute = _processingAttribute;
     }
 
     public boolean isLookForAttrValue() {

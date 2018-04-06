@@ -441,7 +441,7 @@ public final class FormatHtml {
                     ip_.getLocalVars().put(nameValue_, lv_);
                     String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, fieldName_);
                     String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
-                    ElUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), context_, true, true);
+                    ElRenderUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
                     ip_.getLocalVars().removeKey(nameVar_);
                     ip_.getLocalVars().removeKey(nameValue_);
                 }
@@ -1609,7 +1609,7 @@ public final class FormatHtml {
                 try {
                     String leftEl_ = StringList.concat(nameOne_,GET_LOC_VAR,String.valueOf(LEFT_ARR),Long.toString(indexNb_),SUFFIX_INT,String.valueOf(RIGHT_ARR));
                     String rightEl_ = StringList.concat(nameTwo_,GET_LOC_VAR);
-                    ElUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, leftEl_, rightEl_, String.valueOf(EQUALS), _conf.toContextEl());
+                    ElRenderUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, leftEl_, rightEl_, String.valueOf(EQUALS), _conf);
                 } catch (RuntimeException _0) {
                     _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
                     _conf.getLastPage().setLookForAttrValue(false);

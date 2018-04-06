@@ -42,8 +42,18 @@ public final class ElUtil {
     private static final String EMPTY_STRING = "";
     private ElUtil() {
     }
-
-    public static ExpLanguages analyzeAffect(String _attrOp, String _attrLeft, String _attrRight,
+    
+    public static void tryToCalculateAffect(CustList<OperationNode> _left, ContextEl _conf, CustList<OperationNode> _right, String _op) {
+        CustList<OperationNode> allLeft_ = _left;
+        calculate(allLeft_ , _conf, _op);
+        CustList<OperationNode> allRight_ = _right;
+        calculate(allRight_, _conf, _op);
+        _conf.getLastPage().setRightArgument(_right.last().getArgument());
+        SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
+        settable_.calculateSetting(allLeft_, _conf, _op);
+        _conf.getLastPage().setRightArgument(null);
+    }
+    public static ExpLanguages getAnalyzedAffectation(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddenVarTypes) {
         PageEl page_ = _conf.getLastPage();
         page_.setOffset(0);
@@ -123,13 +133,12 @@ public final class ElUtil {
         }
         return new ExpLanguages(allLeft_, allRight_);
     }
-
-    public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right) {
+    public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right, int _offset) {
         if (_right.isFinished()) {
             return _right.getArgument();
         }
         IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-        calculate(allRight_, _right, _conf, EMPTY_STRING);
+        calculate(allRight_, _right, _conf, EMPTY_STRING, _offset);
         _right.finish();
         Argument arg_ = _right.getArgument();
         return arg_;
@@ -139,7 +148,7 @@ public final class ElUtil {
             return;
         }
         IdMap<OperationNode, ArgumentsPair> allLeft_ = _left.getArguments();
-        calculate(allLeft_, _left, _conf, _op);
+        calculate(allLeft_, _left, _conf, _op, 0);
         _left.finish();
     }
     public static void tryToCalculateRightAffect(ExpressionLanguage _right, ContextEl _conf, String _op) {
@@ -147,7 +156,7 @@ public final class ElUtil {
             return;
         }
         IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-        calculate(allRight_, _right, _conf, _op);
+        calculate(allRight_, _right, _conf, _op, 0);
         _right.finish();
         _conf.getLastPage().setRightArgument(_right.getArgument());
     }
@@ -168,29 +177,6 @@ public final class ElUtil {
             throw _0;
         }
         _conf.getLastPage().setRightArgument(null);
-    }
-    static void tryToCalculateAffect(CustList<OperationNode> _left, ContextEl _conf, CustList<OperationNode> _right, String _op) {
-        CustList<OperationNode> allLeft_ = _left;
-        calculate(allLeft_ , _conf, _op);
-        CustList<OperationNode> allRight_ = _right;
-        calculate(allRight_, _conf, _op);
-        _conf.getLastPage().setRightArgument(_right.last().getArgument());
-        SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
-        settable_.calculateSetting(allLeft_, _conf, _op);
-        _conf.getLastPage().setRightArgument(null);
-    }
-    public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
-            String _left, String _right, String _oper, ContextEl _conf) {
-        Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        boolean staticContext_ = arg_ == null || arg_.isNull();
-        processAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, staticContext_, staticContext_);
-    }
-    public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
-            String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddentVarTypes) {
-        ExpLanguages members_ = analyzeAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, _staticContext, _hiddentVarTypes);
-        CustList<OperationNode> left_ = members_.getLeft();
-        CustList<OperationNode> right_ = members_.getRight();
-        tryToCalculateAffect(left_, _conf, right_, _oper);
     }
 
     public static Argument processEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {
@@ -246,7 +232,7 @@ public final class ElUtil {
         return arg_;
     }
 
-    private static CustList<OperationNode> getOperationNodes(OperationNode _root, ContextEl _context) {
+    public static CustList<OperationNode> getOperationNodes(OperationNode _root, ContextEl _context) {
         CustList<OperationNode> all_ = new CustList<OperationNode>();
         for (OperationNode s: getSortedDescNodes(_root, _context)) {
             all_.add(s);
@@ -403,7 +389,7 @@ public final class ElUtil {
         return list_;
     }
 
-    static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _staticBlock,String _fieldName, String _op) {
+    public static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _staticBlock,String _fieldName, String _op) {
         PageEl page_ = _context.getLastPage();
         page_.setStaticContext(_staticContext);
         for (OperationNode e: _nodes) {
@@ -449,7 +435,8 @@ public final class ElUtil {
     @throws InvokeException
     @throws UnwrappingException*/
 
-    static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
+    static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op, int _offset) {
+        _context.getLastPage().setTranslatedOffset(_offset);
         for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
             OperationNode o = e.getKey();
             if (!o.isCalculated(_nodes)) {
@@ -469,18 +456,21 @@ public final class ElUtil {
                     }
                     throw _0;
                 } catch (RuntimeException _0) {
+                    _context.getLastPage().setTranslatedOffset(0);
                     _el.setCurrentOper(null);
                     _context.getLastPage().clearCurrentEls();
                     throw _0;
                 } catch (Error _0) {
+                    _context.getLastPage().setTranslatedOffset(0);
                     _el.setCurrentOper(null);
                     _context.getLastPage().clearCurrentEls();
                     throw _0;
                 }
             }
         }
+        _context.getLastPage().setTranslatedOffset(0);
     }
-    static void analyzeSetting(boolean _setVar,CustList<OperationNode> _nodes, ContextEl _conf) {
+    public static void analyzeSetting(boolean _setVar,CustList<OperationNode> _nodes, ContextEl _conf) {
         OperationNode root_ = _nodes.last();
         SettableElResult elt_ = null;
         boolean ok_ = true;

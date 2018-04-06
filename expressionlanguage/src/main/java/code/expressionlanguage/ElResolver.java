@@ -114,7 +114,7 @@ public final class ElResolver {
         return commonCheck(_string, _conf, _minIndex, d_);
     }
 
-    static Delimiters checkSyntax(String _string, ContextEl _conf, int _elOffest) {
+    public static Delimiters checkSyntax(String _string, ContextEl _conf, int _elOffest) {
         return commonCheck(_string, _conf, _elOffest, new Delimiters());
     }
     static Delimiters commonCheck(String _string, ContextEl _conf, int _minIndex, Delimiters _d) {

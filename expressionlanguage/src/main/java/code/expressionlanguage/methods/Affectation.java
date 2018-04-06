@@ -91,7 +91,7 @@ public final class Affectation extends Leaf implements StackableBlock {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         boolean static_ = f_.isStaticContext();
-        ExpLanguages e_ = ElUtil.analyzeAffect(ATTRIBUTE_OPER, ATTRIBUTE_LEFT, ATTRIBUTE_RIGHT, leftMember, rightMember, oper, _cont, static_, static_);
+        ExpLanguages e_ = ElUtil.getAnalyzedAffectation(ATTRIBUTE_OPER, ATTRIBUTE_LEFT, ATTRIBUTE_RIGHT, leftMember, rightMember, oper, _cont, static_, static_);
         opLeft = e_.getLeft();
         opRight = e_.getRight();
     }

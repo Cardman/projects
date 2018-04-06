@@ -83,7 +83,10 @@ public final class ExpressionLanguage {
     }
 
     public Argument calculateMember(ContextEl _context) {
-        return ElUtil.tryToCalculate(_context, this);
+        return calculateMember(_context, 0);
+    }
+    public Argument calculateMember(ContextEl _context, int _offset) {
+        return ElUtil.tryToCalculate(_context, this, _offset);
     }
     public void affectLeftMember(ContextEl _context, String _oper) {
         ElUtil.tryToCalculateLeftAffect(this, _context, _oper);
