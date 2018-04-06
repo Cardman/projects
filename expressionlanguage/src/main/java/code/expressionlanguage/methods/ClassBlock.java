@@ -1,7 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.FileIndex;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
@@ -24,7 +24,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
+import code.util.NumberMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -63,11 +63,11 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     public ClassBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, FileIndex _idRowCol, String _name, String _packageName, AccessEnum _access,
-            String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes,
+            BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
+            String _templateDef, NumberMap<Integer, String> _directSuperTypes,
             boolean _finalType,
             boolean _abstractType, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
+        super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
         finalType = _finalType;
         abstractType = _abstractType;
     }

@@ -12,6 +12,7 @@ public final class EnablingSpaces {
     private FileBlock file;
     private boolean onlySpacesLine = true;
     private int tabWidth;
+    private boolean checkTabs = true;
 
     public boolean isEnabledTab() {
         return enabledTab;
@@ -60,5 +61,11 @@ public final class EnablingSpaces {
     }
     public void setTabWidth(int _tabWidth) {
         tabWidth = _tabWidth;
+    }
+    public boolean isCheckTabs() {
+        return checkTabs;
+    }
+    public void setCheckTabs(boolean _checkTabs) {
+        checkTabs = _checkTabs;
     }
 }

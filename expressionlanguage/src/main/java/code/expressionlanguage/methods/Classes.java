@@ -261,6 +261,9 @@ public final class Classes {
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
     }
+    public StringMap<FileBlock> getFilesBodies() {
+        return filesBodies;
+    }
     public void processBracedClass(RootBlock _root, boolean _predefined, ContextEl _context) {
         if (classesBodies.contains(_root.getFullName())) {
             throw new AlreadyExistingClassException(_root.getFullName());

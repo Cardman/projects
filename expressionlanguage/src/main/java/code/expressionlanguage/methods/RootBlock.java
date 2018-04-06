@@ -1,8 +1,8 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.FileIndex;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -35,6 +35,7 @@ import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
+import code.util.NumberMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -48,6 +49,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     private final AccessEnum access;
 
+    private int accessOffset;
+
     private final String templateDef;
 
     private ObjectMap<MethodId, EqList<ClassMethodId>> allOverridingMethods;
@@ -58,7 +61,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     private final StringList directSuperTypes = new StringList();
 
-    private ObjectMap<FileIndex, String> rowColDirectSuperTypes;
+    private NumberMap<Integer, String> rowColDirectSuperTypes;
 
     private String realTemplateDef;
 
@@ -66,7 +69,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     private String realPackageName;
 
-    private FileIndex idRowCol;
+    private int idRowCol;
+
+    private int categoryOffset;
 
     RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -79,12 +84,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
     }
 
     RootBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, FileIndex _idRowCol,String _name, String _packageName, AccessEnum _access, String _templateDef, ObjectMap<FileIndex, String> _directSuperTypes, OffsetsBlock _offset) {
+            BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access, String _templateDef, NumberMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
+        categoryOffset = _categoryOffset;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         name = StringList.removeAllSpaces(_name);
         packageName = StringList.removeAllSpaces(_packageName);
-        access = _access;
+        access = _access.getInfo();
+        accessOffset = _access.getOffset();
         realTemplateDef = _templateDef;
         realName = _name;
         realPackageName = _packageName;
@@ -94,6 +101,22 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         for (String t: _directSuperTypes.values()) {
             directSuperTypes.add(StringList.removeAllSpaces(t));
         }
+    }
+
+    public int getCategoryOffset() {
+        return categoryOffset;
+    }
+
+    public int getAccessOffset() {
+        return accessOffset;
+    }
+
+    public NumberMap<Integer, String> getRowColDirectSuperTypes() {
+        return rowColDirectSuperTypes;
+    }
+
+    public int getIdRowCol() {
+        return idRowCol;
     }
 
     public StringList getDirectSuperTypes() {

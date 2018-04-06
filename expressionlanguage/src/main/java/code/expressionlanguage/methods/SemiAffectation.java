@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -18,14 +19,18 @@ import code.util.StringList;
 public final class SemiAffectation extends Leaf implements StackableBlock {
 
     private static final String RIGHT_EL = "1b";
-
+    
     private final String leftMember;
+
+    private int leftMemberOffset;
 
     private CustList<OperationNode> opLeft;
 
     private CustList<OperationNode> incr;
 
     private final String oper;
+
+    private int operOffset;
 
     SemiAffectation(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -35,10 +40,20 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
     }
 
     public SemiAffectation(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, String _left, String _oper, OffsetsBlock _offset) {
+            BracedBlock _m, OffsetStringInfo _left, OffsetStringInfo _oper, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
-        leftMember = _left;
-        oper = _oper;
+        leftMember = _left.getInfo();
+        leftMemberOffset = _left.getOffset();
+        oper = _oper.getInfo();
+        operOffset = _oper.getOffset();
+    }
+
+    public int getLeftMemberOffset() {
+        return leftMemberOffset;
+    }
+
+    public int getOperOffset() {
+        return operOffset;
     }
 
     public String getLeftMember() {
