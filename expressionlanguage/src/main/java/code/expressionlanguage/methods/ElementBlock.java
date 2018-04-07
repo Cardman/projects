@@ -110,11 +110,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setGlobalOffset(valueOffest);
+        page_.setGlobalOffset(fieldNameOffest);
         page_.setOffset(0);
         String className_ = getClassName();
         String fullInstance_ = StringList.concat(NEW,className_, PAR_LEFT, value, PAR_RIGHT);
-        page_.setTranslatedOffset(valueOffest - fieldNameOffest - NEW.length() - className_.length() - 1);
+        page_.setTranslatedOffset(valueOffest - fieldNameOffest - 1 - NEW.length() - className_.length());
         opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
         page_.setTranslatedOffset(0);
     }
@@ -159,13 +159,13 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         PageEl ip_ = _cont.getLastPage();
         boolean instancing_ = ip_.isInstancing();
         if (!instancing_) {
-            ip_.setGlobalOffset(valueOffest);
+            ip_.setGlobalOffset(fieldNameOffest);
             ip_.setOffset(0);
             String name_ = getFieldName();
             Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
             String className_ = getClassName();
-            Argument arg_ = el_.calculateMember(_cont, valueOffest - fieldNameOffest - NEW.length() - className_.length() - 1);
+            Argument arg_ = el_.calculateMember(_cont, fieldName.length() - NEW.length() - className_.length());
             struct_ = arg_.getStruct();
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();

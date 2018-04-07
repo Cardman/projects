@@ -610,7 +610,7 @@ public final class FileResolverTest {
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
         assertEq(102, ((ElementBlock) child_).getFieldNameOffest());
-        assertEq(-1, ((ElementBlock) child_).getValueOffest());
+        assertEq(105, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
@@ -632,7 +632,7 @@ public final class FileResolverTest {
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
         assertEq(142, ((ElementBlock) child_).getFieldNameOffest());
-        assertEq(-1, ((ElementBlock) child_).getValueOffest());
+        assertEq(146, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof FieldBlock);
         assertTrue(!((FieldBlock) child_).isStaticField());

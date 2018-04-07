@@ -117,7 +117,6 @@ public final class PageEl {
             Numbers<Integer> leftSpaces_ = f_.getLeftSpaces();
             int len_ = lineReturn_.size();
             int i_ = 0;
-            boolean pass_ = false;
             while (i_ < len_) {
                 if (sum_ < lineReturn_.get(i_)) {
                     int j_ = 0;
@@ -127,17 +126,11 @@ public final class PageEl {
                     } else {
                         j_ = sum_;
                     }
-                    pass_ = true;
                     rc_.setCol(j_);
                     rc_.setRow(i_/2);
                     break;
                 }
                 i_ += 2;
-            }
-            if (!pass_) {
-                Thread.dumpStack();
-            } else {
-                System.out.println(rc_.display());
             }
 //            StringMap<RowCol> a_;
 //            a_ = currentBlock.getAttributes();

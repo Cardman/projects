@@ -846,6 +846,9 @@ public final class FileResolver {
                         }
                     } else {
                         fieldName_ = found_;
+                        expressionOffest_ = fieldOffest_;
+                        expressionOffest_ += fieldName_.trim().length();
+                        expressionOffest_ += fieldName_.length() - StringList.getLastPrintableCharIndex(fieldName_) - 1;
                     }
                     br_ = new ElementBlock(_context, index_, currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()), new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                     currentParent_.appendChild(br_);
