@@ -19,7 +19,6 @@ import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ComparatorOrder;
 import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -64,7 +63,7 @@ public final class ElUtil {
         if (opLeft_ == null) {
             throw new BadExpressionLanguageException(StringList.concat(_left,RETURN_LINE,_conf.joinPages()));
         }
-        CustList<OperationNode> allLeft_ = getOperationNodes(opLeft_, _conf);
+        CustList<OperationNode> allLeft_ = getSortedDescNodes(opLeft_, _conf);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
@@ -73,7 +72,7 @@ public final class ElUtil {
         if (opRight_ == null) {
             throw new BadExpressionLanguageException(StringList.concat(_right,RETURN_LINE,_conf.joinPages()));
         }
-        CustList<OperationNode> allRight_ = getOperationNodes(opRight_, _conf);
+        CustList<OperationNode> allRight_ = getSortedDescNodes(opRight_, _conf);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrLeft);
         analyzeSetting(true, allLeft_, _conf);
@@ -188,7 +187,7 @@ public final class ElUtil {
         if (op_ == null) {
             throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
         }
-        CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
         analyze(all_, _conf);
         calculate(all_, _conf, EMPTY_STRING);
         Argument arg_ = op_.getArgument();
@@ -202,7 +201,7 @@ public final class ElUtil {
         if (op_ == null) {
             throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
         }
-        CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
         boolean staticContext_ = _calcul.isStaticAcces();
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         String fieldName_ = _calcul.getFieldName();
@@ -225,85 +224,32 @@ public final class ElUtil {
         if (op_ == null) {
             throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
         }
-        CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
         analyze(all_, _conf);
         calculate(all_, _conf, EMPTY_STRING);
         Argument arg_  = op_.getArgument();
         return arg_;
     }
 
-    public static CustList<OperationNode> getOperationNodes(OperationNode _root, ContextEl _context) {
-        CustList<OperationNode> all_ = new CustList<OperationNode>();
-        for (OperationNode s: getSortedDescNodes(_root, _context)) {
-            all_.add(s);
-        }
-        int order_ = 0;
-        while (true) {
-            CustList<OperationNode> next_ = new CustList<OperationNode>();
-            for (OperationNode e: all_) {
-                if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-                    continue;
-                }
-                OperationNode cur_ = e;
-                boolean tonumber_ = true;
-                while (cur_ != null) {
-                    int index_ = cur_.getIndexChild() - 1;
-                    if (index_ >= CustList.FIRST_INDEX) {
-                        CustList<OperationNode> sn_ = getDirectChildren(cur_.getParent());
-                        OperationNode s_ = sn_.get(index_);
-                        OperationNode prev_ = s_;
-                        if (prev_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                            tonumber_ = false;
-                            break;
-                        }
-                    }
-                    cur_ = cur_.getParent();
-                }
-                if (!tonumber_) {
-                    continue;
-                }
-                CustList<OperationNode> list_ = getDirectChildren(e);
-                if (!list_.isEmpty()) {
-                    OperationNode op_ = list_.last();
-                    if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                        continue;
-                    }
-                }
-                next_.add(e);
-            }
-            if (next_.isEmpty()) {
-                break;
-            }
-            for (OperationNode o: next_) {
-                o.setOrder(order_);
-                order_++;
-            }
-        }
-        all_.sortElts(new ComparatorOrder());
-        return all_;
-    }
-    private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
-        if (_root == null) {
-            return list_;
-        }
         OperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
                 break;
             }
-            list_.add(c_);
-            c_ = getNext(c_, _root, _context);
+            c_ = getNext(c_, _root, list_, _context);
         }
         return list_;
     }
 
-    private static OperationNode getNext(OperationNode _current, OperationNode _root, ContextEl _context) {
+    private static OperationNode getNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, ContextEl _context) {
         OperationNode next_ = createFirstChild(_current, _context);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
         }
+        _sortedNodes.add(_current);
         next_ = createNextSibling(_current, _context);
         if (next_ != null) {
             next_.getParent().appendChild(next_);
@@ -311,18 +257,22 @@ public final class ElUtil {
         }
         next_ = _current.getParent();
         if (next_ == _root) {
+            _sortedNodes.add(next_);
             return null;
         }
         if (next_ != null) {
+            _sortedNodes.add(next_);
             OperationNode nextAfter_ = createNextSibling(next_, _context);
             while (nextAfter_ == null) {
                 OperationNode par_ = next_.getParent();
                 if (par_ == _root) {
+                    _sortedNodes.add(par_);
                     break;
                 }
                 if (par_ == null) {
                     break;
                 }
+                _sortedNodes.add(par_);
                 nextAfter_ = createNextSibling(par_, _context);
                 next_ = par_;
             }

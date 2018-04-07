@@ -1,7 +1,5 @@
 package code.maths.litteral;
-import code.maths.litteral.exceptions.BadMathExpressionException;
 import code.util.CustList;
-import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -148,8 +146,6 @@ abstract class OperationNode {
 
     private MethodOperation parent;
 
-    private boolean initializedNextSibling;
-
     private OperationNode nextSibling;
 
     private Argument previousArgument;
@@ -242,30 +238,11 @@ abstract class OperationNode {
 
     public abstract OperationNode getFirstChild();
 
-    public OperationNode getNextSibling() {
-        if (initializedNextSibling) {
-            return nextSibling;
-        }
-        initializedNextSibling = true;
-        MethodOperation p_ = getParent();
-        if (p_ == null) {
-            return null;
-        }
-        NatTreeMap<Integer,String> children_ = p_.getChildren();
-        if (indexChild + 1 >= children_.size()) {
-            return null;
-        }
-        String value_ = children_.getValue(indexChild + 1);
-        Delimiters d_ = getOperations().getDelimiter();
-        int curKey_ = children_.getKey(indexChild + 1);
-        d_.setChildOffest(curKey_);
-        int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, conf, d_);
-        nextSibling = createOperationNode(value_, offset_, conf, indexChild + 1, p_, r_);
-        if (nextSibling == null) {
-            throw new BadMathExpressionException(value_);
-        }
+    public final OperationNode getNextSibling() {
         return nextSibling;
+    }
+    final void setNextSibling(OperationNode _nextSibling) {
+        nextSibling = _nextSibling;
     }
 
     static MathType[] getClasses(Argument... _args) {

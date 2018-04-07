@@ -32,6 +32,10 @@ public final class OperationsSequence {
 
     public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
+        if (operators.isEmpty()) {
+            priority = ElResolver.BAD_PRIO;
+            return;
+        }
         if (priority == ElResolver.EQ_PRIO) {
             for (String o:operators.values()) {
                 if (StringList.quickEq(o, String.valueOf(NEG_BOOL_CHAR))) {

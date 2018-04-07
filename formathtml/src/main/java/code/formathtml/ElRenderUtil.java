@@ -53,7 +53,7 @@ public final class ElRenderUtil {
         if (opLeft_ == null) {
             throw new BadExpressionLanguageException(StringList.concat(_left,RETURN_LINE,_conf.joinPages()));
         }
-        CustList<OperationNode> allLeft_ = ElUtil.getOperationNodes(opLeft_, cont_);
+        CustList<OperationNode> allLeft_ = ElUtil.getSortedDescNodes(opLeft_, cont_);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, cont_, CustList.FIRST_INDEX);
@@ -62,7 +62,7 @@ public final class ElRenderUtil {
         if (opRight_ == null) {
             throw new BadExpressionLanguageException(StringList.concat(_right,RETURN_LINE,_conf.joinPages()));
         }
-        CustList<OperationNode> allRight_ = ElUtil.getOperationNodes(opRight_, cont_);
+        CustList<OperationNode> allRight_ = ElUtil.getSortedDescNodes(opRight_, cont_);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         ElUtil.analyzeSetting(true, allLeft_, cont_);

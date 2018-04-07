@@ -165,7 +165,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
             String className_ = getClassName();
-            Argument arg_ = el_.calculateMember(_cont, fieldName.length() - NEW.length() - className_.length());
+            Argument arg_ = el_.calculateMember(_cont, valueOffest - fieldNameOffest - 1 - NEW.length() - className_.length());
             struct_ = arg_.getStruct();
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();

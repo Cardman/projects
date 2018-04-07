@@ -1,6 +1,7 @@
 package code.maths.litteral;
 import code.maths.litteral.exceptions.BadMathExpressionException;
 import code.util.CustList;
+import code.util.NatTreeMap;
 import code.util.StringMap;
 
 final class MathUtil {
@@ -16,7 +17,7 @@ final class MathUtil {
         if (op_ == null) {
             throw new BadMathExpressionException(el_);
         }
-        CustList<OperationNode> all_ = getOperationNodes(op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_,_conf);
         analyze(all_, _conf);
         if (!_onlycheckSyntax) {
             calculate(all_, _conf);
@@ -27,103 +28,99 @@ final class MathUtil {
         return a_;
     }
 
-    static CustList<OperationNode> getOperationNodes(OperationNode _root) {
-        CustList<OperationNode> all_ = new CustList<OperationNode>();
-        for (OperationNode s: getSortedDescNodes(_root)) {
-            all_.add(s);
-        }
-        int order_ = 0;
-        while (true) {
-            CustList<OperationNode> next_ = new CustList<OperationNode>();
-            for (OperationNode e: all_) {
-                if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-                    continue;
-                }
-                OperationNode cur_ = e;
-                boolean tonumber_ = true;
-                while (cur_ != null) {
-                    int index_ = cur_.getIndexChild() - 1;
-                    if (index_ >= CustList.FIRST_INDEX) {
-                        CustList<OperationNode> sn_ = getDirectChildren(cur_.getParent());
-                        OperationNode s_ = sn_.get(index_);
-                        OperationNode prev_ = s_;
-                        if (prev_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                            tonumber_ = false;
-                            break;
-                        }
-                    }
-                    cur_ = cur_.getParent();
-                }
-                if (!tonumber_) {
-                    continue;
-                }
-                CustList<OperationNode> list_ = getDirectChildren(e);
-                if (!list_.isEmpty()) {
-                    OperationNode op_ = list_.last();
-                    if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                        continue;
-                    }
-                }
-                next_.add(e);
-            }
-            if (next_.isEmpty()) {
-                break;
-            }
-            for (OperationNode o: next_) {
-                o.setOrder(order_);
-                order_++;
-            }
-        }
-        all_.sortElts(new ComparatorOrder());
-        return all_;
-    }
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, StringMap<String> _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
-        if (_root == null) {
-            return list_;
-        }
         OperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
                 break;
             }
-            list_.add(c_);
-            c_ = getNext(c_, _root);
+            c_ = getNext(c_, _root, list_, _context);
         }
         return list_;
     }
 
-    public static OperationNode getNext(OperationNode _current, OperationNode _root) {
-        OperationNode n_ = _current.getFirstChild();
-        if (n_ != null) {
-            return n_;
+    public static OperationNode getNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,StringMap<String> _context) {
+        OperationNode next_ = createFirstChild(_current, _context);
+        if (next_ != null) {
+            ((MethodOperation) _current).appendChild(next_);
+            return next_;
         }
-        n_ = _current.getNextSibling();
-        if (n_ != null) {
-            return n_;
+        _sortedNodes.add(_current);
+        next_ = createNextSibling(_current, _context);
+        if (next_ != null) {
+            next_.getParent().appendChild(next_);
+            return next_;
         }
-        n_ = _current.getParent();
-        if (n_ == _root) {
+        next_ = _current.getParent();
+        if (next_ == _root) {
+            _sortedNodes.add(next_);
             return null;
         }
-        if (n_ != null) {
-            OperationNode next_ = n_.getNextSibling();
-            while (next_ == null) {
-                OperationNode par_ = n_.getParent();
+        if (next_ != null) {
+            _sortedNodes.add(next_);
+            OperationNode nextAfter_ = createNextSibling(next_, _context);
+            while (nextAfter_ == null) {
+                OperationNode par_ = next_.getParent();
                 if (par_ == _root) {
+                    _sortedNodes.add(par_);
                     break;
                 }
                 if (par_ == null) {
                     break;
                 }
-                next_ = par_.getNextSibling();
-                n_ = par_;
+                _sortedNodes.add(par_);
+                nextAfter_ = createNextSibling(par_, _context);
+                next_ = par_;
             }
-            if (next_ != null) {
-                return next_;
+            if (nextAfter_ != null) {
+                nextAfter_.getParent().appendChild(nextAfter_);
+                return nextAfter_;
             }
         }
         return null;
+    }
+    private static OperationNode createFirstChild(OperationNode _block, StringMap<String> _context) {
+        if (!(_block instanceof MethodOperation)) {
+            return null;
+        }
+        MethodOperation block_ = (MethodOperation) _block;
+        if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
+            return null;
+        }
+        String value_ = block_.getChildren().getValue(0);
+        Delimiters d_ = block_.getOperations().getDelimiter();
+        int curKey_ = block_.getChildren().getKey(0);
+        d_.setChildOffest(curKey_);
+        int offset_ = block_.getIndexInEl()+curKey_;
+        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _context, d_);
+        OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, CustList.FIRST_INDEX, block_, r_);
+        if (op_ == null) {
+            throw new BadMathExpressionException(value_);
+        }
+        return op_;
+    }
+
+    private static OperationNode createNextSibling(OperationNode _block, StringMap<String> _context) {
+        MethodOperation p_ = _block.getParent();
+        if (p_ == null) {
+            return null;
+        }
+        NatTreeMap<Integer,String> children_ = p_.getChildren();
+        if (_block.getIndexChild() + 1 >= children_.size()) {
+            return null;
+        }
+        String value_ = children_.getValue(_block.getIndexChild() + 1);
+        Delimiters d_ = _block.getOperations().getDelimiter();
+        int curKey_ = children_.getKey(_block.getIndexChild() + 1);
+        d_.setChildOffest(curKey_);
+        int offset_ = p_.getIndexInEl()+curKey_;
+        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _context, d_);
+        OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, _block.getIndexChild() + 1, p_, r_);
+        if (op_ == null) {
+            throw new BadMathExpressionException(value_);
+        }
+        return op_;
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();

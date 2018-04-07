@@ -28,6 +28,7 @@ public final class OperationsSequence {
         }
         if (priority == MathResolver.EQ_PRIO && StringList.quickEq(operators.firstValue(), String.valueOf(NEG_BOOL_CHAR))) {
             priority = MathResolver.BAD_PRIO;
+            return;
         }
         int beginValuePart_ = CustList.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
