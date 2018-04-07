@@ -3,7 +3,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.exceptions.BadElseException;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
@@ -47,7 +47,10 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
             PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            throw new BadElseException(_cont.joinPages());
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 

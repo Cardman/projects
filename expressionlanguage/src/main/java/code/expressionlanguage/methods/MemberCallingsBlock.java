@@ -3,7 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.methods.exceptions.BadStaticException;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.sml.Element;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
@@ -24,7 +24,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            throw new BadStaticException(_cont.joinPages());
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
         PageEl page_ = _cont.getLastPage();
         page_.setGlobalOffset(getOffset().getOffsetTrim());

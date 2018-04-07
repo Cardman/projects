@@ -4,7 +4,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.exceptions.BadLoopException;
+import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
@@ -39,7 +39,10 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null && !(getPreviousSibling() instanceof DoBlock)) {
-            throw new BadLoopException(_cont.joinPages());
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 

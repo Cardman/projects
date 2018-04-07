@@ -4,7 +4,8 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.exceptions.WrapperException;
-import code.expressionlanguage.methods.exceptions.BadTryException;
+import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
@@ -37,7 +38,10 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
-            throw new BadTryException(_cont.joinPages());
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
         Block prev_ = getPreviousSibling();
         boolean existTry_ = false;
@@ -50,7 +54,10 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             break;
         }
         if (!existTry_) {
-            throw new BadTryException(_cont.joinPages());
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 

@@ -6,11 +6,11 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.exceptions.UnknownBlockException;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.Metrics;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementOffsetsNext;
@@ -141,8 +141,10 @@ public abstract class Block extends Blockable {
             ((WithEl)_block).checkBlocksTree(_cont);
             return;
         }
-        RowCol rc_ = _block.getRowCol(0, _block.getOffset().getOffsetTrim());
-        throw new UnknownBlockException(_block.getTagName(), rc_);
+        UnexpectedTagName un_ = new UnexpectedTagName();
+        un_.setFileName(_block.getFile().getFileName());
+        un_.setRc(_block.getRowCol(0, _block.getOffset().getOffsetTrim()));
+        _cont.getClasses().getErrorsDet().add(un_);
     }
 
     protected static void tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
@@ -151,8 +153,10 @@ public abstract class Block extends Blockable {
             ((WithEl)_block).buildExpressionLanguage(_cont);
             return;
         }
-        RowCol rc_ = _block.getRowCol(0, _block.getOffset().getOffsetTrim());
-        throw new UnknownBlockException(_block.getTagName(), rc_);
+        UnexpectedTagName un_ = new UnexpectedTagName();
+        un_.setFileName(_block.getFile().getFileName());
+        un_.setRc(_block.getRowCol(0, _block.getOffset().getOffsetTrim()));
+        _cont.getClasses().getErrorsDet().add(un_);
     }
     protected static void tryCheckConstCall(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
@@ -160,8 +164,10 @@ public abstract class Block extends Blockable {
             ((WithEl)_block).checkCallConstructor(_cont);
             return;
         }
-        RowCol rc_ =  _block.getRowCol(0, _block.getOffset().getOffsetTrim());
-        throw new UnknownBlockException(_block.getTagName(), rc_);
+        UnexpectedTagName un_ = new UnexpectedTagName();
+        un_.setFileName(_block.getFile().getFileName());
+        un_.setRc(_block.getRowCol(0, _block.getOffset().getOffsetTrim()));
+        _cont.getClasses().getErrorsDet().add(un_);
     }
 
     final void processBlock(ContextEl _conf) {
@@ -767,8 +773,11 @@ public abstract class Block extends Blockable {
         if (StringList.quickEq(_el.getTagName(),TAG_WHILE)) {
             return new WhileCondition(_el, _conf, _indexChild, _m);
         }
+        UnexpectedTagName un_ = new UnexpectedTagName();
         RowCol rc_ = getRowColBeginElt(_conf.getHtml(), 0, _conf.getTabWidth(), _el);
-        throw new UnknownBlockException(_el.getTagName(), rc_);
+        un_.setRc(rc_);
+        _conf.getClasses().getErrorsDet().add(un_);
+        return null;
     }
     public final Element getAssociateElement() {
         return metrics.getAssociateElement();

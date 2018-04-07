@@ -4,7 +4,7 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -114,7 +114,11 @@ public final class Affectation extends Leaf implements StackableBlock {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, leftMemberOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), leftMemberOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
         p_.setGlobalOffset(rightMemberOffset);
@@ -122,7 +126,11 @@ public final class Affectation extends Leaf implements StackableBlock {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, rightMemberOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), rightMemberOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

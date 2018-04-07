@@ -3,7 +3,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.exceptions.BadLoopException;
+import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
@@ -36,14 +37,33 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
-            throw new BadLoopException(_cont.joinPages());
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
-        if (!(getNextSibling() instanceof WhileCondition)) {
-            throw new BadLoopException(_cont.joinPages());
+        Block next_ = getNextSibling();
+        if (next_ == null) {
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
+            return;
         }
-        WhileCondition w_ = (WhileCondition) getNextSibling();
-        if (w_.getFirstChild() != null) {
-            throw new BadLoopException(_cont.joinPages());
+        if (!(next_ instanceof WhileCondition)) {
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(next_.getFile().getFileName());
+            un_.setRc(next_.getRowCol(0, next_.getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
+            return;
+        }
+        WhileCondition w_ = (WhileCondition) next_;
+        Block after_ = w_.getFirstChild();
+        if (after_ != null) {
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(after_.getFile().getFileName());
+            un_.setRc(after_.getRowCol(0, after_.getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 

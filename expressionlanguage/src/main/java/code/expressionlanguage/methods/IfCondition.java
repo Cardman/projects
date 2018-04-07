@@ -4,7 +4,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.exceptions.BadIfException;
+import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.sml.Element;
@@ -40,7 +40,10 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
             PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffset());
             page_.setOffset(0);
-            throw new BadIfException(_cont.joinPages());
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 

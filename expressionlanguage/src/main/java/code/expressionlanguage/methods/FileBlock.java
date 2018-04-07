@@ -15,6 +15,8 @@ public final class FileBlock extends BracedBlock {
 
     private Numbers<Integer> importsOffset = new Numbers<Integer>();
 
+    private String fileName;
+
     public FileBlock(OffsetsBlock _offset) {
         super(null, 0, null, _offset);
     }
@@ -68,5 +70,13 @@ public final class FileBlock extends BracedBlock {
     public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String _fileName) {
+        fileName = _fileName;
     }
 }

@@ -2,9 +2,9 @@ package code.expressionlanguage.methods.util;
 
 import code.util.StringList;
 
-public final class BadFileName extends FoundErrorInterpret {
+public final class UndefinedSuperConstructor extends FoundErrorInterpret {
 
-    private static final String CLASS_NAME = "bad name";
+    private static final String CLASS_NAME = "undefined super constructor of class";
 
     private String className;
 
@@ -20,4 +20,5 @@ public final class BadFileName extends FoundErrorInterpret {
     public void setClassName(String _className) {
         className = _className;
     }
+
 }

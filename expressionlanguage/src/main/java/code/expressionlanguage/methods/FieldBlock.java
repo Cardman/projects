@@ -9,10 +9,10 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
-import code.expressionlanguage.methods.exceptions.BadFieldException;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -158,7 +158,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            throw new BadFieldException(_cont.joinPages());
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 
@@ -186,7 +189,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         mapping_.setArg(opValue.last().getResultClass().getName());
         mapping_.setParam(className);
         if (!Templates.isGenericCorrect(mapping_, _cont)) {
-            throw new DynamicCastClassException(_cont.joinPages());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, valueOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
     }
 
@@ -219,7 +226,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, valueOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), valueOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

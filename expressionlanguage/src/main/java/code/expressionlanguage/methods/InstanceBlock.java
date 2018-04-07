@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.methods.exceptions.BadStaticException;
+import code.expressionlanguage.methods.util.EmptyTagName;
 import code.sml.Element;
 import code.util.NatTreeMap;
 
@@ -24,7 +24,10 @@ public final class InstanceBlock extends MemberCallingsBlock implements AloneBlo
             PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            throw new BadStaticException(_cont.joinPages());
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
         super.checkFctBlocksTree(_cont);
     }

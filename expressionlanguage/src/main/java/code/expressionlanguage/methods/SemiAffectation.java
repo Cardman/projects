@@ -1,12 +1,13 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -93,13 +94,27 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         OperationNode leftEl_ = opLeft.last();
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _cont)) {
-            throw new DynamicCastClassException(_cont.joinPages());
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(clMatchLeft_.getName());
+            mapping_.setParam(_cont.getStandards().getAliasLong());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, leftMemberOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
         if (!StringList.quickEq(oper, INCR)) {
             if (!StringList.quickEq(oper, DECR)) {
                 page_.setGlobalOffset(operOffset);
                 page_.setOffset(0);
-                throw new DynamicCastClassException(_cont.joinPages());
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(clMatchLeft_.getName());
+                mapping_.setParam(_cont.getStandards().getAliasLong());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(getFile().getFileName());
+                cast_.setRc(getRowCol(0, operOffset));
+                _cont.getClasses().getErrorsDet().add(cast_);
             }
         }
         incr = ElUtil.getAnalyzedOperations(RIGHT_EL, _cont, Calculation.staticCalculation(true));
@@ -119,7 +134,11 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, leftMemberOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), leftMemberOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

@@ -4,13 +4,12 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
-import code.expressionlanguage.methods.exceptions.BadTryException;
+import code.expressionlanguage.methods.util.DuplicateVariable;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.NatTreeMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class CatchEval extends BracedStack implements Eval, IncrCurrentGroup, IncrNextGroup {
@@ -84,7 +83,10 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
             PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            throw new BadTryException(_cont.joinPages());
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 
@@ -96,7 +98,12 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (_cont.getLastPage().getCatchVars().contains(variableName)) {
-            throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableName);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffset));
+            _cont.getClasses().getErrorsDet().add(d_);
+            return;
         }
         if (getFirstChild() == null) {
             return;

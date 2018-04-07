@@ -4,11 +4,10 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
+import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.NatTreeMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class DeclareVariable extends Leaf implements InitVariable {
@@ -37,6 +36,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         variableNameOffset = _variableName.getOffset();
     }
 
+    @Override
     public int getVariableNameOffset() {
         return variableNameOffset;
     }
@@ -76,7 +76,12 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         if (_cont.getLastPage().getLocalVars().contains(variableName)) {
             page_.setGlobalOffset(variableNameOffset);
             page_.setOffset(0);
-            throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableName);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffset));
+            _cont.getClasses().getErrorsDet().add(d_);
+            return;
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(className);

@@ -6,8 +6,8 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.methods.exceptions.BadCatchException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -72,7 +72,11 @@ public final class Throwing extends Leaf implements StackableBlock {
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getNextSibling() != null) {
-            throw new BadCatchException(_cont.joinPages());
+            Block next_ = getNextSibling();
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(next_.getFile().getFileName());
+            un_.setRc(next_.getRowCol(0, next_.getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
         page_.setGlobalOffset(expressionOffset);
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
@@ -92,7 +96,11 @@ public final class Throwing extends Leaf implements StackableBlock {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, expressionOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), expressionOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

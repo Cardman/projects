@@ -5,8 +5,8 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
-import code.expressionlanguage.methods.exceptions.BadFieldException;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -96,14 +96,20 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            throw new BadFieldException(_cont.joinPages());
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
         Block previous_ = getPreviousSibling();
         if (previous_ != null && !(previous_ instanceof ElementBlock)) {
             PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            throw new BadFieldException(_cont.joinPages());
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 
@@ -144,7 +150,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, valueOffest));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), valueOffest));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

@@ -3,16 +3,17 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -108,6 +109,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         return classIndexNameOffset;
     }
 
+    @Override
     public int getVariableNameOffset() {
         return variableNameOffset;
     }
@@ -197,42 +199,79 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName, _cont)) {
-            throw new DynamicCastClassException(StringList.concat(classIndexName,RETURN_LINE,_cont.joinPages()));
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(classIndexName);
+            mapping_.setParam(_cont.getStandards().getAliasLong());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, classIndexNameOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(className);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {
-            throw new DynamicCastClassException(_cont.joinPages());
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(className);
+            mapping_.setParam(_cont.getStandards().getAliasLong());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, classNameOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (_cont.getLastPage().getVars().contains(variableName)) {
-            throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableName);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffset));
+            _cont.getClasses().getErrorsDet().add(d_);
+            return;
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode initEl_ = opInit.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(className, initEl_.getResultClass().getName(), _cont)) {
-            String str_ = initEl_.getResultClass().getName();
-            throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(initEl_.getResultClass().getName());
+            mapping_.setParam(className);
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, initOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode expressionEl_ = opExp.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(className, expressionEl_.getResultClass().getName(), _cont)) {
-            String str_ = expressionEl_.getResultClass().getName();
-            throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(expressionEl_.getResultClass().getName());
+            mapping_.setParam(className);
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, expressionOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode stepEl_ = opStep.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(className, stepEl_.getResultClass().getName(), _cont)) {
-            String str_ = stepEl_.getResultClass().getName();
-            throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(stepEl_.getResultClass().getName());
+            mapping_.setParam(className);
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, stepOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
         LoopVariable lv_ = new LoopVariable();
         lv_.setClassName(className);
@@ -263,7 +302,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, initOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), initOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
         p_.setGlobalOffset(expressionOffset);
@@ -271,7 +314,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, expressionOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), expressionOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
         p_.setGlobalOffset(stepOffset);
@@ -279,7 +326,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, stepOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), stepOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

@@ -6,10 +6,10 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.exceptions.VoidArgumentException;
-import code.expressionlanguage.methods.exceptions.BadCaseException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.EqualsEl;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -76,7 +76,10 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         if (!(b_ instanceof SwitchBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            throw new BadCaseException(_cont.joinPages());
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 
@@ -96,7 +99,11 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         if (opValue.last().isVoidArg(_cont)) {
-            throw new VoidArgumentException(_cont.joinPages());
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, valueOffset));
+            un_.setType(opValue.last().getResultClass().getName());
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 
@@ -123,7 +130,11 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, valueOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), valueOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

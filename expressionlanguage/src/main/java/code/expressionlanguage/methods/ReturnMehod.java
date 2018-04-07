@@ -10,11 +10,11 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
-import code.expressionlanguage.methods.exceptions.BadReturnException;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -69,7 +69,10 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             }
             b_ = b_.getParent();
         }
-        throw new BadReturnException(_cont.joinPages());
+        UnexpectedTagName un_ = new UnexpectedTagName();
+        un_.setFileName(getFile().getFileName());
+        un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+        _cont.getClasses().getErrorsDet().add(un_);
     }
 
     @Override
@@ -102,7 +105,11 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getNextSibling() != null) {
-            throw new BadReturnException(_cont.joinPages());
+            Block next_ = getNextSibling();
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(next_.getFile().getFileName());
+            un_.setRc(next_.getRowCol(0, next_.getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
         LgNames stds_ = _cont.getStandards();
         String retType_ = stds_.getAliasVoid();
@@ -119,26 +126,37 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
-            if (!isEmpty()) {
-                throw new BadReturnException(_cont.joinPages());
+            if (isEmpty()) {
+                return;
             }
-        } else {
-            opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-            StringMap<StringList> vars_ = new StringMap<StringList>();
-            if (!f_.isStaticContext()) {
-                String globalClass_ = page_.getGlobalClass();
-                String curClassBase_ = StringList.getAllTypes(globalClass_).first();
-                for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
-                    vars_.put(t.getName(), t.getConstraints());
-                }
+        }
+        opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        if (!f_.isStaticContext()) {
+            String globalClass_ = page_.getGlobalClass();
+            String curClassBase_ = StringList.getAllTypes(globalClass_).first();
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+                vars_.put(t.getName(), t.getConstraints());
             }
-            Mapping mapping_ = new Mapping();
-            mapping_.setMapping(vars_);
-            mapping_.setArg(opRet.last().getResultClass().getName());
-            mapping_.setParam(retType_);
-            if (!Templates.isGenericCorrect(mapping_, _cont)) {
-                throw new DynamicCastClassException(_cont.joinPages());
-            }
+        }
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
+        mapping_.setArg(opRet.last().getResultClass().getName());
+        mapping_.setParam(retType_);
+        if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, expressionOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
+            return;
+        }
+        if (!Templates.isGenericCorrect(mapping_, _cont)) {
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, expressionOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
     }
 
@@ -158,7 +176,11 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, expressionOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), expressionOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

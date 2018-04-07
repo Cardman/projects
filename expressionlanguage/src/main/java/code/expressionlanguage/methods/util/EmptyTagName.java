@@ -3,9 +3,9 @@ package code.expressionlanguage.methods.util;
 import code.util.StringList;
 
 
-public final class UnexpectedTagName extends FoundErrorInterpret {
+public final class EmptyTagName extends FoundErrorInterpret {
 
-    private static final String TAG = "unexpected tag";
+    private static final String TAG = "empty tag";
 
     private String foundTag = "";
 

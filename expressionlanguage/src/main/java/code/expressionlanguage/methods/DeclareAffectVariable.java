@@ -7,9 +7,9 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -56,6 +56,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         rightMemberOffset = _right.getOffset();
     }
 
+    @Override
     public int getVariableNameOffset() {
         return variableNameOffset;
     }
@@ -108,7 +109,12 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         if (_cont.getLastPage().getLocalVars().contains(variableName)) {
             page_.setGlobalOffset(variableNameOffset);
             page_.setOffset(0);
-            throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableName);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffset));
+            _cont.getClasses().getErrorsDet().add(d_);
+            return;
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(className);
@@ -129,7 +135,11 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         mapping_.setArg(opRight.last().getResultClass().getName());
         mapping_.setParam(className);
         if (!Templates.isGenericCorrect(mapping_, _cont)) {
-            throw new DynamicCastClassException(_cont.joinPages());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, rightMemberOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
     }
 
@@ -146,7 +156,11 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, rightMemberOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), rightMemberOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

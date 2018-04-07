@@ -6,15 +6,15 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.exceptions.CyclicCallingException;
-import code.expressionlanguage.methods.exceptions.UndefinedSuperConstructorException;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.ConstructorEdge;
+import code.expressionlanguage.methods.util.CyclicInheritingGraph;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.ReservedMethod;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UndefinedSuperConstructor;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
@@ -191,10 +191,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                             err_.setMethod(mBase_.getId());
                             err_.setParentClass(c);
                             classesRef_.getErrorsDet().add(err_);
-                            //throw ex
                         }
                     } else if (!Templates.isCorrect(mapping_, _context)) {
-                        //throw ex
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(getFullName());
@@ -269,7 +267,11 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
             if (b_.implicitConstr() && !opt_) {
-                throw new UndefinedSuperConstructorException(_cont.joinPages());
+                UndefinedSuperConstructor un_ = new UndefinedSuperConstructor();
+                un_.setClassName(getGenericSuperClass(_cont));
+                un_.setFileName(getFile().getFileName());
+                un_.setRc(b_.getRowCol(0, b_.getOffset().getOffsetTrim()));
+                _cont.getClasses().getErrorsDet().add(un_);
             }
         }
         EqList<ConstructorId> l_ = new EqList<ConstructorId>();
@@ -290,8 +292,11 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         }
         EqList<ConstructorEdge> cycle_ = graph_.elementsCycle();
         if (!cycle_.isEmpty()) {
-            //TODO souligner
-            throw new CyclicCallingException(_cont.joinPages());
+            CyclicInheritingGraph cyclic_ = new CyclicInheritingGraph();
+            cyclic_.setClassName(cycle_);
+            cyclic_.setFileName(getFile().getFileName());
+            cyclic_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(cyclic_);
         }
     }
 

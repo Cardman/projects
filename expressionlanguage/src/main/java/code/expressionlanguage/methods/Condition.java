@@ -5,8 +5,8 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.methods.exceptions.BadConditionExpressionException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -50,7 +50,11 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().matchClass(stds_.getAliasPrimBoolean())) {
             if (!elCondition_.getResultClass().matchClass(stds_.getAliasBoolean())) {
-                throw new BadConditionExpressionException(_cont.joinPages());
+                UnexpectedTypeError un_ = new UnexpectedTypeError();
+                un_.setFileName(getFile().getFileName());
+                un_.setRc(getRowCol(0, conditionOffset));
+                un_.setType(opCondition.last().getResultClass().getName());
+                _cont.getClasses().getErrorsDet().add(un_);
             }
         }
     }
@@ -71,7 +75,11 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, conditionOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), conditionOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }

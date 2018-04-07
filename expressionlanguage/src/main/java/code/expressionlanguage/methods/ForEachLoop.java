@@ -9,11 +9,11 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
-import code.expressionlanguage.methods.exceptions.BadConstructorCall;
-import code.expressionlanguage.methods.exceptions.BadLoopException;
+import code.expressionlanguage.methods.util.BadConstructorCall;
+import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.DuplicateVariable;
+import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -94,6 +94,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         return classIndexNameOffset;
     }
 
+    @Override
     public int getVariableNameOffset() {
         return variableNameOffset;
     }
@@ -146,7 +147,10 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
-            throw new BadLoopException(_cont.joinPages());
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
         }
     }
 
@@ -154,10 +158,22 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName, _cont)) {
-            throw new DynamicCastClassException(StringList.concat(classIndexName,RETURN_LINE,_cont.joinPages()));
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(classIndexName);
+            mapping_.setParam(_cont.getStandards().getAliasLong());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setRc(getRowCol(0, classIndexNameOffset));
+            _cont.getClasses().getErrorsDet().add(cast_);
         }
         if (_cont.getLastPage().getVars().contains(variableName)) {
-            throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableName);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffset));
+            _cont.getClasses().getErrorsDet().add(d_);
+            return;
         }
         PageEl page_ = _cont.getLastPage();
         page_.setGlobalOffset(expressionOffset);
@@ -179,8 +195,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             }
             mapping_.setMapping(vars_);
             if (!Templates.isGenericCorrect(mapping_, _cont)) {
-                String str_ = el_.getResultClass().getName();
-                throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(getFile().getFileName());
+                cast_.setRc(getRowCol(0, expressionOffset));
+                _cont.getClasses().getErrorsDet().add(cast_);;
             }
         } else {
             String type_ = Templates.getFullTypeByStds(el_.getResultClass().getName(), _cont);
@@ -205,12 +224,22 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 }
                 mapping_.setMapping(vars_);
                 if (!Templates.isGenericCorrect(mapping_, _cont)) {
-                    String str_ = el_.getResultClass().getName();
-                    throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(getFile().getFileName());
+                    cast_.setRc(getRowCol(0, expressionOffset));
+                    _cont.getClasses().getErrorsDet().add(cast_);
                 }
             } else {
-                String str_ = el_.getResultClass().getName();
-                throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
+                Mapping mapping_ = new Mapping();
+                String paramArg_ = StringList.getAllTypes(type_).last();
+                mapping_.setArg(paramArg_);
+                mapping_.setParam(PrimitiveTypeUtil.getPrettyArrayType(className));
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(getFile().getFileName());
+                cast_.setRc(getRowCol(0, expressionOffset));
+                _cont.getClasses().getErrorsDet().add(cast_);
             }
         }
         LoopVariable lv_ = new LoopVariable();
@@ -242,7 +271,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
                 p_.setOffset(off_);
-                throw new BadConstructorCall(_cont.joinPages());
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(getFile().getFileName());
+                call_.setRc(getRowCol(0, expressionOffset));
+                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), expressionOffset));
+                _cont.getClasses().getErrorsDet().add(call_);
             }
         }
     }
