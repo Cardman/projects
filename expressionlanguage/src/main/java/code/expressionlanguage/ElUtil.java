@@ -53,11 +53,11 @@ public final class ElUtil {
         settable_.calculateSetting(allLeft_, _conf, _op);
         _conf.getLastPage().setRightArgument(null);
     }
-    public static ExpLanguages getAnalyzedAffectation(String _attrOp, String _attrLeft, String _attrRight,
+    public static ExpLanguages getAnalyzedAffectation(int _attrOp, int _attrLeft, int _attrRight,
             String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddenVarTypes) {
         PageEl page_ = _conf.getLastPage();
         page_.setOffset(0);
-        page_.setProcessingAttribute(_attrLeft);
+        page_.setGlobalOffset(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
@@ -66,7 +66,7 @@ public final class ElUtil {
         }
         CustList<OperationNode> allLeft_ = getOperationNodes(opLeft_, _conf);
         page_.setOffset(0);
-        page_.setProcessingAttribute(_attrRight);
+        page_.setGlobalOffset(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
         OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
@@ -75,20 +75,20 @@ public final class ElUtil {
         }
         CustList<OperationNode> allRight_ = getOperationNodes(opRight_, _conf);
         page_.setOffset(0);
-        page_.setProcessingAttribute(_attrLeft);
+        page_.setGlobalOffset(_attrLeft);
         analyzeSetting(true, allLeft_, _conf);
         analyze(allLeft_, _conf, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
         analyzeSetting(false, allLeft_, _conf);
         page_.setOffset(0);
-        page_.setProcessingAttribute(_attrRight);
+        page_.setGlobalOffset(_attrRight);
         analyze(allRight_, _conf, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
         page_.setOffset(0);
-        page_.setProcessingAttribute(_attrLeft);
+        page_.setGlobalOffset(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = opLeft_.getResultClass();
         page_.setOffset(0);
-        if (!_attrOp.isEmpty()) {
-            page_.setProcessingAttribute(_attrOp);
+        if (_attrOp >= 0) {
+            page_.setGlobalOffset(_attrOp);
         }
         if (_oper.length() == 2) {
             if (StringList.quickEq(_oper, Block.EQ_PLUS) || StringList.quickEq(_oper, Block.PLUS_EQ)) {

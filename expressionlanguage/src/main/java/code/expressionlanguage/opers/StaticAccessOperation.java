@@ -8,7 +8,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.exceptions.BadAccessException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ProcessXmlMethod;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -104,7 +104,7 @@ public final class StaticAccessOperation extends LeafOperation {
         Argument previous_ = _conf.getLastPage().getGlobalArgument();
         ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
         if (argres_.isInitClass()) {
-            ProcessXmlMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
             argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
         }
         Argument arg_ = argres_.getArgument();

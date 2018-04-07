@@ -43,7 +43,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_CONDITION);
+        page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode elCondition_ = opCondition.last();
@@ -66,7 +66,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
     @Override
     public final void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_CONDITION);
+        p_.setGlobalOffset(conditionOffset);
         for (OperationNode o: opCondition) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -79,7 +79,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         PageEl last_ = _context.getLastPage();
         ExpressionLanguage exp_ = last_.getCurrentEl(this, CustList.FIRST_INDEX, getElCondition());
         last_.setOffset(0);
-        last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
+        last_.setGlobalOffset(conditionOffset);
         Argument arg_ = exp_.calculateMember(_context);
         exp_.setCurrentOper(null);
         last_.clearCurrentEls();

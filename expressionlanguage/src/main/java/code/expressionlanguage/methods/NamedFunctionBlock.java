@@ -141,7 +141,17 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
         return tr_;
     }
-
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        StringList l_ = getParametersTypes();
+        int i_ = 0;
+        for (String t: l_) {
+            tr_.put(parametersTypesOffset.get(i_), t);
+            i_++;
+        }
+        return tr_;
+    }
     @Override
     public String getName() {
         return name;

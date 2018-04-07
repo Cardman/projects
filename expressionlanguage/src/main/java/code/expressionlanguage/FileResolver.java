@@ -38,7 +38,7 @@ import code.expressionlanguage.methods.TryEval;
 import code.expressionlanguage.methods.WhileCondition;
 import code.sml.RowCol;
 import code.util.CustList;
-import code.util.NumberMap;
+import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -496,7 +496,7 @@ public final class FileResolver {
             break;
         }
         StringBuilder str_ = new StringBuilder();
-        NumberMap<Integer, String> superTypes_ = new NumberMap<Integer, String>();
+        NatTreeMap<Integer, String> superTypes_ = new NatTreeMap<Integer, String>();
         StringBuilder typeNamePref_ = new StringBuilder();
         StringBuilder templateDef_ = new StringBuilder();
         int nbOpened_ = 0;
@@ -1041,7 +1041,7 @@ public final class FileResolver {
                         }
                         if (fct_) {
                             String afterAccess_ = trimmedInstruction_.substring(word_.length());
-                            if (currentChar_ == BEGIN_BLOCK || startsWithPrefixKeyWord(afterAccess_.trim(), KEY_WORD_ABSTRACT) || afterAccess_.trim().startsWith(String.valueOf(BEGIN_CALLING))) {
+                            if (currentChar_ == BEGIN_BLOCK || startsWithPrefixKeyWord(afterAccess_.trim(), KEY_WORD_ABSTRACT)) {
                                 int modifierOffest_ = accessOffest_ + word_.length();
                                 modifierOffest_ += StringList.getFirstPrintableCharIndex(afterAccess_);
                                 String info_ = afterAccess_.trim();
@@ -1081,7 +1081,7 @@ public final class FileResolver {
                                         }
                                         offestsType_.add(paramOffest_);
                                         String paramType_ = getDeclaringParamType(info_);
-                                        parametersType_.add(paramType_);
+                                        parametersType_.add(paramType_.trim());
                                         String afterParamType_ = info_.substring(paramType_.length());
                                         info_ = afterParamType_.trim();
                                         int call_ = info_.indexOf(SEP_CALLING);
@@ -1117,7 +1117,7 @@ public final class FileResolver {
                                         interfaceOffest_ += indexLeftPar_ + 1;
                                         String interfacesInfo_ = info_.substring(indexLeftPar_ + 1, info_.indexOf(END_CALLING));
                                         for (String p: StringList.splitChars(interfacesInfo_, SEP_CALLING)) {
-                                            interfaces_.add(p);
+                                            interfaces_.add(p.trim());
                                             interfacesOffests_.add(interfaceOffest_);
                                             interfaceOffest_ += p.length() + 1;
                                         }
@@ -1144,7 +1144,7 @@ public final class FileResolver {
                                         }
                                         offestsTypes_.add(paramOffest_);
                                         String paramType_ = getDeclaringParamType(info_);
-                                        parametersType_.add(paramType_);
+                                        parametersType_.add(paramType_.trim());
                                         String afterParamType_ = info_.substring(paramType_.length());
                                         info_ = afterParamType_.trim();
                                         int call_ = info_.indexOf(SEP_CALLING);

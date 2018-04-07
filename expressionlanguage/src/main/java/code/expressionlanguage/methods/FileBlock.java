@@ -64,4 +64,9 @@ public final class FileBlock extends BracedBlock {
         return new NatTreeMap<String, String>();
     }
 
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
 }

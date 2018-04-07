@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.CallingClassConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -110,17 +111,45 @@ public final class PageEl {
     public RowCol getTrace() {
         RowCol rc_ = new RowCol();
         if (currentBlock != null){
-            StringMap<RowCol> a_;
-            a_ = currentBlock.getAttributes();
-            StringMap<NatTreeMap<Integer,Integer>> e_;
-            e_ = currentBlock.getEncoded();
-            StringMap<Numbers<Integer>> o_;
-            o_ = currentBlock.getOffsets();
-            StringMap<Numbers<Integer>> t_;
-            t_ = currentBlock.getTabs();
-            RowCol endHeader_;
-            endHeader_ = currentBlock.getEndHeader();
-            rc_ = DocumentBuilder.getOffset(processingAttribute, a_, e_, offset, o_, t_, endHeader_, tabWidth);
+            FileBlock f_ = currentBlock.getFile();
+            int sum_ = globalOffset + offset + translatedOffset;
+            Numbers<Integer> lineReturn_ = f_.getLineReturns();
+            Numbers<Integer> leftSpaces_ = f_.getLeftSpaces();
+            int len_ = lineReturn_.size();
+            int i_ = 0;
+            boolean pass_ = false;
+            while (i_ < len_) {
+                if (sum_ < lineReturn_.get(i_)) {
+                    int j_ = 0;
+                    if (i_ > 0) {
+                        j_ = sum_ - lineReturn_.get(i_ - 1);
+                        j_ += leftSpaces_.get(i_/2 - 1);
+                    } else {
+                        j_ = sum_;
+                    }
+                    pass_ = true;
+                    rc_.setCol(j_);
+                    rc_.setRow(i_/2);
+                    break;
+                }
+                i_ += 2;
+            }
+            if (!pass_) {
+                Thread.dumpStack();
+            } else {
+                System.out.println(rc_.display());
+            }
+//            StringMap<RowCol> a_;
+//            a_ = currentBlock.getAttributes();
+//            StringMap<NatTreeMap<Integer,Integer>> e_;
+//            e_ = currentBlock.getEncoded();
+//            StringMap<Numbers<Integer>> o_;
+//            o_ = currentBlock.getOffsets();
+//            StringMap<Numbers<Integer>> t_;
+//            t_ = currentBlock.getTabs();
+//            RowCol endHeader_;
+//            endHeader_ = currentBlock.getEndHeader();
+//            rc_ = DocumentBuilder.getOffset(processingAttribute, a_, e_, offset, o_, t_, endHeader_, tabWidth);
         }
         return rc_;
     }

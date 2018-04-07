@@ -27,9 +27,14 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
+    @Override
     public void checkBlocksTree(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
             throw new BadTryException(_cont.joinPages());

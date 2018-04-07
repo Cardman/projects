@@ -9,7 +9,6 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.MethodId;
@@ -22,19 +21,20 @@ import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class ClassesTest {
-    private static final String PUBLIC_ACCESS = "PUBLIC";
 
     @Test
     public void getMethodBodiesByFormattedId1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod($int i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList(PrimitiveTypeUtil.PRIM_INT), false);
         assertEq(1, methods_.size());
@@ -47,14 +47,16 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#F"), false);
         assertEq(1, methods_.size());
@@ -67,14 +69,16 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(1, methods_.size());
@@ -87,14 +91,16 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E...'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E... i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), true);
         assertEq(1, methods_.size());
@@ -107,14 +113,16 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId5Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='$int' var1='j' class1='#E...'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
         assertEq(1, methods_.size());
@@ -128,16 +136,18 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='$int' var1='j' class1='#E...'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
         assertEq(1, methods_.size());
@@ -151,14 +161,16 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId7Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='$int' var1='j' class1='#E...'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), false);
         assertEq(0, methods_.size());
@@ -167,16 +179,18 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId8Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='$int' var1='j' class1='#E...'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(1, methods_.size());
@@ -189,14 +203,16 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId9Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.String"), false);
         assertEq(0, methods_.size());
@@ -205,16 +221,18 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId10Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='java.lang.Object'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(java.lang.Object i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(2, methods_.size());
@@ -231,18 +249,20 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId11Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='$int' var1='j' class1='#E...'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
         assertEq(1, methods_.size());
@@ -256,18 +276,20 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId12Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='$int' var1='j' class1='#E...'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(), false);
         assertEq(1, methods_.size());
@@ -279,20 +301,22 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='$int' var1='j' class1='$int'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='$int' var1='j' class1='#E...'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod($int i,$int j){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("$int","java.lang.Object"), true);
         assertEq(1, methods_.size());
@@ -306,14 +330,16 @@ public class ClassesTest {
     @Test
     public void getMethodBodiesByFormattedId14Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingClasses(files_);
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
         assertEq(0, methods_.size());
@@ -322,14 +348,15 @@ public class ClassesTest {
     @Test
     public void getSortedSuperInterfaces1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(files_, cont_);
+        classes_.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(1, s_.size());
@@ -339,16 +366,18 @@ public class ClassesTest {
     @Test
     public void getSortedSuperInterfaces2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(files_, cont_);
+        classes_.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
@@ -360,18 +389,21 @@ public class ClassesTest {
     @Test
     public void getSortedSuperInterfaces3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(files_, cont_);
+        classes_.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(3, s_.size());
@@ -383,20 +415,24 @@ public class ClassesTest {
     @Test
     public void getSortedSuperInterfaces4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree' class2='pkg.ExFour'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree:pkg.ExFour{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(files_, cont_);
+        classes_.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
@@ -409,20 +445,24 @@ public class ClassesTest {
     @Test
     public void getSortedSuperInterfaces5Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(files_, cont_);
+        classes_.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
@@ -435,22 +475,27 @@ public class ClassesTest {
     @Test
     public void getSortedSuperInterfaces6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(files_, cont_);
+        classes_.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"),cont_);
         assertEq(5, s_.size());
@@ -464,20 +509,25 @@ public class ClassesTest {
     @Test
     public void getAllOverridingMethods1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='absgetter' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append(" $public $abstract $int absgetter():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.ExFour");
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
@@ -489,21 +539,26 @@ public class ClassesTest {
     @Test
     public void getAllOverridingMethods2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='absgetter' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='absgetter' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append(" $public $abstract $int absgetter():\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append(" $public $abstract $int absgetter():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.Ex");
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
@@ -517,23 +572,28 @@ public class ClassesTest {
     @Test
     public void getAllOverridingMethods3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='absgetter' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='absgetter' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append(" $public $abstract $int absgetter():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{\n");
+        xml_.append(" $public $abstract $int absgetter():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.Ex");
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
@@ -548,7 +608,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(_files, cont_);
+        classes_.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
@@ -564,7 +624,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(_files, cont_);
+        classes_.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());

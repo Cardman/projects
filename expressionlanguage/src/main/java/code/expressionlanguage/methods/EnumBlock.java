@@ -28,7 +28,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
-import code.util.NumberMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -63,7 +62,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     public EnumBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
-            String _templateDef, NumberMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
+            String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
         getDirectSuperTypes().add(StringList.concat(PredefinedClasses.ENUM_PARAM,LT,getFullName(),GT));
     }
@@ -76,28 +75,28 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             if (m.getId().eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
-                r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
             if (m.getId().eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
-                r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
             if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUES, new EqList<ClassName>()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
-                r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
             if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUEOF, new EqList<ClassName>(new ClassName(stringType_, false))))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
-                r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
@@ -170,7 +169,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
                         err_.setFileName(getFullName());
-                        err_.setRc(m.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                        err_.setRc(m.getRowCol(0, m.getAccessOffset()));
                         err_.setId(m.getId());
                         classesRef_.getErrorsDet().add(err_);
                     }
@@ -187,7 +186,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
                             err_.setFileName(getFullName());
-                            err_.setRc(mBase_.getAttributes().getVal(ATTRIBUTE_CLASS));
+                            err_.setRc(mBase_.getRowCol(0, mBase_.getReturnTypeOffset()));
                             err_.setReturnType(retDerive_);
                             err_.setMethod(mBase_.getId());
                             err_.setParentClass(c);
@@ -199,7 +198,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(getFullName());
-                        err_.setRc(mBase_.getAttributes().getVal(ATTRIBUTE_CLASS));
+                        err_.setRc(mBase_.getRowCol(0, mBase_.getReturnTypeOffset()));
                         err_.setReturnType(retDerive_);
                         err_.setMethod(mBase_.getId());
                         err_.setParentClass(c);

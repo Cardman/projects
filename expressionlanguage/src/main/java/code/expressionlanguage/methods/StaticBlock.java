@@ -21,7 +21,7 @@ public final class StaticBlock extends MemberCallingsBlock implements AloneBlock
     public void checkFctBlocksTree(ContextEl _cont) {
         if (getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
-            page_.setProcessingAttribute(EMPTY_STRING);
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             throw new BadStaticException(_cont.joinPages());
         }
@@ -47,6 +47,12 @@ public final class StaticBlock extends MemberCallingsBlock implements AloneBlock
     @Override
     public NatTreeMap<String, String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
+        return tr_;
+    }
+
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
     }
 

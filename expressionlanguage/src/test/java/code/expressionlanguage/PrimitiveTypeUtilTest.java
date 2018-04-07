@@ -16,7 +16,8 @@ import code.util.StringMap;
 public class PrimitiveTypeUtilTest {
 
     private static final String CUST_CLASS = "pkg.CustClass";
-    private static final String PUBLIC_ACCESS = "PUBLIC";
+    private static final String ARR_ARR_CUST_CLASS = "[[pkg.CustClass";
+    private static final String ARR_CUST_CLASS = "[pkg.CustClass";
     @Test
     public void canBeUseAsArgument1Test() {
         ContextEl context_ = simpleContextEl();
@@ -234,16 +235,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument30Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExFour",context_));
     }
@@ -251,16 +255,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument31Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExTwo",context_));
     }
@@ -268,16 +275,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument32Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo","pkg.ExFour",context_));
     }
@@ -285,16 +295,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument33Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo",context_.getStandards().getAliasInteger(),context_));
     }
@@ -302,16 +315,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument34Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(context_.getStandards().getAliasNumber(),context_.getStandards().getAliasInteger(),context_));
     }
@@ -319,16 +335,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument35Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",context_));
     }
@@ -336,16 +355,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument36Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExTwo",context_));
     }
@@ -353,16 +375,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument37Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExTwo","[pkg.ExFour",context_));
     }
@@ -370,16 +395,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument38Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExTwo","[[pkg.ExTwo",context_));
     }
@@ -387,16 +415,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument39Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[[pkg.ExTwo","[pkg.ExTwo",context_));
     }
@@ -404,50 +435,59 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument40Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("["+context_.getStandards().getAliasObject(),"[pkg.ExTwo",context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[java.lang.Object","[pkg.ExTwo",context_));
     }
 
     @Test
     public void canBeUseAsArgument41Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[["+context_.getStandards().getAliasObject(),"[pkg.ExTwo",context_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[[java.lang.Object","[pkg.ExTwo",context_));
     }
 
     @Test
     public void canBeUseAsArgument42Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo","[pkg.ExTwo",context_));
     }
@@ -455,16 +495,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument43Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo",null,context_));
     }
@@ -472,16 +515,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument44Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(context_.getStandards().getAliasObject(),null,context_));
     }
@@ -489,16 +535,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument45Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(context_.getStandards().getAliasInteger(),null,context_));
     }
@@ -506,16 +555,19 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument46Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT,null,context_));
     }
@@ -523,43 +575,46 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument47Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</class>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN,null,context_));
     }
 
-//    @Test
-//    public void canBeUseAsArgument48Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, context_));
-//    }
 
-//    @Test
-//    public void canBeUseAsArgument49Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), context_.getStandards().getAliasByte(), context_));
-//    }
 
-//    @Test
-//    public void canBeUseAsArgument50Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(context_.getStandards().getAliasObject(), MyInterface.class.getName(), context_));
-//    }
 
-//    @Test
-//    public void canBeUseAsArgument51Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyInterface.class.getName(), context_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void canBeUseAsArgument52Test() {
@@ -567,17 +622,17 @@ public class PrimitiveTypeUtilTest {
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(context_.getStandards().getAliasNumber(), context_.getStandards().getAliasInteger(), context_));
     }
 
-//    @Test
-//    public void canBeUseAsArgument53Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MyInterface.class.getName(), context_));
-//    }
 
-//    @Test
-//    public void canBeUseAsArgument54Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MySecImplClass.class.getName(), context_));
-//    }
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void canBeUseAsArgument55Test() {
@@ -591,30 +646,35 @@ public class PrimitiveTypeUtilTest {
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(context_.getStandards().getAliasCharSequence(), context_.getStandards().getAliasCharSequence(), context_));
     }
 
-//    @Test
-//    public void canBeUseAsArgument57Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), context_.getStandards().getAliasObject(), context_));
-//    }
+
+
+
+
+
 
     @Test
     public void canBeUseAsArgument58Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.Ex","pkg.ExFour",context_));
     }
@@ -622,21 +682,26 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument59Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.Ex",context_));
     }
@@ -644,21 +709,26 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument60Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExFour",context_));
     }
@@ -666,21 +736,26 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument61Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.Ex","[pkg.ExFour",context_));
     }
@@ -688,21 +763,26 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument62Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.Ex",context_));
     }
@@ -710,21 +790,26 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument63Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' class0='pkg.ExFour'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'>\n";
-        xml_ += "</interface>\n";
-        files_.put("pkg/ExFour."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
-        files_.put("pkg/ExFive."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
+        files_.put("pkg/ExFive", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",context_));
     }
@@ -848,7 +933,7 @@ public class PrimitiveTypeUtilTest {
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(1);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
-        assertEq("["+CUST_CLASS, customArray_.getClassName(null));
+        assertEq(ARR_CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(1, instance_.length);
         Struct elt_ = instance_[0];
@@ -862,7 +947,7 @@ public class PrimitiveTypeUtilTest {
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
-        assertEq("["+CUST_CLASS, customArray_.getClassName(null));
+        assertEq(ARR_CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(2, instance_.length);
         Struct elt_ = instance_[0];
@@ -878,11 +963,11 @@ public class PrimitiveTypeUtilTest {
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2,3);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
-        assertEq("[["+CUST_CLASS, customArray_.getClassName(null));
+        assertEq(ARR_ARR_CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(2, instance_.length);
         Struct subArray_ = instance_[0];
-        assertEq("["+CUST_CLASS, subArray_.getClassName(null));
+        assertEq(ARR_CUST_CLASS, subArray_.getClassName(null));
         Struct[] subInstance_ = (Struct[]) subArray_.getInstance();
         assertEq(3, subInstance_.length);
         Struct elt_ = subInstance_[0];
@@ -892,7 +977,7 @@ public class PrimitiveTypeUtilTest {
         elt_ = subInstance_[2];
         assertTrue(elt_.isNull());
         subArray_ = instance_[1];
-        assertEq("["+CUST_CLASS, subArray_.getClassName(null));
+        assertEq(ARR_CUST_CLASS, subArray_.getClassName(null));
         subInstance_ = (Struct[]) subArray_.getInstance();
         assertEq(3, subInstance_.length);
         elt_ = subInstance_[0];
@@ -908,7 +993,7 @@ public class PrimitiveTypeUtilTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(_files, cont_);
+        classes_.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);

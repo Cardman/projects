@@ -42,10 +42,10 @@ import code.util.StringList;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
-public final class ProcessXmlMethod {
+public final class ProcessMethod {
     private static final String EMPTY_STRING = "";
 
-    private ProcessXmlMethod() {
+    private ProcessMethod() {
     }
 
     public static void initializeClass(String _class, ContextEl _cont) {
@@ -447,7 +447,7 @@ public final class ProcessXmlMethod {
             }
         }
         if (en_ != null) {
-            ip_.setProcessingAttribute(EMPTY_STRING);
+            ip_.setGlobalOffset(en_.getOffset().getOffsetTrim());
             ip_.setOffset(0);
         }
         if (en_ instanceof WithEl) {

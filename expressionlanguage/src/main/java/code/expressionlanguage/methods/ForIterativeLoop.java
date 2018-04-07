@@ -137,6 +137,13 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        tr_.put(classIndexNameOffset, classIndexName);
+        tr_.put(classNameOffset, className);
+        return tr_;
+    }
+    @Override
     public String getClassIndexName() {
         return classIndexName;
     }
@@ -187,23 +194,23 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_CLASS_INDEX);
+        page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName, _cont)) {
             throw new DynamicCastClassException(StringList.concat(classIndexName,RETURN_LINE,_cont.joinPages()));
         }
-        page_.setProcessingAttribute(ATTRIBUTE_CLASS);
+        page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(className);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {
             throw new DynamicCastClassException(_cont.joinPages());
         }
-        page_.setProcessingAttribute(ATTRIBUTE_VAR);
+        page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (_cont.getLastPage().getVars().contains(variableName)) {
             throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
         }
-        page_.setProcessingAttribute(ATTRIBUTE_INIT);
+        page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode initEl_ = opInit.last();
@@ -211,7 +218,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             String str_ = initEl_.getResultClass().getName();
             throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
         }
-        page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode expressionEl_ = opExp.last();
@@ -219,7 +226,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             String str_ = expressionEl_.getResultClass().getName();
             throw new DynamicCastClassException(StringList.concat(str_,RETURN_LINE,_cont.joinPages()));
         }
-        page_.setProcessingAttribute(ATTRIBUTE_STEP);
+        page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode stepEl_ = opStep.last();
@@ -251,7 +258,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_INIT);
+        p_.setGlobalOffset(initOffset);
         for (OperationNode o: opInit) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -259,7 +266,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 throw new BadConstructorCall(_cont.joinPages());
             }
         }
-        p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        p_.setGlobalOffset(expressionOffset);
         for (OperationNode o: opExp) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -267,7 +274,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 throw new BadConstructorCall(_cont.joinPages());
             }
         }
-        p_.setProcessingAttribute(ATTRIBUTE_STEP);
+        p_.setGlobalOffset(stepOffset);
         for (OperationNode o: opStep) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -319,21 +326,21 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         Object realFromValue_ = 0;
 
         boolean eq_ = isEq();
-        ip_.setProcessingAttribute(ATTRIBUTE_INIT);
+        ip_.setGlobalOffset(initOffset);
         ip_.setOffset(0);
         ExpressionLanguage from_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getInitEl());
         Argument argFrom_ = from_.calculateMember(_conf);
         if (argFrom_.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
-        ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage to_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getExpressionEl());
         Argument argTo_ = to_.calculateMember(_conf);
         if (argTo_.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
         }
-        ip_.setProcessingAttribute(ATTRIBUTE_STEP);
+        ip_.setGlobalOffset(stepOffset);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX + 1, getStepEl());
         Argument argStep_ = step_.calculateMember(_conf);
@@ -442,7 +449,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
-        _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR);
+        _conf.getLastPage().setGlobalOffset(variableNameOffset);
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);

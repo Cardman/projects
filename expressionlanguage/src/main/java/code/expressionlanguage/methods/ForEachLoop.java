@@ -111,6 +111,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        tr_.put(classIndexNameOffset, classIndexName);
+        tr_.put(classNameOffset, className);
+        return tr_;
+    }
+    @Override
     public String getClassIndexName() {
         return classIndexName;
     }
@@ -136,7 +143,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
             throw new BadLoopException(_cont.joinPages());
@@ -153,7 +160,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
         }
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode el_ = opList.last();
@@ -230,7 +237,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        p_.setGlobalOffset(expressionOffset);
         for (OperationNode o: opList) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -333,7 +340,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         PageEl ip_ = _conf.getLastPage();
         LgNames stds_ = _conf.getStandards();
         String null_ = stds_.getAliasNullPe();
-        ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
         Struct ito_ = el_.calculateMember(_conf).getStruct();
@@ -406,7 +413,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
 
-        _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR);
+        _conf.getLastPage().setGlobalOffset(variableNameOffset);
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LgNames stds_ = _conf.getStandards();

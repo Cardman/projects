@@ -55,6 +55,11 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         return tr_;
     }
 
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
     public ExpressionLanguage getValueEl() {
         return new ExpressionLanguage(opValue);
     }
@@ -69,7 +74,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         PageEl page_ = _cont.getLastPage();
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock)) {
-            page_.setProcessingAttribute(EMPTY_STRING);
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             throw new BadCaseException(_cont.joinPages());
         }
@@ -87,7 +92,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_VALUE);
+        page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         if (opValue.last().isVoidArg(_cont)) {
@@ -113,7 +118,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_VALUE);
+        p_.setGlobalOffset(valueOffset);
         for (OperationNode o: opValue) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -150,7 +155,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             rw_.setBlock(getFirstChild());
             return;
         } else {
-            ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
+            ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
             Argument arg_ = el_.calculateMember(_cont);

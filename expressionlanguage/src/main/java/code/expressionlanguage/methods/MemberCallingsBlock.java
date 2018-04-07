@@ -22,12 +22,12 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     public void checkFctBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof RootBlock)) {
             PageEl page_ = _cont.getLastPage();
-            page_.setProcessingAttribute(EMPTY_STRING);
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             throw new BadStaticException(_cont.joinPages());
         }
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
             return;
@@ -72,7 +72,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     @Override
     public final void buildFctInstructions(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
             return;
@@ -119,7 +119,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     @Override
     public final void checkFctConstrCalls(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
             return;

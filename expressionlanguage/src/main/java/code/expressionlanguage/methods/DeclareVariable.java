@@ -53,6 +53,12 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        tr_.put(classNameOffset, className);
+        return tr_;
+    }
+    @Override
     public String getVariableName() {
         return variableName;
     }
@@ -65,10 +71,10 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_CLASS);
+        page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (_cont.getLastPage().getLocalVars().contains(variableName)) {
-            page_.setProcessingAttribute(ATTRIBUTE_VAR);
+            page_.setGlobalOffset(variableNameOffset);
             page_.setOffset(0);
             throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
         }

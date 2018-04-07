@@ -30,7 +30,7 @@ import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ProcessXmlMethod;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -311,16 +311,16 @@ public final class InstanceOperation extends InvokingOperation {
         }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf, _op);
         if (argres_.isInitClass()) {
-            ProcessXmlMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
             argres_ = getArgument(previous_, arguments_, _conf, _op);
         }
         Argument res_;
         if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            res_ = ProcessXmlMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf);
+            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf);
         } else if (argres_.isInvokeMethod()) {
             InvokingMethod i_ = argres_.getInvokeMethod();
-            res_ = ProcessXmlMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf);
+            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf);
         } else {
             res_ = argres_.getArgument();
         }

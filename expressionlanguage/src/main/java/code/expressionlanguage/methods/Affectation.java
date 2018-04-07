@@ -79,6 +79,11 @@ public final class Affectation extends Leaf implements StackableBlock {
         return tr_;
     }
 
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
     public ExpressionLanguage getLeftEl() {
         return new ExpressionLanguage(opLeft);
     }
@@ -91,7 +96,7 @@ public final class Affectation extends Leaf implements StackableBlock {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         boolean static_ = f_.isStaticContext();
-        ExpLanguages e_ = ElUtil.getAnalyzedAffectation(ATTRIBUTE_OPER, ATTRIBUTE_LEFT, ATTRIBUTE_RIGHT, leftMember, rightMember, oper, _cont, static_, static_);
+        ExpLanguages e_ = ElUtil.getAnalyzedAffectation(operOffset, leftMemberOffset, rightMemberOffset, leftMember, rightMember, oper, _cont, static_, static_);
         opLeft = e_.getLeft();
         opRight = e_.getRight();
     }
@@ -104,7 +109,7 @@ public final class Affectation extends Leaf implements StackableBlock {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_LEFT);
+        p_.setGlobalOffset(leftMemberOffset);
         for (OperationNode o: opLeft) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -112,7 +117,7 @@ public final class Affectation extends Leaf implements StackableBlock {
                 throw new BadConstructorCall(_cont.joinPages());
             }
         }
-        p_.setProcessingAttribute(ATTRIBUTE_RIGHT);
+        p_.setGlobalOffset(rightMemberOffset);
         for (OperationNode o: opRight) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -130,16 +135,16 @@ public final class Affectation extends Leaf implements StackableBlock {
     @Override
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
-        ip_.setProcessingAttribute(ATTRIBUTE_LEFT);
+        ip_.setGlobalOffset(leftMemberOffset);
         ip_.setOffset(0);
         String op_ = getOper();
         ExpressionLanguage elLeft_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getLeftEl());
         elLeft_.affectLeftMember(_cont, op_);
-        ip_.setProcessingAttribute(ATTRIBUTE_RIGHT);
+        ip_.setGlobalOffset(rightMemberOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getRightEl());
         el_.affectRightMember(_cont, op_);
-        ip_.setProcessingAttribute(ATTRIBUTE_LEFT);
+        ip_.setGlobalOffset(leftMemberOffset);
         ip_.setOffset(0);
         elLeft_.affectAllMember(_cont, op_);
         el_.setCurrentOper(null);

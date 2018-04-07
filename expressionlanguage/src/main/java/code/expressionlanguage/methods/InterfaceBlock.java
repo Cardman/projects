@@ -9,7 +9,6 @@ import code.sml.Element;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
-import code.util.NumberMap;
 import code.util.StringList;
 
 public final class InterfaceBlock extends RootBlock implements GeneInterface {
@@ -34,7 +33,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     public InterfaceBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
-            String _templateDef, NumberMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
+            String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
     }
 
@@ -51,7 +50,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
             if (b instanceof AloneBlock) {
                 continue;
             }
-            RowCol where_ = b.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+            RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
             String tagName_ = b.getTagName();
             UnexpectedTagName unexp_ = new UnexpectedTagName();
             unexp_.setFileName(getFullName());

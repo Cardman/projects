@@ -97,7 +97,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
     public void setupInstancingStep(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block first_ = getFirstChild();
         if (!(first_ instanceof Line)) {

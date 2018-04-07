@@ -398,7 +398,7 @@ public final class Classes {
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();
-        classes_.tryBuildClassesBodies(_files, _context);
+        classes_.tryBuildBracedClassesBodies(_files, _context);
         if (!classes_.errorsDet.isEmpty()) {
             throw new AnalyzingErrorsException(classes_.errorsDet);
         }
@@ -844,26 +844,34 @@ public final class Classes {
             RootBlock bl_ = c.getValue();
             boolean int_ = bl_ instanceof InterfaceBlock;
             int nbDirectSuperClass_ = 0;
-            for (String s: bl_.getDirectSuperClasses(_context)) {
+            StringList superClasses_ = bl_.getDirectSuperClasses(_context);
+            int index_ = -1;
+            for (String t: bl_.getDirectSuperTypes()) {
+                index_++;
+                String base_ = StringList.getAllTypes(StringList.removeAllSpaces(t)).first();
+                if (!superClasses_.containsStr(base_)) {
+                    continue;
+                }
                 if (bl_ instanceof UniqueRootedBlock) {
                     nbDirectSuperClass_++;
                 }
-                if (!classesBodies.contains(s)) {
-                    if (!StringList.quickEq(s, objectClassName_)) {
+                int offset_ = bl_.getRowColDirectSuperTypes().getKey(index_);
+                if (!classesBodies.contains(base_)) {
+                    if (!StringList.quickEq(base_, objectClassName_)) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
-                        undef_.setClassName(s);
+                        undef_.setClassName(base_);
                         undef_.setFileName(d_);
-                        undef_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_SUPER_CLASS));
+                        undef_.setRc(bl_.getRowCol(0, offset_));
                         errorsDet.add(undef_);
                     }
                 } else {
-                    RootBlock super_ = classesBodies.getVal(s);
+                    RootBlock super_ = classesBodies.getVal(base_);
                     if (int_) {
                         if (!(super_ instanceof InterfaceBlock)) {
                             BadInheritedClass enum_;
                             enum_ = new BadInheritedClass();
-                            String n_ = s;
+                            String n_ = base_;
                             enum_.setClassName(n_);
                             enum_.setFileName(d_);
                             enum_.setRc(new RowCol());
@@ -872,7 +880,7 @@ public final class Classes {
                     } else if (super_.isFinalType()) {
                         BadInheritedClass enum_;
                         enum_ = new BadInheritedClass();
-                        String n_ = s;
+                        String n_ = base_;
                         enum_.setClassName(n_);
                         enum_.setFileName(d_);
                         enum_.setRc(new RowCol());
@@ -882,7 +890,7 @@ public final class Classes {
                         if (StringList.quickEq(super_.getFullName(), PredefinedClasses.ENUM)) {
                             BadInheritedClass enum_;
                             enum_ = new BadInheritedClass();
-                            String n_ = s;
+                            String n_ = base_;
                             enum_.setClassName(n_);
                             enum_.setFileName(d_);
                             enum_.setRc(new RowCol());
@@ -891,7 +899,7 @@ public final class Classes {
                         if (StringList.quickEq(super_.getFullName(), PredefinedClasses.ENUM_PARAM)) {
                             BadInheritedClass enum_;
                             enum_ = new BadInheritedClass();
-                            String n_ = s;
+                            String n_ = base_;
                             enum_.setClassName(n_);
                             enum_.setFileName(d_);
                             enum_.setRc(new RowCol());
@@ -899,7 +907,7 @@ public final class Classes {
                         }
                     }
                 }
-                inherit_.addSegment(new ClassEdge(d_), new ClassEdge(s));
+                inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
             }
             if (nbDirectSuperClass_ > 1) {
                 BadInheritedClass enum_;
@@ -1402,7 +1410,7 @@ public final class Classes {
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block e: bl_) {
                 Block b_ = e;
-                for (EntryCust<String, String> n: b_.getClassNames(_context).entryList()) {
+                for (EntryCust<Integer, String> n: b_.getClassNamesOffsets(_context).entryList()) {
                     String classNameLoc_ = n.getValue();
                     StringList parts_ = StringList.splitChars(classNameLoc_, LT, GT, ARR_BEG, COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
                     for (String p: parts_) {
@@ -1410,7 +1418,7 @@ public final class Classes {
                             if (!canAccessClass(className_, p, _context)) {
                                 BadAccessClass err_ = new BadAccessClass();
                                 err_.setFileName(className_);
-                                err_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                                err_.setRc(b_.getRowCol(0, n.getKey()));
                                 err_.setId(classNameLoc_);
                                 errorsDet.add(err_);
                             }
@@ -1434,7 +1442,7 @@ public final class Classes {
                     if (!StringList.isWord(var_)) {
                         BadVariableName b_ = new BadVariableName();
                         b_.setFileName(className_);
-                        b_.setRc(block_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_VAR));
+                        b_.setRc(block_.getRowCol(0, ((InitVariable)b).getVariableNameOffset()));
                         b_.setVarName(var_);
                         errorsDet.add(b_);
                     }
@@ -1445,7 +1453,7 @@ public final class Classes {
                     if (!StringList.isWord(var_)) {
                         BadVariableName b_ = new BadVariableName();
                         b_.setFileName(className_);
-                        b_.setRc(block_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_VAR));
+                        b_.setRc(block_.getRowCol(0, ((ForLoop)b).getVariableNameOffset()));
                         b_.setVarName(var_);
                         errorsDet.add(b_);
                     }
@@ -1455,7 +1463,7 @@ public final class Classes {
                     if (!StringList.isWord(var_)) {
                         BadVariableName b_ = new BadVariableName();
                         b_.setFileName(className_);
-                        b_.setRc(block_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_VAR));
+                        b_.setRc(block_.getRowCol(0, ((CatchEval)b).getVariableNameOffset()));
                         b_.setVarName(var_);
                         errorsDet.add(b_);
                     }

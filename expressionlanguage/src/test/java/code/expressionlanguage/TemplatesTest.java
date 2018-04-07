@@ -13,35 +13,34 @@ import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class TemplatesTest {
-    private static final String PUBLIC_ACCESS = "PUBLIC";
-//    private static final String ARR_INT = "[$int";
+
     private static final String ARR_OBJECT = "[java.lang.Object";
     private static final String ARR_STRING = "[java.lang.String";
-//    private static final String ARR_ITHREE = "["+IThree.class.getName();
-//    private static final String ARR_ITWO = "["+ITwo.class.getName();
-//    private static final String ENUM = EnumNumber.class.getName();
-//    private static final String CUST_BIG_INT = CustBigInt.class.getName();
-//    private static final String TEMPLATING = Templating.class.getName();
-//    private static final String TEMPLATING_BIS = TemplatingBis.class.getName();
-//    private static final String TRANSITIVE_TEMPLATING = TransitiveTemplating.class.getName();
-//    private static final String CMP_LIST = CmpList.class.getName();
-//    private static final String CUST_EQ_LIST = CustEqList.class.getName();
-//    private static final String CUST_SEC_LIST = CustSecEqList.class.getName();
-//    private static final String STRANGE_CMP_LIST = StrangeCmp.class.getName();
-//    private static final String GOOD_CMP_LIST = GoodCmp.class.getName();
-//    private static final String ARR_ENUM = "["+ENUM;
-//    private static final String ARR_VAR_E = "[#E";
-//    private static final String ARR_VAR_F = "[#F";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private static final String ARR_VAR_S = "[#S";
     private static final String ARR_VAR_T = "[#T";
-//    private static final String STRING_LIST = StringList.class.getName();
-//    private static final String CUST_LIST = CustList.class.getName();
-//    private static final String ID_LIST = IdList.class.getName();
-//    private static final String ENUM_LIST = EnumList.class.getName();
-//    private static final String ENUM_MAP = EnumMap.class.getName();
-//    private static final String CMP = Cmp.class.getName();
-//    private static final String MY_EQ_CLASS = MyEqClass.class.getName();
-//    private static final String MY_CMP_CLASS = MyCmpClass.class.getName();
+
+
+
+
+
+
+
+
 
     @Test
     public void format1Test() {
@@ -51,74 +50,75 @@ public class TemplatesTest {
         assertEq(second_,Templates.format(first_, second_, context_));
     }
 
-//    @Ignore
-//    @Test
-//    public void format2Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<"+String.class.getName()+">";
-//        String second_ = Integer.class.getName();
-//        assertEq(second_,Templates.format(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void format3Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<E>";
-//        String second_ = Integer.class.getName();
-//        assertEq(second_,Templates.format(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void format4Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<#E>";
-//        String second_ = Integer.class.getName();
-//        assertEq(second_,Templates.format(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void format5Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<"+context_.getStandards().getAliasInteger()+">";
-//        String second_ = "T";
-//        assertEq("T",Templates.format(first_, second_, context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void format6Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<"+context_.getStandards().getAliasInteger()+">";
-//        String second_ = "#T";
-//        assertEq(context_.getStandards().getAliasInteger(),Templates.format(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void format7Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<#E>";
-//        String second_ = "T";
-//        assertEq("T",Templates.format(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void format8Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<#E>";
-//        String second_ = "#T";
-//        assertEq("#E",Templates.format(first_, second_, context_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void format9Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
@@ -127,9 +127,10 @@ public class TemplatesTest {
 
     @Test
     public void format10Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
@@ -138,9 +139,10 @@ public class TemplatesTest {
 
     @Test
     public void format11Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
@@ -149,9 +151,10 @@ public class TemplatesTest {
 
     @Test
     public void format12Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
@@ -160,9 +163,10 @@ public class TemplatesTest {
 
     @Test
     public void format13Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
@@ -171,9 +175,10 @@ public class TemplatesTest {
 
     @Test
     public void format14Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
@@ -182,9 +187,10 @@ public class TemplatesTest {
 
     @Test
     public void format15Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
@@ -199,74 +205,75 @@ public class TemplatesTest {
         assertEq(second_,Templates.generalFormat(first_, second_, context_));
     }
 
-//    @Ignore
-//    @Test
-//    public void generalFormat2Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<"+context_.getStandards().getAliasInteger()+">";
-//        String second_ = context_.getStandards().getAliasInteger();
-//        assertEq(second_,Templates.generalFormat(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void generalFormat3Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<E>";
-//        String second_ = context_.getStandards().getAliasInteger();
-//        assertEq(second_,Templates.generalFormat(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void generalFormat4Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<#E>";
-//        String second_ = context_.getStandards().getAliasInteger();
-//        assertEq(second_,Templates.generalFormat(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void generalFormat5Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<"+context_.getStandards().getAliasInteger()+">";
-//        String second_ = "T";
-//        assertEq("T",Templates.generalFormat(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void generalFormat6Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<"+context_.getStandards().getAliasInteger()+">";
-//        String second_ = "#T";
-//        assertEq(context_.getStandards().getAliasInteger(),Templates.generalFormat(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void generalFormat7Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<#E>";
-//        String second_ = "T";
-//        assertEq("T",Templates.generalFormat(first_, second_, context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void generalFormat8Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String first_ = CUST_LIST+"<#E>";
-//        String second_ = "#T";
-//        assertEq("#E",Templates.generalFormat(first_, second_, context_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void generalFormat9Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
@@ -275,9 +282,10 @@ public class TemplatesTest {
 
     @Test
     public void generalFormat10Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
@@ -286,9 +294,10 @@ public class TemplatesTest {
 
     @Test
     public void generalFormat11Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
@@ -297,9 +306,10 @@ public class TemplatesTest {
 
     @Test
     public void generalFormat12Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
@@ -308,9 +318,10 @@ public class TemplatesTest {
 
     @Test
     public void generalFormat13Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
@@ -319,9 +330,10 @@ public class TemplatesTest {
 
     @Test
     public void generalFormat14Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
@@ -330,9 +342,10 @@ public class TemplatesTest {
 
     @Test
     public void generalFormat15Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
@@ -341,9 +354,10 @@ public class TemplatesTest {
 
     @Test
     public void generalFormat16Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number,#U&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex";
         String second_ = "code.util.CustList<#T>";
@@ -351,11 +365,13 @@ public class TemplatesTest {
     }
     @Test
     public void generalFormat17Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E:java.lang.Number,#F&gt;'/>\n";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E:java.lang.Number,#F> {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:java.lang.Number,#U&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#U> {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.ExTwo";
         String second_ = "pkg.Ex<#T,#T>";
@@ -376,29 +392,29 @@ public class TemplatesTest {
         assertNull(t_);
     }
 
-//    @Ignore
-//    @Test
-//    public void getGenericTypeByBases3Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String t_ = Templates.getFullTypeByBases(StringList.class.getName(), Listable.class.getName(), context_);
-//        assertEq("code.util.ints.Listable<java.lang.String>", t_);
-//    }
 
-//    @Ignore
-//    @Test
-//    public void getGenericTypeByBases4Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String t_ = Templates.getFullTypeByBases(StringList.class.getName(), Iterable.class.getName(), context_);
-//        assertEq("java.lang.Iterable<java.lang.String>", t_);
-//    }
 
-//    @Ignore
-//    @Test
-//    public void getGenericTypeByBases5Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String t_ = Templates.getFullTypeByBases(Listable.class.getName(), Iterable.class.getName(), context_);
-//        assertNull(t_);
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void getGenericTypeByBases6Test() {
@@ -407,20 +423,21 @@ public class TemplatesTest {
         assertEq("java.lang.String", t_);
     }
 
-//    @Ignore
-//    @Test
-//    public void getGenericTypeByBases7Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String t_ = Templates.getFullTypeByBases(Listable.class.getName(), Listable.class.getName(), context_);
-//        assertEq("code.util.ints.Listable", t_);
-//    }
+
+
+
+
+
+
+
 
     @Test
     public void getGenericTypeByBases8Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.Ex", cont_);
         assertEq("pkg.Ex", t_);
@@ -429,11 +446,13 @@ public class TemplatesTest {
     @Test
     public void getGenericTypeByBases9Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq("pkg.Ex", t_);
@@ -442,32 +461,36 @@ public class TemplatesTest {
     @Test
     public void getGenericTypeByBases10Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.ExTwo", cont_);
         assertNull(t_);
     }
 
-//    @Ignore
-//    @Test
-//    public void getGenericTypeByBases11Test() {
-//        ContextEl context_ = simpleContextEl();
-//        String t_ = Templates.getFullTypeByBases(Listable.class.getName()+"<#E>", Iterable.class.getName(), context_);
-//        assertEq("java.lang.Iterable<#E>",t_);
-//    }
+
+
+
+
+
+
+
 
     @Test
     public void getGenericTypeByBases12Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;#U&gt;' template='&lt;#U&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = Templates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.Ex", cont_);
         assertEq("pkg.Ex<#V>", t_);
@@ -476,11 +499,13 @@ public class TemplatesTest {
     @Test
     public void getGenericTypeByBases13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;java.lang.Number&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Number>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq("pkg.Ex<java.lang.Number>", t_);
@@ -488,11 +513,13 @@ public class TemplatesTest {
     @Test
     public void getGenericTypeByBases14Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;#U&gt;' template='&lt;#U&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.Ex", cont_);
         assertEq("pkg.Ex<#V>", t_);
@@ -518,7 +545,7 @@ public class TemplatesTest {
     @Test
     public void isCorrectWrite4Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("["+PrimitiveTypeUtil.PRIM_INT, context_));
+        assertTrue(Templates.isCorrectWrite("[$int", context_));
     }
 
     @Test
@@ -548,7 +575,7 @@ public class TemplatesTest {
     @Test
     public void isCorrectWrite9Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+">", context_));
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<[$int>", context_));
     }
 
     @Test
@@ -590,25 +617,25 @@ public class TemplatesTest {
     @Test
     public void isCorrectWrite16Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<"+PrimitiveTypeUtil.PRIM_INT+">", context_));
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<$int>", context_));
     }
 
     @Test
     public void isCorrectWrite17Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<"+PrimitiveTypeUtil.PRIM_INT+",java.lang.String>>", context_));
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<$int,java.lang.String>>", context_));
     }
 
     @Test
     public void isCorrectWrite18Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+".int>", context_));
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<[$int.int>", context_));
     }
 
     @Test
     public void isCorrectWrite19Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+".int,java.lang.String>>", context_));
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<[$int.int,java.lang.String>>", context_));
     }
 
     @Test
@@ -742,81 +769,81 @@ public class TemplatesTest {
         assertTrue(!Templates.isCorrect(m_,context_));
     }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect11Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg(ENUM_LIST+"<java.lang.Enum<#E>>");
-//        m_.setParam(CUST_LIST+"<java.lang.Enum<#E>>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect12Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg(ENUM_LIST+"<#E>");
-//        m_.setParam(CUST_LIST+"<#E>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect13Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg(ENUM_LIST+"<#F>");
-//        m_.setParam(CUST_LIST+"<#F>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("F", new StringList("java.lang.Enum<#F>"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect14Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg("java.util.List<#F>");
-//        m_.setParam("java.util.Collection<#F>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("F", new StringList("java.lang.Enum<#F>"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect15Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg(STRING_LIST);
-//        m_.setParam(CUST_LIST+"<java.lang.String>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect16Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg(STRING_LIST);
-//        m_.setParam(CUST_LIST+"<java.lang.Object>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        m_.setMapping(t_);
-//        assertTrue(!Templates.isCorrect(m_,context_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void isCorrect17Test() {
@@ -868,16 +895,16 @@ public class TemplatesTest {
         assertTrue(!Templates.isCorrect(m_,context_));
     }
 
-//    @Test
-//    public void isCorrect22Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg(CUST_LIST+"<java.lang.String>");
-//        m_.setParam("java.lang.Object");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void isCorrect23Test() {
@@ -890,62 +917,62 @@ public class TemplatesTest {
         assertTrue(Templates.isCorrect(m_,context_));
     }
 
-//    @Test
-//    public void isCorrect27Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg(CUST_LIST+"<#U>");
-//        m_.setParam(CUST_LIST+"<#S>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("U", new StringList("#S"));
-//        t_.put("S", new StringList("java.lang.Object"));
-//        m_.setMapping(t_);
-//        assertTrue(!Templates.isCorrect(m_,context_));
-//    }
 
-//    @Test
-//    public void isCorrect33Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg("#T");
-//        m_.setParam(CUST_LIST+"<#S>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("T", new StringList("#U"));
-//        t_.put("U", new StringList(CUST_LIST+"<#S>"));
-//        t_.put("S", new StringList("java.lang.Object"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect34Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg("#T");
-//        m_.setParam(Listable.class.getName()+"<#S>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("T", new StringList("#U"));
-//        t_.put("U", new StringList(CUST_LIST+"<#S>"));
-//        t_.put("S", new StringList("java.lang.Object"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect35Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg("#T");
-//        m_.setParam(CUST_LIST+"<#S>");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("T", new StringList("#U"));
-//        t_.put("U", new StringList(Listable.class.getName()+"<#S>"));
-//        t_.put("S", new StringList("java.lang.Object"));
-//        m_.setMapping(t_);
-//        assertTrue(!Templates.isCorrect(m_,context_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void isCorrect36Test() {
@@ -999,57 +1026,57 @@ public class TemplatesTest {
         assertTrue(Templates.isCorrect(m_,context_));
     }
     
-//    @Ignore
-//    @Test
-//    public void isCorrect46Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg(ARR_ITHREE);
-//        m_.setParam(ARR_ITWO);
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect47Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg("["+MyImpl.class.getName());
-//        m_.setParam(ARR_ITWO);
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Test
-//    public void isCorrect48Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg("#H");
-//        m_.setParam(CUST_BIG_INT);
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("J", new StringList(CUST_BIG_INT));
-//        t_.put("I", new StringList("#J"));
-//        t_.put("H", new StringList("#I"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
 
-//    @Test
-//    public void isCorrect49Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg("#H");
-//        m_.setParam("#J");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("J", new StringList(CUST_BIG_INT));
-//        t_.put("I", new StringList("#J"));
-//        t_.put("H", new StringList("#I"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void isCorrect50Test() {
@@ -1063,28 +1090,29 @@ public class TemplatesTest {
         assertTrue(Templates.isCorrect(m_,context_));
     }
 
-//    @Test
-//    public void isCorrect51Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        m_.setArg("#H");
-//        m_.setParam("#J");
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("J", new StringList(CUST_BIG_INT));
-//        t_.put("I", new StringList("#J"));
-//        t_.put("K", new StringList("#J"));
-//        t_.put("L", new StringList("#K"));
-//        t_.put("H", new StringList("#L","#I"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrect(m_,context_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void isCorrect52Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
@@ -1095,9 +1123,10 @@ public class TemplatesTest {
     @Test
     public void isCorrect54Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Number");
@@ -1108,11 +1137,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect55Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
@@ -1123,11 +1154,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect56Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
@@ -1138,11 +1171,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect57Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
@@ -1153,11 +1188,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect58Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
@@ -1168,11 +1205,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect59Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
@@ -1183,11 +1222,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect60Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
@@ -1198,11 +1239,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect61Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
@@ -1213,11 +1256,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect62Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo :pkg.Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
@@ -1228,11 +1273,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect63Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
@@ -1244,11 +1291,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect64Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
@@ -1260,11 +1309,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect65Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
@@ -1276,11 +1327,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect66Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
@@ -1292,11 +1345,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect67Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("S", new StringList("java.lang.Object"));
@@ -1305,31 +1360,33 @@ public class TemplatesTest {
         assertTrue(Templates.isCorrect(m_, cont_));
     }
 
-//    @Ignore
-//    @Test
-//    public void isCorrect68Test() {
-//        StringMap<String> files_ = new StringMap<String>();
-//        String xml_;
-//        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-//        files_.put("pkg/Ex."+Classes.EXT, xml_);
-//        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-//        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-//        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-//        Mapping m_ = new Mapping();
-//        m_.getMapping().put("S", new StringList("java.lang.Object"));
-//        m_.setArg(CUST_LIST+"<#S>");
-//        m_.setParam(ID_LIST+"<#S>");
-//        assertTrue(!Templates.isCorrect(m_, cont_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void isCorrect69Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F:[java.lang.Object> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E:[java.lang.Object> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
@@ -1341,11 +1398,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect70Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F:[java.lang.Object> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E:[java.lang.Object> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
@@ -1357,11 +1416,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect72Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F:[java.lang.Object> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E:[java.lang.Object> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
@@ -1374,11 +1435,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect73Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
@@ -1390,11 +1453,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect74Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
@@ -1406,11 +1471,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect75Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Object>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
@@ -1421,11 +1488,13 @@ public class TemplatesTest {
     @Test
     public void isCorrect76Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Object>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
@@ -1437,364 +1506,24 @@ public class TemplatesTest {
     @Test
     public void isCorrect77Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         cont_.getClasses();
     }
 
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate1Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<"+ENUM+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate2Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<java.lang.String>", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate6Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Object"));
-//        assertTrue(Templates.isCorrectTemplate("java.util.List<#E>", t_,context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate7Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Object"));
-//        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate8Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
-//        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate9Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>",CMP+"<#E>"));
-//        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate10Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList(CMP+"<E>","java.lang.Enum<#E>"));
-//        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate11Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(Templates.isCorrectTemplate("java.util.List<java.lang.Object>", new StringMap<StringList>(),context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate12Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(Templates.isCorrectTemplate("java.util.List<java.lang.String>", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate13Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_OBJECT+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate14Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_STRING+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate15Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_INT+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate16Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_OBJECT+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate17Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_STRING+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate18Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_INT+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate19Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_ENUM+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate20Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
-//        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_E+">", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate21Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
-//        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_VAR_E+">", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate22Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        assertTrue(Templates.isCorrectTemplate(ENUM_MAP+"<"+ENUM+","+CUST_BIG_INT+">", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate23Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
-//        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate24Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
-//        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate25Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate26Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,context_));
-//    }
-
-    @Ignore
-    @Test
-    public void isCorrectTemplate27Test() {
-        ContextEl context_ = simpleContextEl();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_T+">", t_,context_));
-    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate28Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("F", new StringList("java.lang.Enum<#F>"));
-//        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_F+">", t_,context_));
-//    }
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate29Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("T", new StringList("java.lang.Enum<#T>",CMP+"<#T>"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate30Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("T", new StringList("java.lang.Enum<#T>",CMP+"<#T>"));
-//        m_.setMapping(t_);
-//        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#T>", t_, context_));
-//    }
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate31Test() {
-//        ContextEl context_ = simpleContextEl();
-//        Mapping m_ = new Mapping();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("T", new StringList("java.lang.Enum<#T>"));
-//        m_.setMapping(t_);
-//        assertTrue(!Templates.isCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, context_));
-//    }
-//    
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate32Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+STRANGE_CMP_LIST+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate33Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<"+GOOD_CMP_LIST+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate39Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST, new StringMap<StringList>(),context_));
-//    }
-//    
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate40Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.math.BigInteger"));
-//        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,context_));
-//    }
-//    
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate41Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList(CUST_BIG_INT));
-//        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate42Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate43Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+MY_EQ_CLASS+">", new StringMap<StringList>(),context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate44Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<"+MY_CMP_CLASS+">", new StringMap<StringList>(),context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate45Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+CMP+">", new StringMap<StringList>(),context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate46Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(CUST_SEC_LIST+"<"+AbEqList.class.getName()+">", new StringMap<StringList>(),context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate47Test() {
-//        ContextEl context_ = simpleContextEl();
-//        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<"+Cmp.class.getName()+">", new StringMap<StringList>(),context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate48Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList(CMP));
-//        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<#E>", t_,context_));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate49Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList(CMP));
-//        t_.put("F", new StringList("#E"));
-//        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<#F>", t_,context_));
-//    }
-
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplate50Test() {
-//        ContextEl context_ = simpleContextEl();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("J", new StringList(CUST_BIG_INT));
-//        t_.put("I", new StringList("#J"));
-//        t_.put("H", new StringList("#I"));
-//        assertTrue(Templates.isCorrectTemplate(TRANSITIVE_TEMPLATING+"<#J,#I,#H>", t_,context_));
-//    }
-
     @Test
     public void isCorrectTemplate51Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
@@ -1803,9 +1532,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate52Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
@@ -1814,9 +1544,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate53Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
@@ -1825,9 +1556,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate54Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
@@ -1836,9 +1568,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate55Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
@@ -1847,9 +1580,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate56Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
@@ -1858,9 +1592,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate57Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,cont_));
@@ -1869,9 +1604,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate58Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,cont_));
@@ -1880,9 +1616,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate59Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
@@ -1891,9 +1628,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate60Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
@@ -1902,9 +1640,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate61Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
@@ -1914,9 +1653,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate62Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
@@ -1926,9 +1666,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate63Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
@@ -1938,9 +1679,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate64Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
@@ -1950,9 +1692,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate65Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
@@ -1962,9 +1705,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate66Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
@@ -1974,9 +1718,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate67Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
@@ -1985,9 +1730,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate68Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
@@ -1996,9 +1742,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate69Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:[java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,cont_));
@@ -2007,9 +1754,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate70Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,cont_));
@@ -2018,9 +1766,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate71Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:[java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,cont_));
@@ -2029,9 +1778,10 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate72Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,cont_));
@@ -2040,13 +1790,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate73Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
@@ -2056,13 +1809,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate74Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
@@ -2072,13 +1828,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate75Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
@@ -2088,13 +1847,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate76Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
@@ -2104,13 +1866,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate77Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,cont_));
@@ -2119,13 +1884,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate78Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,cont_));
@@ -2134,13 +1902,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate79Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:[pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,cont_));
@@ -2149,13 +1920,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate80Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,cont_));
@@ -2164,13 +1938,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate81Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,cont_));
@@ -2179,13 +1956,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate82Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,cont_));
@@ -2194,13 +1974,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplateAll1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplateAll("java.lang.Object", t_,cont_));
@@ -2209,13 +1992,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplateAll2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplateAll("$int", t_,cont_));
@@ -2224,13 +2010,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplateAll3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplateAll("[java.lang.Object", t_,cont_));
@@ -2239,13 +2028,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplateAll4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplateAll("[$int", t_,cont_));
@@ -2254,13 +2046,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplateAll5Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplateAll("pkg.Ex<pkg.Ex<[pkg.ExThree>>", t_,cont_));
@@ -2269,13 +2064,16 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplateAll6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplateAll("pkg.Ex<pkg.Ex<[pkg.ExTwo>>", t_,cont_));
@@ -2284,130 +2082,139 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplateAll7Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplateAll("pkg.Ex<[pkg.ExTwo>", t_,cont_));
     }
 
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplateAll8Test() {
-//        StringMap<String> files_ = new StringMap<String>();
-//        String xml_;
-//        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-//        files_.put("pkg/Ex."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-//        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-//        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-//        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        assertTrue(!Templates.isCorrectTemplateAll(ENUM_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,cont_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplateAll9Test() {
-//        StringMap<String> files_ = new StringMap<String>();
-//        String xml_;
-//        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-//        files_.put("pkg/Ex."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-//        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-//        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-//        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,cont_));
-//    }
 
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplateAll10Test() {
-//        StringMap<String> files_ = new StringMap<String>();
-//        String xml_;
-//        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-//        files_.put("pkg/Ex."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-//        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-//        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-//        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<"+CUST_LIST+">>", t_,cont_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void isCorrectTemplateAll11Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(Templates.isCorrectTemplateAll("pkg.Ex<#E>", t_,cont_));
     }
 
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplateAll12Test() {
-//        StringMap<String> files_ = new StringMap<String>();
-//        String xml_;
-//        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-//        files_.put("pkg/Ex."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-//        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-//        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-//        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.Ex>>", t_,cont_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void isCorrectTemplateAll13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(Templates.isCorrectTemplateAll("pkg.Ex<#E>", t_,cont_));
     }
 
-//    @Ignore
-//    @Test
-//    public void isCorrectTemplateAll14Test() {
-//        StringMap<String> files_ = new StringMap<String>();
-//        String xml_;
-//        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-//        files_.put("pkg/Ex."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-//        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-//        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-//        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-//        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Object"));
-//        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#F>>", t_,cont_));
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Ignore
     @Test
@@ -2481,9 +2288,10 @@ public class TemplatesTest {
     @Test
     public void getAllGenericSuperTypes6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:[java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex<#E>", cont_);
         assertEq(0, superTypes_.size());
@@ -2493,9 +2301,10 @@ public class TemplatesTest {
     @Test
     public void getAllGenericSuperTypes7Test() {
         StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:[java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringList superTypes_ = Templates.getAllGenericSuperTypes("java.lang.Object", cont_);
         assertEq(1, superTypes_.size());
@@ -2506,7 +2315,7 @@ public class TemplatesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildClassesBodies(_files, cont_);
+        classes_.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);

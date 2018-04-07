@@ -76,6 +76,12 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        tr_.put(classNameOffset, className);
+        return tr_;
+    }
+    @Override
     public String getVariableName() {
         return variableName;
     }
@@ -97,17 +103,17 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_CLASS);
+        page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (_cont.getLastPage().getLocalVars().contains(variableName)) {
-            page_.setProcessingAttribute(ATTRIBUTE_VAR);
+            page_.setGlobalOffset(variableNameOffset);
             page_.setOffset(0);
             throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(className);
         _cont.getLastPage().getLocalVars().put(variableName, lv_);
-        page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        page_.setGlobalOffset(rightMemberOffset);
         page_.setOffset(0);
         opRight = ElUtil.getAnalyzedOperations(rightMember, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -135,7 +141,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        p_.setGlobalOffset(rightMemberOffset);
         for (OperationNode o: opRight) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -153,7 +159,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     @Override
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
-        ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        ip_.setGlobalOffset(rightMemberOffset);
         ip_.setOffset(0);
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(getClassName());

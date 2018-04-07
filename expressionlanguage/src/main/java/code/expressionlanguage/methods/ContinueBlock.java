@@ -30,6 +30,11 @@ public final class ContinueBlock extends Leaf implements CallingFinally {
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         boolean childOfLoop_ = false;
         BracedBlock b_ = getParent();
@@ -42,7 +47,7 @@ public final class ContinueBlock extends Leaf implements CallingFinally {
         }
         if (!childOfLoop_) {
             PageEl page_ = _cont.getLastPage();
-            page_.setProcessingAttribute(EMPTY_STRING);
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             throw new BadTagContinueException(_cont.joinPages());
         }

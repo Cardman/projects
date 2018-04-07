@@ -30,10 +30,15 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
+    @Override
     public void checkBlocksTree(ContextEl _cont) {
         if (getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
-            page_.setProcessingAttribute(EMPTY_STRING);
+            page_.setGlobalOffset(getOffset().getOffset());
             page_.setOffset(0);
             throw new BadIfException(_cont.joinPages());
         }

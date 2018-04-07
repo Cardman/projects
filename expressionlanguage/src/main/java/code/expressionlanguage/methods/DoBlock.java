@@ -26,9 +26,14 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
+    @Override
     public void checkBlocksTree(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
             throw new BadLoopException(_cont.joinPages());
@@ -120,7 +125,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     }
 
     public boolean keepLoop(ContextEl _conf) {
-        _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
+        _conf.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _conf.getLastPage().setOffset(0);
         Condition c_ = getNext();
         return c_.evaluateCondition(_conf);

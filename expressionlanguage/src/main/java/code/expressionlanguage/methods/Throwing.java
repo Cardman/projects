@@ -51,6 +51,12 @@ public final class Throwing extends Leaf implements StackableBlock {
         return tr_;
     }
 
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
+
     public String getExpression() {
         return expression;
     }
@@ -63,12 +69,12 @@ public final class Throwing extends Leaf implements StackableBlock {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getNextSibling() != null) {
             throw new BadCatchException(_cont.joinPages());
         }
-        page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        page_.setGlobalOffset(expressionOffset);
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
     }
 
@@ -81,7 +87,7 @@ public final class Throwing extends Leaf implements StackableBlock {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        p_.setGlobalOffset(expressionOffset);
         for (OperationNode o: opThrow) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -100,7 +106,7 @@ public final class Throwing extends Leaf implements StackableBlock {
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
         ip_.setOffset(0);
-        ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        ip_.setGlobalOffset(expressionOffset);
         ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
         Argument arg_ = el_.calculateMember(_cont);
         el_.setCurrentOper(null);

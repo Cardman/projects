@@ -141,7 +141,7 @@ public abstract class Block extends Blockable {
             ((WithEl)_block).checkBlocksTree(_cont);
             return;
         }
-        RowCol rc_ = _block.getAttributes().getVal(EMPTY_STRING);
+        RowCol rc_ = _block.getRowCol(0, _block.getOffset().getOffsetTrim());
         throw new UnknownBlockException(_block.getTagName(), rc_);
     }
 
@@ -151,7 +151,7 @@ public abstract class Block extends Blockable {
             ((WithEl)_block).buildExpressionLanguage(_cont);
             return;
         }
-        RowCol rc_ = _block.getAttributes().getVal(EMPTY_STRING);
+        RowCol rc_ = _block.getRowCol(0, _block.getOffset().getOffsetTrim());
         throw new UnknownBlockException(_block.getTagName(), rc_);
     }
     protected static void tryCheckConstCall(Block _block, ContextEl _cont) {
@@ -160,7 +160,7 @@ public abstract class Block extends Blockable {
             ((WithEl)_block).checkCallConstructor(_cont);
             return;
         }
-        RowCol rc_ = _block.getAttributes().getVal(EMPTY_STRING);
+        RowCol rc_ =  _block.getRowCol(0, _block.getOffset().getOffsetTrim());
         throw new UnknownBlockException(_block.getTagName(), rc_);
     }
 
@@ -249,6 +249,31 @@ public abstract class Block extends Blockable {
         }
         par_.removeLocalVars(ip_);
         ((StackableBlockGroup)par_).exitStack(_conf);
+    }
+    public final RowCol getRowCol(int _offset, int _globalOffset) {
+        RowCol rc_ = new RowCol();
+        FileBlock f_ = getFile();
+        int sum_ = _globalOffset + _offset;
+        Numbers<Integer> lineReturn_ = f_.getLineReturns();
+        Numbers<Integer> leftSpaces_ = f_.getLeftSpaces();
+        int len_ = lineReturn_.size();
+        int i_ = 0;
+        while (i_ < len_) {
+            if (sum_ < lineReturn_.get(i_)) {
+                int j_;
+                if (i_ > 0) {
+                    j_ = sum_ - lineReturn_.get(i_ - 1);
+                    j_ += leftSpaces_.get(i_ / 2 - 1);
+                } else {
+                    j_ = sum_;
+                }
+                rc_.setCol(j_);
+                rc_.setRow(i_/2);
+                break;
+            }
+            i_ += 2;
+        }
+        return rc_;
     }
     public final RowCol getRowCol(int _offset, int _tabWidth,String _attribute) {
         return DocumentBuilder.getOffset(_attribute, getAttributes(), getEncoded(), _offset, getOffsets(), getTabs(), getEndHeader(), _tabWidth);
@@ -525,7 +550,7 @@ public abstract class Block extends Blockable {
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             Block b_ = ch_.get(i);
             if (b_.indexGroup != indexGr_ && stoppableBlock_) {
-                return b_.getRowCol(_offset, _tabWidth, EMPTY_STRING);
+                return b_.getRowCol(_offset, b_.getOffset().getOffsetTrim());
             }
             if (b_.allStoppableGroup()) {
                 stoppableBlock_ = true;
@@ -646,6 +671,7 @@ public abstract class Block extends Blockable {
     }
 
     public abstract NatTreeMap<String,String> getClassNames(ContextEl _stds);
+    public abstract NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _stds);
     public static Block createOperationNode(Element _el, ContextEl _conf,
             int _indexChild, BracedBlock _m) {
         if (StringList.quickEq(_el.getTagName(),TAG_AFFECT)) {

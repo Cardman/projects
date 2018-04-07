@@ -27,11 +27,16 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         return tr_;
     }
 
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
 
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null && !(getPreviousSibling() instanceof DoBlock)) {
             throw new BadLoopException(_cont.joinPages());
@@ -110,7 +115,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     }
 
     public boolean keepLoop(ContextEl _conf) {
-        _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
+        _conf.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _conf.getLastPage().setOffset(0);
         return evaluateCondition(_conf);
     }

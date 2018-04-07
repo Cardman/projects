@@ -78,6 +78,11 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
         return tr_;
     }
 
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
     public boolean isEmpty() {
         return expression.trim().isEmpty();
     }
@@ -94,7 +99,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
+        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getNextSibling() != null) {
             throw new BadReturnException(_cont.joinPages());
@@ -111,7 +116,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             }
             par_ = par_.getParent();
         }
-        page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
             if (!isEmpty()) {
@@ -148,7 +153,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             return;
         }
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        p_.setGlobalOffset(expressionOffset);
         for (OperationNode o: opRet) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -168,7 +173,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
         PageEl ip_ = _cont.getLastPage();
         if (!isEmpty()) {
             ip_.setOffset(0);
-            ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+            ip_.setGlobalOffset(expressionOffset);
             ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getElRet());
             Argument arg_ = el_.calculateMember(_cont);
             el_.setCurrentOper(null);

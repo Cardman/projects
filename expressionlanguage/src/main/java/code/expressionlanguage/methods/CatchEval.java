@@ -61,6 +61,12 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
     }
 
     @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        tr_.put(classNameOffset, className);
+        return tr_;
+    }
+    @Override
     public void checkBlocksTree(ContextEl _cont) {
         Block next_ = getPreviousSibling();
         boolean existTry_ = false;
@@ -76,7 +82,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         }
         if (!existTry_) {
             PageEl page_ = _cont.getLastPage();
-            page_.setProcessingAttribute(EMPTY_STRING);
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             throw new BadTryException(_cont.joinPages());
         }
@@ -85,9 +91,9 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_CLASS);
+        page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        page_.setProcessingAttribute(ATTRIBUTE_VAR);
+        page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (_cont.getLastPage().getCatchVars().contains(variableName)) {
             throw new AlreadyDefinedVarException(StringList.concat(variableName,RETURN_LINE,_cont.joinPages()));

@@ -85,7 +85,12 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         tr_.put(ATTRIBUTE_CLASS, getReturnType(_context.getStandards()));
         return tr_;
     }
-
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = super.getClassNamesOffsets(_context);
+        tr_.put(getReturnTypeOffset(), getReturnType(_context.getStandards()));
+        return tr_;
+    }
     @Override
     public String getDeclaringType() {
         return declaringType;

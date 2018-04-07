@@ -298,7 +298,7 @@ public final class TypeUtil {
                         err_ = new FinalMethod();
                         err_.setFileName(_type.getFullName());
                         if (sub_ instanceof MethodBlock) {
-                            err_.setRc(((Block) sub_).getAttributes().getVal(ATTRIBUTE_NAME));
+                            err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getNameOffset()));
                         }
                         err_.setClassName(subId_.getClassName());
                         err_.setId(sub_.getId());
@@ -310,7 +310,7 @@ public final class TypeUtil {
                         err_ = new BadAccessMethod();
                         err_.setFileName(_type.getFullName());
                         if (sub_ instanceof MethodBlock) {
-                            err_.setRc(((Block) sub_).getAttributes().getVal(ATTRIBUTE_ACCESS));
+                            err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getAccessOffset()));
                         }
                         err_.setId(sub_.getId());
                         classesRef_.getErrorsDet().add(err_);
@@ -322,7 +322,7 @@ public final class TypeUtil {
                             err_ = new BadReturnTypeInherit();
                             err_.setFileName(_type.getFullName());
                             if (sub_ instanceof MethodBlock) {
-                                err_.setRc(((Block) sub_).getAttributes().getVal(ATTRIBUTE_CLASS));
+                                err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
                             }
                             err_.setReturnType(retDerive_);
                             err_.setMethod(sub_.getId());
@@ -337,7 +337,7 @@ public final class TypeUtil {
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(_type.getFullName());
                         if (sub_ instanceof MethodBlock) {
-                            err_.setRc(((Block) sub_).getAttributes().getVal(ATTRIBUTE_CLASS));
+                            err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
                         }
                         err_.setReturnType(retDerive_);
                         err_.setMethod(sub_.getId());

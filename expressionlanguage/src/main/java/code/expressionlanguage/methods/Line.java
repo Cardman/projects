@@ -60,6 +60,11 @@ public final class Line extends Leaf implements StackableBlock {
         return tr_;
     }
 
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        return tr_;
+    }
     public String getExpression() {
         return expression;
     }
@@ -87,7 +92,7 @@ public final class Line extends Leaf implements StackableBlock {
         callThis = expression.trim().startsWith(StringList.concat(String.valueOf(EXTERN_CLASS),CURRENT,String.valueOf(PAR_LEFT)));
         boolean st_ = stBlock_ || callSuper || callThis;
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_, stBlock_));
     }
@@ -104,7 +109,7 @@ public final class Line extends Leaf implements StackableBlock {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        p_.setGlobalOffset(expressionOffset);
         if (!canCallSuperThis()) {
             for (OperationNode o: opExp) {
                 if (o.isSuperThis()) {
@@ -174,7 +179,7 @@ public final class Line extends Leaf implements StackableBlock {
                 return;
             }
         }
-        ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getRightEl());
         el_.calculateMember(_cont);

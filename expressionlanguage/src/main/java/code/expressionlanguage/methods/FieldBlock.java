@@ -156,7 +156,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public void checkBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof RootBlock)) {
             PageEl page_ = _cont.getLastPage();
-            page_.setProcessingAttribute(EMPTY_STRING);
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             throw new BadFieldException(_cont.joinPages());
         }
@@ -165,12 +165,12 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(ATTRIBUTE_CLASS);
+        page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
         if (value.isEmpty()) {
             return;
         }
-        page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+        page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
         StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -201,13 +201,20 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         tr_.put(ATTRIBUTE_CLASS, className);
         return tr_;
     }
+
+    @Override
+    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
+        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
+        tr_.put(classNameOffset, className);
+        return tr_;
+    }
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         if (value.isEmpty()) {
             return;
         }
         PageEl p_ = _cont.getLastPage();
-        p_.setProcessingAttribute(ATTRIBUTE_VALUE);
+        p_.setGlobalOffset(valueOffset);
         for (OperationNode o: opValue) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -228,7 +235,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         boolean instancing_ = ip_.isInstancing();
         boolean static_ = isStaticField();
         if (static_ != instancing_) {
-            ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
+            ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
             String name_ = getFieldName();
             Struct struct_;
