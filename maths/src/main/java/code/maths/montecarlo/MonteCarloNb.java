@@ -26,7 +26,6 @@ public final class MonteCarloNb<E extends Number> extends AbMonteCarlo<E> {
             addEvent(_otherEvent, p_.getDiffDenNumerator());
             addEvent(_event, p_.getNumerator());
         }
-        checkEvents();
     }
 
     @CapacityInit

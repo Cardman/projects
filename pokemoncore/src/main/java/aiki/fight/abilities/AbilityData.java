@@ -138,7 +138,9 @@ public final class AbilityData {
         if (maxHpForUsingBerry.greaterOrEqualsOne()) {
             throw new DataException();
         }
-        singleStatus.checkEvents();
+        if (!singleStatus.checkEvents()) {
+            throw new DataException();
+        }
         if (multVarBoost == null) {
             throw new DataException();
         }

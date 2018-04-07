@@ -1,5 +1,4 @@
 package code.maths.litteral;
-import code.maths.litteral.exceptions.NotNumberException;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -13,7 +12,7 @@ public final class AddOperation extends NumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, int _offset) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, int _offset, ErrorStatus _error) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             return calculateSum(_a, _b);
         }
@@ -21,9 +20,11 @@ public final class AddOperation extends NumericOperation {
     }
 
     @Override
-    MathType analyzeOper(MathType _a, String _op, MathType _b, int _offset) {
+    MathType analyzeOper(MathType _a, String _op, MathType _b, int _offset, ErrorStatus _error) {
         if (_a != MathType.RATE || _b != MathType.RATE) {
-            throw new NotNumberException(String.valueOf(_offset));
+            _error.setError(true);
+            _error.setIndex(_offset);
+            return MathType.NOTHING;
         }
         return getResultClass(_a, _b);
     }

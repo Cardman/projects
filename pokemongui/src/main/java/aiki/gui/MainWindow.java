@@ -1141,12 +1141,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void close() {
-        try {
-//            Net.closeConnexion();
-            closeConnexion();
-        } catch(RuntimeException _0){
-            _0.printStackTrace();
-        }
+        closeConnexion();
         //LaunchingPokemon.decrement();
         dispose();
     }
@@ -1284,7 +1279,6 @@ public final class MainWindow extends NetGroupFrame {
         exitFromTrading();
         resetIndexInGame();
         try {
-//            Net.closeConnexion();
             closeConnexion();
             _socket.close();
         } catch (IOException _0) {

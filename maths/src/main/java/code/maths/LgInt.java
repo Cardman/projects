@@ -1,16 +1,15 @@
 package code.maths;
-import code.maths.exceptions.BadDivisionException;
 import code.maths.exceptions.FormatException;
 import code.maths.exceptions.NegatifExposantException;
 import code.maths.exceptions.NegativeNumberException;
 import code.sml.FromAndToString;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.PairEq;
 import code.util.SortableCustList;
-import code.util.StringList;
 import code.util.TreeMap;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
@@ -39,10 +38,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     private static final String MINUS = "-";
 
-    private static final String COMMA = ",";
 
     private static final char ZERO = '0';
-    private static final String EMPTY_STRING = "";
 
 //    private static final String REG_EXP_INT = "^-?[0-9]+$";
     /**
@@ -87,41 +84,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         si l'argument est nul
     */
     public LgInt(String _chaine) {
-        if (!matchesLgInt(_chaine)) {
-            throw new FormatException(_chaine);
-        }
-//        if (!Pattern.matches(REG_EXP_INT, _chaine)) {
-//            throw new FormatException(_chaine);
-//        }
-        grDigits = new Numbers<Long>();
-        int powerTen_ = LOG_BASE;
-        String nbLu_ = chaineValeurAbsolue(_chaine);
-        // Suppression des 0 au debut du nombre sauf s'il reste un 0 sans autre
-        // chiffre
-        while (true) {
-            if (nbLu_.length() == 1) {
-                break;
-            }
-            if (nbLu_.charAt(CustList.FIRST_INDEX) != ZERO) {
-                break;
-            }
-            nbLu_ = nbLu_.substring(CustList.SECOND_INDEX);
-        }
-        int firstInd_ = nbLu_.length() - 1;
-        while (firstInd_ >= CustList.FIRST_INDEX) {
-            String nbLuBis_;
-            if (nbLu_.length() >= powerTen_) {
-                nbLuBis_ = nbLu_.substring(nbLu_.length() - powerTen_, nbLu_.length());
-                if (nbLu_.length() > powerTen_) {
-                    // nbLu_.resize(nbLu_.length()-puissance10_)
-                    nbLu_ = nbLu_.substring(CustList.FIRST_INDEX, nbLu_.length() - powerTen_);
-                }
-            } else {
-                nbLuBis_ = nbLu_;
-            }
-            grDigits.add(CustList.FIRST_INDEX, Long.parseLong(nbLuBis_));
-            firstInd_ -= powerTen_;
-        }
+        grDigits = tryGetDigits(_chaine);
         if (isZero()) {
             signum = SIGNE_POSITIF;
         } else {
@@ -165,6 +128,41 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         signum = _signe;
     }
 
+    public static Numbers<Long> tryGetDigits(String _string) {
+        Numbers<Long> grDigits_ = new Numbers<Long>(new CollCapacity(_string.length() / LOG_BASE + 1));
+        int powerTen_ = LOG_BASE;
+        String nbLu_ = chaineValeurAbsolue(_string);
+        // Suppression des 0 au debut du nombre sauf s'il reste un 0 sans autre
+        // chiffre
+        while (true) {
+            if (nbLu_.length() <= 1) {
+                break;
+            }
+            if (nbLu_.charAt(CustList.FIRST_INDEX) != ZERO) {
+                break;
+            }
+            nbLu_ = nbLu_.substring(CustList.SECOND_INDEX);
+        }
+        int firstInd_ = nbLu_.length() - 1;
+        while (firstInd_ >= CustList.FIRST_INDEX) {
+            String nbLuBis_;
+            if (nbLu_.length() >= powerTen_) {
+                nbLuBis_ = nbLu_.substring(nbLu_.length() - powerTen_, nbLu_.length());
+                if (nbLu_.length() > powerTen_) {
+                    // nbLu_.resize(nbLu_.length()-puissance10_)
+                    nbLu_ = nbLu_.substring(CustList.FIRST_INDEX, nbLu_.length() - powerTen_);
+                }
+            } else {
+                nbLuBis_ = nbLu_;
+            }
+            grDigits_.add(CustList.FIRST_INDEX, Numbers.parseLongZero(nbLuBis_));
+            firstInd_ -= powerTen_;
+        }
+        if (grDigits_.isEmpty()) {
+            grDigits_.add(0l);
+        }
+        return grDigits_;
+    }
     @FromAndToString
     public static LgInt newLgInt(String _string) {
         return new LgInt(_string);
@@ -726,19 +724,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     @return le nombre de combinaisons de <i>_nombre</i> parmi <i>_nombreTotalElements</i>
     */
     public static LgInt among(LgInt _nombre, LgInt _nombreTotalElements) {
-        StringBuilder erreurs_ = new StringBuilder();
-        if (!_nombre.isZeroOrGt()) {
-            erreurs_.append(_nombre.toNumberString());
-        }
-        if (!StringList.quickEq(erreurs_.toString(),EMPTY_STRING)) {
-            erreurs_.append(COMMA);
-        }
-        if (!_nombreTotalElements.isZeroOrGt()) {
-            erreurs_.append(_nombreTotalElements.toNumberString());
-        }
-        if (!StringList.quickEq(erreurs_.toString(),EMPTY_STRING)) {
-            throw new NegativeNumberException(erreurs_.toString());
-        }
         if (_nombre.plusGrandQue(_nombreTotalElements)) {
             // <=> this > _nombreTotalElements
             return LgInt.zero();
@@ -1431,10 +1416,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 si l'argument est strictement negatif.
     */
     public void growToPow(LgInt _expo) {
-        //setModified();
-        if (!_expo.isZeroOrGt()) {
-            throw new NegatifExposantException(_expo.toNumberString());
-        }
         LgInt copie_ = new LgInt(this);
         grDigits.clear();
         grDigits.add(1l);
@@ -1614,9 +1595,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     }
 
     private PairEq<LgInt, LgInt> divisionEuclidienneGeneralise(LgInt _autre) {
-        if (_autre.isZero()) {
-            throw new BadDivisionException();
-        }
         PairEq<LgInt, LgInt> quotientReste_ = new PairEq<LgInt, LgInt>();
         LgInt absolu_ = absNb();
         LgInt autreAbsolu_ = _autre.absNb();

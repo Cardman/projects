@@ -2,11 +2,6 @@ package code.maths.litteral;
 import code.maths.LgInt;
 import code.maths.MathList;
 import code.maths.Rate;
-import code.maths.exceptions.BadDivisionException;
-import code.maths.litteral.exceptions.BadNumberArgumentException;
-import code.maths.litteral.exceptions.NotNumberException;
-import code.maths.litteral.exceptions.NotSetException;
-import code.maths.litteral.exceptions.UndefinedFunctionException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -24,64 +19,94 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringList.quickEq(methodName,PUIS)) {
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,QUOT)) {
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,MOD)) {
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,MODTAUX)) {
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,DIV_FCT)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -89,10 +114,14 @@ public final class FctOperation extends InvokingOperation {
         //valeur absolue
         if (StringList.quickEq(methodName,ABS)){
             if (chidren_.size() != 1) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -100,10 +129,14 @@ public final class FctOperation extends InvokingOperation {
         //partie entiere
         if (StringList.quickEq(methodName,ENT)){
             if (chidren_.size() != 1) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -114,10 +147,14 @@ public final class FctOperation extends InvokingOperation {
         //troncature(-2)=-2,troncature(-21/10)=-2,troncature(-25/10)=-2,troncature(-26/10)=-2
         if (StringList.quickEq(methodName,TRONC)){
             if (chidren_.size() != 1) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -125,10 +162,14 @@ public final class FctOperation extends InvokingOperation {
         //numerateur
         if (StringList.quickEq(methodName,NUM)){
             if (chidren_.size() != 1) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -136,34 +177,48 @@ public final class FctOperation extends InvokingOperation {
         //denominateur
         if (StringList.quickEq(methodName,DEN)){
             if (chidren_.size() != 1) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,SGN)){
             if (chidren_.size() != 1) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,MIN)){
             if (chidren_.isEmpty()) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(chidren_.first().getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             for(OperationNode a:chidren_.mid(CustList.SECOND_INDEX)){
                 if (a.getResultClass() != MathType.RATE) {
-                    throw new NotNumberException(String.valueOf(a.getIndexInEl()));
+                    _error.setIndex(getIndexInEl());
+                    _error.setError(true);
+                    return;
                 }
             }
             setResultClass(MathType.RATE);
@@ -172,14 +227,20 @@ public final class FctOperation extends InvokingOperation {
         //maximum
         if (StringList.quickEq(methodName,MAX)){
             if (chidren_.isEmpty()) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(chidren_.first().getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             for(OperationNode a:chidren_.mid(CustList.SECOND_INDEX)){
                 if (a.getResultClass() != MathType.RATE) {
-                    throw new NotNumberException(String.valueOf(a.getIndexInEl()));
+                    _error.setIndex(getIndexInEl());
+                    _error.setError(true);
+                    return;
                 }
             }
             setResultClass(MathType.RATE);
@@ -188,11 +249,15 @@ public final class FctOperation extends InvokingOperation {
         //moyenne
         if (StringList.quickEq(methodName,MOY)){
             if (chidren_.isEmpty()) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             for(OperationNode a:chidren_){
                 if (a.getResultClass() != MathType.RATE) {
-                    throw new NotNumberException(String.valueOf(a.getIndexInEl()));
+                    _error.setIndex(getIndexInEl());
+                    _error.setError(true);
+                    return;
                 }
             }
             setResultClass(MathType.RATE);
@@ -201,11 +266,15 @@ public final class FctOperation extends InvokingOperation {
         //variance
         if (StringList.quickEq(methodName,VAR)){
             if (chidren_.isEmpty()) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             for(OperationNode a:chidren_){
                 if (a.getResultClass() != MathType.RATE) {
-                    throw new NotNumberException(String.valueOf(a.getIndexInEl()));
+                    _error.setIndex(getIndexInEl());
+                    _error.setError(true);
+                    return;
                 }
             }
             setResultClass(MathType.RATE);
@@ -214,14 +283,22 @@ public final class FctOperation extends InvokingOperation {
         //segment
         if (StringList.quickEq(methodName,CARAC_FERME)){
             if (chidren_.size() != THREE_ARGUMENTS) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.get(CustList.SECOND_INDEX).getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -229,14 +306,22 @@ public final class FctOperation extends InvokingOperation {
         //ouvert borne
         if (StringList.quickEq(methodName,CARAC_OUVERT)){
             if (chidren_.size() != THREE_ARGUMENTS) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.get(CustList.SECOND_INDEX).getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -244,14 +329,22 @@ public final class FctOperation extends InvokingOperation {
         //semi ouvert gauche borne
         if (StringList.quickEq(methodName,CARAC_SEMI_OUVERT_G)){
             if (chidren_.size() != THREE_ARGUMENTS) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.get(CustList.SECOND_INDEX).getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -259,14 +352,22 @@ public final class FctOperation extends InvokingOperation {
         //semi ouvert droite borne
         if (StringList.quickEq(methodName,CARAC_SEMI_OUVERT_D)){
             if (chidren_.size() != THREE_ARGUMENTS) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.get(CustList.SECOND_INDEX).getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -274,12 +375,18 @@ public final class FctOperation extends InvokingOperation {
         //ouvert droite minore
         if (StringList.quickEq(methodName,CARAC_DROITE_OUVERT)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -287,12 +394,18 @@ public final class FctOperation extends InvokingOperation {
         //ferme droite minore
         if (StringList.quickEq(methodName,CARAC_DROITE_FERME)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -300,12 +413,18 @@ public final class FctOperation extends InvokingOperation {
         //ouvert droite majore
         if (StringList.quickEq(methodName,CARAC_GAUCHE_OUVERT)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
@@ -313,120 +432,175 @@ public final class FctOperation extends InvokingOperation {
         //ferme gauche majore
         if (StringList.quickEq(methodName,CARAC_GAUCHE_FERME)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                throw new NotNumberException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,CARD)){
             if (chidren_.size() != 1) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,INTER)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.SET);
             return;
         }
         if (StringList.quickEq(methodName,UNION)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.SET);
             return;
         }
         if (StringList.quickEq(methodName,COMPL)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.SET);
             return;
         }
         if (StringList.quickEq(methodName,INCL)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,NON_INCL)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,EQ_NUM)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
         if (StringList.quickEq(methodName,NON_EQ_NUM)){
             if (chidren_.size() != 2) {
-                throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             if (chidren_.first().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             } else if (chidren_.last().getResultClass() != MathType.SET) {
-                throw new NotSetException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             setResultClass(MathType.RATE);
             return;
         }
-        throw new UndefinedFunctionException(String.valueOf(getIndexInEl()),methodName);
+        _error.setIndex(getIndexInEl());
+        _error.setError(true);
     }
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringList.quickEq(methodName,PUIS)) {
             Rate base_=(Rate) chidren_.first().getArgument().getObject();
             Rate exposant_=(Rate) chidren_.last().getArgument().getObject();
             if (base_.isZero() && !exposant_.isZeroOrGt()) {
-                throw new BadDivisionException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
@@ -438,7 +612,9 @@ public final class FctOperation extends InvokingOperation {
             Rate base_=(Rate) chidren_.first().getArgument().getObject();
             Rate exposant_=(Rate) chidren_.last().getArgument().getObject();
             if (exposant_.isZero()) {
-                throw new BadDivisionException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
@@ -451,7 +627,9 @@ public final class FctOperation extends InvokingOperation {
             Rate exposant_=(Rate) chidren_.last().getArgument().getObject();
             LgInt divisor_ = exposant_.intPart();
             if (divisor_.isZero()) {
-                throw new BadDivisionException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
@@ -463,7 +641,9 @@ public final class FctOperation extends InvokingOperation {
             Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
             Rate rateTwo_ = (Rate) chidren_.last().getArgument().getObject();
             if (rateTwo_.isZero()) {
-                throw new BadDivisionException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             Rate res_=Rate.minus(rateOne_,Rate.multiply(new Rate(Rate.divide(rateOne_,rateTwo_).intPart()),rateTwo_));
             Argument arg_ = new Argument();
@@ -476,7 +656,9 @@ public final class FctOperation extends InvokingOperation {
             Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
             Rate rateTwo_ = (Rate) chidren_.last().getArgument().getObject();
             if (rateTwo_.isZero()) {
-                throw new BadDivisionException(String.valueOf(getIndexInEl()));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
             Rate res_=Rate.divide(rateOne_, rateTwo_);
             Argument arg_ = new Argument();

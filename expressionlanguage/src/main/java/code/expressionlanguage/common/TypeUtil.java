@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.RootBlock;
@@ -33,9 +32,6 @@ public final class TypeUtil {
     private static final String LT = "<";
     private static final String GT = ">";
     private static final String SEP_TMP = ",";
-    private static final String ATTRIBUTE_NAME = "name";
-    private static final String ATTRIBUTE_ACCESS = "access";
-    private static final String ATTRIBUTE_CLASS = "class";
     private TypeUtil() {
     }
 
@@ -329,10 +325,8 @@ public final class TypeUtil {
                             err_.setParentClass(supId_.getClassName());
                             classesRef_.getErrorsDet().add(err_);
                             continue;
-                            //throw ex
                         }
                     } else if (!Templates.isCorrect(mapping_, _context)) {
-                        //throw ex
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(_type.getFullName());

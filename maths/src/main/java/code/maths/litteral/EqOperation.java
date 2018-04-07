@@ -1,8 +1,6 @@
 package code.maths.litteral;
 import code.maths.MathList;
 import code.maths.Rate;
-import code.maths.litteral.exceptions.BadMathExpressionException;
-import code.maths.litteral.exceptions.NotEqualableException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -32,10 +30,12 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
-            throw new BadMathExpressionException();
+            _error.setError(true);
+            _error.setIndex(getIndexInEl());
+            return;
         }
         MathType first_ = chidren_.first().getResultClass();
         MathType second_ = chidren_.last().getResultClass();
@@ -43,11 +43,12 @@ public final class EqOperation extends PrimitiveBoolOperation {
             setResultClass(MathType.BOOLEAN);
             return;
         }
-        throw new NotEqualableException(String.valueOf(getIndexInEl()));
+        _error.setError(true);
+        _error.setIndex(getIndexInEl());
     }
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();

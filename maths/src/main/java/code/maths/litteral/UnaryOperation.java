@@ -1,6 +1,5 @@
 package code.maths.litteral;
 import code.maths.Rate;
-import code.maths.litteral.exceptions.NotNumberException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -13,16 +12,18 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.first().getResultClass() != MathType.RATE) {
-            throw new NotNumberException(String.valueOf(getIndexInEl()));
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
         }
         setResultClass(MathType.RATE);
     }
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = new Argument();

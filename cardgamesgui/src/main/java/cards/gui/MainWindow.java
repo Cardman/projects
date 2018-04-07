@@ -723,16 +723,9 @@ public final class MainWindow extends NetGroupFrame {
             bye_.setClosing(true);
             bye_.setServer(((ContainerMulti)containerGame).hasCreatedServer());
             bye_.setPlace(((ContainerMulti)containerGame).getIndexInGame());
-            try {
-                sendCheckedObject(bye_);
-            } catch (RuntimeException _0) {
-                //LaunchingCards.decrement();
+            if (!sendCheckedObject(bye_)) {
                 menuPrincipal();
-                //pack();
                 dispose();
-//                if (Standalone.isStandalone()) {
-//                    Constants.exit();
-//                }
             }
             return;
         }
@@ -774,12 +767,7 @@ public final class MainWindow extends NetGroupFrame {
         super.dispose();
     }
     public void close() {
-        try{
-//            Net.closeConnexion();
-            closeConnexion();
-        } catch(RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        closeConnexion();
         //LaunchingCards.decrement();
         ecrireCoordonnees();
         if (!helpFrames.isEmpty()) {
@@ -1140,7 +1128,6 @@ public final class MainWindow extends NetGroupFrame {
     public void quitNetwork(Exiting _exit, Socket _socket) {
         menuPrincipal();
         try {
-//            Net.closeConnexion();
             closeConnexion();
             _socket.close();
         } catch (RuntimeException _0) {

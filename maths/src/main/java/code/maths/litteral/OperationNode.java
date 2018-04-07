@@ -176,8 +176,8 @@ abstract class OperationNode {
         indexChild = _indexChild;
     }
 
-    abstract void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf);
-    abstract void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf);
+    abstract void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error);
+    abstract void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error);
 
     static OperationNode createOperationNode(String _el, int _index, StringMap<String> _conf,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {

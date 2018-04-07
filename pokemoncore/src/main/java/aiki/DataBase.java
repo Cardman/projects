@@ -2457,7 +2457,9 @@ public class DataBase implements WithMathFactory {
 //                }
             }
 //            valeur_.setSecond(Short.parseShort(infos_.last()));
-            law_.checkEvents();
+            if (!law_.checkEvents()) {
+                throw new DataException();
+            }
             lawsDamageRate.put(DifficultyModelLaw.getModelByName(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType,String>();
@@ -2967,7 +2969,9 @@ public class DataBase implements WithMathFactory {
 //                }
             }
 //            valeur_.setSecond(Short.parseShort(infos_.last()));
-            law_.checkEvents();
+            if (!law_.checkEvents()) {
+                throw new DataException();
+            }
             lawsDamageRate.put(DifficultyModelLaw.getModelByName(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType,String>();

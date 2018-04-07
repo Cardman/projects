@@ -1,5 +1,4 @@
 package code.maths.litteral;
-import code.maths.litteral.exceptions.BadMathExpressionException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -54,7 +53,7 @@ public final class MathResolver {
     private MathResolver(){
     }
 
-    static Delimiters checkSyntax(String _string, int _elOffest) {
+    static Delimiters checkSyntax(String _string, int _elOffest, ErrorStatus _error) {
         Delimiters d_ = new Delimiters();
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
@@ -62,7 +61,10 @@ public final class MathResolver {
         boolean escapedMeta_ = false;
         int len_ = _string.length();
         if (len_ == CustList.SIZE_EMPTY) {
-            throw new BadMathExpressionException(_string);
+            _error.setIndex(_elOffest);
+            _error.setError(true);
+            _error.setString(_string);
+            return d_;
         }
         int i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
@@ -72,7 +74,10 @@ public final class MathResolver {
             i_++;
         }
         if (i_ >= len_) {
-            throw new BadMathExpressionException(_string);
+            _error.setIndex(i_);
+            _error.setError(true);
+            _error.setString(_string);
+            return d_;
         }
         i_ = CustList.FIRST_INDEX;
         boolean enabledMinus_ = true;
@@ -83,7 +88,10 @@ public final class MathResolver {
                 if (!escapedMeta_) {
                     if (curChar_ == ESCAPE_META_CHAR) {
                         if (i_ + 1 >= len_) {
-                            throw new BadMathExpressionException(_string);
+                            _error.setIndex(i_ + 1);
+                            _error.setError(true);
+                            _error.setString(_string);
+                            return d_;
                         }
                         escapedMeta_ = true;
                         i_++;
@@ -114,7 +122,10 @@ public final class MathResolver {
                     i_++;
                     continue;
                 }
-                throw new BadMathExpressionException(_string);
+                _error.setIndex(i_);
+                _error.setError(true);
+                _error.setString(_string);
+                return d_;
             }
             if (StringList.isWordChar(curChar_)) {
                 enabledMinus_ = true;
@@ -127,7 +138,10 @@ public final class MathResolver {
                                 continue;
                             }
                             if (StringList.isWordChar(_string.charAt(j_))) {
-                                throw new BadMathExpressionException(_string);
+                                _error.setIndex(j_);
+                                _error.setError(true);
+                                _error.setString(_string);
+                                return d_;
                             }
                             break;
                         }
@@ -142,7 +156,10 @@ public final class MathResolver {
                 continue;
             }
             if (curChar_ == ESCAPE_META_CHAR) {
-                throw new BadMathExpressionException(_string);
+                _error.setIndex(i_);
+                _error.setError(true);
+                _error.setString(_string);
+                return d_;
             }
             if (curChar_ == DELIMITER_STRING_BEGIN) {
                 constString_ = true;
@@ -158,7 +175,10 @@ public final class MathResolver {
                         continue;
                     }
                     if (_string.charAt(j_) == EQ_CHAR && exist_) {
-                        throw new BadMathExpressionException(_string);
+                        _error.setIndex(j_);
+                        _error.setError(true);
+                        _error.setString(_string);
+                        return d_;
                     }
                     break;
                 }
@@ -168,17 +188,26 @@ public final class MathResolver {
             }
             if (curChar_ == PAR_RIGHT) {
                 if (parsBrackets_.isEmpty()) {
-                    throw new BadMathExpressionException(_string);
+                    _error.setIndex(i_);
+                    _error.setError(true);
+                    _error.setString(_string);
+                    return d_;
                 }
                 if (parsBrackets_.lastValue() != PAR_LEFT) {
-                    throw new BadMathExpressionException(_string);
+                    _error.setIndex(i_);
+                    _error.setError(true);
+                    _error.setString(_string);
+                    return d_;
                 }
                 d_.getCallings().put(parsBrackets_.lastKey(), i_);
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
             if (curChar_ == SEP_ARG) {
                 if (parsBrackets_.isEmpty()) {
-                    throw new BadMathExpressionException(_string);
+                    _error.setIndex(i_);
+                    _error.setError(true);
+                    _error.setString(_string);
+                    return d_;
                 }
             }
             boolean pureBinaryOp_ = false;
@@ -207,10 +236,16 @@ public final class MathResolver {
             i_++;
         }
         if (constString_) {
-            throw new BadMathExpressionException(_string);
+            _error.setIndex(i_);
+            _error.setError(true);
+            _error.setString(_string);
+            return d_;
         }
         if (!parsBrackets_.isEmpty()) {
-            throw new BadMathExpressionException(_string);
+            _error.setIndex(i_);
+            _error.setError(true);
+            _error.setString(_string);
+            return d_;
         }
         d_.setIndexBegin(_elOffest);
         d_.setIndexEnd(i_-1);

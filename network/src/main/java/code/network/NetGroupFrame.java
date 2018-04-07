@@ -9,7 +9,6 @@ import java.net.UnknownHostException;
 import code.gui.GroupFrame;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
-import code.stream.exceptions.RuntimeIOException;
 import code.util.StringList;
 
 public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
@@ -44,11 +43,11 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     }
 
     /**server and client*/
-    public void closeConnexion() {
+    public boolean closeConnexion() {
         if (connection == null) {
-            return;
+            return true;
         }
-        connection.fermer();
+        return connection.fermer();
     }
 
     public SocketResults createClient(String _host, IpType _ipType, boolean _first, int _port) {
@@ -102,12 +101,13 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     public abstract String setObject(Object _object);
 
     /**client*/
-    protected void sendCheckedObject(Object _serializable) {
+    protected boolean sendCheckedObject(Object _serializable) {
         try {
             PrintWriter out_ = new PrintWriter(socket.getOutputStream(), true);
             out_.println(setObject(_serializable));
+            return true;
         } catch (IOException _0) {
-            throw new RuntimeIOException(_0.getMessage());
+            return false;
         }
     }
 

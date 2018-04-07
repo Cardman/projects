@@ -1,7 +1,6 @@
 package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.exceptions.NegatifExposantException;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
@@ -144,10 +143,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     }
 
     public void growToPow(LgInt _expo) {
-        //setModified();
-        if (!_expo.isZeroOrGt()) {
-            throw new NegatifExposantException(_expo.toNumberString());
-        }
         Polynom copie_ = new Polynom(this);
         numbers.clear();
         numbers.add(Rate.one());

@@ -1,6 +1,7 @@
 package code.maths.litteral;
 import static code.maths.EquallableMathUtil.assertEq;
 import static junitparams.JUnitParamsRunner.$;
+import static org.junit.Assert.assertTrue;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -8,10 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import code.maths.Rate;
-import code.maths.exceptions.BadDivisionException;
-import code.maths.litteral.exceptions.BadNumberArgumentException;
-import code.maths.litteral.exceptions.UndefinedFunctionException;
-import code.maths.litteral.exceptions.UndefinedVariableException;
 import code.util.StringMap;
 
 @RunWith(JUnitParamsRunner.class)
@@ -375,10 +372,10 @@ public class MathUtilTest {
                 $("(-1:0+1)+1"));
     }
 
-    @Test(expected=BadDivisionException.class)
+    @Test
     @Parameters(method="evaluateExpressionFail")
     public void evaluateExp_2FailTest(String _input) {
-        MathUtil.processEl(_input, 0, false, new StringMap<String>());
+        assertTrue(MathUtil.processEl(_input, 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
     Object[] evaluateExpressionFailDivZero() {
         return $($("(2*1+1):0"),
@@ -425,25 +422,25 @@ public class MathUtilTest {
                 $("(-1:0+1)+1"));
     }
 
-    @Test(expected=BadDivisionException.class)
+    @Test
     @Parameters(method="evaluateExpressionFailDivZero")
     public void evaluateExp_DivZero_FailTest(String _input) {
-        MathUtil.processEl(_input, 0, false, new StringMap<String>());
+        assertTrue(MathUtil.processEl(_input, 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
 
-    @Test(expected=BadNumberArgumentException.class)
+    @Test
     public void evaluateExp_unknownNbArgFct_FailTest() {
-        MathUtil.processEl("min()", 0, false, new StringMap<String>());
+        assertTrue(MathUtil.processEl("min()", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
 
-    @Test(expected=UndefinedFunctionException.class)
+    @Test
     public void evaluateExp_unknownFct_FailTest() {
-        MathUtil.processEl("string(0,-1)", 0, false, new StringMap<String>());
+        assertTrue(MathUtil.processEl("string(0,-1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
 
-    @Test(expected=UndefinedVariableException.class)
+    @Test
     public void evaluateExp_unknownVar_FailTest() {
-        MathUtil.processEl("VAR__UNDEFINED+1", 0, false, new StringMap<String>());
+        assertTrue(MathUtil.processEl("VAR__UNDEFINED+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
 
     Object[] booleanStrings() {

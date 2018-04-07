@@ -2,8 +2,6 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
-import code.maths.exceptions.NegatifExposantException;
-import code.maths.exceptions.ZeroSumEventException;
 import code.util.AbsMap;
 import code.util.CustList;
 import code.util.EqList;
@@ -217,20 +215,21 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         getLaw().put(_event, _probaRelative);
     }
 
-    public void checkEvents() {
+    public boolean checkEvents() {
         Listable<E> cles_= events();
         for (E e: cles_) {
             LgInt integer_ = rate(e);
             if (integer_.isZeroOrGt()) {
                 continue;
             }
-            throw new NegatifExposantException();
+            return false;
         }
         if (!getLaw().isEmpty()) {
             if (sum().isZero()) {
-                throw new ZeroSumEventException();
+                return false;
             }
         }
+        return true;
     }
 
     public void deleteZeroEvents() {

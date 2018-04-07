@@ -25,7 +25,9 @@ public final class EffectStatistic extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        lawBoost.checkEvents();
+        if (!lawBoost.checkEvents()) {
+            throw new DataException();
+        }
         if (!evtRate.isZeroOrGt()) {
             throw new DataException();
         }

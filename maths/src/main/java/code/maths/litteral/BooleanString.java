@@ -1,6 +1,5 @@
 package code.maths.litteral;
 import code.maths.Rate;
-import code.maths.exceptions.MathStringFormatException;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -615,7 +614,7 @@ final class BooleanString implements NumericableString<Boolean>, Displayable {
 
     private boolean isConstValue(int _index) {
         if (_index < CustList.FIRST_INDEX || _index >= booleanString.length()) {
-            throw new MathStringFormatException(booleanString.toString(),_index);
+            return false;
         }
         if (booleanString.charAt(_index) == TRUE_CHAR) {
             return true;

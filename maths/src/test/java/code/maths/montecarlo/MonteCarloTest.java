@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.exceptions.BadDivisionException;
 import code.util.EqList;
 
 @SuppressWarnings("static-method")
@@ -233,27 +232,6 @@ public class MonteCarloTest {
         assertEq(4, law_.editNumber(new LgInt(6)).intValue());
         assertEq(4, law_.editNumber(new LgInt(7)).intValue());
         assertEq(3, law_.editNumber(new LgInt(8)).intValue());
-    }
-
-    @Test(expected=BadDivisionException.class)
-    public void editNumber1FailTest() {
-        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
-        law_.addEvent(3, new LgInt(0));
-        law_.addEvent(2, new LgInt(0));
-        law_.editNumber(new LgInt(0));
-    }
-
-    @Test(expected=BadDivisionException.class)
-    public void editNumber2FailTest() {
-        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
-        law_.addEvent(2, new LgInt(0));
-        law_.editNumber(new LgInt(0));
-    }
-
-    @Test(expected=BadDivisionException.class)
-    public void editNumber3FailTest() {
-        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
-        assertNull(law_.editNumber(new LgInt(0)));
     }
 
     @Test

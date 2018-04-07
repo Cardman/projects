@@ -1,7 +1,4 @@
 package code.maths;
-import code.maths.exceptions.BadDivisionException;
-import code.maths.exceptions.FormatException;
-import code.maths.exceptions.NegatifExposantException;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
@@ -40,9 +37,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
     }
 
     public Rate(String _chaine) {
-        if (!matchesRate(_chaine)) {
-            throw new FormatException(_chaine);
-        }
         String tauxPris_ = _chaine;
         // Ajout de 0 devant le . si ce n'est pas fait
         if (tauxPris_.startsWith(String.valueOf(SEP_INT_DEC))) {
@@ -278,9 +272,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
     }
 
     public Rate inv() {
-        if (isZero()) {
-            throw new BadDivisionException();
-        }
         Rate inv_ = Rate.zero();
         inv_.numerateur.setSignum(numerateur.getSignum());
         inv_.numerateur.setGrDigits(new Numbers<Long>(denominateur.getGrDigits()));
@@ -290,10 +281,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
     }
 
     public void invertNb() {
-        //setModified();
-        if (isZero()) {
-            throw new BadDivisionException();
-        }
         Numbers<Long> digitsNum_ = numerateur.getGrDigits();
         numerateur.setGrDigits(denominateur.getGrDigits());
         denominateur.setGrDigits(digitsNum_);
@@ -396,7 +383,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
             return String.valueOf(ZERO);
         }
         if (_numberDec < 0) {
-            throw new NegatifExposantException();
+            return EMPTY_STRING;
         }
         Rate abs_ = absNb();
         if (isInteger() || _numberDec == 0) {
@@ -465,7 +452,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
             return toLgInt().toNumberString();
         }
         if (_numberMeaningDigits < 0) {
-            throw new NegatifExposantException();
+            return EMPTY_STRING;
         }
         String signum_;
         if (!numerateur.isZeroOrGt()) {

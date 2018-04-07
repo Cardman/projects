@@ -1,5 +1,4 @@
 package code.maths.litteral;
-import code.maths.litteral.exceptions.BadMathExpressionException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -10,17 +9,39 @@ final class MathUtil {
     }
 
     static Argument processEl(String _el, int _index, boolean _onlycheckSyntax, StringMap<String> _conf) {
-        Delimiters d_ = MathResolver.checkSyntax(_el, _index);
+        ErrorStatus err_ = new ErrorStatus();
+        Delimiters d_ = MathResolver.checkSyntax(_el, _index, err_);
+        if (err_.isError()) {
+            Argument arg_ = new Argument();
+            arg_.setArgClass(MathType.NOTHING);
+            arg_.setObject(err_);
+            return arg_;
+        }
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = MathResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(el_, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
-            throw new BadMathExpressionException(el_);
+            Argument arg_ = new Argument();
+            arg_.setArgClass(MathType.NOTHING);
+            arg_.setObject(err_);
+            return arg_;
         }
-        CustList<OperationNode> all_ = getSortedDescNodes(op_,_conf);
-        analyze(all_, _conf);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_,_conf,err_);
+        analyze(all_, _conf, err_);
+        if (err_.isError()) {
+            Argument arg_ = new Argument();
+            arg_.setArgClass(MathType.NOTHING);
+            arg_.setObject(err_);
+            op_.setArgument(arg_);
+        }
         if (!_onlycheckSyntax) {
-            calculate(all_, _conf);
+            calculate(all_, _conf, err_);
+            if (err_.isError()) {
+                Argument arg_ = new Argument();
+                arg_.setArgClass(MathType.NOTHING);
+                arg_.setObject(err_);
+                op_.setArgument(arg_);
+            }
             return op_.getArgument();
         }
         Argument a_ = new Argument();
@@ -28,26 +49,32 @@ final class MathUtil {
         return a_;
     }
 
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, StringMap<String> _context) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, StringMap<String> _context, ErrorStatus _error) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
                 break;
             }
-            c_ = getNext(c_, _root, list_, _context);
+            c_ = getNext(c_, _root, list_, _context, _error);
         }
         return list_;
     }
 
-    public static OperationNode getNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,StringMap<String> _context) {
-        OperationNode next_ = createFirstChild(_current, _context);
+    public static OperationNode getNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,StringMap<String> _context, ErrorStatus _error) {
+        OperationNode next_ = createFirstChild(_current, _context, _error);
+        if (_error.isError()) {
+            return null;
+        }
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
         }
         _sortedNodes.add(_current);
-        next_ = createNextSibling(_current, _context);
+        next_ = createNextSibling(_current, _context, _error);
+        if (_error.isError()) {
+            return null;
+        }
         if (next_ != null) {
             next_.getParent().appendChild(next_);
             return next_;
@@ -59,7 +86,10 @@ final class MathUtil {
         }
         if (next_ != null) {
             _sortedNodes.add(next_);
-            OperationNode nextAfter_ = createNextSibling(next_, _context);
+            OperationNode nextAfter_ = createNextSibling(next_, _context, _error);
+            if (_error.isError()) {
+                return null;
+            }
             while (nextAfter_ == null) {
                 OperationNode par_ = next_.getParent();
                 if (par_ == _root) {
@@ -70,7 +100,10 @@ final class MathUtil {
                     break;
                 }
                 _sortedNodes.add(par_);
-                nextAfter_ = createNextSibling(par_, _context);
+                nextAfter_ = createNextSibling(par_, _context, _error);
+                if (_error.isError()) {
+                    return null;
+                }
                 next_ = par_;
             }
             if (nextAfter_ != null) {
@@ -80,7 +113,7 @@ final class MathUtil {
         }
         return null;
     }
-    private static OperationNode createFirstChild(OperationNode _block, StringMap<String> _context) {
+    private static OperationNode createFirstChild(OperationNode _block, StringMap<String> _context, ErrorStatus _error) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
@@ -96,12 +129,14 @@ final class MathUtil {
         OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, CustList.FIRST_INDEX, block_, r_);
         if (op_ == null) {
-            throw new BadMathExpressionException(value_);
+            _error.setIndex(offset_);
+            _error.setError(true);
+            return null;
         }
         return op_;
     }
 
-    private static OperationNode createNextSibling(OperationNode _block, StringMap<String> _context) {
+    private static OperationNode createNextSibling(OperationNode _block, StringMap<String> _context, ErrorStatus _error) {
         MethodOperation p_ = _block.getParent();
         if (p_ == null) {
             return null;
@@ -118,7 +153,9 @@ final class MathUtil {
         OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, _block.getIndexChild() + 1, p_, r_);
         if (op_ == null) {
-            throw new BadMathExpressionException(value_);
+            _error.setIndex(offset_);
+            _error.setError(true);
+            return null;
         }
         return op_;
     }
@@ -135,15 +172,21 @@ final class MathUtil {
         }
         return list_;
     }
-    static void analyze(CustList<OperationNode> _nodes, StringMap<String> _context) {
+    static void analyze(CustList<OperationNode> _nodes, StringMap<String> _context, ErrorStatus _error) {
         for (OperationNode e: _nodes) {
-            e.analyze(_nodes, _context);
+            e.analyze(_nodes, _context, _error);
+            if (_error.isError()) {
+                return;
+            }
         }
     }
-    static void calculate(CustList<OperationNode> _nodes, StringMap<String> _context) {
+    static void calculate(CustList<OperationNode> _nodes, StringMap<String> _context, ErrorStatus _error) {
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
-                e.calculate(_nodes, _context);
+                e.calculate(_nodes, _context, _error);
+                if (_error.isError()) {
+                    return;
+                }
             }
         }
     }

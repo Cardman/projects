@@ -17,10 +17,18 @@ public abstract class StatusBeginRound extends Status {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        lawForUsingAMove.checkEvents();
-        lawForUsingAMoveNbRound.checkEvents();
-        lawForUsingAMoveIfFoe.checkEvents();
-        lawForFullHealIfMove.checkEvents();
+        if (!lawForUsingAMove.checkEvents()) {
+            throw new DataException();
+        }
+        if (!lawForUsingAMoveNbRound.checkEvents()) {
+            throw new DataException();
+        }
+        if (!lawForUsingAMoveIfFoe.checkEvents()) {
+            throw new DataException();
+        }
+        if (!lawForFullHealIfMove.checkEvents()) {
+            throw new DataException();
+        }
         if (!lawForUsingAMoveNbRound.events().isEmpty()) {
             Rate min_ = lawForUsingAMoveNbRound.minimum();
             if (!min_.isZeroOrGt()) {

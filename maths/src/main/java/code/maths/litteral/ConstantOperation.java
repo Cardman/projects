@@ -1,18 +1,12 @@
 package code.maths.litteral;
 import code.maths.MathList;
 import code.maths.Rate;
-import code.maths.exceptions.BadDivisionException;
-import code.maths.exceptions.FormatException;
-import code.maths.litteral.exceptions.EmptyPartException;
-import code.maths.litteral.exceptions.UndefinedVariableException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class ConstantOperation extends OperationNode {
-
-    private static final String RETURN_LINE = "\n";
 
     public ConstantOperation(String _el, int _index, StringMap<String> _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
@@ -24,8 +18,8 @@ public final class ConstantOperation extends OperationNode {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        analyzeCalculate();
+    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+        analyzeCalculate(_error);
         if (getArgument() != null) {
             String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
 
@@ -59,11 +53,13 @@ public final class ConstantOperation extends OperationNode {
             setResultClass(MathType.BOOLEAN);
             return;
         }
-        throw new UndefinedVariableException(str_, String.valueOf(getIndexInEl()));
+        _error.setError(true);
+        _error.setIndex(getIndexInEl());
+        _error.setString(str_);
     }
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         if (getArgument() != null) {
             return;
         }
@@ -72,11 +68,13 @@ public final class ConstantOperation extends OperationNode {
         a_ = new Argument();
         a_.setArgClass(getResultClass());
         if (getResultClass() == MathType.RATE) {
-            try {
-                a_.setObject(new Rate(_conf.getVal(str_)));
-            } catch (FormatException _0) {
-                throw new BadDivisionException(StringList.concat(_0.getMessage(),RETURN_LINE,String.valueOf(getIndexInEl())));
+            if (!Rate.isValid(_conf.getVal(str_))) {
+                _error.setString(_conf.getVal(str_));
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
             }
+            a_.setObject(new Rate(_conf.getVal(str_)));
         } else if (getResultClass() == MathType.BOOLEAN) {
             a_.setObject(StringList.quickEq(_conf.getVal(str_), TRUE_STRING));
         } else {
@@ -93,10 +91,13 @@ public final class ConstantOperation extends OperationNode {
         setNextSiblingsArg(a_);
     }
 
-    private void analyzeCalculate() {
+    private void analyzeCalculate(ErrorStatus _error) {
         String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
         if (str_.isEmpty()) {
-            throw new EmptyPartException(String.valueOf(getIndexInEl()));
+            _error.setString(str_);
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
         }
         Argument a_ = new Argument();
         if (StringList.quickEq(str_, TRUE_STRING)) {
@@ -156,9 +157,8 @@ public final class ConstantOperation extends OperationNode {
             setNextSiblingsArg(a_);
             return;
         }
-        try {
+        if (Rate.isValid(str_)) {
             setArgument(Argument.numberToArgument(str_));
-        } catch (RuntimeException _0) {
         }
     }
 

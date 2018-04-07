@@ -4,6 +4,7 @@ import static junitparams.JUnitParamsRunner.$;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,6 +15,7 @@ import code.util.StringMap;
 
 @RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
+@Ignore
 public class NumericStringTest {
 
     Object[] numericStrings() {

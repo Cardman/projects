@@ -4,8 +4,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
-import code.stream.exceptions.RuntimeIOException;
-
 /**Thread safe class*/
 public final class ConnectionToServer extends Thread {
 
@@ -13,48 +11,53 @@ public final class ConnectionToServer extends Thread {
     private NetGroupFrame serverWindow;
     private Socket socket;
     private boolean accept;
+    private boolean errorSocket;
+    private boolean error;
     /**This class thread is independant from EDT*/
     public ConnectionToServer(ServerSocket _serverSocket,NetGroupFrame _serverWindow,String _ipHost, int _port){
         serverSocket=_serverSocket;
         serverWindow = _serverWindow;
         serverWindow.createClient(_ipHost, null, true, _port);
     }
-    public void fermer() {
+    public boolean fermer() {
         try {
             serverSocket.close();
+            return true;
         } catch (IOException _0) {
-            throw new RuntimeIOException(_0.getMessage());
+            return false;
         }
     }
 
     @Override
     public void run(){
         while(true){
-            try {
-
-                accept = true;
-                Socket socket_ = acceptSocket();
-                //If the server is started without client ==> pause.
+            accept = true;
+            Socket socket_ = acceptSocket();
+            //If the server is started without client ==> pause.
+            if (!error && !errorSocket) {
                 serverWindow.gearClient(socket_);
                 accept = false;
-                //server side
-            }catch (RuntimeSocketException _0) {
+            } else if (errorSocket) {
                 if (serverSocket.isClosed()) {
                     break;
                 }
-            }catch (RuntimeIOException _0) {
             }
+            //server side
         }
     }
 
     private Socket acceptSocket() {
+        errorSocket = false;
+        error = false;
         if (accept) {
             try {
                 socket = serverSocket.accept();
             } catch (SocketException _0) {
-                throw new RuntimeSocketException(_0.getMessage());
+                errorSocket = true;
+                return null;
             } catch (IOException _0) {
-                throw new RuntimeIOException(_0.getMessage());
+                error = true;
+                return null;
             }
         }
         return socket;

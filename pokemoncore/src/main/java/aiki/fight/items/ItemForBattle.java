@@ -77,7 +77,9 @@ public final class ItemForBattle extends Item {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        lawForAttackFirst.checkEvents();
+        if (!lawForAttackFirst.checkEvents()) {
+            throw new DataException();
+        }
         hatching.retainAllElements(_data.getPokedex().getKeys());
         if (effectEndRound.size() > 1) {
             throw new DataException();

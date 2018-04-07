@@ -1,5 +1,4 @@
 package code.maths.litteral;
-import code.maths.litteral.exceptions.NotBooleanException;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -12,18 +11,20 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         for (OperationNode o: chidren_) {
             if (o.getResultClass() != MathType.BOOLEAN) {
-                throw new NotBooleanException(String.valueOf(o.getIndexInEl()));
+                _error.setIndex(o.getIndexInEl());
+                _error.setError(true);
+                return;
             }
         }
         setResultClass(chidren_.last().getResultClass());
     }
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setArgument(chidren_.last().getArgument());
         setNextSiblingsArg(chidren_.last().getArgument());

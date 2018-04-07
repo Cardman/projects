@@ -8,9 +8,6 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.exceptions.BadDivisionException;
-import code.maths.exceptions.FormatException;
-import code.maths.exceptions.NegatifExposantException;
 import code.util.CustList;
 import code.util.EqList;
 
@@ -125,24 +122,6 @@ public class RateTest {
         assertEq(_den, rate_.getDenominator());
         assertEq(_isPositive,rate_.isZeroOrGt());
         assertEq(_isZero,rate_.isZero());
-    }
-
-    @Test(expected=FormatException.class)
-    public void new_Rate_String_1FailTest() {
-        falseRate1();
-    }
-
-    private static Rate falseRate1() {
-        return new Rate("");
-    }
-
-    @Test(expected=FormatException.class)
-    public void new_Rate_String_2FailTest() {
-        falseRate2();
-    }
-
-    private static Rate falseRate2() {
-        return new Rate("1/0");
     }
 
     @Test
@@ -565,17 +544,6 @@ public class RateTest {
         assertEq(new Rate(_expected), Rate.divide(rateOne_, rateTwo_));
     }
 
-    @Test(expected=BadDivisionException.class)
-    public void invertNb1FailTest() {
-        Rate nb_ = Rate.zero();
-        nb_.invertNb();
-    }
-
-    @Test(expected=BadDivisionException.class)
-    public void inv1FailTest() {
-        Rate.zero().inv();
-    }
-
     Object[] inputsInv() {
         return $($("1","1"),
                 $("-1","-1"),
@@ -727,18 +695,6 @@ public class RateTest {
     public void evaluatePoint1Test(String _input, int _nbDigits, String _expected) {
         Rate rate_ = new Rate(_input);
         assertEq(_expected,rate_.evaluatePoint(_nbDigits));
-    }
-
-    @Test(expected=NegatifExposantException.class)
-    public void evaluate1FailTest() {
-        Rate rate_ = new Rate("1");
-        assertEq("1",rate_.evaluate(-1));
-    }
-
-    @Test(expected=NegatifExposantException.class)
-    public void evaluatePoint1FailTest() {
-        Rate rate_ = new Rate("1");
-        assertEq("1",rate_.evaluatePoint(-1));
     }
 
     @Test

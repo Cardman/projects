@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-import code.maths.exceptions.NegativeRootException;
 import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.GenericNumbers;
@@ -14,7 +13,6 @@ import code.util.ints.Displayable;
 public final class BigDec implements Cmp<BigDec>, Displayable {
 
     private static final String DOTTED_TENTH = "0.1";
-    private static final String ERROR = "nth root can only be calculated for positive numbers";
     private static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_DOWN;
     private static final int DEFAULT_DIGITS = 64;
     private static final int SCALE = DEFAULT_DIGITS;
@@ -156,9 +154,6 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
     }
 
     public BigDec nthRoot(int _n, BigDecimal _p) {
-        if (number.compareTo(BigDecimal.ZERO) < CustList.EQ_CMP) {
-            throw new NegativeRootException(ERROR);
-        }
         if (GenericNumbers.eq(number, BigDecimal.ZERO)) {
             return new BigDec(BigDecimal.ZERO);
         }

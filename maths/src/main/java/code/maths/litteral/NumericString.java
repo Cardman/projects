@@ -1,9 +1,6 @@
 package code.maths.litteral;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.exceptions.BadNumberException;
-import code.maths.exceptions.FormatException;
-import code.maths.exceptions.MathStringFormatException;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -198,6 +195,9 @@ final class NumericString implements NumericableString<Rate>, Displayable {
                 modif_ = true;
             }
             calculateGreatPriority();
+            if (code == ERROR_CODE) {
+                return;
+            }
             if (code == TRUE_CODE) {
                 modif_ = true;
             }
@@ -875,7 +875,8 @@ final class NumericString implements NumericableString<Rate>, Displayable {
                 continue;
             }
             if (index_ < CustList.FIRST_INDEX || index_ >= numericString.length()) {
-                throw new MathStringFormatException(numericString.toString(),index_);
+                code = ERROR_CODE;
+                return;
             }
             if (numericString.charAt(index_) == StringList.LEFT_PAR) {
                 foundBeginChar_ = true;
@@ -1773,7 +1774,7 @@ final class NumericString implements NumericableString<Rate>, Displayable {
             num_.evaluateExp(_checkSyntax);
             Rate result_ = num_.getResult();
             if (!result_.isZeroOrGt()) {
-                throw new BadNumberException();
+                return _default.absNb();
             }
             return result_;
         } catch (RuntimeException _0) {
@@ -1787,10 +1788,10 @@ final class NumericString implements NumericableString<Rate>, Displayable {
             num_.evaluateExp(_checkSyntax);
             Rate result_ = num_.getResult();
             if (result_.isZero()) {
-                throw new BadNumberException();
+                return _default.absNb();
             }
             if (!result_.isZeroOrGt()) {
-                throw new BadNumberException();
+                return _default.absNb();
             }
             return result_;
         } catch (RuntimeException _0) {
@@ -1814,12 +1815,12 @@ final class NumericString implements NumericableString<Rate>, Displayable {
         if (numDen_.size() == CustList.ONE_ELEMENT + CustList.ONE_ELEMENT) {
             for (String n: numDen_) {
                 if (!StringList.isNumber(n)) {
-                    throw new FormatException(_string);
+                    return new Rate(EMPTY_STRING);
                 }
             }
             return Rate.one();
         }
-        throw new FormatException(_string);
+        return new Rate(EMPTY_STRING);
 //        try {
 //            return new Rate(_string);
 //        } catch (FormatException _0) {

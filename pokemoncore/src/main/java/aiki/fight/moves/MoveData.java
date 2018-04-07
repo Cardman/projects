@@ -48,7 +48,9 @@ public abstract class MoveData {
     private StringList requiredStatus;
 
     public void validate(DataBase _data) {
-        repeatRoundLaw.checkEvents();
+        if (!repeatRoundLaw.checkEvents()) {
+            throw new DataException();
+        }
         if (switchType == null) {
             throw new DataException();
         }

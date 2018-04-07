@@ -18,7 +18,9 @@ public final class EffectEndRoundSingleRelation extends EffectEndRound {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        lawForEnablingEffect.checkEvents();
+        if (!lawForEnablingEffect.checkEvents()) {
+            throw new DataException();
+        }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             throw new DataException();
         }

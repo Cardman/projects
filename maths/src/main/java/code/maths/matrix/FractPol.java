@@ -1,6 +1,5 @@
 package code.maths.matrix;
 import code.maths.LgInt;
-import code.maths.exceptions.BadDivisionException;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -86,17 +85,10 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
     }
 
     public FractPol inv() {
-        if (isZero()) {
-            throw new BadDivisionException();
-        }
         return new FractPol(denominateur, numerateur);
     }
 
     public void invertNb() {
-        //setModified();
-        if (isZero()) {
-            throw new BadDivisionException();
-        }
         Polynom digitsNum_ = numerateur;
         numerateur = denominateur;
         denominateur = digitsNum_;

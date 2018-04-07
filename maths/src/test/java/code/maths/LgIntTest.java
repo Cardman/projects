@@ -8,10 +8,6 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.exceptions.BadDivisionException;
-import code.maths.exceptions.FormatException;
-import code.maths.exceptions.NegatifExposantException;
-import code.maths.exceptions.NegativeNumberException;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
@@ -90,51 +86,6 @@ public class LgIntTest {
         for (int i = 0; i < expectedLen_; i++) {
             assertEq(_expected.get(i),_result.get(i));
         }
-    }
-
-    @Test(expected = FormatException.class)
-    public void new_LgInt_String_1FailTest() {
-        falseInteger1();
-    }
-
-    private static LgInt falseInteger1() {
-        return new LgInt("-");
-    }
-
-    @Test(expected = FormatException.class)
-    public void new_LgInt_String_2FailTest() {
-        falseInteger2();
-    }
-
-    private static LgInt falseInteger2() {
-        return new LgInt("");
-    }
-
-    @Test(expected = FormatException.class)
-    public void new_LgInt_String_3FailTest() {
-        falseInteger3();
-    }
-
-    private static LgInt falseInteger3() {
-        return new LgInt("2a");
-    }
-
-    @Test(expected = FormatException.class)
-    public void new_LgInt_String_4FailTest() {
-        falseInteger4();
-    }
-
-    private static LgInt falseInteger4() {
-        return new LgInt("a");
-    }
-
-    @Test(expected = FormatException.class)
-    public void new_LgInt_String_5FailTest() {
-        falseInteger5();
-    }
-
-    private static LgInt falseInteger5() {
-        return new LgInt("a2");
     }
 
     Object[] inputsToString() {
@@ -552,27 +503,6 @@ public class LgIntTest {
         assertEq(new LgInt(_two), intTwo_);
     }
 
-    @Test(expected = BadDivisionException.class)
-    public void divide1FailTest() {
-        LgInt one_ = new LgInt("1");
-        LgInt two_ = new LgInt("0");
-        LgInt.divide(one_, two_);
-    }
-
-    @Test(expected = BadDivisionException.class)
-    public void divide2FailTest() {
-        LgInt one_ = new LgInt("0");
-        LgInt two_ = new LgInt("0");
-        LgInt.divide(one_, two_);
-    }
-
-    @Test(expected = BadDivisionException.class)
-    public void divide3FailTest() {
-        LgInt one_ = new LgInt("-1");
-        LgInt two_ = new LgInt("0");
-        LgInt.divide(one_, two_);
-    }
-
     Object[] inputsModulo() {
         return $($("0","20","0"),
                 $("1","20","1"),
@@ -599,27 +529,6 @@ public class LgIntTest {
         assertEq(new LgInt(_two), intTwo_);
     }
 
-    @Test(expected = BadDivisionException.class)
-    public void remain1FailTest() {
-        LgInt one_ = new LgInt("1");
-        LgInt two_ = new LgInt("0");
-        LgInt.remain(one_, two_);
-    }
-
-    @Test(expected = BadDivisionException.class)
-    public void remain2FailTest() {
-        LgInt one_ = new LgInt("0");
-        LgInt two_ = new LgInt("0");
-        LgInt.remain(one_, two_);
-    }
-
-    @Test(expected = BadDivisionException.class)
-    public void remain3FailTest() {
-        LgInt one_ = new LgInt("-1");
-        LgInt two_ = new LgInt("0");
-        LgInt.remain(one_, two_);
-    }
-
     Object[] inputsPuissance() {
         return $($("0", "0", "1"),
                 $("0", "20", "0"),
@@ -639,20 +548,6 @@ public class LgIntTest {
         assertEq(new LgInt(_expected), LgInt.powNb(intOne_, intTwo_));
         assertEq(new LgInt(_one), intOne_);
         assertEq(new LgInt(_two), intTwo_);
-    }
-
-    @Test(expected = NegatifExposantException.class)
-    public void powNb1FailTest() {
-        LgInt one_ = new LgInt("2");
-        LgInt two_ = new LgInt("-1");
-        LgInt.powNb(one_, two_);
-    }
-
-    @Test(expected = NegatifExposantException.class)
-    public void powNb2FailTest() {
-        LgInt one_ = new LgInt("0");
-        LgInt two_ = new LgInt("-1");
-        LgInt.powNb(one_, two_);
     }
 
     Object[] inputsPgcd() {
@@ -724,16 +619,6 @@ public class LgIntTest {
         assertEq(new LgInt(_expected), LgInt.among(intOne_, intTwo_));
         assertEq(new LgInt(_one), intOne_);
         assertEq(new LgInt(_two), intTwo_);
-    }
-
-    @Test(expected = NegativeNumberException.class)
-    public void among1FailTest() {
-        LgInt.among(new LgInt(-1),new LgInt(2));
-    }
-
-    @Test(expected = NegativeNumberException.class)
-    public void among2FailTest() {
-        LgInt.among(new LgInt(2),new LgInt(-1));
     }
 
     @Test
