@@ -4,6 +4,7 @@ import code.util.Numbers;
 
 public final class Delimiters {
 
+    private int badOffset=-1;
     private int firstPrintableChar = CustList.INDEX_NOT_FOUND_ELT;
     private int absoluteOffset;
     private int childOffest;
@@ -20,6 +21,14 @@ public final class Delimiters {
     private Numbers<Integer> delKeyWordStatic = new Numbers<Integer>();
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
+
+    public int getBadOffset() {
+        return badOffset;
+    }
+
+    public void setBadOffset(int _badOffset) {
+        badOffset = Math.max(_badOffset,0);
+    }
 
     public Numbers<Integer> getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;

@@ -48,6 +48,9 @@ public final class ElRenderUtil {
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, cont_, CustList.FIRST_INDEX);
+        if (dLeft_.getBadOffset() >= 0) {
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dLeft_.getBadOffset()),RETURN_LINE,_left,RETURN_LINE,_conf.joinPages()));
+        }
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, cont_, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
         if (opLeft_ == null) {
@@ -57,6 +60,9 @@ public final class ElRenderUtil {
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, cont_, CustList.FIRST_INDEX);
+        if (dRight_.getBadOffset() >= 0) {
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dRight_.getBadOffset()),RETURN_LINE,_right,RETURN_LINE,_conf.joinPages()));
+        }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, cont_, dRight_);
         OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
         if (opRight_ == null) {

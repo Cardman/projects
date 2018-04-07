@@ -58,6 +58,9 @@ public final class ElUtil {
         page_.setOffset(0);
         page_.setGlobalOffset(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
+        if (dLeft_.getBadOffset() >= 0) {
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dLeft_.getBadOffset()),RETURN_LINE,_left,RETURN_LINE,_conf.joinPages()));
+        }
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
         if (opLeft_ == null) {
@@ -67,6 +70,9 @@ public final class ElUtil {
         page_.setOffset(0);
         page_.setGlobalOffset(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
+        if (dRight_.getBadOffset() >= 0) {
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dRight_.getBadOffset()),RETURN_LINE,_right,RETURN_LINE,_conf.joinPages()));
+        }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
         OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
         if (opRight_ == null) {
@@ -180,6 +186,9 @@ public final class ElUtil {
 
     public static Argument processEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
+        if (d_.getBadOffset() >= 0) {
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
+        }
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
         _conf.setNextIndex(d_.getIndexEnd()+2);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, _conf, d_);
@@ -196,6 +205,9 @@ public final class ElUtil {
 
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
+        if (d_.getBadOffset() >= 0) {
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
+        }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
@@ -218,6 +230,9 @@ public final class ElUtil {
 
     public static Argument processEl(String _el, int _index, ContextEl _conf) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
+        if (d_.getBadOffset() >= 0) {
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
+        }
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_);
