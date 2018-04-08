@@ -4,8 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NotBooleanException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
@@ -39,7 +39,12 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         if (!clMatch_.matchClass(booleanPrimType_)) {
             if (!clMatch_.matchClass(booleanType_)) {
                 ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                throw new NotBooleanException(StringList.concat(cl_.getName(),RETURN_LINE,_conf.joinPages()));
+                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                un_.setRc(_conf.getCurrentLocation());
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setExpectedResult(booleanType_);
+                un_.setOperands(new StringList(cl_.getName()));
+                _conf.getClasses().getErrorsDet().add(un_);
             }
         }
         setResultClass(new ClassArgumentMatching(booleanPrimType_));

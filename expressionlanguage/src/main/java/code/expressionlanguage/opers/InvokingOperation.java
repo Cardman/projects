@@ -6,6 +6,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -62,14 +63,23 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 String argType_ = o.getResultClass().getName();
                 if (argType_.isEmpty()) {
                     if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
-                        throw new DynamicCastClassException(StringList.concat(argType_,RETURN_LINE,name_,RETURN_LINE,_conf.joinPages()));
+                        mapping_.setMapping(map_);
+                        BadImplicitCast cast_ = new BadImplicitCast();
+                        cast_.setMapping(mapping_);
+                        cast_.setFileName(_conf.getCurrentFileName());
+                        cast_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(cast_);
                     }
                     continue;
                 }
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
                 if (!Templates.isGenericCorrect(mapping_, _conf)) {
-                    throw new DynamicCastClassException(StringList.concat(argType_,RETURN_LINE,name_,RETURN_LINE,_conf.joinPages()));
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(cast_);
                 }
             }
             name_ = PrimitiveTypeUtil.getPrettyArrayType(name_);

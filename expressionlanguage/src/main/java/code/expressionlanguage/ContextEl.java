@@ -24,6 +24,7 @@ import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.sml.ElementOffsetsNext;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.ObjectNotNullMap;
@@ -293,6 +294,24 @@ public final class ContextEl {
         importing.add(_page);
     }
 
+    public String getCurrentFileName() {
+        if (isEmptyPages() || getLastPage().getCurrentBlock() == null) {
+            return null;
+        }
+        return getLastPage().getCurrentBlock().getFile().getFileName();
+    }
+    public Block getCurrentBlock() {
+        if (isEmptyPages()) {
+            return null;
+        }
+        return getLastPage().getCurrentBlock();
+    }
+    public RowCol getCurrentLocation() {
+        if (isEmptyPages()) {
+            return new RowCol();
+        }
+        return getLastPage().getTrace();
+    }
     public String getInfos() {
         return analyzing.getInfos(this);
     }

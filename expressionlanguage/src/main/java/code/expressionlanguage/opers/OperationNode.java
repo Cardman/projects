@@ -19,10 +19,11 @@ import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NoSuchDeclaredConstructorException;
 import code.expressionlanguage.exceptions.NoSuchDeclaredMethodException;
 import code.expressionlanguage.exceptions.StaticAccessException;
-import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMatching;
@@ -399,11 +400,19 @@ public abstract class OperationNode {
         if (custClass_ == null) {
             return null;
         }
+        LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getLastPage().getGlobalClass();
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(StringList.concat(clCurName_,RETURN_LINE,_conf.joinPages()));
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(stds_.getAliasVoid());
+                mapping_.setParam(stds_.getAliasObject());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
             }
         }
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructors_;
@@ -500,9 +509,17 @@ public abstract class OperationNode {
     boolean _superClass, boolean _accessFromSuper, ClassArgumentMatching... _argsClass) {
         String clCurName_ = _class.getName();
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
+        LgNames stds_ = _conf.getStandards();
         for (ClassArgumentMatching c:_argsClass) {
             if (c.matchVoid(_conf)) {
-                throw new VoidArgumentException(StringList.concat(clCurName_,DOT,_name,RETURN_LINE,_conf.joinPages()));
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(stds_.getAliasVoid());
+                mapping_.setParam(stds_.getAliasObject());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
             }
         }
         if (_conf.getClassBody(baseClass_) instanceof GeneInterface) {
@@ -573,14 +590,29 @@ public abstract class OperationNode {
             //static access
             throw new StaticAccessException(_conf.joinPages());
         }
-        StringBuilder trace_ = new StringBuilder(clCurName_).append(DOT).append(_name).append(PAR_LEFT);
         StringList classesNames_ = new StringList();
         for (ClassArgumentMatching c: _argsClass) {
             classesNames_.add(c.getName());
         }
-        trace_.append(classesNames_.join(SEP_ARG));
-        trace_.append(PAR_RIGHT);
-        throw new NoSuchDeclaredMethodException(StringList.concat(trace_,RETURN_LINE,_conf.joinPages()));
+        UndefinedMethodError undefined_ = new UndefinedMethodError();
+        MethodModifier mod_;
+        if (_staticContext) {
+            mod_ = MethodModifier.STATIC;
+        } else {
+            mod_ = MethodModifier.FINAL;
+        }
+        undefined_.setClassName(clCurName_);
+        undefined_.setId(new MethodId(mod_, _name, classesNames_));
+        undefined_.setFileName(_conf.getCurrentFileName());
+        undefined_.setRc(_conf.getCurrentLocation());
+        _conf.getClasses().getErrorsDet().add(undefined_);
+        ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
+        return_.setId(new ClassMethodId(clCurName_, new MethodId(mod_, _name, classesNames_)));
+        return_.setRealId(new MethodId(mod_, _name, classesNames_));
+        return_.setRealClass(clCurName_);
+        return_.setStaticMethod(_staticContext);
+        return_.setReturnType(_conf.getStandards().getAliasObject());
+        return return_;
     }
     private static ClassMethodIdReturn toFoundMethod(ContextEl _conf, ClassMethodIdResult _res){
         ClassMethodIdReturn idRet_ = new ClassMethodIdReturn(true);

@@ -14,7 +14,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneClass;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.exceptions.BadAccessException;
 import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.DynamicNumberFormatException;
 import code.expressionlanguage.exceptions.EmptyPartException;
@@ -29,6 +28,7 @@ import code.expressionlanguage.exceptions.UndefinedVariableException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadAccessField;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -403,7 +403,11 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 curClassBase_ = StringList.getAllTypes(glClass_).first();
             }
             if (!Classes.canAccessField(curClassBase_, e_.getDeclaringBaseClass(), key_, _conf)) {
-                throw new BadAccessException(StringList.concat(clCurName_,DOT,key_,RETURN_LINE,_conf.joinPages()));
+                BadAccessField access_ = new BadAccessField();
+                access_.setFileName(_conf.getCurrentFileName());
+                access_.setId(new ClassField(e_.getDeclaringBaseClass(), _fieldName));
+                access_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(access_);
             }
             fieldMetaInfo = e_;
             String c_ = fieldMetaInfo.getType();

@@ -13,6 +13,7 @@ import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
@@ -38,6 +39,9 @@ public final class ElRenderUtil {
         CustList<OperationNode> left_ = members_.getLeft();
         CustList<OperationNode> right_ = members_.getRight();
         ContextEl cont_ = _conf.toContextEl();
+        if (!cont_.getClasses().getErrorsDet().isEmpty()) {
+            throw new AnalyzingErrorsException(cont_.getClasses().getErrorsDet());
+        }
         ElUtil.tryToCalculateAffect(left_, cont_, right_, _oper);
     }
 
@@ -49,6 +53,7 @@ public final class ElRenderUtil {
         page_.setProcessingAttribute(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, cont_, CustList.FIRST_INDEX);
         if (dLeft_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(dLeft_.getBadOffset());
             throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dLeft_.getBadOffset()),RETURN_LINE,_left,RETURN_LINE,_conf.joinPages()));
         }
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, cont_, dLeft_);
@@ -61,6 +66,7 @@ public final class ElRenderUtil {
         page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, cont_, CustList.FIRST_INDEX);
         if (dRight_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(dRight_.getBadOffset());
             throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dRight_.getBadOffset()),RETURN_LINE,_right,RETURN_LINE,_conf.joinPages()));
         }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, cont_, dRight_);

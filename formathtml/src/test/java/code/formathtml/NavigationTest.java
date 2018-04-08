@@ -14,8 +14,8 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.exceptions.NoSuchDeclaredMethodException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.opers.util.Struct;
 import code.formathtml.classes.BeanEight;
 import code.formathtml.classes.BeanFive;
@@ -8614,7 +8614,7 @@ public class NavigationTest {
 //        nav_.processFormRequest("bean_one.getTrans(1)=ONE", "myform");
 //    }
 
-    @Test(expected=NoSuchDeclaredMethodException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void processFormRequest6FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

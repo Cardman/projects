@@ -2,9 +2,9 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
-import code.expressionlanguage.exceptions.NotBooleanException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadOperandsNumber;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -30,7 +30,13 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
+            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            badNb_.setFileName(_conf.getCurrentFileName());
+            badNb_.setOperandsNumber(chidren_.size());
+            badNb_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badNb_);
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasPrimBoolean()));
+            return;
         }
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
@@ -42,7 +48,12 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
             if (!clMatch_.matchClass(booleanPrimType_)) {
                 if (!clMatch_.matchClass(booleanType_)) {
                     ClassArgumentMatching cl_ = o.getResultClass();
-                    throw new NotBooleanException(StringList.concat(cl_.getName(),RETURN_LINE,_conf.joinPages()));
+                    UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setExpectedResult(booleanType_);
+                    un_.setOperands(new StringList(cl_.getName()));
+                    _conf.getClasses().getErrorsDet().add(un_);
                 }
             }
         }

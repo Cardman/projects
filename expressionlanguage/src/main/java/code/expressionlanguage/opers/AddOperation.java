@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.exceptions.NotNumberException;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.util.StringList;
@@ -92,7 +92,16 @@ public final class AddOperation extends NumericOperation {
                 res_.setCatString(true);
                 return res_;
             }
-            throw new NotNumberException(StringList.concat(_a.getName(),_b.getName(),_cont.joinPages()));
+            String exp_ = _cont.getStandards().getAliasNumber();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_cont.getCurrentLocation());
+            un_.setFileName(_cont.getCurrentFileName());
+            un_.setExpectedResult(exp_);
+            un_.setOperands(new StringList(_a.getName(),_b.getName()));
+            _cont.getClasses().getErrorsDet().add(un_);
+            ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
+            res_.setResult(arg_);
+            return res_;
         }
         res_.setResult(getResultClass(_a, _cont, _b));
         return res_;

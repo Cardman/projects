@@ -6,9 +6,9 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.exceptions.NotNumberException;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ResultOperand;
@@ -839,12 +839,29 @@ public abstract class NumericOperation extends MethodOperation {
 
     static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
         int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
+        String exp_ = _cont.getStandards().getAliasNumber();
+        boolean ok_ = true;
         if (oa_ == 0) {
-            throw new NotNumberException(StringList.concat(_a.getName(),_cont.joinPages()));
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_cont.getCurrentLocation());
+            un_.setFileName(_cont.getCurrentFileName());
+            un_.setExpectedResult(exp_);
+            un_.setOperands(new StringList(_a.getName()));
+            _cont.getClasses().getErrorsDet().add(un_);
+            ok_ = false;
         }
         int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
         if (ob_ == 0) {
-            throw new NotNumberException(StringList.concat(_b.getName(),RETURN_LINE,_cont.joinPages()));
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_cont.getCurrentLocation());
+            un_.setFileName(_cont.getCurrentFileName());
+            un_.setExpectedResult(exp_);
+            un_.setOperands(new StringList(_b.getName()));
+            _cont.getClasses().getErrorsDet().add(un_);
+            ok_ = false;
+        }
+        if (!ok_) {
+            return new ClassArgumentMatching(exp_);
         }
         return getQuickResultClass(_a, oa_, _cont, _b, ob_);
     }

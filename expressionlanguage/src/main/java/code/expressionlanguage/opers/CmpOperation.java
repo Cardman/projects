@@ -4,10 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NotComparableException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadOperandsNumber;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
@@ -382,17 +382,35 @@ public final class CmpOperation extends PrimitiveBoolOperation {
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        LgNames stds_ = _conf.getStandards();
         if (chidren_.size() != 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
+            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            badNb_.setFileName(_conf.getCurrentFileName());
+            badNb_.setOperandsNumber(chidren_.size());
+            badNb_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badNb_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            return;
         }
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
-        LgNames stds_ = _conf.getStandards();
         String stringType_ = stds_.getAliasString();
         if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
             stringCompare = true;
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            return;
+        }
+        if (first_.matchClass(stringType_) || second_.matchClass(stringType_)) {
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+            String res_ = stds_.getAliasPrimBoolean();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(stds_.getAliasString());
+            un_.setOperands(new StringList(first_.getName(),second_.getName()));
+            _conf.getClasses().getErrorsDet().add(un_);
+            setResultClass(new ClassArgumentMatching(res_));
             return;
         }
         ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_, true, _conf);
@@ -402,9 +420,41 @@ public final class CmpOperation extends PrimitiveBoolOperation {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+            String res_ = stds_.getAliasPrimBoolean();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(stds_.getAliasPrimDouble());
+            un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
+            _conf.getClasses().getErrorsDet().add(un_);
+            setResultClass(new ClassArgumentMatching(res_));
+            return;
+        }
+        if (classSecond_.isPrimitive(_conf)) {
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+            String res_ = stds_.getAliasPrimBoolean();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(stds_.getAliasPrimDouble());
+            un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
+            _conf.getClasses().getErrorsDet().add(un_);
+            setResultClass(new ClassArgumentMatching(res_));
+            return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
-        throw new NotComparableException(StringList.concat(classFirst_.getName(),RETURN_LINE,classSecond_.getName(),RETURN_LINE,_conf.joinPages()));
+        StringList expectedTypes_ = new StringList();
+        expectedTypes_.add(stds_.getAliasPrimDouble());
+        expectedTypes_.add(stds_.getAliasString());
+        String res_ = _conf.getStandards().getAliasPrimBoolean();
+        UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+        un_.setRc(_conf.getCurrentLocation());
+        un_.setFileName(_conf.getCurrentFileName());
+        un_.setExpectedResult(expectedTypes_.join(";"));
+        un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
+        _conf.getClasses().getErrorsDet().add(un_);
+        setResultClass(new ClassArgumentMatching(res_));
     }
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {

@@ -12,8 +12,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NoSuchDeclaredMethodException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.formathtml.classes.BeanFour;
@@ -424,7 +424,7 @@ public class HtmlRequestTest {
 //        HtmlRequest.setObject(conf_, nc_, composite_, new Numbers<Long>(4L));
 //    }
 
-    @Test(expected=NoSuchDeclaredMethodException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void setObject4FailTest() {
         Composite composite_ = new Composite();
         Configuration conf_ = newConfiguration();
@@ -486,7 +486,7 @@ public class HtmlRequestTest {
         assertEq("sample",return_);
     }
 
-    @Test(expected=NoSuchDeclaredMethodException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void invokeMethodWithNumbers1FailTest() {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);

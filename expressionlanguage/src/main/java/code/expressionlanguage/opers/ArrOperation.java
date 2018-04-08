@@ -8,10 +8,9 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadIndexException;
-import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -67,11 +66,27 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
         if (!indexClass_.isNumericInt(_conf)) {
-            throw new BadIndexTypeException(StringList.concat(indexClass_.getName(),RETURN_LINE,_conf.joinPages()));
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
+            un_.setOperands(new StringList(indexClass_.getName()));
+            _conf.getClasses().getErrorsDet().add(un_);
+            class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
+            setResultClass(class_);
+            return;
         }
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         if (!class_.isArray()) {
-            throw new NotArrayException(StringList.concat(class_.getName(),RETURN_LINE,_conf.joinPages()));
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
+            un_.setOperands(new StringList(class_.getName()));
+            _conf.getClasses().getErrorsDet().add(un_);
+            class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
+            setResultClass(class_);
+            return;
         }
         class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
         LgNames stds_ = _conf.getStandards();

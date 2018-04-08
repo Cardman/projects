@@ -14,6 +14,7 @@ import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -59,6 +60,7 @@ public final class ElUtil {
         page_.setGlobalOffset(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
         if (dLeft_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(dLeft_.getBadOffset());
             throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dLeft_.getBadOffset()),RETURN_LINE,_left,RETURN_LINE,_conf.joinPages()));
         }
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
@@ -71,6 +73,7 @@ public final class ElUtil {
         page_.setGlobalOffset(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
         if (dRight_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(dRight_.getBadOffset());
             throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dRight_.getBadOffset()),RETURN_LINE,_right,RETURN_LINE,_conf.joinPages()));
         }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
@@ -187,6 +190,7 @@ public final class ElUtil {
     public static Argument processEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         if (d_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(d_.getBadOffset());
             throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
         }
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
@@ -198,6 +202,9 @@ public final class ElUtil {
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
         analyze(all_, _conf);
+        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+            throw new AnalyzingErrorsException(_conf.getClasses().getErrorsDet());
+        }
         calculate(all_, _conf, EMPTY_STRING);
         Argument arg_ = op_.getArgument();
         return arg_;
@@ -206,6 +213,7 @@ public final class ElUtil {
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         if (d_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(d_.getBadOffset());
             throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
@@ -231,6 +239,7 @@ public final class ElUtil {
     public static Argument processEl(String _el, int _index, ContextEl _conf) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         if (d_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(d_.getBadOffset());
             throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
         }
         String el_ = _el.substring(_index);
@@ -241,6 +250,9 @@ public final class ElUtil {
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
         analyze(all_, _conf);
+        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+            throw new AnalyzingErrorsException(_conf.getClasses().getErrorsDet());
+        }
         calculate(all_, _conf, EMPTY_STRING);
         Argument arg_  = op_.getArgument();
         return arg_;

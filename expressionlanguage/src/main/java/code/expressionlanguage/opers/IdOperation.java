@@ -2,8 +2,9 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadOperandsNumber;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
@@ -46,11 +47,23 @@ public final class IdOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
+            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            badNb_.setFileName(_conf.getCurrentFileName());
+            badNb_.setOperandsNumber(chidren_.size());
+            badNb_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badNb_);
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
         }
         if (getParent() instanceof DotOperation && !isFirstChild()) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
+            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            badNb_.setFileName(_conf.getCurrentFileName());
+            badNb_.setOperandsNumber(chidren_.size());
+            badNb_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badNb_);
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
         }
         setResultClass(chidren_.first().getResultClass());
     }

@@ -13,19 +13,18 @@ import code.expressionlanguage.classes.Composite;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NoSuchDeclaredFieldException;
 import code.expressionlanguage.exceptions.NoSuchDeclaredMethodException;
-import code.expressionlanguage.exceptions.NotStringException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.VarargException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ArrayStruct;
@@ -2302,7 +2301,7 @@ public class ElUtilTest {
         ElUtil.processEl("$new code.expressionlanguage.classes.FailMethods()",0, context_);
     }
 
-    @Test(expected=NoSuchDeclaredMethodException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void processEl19FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
@@ -2397,7 +2396,7 @@ public class ElUtilTest {
         ElUtil.processEl(el_, 0, context_);
     }
 
-    @Test(expected=NotStringException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void processEl28FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
@@ -2429,7 +2428,7 @@ public class ElUtilTest {
         ElUtil.processEl(el_, 0, context_);
     }
 
-    @Test(expected=BadNumberValuesException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void processEl32FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -2437,7 +2436,7 @@ public class ElUtilTest {
         ElUtil.processEl(el_, 0, conf_);
     }
 
-    @Test(expected=BadNumberValuesException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void processEl33FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -2445,7 +2444,7 @@ public class ElUtilTest {
         ElUtil.processEl(el_, 0, conf_);
     }
 
-    @Test(expected=BadNumberValuesException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void processEl34FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -2509,7 +2508,7 @@ public class ElUtilTest {
         ElUtil.processEl(el_, 0, conf_);
     }
 
-    @Test(expected=BadNumberValuesException.class)
+    @Test(expected=AnalyzingErrorsException.class)
     public void processEl43FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);

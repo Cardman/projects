@@ -5,8 +5,8 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NotNumberException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
@@ -35,7 +35,16 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         if (cl_ == null) {
-            throw new NotNumberException(StringList.concat(clMatch_.getName(),RETURN_LINE,_conf.joinPages()));
+            String exp_ = _conf.getStandards().getAliasNumber();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(exp_);
+            un_.setOperands(new StringList(clMatch_.getName()));
+            _conf.getClasses().getErrorsDet().add(un_);
+            ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
+            setResultClass(arg_);
+            return;
         }
         LgNames stds_ = _conf.getStandards();
         int intOrder_ = PrimitiveTypeUtil.getOrderClass(stds_.getAliasPrimInteger(), _conf);

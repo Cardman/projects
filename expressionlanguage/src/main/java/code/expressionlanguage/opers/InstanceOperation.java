@@ -28,10 +28,10 @@ import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
-import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.CharStruct;
@@ -131,7 +131,11 @@ public final class InstanceOperation extends InvokingOperation {
                     mapping_.setArg(argType_);
                     mapping_.setMapping(map_);
                     if (!Templates.isGenericCorrect(mapping_, _conf)) {
-                        throw new DynamicCastClassException(StringList.concat(argType_,RETURN_LINE,eltType_,RETURN_LINE,_conf.joinPages()));
+                        BadImplicitCast cast_ = new BadImplicitCast();
+                        cast_.setMapping(mapping_);
+                        cast_.setFileName(_conf.getCurrentFileName());
+                        cast_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(cast_);
                     }
                 }
             }
@@ -190,7 +194,16 @@ public final class InstanceOperation extends InvokingOperation {
         String realClassName_ = _realClassName;
         LgNames stds_ = _conf.getStandards();
         if (StringList.quickEq(realClassName_, stds_.getAliasVoid())) {
-            throw new VoidArgumentException(_conf.joinPages());
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(realClassName_);
+            mapping_.setParam(stds_.getAliasObject());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(_conf.getCurrentFileName());
+            cast_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(cast_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
         }
         int varargOnly_ = lookOnlyForVarArg();
         ConstrustorIdVarArg ctorRes_ = null;

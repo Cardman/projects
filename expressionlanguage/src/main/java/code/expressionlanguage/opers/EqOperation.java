@@ -2,8 +2,8 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -32,11 +32,17 @@ public final class EqOperation extends PrimitiveBoolOperation {
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        LgNames stds_ = _conf.getStandards();
         if (chidren_.size() != 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
+            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            badNb_.setFileName(_conf.getCurrentFileName());
+            badNb_.setOperandsNumber(chidren_.size());
+            badNb_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badNb_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            return;
         }
-        LgNames stds_ = _conf.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
     }
 
