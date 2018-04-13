@@ -168,66 +168,54 @@ public class MovesBean extends CommonBean {
                     continue;
                 }
             }
-            if (!StringList.quickEq(minAccuracy, DataBase.EMPTY_STRING)) {
-                try {
-                    Rate accurary_ = new Rate(minAccuracy);
-                    try {
-                        Rate accuraryLoc_ = new Rate(moveData_.getAccuracy());
-                        if (!Rate.greaterEq(accuraryLoc_, accurary_)) {
-                            continue;
-                        }
-                    } catch (RuntimeException _0) {
+            if (Rate.isValid(minAccuracy)) {
+                Rate accurary_ = new Rate(minAccuracy);
+                String accuraryStr_ = moveData_.getAccuracy();
+                if (!Rate.isValid(accuraryStr_)) {
+                    continue;
+                }
+                Rate accuraryLoc_ = new Rate(accuraryStr_);
+                if (!Rate.greaterEq(accuraryLoc_, accurary_)) {
+                    continue;
+                }
+            }
+            if (Rate.isValid(maxAccuracy)) {
+                Rate accurary_ = new Rate(maxAccuracy);
+                String accuraryStr_ = moveData_.getAccuracy();
+                if (Rate.isValid(accuraryStr_)) {
+                    Rate accuraryLoc_ = new Rate(accuraryStr_);
+                    if (!Rate.lowerEq(accuraryLoc_, accurary_)) {
                         continue;
                     }
-                } catch (RuntimeException _0) {
                 }
             }
-            if (!StringList.quickEq(maxAccuracy, DataBase.EMPTY_STRING)) {
-                try {
-                    Rate accurary_ = new Rate(maxAccuracy);
-                    if (Rate.isValid(moveData_.getAccuracy())) {
-                        Rate accuraryLoc_ = new Rate(moveData_.getAccuracy());
-                        if (!Rate.lowerEq(accuraryLoc_, accurary_)) {
-                            continue;
-                        }
-                    }
-                } catch (RuntimeException _0) {
-                }
-            }
-            if (!StringList.quickEq(minPower, DataBase.EMPTY_STRING)) {
+            if (Rate.isValid(minPower)) {
                 if (!(moveData_ instanceof DamagingMoveData)) {
                     continue;
                 }
                 DamagingMoveData damage_ = (DamagingMoveData) moveData_;
                 EffectDamage eff_ = (EffectDamage) damage_.getEffet(damage_.indexOfPrimaryEffect());
-                try {
-                    Rate power_ = new Rate(minPower);
-                    if (!power_.isZeroOrLt()) {
-                        try {
-                            Rate powerLoc_ = new Rate(eff_.getPower());
-                            if (!Rate.greaterEq(powerLoc_, power_)) {
-                                continue;
-                            }
-                        } catch (RuntimeException _0) {
-                            continue;
-                        }
+                Rate power_ = new Rate(minPower);
+                if (!power_.isZeroOrLt()) {
+                    if (!Rate.isValid(eff_.getPower())) {
+                        continue;
                     }
-                } catch (RuntimeException _0) {
+                    Rate powerLoc_ = new Rate(eff_.getPower());
+                    if (!Rate.greaterEq(powerLoc_, power_)) {
+                        continue;
+                    }
                 }
             }
-            if (!StringList.quickEq(maxPower, DataBase.EMPTY_STRING)) {
+            if (Rate.isValid(maxPower)) {
                 if (moveData_ instanceof DamagingMoveData) {
                     DamagingMoveData damage_ = (DamagingMoveData) moveData_;
                     EffectDamage eff_ = (EffectDamage) damage_.getEffet(damage_.indexOfPrimaryEffect());
-                    try {
-                        Rate power_ = new Rate(maxPower);
-                        if (Rate.isValid(eff_.getPower())) {
-                            Rate powerLoc_ = new Rate(eff_.getPower());
-                            if (!Rate.lowerEq(powerLoc_, power_)) {
-                                continue;
-                            }
+                    Rate power_ = new Rate(maxPower);
+                    if (Rate.isValid(eff_.getPower())) {
+                        Rate powerLoc_ = new Rate(eff_.getPower());
+                        if (!Rate.lowerEq(powerLoc_, power_)) {
+                            continue;
                         }
-                    } catch (RuntimeException _0) {
                     }
                 }
             }

@@ -8,6 +8,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.util.CustList;
 import code.util.EnumMap;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -102,21 +103,15 @@ public class PokedexBean extends CommonBean {
                 }
             }
             if (!typedMinNbPossEvos.isEmpty()) {
-                try {
-                    short min_ = Short.parseShort(typedMinNbPossEvos);
-                    if (pkData_.getDirectEvolutions().size() < min_) {
-                        continue;
-                    }
-                } catch (RuntimeException _0) {
+                long min_ = Numbers.parseLongZero(typedMinNbPossEvos);
+                if (pkData_.getDirectEvolutions().size() < min_) {
+                    continue;
                 }
             }
             if (!typedMaxNbPossEvos.isEmpty()) {
-                try {
-                    short max_ = Short.parseShort(typedMaxNbPossEvos);
-                    if (pkData_.getDirectEvolutions().size() > max_) {
-                        continue;
-                    }
-                } catch (RuntimeException _0) {
+                long max_ = Numbers.parseLongZero(typedMaxNbPossEvos);
+                if (pkData_.getDirectEvolutions().size() > max_) {
+                    continue;
                 }
             }
             if (isEvo != SelectedBoolean.YES_AND_NO) {

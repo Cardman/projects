@@ -23,14 +23,17 @@ public final class FullElement extends FullNode implements Element {
         super(_ownerDocument);
     }
 
+    @Override
     public String getTagName() {
         return tagName;
     }
 
+    @Override
     public void setTagName(String _tagName) {
         tagName = _tagName;
     }
 
+    @Override
     public String getAttribute(String _name) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -40,6 +43,7 @@ public final class FullElement extends FullNode implements Element {
         return EMPTY_STRING;
     }
 
+    @Override
     public Attr getAttributeNode(String _name) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -49,6 +53,7 @@ public final class FullElement extends FullNode implements Element {
         return null;
     }
 
+    @Override
     public boolean hasAttribute(String _name) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -58,6 +63,7 @@ public final class FullElement extends FullNode implements Element {
         return false;
     }
 
+    @Override
     public void removeAttribute(String _name) {
         int index_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean found_ = false;
@@ -73,6 +79,7 @@ public final class FullElement extends FullNode implements Element {
         }
         attributes.remove(index_);
     }
+    @Override
     public void removeAttributeNode(Attr _oldAttr) {
         int index_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean found_ = false;
@@ -88,6 +95,7 @@ public final class FullElement extends FullNode implements Element {
         }
         attributes.remove(index_);
     }
+    @Override
     public void setAttribute(String _name, String _value) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -99,6 +107,7 @@ public final class FullElement extends FullNode implements Element {
         attr_.setValue(_value);
         attributes.add(attr_);
     }
+    @Override
     public void setEscapedAttribute(String _name, String _value) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -110,6 +119,7 @@ public final class FullElement extends FullNode implements Element {
         attr_.setEscapedValue(_value);
         attributes.add(attr_);
     }
+    @Override
     public void setAttributeNode(Attr _newAttr) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _newAttr.getName())) {
@@ -127,6 +137,7 @@ public final class FullElement extends FullNode implements Element {
         return attributes;
     }
 
+    @Override
     public void setAttributes(NamedNodeMap _attributes) {
         attributes = _attributes;
     }
@@ -372,6 +383,7 @@ public final class FullElement extends FullNode implements Element {
         }
         return str_.toString();
     }
+    @Override
     public String export() {
         FullElement root_ = this;
         Node current_ = getFirstChild();
@@ -466,6 +478,7 @@ public final class FullElement extends FullNode implements Element {
         // TODO Auto-generated method stub
         return 0;
     }
+    @Override
     public NodeList getDescNodes() {
         NodeList elements_ = new NodeList();
         FullElement root_ = this;
@@ -511,6 +524,7 @@ public final class FullElement extends FullNode implements Element {
         }
         return elements_;
     }
+    @Override
     public NodeList getElementsByTagName() {
         NodeList elements_ = new NodeList();
         FullElement root_ = this;
@@ -560,6 +574,7 @@ public final class FullElement extends FullNode implements Element {
         return elements_;
     }
 
+    @Override
     public ElementList getElementsByTagName(String _tagName) {
         ElementList elements_ = new ElementList();
         FullElement root_ = this;

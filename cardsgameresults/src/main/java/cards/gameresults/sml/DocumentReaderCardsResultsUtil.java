@@ -6,8 +6,6 @@ import code.sml.Element;
 import code.util.StringList;
 public final class DocumentReaderCardsResultsUtil {
 
-    private static final String ATTR_FIELD = "field";
-    private static final char DOT = '.';
     private static final String FIELD_DETAIL_RESULTS_TITLE = "detailResultsTitle";
     private static final String FIELD_GLOBAL_RESULTS_PAGE_TITLE = "globalResultsPageTitle";
     private static final String FIELD_RENDERED_PAGES = "renderedPages";

@@ -11,7 +11,6 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import code.stream.exceptions.RuntimeIOException;
-import code.util.CustList;
 import code.util.InsCaseStringMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -23,7 +22,6 @@ public final class StreamZipFile {
     private static final int BYTE_ARRAY_SIZE = 4096;
     private static final String EMPTY_STRING = "";
     private static final String CLASS_EXT = "class";
-    private static final String RETURN_LINE = "\n";
 
     private static final String DOT = ".";
 

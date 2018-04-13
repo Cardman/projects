@@ -83,7 +83,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
     }
 
     public Rate(LgInt _numerateur, LgInt _denominateur) {
-        checkZero(_denominateur);
         numerateur = new LgInt(_numerateur);
         denominateur = new LgInt(_denominateur);
         simplifier();
@@ -100,10 +99,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
         r_.denominateur = new LgInt(_denominateur);
         r_.simplifier();
         return r_;
-    }
-
-    private static long checkZero(LgInt _denominator) {
-        return 1l/_denominator.getGrDigits().first();
     }
 
     @FromAndToString

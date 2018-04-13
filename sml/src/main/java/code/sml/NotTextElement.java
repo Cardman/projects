@@ -33,20 +33,25 @@ public final class NotTextElement implements Node, Element {
     public Element getParentNode() {
         return parentNode;
     }
+    @Override
     public void setParentNode(Element _parentNode) {
         parentNode = _parentNode;
     }
+    @Override
     public Document getOwnerDocument() {
         return ownerDocument;
     }
+    @Override
     public String getTagName() {
         return tagName;
     }
 
+    @Override
     public void setTagName(String _tagName) {
         tagName = _tagName;
     }
 
+    @Override
     public String getAttribute(String _name) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -56,6 +61,7 @@ public final class NotTextElement implements Node, Element {
         return EMPTY_STRING;
     }
 
+    @Override
     public Attr getAttributeNode(String _name) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -65,6 +71,7 @@ public final class NotTextElement implements Node, Element {
         return null;
     }
 
+    @Override
     public boolean hasAttribute(String _name) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -74,6 +81,7 @@ public final class NotTextElement implements Node, Element {
         return false;
     }
 
+    @Override
     public void removeAttribute(String _name) {
         int index_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean found_ = false;
@@ -89,6 +97,7 @@ public final class NotTextElement implements Node, Element {
         }
         attributes.remove(index_);
     }
+    @Override
     public void removeAttributeNode(Attr _oldAttr) {
         int index_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean found_ = false;
@@ -104,6 +113,7 @@ public final class NotTextElement implements Node, Element {
         }
         attributes.remove(index_);
     }
+    @Override
     public void setAttribute(String _name, String _value) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -115,6 +125,7 @@ public final class NotTextElement implements Node, Element {
         attr_.setValue(_value);
         attributes.add(attr_);
     }
+    @Override
     public void setEscapedAttribute(String _name, String _value) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -126,6 +137,7 @@ public final class NotTextElement implements Node, Element {
         attr_.setEscapedValue(_value);
         attributes.add(attr_);
     }
+    @Override
     public void setAttributeNode(Attr _newAttr) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _newAttr.getName())) {
@@ -143,6 +155,7 @@ public final class NotTextElement implements Node, Element {
         return attributes;
     }
 
+    @Override
     public void setAttributes(NamedNodeMap _attributes) {
         attributes = _attributes;
     }
@@ -226,6 +239,7 @@ public final class NotTextElement implements Node, Element {
         }
     }
 
+    @Override
     public String export() {
         NotTextElement root_ = this;
         Node current_ = getFirstChild();
@@ -312,6 +326,7 @@ public final class NotTextElement implements Node, Element {
         // TODO Auto-generated method stub
         return 0;
     }
+    @Override
     public NodeList getDescNodes() {
         NodeList elements_ = new NodeList();
         NotTextElement root_ = this;
@@ -357,6 +372,7 @@ public final class NotTextElement implements Node, Element {
         }
         return elements_;
     }
+    @Override
     public NodeList getElementsByTagName() {
         NodeList elements_ = new NodeList();
         NotTextElement root_ = this;
@@ -404,6 +420,7 @@ public final class NotTextElement implements Node, Element {
         return elements_;
     }
 
+    @Override
     public ElementList getElementsByTagName(String _tagName) {
         ElementList elements_ = new ElementList();
         NotTextElement root_ = this;

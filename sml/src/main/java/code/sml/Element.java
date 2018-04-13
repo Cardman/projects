@@ -19,6 +19,7 @@ public interface Element extends Node {
     void setEscapedAttribute(String _name, String _value);
     public void setAttributeNode(Attr _newAttr);
 
+    @Override
     public NamedNodeMap getAttributes();
 
     void setAttributes(NamedNodeMap _attributes);

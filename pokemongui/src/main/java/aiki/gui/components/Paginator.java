@@ -19,7 +19,6 @@ import code.gui.LabelButton;
 import code.gui.NumComboBox;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.exceptions.FormatException;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -152,19 +151,17 @@ public abstract class Paginator extends JPanel{
     }
 
     protected static Rate convertRateField(String _text) {
-        try {
-            return new Rate(_text);
-        }catch(FormatException _0){
+        if (!Rate.isValid(_text)) {
             return null;
         }
+        return new Rate(_text);
     }
 
     protected static LgInt convertLgIntField(String _text) {
-        try {
-            return new LgInt(_text);
-        }catch(FormatException _0){
+        if (!LgInt.isValid(_text)) {
             return null;
         }
+        return new LgInt(_text);
     }
 
     public abstract void check(int _index);

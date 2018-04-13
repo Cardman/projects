@@ -807,11 +807,9 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String TYPE_FOSSIL = "Fossil";
     private static final String TYPE_HEALING_HP = "HealingHp";
     private static final String TYPE_HEALING_HP_STATUS = "HealingHpStatus";
-    private static final String TYPE_HEALING_ITEM = "HealingItem";
     private static final String TYPE_HEALING_PP = "HealingPp";
     private static final String TYPE_HEALING_SIMPLE_ITEM = "HealingItem";
     private static final String TYPE_HEALING_SIMPLE_STATUS = "HealingStatus";
-    private static final String TYPE_HEALING_STATUS = "HealingStatus";
     private static final String TYPE_ITEM = "Item";
     private static final String TYPE_ITEM_FOR_BATTLE = "ItemForBattle";
     private static final String TYPE_REPEL = "Repel";
@@ -879,17 +877,14 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String TYPE_EVOLUTION = "Evolution";
     private static final String TYPE_EVOLUTION_HAPPINESS = "EvolutionHappiness";
     private static final String TYPE_EVOLUTION_ITEM = "EvolutionItem";
-    private static final String TYPE_EVOLUTION_LEVEL = "EvolutionLevel";
     private static final String TYPE_EVOLUTION_LEVEL_GENDER = "EvolutionLevelGender";
     private static final String TYPE_EVOLUTION_LEVEL_SIMPLE = "EvolutionLevel";
     private static final String TYPE_EVOLUTION_MOVE = "EvolutionMove";
     private static final String TYPE_EVOLUTION_MOVE_TYPE = "EvolutionMoveType";
-    private static final String TYPE_EVOLUTION_STONE = "EvolutionStone";
     private static final String TYPE_EVOLUTION_STONE_GENDER = "EvolutionStoneGender";
     private static final String TYPE_EVOLUTION_STONE_SIMPLE = "EvolutionStone";
     private static final String TYPE_EVOLUTION_TEAM = "EvolutionTeam";
     private static final String TYPE_STATUS = "Status";
-    private static final String TYPE_STATUS_BEGIN_ROUND = "StatusBeginRound";
     private static final String TYPE_STATUS_BEGIN_ROUND_AUTO_DAMAGE = "StatusBeginRoundAutoDamage";
     private static final String TYPE_STATUS_BEGIN_ROUND_SIMPLE = "StatusBeginRound";
     private static final String TYPE_STATUS_SIMPLE = "Status";
@@ -923,17 +918,10 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String TYPE_TEAM_POSITION = "TeamPosition";
     private static final String TYPE_ABSTRACT_ACTION = "AbstractAction";
     private static final String TYPE_ACTION = "Action";
-    private static final String TYPE_ACTION_HEAL = "ActionHeal";
     private static final String TYPE_ACTION_HEAL_MOVE = "ActionHealMove";
     private static final String TYPE_ACTION_MOVE = "ActionMove";
     private static final String TYPE_ACTION_SIMPLE_HEAL = "ActionSimpleHeal";
     private static final String TYPE_ACTION_SWITCH = "ActionSwitch";
-    private static final String TYPE_COMPARATOR_LAWS = "ComparatorLaws";
-    private static final String TYPE_SORTED_FIGHTER_ACTS_COMPARATOR = "SortedFighterActsComparator";
-    private static final String TYPE_SORTED_FIGHTER_END_ROUND_COMPARATOR = "SortedFighterEndRoundComparator";
-    private static final String TYPE_SORTED_FIGHTER_HEAL_ACTS_COMPARATOR = "SortedFighterHealActsComparator";
-    private static final String TYPE_SORTED_FIGHTER_MOVE_ACTS_COMPARATOR = "SortedFighterMoveActsComparator";
-    private static final String TYPE_SORTED_FIGHTER_SWITCH_ACTS_COMPARATOR = "SortedFighterSwitchActsComparator";
     private static final String TYPE_FIGHT_STATE = "FightState";
     private static final String TYPE_FIGHT_TYPE = "FightType";
     private static final String TYPE_AFFECTED_MOVE = "AffectedMove";
@@ -947,7 +935,6 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String TYPE_INVENTORY = "Inventory";
     private static final String TYPE_PLAYER = "Player";
     private static final String TYPE_SEX = "Sex";
-    private static final String TYPE_CONDITION = "Condition";
     private static final String TYPE_DATA_MAP = "DataMap";
     private static final String TYPE_BUILDING = "Building";
     private static final String TYPE_GYM = "Gym";
@@ -963,26 +950,21 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String TYPE_PERSON = "Person";
     private static final String TYPE_SELLER = "Seller";
     private static final String TYPE_TEMP_TRAINER = "TempTrainer";
-    private static final String TYPE_TRAINER = "Trainer";
     private static final String TYPE_TRAINER_LEAGUE = "TrainerLeague";
     private static final String TYPE_TRAINER_MULTI_FIGHTS = "TrainerMultiFights";
-    private static final String TYPE_TRAINER_ONE_FIGHT = "TrainerOneFight";
     private static final String TYPE_GERANCE_TYPE = "GeranceType";
     private static final String TYPE_SELL_TYPE = "SellType";
     private static final String TYPE_DIRECTION = "Direction";
     private static final String TYPE_AREA_APPARITION = "AreaApparition";
     private static final String TYPE_BLOCK = "Block";
-    private static final String TYPE_LEVEL = "Level";
     private static final String TYPE_LEVEL_CAVE = "LevelCave";
     private static final String TYPE_LEVEL_INDOOR_GYM = "LevelIndoorGym";
     private static final String TYPE_LEVEL_INDOOR_POKEMON_CENTER = "LevelIndoorPokemonCenter";
     private static final String TYPE_LEVEL_LEAGUE = "LevelLeague";
     private static final String TYPE_LEVEL_OUTDOOR = "LevelOutdoor";
     private static final String TYPE_LEVEL_ROAD = "LevelRoad";
-    private static final String TYPE_LEVEL_WITH_WILD_POKEMON = "LevelWithWildPokemon";
     private static final String TYPE_LINK = "Link";
     private static final String TYPE_ENVIRONMENT_TYPE = "EnvironmentType";
-    private static final String TYPE_CAMPAIGN = "Campaign";
     private static final String TYPE_CAVE = "Cave";
     private static final String TYPE_CITY = "City";
     private static final String TYPE_LEAGUE = "League";
@@ -990,7 +972,6 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String TYPE_ROAD = "Road";
     private static final String TYPE_EGG = "Egg";
     private static final String TYPE_PK_TRAINER = "PkTrainer";
-    private static final String TYPE_POKEMON = "Pokemon";
     private static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
     private static final String TYPE_POKEMON_TEAM = "PokemonTeam";
     private static final String TYPE_USABLE_POKEMON = "UsablePokemon";
@@ -2294,31 +2275,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static void setEvolution(Evolution _object, Element _element, Document _document) {
     }
 
-    private static Element setEvolutionItem(EvolutionItem _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_EVOLUTION_ITEM);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setEvolutionItem(_object,element_,_document);
-        return element_;
-    }
-
     private static void setEvolutionItem(EvolutionItem _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getItem(),FIELD_ITEM,_document));
-    }
-
-    private static Element setEvolutionLevel(EvolutionLevel _object, String _fieldName, Document _document) {
-        if (_object instanceof EvolutionLevelGender) {
-            Element element_ = _document.createElement(TYPE_EVOLUTION_LEVEL_GENDER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEvolutionLevelGender((EvolutionLevelGender)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EvolutionLevelSimple) {
-            Element element_ = _document.createElement(TYPE_EVOLUTION_LEVEL_SIMPLE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEvolutionLevel(_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_EVOLUTION_LEVEL);
     }
 
     private static void setEvolutionLevel(EvolutionLevel _object, Element _element, Document _document) {
@@ -2330,42 +2288,12 @@ public final class DocumentWriterAikiCoreUtil {
         setEvolutionLevel(_object, _element, _document);
     }
 
-    private static Element setEvolutionMove(EvolutionMove _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_EVOLUTION_MOVE);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setEvolutionMove(_object,element_,_document);
-        return element_;
-    }
-
     private static void setEvolutionMove(EvolutionMove _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getMove(),FIELD_MOVE,_document));
     }
 
-    private static Element setEvolutionMoveType(EvolutionMoveType _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_EVOLUTION_MOVE_TYPE);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setEvolutionMoveType(_object,element_,_document);
-        return element_;
-    }
-
     private static void setEvolutionMoveType(EvolutionMoveType _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getType(),FIELD_TYPE,_document));
-    }
-
-    private static Element setEvolutionStone(EvolutionStone _object, String _fieldName, Document _document) {
-        if (_object instanceof EvolutionStoneGender) {
-            Element element_ = _document.createElement(TYPE_EVOLUTION_STONE_GENDER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEvolutionStoneGender((EvolutionStoneGender)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EvolutionStoneSimple) {
-            Element element_ = _document.createElement(TYPE_EVOLUTION_STONE_SIMPLE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEvolutionStone(_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_EVOLUTION_STONE);
     }
 
     private static void setEvolutionStone(EvolutionStone _object, Element _element, Document _document) {
@@ -2375,13 +2303,6 @@ public final class DocumentWriterAikiCoreUtil {
     private static void setEvolutionStoneGender(EvolutionStoneGender _object, Element _element, Document _document) {
         _element.appendChild(setGender(_object.getGender(),FIELD_GENDER,_document));
         setEvolutionStone(_object, _element, _document);
-    }
-
-    private static Element setEvolutionTeam(EvolutionTeam _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_EVOLUTION_TEAM);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setEvolutionTeam(_object,element_,_document);
-        return element_;
     }
 
     private static void setEvolutionTeam(EvolutionTeam _object, Element _element, Document _document) {
@@ -2830,22 +2751,6 @@ public final class DocumentWriterAikiCoreUtil {
     private static void setAbstractAction(AbstractAction _object, Element _element, Document _document) {
     }
 
-    private static Element setActionHeal(ActionHeal _object, String _fieldName, Document _document) {
-        if (_object instanceof ActionHealMove) {
-            Element element_ = _document.createElement(TYPE_ACTION_HEAL_MOVE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setActionHealMove((ActionHealMove)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof ActionSimpleHeal) {
-            Element element_ = _document.createElement(TYPE_ACTION_SIMPLE_HEAL);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setActionSimpleHeal((ActionSimpleHeal)_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_ACTION_HEAL);
-    }
-
     private static void setActionHeal(ActionHeal _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getChosenHealingItem(),FIELD_CHOSEN_HEALING_ITEM,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isTeam(),FIELD_TEAM,_document));
@@ -2854,13 +2759,6 @@ public final class DocumentWriterAikiCoreUtil {
     private static void setActionHealMove(ActionHealMove _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getFirstChosenMove(),FIELD_FIRST_CHOSEN_MOVE,_document));
         setActionHeal(_object, _element, _document);
-    }
-
-    private static Element setActionMove(ActionMove _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ACTION_MOVE);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setActionMove(_object,element_,_document);
-        return element_;
     }
 
     private static void setActionMove(ActionMove _object, Element _element, Document _document) {
@@ -2872,13 +2770,6 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setActionSimpleHeal(ActionSimpleHeal _object, Element _element, Document _document) {
         setActionHeal(_object, _element, _document);
-    }
-
-    private static Element setActionSwitch(ActionSwitch _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ACTION_SWITCH);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setActionSwitch(_object,element_,_document);
-        return element_;
     }
 
     private static void setActionSwitch(ActionSwitch _object, Element _element, Document _document) {
@@ -3123,9 +3014,6 @@ public final class DocumentWriterAikiCoreUtil {
         return _document.createElement(TYPE_CHARACTER_IN_ROAD_CAVE);
     }
 
-    private static void setCharacterInRoadCave(CharacterInRoadCave _object, Element _element, Document _document) {
-    }
-
     private static void setDealerItem(DealerItem _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getItems(),FIELD_ITEMS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setListShort(_object.getTechnicalMoves(),FIELD_TECHNICAL_MOVES,_document));
@@ -3335,46 +3223,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(setEnvironmentType(_object.getType(),FIELD_TYPE,_document));
     }
 
-    private static Element setLevel(Level _object, String _fieldName, Document _document) {
-        if (_object instanceof LevelCave) {
-            Element element_ = _document.createElement(TYPE_LEVEL_CAVE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setLevelCave((LevelCave)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof LevelIndoorGym) {
-            Element element_ = _document.createElement(TYPE_LEVEL_INDOOR_GYM);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setLevelIndoorGym((LevelIndoorGym)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof LevelIndoorPokemonCenter) {
-            Element element_ = _document.createElement(TYPE_LEVEL_INDOOR_POKEMON_CENTER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setLevelIndoorPokemonCenter((LevelIndoorPokemonCenter)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof LevelLeague) {
-            Element element_ = _document.createElement(TYPE_LEVEL_LEAGUE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setLevelLeague((LevelLeague)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof LevelOutdoor) {
-            Element element_ = _document.createElement(TYPE_LEVEL_OUTDOOR);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setLevelOutdoor((LevelOutdoor)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof LevelRoad) {
-            Element element_ = _document.createElement(TYPE_LEVEL_ROAD);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setLevelRoad((LevelRoad)_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_LEVEL);
-    }
-
     private static void setLevel(Level _object, Element _element, Document _document) {
         _element.appendChild(setMapPointBlock(_object.getBlocks(),FIELD_BLOCKS,_document));
     }
@@ -3481,24 +3329,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setCave(Cave _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_CAVE);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setCave(_object,element_,_document);
-        return element_;
-    }
-
     private static void setCave(Cave _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
         _element.appendChild(setMapByteLevelCave(_object.getLevels(),FIELD_LEVELS,_document));
         _element.appendChild(setMapLevelPointLink(_object.getLinksWithOtherPlaces(),FIELD_LINKS_WITH_OTHER_PLACES,_document));
-    }
-
-    private static Element setCity(City _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_CITY);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setCity(_object,element_,_document);
-        return element_;
     }
 
     private static void setCity(City _object, Element _element, Document _document) {
@@ -3507,13 +3341,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
         _element.appendChild(setMapPlaceInterConnectCoords(_object.getSavedlinks(),FIELD_SAVEDLINKS,_document));
         _element.appendChild(setMapPointLink(_object.getLinksWithCaves(),FIELD_LINKS_WITH_CAVES,_document));
-    }
-
-    private static Element setLeague(League _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_LEAGUE);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setLeague(_object,element_,_document);
-        return element_;
     }
 
     private static void setLeague(League _object, Element _element, Document _document) {
@@ -3552,13 +3379,6 @@ public final class DocumentWriterAikiCoreUtil {
         return _document.createElement(TYPE_PLACE);
     }
 
-    private static Element setRoad(Road _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ROAD);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setRoad(_object,element_,_document);
-        return element_;
-    }
-
     private static void setRoad(Road _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
         _element.appendChild(setLevelRoad(_object.getLevel(),FIELD_LEVEL,_document));
@@ -3588,28 +3408,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getItem(),FIELD_ITEM,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getMoves(),FIELD_MOVES,_document));
         setPokemon(_object, _element, _document);
-    }
-
-    private static Element setPokemon(Pokemon _object, String _fieldName, Document _document) {
-        if (_object instanceof PkTrainer) {
-            Element element_ = _document.createElement(TYPE_PK_TRAINER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setPkTrainer((PkTrainer)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof PokemonPlayer) {
-            Element element_ = _document.createElement(TYPE_POKEMON_PLAYER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setPokemonPlayer((PokemonPlayer)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof WildPk) {
-            Element element_ = _document.createElement(TYPE_WILD_PK);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setWildPk((WildPk)_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_POKEMON);
     }
 
     private static void setPokemon(Pokemon _object, Element _element, Document _document) {
@@ -3663,9 +3461,6 @@ public final class DocumentWriterAikiCoreUtil {
             return element_;
         }
         return _document.createElement(TYPE_USABLE_POKEMON);
-    }
-
-    private static void setUsablePokemon(UsablePokemon _object, Element _element, Document _document) {
     }
 
     private static Element setWildPk(WildPk _object, String _fieldName, Document _document) {

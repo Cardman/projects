@@ -877,13 +877,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String TYPE_HEALING_SIMPLE_STATUS = "HealingStatus";
     private static final String TYPE_ITEM_FOR_BATTLE = "ItemForBattle";
     private static final String TYPE_LEAGUE = "League";
-    private static final String TYPE_LEVEL_CAVE = "LevelCave";
-    private static final String TYPE_LEVEL_INDOOR_GYM = "LevelIndoorGym";
-    private static final String TYPE_LEVEL_INDOOR_POKEMON_CENTER = "LevelIndoorPokemonCenter";
-    private static final String TYPE_LEVEL_LEAGUE = "LevelLeague";
-    private static final String TYPE_LEVEL_OUTDOOR = "LevelOutdoor";
-    private static final String TYPE_LEVEL_ROAD = "LevelRoad";
-    private static final String TYPE_PK_TRAINER = "PkTrainer";
     private static final String TYPE_POKEMON_CENTER = "PokemonCenter";
     private static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
     private static final String TYPE_REPEL = "Repel";
@@ -897,7 +890,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String TYPE_TEMP_TRAINER = "TempTrainer";
     private static final String TYPE_TRAINER_LEAGUE = "TrainerLeague";
     private static final String TYPE_TRAINER_MULTI_FIGHTS = "TrainerMultiFights";
-    private static final String TYPE_WILD_PK = "WildPk";
 
     public static Combos getCombos(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
@@ -3442,41 +3434,11 @@ public final class DocumentReaderAikiCoreUtil {
     private static void getEvolution(Evolution _object, String _fieldName, Element _element) {
     }
 
-    private static EvolutionItem getEvolutionItem(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        EvolutionItem object_ = Instances.newEvolutionItem();
-        for (Element c: childElements_) {
-            getEvolutionItem(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
-    }
-
     private static void getEvolutionItem(EvolutionItem _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_ITEM)) {
             _object.setItem(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-    }
-
-    private static EvolutionLevel getEvolutionLevel(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_LEVEL_GENDER)) {
-            EvolutionLevelGender object_ = Instances.newEvolutionLevelGender();
-            for (Element c: childElements_) {
-                getEvolutionLevelGender(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_LEVEL_SIMPLE)) {
-            EvolutionLevelSimple object_ = Instances.newEvolutionLevelSimple();
-            for (Element c: childElements_) {
-                getEvolutionLevel(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        return null;
     }
 
     private static void getEvolutionLevel(EvolutionLevel _object, String _fieldName, Element _element) {
@@ -3494,15 +3456,6 @@ public final class DocumentReaderAikiCoreUtil {
         getEvolutionLevel(_object, _fieldName, _element);
     }
 
-    private static EvolutionMove getEvolutionMove(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        EvolutionMove object_ = Instances.newEvolutionMove();
-        for (Element c: childElements_) {
-            getEvolutionMove(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
-    }
-
     private static void getEvolutionMove(EvolutionMove _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_MOVE)) {
             _object.setMove(DocumentReaderCoreUtil.getString(_element));
@@ -3510,41 +3463,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
     }
 
-    private static EvolutionMoveType getEvolutionMoveType(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        EvolutionMoveType object_ = Instances.newEvolutionMoveType();
-        for (Element c: childElements_) {
-            getEvolutionMoveType(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
-    }
-
     private static void getEvolutionMoveType(EvolutionMoveType _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_TYPE)) {
             _object.setType(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-    }
-
-    private static EvolutionStone getEvolutionStone(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_STONE_GENDER)) {
-            EvolutionStoneGender object_ = Instances.newEvolutionStoneGender();
-            for (Element c: childElements_) {
-                getEvolutionStoneGender(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_EVOLUTION_STONE_SIMPLE)) {
-            EvolutionStoneSimple object_ = Instances.newEvolutionStoneSimple();
-            for (Element c: childElements_) {
-                getEvolutionStone(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        return null;
     }
 
     private static void getEvolutionStone(EvolutionStone _object, String _fieldName, Element _element) {
@@ -3560,15 +3483,6 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         getEvolutionStone(_object, _fieldName, _element);
-    }
-
-    private static EvolutionTeam getEvolutionTeam(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        EvolutionTeam object_ = Instances.newEvolutionTeam();
-        for (Element c: childElements_) {
-            getEvolutionTeam(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
     }
 
     private static void getEvolutionTeam(EvolutionTeam _object, String _fieldName, Element _element) {
@@ -4417,27 +4331,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static void getAbstractAction(AbstractAction _object, String _fieldName, Element _element) {
     }
 
-    private static ActionHeal getActionHeal(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_ACTION_HEAL_MOVE)) {
-            ActionHealMove object_ = Instances.newActionHealMove();
-            for (Element c: childElements_) {
-                getActionHealMove(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_ACTION_SIMPLE_HEAL)) {
-            ActionSimpleHeal object_ = Instances.newActionSimpleHeal();
-            for (Element c: childElements_) {
-                getActionSimpleHeal(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        return null;
-    }
-
     private static void getActionHeal(ActionHeal _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_CHOSEN_HEALING_ITEM)) {
             _object.setChosenHealingItem(DocumentReaderCoreUtil.getString(_element));
@@ -4455,15 +4348,6 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         getActionHeal(_object, _fieldName, _element);
-    }
-
-    private static ActionMove getActionMove(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ActionMove object_ = Instances.newActionMove();
-        for (Element c: childElements_) {
-            getActionMove(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
     }
 
     private static void getActionMove(ActionMove _object, String _fieldName, Element _element) {
@@ -4487,15 +4371,6 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getActionSimpleHeal(ActionSimpleHeal _object, String _fieldName, Element _element) {
         getActionHeal(_object, _fieldName, _element);
-    }
-
-    private static ActionSwitch getActionSwitch(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ActionSwitch object_ = Instances.newActionSwitch();
-        for (Element c: childElements_) {
-            getActionSwitch(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
     }
 
     private static void getActionSwitch(ActionSwitch _object, String _fieldName, Element _element) {
@@ -4937,9 +4812,6 @@ public final class DocumentReaderAikiCoreUtil {
         return null;
     }
 
-    private static void getCharacterInRoadCave(CharacterInRoadCave _object, String _fieldName, Element _element) {
-    }
-
     private static void getDealerItem(DealerItem _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_ITEMS)) {
             _object.setItems(DocumentReaderCoreUtil.getStringList(_element));
@@ -5268,55 +5140,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
     }
 
-    private static Level getLevel(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_LEVEL_CAVE)) {
-            LevelCave object_ = Instances.newLevelCave();
-            for (Element c: childElements_) {
-                getLevelCave(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_LEVEL_INDOOR_GYM)) {
-            LevelIndoorGym object_ = Instances.newLevelIndoorGym();
-            for (Element c: childElements_) {
-                getLevelIndoorGym(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_LEVEL_INDOOR_POKEMON_CENTER)) {
-            LevelIndoorPokemonCenter object_ = Instances.newLevelIndoorPokemonCenter();
-            for (Element c: childElements_) {
-                getLevelIndoorPokemonCenter(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_LEVEL_LEAGUE)) {
-            LevelLeague object_ = Instances.newLevelLeague();
-            for (Element c: childElements_) {
-                getLevelLeague(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_LEVEL_OUTDOOR)) {
-            LevelOutdoor object_ = Instances.newLevelOutdoor();
-            for (Element c: childElements_) {
-                getLevelOutdoor(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_LEVEL_ROAD)) {
-            LevelRoad object_ = Instances.newLevelRoad();
-            for (Element c: childElements_) {
-                getLevelRoad(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        return null;
-    }
-
     private static void getLevel(Level _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_BLOCKS)) {
             _object.setBlocks(getMapPointBlock(_element));
@@ -5491,15 +5314,6 @@ public final class DocumentReaderAikiCoreUtil {
         return null;
     }
 
-    private static Cave getCave(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        Cave object_ = Instances.newCave();
-        for (Element c: childElements_) {
-            getCave(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
-    }
-
     private static void getCave(Cave _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
@@ -5513,15 +5327,6 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setLinksWithOtherPlaces(getMapLevelPointLink(_element));
             return;
         }
-    }
-
-    private static City getCity(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        City object_ = Instances.newCity();
-        for (Element c: childElements_) {
-            getCity(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
     }
 
     private static void getCity(City _object, String _fieldName, Element _element) {
@@ -5545,15 +5350,6 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setLinksWithCaves(getMapPointLink(_element));
             return;
         }
-    }
-
-    private static League getLeague(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        League object_ = Instances.newLeague();
-        for (Element c: childElements_) {
-            getLeague(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
     }
 
     private static void getLeague(League _object, String _fieldName, Element _element) {
@@ -5614,18 +5410,6 @@ public final class DocumentReaderAikiCoreUtil {
         return null;
     }
 
-    private static void getPlace(Place _object, String _fieldName, Element _element) {
-    }
-
-    private static Road getRoad(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        Road object_ = Instances.newRoad();
-        for (Element c: childElements_) {
-            getRoad(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
-    }
-
     private static void getRoad(Road _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_NAME)) {
             _object.setName(DocumentReaderCoreUtil.getString(_element));
@@ -5684,34 +5468,6 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         getPokemon(_object, _fieldName, _element);
-    }
-
-    private static Pokemon getPokemon(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringList.quickEq(tagName_,TYPE_PK_TRAINER)) {
-            PkTrainer object_ = Instances.newPkTrainer();
-            for (Element c: childElements_) {
-                getPkTrainer(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_POKEMON_PLAYER)) {
-            PokemonPlayer object_ = Instances.newPokemonPlayer();
-            for (Element c: childElements_) {
-                getPokemonPlayer(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_WILD_PK)) {
-            WildPk object_ = Instances.newWildPk();
-            for (Element c: childElements_) {
-                getWildPk(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        return null;
     }
 
     private static void getPokemon(Pokemon _object, String _fieldName, Element _element) {
@@ -5822,9 +5578,6 @@ public final class DocumentReaderAikiCoreUtil {
             return object_;
         }
         return null;
-    }
-
-    private static void getUsablePokemon(UsablePokemon _object, String _fieldName, Element _element) {
     }
 
     private static WildPk getWildPk(Element _element) {
