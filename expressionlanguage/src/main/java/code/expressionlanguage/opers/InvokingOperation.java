@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
@@ -26,7 +27,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         super(_index, _indexChild, _m, _op);
     }
 
-    CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, ContextEl _conf) {
+    CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, Analyzable _conf) {
         if (!_children.isEmpty() && _children.first().isVararg()) {
             CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
             CustList<ClassArgumentMatching> optArgs_ = new CustList<ClassArgumentMatching>();
@@ -49,7 +50,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String name_ = _children.first().getResultClass().getName();
             StringMap<StringList> map_;
             map_ = new StringMap<StringList>();
-            String glClass_ = _conf.getLastPage().getGlobalClass();
+            String glClass_ = _conf.getGlobalClass();
             if (glClass_ != null) {
                 for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                     map_.put(t.getName(), t.getConstraints());

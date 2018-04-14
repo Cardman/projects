@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
@@ -21,12 +22,12 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public final void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
+    public final void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
             String _fieldName, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }
 
-    final void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
+    final void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);

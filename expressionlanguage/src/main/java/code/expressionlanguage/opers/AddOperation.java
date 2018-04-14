@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
@@ -47,7 +48,7 @@ public final class AddOperation extends NumericOperation {
     }
 
     @Override
-    ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont) {
+    ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont) {
         ResultOperand res_ = new ResultOperand();
         String stringType_ = _cont.getStandards().getAliasString();
         String stringBuilderType_ = _cont.getStandards().getAliasStringBuilder();

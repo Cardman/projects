@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.classes.CustBeanLgNames;
+import code.formathtml.classes.CustLgNames;
 import code.formathtml.util.BeanLgNames;
 
 public final class InitializationLgNames {
@@ -163,5 +164,14 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetNewString("getNewString");
         _lgNames.setAliasSetOldString("setOldString");
         _lgNames.setAliasSetNewString("setNewString");
+    }
+    public static void initAdvStandards(ContextEl _cont) {
+        LgNames lgNames_ = new CustLgNames();
+        lgNames_.setContext(_cont);
+        basicStandards(lgNames_);
+        lgNames_.setAliasMath("$math");
+        lgNames_.build();
+        _cont.setStandards(lgNames_);
+        lgNames_.setupOverrides(_cont);
     }
 }

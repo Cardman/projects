@@ -4,7 +4,6 @@ import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.exceptions.IndirectException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.NullStruct;
@@ -546,7 +545,7 @@ public final class Navigation {
             expression_.append(nodName_).append(GET_LOC_VAR).append(SEP_ARGS);
             expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
             try {
-                Argument message_ = ElUtil.processEl(expression_.toString(), 0, session.toContextEl());
+                Argument message_ = ElRenderUtil.processEl(expression_.toString(), 0, session);
                 if (!message_.isNull()) {
                     Message messageTr_ = (Message) message_.getObject();
                     errors_.put(id_, messageTr_.format());

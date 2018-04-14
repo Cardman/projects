@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers.util;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -23,7 +24,7 @@ public final class ClassMatching {
         return StringList.quickEq(className, _className.className);
     }
 
-    public boolean isAssignableFrom(ClassMatching _c, StringMap<StringList> _map, ContextEl _context) {
+    public boolean isAssignableFrom(ClassMatching _c, StringMap<StringList> _map, Analyzable _context) {
         Mapping map_ = new Mapping();
         map_.setMapping(_map);
         map_.setArg(_c.getClassName());
@@ -39,7 +40,7 @@ public final class ClassMatching {
         return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 
-    public boolean isPrimitive(ContextEl _context) {
+    public boolean isPrimitive(Analyzable _context) {
         return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 

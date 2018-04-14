@@ -1,6 +1,6 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.AccessibleBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -13,20 +13,20 @@ import code.util.StringMap;
 
 public interface GeneType extends AccessibleBlock {
 
-    StringList getAllGenericSuperClasses(ContextEl _classes);
+    StringList getAllGenericSuperClasses(Analyzable _classes);
 
     StringList getAllSuperClasses();
     StringList getAllSuperTypes();
 
-    StringList getDirectGenericSuperClasses(ContextEl _classes);
+    StringList getDirectGenericSuperClasses(Analyzable _classes);
 
     /** Copy the list*/
-    StringList getDirectSuperClasses(ContextEl _classes);
+    StringList getDirectSuperClasses(Analyzable _classes);
 
     boolean isFinalType();
     boolean isAbstractType();
 
-    StringList getAllGenericInterfaces(ContextEl _classes);
+    StringList getAllGenericInterfaces(Analyzable _classes);
 
     StringMap<TypeVar> getParamTypesMap();
 
@@ -45,5 +45,5 @@ public interface GeneType extends AccessibleBlock {
     ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods();
 
     String getFullName();
-    StringList getDirectGenericSuperTypes(ContextEl _classes);
+    StringList getDirectGenericSuperTypes(Analyzable _classes);
 }

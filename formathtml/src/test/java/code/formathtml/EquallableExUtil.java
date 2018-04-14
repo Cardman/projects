@@ -17,6 +17,10 @@ public final class EquallableExUtil {
         return StringList.concat(_folder,"/",_locale,"/",_relative,".properties");
     }
 
+    public static void assertEq(boolean _expected, boolean _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(Boolean.toString(_expected),DIFF,Boolean.toString(_result)), _expected == _result);
+    }
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
@@ -30,6 +34,11 @@ public final class EquallableExUtil {
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(Character _expected, Character _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), _expected.charValue() == _result.charValue());
     }
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);

@@ -997,9 +997,10 @@ public class FormatHtmlTryCatchTest {
 
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
-        ContextEl context_ = conf_.toContextEl();
+        ContextEl context_ = new ContextEl();
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
+        conf_.setContext(context_);
         return conf_;
     }
 }

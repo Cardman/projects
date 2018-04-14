@@ -19,8 +19,6 @@ import code.util.StringMap;
 
 public final class PageEl {
 
-    private static final String EMPTY_STRING = "";
-
     private static final String READ_URL = "readUrl";
 
     private static final String LINE_COL = "line col";
@@ -74,8 +72,6 @@ public final class PageEl {
     private int tabWidth;
 
     private int offset;
-
-    private String processingAttribute = EMPTY_STRING;
 
     private boolean staticContext;
 
@@ -431,14 +427,6 @@ public final class PageEl {
 
     public void setOffset(int _offset) {
         offset = _offset;
-    }
-
-    public String getProcessingAttribute() {
-        return processingAttribute;
-    }
-
-    public void setProcessingAttribute(String _processingAttribute) {
-        processingAttribute = _processingAttribute;
     }
 
     public boolean isFinallyToProcess() {

@@ -1,6 +1,6 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.util.MethodId;
@@ -49,7 +49,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     }
 
     @Override
-    public StringList getAllGenericSuperClasses(ContextEl _classes) {
+    public StringList getAllGenericSuperClasses(Analyzable _classes) {
         StringList allSuperTypes_ = TypeUtil.getAllGenericSuperTypes(this,_classes);
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allSuperTypes_) {
@@ -72,7 +72,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     }
 
     @Override
-    public StringList getDirectGenericSuperClasses(ContextEl _classes) {
+    public StringList getDirectGenericSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList(getDirectSuperTypes());
         if (getDirectSuperTypes().isEmpty()) {
             classes_.add(_classes.getStandards().getAliasObject());
@@ -81,7 +81,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     }
 
     @Override
-    public StringList getDirectSuperClasses(ContextEl _classes) {
+    public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             classes_.add(s);
@@ -103,7 +103,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     }
 
     @Override
-    public StringList getAllGenericInterfaces(ContextEl _classes) {
+    public StringList getAllGenericInterfaces(Analyzable _classes) {
         return getAllGenericSuperClasses(_classes);
     }
 
@@ -113,7 +113,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     }
 
     @Override
-    public StringList getDirectGenericSuperTypes(ContextEl _classes) {
+    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
         return new StringList(getDirectSuperTypes());
     }
 }

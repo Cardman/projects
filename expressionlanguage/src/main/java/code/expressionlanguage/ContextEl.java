@@ -23,6 +23,8 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.variables.LoopVariable;
 import code.sml.ElementOffsetsNext;
 import code.sml.RowCol;
 import code.util.CustList;
@@ -32,7 +34,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.MathFactory;
 
-public final class ContextEl {
+public final class ContextEl implements Analyzable {
     private static final String RETURN_LINE = "\n";
     private static final int DEFAULT_TAB_WIDTH = 4;
 
@@ -66,8 +68,6 @@ public final class ContextEl {
 
     private transient String resourceUrl;
 
-    private transient int nextIndex;
-
     public ContextEl() {
         this(CustList.INDEX_NOT_FOUND_ELT);
     }
@@ -75,6 +75,7 @@ public final class ContextEl {
     public ContextEl(int _stackOverFlow) {
         stackOverFlow = _stackOverFlow;
     }
+    @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
         if (classes == null || !classes.isCustomType(_name)) {
             StringList types_ = StringList.getAllTypes(_name);
@@ -127,6 +128,7 @@ public final class ContextEl {
         }
         return classes.getClassMetaInfo(_name, this);
     }
+    @Override
     public CustList<GeneType> getClassBodies() {
         CustList<GeneType> types_ = new CustList<GeneType>();
         if (classes == null) {
@@ -143,6 +145,7 @@ public final class ContextEl {
         }
         return types_;
     }
+    @Override
     public CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
         StringList types_ = StringList.getAllTypes(_genericClassName);
@@ -195,6 +198,7 @@ public final class ContextEl {
         }
         return methods_;
     }
+    @Override
     public GeneType getClassBody(String _type) {
         if (classes == null) {
             return standards.getStandards().getVal(_type);
@@ -263,6 +267,7 @@ public final class ContextEl {
         elements = _elements;
     }
 
+    @Override
     public Classes getClasses() {
         return classes;
     }
@@ -294,6 +299,7 @@ public final class ContextEl {
         importing.add(_page);
     }
 
+    @Override
     public String getCurrentFileName() {
         if (isEmptyPages() || getLastPage().getCurrentBlock() == null) {
             return null;
@@ -306,6 +312,7 @@ public final class ContextEl {
         }
         return getLastPage().getCurrentBlock();
     }
+    @Override
     public RowCol getCurrentLocation() {
         if (isEmptyPages()) {
             return new RowCol();
@@ -374,27 +381,72 @@ public final class ContextEl {
         resourceUrl = _resourceUrl;
     }
 
-    public int getNextIndex() {
-        return nextIndex;
-    }
-
-    public void setNextIndex(int _nextIndex) {
-        nextIndex = _nextIndex;
-    }
-
+    @Override
     public boolean isAmbigous() {
         return ambigous;
     }
 
+    @Override
     public void setAmbigous(boolean _ambigous) {
         ambigous = _ambigous;
     }
 
+    @Override
     public LgNames getStandards() {
         return standards;
     }
 
     public void setStandards(LgNames _standards) {
         standards = _standards;
+    }
+
+    @Override
+    public String getGlobalClass() {
+        return getLastPage().getGlobalClass();
+    }
+
+    @Override
+    public void setGlobalClass(String _globalClass) {
+        getLastPage().setGlobalClass(_globalClass);
+    }
+
+    @Override
+    public StringMap<LoopVariable> getVars() {
+        return getLastPage().getVars();
+    }
+
+    @Override
+    public StringMap<LocalVariable> getLocalVars() {
+        return getLastPage().getLocalVars();
+    }
+
+    @Override
+    public StringMap<LocalVariable> getCatchVars() {
+        return getLastPage().getCatchVars();
+    }
+
+    @Override
+    public StringMap<LocalVariable> getParameters() {
+        return getLastPage().getParameters();
+    }
+
+    @Override
+    public int getOffset() {
+        return getLastPage().getOffset();
+    }
+
+    @Override
+    public void setOffset(int _offset) {
+        getLastPage().setOffset(_offset);
+    }
+
+    @Override
+    public boolean isStaticContext() {
+        return getLastPage().isStaticContext();
+    }
+
+    @Override
+    public void setStaticContext(boolean _staticContext) {
+        getLastPage().setStaticContext(_staticContext);
     }
 }

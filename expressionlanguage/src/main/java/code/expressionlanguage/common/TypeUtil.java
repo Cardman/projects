@@ -1,5 +1,6 @@
 package code.expressionlanguage.common;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -421,7 +422,7 @@ public final class TypeUtil {
         }
         return methods_;
     }
-    public static CustList<GeneConstructor> getConstructorBodiesById(String _genericClassName, ConstructorId _id, ContextEl _context) {
+    public static CustList<GeneConstructor> getConstructorBodiesById(String _genericClassName, ConstructorId _id, Analyzable _context) {
         CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
         StringList types_ = StringList.getAllTypes(_genericClassName);
         String base_ = types_.first();
@@ -512,7 +513,7 @@ public final class TypeUtil {
         }
         return methods_;
     }
-    public static StringList getAllGenericSuperTypes(GeneType _type,ContextEl _classes) {
+    public static StringList getAllGenericSuperTypes(GeneType _type,Analyzable _classes) {
         StringList list_ = new StringList();
         StringList vars_ = new StringList();
         for (TypeVar t: _type.getParamTypes()) {

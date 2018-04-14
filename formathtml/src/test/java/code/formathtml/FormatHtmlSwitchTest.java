@@ -1090,6 +1090,7 @@ public class FormatHtmlSwitchTest {
         ContextEl context_ = new ContextEl();
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
+        conf_.setContext(context_);
         return conf_;
     }
 }

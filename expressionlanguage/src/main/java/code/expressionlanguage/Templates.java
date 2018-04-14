@@ -32,14 +32,14 @@ public final class Templates {
     private Templates() {
     }
 
-    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
+    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context) {
         if (!existClassParts(_className, _mapping, _context)) {
             return false;
         }
         return isCorrectTemplateAll(_className, _mapping, _context);
     }
 
-    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
+    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context) {
         if (!isCorrectWrite(_className, _context)) {
             return false;
         }
@@ -50,7 +50,7 @@ public final class Templates {
         return true;
     }
 
-    public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context) {
+    public static boolean existAllClassParts(String _className, StringList _variables, Analyzable _context) {
         Classes classes_ = _context.getClasses();
         LgNames stds_ = _context.getStandards();
         String void_ = stds_.getAliasVoid();
@@ -96,7 +96,7 @@ public final class Templates {
         }
         return StringList.concat(lgNames_.getAliasIterable(),TEMPLATE_BEGIN,std_.getIterative(),TEMPLATE_END);
     }
-    public static String getFullTypeByBases(String _subType, String _superType, ContextEl _context) {
+    public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
         String baseSubType_ = StringList.getAllTypes(_subType).first();
         String baseSuperType_ = StringList.getAllTypes(_superType).first();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(baseSuperType_, baseSubType_, _context)) {
@@ -160,7 +160,7 @@ public final class Templates {
         }
         return generic_;
     }
-    public static boolean isCorrectWrite(String _className, ContextEl _context) {
+    public static boolean isCorrectWrite(String _className, Analyzable _context) {
         StringList current_ = new StringList(_className);
         boolean already_ = false;
         StringMap<StandardType> stds_ = _context.getStandards().getStandards();
@@ -212,7 +212,7 @@ public final class Templates {
             current_ = next_;
         }
     }
-    static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, ContextEl _context) {
+    static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         if (!isCorrectTemplate(_className, _inherit, _context)) {
             return false;
         }
@@ -234,7 +234,7 @@ public final class Templates {
             current_ = next_;
         }
     }
-    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, ContextEl _context) {
+    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
@@ -295,27 +295,27 @@ public final class Templates {
         }
         return true;
     }
-    public static String generalFormat(String _first, String _second, ContextEl _classes) {
+    public static String generalFormat(String _first, String _second, Analyzable _classes) {
         StringMap<String> varTypes_ = getVarTypes(_first, false, _classes);
         return getFormattedType(_second, varTypes_);
     }
-    public static String format(String _first, String _second, ContextEl _context) {
+    public static String format(String _first, String _second, Analyzable _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, true, _context);
         return getFormattedType(_second, varTypes_);
     }
-    public static String getGenericString(String _className, ContextEl _classes) {
+    public static String getGenericString(String _className, Analyzable _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
         GeneType root_ = _classes.getClassBody(className_);
         return root_.getGenericString();
     }
-    public static CustList<TypeVar> getConstraints(String _className, ContextEl _context) {
+    public static CustList<TypeVar> getConstraints(String _className, Analyzable _context) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
         GeneType root_ = _context.getClassBody(className_);
         return root_.getParamTypes();
     }
-    static StringMap<String> getVarTypes(String _className, boolean _checkExact,ContextEl _context) {
+    static StringMap<String> getVarTypes(String _className, boolean _checkExact,Analyzable _context) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
 
@@ -389,13 +389,13 @@ public final class Templates {
         }
         return str_.toString();
     }
-    public static boolean isGenericCorrect(Mapping _m, ContextEl _context) {
+    public static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
         if (_m.getArg().isEmpty()) {
             return !PrimitiveTypeUtil.isPrimitive(_m.getParam(), _context);
         }
         return isCorrect(_m, _context);
     }
-    public static boolean isCorrect(Mapping _m, ContextEl _context) {
+    public static boolean isCorrect(Mapping _m, Analyzable _context) {
         String arg_ = _m.getArg();
         String param_ = _m.getParam();
         StringMap<StringList> generalMapping_ = _m.getMapping();
@@ -414,7 +414,7 @@ public final class Templates {
         }
         return true;
     }
-    private static MappingPairs getSimpleMapping(Mapping _m, ContextEl _context) {
+    private static MappingPairs getSimpleMapping(Mapping _m, Analyzable _context) {
         String arg_ = _m.getArg();
         String param_ = _m.getParam();
         StringList typesArg_ = StringList.getAllTypes(arg_);
@@ -572,7 +572,7 @@ public final class Templates {
         return m_;
     }
 
-    private static String getSuperClassName(String _className, ContextEl _context) {
+    private static String getSuperClassName(String _className, Analyzable _context) {
         GeneType r_ = _context.getClassBody(_className);
         if (r_ instanceof UniqueRootedBlock) {
             return ((UniqueRootedBlock)r_).getSuperClass(_context);
@@ -590,7 +590,7 @@ public final class Templates {
         return null;
     }
 
-    private static String getGenericSuperClassName(String _genericClassName, ContextEl _context) {
+    private static String getGenericSuperClassName(String _genericClassName, Analyzable _context) {
         StringList allTypes_ = StringList.getAllTypes(_genericClassName);
         String baseClass_ = allTypes_.first();
         Classes classes_ = _context.getClasses();
@@ -609,7 +609,7 @@ public final class Templates {
         return null;
     }
 
-    private static StringList getSuperInterfaceNames(String _className, ContextEl _context) {
+    private static StringList getSuperInterfaceNames(String _className, Analyzable _context) {
         GeneType r_ = _context.getClassBody(_className);
         if (r_ instanceof UniqueRootedBlock) {
             return ((UniqueRootedBlock)r_).getDirectInterfaces(_context);
@@ -623,7 +623,7 @@ public final class Templates {
         return ((StandardInterface)r_).getDirectSuperClasses();
     }
 
-    private static String getGenericSuperInterfaceName(String _genericClassName, int _index, ContextEl _context) {
+    private static String getGenericSuperInterfaceName(String _genericClassName, int _index, Analyzable _context) {
         StringList allTypes_ = StringList.getAllTypes(_genericClassName);
         String baseClass_ = allTypes_.first();
         GeneType r_ = _context.getClassBody(baseClass_);
@@ -639,7 +639,7 @@ public final class Templates {
         return ((StandardInterface)r_).getDirectSuperClasses().get(_index);
     }
 
-    public static boolean correctNbParameters(String _genericClass, ContextEl _context) {
+    public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
         StringList params_ = StringList.getAllTypes(_genericClass);
         String base_ = params_.first();
         int nbParams_ = params_.size() - 1;

@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -66,7 +67,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getDirectGenericSuperTypes(ContextEl _classes) {
+    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
         return new StringList(getDirectSuperTypes());
     }
 
@@ -113,7 +114,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getDirectGenericSuperClasses(ContextEl _classes) {
+    public StringList getDirectGenericSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList(getDirectSuperTypes());
         if (getDirectSuperTypes().isEmpty()) {
             classes_.add(_classes.getStandards().getAliasObject());
@@ -122,7 +123,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getDirectSuperClasses(ContextEl _classes) {
+    public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             int index_ = s.indexOf(LT);
@@ -164,7 +165,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getAllGenericSuperClasses(ContextEl _classes) {
+    public StringList getAllGenericSuperClasses(Analyzable _classes) {
         Classes classes_ = _classes.getClasses();
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
         StringList allGenericSuperClasses_ = new StringList();
@@ -178,7 +179,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getAllGenericInterfaces(ContextEl _classes) {
+    public StringList getAllGenericInterfaces(Analyzable _classes) {
         return getAllGenericSuperClasses(_classes);
     }
 

@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ConstType;
@@ -14,21 +15,21 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneClass;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.exceptions.BadFormatPathException;
-import code.expressionlanguage.exceptions.DynamicNumberFormatException;
-import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NoSuchDeclaredFieldException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
-import code.expressionlanguage.exceptions.NullGlobalObjectException;
-import code.expressionlanguage.exceptions.SettingMemberException;
-import code.expressionlanguage.exceptions.StaticAccessException;
-import code.expressionlanguage.exceptions.UndefinedVariableException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessField;
+import code.expressionlanguage.methods.util.BadFormatNumber;
+import code.expressionlanguage.methods.util.BadFormatPathError;
+import code.expressionlanguage.methods.util.EmptyPartError;
+import code.expressionlanguage.methods.util.FinalPart;
+import code.expressionlanguage.methods.util.StaticAccessError;
+import code.expressionlanguage.methods.util.StaticAccessThisError;
+import code.expressionlanguage.methods.util.UndefinedFieldError;
+import code.expressionlanguage.methods.util.UndefinedVariableError;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -55,11 +56,6 @@ import code.util.StringList;
 import code.util.exceptions.NullObjectException;
 
 public final class ConstantOperation extends LeafOperation implements SettableElResult, PossibleIntermediateDotted {
-    private static final String ATTRIBUTE = "attribute";
-    private static final String INDEX = "index";
-    private static final String CATCH_VARIABLE = "catch variable";
-    private static final String LOCAL_VARIABLE = "local variable";
-    private static final String PARAMETER = "parameter";
     private static final String LENGTH = "length";
     private static final String TAB = "\t";
     private static final String BOUND = "\b";
@@ -115,7 +111,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
             String _fieldName, String _op) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
@@ -125,17 +121,26 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String argClName_;
         if (str_.isEmpty()) {
-            throw new EmptyPartException(_conf.joinPages());
+            EmptyPartError emptyPart_ = new EmptyPartError();
+            emptyPart_.setFileName(_conf.getCurrentFileName());
+            emptyPart_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(emptyPart_);
+            argClName_ = _conf.getStandards().getAliasObject();
+            setResultClass(new ClassArgumentMatching(argClName_));
+            return;
         }
         if (!isIntermediateDottedOperation()) {
-            staticAccess = _conf.getLastPage().isStaticContext();
+            staticAccess = _conf.isStaticContext();
         }
         if (isVararg()) {
             str_ = str_.substring(CustList.SECOND_INDEX);
             str_ = StringList.removeAllSpaces(str_);
             Argument a_ = new Argument();
-            checkCorrect(_conf, str_, false, 0);
-            argClName_ = str_;
+            if (!checkCorrect(_conf, str_, false, 0)) {
+                argClName_ = _conf.getStandards().getAliasObject();
+            } else {
+                argClName_ = str_;
+            }
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -310,7 +315,12 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             ParsedArgument parsed_ = ParsedArgument.parse(op_.getNbInfos(), _conf);
             String argClassName_ = parsed_.getType();
             if (argClassName_.isEmpty()) {
-                throw new DynamicNumberFormatException(StringList.concat(str_,RETURN_LINE,_conf.joinPages()));
+                BadFormatNumber badFormat_ = new BadFormatNumber();
+                badFormat_.setNumber(str_);
+                badFormat_.setFileName(_conf.getCurrentFileName());
+                badFormat_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(badFormat_);
+                argClassName_ = stds_.getAliasPrimDouble();
             }
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(parsed_.getStruct());
@@ -319,47 +329,76 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             return;
         }
         if (op_.getConstType() == ConstType.THIS_KEYWORD) {
+            String arg_ = _conf.getGlobalClass();
+            if (arg_ == null) {
+                arg_ = stds_.getAliasObject();
+            }
             if (isStaticAccess()) {
-                throw new StaticAccessException(_conf.joinPages());
+                StaticAccessThisError static_ = new StaticAccessThisError();
+                static_.setClassName(arg_);
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(static_);
             }
             if (getParent() == null) {
                 immutablePart = true;
             }
-            String arg_ = _conf.getLastPage().getGlobalClass();
             setResultClass(new ClassArgumentMatching(arg_));
             return;
         }
-        PageEl ip_ = _conf.getLastPage();
         if (op_.getConstType() == ConstType.CUST_FIELD || op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD || op_.getConstType() == ConstType.SUPER_KEYWORD) {
             ClassArgumentMatching cl_;
             if (isIntermediateDottedOperation()) {
                 cl_ = getPreviousResultClass();
             } else {
-                cl_ = new ClassArgumentMatching(_conf.getLastPage().getGlobalClass());
+                cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
             }
             String clCurName_;
             if (op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD) {
                 StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                 if (classMethod_.size() != 2) {
-                    throw new BadFormatPathException(StringList.concat(str_,RETURN_LINE,_conf.joinPages()));
+                    BadFormatPathError badFormat_ = new BadFormatPathError();
+                    badFormat_.setPath(str_);
+                    badFormat_.setFileName(_conf.getCurrentFileName());
+                    badFormat_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(badFormat_);
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    return;
                 }
                 String className_ = classMethod_.first();
                 if (!className_.startsWith(CLASS_CHOICE_PREF)) {
-                    throw new BadFormatPathException(StringList.concat(str_,RETURN_LINE,_conf.joinPages()));
+                    BadFormatPathError badFormat_ = new BadFormatPathError();
+                    badFormat_.setPath(str_);
+                    badFormat_.setFileName(_conf.getCurrentFileName());
+                    badFormat_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(badFormat_);
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    return;
                 }
                 int lenPref_ = CLASS_CHOICE_PREF.length();
                 className_ = className_.substring(lenPref_);
                 className_ = StringList.removeAllSpaces(className_);
                 className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
                 if (className_.contains(Templates.TEMPLATE_BEGIN)) {
-                    checkCorrect(_conf, className_, true, lenPref_);
+                    if (!checkCorrect(_conf, className_, true, lenPref_)) {
+                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                        return;
+                    }
                 } else {
-                    checkExistBase(_conf, false, className_, true, lenPref_);
+                    if (!checkExistBase(_conf, false, className_, true, lenPref_)) {
+                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                        return;
+                    }
                 }
                 clCurName_ = className_;
             } else {
                 if (cl_ == null) {
-                    throw new NullGlobalObjectException(_conf.joinPages());
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(static_);
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    return;
                 }
                 clCurName_ = cl_.getName();
             }
@@ -378,13 +417,27 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
                 key_ = str_;
                 if (!(root_ instanceof GeneClass)) {
-                    throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
+                    UndefinedFieldError und_ = new UndefinedFieldError();
+                    und_.setClassName(base_);
+                    und_.setFileName(key_);
+                    und_.setFileName(_conf.getCurrentFileName());
+                    und_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(und_);
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    return;
                 }
                 String superClass_ = ((GeneClass)root_).getSuperClass(_conf);
                 superClass_ = StringList.getAllTypes(superClass_).first();
                 superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, _conf);
                 if (StringList.quickEq(superClass_, stds_.getAliasObject())) {
-                    throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
+                    UndefinedFieldError und_ = new UndefinedFieldError();
+                    und_.setClassName(base_);
+                    und_.setFileName(key_);
+                    und_.setFileName(_conf.getCurrentFileName());
+                    und_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(und_);
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    return;
                 }
                 cl_ = new ClassArgumentMatching(superClass_);
                 r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
@@ -394,10 +447,17 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
             }
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
-                throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
+                UndefinedFieldError und_ = new UndefinedFieldError();
+                und_.setClassName(base_);
+                und_.setFileName(key_);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(und_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             e_ = r_.getId();
-            String glClass_ = _conf.getLastPage().getGlobalClass();
+            String glClass_ = _conf.getGlobalClass();
             String curClassBase_ = null;
             if (glClass_ != null) {
                 curClassBase_ = StringList.getAllTypes(glClass_).first();
@@ -426,14 +486,19 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         if (op_.getConstType().isVariable()) {
             if (isIntermediateDottedOperation()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
+                FinalPart final_ = new FinalPart();
+                final_.setClassName(_conf.getGlobalClass());
+                final_.setId(str_);
+                final_.setFileName(_conf.getCurrentFileName());
+                final_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(final_);
             }
             if (op_.getConstType() == ConstType.PARAM) {
                 if (getParent() == null) {
                     immutablePart = true;
                 }
                 variableName = str_;
-                LocalVariable locVar_ = ip_.getParameters().getVal(variableName);
+                LocalVariable locVar_ = _conf.getParameters().getVal(variableName);
                 if (locVar_ != null) {
                     String paramType_ = locVar_.getClassName();
                     if (paramType_.endsWith(VARARG_SUFFIX)) {
@@ -443,23 +508,35 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                     setResultClass(new ClassArgumentMatching(paramType_));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), variableName, PARAMETER);
+                UndefinedVariableError und_ = new UndefinedVariableError();
+                und_.setId(variableName);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(und_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             if (op_.getConstType() == ConstType.CATCH_VAR) {
                 if (getParent() == null) {
                     immutablePart = true;
                 }
                 variableName = str_;
-                LocalVariable locVar_ = ip_.getCatchVars().getVal(variableName);
+                LocalVariable locVar_ = _conf.getCatchVars().getVal(variableName);
                 if (locVar_ != null) {
                     setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), variableName, CATCH_VARIABLE);
+                UndefinedVariableError und_ = new UndefinedVariableError();
+                und_.setId(variableName);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(und_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             if (op_.getConstType() == ConstType.LOC_VAR) {
                 variableName = str_;
-                LocalVariable locVar_ = ip_.getLocalVars().getVal(variableName);
+                LocalVariable locVar_ = _conf.getLocalVars().getVal(variableName);
                 if (locVar_ != null) {
                     String c_ = locVar_.getClassName();
                     if (StringList.quickEq(c_, stringType_)) {
@@ -468,47 +545,70 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                     setResultClass(new ClassArgumentMatching(c_));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), variableName, LOCAL_VARIABLE);
+                UndefinedVariableError und_ = new UndefinedVariableError();
+                und_.setId(variableName);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(und_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             if (op_.getConstType() == ConstType.LOOP_INDEX) {
                 if (getParent() == null) {
                     immutablePart = true;
                 }
                 variableName = str_;
-                LoopVariable locVar_ = ip_.getVars().getVal(variableName);
+                LoopVariable locVar_ = _conf.getVars().getVal(variableName);
                 if (locVar_ != null) {
                     setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), variableName, INDEX);
+                UndefinedVariableError und_ = new UndefinedVariableError();
+                und_.setId(variableName);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(und_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             if (op_.getConstType() == ConstType.LOOP_VAR) {
                 if (getParent() == null) {
                     immutablePart = true;
                 }
                 variableName = str_;
-                LoopVariable locVar_ = ip_.getVars().getVal(variableName);
+                LoopVariable locVar_ = _conf.getVars().getVal(variableName);
                 if (locVar_ != null) {
                     setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
                     return;
                 }
-                throw new UndefinedVariableException(_conf.joinPages(), variableName, ATTRIBUTE);
+                UndefinedVariableError und_ = new UndefinedVariableError();
+                und_.setId(variableName);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(und_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
         }
         analyzeNativeField(_conf, str_);
     }
 
-    private void analyzeNativeField(ContextEl _conf, String _key) {
+    private void analyzeNativeField(Analyzable _conf, String _key) {
         ClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
         } else {
-            cl_ = new ClassArgumentMatching(_conf.getLastPage().getGlobalClass());
-        }
-        if (cl_ == null || cl_.getName() == null) {
-            throw new NullGlobalObjectException(_conf.joinPages());
+            cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
         }
         LgNames stds_ = _conf.getStandards();
+        if (cl_ == null || cl_.getName() == null) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_conf.getCurrentFileName());
+            static_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(static_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
         String stringType_;
         stringType_ = stds_.getAliasString();
         if (cl_.isArray()) {
@@ -516,7 +616,14 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
                 return;
             }
-            throw new NoSuchDeclaredFieldException(StringList.concat(cl_.getName(),RETURN_LINE,_key,RETURN_LINE,_conf.joinPages()));
+            UndefinedFieldError und_ = new UndefinedFieldError();
+            und_.setClassName(cl_.getName());
+            und_.setFileName(_key);
+            und_.setFileName(_conf.getCurrentFileName());
+            und_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(und_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
+            return;
         }
         String str_ = _key;
         String clCurName_ = cl_.getName();
@@ -535,13 +642,27 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
             key_ = str_;
             if (!(root_ instanceof StandardClass)) {
-                throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
+                UndefinedFieldError und_ = new UndefinedFieldError();
+                und_.setClassName(base_);
+                und_.setFileName(key_);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(und_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             String superClass_ = ((StandardClass)root_).getSuperClass();
             superClass_ = StringList.getAllTypes(superClass_).first();
             superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, _conf);
             if (StringList.quickEq(superClass_, stds_.getAliasObject())) {
-                throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
+                UndefinedFieldError und_ = new UndefinedFieldError();
+                und_.setClassName(base_);
+                und_.setFileName(key_);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(und_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             cl_ = new ClassArgumentMatching(superClass_);
             r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
@@ -551,7 +672,14 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
         }
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
-            throw new NoSuchDeclaredFieldException(StringList.concat(key_,RETURN_LINE,_conf.joinPages()));
+            UndefinedFieldError und_ = new UndefinedFieldError();
+            und_.setClassName(base_);
+            und_.setFileName(key_);
+            und_.setFileName(_conf.getCurrentFileName());
+            und_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(und_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
         }
         e_ = r_.getId();
         fieldMetaInfo = e_;

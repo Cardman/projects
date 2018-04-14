@@ -3,7 +3,6 @@ import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
@@ -167,7 +166,6 @@ final class ExtractObject {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(StringList.concat(arg_.toString(),RETURN_LINE,_conf.joinPages()));
                 }
-                ContextEl context_ = _conf.toContextEl();
                 Struct trloc_ = null;
                 if (!tr_.toString().isEmpty()) {
                     try {
@@ -182,7 +180,7 @@ final class ExtractObject {
                     }
                 }
                 _conf.getLastPage().setOffset(i_);
-                Argument argloc_ = ElUtil.processEl(_pattern, context_, i_, LEFT_EL, RIGHT_EL);
+                Argument argloc_ = ElRenderUtil.processEl(_pattern, _conf, i_, LEFT_EL, RIGHT_EL);
                 Struct s_ = argloc_.getStruct();
                 String o_ = EMPTY_STRING;
                 try {
@@ -223,18 +221,18 @@ final class ExtractObject {
                             expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
                             expression_.append(beanName_).append(GET_LOC_VAR).append(SEP_ARGS);
                             expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
-                            o_ = (String) ElUtil.processEl(expression_.toString(), 0, context_).getObject();
+                            o_ = (String) ElRenderUtil.processEl(expression_.toString(), 0, _conf).getObject();
                         }
                     } else {
                         o_ = valueOf(_conf, s_);
                     }
                 } catch (Throwable _0) {
-                    _conf.getLastPage().setOffset(context_.getNextIndex());
+                    _conf.getLastPage().setOffset(_conf.getNextIndex());
                     String err_ = _conf.getStandards().getAliasError();
                     throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
                 }
                 str_.append(o_);
-                i_ = context_.getNextIndex();
+                i_ = _conf.getNextIndex();
                 continue;
             }
             if (cur_ == RIGHT_EL){
@@ -278,16 +276,15 @@ final class ExtractObject {
                 continue;
             }
             if (curChar_ == MATH_INTERPRET) {
-                ContextEl context_ = _conf.toContextEl();
                 _ip.setOffset(i_+1);
-                Argument arg_ = ElUtil.processEl(numExpr_, context_, i_+1, MATH_INTERPRET, MATH_INTERPRET);
+                Argument arg_ = ElRenderUtil.processEl(numExpr_, _conf, i_+1, MATH_INTERPRET, MATH_INTERPRET);
                 try {
                     calculateVariables_.append(mathFact_.toString(arg_.getObject()));
                 } catch (Throwable _0) {
                     String err_ = _conf.getStandards().getAliasError();
                     throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
                 }
-                i_ = context_.getNextIndex();
+                i_ = _conf.getNextIndex();
                 continue;
             }
             calculateVariables_.append(curChar_);
@@ -337,7 +334,7 @@ final class ExtractObject {
             } else {
                 String escaped_ = StringList.replace(_arg, QUOTE_DOUBLE, StringList.concat(String.valueOf(ESCAPED),QUOTE_DOUBLE));
                 String instanciation_ = StringList.concat(INSTANCE,_class,String.valueOf(BEGIN_ARGS),QUOTE_DOUBLE,escaped_,QUOTE_DOUBLE,String.valueOf(END_ARGS));
-                Argument obj_ = ElUtil.processEl(instanciation_, 0, _conf.toContextEl());
+                Argument obj_ = ElRenderUtil.processEl(instanciation_, 0, _conf);
                 if (obj_.isNull()) {
                     throw new RuntimeInstantiationException(EMPTY_STRING);
                 }
@@ -444,7 +441,7 @@ final class ExtractObject {
             lvTwo_.setStruct(_objTwo);
             String nameTwo_ = ip_.getNextTempVar();
             ip_.getLocalVars().put(nameTwo_, lvTwo_);
-            Argument arg_ = ElUtil.processEl(StringList.concat(nameOne_,GET_LOC_VAR,CMP,nameTwo_,GET_LOC_VAR), 0, _conf.toContextEl());
+            Argument arg_ = ElRenderUtil.processEl(StringList.concat(nameOne_,GET_LOC_VAR,CMP,nameTwo_,GET_LOC_VAR), 0, _conf);
             Boolean ret_ = (Boolean)arg_.getObject();
             ip_.getLocalVars().removeKey(nameOne_);
             ip_.getLocalVars().removeKey(nameTwo_);
@@ -515,7 +512,6 @@ final class ExtractObject {
     }
     private static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, String _classVar) {
         ImportingPage ip_ = _conf.getLastPage();
-        ContextEl context_ = _conf.toContextEl();
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
@@ -523,7 +519,7 @@ final class ExtractObject {
         ip_.getLocalVars().put(varName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,NO_PARAM_METHOD);
         try {
-            Struct str_ = ElUtil.processEl(expression_, 0, context_).getStruct();
+            Struct str_ = ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
             ip_.getLocalVars().removeKey(varName_);
             return str_;
         } catch (Throwable _0) {
@@ -548,7 +544,7 @@ final class ExtractObject {
         ip_.getLocalVars().put(argName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,String.valueOf(BEGIN_ARGS),argName_,GET_LOC_VAR,String.valueOf(END_ARGS));
         try {
-            ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+            ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
             ip_.getLocalVars().removeKey(varName_);
         } catch (Throwable _0) {
             ip_.getLocalVars().removeKey(varName_);
@@ -586,7 +582,7 @@ final class ExtractObject {
             if (!_conf.noPages()) {
                 _conf.getLastPage().setOffset(1);
             }
-            preformatted_ = toString(_conf, ElUtil.processEl(value_, 1, _conf.toContextEl()).getStruct());
+            preformatted_ = toString(_conf, ElRenderUtil.processEl(value_, 1, _conf).getStruct());
             if (!_conf.noPages()) {
                 _conf.getLastPage().setKey(EMPTY_STRING);
                 _conf.getLastPage().setMessageValue(preformatted_);
@@ -631,7 +627,7 @@ final class ExtractObject {
             if (attribute_.startsWith(CALL_METHOD)) {
                 begin_ = 1;
             }
-            Struct o_ = ElUtil.processEl(attribute_, begin_, _conf.toContextEl()).getStruct();
+            Struct o_ = ElRenderUtil.processEl(attribute_, begin_, _conf).getStruct();
             if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {
                 objects_.add(escapeParam(_conf,o_));
             } else {

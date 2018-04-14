@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 import code.util.CustList;
 import code.util.EqList;
@@ -86,7 +86,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return true;
     }
     
-    public MethodId format(String _genericClass, ContextEl _context) {
+    public MethodId format(String _genericClass, Analyzable _context) {
         String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();

@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -24,12 +25,12 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
             String _fieldName, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }
 
-    void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
+    void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching clMatch_ = chidren_.first().getResultClass();
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);

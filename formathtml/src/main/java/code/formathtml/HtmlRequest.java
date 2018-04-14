@@ -2,7 +2,6 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -62,7 +61,7 @@ final class HtmlRequest {
             varNames_.add(StringList.concat(tmp_,Long.toString(i_),GET_LOC_VAR));
             ip_.getLocalVars().put(StringList.concatNbs(tmp_,i_), locVar_);
         }
-        Argument arg_ = ElUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR,varNames_.join(COMMA),RIGHT_PAR), 0, _conf.toContextEl());
+        Argument arg_ = ElRenderUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR,varNames_.join(COMMA),RIGHT_PAR), 0, _conf);
         for (String n: varNames_) {
             ip_.getLocalVars().removeKey(n.substring(0, n.length() - GET_LOC_VAR.length()));
         }
@@ -107,7 +106,7 @@ final class HtmlRequest {
                 locVar_.setClassName(className_);
                 locVar_.setStruct(_attribute);
                 ip_.getLocalVars().put(tmp_, locVar_);
-                ElUtil.processEl(StringList.concat(varMethod_,LEFT_PAR,tmp_,GET_LOC_VAR,RIGHT_PAR), 0, _conf.toContextEl());
+                ElRenderUtil.processEl(StringList.concat(varMethod_,LEFT_PAR,tmp_,GET_LOC_VAR,RIGHT_PAR), 0, _conf);
                 ip_.getLocalVars().removeKey(tmp_);
                 ip_.setGlobalArgumentStruct(current_, _conf);
                 return;
@@ -154,7 +153,7 @@ final class HtmlRequest {
             str_.append(tmp_);
             str_.append(GET_LOC_VAR);
             str_.append(RIGHT_PAR);
-            ElUtil.processEl(str_.toString(), 0, _conf.toContextEl());
+            ElRenderUtil.processEl(str_.toString(), 0, _conf);
             ip_.getLocalVars().removeKey(tmp_);
             ip_.setGlobalArgumentStruct(current_, _conf);
         }

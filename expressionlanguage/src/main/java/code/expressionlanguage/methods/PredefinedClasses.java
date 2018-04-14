@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
@@ -15,7 +16,7 @@ public final class PredefinedClasses {
 
     private PredefinedClasses() {
     }
-    public static boolean isPredefined(String _type, ContextEl _context) {
+    public static boolean isPredefined(String _type, Analyzable _context) {
         if (_context.getClasses() == null) {
             return isPredefined(_type);
         }

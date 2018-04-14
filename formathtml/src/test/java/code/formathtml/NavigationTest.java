@@ -8746,6 +8746,7 @@ public class NavigationTest {
         ContextEl context_ = new ContextEl();
         context_.setClasses(new Classes());
         nav_.getSession().setStandards(InitializationLgNames.initStandards(context_));
+        nav_.getSession().setContext(context_);
         return nav_;
     }
 
@@ -8754,6 +8755,7 @@ public class NavigationTest {
         ContextEl context_ = new ContextEl();
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
+        conf_.setContext(context_);
         return conf_;
     }
 }

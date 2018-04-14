@@ -34,7 +34,7 @@ public final class ParsedArgument {
 
     private String type = UNEXPECTED_TYPE;
 
-    public static ParsedArgument parse(NumberInfos _infosNb, ContextEl _context) {
+    public static ParsedArgument parse(NumberInfos _infosNb, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         String doubleType_ = stds_.getAliasDouble();
         String doublePrimType_ = stds_.getAliasPrimDouble();

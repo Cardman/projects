@@ -2,12 +2,18 @@ package code.formathtml;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.common.GeneMethod;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.BeanStruct;
 import code.formathtml.util.StringMapObjectStruct;
@@ -15,6 +21,7 @@ import code.formathtml.util.TranslatorStruct;
 import code.formathtml.util.ValidatorStruct;
 import code.resources.ResourceFiles;
 import code.sml.Document;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -22,7 +29,7 @@ import code.util.StringMap;
 import code.util.StringMapObject;
 import code.util.ints.MathFactory;
 
-public class Configuration {
+public class Configuration implements Analyzable {
     private static final String INSTANCE = "$new ";
 
     private static final String NO_PARAM = "()";
@@ -66,6 +73,10 @@ public class Configuration {
 
     private boolean uncompressed;
 
+    private boolean ambigous;
+
+    private int nextIndex;
+
     private final transient StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
     private final transient StringMap<Struct> builtTranslators = new StringMap<Struct>();
@@ -89,6 +100,7 @@ public class Configuration {
         document = null;
         currentUrl = firstUrl;
         if (context == null) {
+            context = new ContextEl();
             context = toContextEl();
         }
         if (prefix == null || prefix.isEmpty()) {
@@ -196,11 +208,11 @@ public class Configuration {
             }
         }
         for (EntryCust<String, String> e: getLateValidators().entryList()) {
-            Struct str_ = ElUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, context).getStruct();
+            Struct str_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
             getBuiltValidators().put(e.getKey(), str_);
         }
         for (EntryCust<String, String> e: getLateTranslators().entryList()) {
-            Struct str_ = ElUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, context).getStruct();
+            Struct str_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
             getBuiltTranslators().put(e.getKey(), str_);
         }
     }
@@ -235,7 +247,7 @@ public class Configuration {
             return new BeanStruct(_bean);
         }
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, toContextEl()).getStruct();
+        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
         if (_dataBase != null) {
             String className_ = getDataBaseClassName();
             ExtractObject.setDataBase(this, strBean_, new StdStruct(_dataBase, className_));
@@ -259,7 +271,7 @@ public class Configuration {
 
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(toContextEl()),NO_PARAM), 0, toContextEl()).getStruct();
+        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(toContextEl()),NO_PARAM), 0, this).getStruct();
         ExtractObject.setDataBase(this, strBean_, ExtractObject.getDataBase(this, _bean));
         ExtractObject.setForms(this, strBean_, ExtractObject.getForms(this, _bean));
         ExtractObject.setLanguage(this, strBean_, _language);
@@ -273,28 +285,14 @@ public class Configuration {
     }
 
     public final ContextEl toContextEl() {
-        if (context != null) {
-            context.setCurrentUrl(currentUrl);
-            context.setHtml(html);
-            context.setResourceUrl(resourceUrl);
-            context.clearPages();
-            for (ImportingPage i: importing) {
-                context.addPage(i.getPageEl());
-            }
-            return context;
-        }
-        ContextEl context_ = new ContextEl();
-        context_.setClasses(new Classes());
-        context_.setStandards(standards);
-        context_.setCurrentUrl(currentUrl);
-        context_.setHtml(html);
-        context_.setMathFactory(mathFactory);
-        context_.setResourceUrl(resourceUrl);
-        context_.setTabWidth(tabWidth);
+        context.setCurrentUrl(currentUrl);
+        context.setHtml(html);
+        context.setResourceUrl(resourceUrl);
+        context.clearPages();
         for (ImportingPage i: importing) {
-            context_.addPage(i.getPageEl());
+            context.addPage(i.getPageEl());
         }
-        return context_;
+        return context;
     }
 
     public String getFirstUrl() {
@@ -496,6 +494,15 @@ public class Configuration {
         return builtTranslators;
     }
 
+    @Override
+    public CustList<GeneType> getClassBodies() {
+        return toContextEl().getClassBodies();
+    }
+    @Override
+    public GeneType getClassBody(String _type) {
+        return toContextEl().getClassBody(_type);
+    }
+    @Override
     public final BeanLgNames getStandards() {
         return standards;
     }
@@ -519,4 +526,99 @@ public class Configuration {
     public void setUncompressed(boolean _uncompressed) {
         uncompressed = _uncompressed;
     }
+
+    @Override
+    public String getGlobalClass() {
+        return getLastPage().getGlobalClass();
+    }
+
+    @Override
+    public void setGlobalClass(String _globalClass) {
+        getLastPage().setGlobalClass(_globalClass);
+    }
+
+    @Override
+    public Classes getClasses() {
+        return toContextEl().getClasses();
+    }
+
+    @Override
+    public String getCurrentFileName() {
+        return getLastPage().getReadUrl();
+    }
+
+    @Override
+    public RowCol getCurrentLocation() {
+        return getLastPage().getRowCol();
+    }
+
+    @Override
+    public StringMap<LoopVariable> getVars() {
+        return getLastPage().getVars();
+    }
+
+    @Override
+    public StringMap<LocalVariable> getLocalVars() {
+        return getLastPage().getLocalVars();
+    }
+
+    @Override
+    public StringMap<LocalVariable> getCatchVars() {
+        return getLastPage().getCatchVars();
+    }
+
+    @Override
+    public StringMap<LocalVariable> getParameters() {
+        return getLastPage().getParameters();
+    }
+
+    @Override
+    public int getOffset() {
+        return getLastPage().getOffset();
+    }
+
+    @Override
+    public void setOffset(int _offset) {
+        getLastPage().setOffset(_offset);
+    }
+
+    @Override
+    public boolean isStaticContext() {
+        return getLastPage().getPageEl().isStaticContext();
+    }
+
+    @Override
+    public void setStaticContext(boolean _staticContext) {
+        getLastPage().getPageEl().setStaticContext(_staticContext);
+    }
+
+    @Override
+    public boolean isAmbigous() {
+        return ambigous;
+    }
+
+    @Override
+    public void setAmbigous(boolean _ambigous) {
+        ambigous = _ambigous;
+    }
+
+    @Override
+    public ClassMetaInfo getClassMetaInfo(String _name) {
+        return toContextEl().getClassMetaInfo(_name);
+    }
+
+    @Override
+    public CustList<GeneMethod> getMethodBodiesById(String _genericClassName,
+            MethodId _id) {
+        return toContextEl().getMethodBodiesById(_genericClassName, _id);
+    }
+
+    public int getNextIndex() {
+        return nextIndex;
+    }
+
+    public void setNextIndex(int _nextIndex) {
+        nextIndex = _nextIndex;
+    }
+
 }

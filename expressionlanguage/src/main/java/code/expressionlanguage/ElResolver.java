@@ -104,7 +104,7 @@ public final class ElResolver {
     private ElResolver() {
     }
 
-    static Delimiters checkSyntaxDelimiters(String _string, ContextEl _conf, int _minIndex, char _begin, char _end) {
+    public static Delimiters checkSyntaxDelimiters(String _string, ContextEl _conf, int _minIndex, char _begin, char _end) {
         Delimiters d_ = new Delimiters();
         d_.setBegin(_begin);
         d_.setEnd(_end);
@@ -139,7 +139,6 @@ public final class ElResolver {
             i_++;
         }
         if (i_ >= len_) {
-            _conf.getLastPage().setOffset(i_);
             d_.setBadOffset(i_);
             return d_;
         }
@@ -175,12 +174,10 @@ public final class ElResolver {
                         continue;
                     }
                     if (_string.charAt(j_) == GET_VAR) {
-                        _conf.getLastPage().setOffset(i_+1);
                         d_.setBadOffset(i_+1);
                         return d_;
                     }
                     if (_string.charAt(j_) == DOT_VAR) {
-                        _conf.getLastPage().setOffset(i_+1);
                         d_.setBadOffset(i_+1);
                         return d_;
                     }
@@ -211,7 +208,6 @@ public final class ElResolver {
                 IndexUnicodeEscape res_ = processStrings(_string, len_, unic_, DELIMITER_CHAR);
                 int index_ = res_.getIndex();
                 if (index_ < 0) {
-                    _conf.getLastPage().setOffset(-index_);
                     d_.setBadOffset(-index_);
                     return d_;
                 }
@@ -226,42 +222,34 @@ public final class ElResolver {
                             continue;
                         }
                         if (nextPart_.charAt(0) == DELIMITER_CHAR) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == DELIMITER_STRING) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (StringList.isWordChar(nextPart_.charAt(0))) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == ARR_LEFT) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == PAR_LEFT) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == DOT_VAR) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == EXTERN_CLASS) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == Templates.PREFIX_VAR_TYPE_CHAR) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
@@ -284,7 +272,6 @@ public final class ElResolver {
                 IndexUnicodeEscape res_ = processStrings(_string, len_, unic_, DELIMITER_STRING);
                 int index_ = res_.getIndex();
                 if (index_ < 0) {
-                    _conf.getLastPage().setOffset(-index_);
                     d_.setBadOffset(-index_);
                     return d_;
                 }
@@ -299,37 +286,30 @@ public final class ElResolver {
                             continue;
                         }
                         if (nextPart_.charAt(0) == DELIMITER_CHAR) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == DELIMITER_STRING) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (StringList.isWordChar(nextPart_.charAt(0))) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == ARR_LEFT) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == PAR_LEFT) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == EXTERN_CLASS) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
                         if (nextPart_.charAt(0) == Templates.PREFIX_VAR_TYPE_CHAR) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
@@ -348,7 +328,6 @@ public final class ElResolver {
                 if (i_ + 1 < len_) {
                     char nextChar_ = _string.charAt(i_ + 1);
                     if (Character.isWhitespace(nextChar_)) {
-                        _conf.getLastPage().setOffset(i_+1);
                         d_.setBadOffset(i_+1);
                         return d_;
                     }
@@ -362,7 +341,6 @@ public final class ElResolver {
                             j_++;
                         }
                         if (j_ >= len_) {
-                            _conf.getLastPage().setOffset(len_ - 1);
                             d_.setBadOffset(len_ - 1);
                             return d_;
                         }
@@ -373,12 +351,10 @@ public final class ElResolver {
                         int afterStatic_ = i_ + 1 + STATIC_ACCESS.length();
                         if (afterStatic_ < len_) {
                             if (_string.charAt(afterStatic_) != EXTERN_CLASS) {
-                                _conf.getLastPage().setOffset(afterStatic_);
                                 d_.setBadOffset(afterStatic_);
                                 return d_;
                             }
                         } else {
-                            _conf.getLastPage().setOffset(len_ - 1);
                             d_.setBadOffset(len_ - 1);
                             return d_;
                         }
@@ -391,7 +367,6 @@ public final class ElResolver {
                             j_++;
                         }
                         if (j_ >= len_) {
-                            _conf.getLastPage().setOffset(len_ - 1);
                             d_.setBadOffset(len_ - 1);
                             return d_;
                         }
@@ -410,7 +385,6 @@ public final class ElResolver {
                             }
                             if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
                                 if (_string.charAt(afterSuper_) != PAR_LEFT) {
-                                    _conf.getLastPage().setOffset(afterSuper_);
                                     d_.setBadOffset(afterSuper_);
                                     return d_;
                                 }
@@ -420,7 +394,6 @@ public final class ElResolver {
                             afterSuper_++;
                         }
                         if (afterSuper_ + 1 >= len_) {
-                            _conf.getLastPage().setOffset(afterSuper_);
                             d_.setBadOffset(afterSuper_);
                             return d_;
                         }
@@ -436,7 +409,6 @@ public final class ElResolver {
                             }
                             if (!StringList.isWordChar(_string.charAt(afterSuper_))) {
                                 if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
-                                    _conf.getLastPage().setOffset(afterSuper_);
                                     d_.setBadOffset(afterSuper_);
                                     return d_;
                                 }
@@ -472,19 +444,16 @@ public final class ElResolver {
                                 break;
                             }
                             if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
-                                _conf.getLastPage().setOffset(afterClassChoice_);
                                 d_.setBadOffset(afterClassChoice_);
                                 return d_;
                             }
                             afterClassChoice_++;
                         }
                         if (!foundHat_) {
-                            _conf.getLastPage().setOffset(len_ - 1);
                             d_.setBadOffset(len_ - 1);
                             return d_;
                         }
                         if (afterClassChoice_ + 1 >= len_) {
-                            _conf.getLastPage().setOffset(afterClassChoice_);
                             d_.setBadOffset(afterClassChoice_);
                             return d_;
                         }
@@ -493,7 +462,6 @@ public final class ElResolver {
                         while (afterClassChoice_ < len_) {
                             if (_string.charAt(afterClassChoice_) == EXTERN_CLASS) {
                                 if (afterClassChoice_ + 1 >= len_) {
-                                    _conf.getLastPage().setOffset(afterClassChoice_);
                                     d_.setBadOffset(afterClassChoice_);
                                     return d_;
                                 }
@@ -507,18 +475,15 @@ public final class ElResolver {
                             afterClassChoice_++;
                         }
                         if (!foundHats_) {
-                            _conf.getLastPage().setOffset(len_ - 1);
                             d_.setBadOffset(len_ - 1);
                             return d_;
                         }
                         if (afterClassChoice_ + 2 >= len_) {
-                            _conf.getLastPage().setOffset(afterClassChoice_);
                             d_.setBadOffset(afterClassChoice_);
                             return d_;
                         }
                         //afterClassChoice_ + 2 < len_
                         if (_string.charAt(afterClassChoice_ + 2) == EXTERN_CLASS) {
-                            _conf.getLastPage().setOffset(afterClassChoice_);
                             d_.setBadOffset(afterClassChoice_);
                             return d_;
                         }
@@ -532,7 +497,6 @@ public final class ElResolver {
                             afterClassChoice_++;
                         }
                         if (afterClassChoice_ >= len_) {
-                            _conf.getLastPage().setOffset(afterClassChoice_ - 1);
                             d_.setBadOffset(afterClassChoice_ - 1);
                             return d_;
                         }
@@ -546,7 +510,6 @@ public final class ElResolver {
                         }
                         if (afterClassChoice_ >= len_ || _string.charAt(afterClassChoice_) != PAR_LEFT) {
                             if (nbSuffix_ != GET_FIELD.length()) {
-                                _conf.getLastPage().setOffset(afterClassChoice_ - 1);
                                 d_.setBadOffset(afterClassChoice_ - 1);
                                 return d_;
                             }
@@ -583,7 +546,6 @@ public final class ElResolver {
                             continue;
                         }
                         if (afterSuper_ + 1 >= len_) {
-                            _conf.getLastPage().setOffset(afterSuper_);
                             d_.setBadOffset(afterSuper_);
                             return d_;
                         }
@@ -595,7 +557,6 @@ public final class ElResolver {
                             }
                             if (!StringList.isWordChar(_string.charAt(afterSuper_))) {
                                 if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
-                                    _conf.getLastPage().setOffset(afterSuper_);
                                     d_.setBadOffset(afterSuper_);
                                     return d_;
                                 }
@@ -613,7 +574,6 @@ public final class ElResolver {
                             int afterSuper_ = i_ + 1 + s.length();
                             while (afterSuper_ < len_) {
                                 if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
-                                    _conf.getLastPage().setOffset(afterSuper_);
                                     d_.setBadOffset(afterSuper_);
                                     return d_;
                                 }
@@ -635,7 +595,6 @@ public final class ElResolver {
                         if (procWordFirstChar(_string, i_ + 1, s, len_)) {
                             int index_ = processPredefinedMethod(_string, i_, s, len_);
                             if (index_ < 0) {
-                                _conf.getLastPage().setOffset(-index_);
                                 d_.setBadOffset(-index_);
                                 return d_;
                             }
@@ -648,7 +607,6 @@ public final class ElResolver {
                         continue;
                     }
                 }
-                _conf.getLastPage().setOffset(i_);
                 d_.setBadOffset(i_);
                 return d_;
             }
@@ -663,12 +621,10 @@ public final class ElResolver {
                                 continue;
                             }
                             if (StringList.isWordChar(_string.charAt(j_))) {
-                                _conf.getLastPage().setOffset(i_+1);
                                 d_.setBadOffset(i_+1);
                                 return d_;
                             }
                             if (_string.charAt(j_) == GET_VAR) {
-                                _conf.getLastPage().setOffset(i_+1);
                                 d_.setBadOffset(i_+1);
                                 return d_;
                             }
@@ -680,7 +636,6 @@ public final class ElResolver {
                     NumberInfosOutput res_ = processNb(i_, len_, firstPrintableWordChar_, _string, false);
                     int nextIndex_ = res_.getNextIndex();
                     if (nextIndex_ < 0) {
-                        _conf.getLastPage().setOffset(-nextIndex_);
                         d_.setBadOffset(-nextIndex_);
                         return d_;
                     }
@@ -696,12 +651,10 @@ public final class ElResolver {
                         if (_string.charAt(i_) != EXTERN_CLASS) {
                             if (_string.charAt(i_) != Templates.PREFIX_VAR_TYPE_CHAR) {
                                 if (_string.charAt(i_) == DELIMITER_CHAR) {
-                                    _conf.getLastPage().setOffset(i_);
                                     d_.setBadOffset(i_);
                                     return d_;
                                 }
                                 if (_string.charAt(i_) == DELIMITER_STRING) {
-                                    _conf.getLastPage().setOffset(i_);
                                     d_.setBadOffset(i_);
                                     return d_;
                                 }
@@ -726,7 +679,6 @@ public final class ElResolver {
                             d_.getVariables().add(info_);
                             tolerateDot_ = true;
                         } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
-                            _conf.getLastPage().setOffset(i_+2);
                             d_.setBadOffset(i_+2);
                             return d_;
                         } else {
@@ -784,12 +736,10 @@ public final class ElResolver {
                 }
                 String nextPart_ = _string.substring(i_).trim();
                 if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == GET_VAR)) {
-                    _conf.getLastPage().setOffset(i_);
                     d_.setBadOffset(i_);
                     return d_;
                 }
                 if (!isCorrectNbEndWord(nextPart_, end_)) {
-                    _conf.getLastPage().setOffset(i_+1);
                     d_.setBadOffset(i_+1);
                     return d_;
                 }
@@ -800,7 +750,6 @@ public final class ElResolver {
                     NumberInfosOutput res_ = processNb(i_ + 1, len_, firstPrintableWordChar_, _string, true);
                     int nextIndex_ = res_.getNextIndex();
                     if (nextIndex_ < 0) {
-                        _conf.getLastPage().setOffset(-nextIndex_);
                         d_.setBadOffset(-nextIndex_);
                         return d_;
                     }
@@ -814,7 +763,6 @@ public final class ElResolver {
                     String nextPart_ = _string.substring(i_ + 1).trim();
                     int lenLoc_ = nextPart_.length();
                     if (isNumber(0, lenLoc_, nextPart_)) {
-                        _conf.getLastPage().setOffset(-i_-1);
                         d_.setBadOffset(-i_-1);
                         return d_;
                     }
@@ -822,7 +770,6 @@ public final class ElResolver {
                 if (parsBrackets_.isEmpty()) {
                     if (i_ + 1 >= len_) {
                         if (!foundSemiColumn_) {
-                            _conf.getLastPage().setOffset(i_);
                             d_.setBadOffset(i_);
                             return d_;
                         }
@@ -830,7 +777,6 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == ESCAPE_META_CHAR) {
-                _conf.getLastPage().setOffset(i_);
                 d_.setBadOffset(i_);
                 return d_;
             }
@@ -856,7 +802,6 @@ public final class ElResolver {
                         continue;
                     }
                     if (_string.charAt(j_) == EQ_CHAR && exist_) {
-                        _conf.getLastPage().setOffset(i_+1);
                         d_.setBadOffset(i_+1);
                         return d_;
                     }
@@ -868,12 +813,10 @@ public final class ElResolver {
             }
             if (curChar_ == PAR_RIGHT) {
                 if (parsBrackets_.isEmpty()) {
-                    _conf.getLastPage().setOffset(i_);
                     d_.setBadOffset(i_);
                     return d_;
                 }
                 if (parsBrackets_.lastValue() != PAR_LEFT) {
-                    _conf.getLastPage().setOffset(i_);
                     d_.setBadOffset(i_);
                     return d_;
                 }
@@ -884,12 +827,10 @@ public final class ElResolver {
             }
             if (curChar_ == ARR_RIGHT) {
                 if (parsBrackets_.isEmpty()) {
-                    _conf.getLastPage().setOffset(i_);
                     d_.setBadOffset(i_);
                     return d_;
                 }
                 if (parsBrackets_.lastValue() != ARR_LEFT) {
-                    _conf.getLastPage().setOffset(i_);
                     d_.setBadOffset(i_);
                     return d_;
                 }
@@ -897,7 +838,6 @@ public final class ElResolver {
             }
             if (curChar_ == SEP_ARG) {
                 if (parsBrackets_.isEmpty()) {
-                    _conf.getLastPage().setOffset(i_);
                     d_.setBadOffset(i_);
                     return d_;
                 }
@@ -933,29 +873,24 @@ public final class ElResolver {
                 break;
             }
             if (partOfString_ && curChar_ == begin_) {
-                _conf.getLastPage().setOffset(i_);
                 d_.setBadOffset(i_);
                 return d_;
             }
             i_++;
         }
         if (hatMethod_) {
-            _conf.getLastPage().setOffset(i_);
             d_.setBadOffset(i_);
             return d_;
         }
         if (constString_) {
-            _conf.getLastPage().setOffset(i_);
             d_.setBadOffset(i_);
             return d_;
         }
         if (constChar_) {
-            _conf.getLastPage().setOffset(i_);
             d_.setBadOffset(i_);
             return d_;
         }
         if (!parsBrackets_.isEmpty()) {
-            _conf.getLastPage().setOffset(i_);
             d_.setBadOffset(i_);
             return d_;
         }
@@ -964,7 +899,6 @@ public final class ElResolver {
             d_.setIndexEnd(i_-1);
             return d_;
         }
-        _conf.getLastPage().setOffset(i_);
         d_.setBadOffset(i_);
         return d_;
     }

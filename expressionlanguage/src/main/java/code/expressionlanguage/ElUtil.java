@@ -1,21 +1,14 @@
 package code.expressionlanguage;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.FinalMemberException;
-import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
-import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.SettingMemberException;
-import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -33,8 +26,6 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.NullObjectException;
-import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ElUtil {
 
@@ -42,17 +33,7 @@ public final class ElUtil {
     private static final String EMPTY_STRING = "";
     private ElUtil() {
     }
-    
-    public static void tryToCalculateAffect(CustList<OperationNode> _left, ContextEl _conf, CustList<OperationNode> _right, String _op) {
-        CustList<OperationNode> allLeft_ = _left;
-        calculate(allLeft_ , _conf, _op);
-        CustList<OperationNode> allRight_ = _right;
-        calculate(allRight_, _conf, _op);
-        _conf.getLastPage().setRightArgument(_right.last().getArgument());
-        SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
-        settable_.calculateSetting(allLeft_, _conf, _op);
-        _conf.getLastPage().setRightArgument(null);
-    }
+
     public static ExpLanguages getAnalyzedAffectation(int _attrOp, int _attrLeft, int _attrRight,
             String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddenVarTypes) {
         PageEl page_ = _conf.getLastPage();
@@ -117,7 +98,15 @@ public final class ElUtil {
                 if (!clMatchLeft_.isPrimitive(_conf)) {
                     return new ExpLanguages(allLeft_, allRight_);
                 }
-                throw new PrimitiveTypeException(_conf.joinPages());
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(clMatchRight_.getName());
+                mapping_.setParam(clMatchLeft_.getName());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                return new ExpLanguages(allLeft_, allRight_);
             }
             StringMap<StringList> vars_ = new StringMap<StringList>();
             boolean buildMap_ = true;
@@ -136,7 +125,11 @@ public final class ElUtil {
             mapping_.setArg(clMatchRight_.getName());
             mapping_.setParam(clMatchLeft_.getName());
             if (!Templates.isCorrect(mapping_, _conf)) {
-                throw new DynamicCastClassException(_conf.joinPages());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
             }
         }
         return new ExpLanguages(allLeft_, allRight_);
@@ -187,28 +180,6 @@ public final class ElUtil {
         _conf.getLastPage().setRightArgument(null);
     }
 
-    public static Argument processEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
-        if (d_.getBadOffset() >= 0) {
-            _conf.getLastPage().setOffset(d_.getBadOffset());
-            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
-        }
-        String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
-        _conf.setNextIndex(d_.getIndexEnd()+2);
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_);
-        if (op_ == null) {
-            throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
-        }
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
-        analyze(all_, _conf);
-        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
-            throw new AnalyzingErrorsException(_conf.getClasses().getErrorsDet());
-        }
-        calculate(all_, _conf, EMPTY_STRING);
-        Argument arg_ = op_.getArgument();
-        return arg_;
-    }
 
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
@@ -236,27 +207,6 @@ public final class ElUtil {
         return all_;
     }
 
-    public static Argument processEl(String _el, int _index, ContextEl _conf) {
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
-        if (d_.getBadOffset() >= 0) {
-            _conf.getLastPage().setOffset(d_.getBadOffset());
-            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
-        }
-        String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_);
-        if (op_ == null) {
-            throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
-        }
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
-        analyze(all_, _conf);
-        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
-            throw new AnalyzingErrorsException(_conf.getClasses().getErrorsDet());
-        }
-        calculate(all_, _conf, EMPTY_STRING);
-        Argument arg_  = op_.getArgument();
-        return arg_;
-    }
 
     public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
@@ -366,51 +316,21 @@ public final class ElUtil {
         return list_;
     }
 
-    public static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _staticBlock,String _fieldName, String _op) {
-        PageEl page_ = _context.getLastPage();
-        page_.setStaticContext(_staticContext);
+    public static void analyze(CustList<OperationNode> _nodes, Analyzable _context, boolean _staticContext, boolean _staticBlock,String _fieldName, String _op) {
+        _context.setStaticContext(_staticContext);
         for (OperationNode e: _nodes) {
             e.setStaticBlock(_staticBlock);
             e.analyze(_nodes, _context, _fieldName, _op);
         }
     }
 
-    static void analyze(CustList<OperationNode> _nodes, ContextEl _context) {
-        PageEl page_ = _context.getLastPage();
-        Argument arg_ = page_.getGlobalArgument();
-        boolean static_ = arg_ == null || arg_.isNull();
-        page_.setStaticContext(static_);
+    public static void analyze(CustList<OperationNode> _nodes, Analyzable _context, boolean _static) {
+        _context.setStaticContext(_static);
         for (OperationNode e: _nodes) {
-            e.setStaticBlock(static_);
+            e.setStaticBlock(_static);
             e.analyze(_nodes, _context, EMPTY_STRING, EMPTY_STRING);
         }
     }
-    /**@throws InvokeRedinedMethException
-    @throws BadIndexException
-    @throws NegativeSizeException
-    @throws ErrorCausingException
-    @throws DynamicCastClassException
-    @throws RuntimeClassNotFoundException
-    @throws NullObjectException
-    @throws InvokeException
-    @throws UnwrappingException*/
-    static void calculate(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
-        for (OperationNode e: _nodes) {
-            if (!e.isCalculated()) {
-                e.calculate(_nodes, _context, _op);
-            }
-        }
-    }
-    /**@throws InvokeRedinedMethException
-    @throws CustomFoundMethodException
-    @throws BadIndexException
-    @throws NegativeSizeException
-    @throws ErrorCausingException
-    @throws DynamicCastClassException
-    @throws RuntimeClassNotFoundException
-    @throws NullObjectException
-    @throws InvokeException
-    @throws UnwrappingException*/
 
     static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op, int _offset) {
         _context.getLastPage().setTranslatedOffset(_offset);

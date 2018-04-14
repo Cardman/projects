@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -837,7 +838,7 @@ public abstract class NumericOperation extends MethodOperation {
         return a_;
     }
 
-    static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
+    static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, Analyzable _cont, ClassArgumentMatching _b) {
         int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
         String exp_ = _cont.getStandards().getAliasNumber();
         boolean ok_ = true;
@@ -866,7 +867,7 @@ public abstract class NumericOperation extends MethodOperation {
         return getQuickResultClass(_a, oa_, _cont, _b, ob_);
     }
 
-    static ClassArgumentMatching getQuickResultClass(ClassArgumentMatching _a, int _oa, ContextEl _cont, ClassArgumentMatching _b, int _ob) {
+    static ClassArgumentMatching getQuickResultClass(ClassArgumentMatching _a, int _oa, Analyzable _cont, ClassArgumentMatching _b, int _ob) {
         ClassArgumentMatching arg_;
         int max_ = Math.max(_oa, _ob);
         if (_oa > _ob) {
@@ -883,12 +884,12 @@ public abstract class NumericOperation extends MethodOperation {
     }
 
     @Override
-    public final void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
+    public final void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
             String _fieldName, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }
 
-    final void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
+    final void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching a_ = chidren_.first().getResultClass();
         ResultOperand r_;
@@ -900,7 +901,7 @@ public abstract class NumericOperation extends MethodOperation {
         a_ = r_.getResult();
         setResultClass(a_);
     }
-    abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
+    abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont);
     abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont);
 
     @Override

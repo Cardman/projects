@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 import code.util.CustList;
 import code.util.EqList;
@@ -22,7 +22,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         classNames = _classNames;
     }
 
-    public ConstructorId format(String _genericClass, ContextEl _classes) {
+    public ConstructorId format(String _genericClass, Analyzable _classes) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         EqList<ClassName> pTypes_ = new EqList<ClassName>();

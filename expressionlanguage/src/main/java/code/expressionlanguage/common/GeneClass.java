@@ -1,18 +1,18 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Analyzable;
 import code.util.StringList;
 
 public interface GeneClass extends GeneType {
 
-    String getGenericSuperClass(ContextEl _classes);
+    String getGenericSuperClass(Analyzable _classes);
 
-    String getSuperClass(ContextEl _classes);
+    String getSuperClass(Analyzable _classes);
 
-    StringList getDirectGenericInterfaces(ContextEl _classes);
+    StringList getDirectGenericInterfaces(Analyzable _classes);
 
-    StringList getDirectInterfaces(ContextEl _classes);
+    StringList getDirectInterfaces(Analyzable _classes);
 
-    StringList getAllSuperClasses(ContextEl _classes);
+    StringList getAllSuperClasses(Analyzable _classes);
 
 }

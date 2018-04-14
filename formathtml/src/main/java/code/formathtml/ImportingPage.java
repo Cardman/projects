@@ -107,6 +107,11 @@ public final class ImportingPage {
         return str_.toString();
     }
 
+    public RowCol getRowCol() {
+        int off_ = pageEl.getOffset();
+        int tabWidth_ = pageEl.getTabWidth();
+        return processingHtml.getRowCol(processingAttribute, off_, tabWidth_);
+    }
     public PageEl getPageEl() {
         return pageEl;
     }

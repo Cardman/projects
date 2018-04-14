@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.FileResolver;
@@ -1693,7 +1694,7 @@ public final class Classes {
         page_.getLocalVars().removeKey(nextVarCust);
     }
 
-    public static boolean canAccessField(String _className, String _accessedClass, String _name, ContextEl _context) {
+    public static boolean canAccessField(String _className, String _accessedClass, String _name, Analyzable _context) {
         String baseClass_ = StringList.getAllTypes(_accessedClass).first();
         GeneType access_ = _context.getClassBody(baseClass_);
         if (access_ instanceof RootBlock) {
@@ -1715,13 +1716,13 @@ public final class Classes {
         return false;
     }
 
-    public static boolean canAccessClass(String _className, String _accessedClass, ContextEl _context) {
+    public static boolean canAccessClass(String _className, String _accessedClass, Analyzable _context) {
         String baseClass_ = StringList.getAllTypes(_accessedClass).first();
         GeneType access_ = _context.getClassBody(baseClass_);
         return canAccess(_className, access_, _context);
     }
 
-    public static boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
+    public static boolean canAccess(String _className, AccessibleBlock _block, Analyzable _context) {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return true;
         }

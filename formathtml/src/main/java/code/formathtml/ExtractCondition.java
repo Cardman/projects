@@ -1,6 +1,5 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.methods.exceptions.BadConditionExpressionException;
@@ -112,7 +111,7 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(IS_NOT_NULL_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(nbNeg_);
-            Object obj_ = ElUtil.processEl(isNotNullWithoutNeg_, 0, _conf.toContextEl()).getObject();
+            Object obj_ = ElRenderUtil.processEl(isNotNullWithoutNeg_, 0, _conf).getObject();
             boolean b_ = obj_ != null;
             if (nbNeg_%2 == 1) {
                 b_ = !b_;
@@ -130,7 +129,7 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(IS_NULL_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(nbNeg_);
-            Object obj_ = ElUtil.processEl(isNullWithoutNeg_, 0, _conf.toContextEl()).getObject();
+            Object obj_ = ElRenderUtil.processEl(isNullWithoutNeg_, 0, _conf).getObject();
             boolean b_ = obj_ == null;
             if (nbNeg_%2 == 1) {
                 b_ = !b_;
@@ -170,10 +169,10 @@ final class ExtractCondition {
             } else {
                 throw new BadReferenceEqualsException(_conf.joinPages());
             }
-            Object argOne_ = ElUtil.processEl(accessPartOne_, 0, _conf.toContextEl()).getObject();
+            Object argOne_ = ElRenderUtil.processEl(accessPartOne_, 0, _conf).getObject();
             _ip.addToOffset(accessPartOne_.length()+1);
             _ip.addToOffset(accessOp_.length());
-            Object argTwo_ = ElUtil.processEl(accessPartTwo_, 0, _conf.toContextEl()).getObject();
+            Object argTwo_ = ElRenderUtil.processEl(accessPartTwo_, 0, _conf).getObject();
             if (eqCmp_) {
                 if (argOne_ != argTwo_) {
                     return_ = false;
@@ -193,7 +192,7 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(ATTRIBUTE_CONDITION);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(nbNeg_);
-            Argument a_ = ElUtil.processEl(conditionWithoutNeg_, 0, _conf.toContextEl());
+            Argument a_ = ElRenderUtil.processEl(conditionWithoutNeg_, 0, _conf);
             Object o_ = a_.getObject();
             if (!(o_ instanceof Boolean)) {
                 throw new DynamicCastClassException(StringList.concat(a_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,PrimitiveTypeUtil.PRIM_BOOLEAN,RETURN_LINE,_conf.joinPages()));

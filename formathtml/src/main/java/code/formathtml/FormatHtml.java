@@ -2,7 +2,6 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -393,7 +392,7 @@ public final class FormatHtml {
                         ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
                         ip_.setOffset(0);
                         ip_.setLookForAttrValue(true);
-                        Argument argt_ = ElUtil.processEl(fieldValue_, 0, context_);
+                        Argument argt_ = ElRenderUtil.processEl(fieldValue_, 0, _conf);
                         ip_.setProcessingNode(nThree_);
                         ip_.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                         ip_.setOffset(0);
@@ -414,7 +413,7 @@ public final class FormatHtml {
                         lv_.setStruct(argt_.getStruct());
                         String nameVar_ = ip_.getNextTempVar();
                         ip_.getLocalVars().put(nameVar_, lv_);
-                        ElUtil.processEl(StringList.concat(methodName_,leftParStr_,nameVar_,GET_LOC_VAR,rightParStr_), 0, context_);
+                        ElRenderUtil.processEl(StringList.concat(methodName_,leftParStr_,nameVar_,GET_LOC_VAR,rightParStr_), 0, _conf);
                         ip_.getLocalVars().removeKey(nameVar_);
                         continue;
                     }
@@ -423,7 +422,7 @@ public final class FormatHtml {
                     ip_.setOffset(0);
                     ip_.setLookForAttrValue(true);
                     String fieldValue_ = nThree_.getAttribute(ATTRIBUTE_VALUE);
-                    Argument argt_ = ElUtil.processEl(fieldValue_, 0, context_);
+                    Argument argt_ = ElRenderUtil.processEl(fieldValue_, 0, _conf);
                     LocalVariable lv_ = new LocalVariable();
                     lv_.setClassName(searchedClass_);
                     lv_.setStruct(bean_);
@@ -940,8 +939,7 @@ public final class FormatHtml {
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,THROW_TAG))) {
             String el_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
-            ContextEl cont_ = _conf.toContextEl();
-            Argument arg_ = ElUtil.processEl(el_, 0, cont_);
+            Argument arg_ = ElRenderUtil.processEl(el_, 0, _conf);
             Struct o_ = arg_.getStruct();
             throw new InvokeException(_conf.joinPages(), o_);
         }
@@ -1086,7 +1084,7 @@ public final class FormatHtml {
             ip_.setOffset(0);
             ip_.setLookForAttrValue(true);
             String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
-            Argument arg_ = ElUtil.processEl(expr_, 0, _conf.toContextEl());
+            Argument arg_ = ElRenderUtil.processEl(expr_, 0, _conf);
             if_.setStruct(arg_.getStruct());
             if (if_.getNodes().isEmpty()) {
                 if_.setFinished(true);
@@ -1118,7 +1116,7 @@ public final class FormatHtml {
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(true);
                 String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
-                Argument arg_ = ElUtil.processEl(expr_, 0, _conf.toContextEl());
+                Argument arg_ = ElRenderUtil.processEl(expr_, 0, _conf);
                 //TODO processEl
                 boolean enter_ = false;
                 if (value_ == null) {
@@ -1574,7 +1572,7 @@ public final class FormatHtml {
                 _conf.getLastPage().setOffset(0);
                 Object index_;
                 if (!StringList.isPositiveNumber(indexExpr_)) {
-                    index_ = ElUtil.processEl(indexExpr_, 0, _conf.toContextEl()).getObject();
+                    index_ = ElRenderUtil.processEl(indexExpr_, 0, _conf).getObject();
                 } else {
                     index_ = Integer.parseInt(indexExpr_);
                 }
@@ -1582,11 +1580,11 @@ public final class FormatHtml {
                 _conf.getLastPage().setProcessingAttribute(ARRAY_ELEMENT_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
-                Struct elementArg_ = ElUtil.processEl(elementExpr_, 0, _conf.toContextEl()).getStruct();
+                Struct elementArg_ = ElRenderUtil.processEl(elementExpr_, 0, _conf).getStruct();
                 _conf.getLastPage().setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
-                Struct arrayArg_ = ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+                Struct arrayArg_ = ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
                 int indexNb_;
                 try {
                     indexNb_ = (Integer)index_;
@@ -1621,7 +1619,7 @@ public final class FormatHtml {
                     _ip.getLocalVars().removeKey(nameTwo_);
                 }
             } else {
-                ElUtil.processEl(expression_, 0, _conf.toContextEl());
+                ElRenderUtil.processEl(expression_, 0, _conf);
             }
             return;
         }
@@ -1691,7 +1689,7 @@ public final class FormatHtml {
                 String primLong_ = _conf.getStandards().getAliasPrimLong();
                 return ExtractObject.instanceByString(_conf, primLong_, expression_);
             } else {
-                return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+                return ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
             }
         }
     }
@@ -1751,7 +1749,7 @@ public final class FormatHtml {
                     struct_ = ExtractObject.instanceByString(_conf, className_, expression_);
                 } else {
                     className_ = _conf.getStandards().getAliasObject();
-                    Argument a_ = ElUtil.processEl(expression_, 0, _conf.toContextEl());
+                    Argument a_ = ElRenderUtil.processEl(expression_, 0, _conf);
                     struct_ = a_.getStruct();
                 }
             } else {
@@ -1798,7 +1796,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    Argument a_ = ElUtil.processEl(expression_, 0, _conf.toContextEl());
+                    Argument a_ = ElRenderUtil.processEl(expression_, 0, _conf);
                     struct_ = a_.getStruct();
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
@@ -2538,7 +2536,7 @@ public final class FormatHtml {
                         begin_ = name_.substring(CustList.FIRST_INDEX, i_);
                     }
                 }
-                obj_ = ElUtil.processEl(begin_, 0, _conf.toContextEl()).getStruct();
+                obj_ = ElRenderUtil.processEl(begin_, 0, _conf).getStruct();
                 _ip.addToOffset(begin_.length());
                 end_ = name_.substring(i_ + 1);
             } else {
@@ -2558,7 +2556,7 @@ public final class FormatHtml {
             }
             Struct current_ = _ip.getGlobalArgument().getStruct();
             _ip.setGlobalArgumentStruct(obj_, _conf);
-            currentField_ = ElUtil.processEl(end_, 0, _conf.toContextEl()).getStruct();
+            currentField_ = ElRenderUtil.processEl(end_, 0, _conf).getStruct();
             _ip.setGlobalArgumentStruct(current_, _conf);
         }
         if (found_ == -1) {
@@ -2699,7 +2697,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
-                    objects_.add(ExtractObject.valueOf(_conf, ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
+                    objects_.add(ExtractObject.valueOf(_conf, ElRenderUtil.processEl(attribute_, 1, _conf).getStruct()));
                 } else {
                     objects_.add(attribute_);
                 }
@@ -2739,7 +2737,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
-                    objects_.add(ExtractObject.valueOf(_conf, ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
+                    objects_.add(ExtractObject.valueOf(_conf, ElRenderUtil.processEl(attribute_, 1, _conf).getStruct()));
                 } else {
                     objects_.add(attribute_);
                 }
@@ -2799,7 +2797,7 @@ public final class FormatHtml {
                         _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(1);
-                        objects_.add(ExtractObject.valueOf(_conf,ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
+                        objects_.add(ExtractObject.valueOf(_conf,ElRenderUtil.processEl(attribute_, 1, _conf).getStruct()));
                     } else {
                         objects_.add(attribute_);
                     }
@@ -2931,7 +2929,7 @@ public final class FormatHtml {
                 _conf.getLastPage().setOffset(0);
                 Struct o_ = null;
                 if (!accessName_.isEmpty()) {
-                    o_ = ElUtil.processEl(accessName_, 0, _conf.toContextEl()).getStruct();
+                    o_ = ElRenderUtil.processEl(accessName_, 0, _conf).getStruct();
                 }
                 if (o_ == null || o_.isNull()) {
                     _tag.removeAttribute(CHECKED);
@@ -3080,7 +3078,7 @@ public final class FormatHtml {
         _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Struct o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getStruct();
+        Struct o_ = ElRenderUtil.processEl(attribute_, 0, _conf).getStruct();
         if (o_.isNull()) {
             o_ = new StringStruct(EMPTY_STRING);
         }
@@ -3098,7 +3096,7 @@ public final class FormatHtml {
             _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
-            Struct o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getStruct();
+            Struct o_ = ElRenderUtil.processEl(attribute_, 0, _conf).getStruct();
             if (o_.isNull()) {
                 _tag.setAttribute(ATTRIBUTE_VALUE, (String) o_.getInstance());
             } else if (o_.getInstance() instanceof Boolean) {
@@ -3141,11 +3139,10 @@ public final class FormatHtml {
                 continue;
             }
             if (curChar_ == MATH_INTERPRET) {
-                ContextEl context_ = _conf.toContextEl();
                 _ip.setOffset(i_+1);
-                Argument arg_ = ElUtil.processEl(_pattern, context_, i_+1, MATH_INTERPRET, MATH_INTERPRET);
+                Argument arg_ = ElRenderUtil.processEl(_pattern, _conf, i_+1, MATH_INTERPRET, MATH_INTERPRET);
                 calculateVariables_.append(ExtractObject.valueOf(_conf, arg_.getStruct()));
-                i_ = context_.getNextIndex();
+                i_ = _conf.getNextIndex();
                 continue;
             }
             calculateVariables_.append(curChar_);
@@ -3196,7 +3193,7 @@ public final class FormatHtml {
             return;
         }
         String command_ = class_.substring(class_.indexOf(CALL_METHOD)+1);
-        Struct returnedObject_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getStruct();
+        Struct returnedObject_ = ElRenderUtil.processEl(command_, 0, _conf).getStruct();
         if (returnedObject_.isNull()) {
             _elt.removeAttribute(_attrName);
             return;
@@ -3218,9 +3215,9 @@ public final class FormatHtml {
             _conf.getLastPage().setOffset(0);
             returnedVarValue_ = new IdList<Struct>();
             if (!_multiple) {
-                returnedVarValue_.add(ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getStruct());
+                returnedVarValue_.add(ElRenderUtil.processEl(varValue_, 0, _conf).getStruct());
             } else {
-                Struct o_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getStruct();
+                Struct o_ = ElRenderUtil.processEl(varValue_, 0, _conf).getStruct();
                 if (o_.isNull()) {
                     returnedVarValue_ = null;
                 } else {
@@ -3234,7 +3231,7 @@ public final class FormatHtml {
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_LIST);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Struct li_ = ElUtil.processEl(list_, 0, _conf.toContextEl()).getStruct();
+        Struct li_ = ElRenderUtil.processEl(list_, 0, _conf).getStruct();
         Struct extractedList_ = li_;
         String default_ = _n.getAttribute(DEFAULT_ATTRIBUTE);
         Element docElementSelect_ = _doc.createElement(SELECT_TAG);
@@ -3274,9 +3271,9 @@ public final class FormatHtml {
                 _conf.getLastPage().setOffset(1);
                 IdList<Struct> defaults_ = new IdList<Struct>();
                 if (!_multiple) {
-                    defaults_.add(ElUtil.processEl(command_, 0, _conf.toContextEl()).getStruct());
+                    defaults_.add(ElRenderUtil.processEl(command_, 0, _conf).getStruct());
                 } else {
-                    li_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getStruct();
+                    li_ = ElRenderUtil.processEl(command_, 0, _conf).getStruct();
                     Struct it_ = ExtractObject.iterator(_conf, li_);
                     while (ExtractObject.hasNext(_conf, it_)) {
                         defaults_.add(ExtractObject.next(_conf, it_));
@@ -3338,12 +3335,12 @@ public final class FormatHtml {
             _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR_VALUE);
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
-            returnedVarValue_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getStruct();
+            returnedVarValue_ = ElRenderUtil.processEl(varValue_, 0, _conf).getStruct();
         }
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_MAP);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Struct map_ = ElUtil.processEl(_map, 0, _conf.toContextEl()).getStruct();
+        Struct map_ = ElRenderUtil.processEl(_map, 0, _conf).getStruct();
         String default_ = ((Element) _n).getAttribute(DEFAULT_ATTRIBUTE);
         Element docElementSelect_ = _doc.createElement(SELECT_TAG);
         if (!_id.isEmpty() || !_groupId.isEmpty()) {
@@ -3366,7 +3363,7 @@ public final class FormatHtml {
                 _conf.getLastPage().setProcessingAttribute(DEFAULT_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(1);
-                Struct defaultEnum_ = ElUtil.processEl(default_, 1, _conf.toContextEl()).getStruct();
+                Struct defaultEnum_ = ElRenderUtil.processEl(default_, 1, _conf).getStruct();
                 processOptionsMapEnumName(_conf, map_,
                         _doc, docElementSelect_,
                         defaultEnum_, _multiple);
@@ -3907,7 +3904,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_LIST);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            container_ = ElUtil.processEl(listAttr_, 0, _conf.toContextEl()).getStruct();
+            container_ = ElRenderUtil.processEl(listAttr_, 0, _conf).getStruct();
             if (container_.isNull()) {
                 _conf.getLastPage().addToOffset(listAttr_.length()+1);
                 throw new NullObjectException(_conf.joinPages());
@@ -3918,7 +3915,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_MAP);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            container_ = ElUtil.processEl(mapAttr_, 0, _conf.toContextEl()).getStruct();
+            container_ = ElRenderUtil.processEl(mapAttr_, 0, _conf).getStruct();
             if (container_.isNull()) {
                 throw new NullObjectException(_conf.joinPages());
             }
@@ -3931,21 +3928,21 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_FROM);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Argument argFrom_ = ElUtil.processEl(from_, 0, _conf.toContextEl());
+            Argument argFrom_ = ElRenderUtil.processEl(from_, 0, _conf);
             if (!argFrom_.isIntegerType(_conf.toContextEl())) {
                 throw new DynamicCastClassException(StringList.concat(argFrom_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
             }
             _ip.setProcessingAttribute(ATTRIBUTE_TO);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Argument argTo_ = ElUtil.processEl(to_, 0, _conf.toContextEl());
+            Argument argTo_ = ElRenderUtil.processEl(to_, 0, _conf);
             if (!argTo_.isIntegerType(_conf.toContextEl())) {
                 throw new DynamicCastClassException(StringList.concat(argTo_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
             }
             _ip.setProcessingAttribute(ATTRIBUTE_STEP);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Argument argStep_ = ElUtil.processEl(step_, 0, _conf.toContextEl());
+            Argument argStep_ = ElRenderUtil.processEl(step_, 0, _conf);
             if (!argStep_.isIntegerType(_conf.toContextEl())) {
                 throw new DynamicCastClassException(StringList.concat(argStep_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
             }

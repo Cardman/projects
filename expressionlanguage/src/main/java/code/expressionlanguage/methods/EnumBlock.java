@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
@@ -209,7 +210,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericSuperTypes(ContextEl _classes) {
+    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
         return getDirectSuperTypes();
     }
 
@@ -218,7 +219,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         return allInterfaces;
     }
     @Override
-    public StringList getDirectInterfaces(ContextEl _classes) {
+    public StringList getDirectInterfaces(Analyzable _classes) {
         StringList direct_ = new StringList();
         for (String s: getDirectGenericInterfaces(_classes)) {
             int index_ = s.indexOf(LT);
@@ -232,7 +233,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericInterfaces(ContextEl _classes) {
+    public StringList getDirectGenericInterfaces(Analyzable _classes) {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = StringList.getAllTypes(s).first();
@@ -367,14 +368,14 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericSuperClasses(ContextEl _classes) {
+    public StringList getDirectGenericSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
         classes_.add(getGenericSuperClass(_classes));
         return classes_;
     }
 
     @Override
-    public StringList getDirectSuperClasses(ContextEl _classes) {
+    public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
         String superClass_ = getGenericSuperClass(_classes);
         int index_ = superClass_.indexOf(LT);
@@ -387,7 +388,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public String getSuperClass(ContextEl _classes) {
+    public String getSuperClass(Analyzable _classes) {
         String superClass_ = getGenericSuperClass(_classes);
         int index_ = superClass_.indexOf(LT);
         if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
@@ -397,7 +398,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public String getGenericSuperClass(ContextEl _classes) {
+    public String getGenericSuperClass(Analyzable _classes) {
         for (String s: getDirectSuperTypes()) {
             String base_ = StringList.getAllTypes(s).first();
             if (_classes.getClasses().getClassBody(base_) instanceof ClassBlock) {
@@ -428,7 +429,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getAllGenericSuperClasses(ContextEl _classes) {
+    public StringList getAllGenericSuperClasses(Analyzable _classes) {
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
         Classes classes_ = _classes.getClasses();
         StringList allGenericSuperClasses_ = new StringList();
@@ -442,7 +443,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getAllGenericInterfaces(ContextEl _classes) {
+    public StringList getAllGenericInterfaces(Analyzable _classes) {
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
         Classes classes_ = _classes.getClasses();
         StringList allGenericInterfaces_ = new StringList();
@@ -455,7 +456,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         return allGenericInterfaces_;
     }
     @Override
-    public StringList getAllSuperClasses(ContextEl _classes) {
+    public StringList getAllSuperClasses(Analyzable _classes) {
         StringList superClasses_ = new StringList();
         String current_ = getFullName();
         String objectAlias_ = _classes.getStandards().getAliasObject();

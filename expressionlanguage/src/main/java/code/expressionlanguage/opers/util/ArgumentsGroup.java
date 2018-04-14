@@ -1,12 +1,12 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Analyzable;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class ArgumentsGroup extends CustList<ClassArgumentMatching> {
 
-    private ContextEl context;
+    private Analyzable context;
 
     private boolean ambigous;
 
@@ -14,13 +14,13 @@ public final class ArgumentsGroup extends CustList<ClassArgumentMatching> {
 
     private String globalClass;
 
-    public ArgumentsGroup(ContextEl _context, StringMap<StringList> _map, ClassArgumentMatching[] _elements) {
+    public ArgumentsGroup(Analyzable _context, StringMap<StringList> _map, ClassArgumentMatching[] _elements) {
         super(_elements);
         context = _context;
         map = _map;
     }
 
-    public ContextEl getContext() {
+    public Analyzable getContext() {
         return context;
     }
 

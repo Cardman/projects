@@ -106,6 +106,54 @@ public class Composite implements Displayable {
         return integer + _other.intValue() + _otherTwo.intValue();
     }
 
+    public String getOverridenOne(String _string) {
+        return "one";
+    }
+    public String getOverridenOne(Object _string) {
+        return "two";
+    }
+    public String getOverridenOne(Boolean _string) {
+        return "three";
+    }
+    public String getOverridenTwo(String _string) {
+        return "one";
+    }
+    public String getOverridenTwo(Object _string) {
+        return "two";
+    }
+    public String getOverridenThree(Double _double) {
+        return "Double";
+    }
+    public String getOverridenThree(Long _double) {
+        return "Long";
+    }
+    public String getOverridenThree(double _double) {
+        return "double";
+    }
+    public String getOverridenThree(long _double) {
+        return "long";
+    }
+    public String getOverridenFour(Long _double) {
+        return "Long";
+    }
+    public String getOverridenFour(long _double) {
+        return "long";
+    }
+    public String getOverridenFive(Long _double) {
+        return "Long";
+    }
+    public String getOverridenFive(double _double) {
+        return "double";
+    }
+    public String getOverridenSix(Long _double) {
+        return "Long";
+    }
+    public String getOverridenSix(long _double) {
+        return "long";
+    }
+    public String getOverridenSix(Double _double) {
+        return "Double";
+    }
     int sum() {
         return integer + privateInt;
     }

@@ -1,15 +1,16 @@
 package code.expressionlanguage.opers;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.exceptions.BadAccessException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
@@ -49,7 +50,7 @@ public final class StaticAccessOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
             String _fieldName, String _op) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
@@ -78,16 +79,26 @@ public final class StaticAccessOperation extends LeafOperation {
         }
         String classStr_ = StringList.removeAllSpaces(class_.toString());
         String base_ = StringList.getAllTypes(classStr_).first();
-        String glClass_ = _conf.getLastPage().getGlobalClass();
+        String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
-        checkExistBase(_conf, false, base_, false, 0);
+        if (!checkExistBase(_conf, false, base_, false, 0)) {
+            Argument a_ = new Argument();
+            argClName_ = _conf.getStandards().getAliasObject();
+            setArguments(a_);
+            setStaticResultClass(new ClassArgumentMatching(argClName_));
+            return;
+        }
         if (classes_.isCustomType(classStr_)) {
             String curClassBase_ = null;
             if (glClass_ != null) {
                 curClassBase_ = StringList.getAllTypes(glClass_).first();
             }
             if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
-                throw new BadAccessException(StringList.concat(classStr_,RETURN_LINE,_conf.joinPages()));
+                BadAccessClass badAccess_ = new BadAccessClass();
+                badAccess_.setId(classStr_);
+                badAccess_.setRc(_conf.getCurrentLocation());
+                badAccess_.setFileName(_conf.getCurrentFileName());
+                _conf.getClasses().getErrorsDet().add(badAccess_);
             }
             possibleInitClass = true;
         }

@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -25,7 +25,7 @@ public final class ClassArgumentMatching {
         return args_;
     }
 
-    public boolean isNumericInt(ContextEl _context) {
+    public boolean isNumericInt(Analyzable _context) {
         ClassArgumentMatching cl_ = new ClassArgumentMatching(className);
         LgNames stds_ = _context.getStandards();
         String intPr_ = stds_.getAliasPrimInteger();
@@ -50,7 +50,7 @@ public final class ClassArgumentMatching {
     public boolean matchClass(ClassArgumentMatching _class) {
         return StringList.quickEq(className, _class.getName());
     }
-    public boolean matchVoid(ContextEl _classes) {
+    public boolean matchVoid(Analyzable _classes) {
         LgNames stds_ = _classes.getStandards();
         return StringList.quickEq(className, stds_.getAliasVoid());
     }
@@ -84,7 +84,7 @@ public final class ClassArgumentMatching {
         return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 
-    public boolean isPrimitive(ContextEl _context) {
+    public boolean isPrimitive(Analyzable _context) {
         return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 

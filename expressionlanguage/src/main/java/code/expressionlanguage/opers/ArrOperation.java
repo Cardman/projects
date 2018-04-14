@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -36,7 +37,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
             String _fieldName, String _op) {
         analyzeCommon(_conf);
     }
@@ -60,7 +61,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         return false;
     }
 
-    void analyzeCommon(ContextEl _conf) {
+    void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching class_ = chidren_.first().getResultClass();
         ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();

@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
@@ -13,27 +14,20 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.exceptions.AbstractClassConstructorException;
-import code.expressionlanguage.exceptions.BadAccessException;
-import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.exceptions.EmptyArrayDimensionsException;
-import code.expressionlanguage.exceptions.ErrorCausingException;
-import code.expressionlanguage.exceptions.IllegalClassConstructorException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NegativeSizeException;
-import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
-import code.expressionlanguage.exceptions.NullGlobalObjectException;
-import code.expressionlanguage.exceptions.PrimitiveTypeException;
-import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadAccessConstructor;
 import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.BadOperandsNumber;
+import code.expressionlanguage.methods.util.IllegalCallCtorByType;
 import code.expressionlanguage.methods.util.InstancingStep;
+import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
@@ -51,8 +45,6 @@ import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.NullObjectException;
-import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class InstanceOperation extends InvokingOperation {
 
@@ -77,12 +69,12 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
             String _fieldName, String _op) {
         analyzeCommon(_nodes, _conf, _fieldName, _op);
     }
 
-    void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op) {
+    void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _fieldName, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -90,7 +82,15 @@ public final class InstanceOperation extends InvokingOperation {
         className_ = StringList.removeAllSpaces(className_);
         if (!className_.startsWith(ARR) && className_.endsWith(ARR_DYN)) {
             int len_ = className_.length();
-            throw new NotArrayException(StringList.concat(className_.substring(0, len_-ARR_DYN.length()),RETURN_LINE,_conf.joinPages()));
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
+            un_.setOperands(new StringList(className_.substring(0, len_-ARR_DYN.length())));
+            _conf.getClasses().getErrorsDet().add(un_);
+            LgNames stds_ = _conf.getStandards();
+            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
+            return;
         }
         boolean elts_ = false;
         String realClassName_;
@@ -103,20 +103,32 @@ public final class InstanceOperation extends InvokingOperation {
         }
         if (realClassName_.startsWith(ARR)) {
             if (chidren_.isEmpty() && !elts_) {
-                throw new EmptyArrayDimensionsException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+                BadOperandsNumber badCall_ = new BadOperandsNumber();
+                badCall_.setOperandsNumber(0);
+                badCall_.setFileName(_conf.getCurrentFileName());
+                badCall_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(badCall_);
+                LgNames stds_ = _conf.getStandards();
+                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
+                return;
             }
             if (!elts_) {
                 for (OperationNode o: chidren_) {
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
                     if (!o.getResultClass().isNumericInt(_conf)) {
                         ClassArgumentMatching cl_ = o.getResultClass();
-                        throw new BadIndexTypeException(StringList.concat(cl_.getName(),RETURN_LINE,_conf.joinPages()));
+                        UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                        un_.setRc(_conf.getCurrentLocation());
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
+                        un_.setOperands(new StringList(cl_.getName()));
+                        _conf.getClasses().getErrorsDet().add(un_);
                     }
                 }
             } else {
                 StringMap<StringList> map_;
                 map_ = new StringMap<StringList>();
-                String glClass_ = _conf.getLastPage().getGlobalClass();
+                String glClass_ = _conf.getGlobalClass();
                 if (glClass_ != null) {
                     for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                         map_.put(t.getName(), t.getConstraints());
@@ -141,7 +153,9 @@ public final class InstanceOperation extends InvokingOperation {
             }
             realClassName_ = realClassName_.substring(ARR.length());
             setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-            checkCorrect(_conf, realClassName_, false, 0);
+            if (!checkCorrect(_conf, realClassName_, false, 0)) {
+                realClassName_ = _conf.getStandards().getAliasObject();
+            }
             if (!elts_) {
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, chidren_.size())));
                 return;
@@ -152,7 +166,7 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         boolean intern_ = true;
         if (!isIntermediateDottedOperation()) {
-            setStaticAccess(_conf.getLastPage().isStaticContext());
+            setStaticAccess(_conf.isStaticContext());
             intern_ = false;
 //            if (StringList.isWord(realClassName_)) {
 //                needGlobalArgument();
@@ -179,18 +193,24 @@ public final class InstanceOperation extends InvokingOperation {
         if (isIntermediateDottedOperation()) {
             arg_ = getPreviousResultClass();
         } else {
-            arg_ = new ClassArgumentMatching(_conf.getLastPage().getGlobalClass());
-            setStaticAccess(_conf.getLastPage().isStaticContext());
+            arg_ = new ClassArgumentMatching(_conf.getGlobalClass());
+            setStaticAccess(_conf.isStaticContext());
         }
-        if (arg_ == null) {
-            throw new NullGlobalObjectException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+        if (arg_ == null || arg_.getName() == null) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_conf.getCurrentFileName());
+            static_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(static_);
+            LgNames stds_ = _conf.getStandards();
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
         }
         firstArgs_.add(CustList.FIRST_INDEX, arg_);
         realClassName_ = StringList.concat(arg_.getName(),String.valueOf(INTERN_CLASS),realClassName_);
         analyzeCtor(_nodes, _conf, _fieldName, _op, realClassName_, firstArgs_, intern_);
     }
 
-    void analyzeCtor(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
+    void analyzeCtor(CustList<OperationNode> _nodes, Analyzable _conf, String _fieldName, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         String realClassName_ = _realClassName;
         LgNames stds_ = _conf.getStandards();
         if (StringList.quickEq(realClassName_, stds_.getAliasVoid())) {
@@ -208,21 +228,48 @@ public final class InstanceOperation extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         ConstrustorIdVarArg ctorRes_ = null;
 
-        checkCorrect(_conf, realClassName_, false, 0);
+        if (!checkCorrect(_conf, realClassName_, false, 0)) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
         if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
-            throw new PrimitiveTypeException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+            call_.setType(realClassName_);
+            call_.setFileName(_conf.getCurrentFileName());
+            call_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(call_);
+            setResultClass(new ClassArgumentMatching(realClassName_));
+            return;
         }
         ClassMetaInfo custClass_ = null;
         custClass_ = _conf.getClassMetaInfo(realClassName_);
         if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
-            throw new AbstractClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+            call_.setType(realClassName_);
+            call_.setFileName(_conf.getCurrentFileName());
+            call_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(call_);
+            setResultClass(new ClassArgumentMatching(realClassName_));
+            return;
         }
         if (custClass_.getCategory() == ClassCategory.INTERFACE) {
-            throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+            call_.setType(realClassName_);
+            call_.setFileName(_conf.getCurrentFileName());
+            call_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(call_);
+            setResultClass(new ClassArgumentMatching(realClassName_));
+            return;
         }
         if (custClass_.getCategory() == ClassCategory.ENUM) {
             if (_fieldName.isEmpty() || _nodes.last() != this) {
-                throw new IllegalClassConstructorException(StringList.concat(realClassName_,RETURN_LINE,_conf.joinPages()));
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(realClassName_);
+                call_.setFileName(_conf.getCurrentFileName());
+                call_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(call_);
+                setResultClass(new ClassArgumentMatching(realClassName_));
+                return;
             }
             fieldName = _fieldName;
         }
@@ -233,7 +280,7 @@ public final class InstanceOperation extends InvokingOperation {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        String glClass_ = _conf.getLastPage().getGlobalClass();
+        String glClass_ = _conf.getGlobalClass();
         CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
         String curClassBase_ = null;
         if (glClass_ != null) {
@@ -241,7 +288,11 @@ public final class InstanceOperation extends InvokingOperation {
         }
         if (!ctors_.isEmpty() && !Classes.canAccess(curClassBase_, ctors_.first(), _conf)) {
             GeneConstructor ctr_ = ctors_.first();
-            throw new BadAccessException(StringList.concat(ctr_.getId().getSignature(),RETURN_LINE,_conf.joinPages()));
+            BadAccessConstructor access_ = new BadAccessConstructor();
+            access_.setId(ctr_.getId());
+            access_.setFileName(_conf.getCurrentFileName());
+            access_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(access_);
         }
         possibleInitClass = true;
         setResultClass(new ClassArgumentMatching(realClassName_));
@@ -297,13 +348,6 @@ public final class InstanceOperation extends InvokingOperation {
         setSimpleArgument(res_, _conf, _nodes);
         return res_;
     }
-    /**@throws NegativeSizeException
-    @throws ErrorCausingException
-    @throws DynamicCastClassException
-    @throws RuntimeClassNotFoundException
-    @throws NullObjectException
-    @throws InvokeException
-    @throws UnwrappingException*/
     @Override
     public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {

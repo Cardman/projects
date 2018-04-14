@@ -16,7 +16,9 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
@@ -42,9 +44,70 @@ public final class ElRenderUtil {
         if (!cont_.getClasses().getErrorsDet().isEmpty()) {
             throw new AnalyzingErrorsException(cont_.getClasses().getErrorsDet());
         }
-        ElUtil.tryToCalculateAffect(left_, cont_, right_, _oper);
+        tryToCalculateAffect(left_, cont_, right_, _oper);
     }
 
+    public static void tryToCalculateAffect(CustList<OperationNode> _left, ContextEl _conf, CustList<OperationNode> _right, String _op) {
+        CustList<OperationNode> allLeft_ = _left;
+        calculate(allLeft_ , _conf, _op);
+        CustList<OperationNode> allRight_ = _right;
+        calculate(allRight_, _conf, _op);
+        _conf.getLastPage().setRightArgument(_right.last().getArgument());
+        SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
+        settable_.calculateSetting(allLeft_, _conf, _op);
+        _conf.getLastPage().setRightArgument(null);
+    }
+
+    public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
+        ContextEl context_ = _conf.toContextEl();
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, context_, _minIndex, _begin, _end);
+        if (d_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(d_.getBadOffset());
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
+        }
+        String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
+        _conf.setNextIndex(d_.getIndexEnd()+2);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, context_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_);
+        if (op_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
+        }
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, context_);
+        Argument argGl_ = _conf.getLastPage().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ElUtil.analyze(all_, _conf,static_);
+        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+            throw new AnalyzingErrorsException(_conf.getClasses().getErrorsDet());
+        }
+        calculate(all_, context_, EMPTY_STRING);
+        Argument arg_ = op_.getArgument();
+        return arg_;
+    }
+
+    public static Argument processEl(String _el, int _index, Configuration _conf) {
+        ContextEl context_ = _conf.toContextEl();
+        Delimiters d_ = ElResolver.checkSyntax(_el, context_, _index);
+        if (d_.getBadOffset() >= 0) {
+            _conf.getLastPage().setOffset(d_.getBadOffset());
+            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
+        }
+        String el_ = _el.substring(_index);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, context_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_);
+        if (op_ == null) {
+            throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
+        }
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, context_);
+        Argument argGl_ = _conf.getLastPage().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ElUtil.analyze(all_, _conf,static_);
+        if (!context_.getClasses().getErrorsDet().isEmpty()) {
+            throw new AnalyzingErrorsException(_conf.getClasses().getErrorsDet());
+        }
+        calculate(all_, context_, EMPTY_STRING);
+        Argument arg_  = op_.getArgument();
+        return arg_;
+    }
     public static ExpLanguages analyzeAffect(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, Configuration _conf, boolean _staticContext, boolean _hiddenVarTypes) {
         ContextEl cont_ = _conf.toContextEl();
@@ -134,4 +197,12 @@ public final class ElRenderUtil {
         }
         return new ExpLanguages(allLeft_, allRight_);
     }
+    static void calculate(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
+        for (OperationNode e: _nodes) {
+            if (!e.isCalculated()) {
+                e.calculate(_nodes, _context, _op);
+            }
+        }
+    }
+
 }

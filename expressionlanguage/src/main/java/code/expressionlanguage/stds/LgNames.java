@@ -1193,7 +1193,6 @@ public class LgNames {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        checkArgumentsForInvoking(_cont, _natvararg, list_, args_);
         LgNames lgNames_ = _cont.getStandards();
         Object[] argsObj_ = adaptedArgs(list_, _cont, _cont.getStandards(), args_);
         String mathType_ = lgNames_.getAliasMath();

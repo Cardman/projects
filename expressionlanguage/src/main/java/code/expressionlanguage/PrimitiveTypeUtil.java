@@ -105,7 +105,7 @@ public final class PrimitiveTypeUtil {
         }
         return false;
     }
-    public static boolean isPrimitive(String _className, ContextEl _context) {
+    public static boolean isPrimitive(String _className, Analyzable _context) {
         return isPrimitive(_className, _context.getStandards());
     }
     public static boolean isPrimitive(String _className, LgNames _stds) {
@@ -273,7 +273,7 @@ public final class PrimitiveTypeUtil {
         }
     }
 
-    static boolean isArrayAssignable(String _arrArg, String _arrParam, ContextEl _classes) {
+    static boolean isArrayAssignable(String _arrArg, String _arrParam, Analyzable _classes) {
         Classes classes_ = _classes.getClasses();
         LgNames stds_ = _classes.getStandards();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrArg);
@@ -335,7 +335,7 @@ public final class PrimitiveTypeUtil {
         return _obj;
     }
 
-    public static boolean canBeUseAsArgument(String _param, String _arg, ContextEl _context) {
+    public static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasVoid())) {
             return false;
@@ -357,7 +357,7 @@ public final class PrimitiveTypeUtil {
         return false;
     }
 
-    static AssignableFrom isAssignableFromCust(String _param,String _arg, ContextEl _classes) {
+    static AssignableFrom isAssignableFromCust(String _param,String _arg, Analyzable _classes) {
         Classes classes_ = _classes.getClasses();
         LgNames stds_ = _classes.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasObject())) {
@@ -421,13 +421,13 @@ public final class PrimitiveTypeUtil {
         return gt_;
     }
 
-    public static int getOrderClass(String _class, ContextEl _context) {
+    public static int getOrderClass(String _class, Analyzable _context) {
         return getOrderClass(_class, _context.getStandards());
     }
     public static int getOrderClass(String _class, LgNames _stds) {
         return getOrderClass(new ClassArgumentMatching(_class), _stds);
     }
-    public static int getOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+    public static int getOrderClass(ClassArgumentMatching _class, Analyzable _context) {
         return getOrderClass(_class, _context.getStandards());
     }
     public static int getOrderClass(ClassArgumentMatching _class, LgNames _stds) {
@@ -455,7 +455,7 @@ public final class PrimitiveTypeUtil {
         }
         return 0;
     }
-    public static boolean isPrimitiveOrWrapper(String _className, ContextEl _context) {
+    public static boolean isPrimitiveOrWrapper(String _className, Analyzable _context) {
         return isPrimitiveOrWrapper(_className, _context.getStandards());
     }
     public static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
@@ -505,10 +505,10 @@ public final class PrimitiveTypeUtil {
         ClassArgumentMatching cl_ = new ClassArgumentMatching(_class.getClassName());
         return new ClassMatching(toPrimitive(cl_, true, _stds).getName()); 
     }
-    public static ClassMatching toPrimitive(ClassMatching _class, ContextEl _context) {
+    public static ClassMatching toPrimitive(ClassMatching _class, Analyzable _context) {
         return toPrimitive(_class, _context.getStandards());
     }
-    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, ContextEl _context) {
+    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, Analyzable _context) {
         return toPrimitive(_class, _id, _context.getStandards());
     }
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, LgNames _stds) {

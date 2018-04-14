@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
@@ -454,7 +455,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         TypeUtil.buildOverrides(this, _context);
     }
 
-    public final StringList getAllGenericSuperTypes(ContextEl _classes) {
+    public final StringList getAllGenericSuperTypes(Analyzable _classes) {
         StringList list_ = new StringList();
         StringList vars_ = new StringList();
         Classes classes_ = _classes.getClasses();
