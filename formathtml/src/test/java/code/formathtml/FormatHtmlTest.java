@@ -1,5 +1,6 @@
 package code.formathtml;
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
@@ -12,7 +13,6 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanSeven;
@@ -21,8 +21,6 @@ import code.formathtml.classes.BeanThree;
 import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.SimpleMathFactory;
-import code.formathtml.exceptions.KeyValueException;
-import code.formathtml.exceptions.RenderingException;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringList;
@@ -4239,7 +4237,7 @@ public class FormatHtmlTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"\" multiple='multiple' name=\"bean_one.chosenNumbers\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option selected=\"selected\" value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
-    @Test(expected=KeyValueException.class)
+    @Test
     public void processHtml1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -4267,10 +4265,11 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
         //FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
     }
 
-    @Test(expected=AlreadyDefinedVarException.class)
+    @Test
     public void processHtml2FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -4298,10 +4297,11 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
         //FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
     }
-    @Ignore
-    @Test(expected=RenderingException.class)
+
+    @Test
     public void processHtml4FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -4328,10 +4328,10 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processHtml5FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -4359,10 +4359,10 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processHtml6FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -4388,6 +4388,7 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
 
     @Test
@@ -9278,8 +9279,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>1</body></html>", render_);
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processImports1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9314,13 +9314,13 @@ public class FormatHtmlTest {
         conf_.setDocument(DocumentBuilder.parseSax(html_));
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
 //        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><a c:command=\"go\" href=\"\">TITLE2</a></body></html>", render_);
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processImports2FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9355,13 +9355,13 @@ public class FormatHtmlTest {
         conf_.setDocument(DocumentBuilder.parseSax(html_));
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
 //        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><a c:command=\"go\" href=\"\">TITLE2</a></body></html>", render_);
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processImports3FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9396,13 +9396,13 @@ public class FormatHtmlTest {
         conf_.setDocument(DocumentBuilder.parseSax(html_));
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
 //        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><a c:command=\"go\" href=\"\">TITLE2</a></body></html>", render_);
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processImports5FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9432,10 +9432,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processImports6FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9465,10 +9465,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processImports7FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9498,10 +9498,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processImports8FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9531,10 +9531,11 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
 
 
-    @Test(expected=RenderingException.class)
+    @Test
     public void processImports9FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9564,6 +9565,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
     private static void setup(Configuration _conf) {
         _conf.setSepPrefix("c");
@@ -9631,6 +9633,7 @@ public class FormatHtmlTest {
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
+        context_.initError();
         return conf_;
     }
 }

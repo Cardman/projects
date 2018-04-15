@@ -35,7 +35,6 @@ import cards.consts.Hypothesis;
 import cards.consts.Status;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
-import cards.facade.exceptions.GameLoadingException;
 import cards.gui.MainWindow;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationBidBelote;
@@ -97,17 +96,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     public ContainerSingleBelote(MainWindow _window) {
         super(_window);
-    }
-    public ContainerSingleBelote(MainWindow _window, String _nomFichier) {
-        super(_window);
-        chargerPartie(_nomFichier);
-    }
-    @Override
-    protected void chargerPartie(String _fichier) {
-        getPar().chargerPartie(_fichier);
-        if (!getPar().enCoursDePartieBelote()) {
-            throw new GameLoadingException();
-        }
     }
     public GameBelote partieBelote() {
         return getPar().partieBelote();

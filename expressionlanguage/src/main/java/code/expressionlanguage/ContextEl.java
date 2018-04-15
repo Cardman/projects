@@ -2,12 +2,15 @@ package code.expressionlanguage;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
+import code.expressionlanguage.methods.CustomFoundConstructor;
+import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -16,6 +19,7 @@ import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -48,6 +52,18 @@ public final class ContextEl implements Analyzable {
 
     private Options options = new Options();
 
+    private Struct exception;
+
+    private Struct memoryError;
+
+    private LocalThrowing throwing = new LocalThrowing();
+
+    private CustomFoundConstructor callCtor;
+
+    private CustomFoundMethod callMethod;
+
+    private NotInitializedClass initClass;
+
     private transient LgNames standards = new LgNames();
 
     private transient PageEl analyzing;
@@ -74,6 +90,9 @@ public final class ContextEl implements Analyzable {
 
     public ContextEl(int _stackOverFlow) {
         stackOverFlow = _stackOverFlow;
+    }
+    public void initError() {
+        memoryError = new StdStruct(new CustomError(), standards.getAliasError());
     }
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
@@ -294,9 +313,10 @@ public final class ContextEl implements Analyzable {
         LgNames stds_ = getStandards();
         String sof_ = stds_.getAliasSof();
         if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
-            throw new InvokeException(new StdStruct(new CustomError(joinPages()),sof_));
+            exception = new StdStruct(new CustomError(joinPages()),sof_);
+        } else {
+            importing.add(_page);
         }
-        importing.add(_page);
     }
 
     @Override
@@ -448,5 +468,63 @@ public final class ContextEl implements Analyzable {
     @Override
     public void setStaticContext(boolean _staticContext) {
         getLastPage().setStaticContext(_staticContext);
+    }
+
+    public boolean callsOrException() {
+        if (calls()) {
+            return true;
+        }
+        return exception != null;
+    }
+
+    public boolean calls() {
+        if (callMethod != null) {
+            return true;
+        }
+        if (callCtor != null) {
+            return true;
+        }
+        if (initClass != null) {
+            return true;
+        }
+        return false;
+    }
+    public Struct getException() {
+        return exception;
+    }
+
+    public void setException(Struct _exception) {
+        exception = _exception;
+    }
+    public LocalThrowing getThrowing() {
+        return throwing;
+    }
+
+    public CustomFoundConstructor getCallCtor() {
+        return callCtor;
+    }
+
+    public void setCallCtor(CustomFoundConstructor _callCtor) {
+        callCtor = _callCtor;
+    }
+
+    public CustomFoundMethod getCallMethod() {
+        return callMethod;
+    }
+
+    public void setCallMethod(CustomFoundMethod _callMethod) {
+        callMethod = _callMethod;
+    }
+
+    public NotInitializedClass getInitClass() {
+        return initClass;
+    }
+
+    public void setInitClass(NotInitializedClass _initClass) {
+        initClass = _initClass;
+    }
+
+    public Struct getMemoryError() {
+        return memoryError;
     }
 }

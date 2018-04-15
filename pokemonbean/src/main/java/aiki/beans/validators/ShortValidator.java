@@ -1,6 +1,7 @@
 package aiki.beans.validators;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
+import code.expressionlanguage.stds.LgNames;
 
 public class ShortValidator extends Validator {
 
@@ -10,12 +11,9 @@ public class ShortValidator extends Validator {
 
     @Override
     public Message validate(Object _navigation, Object _node, Object _value) {
-        try {
-            short nb_ = Short.parseShort((String)_value);
-            if (nb_ >= 0) {
-                return null;
-            }
-        } catch (RuntimeException _0) {
+        Short nb_ = LgNames.parseShort((String)_value);
+        if (nb_ != null && nb_ >= 0) {
+            return null;
         }
         Message message_;
         message_ = new Message();

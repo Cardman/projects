@@ -67,51 +67,51 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,Evolve
     @Override
     public Rate evaluateNumericable(String _numericString, StringMap<String> _variables,
             Rate _default) {
-        try {
-            return (Rate) MathUtil.processEl(_numericString, 0, false, _variables).getObject();
-        } catch (RuntimeException _0) {
-            return new Rate(_default);
+        Object obj_ = MathUtil.processEl(_numericString, 0, false, _variables).getObject();
+        if (obj_ instanceof Rate) {
+            return (Rate) obj_;
         }
+        return new Rate(_default);
     }
 
     @Override
     public Rate evaluatePositiveOrZeroExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        try {
-            Rate r_ = (Rate) MathUtil.processEl(_numericString, 0, false, _variables).getObject();
-            if (!r_.isZeroOrGt()) {
-                return _default.absNb();
-            }
-            return r_;
-        } catch (RuntimeException _0) {
+        Object obj_ = MathUtil.processEl(_numericString, 0, false, _variables).getObject();
+        if (!(obj_ instanceof Rate)) {
             return _default.absNb();
         }
+        Rate r_ = (Rate) obj_;
+        if (!r_.isZeroOrGt()) {
+            return _default.absNb();
+        }
+        return r_;
     }
 
     @Override
     public Rate evaluatePositiveExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        try {
-            Rate r_ = (Rate) MathUtil.processEl(_numericString, 0, false, _variables).getObject();
-            if (r_.isZero()) {
-                return _default.absNb();
-            }
-            if (!r_.isZeroOrGt()) {
-                return _default.absNb();
-            }
-            return r_;
-        } catch (RuntimeException _0) {
+        Object obj_ = MathUtil.processEl(_numericString, 0, false, _variables).getObject();
+        if (!(obj_ instanceof Rate)) {
             return _default.absNb();
         }
+        Rate r_ = (Rate) obj_;
+        if (r_.isZero()) {
+            return _default.absNb();
+        }
+        if (!r_.isZeroOrGt()) {
+            return _default.absNb();
+        }
+        return r_;
     }
 
     @Override
     public Boolean evaluateBoolean(String _booleanString,
             StringMap<String> _variables, Boolean _default) {
-        try {
-            return (Boolean) MathUtil.processEl(_booleanString, 0, false, _variables).getObject();
-        } catch (RuntimeException _0) {
+        Object obj_ = MathUtil.processEl(_booleanString, 0, false, _variables).getObject();
+        if (!(obj_ instanceof Boolean)) {
             return _default;
         }
+        return (Boolean)obj_;
     }
 }

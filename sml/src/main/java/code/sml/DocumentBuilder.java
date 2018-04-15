@@ -3101,23 +3101,15 @@ public final class DocumentBuilder {
 
 
     public static Document newXmlDocument() {
-        try {
-            DocumentBuilder builder_;
-            builder_ = newXmlDocumentBuilder();
-            return builder_.newDocument();
-        } catch (RuntimeException _0) {
-            return null;
-        }
+        DocumentBuilder builder_;
+        builder_ = newXmlDocumentBuilder();
+        return builder_.newDocument();
     }
 
     public static FullDocument newXmlDocument(int _tabWidth) {
-        try {
-            DocumentBuilder builder_;
-            builder_ = newXmlDocumentBuilder(_tabWidth);
-            return builder_.newDocument();
-        } catch (RuntimeException _0) {
-            return null;
-        }
+        DocumentBuilder builder_;
+        builder_ = newXmlDocumentBuilder(_tabWidth);
+        return builder_.newDocument();
     }
     
     private static DocumentBuilder newXmlDocumentBuilder(int _tabWidth) {

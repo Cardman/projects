@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -69,6 +70,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("factrec", PrimitiveTypeUtil.PRIM_INT);
         Argument v_ = new Argument();
@@ -135,6 +137,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         CustLgNames custLgNames_ = (CustLgNames) cont_.getStandards();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("addelt", CUST, "$int");
         Argument v_ = new Argument();
@@ -218,6 +221,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -294,6 +298,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -371,6 +376,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -443,6 +449,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -519,6 +526,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -591,6 +599,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -626,6 +635,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
@@ -666,6 +676,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("calling");
         Argument ret_ = new Argument();
@@ -701,6 +712,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
@@ -744,6 +756,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();

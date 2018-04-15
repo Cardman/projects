@@ -1,23 +1,19 @@
 package code.formathtml;
 
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.ErrorCausingException;
-import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ArrayStruct;
@@ -33,6 +29,7 @@ import code.formathtml.classes.ArrayContainer;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustLgNames;
+import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -778,9 +775,8 @@ public final class ElRenderUtilTest {
         assertEq("varargs:{0} {1} {2}", (String)res_);
     }
 
-    @Ignore
     @Test
-    public void processEl62Test() {
+    public void processEl62FailTest() {
         Configuration context_ = contextEl();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -793,10 +789,11 @@ public final class ElRenderUtilTest {
         localVars_.put("2", lv_);
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElRenderUtil.processEl("$new code.expressionlanguage.classes.Composite($vararg(\"java.lang.String\"),$firstopt(v;.),2;.).getStrings()",0, context_);
-        Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof StringList);
-        assertEq(new StringList("bonjour","tout"), (StringList)res_);
+        ElRenderUtil.processEl("$new code.expressionlanguage.classes.Composite($vararg(\"java.lang.String\"),$firstopt(v;.),2;.).getStrings()",0, context_);
+        assertNotNull(context_.getContext().getException());
+//        Object res_ = arg_.getObject();
+//        assertTrue(res_ instanceof StringList);
+//        assertEq(new StringList("bonjour","tout"), (StringList)res_);
     }
 
     @Test
@@ -1626,18 +1623,20 @@ public final class ElRenderUtilTest {
         assertEq(-1, (Number)res_);
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl123FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("+1b",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl124Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("+-1b",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
     @Test
@@ -2154,20 +2153,22 @@ public final class ElRenderUtilTest {
         assertTrue(res_ instanceof Long);
         assertEq(Long.MAX_VALUE, (Number)res_);
     }
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl1FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_, COMPOSITE);
         ElRenderUtil.processEl("getOverridenOne($null)",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl2FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$class(\"Object\",$null)",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
 
@@ -2179,7 +2180,7 @@ public final class ElRenderUtilTest {
 
 
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processEl4FailTest() {
         Configuration context_ = contextEl();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2190,6 +2191,7 @@ public final class ElRenderUtilTest {
         addBean(context_,new Composite(), COMPOSITE);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElRenderUtil.processEl("setPrivateInt(arg;.)",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
 
@@ -2201,35 +2203,39 @@ public final class ElRenderUtilTest {
 
 
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl6FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new java.lang.Number()",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processEl7FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new [$int(-1i)",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processEl8FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new [java.lang.Integer(-1i)",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl9FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         CustLgNames cust_ = (CustLgNames) context_.getContext().getStandards();
         addBeanClassName(context_,cust_.getAliasComposite());
         ElRenderUtil.processEl("integer",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
 
@@ -2241,64 +2247,71 @@ public final class ElRenderUtilTest {
 
 
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl11FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("MAX_VALUE",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
     
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl12FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$Composite.integer",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl13FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$Composite.int$$eger",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processEl14FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$StrangeInit.NOT_READ",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processEl15FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$StrangeInit.fail()",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Ignore
-    @Test(expected=ErrorCausingException.class)
+    @Test
     public void processEl16FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new code.expressionlanguage.classes.StrangeInit()",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processEl17FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail()",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processEl18FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new code.expressionlanguage.classes.FailMethods()",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl19FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -2311,17 +2324,18 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElRenderUtil.processEl("get(arg;.)",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl20FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$Composite.getInteger()",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Ignore
-    @Test(expected=SettingMemberException.class)
+    @Test
     public void processEl21FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -2332,10 +2346,10 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail().arg;.",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Ignore
-    @Test(expected=SettingMemberException.class)
+    @Test
     public void processEl22FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -2346,9 +2360,10 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail().arg;",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl23FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -2359,166 +2374,187 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail().arg;;",0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl24FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         String el_ = "$firstopt(6)*(7+8)";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl25FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         String el_ = "\"\".format(\"6\",$vararg(\"6\"))";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl26FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         String el_ = "\"\".format($vararg(\"6\"),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl27FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         String el_ = "$vararg(\"java.lang.Object\")*(7+8)";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl28FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         String el_ = "\"\".format($vararg(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl29FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         String el_ = "\"\".format($firstopt(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getContext().getException());
     }
     
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void processEl30FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         String el_ = "";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl31FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         String el_ = "get(,)";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl32FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1!=2!=3";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl33FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1<2<3";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl34FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "(3,4)";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl35FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1< ";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl36FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1<";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void processEl37FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1!";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl38FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1!=";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void processEl39FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl40FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void processEl42FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$true!$false";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processEl43FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$static$code$expressionlanguage$classes$FailMethods.(fail())";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void processEl44FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.[0i,1i]";
         ElRenderUtil.processEl(el_, 0, conf_);
+        assertNotNull(conf_.getContext().getException());
     }
     @Test
     public void processAffect1Test() {
@@ -2972,6 +3008,11 @@ public final class ElRenderUtilTest {
         ContextEl context_ = _conf.toContextEl();
         ExpLanguages members_ = ElUtil.getAnalyzedAffectation(0, 0, 0, _left, _right, _oper, context_, staticContext_, staticContext_);
         if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return;
         }
         CustList<OperationNode> left_ = members_.getLeft();
@@ -2993,7 +3034,7 @@ public final class ElRenderUtilTest {
 
 
 
-    @Test(expected=SettingMemberException.class)
+    @Test
     public void processAffect2FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -3004,6 +3045,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getParameters().putAllMap(localVars_);
         processAffect("","","","v;.;", "12i", "=",context_);
+        assertNotNull(context_.getContext().getException());
     }
     @Test
     public void processAffect3FailTest() {
@@ -3052,7 +3094,7 @@ public final class ElRenderUtilTest {
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processAffect6FailTest() {
         Configuration context_ = contextEl();
         CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
@@ -3069,9 +3111,10 @@ public final class ElRenderUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
         processAffect("","","","v;.integer", "v2;.", "=",context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processAffect7FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -3087,9 +3130,10 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "v2;.", "=",context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processAffect8FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -3103,9 +3147,10 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         processAffect("","","","v;.", "v2;.", "=",context_);
+        assertNotNull(context_.getContext().getException());
     }
 
-    @Test(expected=SettingMemberException.class)
+    @Test
     public void processAffect9FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -3120,6 +3165,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         processAffect("","","","$this", "$null", "=",context_);
+        assertNotNull(context_.getContext().getException());
     }
 
     @Test
@@ -3139,7 +3185,7 @@ public final class ElRenderUtilTest {
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processAffect11FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -3161,9 +3207,10 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         cont_.getLastPage().getLocalVars().putAllMap(localVars_);
         processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "v;.", "=",cont_);
+        assertNotNull(cont_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void processAffect12FailTest() {
         Configuration context_ = contextEl();
         CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
@@ -3182,6 +3229,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         processAffect("","","","v;.[0i]", "v2;.", "=",context_);
+        assertNotNull(context_.getContext().getException());
     }
 
     private static void addImportingPage(Configuration _conf) {
@@ -3207,8 +3255,10 @@ public final class ElRenderUtilTest {
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         conf_.setContext(cont_);
         conf_.setStandards((BeanLgNames) cont_.getStandards());
+        cont_.initError();
         return conf_;
     }
 
@@ -3219,8 +3269,10 @@ public final class ElRenderUtilTest {
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         conf_.setContext(cont_);
         conf_.setStandards((BeanLgNames) cont_.getStandards());
+        cont_.initError();
         return conf_;
     }
 }

@@ -139,6 +139,9 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         Block forLoopLoc_ = l_.getBlock();
         rw_.setBlock(forLoopLoc_);
         if (!keepLoop(_conf)) {
+            if (_conf.callsOrException()) {
+                return;
+            }
             l_.setFinished(true);
         }
         l_.setEvaluatingKeepLoop(false);

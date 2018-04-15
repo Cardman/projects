@@ -24,7 +24,6 @@ import cards.consts.Hypothesis;
 import cards.consts.Status;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
-import cards.facade.exceptions.GameLoadingException;
 import cards.gui.MainWindow;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationBidTarot;
@@ -112,15 +111,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         super(_window);
         initButtonValidateDogTarot();
         initSlamButtonTarot();
-        chargerPartie(_file);
-    }
-
-    @Override
-    protected void chargerPartie(String _fichier) {
-        getPar().chargerPartie(_fichier);
-        if (!getPar().enCoursDePartieTarot()) {
-            throw new GameLoadingException();
-        }
     }
 
     private void placerTarot() {

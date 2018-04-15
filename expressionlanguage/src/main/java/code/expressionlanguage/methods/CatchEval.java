@@ -6,6 +6,7 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
@@ -143,7 +144,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         PageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
-        ts_.setThrownException(null);
+        ts_.setException(NullStruct.NULL_VALUE);
         if (ts_.getLastCatchBlock() == this) {
             ip_.removeLastBlock();
             processBlock(_cont);

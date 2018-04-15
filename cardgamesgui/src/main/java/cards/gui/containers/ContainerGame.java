@@ -180,14 +180,7 @@ public class ContainerGame implements Packable, Containable {
     public boolean playingSingleGame() {
         return getPar().enCoursDePartie();
     }
-    /**
-    @param _fichier
-    @throws Exception <html>
-        en: if there is an error while loading or if the deal is not valid<br/>
-        fr: s'il y a une erreur lors du chargement ou si la donne n'est pas valide</html>
-    */
-    protected void chargerPartie(String _fichier) {
-    }
+
     public void conseil() {
 
     }

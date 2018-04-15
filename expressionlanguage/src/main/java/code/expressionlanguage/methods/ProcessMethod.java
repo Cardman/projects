@@ -1,24 +1,10 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.BadIndexException;
-import code.expressionlanguage.exceptions.CustomFoundConstructorException;
-import code.expressionlanguage.exceptions.CustomFoundMethodException;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.exceptions.ErrorCausingException;
-import code.expressionlanguage.exceptions.IndirectException;
-import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.exceptions.NegativeSizeException;
-import code.expressionlanguage.exceptions.NotInitializedClassException;
-import code.expressionlanguage.exceptions.UnwrappingException;
-import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassField;
@@ -30,17 +16,12 @@ import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
-import code.expressionlanguage.stacks.RemovableVars;
-import code.expressionlanguage.stacks.TryBlockStack;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
-import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ProcessMethod {
     private static final String EMPTY_STRING = "";
@@ -92,6 +73,13 @@ public final class ProcessMethod {
                     PageEl l_ = _cont.getLastPage();
                     if (a_ != null) {
                         l_.getLastEl().setArgument(a_, _cont);
+                        if (_cont.getException() != null) {
+                            _cont.getThrowing().removeBlockFinally(_cont);
+                            if (_cont.getException() != null) {
+                                return;
+                            }
+                            continue;
+                        }
                     }
                     if (p_.getCallingConstr().getInstancingStep() == InstancingStep.USING_THIS) {
                         l_.getCallingConstr().setInitializedFields(true);
@@ -99,32 +87,33 @@ public final class ProcessMethod {
                     continue;
                 }
                 processTags(_cont);
-            } catch (CustomFoundConstructorException _0) {
-                addPage(_cont, createInstancing(_0, _cont));
-            } catch (NotInitializedClassException _0){
-                addPage(_cont, createInstancingClass(_0, _cont));
-            } catch (CustomFoundMethodException _0){
-                addPage(_cont, createCallingMethod(_0, _cont));
+                if (_cont.getCallCtor() != null) {
+                    addPage(_cont, createInstancing(_cont.getCallCtor(), _cont));
+                } else if (_cont.getCallMethod() != null) {
+                    addPage(_cont, createCallingMethod(_cont.getCallMethod(), _cont));
+                } else if (_cont.getInitClass() != null) {
+                    addPage(_cont, createInstancingClass(_cont.getInitClass(), _cont));
+                } else if (_cont.getException() != null) {
+                    _cont.getThrowing().removeBlockFinally(_cont);
+                }
+                if (_cont.getException() != null) {
+                    return;
+                }
             } catch (Throwable _0){
-                Throwable realCaught_ = _0;
-                if (_0 instanceof WrapperException) {
-                    realCaught_ = ((WrapperException)_0).getWrapped();
+                _cont.setException(_cont.getMemoryError());
+                _cont.getThrowing().removeBlockFinally(_cont);
+                if (_cont.getException() != null) {
+                    return;
                 }
-                if (!throwException(_cont, realCaught_)) {
-                    continue;
-                }
-                _0.printStackTrace();
-                LgNames lgNames_ = _cont.getStandards();
-                Struct custCause_ = ((IndirectException)realCaught_).getCustCause();
-                throw new InvokeRedinedMethException(new StdStruct(new CustomError(_cont.joinPages()), lgNames_.getStructClassName(custCause_, _cont)));
             }
         }
     }
 
-    private static PageEl createInstancingClass(NotInitializedClassException _e, ContextEl _cont) {
+    private static PageEl createInstancingClass(NotInitializedClass _e, ContextEl _cont) {
         return createInstancingClass(_e.getClassName(), _cont);
     }
     private static PageEl createInstancingClass(String _class, ContextEl _cont) {
+        _cont.setInitClass(null);
         Classes classes_ = _cont.getClasses();
         classes_.preInitializeStaticFields(_class, _cont);
         String baseClass_ = StringList.getAllTypes(_class).first();
@@ -143,7 +132,7 @@ public final class ProcessMethod {
         return page_;
     }
 
-    private static PageEl createCallingMethod(CustomFoundMethodException _e, ContextEl _conf) {
+    private static PageEl createCallingMethod(CustomFoundMethod _e, ContextEl _conf) {
         String cl_ = _e.getClassName();
         MethodId id_ = _e.getId();
         CustList<Argument> args_ = _e.getArguments();
@@ -151,6 +140,7 @@ public final class ProcessMethod {
         return createCallingMethod(gl_, cl_, id_, args_, _conf);
     }
     private static PageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args, ContextEl _conf) {
+        _conf.setCallMethod(null);
         Classes classes_ = _conf.getClasses();
         PageEl pageLoc_ = new PageEl();
         pageLoc_.setGlobalArgument(_gl);
@@ -176,12 +166,13 @@ public final class ProcessMethod {
         pageLoc_.setBlockRoot(methodLoc_);
         return pageLoc_;
     }
-    private static PageEl createInstancing(CustomFoundConstructorException _e, ContextEl _conf) {
+    private static PageEl createInstancing(CustomFoundConstructor _e, ContextEl _conf) {
         String cl_ = _e.getClassName();
         CustList<Argument> args_ = _e.getArguments();
         return createInstancing(cl_, _e.getCall(), args_, _conf);
     }
     private static PageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args, ContextEl _cont) {
+        _cont.setCallCtor(null);
         PageEl page_ = new PageEl();
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
@@ -259,117 +250,14 @@ public final class ProcessMethod {
         return page_;
     }
     private static void addPage(ContextEl _conf, PageEl _page) {
-        try {
-            _conf.addPage(_page);
-        } catch (InvokeException _0) {
-            if (!throwException(_conf, _0)) {
+        _conf.addPage(_page);
+        if (_conf.getException() != null) {
+            _conf.getThrowing().removeBlockFinally(_conf);
+            if (_conf.getException() != null) {
                 return;
             }
-            throw _0;
         }
     }
-    private static boolean throwException(ContextEl _conf, Throwable _t) {
-        LgNames lgNames_ = _conf.getStandards();
-        CatchEval catchElt_ = null;
-        Struct custCause_ = ((IndirectException)_t).getCustCause();
-        while (!_conf.isEmptyPages()) {
-            PageEl bkIp_ = _conf.getLastPage();
-            while (!bkIp_.noBlock()) {
-                RemovableVars bl_ = bkIp_.getLastStack();
-                if (!(bl_ instanceof TryBlockStack)) {
-                    bl_.removeVarAndLoop(bkIp_);
-                    continue;
-                }
-                TryBlockStack try_ = (TryBlockStack)bl_;
-                boolean addFinallyClause_ = true;
-                if (!(try_.getCatchBlocks().last() instanceof FinallyEval)) {
-                    addFinallyClause_ = false;
-                }
-                if (try_.getVisitedCatch() >= CustList.FIRST_INDEX) {
-                    if (!(try_.getCurrentCatchBlock() instanceof FinallyEval)) {
-                        if (addFinallyClause_) {
-                            try_.setThrownException(new WrapperException(_t));
-                            bkIp_.clearCurrentEls();
-                            bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
-                            return false;
-                        }
-                    }
-                    bkIp_.removeLastBlock();
-                    continue;
-                }
-                //process try block
-                int i_ = 0;
-                for (Block e: try_.getCatchBlocks()) {
-                    if (e instanceof FinallyEval) {
-                        break;
-                    }
-                    CatchEval ca_ = (CatchEval) e;
-                    String name_ = ca_.getClassName();
-                    Mapping mapping_ = new Mapping();
-                    String excepClass_ = lgNames_.getStructClassName(custCause_, _conf);
-                    if (excepClass_ == null) {
-                        catchElt_ = ca_;
-                        try_.setVisitedCatch(i_);
-                        break;
-                    }
-                    mapping_.setArg(excepClass_);
-                    name_ = bkIp_.formatVarType(name_, _conf);
-                    mapping_.setParam(name_);
-                    if (Templates.isCorrect(mapping_, _conf)) {
-                        catchElt_ = ca_;
-                        try_.setVisitedCatch(i_);
-                        break;
-                    }
-                    i_++;
-                }
-                if (catchElt_ != null) {
-                    CatchEval catchElement_ = catchElt_;
-                    try_.setThrownException(null);
-                    bkIp_.clearCurrentEls();
-                    if (catchElement_.getFirstChild() != null) {
-                        String var_ = catchElement_.getVariableName();
-                        LocalVariable lv_ = new LocalVariable();
-                        lv_.setStruct(custCause_);
-                        lv_.setClassName(catchElement_.getClassName());
-                        bkIp_.getCatchVars().put(var_, lv_);
-                        bkIp_.getReadWrite().setBlock(catchElement_.getFirstChild());
-                        return false;
-                    }
-                    bkIp_.getReadWrite().setBlock(catchElement_);
-                    return false;
-                }
-                if (addFinallyClause_) {
-                    try_.setThrownException(new WrapperException(_t));
-                    bkIp_.clearCurrentEls();
-                    bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
-                    return false;
-                }
-                bkIp_.removeLastBlock();
-            }
-            _conf.removeLastPage();
-        }
-        return true;
-    }
-    /**@throws InvokeRedinedMethException
-    @throws BadIndexException
-    @throws NegativeSizeException
-    @throws ErrorCausingException
-    @throws DynamicCastClassException
-    @throws RuntimeClassNotFoundException
-    @throws NullObjectException
-    @throws InvokeException
-    @throws UnwrappingException
-    @throws BadEnumeratingException
-    @throws BadFilePropertiesException
-    @throws BadReferenceEqualsException
-    @throws CharacterFormatException
-    @throws GettingKeysException
-    @throws InexistingTranslatorException
-    @throws MessageKeyNotFoundException
-    @throws NoSuchResourceException
-    @throws NotCastableException
-    @throws NotPrimitivableException
-    @throws SettingArrayException*/
     private static void processTags(ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
@@ -383,13 +271,15 @@ public final class ProcessMethod {
                 ClassMetaInfo s_ = _conf.getClasses().getClassMetaInfo(superClass_, _conf);
                 if (s_ != null && !_conf.getClasses().isInitialized(superClass_)) {
                     _conf.getClasses().initialize(superClass_);
-                    throw new NotInitializedClassException(superClass_);
+                    _conf.setInitClass(new NotInitializedClass(superClass_));
+                    return;
                 }
             }
             for (String i: root_.getAllNeededSortedInterfaces()) {
                 if (!_conf.getClasses().isInitialized(i)) {
                     _conf.getClasses().initialize(i);
-                    throw new NotInitializedClassException(i);
+                    _conf.setInitClass(new NotInitializedClass(i));
+                    return;
                 }
             }
         }
@@ -422,7 +312,8 @@ public final class ProcessMethod {
                     called_.add(superClassBase_);
                     Argument global_ = ip_.getGlobalArgument();
                     String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _conf);
-                    throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                    _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                    return;
                 }
                 for (String i: class_.getAllNeededSortedInterfaces()) {
                     if (!ip_.getIntializedInterfaces().containsStr(i)) {
@@ -431,7 +322,8 @@ public final class ProcessMethod {
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, i, _conf);
-                        throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                        _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                        return;
                     }
                 }
             }

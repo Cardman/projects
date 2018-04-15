@@ -1,15 +1,10 @@
 package cards.facade;
-import cards.belote.CheckerGameBeloteWithRules;
 import cards.belote.GameBelote;
 import cards.belote.RulesBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
-import cards.facade.exceptions.FileRulesException;
-import cards.facade.sml.DocumentReaderCardsUnionUtil;
-import cards.president.CheckerGamePresidentWithRules;
 import cards.president.GamePresident;
 import cards.president.RulesPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
-import cards.tarot.CheckerGameTarotWithRules;
 import cards.tarot.GameTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
@@ -18,8 +13,6 @@ import code.util.CustList;
 import code.util.Numbers;
 
 public final class Games {
-
-    private static final String NO_CARD_GAME = "this is not a card game";
 
     private CustList<GameBelote> partiesBelote = new CustList<GameBelote>();
 
@@ -103,23 +96,6 @@ public final class Games {
         if(enCoursDePartiePresident()){
             GamePresident game_ = partiePresident();
             StreamTextFile.saveTextFile(_nomFichier, DocumentWriterPresidentUtil.setGamePresident(game_));
-        }
-    }
-    /**Load a game card from a XML file
-    @throws RuntimeException */
-    public void chargerPartie(String _fichier) {
-        Object par_ = DocumentReaderCardsUnionUtil.getObject(_fichier);
-        if (par_ instanceof GameBelote) {
-            CheckerGameBeloteWithRules.check((GameBelote) par_);
-            jouerBelote((GameBelote)par_);
-        } else if (par_ instanceof GameTarot) {
-            CheckerGameTarotWithRules.check((GameTarot) par_);
-            jouerTarot((GameTarot)par_);
-        } else if (par_ instanceof GamePresident) {
-            CheckerGamePresidentWithRules.check((GamePresident) par_);
-            jouerPresident((GamePresident)par_);
-        } else {
-            throw new FileRulesException(NO_CARD_GAME);
         }
     }
     public RulesBelote getRulesBelote() {

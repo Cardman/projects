@@ -5,12 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.exceptions.InvokingException;
-import code.expressionlanguage.exceptions.RuntimeInstantiationException;
-import code.expressionlanguage.exceptions.UndefinedVariableException;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.methods.util.UndefinedVariableError;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.DoubleStruct;
@@ -18,6 +13,7 @@ import code.expressionlanguage.opers.util.EnumStruct;
 import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringStruct;
@@ -26,16 +22,13 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.formathtml.exceptions.CharacterFormatException;
-import code.formathtml.exceptions.InexistingTranslatorException;
+import code.formathtml.util.BadElRender;
 import code.formathtml.util.TranslatorStruct;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.NullObjectException;
-import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.MathFactory;
 
 final class ExtractObject {
@@ -59,9 +52,6 @@ final class ExtractObject {
     private static final String CMP = "=";
     private static final char RIGHT_EL = '}';
     private static final char LEFT_EL = '{';
-
-    private static final String LOOP_MESSAGE = "loop";
-    private static final String LOCAL_MESSAGE = "local";
 
     private static final String ATTRIBUTE_QUOTED = "quoted";
     private static final String ATTRIBUTE_ESCAPED = "escaped";
@@ -95,7 +85,6 @@ final class ExtractObject {
     }
     static String formatNumVariables(String _pattern, Configuration _conf, ImportingPage _ip) {
         StringBuilder str_ = new StringBuilder();
-        StringBuilder arg_ = new StringBuilder();
         int length_ = _pattern.length();
         boolean escaped_ = false;
         int i_ = CustList.FIRST_INDEX;
@@ -143,7 +132,12 @@ final class ExtractObject {
                     }
                     if (!existWord_) {
                         _conf.getLastPage().setOffset(i_);
-                        throw new BadExpressionLanguageException(StringList.concat(arg_.toString(),RETURN_LINE,_conf.joinPages()));
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                        badEl_.setFileName(_conf.getCurrentFileName());
+                        badEl_.setRc(_conf.getCurrentLocation());
+                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        return EMPTY_STRING;
                     }
                     processTr_ = allWord_;
                 }
@@ -164,72 +158,85 @@ final class ExtractObject {
                 }
                 if (i_ >= length_ || _pattern.charAt(i_) == RIGHT_EL) {
                     _conf.getLastPage().setOffset(i_);
-                    throw new BadExpressionLanguageException(StringList.concat(arg_.toString(),RETURN_LINE,_conf.joinPages()));
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return EMPTY_STRING;
                 }
                 Struct trloc_ = null;
                 if (!tr_.toString().isEmpty()) {
-                    try {
-                        trloc_ = _conf.getBuiltTranslators().getVal(tr_.toString());
-                        if (trloc_ == null) {
-                            _conf.getLastPage().setOffset(i_);
-                            throw new InexistingTranslatorException(StringList.concat(tr_,RETURN_LINE,_conf.joinPages()));
-                        }
-                    } catch (Throwable _0) {
+                    trloc_ = _conf.getBuiltTranslators().getVal(tr_.toString());
+                    if (trloc_ == null) {
                         _conf.getLastPage().setOffset(i_);
-                        throw new InexistingTranslatorException(StringList.concat(tr_,RETURN_LINE,_conf.joinPages()));
+                        _conf.getContext().setException(new StdStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
+                        return EMPTY_STRING;
                     }
                 }
                 _conf.getLastPage().setOffset(i_);
                 Argument argloc_ = ElRenderUtil.processEl(_pattern, _conf, i_, LEFT_EL, RIGHT_EL);
+                if (_conf.getContext().getException() != null) {
+                    return EMPTY_STRING;
+                }
+                if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return EMPTY_STRING;
+                }
                 Struct s_ = argloc_.getStruct();
                 String o_ = EMPTY_STRING;
-                try {
-                    if (trloc_ != null) {
-                        if (trloc_ instanceof TranslatorStruct) {
-                            Bean bean_ = (Bean) _ip.getGlobalArgument().getStruct().getInstance();
-                            o_ = ((TranslatorStruct)trloc_).getInstance().getString(_pattern, _conf, bean_, s_.getInstance());
-                        } else {
-                            Struct bean_ = _ip.getGlobalArgument().getStruct();
-                            LocalVariable lv_ = new LocalVariable();
-                            String valName_ = _ip.getNextTempVar();
-                            lv_ = new LocalVariable();
-                            lv_.setStruct(trloc_);
-                            lv_.setClassName(trloc_.getClassName(_conf.toContextEl()));
-                            _ip.getLocalVars().put(valName_, lv_);
-                            String patName_ = _ip.getNextTempVar();
-                            lv_ = new LocalVariable();
-                            lv_.setElement(_pattern);
-                            lv_.setClassName(_conf.getStandards().getAliasString());
-                            _ip.getLocalVars().put(patName_, lv_);
-                            String navName_ = _ip.getNextTempVar();
-                            lv_ = new LocalVariable();
-                            lv_.setElement(_conf, _conf.toContextEl());
-                            lv_.setClassName(_conf.getStandards().getAliasObject());
-                            _ip.getLocalVars().put(navName_, lv_);
-                            String beanName_ = _ip.getNextTempVar();
-                            lv_ = new LocalVariable();
-                            lv_.setStruct(bean_);
-                            lv_.setClassName(bean_.getClassName(_conf.toContextEl()));
-                            _ip.getLocalVars().put(beanName_, lv_);
-                            String objName_ = _ip.getNextTempVar();
-                            lv_ = new LocalVariable();
-                            lv_.setStruct(s_);
-                            lv_.setClassName(_conf.getStandards().getAliasObject());
-                            _ip.getLocalVars().put(objName_, lv_);
-                            StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(GET_STRING).append(BEGIN_ARGS);
-                            expression_.append(patName_).append(GET_LOC_VAR).append(SEP_ARGS);
-                            expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
-                            expression_.append(beanName_).append(GET_LOC_VAR).append(SEP_ARGS);
-                            expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
-                            o_ = (String) ElRenderUtil.processEl(expression_.toString(), 0, _conf).getObject();
-                        }
+
+                if (trloc_ != null) {
+                    if (trloc_ instanceof TranslatorStruct) {
+                        Bean bean_ = (Bean) _ip.getGlobalArgument().getStruct().getInstance();
+                        o_ = ((TranslatorStruct)trloc_).getInstance().getString(_pattern, _conf, bean_, s_.getInstance());
                     } else {
-                        o_ = valueOf(_conf, s_);
+                        Struct bean_ = _ip.getGlobalArgument().getStruct();
+                        LocalVariable lv_ = new LocalVariable();
+                        String valName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setStruct(trloc_);
+                        lv_.setClassName(trloc_.getClassName(_conf.toContextEl()));
+                        _ip.getLocalVars().put(valName_, lv_);
+                        String patName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setElement(_pattern);
+                        lv_.setClassName(_conf.getStandards().getAliasString());
+                        _ip.getLocalVars().put(patName_, lv_);
+                        String navName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setElement(_conf, _conf.toContextEl());
+                        lv_.setClassName(_conf.getStandards().getAliasObject());
+                        _ip.getLocalVars().put(navName_, lv_);
+                        String beanName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setStruct(bean_);
+                        lv_.setClassName(bean_.getClassName(_conf.toContextEl()));
+                        _ip.getLocalVars().put(beanName_, lv_);
+                        String objName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setStruct(s_);
+                        lv_.setClassName(_conf.getStandards().getAliasObject());
+                        _ip.getLocalVars().put(objName_, lv_);
+                        StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(GET_STRING).append(BEGIN_ARGS);
+                        expression_.append(patName_).append(GET_LOC_VAR).append(SEP_ARGS);
+                        expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
+                        expression_.append(beanName_).append(GET_LOC_VAR).append(SEP_ARGS);
+                        expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
+                        o_ = (String) ElRenderUtil.processEl(expression_.toString(), 0, _conf).getObject();
+                        if (_conf.getContext().getException() != null) {
+                            return EMPTY_STRING;
+                        }
                     }
-                } catch (Throwable _0) {
-                    _conf.getLastPage().setOffset(_conf.getNextIndex());
-                    String err_ = _conf.getStandards().getAliasError();
-                    throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
+                } else {
+                    o_ = valueOf(_conf, s_);
+                    if (_conf.getContext().getException() != null) {
+                        return EMPTY_STRING;
+                    }
                 }
                 str_.append(o_);
                 i_ = _conf.getNextIndex();
@@ -237,7 +244,12 @@ final class ExtractObject {
             }
             if (cur_ == RIGHT_EL){
                 _conf.getLastPage().setOffset(i_);
-                throw new BadExpressionLanguageException(StringList.concat(arg_.toString(),RETURN_LINE,_conf.joinPages()));
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return EMPTY_STRING;
             }
             str_.append(cur_);
             i_++;
@@ -268,7 +280,12 @@ final class ExtractObject {
                     i_++;
                     continue;
                 }
-                throw new BadExpressionLanguageException(StringList.concat(numExpr_,RETURN_LINE,_conf.joinPages()));
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return NullStruct.NULL_VALUE;
             }
             if (curChar_ == ESCAPED) {
                 escaped_ = false;
@@ -278,12 +295,15 @@ final class ExtractObject {
             if (curChar_ == MATH_INTERPRET) {
                 _ip.setOffset(i_+1);
                 Argument arg_ = ElRenderUtil.processEl(numExpr_, _conf, i_+1, MATH_INTERPRET, MATH_INTERPRET);
-                try {
-                    calculateVariables_.append(mathFact_.toString(arg_.getObject()));
-                } catch (Throwable _0) {
-                    String err_ = _conf.getStandards().getAliasError();
-                    throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
+                if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return NullStruct.NULL_VALUE;
                 }
+                calculateVariables_.append(mathFact_.toString(arg_.getObject()));
                 i_ = _conf.getNextIndex();
                 continue;
             }
@@ -291,70 +311,84 @@ final class ExtractObject {
             i_++;
         }
         numExpr_ = calculateVariables_.toString();
-        try {
-            if (_evalBool) {
-                return new BooleanStruct(mathFact_.evaluateDirectlyBoolean(numExpr_));
-            } else {
-                return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.toContextEl(), rateClass_);
-            }
-        } catch (Throwable _0) {
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
+        if (_evalBool) {
+            return new BooleanStruct(mathFact_.evaluateDirectlyBoolean(numExpr_));
+        } else {
+            return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.toContextEl(), rateClass_);
         }
     }
 
     static Struct instanceByString(Configuration _conf, String _class, String _arg) {
-        try {
-            String name_ = _class;
-            LgNames stds_ = _conf.getStandards();
-            String doublePrim_ = stds_.getAliasPrimDouble();
-            String floatPrim_ = stds_.getAliasPrimFloat();
-            String longPrim_ = stds_.getAliasPrimLong();
-            String intPrim_ = stds_.getAliasPrimInteger();
-            String shortPrim_ = stds_.getAliasPrimShort();
-            String bytePrim_ = stds_.getAliasPrimByte();
-            String double_ = stds_.getAliasDouble();
-            String float_ = stds_.getAliasFloat();
-            String long_ = stds_.getAliasLong();
-            String int_ = stds_.getAliasInteger();
-            String short_ = stds_.getAliasShort();
-            String byte_ = stds_.getAliasByte();
-            if (StringList.quickEq(name_, int_) || StringList.quickEq(name_, intPrim_)) {
-                return new IntStruct(LgNames.parseInt(_arg));
-            } else if (StringList.quickEq(name_, long_) || StringList.quickEq(name_, longPrim_)) {
-                return new LongStruct(LgNames.parseLong(_arg));
-            } else if (StringList.quickEq(name_, short_) || StringList.quickEq(name_, shortPrim_)) {
-                return new ShortStruct(LgNames.parseShort(_arg));
-            } else if (StringList.quickEq(name_, byte_) || StringList.quickEq(name_, bytePrim_)) {
-                return new ByteStruct(LgNames.parseByte(_arg));
-            } else if (StringList.quickEq(name_, double_) || StringList.quickEq(name_, doublePrim_)) {
-                return new DoubleStruct(LgNames.parseDouble(_arg));
-            } else if (StringList.quickEq(name_, float_) || StringList.quickEq(name_, floatPrim_)) {
-                return new FloatStruct(LgNames.parseFloat(_arg));
-            } else {
-                String escaped_ = StringList.replace(_arg, QUOTE_DOUBLE, StringList.concat(String.valueOf(ESCAPED),QUOTE_DOUBLE));
-                String instanciation_ = StringList.concat(INSTANCE,_class,String.valueOf(BEGIN_ARGS),QUOTE_DOUBLE,escaped_,QUOTE_DOUBLE,String.valueOf(END_ARGS));
-                Argument obj_ = ElRenderUtil.processEl(instanciation_, 0, _conf);
-                if (obj_.isNull()) {
-                    throw new RuntimeInstantiationException(EMPTY_STRING);
-                }
-                return obj_.getStruct();
+        String name_ = _class;
+        LgNames stds_ = _conf.getStandards();
+        String doublePrim_ = stds_.getAliasPrimDouble();
+        String floatPrim_ = stds_.getAliasPrimFloat();
+        String longPrim_ = stds_.getAliasPrimLong();
+        String intPrim_ = stds_.getAliasPrimInteger();
+        String shortPrim_ = stds_.getAliasPrimShort();
+        String bytePrim_ = stds_.getAliasPrimByte();
+        String double_ = stds_.getAliasDouble();
+        String float_ = stds_.getAliasFloat();
+        String long_ = stds_.getAliasLong();
+        String int_ = stds_.getAliasInteger();
+        String short_ = stds_.getAliasShort();
+        String byte_ = stds_.getAliasByte();
+        String null_ = stds_.getAliasNullPe();
+        if (StringList.quickEq(name_, int_) || StringList.quickEq(name_, intPrim_)) {
+            Integer val_ = LgNames.parseInt(_arg);
+            if (val_ == null) {
+                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                return NullStruct.NULL_VALUE;
             }
-        } catch (Throwable _0) {
-            throw new InvokingException(_0, _conf.joinPages());
+            return new IntStruct(val_);
+        } else if (StringList.quickEq(name_, long_) || StringList.quickEq(name_, longPrim_)) {
+            Long val_ = LgNames.parseLong(_arg);
+            if (val_ == null) {
+                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                return NullStruct.NULL_VALUE;
+            }
+            return new LongStruct(val_);
+        } else if (StringList.quickEq(name_, short_) || StringList.quickEq(name_, shortPrim_)) {
+            Short val_ = LgNames.parseShort(_arg);
+            if (val_ == null) {
+                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                return NullStruct.NULL_VALUE;
+            }
+            return new ShortStruct(val_);
+        } else if (StringList.quickEq(name_, byte_) || StringList.quickEq(name_, bytePrim_)) {
+            Byte val_ = LgNames.parseByte(_arg);
+            if (val_ == null) {
+                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                return NullStruct.NULL_VALUE;
+            }
+            return new ByteStruct(val_);
+        } else if (StringList.quickEq(name_, double_) || StringList.quickEq(name_, doublePrim_)) {
+            Double val_ = LgNames.parseDouble(_arg);
+            if (val_ == null) {
+                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                return NullStruct.NULL_VALUE;
+            }
+            return new DoubleStruct(val_);
+        } else if (StringList.quickEq(name_, float_) || StringList.quickEq(name_, floatPrim_)) {
+            Float val_ = LgNames.parseFloat(_arg);
+            if (val_ == null) {
+                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                return NullStruct.NULL_VALUE;
+            }
+            return new FloatStruct(val_);
+        } else {
+            String escaped_ = StringList.replace(_arg, QUOTE_DOUBLE, StringList.concat(String.valueOf(ESCAPED),QUOTE_DOUBLE));
+            String instanciation_ = StringList.concat(INSTANCE,_class,String.valueOf(BEGIN_ARGS),QUOTE_DOUBLE,escaped_,QUOTE_DOUBLE,String.valueOf(END_ARGS));
+            Argument obj_ = ElRenderUtil.processEl(instanciation_, 0, _conf);
+            if (_conf.getContext().getException() != null) {
+                return NullStruct.NULL_VALUE;
+            }
+            if (obj_.isNull()) {
+                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                return NullStruct.NULL_VALUE;
+            }
+            return obj_.getStruct();
         }
-    }
-    static void checkClassNotEmptyName(Configuration _conf, int _offest, String _className) {
-        if (_className.isEmpty()) {
-            return;
-        }
-        classNameForName(_conf, _offest, _className);
-    }
-    static void classNameForName(Configuration _conf, int _offest, String _className) {
-        if (OperationNode.okType(_conf.toContextEl(), _className)) {
-            return;
-        }
-        throw new RuntimeClassNotFoundException(StringList.concat(_className,RETURN_LINE,_conf.joinPages()));
     }
     static void beforeDiplaying(Configuration _conf, Struct _it, boolean _addpage) {
         if (_it == null) {
@@ -381,7 +415,11 @@ final class ExtractObject {
     }
 
     static String getLanguage(Configuration _conf, Struct _it) {
-        return (String) getResult(_conf, 0, GET_LANGUAGE, _it, _conf.getStandards().getBean()).getInstance();
+        Struct str_ = getResult(_conf, 0, GET_LANGUAGE, _it, _conf.getStandards().getBean());
+        if (str_.getInstance() instanceof String) {
+            return (String) str_.getInstance();
+        }
+        return EMPTY_STRING;
     }
 
     static void setLanguage(Configuration _conf, Struct _it, String _scope) {
@@ -389,7 +427,11 @@ final class ExtractObject {
     }
 
     static String getScope(Configuration _conf, Struct _it) {
-        return (String) getResult(_conf, 0, GET_SCOPE, _it, _conf.getStandards().getBean()).getInstance();
+        Struct str_ = getResult(_conf, 0, GET_SCOPE, _it, _conf.getStandards().getBean());
+        if (str_.getInstance() instanceof String) {
+            return (String) str_.getInstance();
+        }
+        return EMPTY_STRING;
     }
 
     static void setScope(Configuration _conf, Struct _it, String _scope) {
@@ -414,46 +456,45 @@ final class ExtractObject {
 
     static char getChar(Configuration _conf, String _obj) {
         if (_obj.length() != CustList.ONE_ELEMENT) {
-            throw new CharacterFormatException(StringList.concat(String.valueOf(CustList.ONE_ELEMENT),RETURN_LINE,_conf.joinPages()));
+            _conf.getContext().setException(NullStruct.NULL_VALUE);
+            return (char)0;
         }
         return _obj.charAt(CustList.FIRST_INDEX);
     }
     /**This method use the equal operator*/
     static boolean eq(Configuration _conf, Struct _objOne, Struct _objTwo) {
-        try {
-            if (_objOne.isNull()) {
-                if (_objTwo.isNull()) {
-                    return true;
-                }
-                return false;
-            }
+        if (_objOne.isNull()) {
             if (_objTwo.isNull()) {
-                return false;
+                return true;
             }
-            ImportingPage ip_ = _conf.getLastPage();
-            LocalVariable lvOne_ = new LocalVariable();
-            lvOne_.setClassName(_conf.getStandards().getAliasObject());
-            lvOne_.setStruct(_objOne);
-            String nameOne_ = ip_.getNextTempVar();
-            ip_.getLocalVars().put(nameOne_, lvOne_);
-            LocalVariable lvTwo_ = new LocalVariable();
-            lvTwo_.setClassName(_conf.getStandards().getAliasObject());
-            lvTwo_.setStruct(_objTwo);
-            String nameTwo_ = ip_.getNextTempVar();
-            ip_.getLocalVars().put(nameTwo_, lvTwo_);
-            Argument arg_ = ElRenderUtil.processEl(StringList.concat(nameOne_,GET_LOC_VAR,CMP,nameTwo_,GET_LOC_VAR), 0, _conf);
-            Boolean ret_ = (Boolean)arg_.getObject();
-            ip_.getLocalVars().removeKey(nameOne_);
-            ip_.getLocalVars().removeKey(nameTwo_);
-            return ret_;
-        } catch (Throwable _0) {
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
+            return false;
         }
+        if (_objTwo.isNull()) {
+            return false;
+        }
+        ImportingPage ip_ = _conf.getLastPage();
+        LocalVariable lvOne_ = new LocalVariable();
+        lvOne_.setClassName(_conf.getStandards().getAliasObject());
+        lvOne_.setStruct(_objOne);
+        String nameOne_ = ip_.getNextTempVar();
+        ip_.getLocalVars().put(nameOne_, lvOne_);
+        LocalVariable lvTwo_ = new LocalVariable();
+        lvTwo_.setClassName(_conf.getStandards().getAliasObject());
+        lvTwo_.setStruct(_objTwo);
+        String nameTwo_ = ip_.getNextTempVar();
+        ip_.getLocalVars().put(nameTwo_, lvTwo_);
+        Argument arg_ = ElRenderUtil.processEl(StringList.concat(nameOne_,GET_LOC_VAR,CMP,nameTwo_,GET_LOC_VAR), 0, _conf);
+        ip_.getLocalVars().removeKey(nameOne_);
+        ip_.getLocalVars().removeKey(nameTwo_);
+        if (_conf.getContext().getException() != null) {
+            return false;
+        }
+        Boolean ret_ = (Boolean)arg_.getObject();
+        return ret_;
     }
     static void checkNullPointer(Configuration _conf, Object _obj) {
         if (_obj == null) {
-            throw new NullObjectException(_conf.joinPages());
+            _conf.getContext().setException(new StdStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
         }
     }
     static String valueOf(Configuration _conf, Struct _obj) {
@@ -478,16 +519,26 @@ final class ExtractObject {
         }  else {
             method_ = _conf.getStandards().getAliasToString();
         }
-        return (String) getResult(_conf, 0, method_, _obj, _conf.getStandards().getStructClassName(_obj, context_)).getInstance();
+        Struct str_ = getResult(_conf, 0, method_, _obj, _conf.getStandards().getStructClassName(_obj, context_));
+        if (str_.getInstance() instanceof String) {
+            return (String) str_.getInstance();
+        }
+        return EMPTY_STRING;
     }
     static Struct iterator(Configuration _conf, Struct _it) {
         return getResult(_conf, 0, ITERATOR, _it, _conf.getStandards().getStructClassName(_it, _conf.toContextEl()));
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
+        Boolean bool_;
         if (_it instanceof StdStruct) {
-            return (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType()).getInstance();
+            bool_ = (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType()).getInstance();
+        } else {
+            bool_ = (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasIteratorType()).getInstance();
         }
-        return (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasIteratorType()).getInstance();
+        if (bool_ == null) {
+            return false;
+        }
+        return bool_;
     }
     static Struct next(Configuration _conf, Struct _it) {
         if (_it instanceof StdStruct) {
@@ -506,7 +557,8 @@ final class ExtractObject {
         }
         ResultErrorStd res_ = _conf.getStandards().getName(cont_, _instance);
         if (res_.getError() != null) {
-            throw new InvokeRedinedMethException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            cont_.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            return EMPTY_STRING;
         }
         return toString(_conf, res_.getResult());
     }
@@ -518,16 +570,13 @@ final class ExtractObject {
         var_.setClassName(_classVar);
         ip_.getLocalVars().put(varName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,NO_PARAM_METHOD);
-        try {
-            Struct str_ = ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
-            ip_.getLocalVars().removeKey(varName_);
-            return str_;
-        } catch (Throwable _0) {
-            ip_.getLocalVars().removeKey(varName_);
-            _conf.getLastPage().addToOffset(_offsIndex);
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
+        Argument arg_ = ElRenderUtil.processEl(expression_, 0, _conf);
+        ip_.getLocalVars().removeKey(varName_);
+        if (arg_ == null) {
+            return NullStruct.NULL_VALUE;
         }
+        Struct str_ = arg_.getStruct();
+        return str_;
     }
     private static void setBeanResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
             String _argumentClassName) {
@@ -543,21 +592,24 @@ final class ExtractObject {
         var_.setClassName(_argumentClassName);
         ip_.getLocalVars().put(argName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,String.valueOf(BEGIN_ARGS),argName_,GET_LOC_VAR,String.valueOf(END_ARGS));
-        try {
-            ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
-            ip_.getLocalVars().removeKey(varName_);
-        } catch (Throwable _0) {
-            ip_.getLocalVars().removeKey(varName_);
-            _conf.getLastPage().addToOffset(_offsIndex);
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
-        }
+        ElRenderUtil.processEl(expression_, 0, _conf);
+        ip_.getLocalVars().removeKey(varName_);
     }
 
     static LoopVariable getCurrentVariable(Configuration _conf, int _offset,StringMap<LoopVariable> _vars, String _candidate) {
         if (!_vars.contains(_candidate)) {
             _conf.getLastPage().addToOffset(_offset);
-            throw new UndefinedVariableException(_conf.joinPages(), _candidate, LOOP_MESSAGE);
+            UndefinedVariableError und_ = new UndefinedVariableError();
+            und_.setId(_candidate);
+            und_.setFileName(_conf.getCurrentFileName());
+            und_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(und_);
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            return new LoopVariable();
         }
         return _vars.getVal(_candidate);
     }
@@ -565,7 +617,17 @@ final class ExtractObject {
     static LocalVariable getCurrentLocVariable(Configuration _conf, int _offset,StringMap<LocalVariable> _vars, String _candidate) {
         if (!_vars.contains(_candidate)) {
             _conf.getLastPage().addToOffset(_offset);
-            throw new UndefinedVariableException(_conf.joinPages(), _candidate, LOCAL_MESSAGE);
+            UndefinedVariableError und_ = new UndefinedVariableError();
+            und_.setId(_candidate);
+            und_.setFileName(_conf.getCurrentFileName());
+            und_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(und_);
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            return new LocalVariable();
         }
         return _vars.getVal(_candidate);
     }
@@ -582,7 +644,14 @@ final class ExtractObject {
             if (!_conf.noPages()) {
                 _conf.getLastPage().setOffset(1);
             }
-            preformatted_ = toString(_conf, ElRenderUtil.processEl(value_, 1, _conf).getStruct());
+            Struct str_ = ElRenderUtil.processEl(value_, 1, _conf).getStruct();
+            if (_conf.getContext().getException() != null) {
+                return EMPTY_STRING;
+            }
+            preformatted_ = toString(_conf, str_);
+            if (_conf.getContext().getException() != null) {
+                return EMPTY_STRING;
+            }
             if (!_conf.noPages()) {
                 _conf.getLastPage().setKey(EMPTY_STRING);
                 _conf.getLastPage().setMessageValue(preformatted_);
@@ -599,8 +668,17 @@ final class ExtractObject {
                 _conf.getLastPage().setOffset(var_.length()+COMMA.length());
             }
             key_ = formatNumVariables(key_, _conf, _ip);
+            if (_conf.getContext().getException() != null) {
+                return EMPTY_STRING;
+            }
             StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, _files, _resourcesFolder);
+            if (_conf.getContext().getException() != null) {
+                return EMPTY_STRING;
+            }
             preformatted_ = ExtractFromResources.getFormat(messages_, key_, _conf, _loc, fileName_);
+            if (_conf.getContext().getException() != null) {
+                return EMPTY_STRING;
+            }
             if (!_conf.noPages()) {
                 _conf.getLastPage().setKey(key_);
                 _conf.getLastPage().setMessageValue(preformatted_);
@@ -628,10 +706,16 @@ final class ExtractObject {
                 begin_ = 1;
             }
             Struct o_ = ElRenderUtil.processEl(attribute_, begin_, _conf).getStruct();
+            if (_conf.getContext().getException() != null) {
+                return EMPTY_STRING;
+            }
             if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {
                 objects_.add(escapeParam(_conf,o_));
             } else {
                 objects_.add(toString(_conf, o_));
+            }
+            if (_conf.getContext().getException() != null) {
+                return EMPTY_STRING;
             }
         }
         return StringList.simpleStringsFormat(preformatted_, objects_.toArray());
@@ -648,6 +732,9 @@ final class ExtractObject {
 
     private static String escapeParam(Configuration _conf, Struct _arg) {
         String str_ = valueOf(_conf, _arg);
+        if (_conf.getContext().getException() != null) {
+            return EMPTY_STRING;
+        }
         StringMap<String> rep_ = new StringMap<String>();
         String quote_ = String.valueOf(QUOTE);
         rep_.put(String.valueOf(LEFT_EL), StringList.concat(quote_,String.valueOf(LEFT_EL),quote_));
@@ -657,27 +744,12 @@ final class ExtractObject {
     }
 
     static String getMessageFolder(Configuration _conf) {
-        try {
-            return _conf.getMessagesFolder();
-        } catch (Throwable _0) {
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
-        }
+        return _conf.getMessagesFolder();
     }
     private static MathFactory getMathFactory(Configuration _conf) {
-        try {
-            return _conf.getMathFactory();
-        } catch (Throwable _0) {
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
-        }
+        return _conf.getMathFactory();
     }
     static String getProperty(Configuration _conf, String _key) {
-        try {
-            return _conf.getProperties().getVal(_key);
-        } catch (Throwable _0) {
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
-        }
+        return _conf.getProperties().getVal(_key);
     }
 }

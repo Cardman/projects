@@ -165,6 +165,9 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
         Argument arg_ =  el_.calculateMember(_cont);
+        if (_cont.callsOrException()) {
+            return;
+        }
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         if_.setStruct(arg_.getStruct());

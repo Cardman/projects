@@ -20,6 +20,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -34,6 +35,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -49,6 +51,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
@@ -73,6 +76,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
@@ -101,6 +105,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
@@ -134,6 +139,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));

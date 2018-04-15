@@ -1,7 +1,5 @@
 package code.formathtml;
-import code.formathtml.exceptions.BadFilePropertiesException;
-import code.formathtml.exceptions.MessageKeyNotFoundException;
-import code.formathtml.exceptions.NoSuchResourceException;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
@@ -36,8 +34,9 @@ public final class ExtractFromResources {
         String fileNamePath_ = ResourcesMessagesUtil.getPropertiesPath(ExtractObject.getMessageFolder(_conf),_loc,_fileName);
         String value_ = _messages.getVal(_key);
         if (value_ == null) {
+            _conf.getContext().setException(NullStruct.NULL_VALUE);
             //check if key_ is in messages_ from fileNamePath_
-            throw new MessageKeyNotFoundException(_key, fileNamePath_, _conf.joinPages());
+            return value_;
         }
         _conf.setResourceUrl(fileNamePath_);
         return value_;
@@ -46,9 +45,13 @@ public final class ExtractFromResources {
         String folder_ = ExtractObject.getMessageFolder(_conf);
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
         String content_ = getContentFile(_conf, _files, fileName_, _resourcesFolder);
+        if (_conf.getContext().getException() != null) {
+            return new StringMap<String>();
+        }
         int index_ = indexCorrectMessages(content_);
         if (index_ >= 0) {
-            throw new BadFilePropertiesException(StringList.concat(fileName_,RETURN_LINE,Long.toString(index_),RETURN_LINE,_conf.joinPages()));
+            _conf.getContext().setException(NullStruct.NULL_VALUE);
+            return new StringMap<String>();
         }
         return getMessages(content_);
     }
@@ -117,10 +120,7 @@ public final class ExtractFromResources {
             content_ = ResourceFiles.ressourceFichierUrls(_fileName, _resourcesFolder);
         }
         if (content_ == null) {
-            if (_conf.noPages()) {
-                throw new NoSuchResourceException(_fileName);
-            }
-            throw new NoSuchResourceException(_fileName, _conf.joinPages());
+            _conf.getContext().setException(NullStruct.NULL_VALUE);
         }
         return content_;
     }

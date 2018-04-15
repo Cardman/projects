@@ -255,6 +255,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             } else {
                 ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
                 Argument arg_ = el_.calculateMember(_cont);
+                if (_cont.callsOrException()) {
+                    return;
+                }
                 struct_ = arg_.getStruct();
                 el_.setCurrentOper(null);
                 ip_.clearCurrentEls();

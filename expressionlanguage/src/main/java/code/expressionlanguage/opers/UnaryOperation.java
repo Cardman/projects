@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -67,7 +66,9 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         OperationNode op_ = chidren_.first();
         Argument arg_ = _nodes.getVal(op_).getArgument();
         Argument a_ = getArgument(_conf, arg_, _op);
-        setSimpleArgument(a_, _conf, _nodes);
+        if (_conf.getException() == null) {
+            setSimpleArgument(a_, _conf, _nodes);
+        }
         return a_;
     }
     /**@throws NullObjectException*/
@@ -82,6 +83,9 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = getArgument(_conf, arg_, _op);
+        if (_conf.getException() != null) {
+            return;
+        }
         setSimpleArgument(a_, _conf);
     }
 
@@ -95,7 +99,8 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         String null_;
         null_ = stds_.getAliasNullPe();
         if (o_ == null) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return out_;
         }
         if (o_ instanceof Character) {
             out_.setObject(-((Character)o_));

@@ -21,12 +21,6 @@ public final class RateEq implements Displayable {
     private final String string;
 
     public RateEq(String _value) {
-        if (!matchesRate(_value)) {
-            throw new BadRateException(_value);
-        }
-//        if (!Pattern.matches("^(-?([0-9]+(/-?0*[1-9][0-9]*|\\.[0-9]*)?|\\.[0-9]*))$", _value)) {
-//            throw new NumberFormatException(_value);
-//        }
         string = _value;
         zero = StringList.quickEq(_value,ZERO);
     }
@@ -42,12 +36,8 @@ public final class RateEq implements Displayable {
         }
         return StringList.quickEq(string, _obj.string);
     }
-    @FromAndToString
-    public static RateEq newRate(String _value) {
-        return new RateEq(_value);
-    }
 
-    private static boolean matchesRate(String _input) {
+    public static boolean matchesRate(String _input) {
         if (_input.isEmpty()) {
             return false;
         }

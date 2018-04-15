@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -38,6 +39,7 @@ public class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -72,6 +74,7 @@ public class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -110,6 +113,7 @@ public class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -145,6 +149,7 @@ public class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();

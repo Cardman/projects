@@ -1,4 +1,5 @@
 package code.formathtml;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -7,10 +8,8 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
-import code.formathtml.exceptions.RenderingException;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;
@@ -738,7 +737,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2FIRSTSECOND</body></html>", render_);
     }
 
-    @Test(expected=BadTryException.class)
+    @Test
     public void processHtml217Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -766,13 +765,14 @@ public class FormatHtmlTryCatchFinallyTest {
         conf_.setDocument(doc_);
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2</body></html>", render_);
+//        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2</body></html>", render_);
     }
 
-    @Test(expected=BadTryException.class)
+    @Test
     public void processHtml218Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -800,13 +800,14 @@ public class FormatHtmlTryCatchFinallyTest {
         conf_.setDocument(doc_);
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Divide Zero</body></html>", render_);
+//        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Divide Zero</body></html>", render_);
     }
 
-    @Test(expected=BadTryException.class)
+    @Test
     public void processHtml219Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -834,13 +835,14 @@ public class FormatHtmlTryCatchFinallyTest {
         conf_.setDocument(doc_);
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2</body></html>", render_);
+//        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2</body></html>", render_);
     }
 
-    @Test(expected=RenderingException.class)
+    @Test
     public void processHtml1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -869,6 +871,7 @@ public class FormatHtmlTryCatchFinallyTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertNotNull(conf_.getContext().getException());
     }
 
     private static void setup(Configuration _conf) {
@@ -886,6 +889,7 @@ public class FormatHtmlTryCatchFinallyTest {
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
+        context_.initError();
         return conf_;
     }
 }

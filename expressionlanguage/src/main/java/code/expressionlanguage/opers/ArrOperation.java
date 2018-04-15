@@ -9,12 +9,12 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadIndexException;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -120,12 +120,15 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
         array_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
+        Argument a_ = new Argument();
         for (int i = CustList.SECOND_INDEX; i < _maxIndexChildren; i++) {
             OperationNode op_ = chidren_.get(i);
             Object o_ = _nodes.getVal(op_).getArgument().getObject();
             array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
+            if (_conf.getException() != null) {
+                return a_;
+            }
         }
-        Argument a_ = new Argument();
         a_.setStruct(array_);
         return a_;
     }
@@ -141,6 +144,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _conf);
+        if (_conf.getException() != null) {
+            return a_;
+        }
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -169,6 +175,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         array_ = a_.getStruct();
         OperationNode lastElement_ = chidren_.last();
         affectArray(array_, lastElement_.getArgument(), lastElement_.getIndexInEl(), _op, _conf);
+        if (_conf.getException() != null) {
+            return;
+        }
         setSimpleArgument(a_, _conf);
     }
 
@@ -180,15 +189,22 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Object o_ = _index.getObject();
         PageEl ip_ = _conf.getLastPage();
         Struct leftObj_ = getElement(_array, o_, _conf, _indexEl);
+        if (_conf.getException() != null) {
+            return;
+        }
         Argument left_ = new Argument();
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
         String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf));
         if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct(), _conf)) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+        if (_conf.getException() != null) {
+            return;
+        }
         setElement(_array, o_, res_.getStruct(), _conf);
     }
 
@@ -196,11 +212,14 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
         array_ = chidren_.first().getArgument().getStruct();
+        Argument a_ = new Argument();
         for (int i = CustList.SECOND_INDEX; i < _maxIndexChildren; i++) {
             Object o_ = chidren_.get(i).getArgument().getObject();
             array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
+            if (_conf.getException() != null) {
+                return a_;
+            }
         }
-        Argument a_ = new Argument();
         a_.setStruct(array_);
         return a_;
     }
@@ -213,16 +232,19 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         null_ = stds_.getAliasNullPe();
         badIndex_ = stds_.getAliasBadIndex();
         if (_struct.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return NullStruct.NULL_VALUE;
         }
         if (_index == null) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return NullStruct.NULL_VALUE;
         }
         Object array_ = _struct.getInstance();
         int len_ = LgNames.getLength(array_);
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
+            return NullStruct.NULL_VALUE;
         }
         return LgNames.getElement(array_, index_, _conf);
     }
@@ -232,7 +254,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         null_ = stds_.getAliasNullPe();
         String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf));
         if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct(), _conf)) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         setElement(_array, _index, _element.getStruct(), _conf);
     }
@@ -245,10 +268,12 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         badIndex_ = stds_.getAliasBadIndex();
         store_ = stds_.getAliasStore();
         if (_struct.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         if (_index == null) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         String strClass_ = stds_.getStructClassName(_struct, _conf);
         String valClass_ = stds_.getStructClassName(_value, _conf);
@@ -256,7 +281,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         int len_ = LgNames.getLength(instance_);
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
+            return;
         }
         if (!_value.isNull()) {
             String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
@@ -265,7 +291,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             mapping_.setArg(elementType_);
             mapping_.setParam(componentType_);
             if (!Templates.isCorrect(mapping_, _conf)) {
-                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(componentType_,elementType_,_conf.joinPages())),store_));
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(componentType_,elementType_,_conf.joinPages())),store_));
+                return;
             }
         }
         Struct value_;

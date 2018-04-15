@@ -84,6 +84,9 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         if_.setVisitedBlock(getIndexInGroup());
         if (!if_.isEntered()) {
             boolean assert_ = evaluateCondition(_cont);
+            if (_cont.callsOrException()) {
+                return;
+            }
             if (assert_) {
                 if_.setEntered(true);
                 rw_.setBlock(getFirstChild());

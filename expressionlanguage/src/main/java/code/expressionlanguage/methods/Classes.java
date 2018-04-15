@@ -10,7 +10,6 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.exceptions.AlreadyExistingClassException;
-import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.exceptions.BadClassNameException;
 import code.expressionlanguage.methods.exceptions.BadFileNameException;
 import code.expressionlanguage.methods.exceptions.UnknownBlockException;
@@ -527,27 +526,24 @@ public final class Classes {
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();
-        classes_.tryBuildBracedClassesBodies(_files, _context);
+        Classes.tryBuildBracedClassesBodies(_files, _context);
         if (!classes_.errorsDet.isEmpty()) {
-            throw new AnalyzingErrorsException(classes_.errorsDet);
+            return;
         }
         classes_.validateInheritingClasses(_context);
         if (!classes_.errorsDet.isEmpty()) {
-            throw new AnalyzingErrorsException(classes_.errorsDet);
+            return;
         }
         classes_.validateSingleParameterizedClasses(_context);
         classes_.validateIds(_context);
         classes_.validateOverridingInherit(_context);
         if (!classes_.errorsDet.isEmpty()) {
-            throw new AnalyzingErrorsException(classes_.errorsDet);
+            return;
         }
         classes_.validateClassesAccess(_context);
         classes_.validateLocalVariableNamesId(_context);
         classes_.validateEl(_context);
         classes_.validateReturns(_context);
-        if (!classes_.errorsDet.isEmpty()) {
-            throw new AnalyzingErrorsException(classes_.errorsDet);
-        }
         _context.setAnalyzing(null);
     }
     public void tryBuildClassesBodies(StringMap<String> _files, ContextEl _context) {
@@ -692,44 +688,11 @@ public final class Classes {
         processPredefinedClass(stds_.getAliasEnumParam(), content_, _context);
         _context.setHtml(EMPTY_STRING);
     }
-    public void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
+    public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
-            try {
-                String content_ = f.getValue();
-                FileResolver.parseFile(file_, content_, false, _context);
-            } catch (UnknownBlockException _0) {
-                RowCol where_ = _0.getRc();
-                UnexpectedTagName t_ = new UnexpectedTagName();
-                t_.setRc(where_);
-                t_.setFileName(file_);
-                t_.setFoundTag(_0.getMessage());
-                errorsDet.add(t_);
-            } catch (BadClassNameException _0) {
-                BadClassName bad_ = new BadClassName();
-                bad_.setClassName(_0.getMessage());
-                bad_.setRc(new RowCol());
-                bad_.setFileName(file_);
-                errorsDet.add(bad_);
-            } catch (BadFileNameException _0) {
-                BadFileName bad_ = new BadFileName();
-                bad_.setRc(new RowCol());
-                bad_.setFileName(file_);
-                errorsDet.add(bad_);
-            } catch (XmlParseException _0) {
-                //TODO change later class
-                BadFileName bad_ = new BadFileName();
-                bad_.setRc(_0.getRowCol());
-                bad_.setFileName(file_);
-                errorsDet.add(bad_);
-            } catch (AlreadyExistingClassException _0) {
-                //TODO change later class
-                BadClassName bad_ = new BadClassName();
-                bad_.setClassName(_0.getMessage());
-                bad_.setRc(new RowCol());
-                bad_.setFileName(file_);
-                errorsDet.add(bad_);
-            }
+            String content_ = f.getValue();
+            FileResolver.parseFile(file_, content_, false, _context);
         }
         String name_;
         LgNames stds_ = _context.getStandards();

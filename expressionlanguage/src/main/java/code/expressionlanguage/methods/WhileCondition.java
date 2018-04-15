@@ -85,6 +85,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             return;
         }
         boolean res_ = evaluateCondition(_cont);
+        if (_cont.callsOrException()) {
+            return;
+        }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
         l_.setFinished(!res_);
@@ -112,6 +115,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         Block forLoopLoc_ = l_.getBlock();
         rw_.setBlock(forLoopLoc_);
         if (!keepLoop(_conf)) {
+            if (_conf.callsOrException()) {
+                return;
+            }
             l_.setFinished(true);
         }
         l_.setEvaluatingKeepLoop(false);

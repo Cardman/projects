@@ -10,7 +10,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.DuplicateVariable;
@@ -354,6 +353,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         processLoop(_cont);
+        if (_cont.callsOrException()) {
+            return;
+        }
         c_ = (LoopBlockStack) ip_.getLastStack();
         if (c_.isFinished()) {
             ip_.removeLastBlock();
@@ -381,22 +383,34 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         ip_.setOffset(0);
         ExpressionLanguage from_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getInitEl());
         Argument argFrom_ = from_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return;
+        }
         if (argFrom_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage to_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getExpressionEl());
         Argument argTo_ = to_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return;
+        }
         if (argTo_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            return;
         }
         ip_.setGlobalOffset(stepOffset);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX + 1, getStepEl());
         Argument argStep_ = step_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return;
+        }
         if (argStep_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            return;
         }
         realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);

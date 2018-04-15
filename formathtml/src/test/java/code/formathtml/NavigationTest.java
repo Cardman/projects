@@ -1,5 +1,6 @@
 package code.formathtml;
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -13,9 +14,7 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.opers.util.Struct;
 import code.formathtml.classes.BeanEight;
 import code.formathtml.classes.BeanFive;
@@ -35,8 +34,6 @@ import code.formathtml.classes.Rate;
 import code.formathtml.classes.SimpleDataBase;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.classes.UnselectedRadio;
-import code.formathtml.exceptions.FormNotFoundException;
-import code.formathtml.exceptions.RenderingException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.sml.DocumentBuilder;
@@ -8354,7 +8351,7 @@ public class NavigationTest {
         assertEq(0,nav_.getTooltips().size());
     }
 
-    @Test(expected=InvokeRedinedMethException.class)
+    @Test
     public void processFormRequest1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -8410,9 +8407,10 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        assertNotNull(nav_.getSession().getContext().getException());
     }
 
-    @Test(expected=InvokeRedinedMethException.class)
+    @Test
     public void processFormRequest2FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -8466,9 +8464,10 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        assertNotNull(nav_.getSession().getContext().getException());
     }
 
-    @Test(expected=FormNotFoundException.class)
+    @Test
     public void processFormRequest3FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -8512,9 +8511,10 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(-1);
         nav_.processFormRequest();
+        assertNotNull(nav_.getSession().getContext().getException());
     }
 
-    @Test(expected=InvokeRedinedMethException.class)
+    @Test
     public void processFormRequest4FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -8569,6 +8569,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        assertNotNull(nav_.getSession().getContext().getException());
     }
 
 //    @Ignore
@@ -8614,7 +8615,7 @@ public class NavigationTest {
 //        nav_.processFormRequest("bean_one.getTrans(1)=ONE", "myform");
 //    }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void processFormRequest6FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -8668,10 +8669,11 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        assertNotNull(nav_.getSession().getContext().getException());
     }
 
     @Ignore
-    @Test(expected=RenderingException.class)
+    @Test
     public void processFormRequest7FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -8724,6 +8726,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        assertNotNull(nav_.getSession().getContext().getException());
     }
 
     private static void setupBeansAfter(Configuration _conf) {
@@ -8747,6 +8750,7 @@ public class NavigationTest {
         context_.setClasses(new Classes());
         nav_.getSession().setStandards(InitializationLgNames.initStandards(context_));
         nav_.getSession().setContext(context_);
+        context_.initError();
         return nav_;
     }
 
@@ -8756,6 +8760,7 @@ public class NavigationTest {
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
+        context_.initError();
         return conf_;
     }
 }

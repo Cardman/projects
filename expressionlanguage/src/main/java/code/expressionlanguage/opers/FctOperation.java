@@ -14,13 +14,12 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.exceptions.CustomFoundConstructorException;
-import code.expressionlanguage.exceptions.CustomFoundMethodException;
-import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
+import code.expressionlanguage.methods.CustomFoundConstructor;
+import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.EnumBlock;
+import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.UniqueRootedBlock;
@@ -845,19 +844,18 @@ public final class FctOperation extends InvokingOperation {
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
-        if (argres_.isInitClass()) {
-            throw new NotInitializedClassException(argres_.getInitClass().getClassName());
-        }
-        if (argres_.isInvokeConstructor()) {
-            InvokingConstructor i_ = argres_.getInvokeConstructor();
-            throw new CustomFoundConstructorException(i_.getClassName(), i_.getFieldName(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep());
-        }
-        if (argres_.isInvokeMethod()) {
-            InvokingMethod i_ = argres_.getInvokeMethod();
-            throw new CustomFoundMethodException(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments());
-        }
         Argument res_ = argres_.getArgument();
-        setSimpleArgument(res_, _conf, _nodes);
+        if (argres_.isInitClass()) {
+            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
+        } else if (argres_.isInvokeConstructor()) {
+            InvokingConstructor i_ = argres_.getInvokeConstructor();
+            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
+        } else if (argres_.isInvokeMethod()) {
+            InvokingMethod i_ = argres_.getInvokeMethod();
+            _conf.setCallMethod(new CustomFoundMethod(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments()));
+        } else {
+            setSimpleArgument(res_, _conf, _nodes);
+        }
         return res_;
     }
 
@@ -882,6 +880,9 @@ public final class FctOperation extends InvokingOperation {
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
         if (argres_.isInitClass()) {
             ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            if (_conf.getException() != null) {
+                return;
+            }
             argres_ = getArgument(previous_, arguments_, _conf);
         }
         Argument res_;
@@ -893,6 +894,9 @@ public final class FctOperation extends InvokingOperation {
             res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf);
         } else {
             res_ = argres_.getArgument();
+        }
+        if (_conf.getException() != null) {
+            return;
         }
         setSimpleArgument(res_, _conf);
     }
@@ -938,7 +942,9 @@ public final class FctOperation extends InvokingOperation {
             String classFormat_ = calledCtor_;
             classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
             if (classFormat_ == null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                Argument a_ = new Argument();
+                return ArgumentCall.newArgument(a_);
             }
             int j_ = 0;
             for (String c: constId.getParametersTypes()) {
@@ -955,7 +961,9 @@ public final class FctOperation extends InvokingOperation {
                 if (i_ < params_.size()) {
                     Struct str_ = a.getStruct();
                     if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
-                        throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                        Argument a_ = new Argument();
+                        return ArgumentCall.newArgument(a_);
                     }
                     if (!str_.isNull()) {
                         Mapping mapping_ = new Mapping();
@@ -963,7 +971,9 @@ public final class FctOperation extends InvokingOperation {
                         mapping_.setParam(params_.get(i_));
                         if (!Templates.isCorrect(mapping_, _conf)) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                            Argument a_ = new Argument();
+                            return ArgumentCall.newArgument(a_);
                         }
                     }
                     if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
@@ -1047,7 +1057,9 @@ public final class FctOperation extends InvokingOperation {
                 Argument classArg_ = _arguments.first();
                 String paramName_ = (String) classArg_.getObject();
                 if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, objArg_.getStruct(), _conf)) {
-                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    Argument a_ = new Argument();
+                    return ArgumentCall.newArgument(a_);
                 }
                 if (objArg_.isNull()) {
                     Argument arg_ = new Argument();
@@ -1063,21 +1075,27 @@ public final class FctOperation extends InvokingOperation {
                     mapping_.setParam(paramName_);
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                        _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                        Argument a_ = new Argument();
+                        return ArgumentCall.newArgument(a_);
                     }
                     arg_.setStruct(objArg_.getStruct());
                 } else {
                     if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
                         if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                            _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                            Argument a_ = new Argument();
+                            return ArgumentCall.newArgument(a_);
                         }
                         arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
                     } else {
                         String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true, _conf).getName();
                         if (!StringList.quickEq(typeNameArg_, stds_.getAliasPrimBoolean())) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                            _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                            Argument a_ = new Argument();
+                            return ArgumentCall.newArgument(a_);
                         }
                         arg_.setStruct(objArg_.getStruct());
                     }
@@ -1103,7 +1121,9 @@ public final class FctOperation extends InvokingOperation {
         String classNameFound_;
         if (!staticMethod) {
             if (arg_.isNull()) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                Argument a_ = new Argument();
+                return ArgumentCall.newArgument(a_);
             }
             ClassMetaInfo custClass_ = null;
             String className_ = stds_.getStructClassName(arg_.getStruct(), _conf);
@@ -1135,7 +1155,9 @@ public final class FctOperation extends InvokingOperation {
                         map_.setParam(classNameFound_);
                         if (!Templates.isCorrect(map_, _conf)) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                            _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                            Argument a_ = new Argument();
+                            return ArgumentCall.newArgument(a_);
                         }
                         String base_ = StringList.getAllTypes(classNameFound_).first();
                         String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
@@ -1146,7 +1168,9 @@ public final class FctOperation extends InvokingOperation {
                         String baseArgClassName_ = StringList.getAllTypes(argClassName_).first();
                         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, baseArgClassName_, _conf)) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                            _conf.setException(new StdStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                            Argument a_ = new Argument();
+                            return ArgumentCall.newArgument(a_);
                         }
                         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
                         methodId_ = realId.format(classNameFound_, _conf);
@@ -1258,7 +1282,9 @@ public final class FctOperation extends InvokingOperation {
             String classFormat_ = classNameFound_;
             classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_ == null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                Argument a_ = new Argument();
+                return ArgumentCall.newArgument(a_);
             }
             int i_ = 0;
             for (String c: methodId_.getParametersTypes()) {
@@ -1286,7 +1312,9 @@ public final class FctOperation extends InvokingOperation {
             if (i_ < params_.size()) {
                 Struct str_ = a.getStruct();
                 if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
-                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    Argument a_ = new Argument();
+                    return ArgumentCall.newArgument(a_);
                 }
                 if (!str_.isNull()) {
                     Mapping mapping_ = new Mapping();
@@ -1294,7 +1322,9 @@ public final class FctOperation extends InvokingOperation {
                     mapping_.setParam(params_.get(i_));
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                        throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        Argument a_ = new Argument();
+                        return ArgumentCall.newArgument(a_);
                     }
                 }
                 if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
@@ -1308,7 +1338,9 @@ public final class FctOperation extends InvokingOperation {
             ClassMethodId dyn_ = new ClassMethodId(classNameFound_, methodId_);
             ResultErrorStd res_ = LgNames.invokeMethod(_conf, naturalVararg > -1, dyn_, arg_.getStruct(), Argument.toArgArray(firstArgs_));
             if (res_.getError() != null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+                Argument a_ = new Argument();
+                return ArgumentCall.newArgument(a_);
             }
             Argument argRes_ = new Argument();
             argRes_.setStruct(res_.getResult());

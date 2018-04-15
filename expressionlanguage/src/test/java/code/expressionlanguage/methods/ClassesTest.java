@@ -608,6 +608,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
+        cont_.initError();
         classes_.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -624,6 +625,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
+        cont_.initError();
         classes_.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);

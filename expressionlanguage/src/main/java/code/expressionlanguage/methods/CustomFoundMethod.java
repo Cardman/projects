@@ -1,9 +1,9 @@
-package code.expressionlanguage.exceptions;
+package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 
-public class CustomFoundMethodException extends RuntimeException {
+public final class CustomFoundMethod {
 
     private final Argument gl;
 
@@ -13,7 +13,7 @@ public class CustomFoundMethodException extends RuntimeException {
 
     private final CustList<Argument> arguments;
 
-    public CustomFoundMethodException(Argument _gl,String _className, MethodId _id, CustList<Argument> _arguments) {
+    public CustomFoundMethod(Argument _gl,String _className, MethodId _id, CustList<Argument> _arguments) {
         gl = _gl;
         className = _className;
         id = _id;

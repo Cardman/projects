@@ -17,7 +17,6 @@ import javax.swing.SwingConstants;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
-import cards.facade.exceptions.GameLoadingException;
 import cards.gui.MainWindow;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationCardPresident;
@@ -80,15 +79,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public ContainerSinglePresident(MainWindow _window, String _nomFichier) {
         super(_window);
-        chargerPartie(_nomFichier);
-    }
-
-    @Override
-    protected void chargerPartie(String _fichier) {
-        getPar().chargerPartie(_fichier);
-        if (!getPar().enCoursDePartiePresident()) {
-            throw new GameLoadingException();
-        }
     }
 
     public GamePresident partiePresident() {

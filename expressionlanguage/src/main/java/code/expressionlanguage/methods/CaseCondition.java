@@ -170,6 +170,9 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
             Argument arg_ = el_.calculateMember(_cont);
+            if (_cont.callsOrException()) {
+                return;
+            }
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();
             boolean enter_ = false;
@@ -191,6 +194,9 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 local_.setClassName(_cont.getStandards().getAliasObject());
                 ip_.getLocalVars().put(locSec_, local_);
                 Argument eqArg_ = cl_.getEqNatEl().calculateMember(_cont);
+                if (_cont.callsOrException()) {
+                    return;
+                }
                 boolean b_ = (Boolean) eqArg_.getObject();
                 ip_.getLocalVars().removeKey(loc_);
                 ip_.getLocalVars().removeKey(locSec_);

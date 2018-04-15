@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
@@ -9,15 +10,12 @@ import org.junit.Test;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyStrangeTranslator;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.SimpleMathFactory;
-import code.formathtml.exceptions.InexistingTranslatorException;
 import code.formathtml.util.BeanStruct;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -1041,7 +1039,7 @@ public class ExtractObjectTest {
         assertEq("'5", formated_);
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void formatNamedVariables7Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1070,9 +1068,10 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void formatNamedVariables8Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1101,9 +1100,10 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void formatNamedVariables9Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1132,6 +1132,7 @@ public class ExtractObjectTest {
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
     @Test
@@ -1308,7 +1309,7 @@ public class ExtractObjectTest {
         String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_);
         assertEq("'{} 10", formated_);
     }
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void formatNamedVariables1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1331,9 +1332,10 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void formatNamedVariables2FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1356,9 +1358,10 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void formatNamedVariables3FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1382,9 +1385,10 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void formatNamedVariables4FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1408,9 +1412,10 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
     
-    @Test(expected=InexistingTranslatorException.class)
+    @Test
     public void formatNamedVariables5FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1434,9 +1439,10 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=InvokeRedinedMethException.class)
+    @Test
     public void formatNamedVariables6FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1460,9 +1466,10 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
+    @Test
     public void formatNamedVariables7FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -1485,6 +1492,7 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         ExtractObject.formatNumVariables(html_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
     private static void addImportingPage(Configuration _conf, boolean _rendering) {
@@ -1604,6 +1612,7 @@ public class ExtractObjectTest {
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
+        context_.initError();
         return conf_;
     }
 }

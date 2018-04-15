@@ -1,10 +1,12 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.methods.exceptions.BadConditionExpressionException;
+import code.expressionlanguage.CustomError;
+import code.expressionlanguage.Mapping;
+import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.variables.LocalVariable;
-import code.formathtml.exceptions.BadReferenceEqualsException;
+import code.formathtml.util.BadElRender;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -20,7 +22,6 @@ final class ExtractCondition {
     private static final String TAG_ELSE_IF_DEF_PARAM = "elseifdefparam";
     private static final String TAG_ELSE_IF_DEF_RET_VAL = "elseifdefretval";
     private static final String EMPTY_STRING = "";
-    private static final String RETURN_LINE = "\n";
     private static final char COMMA_CHAR = ',';
     private static final char NEG = '!';
     private static final String ATTRIBUTE_CONDITION = "condition";
@@ -50,7 +51,12 @@ final class ExtractCondition {
         _ip.setOffset(0);
         String defined_ = _en.getAttribute(DEFINED_ATTRIBUTE);
         if (defined_.isEmpty()) {
-            throw new BadConditionExpressionException(_conf.joinPages());
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            return false;
         }
         if (StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_IF_DEF_PARAM)) || StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_ELSE_IF_DEF_PARAM))) {
             StringMap<LocalVariable> locVars_ = _ip.getParameters();
@@ -103,37 +109,27 @@ final class ExtractCondition {
             }
         }
         if (return_ && !isNotNull_.isEmpty()) {
-            String isNotNullWithoutNeg_ = replaceNegPrefix(isNotNull_);
-            if (isNotNullWithoutNeg_.isEmpty()) {
-                throw new BadConditionExpressionException(StringList.concat(isNotNull_,RETURN_LINE,_conf.joinPages()));
-            }
-            int nbNeg_ = isNotNull_.length() - isNotNullWithoutNeg_.length();
             _ip.setProcessingAttribute(IS_NOT_NULL_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
-            _ip.setOffset(nbNeg_);
-            Object obj_ = ElRenderUtil.processEl(isNotNullWithoutNeg_, 0, _conf).getObject();
-            boolean b_ = obj_ != null;
-            if (nbNeg_%2 == 1) {
-                b_ = !b_;
+            _ip.setOffset(0);
+            Object obj_ = ElRenderUtil.processEl(isNotNull_, 0, _conf).getObject();
+            if (_conf.getContext().getException() != null) {
+                return false;
             }
+            boolean b_ = obj_ != null;
             if (!b_) {
                 return_ = false;
             }
         }
         if (return_ && !isNull_.isEmpty()) {
-            String isNullWithoutNeg_ = replaceNegPrefix(isNull_);
-            if (isNullWithoutNeg_.isEmpty()) {
-                throw new BadConditionExpressionException(StringList.concat(isNull_,RETURN_LINE,_conf.joinPages()));
-            }
-            int nbNeg_ = isNull_.length() - isNullWithoutNeg_.length();
             _ip.setProcessingAttribute(IS_NULL_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
-            _ip.setOffset(nbNeg_);
-            Object obj_ = ElRenderUtil.processEl(isNullWithoutNeg_, 0, _conf).getObject();
-            boolean b_ = obj_ == null;
-            if (nbNeg_%2 == 1) {
-                b_ = !b_;
+            _ip.setOffset(0);
+            Object obj_ = ElRenderUtil.processEl(isNull_, 0, _conf).getObject();
+            if (_conf.getContext().getException() != null) {
+                return false;
             }
+            boolean b_ = obj_ == null;
             if (!b_) {
                 return_ = false;
             }
@@ -143,7 +139,13 @@ final class ExtractCondition {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Boolean b_ = (Boolean) ExtractObject.evaluateMathExpression(_ip, _conf, true, mathExpr_).getInstance();
+            if (_conf.getContext().getException() != null) {
+                return false;
+            }
             ExtractObject.checkNullPointer(_conf, b_);
+            if (_conf.getContext().getException() != null) {
+                return false;
+            }
             if (!b_) {
                 return_ = false;
             }
@@ -153,7 +155,8 @@ final class ExtractCondition {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             if (StringList.indexesOfChar(refEq_, MATH_INTERPRET).size() != NB_INTERPRET) {
-                throw new BadReferenceEqualsException(_conf.joinPages());
+                _conf.getContext().setException(NullStruct.NULL_VALUE);
+                return false;
             }
             StringList parts_ = StringList.splitChars(refEq_, MATH_INTERPRET);
             String accessPartOne_ = parts_.first();
@@ -167,12 +170,19 @@ final class ExtractCondition {
             } else if (StringList.quickEq(accessOp_, diff_)) {
                 eqCmp_ = false;
             } else {
-                throw new BadReferenceEqualsException(_conf.joinPages());
+                _conf.getContext().setException(NullStruct.NULL_VALUE);
+                return false;
             }
             Object argOne_ = ElRenderUtil.processEl(accessPartOne_, 0, _conf).getObject();
+            if (_conf.getContext().getException() != null) {
+                return false;
+            }
             _ip.addToOffset(accessPartOne_.length()+1);
             _ip.addToOffset(accessOp_.length());
             Object argTwo_ = ElRenderUtil.processEl(accessPartTwo_, 0, _conf).getObject();
+            if (_conf.getContext().getException() != null) {
+                return false;
+            }
             if (eqCmp_) {
                 if (argOne_ != argTwo_) {
                     return_ = false;
@@ -184,23 +194,31 @@ final class ExtractCondition {
             }
         }
         if (return_ && !condition_.isEmpty()) {
-            String conditionWithoutNeg_ = replaceNegPrefix(condition_);
-            if (conditionWithoutNeg_.isEmpty()) {
-                throw new BadConditionExpressionException(StringList.concat(condition_,RETURN_LINE,_conf.joinPages()));
-            }
-            int nbNeg_ = condition_.length() - conditionWithoutNeg_.length();
             _ip.setProcessingAttribute(ATTRIBUTE_CONDITION);
             _ip.setLookForAttrValue(true);
-            _ip.setOffset(nbNeg_);
-            Argument a_ = ElRenderUtil.processEl(conditionWithoutNeg_, 0, _conf);
+            _ip.setOffset(0);
+            Argument a_ = ElRenderUtil.processEl(condition_, 0, _conf);
+            if (_conf.getContext().getException() != null) {
+                return false;
+            }
             Object o_ = a_.getObject();
             if (!(o_ instanceof Boolean)) {
-                throw new DynamicCastClassException(StringList.concat(a_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,PrimitiveTypeUtil.PRIM_BOOLEAN,RETURN_LINE,_conf.joinPages()));
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(a_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setParam(_conf.getStandards().getAliasPrimBoolean());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return false;
             }
             Boolean b_ = (Boolean) o_;
-            if (nbNeg_%2 == 1) {
-                b_ = !b_;
-            }
             if (!b_) {
                 return_ = false;
             }
@@ -241,20 +259,5 @@ final class ExtractCondition {
             return true;
         }
         return false;
-    }
-
-    private static String replaceNegPrefix(String _el) {
-        int len_ = _el.length();
-        int i_ = CustList.FIRST_INDEX;
-        while (i_ < len_) {
-            if (_el.charAt(i_) != NEG) {
-                break;
-            }
-            i_++;
-        }
-        if (i_ < len_) {
-            return _el.substring(i_);
-        }
-        return EMPTY_STRING;
     }
 }

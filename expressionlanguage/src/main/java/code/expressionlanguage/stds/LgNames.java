@@ -10,7 +10,6 @@ import code.expressionlanguage.NumberInfos;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.BooleanStruct;
@@ -2879,6 +2878,9 @@ public class LgNames {
         String type_ = _method.getName();
         StringList list_ = _method.getParametersTypes();
         checkArgumentsForInvoking(_cont, _natvararg, list_, args_);
+        if (_cont.getException() != null) {
+            return result_;
+        }
         LgNames lgNames_ = _cont.getStandards();
         Object[] argsObj_ = adaptedArgs(list_, _cont, _cont.getStandards(), args_);
         String booleanType_ = lgNames_.getAliasBoolean();
@@ -3226,7 +3228,7 @@ public class LgNames {
         LgNames stds_ = _cont.getStandards();
         String null_ = stds_.getAliasNullPe();
         if (!traces_.isEmpty()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(traces_.join(SEP_ARG),RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(traces_.join(SEP_ARG),RETURN_LINE,_cont.joinPages())),null_));
         }
     }
     static Struct[] getObjects(Argument... _args) {

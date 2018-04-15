@@ -20,22 +20,11 @@ public final class Rate implements Displayable {
     private final String string;
 
     public Rate(String _value) {
-        if (!matchesRate(_value)) {
-            throw new BadRateException(_value);
-        }
-//        if (!Pattern.matches("^(-?([0-9]+(/-?0*[1-9][0-9]*|\\.[0-9]*)?|\\.[0-9]*))$", _value)) {
-//            throw new NumberFormatException(_value);
-//        }
         string = _value;
         zero = StringList.quickEq(_value,ZERO);
     }
 
-    @FromAndToString
-    public static Rate newRate(String _value) {
-        return new Rate(_value);
-    }
-
-    private static boolean matchesRate(String _input) {
+    public static boolean matchesRate(String _input) {
         if (_input.isEmpty()) {
             return false;
         }

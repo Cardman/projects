@@ -67,7 +67,8 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         String null_;
         null_ = stds_.getAliasNullPe();
         if (o_ == null) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return Argument.createVoid();
         }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;
@@ -93,7 +94,8 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         String null_;
         null_ = stds_.getAliasNullPe();
         if (o_ == null) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;

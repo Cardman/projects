@@ -1,5 +1,6 @@
 package code.formathtml;
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.BeforeClass;
@@ -11,9 +12,7 @@ import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.formathtml.classes.BeanFour;
@@ -424,7 +423,7 @@ public class HtmlRequestTest {
 //        HtmlRequest.setObject(conf_, nc_, composite_, new Numbers<Long>(4L));
 //    }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void setObject4FailTest() {
         Composite composite_ = new Composite();
         Configuration conf_ = newConfiguration();
@@ -438,10 +437,11 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
         HtmlRequest.setObject(conf_, nc_, new IntStruct(7), new Numbers<Long>());
+        assertNotNull(conf_.getContext().getException());
 //        assertEq(7, composite_.getInteger());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void setObject5FailTest() {
         BeanFour bean_ = new BeanFour();
         bean_.setHello("world");
@@ -457,6 +457,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
 //        HtmlRequest.setObject(conf_, bean_, "hello", "setter", "ex", "", conf_.getStandards().getAliasString(),new List<Long>());
         HtmlRequest.setObject(conf_, nc_, new StringStruct("ex"),new Numbers<Long>());
+        assertNotNull(conf_.getContext().getException());
 //        assertEq("ex",bean_.getHello());
     }
 
@@ -486,7 +487,7 @@ public class HtmlRequestTest {
         assertEq("sample",return_);
     }
 
-    @Test(expected=AnalyzingErrorsException.class)
+    @Test
     public void invokeMethodWithNumbers1FailTest() {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
@@ -495,9 +496,10 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethods", Argument.numberToArgument("7L"));
+        assertNotNull(conf_.getContext().getException());
     }
 
-    @Test(expected=InvokeException.class)
+    @Test
     public void invokeMethodWithNumbers2FailTest() {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
@@ -507,6 +509,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethod", Argument.numberToArgument("7L"));
+        assertNotNull(conf_.getContext().getException());
     }
 //
 //    @Test(expected=BadAccessException.class)
@@ -600,6 +603,7 @@ public class HtmlRequestTest {
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
+        context_.initError();
         return conf_;
     }
 }

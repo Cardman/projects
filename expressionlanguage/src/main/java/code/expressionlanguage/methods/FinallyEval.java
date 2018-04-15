@@ -3,8 +3,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
@@ -106,14 +106,12 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         PageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
-        WrapperException t_ = tryStack_.getThrownException();
-        if (t_ != null) {
-            ip_.removeLastBlock();
-            throw t_;
-        }
         CallingFinally call_ = tryStack_.getCalling();
         if (call_ != null) {
             ip_.removeLastBlock();
+            if (call_ instanceof LocalThrowing) {
+                _context.setException(tryStack_.getException());
+            }
             call_.removeBlockFinally(_context);
             return;
         }

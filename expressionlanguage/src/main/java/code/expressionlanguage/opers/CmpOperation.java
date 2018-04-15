@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
@@ -474,12 +473,14 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         null_ = stds_.getAliasNullPe();
         if (first_.isNull()) {
             setRelativeOffsetPossibleLastPage(opOne_.getIndexInEl(), _conf);
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return Argument.createVoid();
         }
         Argument second_ = _nodes.getVal(opTwo_).getArgument();
         if (second_.isNull()) {
             setRelativeOffsetPossibleLastPage(opTwo_.getIndexInEl(), _conf);
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return Argument.createVoid();
         }
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
@@ -520,12 +521,14 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         null_ = stds_.getAliasNullPe();
         if (first_.isNull()) {
             setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         Argument second_ = chidren_.last().getArgument();
         if (second_.isNull()) {
             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();

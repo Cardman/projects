@@ -1,4 +1,5 @@
 package code.formathtml;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -7,7 +8,6 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.exceptions.BadConditionExpressionException;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
@@ -256,7 +256,7 @@ public class ExtractConditionTest {
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NOT EMPTY</body></html>", render_);
     }
-    @Test(expected=BadConditionExpressionException.class)
+    @Test
     public void evaluateCondition1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -285,6 +285,7 @@ public class ExtractConditionTest {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
         ExtractCondition.evaluateCondition(elt_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
 //        FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         //FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
     }
@@ -494,7 +495,7 @@ public class ExtractConditionTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><br/></body></html>", render_);
     }
 
-    @Test(expected=BadConditionExpressionException.class)
+    @Test
     public void evaluateGenericCondition1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -523,6 +524,7 @@ public class ExtractConditionTest {
         ip_.getReturnedValues().put("e", localVariable_);
         Element elt_ = getElement(doc_, "c:ifdefretval", 0);
         ExtractCondition.evaluateGenericCondition(elt_, conf_, ip_);
+        assertNotNull(conf_.getContext().getException());
     }
 
     private static Configuration newConfiguration() {
@@ -531,6 +533,7 @@ public class ExtractConditionTest {
         context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
+        context_.initError();
         return conf_;
     }
 

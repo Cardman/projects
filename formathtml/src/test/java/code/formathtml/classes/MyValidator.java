@@ -9,23 +9,7 @@ public class MyValidator extends Validator {
     }
     @Override
     public Message validate(Object _navigation, Object _node, Object _value) {
-        try {
-            Rate rate_ = new Rate((String)_value);
-            if (rate_.isZero()) {
-                Message message_ = new Message();
-                message_.setArgs((String) _value);
-                message_.setMessage("0 is unacceptable");
-                message_.setFormatMessage(false);
-                return message_;
-            }
-            return null;
-        } catch (BadRateException _0) {
-            Message message_ = new Message();
-            message_.setArgs((String) _value);
-            message_.setMessage("{0} is not a no zero rate");
-            message_.setFormatMessage(true);
-            return message_;
-        } catch (ClassCastException _0) {
+        if (!(_value instanceof String)) {
             //Long or Boolean
             Message message_ = new Message();
             if (_value instanceof Boolean) {
@@ -37,6 +21,22 @@ public class MyValidator extends Validator {
             message_.setFormatMessage(true);
             return message_;
         }
+        if (!Rate.matchesRate((String)_value)) {
+            Message message_ = new Message();
+            message_.setArgs((String) _value);
+            message_.setMessage("{0} is not a no zero rate");
+            message_.setFormatMessage(true);
+            return message_;
+        }
+        Rate rate_ = new Rate((String)_value);
+        if (rate_.isZero()) {
+            Message message_ = new Message();
+            message_.setArgs((String) _value);
+            message_.setMessage("0 is unacceptable");
+            message_.setFormatMessage(false);
+            return message_;
+        }
+        return null;
     }
 
 }

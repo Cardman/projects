@@ -1,17 +1,12 @@
 package code.expressionlanguage;
-import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.CustomFoundConstructorException;
-import code.expressionlanguage.exceptions.CustomFoundMethodException;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.exceptions.FinalMemberException;
-import code.expressionlanguage.exceptions.NotInitializedClassException;
-import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadElError;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
@@ -29,7 +24,6 @@ import code.util.StringMap;
 
 public final class ElUtil {
 
-    private static final String RETURN_LINE = "\n";
     private static final String EMPTY_STRING = "";
     private ElUtil() {
     }
@@ -41,26 +35,48 @@ public final class ElUtil {
         page_.setGlobalOffset(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
         if (dLeft_.getBadOffset() >= 0) {
-            _conf.getLastPage().setOffset(dLeft_.getBadOffset());
-            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dLeft_.getBadOffset()),RETURN_LINE,_left,RETURN_LINE,_conf.joinPages()));
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(dLeft_.getBadOffset());
+            badEl_.setEl(_left);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badEl_);
+            return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
         if (opLeft_ == null) {
-            throw new BadExpressionLanguageException(StringList.concat(_left,RETURN_LINE,_conf.joinPages()));
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(dLeft_.getBadOffset());
+            badEl_.setEl(_left);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badEl_);
+            return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         CustList<OperationNode> allLeft_ = getSortedDescNodes(opLeft_, _conf);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
         if (dRight_.getBadOffset() >= 0) {
-            _conf.getLastPage().setOffset(dRight_.getBadOffset());
-            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(dRight_.getBadOffset()),RETURN_LINE,_right,RETURN_LINE,_conf.joinPages()));
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(dRight_.getBadOffset());
+            badEl_.setEl(_right);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badEl_);
+            return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
         OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
         if (opRight_ == null) {
-            throw new BadExpressionLanguageException(StringList.concat(_right,RETURN_LINE,_conf.joinPages()));
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(dRight_.getBadOffset());
+            badEl_.setEl(_right);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badEl_);
+            return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         CustList<OperationNode> allRight_ = getSortedDescNodes(opRight_, _conf);
         page_.setOffset(0);
@@ -80,18 +96,29 @@ public final class ElUtil {
             page_.setGlobalOffset(_attrOp);
         }
         if (_oper.length() == 2) {
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(clMatchRight_.getName());
+            mapping_.setParam(clMatchLeft_.getName());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(_conf.getCurrentFileName());
+            cast_.setRc(_conf.getCurrentLocation());
             if (StringList.quickEq(_oper, Block.EQ_PLUS) || StringList.quickEq(_oper, Block.PLUS_EQ)) {
                 if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                     if (!clMatchLeft_.matchClass(_conf.getStandards().getAliasString())) {
-                        throw new DynamicCastClassException(_conf.joinPages());
+                        _conf.getClasses().getErrorsDet().add(cast_);
+                        return new ExpLanguages(allLeft_, allRight_);
                     }
                 } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
-                    throw new DynamicCastClassException(_conf.joinPages());
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    return new ExpLanguages(allLeft_, allRight_);
                 }
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
-                throw new DynamicCastClassException(_conf.joinPages());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                return new ExpLanguages(allLeft_, allRight_);
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
-                throw new DynamicCastClassException(_conf.joinPages());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                return new ExpLanguages(allLeft_, allRight_);
             }
         } else {
             if (clMatchRight_.isVariable()) {
@@ -140,6 +167,9 @@ public final class ElUtil {
         }
         IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
         calculate(allRight_, _right, _conf, EMPTY_STRING, _offset);
+        if (_conf.callsOrException()) {
+            return _right.getArgument();
+        }
         _right.finish();
         Argument arg_ = _right.getArgument();
         return arg_;
@@ -150,6 +180,9 @@ public final class ElUtil {
         }
         IdMap<OperationNode, ArgumentsPair> allLeft_ = _left.getArguments();
         calculate(allLeft_, _left, _conf, _op, 0);
+        if (_conf.callsOrException()) {
+            return;
+        }
         _left.finish();
     }
     public static void tryToCalculateRightAffect(ExpressionLanguage _right, ContextEl _conf, String _op) {
@@ -158,6 +191,9 @@ public final class ElUtil {
         }
         IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
         calculate(allRight_, _right, _conf, _op, 0);
+        if (_conf.callsOrException()) {
+            return;
+        }
         _right.finish();
         _conf.getLastPage().setRightArgument(_right.getArgument());
     }
@@ -166,31 +202,38 @@ public final class ElUtil {
         SettableElResult settable_ = _left.getSettable();
         OperationNode op_ = (OperationNode) settable_;
         ArgumentsPair a_ = allLeft_.getVal(op_);
-        try {
-            a_.setArgument(settable_.calculateSetting(allLeft_, _conf, _op));
-        } catch (RuntimeException _0) {
+        Argument arg_ = settable_.calculateSetting(allLeft_, _conf, _op);
+        a_.setArgument(arg_);
+        if (_conf.getException() != null) {
             _left.setCurrentOper(null);
             _conf.getLastPage().clearCurrentEls();
-            throw _0;
-        } catch (Error _0) {
-            _left.setCurrentOper(null);
-            _conf.getLastPage().clearCurrentEls();
-            throw _0;
+        } else {
+            _conf.getLastPage().setRightArgument(null);
         }
-        _conf.getLastPage().setRightArgument(null);
     }
 
 
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         if (d_.getBadOffset() >= 0) {
-            _conf.getLastPage().setOffset(d_.getBadOffset());
-            throw new BadExpressionLanguageException(StringList.concat(Integer.toString(d_.getBadOffset()),RETURN_LINE,_el,RETURN_LINE,_conf.joinPages()));
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(d_.getBadOffset());
+            badEl_.setEl(_el);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badEl_);
+            return new CustList<OperationNode>();
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
-            throw new BadExpressionLanguageException(StringList.concat(_el,RETURN_LINE,_conf.joinPages()));
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(d_.getBadOffset());
+            badEl_.setEl(_el);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badEl_);
+            return new CustList<OperationNode>();
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
         boolean staticContext_ = _calcul.isStaticAcces();
@@ -222,12 +265,18 @@ public final class ElUtil {
 
     private static OperationNode getNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, ContextEl _context) {
         OperationNode next_ = createFirstChild(_current, _context);
+        if (!_context.getClasses().getErrorsDet().isEmpty()) {
+            return null;
+        }
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
         }
         _sortedNodes.add(_current);
         next_ = createNextSibling(_current, _context);
+        if (!_context.getClasses().getErrorsDet().isEmpty()) {
+            return null;
+        }
         if (next_ != null) {
             next_.getParent().appendChild(next_);
             return next_;
@@ -240,6 +289,9 @@ public final class ElUtil {
         if (next_ != null) {
             _sortedNodes.add(next_);
             OperationNode nextAfter_ = createNextSibling(next_, _context);
+            if (!_context.getClasses().getErrorsDet().isEmpty()) {
+                return null;
+            }
             while (nextAfter_ == null) {
                 OperationNode par_ = next_.getParent();
                 if (par_ == _root) {
@@ -251,6 +303,9 @@ public final class ElUtil {
                 }
                 _sortedNodes.add(par_);
                 nextAfter_ = createNextSibling(par_, _context);
+                if (!_context.getClasses().getErrorsDet().isEmpty()) {
+                    return null;
+                }
                 next_ = par_;
             }
             if (nextAfter_ != null) {
@@ -276,7 +331,13 @@ public final class ElUtil {
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, CustList.FIRST_INDEX, block_, r_);
         if (op_ == null) {
-            throw new BadExpressionLanguageException(StringList.concat(value_,RETURN_LINE,_context.joinPages()));
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(offset_);
+            badEl_.setEl(value_);
+            badEl_.setFileName(_context.getCurrentFileName());
+            badEl_.setRc(_context.getCurrentLocation());
+            _context.getClasses().getErrorsDet().add(badEl_);
+            return null;
         }
         return op_;
     }
@@ -298,7 +359,13 @@ public final class ElUtil {
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_);
         if (op_ == null) {
-            throw new BadExpressionLanguageException(StringList.concat(value_,RETURN_LINE,_context.joinPages()));
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(offset_);
+            badEl_.setEl(value_);
+            badEl_.setFileName(_context.getCurrentFileName());
+            badEl_.setRc(_context.getCurrentLocation());
+            _context.getClasses().getErrorsDet().add(badEl_);
+            return null;
         }
         return op_;
     }
@@ -338,31 +405,29 @@ public final class ElUtil {
             OperationNode o = e.getKey();
             if (!o.isCalculated(_nodes)) {
                 ArgumentsPair a_ = e.getValue();
-                try {
-                    a_.setArgument(o.calculate(_nodes, _context, _op));
-                } catch (NotInitializedClassException _0) {
-                    throw _0;
-                } catch (CustomFoundMethodException _0) {
+                Argument arg_ = o.calculate(_nodes, _context, _op);
+                if (_context.getInitClass() != null) {
+                    return;
+                }
+                if (_context.getCallMethod() != null) {
                     _el.setCurrentOper(o);
-                    throw _0;
-                } catch (CustomFoundConstructorException _0) {
-                    if (_0.getCall().getInstancingStep() != InstancingStep.USING_SUPER) {
+                    return;
+                }
+                if (_context.getCallCtor() != null) {
+                    if (_context.getCallCtor().getCall().getInstancingStep() != InstancingStep.USING_SUPER) {
                         _el.setCurrentOper(o);
                     } else {
                         _el.setCurrentOper(null);
                     }
-                    throw _0;
-                } catch (RuntimeException _0) {
-                    _context.getLastPage().setTranslatedOffset(0);
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
-                    throw _0;
-                } catch (Error _0) {
-                    _context.getLastPage().setTranslatedOffset(0);
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
-                    throw _0;
+                    return;
                 }
+                if (_context.getException() != null) {
+                    _context.getLastPage().setTranslatedOffset(0);
+                    _el.setCurrentOper(null);
+                    _context.getLastPage().clearCurrentEls();
+                    return;
+                }
+                a_.setArgument(arg_);
             }
         }
         _context.getLastPage().setTranslatedOffset(0);
@@ -393,18 +458,30 @@ public final class ElUtil {
         }
         if (!ok_) {
             root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
-            throw new SettingMemberException(_conf.joinPages());
+            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(un_);
+            return;
         }
         if (_setVar) {
             elt_.setVariable();
         } else if (elt_ instanceof ConstantOperation) {
             if (((ConstantOperation)elt_).isImmutablePart()) {
                 root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(un_);
+                return;
             }
             if (((ConstantOperation)elt_).isFinalField()) {
                 root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
-                throw new FinalMemberException(_conf.joinPages());
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(un_);
+                return;
             }
         }
     }

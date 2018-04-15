@@ -10,7 +10,6 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -31,7 +30,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ReturnMehod extends Leaf implements CallingFinally {
+public final class ReturnMehod extends Leaf implements CallingFinally, AbruptBlock {
 
     private final String expression;
 
@@ -198,6 +197,9 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             ip_.setGlobalOffset(expressionOffset);
             ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getElRet());
             Argument arg_ = el_.calculateMember(_cont);
+            if (_cont.callsOrException()) {
+                return;
+            }
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();
             LgNames stds_ = _cont.getStandards();
@@ -216,7 +218,8 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             if (PrimitiveTypeUtil.primitiveTypeNullObject(retType_, arg_.getStruct(), _cont)) {
                 String null_;
                 null_ = stds_.getAliasNullPe();
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                return;
             }
             if (!arg_.isNull()) {
                 Mapping map_ = new Mapping();
@@ -226,7 +229,8 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
                 if (!Templates.isCorrect(map_, _cont)) {
                     String cast_;
                     cast_ = stds_.getAliasCast();
-                    throw new InvokeException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,retType_,RETURN_LINE,_cont.joinPages())),cast_));
+                    _cont.setException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,retType_,RETURN_LINE,_cont.joinPages())),cast_));
+                    return;
                 }
             }
             if (arg_.getStruct() instanceof NumberStruct || arg_.getStruct() instanceof CharStruct) {

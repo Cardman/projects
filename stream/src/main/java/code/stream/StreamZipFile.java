@@ -300,7 +300,6 @@ public final class StreamZipFile {
         try {
             stream_ = _zipFile.getInputStream(_entry);
         } catch (Throwable _0) {
-            throw new RuntimeIOException(_0.getMessage());
         }
         BufferedReader br_ = null;
         InputStreamReader isr_ = null;
@@ -315,7 +314,7 @@ public final class StreamZipFile {
                 fileBuilder_.append((char)char_);
             }
         } catch (Throwable _0) {
-            throw new RuntimeIOException(_0.getMessage());
+            return null;
         } finally {
             if (br_ != null) {
                 try {

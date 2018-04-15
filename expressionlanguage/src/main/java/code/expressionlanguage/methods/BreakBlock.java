@@ -10,7 +10,7 @@ import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
 
-public final class BreakBlock extends Leaf implements CallingFinally {
+public final class BreakBlock extends Leaf implements CallingFinally, AbruptBlock {
 
     public BreakBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {

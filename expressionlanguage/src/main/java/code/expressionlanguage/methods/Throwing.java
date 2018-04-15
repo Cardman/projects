@@ -5,7 +5,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
@@ -16,7 +15,7 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public final class Throwing extends Leaf implements StackableBlock {
+public final class Throwing extends Leaf implements StackableBlock, AbruptBlock {
 
     private final String expression;
 
@@ -117,9 +116,12 @@ public final class Throwing extends Leaf implements StackableBlock {
         ip_.setGlobalOffset(expressionOffset);
         ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
         Argument arg_ = el_.calculateMember(_cont);
+        if (_cont.callsOrException()) {
+            return;
+        }
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         Struct o_ = arg_.getStruct();
-        throw new InvokeException(_cont.joinPages(), o_);
+        _cont.setException(o_);
     }
 }

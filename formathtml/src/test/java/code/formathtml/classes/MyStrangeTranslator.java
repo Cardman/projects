@@ -1,6 +1,8 @@
 package code.formathtml.classes;
 import code.bean.Bean;
 import code.bean.translator.Translator;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.formathtml.Configuration;
 
 public class MyStrangeTranslator extends Translator {
 
@@ -11,7 +13,8 @@ public class MyStrangeTranslator extends Translator {
     @Override
     public String getString(String _pattern, Object _conf,
             Bean _object, Object _value) {
-        return "".substring(1);
+        ((Configuration)_conf).getContext().setException(NullStruct.NULL_VALUE);
+        return "";
     }
 
 }

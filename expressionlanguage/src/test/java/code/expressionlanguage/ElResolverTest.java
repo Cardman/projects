@@ -3707,6 +3707,7 @@ public class ElResolverTest {
         ContextEl cont_ = new ContextEl();
         cont_.setClasses(new Classes());
         InitializationLgNames.initAdvStandards(cont_);
+        cont_.initError();
         return cont_;
     }
 }

@@ -2,13 +2,15 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.methods.util.UnknownClassName;
+import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.variables.LocalVariable;
-import code.formathtml.exceptions.SetterException;
+import code.formathtml.util.BadElRender;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
 import code.sml.DocumentBuilder;
@@ -16,7 +18,6 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.NullObjectException;
 
 final class HtmlRequest {
 
@@ -40,7 +41,13 @@ final class HtmlRequest {
             fileName_ = var_;
         }
         StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, _files, _resourcesFolder);
+        if (_conf.getContext().getException() != null) {
+            return EMPTY_STRING;
+        }
         String preformatted_ = ExtractFromResources.getFormat(messages_, elts_.last(), _conf, _loc, fileName_);
+        if (_conf.getContext().getException() != null) {
+            return EMPTY_STRING;
+        }
         preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _escapeAmp);
         return StringList.simpleStringsFormat(preformatted_, _args);
     }
@@ -62,6 +69,9 @@ final class HtmlRequest {
             ip_.getLocalVars().put(StringList.concatNbs(tmp_,i_), locVar_);
         }
         Argument arg_ = ElRenderUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR,varNames_.join(COMMA),RIGHT_PAR), 0, _conf);
+        if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
+            return NullStruct.NULL_VALUE;
+        }
         for (String n: varNames_) {
             ip_.getLocalVars().removeKey(n.substring(0, n.length() - GET_LOC_VAR.length()));
         }
@@ -73,7 +83,10 @@ final class HtmlRequest {
             Numbers<Long> _indexes) {
         Struct obj_ = _nodeContainer.getStruct();
         if (obj_.isNull()) {
-            throw new NullObjectException(_conf.joinPages());
+            String err_ = _conf.getStandards().getAliasNullPe();
+            ContextEl context_ = _conf.getContext();
+            context_.setException(new StdStruct(new CustomError(_conf.joinPages()),err_));
+            return;
         }
         long index_ = _nodeContainer.getIndex();
         ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute.getInstance(), _indexes);
@@ -83,7 +96,8 @@ final class HtmlRequest {
             ResultErrorStd res_ = _conf.getStandards().setElementAtIndex(obj_, (int) index_, key_, _attribute, context_);
             if (res_.getError() != null) {
                 String err_ = res_.getError();
-                throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
+                context_.setException(new StdStruct(new CustomError(_conf.joinPages()),err_));
+                return;
             }
         } else {
             LgNames lgNames_ = _conf.getStandards();
@@ -94,7 +108,19 @@ final class HtmlRequest {
                 _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),FormatHtml.ATTRIBUTE_CLASS_NAME));
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
-                ExtractObject.classNameForName(_conf, 0, className_);
+                if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(className_);
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(un_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
+                }
                 ImportingPage ip_ = _conf.getLastPage();
                 ip_.setProcessingAttribute(StringList.concat(_conf.getPrefix(),FormatHtml.VAR_METHOD));
                 ip_.setLookForAttrValue(true);
@@ -112,27 +138,23 @@ final class HtmlRequest {
                 return;
             }
             ImportingPage ip_ = _conf.getLastPage();
-            try {
-                LocalVariable lv_ = new LocalVariable();
-                lv_.setClassName(lgNames_.getStructClassName(obj_, _conf.toContextEl()));
-                lv_.setStruct(obj_);
-                String nameVar_ = ip_.getNextTempVar();
-                ip_.getLocalVars().put(nameVar_, lv_);
-                String nameValue_ = ip_.getNextTempVar();
-                lv_ = new LocalVariable();
-                lv_.setClassName(lgNames_.getStructClassName(_attribute, _conf.toContextEl()));
-                lv_.setStruct(_attribute);
-                ip_.getLocalVars().put(nameValue_, lv_);
-                String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
-                String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
-                ElRenderUtil.processAffect(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
-                ip_.getLocalVars().removeKey(nameVar_);
-                ip_.getLocalVars().removeKey(nameValue_);
-            } catch (Throwable _0) {
-                _conf.getLastPage().setProcessingAttribute(FormatHtml.EMPTY_STRING);
-                _conf.getLastPage().setLookForAttrValue(false);
-                _conf.getLastPage().setOffset(0);
-                throw new SetterException(StringList.concat(_nodeContainer.getLastToken(),FormatHtml.RETURN_LINE,_conf.joinPages()));
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setClassName(lgNames_.getStructClassName(obj_, _conf.toContextEl()));
+            lv_.setStruct(obj_);
+            String nameVar_ = ip_.getNextTempVar();
+            ip_.getLocalVars().put(nameVar_, lv_);
+            String nameValue_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setClassName(lgNames_.getStructClassName(_attribute, _conf.toContextEl()));
+            lv_.setStruct(_attribute);
+            ip_.getLocalVars().put(nameValue_, lv_);
+            String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
+            String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
+            ElRenderUtil.processAffect(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
+            ip_.getLocalVars().removeKey(nameVar_);
+            ip_.getLocalVars().removeKey(nameValue_);
+            if (_conf.getContext().getException() != null) {
+                return;
             }
         }
         if (chg_ != null) {

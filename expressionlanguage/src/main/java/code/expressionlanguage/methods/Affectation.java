@@ -148,13 +148,22 @@ public final class Affectation extends Leaf implements StackableBlock {
         String op_ = getOper();
         ExpressionLanguage elLeft_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getLeftEl());
         elLeft_.affectLeftMember(_cont, op_);
+        if (_cont.callsOrException()) {
+            return;
+        }
         ip_.setGlobalOffset(rightMemberOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getRightEl());
         el_.affectRightMember(_cont, op_);
+        if (_cont.callsOrException()) {
+            return;
+        }
         ip_.setGlobalOffset(leftMemberOffset);
         ip_.setOffset(0);
         elLeft_.affectAllMember(_cont, op_);
+        if (_cont.callsOrException()) {
+            return;
+        }
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         processBlock(_cont);

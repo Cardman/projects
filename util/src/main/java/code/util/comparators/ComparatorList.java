@@ -3,17 +3,11 @@ import java.util.Comparator;
 
 import code.util.AbEqList;
 import code.util.CustList;
-import code.util.exceptions.NullComparatorException;
 
 public final class ComparatorList<K> implements Comparator<AbEqList<K>> {
 
-    private static final String NULL_CMP = "The comparator arg is null";
-
     private Comparator<K> cmp;
     public ComparatorList(Comparator<K> _cmp) {
-        if (_cmp == null) {
-            throw new NullComparatorException(NULL_CMP);
-        }
         cmp = _cmp;
     }
     @Override

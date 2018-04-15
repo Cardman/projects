@@ -6,7 +6,6 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.Calculation;
@@ -173,7 +172,8 @@ public final class Line extends Leaf implements StackableBlock {
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, i, _cont);
-                        throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                        _cont.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                        return;
                     }
                 }
                 if (!ip_.getCallingConstr().isFirstField()) {
@@ -191,6 +191,9 @@ public final class Line extends Leaf implements StackableBlock {
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getRightEl());
         el_.calculateMember(_cont);
+        if (_cont.callsOrException()) {
+            return;
+        }
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         processBlock(_cont);

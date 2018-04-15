@@ -68,6 +68,7 @@ public class BeanLgNames extends LgNames {
     private final String bean = "code.bean.Bean";
     private String custList = "$custlist";
     private String custMap = "$custmap";
+    private String errorEl = "$badEl";
     private String aliasRate;
     private String aliasDataBase;
 
@@ -166,6 +167,9 @@ public class BeanLgNames extends LgNames {
         method_ = new StandardMethod(VALIDATE, params_, getAliasObject(), false, MethodModifier.NORMAL, cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(validator, cl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        cl_ = new StandardClass(errorEl, fields_, constructors_, methods_, getAliasError(), MethodModifier.ABSTRACT);
+        getStandards().put(errorEl, cl_);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
@@ -323,74 +327,99 @@ public class BeanLgNames extends LgNames {
             res_.setResult(new StdStruct(_values, _className));
             return res_;
         }
-        try {
-            if (StringList.quickEq(_className, getAliasDouble()) || StringList.quickEq(_className, getAliasPrimDouble())) {
-                if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new DoubleStruct(LgNames.parseDouble(_values.first())));
+        if (StringList.quickEq(_className, getAliasDouble()) || StringList.quickEq(_className, getAliasPrimDouble())) {
+            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_className, getAliasFloat()) || StringList.quickEq(_className, getAliasPrimFloat())) {
-                if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new FloatStruct(LgNames.parseFloat(_values.first())));
+            Double val_ = LgNames.parseDouble(_values.first());
+            if (val_ == null) {
+                res_.setError(getAliasCast());
                 return res_;
             }
-            if (StringList.quickEq(_className, getAliasLong()) || StringList.quickEq(_className, getAliasPrimLong())) {
-                if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new LongStruct(LgNames.parseLong(_values.first())));
+            res_.setResult(new DoubleStruct(val_));
+            return res_;
+        }
+        if (StringList.quickEq(_className, getAliasFloat()) || StringList.quickEq(_className, getAliasPrimFloat())) {
+            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_className, getAliasInteger()) || StringList.quickEq(_className, getAliasPrimInteger())) {
-                if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new IntStruct(LgNames.parseInt(_values.first())));
+            Float val_ = LgNames.parseFloat(_values.first());
+            if (val_ == null) {
+                res_.setError(getAliasCast());
                 return res_;
             }
-            if (StringList.quickEq(_className, getAliasShort()) || StringList.quickEq(_className, getAliasPrimShort())) {
-                if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new ShortStruct(LgNames.parseShort(_values.first())));
+            res_.setResult(new FloatStruct(val_));
+            return res_;
+        }
+        if (StringList.quickEq(_className, getAliasLong()) || StringList.quickEq(_className, getAliasPrimLong())) {
+            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_className, getAliasByte()) || StringList.quickEq(_className, getAliasPrimByte())) {
-                if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new ByteStruct(LgNames.parseByte(_values.first())));
+            Long val_ = LgNames.parseLong(_values.first());
+            if (val_ == null) {
+                res_.setError(getAliasCast());
                 return res_;
             }
-            if (StringList.quickEq(_className, getAliasCharacter()) || StringList.quickEq(_className, getAliasPrimChar())) {
-                if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new CharStruct(_values.first().charAt(0)));
+            res_.setResult(new LongStruct(val_));
+            return res_;
+        }
+        if (StringList.quickEq(_className, getAliasInteger()) || StringList.quickEq(_className, getAliasPrimInteger())) {
+            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(_className, getSelectedBoolean())) {
-                SelectedBoolean en_ = SelectedBoolean.getBoolByName(_values.first());
-                if (en_ == null) {
-                    res_.setError(getAliasError());
-                } else {
-                    res_.setResult(new StdStruct(en_, _className));
-                }
+            Integer val_ = LgNames.parseInt(_values.first());
+            if (val_ == null) {
+                res_.setError(getAliasCast());
                 return res_;
             }
-        } catch (Throwable _0) {
-            res_.setError(getAliasCast());
+            res_.setResult(new IntStruct(val_));
+            return res_;
+        }
+        if (StringList.quickEq(_className, getAliasShort()) || StringList.quickEq(_className, getAliasPrimShort())) {
+            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            Short val_ = LgNames.parseShort(_values.first());
+            if (val_ == null) {
+                res_.setError(getAliasCast());
+                return res_;
+            }
+            res_.setResult(new ShortStruct(val_));
+            return res_;
+        }
+        if (StringList.quickEq(_className, getAliasByte()) || StringList.quickEq(_className, getAliasPrimByte())) {
+            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            Byte val_ = LgNames.parseByte(_values.first());
+            if (val_ == null) {
+                res_.setError(getAliasCast());
+                return res_;
+            }
+            res_.setResult(new ByteStruct(val_));
+            return res_;
+        }
+        if (StringList.quickEq(_className, getAliasCharacter()) || StringList.quickEq(_className, getAliasPrimChar())) {
+            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(new CharStruct(_values.first().charAt(0)));
+            return res_;
+        }
+        if (StringList.quickEq(_className, getSelectedBoolean())) {
+            SelectedBoolean en_ = SelectedBoolean.getBoolByName(_values.first());
+            if (en_ == null) {
+                res_.setError(getAliasError());
+            } else {
+                res_.setResult(new StdStruct(en_, _className));
+            }
             return res_;
         }
         return getOtherStructToBeValidated(_values, _className, _context);
@@ -493,5 +522,11 @@ public class BeanLgNames extends LgNames {
     }
     public String getValidator() {
         return validator;
+    }
+    public String getErrorEl() {
+        return errorEl;
+    }
+    public void setErrorEl(String _errorEl) {
+        errorEl = _errorEl;
     }
 }

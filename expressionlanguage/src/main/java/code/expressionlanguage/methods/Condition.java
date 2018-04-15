@@ -89,6 +89,9 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         last_.setOffset(0);
         last_.setGlobalOffset(conditionOffset);
         Argument arg_ = exp_.calculateMember(_context);
+        if (_context.callsOrException()) {
+            return false;
+        }
         exp_.setCurrentOper(null);
         last_.clearCurrentEls();
         return (Boolean) arg_.getObject();

@@ -1275,458 +1275,465 @@ public class CustBeanLgNames extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        try {
-            Object instance_ =  _instance.getInstance();
-            String className_ = _method.getClassName();
-            String methodName_ = _method.getConstraints().getName();
-            if (StringList.quickEq(className_,TYPE_STRING_LIST)) {
-                StringList i_ = (StringList)instance_;
-                if (StringList.quickEq(methodName_,GET_REVERSE)) {
-                    res_.setResult(new StdStruct(i_.getReverse(),TYPE_STRING_LIST));
+
+        Object instance_ =  _instance.getInstance();
+        String className_ = _method.getClassName();
+        String methodName_ = _method.getConstraints().getName();
+        if (StringList.quickEq(className_,TYPE_STRING_LIST)) {
+            StringList i_ = (StringList)instance_;
+            if (StringList.quickEq(methodName_,GET_REVERSE)) {
+                res_.setResult(new StdStruct(i_.getReverse(),TYPE_STRING_LIST));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET)) {
+                res_.setResult(new StdStruct(i_.get((Integer)_args[0]),getAliasString()));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_BEAN_ONE)) {
+            BeanOne i_ = (BeanOne)instance_;
+            if (StringList.quickEq(methodName_,GO_TO_PAGE)) {
+                if (_method.getConstraints().getParametersTypes().size() == 0) {
+                    res_.setResult(new StringStruct(i_.goToPage()));
                     return res_;
                 }
-                if (StringList.quickEq(methodName_,GET)) {
-                    res_.setResult(new StdStruct(i_.get((Integer)_args[0]),getAliasString()));
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    res_.setResult(new StringStruct(i_.goToPage((Long)_args[0])));
                     return res_;
                 }
             }
-            if (StringList.quickEq(className_,TYPE_BEAN_ONE)) {
-                BeanOne i_ = (BeanOne)instance_;
-                if (StringList.quickEq(methodName_,GO_TO_PAGE)) {
-                    if (_method.getConstraints().getParametersTypes().size() == 0) {
-                        res_.setResult(new StringStruct(i_.goToPage()));
-                        return res_;
-                    }
-                    if (_method.getConstraints().getParametersTypes().size() == 1) {
-                        res_.setResult(new StringStruct(i_.goToPage((Long)_args[0])));
-                        return res_;
-                    }
-                }
-                if (StringList.quickEq(methodName_,GET_LIST)) {
-                    res_.setResult(new StdStruct(i_.getList((Long)_args[0]),ALIAS_LS));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_DOUBLE)) {
-                    res_.setResult(new IntStruct(i_.getDouble((Long)_args[0])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GO_TO_NULL_PAGE)) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,INVOKE_METHOD)) {
-                    res_.setResult(new StringStruct(i_.invokeMethod((Long)_args[0])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,HAS_MORE_THAN_ONE)) {
-                    res_.setResult(new BooleanStruct(i_.hasMoreThanOne()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMPOSITE)) {
-                    res_.setResult(new StdStruct(i_.getComposite(),TYPE_COMPOSITE));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_DEFAULT_CHOICE)) {
-                    res_.setResult(new StdStruct(i_.getDefaultChoice(),TYPE_ENUM_NUMBER));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMPOSITES)) {
-                    res_.setResult(new StdStruct(i_.getComposites(),ALIAS_LS));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_SPAN_CLASS)) {
-                    res_.setResult(new StringStruct(i_.getSpanClass((Long)_args[0])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_SPAN_CLASSES)) {
-                    res_.setResult(new StringStruct(i_.getSpanClasses((Long)_args[0],(Long)_args[1],(Long)_args[2])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_STANDARD)) {
-                    String str_ = i_.getStandard((String)_args[0]);
-                    if (str_ == null) {
-                        res_.setResult(NullStruct.NULL_VALUE);
-                        return res_;
-                    }
-                    res_.setResult(new StringStruct(str_));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_TRANS)) {
-                    res_.setResult(new StringStruct(i_.getTrans((Long)_args[0])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,VALIDATE_STRINGS)) {
-                    i_.validateStrings();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
+            if (StringList.quickEq(methodName_,GET_LIST)) {
+                res_.setResult(new StdStruct(i_.getList((Long)_args[0]),ALIAS_LS));
+                return res_;
             }
-            if (StringList.quickEq(className_,TYPE_BEAN_TWO)) {
-                BeanTwo i_ = (BeanTwo)instance_;
-                if (StringList.quickEq(methodName_,GO)) {
-                    if (_method.getConstraints().getParametersTypes().size() == 0) {
-                        res_.setResult(new StringStruct(i_.go()));
-                        return res_;
-                    }
-                    if (_method.getConstraints().getParametersTypes().size() == 1) {
-                        res_.setResult(new StringStruct(i_.go((Long)_args[0])));
-                        return res_;
-                    }
-                }
-                if (StringList.quickEq(methodName_,GET_CHOSEN_NUMBERS)) {
-                    res_.setResult(new StdStruct(i_.getChosenNumbers(),ALIAS_LS));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GO_TEXT_AREA)) {
-                    res_.setResult(new StringStruct(i_.goTextArea()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_TYPED_INT)) {
-                    i_.setTypedInt((Integer)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_TYPED_STRING)) {
-                    i_.setTypedString((String)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,VALIDATE)) {
-                    i_.validate();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
+            if (StringList.quickEq(methodName_,GET_DOUBLE)) {
+                res_.setResult(new IntStruct(i_.getDouble((Long)_args[0])));
+                return res_;
             }
-            if (StringList.quickEq(className_,TYPE_BEAN_FOUR)) {
-                BeanFour i_ = (BeanFour)instance_;
-                if (StringList.quickEq(methodName_,SET_INVISIBLE_FIELD)) {
-                    i_.setInvisibleField((Integer)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_INVISIBLE_INT_FIELD)) {
-                    i_.setInvisibleIntField((Integer)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SETTER)) {
-                    i_.setter((String)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
+            if (StringList.quickEq(methodName_,GO_TO_NULL_PAGE)) {
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
             }
-            if (StringList.quickEq(className_,TYPE_BEAN_FIVE)) {
-                BeanFive i_ = (BeanFive)instance_;
-                if (StringList.quickEq(methodName_,GO)) {
+            if (StringList.quickEq(methodName_,INVOKE_METHOD)) {
+                if (_args[0] == null) {
+                    res_.setError(getAliasError());
+                    return res_;
+                }
+                if (i_.getComposite() == null) {
+                    res_.setError(getAliasError());
+                    return res_;
+                }
+                if (i_.getComposite().getStrings() == null) {
+                    res_.setError(getAliasError());
+                    return res_;
+                }
+                res_.setResult(new StringStruct(i_.invokeMethod((Long)_args[0])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,HAS_MORE_THAN_ONE)) {
+                res_.setResult(new BooleanStruct(i_.hasMoreThanOne()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMPOSITE)) {
+                res_.setResult(new StdStruct(i_.getComposite(),TYPE_COMPOSITE));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_DEFAULT_CHOICE)) {
+                res_.setResult(new StdStruct(i_.getDefaultChoice(),TYPE_ENUM_NUMBER));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMPOSITES)) {
+                res_.setResult(new StdStruct(i_.getComposites(),ALIAS_LS));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_SPAN_CLASS)) {
+                res_.setResult(new StringStruct(i_.getSpanClass((Long)_args[0])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_SPAN_CLASSES)) {
+                res_.setResult(new StringStruct(i_.getSpanClasses((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_STANDARD)) {
+                String str_ = i_.getStandard((String)_args[0]);
+                if (str_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(new StringStruct(str_));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_TRANS)) {
+                res_.setResult(new StringStruct(i_.getTrans((Long)_args[0])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,VALIDATE_STRINGS)) {
+                i_.validateStrings();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_BEAN_TWO)) {
+            BeanTwo i_ = (BeanTwo)instance_;
+            if (StringList.quickEq(methodName_,GO)) {
+                if (_method.getConstraints().getParametersTypes().size() == 0) {
                     res_.setResult(new StringStruct(i_.go()));
                     return res_;
                 }
-                if (StringList.quickEq(methodName_,GET_DEFAULT_CHOICES)) {
-                    res_.setResult(new StdStruct(i_.getDefaultChoices(),ALIAS_LS));
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    res_.setResult(new StringStruct(i_.go((Long)_args[0])));
                     return res_;
                 }
             }
-            if (StringList.quickEq(className_,TYPE_BEAN_SEVEN)) {
-                BeanSeven i_ = (BeanSeven)instance_;
-                if (StringList.quickEq(methodName_,GET_TREE)) {
-                    res_.setResult(new StdStruct(i_.getTree(),TYPE_NAT_TREE_MAP_STRING_INTEGER));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_STRINGS)) {
-                    res_.setResult(new StdStruct(i_.getStrings(),TYPE_STRING_LIST));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_DOUBLE)) {
-                    res_.setResult(new DoubleStruct(i_.getDouble((Double)_args[0])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GO_TWO_ARGS)) {
-                    res_.setResult(new StringStruct(i_.goTwoArgs((Integer)_args[0],(Integer)_args[1])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,VALIDATE_INTS_SAVE)) {
-                    i_.validateIntsSave();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,VALIDATE_MAP)) {
-                    i_.validateMap();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,VALIDATE_STRINGS)) {
-                    i_.validateStrings();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,VALIDATE_STRINGS_SAVE)) {
-                    i_.validateStringsSave();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
+            if (StringList.quickEq(methodName_,GET_CHOSEN_NUMBERS)) {
+                res_.setResult(new StdStruct(i_.getChosenNumbers(),ALIAS_LS));
+                return res_;
             }
-            if (StringList.quickEq(className_,TYPE_BEAN_EIGHT)) {
-                BeanEight i_ = (BeanEight)instance_;
-                if (StringList.quickEq(methodName_,GET_DATA_BASE)) {
-                    res_.setResult(new StdStruct(i_.getDataBase(),TYPE_SIMPLE_DATA_BASE));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,IS_CHECK_BOX)) {
-                    res_.setResult(new BooleanStruct(i_.isCheckBox()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBO_NUMBER)) {
-                    res_.setResult(new StdStruct(i_.getComboNumber(),TYPE_ENUM_NUMBER));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBO_NUMBER_TWO)) {
-                    res_.setResult(new StdStruct(i_.getComboNumberTwo(),TYPE_ENUM_NUMBER));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBO_NUMBERS)) {
-                    res_.setResult(new StdStruct(i_.getComboNumbers(),TYPE_ENUM_NUMBERS));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBOBOX)) {
-                    res_.setResult(new StdStruct(i_.getCombobox(),ALIAS_LS));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMPOSITES)) {
-                    res_.setResult(new StdStruct(i_.getComposites(),ALIAS_LS));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBOBOX_MAP)) {
-                    res_.setResult(new StdStruct(i_.getComboboxMap(),ALIAS_LSE));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_TYPED_STRING)) {
-                    res_.setResult(new StringStruct(i_.getTypedString()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_TYPED_TEXT)) {
-                    res_.setResult(new StringStruct(i_.getTypedText()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_RADIO_LONG)) {
-                    res_.setResult(new LongStruct(i_.getRadioLong()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SETUP)) {
-                    res_.setResult(new StringStruct(i_.setup()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_CHECK_BOX)) {
-                    i_.setCheckBox((Boolean)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_COMBO_NUMBER)) {
-                    i_.setComboNumber((EnumNumber)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_COMBO_NUMBER_TWO)) {
-                    i_.setComboNumberTwo((EnumNumber)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_COMBO_NUMBERS)) {
-                    i_.setComboNumbers((EnumNumbers)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_RADIO_LONG)) {
-                    i_.setRadioLong((Long)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_TYPED_STRING)) {
-                    i_.setTypedString((String)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_TYPED_TEXT)) {
-                    i_.setTypedText((String)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
+            if (StringList.quickEq(methodName_,GO_TEXT_AREA)) {
+                res_.setResult(new StringStruct(i_.goTextArea()));
+                return res_;
             }
-            if (StringList.quickEq(className_,TYPE_COMPOSITE)) {
-                Composite i_ = (Composite)instance_;
-                if (StringList.quickEq(methodName_,INTERN_METHOD)) {
-                    res_.setResult(new StringStruct(i_.internMethod()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,PRIVATE_METHOD)) {
-                    res_.setResult(new StringStruct(i_.privateMethod()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_STRING)) {
-                    res_.setResult(new StringStruct(i_.getString()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_STRINGS)) {
-                    res_.setResult(new StdStruct(i_.getStrings(),TYPE_STRING_LIST));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SUMMUM)) {
-                    res_.setResult(new IntStruct(i_.summum((Integer)_args[0])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_STRING_ELT)) {
-                    res_.setResult(new StringStruct(i_.getStringElt((Integer)_args[0])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_STRING)) {
-                    i_.setString((String)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,UPDATE_VALUE)) {
-                    i_.updateValue((ValueChangeEvent)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
+            if (StringList.quickEq(methodName_,SET_TYPED_INT)) {
+                i_.setTypedInt((Integer)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
             }
-            if (StringList.quickEq(className_,TYPE_BEAN_UTIL)) {
-                if (StringList.quickEq(methodName_,SUM)) {
-                    res_.setResult(new IntStruct(BeanUtil.sum((Integer)_args[0],(Integer)_args[1])));
-                    return res_;
-                }
+            if (StringList.quickEq(methodName_,SET_TYPED_STRING)) {
+                i_.setTypedString((String)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
             }
-            if (StringList.quickEq(className_,TYPE_ENCAPS_FIELDS)) {
-                EncapsFields i_ = (EncapsFields)instance_;
-                if (StringList.quickEq(methodName_,IS_CHECK_BOX)) {
-                    res_.setResult(new BooleanStruct(i_.isCheckBox()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBO_NUMBER)) {
-                    res_.setResult(new StdStruct(i_.getComboNumber(),TYPE_ENUM_NUMBER));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBO_NUMBER_TWO)) {
-                    res_.setResult(new StdStruct(i_.getComboNumberTwo(),TYPE_ENUM_NUMBER));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBO_NUMBERS)) {
-                    res_.setResult(new StdStruct(i_.getComboNumbers(),TYPE_ENUM_NUMBERS));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBOBOX)) {
-                    res_.setResult(new StdStruct(i_.getCombobox(),ALIAS_LS));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_COMBOBOX_MAP)) {
-                    res_.setResult(new StdStruct(i_.getComboboxMap(),ALIAS_LSE));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_TYPED_STRING)) {
-                    res_.setResult(new StringStruct(i_.getTypedString()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_TYPED_TEXT)) {
-                    res_.setResult(new StringStruct(i_.getTypedText()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_RADIO_LONG)) {
-                    res_.setResult(new LongStruct(i_.getRadioLong()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_CHECK_BOX)) {
-                    i_.setCheckBox((Boolean)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_COMBO_NUMBER)) {
-                    i_.setComboNumber((EnumNumber)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_COMBO_NUMBER_TWO)) {
-                    i_.setComboNumberTwo((EnumNumber)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_COMBO_NUMBERS)) {
-                    i_.setComboNumbers((EnumNumbers)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_RADIO_LONG)) {
-                    i_.setRadioLong((Long)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_TYPED_STRING)) {
-                    i_.setTypedString((String)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,SET_TYPED_TEXT)) {
-                    i_.setTypedText((String)_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
+            if (StringList.quickEq(methodName_,VALIDATE)) {
+                i_.validate();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
             }
-            if (StringList.quickEq(className_,TYPE_GENE_OBJS)) {
-                GeneObjs i_ = (GeneObjs)instance_;
-                if (StringList.quickEq(methodName_,ADD)) {
-                    i_.add(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET)) {
-                    res_.setResult(new StdStruct(i_.get((Integer)_args[0]),getAliasObject()));
-                    return res_;
-                }
-            }
-            if (StringList.quickEq(className_,TYPE_GENE_OBJECTS)) {
-                GeneObjects i_ = (GeneObjects)instance_;
-                if (StringList.quickEq(methodName_,ADD)) {
-                    i_.add(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,LAST)) {
-                    res_.setResult(new StdStruct(i_.last(),getAliasObject()));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,CLEAR)) {
-                    i_.clear();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-            }
-            if (StringList.quickEq(className_,TYPE_PICKABLE_LIST)) {
-                PickableList i_ = (PickableList)instance_;
-                if (StringList.quickEq(methodName_,REMOVE_AND_EXIST_AFTER)) {
-                    res_.setResult(new BooleanStruct(i_.removeAndExistAfter((Integer)_args[0])));
-                    return res_;
-                }
-                if (StringList.quickEq(methodName_,GET_LIST)) {
-                    res_.setResult(new StdStruct(i_.getList(),TYPE_GENE_OBJECTS));
-                    return res_;
-                }
-            }
-            if (StringList.quickEq(className_,TYPE_RATE_EQ)) {
-                RateEq i_ = (RateEq)instance_;
-                if (StringList.quickEq(methodName_,EQ)) {
-                    res_.setResult(new BooleanStruct(i_.eq((RateEq) _args[0])));
-                    return res_;
-                }
-            }
-            if (StringList.quickEq(className_,TYPE_SIMPLE_DATA_BASE)) {
-                SimpleDataBase i_ = (SimpleDataBase)instance_;
-                if (StringList.quickEq(methodName_,GET_VALUE)) {
-                    res_.setResult(new IntStruct(i_.getValue()));
-                    return res_;
-                }
-            }
-            return res_;
-        } catch (Throwable _0) {
-            res_.setError(getAliasError());
-            return res_;
         }
+        if (StringList.quickEq(className_,TYPE_BEAN_FOUR)) {
+            BeanFour i_ = (BeanFour)instance_;
+            if (StringList.quickEq(methodName_,SET_INVISIBLE_FIELD)) {
+                i_.setInvisibleField((Integer)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_INVISIBLE_INT_FIELD)) {
+                i_.setInvisibleIntField((Integer)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SETTER)) {
+                res_.setError(getAliasError());
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_BEAN_FIVE)) {
+            BeanFive i_ = (BeanFive)instance_;
+            if (StringList.quickEq(methodName_,GO)) {
+                res_.setResult(new StringStruct(i_.go()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_DEFAULT_CHOICES)) {
+                res_.setResult(new StdStruct(i_.getDefaultChoices(),ALIAS_LS));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_BEAN_SEVEN)) {
+            BeanSeven i_ = (BeanSeven)instance_;
+            if (StringList.quickEq(methodName_,GET_TREE)) {
+                res_.setResult(new StdStruct(i_.getTree(),TYPE_NAT_TREE_MAP_STRING_INTEGER));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_STRINGS)) {
+                res_.setResult(new StdStruct(i_.getStrings(),TYPE_STRING_LIST));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_DOUBLE)) {
+                res_.setResult(new DoubleStruct(i_.getDouble((Double)_args[0])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GO_TWO_ARGS)) {
+                res_.setResult(new StringStruct(i_.goTwoArgs((Integer)_args[0],(Integer)_args[1])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,VALIDATE_INTS_SAVE)) {
+                i_.validateIntsSave();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,VALIDATE_MAP)) {
+                i_.validateMap();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,VALIDATE_STRINGS)) {
+                i_.validateStrings();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,VALIDATE_STRINGS_SAVE)) {
+                i_.validateStringsSave();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_BEAN_EIGHT)) {
+            BeanEight i_ = (BeanEight)instance_;
+            if (StringList.quickEq(methodName_,GET_DATA_BASE)) {
+                res_.setResult(new StdStruct(i_.getDataBase(),TYPE_SIMPLE_DATA_BASE));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,IS_CHECK_BOX)) {
+                res_.setResult(new BooleanStruct(i_.isCheckBox()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBO_NUMBER)) {
+                res_.setResult(new StdStruct(i_.getComboNumber(),TYPE_ENUM_NUMBER));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBO_NUMBER_TWO)) {
+                res_.setResult(new StdStruct(i_.getComboNumberTwo(),TYPE_ENUM_NUMBER));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBO_NUMBERS)) {
+                res_.setResult(new StdStruct(i_.getComboNumbers(),TYPE_ENUM_NUMBERS));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBOBOX)) {
+                res_.setResult(new StdStruct(i_.getCombobox(),ALIAS_LS));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMPOSITES)) {
+                res_.setResult(new StdStruct(i_.getComposites(),ALIAS_LS));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBOBOX_MAP)) {
+                res_.setResult(new StdStruct(i_.getComboboxMap(),ALIAS_LSE));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_TYPED_STRING)) {
+                res_.setResult(new StringStruct(i_.getTypedString()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_TYPED_TEXT)) {
+                res_.setResult(new StringStruct(i_.getTypedText()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_RADIO_LONG)) {
+                res_.setResult(new LongStruct(i_.getRadioLong()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SETUP)) {
+                res_.setResult(new StringStruct(i_.setup()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_CHECK_BOX)) {
+                i_.setCheckBox((Boolean)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_COMBO_NUMBER)) {
+                i_.setComboNumber((EnumNumber)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_COMBO_NUMBER_TWO)) {
+                i_.setComboNumberTwo((EnumNumber)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_COMBO_NUMBERS)) {
+                i_.setComboNumbers((EnumNumbers)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_RADIO_LONG)) {
+                i_.setRadioLong((Long)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_TYPED_STRING)) {
+                i_.setTypedString((String)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_TYPED_TEXT)) {
+                i_.setTypedText((String)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_COMPOSITE)) {
+            Composite i_ = (Composite)instance_;
+            if (StringList.quickEq(methodName_,INTERN_METHOD)) {
+                res_.setResult(new StringStruct(i_.internMethod()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,PRIVATE_METHOD)) {
+                res_.setResult(new StringStruct(i_.privateMethod()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_STRING)) {
+                res_.setResult(new StringStruct(i_.getString()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_STRINGS)) {
+                res_.setResult(new StdStruct(i_.getStrings(),TYPE_STRING_LIST));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SUMMUM)) {
+                res_.setResult(new IntStruct(i_.summum((Integer)_args[0])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_STRING_ELT)) {
+                res_.setResult(new StringStruct(i_.getStringElt((Integer)_args[0])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_STRING)) {
+                i_.setString((String)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,UPDATE_VALUE)) {
+                i_.updateValue((ValueChangeEvent)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_BEAN_UTIL)) {
+            if (StringList.quickEq(methodName_,SUM)) {
+                res_.setResult(new IntStruct(BeanUtil.sum((Integer)_args[0],(Integer)_args[1])));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_ENCAPS_FIELDS)) {
+            EncapsFields i_ = (EncapsFields)instance_;
+            if (StringList.quickEq(methodName_,IS_CHECK_BOX)) {
+                res_.setResult(new BooleanStruct(i_.isCheckBox()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBO_NUMBER)) {
+                res_.setResult(new StdStruct(i_.getComboNumber(),TYPE_ENUM_NUMBER));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBO_NUMBER_TWO)) {
+                res_.setResult(new StdStruct(i_.getComboNumberTwo(),TYPE_ENUM_NUMBER));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBO_NUMBERS)) {
+                res_.setResult(new StdStruct(i_.getComboNumbers(),TYPE_ENUM_NUMBERS));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBOBOX)) {
+                res_.setResult(new StdStruct(i_.getCombobox(),ALIAS_LS));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_COMBOBOX_MAP)) {
+                res_.setResult(new StdStruct(i_.getComboboxMap(),ALIAS_LSE));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_TYPED_STRING)) {
+                res_.setResult(new StringStruct(i_.getTypedString()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_TYPED_TEXT)) {
+                res_.setResult(new StringStruct(i_.getTypedText()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_RADIO_LONG)) {
+                res_.setResult(new LongStruct(i_.getRadioLong()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_CHECK_BOX)) {
+                i_.setCheckBox((Boolean)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_COMBO_NUMBER)) {
+                i_.setComboNumber((EnumNumber)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_COMBO_NUMBER_TWO)) {
+                i_.setComboNumberTwo((EnumNumber)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_COMBO_NUMBERS)) {
+                i_.setComboNumbers((EnumNumbers)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_RADIO_LONG)) {
+                i_.setRadioLong((Long)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_TYPED_STRING)) {
+                i_.setTypedString((String)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,SET_TYPED_TEXT)) {
+                i_.setTypedText((String)_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_GENE_OBJS)) {
+            GeneObjs i_ = (GeneObjs)instance_;
+            if (StringList.quickEq(methodName_,ADD)) {
+                i_.add(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET)) {
+                res_.setResult(new StdStruct(i_.get((Integer)_args[0]),getAliasObject()));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_GENE_OBJECTS)) {
+            GeneObjects i_ = (GeneObjects)instance_;
+            if (StringList.quickEq(methodName_,ADD)) {
+                i_.add(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,LAST)) {
+                res_.setResult(new StdStruct(i_.last(),getAliasObject()));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,CLEAR)) {
+                i_.clear();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_PICKABLE_LIST)) {
+            PickableList i_ = (PickableList)instance_;
+            if (StringList.quickEq(methodName_,REMOVE_AND_EXIST_AFTER)) {
+                res_.setResult(new BooleanStruct(i_.removeAndExistAfter((Integer)_args[0])));
+                return res_;
+            }
+            if (StringList.quickEq(methodName_,GET_LIST)) {
+                res_.setResult(new StdStruct(i_.getList(),TYPE_GENE_OBJECTS));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_RATE_EQ)) {
+            RateEq i_ = (RateEq)instance_;
+            if (StringList.quickEq(methodName_,EQ)) {
+                res_.setResult(new BooleanStruct(i_.eq((RateEq) _args[0])));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(className_,TYPE_SIMPLE_DATA_BASE)) {
+            SimpleDataBase i_ = (SimpleDataBase)instance_;
+            if (StringList.quickEq(methodName_,GET_VALUE)) {
+                res_.setResult(new IntStruct(i_.getValue()));
+                return res_;
+            }
+        }
+        return res_;
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ConstructorId _method, Object... _args) {
@@ -1744,6 +1751,10 @@ public class CustBeanLgNames extends BeanLgNames {
         }
         if (StringList.quickEq(className_,TYPE_RATE_EQ)) {
             if (StringList.quickEq(_method.getParametersTypes().first(), getAliasString())) {
+                if (!RateEq.matchesRate((String)_args[0])) {
+                    res_.setError(getAliasError());
+                    return res_;
+                }
                 res_.setResult(new StdStruct(new RateEq((String)_args[0]),TYPE_RATE_EQ));
                 return res_;
             }
@@ -1951,6 +1962,10 @@ public class CustBeanLgNames extends BeanLgNames {
             String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_className, TYPE_RATE)) {
+            if (!Rate.matchesRate(_values.first())) {
+                res_.setError(getAliasError());
+                return res_;
+            }
             res_.setResult(new StdStruct(new Rate(_values.first()), _className));
             return res_;
         }

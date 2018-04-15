@@ -2315,6 +2315,7 @@ public class TemplatesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
+        cont_.initError();
         classes_.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -2327,6 +2328,7 @@ public class TemplatesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
+        cont_.initError();
         return cont_;
     }
 }

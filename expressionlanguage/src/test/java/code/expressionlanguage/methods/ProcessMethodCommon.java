@@ -93,6 +93,7 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = new Classes();
         ct_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(ct_);
+        ct_.initError();
         return ct_;
     }
 }

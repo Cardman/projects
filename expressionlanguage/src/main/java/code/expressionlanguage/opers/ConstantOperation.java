@@ -16,9 +16,8 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneClass;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exceptions.ErrorCausingException;
-import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessField;
@@ -710,11 +709,15 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
         ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
-        if (argres_.isInitClass()) {
-            throw new NotInitializedClassException(argres_.getInitClass().getClassName());
-        }
         Argument arg_ = argres_.getArgument();
-        setSimpleArgument(arg_, _conf, _nodes);
+        if (_conf.getException() != null) {
+            return arg_;
+        }
+        if (argres_.isInitClass()) {
+            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
+        } else {
+            setSimpleArgument(arg_, _conf, _nodes);
+        }
         return arg_;
     }
     @Override
@@ -723,7 +726,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             String _op) {
         Argument previous_ = _nodes.getVal(this).getPreviousArgument();
         Argument arg_ = getCommonSetting(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
-        setSimpleArgument(arg_, _conf, _nodes);
+        if (_conf.getException() == null) {
+            setSimpleArgument(arg_, _conf, _nodes);
+        }
         return arg_;
     }
 
@@ -745,6 +750,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
         ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
+        if (_conf.getException() != null) {
+            return;
+        }
         if (argres_.isInitClass()) {
             ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
             argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
@@ -760,6 +768,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     public void calculateSetting(CustList<OperationNode> _nodes,
             ContextEl _conf, String _op) {
         Argument arg_ = getCommonSetting(getArgument(), getPreviousArgument(), _conf, _op);
+        if (_conf.getException() != null) {
+            return;
+        }
         setSimpleArgument(arg_, _conf);
     }
 
@@ -802,21 +813,24 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                     return ArgumentCall.newArgument(a_);
                 }
                 ResultErrorStd res_ = LgNames.getField(_conf, fieldId, NullStruct.NULL_VALUE);
-                if (res_.getError() != null) {
-                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
-                }
                 a_ = new Argument();
-                a_.setStruct(res_.getResult());
+                if (res_.getError() != null) {
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+                } else {
+                    a_.setStruct(res_.getResult());
+                }
                 return ArgumentCall.newArgument(a_);
             }
             if (arg_.isNull()) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                return ArgumentCall.newArgument(arg_);
             }
             String argClassName_ = arg_.getObjectClassName(_conf);
             String classNameFound_ = fieldId.getClassName();
             String base_ = StringList.getAllTypes(argClassName_).first();
             if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-                throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                return ArgumentCall.newArgument(arg_);
             }
             if (arg_.getStruct() instanceof FieldableStruct) {
                 Struct struct_ = ((FieldableStruct) arg_.getStruct()).getStruct(fieldId);
@@ -826,11 +840,12 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             }
             Struct default_ = arg_.getStruct();
             ResultErrorStd res_ = LgNames.getField(_conf, fieldId, default_);
-            if (res_.getError() != null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
-            }
             a_ = new Argument();
-            a_.setStruct(res_.getResult());
+            if (res_.getError() != null) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            } else {
+                a_.setStruct(res_.getResult());
+            }
             return ArgumentCall.newArgument(a_);
         }
         OperationsSequence op_ = getOperations();
@@ -869,11 +884,12 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             return ArgumentCall.newArgument(a_);
         }
         Argument arg_ = _previous;
-        if (arg_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-        }
         a_ = new Argument();
-        a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
+        if (arg_.isNull()) {
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+        } else {
+            a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
+        }
         return ArgumentCall.newArgument(a_);
     }
 
@@ -897,7 +913,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             String formattedClassVar_ = locVar_.getClassName();
             formattedClassVar_ = _conf.getLastPage().formatVarType(formattedClassVar_, _conf);
             if (PrimitiveTypeUtil.primitiveTypeNullObject(formattedClassVar_, right_.getStruct(), _conf)) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                return Argument.createVoid();
             }
             if (!right_.isNull() && !NumericOperation.convert(_op)) {
                 Mapping mapping_ = new Mapping();
@@ -905,11 +922,15 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 mapping_.setArg(base_);
                 mapping_.setParam(formattedClassVar_);
                 if (!Templates.isCorrect(mapping_, _conf)) {
-                    throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,formattedClassVar_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,formattedClassVar_,RETURN_LINE,_conf.joinPages())),cast_));
+                    return Argument.createVoid();
                 }
             }
             Argument res_;
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+            if (_conf.getException() != null) {
+                return res_;
+            }
             if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
                 ClassArgumentMatching cl_ = new ClassArgumentMatching(locVar_.getClassName());
                 res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
@@ -935,7 +956,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         }
         Classes classes_ = _conf.getClasses();
         if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, right_.getStruct(), _conf)) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return Argument.createVoid();
         }
         Struct structField_ = null;
         String className_ = fieldId.getClassName();
@@ -947,11 +969,15 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 map_.setArg(rightClass_);
                 map_.setParam(fieldType_);
                 if (!Templates.isCorrect(map_, _conf)) {
-                    throw new InvokeException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
+                    return Argument.createVoid();
                 }
             }
             left_.setStruct(structField_);
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+            if (_conf.getException() != null) {
+                return res_;
+            }
             if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
                 ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
                 res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
@@ -963,26 +989,33 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             }
             ResultErrorStd result_ = LgNames.getField(_conf, fieldId, NullStruct.NULL_VALUE);
             if (result_.getError() != null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                return Argument.createVoid();
             }
             structField_ = result_.getResult();
             left_.setStruct(structField_);
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+            if (_conf.getException() != null) {
+                return res_;
+            }
             result_ = LgNames.setField(_conf, fieldId, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                return res_;
             }
             Argument a_ = res_;
             return a_;
         }
         if (argument_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return Argument.createVoid();
         }
         String argClassName_ = argument_.getObjectClassName(_conf);
         String classNameFound_ = fieldId.getClassName();
         String base_ = StringList.getAllTypes(argClassName_).first();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+            return Argument.createVoid();
         }
         if (argument_.getStruct() instanceof FieldableStruct) {
             structField_ = ((FieldableStruct) argument_.getStruct()).getStruct(fieldId);
@@ -992,11 +1025,15 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 map_.setArg(rightClass_);
                 map_.setParam(fieldType_);
                 if (!Templates.isCorrect(map_, _conf)) {
-                    throw new InvokeException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
+                    return Argument.createVoid();
                 }
             }
             left_.setStruct(structField_);
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+            if (_conf.getException() != null) {
+                return res_;
+            }
             if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
                 ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
                 res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
@@ -1007,14 +1044,19 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         }
         ResultErrorStd result_ = LgNames.getField(_conf, fieldId, argument_.getStruct());
         if (result_.getError() != null) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            return Argument.createVoid();
         }
         structField_ = result_.getResult();
         left_.setStruct(structField_);
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+        if (_conf.getException() != null) {
+            return res_;
+        }
         result_ = LgNames.setField(_conf, fieldId, argument_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            return res_;
         }
         Argument a_ = res_;
         return a_;

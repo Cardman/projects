@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -112,10 +111,12 @@ public abstract class NumericOperation extends MethodOperation {
             return a_;
         }
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -253,10 +254,12 @@ public abstract class NumericOperation extends MethodOperation {
         String null_;
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -394,10 +397,12 @@ public abstract class NumericOperation extends MethodOperation {
         String null_;
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -536,10 +541,12 @@ public abstract class NumericOperation extends MethodOperation {
         div_ = stds_.getAliasDivisionZero();
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -575,22 +582,26 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Long) {
             bThree_ = (Long) p_;
             if (bThree_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                return Argument.createVoid();
             }
         } else if (p_ instanceof Integer) {
             bFour_ = (Integer) p_;
             if (bFour_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                return Argument.createVoid();
             }
         } else if (p_ instanceof Short) {
             bFive_ = (Short) p_;
             if (bFive_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                return Argument.createVoid();
             }
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
             if (bSix_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                return Argument.createVoid();
             }
         }
         Number nb_;
@@ -690,10 +701,12 @@ public abstract class NumericOperation extends MethodOperation {
         div_ = stds_.getAliasDivisionZero();
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         if (_b.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            return Argument.createVoid();
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -729,22 +742,26 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Long) {
             bThree_ = (Long) p_;
             if (bThree_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                return Argument.createVoid();
             }
         } else if (p_ instanceof Integer) {
             bFour_ = (Integer) p_;
             if (bFour_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                return Argument.createVoid();
             }
         } else if (p_ instanceof Short) {
             bFive_ = (Short) p_;
             if (bFive_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                return Argument.createVoid();
             }
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
             if (bSix_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                return Argument.createVoid();
             }
         }
         Number nb_;
@@ -922,6 +939,9 @@ public abstract class NumericOperation extends MethodOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
         Argument r_;
         r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
+        if (_conf.getException() != null) {
+            return r_;
+        }
         a_ = r_;
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
@@ -942,6 +962,9 @@ public abstract class NumericOperation extends MethodOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
         Argument r_;
         r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
+        if (_conf.getException() != null) {
+            return;
+        }
         a_ = r_;
         setSimpleArgument(a_, _conf);
     }

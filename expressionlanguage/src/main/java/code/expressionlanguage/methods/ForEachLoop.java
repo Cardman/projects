@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
@@ -9,7 +10,6 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.DuplicateVariable;
@@ -18,6 +18,7 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.LoopBlockStack;
@@ -305,6 +306,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         LgNames stds_ = _cont.getStandards();
         String null_ = stds_.getAliasNullPe();
         Struct its_ = processLoop(_cont);
+        if (_cont.callsOrException()) {
+            return;
+        }
         Struct iterStr_ = null;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
@@ -323,10 +327,15 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             _cont.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator(native_);
             ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
-            iterStr_ = dyn_.calculateMember(_cont).getStruct();
+            Argument arg_ = dyn_.calculateMember(_cont);
+            if (_cont.callsOrException()) {
+                return;
+            }
+            iterStr_ = arg_.getStruct();
             _cont.getLastPage().getLocalVars().removeKey(locName_);
             if (iterStr_.isNull()) {
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                return;
             }
         }
         LoopBlockStack l_ = new LoopBlockStack();
@@ -352,6 +361,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         varsLoop_.put(var_, lv_);
         if (iterStr_ != null) {
             finished_ = !iteratorHasNext(_cont);
+            if (_cont.callsOrException()) {
+                return;
+            }
         }
         if (finished_) {
             removeVarAndLoop(ip_);
@@ -362,6 +374,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         } else {
             StringMap<LoopVariable> vars_ = ip_.getVars();
             incrementLoop(_cont, l_, vars_);
+            if (_cont.callsOrException()) {
+                return;
+            }
             _cont.getLastPage().clearCurrentEls();
             l_.setEvaluatingKeepLoop(false);
             ip_.getReadWrite().setBlock(getFirstChild());
@@ -376,9 +391,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
-        Struct ito_ = el_.calculateMember(_conf).getStruct();
+        Argument arg_ = el_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return NullStruct.NULL_VALUE;
+        }
+        Struct ito_ = arg_.getStruct();
         if (ito_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         return ito_;
         
@@ -410,12 +429,23 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         boolean hasNext_;
         if (l_.getStructIterator() != null) {
             hasNext_ = iteratorHasNext(_conf);
+            if (_conf.callsOrException()) {
+                return;
+            }
         } else {
             hasNext_ = l_.hasNext();
         }
         
         if (hasNext_) {
             incrementLoop(_conf, l_, vars_);
+            if (_conf.callsOrException()) {
+                if (_conf.calls()) {
+                    return;
+                }
+                _conf.getLastPage().clearCurrentEls();
+                l_.setEvaluatingKeepLoop(false);
+                return;
+            }
         } else {
             l_.setFinished(true);
         }
@@ -436,7 +466,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         _conf.getLastPage().getLocalVars().put(locName_, locVar_);
         ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext(native_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.FIRST_INDEX, dynTwo_);
-        boolean hasNext_ = (Boolean) dyn_.calculateMember(_conf).getObject();
+        Argument arg_ = dyn_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return false;
+        }
+        boolean hasNext_ = (Boolean) arg_.getObject();
         _conf.getLastPage().getLocalVars().removeKey(locName_);
         return hasNext_;
     }
@@ -464,12 +498,17 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             _conf.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext(native_);
             ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
-            element_ = dyn_.calculateMember(_conf).getStruct();
+            Argument arg_ = dyn_.calculateMember(_conf);
+            if (_conf.callsOrException()) {
+                return;
+            }
+            element_ = arg_.getStruct();
         } else {
             element_ = LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf);
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(getClassName(), element_, _conf)) {
-            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
         }
         if (!element_.isNull()) {
             String className_ = getClassName();
@@ -480,7 +519,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             mapping_.setParam(className_);
             if (!Templates.isCorrect(mapping_, _conf)) {
                 String cast_ = stds_.getAliasCast();
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                return;
             }
         }
         lv_.setStruct(element_);

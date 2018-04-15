@@ -14,10 +14,9 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.exceptions.CustomFoundConstructorException;
-import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.CustomFoundConstructor;
+import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessConstructor;
@@ -337,15 +336,15 @@ public final class InstanceOperation extends InvokingOperation {
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf, _op);
-        if (argres_.isInitClass()) {
-            throw new NotInitializedClassException(argres_.getInitClass().getClassName());
-        }
-        if (argres_.isInvokeConstructor()) {
-            InvokingConstructor i_ = argres_.getInvokeConstructor();
-            throw new CustomFoundConstructorException(i_.getClassName(), i_.getFieldName(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep());
-        }
         Argument res_ = argres_.getArgument();
-        setSimpleArgument(res_, _conf, _nodes);
+        if (argres_.isInitClass()) {
+            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
+        } else if (argres_.isInvokeConstructor()) {
+            InvokingConstructor i_ = argres_.getInvokeConstructor();
+            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
+        } else {
+            setSimpleArgument(res_, _conf, _nodes);
+        }
         return res_;
     }
     @Override
@@ -369,6 +368,9 @@ public final class InstanceOperation extends InvokingOperation {
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf, _op);
         if (argres_.isInitClass()) {
             ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            if (_conf.getException() != null) {
+                return;
+            }
             argres_ = getArgument(previous_, arguments_, _conf, _op);
         }
         Argument res_;
@@ -380,6 +382,9 @@ public final class InstanceOperation extends InvokingOperation {
             res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf);
         } else {
             res_ = argres_.getArgument();
+        }
+        if (_conf.getException() != null) {
+            return;
         }
         setSimpleArgument(res_, _conf);
     }
@@ -420,11 +425,15 @@ public final class InstanceOperation extends InvokingOperation {
                     Number n_ = (Number)_arguments.get(i_).getObject();
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
                     if (n_ == null) {
-                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(i_),RETURN_LINE,_conf.joinPages())),null_));
+                        _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(i_),RETURN_LINE,_conf.joinPages())),null_));
+                        Argument a_ = new Argument();
+                        return ArgumentCall.newArgument(a_);
                     }
                     int dim_ = n_.intValue();
                     if (dim_ < 0) {
-                        throw new InvokeException(new StdStruct(new CustomError(StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE,_conf.joinPages())),size_));
+                        _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE,_conf.joinPages())),size_));
+                        Argument a_ = new Argument();
+                        return ArgumentCall.newArgument(a_);
                     }
                     args_[i_] = dim_;
                     i_++;
@@ -440,6 +449,9 @@ public final class InstanceOperation extends InvokingOperation {
                 for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                     Argument chArg_ = _arguments.get(i);
                     ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
+                    if (_conf.getException() != null) {
+                        return ArgumentCall.newArgument(a_);
+                    }
                 }
                 a_.setStruct(str_);
                 return ArgumentCall.newArgument(a_);
@@ -497,8 +509,14 @@ public final class InstanceOperation extends InvokingOperation {
         String base_ = StringList.getAllTypes(className).first();
         if (!_conf.getClasses().isCustomType(base_)) {
             ResultErrorStd res_ = LgNames.newInstance(_conf, naturalVararg > -1, constId, Argument.toArgArray(_arguments));
+            if (_conf.getException() != null) {
+                Argument a_ = new Argument();
+                return ArgumentCall.newArgument(a_);
+            }
             if (res_.getError() != null) {
-                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+                Argument a_ = new Argument();
+                return ArgumentCall.newArgument(a_);
             }
             Argument arg_ = new Argument();
             arg_.setStruct(res_.getResult());
@@ -526,7 +544,9 @@ public final class InstanceOperation extends InvokingOperation {
                 if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
-                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    Argument a_ = new Argument();
+                    return ArgumentCall.newArgument(a_);
                 }
                 if (!str_.isNull()) {
                     Mapping mapping_ = new Mapping();
@@ -535,7 +555,9 @@ public final class InstanceOperation extends InvokingOperation {
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         String cast_;
                         cast_ = stds_.getAliasCast();
-                        throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        Argument a_ = new Argument();
+                        return ArgumentCall.newArgument(a_);
                     }
                 }
                 if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {

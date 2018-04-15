@@ -6,8 +6,8 @@ import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessClass;
@@ -116,7 +116,13 @@ public final class StaticAccessOperation extends LeafOperation {
         ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
         if (argres_.isInitClass()) {
             ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            if (_conf.getException() != null) {
+                return;
+            }
             argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
+        }
+        if (_conf.getException() != null) {
+            return;
         }
         Argument arg_ = argres_.getArgument();
         setSimpleArgument(arg_, _conf);
@@ -127,11 +133,15 @@ public final class StaticAccessOperation extends LeafOperation {
             ContextEl _conf, String _op) {
         Argument previous_ = _conf.getLastPage().getGlobalArgument();
         ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
-        if (argres_.isInitClass()) {
-            throw new NotInitializedClassException(argres_.getInitClass().getClassName());
-        }
         Argument arg_ = argres_.getArgument();
-        setSimpleArgument(arg_, _conf, _nodes);
+        if (argres_.isInitClass()) {
+            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
+        } else {
+            PossibleIntermediateDotted n_ = getSiblingToSet();
+            if (n_ != null) {
+                _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
+            }
+        }
         return arg_;
     }
     ArgumentCall getCommonArgument(Argument _argument, Argument _previous, ContextEl _conf,

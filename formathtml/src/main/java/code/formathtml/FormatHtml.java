@@ -5,29 +5,11 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.BadIndexException;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.exceptions.DynamicNumberFormatException;
-import code.expressionlanguage.exceptions.ErrorCausingException;
-import code.expressionlanguage.exceptions.IndirectException;
-import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.expressionlanguage.exceptions.NegativeSizeException;
-import code.expressionlanguage.exceptions.UnwrappingException;
-import code.expressionlanguage.exceptions.WrapperException;
-import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
-import code.expressionlanguage.methods.exceptions.BadCaseException;
-import code.expressionlanguage.methods.exceptions.BadCatchException;
-import code.expressionlanguage.methods.exceptions.BadDefaultException;
-import code.expressionlanguage.methods.exceptions.BadElseException;
-import code.expressionlanguage.methods.exceptions.BadElseIfException;
-import code.expressionlanguage.methods.exceptions.BadLoopException;
-import code.expressionlanguage.methods.exceptions.BadSwitchException;
-import code.expressionlanguage.methods.exceptions.BadTagBreakException;
-import code.expressionlanguage.methods.exceptions.BadTagContinueException;
-import code.expressionlanguage.methods.exceptions.BadTryException;
-import code.expressionlanguage.methods.exceptions.BadVariableNameException;
+import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.BadVariableName;
+import code.expressionlanguage.methods.util.DuplicateVariable;
+import code.expressionlanguage.methods.util.UnknownClassName;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -38,21 +20,8 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.formathtml.exceptions.BadEnumeratingException;
-import code.formathtml.exceptions.BadFilePropertiesException;
-import code.formathtml.exceptions.BadReferenceEqualsException;
-import code.formathtml.exceptions.BadSelectException;
-import code.formathtml.exceptions.CharacterFormatException;
-import code.formathtml.exceptions.GettingKeysException;
-import code.formathtml.exceptions.InexistingTranslatorException;
-import code.formathtml.exceptions.KeyValueException;
-import code.formathtml.exceptions.MessageKeyNotFoundException;
-import code.formathtml.exceptions.NoSuchResourceException;
-import code.formathtml.exceptions.NotCastableException;
-import code.formathtml.exceptions.NotPrimitivableException;
-import code.formathtml.exceptions.RenderingException;
-import code.formathtml.exceptions.SettingArrayException;
 import code.formathtml.util.ActionNext;
+import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanElement;
 import code.formathtml.util.BlockHtml;
 import code.formathtml.util.BreakableHtmlStack;
@@ -83,18 +52,16 @@ import code.sml.NamedNodeMap;
 import code.sml.Node;
 import code.sml.NodeList;
 import code.sml.Text;
-import code.sml.exceptions.XmlParseException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
+import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
-import code.util.exceptions.NullObjectException;
-import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class FormatHtml {
 
@@ -279,7 +246,8 @@ public final class FormatHtml {
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(htmlText_);
         Document doc_ = res_.getDocument();
         if (doc_ == null) {
-            throw new XmlParseException(ExtractFromResources.getRealFilePath(_conf.getCurrentUrl()), htmlText_);
+            _conf.getContext().setException(NullStruct.NULL_VALUE);
+            return null;
         }
         _conf.setDocument(doc_);
         _conf.clearPages();
@@ -294,11 +262,18 @@ public final class FormatHtml {
             return null;
         }
         pageName_ = ExtractObject.formatNumVariables(pageName_, _conf, _ip);
+        if (_conf.getContext().getException() != null) {
+            return null;
+        }
         String subHtml_ = ExtractFromResources.loadPage(_conf, _files, pageName_,_resourcesFolder);
+        if (_conf.getContext().getException() != null) {
+            return null;
+        }
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(subHtml_);
         Document doc_ = res_.getDocument();
         if (doc_ == null) {
-            throw new XmlParseException(StringList.concat(res_.getLocation().display(),RETURN_LINE,_conf.joinPages()));
+            _conf.getContext().setException(NullStruct.NULL_VALUE);
+            return null;
         }
         ElementList bodies_ = doc_.getElementsByTagName(TAG_BODY);
         if (bodies_.getLength() != CustList.ONE_ELEMENT) {
@@ -330,7 +305,13 @@ public final class FormatHtml {
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
         StringMapObject forms_ = (StringMapObject) ExtractObject.getForms(_conf, bean_).getInstance();
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         StringMapObject formsMap_ = (StringMapObject) ExtractObject.getForms(_conf, _mainBean).getInstance();
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         if (_keepField) {
             for (Element f_: _node.getChildElements()) {
                 if (!StringList.quickEq(f_.getTagName(),StringList.concat(prefix_,FORM_BLOCK_TAG))) {
@@ -370,15 +351,41 @@ public final class FormatHtml {
                 ip_.setLookForAttrValue(false);
                 String searchedClass_ = StringList.concat(package_,DOT,className_);
                 if (bean_ == null || bean_.isNull()) {
-                    throw new NullObjectException(_conf.joinPages());
+                    _conf.getContext().setException(new StdStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
+                    return;
                 }
                 ip_.setProcessingNode(nTwo_);
                 ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(true);
-                ExtractObject.classNameForName(_conf, 0, searchedClass_);
+                if (!OperationNode.okType(_conf.toContextEl(), searchedClass_)) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(searchedClass_);
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(un_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
+                }
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(searchedClass_, lgNames_.getStructClassName(bean_, context_), context_)) {
-                    throw new RuntimeClassNotFoundException(StringList.concat(searchedClass_,RETURN_LINE,_conf.joinPages()));
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(lgNames_.getStructClassName(bean_, context_));
+                    mapping_.setParam(searchedClass_);
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
                 }
                 for (Element nThree_: nTwo_.getChildElements()) {
                     if (!StringList.quickEq(nThree_.getTagName(),StringList.concat(prefix_,FIELD_BLOCK_TAG))) {
@@ -393,13 +400,41 @@ public final class FormatHtml {
                         ip_.setOffset(0);
                         ip_.setLookForAttrValue(true);
                         Argument argt_ = ElRenderUtil.processEl(fieldValue_, 0, _conf);
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                         ip_.setProcessingNode(nThree_);
                         ip_.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                         ip_.setOffset(0);
                         ip_.setLookForAttrValue(true);
-                        ExtractObject.classNameForName(_conf, 0, classNameParam_);
+                        if (!OperationNode.okType(_conf.toContextEl(), classNameParam_)) {
+                            UnknownClassName un_ = new UnknownClassName();
+                            un_.setClassName(classNameParam_);
+                            un_.setFileName(_conf.getCurrentFileName());
+                            un_.setRc(_conf.getCurrentLocation());
+                            _conf.getClasses().getErrorsDet().add(un_);
+                            BadElRender badEl_ = new BadElRender();
+                            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                            badEl_.setFileName(_conf.getCurrentFileName());
+                            badEl_.setRc(_conf.getCurrentLocation());
+                            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                            return;
+                        }
                         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameParam_, argt_.getObjectClassName(context_), context_)) {
-                            throw new DynamicCastClassException(StringList.concat(argt_.getObjectClassName(context_),RETURN_LINE,classNameParam_,RETURN_LINE,_conf.joinPages()));
+                            Mapping mapping_ = new Mapping();
+                            mapping_.setArg(argt_.getObjectClassName(context_));
+                            mapping_.setParam(classNameParam_);
+                            BadImplicitCast cast_ = new BadImplicitCast();
+                            cast_.setMapping(mapping_);
+                            cast_.setFileName(_conf.getCurrentFileName());
+                            cast_.setRc(_conf.getCurrentLocation());
+                            _conf.getClasses().getErrorsDet().add(cast_);
+                            BadElRender badEl_ = new BadElRender();
+                            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                            badEl_.setFileName(_conf.getCurrentFileName());
+                            badEl_.setRc(_conf.getCurrentLocation());
+                            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                            return;
                         }
                         ip_.setProcessingNode(nThree_);
                         ip_.setProcessingAttribute(ATTRIBUTE_METHOD);
@@ -415,6 +450,9 @@ public final class FormatHtml {
                         ip_.getLocalVars().put(nameVar_, lv_);
                         ElRenderUtil.processEl(StringList.concat(methodName_,leftParStr_,nameVar_,GET_LOC_VAR,rightParStr_), 0, _conf);
                         ip_.getLocalVars().removeKey(nameVar_);
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                         continue;
                     }
                     ip_.setProcessingNode(nThree_);
@@ -423,6 +461,9 @@ public final class FormatHtml {
                     ip_.setLookForAttrValue(true);
                     String fieldValue_ = nThree_.getAttribute(ATTRIBUTE_VALUE);
                     Argument argt_ = ElRenderUtil.processEl(fieldValue_, 0, _conf);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     LocalVariable lv_ = new LocalVariable();
                     lv_.setClassName(searchedClass_);
                     lv_.setStruct(bean_);
@@ -443,6 +484,9 @@ public final class FormatHtml {
                     ElRenderUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
                     ip_.getLocalVars().removeKey(nameVar_);
                     ip_.getLocalVars().removeKey(nameValue_);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                 }
             }
         }
@@ -467,13 +511,29 @@ public final class FormatHtml {
             ip_.setOffset(0);
             String var_ = n.getAttribute(ATTRIBUTE_VAR);
             if (!StringList.isWord(var_)) {
-                throw new BadVariableNameException(_conf.joinPages(), var_, ATTRIBUTE_VAR);
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(_conf.getCurrentFileName());
+                b_.setRc(_conf.getCurrentLocation());
+                b_.setVarName(var_);
+                _conf.getClasses().getErrorsDet().add(b_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return parameters_;
             }
             VariableInformation vi_ = tryToGetVariableInformation(_conf, ip_, n);
+            if (_conf.getContext().getException() != null) {
+                return parameters_;
+            }
             String className_ = vi_.getClassName();
 
             Struct obj_ = vi_.getStruct();
             parameters_.put(var_, tryToCreateVariable(_conf, ip_, className_, obj_));
+            if (_conf.getContext().getException() != null) {
+                return parameters_;
+            }
         }
         return parameters_;
     }
@@ -496,7 +556,17 @@ public final class FormatHtml {
             ip_.setOffset(0);
             String var_ = n.getAttribute(ATTRIBUTE_VAR);
             if (!StringList.isWord(var_)) {
-                throw new BadVariableNameException(_conf.joinPages(), var_, ATTRIBUTE_VAR);
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(_conf.getCurrentFileName());
+                b_.setRc(_conf.getCurrentLocation());
+                b_.setVarName(var_);
+                _conf.getClasses().getErrorsDet().add(b_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return parameters_;
             }
             VariableInformation vi_ = tryToGetVoidVariable(_conf, ip_, n);
             String className_ = vi_.getClassName();
@@ -517,6 +587,9 @@ public final class FormatHtml {
         beanName_ = root_.getAttribute(StringList.concat(_conf.getPrefix(),BEAN_ATTRIBUTE));
         bean_ = getBean(_conf, beanName_);
         ExtractObject.beforeDiplaying(_conf, bean_, true);
+        if (_conf.getContext().getException() != null) {
+            return null;
+        }
         _conf.setHtml(_htmlText);
         htmlText_ = processHtml(docOrig_, beanName_, _conf, _loc, _files, _resourcesFolder);
         if (htmlText_ == null) {
@@ -586,6 +659,9 @@ public final class FormatHtml {
         }
         _conf.addPage(ip_);
         checkSyntax(_conf, _docOrig, ip_.getHtml());
+        if (_conf.getContext().getException() != null) {
+            return null;
+        }
         Node en_ = r_;
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
         Node currentNode_ = doc_;
@@ -617,6 +693,13 @@ public final class FormatHtml {
                     ip_ = _conf.getLastPage();
                     ip_.getLocalVars().putAllMap(last_.getReturnedValues());
                     processBlock(_conf, ip_);
+                    if (_conf.getContext().getException() != null) {
+                        //TODO exception
+                        throwException(_conf);
+                        if (_conf.getContext().getException() != null) {
+                            return null;
+                        }
+                    }
                     continue;
                 }
                 rw_ = ip_.getReadWrite();
@@ -627,6 +710,13 @@ public final class FormatHtml {
                 currentNode_ = rw_.getWrite();
                 if (en_ instanceof Comment) {
                     processElementOrText(_conf, ip_, true);
+                    if (_conf.getContext().getException() != null) {
+                        //TODO exception
+                        throwException(_conf);
+                        if (_conf.getContext().getException() != null) {
+                            return null;
+                        }
+                    }
                     continue;
                 }
                 if (en_ instanceof Element) {
@@ -636,7 +726,15 @@ public final class FormatHtml {
                             break;
                         }
                         ImportingPage ret_ = processProcessingTags(_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, mainBean_, _loc, _files, _resourcesFolder);
-                        if (ret_ != null ) {
+                        if (_conf.getContext().getException() != null) {
+                            //TODO exception
+                            throwException(_conf);
+                            if (_conf.getContext().getException() != null) {
+                                return null;
+                            }
+                            continue;
+                        }
+                        if (ret_ != null) {
                             ip_ = ret_;
                             continue;
                         }
@@ -652,6 +750,14 @@ public final class FormatHtml {
                     }
                     processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
                             indexes_, containersMap_, containers_, _resourcesFolder);
+                    if (_conf.getContext().getException() != null) {
+                        //TODO exception
+                        throwException(_conf);
+                        if (_conf.getContext().getException() != null) {
+                            return null;
+                        }
+                        continue;
+                    }
                     if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
                         curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
                     }
@@ -662,6 +768,13 @@ public final class FormatHtml {
                         indexes_.setAnchor(currentAnchor_);
                     }
                     processElementOrText(_conf, ip_, true);
+                    if (_conf.getContext().getException() != null) {
+                        //TODO exception
+                        throwException(_conf);
+                        if (_conf.getContext().getException() != null) {
+                            return null;
+                        }
+                    }
                     continue;
                 }
                 String content_ = en_.getTextContent();
@@ -669,25 +782,41 @@ public final class FormatHtml {
                     Text t_ = doc_.createTextNode(content_);
                     currentNode_.appendChild(t_);
                     processElementOrText(_conf, ip_, true);
+                    if (_conf.getContext().getException() != null) {
+                        //TODO exception
+                        throwException(_conf);
+                        if (_conf.getContext().getException() != null) {
+                            return null;
+                        }
+                    }
                     continue;
                 }
                 if (interpretBrackets((CharacterData) en_)) {
                     content_ = ExtractObject.formatNumVariables(content_, _conf, ip_);
+                    if (_conf.getContext().getException() != null) {
+                        //TODO exception
+                        throwException(_conf);
+                        if (_conf.getContext().getException() != null) {
+                            return null;
+                        }
+                        continue;
+                    }
                 }
                 Text t_ = doc_.createTextNode(content_);
                 currentNode_.appendChild(t_);
                 processElementOrText(_conf, ip_, true);
-            } catch (Throwable _0){
-                Throwable realCaught_ = _0;
-                if (_0 instanceof WrapperException) {
-                    realCaught_ = ((WrapperException)_0).getWrapped();
+                if (_conf.getContext().getException() != null) {
+                    //TODO exception
+                    throwException(_conf);
+                    if (_conf.getContext().getException() != null) {
+                        return null;
+                    }
                 }
-                _0.printStackTrace();
-                if (!throwException(_conf, realCaught_)) {
-                    continue;
+            } catch (Throwable _0){_0.printStackTrace();
+                throwException(_conf);
+                if (_conf.getContext().getException() != null) {
+                    return null;
                 }
-                String error_ = _conf.getStandards().getAliasError();
-                throw new RenderingException(new StdStruct(new CustomError(_conf.joinPages()),error_));
             }
         }
         containersMap_.put(currentForm_, containers_);
@@ -703,11 +832,11 @@ public final class FormatHtml {
         return DocumentBuilder.toXml(doc_);
     }
 
-    static boolean throwException(Configuration _conf, Throwable _t) {
+    static void throwException(Configuration _conf) {
         Element catchElt_ = null;
         ContextEl context_ = _conf.toContextEl();
         LgNames lgNames_ = _conf.getStandards();
-        Struct custCause_ = ((IndirectException)_t).getCustCause();
+        Struct custCause_ = context_.getException();
         while (!_conf.noPages()) {
             ImportingPage bkIp_ = _conf.getLastPage();
             String prefix_ = bkIp_.getPrefix();
@@ -731,11 +860,13 @@ public final class FormatHtml {
                 if (try_.getVisitedCatch() >= CustList.FIRST_INDEX) {
                     if (!StringList.quickEq(try_.getCurrentCatchNode().getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                         if (addFinallyClause_) {
-                            try_.setThrownException(new WrapperException(_t));
+                            try_.setException(custCause_);
+                            try_.setFinallyNode(try_.getCatchNodes().last());
+                            context_.setException(null);
                             Element newCurrentNode_ = try_.getWriteNode();
                             bkIp_.getReadWrite().setRead(try_.getCatchNodes().last());
                             bkIp_.getReadWrite().setWrite(newCurrentNode_);
-                            return false;
+                            return;
                         }
                     }
                     bkIp_.removeLastBlock();
@@ -767,7 +898,8 @@ public final class FormatHtml {
                 if (catchElt_ != null) {
                     Element newCurrentNode_ = bkIp_.getLastStack().getWriteNode();
                     Element catchElement_ = catchElt_;
-                    try_.setThrownException(null);
+                    try_.setFinallyNode(null);
+                    context_.setException(null);
                     if (catchElement_.getFirstChild() != null) {
                         String var_ = catchElement_.getAttribute(ATTRIBUTE_VAR);
                         LocalVariable lv_ = new LocalVariable();
@@ -776,46 +908,27 @@ public final class FormatHtml {
                         bkIp_.getCatchVars().put(var_, lv_);
                         bkIp_.getReadWrite().setRead(catchElement_.getFirstChild());
                         bkIp_.getReadWrite().setWrite(newCurrentNode_);
-                        return false;
+                        return;
                     }
                     bkIp_.getReadWrite().setRead(catchElement_);
                     bkIp_.getReadWrite().setWrite(newCurrentNode_);
-                    return false;
+                    return;
                 }
                 if (addFinallyClause_) {
-                    try_.setThrownException(new WrapperException(_t));
+                    try_.setFinallyNode(try_.getCatchNodes().last());
+                    context_.setException(null);
+                    try_.setException(custCause_);
                     Element newCurrentNode_ = try_.getWriteNode();
                     bkIp_.getReadWrite().setRead(try_.getCatchNodes().last());
                     bkIp_.getReadWrite().setWrite(newCurrentNode_);
-                    return false;
+                    return;
                 }
                 bkIp_.removeLastBlock();
             }
             _conf.removeLastPage();
         }
-        return true;
     }
 
-    /**@throws InvokeRedinedMethException
-    @throws BadIndexException
-    @throws NegativeSizeException
-    @throws ErrorCausingException
-    @throws DynamicCastClassException
-    @throws RuntimeClassNotFoundException
-    @throws NullObjectException
-    @throws InvokeException
-    @throws UnwrappingException
-    @throws BadEnumeratingException
-    @throws BadFilePropertiesException
-    @throws BadReferenceEqualsException
-    @throws CharacterFormatException
-    @throws GettingKeysException
-    @throws InexistingTranslatorException
-    @throws MessageKeyNotFoundException
-    @throws NoSuchResourceException
-    @throws NotCastableException
-    @throws NotPrimitivableException
-    @throws SettingArrayException*/
     private static ImportingPage processProcessingTags(Configuration _conf, Document _doc,
             ImportingPage _ip,
             NumberMap<Long,NatTreeMap<Long,NodeContainer>> _containersMap,
@@ -837,18 +950,27 @@ public final class FormatHtml {
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,SET_BLOCK_TAG))) {
             Element set_ = en_;
             processSetTag(_conf, ip_, set_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             processBlock(_conf, ip_);
             return ip_;
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,PARAM_BLOCK_TAG))) {
             Element set_ = en_;
             processSetClassNameParamTag(_conf, _ip, set_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             processBlock(_conf, ip_);
             return ip_;
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,SET_RETURNED_VALUE_BLOCK_TAG))) {
             Element set_ = en_;
             processSetReturnValueTag(_conf, ip_, set_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             processBlock(_conf, ip_);
             return ip_;
         }
@@ -913,7 +1035,7 @@ public final class FormatHtml {
 
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,CATCH_TAG))) {
             TryHtmlStack ts_ = (TryHtmlStack) ip_.getLastStack();
-            ts_.setThrownException(null);
+            ts_.setFinallyNode(null);
             if (ts_.getLastCatchNode() == en_) {
                 ip_.removeLastBlock();
                 processBlock(_conf, ip_);
@@ -940,8 +1062,12 @@ public final class FormatHtml {
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,THROW_TAG))) {
             String el_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
             Argument arg_ = ElRenderUtil.processEl(el_, 0, _conf);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             Struct o_ = arg_.getStruct();
-            throw new InvokeException(_conf.joinPages(), o_);
+            _conf.getContext().setException(o_);
+            return ip_;
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,TRY_TAG))) {
             rw_.setRead(en_.getFirstChild());
@@ -986,6 +1112,9 @@ public final class FormatHtml {
             if_.changeVisitedElement(en_);
             if (!if_.isEntered()) {
                 boolean assert_ = ExtractCondition.evaluateGenericCondition(en_, _conf, ip_);
+                if (_conf.getContext().getException() != null) {
+                    return ip_;
+                }
                 if (assert_) {
                     if_.setEntered(true);
                     processAfterBlock(_conf, ip_);
@@ -1033,6 +1162,9 @@ public final class FormatHtml {
             if_.setWriteNode((Element) currentNode_);
             if_.setVisitedBlock(CustList.FIRST_INDEX);
             boolean assert_ = ExtractCondition.evaluateGenericCondition(en_, _conf, ip_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             if (assert_) {
                 if (en_.hasChildNodes()) {
                     ip_.addBlock(if_);
@@ -1085,6 +1217,9 @@ public final class FormatHtml {
             ip_.setLookForAttrValue(true);
             String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
             Argument arg_ = ElRenderUtil.processEl(expr_, 0, _conf);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             if_.setStruct(arg_.getStruct());
             if (if_.getNodes().isEmpty()) {
                 if_.setFinished(true);
@@ -1117,7 +1252,9 @@ public final class FormatHtml {
                 ip_.setLookForAttrValue(true);
                 String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
                 Argument arg_ = ElRenderUtil.processEl(expr_, 0, _conf);
-                //TODO processEl
+                if (_conf.getContext().getException() != null) {
+                    return ip_;
+                }
                 boolean enter_ = false;
                 if (value_ == null) {
                     if (arg_.getStruct().isNull()) {
@@ -1126,6 +1263,9 @@ public final class FormatHtml {
                 } else {
                     if (ExtractObject.eq(_conf, value_, arg_.getStruct())) {
                         enter_ = true;
+                    }
+                    if (_conf.getContext().getException() != null) {
+                        return ip_;
                     }
                 }
                 int i_ = CustList.FIRST_INDEX;
@@ -1219,6 +1359,9 @@ public final class FormatHtml {
                 processOptionsList(_conf,
                         doc_, currentNode_, en_, id_, groupId_, multiple_);
             }
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             Element selectTag_ = (Element) currentNode_.getLastChild();
             //format class before evaluate it
             if (!class_.isEmpty()) {
@@ -1227,6 +1370,9 @@ public final class FormatHtml {
                 selectTag_.setAttribute(ATTRIBUTE_CLASS, class_);
                 evaluateAttribute(_conf, selectTag_, ATTRIBUTE_CLASS);
             }
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             //format name
             String name_ = selectTag_.getAttribute(ATTRIBUTE_NAME);
             if (!name_.isEmpty()) {
@@ -1234,6 +1380,9 @@ public final class FormatHtml {
                 ip_.setLookForAttrValue(true);
                 ip_.setOffset(0);
                 setIndexes(indexes_, _conf, ip_, containersMap_, containers_, selectTag_, name_);
+                if (_conf.getContext().getException() != null) {
+                    return ip_;
+                }
                 if (indexes_.getNb() >= 0) {
                     FormInputCoords inputs_ = new FormInputCoords();
                     inputs_.setForm(_currentForm - 1);
@@ -1256,11 +1405,17 @@ public final class FormatHtml {
                 selectId_ = interpretPartiallyIds(_conf, ip_, selectId_);
                 selectTag_.setAttribute(ATTRIBUTE_ID, selectId_);
             }
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             String selectGroupId_ = selectTag_.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID));
             if (!selectGroupId_.isEmpty()) {
                 ip_.setProcessingAttribute(ATTRIBUTE_GROUP_ID);
                 selectGroupId_ = interpretPartiallyIds(_conf, ip_, selectGroupId_);
                 selectTag_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID), selectGroupId_);
+            }
+            if (_conf.getContext().getException() != null) {
+                return ip_;
             }
             processBlock(_conf, ip_);
             return ip_;
@@ -1268,6 +1423,9 @@ public final class FormatHtml {
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,MESSAGE_BLOCK_TAG))) {
             Element element_ = en_;
             String formatted_ = ExtractObject.formatMessage(_conf, _loc, ip_, element_, _files, _resourcesFolder);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
                 Text n_ = doc_.createTextNode(formatted_);
                 currentNode_.appendChild(n_);
@@ -1307,7 +1465,8 @@ public final class FormatHtml {
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(ipMess_.getHtml());
             Document docLoc_ = res_.getDocument();
             if (docLoc_ == null) {
-                throw new XmlParseException(StringList.concat(res_.getLocation().display(),RETURN_LINE,ipMess_.getHtml(),RETURN_LINE,_conf.joinPages()));
+                _conf.getContext().setException(NullStruct.NULL_VALUE);
+                return ip_;
             }
             ipMess_.setPrefix(getPrefix(_conf, docLoc_));
             ipMess_.setRoot(docLoc_.getDocumentElement());
@@ -1341,6 +1500,9 @@ public final class FormatHtml {
                     Element tag_ = (Element) currentNode_.getLastChild();
                     processAttributes(_conf, _loc, _files, ipMess_, doc_, tag_,
                             indexes_, containersMap_, containers_, _resourcesFolder);
+                    if (_conf.getContext().getException() != null) {
+                        return ip_;
+                    }
                     if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
                         tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
                         currentAnchor_++;
@@ -1356,24 +1518,42 @@ public final class FormatHtml {
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,IMPORT_BLOCK_TAG))) {
             BeanElement newElt_ = tryToOpenDocument(en_, ip_, _conf, _files, _resourcesFolder);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             if (newElt_ == null) {
                 processBlock(_conf, ip_);
                 return ip_;
             }
             StringMap<LocalVariable> params_ = newParametersBeforeRender(_conf, en_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             StringMap<LocalVariable> returnedValues_ = newReturnedValues(_conf, en_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             boolean keepField_ = en_.hasAttribute(KEEPFIELD_ATTRIBUTE);
             String beanName_ = newElt_.getBeanName();
             setBeanForms(_conf, _mainBean, en_, keepField_,
                     beanName_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             setFieldsImportBean(_conf, en_,
                     beanName_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             ip_.setProcessingNode(en_);
             ip_.setProcessingAttribute(EMPTY_STRING);
             ip_.setOffset(0);
             ip_.setLookForAttrValue(false);
             Struct newBean_ = getBean(_conf, beanName_);
             ExtractObject.beforeDiplaying(_conf, newBean_, false);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             ImportingPage newIp_ = new ImportingPage(false);
             newIp_.setTabWidth(getTabWidth(_conf));
             newIp_.setHtml(newElt_.getHtml());
@@ -1437,6 +1617,9 @@ public final class FormatHtml {
                     break;
                 }
                 while (ExtractCondition.evaluateCondition((Element) next_, _conf, _ip)) {
+                    if (_conf.getContext().getException() != null) {
+                        return ip_;
+                    }
                     continue;
                 }
                 processBlock(_conf, ip_);
@@ -1462,12 +1645,18 @@ public final class FormatHtml {
             }
             if (en_.getFirstChild() == null) {
                 while (ExtractCondition.evaluateCondition(en_, _conf, _ip)) {
+                    if (_conf.getContext().getException() != null) {
+                        return ip_;
+                    }
                     continue;
                 }
                 processBlock(_conf, ip_);
                 return ip_;
             }
             processWhile(_conf, ip_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             c_ = (LoopHtmlStack) ip_.getLastStack();
             if (c_.isFinished()) {
                 ip_.removeLastBlock();
@@ -1492,6 +1681,9 @@ public final class FormatHtml {
                 return ip_;
             }
             processLoop(_conf, ip_);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
             c_ = (LoopHtmlStack) ip_.getLastStack();
             if (c_.isFinished()) {
                 ip_.removeLastBlock();
@@ -1541,23 +1733,50 @@ public final class FormatHtml {
             Element _set) {
         String var_ = _set.getAttribute(ATTRIBUTE_VAR);
         LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getReturnedValues(), var_);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         Struct elt_ = tryToGetObject(_conf, _ip, _set);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         String className_ = ret_.getClassName();
         checkClass(_conf, _ip, new ClassArgumentMatching(className_), elt_);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         ret_.setStruct(elt_);
     }
     private static void processSetClassNameParamTag(Configuration _conf, ImportingPage _ip,
             Element _set) {
         String var_ = _set.getAttribute(ATTRIBUTE_VAR);
         LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getParameters(), var_);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         String className_ = _set.getAttribute(ATTRIBUTE_CLASS_NAME);
         if (className_.isEmpty()) {
             className_ = _conf.getStandards().getAliasObject();
         }
         _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
         _ip.setLookForAttrValue(true);
-        ExtractObject.classNameForName(_conf, 0, className_);
+        if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(className_);
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(un_);
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            return;
+        }
         checkClass(_conf, _ip, new ClassArgumentMatching(className_), ret_.getStruct());
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         ret_.setClassName(className_);
     }
     private static void processSetTag(Configuration _conf, ImportingPage _ip,
@@ -1570,10 +1789,17 @@ public final class FormatHtml {
                 _conf.getLastPage().setProcessingAttribute(ARRAY_INDEX_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
+                String className_;
                 Object index_;
                 if (!StringList.isPositiveNumber(indexExpr_)) {
-                    index_ = ElRenderUtil.processEl(indexExpr_, 0, _conf).getObject();
+                    Struct str_ = ElRenderUtil.processEl(indexExpr_, 0, _conf).getStruct();
+                    className_ = str_.getClassName(_conf.getContext());
+                    index_ = str_.getInstance();
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                 } else {
+                    className_ = _conf.getContext().getStandards().getAliasPrimInteger();
                     index_ = Integer.parseInt(indexExpr_);
                 }
                 String elementExpr_ = _set.getAttribute(ARRAY_ELEMENT_ATTRIBUTE);
@@ -1581,19 +1807,33 @@ public final class FormatHtml {
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
                 Struct elementArg_ = ElRenderUtil.processEl(elementExpr_, 0, _conf).getStruct();
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 _conf.getLastPage().setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
                 Struct arrayArg_ = ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
-                int indexNb_;
-                try {
-                    indexNb_ = (Integer)index_;
-                } catch (RuntimeException _0) {
-                    _conf.getLastPage().setProcessingAttribute(ARRAY_INDEX_ATTRIBUTE);
-                    _conf.getLastPage().setLookForAttrValue(false);
-                    _conf.getLastPage().setOffset(0);
-                    throw new DynamicNumberFormatException(_conf.joinPages());
+                if (_conf.getContext().getException() != null) {
+                    return;
                 }
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(className_);
+                mapping_.setParam(_conf.getContext().getStandards().getAliasPrimInteger());
+                if (!Templates.isCorrect(mapping_, _conf)) {
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
+                }
+                int indexNb_ = ((Number)index_).intValue();
                 LocalVariable right_ = new LocalVariable();
                 right_.setClassName(lgNames_.getStructClassName(elementArg_, _conf.toContextEl()));
                 right_.setStruct(elementArg_);
@@ -1604,20 +1844,11 @@ public final class FormatHtml {
                 _ip.getLocalVars().put(nameOne_, left_);
                 String nameTwo_ = _ip.getNextTempVar();
                 _ip.getLocalVars().put(nameTwo_, right_);
-                try {
-                    String leftEl_ = StringList.concat(nameOne_,GET_LOC_VAR,String.valueOf(LEFT_ARR),Long.toString(indexNb_),SUFFIX_INT,String.valueOf(RIGHT_ARR));
-                    String rightEl_ = StringList.concat(nameTwo_,GET_LOC_VAR);
-                    ElRenderUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, leftEl_, rightEl_, String.valueOf(EQUALS), _conf);
-                } catch (RuntimeException _0) {
-                    _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
-                    _conf.getLastPage().setLookForAttrValue(false);
-                    _conf.getLastPage().setOffset(0);
-                    String err_ = _conf.getStandards().getAliasError();
-                    throw new SettingArrayException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
-                } finally {
-                    _ip.getLocalVars().removeKey(nameOne_);
-                    _ip.getLocalVars().removeKey(nameTwo_);
-                }
+                String leftEl_ = StringList.concat(nameOne_,GET_LOC_VAR,String.valueOf(LEFT_ARR),Long.toString(indexNb_),SUFFIX_INT,String.valueOf(RIGHT_ARR));
+                String rightEl_ = StringList.concat(nameTwo_,GET_LOC_VAR);
+                ElRenderUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, leftEl_, rightEl_, String.valueOf(EQUALS), _conf);
+                _ip.getLocalVars().removeKey(nameOne_);
+                _ip.getLocalVars().removeKey(nameTwo_);
             } else {
                 ElRenderUtil.processEl(expression_, 0, _conf);
             }
@@ -1628,9 +1859,22 @@ public final class FormatHtml {
             _ip.setOffset(0);
             _ip.setProcessingAttribute(ATTRIBUTE_VAR);
             _ip.setLookForAttrValue(true);
-            throw new BadVariableNameException(_conf.joinPages(), var_, ATTRIBUTE_VAR);
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(_conf.getCurrentFileName());
+            b_.setRc(_conf.getCurrentLocation());
+            b_.setVarName(var_);
+            _conf.getClasses().getErrorsDet().add(b_);
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            return;
         }
         VariableInformation vi_ = tryToGetVariableInformation(_conf, _ip, _set);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         String className_ = vi_.getClassName();
         Struct obj_ = vi_.getStruct();
         _ip.getLocalVars().put(var_, tryToCreateVariable(_conf, _ip, className_, obj_));
@@ -1643,7 +1887,18 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            ExtractObject.classNameForName(_conf, 0, className_);
+            if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(className_);
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(un_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            }
         } else {
             className_ = _conf.getStandards().getAliasObject();
         }
@@ -1709,11 +1964,32 @@ public final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             struct_ = ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
+            if (_conf.getContext().getException() != null) {
+                VariableInformation vi_ = new VariableInformation();
+                vi_.setClassName(className_);
+                vi_.setStruct(struct_);
+                return vi_;
+            }
             if (className_.isEmpty()) {
                 ExtractObject.checkNullPointer(_conf, struct_.getInstance());
+                if (_conf.getContext().getException() != null) {
+                    VariableInformation vi_ = new VariableInformation();
+                    vi_.setClassName(className_);
+                    vi_.setStruct(struct_);
+                    return vi_;
+                }
                 className_ = lgNames_.getStructClassName(struct_, _conf.toContextEl());
-            } else {
-                ExtractObject.classNameForName(_conf, 0, className_);
+            } else if (!OperationNode.okType(context_, className_)){
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(className_);
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(un_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             }
         } else {
             if (className_.isEmpty()) {
@@ -1757,51 +2033,112 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    ExtractObject.classNameForName(_conf, 0, className_);
-                    if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        struct_ = NullStruct.NULL_VALUE;
+                    if (OperationNode.okType(_conf.toContextEl(), className_)) {
+                        if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
+                            struct_ = NullStruct.NULL_VALUE;
+                        } else {
+                            struct_ = new StringStruct(expression_);
+                        }
                     } else {
-                        struct_ = new StringStruct(expression_);
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(className_);
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(un_);
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                        badEl_.setFileName(_conf.getCurrentFileName());
+                        badEl_.setRc(_conf.getCurrentLocation());
+                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     }
                 } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    ExtractObject.classNameForName(_conf, 0, className_);
-                    if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        struct_ = NullStruct.NULL_VALUE;
+                    if (OperationNode.okType(_conf.toContextEl(), className_)) {
+                        if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
+                            struct_ = NullStruct.NULL_VALUE;
+                        } else {
+                            struct_ = new CharStruct(ExtractObject.getChar(_conf, expression_));
+                        }
                     } else {
-                        struct_ = new CharStruct(ExtractObject.getChar(_conf, expression_));
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(className_);
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(un_);
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                        badEl_.setFileName(_conf.getCurrentFileName());
+                        badEl_.setRc(_conf.getCurrentLocation());
+                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     }
                 } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    ExtractObject.classNameForName(_conf, 0, className_);
-                    if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        struct_ = NullStruct.NULL_VALUE;
+                    if (OperationNode.okType(_conf.toContextEl(), className_)) {
+                        if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
+                            struct_ = NullStruct.NULL_VALUE;
+                        } else {
+                            struct_ = new BooleanStruct(Boolean.parseBoolean(expression_));
+                        }
                     } else {
-                        struct_ = new BooleanStruct(Boolean.parseBoolean(expression_));
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(className_);
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(un_);
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                        badEl_.setFileName(_conf.getCurrentFileName());
+                        badEl_.setRc(_conf.getCurrentLocation());
+                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     }
                 } else if (StringList.isNumber(expression_)) {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    ExtractObject.classNameForName(_conf, 0, className_);
-                    _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    struct_ = ExtractObject.instanceByString(_conf, className_, expression_);
+                    if (OperationNode.okType(_conf.toContextEl(), className_)) {
+                        _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
+                        _ip.setLookForAttrValue(true);
+                        _ip.setOffset(0);
+                        struct_ = ExtractObject.instanceByString(_conf, className_, expression_);
+                    } else {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(className_);
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(un_);
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                        badEl_.setFileName(_conf.getCurrentFileName());
+                        badEl_.setRc(_conf.getCurrentLocation());
+                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    }
                 } else {
                     _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
                     Argument a_ = ElRenderUtil.processEl(expression_, 0, _conf);
                     struct_ = a_.getStruct();
-                    _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    ExtractObject.classNameForName(_conf, 0, className_);
+                    if (_conf.getContext().getException() == null) {
+                        _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
+                        _ip.setLookForAttrValue(true);
+                        _ip.setOffset(0);
+                        if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                            UnknownClassName un_ = new UnknownClassName();
+                            un_.setClassName(className_);
+                            un_.setFileName(_conf.getCurrentFileName());
+                            un_.setRc(_conf.getCurrentLocation());
+                            _conf.getClasses().getErrorsDet().add(un_);
+                            BadElRender badEl_ = new BadElRender();
+                            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                            badEl_.setFileName(_conf.getCurrentFileName());
+                            badEl_.setRc(_conf.getCurrentLocation());
+                            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        }
+                    }
                 }
             }
         }
@@ -1818,23 +2155,81 @@ public final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             if (_object == null || _object.isNull()) {
-                throw new NotPrimitivableException(StringList.concat(clMatch_.getName(),RETURN_LINE,_conf.joinPages()));
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(EMPTY_STRING);
+                mapping_.setParam(_className);
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                LocalVariable loc_ = new LocalVariable();
+                loc_.setClassName(_className);
+                loc_.setStruct(_object);
+                return loc_;
             }
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(_className);
             String type_ = lgNames_.getStructClassName(_object, _conf.toContextEl());
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _conf.toContextEl())) {
-                throw new DynamicCastClassException(StringList.concat(type_,SPACE,_className,RETURN_LINE,_conf.joinPages()));
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(type_);
+                mapping_.setParam(lgNames_.getAliasDouble());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                loc_.setStruct(_object);
+                return loc_;
             }
             String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(type_), true, _conf.toContextEl()).getName();
-            if (StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+            if (StringList.quickEq(typeNameArg_, lgNames_.getAliasPrimBoolean())) {
                 String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf.toContextEl()).getName();
-                if (!StringList.quickEq(typeNameParam_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-                    throw new DynamicCastClassException(StringList.concat(type_,SPACE,_className,RETURN_LINE,_conf.joinPages()));
+                if (!StringList.quickEq(typeNameParam_, lgNames_.getAliasPrimBoolean())) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(typeNameArg_);
+                    mapping_.setParam(typeNameParam_);
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    loc_.setStruct(_object);
+                    return loc_;
                 }
             } else {
                 if (PrimitiveTypeUtil.getOrderClass(clMatch_, _conf.toContextEl()) == 0) {
-                    throw new DynamicCastClassException(StringList.concat(type_,SPACE,_className,RETURN_LINE,_conf.joinPages()));
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(typeNameArg_);
+                    mapping_.setParam(_className);
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    loc_.setStruct(_object);
+                    return loc_;
                 }
             }
             loc_.setStruct(_object);
@@ -1853,12 +2248,40 @@ public final class FormatHtml {
             loc_.setStruct(_object);
             return loc_;
         }
-        throw new NotCastableException(StringList.concat(arg_,SPACE,_className,RETURN_LINE,_conf.joinPages()));
+        Mapping mapping_ = new Mapping();
+        mapping_.setArg(arg_);
+        mapping_.setParam(param_);
+        BadImplicitCast cast_ = new BadImplicitCast();
+        cast_.setMapping(mapping_);
+        cast_.setFileName(_conf.getCurrentFileName());
+        cast_.setRc(_conf.getCurrentLocation());
+        _conf.getClasses().getErrorsDet().add(cast_);
+        BadElRender badEl_ = new BadElRender();
+        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+        badEl_.setFileName(_conf.getCurrentFileName());
+        badEl_.setRc(_conf.getCurrentLocation());
+        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+        LocalVariable loc_ = new LocalVariable();
+        loc_.setClassName(_className);
+        return loc_;
     }
     static void checkClass(Configuration _conf, ImportingPage _ip, ClassArgumentMatching _class, Struct _object) {
         String paramName_ = _class.getName();
         if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, _object, _conf.toContextEl())) {
-            throw new NotPrimitivableException(StringList.concat(_class.getName(),RETURN_LINE,_conf.joinPages()));
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(EMPTY_STRING);
+            mapping_.setParam(paramName_);
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(_conf.getCurrentFileName());
+            cast_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(cast_);
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            return;
         }
         if (_object.isNull()) {
             return;
@@ -1875,17 +2298,53 @@ public final class FormatHtml {
             paramName_ = _conf.getLastPage().getPageEl().formatVarType(paramName_, context_);
             mapping_.setParam(paramName_);
             if (!Templates.isCorrect(mapping_, context_)) {
-                throw new NotCastableException(StringList.concat(argClassName_,SPACE,_class.getName(),RETURN_LINE,_conf.joinPages()));
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return;
             }
         } else {
             if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf.toContextEl()) > 0) {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.toContextEl()) == 0) {
-                    throw new DynamicCastClassException(StringList.concat(argClassName_,SPACE,_class.getName(),RETURN_LINE,_conf.joinPages()));
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(argClassName_);
+                    mapping_.setParam(paramName_);
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
                 }
             } else {
                 String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true,_conf.toContextEl()).getName();
                 if (!StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-                    throw new DynamicCastClassException(StringList.concat(argClassName_,SPACE,_class.getName(),RETURN_LINE,_conf.joinPages()));
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(typeNameArg_);
+                    mapping_.setParam(paramName_);
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
                 }
             }
         }
@@ -1905,6 +2364,9 @@ public final class FormatHtml {
                 Element elt_ = (Element) en_;
                 if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,FOR_BLOCK_TAG))) {
                     StringList varsLoc_ = checkForLoop(_conf, elt_, _html);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     for (StringList l: vars_) {
                         for (String v: l) {
                             if (varsLoc_.containsStr(v)) {
@@ -1912,7 +2374,17 @@ public final class FormatHtml {
                                 for (StringList g: vars_) {
                                     alls_.addAllElts(g);
                                 }
-                                throw new AlreadyDefinedVarException(StringList.concat(alls_.display(),RETURN_LINE,v,RETURN_LINE,_conf.joinPages()));
+                                DuplicateVariable d_ = new DuplicateVariable();
+                                d_.setId(v);
+                                d_.setFileName(_conf.getCurrentFileName());
+                                d_.setRc(_conf.getCurrentLocation());
+                                _conf.getClasses().getErrorsDet().add(d_);
+                                BadElRender badEl_ = new BadElRender();
+                                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                                badEl_.setFileName(_conf.getCurrentFileName());
+                                badEl_.setRc(_conf.getCurrentLocation());
+                                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                                return;
                             }
                         }
                     }
@@ -1925,7 +2397,8 @@ public final class FormatHtml {
                             _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
                             _conf.getLastPage().setOffset(0);
                             _conf.getLastPage().setLookForAttrValue(false);
-                            throw new BadSelectException(_conf.joinPages());
+                            _conf.getContext().setException(NullStruct.NULL_VALUE);
+                            return;
                         }
                     }
                 } else if (ExtractCondition.isContentOfConditionNode(_conf, elt_)) {
@@ -1948,7 +2421,8 @@ public final class FormatHtml {
                         break;
                     }
                     if (!existIf_) {
-                        throw new BadElseIfException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,ELSE_BLOCK_TAG))) {
                     Node prev_ = elt_.getPreviousSibling();
@@ -1970,11 +2444,13 @@ public final class FormatHtml {
                         break;
                     }
                     if (!existIf_) {
-                        throw new BadElseException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TRY_TAG))) {
                     if (elt_.getFirstChild() == null) {
-                        throw new BadCatchException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                     Node next_ = elt_.getNextSibling();
                     boolean existCatch_ = false;
@@ -1998,17 +2474,40 @@ public final class FormatHtml {
                         break;
                     }
                     if (!existCatch_) {
-                        throw new BadCatchException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,CATCH_TAG))) {
                     String className_ = elt_.getAttribute(ATTRIBUTE_CLASS_NAME);
                     _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _conf.getLastPage().setOffset(0);
                     _conf.getLastPage().setLookForAttrValue(false);
-                    ExtractObject.classNameForName(_conf, 0, className_);
+                    if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(className_);
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(un_);
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                        badEl_.setFileName(_conf.getCurrentFileName());
+                        badEl_.setRc(_conf.getCurrentLocation());
+                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        return;
+                    }
                     String var_ = elt_.getAttribute(ATTRIBUTE_VAR);
                     if (!StringList.isWord(var_)) {
-                        throw new BadVariableNameException(var_, _conf.joinPages(), ATTRIBUTE_VAR);
+                        BadVariableName b_ = new BadVariableName();
+                        b_.setFileName(_conf.getCurrentFileName());
+                        b_.setRc(_conf.getCurrentLocation());
+                        b_.setVarName(var_);
+                        _conf.getClasses().getErrorsDet().add(b_);
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                        badEl_.setFileName(_conf.getCurrentFileName());
+                        badEl_.setRc(_conf.getCurrentLocation());
+                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        return;
                     }
                     Node prev_ = elt_.getPreviousSibling();
                     boolean existTry_ = false;
@@ -2032,7 +2531,8 @@ public final class FormatHtml {
                         break;
                     }
                     if (!existTry_) {
-                        throw new BadTryException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                     for (String v: catchVars_) {
                         if (StringList.quickEq(var_, v)) {
@@ -2040,7 +2540,17 @@ public final class FormatHtml {
                             for (StringList g: vars_) {
                                 alls_.addAllElts(g);
                             }
-                            throw new AlreadyDefinedVarException(StringList.concat(alls_.display(),RETURN_LINE,v,RETURN_LINE,_conf.joinPages()));
+                            DuplicateVariable d_ = new DuplicateVariable();
+                            d_.setId(var_);
+                            d_.setFileName(_conf.getCurrentFileName());
+                            d_.setRc(_conf.getCurrentLocation());
+                            _conf.getClasses().getErrorsDet().add(d_);
+                            BadElRender badEl_ = new BadElRender();
+                            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                            badEl_.setFileName(_conf.getCurrentFileName());
+                            badEl_.setRc(_conf.getCurrentLocation());
+                            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                            return;
                         }
                     }
                     if (elt_.hasChildNodes()) {
@@ -2048,7 +2558,8 @@ public final class FormatHtml {
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_FINALLY))) {
                     if (elt_.getFirstChild() == null) {
-                        throw new BadTryException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                     Node prev_ = elt_.getPreviousSibling();
                     boolean existTry_ = false;
@@ -2072,7 +2583,8 @@ public final class FormatHtml {
                         break;
                     }
                     if (!existTry_) {
-                        throw new BadTryException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,BREAK_TAG))) {
                     Element parent_ = elt_.getParentNode();
@@ -2097,7 +2609,8 @@ public final class FormatHtml {
                         parent_ = parent_.getParentNode();
                     }
                     if (!ok_) {
-                        throw new BadTagBreakException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,CONTINUE_TAG))) {
                     Element parent_ = elt_.getParentNode();
@@ -2118,7 +2631,8 @@ public final class FormatHtml {
                         parent_ = parent_.getParentNode();
                     }
                     if (!ok_) {
-                        throw new BadTagContinueException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_SWITCH))) {
                     Node first_ = elt_.getFirstChild();
@@ -2128,7 +2642,8 @@ public final class FormatHtml {
                                 first_ = first_.getNextSibling();
                                 continue;
                             }
-                            throw new BadSwitchException(_conf.joinPages());
+                            _conf.getContext().setException(NullStruct.NULL_VALUE);
+                            return;
                         }
                         if (first_ instanceof Comment) {
                             first_ = first_.getNextSibling();
@@ -2142,15 +2657,18 @@ public final class FormatHtml {
                             first_ = first_.getNextSibling();
                             continue;
                         }
-                        throw new BadSwitchException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_CASE))) {
                     if (elt_.getParentNode() == null || !StringList.quickEq(elt_.getParentNode().getTagName(),StringList.concat(prefix_,TAG_SWITCH))) {
-                        throw new BadCaseException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_DEFAULT))) {
                     if (elt_.getParentNode() == null || !StringList.quickEq(elt_.getParentNode().getTagName(),StringList.concat(prefix_,TAG_SWITCH))) {
-                        throw new BadDefaultException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,WHILE_BLOCK_TAG))) {
                     if (elt_.getFirstChild() != null) {
@@ -2172,7 +2690,8 @@ public final class FormatHtml {
                             break;
                         }
                         if (existDo_) {
-                            throw new BadLoopException(_conf.joinPages());
+                            _conf.getContext().setException(NullStruct.NULL_VALUE);
+                            return;
                         }
                     }
                 } else if (StringList.quickEq(elt_.getTagName(), StringList.concat(prefix_,TAG_DO))) {
@@ -2194,7 +2713,8 @@ public final class FormatHtml {
                         break;
                     }
                     if (!existWhile_) {
-                        throw new BadLoopException(_conf.joinPages());
+                        _conf.getContext().setException(NullStruct.NULL_VALUE);
+                        return;
                     }
                 }
                 int endHeader_ = _html.indexOf(GT_TAG, indexGlobal_);
@@ -2428,7 +2948,17 @@ public final class FormatHtml {
         if (_node.hasAttribute(ATTRIBUTE_LIST)) {
             String varName_ = _node.getAttribute(ATTRIBUTE_VAR);
             if (!StringList.isWord(varName_)) {
-                throw new BadVariableNameException(varName_, _conf.joinPages(), ATTRIBUTE_VAR);
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(_conf.getCurrentFileName());
+                b_.setRc(_conf.getCurrentLocation());
+                b_.setVarName(varName_);
+                _conf.getClasses().getErrorsDet().add(b_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return vars_;
             }
             vars_.add(varName_);
             return vars_;
@@ -2436,14 +2966,44 @@ public final class FormatHtml {
         if (_node.hasAttribute(ATTRIBUTE_MAP)) {
             String key_ = _node.getAttribute(ATTRIBUTE_KEY);
             if (!StringList.isWord(key_)) {
-                throw new BadVariableNameException(key_, _conf.joinPages(), ATTRIBUTE_KEY);
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(_conf.getCurrentFileName());
+                b_.setRc(_conf.getCurrentLocation());
+                b_.setVarName(key_);
+                _conf.getClasses().getErrorsDet().add(b_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return vars_;
             }
             String value_ = _node.getAttribute(ATTRIBUTE_VALUE);
             if (!StringList.isWord(value_)) {
-                throw new BadVariableNameException(value_, _conf.joinPages(), ATTRIBUTE_VALUE);
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(_conf.getCurrentFileName());
+                b_.setRc(_conf.getCurrentLocation());
+                b_.setVarName(value_);
+                _conf.getClasses().getErrorsDet().add(b_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return vars_;
             }
             if (StringList.quickEq(key_,value_)) {
-                throw new KeyValueException(key_, _conf.joinPages());
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(key_);
+                d_.setFileName(_conf.getCurrentFileName());
+                d_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(d_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return vars_;
             }
             vars_.add(key_);
             vars_.add(value_);
@@ -2454,14 +3014,25 @@ public final class FormatHtml {
                 if (_node.hasAttribute(ATTRIBUTE_STEP)) {
                     String varName_ = _node.getAttribute(ATTRIBUTE_VAR);
                     if (!StringList.isWord(varName_)) {
-                        throw new BadVariableNameException(varName_, _conf.joinPages(), ATTRIBUTE_VAR);
+                        BadVariableName b_ = new BadVariableName();
+                        b_.setFileName(_conf.getCurrentFileName());
+                        b_.setRc(_conf.getCurrentLocation());
+                        b_.setVarName(varName_);
+                        _conf.getClasses().getErrorsDet().add(b_);
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                        badEl_.setFileName(_conf.getCurrentFileName());
+                        badEl_.setRc(_conf.getCurrentLocation());
+                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        return vars_;
                     }
                     vars_.add(varName_);
                     return vars_;
                 }
             }
         }
-        throw new BadLoopException(_conf.joinPages());
+        _conf.getContext().setException(NullStruct.NULL_VALUE);
+        return vars_;
     }
 
     private static boolean interpretBrackets(CharacterData _node) {
@@ -2495,12 +3066,24 @@ public final class FormatHtml {
         if (name_.endsWith(GET_ATTRIBUTE)) {
             String oldVar_ = name_.substring(CustList.FIRST_INDEX, name_.length() - GET_ATTRIBUTE.length());
             LoopVariable lv_ = ExtractObject.getCurrentVariable(_conf, 0, _ip.getVars(), oldVar_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             obj_ = lv_.getContainer();
             ExtractObject.checkNullPointer(_conf, obj_.getInstance());
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             index_ = lv_.getIndex();
             for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
                 if (!ExtractObject.eq(_conf, e.getValue().getStruct(), obj_)) {
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     continue;
+                }
+                if (_conf.getContext().getException() != null) {
+                    return;
                 }
                 if (e.getValue().getIndex() != index_) {
                     continue;
@@ -2537,6 +3120,9 @@ public final class FormatHtml {
                     }
                 }
                 obj_ = ElRenderUtil.processEl(begin_, 0, _conf).getStruct();
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 _ip.addToOffset(begin_.length());
                 end_ = name_.substring(i_ + 1);
             } else {
@@ -2544,9 +3130,18 @@ public final class FormatHtml {
                 end_ = name_;
             }
             ExtractObject.checkNullPointer(_conf, obj_.getInstance());
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
                 if (!ExtractObject.eq(_conf,e.getValue().getStruct(), obj_)) {
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     continue;
+                }
+                if (_conf.getContext().getException() != null) {
+                    return;
                 }
                 if (!StringList.quickEq(e.getValue().getLastToken(), end_)) {
                     continue;
@@ -2557,6 +3152,9 @@ public final class FormatHtml {
             Struct current_ = _ip.getGlobalArgument().getStruct();
             _ip.setGlobalArgumentStruct(obj_, _conf);
             currentField_ = ElRenderUtil.processEl(end_, 0, _conf).getStruct();
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             _ip.setGlobalArgumentStruct(current_, _conf);
         }
         if (found_ == -1) {
@@ -2661,6 +3259,9 @@ public final class FormatHtml {
         if (!id_.isEmpty()) {
             _ip.setProcessingAttribute(ATTRIBUTE_ID);
             id_ = interpretPartiallyIds(_conf, _ip, id_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             _tag.setAttribute(ATTRIBUTE_ID, id_);
         }
         attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID));
@@ -2668,6 +3269,9 @@ public final class FormatHtml {
         if (!groupId_.isEmpty()) {
             _ip.setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID));
             groupId_ = interpretPartiallyIds(_conf, _ip, groupId_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_GROUP_ID), groupId_);
         }
         if (StringList.quickEq(_tag.getTagName(),StringList.concat(prefixWrite_,SUBMIT_BLOCK_TAG)) && !prefixWrite_.isEmpty()) {
@@ -2680,11 +3284,17 @@ public final class FormatHtml {
                 fileName_ = var_;
             }
             StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, _files, _resourcesFolder);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             _ip.setProcessingAttribute(ATTRIBUTE_VALUE_SUBMIT);
             _ip.setOffset(var_.length()+1);
             _ip.setLookForAttrValue(true);
             String key_ = elts_.last();
             String preformatted_ = ExtractFromResources.getFormat(messages_, key_, _conf, _loc, fileName_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _tag.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
             _tag.removeAttribute(ATTRIBUTE_VALUE_SUBMIT);
             _tag.removeAttribute(ATTRIBUTE_ESCAPED_EAMP);
@@ -2697,7 +3307,14 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
-                    objects_.add(ExtractObject.valueOf(_conf, ElRenderUtil.processEl(attribute_, 1, _conf).getStruct()));
+                    Struct str_ = ElRenderUtil.processEl(attribute_, 1, _conf).getStruct();
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
+                    objects_.add(ExtractObject.valueOf(_conf, str_));
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                 } else {
                     objects_.add(attribute_);
                 }
@@ -2720,11 +3337,17 @@ public final class FormatHtml {
                 fileName_ = var_;
             }
             StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, _files, _resourcesFolder);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             _ip.setProcessingAttribute(ATTRIBUTE_VALUE_SUBMIT);
             _ip.setOffset(var_.length()+1);
             _ip.setLookForAttrValue(true);
             String key_ = elts_.last();
             String preformatted_ = ExtractFromResources.getFormat(messages_, key_, _conf, _loc, fileName_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _tag.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
             _tag.removeAttribute(ATTRIBUTE_VALUE_SUBMIT);
             _tag.removeAttribute(ATTRIBUTE_VALUE);
@@ -2737,7 +3360,14 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
-                    objects_.add(ExtractObject.valueOf(_conf, ElRenderUtil.processEl(attribute_, 1, _conf).getStruct()));
+                    Struct str_ = ElRenderUtil.processEl(attribute_, 1, _conf).getStruct();
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
+                    objects_.add(ExtractObject.valueOf(_conf, str_));
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                 } else {
                     objects_.add(attribute_);
                 }
@@ -2757,11 +3387,17 @@ public final class FormatHtml {
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
                 src_ = ExtractObject.formatNumVariables(src_, _conf, _ip);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 String wrap_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
                 boolean keep_ = wrap_.isEmpty();
                 attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
                 attributesNames_.removeAllString(ATTRIBUTE_SRC);
                 String content_ = ExtractFromResources.getContentFile(_conf, _files,src_,_resourcesFolder);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 if (keep_ || _conf.isUncompressed()) {
                     _tag.setAttribute(ATTRIBUTE_SRC, content_);
                 } else {
@@ -2797,7 +3433,14 @@ public final class FormatHtml {
                         _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(1);
-                        objects_.add(ExtractObject.valueOf(_conf,ElRenderUtil.processEl(attribute_, 1, _conf).getStruct()));
+                        Struct str_ = ElRenderUtil.processEl(attribute_, 1, _conf).getStruct();
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
+                        objects_.add(ExtractObject.valueOf(_conf,str_));
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                     } else {
                         objects_.add(attribute_);
                     }
@@ -2805,6 +3448,9 @@ public final class FormatHtml {
                     i_++;
                 }
                 String fileContent_ = ExtractFromResources.getContentFile(_conf, _files, href_, _resourcesFolder);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 if (!objects_.isEmpty()) {
                     fileContent_ = StringList.simpleStringsFormat(fileContent_, objects_.toArray());
                 }
@@ -2841,6 +3487,9 @@ public final class FormatHtml {
             StringList filesContents_ = new StringList();
             for (String r: refs_) {
                 filesContents_.add(ExtractFromResources.getContentFile(_conf, _files, r, _resourcesFolder));
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
             }
             NodeList chNode_ = _tag.getChildNodes();
             if (chNode_.isEmpty()) {
@@ -2862,8 +3511,14 @@ public final class FormatHtml {
                 attributesNames_.removeAllString(ATTRIBUTE_TYPE);
                 String ref_ = href_.getValue();
                 ref_ = ExtractObject.formatNumVariables(ref_, _conf, _ip);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 _tag.setAttribute(ATTRIBUTE_TYPE, SCRIPT_TYPE);
                 Text txt_ = _doc.createTextNode(ExtractFromResources.getContentFile(_conf, _files,ref_,_resourcesFolder));
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 _tag.appendChild(txt_);
             }
         }
@@ -2881,6 +3536,9 @@ public final class FormatHtml {
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
                 setIndexes(_indexes, _conf, _ip, _containersMap, _containers, _tag, name_);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 if (_indexes.getNb() >= 0) {
                     _tag.setAttribute(NUMBER_INPUT, String.valueOf(_indexes.getNb()));
                 }
@@ -2899,6 +3557,9 @@ public final class FormatHtml {
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
                 setIndexes(_indexes, _conf, _ip, _containersMap, _containers, _tag, name_);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 if (_indexes.getNb() >= 0) {
                     _tag.setAttribute(NUMBER_INPUT, String.valueOf(_indexes.getNb()));
                 }
@@ -2912,11 +3573,17 @@ public final class FormatHtml {
                 attributesNames_.removeAllString(ATTRIBUTE_VALUE);
                 attributesNames_.removeAllString(CHECKED);
                 setValueInput(_conf, _tag);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 _tag.removeAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             }
             if (StringList.quickEq(_tag.getTagName(),TEXT_AREA)) {
                 attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
                 setValueTextArea(_conf, _doc, _tag);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 _tag.removeAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             }
         }
@@ -2930,11 +3597,17 @@ public final class FormatHtml {
                 Struct o_ = null;
                 if (!accessName_.isEmpty()) {
                     o_ = ElRenderUtil.processEl(accessName_, 0, _conf).getStruct();
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                 }
                 if (o_ == null || o_.isNull()) {
                     _tag.removeAttribute(CHECKED);
                 } else {
                     String strObj_ = ExtractObject.getStringKey(_conf, o_);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     if (StringList.quickEq(_tag.getAttribute(ATTRIBUTE_VALUE),strObj_)) {
                         _tag.setAttribute(CHECKED, CHECKED);
                     } else {
@@ -2949,6 +3622,9 @@ public final class FormatHtml {
                 _ip.setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR));
                 attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR));
                 forId_ = interpretPartiallyIds(_conf, _ip, forId_);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR), forId_);
                 if (!_ip.getReadWrite().getRead().hasChildNodes()) {
                     Text txt_ = _doc.createTextNode(SPACE);
@@ -3029,11 +3705,17 @@ public final class FormatHtml {
                         _ip.setOffset(1);
                         _tag.setAttribute(a, v_);
                         evaluateAttribute(_conf,_tag, a);
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                     } else {
                         _ip.setProcessingAttribute(a);
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(0);
                         v_ = ExtractObject.formatNumVariables(v_, _conf, _ip);
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                         _tag.setAttribute(a, v_);
                     }
                 }
@@ -3079,6 +3761,9 @@ public final class FormatHtml {
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
         Struct o_ = ElRenderUtil.processEl(attribute_, 0, _conf).getStruct();
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         if (o_.isNull()) {
             o_ = new StringStruct(EMPTY_STRING);
         }
@@ -3089,14 +3774,18 @@ public final class FormatHtml {
 
     private static void setValueInput(Configuration _conf, Element _tag) {
         String attribute_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
-        try {
+        Long value_ = LgNames.parseLong(attribute_);
+        if (value_ != null) {
             //TODO converter
-            _tag.setAttribute(ATTRIBUTE_VALUE, String.valueOf(Long.parseLong(attribute_)));
-        } catch (NumberFormatException _0) {
+            _tag.setAttribute(ATTRIBUTE_VALUE, String.valueOf(value_));
+        } else {
             _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
             Struct o_ = ElRenderUtil.processEl(attribute_, 0, _conf).getStruct();
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             if (o_.isNull()) {
                 _tag.setAttribute(ATTRIBUTE_VALUE, (String) o_.getInstance());
             } else if (o_.getInstance() instanceof Boolean) {
@@ -3131,7 +3820,12 @@ public final class FormatHtml {
                     i_++;
                     continue;
                 }
-                throw new BadExpressionLanguageException(StringList.concat(_pattern,RETURN_LINE,_conf.joinPages()));
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return EMPTY_STRING;
             }
             if (curChar_ == ESCAPED) {
                 escaped_ = true;
@@ -3141,7 +3835,18 @@ public final class FormatHtml {
             if (curChar_ == MATH_INTERPRET) {
                 _ip.setOffset(i_+1);
                 Argument arg_ = ElRenderUtil.processEl(_pattern, _conf, i_+1, MATH_INTERPRET, MATH_INTERPRET);
+                if (_conf.getContext().getException() != null) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return EMPTY_STRING;
+                }
                 calculateVariables_.append(ExtractObject.valueOf(_conf, arg_.getStruct()));
+                if (_conf.getContext().getException() != null) {
+                    return EMPTY_STRING;
+                }
                 i_ = _conf.getNextIndex();
                 continue;
             }
@@ -3194,6 +3899,9 @@ public final class FormatHtml {
         }
         String command_ = class_.substring(class_.indexOf(CALL_METHOD)+1);
         Struct returnedObject_ = ElRenderUtil.processEl(command_, 0, _conf).getStruct();
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         if (returnedObject_.isNull()) {
             _elt.removeAttribute(_attrName);
             return;
@@ -3216,14 +3924,32 @@ public final class FormatHtml {
             returnedVarValue_ = new IdList<Struct>();
             if (!_multiple) {
                 returnedVarValue_.add(ElRenderUtil.processEl(varValue_, 0, _conf).getStruct());
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
             } else {
                 Struct o_ = ElRenderUtil.processEl(varValue_, 0, _conf).getStruct();
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 if (o_.isNull()) {
                     returnedVarValue_ = null;
                 } else {
                     Struct it_ = ExtractObject.iterator(_conf, o_);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     while (ExtractObject.hasNext(_conf, it_)) {
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                         returnedVarValue_.add(ExtractObject.next(_conf, it_));
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
+                    }
+                    if (_conf.getContext().getException() != null) {
+                        return;
                     }
                 }
             }
@@ -3232,6 +3958,9 @@ public final class FormatHtml {
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
         Struct li_ = ElRenderUtil.processEl(list_, 0, _conf).getStruct();
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         Struct extractedList_ = li_;
         String default_ = _n.getAttribute(DEFAULT_ATTRIBUTE);
         Element docElementSelect_ = _doc.createElement(SELECT_TAG);
@@ -3248,20 +3977,44 @@ public final class FormatHtml {
         }
         if (default_.isEmpty() || returnedVarValue_ != null && update_) {
             Struct it_ = ExtractObject.iterator(_conf, extractedList_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             while (ExtractObject.hasNext(_conf, it_)) {
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 Struct o_ = ExtractObject.next(_conf, it_);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 Element option_ = _doc.createElement(TAG_OPTION);
                 option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.getStringKey(_conf, o_));
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 if (returnedVarValue_ != null) {
                     for (Struct a: returnedVarValue_) {
                         if (ExtractObject.eq(_conf, a, o_)) {
+                            if (_conf.getContext().getException() != null) {
+                                return;
+                            }
                             option_.setAttribute(SELECTED, SELECTED);
                             break;
+                        }
+                        if (_conf.getContext().getException() != null) {
+                            return;
                         }
                     }
                 }
                 option_.appendChild(_doc.createTextNode(ExtractObject.toString(_conf, o_)));
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 docElementSelect_.appendChild(option_);
+            }
+            if (_conf.getContext().getException() != null) {
+                return;
             }
         } else {
             if (default_.startsWith(CALL_METHOD)) {
@@ -3272,38 +4025,92 @@ public final class FormatHtml {
                 IdList<Struct> defaults_ = new IdList<Struct>();
                 if (!_multiple) {
                     defaults_.add(ElRenderUtil.processEl(command_, 0, _conf).getStruct());
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                 } else {
                     li_ = ElRenderUtil.processEl(command_, 0, _conf).getStruct();
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     Struct it_ = ExtractObject.iterator(_conf, li_);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     while (ExtractObject.hasNext(_conf, it_)) {
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                         defaults_.add(ExtractObject.next(_conf, it_));
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
+                    }
+                    if (_conf.getContext().getException() != null) {
+                        return;
                     }
                 }
                 _conf.getLastPage().setProcessingAttribute(DEFAULT_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
                 Struct it_ = ExtractObject.iterator(_conf, extractedList_);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 while (ExtractObject.hasNext(_conf, it_)) {
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     Struct o_ = ExtractObject.next(_conf, it_);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     Element option_ = _doc.createElement(TAG_OPTION);
                     String nameEnum_ = ExtractObject.getStringKey(_conf, o_);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     option_.setAttribute(ATTRIBUTE_VALUE, nameEnum_);
                     for (Struct d: defaults_) {
                         if (ExtractObject.eq(_conf, o_, d)) {
+                            if (_conf.getContext().getException() != null) {
+                                return;
+                            }
                             option_.setAttribute(SELECTED, SELECTED);
                             break;
                         }
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                     }
                     option_.appendChild(_doc.createTextNode(ExtractObject.toString(_conf, o_)));
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     docElementSelect_.appendChild(option_);
+                }
+                if (_conf.getContext().getException() != null) {
+                    return;
                 }
             } else {
                 StringList names_ = StringList.splitChars(default_, SEP_ENUMS);
                 Struct it_ = ExtractObject.iterator(_conf, extractedList_);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 while (ExtractObject.hasNext(_conf, it_)) {
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     Struct o_ = ExtractObject.next(_conf, it_);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     Element option_ = _doc.createElement(TAG_OPTION);
                     String enumName_ = ExtractObject.getStringKey(_conf, o_);
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     option_.setAttribute(ATTRIBUTE_VALUE, enumName_);
                     for (String n: names_) {
                         if (StringList.quickEq(enumName_,n)) {
@@ -3312,7 +4119,13 @@ public final class FormatHtml {
                         }
                     }
                     option_.appendChild(_doc.createTextNode(ExtractObject.toString(_conf, o_)));
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     docElementSelect_.appendChild(option_);
+                }
+                if (_conf.getContext().getException() != null) {
+                    return;
                 }
             }
         }
@@ -3336,11 +4149,17 @@ public final class FormatHtml {
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
             returnedVarValue_ = ElRenderUtil.processEl(varValue_, 0, _conf).getStruct();
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
         }
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_MAP);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
         Struct map_ = ElRenderUtil.processEl(_map, 0, _conf).getStruct();
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         String default_ = ((Element) _n).getAttribute(DEFAULT_ATTRIBUTE);
         Element docElementSelect_ = _doc.createElement(SELECT_TAG);
         if (!_id.isEmpty() || !_groupId.isEmpty()) {
@@ -3364,6 +4183,9 @@ public final class FormatHtml {
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(1);
                 Struct defaultEnum_ = ElRenderUtil.processEl(default_, 1, _conf).getStruct();
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 processOptionsMapEnumName(_conf, map_,
                         _doc, docElementSelect_,
                         defaultEnum_, _multiple);
@@ -3391,16 +4213,37 @@ public final class FormatHtml {
             names_ = new StringList(_default);
         }
         Struct l_ = ExtractObject.entryList(_conf, 0, _extractedMap);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         Struct it_ = ExtractObject.iterator(_conf, l_);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         while (ExtractObject.hasNext(_conf, it_)) {
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             Struct entry_ = ExtractObject.next(_conf, it_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             ExtractObject.checkNullPointer(_conf, entry_.getInstance());
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             Struct o_ = ExtractObject.getKey(_conf, entry_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             if (o_.isNull()) {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
             String cmp_ = ExtractObject.getStringKey(_conf, o_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             option_.setAttribute(ATTRIBUTE_VALUE, cmp_);
             for (String n: names_) {
                 if (StringList.quickEq(n,cmp_)) {
@@ -3408,7 +4251,14 @@ public final class FormatHtml {
                     break;
                 }
             }
-            option_.appendChild(_docSelect.createTextNode(ExtractObject.toString(_conf, ExtractObject.getValue(_conf,entry_))));
+            Struct value_ = ExtractObject.getValue(_conf,entry_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
+            option_.appendChild(_docSelect.createTextNode(ExtractObject.toString(_conf, value_)));
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             _docElementSelect.appendChild(option_);
         }
     }
@@ -3420,33 +4270,79 @@ public final class FormatHtml {
         if (_multiple) {
             if (_returnedVarValue != null) {
                 Struct it_ = ExtractObject.iterator(_conf, _returnedVarValue);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
                 while (ExtractObject.hasNext(_conf, it_)) {
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     obj_.add(ExtractObject.next(_conf, it_));
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
+                }
+                if (_conf.getContext().getException() != null) {
+                    return;
                 }
             }
         } else {
             obj_.add(_returnedVarValue);
         }
         Struct l_ = ExtractObject.entryList(_conf, 0, _extractedMap);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         Struct it_ = ExtractObject.iterator(_conf, l_);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         while (ExtractObject.hasNext(_conf, it_)) {
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             Struct entry_ = ExtractObject.next(_conf, it_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             ExtractObject.checkNullPointer(_conf, entry_.getInstance());
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             Struct o_ = ExtractObject.getKey(_conf, entry_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             if (o_.isNull()) {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
             option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.getStringKey(_conf, o_));
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             for (Struct o: obj_) {
                 if (o == null) {
                     continue;
                 }
                 if (ExtractObject.eq(_conf, o_, o)) {
+                    if (_conf.getContext().getException() != null) {
+                        return;
+                    }
                     option_.setAttribute(SELECTED, SELECTED);
                 }
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
             }
-            option_.appendChild(_docSelect.createTextNode(ExtractObject.toString(_conf, ExtractObject.getValue(_conf, entry_))));
+            Struct value_ = ExtractObject.getValue(_conf, entry_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
+            option_.appendChild(_docSelect.createTextNode(ExtractObject.toString(_conf, value_)));
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             _docElementSelect.appendChild(option_);
         }
     }
@@ -3633,10 +4529,10 @@ public final class FormatHtml {
         }
         if (isFinallyNode(_conf, par_)) {
             TryHtmlStack tryStack_ = (TryHtmlStack) _ip.getLastStack();
-            WrapperException t_ = tryStack_.getThrownException();
-            if (t_ != null) {
+            if (tryStack_.getFinallyNode() != null) {
+                _conf.getContext().setException(tryStack_.getException());
                 _ip.removeLastBlock();
-                throw t_;
+                return;
             }
             if (_ip.isReturning()) {
                 _ip.removeLastBlock();
@@ -3703,12 +4599,21 @@ public final class FormatHtml {
         Node currentNode_ = rw_.getWrite();
         LoopHtmlStack l_ = (LoopHtmlStack) _ip.getLastStack();
         if (keepLoop(_conf, _ip)) {
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             Element forLoopLoc_ = l_.getReadNode();
             incrementLoop(_conf, l_, vars_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             currentNode_ = l_.getWriteNode();
             en_ = forLoopLoc_;
             rw_.setRead(en_);
             rw_.setWrite(currentNode_);
+            return;
+        }
+        if (_conf.getContext().getException() != null) {
             return;
         }
         Element forLoopLoc_ = l_.getReadNode();
@@ -3739,6 +4644,9 @@ public final class FormatHtml {
             } else {
                 lv_.setStruct(LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf.toContextEl()));
             }
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             lv_.setIndex(lv_.getIndex() + 1);
         } else if (forLoopLoc_.hasAttribute(ATTRIBUTE_MAP)) {
             String key_ = forLoopLoc_.getAttribute(ATTRIBUTE_KEY);
@@ -3749,7 +4657,13 @@ public final class FormatHtml {
             LoopVariable lv_ = _vars.getVal(key_);
             Struct k_;
             Struct entry_ = ExtractObject.next(_conf, _l.getStructIterator());
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             k_ = ExtractObject.getKey(_conf, entry_);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             lv_.setStruct(k_);
             lv_.setIndex(lv_.getIndex() + 1);
             String value_ = forLoopLoc_.getAttribute(ATTRIBUTE_VALUE);
@@ -3759,6 +4673,9 @@ public final class FormatHtml {
             _conf.getLastPage().setLookForAttrValue(false);
             _conf.getLastPage().setOffset(0);
             lv_.setStruct(ExtractObject.getValue(_conf, entry_));
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             lv_.setIndex(lv_.getIndex() + 1);
         } else {
             _conf.getLastPage().setProcessingNode(forLoopLoc_);
@@ -3864,6 +4781,9 @@ public final class FormatHtml {
         Element written_ = (Element) rw_.getWrite();
         Element currentWhileNode_ = (Element) rw_.getRead();
         boolean res_ = ExtractCondition.evaluateCondition(currentWhileNode_, _conf, _ip);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         LoopHtmlStack l_ = new LoopHtmlStack();
         l_.setReadNode(currentWhileNode_);
         l_.setWriteNode(written_);
@@ -3905,9 +4825,13 @@ public final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             container_ = ElRenderUtil.processEl(listAttr_, 0, _conf).getStruct();
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             if (container_.isNull()) {
                 _conf.getLastPage().addToOffset(listAttr_.length()+1);
-                throw new NullObjectException(_conf.joinPages());
+                _conf.getContext().setException(new StdStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
+                return;
             }
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_MAP)) {
             map_ = true;
@@ -3916,8 +4840,12 @@ public final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             container_ = ElRenderUtil.processEl(mapAttr_, 0, _conf).getStruct();
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             if (container_.isNull()) {
-                throw new NullObjectException(_conf.joinPages());
+                _conf.getContext().setException(new StdStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
+                return;
             }
         } else {
             iterationNb_ = true;
@@ -3929,22 +4857,70 @@ public final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Argument argFrom_ = ElRenderUtil.processEl(from_, 0, _conf);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             if (!argFrom_.isIntegerType(_conf.toContextEl())) {
-                throw new DynamicCastClassException(StringList.concat(argFrom_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(argFrom_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setParam(_conf.getStandards().getAliasPrimLong());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return;
             }
             _ip.setProcessingAttribute(ATTRIBUTE_TO);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Argument argTo_ = ElRenderUtil.processEl(to_, 0, _conf);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             if (!argTo_.isIntegerType(_conf.toContextEl())) {
-                throw new DynamicCastClassException(StringList.concat(argTo_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(argTo_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setParam(_conf.getStandards().getAliasPrimLong());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return;
             }
             _ip.setProcessingAttribute(ATTRIBUTE_STEP);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Argument argStep_ = ElRenderUtil.processEl(step_, 0, _conf);
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             if (!argStep_.isIntegerType(_conf.toContextEl())) {
-                throw new DynamicCastClassException(StringList.concat(argStep_.getObjectClassName(_conf.toContextEl()),RETURN_LINE,_conf.joinPages()));
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(argStep_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setParam(_conf.getStandards().getAliasPrimLong());
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(cast_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return;
             }
             realFromValue_ = argFrom_.getObject();
             fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_, _conf.toContextEl()).getInstance();
@@ -4003,13 +4979,23 @@ public final class FormatHtml {
             }
         } else {
             if (map_) {
-                itStr_ = ExtractObject.iterator(_conf, ExtractObject.entryList(_conf, 0, container_));
+                Struct str_ = ExtractObject.entryList(_conf, 0, container_);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
+                itStr_ = ExtractObject.iterator(_conf, str_);
             } else {
                 itStr_ = ExtractObject.iterator(_conf, container_);
+            }
+            if (_conf.getContext().getException() != null) {
+                return;
             }
             if (!ExtractObject.hasNext(_conf, itStr_)) {
                 finished_ = true;
                 res_.setFinished(true);
+            }
+            if (_conf.getContext().getException() != null) {
+                return;
             }
         }
         if (currentForNode_.getFirstChild() == null) {
@@ -4034,12 +5020,29 @@ public final class FormatHtml {
         } else {
             elt_ = ExtractObject.next(_conf, itStr_);
         }
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
         String indexClassName_;
         indexClassName_ = currentForNode_.getAttribute(ATTRIBUTE_INDEX_CLASS_NAME);
         if (indexClassName_.isEmpty()) {
             indexClassName_ = _conf.getStandards().getAliasPrimLong();
         }
-        ExtractObject.checkClassNotEmptyName(_conf, 0, indexClassName_);
+        if (!indexClassName_.isEmpty()) {
+            if (!OperationNode.okType(_conf.toContextEl(), indexClassName_)) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(indexClassName_);
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(un_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return;
+            }
+        }
         String className_;
         if (iterationNb_) {
             LoopVariable lv_ = new LoopVariable();
@@ -4047,7 +5050,19 @@ public final class FormatHtml {
             if (className_.isEmpty()) {
                 className_ = PrimitiveTypeUtil.PRIM_LONG;
             }
-            ExtractObject.classNameForName(_conf, 0, className_);
+            if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(className_);
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(un_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setRc(_conf.getCurrentLocation());
+                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                return;
+            }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
             lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()).getInstance());
@@ -4056,7 +5071,21 @@ public final class FormatHtml {
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(ATTRIBUTE_CLASS_NAME);
-            ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
+            if (!className_.isEmpty()) {
+                if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(className_);
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(un_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
+                }
+            }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
             lv_.setStruct(elt_);
@@ -4065,18 +5094,52 @@ public final class FormatHtml {
         } else {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(KEY_CLASS_NAME_ATTRIBUTE);
-            ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
+            if (!className_.isEmpty()) {
+                if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(className_);
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(un_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
+                }
+            }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
             lv_.setStruct(ExtractObject.getKey(_conf, elt_));
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             lv_.setContainer(container_);
             varsLoop_.put(key_, lv_);
             lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(VAR_CLASS_NAME_ATTRIBUTE);
-            ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
+            if (!className_.isEmpty()) {
+                if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(className_);
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(un_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    return;
+                }
+            }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
             lv_.setStruct(ExtractObject.getValue(_conf, elt_));
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
             lv_.setContainer(container_);
             varsLoop_.put(value_, lv_);
         }
@@ -4236,19 +5299,9 @@ public final class FormatHtml {
         return _conf.getPrefix();
     }
     static Struct getBean(Configuration _conf, String _beanName) {
-        try {
-            return _conf.getBuiltBeans().getVal(_beanName);
-        } catch (Throwable _0) {
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
-        }
+        return _conf.getBuiltBeans().getVal(_beanName);
     }
     private static int getTabWidth(Configuration _conf) {
-        try {
-            return _conf.getTabWidth();
-        } catch (Throwable _0) {
-            String err_ = _conf.getStandards().getAliasError();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(new CustomError(_conf.joinPages()),err_));
-        }
+        return _conf.getTabWidth();
     }
 }

@@ -46,8 +46,8 @@ public class HandPresidentTest {
         e_.ajouter(CardPresident.CLUB_1);
         e_.ajouter(CardPresident.CLUB_KING);
         e_.ajouter(CardPresident.CLUB_10);
-        e_.ajouter(CardPresident.CLUB_7);
         e_.ajouter(CardPresident.HEART_7);
+        e_.ajouter(CardPresident.CLUB_7);
         e_.ajouter(CardPresident.CLUB_6);
         e_.ajouter(CardPresident.CLUB_3);
         h_.sortCards(true, false);
@@ -87,8 +87,8 @@ public class HandPresidentTest {
         HandPresident e_ = new HandPresident();
         e_.ajouter(CardPresident.CLUB_3);
         e_.ajouter(CardPresident.CLUB_6);
-        e_.ajouter(CardPresident.CLUB_7);
         e_.ajouter(CardPresident.HEART_7);
+        e_.ajouter(CardPresident.CLUB_7);
         e_.ajouter(CardPresident.CLUB_10);
         e_.ajouter(CardPresident.CLUB_KING);
         e_.ajouter(CardPresident.CLUB_1);
@@ -130,8 +130,8 @@ public class HandPresidentTest {
         e_.ajouter(CardPresident.CLUB_1);
         e_.ajouter(CardPresident.CLUB_KING);
         e_.ajouter(CardPresident.CLUB_10);
-        e_.ajouter(CardPresident.CLUB_7);
         e_.ajouter(CardPresident.HEART_7);
+        e_.ajouter(CardPresident.CLUB_7);
         e_.ajouter(CardPresident.CLUB_6);
         e_.ajouter(CardPresident.CLUB_3);
         h_.sortCards(false, true);
@@ -171,8 +171,8 @@ public class HandPresidentTest {
         HandPresident e_ = new HandPresident();
         e_.ajouter(CardPresident.CLUB_3);
         e_.ajouter(CardPresident.CLUB_6);
-        e_.ajouter(CardPresident.CLUB_7);
         e_.ajouter(CardPresident.HEART_7);
+        e_.ajouter(CardPresident.CLUB_7);
         e_.ajouter(CardPresident.CLUB_10);
         e_.ajouter(CardPresident.CLUB_KING);
         e_.ajouter(CardPresident.CLUB_1);
@@ -197,8 +197,8 @@ public class HandPresidentTest {
         assertEq(7, h_.total());
         assertEq(CardPresident.CLUB_3, h_.carte(0));
         assertEq(CardPresident.CLUB_6, h_.carte(1));
-        assertEq(CardPresident.CLUB_7, h_.carte(2));
-        assertEq(CardPresident.HEART_7, h_.carte(3));
+        assertEq(CardPresident.HEART_7, h_.carte(2));
+        assertEq(CardPresident.CLUB_7, h_.carte(3));
         assertEq(CardPresident.CLUB_10, h_.carte(4));
         assertEq(CardPresident.CLUB_KING, h_.carte(5));
         assertEq(CardPresident.CLUB_1, h_.carte(6));
@@ -221,8 +221,8 @@ public class HandPresidentTest {
         assertEq(6, h_.total());
         assertEq(CardPresident.CLUB_3, h_.carte(0));
         assertEq(CardPresident.CLUB_6, h_.carte(1));
-        assertEq(CardPresident.CLUB_7, h_.carte(2));
-        assertEq(CardPresident.HEART_7, h_.carte(3));
+        assertEq(CardPresident.HEART_7, h_.carte(2));
+        assertEq(CardPresident.CLUB_7, h_.carte(3));
         assertEq(CardPresident.CLUB_10, h_.carte(4));
         assertEq(CardPresident.CLUB_KING, h_.carte(5));
     }
@@ -268,8 +268,8 @@ public class HandPresidentTest {
         assertEq(7, h_.total());
         assertEq(CardPresident.CLUB_3, h_.carte(0));
         assertEq(CardPresident.CLUB_6, h_.carte(1));
-        assertEq(CardPresident.CLUB_7, h_.carte(2));
-        assertEq(CardPresident.HEART_7, h_.carte(3));
+        assertEq(CardPresident.HEART_7, h_.carte(2));
+        assertEq(CardPresident.CLUB_7, h_.carte(3));
         assertEq(CardPresident.CLUB_10, h_.carte(4));
         assertEq(CardPresident.CLUB_KING, h_.carte(5));
         assertEq(CardPresident.CLUB_1, h_.carte(6));

@@ -3,7 +3,6 @@ import java.util.Comparator;
 
 import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
-import code.util.exceptions.NullComparatorException;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SortableMap;
@@ -31,16 +30,10 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     public TreeMap(CollCapacity _capacity, Comparator<K> _cmp) {
         super(_capacity);
         comparator = _cmp;
-        if (_cmp == null) {
-            throw new NullComparatorException();
-        }
     }
 
     public TreeMap(Comparator<K> _cmp) {
         comparator = _cmp;
-        if (_cmp == null) {
-            throw new NullComparatorException();
-        }
     }
 
     public TreeMap(SortableMap<K, V> _sorted) {

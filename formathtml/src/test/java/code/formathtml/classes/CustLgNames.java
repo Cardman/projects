@@ -400,23 +400,13 @@ public class CustLgNames extends BeanLgNames {
         }
         if (StringList.quickEq(_method.getClassName(), aliasFailMethods)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasFail)) {
-                try {
-                    FailMethods.fail();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                } catch (Throwable _0) {
-                    res_.setError(getAliasError());
-                }
+                res_.setError(getAliasError());
                 return res_;
             }
         }
         if (StringList.quickEq(_method.getClassName(), aliasStrangeInit)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasFail)) {
-                try {
-                    StrangeInit.fail();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                } catch (Throwable _0) {
-                    res_.setError(getAliasError());
-                }
+                res_.setError(getAliasError());
                 return res_;
             }
         }
@@ -464,19 +454,11 @@ public class CustLgNames extends BeanLgNames {
             return res_;
         }
         if (StringList.quickEq(_method.getName(), aliasFailMethods)) {
-            try {
-                res_.setResult(new StdStruct(new FailMethods(), aliasFailMethods));
-            } catch (Throwable _0) {
-                res_.setError(getAliasError());
-            }
+            res_.setError(getAliasError());
             return res_;
         }
         if (StringList.quickEq(_method.getName(), aliasStrangeInit)) {
-            try {
-                res_.setResult(new StdStruct(new StrangeInit(), aliasStrangeInit));
-            } catch (Throwable _0) {
-                res_.setError(getAliasError());
-            }
+            res_.setError(getAliasError());
             return res_;
         }
         return super.getOtherResult(_cont, _method, _args);
@@ -502,13 +484,8 @@ public class CustLgNames extends BeanLgNames {
         }
         if (StringList.quickEq(_classField.getClassName(), aliasStrangeInit)) {
             if (StringList.quickEq(fieldName_, aliasNotRead)) {
-                try {
-                    res_.setResult(new StringStruct(StrangeInit.NOT_READ));
-                    return res_;
-                } catch (Throwable _0_) {
-                    res_.setError(getAliasError());
-                    return res_;
-                }
+                res_.setError(getAliasError());
+                return res_;
             }
         }
         if (StringList.quickEq(_classField.getClassName(), aliasArrayContainer)) {

@@ -156,6 +156,9 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         ip_.setOffset(0);
         ExpressionLanguage elLeft_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getLeftEl());
         elLeft_.affectLeftMember(_cont, op_);
+        if (_cont.callsOrException()) {
+            return;
+        }
         ip_.setGlobalOffset(operOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = getRightEl();
@@ -164,6 +167,9 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         ip_.setGlobalOffset(leftMemberOffset);
         ip_.setOffset(0);
         elLeft_.affectAllMember(_cont, op_);
+        if (_cont.callsOrException()) {
+            return;
+        }
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         processBlock(_cont);

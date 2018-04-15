@@ -78,8 +78,8 @@ public class HandTarotTest {
         resAtt_.ajouter(CardTarot.DIAMOND_QUEEN);
         resAtt_.ajouter(CardTarot.DIAMOND_JACK);
         resAtt_.ajouter(CardTarot.HEART_10);
-        resAtt_.ajouter(CardTarot.HEART_1);
         resAtt_.ajouter(CardTarot.DIAMOND_1);
+        resAtt_.ajouter(CardTarot.HEART_1);
         main_.trierParForceEnCours(Suit.UNDEFINED);
         assertEq(resAtt_, main_);
         main_ = new HandTarot();

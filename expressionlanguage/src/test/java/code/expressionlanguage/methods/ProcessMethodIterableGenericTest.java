@@ -36,6 +36,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -73,6 +74,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -113,6 +115,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -144,6 +147,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -176,6 +180,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -216,6 +221,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -268,6 +274,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -302,6 +309,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -338,6 +346,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -390,6 +399,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);
@@ -443,6 +453,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessMethod.initializeClass("pkg.Ex", cont_);

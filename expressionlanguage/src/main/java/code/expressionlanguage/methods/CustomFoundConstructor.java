@@ -1,4 +1,4 @@
-package code.expressionlanguage.exceptions;
+package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -6,7 +6,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
 
-public class CustomFoundConstructorException extends RuntimeException {
+public final class CustomFoundConstructor {
 
     private final String className;
 
@@ -21,7 +21,7 @@ public class CustomFoundConstructorException extends RuntimeException {
     private final InstancingStep instanceStep;
     private final StringList called;
 
-    public CustomFoundConstructorException(String _className, String _fieldName, StringList _calledConstructors,
+    public CustomFoundConstructor(String _className, String _fieldName, StringList _calledConstructors,
             ConstructorId _id, Argument _currentObject, CustList<Argument> _arguments, InstancingStep _instance) {
         className = _className;
         fieldName = _fieldName;

@@ -102,6 +102,7 @@ public class Configuration implements Analyzable {
         if (context == null) {
             context = new ContextEl();
             context = toContextEl();
+            context.initError();
         }
         if (prefix == null || prefix.isEmpty()) {
             prefix = EMPTY_STRING;
@@ -191,6 +192,10 @@ public class Configuration implements Analyzable {
             return;
         }
         Classes.validateAll(classFiles_, context);
+        if (!context.getClasses().getErrorsDet().isEmpty()) {
+            setupValiatorsTranslators();
+            return;
+        }
         StringList types_ = new StringList();
         for (EntryCust<String, Bean> e: getBeans().entryList()) {
             types_.add(e.getValue().getClassName());
@@ -219,6 +224,9 @@ public class Configuration implements Analyzable {
     void setupValiatorsTranslators(String _language) {
         for (EntryCust<String, Bean> e: getBeans().entryList()) {
             Struct str_ = newBean(_language, null, e.getValue(), false);
+            if (context.getException() != null) {
+                return;
+            }
             getBuiltBeans().put(e.getKey(), str_);
         }
         for (EntryCust<String, Validator> e: getValidators().entryList()) {
@@ -248,35 +256,88 @@ public class Configuration implements Analyzable {
         }
         addPage(new ImportingPage(false));
         Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
         if (_dataBase != null) {
             String className_ = getDataBaseClassName();
             ExtractObject.setDataBase(this, strBean_, new StdStruct(_dataBase, className_));
         } else {
             ExtractObject.setDataBase(this, strBean_, NullStruct.NULL_VALUE);
         }
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
         if (_bean == null || _bean.getForms() == null) {
             ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(new StringMapObject()));
         } else {
             ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(_bean.getForms()));
         }
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
         ExtractObject.setLanguage(this, strBean_, _language);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
         if (_bean.getScope() != null) {
             ExtractObject.setScope(this, strBean_, _bean.getScope());
         } else {
             ExtractObject.setScope(this, strBean_, EMPTY_STRING);
         }
         removeLastPage();
+        if (context.getException() != null) {
+            return NullStruct.NULL_VALUE;
+        }
         return strBean_;
     }
 
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
         Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(toContextEl()),NO_PARAM), 0, this).getStruct();
-        ExtractObject.setDataBase(this, strBean_, ExtractObject.getDataBase(this, _bean));
-        ExtractObject.setForms(this, strBean_, ExtractObject.getForms(this, _bean));
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        Struct db_ = ExtractObject.getDataBase(this, _bean);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        ExtractObject.setDataBase(this, strBean_, db_);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        Struct forms_ = ExtractObject.getForms(this, _bean);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        ExtractObject.setForms(this, strBean_, forms_);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
         ExtractObject.setLanguage(this, strBean_, _language);
-        ExtractObject.setScope(this, strBean_, ExtractObject.getScope(this, _bean));
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        String str_ = ExtractObject.getScope(this, _bean);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        ExtractObject.setScope(this, strBean_, str_);
         removeLastPage();
+        if (context.getException() != null) {
+            return NullStruct.NULL_VALUE;
+        }
         return strBean_;
     }
 

@@ -3,7 +3,6 @@ import java.util.Comparator;
 
 import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
-import code.util.exceptions.NullComparatorException;
 import code.util.ints.SortableSet;
 
 public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
@@ -21,9 +20,6 @@ public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
 
     public TreeSet(Comparator<E> _cmp) {
         comparator = _cmp;
-        if (_cmp == null) {
-            throw new NullComparatorException();
-        }
     }
 
     public TreeSet(SortableSet<E> _s) {

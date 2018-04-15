@@ -16,7 +16,6 @@ import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
@@ -1235,7 +1234,7 @@ public abstract class OperationNode {
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont) {
         int res_ = processBooleanValues(_arg, _cont);
-        if (res_ == 0) {
+        if (res_ <= 0) {
             return;
         }
         MethodOperation par_ = getParent();
@@ -1262,7 +1261,7 @@ public abstract class OperationNode {
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
         int res_ = processBooleanValues(_arg, _cont);
-        if (res_ == 0) {
+        if (res_ <= 0) {
             return;
         }
         Object o_ = _arg.getObject();
@@ -1296,7 +1295,8 @@ public abstract class OperationNode {
         if (o_ == null) {
             if (par_ instanceof QuickOperation) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                return -1;
             }
             boolean ternaryParent_ = false;
             if (par_ instanceof FctOperation) {
@@ -1305,7 +1305,8 @@ public abstract class OperationNode {
             }
             if (ternaryParent_) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                return -1;
             }
             return 0;
         }
@@ -1444,7 +1445,7 @@ public abstract class OperationNode {
         n_.setPreviousResultClass(resultClass, true);
     }
 
-    private PossibleIntermediateDotted getSiblingToSet() {
+    protected PossibleIntermediateDotted getSiblingToSet() {
         OperationNode n_ = getNextSibling();
         if (n_ == null) {
             return null;

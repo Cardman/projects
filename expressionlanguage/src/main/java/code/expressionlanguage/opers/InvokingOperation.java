@@ -126,6 +126,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 Argument chArg_ = optArgs_.get(i);
                 ArrOperation.setCheckedElement(str_, i, chArg_, _context);
+                if (_context.getException() != null) {
+                    return firstArgs_;
+                }
             }
             argRem_.setStruct(str_);
             firstArgs_.add(argRem_);
@@ -152,6 +155,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 Argument chArg_ = optArgs_.get(i);
                 ArrOperation.setCheckedElement(str_, i, chArg_, _context);
+                if (_context.getException() != null) {
+                    return firstArgs_;
+                }
             }
             argRem_.setStruct(str_);
             firstArgs_.add(argRem_);

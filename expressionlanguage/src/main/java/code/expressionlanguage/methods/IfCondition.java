@@ -94,6 +94,9 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if_.setBlock(this);
         if_.setVisitedBlock(CustList.FIRST_INDEX);
         boolean assert_ = evaluateCondition(_cont);
+        if (_cont.callsOrException()) {
+            return;
+        }
         if (assert_) {
             ip_.addBlock(if_);
             if_.setEntered(true);
