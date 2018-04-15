@@ -257,8 +257,10 @@ public class FacadeGame implements WithMathFactory {
         game.initIv(data);
     }
 
-    public void checkAndSetGame(Game _game) {
-        _game.checkAndInitialize(data);
+    public boolean checkAndSetGame(Game _game) {
+        if (!_game.checkAndInitialize(data)) {
+        	return false;
+        }
         game = _game;
         changeToFightScene = game.getFight().getFightType().isExisting();
         if (changeToFightScene) {
@@ -266,6 +268,7 @@ public class FacadeGame implements WithMathFactory {
         } else {
             enabledMovingHero = true;
         }
+        return true;
     }
 
     public void load(Game _game) {

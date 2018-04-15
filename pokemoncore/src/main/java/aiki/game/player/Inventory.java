@@ -1,6 +1,5 @@
 package aiki.game.player;
 import aiki.DataBase;
-import aiki.exceptions.GameLoadException;
 import code.maths.LgInt;
 import code.util.EntryCust;
 import code.util.NumberMap;
@@ -36,33 +35,34 @@ public final class Inventory {
         }
     }
 
-    public void validate(DataBase _data) {
+    public boolean validate(DataBase _data) {
         for (LgInt i: items.values()) {
             if (!i.isZeroOrGt()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         StringList obj_ = items.getKeys();
         StringList objData_ = _data.getItems().getKeys();
         if (!StringList.equalsSet(obj_, objData_)) {
-            throw new GameLoadException();
+            return false;
         }
         for (Object o: tm.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (Object o: hm.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!Numbers.equalsSetShorts(tm.getKeys(), _data.getTm().getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!Numbers.equalsSetShorts(hm.getKeys(), _data.getHm().getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
+        return true;
     }
     public void getTm(short _t) {
         tm.put(_t, true);

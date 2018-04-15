@@ -536,6 +536,8 @@ public class DataBase implements WithMathFactory {
     private boolean checkTranslation;
 
     private transient EvolvedMathFactory standardMathFactory = new EvolvedMathFactory();
+    private boolean error;
+    private boolean errorGame;
 //  private transient StandardMathFactory standardMathFactory = new StandardMathFactory();
 //    public static String getBeansPackage() {
 //        return StringList.replace(FOLDER_ROOT_BEANS, SEPARATOR_FILES, DOT)+DOT;
@@ -8092,5 +8094,21 @@ public class DataBase implements WithMathFactory {
 
     public void setCheckTranslation(boolean _checkTranslation) {
         checkTranslation = _checkTranslation;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean _error) {
+        error = _error;
+    }
+
+    public boolean isErrorGame() {
+        return errorGame;
+    }
+
+    public void setErrorGame(boolean _errorGame) {
+        errorGame = _errorGame;
     }
 }

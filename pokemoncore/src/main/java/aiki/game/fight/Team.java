@@ -2,7 +2,6 @@ package aiki.game.fight;
 import aiki.DataBase;
 import aiki.Resources;
 import aiki.comments.Comment;
-import aiki.exceptions.GameLoadException;
 import aiki.fight.abilities.AbilityData;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
@@ -339,15 +338,17 @@ public final class Team {
 
     //some tests with a clean data base with all type of move, ability, item, tree pokemon
     //This class is full tested
-    public void validate(DataBase _data, byte _numberTeam, Fight _fight) {
+    public boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
         int mult_ = _fight.getMult();
         for (byte k: members.getKeys()) {
-            members.getVal(k).validate(_data, _numberTeam, _fight);
+            if (!members.getVal(k).validate(_data, _numberTeam, _fight)) {
+                return false;
+            }
             if (members.getVal(k).getGroundPlaceSubst() >= _fight.getMult()) {
-                throw new GameLoadException();
+                return false;
             }
             if (members.getVal(k).getGroundPlace() >= _fight.getMult()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         //later places_.getMin >= 0 && places_.getMax < _fight.getMult()
@@ -355,64 +356,64 @@ public final class Team {
         //later placesSubst_.getMin >= 0 && placesSubst_.getMax <= _fight.getMult()
         // && placesSubst_.duplicates == 0 => placesSubst_.size <= _fight.getMult()
         if (!StringList.equalsSet(_data.getMovesEffectTeam(), enabledMoves.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: enabledMoves.getKeys()) {
             if (enabledMoves.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (Object o: enabledMovesWhileSendingFoe.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getMovesEffectWhileSending(), enabledMovesWhileSendingFoe.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!StringList.equalsSet(_data.getMovesEffectWhileSending(), enabledMovesWhileSendingFoeUses.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: enabledMovesWhileSendingFoeUses.getKeys()) {
             if (!enabledMovesWhileSendingFoeUses.getVal(m).isZeroOrGt()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsStringListSet(_data.getCombos().getEffects().getKeys(), enabledMovesByGroup.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (StringList m: enabledMovesByGroup.getKeys()) {
             if (enabledMovesByGroup.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (nbKoRound < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (nbKoPreviousRound < 0) {
-            throw new GameLoadException();
+            return false;
         }
         StringList attaques_ = new StringList();
         attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_NB_UTILISATION));
         attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_ADV_NB_UTILISATION));
         attaques_.removeDuplicates();
         if (!StringList.equalsSet(attaques_, nbUsesMoves.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: nbUsesMoves.getKeys()) {
             if (nbUsesMoves.getVal(m) < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         attaques_.clear();
         attaques_.addAllElts(_data.getVarParamsMove(NB_UTILI_ATT_EQ_TOUR));
         attaques_.removeDuplicates();
         if (!StringList.equalsSet(attaques_, nbUsesMovesRound.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: nbUsesMovesRound.getKeys()) {
             if (nbUsesMovesRound.getVal(m) < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         Numbers<Byte> keysMovesLatter_ = new Numbers<Byte>();
@@ -436,7 +437,7 @@ public final class Team {
             }
         }
         if (!MoveUsesTeam.equalsSet(relMovesTh_, relMovesExp_)) {
-            throw new GameLoadException();
+            return false;
         }
         relMovesTh_ = new EqList<MoveUsesTeam>();
         relMovesExp_ = new EqList<MoveUsesTeam>();
@@ -453,23 +454,23 @@ public final class Team {
             }
         }
         if (!MoveUsesTeam.equalsSet(relMovesTh_, relMovesExp_)) {
-            throw new GameLoadException();
+            return false;
         }
         for (NumberMap<Byte,StacksOfUses> k: healAfter.values()) {
             for (StacksOfUses s: k.values()) {
                 if (!s.isValid()) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
         }
         for (NumberMap<Byte,Anticipation> k: movesAnticipation.values()) {
             for (Anticipation s: k.values()) {
                 if (!s.isValid()) {
-                    throw new GameLoadException();
+                    return false;
                 }
                 if (!Numbers.eq(s.getTargetPosition().getPosition(),Fighter.BACK)) {
                     if (s.getTargetPosition().getPosition() < 0) {
-                        throw new GameLoadException();
+                        return false;
                     }
                 }
             }
@@ -481,18 +482,19 @@ public final class Team {
                     continue;
                 }
                 if (!foes_.containsAllObj(playerFightersAgainstFoe.getVal(b))) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
         }
         for (String m: successfulMovesRound) {
             if (!_data.getMoves().contains(m)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (members.isEmpty()) {
-            throw new GameLoadException();
+            return false;
         }
+        return true;
     }
 
     void initRoundTeam() {

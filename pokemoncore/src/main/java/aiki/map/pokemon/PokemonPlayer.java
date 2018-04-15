@@ -2,7 +2,6 @@ package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.Resources;
 import aiki.comments.Comment;
-import aiki.exceptions.GameLoadException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
@@ -376,105 +375,106 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     }
 
     @Override
-    public void validate(DataBase _data) {
+    public boolean validate(DataBase _data) {
         if (gender == null) {
-            throw new GameLoadException();
+            return false;
         }
         if (nickname == null) {
-            throw new GameLoadException();
+            return false;
         }
         if (hasJustBeenCreated()) {
-            throw new GameLoadException();
+            return false;
         }
         if (getLevel() < _data.getMinLevel()) {
-            throw new GameLoadException();
+            return false;
         }
         //level >= 1
         if (getLevel() > _data.getMaxLevel()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getPokedex().contains(getName())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getAbilities().contains(getAbility())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!getItem().isEmpty()) {
             if (!_data.getItems().contains(getItem())) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (happiness < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (happiness > _data.getHappinessMax()) {
-            throw new GameLoadException();
+            return false;
         }
         if (moves.isEmpty()) {
-            throw new GameLoadException();
+            return false;
         }
         if (moves.size() > _data.getNbMaxMoves()) {
-            throw new GameLoadException();
+            return false;
         }
         for (EntryCust<String, UsesOfMove> m: moves.entryList()) {
             if (StringList.quickEq(m.getKey(), _data.getDefaultMove())) {
-                throw new GameLoadException();
+                return false;
             }
             if (!_data.getMoves().contains(m.getKey())) {
-                throw new GameLoadException();
+                return false;
             }
             UsesOfMove v_ = m.getValue();
             if (v_.getCurrent() < 0) {
-                throw new GameLoadException();
+                return false;
             }
             if (v_.getMax() < v_.getCurrent()) {
-                throw new GameLoadException();
+                return false;
             }
             if (v_.getMax() > _data.getMaxPp()) {
-                throw new GameLoadException();
+                return false;
             }
             if (v_.getMax() == 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!Statistic.equalsSet(ev.getKeys(), Statistic.getStatisticsWithBase())) {
-            throw new GameLoadException();
+            return false;
         }
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             if (ev.getVal(s) < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (String s: status) {
             if (!_data.getStatus().contains(s)) {
-                throw new GameLoadException();
+                return false;
             }
             if (_data.getStatus(s).getStatusType() == StatusType.RELATION_UNIQUE) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (nbStepsTeamLead < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (nbStepsTeamLead >= _data.getNbNecStepsIncrHappiness()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!remainingHp.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         PokemonData fPk_ = _data.getPokemon(getName());
         if (Rate.strGreater(remainingHp, fPk_.statHp(getLevel(),ev,iv))) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getItems().contains(usedBallCatching)) {
-            throw new GameLoadException();
+            return false;
         }
         if (!(_data.getItem(usedBallCatching) instanceof Ball)) {
-            throw new GameLoadException();
+            return false;
         }
         if (!wonExpSinceLastLevel.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
+        return true;
     }
 
     public void initilializeFromExchange(DataBase _dateBase){

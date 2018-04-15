@@ -7,7 +7,6 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import aiki.exceptions.GameLoadException;
 import aiki.game.Game;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.actions.ActionMove;
@@ -1018,7 +1017,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(_sex, diff_);
         Player player_ = game_.getPlayer();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
     @Test
@@ -1027,7 +1026,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer1(_sex, diff_);
         Player player_ = game_.getPlayer();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
     @Test
@@ -1036,7 +1035,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(_sex, diff_);
         Player player_ = game_.getPlayer();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
     @Test
@@ -1054,7 +1053,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesFoe_.add(new StringMap<Short>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1072,7 +1071,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesFoe_.add(new StringMap<Short>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1091,7 +1090,7 @@ public class FightValidationTest extends InitializationDataBase {
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1109,7 +1108,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesFoe_.add(new StringMap<Short>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1129,7 +1128,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesAlly_.add(new StringMap<Short>());
         replacePlayerMoves(fight_, movesAlly_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1149,7 +1148,7 @@ public class FightValidationTest extends InitializationDataBase {
 //        movesAlly_.add(new Map<String, Short>());
 //        replacePlayerMoves(fight_, movesAlly_);
         //FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1163,7 +1162,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, _data_);
         game_.chooseMove(BROUHAHA, _data_);
         game_.roundAllThrowers(_data_, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1185,7 +1184,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, _data_);
         game_.chooseMove(BROUHAHA, _data_);
         game_.roundAllThrowers(_data_, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1208,7 +1207,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, _data_);
         game_.chooseMove(BROUHAHA, _data_);
         game_.roundAllThrowers(_data_, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1226,7 +1225,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1244,7 +1243,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesFoe_.add(new StringMap<Short>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1269,7 +1268,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(BROUHAHA, _data_);
         game_.roundAllThrowers(_data_, false);
         game_.sendSubstitutes(_data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1298,7 +1297,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, _data_);
         game_.chooseMove(BROUHAHA, _data_);
         game_.roundAllThrowers(_data_, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1322,7 +1321,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, _data_);
         game_.chooseMove(BROUHAHA, _data_);
         game_.roundAllThrowers(_data_, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1348,7 +1347,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
         game_.setEvolution(MUNJA);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1374,7 +1373,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
         game_.setEvolution(TETARTE);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1399,7 +1398,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(BROUHAHA, _data_);
         game_.roundAllThrowers(_data_, false);
         game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1424,7 +1423,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(DEMI_TOUR, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(_data_, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
 
@@ -1481,7 +1480,7 @@ public class FightValidationTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1507,7 +1506,7 @@ public class FightValidationTest extends InitializationDataBase {
         PokemonPlayer pkLast_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkLast_.getRemainingHp().affectZero();
         game_.initTrainerFight(_data_);
-        FightFacade.validate(game_.getFight(), _data_, game_.getPlayer(), game_.getDifficulty());
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, game_.getPlayer(), game_.getDifficulty()));
     }
 
     @Test
@@ -1556,7 +1555,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.incrementConsecutiveUsesMove();
         fighter_.setActed(true);
         FightRound.endRoundShowActions(game_.getFight(), game_.getDifficulty(), game_.getPlayer(), _data_);
-        FightFacade.validate(game_.getFight(), _data_, game_.getPlayer(), game_.getDifficulty());
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, game_.getPlayer(), game_.getDifficulty()));
 //        FightFacade.chooseBackFighter(game_.getFight(), (byte) 0, data);
 //        FightFacade.setSubstituteBack(game_.getFight(), (byte) 1);
     }
@@ -1615,7 +1614,7 @@ public class FightValidationTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1624,7 +1623,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer3(_sex, diff_);
         Player player_ = game_.getPlayer();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
     @Test
@@ -1651,7 +1650,7 @@ public class FightValidationTest extends InitializationDataBase {
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         game_.roundAllThrowers(_data_, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1662,7 +1661,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         game_.attemptCatchingWildPokemon(MASTER_BALL, _data_, true);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1676,7 +1675,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, _data_);
         game_.chooseMove(BROUHAHA, _data_);
         game_.roundAllThrowers(_data_, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1692,7 +1691,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //Never mind for the nickname
         game_.catchKoWildPokemon(MASTER_BALL, NICKNAME, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1722,10 +1721,10 @@ public class FightValidationTest extends InitializationDataBase {
         fight_.getFoeTeam().addSuccessfulMoveRound(JACKPOT);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, _data_);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate32Test(Sex _sex) {
         //newGameInFightTrainerDual1
@@ -1743,10 +1742,10 @@ public class FightValidationTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
         //invalid data
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(SEISME);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate33Test(Sex _sex) {
         //newGameInFightTrainerDual1
@@ -1764,10 +1763,10 @@ public class FightValidationTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
         //invalid data
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) 2));
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate34Test(Sex _sex) {
         //newGameInFightTrainerDual1
@@ -1785,7 +1784,7 @@ public class FightValidationTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
         //invalid data
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) -1));
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1814,7 +1813,7 @@ public class FightValidationTest extends InitializationDataBase {
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, _data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     @Test
@@ -1826,10 +1825,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseFrontFighter((byte) 0, _data_);
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate37Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1837,10 +1836,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).exitFrontBattle();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate38Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1848,7 +1847,7 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
         Player player_ = game_.getPlayer();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
     @Test
@@ -1860,10 +1859,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseFrontFighter((byte) 0, _data_);
         game_.changeAction(ActionType.SWITCH, _data_);
         game_.chooseBackFighter((byte) 0, _data_);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate40Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1874,10 +1873,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseBackFighter((byte) 0, _data_);
         //invalid data
         game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp().affectZero();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate41Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1888,10 +1887,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseBackFighter((byte) 0, _data_);
         //invalid data
         game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate42Test(Sex _sex) {
         Game game_ = new Game(_data_);
@@ -1915,10 +1914,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.initTrainerFight(_data_);
         //invalid data
         game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 1);
-        FightFacade.validate(game_.getFight(), _data_, game_.getPlayer(), game_.getDifficulty());
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, game_.getPlayer(), game_.getDifficulty()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate43Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1926,10 +1925,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO).exitFrontBattle();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate44Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1937,10 +1936,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().setMult((byte) 0);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate45Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1948,10 +1947,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().setMult((byte) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate46Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1959,10 +1958,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().setMult((byte) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate47Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1970,10 +1969,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().setMult((byte) 1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate48Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1981,10 +1980,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().setPlayerMaxNumberFrontFighters((byte) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate49Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -1992,10 +1991,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getTeams().removeKey(Fight.FOE);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate50Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2003,10 +2002,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getTeams().removeKey(Fight.PLAYER);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate51Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2021,10 +2020,10 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_);
         //invalid data
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate52Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2032,10 +2031,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().setNbFleeAttempt((short) -1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate53Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2043,10 +2042,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().setNbRounds(new LgInt("-1"));
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate54Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2054,10 +2053,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().setWinningMoney(new Rate("-1"));
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate55Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2065,10 +2064,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getCaughtEvolutions().add(INVALID_DATA_KEY);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate56Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2076,10 +2075,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getLostObjects().add(INVALID_DATA_KEY);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate57Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2087,10 +2086,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY, (short) 1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate58Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2099,10 +2098,10 @@ public class FightValidationTest extends InitializationDataBase {
         player_.getItem(BAIE_ORAN);
         //invalid data
         game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN, (short) -1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate59Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2110,10 +2109,10 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setWeight(new Rate("-1"));
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate60Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2122,10 +2121,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         player_.setChosenTeamPokemon((short) 1);
         player_.switchTeamOrder((short) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate61Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2134,10 +2133,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getUserTeam().getPlayerFightersAgainstFoe().put((byte) 2, new Numbers<Byte>());
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate62Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2146,10 +2145,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getFirstPositFoeFighters().put((byte) 2, Fighter.BACK);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate63Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2158,10 +2157,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getFirstPositPlayerFighters().put((byte) 4, Fighter.BACK);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate64Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2170,10 +2169,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getFirstPositFoeFighters().put((byte) 1, (byte) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate65Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2182,10 +2181,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getFirstPositPlayerFighters().put((byte) 3, (byte) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate66Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2194,10 +2193,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getEnabledMoves().put(CHARGE, new ActivityOfMove(true));
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate67Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2206,10 +2205,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getStillEnabledMoves().put(GRAVITE, false);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate68Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2218,10 +2217,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getEnabledMoves().getVal(GRAVITE).setNbTurn((short) -1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate69Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2231,10 +2230,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate70Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2244,10 +2243,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).setGroundPlace((byte) 1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).setGroundPlaceSubst((byte) 1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate71Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2265,10 +2264,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setSubstitute((byte) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate72Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2278,10 +2277,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setSubstitute((byte) 2);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate73Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2291,10 +2290,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate74Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2304,10 +2303,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlace((byte) 1);
         //fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate75Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2316,10 +2315,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate76Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2328,10 +2327,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate77Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2355,11 +2354,11 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         fight_.setCurrentUser(POKEMON_FOE_FIGHTER_ZERO);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
         //invalid data
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate78Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2384,11 +2383,11 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         ActionMove actionMove_ = (ActionMove) fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         actionMove_.setFinalChosenMove(CHARGE);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate79Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2412,10 +2411,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setActed(false);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate80Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2442,10 +2441,10 @@ public class FightValidationTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).choisirAttaqueFin();
         fight_.setCurrentUser(POKEMON_PLAYER_FIGHTER_TWO);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setActed(true);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate81Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2469,11 +2468,11 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ONE), new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ONE));
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
         //invalid data
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate82Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2496,11 +2495,11 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //invalid data
         fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ONE), new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ONE));
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
         //invalid data
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate83Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2525,10 +2524,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setEvolution(TETARTE);
         //invalid data
         fight_.getChoices().clear();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate84Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2554,10 +2553,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getMovesAbilitiesEvos().clear();
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getMovesToBeLearnt().clear();
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate85Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2582,10 +2581,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setEvolution(TETARTE);
         //invalid data
         fight_.getChoices().getVal((byte) 0).getKeptMoves().add(ZENITH);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate86Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2609,11 +2608,11 @@ public class FightValidationTest extends InitializationDataBase {
         game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
         //invalid data
         fight_.getChoices().getVal((byte) 0).getKeptMoves().add(ZENITH);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate87Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2638,10 +2637,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setEvolution(TETARTE);
         //invalid data
         fight_.getChoices().getVal((byte) 0).setAbility(PRESSION);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate88Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2667,7 +2666,7 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getKos().put(Fight.PLAYER, true);
         fight_.getKos().put(Fight.FOE, false);
-        FightFacade.validate(game_.getFight(), _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
     @Test
@@ -2683,10 +2682,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
         game_.setEvolution(TETARTE);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate90Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2709,10 +2708,10 @@ public class FightValidationTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, _data_);
         //invalid data
         fight_.setState(FightState.ATTAQUES);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate91Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2721,10 +2720,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.setState(FightState.SWITCH_PROPOSE);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate92Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2733,10 +2732,10 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.setState(FightState.SWITCH_WHILE_KO_USER);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate93Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2746,10 +2745,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getKos().put(Fight.PLAYER, true);
         fight_.getKos().put(Fight.FOE, false);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate94Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2804,10 +2803,10 @@ public class FightValidationTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, _data_);
         //invalid data
         fight_.setFightType(FightType.DRESSEUR);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate95Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2862,10 +2861,10 @@ public class FightValidationTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, _data_);
         //invalid data
         fight_.getKos().put(Fight.FOE, true);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate96Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2922,10 +2921,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
         fight_.getFirstPositPlayerFighters().put((byte) 2, Fighter.BACK);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate97Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -2981,10 +2980,10 @@ public class FightValidationTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, _data_);
         //invalid data
         fight_.getFirstPositFoeFighters().put((byte) 0, (byte) 0);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate98Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3006,10 +3005,10 @@ public class FightValidationTest extends InitializationDataBase {
         //invalid data
         fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
         fight_.getFirstPositPlayerFighters().put((byte) 2, Fighter.BACK);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate99Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3030,10 +3029,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         fight_.getFirstPositFoeFighters().put((byte) 0, (byte) 0);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate100Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3054,10 +3053,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         fight_.getKos().put(Fight.FOE, true);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate101Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3081,7 +3080,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp().affectZero();
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
         //fight_.setState(FightState.SWITCH_APRES_ATTAQUE);
 //        game_.chooseFrontFighter((byte) 0, data);
 //        game_.changeAction(ActionType.MOVE, data);
@@ -3091,7 +3090,7 @@ public class FightValidationTest extends InitializationDataBase {
 
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate102Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3101,10 +3100,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.attemptCatchingWildPokemon(MASTER_BALL, _data_, true);
         //invalid data
         fight_.setCatchingBall(INVALID_DATA_KEY);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate103Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3114,10 +3113,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.attemptCatchingWildPokemon(MASTER_BALL, _data_, true);
         //invalid data
         fight_.setCatchingBall(BAIE_ORAN);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate104Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3127,10 +3126,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.attemptCatchingWildPokemon(MASTER_BALL, _data_, true);
         //invalid data
         fight_.getKos().put(Fight.PLAYER, true);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate105Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3140,10 +3139,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.attemptCatchingWildPokemon(MASTER_BALL, _data_, true);
         //invalid data
         fight_.setFightType(FightType.DRESSEUR);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate106Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3156,10 +3155,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         fight_.setFightType(FightType.DRESSEUR);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate107Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3172,10 +3171,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         player_.useInInventory(MASTER_BALL);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate108Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3188,10 +3187,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(_data_, false);
         //invalid data
         fight_.getKos().put(Fight.PLAYER, true);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate109Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -3200,7 +3199,7 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         //invalid data
         fight_.setState(FightState.REDESSIN_SCENE);
-        FightFacade.validate(fight_, _data_, player_, diff_);
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
 
     /*Difficulty diff_ = new Difficulty();

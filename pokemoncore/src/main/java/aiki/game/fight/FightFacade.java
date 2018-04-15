@@ -2,7 +2,6 @@ package aiki.game.fight;
 import aiki.DataBase;
 import aiki.comments.Comment;
 import aiki.comparators.ComparatorTrStrings;
-import aiki.exceptions.GameLoadException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
@@ -154,75 +153,75 @@ public final class FightFacade {
         }
     }
 
-    public static void validate(Fight _fight,DataBase _data,Player _user,Difficulty _diff) {
+    public static boolean validate(Fight _fight,DataBase _data,Player _user,Difficulty _diff) {
         if (!_fight.getFightType().isExisting()) {
-            return;
+            return true;
         }
         if (!_fight.getFightType().isWild()) {
             if (_fight.getState() == FightState.SURNOM) {
-                throw new GameLoadException();
+                return false;
             }
             if (_fight.getState() == FightState.CAPTURE_KO) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
             if (_fight.getFightType() != FightType.TMP_TRAINER) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (_fight.getMult() < 1) {
-            throw new GameLoadException();
+            return false;
         }
         if (_fight.getFightType().isWild()) {
             if (_fight.getMult() != 1) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (_fight.getFightType() == FightType.TMP_TRAINER) {
             if (_fight.getMult() != 2) {
-                throw new GameLoadException();
+                return false;
             }
             if (_fight.getPlayerMaxNumberFrontFighters() != 1) {
-                throw new GameLoadException();
+                return false;
             }
         } else {
             if (_fight.getPlayerMaxNumberFrontFighters() != _fight.getMult()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         Numbers<Byte> noTeams_ = new Numbers<Byte>();
         noTeams_.add(Fight.FOE);
         noTeams_.add(Fight.PLAYER);
         if (!Numbers.equalsSetBytes(_fight.getTeams().getKeys(), noTeams_)) {
-            throw new GameLoadException();
+            return false;
         }
         if (_fight.getFightType().isWild()) {
             if (!Numbers.eq(_fight.getFoeTeam().getMembers().size(), DataBase.ONE_POSSIBLE_CHOICE)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (_fight.getNbFleeAttempt() < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_fight.getNbRounds().isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_fight.getWinningMoney().isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getPokedex().containsAllAsKeys(_fight.getCaughtEvolutions())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getItems().containsAllAsKeys(_fight.getLostObjects())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getItems().containsAllAsKeys(_fight.getUsedItemsWhileRound().getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (Short v: _fight.getUsedItemsWhileRound().values()) {
             if (v < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (byte t: _fight.getTeams().getKeys()) {
@@ -247,10 +246,10 @@ public final class FightFacade {
                 pos_.add(b);
             }
             if (!Numbers.equalsSetBytes(pos_, posInit_)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!Numbers.equalsSetBytes(_fight.getTeams().getVal(t).getPlayerFightersAgainstFoe().getKeys(), posInit_)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (TeamPosition f: FightOrder.fighters(_fight)) {
@@ -260,7 +259,7 @@ public final class FightFacade {
             }
         }
         if (!Numbers.equalsSetBytes(_fight.getFirstPositPlayerFighters().getKeys(), _fight.getUserTeam().getMembers().getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         Numbers<Byte> possiblePlaces_ = new Numbers<Byte>();
         int m_ = _fight.getMult();
@@ -270,30 +269,30 @@ public final class FightFacade {
         for (byte p: _fight.getFirstPositPlayerFighters().values()) {
             if (!Numbers.eq(p, Fighter.BACK)) {
                 if (!possiblePlaces_.containsObj(p)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
         }
         if (!Numbers.equalsSetBytes(_fight.getFirstPositFoeFighters().getKeys(), _fight.getFoeTeam().getMembers().getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (byte p: _fight.getFirstPositFoeFighters().values()) {
             if (!Numbers.eq(p, Fighter.BACK)) {
                 if (!possiblePlaces_.containsObj(p)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
         }
         if (!StringList.equalsSet(_data.getMovesEffectGlobal(), _fight.getEnabledMoves().getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: _fight.getEnabledMoves().getKeys()) {
             if (_fight.getEnabledMoves().getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getMovesEffectGlobalWeather(), _fight.getStillEnabledMoves().getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         //never mind places for catching a wild pokemon at the moment of using a ball
         boolean distinctPlacesGroundCheck_ = false;
@@ -331,14 +330,14 @@ public final class FightFacade {
                 fighters_.addAllElts(_fight.getUserTeam().fightersAtCurrentPlace(i));
             }
             if (fighters_.isEmpty()) {
-                throw new GameLoadException();
+                return false;
             }
             fighters_.clear();
             for (short i = CustList.FIRST_INDEX; i < mult_; i++) {
                 fighters_.addAllElts(_fight.getFoeTeam().fightersAtCurrentPlace(i));
             }
             if (fighters_.isEmpty()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (_fight.getFightType() == FightType.TMP_TRAINER) {
@@ -355,10 +354,10 @@ public final class FightFacade {
                 }
             }
             if (nbFrontPl_ > DataBase.ONE_POSSIBLE_CHOICE) {
-                throw new GameLoadException();
+                return false;
             }
             if (nbFrontAlly_ > DataBase.ONE_POSSIBLE_CHOICE) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (validSwitchTeam_) {
@@ -374,10 +373,10 @@ public final class FightFacade {
                 _fight.getFirstPositPlayerFighters().put(t.getPosition(), f_.getGroundPlaceSubst());
             }
             if (!validSwitchTeam(_fight, Fight.PLAYER)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!validSwitchTeam(_fight, Fight.FOE)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (distinctPlacesGroundSubtCheck_) {
@@ -391,18 +390,18 @@ public final class FightFacade {
                 //never mind for matching ground places and ground places substitute
             }
             if (!validPlaces(_fight, Fight.FOE)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!validPlaces(_fight, Fight.PLAYER)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (distinctPlacesGroundSubtCheck_) {
             if (!validPlacesSubst(_fight, Fight.FOE, false)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!validPlacesSubst(_fight, Fight.PLAYER, onlyDistinctFoeCheckSubst_)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (TeamPosition t: FightOrder.fighters(_fight)) {
@@ -417,41 +416,41 @@ public final class FightFacade {
             }
             short pos_ = ((ActionMove)action_).getChosenTargets().first().getPosition();
             if (pos_ < 0) {
-                throw new GameLoadException();
+                return false;
             }
             if (pos_ >= _fight.getMult()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
             //The substituted can be KO
             _fight.getChoices().clear();
             if (!Numbers.eq(_fight.getCurrentUser().getTeam(), Fight.PLAYER)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!validAllyChoices(_fight, _data)) {
-                throw new GameLoadException();
+                return false;
             }
             Team equipe_=_fight.getUserTeam();
             Fighter creature_=equipe_.refPartMembres(_fight.getCurrentUser().getPosition());
             MoveData fAtt_=_data.getMove(creature_.getFinalChosenMove());
             if(fAtt_.getSwitchType() != SwitchType.LANCEUR){
-                throw new GameLoadException();
+                return false;
             }
             Fighter current_ = _fight.getFighter(_fight.getCurrentUser());
             if (!current_.isActed()) {
-                throw new GameLoadException();
+                return false;
             }
             if (!current_.isBelongingToPlayer()) {
-                throw new GameLoadException();
+                return false;
             }
             if (!FightOrder.notKoBackFightersBelongingToUser(_fight, true).isEmpty()) {
-                return;
+                return true;
             }
-            throw new GameLoadException();
+            return false;
         } else if (_fight.getState() == FightState.APPRENDRE_EVOLUER) {
             if (_fight.getChoices().isEmpty()) {
-                throw new GameLoadException();
+                return false;
             }
             Numbers<Byte> list_ = new Numbers<Byte>();
             for (byte b: _fight.getUserTeam().getMembers().getKeys()) {
@@ -467,7 +466,7 @@ public final class FightFacade {
                 list_.add(b);
             }
             if (!Numbers.equalsSetBytes(list_, _fight.getChoices().getKeys())) {
-                throw new GameLoadException();
+                return false;
             }
             for (byte b: _fight.getChoices().getKeys()) {
                 Fighter fighter_ = _fight.getUserTeam().refPartMembres(b);
@@ -478,7 +477,7 @@ public final class FightFacade {
                     possible_.addAllElts(fighter_.getMovesSet());
                     for (String m: choice_.getKeptMoves()) {
                         if (!possible_.containsObj(m)) {
-                            throw new GameLoadException();
+                            return false;
                         }
                     }
                 } else {
@@ -487,32 +486,32 @@ public final class FightFacade {
                     possible_.addAllElts(fighter_.getMovesSet());
                     for (String m: choice_.getKeptMoves()) {
                         if (!possible_.containsObj(m)) {
-                            throw new GameLoadException();
+                            return false;
                         }
                     }
                     possible_.clear();
                     possible_.addAllElts(fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getAbilities());
                     if (possible_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
                         if (!possible_.containsObj(choice_.getAbility())) {
-                            throw new GameLoadException();
+                            return false;
                         }
                     }
                 }
             }
             if(!FightFacade.win(_fight)&&FightKo.endedFight(_fight,_diff)){
-                throw new GameLoadException();
+                return false;
             }
-            return;
+            return true;
         } else if (_fight.getState() == FightState.ATTAQUES) {
             _fight.getChoices().clear();
             if(FightKo.endedFight(_fight,_diff)){
-                throw new GameLoadException();
+                return false;
             }
             if (FightEndRound.proponedSwitch(_fight)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!validAllyChoices(_fight, _data)) {
-                throw new GameLoadException();
+                return false;
             }
             for (TeamPosition t: FightOrder.fighters(_fight)) {
                 Fighter f_ = _fight.getFighter(t);
@@ -522,16 +521,16 @@ public final class FightFacade {
                 }
                 Fighter part_ = _fight.getTeams().getVal(t.getTeam()).getMembers().getVal(subst_);
                 if (part_.estKo()) {
-                    throw new GameLoadException();
+                    return false;
                 }
 //                if (part_.isBelongingToPlayer() != f_.isBelongingToPlayer()) {
-//                    throw new GameLoadException();
+//                    return false;
 //                }
                 if (ComparatorBoolean.diff(part_.isBelongingToPlayer(), f_.isBelongingToPlayer())) {
-                    throw new GameLoadException();
+                    return false;
                 }
                 if (!part_.estArriere()) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             for (TeamPosition t: FightOrder.fighters(_fight)) {
@@ -541,7 +540,7 @@ public final class FightFacade {
                     continue;
                 }
                 if (f_.estArriere()) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             for (byte b: _fight.getFoeTeam().getMembers().getKeys()) {
@@ -552,75 +551,75 @@ public final class FightFacade {
                 }
                 String move_ = ((ActionMove)action_).getFirstChosenMove();
                 if (!FightFacade.allowedMovesNotEmpty(_fight,Fight.toFoeFighter(b), _data).containsObj(move_)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
-            return;
+            return true;
         } else if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
             _fight.getChoices().clear();
             for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
                 if (!_fight.getFighter(f).estKo()) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             if(koTeam(_fight)){
-                throw new GameLoadException();
+                return false;
             }
             if (FightEndRound.proponedSwitchWhileKoPlayer(_fight)) {
                 EqList<TeamPosition> team_;
                 team_ = FightOrder.fighters(_fight, Fight.FOE);
                 if (!validSubstitutingTeam(_fight, team_)) {
-                    throw new GameLoadException();
+                    return false;
                 }
                 team_ = FightOrder.fighters(_fight, Fight.PLAYER);
                 if (!validSubstitutingTeam(_fight, team_)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
-            return;
+            return true;
         } else if (_fight.getState() == FightState.SWITCH_PROPOSE) {
             _fight.getChoices().clear();
             if (koTeam(_fight)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!FightEndRound.proponedSwitch(_fight)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!_fight.getFightType().isWild()) {
                 EqList<TeamPosition> team_;
                 team_ = FightOrder.fighters(_fight, Fight.FOE);
                 if (!validSubstitutingTeam(_fight, team_)) {
-                    throw new GameLoadException();
+                    return false;
                 }
                 team_ = FightOrder.fighters(_fight, Fight.PLAYER);
                 if (!validSubstitutingTeam(_fight, team_)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
-            return;
+            return true;
         } else if (_fight.getState() == FightState.SURNOM) {
             _fight.getChoices().clear();
             if (!_data.getItems().contains(_fight.getCatchingBall())) {
-                throw new GameLoadException();
+                return false;
             }
             if (!(_data.getItem(_fight.getCatchingBall()) instanceof Ball)) {
-                throw new GameLoadException();
+                return false;
             }
             if (_fight.getKos().getVal(Fight.PLAYER)) {
-                throw new GameLoadException();
+                return false;
             }
-            return;
+            return true;
         } else if (_fight.getState() == FightState.CAPTURE_KO) {
             _fight.getChoices().clear();
             if (!_user.existBall(_data)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!FightFacade.win(_fight)) {
-                throw new GameLoadException();
+                return false;
             }
-            return;
+            return true;
         } else {
-            throw new GameLoadException();
+            return false;
         }
     }
 

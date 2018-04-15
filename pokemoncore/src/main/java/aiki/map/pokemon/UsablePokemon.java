@@ -3,6 +3,6 @@ import aiki.DataBase;
 
 public interface UsablePokemon {
 
-    void validate(DataBase _data);
+    boolean validate(DataBase _data);
 
 }

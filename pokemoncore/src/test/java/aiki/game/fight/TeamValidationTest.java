@@ -1,12 +1,12 @@
 package aiki.game.fight;
 import static junitparams.JUnitParamsRunner.$;
+import static org.junit.Assert.assertTrue;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import aiki.exceptions.GameLoadException;
 import aiki.game.Game;
 import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
@@ -47,28 +47,28 @@ public class TeamValidationTest extends InitializationDataBase {
     @Parameters(method=SEX)
     public void validate1Test(Sex _sex) {
         Game game_ = newGameInFight(_sex);
-        game_.getFight().getUserTeam().validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(game_.getFight().getUserTeam().validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
     @Test
     @Parameters(method=SEX)
     public void validate2Test(Sex _sex) {
         Game game_ = newGameInFight(_sex);
-        game_.getFight().getFoeTeam().validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(game_.getFight().getFoeTeam().validate(_data_, Fight.FOE, game_.getFight()));
     }
 
     @Test
     @Parameters(method=SEX)
     public void validate3Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
-        game_.getFight().getUserTeam().validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(game_.getFight().getUserTeam().validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
     @Test
     @Parameters(method=SEX)
     public void validate4Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
-        game_.getFight().getFoeTeam().validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(game_.getFight().getFoeTeam().validate(_data_, Fight.FOE, game_.getFight()));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class TeamValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getSuccessfulMovesRound().add(CHARGE);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class TeamValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getSuccessfulMovesRound().add(CHARGE);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
     @Test
@@ -95,43 +95,43 @@ public class TeamValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getSuccessfulMovesRound().add(CHARGE);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate8Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getSuccessfulMovesRound().add(INVALID_DATA_KEY);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate9Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getEnabledMoves().put(CHARGE, new ActivityOfMove(true));
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate10Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate11Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getEnabledMovesWhileSendingFoeUses().put(CHARGE, LgInt.zero());
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
     @Test
@@ -140,100 +140,100 @@ public class TeamValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getSuccessfulMovesRound().add(CHARGE);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate13Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getSuccessfulMovesRound().add(INVALID_DATA_KEY);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate14Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getEnabledMoves().put(CHARGE, new ActivityOfMove(true));
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate15Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate16Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getEnabledMovesWhileSendingFoeUses().put(CHARGE, LgInt.zero());
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate17Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getNbUsesMoves().put(CHARGE, 0);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate18Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getNbUsesMoves().put(CHARGE, 0);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate19Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getNbUsesMovesRound().put(CHARGE, 0);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate20Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getNbUsesMovesRound().put(CHARGE, 0);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate21Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getEnabledMovesByGroup().put(new StringList(CHARGE), new ActivityOfMove(true));
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate22Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getEnabledMovesByGroup().put(new StringList(CHARGE), new ActivityOfMove(true));
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate23Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -242,10 +242,10 @@ public class TeamValidationTest extends InitializationDataBase {
         map_ = new NumberMap<Byte,StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         team_.getHealAfter().put(CHARGE, map_);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate24Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -254,10 +254,10 @@ public class TeamValidationTest extends InitializationDataBase {
         map_ = new NumberMap<Byte,StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         team_.getHealAfter().put(CHARGE, map_);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate25Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -266,10 +266,10 @@ public class TeamValidationTest extends InitializationDataBase {
         map_ = new NumberMap<Byte,Anticipation>();
         map_.put((byte) 0, new Anticipation());
         team_.getMovesAnticipation().put(CHARGE, map_);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate26Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -278,16 +278,16 @@ public class TeamValidationTest extends InitializationDataBase {
         map_ = new NumberMap<Byte,Anticipation>();
         map_.put((byte) 0, new Anticipation());
         team_.getMovesAnticipation().put(CHARGE, map_);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate27Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) -1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
 //    @Test
@@ -299,13 +299,13 @@ public class TeamValidationTest extends InitializationDataBase {
 //        team_.validate(data, Fight.PLAYER, game_.getFight());
 //    }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate29Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getEnabledMovesWhileSendingFoeUses().getVal(PICOTS).affect(new LgInt("-1"));
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
 //    @Test
@@ -326,13 +326,13 @@ public class TeamValidationTest extends InitializationDataBase {
 //        team_.validate(data, Fight.FOE, game_.getFight());
 //    }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate32Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) -1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
 //    @Test
@@ -344,70 +344,70 @@ public class TeamValidationTest extends InitializationDataBase {
 //        team_.validate(data, Fight.FOE, game_.getFight());
 //    }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate34Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getEnabledMovesWhileSendingFoeUses().getVal(PICOTS).affect(new LgInt("-1"));
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate35Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getNbUsesMoves().put(CASSE, -1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate36Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getNbUsesMoves().put(CASSE, -1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate37Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getNbUsesMovesRound().put(AIRE_D_EAU, -1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate38Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getNbUsesMovesRound().put(AIRE_D_EAU, -1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate39Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getEnabledMovesByGroup().getVal(new StringList(AIRE_D_EAU,AIRE_D_HERBE)).setNbTurn((short) -1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate40Test(Sex _sex) {
         Game game_ = newGameInFightTrainer2(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getEnabledMovesByGroup().getVal(new StringList(AIRE_D_EAU,AIRE_D_HERBE)).setNbTurn((short) -1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate41Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -417,10 +417,10 @@ public class TeamValidationTest extends InitializationDataBase {
         map_.put((byte) 0, new StacksOfUses());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getHealAfter().put(VOEU, map_);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate42Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -430,10 +430,10 @@ public class TeamValidationTest extends InitializationDataBase {
         map_.put((byte) 0, new StacksOfUses());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getHealAfter().put(VOEU, map_);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate43Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -443,10 +443,10 @@ public class TeamValidationTest extends InitializationDataBase {
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate44Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -456,7 +456,7 @@ public class TeamValidationTest extends InitializationDataBase {
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
     @Test
@@ -469,7 +469,7 @@ public class TeamValidationTest extends InitializationDataBase {
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(POKEMON_FOE_TARGET_ZERO);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
     @Test
@@ -482,11 +482,11 @@ public class TeamValidationTest extends InitializationDataBase {
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate51Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -496,10 +496,10 @@ public class TeamValidationTest extends InitializationDataBase {
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(new TargetCoords(Fight.FOE,(byte) (Fighter.BACK-1)));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate52Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
@@ -509,123 +509,123 @@ public class TeamValidationTest extends InitializationDataBase {
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(new TargetCoords(Fight.PLAYER,(byte) (Fighter.BACK-1)));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate53Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.setNbKoRound((byte) -1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate54Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.setNbKoRound((byte) -1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate55Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.setNbKoPreviousRound((byte) -1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate56Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.setNbKoPreviousRound((byte) -1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate57Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate58Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate59Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate60Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate61Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) -1);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate62Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getFoeTeam();
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) -1);
-        team_.validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
     }
 
     //
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate63Test(Sex _sex) {
         Game game_ = newGameInFightTrainer(_sex);
         Team team_ = game_.getFight().getUserTeam();
         team_.getPlayerFightersAgainstFoe().getVal((byte) 0).add((byte) 2);
-        team_.validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate64Test(Sex _sex) {
         Game game_ = newGameInFight(_sex);
         game_.getFight().getFoeTeam().getMembers().clear();
-        game_.getFight().getFoeTeam().validate(_data_, Fight.FOE, game_.getFight());
+        assertTrue(!game_.getFight().getFoeTeam().validate(_data_, Fight.FOE, game_.getFight()));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate65Test(Sex _sex) {
         Game game_ = newGameInFight(_sex);
         game_.getFight().getUserTeam().getMembers().clear();
-        game_.getFight().getUserTeam().validate(_data_, Fight.PLAYER, game_.getFight());
+        assertTrue(!game_.getFight().getUserTeam().validate(_data_, Fight.PLAYER, game_.getFight()));
     }
 
 //    private static Game newGameInFightTrainer3(Sex _sex) {

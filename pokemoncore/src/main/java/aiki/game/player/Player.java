@@ -3,7 +3,6 @@ import aiki.DataBase;
 import aiki.ExchangedData;
 import aiki.Resources;
 import aiki.comments.Comment;
-import aiki.exceptions.GameLoadException;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -222,18 +221,18 @@ public final class Player {
         }
     }
 
-    public void validate(DataBase _data) {
+    public boolean validate(DataBase _data) {
         if (nickname == null) {
-            throw new GameLoadException();
+            return false;
         }
         if (sex == null) {
-            throw new GameLoadException();
+            return false;
         }
         if (team.isEmpty()) {
-            throw new GameLoadException();
+            return false;
         }
         if (team.size() > _data.getNbMaxTeam()) {
-            throw new GameLoadException();
+            return false;
         }
         int nbPkPlayers_ = CustList.SIZE_EMPTY;
         for (UsablePokemon e: team) {
@@ -242,18 +241,20 @@ public final class Player {
             }
 //            if (!(e instanceof PokemonPlayer)) {
 //                if (!(e instanceof Egg)) {
-//                    throw new GameLoadException();
+//                    return false;
 //                }
 //            } else {
 //                nbPkPlayers_ ++;
 //            }
-            e.validate(_data);
+            if (!e.validate(_data)){
+                return false;
+            }
 //            if (!e.isValid(_data)) {
-//                throw new GameLoadException();
+//                return false;
 //            }
         }
         if (Numbers.eq(nbPkPlayers_, CustList.SIZE_EMPTY)) {
-            throw new GameLoadException();
+            return false;
         }
         for (UsablePokemon p: box) {
             if (p instanceof PokemonPlayer) {
@@ -261,31 +262,36 @@ public final class Player {
             }
 //            if (!(p instanceof PokemonPlayer)) {
 //                if (!(p instanceof Egg)) {
-//                    throw new GameLoadException();
+//                    return false;
 //                }
 //            } else {
 //                ((PokemonPlayer)p).fullHeal(_data);
 //            }
-            p.validate(_data);
+            if (!p.validate(_data)) {
+                return false;
+            }
 //            if (!p.isValid(_data)) {
-//                throw new GameLoadException();
+//                return false;
 //            }
         }
         for (Object o: caughtPk.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getPokedex().getKeys(), caughtPk.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!money.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
-        inventory.validate(_data);
+        if (!inventory.validate(_data)) {
+            return false;
+        }
         if (remainingRepelSteps < 0) {
-            throw new GameLoadException();
+            return false;
         }
+        return true;
     }
 
     public boolean existBall(DataBase _import) {

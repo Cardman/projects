@@ -2,7 +2,6 @@ package aiki.game.fight;
 import aiki.DataBase;
 import aiki.Resources;
 import aiki.comments.Comment;
-import aiki.exceptions.GameLoadException;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;
@@ -580,111 +579,111 @@ public final class Fighter {
 
     //This class is covered
     //byte _user, in back
-    public void validate(DataBase _data, byte _numberTeam, Fight _fight) {
+    public boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
         if (gender == null) {
-            throw new GameLoadException();
+            return false;
         }
         if (action == null) {
-            throw new GameLoadException();
+            return false;
         }
         if (currentGender == null) {
-            throw new GameLoadException();
+            return false;
         }
         if (nickname == null) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getPokedex().contains(name)) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getPokedex().contains(currentName)) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getAbilities().contains(ability)) {
-            throw new GameLoadException();
+            return false;
         }
         if (!_data.getAbilities().contains(currentAbility)) {
-            throw new GameLoadException();
+            return false;
         }
         if (!item.isEmpty()) {
             if (!_data.getItems().contains(item)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!expItem.isEmpty()) {
             if (!_data.isObjectUsedForExp(expItem)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!lastUsedItem.isEmpty()) {
             if (!_data.getItems().contains(lastUsedItem)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (height.isZeroOrLt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (weight.isZeroOrLt()) {
-            throw new GameLoadException();
+            return false;
         }
         for (String t: types) {
             if (!_data.getTypes().containsObj(t)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (moves.size() > _data.getNbMaxMoves()) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: moves.getKeys()) {
             if (StringList.quickEq(m, _data.getDefaultMove())) {
-                throw new GameLoadException();
+                return false;
             }
             if (!_data.getMoves().contains(m)) {
-                throw new GameLoadException();
+                return false;
             }
             UsesOfMove pp_ = moves.getVal(m);
             if (pp_.getCurrent() < 0) {
-                throw new GameLoadException();
+                return false;
             }
             if (pp_.getCurrent() > pp_.getMax()) {
-                throw new GameLoadException();
+                return false;
             }
             if (pp_.getMax() == 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (moves.isEmpty()) {
-            throw new GameLoadException();
+            return false;
         }
         if (currentMoves.size() > _data.getNbMaxMoves()) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: currentMoves.getKeys()) {
             if (StringList.quickEq(m, _data.getDefaultMove())) {
-                throw new GameLoadException();
+                return false;
             }
             if (!_data.getMoves().contains(m)) {
-                throw new GameLoadException();
+                return false;
             }
             UsesOfMove pp_ = currentMoves.getVal(m);
             if (pp_.getCurrent() < 0) {
-                throw new GameLoadException();
+                return false;
             }
             if (pp_.getCurrent() > pp_.getMax()) {
-                throw new GameLoadException();
+                return false;
             }
             if (pp_.getMax() == 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         StringList moves_ = attaquesUtilisables();
         int sizeMoves_ = moves_.size();
         moves_.removeDuplicates();
         if (sizeMoves_ != moves_.size()) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: alreadyInvokedMovesRound) {
             if (!_data.getMoves().contains(m)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         Team team_ = _fight.getTeams().getVal(_numberTeam);
@@ -692,42 +691,42 @@ public final class Fighter {
         if (action instanceof ActionMove) {
             ActionMove actionMove_ = (ActionMove) action;
             if (!_data.getMoves().contains(actionMove_.getFirstChosenMove())) {
-                throw new GameLoadException();
+                return false;
             }
             if (!Numbers.eq(actionMove_.getSubstitute(),BACK)) {
                 if (!partners_.containsObj(actionMove_.getSubstitute())) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             if (_data.getMove(actionMove_.getFirstChosenMove()).getTargetChoice().isWithChoice()) {
                 if (actionMove_.getChosenTargets().size() > DataBase.ONE_POSSIBLE_CHOICE) {
-                    throw new GameLoadException();
+                    return false;
                 }
             } else {
                 if (!actionMove_.getChosenTargets().isEmpty()) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             if (!actionMove_.getFinalChosenMove().isEmpty()) {
                 if (!_data.getMoves().contains(actionMove_.getFinalChosenMove())) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
         }
         if (action instanceof ActionSwitch) {
             ActionSwitch actionSwitch_ = (ActionSwitch) action;
             if (Numbers.eq(actionSwitch_.getSubstitute(),BACK)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!partners_.containsObj(actionSwitch_.getSubstitute())) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (action instanceof ActionHeal) {
             ActionHeal actionHeal_ = (ActionHeal) action;
             if (!(_data.getItem(actionHeal_.getChosenHealingItem()) instanceof Berry)) {
                 if (!(_data.getItem(actionHeal_.getChosenHealingItem()) instanceof HealingItem)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             if (action instanceof ActionHealMove) {
@@ -738,238 +737,238 @@ public final class Fighter {
                     instanceOf_ = true;
                     HealingPp pp_ = (HealingPp) _data.getItem(actionHealMove_.getChosenHealingItem());
                     if (!pp_.healOneMove()) {
-                        throw new GameLoadException();
+                        return false;
                     }
                 }
                 if (_data.getItem(actionHealMove_.getChosenHealingItem()) instanceof Berry) {
                     instanceOf_ = true;
                     Berry berry_ = (Berry) _data.getItem(actionHealMove_.getChosenHealingItem());
                     if (berry_.getHealPp() == 0) {
-                        throw new GameLoadException();
+                        return false;
                     }
                 }
                 if (!instanceOf_) {
-                    throw new GameLoadException();
+                    return false;
                 }
                 if (!_data.getMoves().contains(actionHealMove_.getFirstChosenMove())) {
-                    throw new GameLoadException();
+                    return false;
                 }
             } else {
                 if (_data.getItem(actionHeal_.getChosenHealingItem()) instanceof HealingPp) {
                     HealingPp pp_ = (HealingPp) _data.getItem(actionHeal_.getChosenHealingItem());
                     if (pp_.healOneMove()) {
-                        throw new GameLoadException();
+                        return false;
                     }
                 }
                 if (_data.getItem(actionHeal_.getChosenHealingItem()) instanceof Berry) {
                     Berry berry_ = (Berry) _data.getItem(actionHeal_.getChosenHealingItem());
                     if (berry_.getHealPp() > 0) {
-                        throw new GameLoadException();
+                        return false;
                     }
                 }
             }
         }
         if (!nbRounds.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (level <= 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (level > _data.getMaxLevel()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!Statistic.equalsSet(ev.getKeys(), Statistic.getStatisticsWithBase())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!Statistic.equalsSet(statisBase.getKeys(), Statistic.getStatisticsWithBase())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!Statistic.equalsSet(statisBoost.getKeys(), Statistic.getStatisticsWithBoost())) {
-            throw new GameLoadException();
+            return false;
         }
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             if (ev.getVal(s) < 0) {
-                throw new GameLoadException();
+                return false;
             }
             Rate stat_ = statisBase.getVal(s);
             if (stat_.isZeroOrLt()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
             byte boost_ = statisBoost.getVal(s);
             if (boost_ < _data.getMinBoost()) {
-                throw new GameLoadException();
+                return false;
             }
             if (boost_ > _data.getMaxBoost()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!clone.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!remainingHp.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (Rate.strGreater(remainingHp, pvMax())) {
-            throw new GameLoadException();
+            return false;
         }
         if (estKo()) {
             if (!estArriere()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (Numbers.eq(groundPlaceSubst, Fighter.BACK)) {
             if (!estArriere()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (isBelongingToPlayer()) {
             if (!_data.getItems().contains(usedBallCatching)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!(_data.getItem(usedBallCatching) instanceof Ball)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!wonExp.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!wonExpSinceLastLevel.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (happiness < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (happiness > _data.getHappinessMax()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!StringList.equalsSet(_data.getMovesEffectIndiv(), enabledMoves.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: enabledMoves.getKeys()) {
             if (enabledMoves.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getMovesEffectUnprot(), enabledMovesUnprot.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: enabledMovesUnprot.getKeys()) {
             if (enabledMovesUnprot.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getMovesEffectProt(), enabledMovesProt.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: enabledMovesProt.getKeys()) {
             if (enabledMovesProt.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!_data.getTypes().containsAllObj(protectedAgainstMoveTypes)) {
-            throw new GameLoadException();
+            return false;
         }
         if (!StringList.equalsSet(_data.getMovesEffEndRoundIndiv(), enabledMovesEndRound.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: enabledMovesEndRound.getKeys()) {
             if (enabledMovesEndRound.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (Object o: enabledMovesForAlly.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getMovesEffectAlly(), enabledMovesForAlly.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!StringList.equalsSet(_data.getMovesConstChoices(), enabledMovesConstChoices.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!StringList.equalsSet(_data.getMovesChangingTypes(), enabledChangingTypesMoves.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!StringList.equalsSet(_data.getMovesCountering(), enabledCounteringMoves.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!StringList.equalsSet(_data.getTypes(), damageRateInflictedByType.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: damageRateInflictedByType.getKeys()) {
             if (!damageRateInflictedByType.getVal(m).isZeroOrGt()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getTypes(), damageRateSufferedByType.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: damageRateSufferedByType.getKeys()) {
             if (!damageRateSufferedByType.getVal(m).isZeroOrGt()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getCategories(), damageSufferedCateg.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: damageSufferedCateg.getKeys()) {
             if (!damageSufferedCateg.getVal(m).isZeroOrGt()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(_data.getCategories(), damageSufferedCategRound.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: damageSufferedCategRound.getKeys()) {
             if (!damageSufferedCategRound.getVal(m).isZeroOrGt()) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (String m: enabledMovesConstChoices.getKeys()) {
             if (enabledMovesConstChoices.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (String m: enabledChangingTypesMoves.getKeys()) {
             if (enabledChangingTypesMoves.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (String m: enabledCounteringMoves.getKeys()) {
             if (enabledCounteringMoves.getVal(m).getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (String m:movesToBeLearnt) {
             if (!_data.getMoves().contains(m)) {
-                throw new GameLoadException();
+                return false;
             }
             if (moves.contains(m)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         PokemonData fPk_ = fichePokemon(_data);
         for (String e: movesAbilitiesEvos.getKeys()) {
             if (!fPk_.getEvolutions().contains(e)) {
-                throw new GameLoadException();
+                return false;
             }
             MovesAbilities movesAbilities_ = movesAbilitiesEvos.getVal(e);
             for (String m: moves.getKeys()) {
                 if (movesAbilities_.getMoves().containsObj(m)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             for (String m: movesAbilities_.getMoves()) {
                 if (!_data.getMoves().contains(m)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             for (String a: movesAbilities_.getAbilities()) {
                 if (!_data.getAbilities().contains(a)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
         }
@@ -985,7 +984,7 @@ public final class Fighter {
             }
         }
         if (!MoveTeamPosition.equalsSet(trackingMoves.getKeys(), relMovesTh_)) {
-            throw new GameLoadException();
+            return false;
         }
         relMoves_ = new StringList();
         relMoves_.addAllElts(_data.getTrappingMoves());
@@ -996,7 +995,7 @@ public final class Fighter {
             }
         }
         if (!MoveTeamPosition.equalsSet(trappingMoves.getKeys(), relMovesTh_)) {
-            throw new GameLoadException();
+            return false;
         }
         relMoves_ = new StringList();
         relMoves_.addAllElts(_data.getMovesForbidding());
@@ -1007,7 +1006,7 @@ public final class Fighter {
             }
         }
         if (!MoveTeamPosition.equalsSet(privateMoves.getKeys(), relMovesTh_)) {
-            throw new GameLoadException();
+            return false;
         }
         relMoves_ = new StringList();
         relMoves_.addAllElts(_data.getMovesAccuracy());
@@ -1019,31 +1018,31 @@ public final class Fighter {
         }
         for (Object o :incrUserAccuracy.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!MoveTeamPosition.equalsSet(incrUserAccuracy.getKeys(), relMovesTh_)) {
-            throw new GameLoadException();
+            return false;
         }
         for (AffectedMove v: trackingMoves.values()) {
             if (!v.getMove().isEmpty()) {
                 if (!_data.getMoves().contains(v.getMove())) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
             if (v.getActivity().getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (ActivityOfMove k: trappingMoves.values()) {
             if (k.getNbTurn() < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (StringList k: privateMoves.values()) {
             for (String m: k) {
                 if (!_data.getMoves().contains(m)) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
         }
@@ -1059,7 +1058,7 @@ public final class Fighter {
             }
         }
         if (!StringList.equalsSet(status.getKeys(), statusSingle_)) {
-            throw new GameLoadException();
+            return false;
         }
         relMoves_ = new StringList();
         relMoves_.addAllElts(statusRelation_);
@@ -1070,16 +1069,16 @@ public final class Fighter {
             }
         }
         if (!MoveTeamPosition.equalsSet(statusRelat.getKeys(), relMovesTh_)) {
-            throw new GameLoadException();
+            return false;
         }
         for (short s: status.values()) {
             if (s < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (short s: statusRelat.values()) {
             if (s < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         StringList attaques_ = new StringList();
@@ -1087,79 +1086,80 @@ public final class Fighter {
         attaques_.addAllElts(_data.getVarParamsMove(LANCEUR_NB_UTILISATION));
         attaques_.removeDuplicates();
         if (!StringList.equalsSet(attaques_, nbUsesMoves.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: nbUsesMoves.getKeys()) {
             if (nbUsesMoves.getVal(m) < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!StringList.equalsSet(copiedMoves.getKeys(), _data.getMovesCopyingTemp())) {
-            throw new GameLoadException();
+            return false;
         }
         for (String m: copiedMoves.getKeys()) {
             CopiedMove val_ = copiedMoves.getVal(m);
             if (val_.getPp() < 0) {
-                throw new GameLoadException();
+                return false;
             }
             if (!val_.getMove().isEmpty()) {
                 if (!_data.getMoves().contains(val_.getMove())) {
-                    throw new GameLoadException();
+                    return false;
                 }
             }
         }
         if (nbPrepaRound == 0) {
             if (disappeared) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (nbPrepaRound < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (nbPrepaRound > 0) {
             if (needingToRecharge) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!nbRepeatingSuccessfulMoves.isZeroOrGt()) {
-            throw new GameLoadException();
+            return false;
         }
         if (!lastUsedMove.isEmpty()) {
             if (!_data.getMoves().contains(lastUsedMove)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!usedMoveLastRound.isEmpty()) {
             if (!_data.getMoves().contains(usedMoveLastRound)) {
-                throw new GameLoadException();
+                return false;
             }
             if (!attaquesUtilisables().containsStr(usedMoveLastRound)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!lastSuccessfulMove.isEmpty()) {
             if (!_data.getMoves().contains(lastSuccessfulMove)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!lastSufferedMove.isEmpty()) {
             if (!_data.getMoves().contains(lastSufferedMove)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!_data.getTypes().containsAllObj(lastSufferedMoveTypes)) {
-            throw new GameLoadException();
+            return false;
         }
         if (groundPlace != BACK) {
             if (groundPlace < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (groundPlaceSubst != BACK) {
             if (groundPlaceSubst < 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
+        return true;
     }
 
     void ajouterRelationAutre(TeamPosition _cbt,DataBase _import){

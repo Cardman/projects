@@ -1,5 +1,6 @@
 package aiki.game.player;
 import static junitparams.JUnitParamsRunner.$;
+import static org.junit.Assert.assertTrue;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -7,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import aiki.DataBase;
-import aiki.exceptions.GameLoadException;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
@@ -35,7 +35,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
-        player_.validate(_data_);
+        assertTrue(player_.validate(_data_));
     }
 
     @Test
@@ -45,20 +45,20 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getBox().add(pokemonPlayer(_data_, (short) 2));
-        player_.validate(_data_);
+        assertTrue(player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate3Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getTeam().clear();
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate4Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -66,17 +66,17 @@ public class PlayerValidationTest extends InitializationDataBase {
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getTeam().clear();
         player_.getTeam().add(new Egg(StringList.concat(PIKACHU,";10")));
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate5Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getTeam().add(new Egg(StringList.concat(INVALID_DATA_KEY,";10")));
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
     @Test
@@ -86,20 +86,20 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getTeam().add(new Egg(StringList.concat(PIKACHU,";10")));
-        player_.validate(_data_);
+        assertTrue(player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate7Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getBox().add(new Egg(StringList.concat(INVALID_DATA_KEY,";10")));
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate8Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -108,10 +108,10 @@ public class PlayerValidationTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(_data_, (short) 2);
         pk_.setItem(INVALID_DATA_KEY);
         player_.getBox().add(pk_);
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate9Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -120,60 +120,60 @@ public class PlayerValidationTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(_data_, (short) 2);
         pk_.setName(INVALID_DATA_KEY);
         player_.getTeam().add(pk_);
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate10Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getTm((short) -1);
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate11Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getCaughtPk().put(INVALID_DATA_KEY, false);
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate12Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getCaughtPk().clear();
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate13Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.getMoney().removeNb(new LgInt("10000"));
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate14Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, _sex, diff_, true, _data_);
         player_.setRemainingRepelSteps(-1);
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate15Test(Sex _sex) {
         Difficulty diff_ = new Difficulty();
@@ -192,7 +192,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         player_.getTeam().add(pokemonPlayer(_data_, (short) 2));
         player_.getTeam().add(pokemonPlayer(_data_, (short) 2));
         player_.getTeam().add(pokemonPlayer(_data_, (short) 2));
-        player_.validate(_data_);
+        assertTrue(!player_.validate(_data_));
     }
 
     static PokemonPlayer pokemonPlayer(DataBase _data, short _level) {

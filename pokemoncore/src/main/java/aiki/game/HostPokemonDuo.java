@@ -1,7 +1,6 @@
 package aiki.game;
 import aiki.DataBase;
 import aiki.comments.Comment;
-import aiki.exceptions.GameLoadException;
 import aiki.map.pokemon.PokemonPlayer;
 import code.util.annot.RwXml;
 
@@ -14,28 +13,32 @@ public final class HostPokemonDuo {
 
     private int nbSteps;
 
-    public void validate(DataBase _data) {
+    public boolean validate(DataBase _data) {
         if (isFree()) {
             if (nbSteps != 0) {
-                throw new GameLoadException();
+                return false;
             }
-            return;
+            return true;
         }
-        firstPokemon.validate(_data);
+        if (!firstPokemon.validate(_data)) {
+            return false;
+        }
 //        if (!firstPokemon.isValid(_data)) {
-//            throw new GameLoadException();
+//            return false;
 //        }
-        secondPokemon.validate(_data);
+        if (!secondPokemon.validate(_data)) {
+            return false;
+        }
 //        if (!secondPokemon.isValid(_data)) {
-//            throw new GameLoadException();
+//            return false;
 //        }
         firstPokemon.fullHeal(_data);
         secondPokemon.fullHeal(_data);
         if (nbSteps < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (Game.canStoreThesePokemonToHost(new Comment(), firstPokemon, secondPokemon, _data)) {
-            return;
+            return true;
         }
 //        PokemonData fPkFirst_ = _data.getPokemon(firstPokemon.getName());
 //        if (fPkFirst_.getEggGroups().containsStr(_data.constNotNum(DataBase.DEFAULT_EGG_GROUP))) {
@@ -71,7 +74,7 @@ public final class HostPokemonDuo {
 //            return false;
 //        }
 //        return true;
-        throw new GameLoadException();
+        return false;
     }
     public boolean isFree() {
         return firstPokemon.hasJustBeenCreated() && secondPokemon.hasJustBeenCreated();

@@ -8,7 +8,6 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import aiki.exceptions.GameLoadException;
 import aiki.game.enums.InterfaceType;
 import aiki.game.fight.Fight;
 import aiki.game.fight.InitializationDataBase;
@@ -41,7 +40,7 @@ public class GameValidationTest extends InitializationDataBase {
     public void validate1Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -57,7 +56,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, _data_);
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -85,7 +84,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
         game_.initTrainerFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(2, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -112,7 +111,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.LEFT, _data_);
         game_.moving(Direction.LEFT, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(1, 0, 1, 2), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -141,7 +140,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, _data_);
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.UP, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(1, 0, 1, 1, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -204,7 +203,7 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), _data_);
         game_.attemptForStoringPokemonToHost((short)1, (short) 2, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(3, 0, 2, 1, 7, 4), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -255,7 +254,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(6, 0, 6, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -306,7 +305,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(6, 0, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -363,7 +362,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.UP, _data_);
         game_.initTrainerFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -422,7 +421,7 @@ public class GameValidationTest extends InitializationDataBase {
         //beat very quickly a trainer
         game_.getFight().getKos().put(Fight.FOE, true);
         game_.endFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -492,7 +491,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.UP, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(6, 1, 4, 8), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -566,7 +565,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.UP, _data_);
         game_.initTrainerFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(6, 1, 4, 5), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -643,7 +642,7 @@ public class GameValidationTest extends InitializationDataBase {
         //beat very quickly a trainer
         game_.getFight().getKos().put(Fight.FOE, true);
         game_.endFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(6, 1, 4, 5), game_.getPlayerCoords());
         assertEq(2, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -731,7 +730,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.UP, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -750,7 +749,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         //pseudo valid data, the league is not beaten, so go back to begin.
         game_.setPlayerCoords(newCoords(7, 0, 1, 1));
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -769,7 +768,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         //pseudo valid data, the trainer is out of map, so go back to begin.
         game_.setPlayerCoords(newCoords(0, 0, 6, 6));
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -788,7 +787,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         //pseudo valid data, the tile is never empty, so go back to begin.
         game_.setPlayerCoords(newCoords(6, 1, 4, 4));
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -807,7 +806,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         //pseudo valid data, the tile is empty only if the dual fight is won, but it is not true, so go back to begin.
         game_.setPlayerCoords(newCoords(2, 0, 2, 0));
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -827,7 +826,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         //valid data, the tile is empty only if the dual fight is won, and it is true, keep coords.
         game_.setPlayerCoords(newCoords(2, 0, 2, 0));
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(2, 0, 2, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -860,7 +859,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
         game_.beatGymLeader(newCoords(6, 0, 4, 8));
         game_.storePokemonToHost((short) 1,(short) 2, newCoords(8, 0, 3, 3, 0, 4));
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -875,7 +874,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.getPlayer().recupererOeufPensions(new Egg(PTITARD));
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().switchTeamOrder((short) 1);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -897,7 +896,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), _data_);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkPl_.getRemainingHp().affectZero();
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -921,7 +920,7 @@ public class GameValidationTest extends InitializationDataBase {
         pkPl_.getRemainingHp().affectZero();
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().switchTeamOrder((short) 1);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -934,7 +933,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         game_.getPlayer().recupererOeufPensions(new Egg(PTITARD));
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -955,7 +954,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.DOWN, _data_);
         game_.initTrainerFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -979,7 +978,7 @@ public class GameValidationTest extends InitializationDataBase {
         //quick beat trainer
         game_.getFight().getKos().put(Fight.FOE, true);
         game_.endFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1003,7 +1002,7 @@ public class GameValidationTest extends InitializationDataBase {
         //quick beat trainer
         game_.getFight().getKos().put(Fight.FOE, true);
         game_.endFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1031,7 +1030,7 @@ public class GameValidationTest extends InitializationDataBase {
         //quick beat trainer
         game_.getFight().getKos().put(Fight.FOE, true);
         game_.endFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1062,7 +1061,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.UP, _data_);
         game_.moving(Direction.UP, _data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(1, 0, 5, 1, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1098,7 +1097,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, _data_);
         game_.moving(Direction.LEFT, _data_);
         game_.initTrainerFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1137,7 +1136,7 @@ public class GameValidationTest extends InitializationDataBase {
         //beat quickly a trainer
         game_.getFight().getKos().put(Fight.FOE, true);
         game_.endFight(_data_);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(1, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1151,23 +1150,23 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         game_.getVisitedPlaces().put(newCoords(1, 0, 1, 2), false);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertTrue(game_.getVisitedPlaces().getVal(newCoords(1, 0, 1, 2)));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate33Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.visitPlace(newCoords(7, 0, 3, 4));
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate34Test(Sex _sex) {
         Game game_ = new Game(_data_);
@@ -1189,10 +1188,10 @@ public class GameValidationTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), _data_);
         //invalid data
         game_.storePokemonToHost((short) 1,(short) 2, newCoords(8, 0, 3, 3, 0, 4));
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate35Test(Sex _sex) {
         Game game_ = new Game(_data_);
@@ -1200,80 +1199,80 @@ public class GameValidationTest extends InitializationDataBase {
         //invalid data
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkPl_.getRemainingHp().affectZero();
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate36Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getPlayer().getTeam().clear();
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate37Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getVisitedPlaces().put(newCoords(0, 0, 0, 0), false);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate38Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getVisitedPlaces().put(newCoords(0, 0, 0, 0), false);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate39Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getBeatGymTrainer().put((short) 0, new EqList<Point>());
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate40Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(0, 0));
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate41Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getBeatTrainer().put(new NbFightCoords(newCoords(0, 0, 1, 1), 2), false);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate42Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getBeatTrainer().put(new NbFightCoords(newCoords(0, 0, 0, 1), 0), false);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate43Test(Sex _sex) {
         Game game_ = new Game(_data_);
@@ -1281,40 +1280,40 @@ public class GameValidationTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         //invalid data
         game_.beatGymLeader(newCoords(6, 0, 4, 8));
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate44Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getBeatGymLeader().put(newCoords(0, 0, 0, 1), false);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate45Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getTakenObjects().put(newCoords(0, 0, 0, 2), false);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate46Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getTakenPokemon().put(newCoords(0, 0, 0, 1), false);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate47Test(Sex _sex) {
         Game game_ = new Game(_data_);
@@ -1324,60 +1323,60 @@ public class GameValidationTest extends InitializationDataBase {
         host_.setFirstPokemon(new PokemonPlayer());
         host_.setSecondPokemon(new PokemonPlayer());
         game_.getHostedPk().put(newCoords(0, 0, 0, 1), host_);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate48Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.getHostedPk().getVal(newCoords(3, 0, 2, 1, 8, 4)).setNbSteps(1);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate49Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.setIndexPeriod(-1);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate50Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.setIndexPeriodFishing(-1);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate51Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.setIndexStep(-1);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate52Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         //invalid data
         game_.setRankLeague((byte) 1);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate53Test(Sex _sex) {
         Game game_ = new Game(_data_);
@@ -1439,10 +1438,10 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, _data_);
         //invalid data
         game_.setRankLeague((byte) 3);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate54Test(Sex _sex) {
         Game game_ = new Game(_data_);
@@ -1504,10 +1503,10 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, _data_);
         //invalid data
         game_.setRankLeague((byte) 0);
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
-    @Test(expected=GameLoadException.class)
+    @Test
     @Parameters(method=SEX)
     public void validate55Test(Sex _sex) {
         Game game_ = new Game(_data_);
@@ -1530,7 +1529,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.initTrainerFight(_data_);
         //invalid data
         game_.getFight().getWinningMoney().affect(new Rate("-1"));
-        game_.validate(_data_);
+        assertTrue(!game_.validate(_data_));
     }
 
     @Test
@@ -1558,7 +1557,7 @@ public class GameValidationTest extends InitializationDataBase {
 //        game_.getPlayerCoords().affect(data.getMap().getBegin());
         game_.getPlayerCoords().affect(newCoords(0, 0, 5, 5));
 //        game_.validate(data);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1589,7 +1588,7 @@ public class GameValidationTest extends InitializationDataBase {
         //invalid data
         game_.setPlayerCoords(newCoords(7, 0, 0, 1));
         //game_.validate(data);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1620,7 +1619,7 @@ public class GameValidationTest extends InitializationDataBase {
         //invalid data
         game_.setPlayerCoords(newCoords(0, 0, 6, 6));
 //        game_.validate(data);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1651,7 +1650,7 @@ public class GameValidationTest extends InitializationDataBase {
         //invalid data
         game_.setPlayerCoords(newCoords(2, 0, 2, 0));
         //game_.validate(data);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1666,7 +1665,7 @@ public class GameValidationTest extends InitializationDataBase {
         //invalid data because of inaccessibility of block
         game_.setPlayerCoords(newCoords(1, 0, 0, 0));
         //game_.validate(data);
-        game_.validate(_data_);
+        assertTrue(game_.validate(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
@@ -1678,7 +1677,7 @@ public class GameValidationTest extends InitializationDataBase {
     public void checkAndInitialize1Test(Sex _sex) {
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
-        game_.checkAndInitialize(_data_);
+        assertTrue(game_.checkAndInitialize(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
@@ -1695,7 +1694,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         game_.moving(Direction.LEFT, _data_);
         game_.setZippedRom(ZIPPED_ROM);
-        game_.checkAndInitialize(_data_);
+        assertTrue(game_.checkAndInitialize(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
@@ -1712,7 +1711,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.initUserInteract(NICKNAME, _sex, game_.getDifficulty(), _data_);
         game_.moving(Direction.DOWN, _data_);
         game_.setZippedRom(ZIPPED_ROM);
-        game_.checkAndInitialize(_data_);
+        assertTrue(game_.checkAndInitialize(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.DON_OBJET, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
@@ -1737,7 +1736,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, _data_);
         game_.initTrainerFight(_data_);
         game_.setZippedRom(ZIPPED_ROM);
-        game_.checkAndInitialize(_data_);
+        assertTrue(game_.checkAndInitialize(_data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.DRESSEUR, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
@@ -2099,7 +2098,7 @@ public class GameValidationTest extends InitializationDataBase {
         pkPlayer_.setHappiness((short) 170);
         pkPlayer_.setLevel((short) 100);
         game_.setZippedRom(ZIPPED_ROM);
-        game_.checkAndInitialize(_data_);
+        assertTrue(game_.checkAndInitialize(_data_));
         assertEq(newCoords(8, 0, 3, 4), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());

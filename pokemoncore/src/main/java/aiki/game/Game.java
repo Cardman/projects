@@ -3,7 +3,6 @@ import aiki.DataBase;
 import aiki.ImageHeroKey;
 import aiki.Resources;
 import aiki.comments.Comment;
-import aiki.exceptions.GameLoadException;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.enums.InterfaceType;
@@ -288,17 +287,19 @@ public final class Game {
         player=new Player(_pseudo,_sexeHeros,_diff,false,_import);
     }
 
-    public void validate(DataBase _data) {
+    public boolean validate(DataBase _data) {
         for (Object o: visitedPlaces.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (playerOrientation == null) {
             playerOrientation = Direction.UP;
         }
         visitFirstPlaces(_data);
-        player.validate(_data);
+        if (!player.validate(_data)) {
+            return false;
+        }
         boolean existNonKoNonEggPok_ = false;
         for (UsablePokemon u: player.getTeam()) {
             if (!(u instanceof PokemonPlayer)) {
@@ -312,11 +313,11 @@ public final class Game {
             break;
         }
         if (!existNonKoNonEggPok_) {
-            throw new GameLoadException();
+            return false;
         }
         DataMap map_ = _data.getMap();
         if (!Coords.equalsSet(map_.getCities(), visitedPlaces.getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         EqList<Coords> accessCond_ = new EqList<Coords>();
         for (EqList<Coords> l: map_.getAccessCondition().values()) {
@@ -329,45 +330,45 @@ public final class Game {
             cond_.addAllElts(map_.getAccessibility().getVal(c));
             cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
-//                throw new GameLoadException();
+//                return false;
 //            }
             if (!getBeatenGymLeader().containsAllObj(cond_)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!Numbers.equalsSetShorts(beatGymTrainer.getKeys(), map_.getBeatGymTrainer().getKeys())) {
-            throw new GameLoadException();
+            return false;
         }
         for (Short k: beatGymTrainer.getKeys()) {
             if (!map_.getBeatGymTrainer().getVal(k).containsAllObj(beatGymTrainer.getVal(k))) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!NbFightCoords.equalsSet(beatTrainer.getKeys(), map_.getBeatTrainer())) {
-            throw new GameLoadException();
+            return false;
         }
         for (Object o: beatGymLeader.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (Object o: beatTrainer.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (Object o: takenPokemon.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         for (Object o: takenObjects.values()) {
             if (!(o instanceof Boolean)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (!Coords.equalsSet(beatGymLeader.getKeys(), map_.getBeatGymLeader())) {
-            throw new GameLoadException();
+            return false;
         }
 //        for (Coords c: beatGymLeader.getKeys(true))
         for (Coords c: getBeatenGymLeader()) {
@@ -383,10 +384,10 @@ public final class Game {
             cond_.addAllElts(map_.getAccessibility().getVal(coords_));
             cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
-//                throw new GameLoadException();
+//                return false;
 //            }
             if (!getBeatenGymLeader().containsAllObj(cond_)) {
-                throw new GameLoadException();
+                return false;
             }
         }
 //        for (Coords c: beatGymLeader.getKeys(true))
@@ -397,10 +398,10 @@ public final class Game {
             }
         }
         if (!Coords.equalsSet(takenObjects.getKeys(), map_.getTakenObjects())) {
-            throw new GameLoadException();
+            return false;
         }
         if (!Coords.equalsSet(takenPokemon.getKeys(), map_.getTakenPokemon())) {
-            throw new GameLoadException();
+            return false;
         }
         boolean correctCoords_ = true;
         Place curPlace_ = _data.getMap().getPlaces().getVal(playerCoords.getNumberPlace());
@@ -411,7 +412,7 @@ public final class Game {
         Coords coords_ = new Coords(playerCoords);
         if (!isEmpty(_data.getMap(), playerCoords)) {
 //            if (fight.getFightType().isExisting()) {
-//                throw new GameLoadException();
+//                return false;
 //            }
             playerCoords.affect(map_.getBegin());
             rankLeague = 0;
@@ -431,7 +432,7 @@ public final class Game {
             cond_.addAllElts(map_.getAccessibility().getVal(coords_));
         } else {
 //            if (fight.getFightType().isExisting()) {
-//                throw new GameLoadException();
+//                return false;
 //            }
             playerCoords.affect(map_.getBegin());
             rankLeague = 0;
@@ -440,25 +441,29 @@ public final class Game {
 //        if (!beatGymLeader.getKeys(true).containsAllObj(cond_))
         if (!getBeatenGymLeader().containsAllObj(cond_)) {
 //            if (fight.getFightType().isExisting()) {
-//                throw new GameLoadException();
+//                return false;
 //            }
             playerCoords.affect(map_.getBegin());
             rankLeague = 0;
         }
         difficulty.validate(_data);
-        FightFacade.validate(fight, _data, player, difficulty);
+        if (!FightFacade.validate(fight, _data, player, difficulty)) {
+            return false;
+        }
         if (!fight.getFightType().isWild()) {
             if (!isFrontOfTrainer(_data)) {
                 playerCoords.affect(map_.getBegin());
                 rankLeague = 0;
-//                throw new GameLoadException();
+//                return false;
             }
         }
         if (!Coords.equalsSet(hostedPk.getKeys(), map_.getHostPokemons())) {
-            throw new GameLoadException();
+            return false;
         }
         for (Coords c: hostedPk.getKeys()) {
-            hostedPk.getVal(c).validate(_data);
+            if (!hostedPk.getVal(c).validate(_data)) {
+                return false;
+            }
             if (availableHosting(c)) {
                 continue;
             }
@@ -478,34 +483,35 @@ public final class Game {
             cond_.addAllElts(map_.getAccessibility().getVal(coords_));
             cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
-//                throw new GameLoadException();
+//                return false;
 //            }
             if (!getBeatenGymLeader().containsAllObj(cond_)) {
-                throw new GameLoadException();
+                return false;
             }
         }
         if (indexStep < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (indexPeriod < 0) {
-            throw new GameLoadException();
+            return false;
         }
         if (indexPeriodFishing < 0) {
-            throw new GameLoadException();
+            return false;
         }
         Place currentPlace_ = map_.getPlaces().getVal(playerCoords.getNumberPlace());
         if (currentPlace_ instanceof League) {
             if (rankLeague < playerCoords.getLevel().getLevelIndex()) {
-                throw new GameLoadException();
+                return false;
             }
             if (rankLeague > playerCoords.getLevel().getLevelIndex() + 1) {
-                throw new GameLoadException();
+                return false;
             }
         } else {
             if (rankLeague != 0) {
-                throw new GameLoadException();
+                return false;
             }
         }
+        return true;
     }
 
     public void calculateImagesFromTiles(DataBase _data, int _dx, int _dy) {
@@ -2588,13 +2594,15 @@ public final class Game {
         }
     }
 
-    public void checkAndInitialize(DataBase _data) {
+    public boolean checkAndInitialize(DataBase _data) {
         initIv(_data);
         FightFacade.initializeFromSavedGame(fight, difficulty, player, _data);
         if (zippedRom == null) {
             zippedRom = DataBase.EMPTY_STRING;
         }
-        validate(_data);
+        if (!validate(_data)) {
+        	return false;
+        }
         DataMap d_ = _data.getMap();
         Coords voisin_ = closestTile(d_);
         interfaceType = InterfaceType.RIEN;
@@ -2609,6 +2617,7 @@ public final class Game {
                 showEndGame = true;
             }
         }
+        return true;
     }
 
     public Coords closestTile(DataMap _map) {

@@ -4,7 +4,6 @@ import java.io.File;
 import javax.swing.SwingUtilities;
 
 import aiki.DataBase;
-import aiki.exceptions.GameLoadException;
 import aiki.game.params.LoadingGame;
 import aiki.gui.MainWindow;
 import code.util.StringList;
@@ -62,7 +61,7 @@ public final class CreateMainWindowParam extends Thread {
             opening_.start();
 //            CreateMainWindow.copyZipFileToFolder(path_, Constants.getTmpUserFolder());
             if (!load.getLastSavedGame().isEmpty()) {
-                window.loadRomGame(load, path, files);
+                window.loadRomGame(load, path, files, true);
             } else {
                 window.loadOnlyRom(path_);
             }
@@ -71,11 +70,6 @@ public final class CreateMainWindowParam extends Thread {
             }
             DataBase.setLoading(false);
             window.setLoadingConf(load, false);
-        } catch (GameLoadException _0) {
-            //NumericString.setCheckSyntax(false);
-            DataBase.setLoading(false);
-            window.setLoadingConf(load, false);
-            _0.printStackTrace();
         } catch (RuntimeException _0) {
             error_ = window.getFacade().getData() == null;
             stoppedLoading_ = false;

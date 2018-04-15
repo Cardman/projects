@@ -1,6 +1,5 @@
 package aiki.map.pokemon;
 import aiki.DataBase;
-import aiki.exceptions.GameLoadException;
 import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -56,13 +55,14 @@ public final class Egg implements UsablePokemon, Displayable {
     }
 
     @Override
-    public void validate(DataBase _data) {
+    public boolean validate(DataBase _data) {
         if (!_data.getPokedex().contains(name)) {
-            throw new GameLoadException();
+            return false;
         }
         if (steps < 0) {
-            throw new GameLoadException();
+            return false;
         }
+        return true;
     }
 
     public String getName() {
