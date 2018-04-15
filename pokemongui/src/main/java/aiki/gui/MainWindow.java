@@ -603,11 +603,11 @@ public final class MainWindow extends NetGroupFrame {
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
         if (!_files.isEmpty() && _files.values().first() instanceof Game) {
             if (!facade.checkAndSetGame((Game) _files.values().first())) {
-            	DataBase.setLoading(false);
-            	if (_param) {
-	            	setLoadingConf(_configuration, false);
-	            }
-            	return;
+                DataBase.setLoading(false);
+                if (_param) {
+                    setLoadingConf(_configuration, false);
+                }
+                return;
             }
         } else {
             File file_ = new File(StringList.replaceBackSlash(_configuration.getLastSavedGame()));
@@ -619,11 +619,11 @@ public final class MainWindow extends NetGroupFrame {
             path_ = StringList.replaceBackSlash(path_);
             Game game_ = load(path_, facade.getData());
             if (game_ == null) {
-            	DataBase.setLoading(false);
-            	if (_param) {
-	            	setLoadingConf(_configuration, false);
-	            }
-            	return;
+                DataBase.setLoading(false);
+                if (_param) {
+                    setLoadingConf(_configuration, false);
+                }
+                return;
             }
             facade.load(game_);
         }
@@ -861,7 +861,7 @@ public final class MainWindow extends NetGroupFrame {
 //            opening_.start();
             Game game_ = load(fileName_, facade.getData());
             if (game_ != null) {
-            	facade.load(game_);
+                facade.load(game_);
                 gameSave.setEnabledMenu(true);
                 facade.changeCamera();
                 drawGame();
@@ -870,7 +870,7 @@ public final class MainWindow extends NetGroupFrame {
                     battle.resetWindows();
                 }
             } else {
-            	error_ = true;
+                error_ = true;
             }
         } catch (RuntimeException _0) {
             _0.printStackTrace();
@@ -888,7 +888,7 @@ public final class MainWindow extends NetGroupFrame {
     public static Game load(String _fileName,DataBase _data) {
         Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName));
         if (!game_.checkAndInitialize(_data)) {
-        	return null;
+            return null;
         }
         return game_;
     }

@@ -259,7 +259,7 @@ public class FacadeGame implements WithMathFactory {
 
     public boolean checkAndSetGame(Game _game) {
         if (!_game.checkAndInitialize(data)) {
-        	return false;
+            return false;
         }
         game = _game;
         changeToFightScene = game.getFight().getFightType().isExisting();

@@ -537,7 +537,6 @@ public class DataBase implements WithMathFactory {
 
     private transient EvolvedMathFactory standardMathFactory = new EvolvedMathFactory();
     private boolean error;
-    private boolean errorGame;
 //  private transient StandardMathFactory standardMathFactory = new StandardMathFactory();
 //    public static String getBeansPackage() {
 //        return StringList.replace(FOLDER_ROOT_BEANS, SEPARATOR_FILES, DOT)+DOT;
@@ -712,7 +711,7 @@ public class DataBase implements WithMathFactory {
         _perCentLoading_ = 70;
         Rate power_ = getStrongMovePower();
         if (Rate.strLower(power_, new Rate(90))) {
-            throw new DataException(power_.toNumberString());
+            throw new DataException();
         }
         ObjectNotNullMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
         for (EntryCust<TypeStatistic, Boolean> e: strongMovesTypeStat_.entryList()) {
@@ -8102,13 +8101,5 @@ public class DataBase implements WithMathFactory {
 
     public void setError(boolean _error) {
         error = _error;
-    }
-
-    public boolean isErrorGame() {
-        return errorGame;
-    }
-
-    public void setErrorGame(boolean _errorGame) {
-        errorGame = _errorGame;
     }
 }

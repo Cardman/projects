@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.exceptions.DataException;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
@@ -2210,6 +2209,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.getAccessCondition().put(coordsAccessLeague_, new EqList<Coords>(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(!dataMap_.isError());
         ObjectMap<Coords,Condition> allTiles_ = dataMap_.getAccessibility();
         assertEq(139,allTiles_.size());
         assertEq(0,allTiles_.getVal(coords(0,0,0,0)).size());
@@ -2444,6 +2444,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.getAccessCondition().put(coordsAccessLeague_, new EqList<Coords>(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(!dataMap_.isError());
         ObjectMap<Coords,Condition> allTiles_ = dataMap_.getAccessibility();
         assertEq(139,allTiles_.size());
         assertEq(0,allTiles_.getVal(coords(0,0,0,0)).size());
@@ -2704,6 +2705,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.getAccessCondition().put(coords(11, 0, 2, 3), new EqList<Coords>(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(!dataMap_.isError());
         assertEq(564, dataMap_.getAccessibility().size());
         assertEq(1, dataMap_.getAccessibility().getVal(coords(9, 0, 1, 1)).size());
         assertTrue(dataMap_.getAccessibility().getVal(coords(9, 0, 1, 1)).containsObj(coords(5, 4, 5, 1, 1)));
@@ -3829,6 +3831,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.getAccessCondition().put(coords(11, 0, 2, 3), new EqList<Coords>(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(!dataMap_.isError());
         assertEq(454, dataMap_.getAccessibility().size());
         assertEq(1, dataMap_.getAccessibility().getVal(coords(10, 0, 6, 7)).size());
         assertTrue(dataMap_.getAccessibility().getVal(coords(10, 0, 6, 7)).containsObj(coords(6, 0, 2, 1)));
@@ -4809,6 +4812,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.joinCavePlace(coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(!dataMap_.isError());
         assertEq(19, dataMap_.getAccessibility().size());
         assertEq(0, dataMap_.getAccessibility().getVal(coords(0, 0, 0, 0)).size());
         assertEq(0, dataMap_.getAccessibility().getVal(coords(0, 0, 0, 1)).size());
@@ -4848,6 +4852,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.getAccessCondition().put(coords(1, 0, 0, 4), new EqList<Coords>());
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(!dataMap_.isError());
         assertEq(19, dataMap_.getAccessibility().size());
         assertEq(0, dataMap_.getAccessibility().getVal(coords(0, 0, 0, 0)).size());
         assertEq(0, dataMap_.getAccessibility().getVal(coords(0, 0, 0, 1)).size());
@@ -4892,6 +4897,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.getAccessCondition().put(coords(0, 0, 1, 0), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(!dataMap_.isError());
         ObjectMap<Coords,Condition> allTiles_ = dataMap_.getAccessibility();
         assertEq(139,allTiles_.size());
         assertEq(0,allTiles_.getVal(coords(0,0,0,0)).size());
@@ -5103,7 +5109,7 @@ public class DataMapInitializeAccessibilityTest {
         assertTrue(allTiles_.getVal(coords(2,1,4,4)).containsObj(coords(1,4,5,1,1)));
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void initializeAccessibility1FailTest() {
         Road road_ = vroad();
         road_.getLevel().getDualFights().put(point(2,2),new DualFight());
@@ -5125,10 +5131,11 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(dataMap_.isError());
     }
 
     /**not error if there is a choice*/
-    @Test(expected=DataException.class)
+    @Test
     public void initializeAccessibility2FailTest() {
 //        Road road_ = vroad();
 //        City city_ = city();
@@ -5168,6 +5175,7 @@ public class DataMapInitializeAccessibilityTest {
 //        dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new List<Coords>(coords(2, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
+        assertTrue(dataMap_.isError());
     }
 
 }

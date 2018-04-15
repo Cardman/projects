@@ -1,6 +1,16 @@
 package aiki.fight.pokemon;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
+import aiki.DataBase;
+import aiki.fight.enums.Statistic;
+import aiki.fight.pokemon.enums.ExpType;
+import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.fight.pokemon.evolution.Evolution;
+import aiki.fight.pokemon.evolution.EvolutionHappiness;
+import aiki.fight.util.LevelMove;
+import aiki.fight.util.StatBaseEv;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
@@ -8,17 +18,6 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import aiki.DataBase;
-import aiki.exceptions.DataException;
-import aiki.fight.enums.Statistic;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.PokemonFamily;
-import aiki.fight.pokemon.enums.ExpType;
-import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.fight.pokemon.evolution.Evolution;
-import aiki.fight.pokemon.evolution.EvolutionHappiness;
-import aiki.fight.util.LevelMove;
-import aiki.fight.util.StatBaseEv;
 
 @SuppressWarnings("static-method")
 public class PokemonFamilyFailTest {
@@ -62,7 +61,7 @@ public class PokemonFamilyFailTest {
         return pk_;
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void new_PokemonFamily_DataBase_String_1FailTest() {
         DataBase dataBase_ = new DataBase();
         dataBase_.initializeMembers();
@@ -70,9 +69,10 @@ public class PokemonFamilyFailTest {
         pkData_.getEvolutions().put("PIKACHU", new EvolutionHappiness());
         dataBase_.completeMembers("PIKACHU", pkData_);
         getPokemonFamily(dataBase_, "PIKACHU");
+        assertTrue(dataBase_.isError());
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void new_PokemonFamily_DataBase_String_2FailTest() {
         DataBase dataBase_ = new DataBase();
         dataBase_.initializeMembers();
@@ -83,9 +83,10 @@ public class PokemonFamilyFailTest {
         dataBase_.completeMembers("PIKACHU", pkData_);
         dataBase_.completeMembers("RAICHU", pkDataTwo_);
         getPokemonFamily(dataBase_, "PIKACHU");
+        assertTrue(dataBase_.isError());
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void new_PokemonFamily_DataBase_String_3FailTest() {
         DataBase dataBase_ = new DataBase();
         dataBase_.initializeMembers();
@@ -105,6 +106,7 @@ public class PokemonFamilyFailTest {
         dataBase_.completeMembers("RAICHU_2", pkDataThree_);
         dataBase_.completeMembers("RAICHU_3", pkDataFour_);
         getPokemonFamily(dataBase_, "PIKACHU");
+        assertTrue(dataBase_.isError());
     }
 
     private PokemonFamily getPokemonFamily(DataBase _data, String _name) {

@@ -1,5 +1,6 @@
 package aiki.game;
 import static aiki.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -246,6 +247,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         dataMap_.setFirstPokemon(pkm_);
         dataMap_.initInteractiveElements();
         dataMap_.initializeAccessibility();
+        assertTrue(!dataMap_.isError());
     }
 
     private static City city() {

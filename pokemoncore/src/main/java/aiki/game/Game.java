@@ -2601,7 +2601,7 @@ public final class Game {
             zippedRom = DataBase.EMPTY_STRING;
         }
         if (!validate(_data)) {
-        	return false;
+            return false;
         }
         DataMap d_ = _data.getMap();
         Coords voisin_ = closestTile(d_);

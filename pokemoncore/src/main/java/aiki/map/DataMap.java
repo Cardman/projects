@@ -104,6 +104,8 @@ public final class DataMap {
 
     private int sideLength = 32;
 
+    private boolean error;
+
     private transient Tree tree = new Tree();
 
     private transient ObjectMap<Coords,Condition> accessibility = new ObjectMap<Coords, Condition>();
@@ -344,6 +346,9 @@ public final class DataMap {
             }
         }
         initializeAccessibility();
+        if (error) {
+            throw new DataException();
+        }
         League firstLeague_ = (League) places.getVal(leagues.first().getNumberPlace());
         Condition coords_ = accessibility.getVal(firstLeague_.getAccessCoords());
         StringList evoObjects_ = new StringList();
@@ -1270,7 +1275,8 @@ public final class DataMap {
                 allTiles_.put(c_, e.getValue());
             }
             if (!validConditions(inext_,neigh_)) {
-                throw new DataException();
+                error = true;
+                return;
             }
             diff_.removeAllElements(inext_);
             //CustList<Coords> accessibleLeaders_ = accessibleLeaders(diff_);
@@ -1425,7 +1431,8 @@ public final class DataMap {
                 }
             }
             if (!contained_) {
-                throw new DataException();
+                error = true;
+                return;
             }
         }
 //        for (Coords c: accessCondition.getKeys()) {
@@ -3376,6 +3383,14 @@ public final class DataMap {
 
     public void setSideLength(int _sideLength) {
         sideLength = _sideLength;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean _error) {
+        error = _error;
     }
 
 //    @Override

@@ -1,6 +1,5 @@
 package aiki.fight.pokemon;
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.EqList;
 import code.util.StringList;
 
@@ -22,13 +21,16 @@ public final class PokemonFamily {
                 for (String e_: fPk_.getEvolutions().getKeys()) {
                     PokemonData evo_ = _data.getPokemon(e_);
                     if (!StringList.quickEq(evo_.getBaseEvo(), _pokemonBase)) {
-                        throw new DataException();
+                        _data.setError(true);
+                        return;
                     }
                     if (evolutionsLevels_.containsObj(e_)) {
-                        throw new DataException();
+                        _data.setError(true);
+                        return;
                     }
                     if (newEvolutions_.containsObj(e_)) {
-                        throw new DataException();
+                        _data.setError(true);
+                        return;
                     }
                     newEvolutions_.add(e_);
                 }
