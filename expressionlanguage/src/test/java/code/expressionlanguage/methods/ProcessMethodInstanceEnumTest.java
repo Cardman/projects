@@ -10,6 +10,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.StringMap;
 
+@SuppressWarnings("static-method")
 public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
 
     @Test

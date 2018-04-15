@@ -83,7 +83,7 @@ public abstract class ProcessMethodCommon {
         }
         return new ConstructorId(_name, cl_);
     }
-    protected ContextEl contextEl(int... _m) {
+    protected static ContextEl contextEl(int... _m) {
         ContextEl ct_;
         if (_m.length == 0) {
             ct_ = new ContextEl();

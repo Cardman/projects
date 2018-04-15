@@ -15,7 +15,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneClass;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -52,7 +51,6 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 public final class ConstantOperation extends LeafOperation implements SettableElResult, PossibleIntermediateDotted {
     private static final String LENGTH = "length";
@@ -731,9 +729,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         }
         return arg_;
     }
-
-    /**@throws ErrorCausingException
-    @throws NullObjectException */
 
     @Override
     public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,

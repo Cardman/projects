@@ -8,7 +8,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.exceptions.NullObjectException;
 
 public final class DotOperation extends MethodOperation {
 
@@ -47,7 +46,6 @@ public final class DotOperation extends MethodOperation {
         return false;
     }
 
-    /**@throws NullObjectException*/
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);

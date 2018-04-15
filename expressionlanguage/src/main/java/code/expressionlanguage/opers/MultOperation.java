@@ -6,7 +6,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 
 public final class MultOperation extends NumericOperation {
@@ -16,7 +15,6 @@ public final class MultOperation extends NumericOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    /**@throws NullObjectException*/
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
         if (StringList.quickEq(_op.trim(), MULT)) {

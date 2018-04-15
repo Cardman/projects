@@ -11,6 +11,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
 
+@SuppressWarnings("static-method")
 public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument1001Test() {

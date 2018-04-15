@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -14,7 +13,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
 
@@ -77,7 +75,6 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
-    /**@throws NullObjectException*/
 
     @Override
     public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,

@@ -4,7 +4,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import code.formathtml.HtmlPage;
-import code.formathtml.exceptions.RenderingException;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -76,9 +75,6 @@ public final class ThreadActions extends Thread {
             }
             page.getNavigation().processAnchorRequest(anchor);
             afterAction();
-            return;
-        } catch (RenderingException _0) {
-            processErrors((Throwable) _0.getCustCause().getInstance());
         } catch (RuntimeException _0) {
             processErrors(_0);
         } catch (Error _0) {
@@ -86,6 +82,13 @@ public final class ThreadActions extends Thread {
         }
     }
     private void afterAction() {
+        if (page.getNavigation().getSession().getContext().getException() != null) {
+            if (page.getArea() != null) {
+                page.getArea().append(StringList.concat(page.getNavigation().getSession().joinPages(), RETURN_LINE));
+            }
+            finish();
+            return;
+        }
         if (page.getNavigation().getSession().isInterrupt()) {
             if (page.isProcessing()) {
                 finish();

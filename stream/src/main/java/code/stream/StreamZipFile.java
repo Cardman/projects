@@ -10,7 +10,6 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import code.stream.exceptions.RuntimeIOException;
 import code.util.InsCaseStringMap;
 import code.util.StringList;
 import code.util.StringMap;

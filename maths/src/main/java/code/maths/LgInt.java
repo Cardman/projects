@@ -1,7 +1,4 @@
 package code.maths;
-import code.maths.exceptions.FormatException;
-import code.maths.exceptions.NegatifExposantException;
-import code.maths.exceptions.NegativeNumberException;
 import code.sml.FromAndToString;
 import code.util.CollCapacity;
 import code.util.CustList;
@@ -72,7 +69,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         construit un nombre entier a partir d'une chaine de caracteres
 
         @param _chaine chaine de caracteres d'un tiret suivi d'au moins un chiffre
-        @throws FormatException
+        @throws
         si la chaine de caracteres <i>_chaine</i> n'est pas telle que:<br/>
         <ul>
         <li>un tiret eventuel au debut ("-1" ou "1")</li>
@@ -607,7 +604,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 l'exposant
     @throws NullPointerException
                 si un des arguments est null.
-    @throws NegatifExposantException
+    @throws
                 si l'argument est strictement negatif.
     @return la puissance du premier entier au getSecond() entier
     */
@@ -717,9 +714,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 le nombre d'elements a prendre pour en faire un sous ensemble
     @param _nombreTotalElements
                 le nombre total d'elements dans l'ensemble principal
-    @throws NullPointerException
+    @throws
                 si un des arguments est null.
-    @throws NegativeNumberException
+    @throws
                 si un des arguments est strictement negatif.
     @return le nombre de combinaisons de <i>_nombre</i> parmi <i>_nombreTotalElements</i>
     */
@@ -1410,9 +1407,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     @param _expo
                 l'exposant de la puissance
-    @throws NullPointerException
+    @throws
                 si l'argument est null.
-    @throws NegatifExposantException
+    @throws
                 si l'argument est strictement negatif.
     */
     public void growToPow(LgInt _expo) {

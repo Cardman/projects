@@ -15,7 +15,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 public final class CmpOperation extends PrimitiveBoolOperation {
 
@@ -506,7 +505,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
-    /**@throws NullObjectException*/
+
     @Override
     public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {

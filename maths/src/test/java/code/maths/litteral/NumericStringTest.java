@@ -9,8 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import code.maths.Rate;
-import code.maths.exceptions.FormatException;
-import code.maths.exceptions.MathStringFormatException;
 import code.util.StringMap;
 
 @RunWith(JUnitParamsRunner.class)
@@ -645,25 +643,25 @@ public class NumericStringTest {
         assertEq(_res,NumericString.deleteZeroDivider(_checkSyntax, _numericString).toNumberString());
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void deleteZeroDivider1FailTest() {
         //NumericString.setCheckSyntax(false);
         NumericString.deleteZeroDivider(false,"1/0");
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void deleteZeroDivider2FailTest() {
         //NumericString.setCheckSyntax(true);
         NumericString.deleteZeroDivider(true,"1/STRING");
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void deleteZeroDivider3FailTest() {
         //NumericString.setCheckSyntax(true);
         NumericString.deleteZeroDivider(true,"STRING/1");
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void deleteZeroDivider4FailTest() {
 //        NumericString.setCheckSyntax(true);
         NumericString.deleteZeroDivider(true,"1/2/3");
@@ -678,7 +676,7 @@ public class NumericStringTest {
         assertEq(new Rate(_res),numeric_.getResult());
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_Check1FailTest() {
         NumericString numeric_ = new NumericString("1/string(1)");
         //NumericString.setCheckSyntax(true);
@@ -686,7 +684,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     @Parameters(method="evaluateExpressionFail")
     public void evaluateExp_2FailTest(String _input) {
         NumericString numeric_ = new NumericString(_input);
@@ -704,7 +702,7 @@ public class NumericStringTest {
         assertEq(true, numeric_.isError());
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     @Parameters(method="evaluateRateFail")
     public void evaluateExp_4FailTest(String _input) {
         NumericString numeric_ = new NumericString(_input);
@@ -712,7 +710,7 @@ public class NumericStringTest {
         numeric_.evaluateExp(false);
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_5FailTest() {
         NumericString numeric_ = new NumericString("cardinal({A;B)");
         //NumericString.setCheckSyntax(false);
@@ -720,7 +718,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_6FailTest() {
         NumericString numeric_ = new NumericString("cardinal(A;B})");
         //NumericString.setCheckSyntax(false);
@@ -728,7 +726,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_7FailTest() {
         NumericString numeric_ = new NumericString("cardinal({A;B");
         //NumericString.setCheckSyntax(false);
@@ -736,7 +734,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_8FailTest() {
         NumericString numeric_ = new NumericString("cardinal(A;B}");
         //NumericString.setCheckSyntax(false);
@@ -744,7 +742,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_9FailTest() {
         NumericString numeric_ = new NumericString("1:A");
         //NumericString.setCheckSyntax(false);
@@ -752,7 +750,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_10FailTest() {
         NumericString numeric_ = new NumericString("1/A");
         //NumericString.setCheckSyntax(false);
@@ -760,7 +758,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_11FailTest() {
         NumericString numeric_ = new NumericString("-");
         //NumericString.setCheckSyntax(false);
@@ -768,7 +766,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_12FailTest() {
         NumericString numeric_ = new NumericString("1/-");
         //NumericString.setCheckSyntax(false);
@@ -776,7 +774,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_13FailTest() {
         NumericString numeric_ = new NumericString("1/");
         //NumericString.setCheckSyntax(false);
@@ -784,7 +782,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_14FailTest() {
         NumericString numeric_ = new NumericString("fct");
         //NumericString.setCheckSyntax(false);
@@ -792,7 +790,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_15FailTest() {
         NumericString numeric_ = new NumericString("fct(");
         //NumericString.setCheckSyntax(false);
@@ -800,7 +798,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_16FailTest() {
         NumericString numeric_ = new NumericString("fct(1");
        // NumericString.setCheckSyntax(false);
@@ -808,7 +806,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_17FailTest() {
         NumericString numeric_ = new NumericString("fct(1,");
         //NumericString.setCheckSyntax(false);
@@ -816,7 +814,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_18FailTest() {
         NumericString numeric_ = new NumericString("fct(1,fct(1,");
         //NumericString.setCheckSyntax(false);
@@ -824,7 +822,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_19FailTest() {
         NumericString numeric_ = new NumericString("fct(1)");
         //NumericString.setCheckSyntax(false);
@@ -832,7 +830,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_20FailTest() {
         NumericString numeric_ = new NumericString("fct(1,1");
         //NumericString.setCheckSyntax(false);
@@ -840,7 +838,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_21FailTest() {
         NumericString numeric_ = new NumericString("abs");
         //NumericString.setCheckSyntax(false);
@@ -848,7 +846,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_22FailTest() {
         NumericString numeric_ = new NumericString("abs(");
         //NumericString.setCheckSyntax(false);
@@ -856,7 +854,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_23FailTest() {
         NumericString numeric_ = new NumericString("abs(1");
         //NumericString.setCheckSyntax(false);
@@ -864,7 +862,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_24FailTest() {
         NumericString numeric_ = new NumericString("abs(1,");
         //NumericString.setCheckSyntax(false);
@@ -872,7 +870,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_25FailTest() {
         NumericString numeric_ = new NumericString("abs(1,abs(1)");
         //NumericString.setCheckSyntax(false);
@@ -880,7 +878,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_26FailTest() {
         NumericString numeric_ = new NumericString("abs(1,1");
         //NumericString.setCheckSyntax(false);
@@ -888,7 +886,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_27FailTest() {
         NumericString numeric_ = new NumericString("abs(1,abs(1,1");
         //NumericString.setCheckSyntax(false);
@@ -896,7 +894,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_28FailTest() {
         NumericString numeric_ = new NumericString("4*(3*8+6");
         //NumericString.setCheckSyntax(false);
@@ -904,7 +902,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_29FailTest() {
         NumericString numeric_ = new NumericString("");
         //NumericString.setCheckSyntax(false);
@@ -912,7 +910,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_30FailTest() {
         NumericString numeric_ = new NumericString("(");
         //NumericString.setCheckSyntax(false);
@@ -920,7 +918,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_31FailTest() {
         NumericString numeric_ = new NumericString(")");
         //NumericString.setCheckSyntax(false);
@@ -928,7 +926,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_32FailTest() {
         NumericString numeric_ = new NumericString("2a");
         //NumericString.setCheckSyntax(false);
@@ -936,7 +934,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_33FailTest() {
         NumericString numeric_ = new NumericString("22a");
         //NumericString.setCheckSyntax(false);
@@ -944,7 +942,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_34FailTest() {
         NumericString numeric_ = new NumericString("2ab");
         //NumericString.setCheckSyntax(false);
@@ -952,7 +950,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_35FailTest() {
         NumericString numeric_ = new NumericString("2.{A;B}");
         //NumericString.setCheckSyntax(false);
@@ -960,7 +958,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_36FailTest() {
         NumericString numeric_ = new NumericString(".{A;B}");
         //NumericString.setCheckSyntax(false);
@@ -968,7 +966,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     public void evaluateExp_37FailTest() {
         NumericString numeric_ = new NumericString("1--");
         //NumericString.setCheckSyntax(false);
@@ -976,7 +974,7 @@ public class NumericStringTest {
         numeric_.getResult();
     }
 
-    @Test(expected=MathStringFormatException.class)
+    @Test
     public void evaluateExp_38FailTest() {
         NumericString numeric_ = new NumericString("--");
         //NumericString.setCheckSyntax(false);

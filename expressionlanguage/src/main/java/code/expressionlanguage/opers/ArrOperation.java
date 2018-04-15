@@ -8,7 +8,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.CharStruct;
@@ -23,7 +22,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 public final class ArrOperation extends MethodOperation implements SettableElResult {
 
@@ -150,8 +148,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
-    /**@throws BadIndexException
-    @throws NullObjectException*/
 
     @Override
     public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,

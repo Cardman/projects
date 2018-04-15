@@ -1,3 +1,0 @@
-/** */
-package cards.facade.exceptions;
-

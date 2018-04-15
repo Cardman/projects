@@ -356,7 +356,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildBracedClassesBodies(files_, cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(1, s_.size());
@@ -377,7 +377,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildBracedClassesBodies(files_, cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
@@ -403,7 +403,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildBracedClassesBodies(files_, cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(3, s_.size());
@@ -432,7 +432,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildBracedClassesBodies(files_, cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
@@ -462,7 +462,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildBracedClassesBodies(files_, cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
@@ -495,7 +495,7 @@ public class ClassesTest {
         Classes classes_ = new Classes();
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
-        classes_.tryBuildBracedClassesBodies(files_, cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"),cont_);
         assertEq(5, s_.size());
@@ -609,7 +609,7 @@ public class ClassesTest {
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
-        classes_.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
@@ -626,7 +626,7 @@ public class ClassesTest {
         cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
-        classes_.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());

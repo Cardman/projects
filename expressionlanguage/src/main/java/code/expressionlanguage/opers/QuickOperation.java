@@ -11,7 +11,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 
 public abstract class QuickOperation extends PrimitiveBoolOperation {
@@ -77,7 +76,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
-    /**@throws NullObjectException*/
+
     @Override
     public final void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {

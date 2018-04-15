@@ -4,12 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 
 
@@ -37,8 +35,6 @@ public final class AddOperation extends NumericOperation {
         return calculateDiff(_arg, _cont, a_);
     }
 
-    /**@throws InvokeRedinedMethException
-    @throws NullObjectException*/
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {

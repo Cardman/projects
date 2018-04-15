@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
@@ -18,7 +17,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 public abstract class NumericOperation extends MethodOperation {
 
@@ -88,8 +86,6 @@ public abstract class NumericOperation extends MethodOperation {
         }
         return false;
     }
-    /**@throws InvokeRedinedMethException
-    @throws NullObjectException*/
     static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b, boolean _catChars, boolean _catString) {
         LgNames stds_ = _cont.getStandards();
         String null_;
@@ -248,7 +244,7 @@ public abstract class NumericOperation extends MethodOperation {
         a_.setObject(nb_);
         return a_;
     }
-    /**@throws NullObjectException*/
+
     static Argument calculateDiff(Argument _a, ContextEl _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String null_;

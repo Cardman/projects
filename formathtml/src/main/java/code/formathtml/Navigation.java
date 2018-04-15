@@ -29,7 +29,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.WithMathFactory;
 
 public final class Navigation {
@@ -642,8 +641,6 @@ public final class Navigation {
         processAnchorRequest(actionCommand_);
     }
 
-    /**
-    @throws RuntimeClassNotFoundException*/
     private void updateBean(NatTreeMap<Long, NodeContainer> _containers) {
         Document doc_ = session.getDocument();
         for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {

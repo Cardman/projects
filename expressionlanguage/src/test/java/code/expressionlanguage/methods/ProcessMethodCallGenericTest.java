@@ -13,6 +13,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
+@SuppressWarnings("static-method")
 public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
 
     @Test

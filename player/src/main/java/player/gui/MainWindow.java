@@ -226,6 +226,10 @@ public class MainWindow extends GroupFrame {
                             c_ = StreamSoundFile.openClip(txt_);
                         }
                     }
+                    if (songsList.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WAV), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                     clipStream = c_;
                 } else if (songsList.get(noSong).endsWith(WPL)) {
                     //.wpl
@@ -298,6 +302,10 @@ public class MainWindow extends GroupFrame {
                         }
                     }
                     clipStream = c_;
+                    if (songsList.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                 }
                 songRend.setSongs(songsList);
                 songRend.setNoSong(noSong);
@@ -315,13 +323,10 @@ public class MainWindow extends GroupFrame {
                     timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
                     timer.start();
                 }
-            } catch (NoSuchSongException _0) {
-                JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
             } catch (RuntimeException _0) {
-                JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WAV), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
             }
         } else {
-
             if (clipStream.getClip().isRunning()) {
                 lastFrame = clipStream.getClip().getFramePosition();
                 pausing = true;

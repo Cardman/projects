@@ -9,10 +9,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.exceptions.AlreadyExistingClassException;
-import code.expressionlanguage.methods.exceptions.BadClassNameException;
-import code.expressionlanguage.methods.exceptions.BadFileNameException;
-import code.expressionlanguage.methods.exceptions.UnknownBlockException;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.BadClassName;
 import code.expressionlanguage.methods.util.BadFileName;
@@ -55,7 +51,6 @@ import code.sml.Element;
 import code.sml.ElementOffsetsNext;
 import code.sml.Node;
 import code.sml.RowCol;
-import code.sml.exceptions.XmlParseException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -644,31 +639,7 @@ public final class Classes {
                 ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(content_, e_, root_, tabWidth_);
                 fileBlock_.appendChild(cl_);
                 processCustomClass(file_, fileBlock_, cl_, false, content_, _context, ne_);
-            } catch (UnknownBlockException _0) {
-                RowCol where_ = _0.getRc();
-                UnexpectedTagName t_ = new UnexpectedTagName();
-                t_.setRc(where_);
-                t_.setFileName(file_);
-                t_.setFoundTag(_0.getMessage());
-                errorsDet.add(t_);
-            } catch (BadClassNameException _0) {
-                BadClassName bad_ = new BadClassName();
-                bad_.setClassName(_0.getMessage());
-                bad_.setRc(new RowCol());
-                bad_.setFileName(file_);
-                errorsDet.add(bad_);
-            } catch (BadFileNameException _0) {
-                BadFileName bad_ = new BadFileName();
-                bad_.setRc(new RowCol());
-                bad_.setFileName(file_);
-                errorsDet.add(bad_);
-            } catch (XmlParseException _0) {
-                //TODO change later class
-                BadFileName bad_ = new BadFileName();
-                bad_.setRc(_0.getRowCol());
-                bad_.setFileName(file_);
-                errorsDet.add(bad_);
-            } catch (AlreadyExistingClassException _0) {
+            } catch (RuntimeException _0) {
                 //TODO change later class
                 BadClassName bad_ = new BadClassName();
                 bad_.setClassName(_0.getMessage());

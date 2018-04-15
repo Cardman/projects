@@ -14,7 +14,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 public final class UnaryOperation extends PrimitiveBoolOperation {
 
@@ -71,7 +70,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         }
         return a_;
     }
-    /**@throws NullObjectException*/
 
     @Override
     public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,

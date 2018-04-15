@@ -9,8 +9,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.exceptions.FormatException;
-import code.maths.exceptions.MathStringFormatException;
 import code.util.StringMap;
 
 @RunWith(JUnitParamsRunner.class)
@@ -264,7 +262,7 @@ public class BooleanStringTest {
         assertNull(numeric_.getResult());
     }
 
-    @Test(expected=FormatException.class)
+    @Test
     @Parameters(method="evaluateExpressionFail")
     public void evaluateExp2FailTest(String _input) {
         BooleanString numeric_ = new BooleanString(_input);
@@ -432,21 +430,21 @@ public class BooleanStringTest {
         assertNull(numeric_.getResult());
     }
 
-    @Test(expected=MathStringFormatException.class)
+    @Test
     public void evaluateExp23FailTest() {
         BooleanString numeric_ = new BooleanString("(2+2=4|3+3=6|");
         //NumericString.setCheckSyntax(false);
         numeric_.evaluateExp(false);
     }
 
-    @Test(expected=MathStringFormatException.class)
+    @Test
     public void evaluateExp24FailTest() {
         BooleanString numeric_ = new BooleanString("(2+2=4|(2+2=4|3+3=6)|");
         //NumericString.setCheckSyntax(false);
         numeric_.evaluateExp(false);
     }
 
-    @Test(expected=MathStringFormatException.class)
+    @Test
     public void evaluateExp25FailTest() {
         BooleanString numeric_ = new BooleanString("(V|(V|V)|");
         //NumericString.setCheckSyntax(false);

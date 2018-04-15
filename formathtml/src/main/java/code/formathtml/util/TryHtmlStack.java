@@ -1,5 +1,4 @@
 package code.formathtml.util;
-import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.stacks.TryStack;
 import code.sml.Element;
 import code.util.CustList;
@@ -12,8 +11,6 @@ public final class TryHtmlStack extends TryStack implements BlockHtml{
     private Element writeNode;
 
     private Element finallyNode;
-
-    private WrapperException thrownException;
 
     public Element getLastCatchNode() {
         return catchNodes.last();
@@ -44,14 +41,6 @@ public final class TryHtmlStack extends TryStack implements BlockHtml{
     @Override
     public void setWriteNode(Element _writeNode) {
         writeNode = _writeNode;
-    }
-
-    public WrapperException getThrownException() {
-        return thrownException;
-    }
-
-    public void setThrownException(WrapperException _thrownException) {
-        thrownException = _thrownException;
     }
 
     public Element getFinallyNode() {

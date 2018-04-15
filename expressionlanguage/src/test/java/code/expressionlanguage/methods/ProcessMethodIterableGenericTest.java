@@ -13,6 +13,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
+@SuppressWarnings("static-method")
 public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon {
     private static final String CUST_ITER_PATH = "pkg/CustIter";
     private static final String CUST_LIST_PATH = "pkg/CustList";
