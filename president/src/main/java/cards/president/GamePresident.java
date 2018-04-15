@@ -73,6 +73,7 @@ public final class GamePresident {
 
     private NumberMap<Byte,HandPresident> switchedCards = new NumberMap<Byte,HandPresident>();
 
+    private String error = "";
     private transient boolean reversed;
 
     private transient BooleanList passOrFinish = new BooleanList();
@@ -2736,5 +2737,13 @@ public final class GamePresident {
 
     public void setSwitchedCards(NumberMap<Byte, HandPresident> _switchedCards) {
         switchedCards = _switchedCards;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String _error) {
+        error = _error;
     }
 }

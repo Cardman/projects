@@ -4,13 +4,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.EqList;
-import code.util.Numbers;
 import cards.consts.GameType;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
-import cards.president.exceptions.PresidentRulesException;
+import code.util.EqList;
+import code.util.Numbers;
 
 @SuppressWarnings("static-method")
 public class CheckerGamePresidentWithRulesTest {
@@ -27,6 +26,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -61,6 +61,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -95,6 +96,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -134,6 +136,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -174,6 +177,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -217,6 +221,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -266,6 +271,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -319,6 +325,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -424,6 +431,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -539,6 +547,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -658,6 +667,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -801,6 +811,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -963,10 +974,12 @@ public class CheckerGamePresidentWithRulesTest {
         played_.ajouter(CardPresident.DIAMOND_2);
         g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         //
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -1144,6 +1157,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -1306,6 +1320,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -1461,6 +1476,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -1646,6 +1662,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -1861,6 +1878,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2040,6 +2058,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2069,6 +2088,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(3, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2101,6 +2121,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(3, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2133,6 +2154,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(3, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2166,6 +2188,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2206,6 +2229,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(3, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2239,6 +2263,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2274,6 +2299,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2309,6 +2335,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -2479,6 +2506,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -2685,6 +2713,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -2891,6 +2920,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -3121,6 +3151,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -3341,6 +3372,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(g_.getPassOrFinish().get(0));
         assertTrue(g_.getPassOrFinish().get(1));
@@ -3559,6 +3591,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -3739,6 +3772,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -3780,6 +3814,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(3, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -3817,6 +3852,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -3855,6 +3891,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
         assertEq(4, g_.getPassOrFinish().size());
         assertTrue(!g_.getPassOrFinish().get(0));
         assertTrue(!g_.getPassOrFinish().get(1));
@@ -3872,7 +3909,7 @@ public class CheckerGamePresidentWithRulesTest {
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check1FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Numbers<Byte> rk_ = new Numbers<Byte>();
@@ -3893,10 +3930,11 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check2FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Numbers<Byte> rk_ = new Numbers<Byte>();
@@ -3917,9 +3955,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check3FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Numbers<Byte> rk_ = new Numbers<Byte>();
@@ -3941,9 +3980,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check4FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Numbers<Byte> rk_ = new Numbers<Byte>();
@@ -3966,9 +4006,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check5FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
@@ -3990,9 +4031,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check6FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(false);
@@ -4020,9 +4062,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getSwitchedCards().put((byte) 0, invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check7FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4050,9 +4093,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getSwitchedCards().put((byte) 0, invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check8FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4077,9 +4121,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getSwitchedCards().put((byte) 1, invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check9FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4103,9 +4148,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check10FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4130,9 +4176,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getSwitchedCards().put((byte) 1, invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check11FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4162,9 +4209,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().getVal((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check12FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4193,9 +4241,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().getVal((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check13FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Numbers<Byte> rk_ = new Numbers<Byte>();
@@ -4207,9 +4256,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check14FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4238,9 +4288,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().getVal((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check15FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4269,9 +4320,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().getVal((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check16FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4288,9 +4340,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check17FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4308,9 +4361,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check18FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4328,9 +4382,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check19FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4346,9 +4401,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check20FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4372,9 +4428,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getProgressingTrick().ajouter(played_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check21FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
@@ -4395,9 +4452,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getTricks().add(new TrickPresident((byte) 2));
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check22FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setNbStacks(2);
@@ -4410,9 +4468,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check23FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(true);
@@ -4441,9 +4500,10 @@ public class CheckerGamePresidentWithRulesTest {
         g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check24FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         Numbers<Byte> rk_ = new Numbers<Byte>();
@@ -4455,9 +4515,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check25FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         Numbers<Byte> rk_ = new Numbers<Byte>();
@@ -4469,9 +4530,10 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
-    @Test(expected=PresidentRulesException.class)
+    @Test
     public void check26FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Numbers<Byte> rk_ = new Numbers<Byte>();
@@ -4499,6 +4561,7 @@ public class CheckerGamePresidentWithRulesTest {
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
     }
 
     static void transientFields(GamePresident _g) {

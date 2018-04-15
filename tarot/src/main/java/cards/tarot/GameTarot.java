@@ -195,6 +195,7 @@ public final class GameTarot {
     private long number;
     private RulesTarot rules = new RulesTarot();
 
+    private String error = "";
     private transient byte lastHasBid = CustList.INDEX_NOT_FOUND_ELT;
 
     private transient BidTarot lastBid = BidTarot.FOLD;
@@ -14938,4 +14939,11 @@ public final class GameTarot {
         scores = _scores;
     }
 
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String _error) {
+        error = _error;
+    }
 }

@@ -21,7 +21,6 @@ import cards.belote.TricksHandsBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.MixCardsChoice;
-import cards.consts.exceptions.BasicRulesException;
 import cards.enumerations.Launching;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
@@ -1440,65 +1439,46 @@ public final class MainWindow extends NetGroupFrame {
 
     private void tryToLoadDeal(String _nomFichier, Object _deal) {
         ContainerGame containerGame_ = null;
-        try {
-            if (_deal instanceof GameBelote) {
-                CheckerGameBeloteWithRules.check((GameBelote) _deal);
-                containerGame_ = new ContainerSingleBelote(this);
-                containerGame_.getPar().jouerBelote((GameBelote) _deal);
-                containerGame_.load();
-                partieSauvegardee=false;
-                containerGame = containerGame_;
-                change.setEnabledMenu(true);
-            } else if (_deal instanceof GamePresident) {
-                CheckerGamePresidentWithRules.check((GamePresident) _deal);
-                containerGame_ = new ContainerSinglePresident(this);
-                containerGame_.getPar().jouerPresident((GamePresident) _deal);
-                containerGame_.load();
-                partieSauvegardee=false;
-                containerGame = containerGame_;
-                change.setEnabledMenu(true);
-            } else if (_deal instanceof GameTarot) {
-                CheckerGameTarotWithRules.check((GameTarot) _deal);
-                containerGame_ = new ContainerSingleTarot(this);
-                containerGame_.getPar().jouerTarot((GameTarot) _deal);
-                containerGame_.load();
-                partieSauvegardee=false;
-                containerGame = containerGame_;
-                change.setEnabledMenu(true);
-            } else {
+
+        if (_deal instanceof GameBelote) {
+            CheckerGameBeloteWithRules.check((GameBelote) _deal);
+            if (!((GameBelote) _deal).getError().isEmpty()) {
                 erreurDeChargement(_nomFichier);
+                return;
             }
-        } catch (BasicRulesException _0) {
+            containerGame_ = new ContainerSingleBelote(this);
+            containerGame_.getPar().jouerBelote((GameBelote) _deal);
+            containerGame_.load();
+            partieSauvegardee=false;
+            containerGame = containerGame_;
+            change.setEnabledMenu(true);
+        } else if (_deal instanceof GamePresident) {
+            CheckerGamePresidentWithRules.check((GamePresident) _deal);
+            if (!((GamePresident) _deal).getError().isEmpty()) {
+                erreurDeChargement(_nomFichier);
+                return;
+            }
+            containerGame_ = new ContainerSinglePresident(this);
+            containerGame_.getPar().jouerPresident((GamePresident) _deal);
+            containerGame_.load();
+            partieSauvegardee=false;
+            containerGame = containerGame_;
+            change.setEnabledMenu(true);
+        } else if (_deal instanceof GameTarot) {
+            CheckerGameTarotWithRules.check((GameTarot) _deal);
+            if (!((GameTarot) _deal).getError().isEmpty()) {
+                erreurDeChargement(_nomFichier);
+                return;
+            }
+            containerGame_ = new ContainerSingleTarot(this);
+            containerGame_.getPar().jouerTarot((GameTarot) _deal);
+            containerGame_.load();
+            partieSauvegardee=false;
+            containerGame = containerGame_;
+            change.setEnabledMenu(true);
+        } else {
             erreurDeChargement(_nomFichier);
         }
-//        try {
-//            containerGame_ = new ContainerSingleBelote(this,_nomFichier);
-//            containerGame_.load();
-//            partieSauvegardee=false;
-//            containerGame = containerGame_;
-//            change.setEnabled(true);
-//            return;
-//        } catch (GameLoadingException e2) {
-//        }
-//        try {
-//            containerGame_ = new ContainerSinglePresident(this,_nomFichier);
-//            containerGame_.load();
-//            partieSauvegardee=false;
-//            containerGame = containerGame_;
-//            change.setEnabled(true);
-//            return;
-//        } catch (GameLoadingException e2) {
-//        }
-//        try {
-//            containerGame_ = new ContainerSingleTarot(this,_nomFichier);
-//            containerGame_.load();
-//            partieSauvegardee=false;
-//            containerGame = containerGame_;
-//            change.setEnabled(true);
-//            return;
-//        } catch (GameLoadingException e2) {
-//        }
-//        erreurDeChargement(_nomFichier);
     }
 
     public void saveGame() {

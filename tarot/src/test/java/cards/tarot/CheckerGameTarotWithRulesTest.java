@@ -1,11 +1,9 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.EnumList;
-import code.util.EqList;
-import code.util.consts.Constants;
 import cards.consts.GameType;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -13,7 +11,9 @@ import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
-import cards.tarot.exceptions.TarotRulesException;
+import code.util.EnumList;
+import code.util.EqList;
+import code.util.consts.Constants;
 
 @SuppressWarnings("static-method")
 public class CheckerGameTarotWithRulesTest {
@@ -27,6 +27,7 @@ public class CheckerGameTarotWithRulesTest {
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -44,6 +45,7 @@ public class CheckerGameTarotWithRulesTest {
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -61,6 +63,7 @@ public class CheckerGameTarotWithRulesTest {
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -80,6 +83,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -99,6 +103,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -118,6 +123,7 @@ public class CheckerGameTarotWithRulesTest {
         int first_ = game_.playerAfter(deal_.getDonneur());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -145,6 +151,7 @@ public class CheckerGameTarotWithRulesTest {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -273,6 +280,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.gererChienInconnu();
         game_.slam();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -300,6 +308,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.intelligenceArtificielleAppel();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -328,6 +337,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.intelligenceArtificielleAppel();
         game_.ecarter(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -355,6 +365,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.appelApresEcart();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -383,6 +394,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.intelligenceArtificielleAppel();
         game_.ajouterCartesUtilisateur();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -413,6 +425,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.autoriseEcartDe(CardTarot.CLUB_6, Constants.getLanguage());
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.CLUB_6);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -445,6 +458,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.retirerUneCarteDuChien(CardTarot.CLUB_6);
         game_.addCard(game_.getPreneur(), CardTarot.CLUB_6);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -474,6 +488,7 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -511,6 +526,7 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -532,6 +548,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -557,6 +574,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -585,6 +603,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterCartesUtilisateur();
         game_.autoriseEcartDe(CardTarot.HEART_KING, Constants.getLanguage());
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -606,6 +625,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -643,6 +663,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         game_.ajouterPliAttaque();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -680,6 +701,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_7);
         game_.ajouterPliAttaque();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -712,6 +734,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.autoriseEcartDe(CardTarot.HEART_1, Constants.getLanguage());
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_1);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -738,6 +761,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_QUEEN);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -856,6 +880,7 @@ public class CheckerGameTarotWithRulesTest {
         DealTarot deal_ = deal2((byte) 5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -885,6 +910,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initEquipeDeterminee();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -929,6 +955,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.DIAMOND_2);
         game_.ajouterPliAttaque();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -975,6 +1002,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPliAttaque();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -1000,6 +1028,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterChelemUtilisateur();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -1025,6 +1054,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.gererChienInconnu();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -1051,6 +1081,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_21);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -1077,6 +1108,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_21);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -1120,6 +1152,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -1231,6 +1264,7 @@ public class CheckerGameTarotWithRulesTest {
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1377,6 +1411,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -1523,6 +1558,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
@@ -1549,6 +1585,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1576,6 +1613,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1612,6 +1650,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1644,6 +1683,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1680,6 +1720,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_10);
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1696,6 +1737,7 @@ public class CheckerGameTarotWithRulesTest {
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1722,6 +1764,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1737,6 +1780,7 @@ public class CheckerGameTarotWithRulesTest {
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1769,6 +1813,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -1778,7 +1823,7 @@ public class CheckerGameTarotWithRulesTest {
     }
 
     //ajouterCartesUtilisateur();
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check1FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -1796,9 +1841,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.intelligenceArtificielleAppel();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check2FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -1816,9 +1862,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.intelligenceArtificielleAppel();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check3FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -1838,9 +1885,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.intelligenceArtificielleAppel();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check4FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -1860,9 +1908,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check5FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -1882,9 +1931,10 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check6FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -1905,9 +1955,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur() ,CardTarot.CLUB_6);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check7FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
@@ -1919,9 +1970,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_1);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check8FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
@@ -1941,9 +1993,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check9FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
@@ -1971,9 +2024,10 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check10FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
@@ -1999,9 +2053,10 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check11FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
@@ -2028,9 +2083,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         game_.ajouterPliAttaque();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check12FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2065,9 +2121,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check13FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2103,9 +2160,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check14FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2140,9 +2198,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check15FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2178,9 +2237,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check16FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2207,9 +2267,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check17FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2243,9 +2304,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check18FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2272,9 +2334,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.HEART_KING);
         game_.getPliEnCours().setEntameur(0);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check19FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2293,9 +2356,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.getPliEnCours().setEntameur(5);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check20FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2321,9 +2385,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check21FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2357,9 +2422,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.getPliEnCours().setEntameur(0);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check22FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2393,9 +2459,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check23FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2413,9 +2480,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterChelemUtilisateur();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check24FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2436,9 +2504,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.getDistribution().derniereMain().ajouter(CardTarot.TRUMP_21);
         game_.getDistribution().derniereMain().jouer(CardTarot.CLUB_6);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check25FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2467,9 +2536,10 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check26FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2496,9 +2566,10 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check27FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2525,9 +2596,10 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check28FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2545,9 +2617,10 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check29FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2556,9 +2629,10 @@ public class CheckerGameTarotWithRulesTest {
         deal_.main((byte) 1).ajouter(CardTarot.TRUMP_21);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check30FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2586,9 +2660,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.SPADE_4);
         //game_.ajouterPliAttaque();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check31FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2609,9 +2684,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.getDistribution().main((byte) 2).jouer(CardTarot.EXCUSE);
         //game_.ajouterPliAttaque();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check32FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2645,9 +2721,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check33FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2677,9 +2754,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check34FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
@@ -2697,9 +2775,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check35FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
@@ -2715,9 +2794,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_10);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check36FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
@@ -2729,9 +2809,10 @@ public class CheckerGameTarotWithRulesTest {
         deal_.main().jouer(CardTarot.TRUMP_21);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check37FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2755,9 +2836,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check38FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
@@ -2769,9 +2851,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setAnnoncesMiseres((byte) 4, new EnumList<Miseres>(Miseres.TRUMP));
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check39FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
@@ -2783,9 +2866,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.setAnnoncesPoignees((byte) 4, new EnumList<Handfuls>(Handfuls.ONE));
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check40FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
@@ -2799,9 +2883,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPoignee(hand_, (byte) 4);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check41FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
@@ -2810,9 +2895,10 @@ public class CheckerGameTarotWithRulesTest {
         deal_.derniereMain().ajouter(deal_.main().jouer(0));
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check42FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
@@ -2821,9 +2907,10 @@ public class CheckerGameTarotWithRulesTest {
         deal_.getDonne().add(new HandTarot());
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check43FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2859,9 +2946,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         game_.unionPlis(true).first().setSeenByAllPlayers(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check44FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
@@ -2897,9 +2985,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         game_.unionPlis(true).last().setSeenByAllPlayers(false);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check45FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2926,6 +3015,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
@@ -2934,7 +3024,7 @@ public class CheckerGameTarotWithRulesTest {
         assertEq(4, game_.getRamasseur());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check46FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -2958,9 +3048,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check47FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
@@ -2980,9 +3071,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.gererChienInconnu();
         game_.slam();
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check48FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
@@ -3014,9 +3106,10 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test(expected=TarotRulesException.class)
+    @Test
     public void check49FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
@@ -3033,5 +3126,6 @@ public class CheckerGameTarotWithRulesTest {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
     }
 }

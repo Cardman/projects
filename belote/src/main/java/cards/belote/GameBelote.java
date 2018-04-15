@@ -125,6 +125,7 @@ public final class GameBelote {
     private transient String gameError = EMPTY;
     private transient StringBuilder reason = new StringBuilder();
     private final transient String file = Format.getClassProperties(GAME_BELOTE);
+    private String error = "";
     /**Constructeur permettant le chargement d'une partie de belote*/
     public GameBelote() {}
 
@@ -6545,6 +6546,14 @@ public final class GameBelote {
 
     public void setScores(Numbers<Short> _scores) {
         scores = _scores;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String _error) {
+        error = _error;
     }
 
 }
