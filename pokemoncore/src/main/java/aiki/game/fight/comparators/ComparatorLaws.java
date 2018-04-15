@@ -1,9 +1,9 @@
 package aiki.game.fight.comparators;
 import java.util.Comparator;
 
-import code.maths.Rate;
 import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.fight.util.StatisticsDamageMove;
+import code.maths.Rate;
 
 public final class ComparatorLaws implements Comparator<StatisticsDamageMove> {
 

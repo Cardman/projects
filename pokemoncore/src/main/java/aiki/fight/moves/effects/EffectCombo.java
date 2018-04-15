@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
@@ -17,31 +17,47 @@ public final class EffectCombo {
 
     public void validate(DataBase _data) {
         if (!repeatedRoundsLaw.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!multEvtRateSecEff.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (repeatedRoundsLaw.events().isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         Rate min_ = repeatedRoundsLaw.minimum();
         if (!min_.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (min_.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Rate e: repeatedRoundsLaw.events()) {
+        for (Rate e : repeatedRoundsLaw.events()) {
             if (!e.isInteger()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (effectEndRound.size() > 1) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (teamMove.size() > 1) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
@@ -54,33 +70,43 @@ public final class EffectCombo {
     public boolean estActifEquipe() {
         return !teamMove.isEmpty();
     }
+
     public Rate getMultEvtRateSecEff() {
         return multEvtRateSecEff;
     }
+
     public void setMultEvtRateSecEff(Rate _multEvtRateSecEff) {
         multEvtRateSecEff = _multEvtRateSecEff;
     }
+
     public MonteCarloNumber getRepeatedRoundsLaw() {
         return repeatedRoundsLaw;
     }
+
     public void setRepeatedRoundsLaw(MonteCarloNumber _repeatedRoundsLaw) {
         repeatedRoundsLaw = _repeatedRoundsLaw;
     }
+
     public short getRankIncrementNbRound() {
         return rankIncrementNbRound;
     }
+
     public void setRankIncrementNbRound(short _rankIncrementNbRound) {
         rankIncrementNbRound = _rankIncrementNbRound;
     }
+
     public CustList<EffectEndRoundFoe> getEffectEndRound() {
         return effectEndRound;
     }
+
     public void setEffectEndRound(CustList<EffectEndRoundFoe> _effectEndRound) {
         effectEndRound = _effectEndRound;
     }
+
     public CustList<EffectTeam> getTeamMove() {
         return teamMove;
     }
+
     public void setTeamMove(CustList<EffectTeam> _teamMove) {
         teamMove = _teamMove;
     }

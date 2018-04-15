@@ -1,6 +1,6 @@
 package aiki.map.levels;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
@@ -26,21 +26,29 @@ public final class AreaApparition {
 
     public void validate(DataBase _data) {
         if (avgNbSteps < ALWAYS_APPARITION) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (multFight < 1) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (multFight > DataBase.MAX_MULT_FIGHT) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (WildPk p: wildPokemon) {
+        for (WildPk p : wildPokemon) {
             p.validate(_data, true);
         }
         if (wildPokemon.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (WildPk p: wildPokemonFishing) {
+        for (WildPk p : wildPokemonFishing) {
             p.validate(_data, true);
         }
     }
@@ -50,34 +58,36 @@ public final class AreaApparition {
         wildPokemonRandFishing = random(wildPokemonFishing, ALWAYS_APPARITION);
     }
 
-    static MonteCarloEq<WildPk> random(EqList<WildPk> _wildPokemon, int _avgNbSteps) {
+    static MonteCarloEq<WildPk> random(EqList<WildPk> _wildPokemon,
+            int _avgNbSteps) {
         MonteCarloEq<WildPk> wildPokemonRand_ = new MonteCarloEq<WildPk>();
         EqList<WildPk> wildPokemonCopy_ = new EqList<WildPk>(_wildPokemon);
-        int i_=0;
-        while(i_<wildPokemonCopy_.size()){
-            WildPk pk_=wildPokemonCopy_.get(i_);
-            int j_=i_+1;
-            while(j_<wildPokemonCopy_.size()){
-                if(WildPk.eq(wildPokemonCopy_.get(j_),pk_)){
+        int i_ = 0;
+        while (i_ < wildPokemonCopy_.size()) {
+            WildPk pk_ = wildPokemonCopy_.get(i_);
+            int j_ = i_ + 1;
+            while (j_ < wildPokemonCopy_.size()) {
+                if (WildPk.eq(wildPokemonCopy_.get(j_), pk_)) {
                     wildPokemonCopy_.removeAt(j_);
-                }else{
+                } else {
                     j_++;
                 }
             }
             i_++;
         }
-        for(WildPk p:wildPokemonCopy_){
+        for (WildPk p : wildPokemonCopy_) {
             int count_ = 0;
-            for (WildPk p2_: _wildPokemon) {
-                if (!WildPk.eq(p2_,p)) {
+            for (WildPk p2_ : _wildPokemon) {
+                if (!WildPk.eq(p2_, p)) {
                     continue;
                 }
                 count_++;
             }
             wildPokemonRand_.addEvent(p, new LgInt(count_));
         }
-        if(_avgNbSteps>1){
-            wildPokemonRand_.addEvent(new WildPk(), new LgInt((_avgNbSteps-1)*_wildPokemon.size()));
+        if (_avgNbSteps > 1) {
+            wildPokemonRand_.addEvent(new WildPk(), new LgInt((_avgNbSteps - 1)
+                    * _wildPokemon.size()));
         }
         return wildPokemonRand_;
     }
@@ -148,21 +158,21 @@ public final class AreaApparition {
         return wildPokemonRandFishing;
     }
 
-//    @Override
-//    public void beforeSave() {
-////        List<Pokemon> l_ = new List<>();
-////        for (Pokemon p: wildPokemon) {
-////            l_.add(new WildPk(p));
-////        }
-////        wildPokemon = l_;
-////        l_ = new List<>();
-////        for (Pokemon p: wildPokemonFishing) {
-////            l_.add(new WildPk(p));
-////        }
-////        wildPokemonFishing = l_;
-//    }
-//
-//    @Override
-//    public void afterLoad() {
-//    }
+    // @Override
+    // public void beforeSave() {
+    // // List<Pokemon> l_ = new List<>();
+    // // for (Pokemon p: wildPokemon) {
+    // // l_.add(new WildPk(p));
+    // // }
+    // // wildPokemon = l_;
+    // // l_ = new List<>();
+    // // for (Pokemon p: wildPokemonFishing) {
+    // // l_.add(new WildPk(p));
+    // // }
+    // // wildPokemonFishing = l_;
+    // }
+    //
+    // @Override
+    // public void afterLoad() {
+    // }
 }

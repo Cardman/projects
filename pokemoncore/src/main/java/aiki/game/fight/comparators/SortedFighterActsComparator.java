@@ -1,10 +1,10 @@
 package aiki.game.fight.comparators;
 import java.util.Comparator;
 
-import code.util.EqList;
-import code.util.Numbers;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
+import code.util.EqList;
+import code.util.Numbers;
 
 public final class SortedFighterActsComparator implements Comparator<TeamPosition> {
 

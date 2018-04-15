@@ -1,13 +1,13 @@
 package aiki.comparators;
 import java.util.Comparator;
 
+import aiki.fight.moves.enums.TargetChoice;
+import aiki.util.SortingMove;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.pagination.EnumFieldComparator;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
-import aiki.fight.moves.enums.TargetChoice;
-import aiki.util.SortingMove;
 
 public final class ComparatorMove implements Comparator<SortingMove> {
 

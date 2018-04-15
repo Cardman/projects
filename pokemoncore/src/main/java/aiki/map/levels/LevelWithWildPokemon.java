@@ -1,6 +1,6 @@
 package aiki.map.levels;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.characters.CharacterInRoadCave;
@@ -22,69 +22,79 @@ public abstract class LevelWithWildPokemon extends Level {
 
     private CustList<AreaApparition> wildPokemonAreas;
 
-    private ObjectMap<Point,CharacterInRoadCave> characters;
+    private ObjectMap<Point, CharacterInRoadCave> characters;
 
-    private ObjectMap<Point,DualFight> dualFights;
+    private ObjectMap<Point, DualFight> dualFights;
 
-    private ObjectMap<Point,WildPk> legendaryPks;
+    private ObjectMap<Point, WildPk> legendaryPks;
 
-    private ObjectMap<Point,String> items;
+    private ObjectMap<Point, String> items;
 
-    private ObjectMap<Point,Short> tm;
+    private ObjectMap<Point, Short> tm;
 
-    private ObjectMap<Point,Short> hm;
+    private ObjectMap<Point, Short> hm;
 
     @Override
-    public void validate(DataBase _data,LevelArea _level) {
+    public void validate(DataBase _data, LevelArea _level) {
         super.validate(_data, _level);
         int index_ = 0;
-        for (AreaApparition a: wildPokemonAreas) {
+        for (AreaApparition a : wildPokemonAreas) {
             a.validate(_data);
             boolean existBlock_ = false;
-            for (Block b: getBlocks().values()) {
+            for (Block b : getBlocks().values()) {
                 if (b.getIndexApparition() == index_) {
                     existBlock_ = true;
                     break;
                 }
             }
             if (!existBlock_) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             index_++;
         }
-        for (EntryCust<Point,Block> e: getBlocks().entryList()) {
+        for (EntryCust<Point, Block> e : getBlocks().entryList()) {
             AreaApparition a_ = getAreaByBlockId(e.getKey());
             if (a_.isVirtual()) {
                 continue;
             }
             if (!a_.getWildPokemonFishing().isEmpty()) {
                 if (e.getValue().getType() != EnvironmentType.WATER) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
         }
         EqList<Point> keys_ = new EqList<Point>();
-        for (EntryCust<Point,CharacterInRoadCave> e: characters.entryList()) {
+        for (EntryCust<Point, CharacterInRoadCave> e : characters.entryList()) {
             if (!(e.getValue() instanceof Person)) {
                 continue;
             }
-            if (!_level.isValid(e.getKey(),true)) {
-                throw new DataException();
+            if (!_level.isValid(e.getKey(), true)) {
+                _data.setError(true);
+                return;
+
             }
             e.getValue().validate(_data);
             keys_.add(e.getKey());
         }
-        for (EntryCust<Point,DualFight> e: dualFights.entryList()) {
+        for (EntryCust<Point, DualFight> e : dualFights.entryList()) {
             Point id_ = e.getKey();
-            if (!_level.isValid(id_,true)) {
-                throw new DataException();
+            if (!_level.isValid(id_, true)) {
+                _data.setError(true);
+                return;
+
             }
             DualFight dual_ = e.getValue();
-            if (!_level.isValid(dual_.getPt(),true)) {
-                throw new DataException();
+            if (!_level.isValid(dual_.getPt(), true)) {
+                _data.setError(true);
+                return;
+
             }
             boolean isNext_ = false;
-            for (Direction d: Direction.values()) {
+            for (Direction d : Direction.values()) {
                 Point next_ = new Point(id_);
                 next_.moveTo(d);
                 if (Point.eq(next_, dual_.getPt())) {
@@ -93,57 +103,78 @@ public abstract class LevelWithWildPokemon extends Level {
                 }
             }
             if (!isNext_) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             dual_.validate(_data);
             keys_.add(e.getKey());
             keys_.add(dual_.getPt());
         }
-        for (EntryCust<Point,WildPk> e: legendaryPks.entryList()) {
-            if (!_level.isValid(e.getKey(),true)) {
-                throw new DataException();
+        for (EntryCust<Point, WildPk> e : legendaryPks.entryList()) {
+            if (!_level.isValid(e.getKey(), true)) {
+                _data.setError(true);
+                return;
+
             }
             e.getValue().validate(_data, true);
-//            if (!e.getValue().isValid(_data)) {
-//                throw new DataException();
-//            }
+            // if (!e.getValue().isValid(_data)) {
+            // _data.setError(true);
+
+            // }
             PokemonData fPk_ = _data.getPokemon(e.getValue().getName());
             if (fPk_.getGenderRep() != GenderRepartition.LEGENDARY) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             keys_.add(e.getKey());
         }
-        for (EntryCust<Point,String> e: items.entryList()) {
-            if (!_level.isValid(e.getKey(),true)) {
-                throw new DataException();
+        for (EntryCust<Point, String> e : items.entryList()) {
+            if (!_level.isValid(e.getKey(), true)) {
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getItems().contains(e.getValue())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             keys_.add(e.getKey());
         }
-        for (EntryCust<Point,Short> e: tm.entryList()) {
-            if (!_level.isValid(e.getKey(),true)) {
-                throw new DataException();
+        for (EntryCust<Point, Short> e : tm.entryList()) {
+            if (!_level.isValid(e.getKey(), true)) {
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getTm().contains(e.getValue())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             keys_.add(e.getKey());
         }
-        for (EntryCust<Point,Short> e: hm.entryList()) {
-            if (!_level.isValid(e.getKey(),true)) {
-                throw new DataException();
+        for (EntryCust<Point, Short> e : hm.entryList()) {
+            if (!_level.isValid(e.getKey(), true)) {
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getHm().contains(e.getValue())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             keys_.add(e.getKey());
         }
         int size_ = keys_.size();
         keys_.removeDuplicates();
         if (size_ != keys_.size()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -151,30 +182,30 @@ public abstract class LevelWithWildPokemon extends Level {
     public void validateForEditing(DataBase _data) {
         super.validateForEditing(_data);
         EqList<Point> keys_ = new EqList<Point>();
-        for (EntryCust<Point,String> e: items.entryList()) {
+        for (EntryCust<Point, String> e : items.entryList()) {
             if (!_data.getItems().contains(e.getValue())) {
                 keys_.add(e.getKey());
             }
         }
-        for (Point p: keys_) {
+        for (Point p : keys_) {
             items.removeKey(p);
         }
         keys_.clear();
-        for (EntryCust<Point,Short> e: tm.entryList()) {
+        for (EntryCust<Point, Short> e : tm.entryList()) {
             if (!_data.getTm().contains(e.getValue())) {
                 keys_.add(e.getKey());
             }
         }
-        for (Point p: keys_) {
+        for (Point p : keys_) {
             tm.removeKey(p);
         }
         keys_.clear();
-        for (EntryCust<Point,Short> e: hm.entryList()) {
+        for (EntryCust<Point, Short> e : hm.entryList()) {
             if (!_data.getTm().contains(e.getValue())) {
                 keys_.add(e.getKey());
             }
         }
-        for (Point p: keys_) {
+        for (Point p : keys_) {
             hm.removeKey(p);
         }
     }
@@ -199,8 +230,8 @@ public abstract class LevelWithWildPokemon extends Level {
         if (dualFights.contains(_point)) {
             return false;
         }
-        for (DualFight d: dualFights.values()) {
-            if (Point.eq(d.getPt(),_point)) {
+        for (DualFight d : dualFights.values()) {
+            if (Point.eq(d.getPt(), _point)) {
                 return false;
             }
         }
@@ -212,12 +243,12 @@ public abstract class LevelWithWildPokemon extends Level {
         if (!super.hasValidImage(_data)) {
             return false;
         }
-        for (EntryCust<Point,DualFight> e: dualFights.entryList()) {
+        for (EntryCust<Point, DualFight> e : dualFights.entryList()) {
             if (!e.getValue().getFoeTrainer().hasValidImage(_data)) {
                 return false;
             }
         }
-        for (EntryCust<Point,CharacterInRoadCave> e: characters.entryList()) {
+        for (EntryCust<Point, CharacterInRoadCave> e : characters.entryList()) {
             if (!e.getValue().hasValidImage(_data)) {
                 return false;
             }
@@ -298,8 +329,8 @@ public abstract class LevelWithWildPokemon extends Level {
         tm.removeKey(_point);
         hm.removeKey(_point);
         dualFights.removeKey(_point);
-        for (EntryCust<Point,DualFight> e: dualFights.entryList()) {
-            if (Point.eq(e.getValue().getPt(),_point)) {
+        for (EntryCust<Point, DualFight> e : dualFights.entryList()) {
+            if (Point.eq(e.getValue().getPt(), _point)) {
                 dualFights.removeKey(e.getKey());
                 return;
             }
@@ -307,7 +338,7 @@ public abstract class LevelWithWildPokemon extends Level {
     }
 
     @Override
-    public void translateByLine(short _y,short _dir) {
+    public void translateByLine(short _y, short _dir) {
         super.translateByLine(_y, _dir);
         Level.translateCharacterInRoadCaveLineData(characters, _y, _dir);
         Level.translateWildPkLineData(legendaryPks, _y, _dir);
@@ -315,13 +346,13 @@ public abstract class LevelWithWildPokemon extends Level {
         Level.translateShortLineData(tm, _y, _dir);
         Level.translateShortLineData(hm, _y, _dir);
         Level.translateDualFightLineData(dualFights, _y, _dir);
-        for (DualFight k: dualFights.values()) {
-            k.getPt().sety((short) (k.getPt().gety()+_dir));
+        for (DualFight k : dualFights.values()) {
+            k.getPt().sety((short) (k.getPt().gety() + _dir));
         }
     }
 
     @Override
-    public void translateByColumn(short _x,short _dir) {
+    public void translateByColumn(short _x, short _dir) {
         super.translateByColumn(_x, _dir);
         Level.translateCharacterInRoadCaveColumnData(characters, _x, _dir);
         Level.translateWildPkColumnData(legendaryPks, _x, _dir);
@@ -329,8 +360,8 @@ public abstract class LevelWithWildPokemon extends Level {
         Level.translateShortColumnData(tm, _x, _dir);
         Level.translateShortColumnData(hm, _x, _dir);
         Level.translateDualFightColumnData(dualFights, _x, _dir);
-        for (DualFight k: dualFights.values()) {
-            k.getPt().setx((short) (k.getPt().getx()+_dir));
+        for (DualFight k : dualFights.values()) {
+            k.getPt().setx((short) (k.getPt().getx() + _dir));
         }
     }
 
@@ -358,17 +389,22 @@ public abstract class LevelWithWildPokemon extends Level {
             dualFights.move(_id, _target);
         }
     }
+
     public void initializeWildPokemon() {
-        for (AreaApparition a: wildPokemonAreas) {
+        for (AreaApparition a : wildPokemonAreas) {
             a.initializeWildPokemon();
         }
     }
+
     public void linkBlockAreaApparition(Point _id, int _indexOfApparition) {
         getBlocks().getVal(_id).setIndexApparition((short) _indexOfApparition);
     }
+
     public void unlinkBlockAreaApparition(Point _id) {
-        getBlocks().getVal(_id).setIndexApparition(CustList.INDEX_NOT_FOUND_ELT);
+        getBlocks().getVal(_id)
+                .setIndexApparition(CustList.INDEX_NOT_FOUND_ELT);
     }
+
     public AreaApparition getAreaByBlockId(Point _key) {
         int index_ = getBlocks().getVal(_key).getIndexApparition();
         if (index_ < 0) {
@@ -376,6 +412,7 @@ public abstract class LevelWithWildPokemon extends Level {
         }
         return wildPokemonAreas.get(index_);
     }
+
     public AreaApparition getAreaByPoint(Point _point) {
         int index_ = getBlockByPoint(_point).getIndexApparition();
         if (index_ < 0) {
@@ -383,6 +420,7 @@ public abstract class LevelWithWildPokemon extends Level {
         }
         return wildPokemonAreas.get(index_);
     }
+
     public CustList<AreaApparition> getWildPokemonAreas() {
         return wildPokemonAreas;
     }
@@ -391,62 +429,62 @@ public abstract class LevelWithWildPokemon extends Level {
         wildPokemonAreas = _wildPokemonAreas;
     }
 
-    public ObjectMap<Point,CharacterInRoadCave> getCharacters() {
+    public ObjectMap<Point, CharacterInRoadCave> getCharacters() {
         return characters;
     }
 
-    public void setCharacters(ObjectMap<Point,CharacterInRoadCave> _characters) {
+    public void setCharacters(ObjectMap<Point, CharacterInRoadCave> _characters) {
         characters = _characters;
     }
 
-    public ObjectMap<Point,DualFight> getDualFights() {
+    public ObjectMap<Point, DualFight> getDualFights() {
         return dualFights;
     }
 
-    public void setDualFights(ObjectMap<Point,DualFight> _dualFights) {
+    public void setDualFights(ObjectMap<Point, DualFight> _dualFights) {
         dualFights = _dualFights;
     }
 
-    public ObjectMap<Point,WildPk> getLegendaryPks() {
+    public ObjectMap<Point, WildPk> getLegendaryPks() {
         return legendaryPks;
     }
 
-    public void setLegendaryPks(ObjectMap<Point,WildPk> _legendaryPks) {
+    public void setLegendaryPks(ObjectMap<Point, WildPk> _legendaryPks) {
         legendaryPks = _legendaryPks;
     }
 
-    public ObjectMap<Point,String> getItems() {
+    public ObjectMap<Point, String> getItems() {
         return items;
     }
 
-    public void setItems(ObjectMap<Point,String> _items) {
+    public void setItems(ObjectMap<Point, String> _items) {
         items = _items;
     }
 
-    public ObjectMap<Point,Short> getTm() {
+    public ObjectMap<Point, Short> getTm() {
         return tm;
     }
 
-    public void setTm(ObjectMap<Point,Short> _tm) {
+    public void setTm(ObjectMap<Point, Short> _tm) {
         tm = _tm;
     }
 
-    public ObjectMap<Point,Short> getHm() {
+    public ObjectMap<Point, Short> getHm() {
         return hm;
     }
 
-    public void setHm(ObjectMap<Point,Short> _hm) {
+    public void setHm(ObjectMap<Point, Short> _hm) {
         hm = _hm;
     }
 
-//    @Override
-//    public void beforeSave() {
-////        for (EntryCust<Point, Pokemon> p: legendaryPks.entryList()) {
-////            p.setValue(new WildPk(p.getValue()));
-////        }
-//    }
-//
-//    @Override
-//    public void afterLoad() {
-//    }
+    // @Override
+    // public void beforeSave() {
+    // // for (EntryCust<Point, Pokemon> p: legendaryPks.entryList()) {
+    // // p.setValue(new WildPk(p.getValue()));
+    // // }
+    // }
+    //
+    // @Override
+    // public void afterLoad() {
+    // }
 }

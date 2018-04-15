@@ -1,6 +1,6 @@
 package aiki.fight.items;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -21,10 +21,14 @@ public final class Fossil extends Item {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!_data.getPokedex().contains(pokemon)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (level <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

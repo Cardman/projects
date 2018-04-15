@@ -1,5 +1,6 @@
 package aiki.fight.status.effects;
-import aiki.exceptions.DataException;
+
+import aiki.DataBase;
 import code.maths.Rate;
 import code.util.annot.RwXml;
 
@@ -12,12 +13,16 @@ public final class EffectPartnerStatus {
 
     private Rate restoredHpRateLovedAlly;
 
-    public void validate() {
+    public void validate(DataBase _dataBase) {
         if (!multDamageAgainstFoe.isZeroOrGt()) {
-            throw new DataException();
+            _dataBase.setError(true);
+            return;
+
         }
         if (!restoredHpRateLovedAlly.isZeroOrGt()) {
-            throw new DataException();
+            _dataBase.setError(true);
+            return;
+
         }
     }
 

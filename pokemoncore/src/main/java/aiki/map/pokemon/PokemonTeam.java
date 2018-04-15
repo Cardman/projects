@@ -1,6 +1,6 @@
 package aiki.map.pokemon;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.CustList;
 import code.util.annot.RwXml;
 
@@ -12,17 +12,23 @@ public final class PokemonTeam {
     private short reward;
 
     public void validate(DataBase _data) {
-        for (PkTrainer p: team) {
+        for (PkTrainer p : team) {
             p.validate(_data, true);
-//            if (!p.isValid(_data)) {
-//                throw new DataException();
-//            }
+            // if (!p.isValid(_data)) {
+            // _data.setError(true);
+            return;
+
+            // }
         }
         if (team.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (reward <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -42,16 +48,16 @@ public final class PokemonTeam {
         reward = _reward;
     }
 
-//    @Override
-//    public void beforeSave() {
-////        List<PokemonTrainer> l_ = new List<>();
-////        for (PokemonTrainer p: team) {
-////            l_.add(new PkTrainer(p, p.getMoves()));
-////        }
-////        team = l_;
-//    }
-//
-//    @Override
-//    public void afterLoad() {
-//    }
+    // @Override
+    // public void beforeSave() {
+    // // List<PokemonTrainer> l_ = new List<>();
+    // // for (PokemonTrainer p: team) {
+    // // l_.add(new PkTrainer(p, p.getMoves()));
+    // // }
+    // // team = l_;
+    // }
+    //
+    // @Override
+    // public void afterLoad() {
+    // }
 }

@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
@@ -13,179 +13,262 @@ import code.util.annot.RwXml;
 @RwXml
 public final class EffectStatistic extends Effect {
 
-    private EnumMap<Statistic,Byte> statisVarRank;
-    private EnumMap<Statistic,String> localFailStatis;
+    private EnumMap<Statistic, Byte> statisVarRank;
+    private EnumMap<Statistic, String> localFailStatis;
     private Rate evtRate;
     private EnumList<Statistic> copyBoost;
     private EnumList<Statistic> swapBoostStatis;
-    private EnumMap<Statistic,String> localFailSwapBoostStatis;
+    private EnumMap<Statistic, String> localFailSwapBoostStatis;
     private MonteCarloEnum<Statistic> lawBoost;
     private EnumList<Statistic> cancelLowStat;
     private EnumList<Statistic> cancelChgtStat;
+
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!lawBoost.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!evtRate.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (EntryCust<Statistic,Byte> e: statisVarRank.entryList()) {
+        for (EntryCust<Statistic, Byte> e : statisVarRank.entryList()) {
             if (!Statistic.getStatisticsWithBoost().containsObj(e.getKey())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             e.getValue().byteValue();
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(lawBoost.events())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                lawBoost.events())) {
+            _data.setError(true);
+            return;
+
         }
         if (!lawBoost.events().isEmpty()) {
-            if (!Statistic.equalsSet(lawBoost.events(), statisVarRank.getKeys())) {
-                throw new DataException();
+            if (!Statistic
+                    .equalsSet(lawBoost.events(), statisVarRank.getKeys())) {
+                _data.setError(true);
+                return;
+
             }
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(localFailStatis.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                localFailStatis.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(localFailSwapBoostStatis.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                localFailSwapBoostStatis.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
         if (!statisVarRank.containsAllAsKeys(lawBoost.events())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(copyBoost)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(swapBoostStatis)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(cancelLowStat)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(cancelChgtStat)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!lawBoost.events().isEmpty()) {
             if (evtRate.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!swapBoostStatis.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!copyBoost.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!cancelLowStat.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!cancelChgtStat.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (evtRate.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!statisVarRank.isEmpty()) {
             if (!swapBoostStatis.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!copyBoost.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!cancelLowStat.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!cancelChgtStat.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (!copyBoost.isEmpty()) {
             if (!swapBoostStatis.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!cancelLowStat.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!cancelChgtStat.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (getTargetChoice() == TargetChoice.LANCEUR) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (!swapBoostStatis.isEmpty()) {
             if (!cancelLowStat.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!cancelChgtStat.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (getTargetChoice() == TargetChoice.LANCEUR) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (!cancelLowStat.isEmpty() || !cancelChgtStat.isEmpty()) {
             return;
         }
-        throw new DataException();
+        _data.setError(true);
+        return;
+
     }
 
-    public EnumMap<Statistic,Byte> getStatisVarRank() {
+    public EnumMap<Statistic, Byte> getStatisVarRank() {
         return statisVarRank;
     }
-    public void setStatisVarRank(EnumMap<Statistic,Byte> _statisVarRank) {
+
+    public void setStatisVarRank(EnumMap<Statistic, Byte> _statisVarRank) {
         statisVarRank = _statisVarRank;
     }
-    public EnumMap<Statistic,String> getLocalFailStatis() {
+
+    public EnumMap<Statistic, String> getLocalFailStatis() {
         return localFailStatis;
     }
-    public void setLocalFailStatis(EnumMap<Statistic,String> _localFailStatis) {
+
+    public void setLocalFailStatis(EnumMap<Statistic, String> _localFailStatis) {
         localFailStatis = _localFailStatis;
     }
+
     public Rate getEvtRate() {
         return evtRate;
     }
+
     public void setEvtRate(Rate _evtRate) {
         evtRate = _evtRate;
     }
+
     public EnumList<Statistic> getCopyBoost() {
         return copyBoost;
     }
+
     public void setCopyBoost(EnumList<Statistic> _copyBoost) {
         copyBoost = _copyBoost;
     }
+
     public EnumList<Statistic> getSwapBoostStatis() {
         return swapBoostStatis;
     }
+
     public void setSwapBoostStatis(EnumList<Statistic> _swapBoostStatis) {
         swapBoostStatis = _swapBoostStatis;
     }
-    public EnumMap<Statistic,String> getLocalFailSwapBoostStatis() {
+
+    public EnumMap<Statistic, String> getLocalFailSwapBoostStatis() {
         return localFailSwapBoostStatis;
     }
-    public void setLocalFailSwapBoostStatis(EnumMap<Statistic,String> _localFailSwapBoostStatis) {
+
+    public void setLocalFailSwapBoostStatis(
+            EnumMap<Statistic, String> _localFailSwapBoostStatis) {
         localFailSwapBoostStatis = _localFailSwapBoostStatis;
     }
+
     public MonteCarloEnum<Statistic> getLawBoost() {
         return lawBoost;
     }
+
     public void setLawBoost(MonteCarloEnum<Statistic> _lawBoost) {
         lawBoost = _lawBoost;
     }
+
     public EnumList<Statistic> getCancelLowStat() {
         return cancelLowStat;
     }
+
     public void setCancelLowStat(EnumList<Statistic> _cancelLowStat) {
         cancelLowStat = _cancelLowStat;
     }
+
     public EnumList<Statistic> getCancelChgtStat() {
         return cancelChgtStat;
     }
+
     public void setCancelChgtStat(EnumList<Statistic> _cancelChgtStat) {
         cancelChgtStat = _cancelChgtStat;
     }

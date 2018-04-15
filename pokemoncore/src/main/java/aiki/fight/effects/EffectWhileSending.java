@@ -1,6 +1,6 @@
 package aiki.fight.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.util.annot.RwXml;
 
@@ -15,16 +15,23 @@ public class EffectWhileSending {
 
     public void validate(DataBase _data) {
         if (!multWeight.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (disableWeather) {
             if (!enabledWeather.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         } else {
             if (!enabledWeather.isEmpty()) {
-                if (!_data.getMovesEffectGlobalWeather().containsObj(enabledWeather)) {
-                    throw new DataException();
+                if (!_data.getMovesEffectGlobalWeather().containsObj(
+                        enabledWeather)) {
+                    _data.setError(true);
+                    return;
+
                 }
             }
         }

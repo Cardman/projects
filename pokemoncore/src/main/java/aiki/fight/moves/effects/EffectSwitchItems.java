@@ -1,10 +1,9 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.MoveItemType;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.annot.RwXml;
-
 
 @RwXml
 public final class EffectSwitchItems extends Effect {
@@ -30,18 +29,24 @@ public final class EffectSwitchItems extends Effect {
         }
         if (checkTargetChoice_) {
             if (getTargetChoice() == TargetChoice.LANCEUR) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (moveObject == MoveItemType.REUSE_LAST_OBJECT) {
             return;
         }
-        throw new DataException();
+        _data.setError(true);
+        return;
+
     }
+
     public MoveItemType getMoveObject() {
         return moveObject;
     }
+
     public void setMoveObject(MoveItemType _moveObject) {
         moveObject = _moveObject;
     }

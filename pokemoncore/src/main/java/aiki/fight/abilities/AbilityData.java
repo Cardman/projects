@@ -1,6 +1,6 @@
 package aiki.fight.abilities;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
@@ -68,21 +68,21 @@ public final class AbilityData {
     private String multPower;
     private String multDamage;
     private Rate multStab;
-    private EnumMap<Statistic,Byte> bonusStatRank;
-    private EnumMap<Statistic,Byte> boostStatRankProtected;
-    private EnumMap<Statistic,Byte> boostStatRankEndRound;
-    private EnumMap<Statistic,Rate> multStatAlly;
-    private EnumMap<Statistic,Byte> multStatIfKoFoe;
-    private EnumMap<Statistic,Byte> multStatIfLowStat;
-    private ObjectMap<StatisticCategory,Rate> multStatIfCat;
+    private EnumMap<Statistic, Byte> bonusStatRank;
+    private EnumMap<Statistic, Byte> boostStatRankProtected;
+    private EnumMap<Statistic, Byte> boostStatRankEndRound;
+    private EnumMap<Statistic, Rate> multStatAlly;
+    private EnumMap<Statistic, Byte> multStatIfKoFoe;
+    private EnumMap<Statistic, Byte> multStatIfLowStat;
+    private ObjectMap<StatisticCategory, Rate> multStatIfCat;
 
-    private ObjectMap<StatisticStatus,Byte> multStatIfStatutRank;
+    private ObjectMap<StatisticStatus, Byte> multStatIfStatutRank;
 
-    private ObjectMap<StatisticCategory,Byte> multStatIfDamageCat;
+    private ObjectMap<StatisticCategory, Byte> multStatIfDamageCat;
 
-    private ObjectMap<StatisticType,Byte> multStatIfDamgeType;
+    private ObjectMap<StatisticType, Byte> multStatIfDamgeType;
 
-    private EnumMap<Statistic,String> multStat;
+    private EnumMap<Statistic, String> multStat;
     private boolean inflictingDamageInsteadOfSuffering;
     private Rate multVarBoost;
     private int nbUsedPp;
@@ -102,7 +102,7 @@ public final class AbilityData {
     private Rate maxHpForUsingBerry;
     private boolean mumy;
 
-    private ObjectMap<WeatherType,Rate> healHpByTypeIfWeather;
+    private ObjectMap<WeatherType, Rate> healHpByTypeIfWeather;
 
     private StringMap<StringList> immuMoveTypesByWeather;
 
@@ -117,7 +117,7 @@ public final class AbilityData {
 
     private StringMap<EnumList<Statistic>> immuLowStatisTypes;
 
-    private EnumMap<Statistic,Byte> lowStatFoeHit;
+    private EnumMap<Statistic, Byte> lowStatFoeHit;
 
     private boolean copyMovesTypes;
 
@@ -133,90 +133,135 @@ public final class AbilityData {
 
     public void validate(DataBase _data) {
         if (!maxHpForUsingBerry.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (maxHpForUsingBerry.greaterOrEqualsOne()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!singleStatus.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (multVarBoost == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         StringList events_ = new StringList(singleStatus.events());
         events_.removeObj(DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!events_.isEmpty()) {
             if (!events_.containsAllObj(failStatus.getKeys())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (WeatherType t: healHpByTypeIfWeather.getKeys()) {
-            if (!_data.getMovesEffectGlobalWeather().containsObj(t.getWeather()) && !t.getWeather().isEmpty()) {
-                throw new DataException();
+        for (WeatherType t : healHpByTypeIfWeather.getKeys()) {
+            if (!_data.getMovesEffectGlobalWeather()
+                    .containsObj(t.getWeather()) && !t.getWeather().isEmpty()) {
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getTypes().containsObj(t.getType())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!healHpByTypeIfWeather.getVal(t).isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (healHpByTypeIfWeather.getVal(t).isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (StatisticCategory t: multStatIfCat.getKeys()) {
+        for (StatisticCategory t : multStatIfCat.getKeys()) {
             if (!t.getStatistic().isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getAllCategories().containsObj(t.getCategory())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multStatIfCat.getVal(t).isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (StatisticStatus t: immuLowStatIfStatus) {
+        for (StatisticStatus t : immuLowStatIfStatus) {
             if (!t.getStatistic().isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getStatus().contains(t.getStatus())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (TypesDuo t: breakFoeImmune) {
+        for (TypesDuo t : breakFoeImmune) {
             if (!_data.getTypes().containsObj(t.getDamageType())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getTypes().containsObj(t.getPokemonType())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!_data.getMovesEffectGlobalWeather().containsAllObj(immuWeather)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         StringList keys_ = chgtTypeByWeather.getKeys();
         if (!keys_.isEmpty()) {
             keys_.removeObj(DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getTypes().containsAllObj(chgtTypeByWeather.values())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         keys_ = immuStatus.getKeys();
         if (!keys_.isEmpty()) {
             keys_.removeObj(DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
-            for (StringList k: immuStatus.values()) {
+            for (StringList k : immuStatus.values()) {
                 if (!_data.getStatus().containsAllAsKeys(k)) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
         }
@@ -224,11 +269,15 @@ public final class AbilityData {
         if (!keys_.isEmpty()) {
             keys_.removeObj(DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
-            for (StringList k: immuMoveTypesByWeather.values()) {
+            for (StringList k : immuMoveTypesByWeather.values()) {
                 if (!_data.getTypes().containsAllObj(k)) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
         }
@@ -236,251 +285,384 @@ public final class AbilityData {
         if (!keys_.isEmpty()) {
             keys_.removeObj(DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
-            for (Rate v: healHpByWeather.values()) {
+            for (Rate v : healHpByWeather.values()) {
                 if (v.isZero()) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
         }
         if (!_data.getStatus().containsAllAsKeys(immuStatusBeginRound)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getStatus().containsAllAsKeys(divideStatusRound.getKeys())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Rate v: divideStatusRound.values()) {
+        for (Rate v : divideStatusRound.values()) {
             if (!v.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (v.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!_data.getAbilities().containsAllAsKeys(immuAbility)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getAbilities().containsAllAsKeys(ignAbility)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getMoves().containsAllAsKeys(ignFoeTeamMove)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getMoves().containsAllAsKeys(immuMove)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getTypes().containsAllObj(multDamageFoe.getKeys())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Rate v:multDamageFoe.values()) {
+        for (Rate v : multDamageFoe.values()) {
             if (!v.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (v.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!multDamageCh.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!multAllyDamage.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!multSufferedDamageSuperEff.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!multEvtRateCh.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!multEvtRateSecEffectOwner.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(immuLowStat)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getStatus().containsAllAsKeys(forwardStatus.getKeys())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getStatus().containsAllAsKeys(forwardStatus.values())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!forwardStatus.isEmpty()) {
-            for (String k: failStatus.getKeys()) {
+            for (String k : failStatus.getKeys()) {
                 boolean appear_ = false;
-                for (String v: forwardStatus.values()) {
+                for (String v : forwardStatus.values()) {
                     if (StringList.quickEq(k, v)) {
                         appear_ = true;
                         break;
                     }
                 }
                 if (!appear_) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
-//            if (!forwardStatus.values().containsAllObj(failStatus.getKeys())) {
-//                throw new DataException();
-//            }
+            // if (!forwardStatus.values().containsAllObj(failStatus.getKeys()))
+            // {
+            // _data.setError(true);
+            return;
+
+            // }
         }
         if (!_data.getAllCategories().containsAllObj(increasedPrio.getKeys())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (EntryCust<String, Short> e: increasedPrio.entryList()) {
+        for (EntryCust<String, Short> e : increasedPrio.entryList()) {
             e.getValue().shortValue();
         }
         if (!_data.getTypes().containsAllObj(increasedPrioTypes.getKeys())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (EntryCust<String, Short> e: increasedPrioTypes.entryList()) {
+        for (EntryCust<String, Short> e : increasedPrioTypes.entryList()) {
             e.getValue().shortValue();
         }
         if (!typeForMoves.isEmpty()) {
             if (!_data.getTypes().containsObj(typeForMoves)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(multStat.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                multStat.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(multStatAlly.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                multStatAlly.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        for (Rate v: multStatAlly.values()) {
+        for (Rate v : multStatAlly.values()) {
             if (!v.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (v.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(maxStatisticsIfCh)) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                maxStatisticsIfCh)) {
+            _data.setError(true);
+            return;
+
         }
         if (!multStab.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!healedHpRateBySwitch.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (nbUsedPp < 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(bonusStatRank.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                bonusStatRank.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(boostStatRankProtected.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                boostStatRankProtected.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(boostStatRankEndRound.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                boostStatRankEndRound.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(multStatIfKoFoe.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                multStatIfKoFoe.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(multStatIfLowStat.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                multStatIfLowStat.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        for (EntryCust<Statistic, Byte> e: bonusStatRank.entryList()) {
+        for (EntryCust<Statistic, Byte> e : bonusStatRank.entryList()) {
             e.getValue().byteValue();
         }
-        for (EntryCust<Statistic, Byte> e: boostStatRankProtected.entryList()) {
+        for (EntryCust<Statistic, Byte> e : boostStatRankProtected.entryList()) {
             e.getValue().byteValue();
         }
-        for (EntryCust<Statistic, Byte> e: boostStatRankEndRound.entryList()) {
+        for (EntryCust<Statistic, Byte> e : boostStatRankEndRound.entryList()) {
             e.getValue().byteValue();
         }
-        for (EntryCust<Statistic, Byte> e: multStatIfKoFoe.entryList()) {
+        for (EntryCust<Statistic, Byte> e : multStatIfKoFoe.entryList()) {
             e.getValue().byteValue();
         }
-        for (EntryCust<Statistic, Byte> e: multStatIfLowStat.entryList()) {
+        for (EntryCust<Statistic, Byte> e : multStatIfLowStat.entryList()) {
             e.getValue().byteValue();
         }
-        for (StatisticStatus k:multStatIfStatutRank.getKeys()) {
+        for (StatisticStatus k : multStatIfStatutRank.getKeys()) {
             if (!k.getStatistic().isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getStatus().contains(k.getStatus())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (StatisticCategory k:multStatIfDamageCat.getKeys()) {
+        for (StatisticCategory k : multStatIfDamageCat.getKeys()) {
             if (!k.getStatistic().isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getCategories().containsObj(k.getCategory())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (StatisticType k:multStatIfDamgeType.getKeys()) {
+        for (StatisticType k : multStatIfDamgeType.getKeys()) {
             if (!k.getStatistic().isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getTypes().containsObj(k.getType())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!recoilDamageFoe.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (decreaseNecStepsHatch < 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (String k: changingBoostTypes.getKeys()) {
+        for (String k : changingBoostTypes.getKeys()) {
             if (!_data.getTypes().containsObj(k)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             TypeDamageBoost type_ = changingBoostTypes.getVal(k);
             if (!_data.getTypes().containsObj(type_.getType())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!type_.getBoost().greaterOrEqualsOne()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!_data.getMoves().containsAllAsKeys(immuAllyFromMoves)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (String k: immuStatusTypes.getKeys()) {
+        for (String k : immuStatusTypes.getKeys()) {
             if (!_data.getTypes().containsObj(k)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getStatus().containsAllAsKeys(immuStatusTypes.getVal(k))) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (EntryCust<String, EnumList<Statistic>> e: immuLowStatisTypes.entryList()) {
+        for (EntryCust<String, EnumList<Statistic>> e : immuLowStatisTypes
+                .entryList()) {
             if (!_data.getTypes().containsObj(e.getKey())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!Statistic.getAllStatistics().containsAllObj(e.getValue())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (Statistic s: lowStatFoeHit.getKeys()) {
+        for (Statistic s : lowStatFoeHit.getKeys()) {
             if (!s.isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (lowStatFoeHit.getVal(s) >= 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        if (!_data.getTypes().containsAllObj(multPowerMovesTypesGlobal.getKeys())) {
-            throw new DataException();
+        if (!_data.getTypes().containsAllObj(
+                multPowerMovesTypesGlobal.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        for (Rate r: multPowerMovesTypesGlobal.values()) {
+        for (Rate r : multPowerMovesTypesGlobal.values()) {
             if (!r.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!healHpWhileUsingBerry.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
             if (!(effectEndRound.first() instanceof EffectEndRoundIndividual)) {
                 if (!(effectEndRound.first() instanceof EffectEndRoundTeam)) {
                     if (!(effectEndRound.first() instanceof EffectEndRoundMultiRelation)) {
-                        throw new DataException();
+                        _data.setError(true);
+                        return;
+
                     }
                 }
             }
@@ -610,7 +792,8 @@ public final class AbilityData {
         return immuLowStatIfStatus;
     }
 
-    public void setImmuLowStatIfStatus(EqList<StatisticStatus> _immuLowStatIfStatus) {
+    public void setImmuLowStatIfStatus(
+            EqList<StatisticStatus> _immuLowStatIfStatus) {
         immuLowStatIfStatus = _immuLowStatIfStatus;
     }
 
@@ -790,91 +973,97 @@ public final class AbilityData {
         multStab = _multStab;
     }
 
-    public EnumMap<Statistic,Byte> getBonusStatRank() {
+    public EnumMap<Statistic, Byte> getBonusStatRank() {
         return bonusStatRank;
     }
 
-    public void setBonusStatRank(EnumMap<Statistic,Byte> _bonusStatRank) {
+    public void setBonusStatRank(EnumMap<Statistic, Byte> _bonusStatRank) {
         bonusStatRank = _bonusStatRank;
     }
 
-    public EnumMap<Statistic,Byte> getBoostStatRankProtected() {
+    public EnumMap<Statistic, Byte> getBoostStatRankProtected() {
         return boostStatRankProtected;
     }
 
-    public void setBoostStatRankProtected(EnumMap<Statistic,Byte> _boostStatRankProtected) {
+    public void setBoostStatRankProtected(
+            EnumMap<Statistic, Byte> _boostStatRankProtected) {
         boostStatRankProtected = _boostStatRankProtected;
     }
 
-    public EnumMap<Statistic,Byte> getBoostStatRankEndRound() {
+    public EnumMap<Statistic, Byte> getBoostStatRankEndRound() {
         return boostStatRankEndRound;
     }
 
-    public void setBoostStatRankEndRound(EnumMap<Statistic,Byte> _boostStatRankEndRound) {
+    public void setBoostStatRankEndRound(
+            EnumMap<Statistic, Byte> _boostStatRankEndRound) {
         boostStatRankEndRound = _boostStatRankEndRound;
     }
 
-    public EnumMap<Statistic,Rate> getMultStatAlly() {
+    public EnumMap<Statistic, Rate> getMultStatAlly() {
         return multStatAlly;
     }
 
-    public void setMultStatAlly(EnumMap<Statistic,Rate> _multStat) {
+    public void setMultStatAlly(EnumMap<Statistic, Rate> _multStat) {
         multStatAlly = _multStat;
     }
 
-    public EnumMap<Statistic,Byte> getMultStatIfKoFoe() {
+    public EnumMap<Statistic, Byte> getMultStatIfKoFoe() {
         return multStatIfKoFoe;
     }
 
-    public void setMultStatIfKoFoe(EnumMap<Statistic,Byte> _multStatIfKoFoe) {
+    public void setMultStatIfKoFoe(EnumMap<Statistic, Byte> _multStatIfKoFoe) {
         multStatIfKoFoe = _multStatIfKoFoe;
     }
 
-    public EnumMap<Statistic,Byte> getMultStatIfLowStat() {
+    public EnumMap<Statistic, Byte> getMultStatIfLowStat() {
         return multStatIfLowStat;
     }
 
-    public void setMultStatIfLowStat(EnumMap<Statistic,Byte> _multStatIfLowStat) {
+    public void setMultStatIfLowStat(EnumMap<Statistic, Byte> _multStatIfLowStat) {
         multStatIfLowStat = _multStatIfLowStat;
     }
 
-    public ObjectMap<StatisticCategory,Rate> getMultStatIfCat() {
+    public ObjectMap<StatisticCategory, Rate> getMultStatIfCat() {
         return multStatIfCat;
     }
 
-    public void setMultStatIfCat(ObjectMap<StatisticCategory,Rate> _multStatIfCat) {
+    public void setMultStatIfCat(
+            ObjectMap<StatisticCategory, Rate> _multStatIfCat) {
         multStatIfCat = _multStatIfCat;
     }
 
-    public ObjectMap<StatisticStatus,Byte> getMultStatIfStatutRank() {
+    public ObjectMap<StatisticStatus, Byte> getMultStatIfStatutRank() {
         return multStatIfStatutRank;
     }
 
-    public void setMultStatIfStatutRank(ObjectMap<StatisticStatus,Byte> _multStatIfStatutRank) {
+    public void setMultStatIfStatutRank(
+            ObjectMap<StatisticStatus, Byte> _multStatIfStatutRank) {
         multStatIfStatutRank = _multStatIfStatutRank;
     }
 
-    public ObjectMap<StatisticCategory,Byte> getMultStatIfDamageCat() {
+    public ObjectMap<StatisticCategory, Byte> getMultStatIfDamageCat() {
         return multStatIfDamageCat;
     }
 
-    public void setMultStatIfDamageCat(ObjectMap<StatisticCategory,Byte> _multStatIfDamageCat) {
+    public void setMultStatIfDamageCat(
+            ObjectMap<StatisticCategory, Byte> _multStatIfDamageCat) {
         multStatIfDamageCat = _multStatIfDamageCat;
     }
 
-    public ObjectMap<StatisticType,Byte> getMultStatIfDamgeType() {
+    public ObjectMap<StatisticType, Byte> getMultStatIfDamgeType() {
         return multStatIfDamgeType;
     }
 
-    public void setMultStatIfDamgeType(ObjectMap<StatisticType,Byte> _multStatIfDamgeType) {
+    public void setMultStatIfDamgeType(
+            ObjectMap<StatisticType, Byte> _multStatIfDamgeType) {
         multStatIfDamgeType = _multStatIfDamgeType;
     }
 
-    public EnumMap<Statistic,String> getMultStat() {
+    public EnumMap<Statistic, String> getMultStat() {
         return multStat;
     }
 
-    public void setMultStat(EnumMap<Statistic,String> _multStat) {
+    public void setMultStat(EnumMap<Statistic, String> _multStat) {
         multStat = _multStat;
     }
 
@@ -882,7 +1071,8 @@ public final class AbilityData {
         return inflictingDamageInsteadOfSuffering;
     }
 
-    public void setInflictingDamageInsteadOfSuffering(boolean _inflictingDamageInsteadOfSuffering) {
+    public void setInflictingDamageInsteadOfSuffering(
+            boolean _inflictingDamageInsteadOfSuffering) {
         inflictingDamageInsteadOfSuffering = _inflictingDamageInsteadOfSuffering;
     }
 
@@ -1022,11 +1212,12 @@ public final class AbilityData {
         mumy = _mumy;
     }
 
-    public ObjectMap<WeatherType,Rate> getHealHpByTypeIfWeather() {
+    public ObjectMap<WeatherType, Rate> getHealHpByTypeIfWeather() {
         return healHpByTypeIfWeather;
     }
 
-    public void setHealHpByTypeIfWeather(ObjectMap<WeatherType,Rate> _healHpByTypeIfWeather) {
+    public void setHealHpByTypeIfWeather(
+            ObjectMap<WeatherType, Rate> _healHpByTypeIfWeather) {
         healHpByTypeIfWeather = _healHpByTypeIfWeather;
     }
 
@@ -1034,7 +1225,8 @@ public final class AbilityData {
         return immuMoveTypesByWeather;
     }
 
-    public void setImmuMoveTypesByWeather(StringMap<StringList> _immuMoveTypesByWeather) {
+    public void setImmuMoveTypesByWeather(
+            StringMap<StringList> _immuMoveTypesByWeather) {
         immuMoveTypesByWeather = _immuMoveTypesByWeather;
     }
 
@@ -1058,7 +1250,8 @@ public final class AbilityData {
         return changingBoostTypes;
     }
 
-    public void setChangingBoostTypes(StringMap<TypeDamageBoost> _changingBoostTypes) {
+    public void setChangingBoostTypes(
+            StringMap<TypeDamageBoost> _changingBoostTypes) {
         changingBoostTypes = _changingBoostTypes;
     }
 
@@ -1082,15 +1275,16 @@ public final class AbilityData {
         return immuLowStatisTypes;
     }
 
-    public void setImmuLowStatisTypes(StringMap<EnumList<Statistic>> _immuLowStatisTypes) {
+    public void setImmuLowStatisTypes(
+            StringMap<EnumList<Statistic>> _immuLowStatisTypes) {
         immuLowStatisTypes = _immuLowStatisTypes;
     }
 
-    public EnumMap<Statistic,Byte> getLowStatFoeHit() {
+    public EnumMap<Statistic, Byte> getLowStatFoeHit() {
         return lowStatFoeHit;
     }
 
-    public void setLowStatFoeHit(EnumMap<Statistic,Byte> _lowStatFoeHit) {
+    public void setLowStatFoeHit(EnumMap<Statistic, Byte> _lowStatFoeHit) {
         lowStatFoeHit = _lowStatFoeHit;
     }
 
@@ -1106,7 +1300,8 @@ public final class AbilityData {
         return multPowerMovesTypesGlobal;
     }
 
-    public void setMultPowerMovesTypesGlobal(StringMap<Rate> _multPowerMovesTypesGlobal) {
+    public void setMultPowerMovesTypesGlobal(
+            StringMap<Rate> _multPowerMovesTypesGlobal) {
         multPowerMovesTypesGlobal = _multPowerMovesTypesGlobal;
     }
 
@@ -1122,7 +1317,8 @@ public final class AbilityData {
         return reverseEffectsPowerMovesTypesGlobal;
     }
 
-    public void setReverseEffectsPowerMovesTypesGlobal(boolean _reverseEffectsPowerMovesTypesGlobal) {
+    public void setReverseEffectsPowerMovesTypesGlobal(
+            boolean _reverseEffectsPowerMovesTypesGlobal) {
         reverseEffectsPowerMovesTypesGlobal = _reverseEffectsPowerMovesTypesGlobal;
     }
 

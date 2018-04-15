@@ -1,11 +1,11 @@
 package aiki.comparators;
 import java.util.Comparator;
 
+import aiki.util.SortingEgg;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
-import aiki.util.SortingEgg;
 
 public final class ComparatorEgg implements Comparator<SortingEgg> {
 

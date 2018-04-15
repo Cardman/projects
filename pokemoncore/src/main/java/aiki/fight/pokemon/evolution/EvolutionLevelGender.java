@@ -1,23 +1,26 @@
 package aiki.fight.pokemon.evolution;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.enums.Gender;
 import code.util.annot.RwXml;
 
-
 @RwXml
-public final class EvolutionLevelGender extends EvolutionLevel implements GenderConstraints {
+public final class EvolutionLevelGender extends EvolutionLevel implements
+        GenderConstraints {
 
     private Gender gender;
 
     @Override
-    public void validate(DataBase _dataBase,PokemonData _fPk) {
+    public void validate(DataBase _dataBase, PokemonData _fPk) {
         super.validate(_dataBase, _fPk);
         if (!_fPk.getGenderRep().getPossibleGenders().containsObj(gender)) {
-            throw new DataException();
+            _dataBase.setError(true);
+            return;
+
         }
     }
+
     @Override
     public Gender getGender() {
         return gender;

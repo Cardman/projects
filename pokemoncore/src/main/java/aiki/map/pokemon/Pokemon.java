@@ -1,6 +1,6 @@
 package aiki.map.pokemon;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.pokemon.enums.Gender;
 import code.util.annot.RwXml;
 
@@ -13,6 +13,7 @@ public abstract class Pokemon {
     public boolean hasJustBeenCreated() {
         return getName().isEmpty() && getAbility().isEmpty();
     }
+
     public void validate(DataBase _data, boolean _ref) {
         if (!_ref) {
             if (hasJustBeenCreated()) {
@@ -20,21 +21,31 @@ public abstract class Pokemon {
             }
         }
         if (getLevel() < _data.getMinLevel()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        //level >= 1
+        // level >= 1
         if (getLevel() > _data.getMaxLevel()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getPokedex().contains(getName())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getAbilities().contains(getAbility())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!getItem().isEmpty()) {
             if (!_data.getItems().contains(getItem())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
     }

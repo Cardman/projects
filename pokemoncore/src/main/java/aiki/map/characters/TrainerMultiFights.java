@@ -1,23 +1,26 @@
 package aiki.map.characters;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.pokemon.PokemonTeam;
 import code.util.CustList;
 import code.util.annot.RwXml;
 
 @RwXml
-public final class TrainerMultiFights extends Trainer implements CharacterInRoadCave, Fightable {
+public final class TrainerMultiFights extends Trainer implements
+        CharacterInRoadCave, Fightable {
 
     private CustList<PokemonTeam> teamsRewards;
 
     @Override
     public void validate(DataBase _data) {
-        validate();
-        for (PokemonTeam p: teamsRewards) {
+        super.validate(_data);
+        for (PokemonTeam p : teamsRewards) {
             p.validate(_data);
         }
         if (teamsRewards.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -25,7 +28,7 @@ public final class TrainerMultiFights extends Trainer implements CharacterInRoad
     public void validateForEditing(DataBase _data) {
         super.validateForEditing(_data);
         CustList<PokemonTeam> valid_ = new CustList<PokemonTeam>();
-        for (PokemonTeam p: teamsRewards) {
+        for (PokemonTeam p : teamsRewards) {
             valid_.add(p);
         }
         teamsRewards.clear();

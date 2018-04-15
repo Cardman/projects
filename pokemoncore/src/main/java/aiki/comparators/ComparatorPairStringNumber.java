@@ -1,8 +1,8 @@
 package aiki.comparators;
 import java.util.Comparator;
 
-import code.util.CustList;
 import aiki.fight.pokemon.TrainerPlaceNames;
+import code.util.CustList;
 
 public final class ComparatorPairStringNumber implements Comparator<TrainerPlaceNames> {
 

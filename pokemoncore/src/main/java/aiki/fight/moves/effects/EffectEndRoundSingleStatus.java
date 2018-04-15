@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.StatusType;
 import code.maths.Rate;
@@ -18,26 +18,36 @@ public final class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (EntryCust<String, Rate> e: multDamageStatus.entryList()) {
+        for (EntryCust<String, Rate> e : multDamageStatus.entryList()) {
             if (!_data.getStatus().contains(e.getKey())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             e.getValue().isZero();
         }
         if (!getInflictedRateHpTarget().isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (multDamageStatus.isEmpty()) {
             if (getInflictedRateHpTarget().isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (!getInflictedRateHpTarget().isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -58,7 +68,8 @@ public final class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
         return incrementingDamageByRounds;
     }
 
-    public void setIncrementingDamageByRounds(boolean _incrementingDamageByRounds) {
+    public void setIncrementingDamageByRounds(
+            boolean _incrementingDamageByRounds) {
         incrementingDamageByRounds = _incrementingDamageByRounds;
     }
 }

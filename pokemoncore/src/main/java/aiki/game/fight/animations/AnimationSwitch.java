@@ -1,8 +1,8 @@
 package aiki.game.fight.animations;
-import code.maths.LgInt;
-import code.util.Numbers;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TargetCoords;
+import code.maths.LgInt;
+import code.util.Numbers;
 
 public class AnimationSwitch implements AnimationInt {
 

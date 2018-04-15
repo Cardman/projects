@@ -1,9 +1,9 @@
 package aiki.comparators;
 import java.util.Comparator;
 
+import aiki.DataBase;
 import code.util.EnumMap;
 import code.util.pagination.SelectedBoolean;
-import aiki.DataBase;
 
 public final class ComparatorTrStringBoolean implements Comparator<SelectedBoolean> {
 

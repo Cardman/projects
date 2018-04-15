@@ -1,9 +1,9 @@
 package aiki.comparators;
 import java.util.Comparator;
 
-import code.util.EnumMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
+import code.util.EnumMap;
 
 public final class ComparatorTrStringStatistic implements Comparator<Statistic> {
 

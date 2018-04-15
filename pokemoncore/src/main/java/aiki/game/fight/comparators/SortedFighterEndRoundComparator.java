@@ -1,9 +1,6 @@
 package aiki.game.fight.comparators;
 import java.util.Comparator;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.comparators.ComparatorBoolean;
 import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
@@ -12,6 +9,9 @@ import aiki.game.fight.Fight;
 import aiki.game.fight.FightFacade;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TeamPosition;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.comparators.ComparatorBoolean;
 
 public final class SortedFighterEndRoundComparator implements Comparator<TeamPosition> {
 

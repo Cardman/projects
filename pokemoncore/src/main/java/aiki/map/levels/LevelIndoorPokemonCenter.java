@@ -1,6 +1,6 @@
 package aiki.map.levels;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
@@ -12,38 +12,46 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public final class LevelIndoorPokemonCenter extends Level{
+public final class LevelIndoorPokemonCenter extends Level {
 
-    private ObjectMap<Point,Person> gerants;
+    private ObjectMap<Point, Person> gerants;
 
     private Point storageCoords;
 
     @Override
-    public void validate(DataBase _data,LevelArea _level) {
+    public void validate(DataBase _data, LevelArea _level) {
         super.validate(_data, _level);
         EqList<Point> keys_ = new EqList<Point>();
-        if (!_level.isValid(storageCoords,true)) {
-            throw new DataException();
+        if (!_level.isValid(storageCoords, true)) {
+            _data.setError(true);
+            return;
+
         }
         keys_.add(storageCoords);
-        for (EntryCust<Point,Person> e: gerants.entryList()) {
-            if (!_level.isValid(e.getKey(),true)) {
-                throw new DataException();
+        for (EntryCust<Point, Person> e : gerants.entryList()) {
+            if (!_level.isValid(e.getKey(), true)) {
+                _data.setError(true);
+                return;
+
             }
             if (!(e.getValue() instanceof GerantPokemon)) {
                 if (!(e.getValue() instanceof Seller)) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
             if (e.getValue() instanceof Seller) {
-                ((Seller)e.getValue()).validate(_data);
+                ((Seller) e.getValue()).validate(_data);
             }
             keys_.add(e.getKey());
         }
         int size_ = keys_.size();
         keys_.removeDuplicates();
         if (size_ != keys_.size()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -74,7 +82,7 @@ public final class LevelIndoorPokemonCenter extends Level{
         if (!super.hasValidImage(_data)) {
             return false;
         }
-        for (Person p: gerants.values()) {
+        for (Person p : gerants.values()) {
             if (!p.hasValidImage(_data)) {
                 return false;
             }
@@ -84,26 +92,27 @@ public final class LevelIndoorPokemonCenter extends Level{
 
     @Override
     public void clearElements(Point _point) {
-        gerants.removeKey( _point);
-        if (Point.eq(storageCoords,_point)) {
+        gerants.removeKey(_point);
+        if (Point.eq(storageCoords, _point)) {
             storageCoords = new Point();
         }
     }
 
     @Override
-    public void translateByLine(short _y,short _dir) {
+    public void translateByLine(short _y, short _dir) {
         super.translateByLine(_y, _dir);
         Level.translatePersonLineData(gerants, _y, _dir);
         if (storageCoords.gety() > _y) {
-            storageCoords.sety((short) (storageCoords.gety()+_dir));
+            storageCoords.sety((short) (storageCoords.gety() + _dir));
         }
     }
+
     @Override
-    public void translateByColumn(short _x,short _dir) {
+    public void translateByColumn(short _x, short _dir) {
         super.translateByColumn(_x, _dir);
         Level.translatePersonColumnData(gerants, _x, _dir);
         if (storageCoords.getx() > _x) {
-            storageCoords.setx((short) (storageCoords.getx()+_dir));
+            storageCoords.setx((short) (storageCoords.getx() + _dir));
         }
     }
 
@@ -119,11 +128,12 @@ public final class LevelIndoorPokemonCenter extends Level{
             gerants.move(_id, _target);
         }
     }
-    public ObjectMap<Point,Person> getGerants() {
+
+    public ObjectMap<Point, Person> getGerants() {
         return gerants;
     }
 
-    public void setGerants(ObjectMap<Point,Person> _gerants) {
+    public void setGerants(ObjectMap<Point, Person> _gerants) {
         gerants = _gerants;
     }
 

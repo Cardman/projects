@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.StringList;
 import code.util.annot.RwXml;
 
@@ -13,10 +13,14 @@ public final class EffectProtectFromTypes extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (immuAgainstTypes.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getTypes().containsAllObj(immuAgainstTypes)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

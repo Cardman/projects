@@ -1,13 +1,13 @@
 package aiki.game.fight.comparators;
 import java.util.Comparator;
 
-import code.util.CustList;
-import code.util.Numbers;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.actions.AbstractAction;
 import aiki.game.fight.actions.ActionHeal;
+import code.util.CustList;
+import code.util.Numbers;
 
 /** Comparator without case eq*/
 public final class SortedFighterHealActsComparator implements

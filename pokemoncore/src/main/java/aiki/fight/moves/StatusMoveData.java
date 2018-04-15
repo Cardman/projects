@@ -1,6 +1,6 @@
 package aiki.fight.moves;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectBatonPass;
 import aiki.fight.moves.effects.EffectCopyMove;
@@ -18,7 +18,6 @@ import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.annot.RwXml;
-
 
 @RwXml
 public final class StatusMoveData extends MoveData {
@@ -38,7 +37,7 @@ public final class StatusMoveData extends MoveData {
         if (counterableMove) {
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 boolean switchin_ = true;
-                for (Effect e: getEffects().mid(indexOfPrimaryEffect())) {
+                for (Effect e : getEffects().mid(indexOfPrimaryEffect())) {
                     if (e instanceof EffectTeamWhileSendFoe) {
                         continue;
                     }
@@ -46,19 +45,20 @@ public final class StatusMoveData extends MoveData {
                         continue;
                     }
                     if (e instanceof EffectTeam) {
-                        if (((EffectTeam)e).getForbiddingHealing()) {
+                        if (((EffectTeam) e).getForbiddingHealing()) {
                             continue;
                         }
-                        if (!((EffectTeam)e).getForbiddenBoost().isEmpty()) {
+                        if (!((EffectTeam) e).getForbiddenBoost().isEmpty()) {
                             continue;
                         }
-                        if (!((EffectTeam)e).getUnusableMoves().isEmpty()) {
+                        if (!((EffectTeam) e).getUnusableMoves().isEmpty()) {
                             continue;
                         }
-                        if (!((EffectTeam)e).getMultStatisticFoe().isEmpty()) {
+                        if (!((EffectTeam) e).getMultStatisticFoe().isEmpty()) {
                             continue;
                         }
-                        if (!((EffectTeam)e).getDisableFoeTeamEffects().isEmpty()) {
+                        if (!((EffectTeam) e).getDisableFoeTeamEffects()
+                                .isEmpty()) {
                             continue;
                         }
                     }
@@ -67,20 +67,24 @@ public final class StatusMoveData extends MoveData {
                 if (switchin_) {
                     return;
                 }
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (thievableMove) {
             if (getTargetChoice() != TargetChoice.LANCEUR) {
                 if (getTargetChoice() != TargetChoice.ALLIES) {
                     if (getTargetChoice() != TargetChoice.TOUS_ADV) {
-                        throw new DataException();
+                        _data.setError(true);
+                        return;
+
                     }
                 }
             }
         }
         boolean invoke_ = false;
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectInvoke) {
                 invoke_ = true;
                 break;
@@ -90,9 +94,11 @@ public final class StatusMoveData extends MoveData {
             if (nbEffets() == 1) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectSwitchPosition) {
                 invoke_ = true;
                 break;
@@ -102,9 +108,11 @@ public final class StatusMoveData extends MoveData {
             if (nbEffets() == 1) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectOrder) {
                 invoke_ = true;
                 break;
@@ -114,9 +122,11 @@ public final class StatusMoveData extends MoveData {
             if (nbEffets() == 1) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectProtection) {
                 invoke_ = true;
                 break;
@@ -126,9 +136,11 @@ public final class StatusMoveData extends MoveData {
             if (nbEffets() == 1) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectBatonPass) {
                 invoke_ = true;
                 break;
@@ -138,9 +150,11 @@ public final class StatusMoveData extends MoveData {
             if (nbEffets() == 1) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectCopyMove) {
                 invoke_ = true;
                 break;
@@ -150,9 +164,11 @@ public final class StatusMoveData extends MoveData {
             if (nbEffets() == 1) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectSwitchPointView) {
                 invoke_ = true;
                 break;
@@ -162,10 +178,12 @@ public final class StatusMoveData extends MoveData {
             if (nbEffets() == 1) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         boolean endRound_ = false;
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectGlobal) {
                 invoke_ = true;
             }
@@ -178,46 +196,71 @@ public final class StatusMoveData extends MoveData {
                 if (nbEffets() == 2) {
                     return;
                 }
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (nbEffets() == 1) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectSwitchPointView) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectOrder) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectCopyMove) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectSwitchPosition) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectGlobal) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectInvoke) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectProtection) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectBatonPass) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectDamage) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectDamageRate) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
     }
+
     @Override
     public boolean canBoostAllies() {
         if (getTargetChoice() == TargetChoice.ALLIES) {
@@ -228,19 +271,24 @@ public final class StatusMoveData extends MoveData {
         }
         return thievableMove;
     }
+
     @Override
     public String getCategory() {
         return DataBase.AUTRE;
     }
+
     public boolean getThievableMove() {
         return thievableMove;
     }
+
     public void setThievableMove(boolean _thievableMove) {
         thievableMove = _thievableMove;
     }
+
     public boolean getCounterableMove() {
         return counterableMove;
     }
+
     public void setCounterableMove(boolean _counterableMove) {
         counterableMove = _counterableMove;
     }

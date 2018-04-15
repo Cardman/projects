@@ -1,6 +1,6 @@
 package aiki.map.places;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelLeague;
@@ -26,46 +26,65 @@ public final class League extends Place {
     private Point begin;
 
     @Override
-    public void validate(DataBase _data,PlaceArea _placeArea) {
+    public void validate(DataBase _data, PlaceArea _placeArea) {
         if (name == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (rooms.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_placeArea.getLevel(CustList.FIRST_INDEX).isValid(begin, true)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        rooms.first().validate(_data, _placeArea.getLevel(CustList.FIRST_INDEX));
+        rooms.first()
+                .validate(_data, _placeArea.getLevel(CustList.FIRST_INDEX));
         if (!rooms.first().isEmpty(begin)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         int nbRooms_ = rooms.size();
-        for (byte i=CustList.SECOND_INDEX;i<nbRooms_;i++) {
+        for (byte i = CustList.SECOND_INDEX; i < nbRooms_; i++) {
             rooms.get(i).validate(_data, _placeArea.getLevel(i));
-            Point next_ = rooms.get(i-1).getNextLevelTarget();
+            Point next_ = rooms.get(i - 1).getNextLevelTarget();
             if (!rooms.get(i).isEmpty(next_)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_placeArea.getLevel(i).isValid(next_, true)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (_data.getLink(fileName).length == 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
     @Override
     public void validateForEditing(DataBase _data) {
         if (rooms.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (LevelLeague l: rooms) {
+        for (LevelLeague l : rooms) {
             l.validateForEditing(_data);
         }
         if (_data.getLink(fileName).length == 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -83,9 +102,10 @@ public final class League extends Place {
         LevelLeague level_ = rooms.get(_index);
         if (_index > CustList.FIRST_INDEX) {
             LevelLeague previousLevel_ = rooms.get(_index - 1);
-            previousLevel_.getNextLevelTarget().affect(level_.getNextLevelTarget());
+            previousLevel_.getNextLevelTarget().affect(
+                    level_.getNextLevelTarget());
             rooms.removeAt(_index);
-        } else if (rooms.size() > CustList.SECOND_INDEX){
+        } else if (rooms.size() > CustList.SECOND_INDEX) {
             LevelLeague nextLevel_ = rooms.get(CustList.SECOND_INDEX);
             if (nextLevel_.isEmptyForAdding(begin)) {
                 rooms.removeAt(_index);
@@ -101,9 +121,9 @@ public final class League extends Place {
     }
 
     @Override
-    public NumberMap<Byte,Level> getLevelsMap() {
-        NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
-        for (LevelLeague l: rooms) {
+    public NumberMap<Byte, Level> getLevelsMap() {
+        NumberMap<Byte, Level> levels_ = new NumberMap<Byte, Level>();
+        for (LevelLeague l : rooms) {
             levels_.put((byte) levels_.size(), l);
         }
         return levels_;
@@ -112,7 +132,7 @@ public final class League extends Place {
     @Override
     public CustList<Level> getLevelsList() {
         CustList<Level> levels_ = new CustList<Level>();
-        for (LevelLeague l: rooms) {
+        for (LevelLeague l : rooms) {
             levels_.add(l);
         }
         return levels_;

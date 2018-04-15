@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.EnumList;
@@ -10,31 +10,36 @@ import code.util.annot.RwXml;
 @RwXml
 public final class EffectCommonStatistics extends Effect {
 
-    private EnumMap<Statistic,String> commonValue;
+    private EnumMap<Statistic, String> commonValue;
 
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
         if (commonValue.contains(Statistic.HP)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         EnumList<Statistic> keys_ = commonValue.getKeys();
         keys_.removeObj(Statistic.PV_RESTANTS);
         if (!Statistic.getStatisticsWithBase().containsAllObj(keys_)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
-    public EnumMap<Statistic,String> getCommonValue() {
+    public EnumMap<Statistic, String> getCommonValue() {
         return commonValue;
     }
 
-    public void setCommonValue(EnumMap<Statistic,String> _commonValue) {
+    public void setCommonValue(EnumMap<Statistic, String> _commonValue) {
         commonValue = _commonValue;
     }
-
 
 }

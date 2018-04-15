@@ -1,4 +1,11 @@
 package aiki.facade;
+
+import aiki.DataBase;
+import aiki.comparators.ComparatorItem;
+import aiki.fight.items.Item;
+import aiki.game.player.Inventory;
+import aiki.map.pokemon.CriteriaForSearchingItem;
+import aiki.util.SortingItem;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.EqList;
@@ -10,14 +17,9 @@ import code.util.ints.Listable;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.FieldCustComparator;
 import code.util.pagination.Pagination;
-import aiki.DataBase;
-import aiki.comparators.ComparatorItem;
-import aiki.fight.items.Item;
-import aiki.game.player.Inventory;
-import aiki.map.pokemon.CriteriaForSearchingItem;
-import aiki.util.SortingItem;
 
-public final class PaginationItem extends Pagination<SortingItem, String, CriteriaForSearchingItem> {
+public final class PaginationItem extends
+        Pagination<SortingItem, String, CriteriaForSearchingItem> {
 
     private FieldComparator<String> cmpName = new FieldComparator<String>();
 
@@ -35,7 +37,8 @@ public final class PaginationItem extends Pagination<SortingItem, String, Criter
 
     private final int nbComparators = 4;
 
-    private TreeMap<SortingItem, String> items = new TreeMap<SortingItem, String>(new ComparatorItem());
+    private TreeMap<SortingItem, String> items = new TreeMap<SortingItem, String>(
+            new ComparatorItem());
 
     private EqList<SortingItem> rendered = new EqList<SortingItem>();
 
@@ -49,15 +52,17 @@ public final class PaginationItem extends Pagination<SortingItem, String, Criter
 
     public void setTranslation(DataBase _data, String _language) {
         translatedItem = _data.getTranslatedItems().getVal(_language);
-        translatedDescription = _data.getTranslatedClassesDescriptions().getVal(_language);
+        translatedDescription = _data.getTranslatedClassesDescriptions()
+                .getVal(_language);
     }
 
-    public void search(Listable<String> _list,DataBase _data) {
+    public void search(Listable<String> _list, DataBase _data) {
         items.clear();
         int len_ = _list.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             Item i_ = _data.getItem(_list.get(i));
-            String description_ = translatedDescription.getVal(i_.getItemType());
+            String description_ = translatedDescription
+                    .getVal(i_.getItemType());
             if (!getCriteria().matchPrice(i_.getPrice())) {
                 continue;
             }
@@ -85,7 +90,7 @@ public final class PaginationItem extends Pagination<SortingItem, String, Criter
         search(new StringList(items.values()));
     }
 
-//    @Override
+    // @Override
     protected void search(Listable<String> _items) {
         if (!_items.isEmpty()) {
             setNumberPage(CustList.FIRST_INDEX);
@@ -133,36 +138,40 @@ public final class PaginationItem extends Pagination<SortingItem, String, Criter
 
     @Override
     protected void sort() {
-//        TreeMap<SortingItem, String> items_ = new TreeMap<new>(new Comparator<SortingItem>() {
-//            @Override
-//            public int compare(SortingItem _o1, SortingItem _o2) {
-//                for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
-//                    if (cmpPrice.getPriority() == i) {
-//                        int res_ = cmpPrice.compare(_o1.getPrice(), _o2.getPrice());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    } else if (cmpName.getPriority() == i) {
-//                        int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    } else if (cmpDescription.getPriority() == i) {
-//                        int res_ = cmpDescription.compare(_o1.getItemClass(), _o2.getItemClass());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    } else if (cmpNumber.getPriority() == i) {
-//                        int res_ = cmpNumber.compare(_o1.getNumber(), _o2.getNumber());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    }
-//                }
-//                return Integer.compare(_o1.getIndex(), _o2.getIndex());
-//            }
-//        });
-        TreeMap<SortingItem, String> items_ = new TreeMap<SortingItem, String>(new ComparatorItem(cmpName, cmpPrice, cmpDescription, cmpNumber, nbComparators));
+        // TreeMap<SortingItem, String> items_ = new TreeMap<new>(new
+        // Comparator<SortingItem>() {
+        // @Override
+        // public int compare(SortingItem _o1, SortingItem _o2) {
+        // for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
+        // if (cmpPrice.getPriority() == i) {
+        // int res_ = cmpPrice.compare(_o1.getPrice(), _o2.getPrice());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // } else if (cmpName.getPriority() == i) {
+        // int res_ = cmpName.compare(_o1.getName(), _o2.getName());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // } else if (cmpDescription.getPriority() == i) {
+        // int res_ = cmpDescription.compare(_o1.getItemClass(),
+        // _o2.getItemClass());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // } else if (cmpNumber.getPriority() == i) {
+        // int res_ = cmpNumber.compare(_o1.getNumber(), _o2.getNumber());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // }
+        // }
+        // return Integer.compare(_o1.getIndex(), _o2.getIndex());
+        // }
+        // });
+        TreeMap<SortingItem, String> items_ = new TreeMap<SortingItem, String>(
+                new ComparatorItem(cmpName, cmpPrice, cmpDescription,
+                        cmpNumber, nbComparators));
         items_.putAllTreeMap(items);
         items = items_;
     }
@@ -211,7 +220,8 @@ public final class PaginationItem extends Pagination<SortingItem, String, Criter
         return translatedDescription;
     }
 
-    public void setTranslatedDescription(StringMap<String> _translatedDescription) {
+    public void setTranslatedDescription(
+            StringMap<String> _translatedDescription) {
         translatedDescription = _translatedDescription;
     }
 

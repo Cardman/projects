@@ -1,6 +1,6 @@
 package aiki.fight.items;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
@@ -21,7 +21,7 @@ public final class Berry extends Item {
 
     private StringMap<EfficiencyRate> multFoesDamage;
 
-    private EnumMap<Statistic,BoostHpRate> multStat;
+    private EnumMap<Statistic, BoostHpRate> multStat;
 
     private boolean withoutFail;
     private int healPp;
@@ -40,7 +40,7 @@ public final class Berry extends Item {
 
     private String categoryBoosting;
 
-    private EnumMap<Statistic,Byte> boostStatis;
+    private EnumMap<Statistic, Byte> boostStatis;
 
     @Override
     public String getItemType() {
@@ -51,106 +51,163 @@ public final class Berry extends Item {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!_data.getStatus().containsAllAsKeys(healStatus)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (String s: multFoesDamage.getKeys()) {
+        for (String s : multFoesDamage.getKeys()) {
             if (!_data.getTypes().containsObj(s)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multFoesDamage.getVal(s).getEff().isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multFoesDamage.getVal(s).getHpRate().isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (Statistic s: multStat.getKeys()) {
+        for (Statistic s : multStat.getKeys()) {
             if (!s.isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multStat.getVal(s).getHpRate().isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (multStat.getVal(s).getBoost() < 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        if (!_data.getCategories().containsAllObj(damageRateRecoilFoe.getKeys())) {
-            throw new DataException();
+        if (!_data.getCategories()
+                .containsAllObj(damageRateRecoilFoe.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        for (Rate v: damageRateRecoilFoe.values()) {
+        for (Rate v : damageRateRecoilFoe.values()) {
             if (!v.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!healHpBySuperEffMove.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!healHp.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!maxHpHealingHp.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (maxHpHealingHp.greaterOrEqualsOne()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!healHpRate.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!maxHpHealingHpRate.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (maxHpHealingHpRate.greaterOrEqualsOne()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (healPp < 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!categoryBoosting.isEmpty()) {
             if (!_data.getAllCategories().containsObj(categoryBoosting)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (EntryCust<Statistic,Byte> e: boostStatis.entryList()) {
+        for (EntryCust<Statistic, Byte> e : boostStatis.entryList()) {
             if (!e.getKey().isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             e.getValue().byteValue();
         }
         if (!healHpBySuperEffMove.isZero()) {
             if (!multFoesDamage.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!damageRateRecoilFoe.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!healHp.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!healHpRate.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (!healHp.isZero()) {
             if (!multFoesDamage.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!damageRateRecoilFoe.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!healHpRate.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (!healHpRate.isZero()) {
             if (!multFoesDamage.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!damageRateRecoilFoe.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
     }
@@ -158,37 +215,47 @@ public final class Berry extends Item {
     public Rate getHealHpBySuperEffMove() {
         return healHpBySuperEffMove;
     }
+
     public void setHealHpBySuperEffMove(Rate _healHp) {
         healHpBySuperEffMove = _healHp;
     }
+
     public boolean getLawForAttackFirst() {
         return lawForAttackFirst;
     }
+
     public void setLawForAttackFirst(boolean _lawForAttackFirst) {
         lawForAttackFirst = _lawForAttackFirst;
     }
+
     public StringMap<EfficiencyRate> getMultFoesDamage() {
         return multFoesDamage;
     }
+
     public void setMultFoesDamage(StringMap<EfficiencyRate> _multFoesDamage) {
         multFoesDamage = _multFoesDamage;
     }
-    public EnumMap<Statistic,BoostHpRate> getMultStat() {
+
+    public EnumMap<Statistic, BoostHpRate> getMultStat() {
         return multStat;
     }
-    public void setMultStat(EnumMap<Statistic,BoostHpRate> _multStat) {
+
+    public void setMultStat(EnumMap<Statistic, BoostHpRate> _multStat) {
         multStat = _multStat;
     }
 
     public boolean getWithoutFail() {
         return withoutFail;
     }
+
     public void setWithoutFail(boolean _withoutFail) {
         withoutFail = _withoutFail;
     }
+
     public int getHealPp() {
         return healPp;
     }
+
     public void setHealPp(int _healPp) {
         healPp = _healPp;
     }
@@ -212,6 +279,7 @@ public final class Berry extends Item {
     public StringList getHealStatus() {
         return healStatus;
     }
+
     public void setHealStatus(StringList _healStatus) {
         healStatus = _healStatus;
     }
@@ -235,6 +303,7 @@ public final class Berry extends Item {
     public StringMap<Rate> getDamageRateRecoilFoe() {
         return damageRateRecoilFoe;
     }
+
     public void setDamageRateRecoilFoe(StringMap<Rate> _damageRateRecoilFoe) {
         damageRateRecoilFoe = _damageRateRecoilFoe;
     }
@@ -247,11 +316,11 @@ public final class Berry extends Item {
         categoryBoosting = _categoryBoosting;
     }
 
-    public EnumMap<Statistic,Byte> getBoostStatis() {
+    public EnumMap<Statistic, Byte> getBoostStatis() {
         return boostStatis;
     }
 
-    public void setBoostStatis(EnumMap<Statistic,Byte> _boostStatis) {
+    public void setBoostStatis(EnumMap<Statistic, Byte> _boostStatis) {
         boostStatis = _boostStatis;
     }
 }

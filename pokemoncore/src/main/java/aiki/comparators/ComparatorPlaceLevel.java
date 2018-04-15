@@ -1,9 +1,9 @@
 package aiki.comparators;
 import java.util.Comparator;
 
+import aiki.map.util.PlaceLevel;
 import code.util.CustList;
 import code.util.Numbers;
-import aiki.map.util.PlaceLevel;
 
 public final class ComparatorPlaceLevel implements Comparator<PlaceLevel> {
 

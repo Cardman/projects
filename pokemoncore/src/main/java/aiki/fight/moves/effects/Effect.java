@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.Numbers;
 import code.util.annot.RwXml;
@@ -15,15 +15,19 @@ public abstract class Effect {
     private Numbers<Integer> requiredSuccessfulEffects;
 
     /**
-    @param _data
-    */
+     * @param _data
+     */
     public void validate(DataBase _data) {
         if (targetChoice == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!requiredSuccessfulEffects.isEmpty()) {
             if (requiredSuccessfulEffects.getMinimum() < 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
     }
@@ -31,6 +35,7 @@ public abstract class Effect {
     public TargetChoice getTargetChoice() {
         return targetChoice;
     }
+
     public void setTargetChoice(TargetChoice _targetChoice) {
         targetChoice = _targetChoice;
     }
@@ -47,7 +52,8 @@ public abstract class Effect {
         return requiredSuccessfulEffects;
     }
 
-    public void setRequiredSuccessfulEffects(Numbers<Integer> _requiredSuccessfulEffects) {
+    public void setRequiredSuccessfulEffects(
+            Numbers<Integer> _requiredSuccessfulEffects) {
         requiredSuccessfulEffects = _requiredSuccessfulEffects;
     }
 }

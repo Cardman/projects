@@ -1,8 +1,8 @@
 package aiki.comparators;
 import java.util.Comparator;
 
-import code.util.Numbers;
 import aiki.fight.EndRoundMainElements;
+import code.util.Numbers;
 
 public final class ComparatorEndRoundMainElements implements
         Comparator<EndRoundMainElements> {

@@ -1,6 +1,6 @@
 package aiki.map.characters;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -12,7 +12,9 @@ public final class TrainerLeague extends TrainerOneFight implements Fightable {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (name == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

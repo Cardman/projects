@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.StatusType;
 import code.maths.Rate;
@@ -17,21 +17,29 @@ public final class EffectEndRoundMultiRelation extends EffectEndRound {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (EntryCust<String, Rate> e: damageByStatus.entryList()) {
+        for (EntryCust<String, Rate> e : damageByStatus.entryList()) {
             if (!_data.getStatus().contains(e.getKey())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             e.getValue().isZero();
         }
-        for (EntryCust<String, Rate> e: multDamageStatus.entryList()) {
+        for (EntryCust<String, Rate> e : multDamageStatus.entryList()) {
             if (!_data.getStatus().contains(e.getKey())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             e.getValue().isZero();
         }
@@ -45,12 +53,15 @@ public final class EffectEndRoundMultiRelation extends EffectEndRound {
     public StringMap<Rate> getDamageByStatus() {
         return damageByStatus;
     }
+
     public void setDamageByStatus(StringMap<Rate> _damageByStatus) {
         damageByStatus = _damageByStatus;
     }
+
     public StringMap<Rate> getMultDamageStatus() {
         return multDamageStatus;
     }
+
     public void setMultDamageStatus(StringMap<Rate> _multDamageStatus) {
         multDamageStatus = _multDamageStatus;
     }

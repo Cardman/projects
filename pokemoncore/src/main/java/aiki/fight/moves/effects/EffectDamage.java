@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
@@ -25,7 +25,7 @@ public final class EffectDamage extends Effect {
 
     private MonteCarloNumber chLaw;
 
-//    private MonteCarloNumber powerLaw;
+    // private MonteCarloNumber powerLaw;
 
     private MonteCarloNumber hitsLaw;
 
@@ -47,122 +47,180 @@ public final class EffectDamage extends Effect {
 
     private Statistic statisDef;
 
-    private EnumMap<Statistic,Byte> boostStatisOnceKoFoe;
+    private EnumMap<Statistic, Byte> boostStatisOnceKoFoe;
 
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!chLaw.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!hitsLaw.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!damageLaw.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (getTargetChoice() == TargetChoice.ALLIE) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (getTargetChoice() == TargetChoice.ALLIES) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (getTargetChoice() == TargetChoice.UNIQUE_IMPORTE) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (getTargetChoice() == TargetChoice.GLOBALE) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Statistic s: boostStatisOnceKoFoe.getKeys()) {
+        for (Statistic s : boostStatisOnceKoFoe.getKeys()) {
             if (!s.isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (boostStatisOnceKoFoe.getVal(s) < 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!_data.getCategories().containsAllObj(multDamageAgainst.getKeys())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!multDamageAgainst.isEmpty()) {
-            for (EntryCust<String,Rate> e: multDamageAgainst.entryList()) {
+            for (EntryCust<String, Rate> e : multDamageAgainst.entryList()) {
                 e.getValue().isZero();
             }
         }
         if (!chLaw.events().isEmpty()) {
             Rate min_ = chLaw.minimum();
             if (min_.lowerThanOne()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!hitsLaw.events().isEmpty()) {
             Rate min_ = hitsLaw.minimum();
             if (!min_.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (min_.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
-            for (Rate e: hitsLaw.events()) {
+            for (Rate e : hitsLaw.events()) {
                 if (!e.isInteger()) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(ignVarStatTargetPos)) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                ignVarStatTargetPos)) {
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(ignVarStatUserNeg)) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                ignVarStatUserNeg)) {
+            _data.setError(true);
+            return;
+
         }
         if (!statisAtt.isBoost()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!statisAtt.isWithBaseStatistic()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!statisDef.isBoost()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!statisDef.isWithBaseStatistic()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (statisAtt != Statistic.ATTACK) {
             if (statisAtt != Statistic.SPECIAL_ATTACK) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (statisDef != Statistic.DEFENSE) {
             if (statisDef != Statistic.SPECIAL_DEFENSE) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (constDamage) {
             if (!Rate.isValid(power)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (!multDamageAgainst.isEmpty()) {
             if (!damageLaw.events().isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!power.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (!damageLaw.events().isEmpty()) {
             if (!power.isEmpty()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             return;
         }
         if (power.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -206,13 +264,13 @@ public final class EffectDamage extends Effect {
         chLaw = _chLaw;
     }
 
-//    public MonteCarloNumber getPowerLaw() {
-//        return powerLaw;
-//    }
+    // public MonteCarloNumber getPowerLaw() {
+    // return powerLaw;
+    // }
 
-//    public void setPowerLaw(MonteCarloNumber _power) {
-//        powerLaw = _power;
-//    }
+    // public void setPowerLaw(MonteCarloNumber _power) {
+    // powerLaw = _power;
+    // }
 
     public MonteCarloNumber getHitsLaw() {
         return hitsLaw;
@@ -245,15 +303,19 @@ public final class EffectDamage extends Effect {
     public void setSummingUserTeamOkFighter(boolean _summingUserTeamOkFighter) {
         summingUserTeamOkFighter = _summingUserTeamOkFighter;
     }
+
     public EnumList<Statistic> getIgnVarStatTargetPos() {
         return ignVarStatTargetPos;
     }
+
     public void setIgnVarStatTargetPos(EnumList<Statistic> _ignVarStatTargetPos) {
         ignVarStatTargetPos = _ignVarStatTargetPos;
     }
+
     public EnumList<Statistic> getIgnVarStatUserNeg() {
         return ignVarStatUserNeg;
     }
+
     public void setIgnVarStatUserNeg(EnumList<Statistic> _ignVarStatUserNeg) {
         ignVarStatUserNeg = _ignVarStatUserNeg;
     }
@@ -290,11 +352,12 @@ public final class EffectDamage extends Effect {
         statisDef = _statisDef;
     }
 
-    public EnumMap<Statistic,Byte> getBoostStatisOnceKoFoe() {
+    public EnumMap<Statistic, Byte> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 
-    public void setBoostStatisOnceKoFoe(EnumMap<Statistic,Byte> _boostStatisOnceKoFoe) {
+    public void setBoostStatisOnceKoFoe(
+            EnumMap<Statistic, Byte> _boostStatisOnceKoFoe) {
         boostStatisOnceKoFoe = _boostStatisOnceKoFoe;
     }
 }

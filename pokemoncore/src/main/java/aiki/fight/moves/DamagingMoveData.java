@@ -1,6 +1,6 @@
 package aiki.fight.moves;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectBatonPass;
 import aiki.fight.moves.effects.EffectCopyFighter;
@@ -37,61 +37,87 @@ public final class DamagingMoveData extends MoveData {
         super.validate(_data);
         int index_ = indexOfPrimaryEffect();
         if (!(getEffet(index_) instanceof EffectDamage)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         int nbDamages_ = CustList.SIZE_EMPTY;
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectDamage) {
                 nbDamages_++;
             }
             if (effect_ instanceof EffectInvoke) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectSwitchPosition) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectOrder) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectProtection) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectBatonPass) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectSwitchPointView) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectCopyMove) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (effect_ instanceof EffectCopyFighter) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (nbDamages_ != DataBase.ONE_POSSIBLE_CHOICE) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Effect effect_: getEffects()) {
+        for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectDamage) {
                 break;
             }
             if (effect_ instanceof EffectDamageRate) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (Effect e: getEffects()) {
+        for (Effect e : getEffects()) {
             if (!(e instanceof EffectDamageRate)) {
                 continue;
             }
             EffectDamageRate eff_ = (EffectDamageRate) e;
             if (!eff_.getRequiredSuccessfulEffects().containsObj(index_)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-//        if (category == null) {
-//            throw new DataException();
-//        }
+        // if (category == null) {
+        // _data.setError(true);
+        return;
+
+        // }
     }
 
     @Override

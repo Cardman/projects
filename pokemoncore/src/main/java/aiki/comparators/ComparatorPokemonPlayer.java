@@ -1,13 +1,13 @@
 package aiki.comparators;
 import java.util.Comparator;
 
+import aiki.map.pokemon.enums.Gender;
+import aiki.util.SortingPokemonPlayer;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.pagination.EnumFieldComparator;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
-import aiki.map.pokemon.enums.Gender;
-import aiki.util.SortingPokemonPlayer;
 
 public final class ComparatorPokemonPlayer implements
         Comparator<SortingPokemonPlayer> {

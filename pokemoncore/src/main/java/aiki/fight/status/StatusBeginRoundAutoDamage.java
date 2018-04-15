@@ -1,6 +1,6 @@
 package aiki.fight.status;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import code.maths.Rate;
 import code.util.annot.RwXml;
@@ -18,22 +18,34 @@ public final class StatusBeginRoundAutoDamage extends StatusBeginRound {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!power.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (power.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!attack.isBoost()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!attack.isWithBaseStatistic()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!defense.isBoost()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!defense.isWithBaseStatistic()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import code.maths.Rate;
 import code.util.EnumMap;
@@ -12,7 +12,7 @@ public final class EffectCounterAttack extends Effect {
 
     private StringMap<Rate> sufferingDamageTypes;
 
-    private EnumMap<Statistic,Byte> droppedStatDirectMove;
+    private EnumMap<Statistic, Byte> droppedStatDirectMove;
 
     private Rate sufferingDamageDirectMove;
 
@@ -24,26 +24,38 @@ public final class EffectCounterAttack extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!_data.getTypes().containsAllObj(sufferingDamageTypes.getKeys())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (Rate r: sufferingDamageTypes.values()) {
+        for (Rate r : sufferingDamageTypes.values()) {
             if (r.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!r.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (Statistic s: droppedStatDirectMove.getKeys()) {
+        for (Statistic s : droppedStatDirectMove.getKeys()) {
             if (!s.isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (droppedStatDirectMove.getVal(s) >= 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!sufferingDamageDirectMove.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -55,11 +67,12 @@ public final class EffectCounterAttack extends Effect {
         sufferingDamageTypes = _sufferingDamageTypes;
     }
 
-    public EnumMap<Statistic,Byte> getDroppedStatDirectMove() {
+    public EnumMap<Statistic, Byte> getDroppedStatDirectMove() {
         return droppedStatDirectMove;
     }
 
-    public void setDroppedStatDirectMove(EnumMap<Statistic,Byte> _droppedStatDirectMove) {
+    public void setDroppedStatDirectMove(
+            EnumMap<Statistic, Byte> _droppedStatDirectMove) {
         droppedStatDirectMove = _droppedStatDirectMove;
     }
 

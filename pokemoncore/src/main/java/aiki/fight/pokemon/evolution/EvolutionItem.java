@@ -1,10 +1,9 @@
 package aiki.fight.pokemon.evolution;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.items.EvolvingItem;
 import aiki.fight.pokemon.PokemonData;
 import code.util.annot.RwXml;
-
 
 @RwXml
 public final class EvolutionItem extends Evolution {
@@ -12,11 +11,11 @@ public final class EvolutionItem extends Evolution {
     private String item;
 
     @Override
-    public void validate(DataBase _dataBase,PokemonData _fPk) {
+    public void validate(DataBase _dataBase, PokemonData _fPk) {
         if (_dataBase.getItem(item) instanceof EvolvingItem) {
             return;
         }
-        throw new DataException();
+        _dataBase.setError(true);
     }
 
     public String getItem() {

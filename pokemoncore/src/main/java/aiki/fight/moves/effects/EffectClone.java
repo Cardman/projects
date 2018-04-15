@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
 import code.util.annot.RwXml;
@@ -14,15 +14,22 @@ public final class EffectClone extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (hpRateClone.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!hpRateClone.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
+
     public Rate getHpRateClone() {
         return hpRateClone;
     }

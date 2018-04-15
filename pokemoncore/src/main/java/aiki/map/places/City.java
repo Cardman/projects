@@ -1,6 +1,6 @@
 package aiki.map.places;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
@@ -26,36 +26,41 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public final class City extends Place implements InitializedPlace{
+public final class City extends Place implements InitializedPlace {
 
-    /**key access to building, which is shown as a block*/
-    private ObjectMap<Point,Building> buildings;
+    /** key access to building, which is shown as a block */
+    private ObjectMap<Point, Building> buildings;
 
     private LevelOutdoor level;
 
     private String name;
 
-    private ObjectMap<PlaceInterConnect,Coords> savedlinks;
+    private ObjectMap<PlaceInterConnect, Coords> savedlinks;
 
-    private transient ObjectMap<PlaceInterConnect,Coords> linksPointsWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect,Coords>();
+    private transient ObjectMap<PlaceInterConnect, Coords> linksPointsWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect, Coords>();
 
-    private ObjectMap<Point,Link> linksWithCaves;
+    private ObjectMap<Point, Link> linksWithCaves;
 
     @Override
     public void addSavedLink(PlaceInterConnect _key, Coords _value) {
         savedlinks.put(_key, _value);
     }
+
     @Override
     public void deleteSavedLink(PlaceInterConnect _key) {
         savedlinks.removeKey(_key);
     }
+
     public void clearElements(Point _idBuilding, Point _point) {
         buildings.getVal(_idBuilding).clearElements(_point);
     }
+
     @Override
-    public void validate(DataBase _data,PlaceArea _placeArea) {
+    public void validate(DataBase _data, PlaceArea _placeArea) {
         if (name == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
         boolean existPkCenter_ = false;
@@ -63,21 +68,28 @@ public final class City extends Place implements InitializedPlace{
         EqList<Point> ids_ = new EqList<Point>();
         ids_.addAllElts(linksWithCaves.getKeys());
         ids_.addAllElts(buildings.getKeys());
-        for (EntryCust<Point, Building> e: buildings.entryList()) {
+        for (EntryCust<Point, Building> e : buildings.entryList()) {
             if (levelArea_.isAccessible(e.getKey())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
-            if (!levelArea_.isValid(e.getKey(),false)) {
-                throw new DataException();
+            if (!levelArea_.isValid(e.getKey(), false)) {
+                _data.setError(true);
+                return;
+
             }
             Point pt_ = new Point(e.getKey());
             pt_.moveTo(Direction.DOWN);
-            if (!levelArea_.isValid(pt_,true)) {
-                throw new DataException();
+            if (!levelArea_.isValid(pt_, true)) {
+                _data.setError(true);
+                return;
+
             }
             ids_.add(pt_);
             Building building_ = e.getValue();
-            building_.validate(_data, _placeArea.getBuildings().getVal(e.getKey()));
+            building_.validate(_data,
+                    _placeArea.getBuildings().getVal(e.getKey()));
             if (building_ instanceof PokemonCenter) {
                 existPkCenter_ = true;
             }
@@ -86,32 +98,43 @@ public final class City extends Place implements InitializedPlace{
             }
         }
         if (!existPkCenter_ || nbGyms_ > 1) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (PlaceInterConnect p :linksPointsWithCitiesAndOtherRoads.getKeys()) {
-            if (!levelArea_.isValid(p.getSource(),false)) {
-                throw new DataException();
+        for (PlaceInterConnect p : linksPointsWithCitiesAndOtherRoads.getKeys()) {
+            if (!levelArea_.isValid(p.getSource(), false)) {
+                _data.setError(true);
+                return;
+
             }
         }
         int len_ = ids_.size();
         ids_.removeDuplicates();
         if (len_ != ids_.size()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-//        for (Point p :linksWithCaves.getKeys()) {
-//            if (!levelArea_.isValid(p,true)) {
-//                throw new DataException();
-//            }
-//        }
-        for (Point p :linksWithCaves.getKeys()) {
-            if (!levelArea_.isValid(p,false)) {
-                throw new DataException();
+        // for (Point p :linksWithCaves.getKeys()) {
+        // if (!levelArea_.isValid(p,true)) {
+        // _data.setError(true);
+
+        // }
+        // }
+        for (Point p : linksWithCaves.getKeys()) {
+            if (!levelArea_.isValid(p, false)) {
+                _data.setError(true);
+                return;
+
             }
             Coords c_ = linksWithCaves.getVal(p).getCoords();
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         level.validate(_data, levelArea_);
@@ -119,7 +142,7 @@ public final class City extends Place implements InitializedPlace{
 
     @Override
     public void validateForEditing(DataBase _data) {
-        for (EntryCust<Point, Building> e: buildings.entryList()) {
+        for (EntryCust<Point, Building> e : buildings.entryList()) {
             e.getValue().validateForEditing(_data);
         }
         level.validateForEditing(_data);
@@ -130,7 +153,7 @@ public final class City extends Place implements InitializedPlace{
         if (!super.hasValidImage(_data)) {
             return false;
         }
-        for (Building b: buildings.values()) {
+        for (Building b : buildings.values()) {
             if (!b.hasValidImage(_data)) {
                 return false;
             }
@@ -146,12 +169,13 @@ public final class City extends Place implements InitializedPlace{
 
     @Override
     public boolean validLinks(Tree _tree) {
-        for (EntryCust<PlaceInterConnect,Coords> e: linksPointsWithCitiesAndOtherRoads.entryList()) {
+        for (EntryCust<PlaceInterConnect, Coords> e : linksPointsWithCitiesAndOtherRoads
+                .entryList()) {
             if (!_tree.isValid(e.getValue(), false)) {
                 return false;
             }
         }
-        for (EntryCust<Point,Link> e: linksWithCaves.entryList()) {
+        for (EntryCust<Point, Link> e : linksWithCaves.entryList()) {
             Link link_ = e.getValue();
             if (!_tree.isValid(link_.getCoords(), true)) {
                 return false;
@@ -159,9 +183,10 @@ public final class City extends Place implements InitializedPlace{
         }
         return true;
     }
+
     @Override
-    public NumberMap<Byte,Level> getLevelsMap() {
-        NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
+    public NumberMap<Byte, Level> getLevelsMap() {
+        NumberMap<Byte, Level> levels_ = new NumberMap<Byte, Level>();
         levels_.put(CustList.FIRST_INDEX, level);
         return levels_;
     }
@@ -184,14 +209,17 @@ public final class City extends Place implements InitializedPlace{
     public boolean containsPerson(Coords _coords) {
         Level level_ = getLevelByCoords(_coords);
         if (level_ instanceof LevelIndoorPokemonCenter) {
-            return ((LevelIndoorPokemonCenter)level_).getGerants().contains(_coords.getLevel().getPoint());
+            return ((LevelIndoorPokemonCenter) level_).getGerants().contains(
+                    _coords.getLevel().getPoint());
         }
         if (level_ instanceof LevelIndoorGym) {
             LevelIndoorGym gym_ = (LevelIndoorGym) level_;
-            if (Point.eq(_coords.getLevel().getPoint(), gym_.getGymLeaderCoords())) {
+            if (Point.eq(_coords.getLevel().getPoint(),
+                    gym_.getGymLeaderCoords())) {
                 return true;
             }
-            return gym_.getGymTrainers().contains(_coords.getLevel().getPoint());
+            return gym_.getGymTrainers()
+                    .contains(_coords.getLevel().getPoint());
         }
         return false;
     }
@@ -200,11 +228,13 @@ public final class City extends Place implements InitializedPlace{
     public void addPerson(Coords _coords, Person _person) {
         Level level_ = getLevelByCoords(_coords);
         if (level_ instanceof LevelIndoorPokemonCenter) {
-            ((LevelIndoorPokemonCenter)level_).getGerants().put(_coords.getLevel().getPoint(), _person);
+            ((LevelIndoorPokemonCenter) level_).getGerants().put(
+                    _coords.getLevel().getPoint(), _person);
         }
         if (level_ instanceof LevelIndoorGym) {
             LevelIndoorGym gym_ = (LevelIndoorGym) level_;
-            gym_.getGymTrainers().put(_coords.getLevel().getPoint(), (GymTrainer) _person);
+            gym_.getGymTrainers().put(_coords.getLevel().getPoint(),
+                    (GymTrainer) _person);
         }
     }
 
@@ -212,11 +242,13 @@ public final class City extends Place implements InitializedPlace{
     public Person getPerson(Coords _coords) {
         Level level_ = getLevelByCoords(_coords);
         if (level_ instanceof LevelIndoorPokemonCenter) {
-            return ((LevelIndoorPokemonCenter)level_).getGerants().getVal(_coords.getLevel().getPoint());
+            return ((LevelIndoorPokemonCenter) level_).getGerants().getVal(
+                    _coords.getLevel().getPoint());
         }
         if (level_ instanceof LevelIndoorGym) {
             LevelIndoorGym gym_ = (LevelIndoorGym) level_;
-            if (Point.eq(_coords.getLevel().getPoint(), gym_.getGymLeaderCoords())) {
+            if (Point.eq(_coords.getLevel().getPoint(),
+                    gym_.getGymLeaderCoords())) {
                 return gym_.getGymLeader();
             }
             return gym_.getGymTrainers().getVal(_coords.getLevel().getPoint());
@@ -224,11 +256,11 @@ public final class City extends Place implements InitializedPlace{
         return null;
     }
 
-    public ObjectMap<Point,Building> getBuildings() {
+    public ObjectMap<Point, Building> getBuildings() {
         return buildings;
     }
 
-    public void setBuildings(ObjectMap<Point,Building> _buildings) {
+    public void setBuildings(ObjectMap<Point, Building> _buildings) {
         buildings = _buildings;
     }
 
@@ -252,34 +284,33 @@ public final class City extends Place implements InitializedPlace{
     }
 
     @Override
-    public ObjectMap<PlaceInterConnect,Coords> getSavedlinks() {
+    public ObjectMap<PlaceInterConnect, Coords> getSavedlinks() {
         return savedlinks;
     }
+
     @Override
-    public void setSavedlinks(ObjectMap<PlaceInterConnect,Coords> _savedlinks) {
+    public void setSavedlinks(ObjectMap<PlaceInterConnect, Coords> _savedlinks) {
         savedlinks = _savedlinks;
     }
 
     @Override
-    public ObjectMap<PlaceInterConnect,Coords> getPointsWithCitiesAndOtherRoads() {
+    public ObjectMap<PlaceInterConnect, Coords> getPointsWithCitiesAndOtherRoads() {
         return linksPointsWithCitiesAndOtherRoads;
     }
 
     @Override
-    public void setPointsWithCitiesAndOtherRoads(ObjectMap<PlaceInterConnect,Coords> _linksPointsWithCitiesAndOtherRoads) {
+    public void setPointsWithCitiesAndOtherRoads(
+            ObjectMap<PlaceInterConnect, Coords> _linksPointsWithCitiesAndOtherRoads) {
         linksPointsWithCitiesAndOtherRoads = _linksPointsWithCitiesAndOtherRoads;
     }
 
     @Override
-    public ObjectMap<Point,Link> getLinksWithCaves() {
+    public ObjectMap<Point, Link> getLinksWithCaves() {
         return linksWithCaves;
     }
-    public void setLinksWithCaves(ObjectMap<Point,Link> _linksWithCaves) {
+
+    public void setLinksWithCaves(ObjectMap<Point, Link> _linksWithCaves) {
         linksWithCaves = _linksWithCaves;
     }
-
-
-
-
 
 }

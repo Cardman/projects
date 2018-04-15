@@ -1,8 +1,9 @@
 package aiki;
-import code.util.ints.Equallable;
+
 import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
+import code.util.ints.Equallable;
 
 public final class ImageHeroKey implements Equallable<ImageHeroKey> {
 

@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import code.util.annot.RwXml;
 
@@ -14,7 +14,9 @@ public abstract class EffectEndRound extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (endRoundRank <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

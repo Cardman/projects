@@ -1,4 +1,5 @@
 package aiki.facade;
+
 import aiki.DataBase;
 import aiki.ExchangedData;
 import aiki.ImageHeroKey;
@@ -6,7 +7,6 @@ import aiki.comments.Comment;
 import aiki.comparators.ComparatorCoords;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.comparators.TrMovesComparator;
-import aiki.exceptions.DataException;
 import aiki.facade.enums.StorageActions;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Fossil;
@@ -78,7 +78,7 @@ import code.util.pagination.SelectedBoolean;
 
 public class FacadeGame implements WithMathFactory {
 
-//    private static final StringList AVAILABLE_LANGUAGES;
+    // private static final StringList AVAILABLE_LANGUAGES;
 
     private static boolean _playingGame_;
 
@@ -98,7 +98,8 @@ public class FacadeGame implements WithMathFactory {
 
     private PaginationItem paginationItem = new PaginationItem();
 
-    //change state if going to buy technical move and if exiting the functionnality
+    // change state if going to buy technical move and if exiting the
+    // functionnality
     private PaginationMove paginationMove = new PaginationMove();
 
     private StringMap<LgInt> chosenItemsForBuyOrSell = new StringMap<LgInt>();
@@ -131,7 +132,8 @@ public class FacadeGame implements WithMathFactory {
 
     private ExchangedData exchangeData;
 
-    private MiniMapCoords miniMapCoords = new MiniMapCoords(CustList.INDEX_NOT_FOUND_ELT,CustList.INDEX_NOT_FOUND_ELT);
+    private MiniMapCoords miniMapCoords = new MiniMapCoords(
+            CustList.INDEX_NOT_FOUND_ELT, CustList.INDEX_NOT_FOUND_ELT);
 
     private String language;
 
@@ -142,13 +144,13 @@ public class FacadeGame implements WithMathFactory {
         return data.getMathFactory();
     }
 
-    //New game option
-    public void newGame(String _pseudo,Sex _sexeHeros) {
+    // New game option
+    public void newGame(String _pseudo, Sex _sexeHeros) {
         game = new Game(data);
         game.initUserInteract(_pseudo, _sexeHeros, game.getDifficulty(), data);
-//        if (game.getVisitedPlaces().contains(game.getPlayerCoords())) {
-//            game.getVisitedPlaces().put(game.getPlayerCoords(), true);
-//        }
+        // if (game.getVisitedPlaces().contains(game.getPlayerCoords())) {
+        // game.getVisitedPlaces().put(game.getPlayerCoords(), true);
+        // }
         enabledMovingHero = true;
         changeCamera();
     }
@@ -156,15 +158,17 @@ public class FacadeGame implements WithMathFactory {
     public String getFrontChosenHeros() {
         ImageHeroKey i_;
         i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex());
-        return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(i_));
+        return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(
+                i_));
     }
 
     public String getFrontChosenHerosOppositeSex() {
         ImageHeroKey i_;
-        i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex().getOppositeSex());
-        return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(i_));
+        i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex()
+                .getOppositeSex());
+        return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(
+                i_));
     }
-
 
     public void loadResources() {
         DataBase data_ = new DataBase();
@@ -174,24 +178,26 @@ public class FacadeGame implements WithMathFactory {
         zipName = DataBase.EMPTY_STRING;
     }
 
-//    public void initializeDefaultHtmlFiles() {
-//        data.initializeDefaultHtmlFiles();
-//    }
-//
-//    public void initializeHtmlFiles() {
-//        data.initializeHtmlFiles();
-//    }
+    // public void initializeDefaultHtmlFiles() {
+    // data.initializeDefaultHtmlFiles();
+    // }
+    //
+    // public void initializeHtmlFiles() {
+    // data.initializeHtmlFiles();
+    // }
 
     public void clearGame() {
         game = null;
     }
 
-    //Load rom first
+    // Load rom first
     public static DataBase loadedRom(InsCaseStringMap<String> _files) {
         DataBase data_ = new DataBase();
         data_.loadRom(_files);
         if (!data_.getMap().validSavedLink()) {
-            throw new DataException();
+            data_.setError(true);
+            return null;
+
         }
         data_.getMap().initializeLinks();
         return data_;
@@ -201,22 +207,23 @@ public class FacadeGame implements WithMathFactory {
         DataBase data_ = new DataBase();
         DataMap map_ = data_.getMap();
         map_.setBegin(new Coords());
-        map_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        map_.setPlaces(new NumberMap<Short,Place>());
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new NumberMap<Short, Place>());
         map_.setFirstPokemon(_firstPokemon);
-        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
-        data_.getCombos().setEffects(new ObjectMap<StringList,EffectCombo>());
+        map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
         data = data_;
     }
 
-    //Load rom option
-    public void loadRomAndCheck(String _fileName, InsCaseStringMap<String> _files) {
+    // Load rom option
+    public void loadRomAndCheck(String _fileName,
+            InsCaseStringMap<String> _files) {
         DataBase data_ = loadedRom(_files);
         if (!DataBase.isLoading()) {
             return;
         }
         data_.validate();
-        if (!DataBase.isLoading()) {
+        if (!DataBase.isLoading() || data_.isError()) {
             return;
         }
         data_.initializeWildPokemon();
@@ -237,7 +244,7 @@ public class FacadeGame implements WithMathFactory {
         language = Constants.getLanguage();
     }
 
-    //Language option
+    // Language option
     public void setLanguage(String _language) {
         language = _language;
         initializePaginatorTranslations();
@@ -245,14 +252,14 @@ public class FacadeGame implements WithMathFactory {
 
     void initializePaginatorTranslations() {
         paginationEgg.setTranslation(data, language);
-        firstPaginationPk.setTranslation(data,language);
-        secondPaginationPk.setTranslation(data,language);
+        firstPaginationPk.setTranslation(data, language);
+        secondPaginationPk.setTranslation(data, language);
         paginationHealingItem.setTranslation(data, language);
         paginationItem.setTranslation(data, language);
         paginationMove.setTranslation(data, language);
     }
 
-    //Load game option
+    // Load game option
     public void initIv() {
         game.initIv(data);
     }
@@ -281,7 +288,7 @@ public class FacadeGame implements WithMathFactory {
         }
     }
 
-    //Moving with arrows
+    // Moving with arrows
     public void move(Direction _direction) {
         if (!enabledMovingHero) {
             return;
@@ -335,30 +342,32 @@ public class FacadeGame implements WithMathFactory {
     }
 
     /**
-    @param _direction
-    */
+     * @param _direction
+     */
     public void changeCamera(Direction _direction) {
         data.getMap().getBackgroundImages().clear();
         data.getMap().getForegroundImages().clear();
-        data.getMap().calculateIntersectWithScreenDirection(game.getPlayerCoords());
+        data.getMap().calculateIntersectWithScreenDirection(
+                game.getPlayerCoords());
 
-        //begin
-//        data.getMap().moveCamera(_direction);
+        // begin
+        // data.getMap().moveCamera(_direction);
         int dx_ = Math.abs(_direction.getx());
         int dy_ = Math.abs(_direction.gety());
         data.getMap().calculateBackgroundImagesFromTiles(data, dx_, dy_);
-        game.calculateImagesFromTiles(data, _direction.getx(), _direction.gety());
-        //end
+        game.calculateImagesFromTiles(data, _direction.getx(),
+                _direction.gety());
+        // end
 
-//        if (game.isPlaceChanged()) {
-//            //data.getMap().calculateIntersectWithScreen(game.getPlayerCoords());
-//            data.getMap().calculateBackgroundImagesFromTiles(data.getImages());
-//            game.calculateImagesFromTiles(data);
-//        } else {
-//            //data.getMap().moveCamera(_direction);
-//            data.getMap().calculateBackgroundImagesFromTiles(data.getImages());
-//            game.calculateImagesFromTiles(data);
-//        }
+        // if (game.isPlaceChanged()) {
+        // //data.getMap().calculateIntersectWithScreen(game.getPlayerCoords());
+        // data.getMap().calculateBackgroundImagesFromTiles(data.getImages());
+        // game.calculateImagesFromTiles(data);
+        // } else {
+        // //data.getMap().moveCamera(_direction);
+        // data.getMap().calculateBackgroundImagesFromTiles(data.getImages());
+        // game.calculateImagesFromTiles(data);
+        // }
     }
 
     public ObjectMap<ScreenCoords, int[][]> getBackgroundImages() {
@@ -369,31 +378,31 @@ public class FacadeGame implements WithMathFactory {
         return data.getMap().getForegroundImages();
     }
 
-    //By clicking a button whose text depends on kind of interaction
+    // By clicking a button whose text depends on kind of interaction
     public void interact() {
         changeToFightScene = false;
         comment.clearMessages();
         if (game.getInterfaceType() == InterfaceType.ACHATS_CT) {
             paginationMove.setEnabledTechnicalMove(true);
             enabledMovingHero = false;
-        } else if(game.getInterfaceType() == InterfaceType.PK_LEG) {
+        } else if (game.getInterfaceType() == InterfaceType.PK_LEG) {
             game.initLegendaryPokemonFight(data);
             comment.addComment(game.getCommentGame());
             changeToFightScene = true;
             enabledMovingHero = false;
-        } else if(game.getInterfaceType() == InterfaceType.PECHE) {
+        } else if (game.getInterfaceType() == InterfaceType.PECHE) {
             game.initFishing(data);
             comment.addComment(game.getCommentGame());
             changeToFightScene = true;
             enabledMovingHero = false;
-        } else if(game.getInterfaceType() == InterfaceType.DRESSEUR) {
+        } else if (game.getInterfaceType() == InterfaceType.DRESSEUR) {
             game.initTrainerFight(data);
             comment.addComment(game.getCommentGame());
             changeToFightScene = true;
             enabledMovingHero = false;
-        } else if(game.getInterfaceType() == InterfaceType.OBJ_RAMAS) {
+        } else if (game.getInterfaceType() == InterfaceType.OBJ_RAMAS) {
             takeObject();
-        } else if(game.getInterfaceType() == InterfaceType.DON_OBJET) {
+        } else if (game.getInterfaceType() == InterfaceType.DON_OBJET) {
             takeObject();
         } else if (game.getInterfaceType() == InterfaceType.SOIN_PK) {
             healTeamWithoutUsingObject();
@@ -408,7 +417,7 @@ public class FacadeGame implements WithMathFactory {
             enabledMovingHero = false;
         } else if (game.getInterfaceType() == InterfaceType.FOSSILE) {
             comment.clearMessages();
-            for (String i: data.getItems().getKeys()) {
+            for (String i : data.getItems().getKeys()) {
                 Item item_ = data.getItem(i);
                 if (!(item_ instanceof Fossil)) {
                     continue;
@@ -467,7 +476,7 @@ public class FacadeGame implements WithMathFactory {
         game.healTeamWithoutUsingObject(data);
     }
 
-    //%%%%begin%%%% functions for storage
+    // %%%%begin%%%% functions for storage
     public void gearStorage(StorageActions _action) {
         if (_action == StorageActions.TAKE_ITEM_BOX) {
             takeObjectFromBox();
@@ -499,8 +508,8 @@ public class FacadeGame implements WithMathFactory {
             }
             game.getPlayer().switchPokemon(currentIndex_, data);
             firstPaginationPk.clear();
-//            firstPaginationPk.search(game.getPlayer().getBox());
-//            secondPaginationPk.search(game.getPlayer().getBox());
+            // firstPaginationPk.search(game.getPlayer().getBox());
+            // secondPaginationPk.search(game.getPlayer().getBox());
             return;
         }
         switchEggBoxTeam();
@@ -516,8 +525,8 @@ public class FacadeGame implements WithMathFactory {
             return;
         }
         game.getPlayer().switchPokemon(currentIndex_, data);
-//        firstPaginationPk.search(game.getPlayer().getBox());
-//        secondPaginationPk.search(game.getPlayer().getBox());
+        // firstPaginationPk.search(game.getPlayer().getBox());
+        // secondPaginationPk.search(game.getPlayer().getBox());
     }
 
     void switchEggBoxTeam() {
@@ -529,9 +538,9 @@ public class FacadeGame implements WithMathFactory {
             return;
         }
         game.getPlayer().switchPokemon(currentIndex_, data);
-//        paginationEgg.search(game.getPlayer().getBox());
-//        firstPaginationPk.search(game.getPlayer().getBox());
-//        secondPaginationPk.search(game.getPlayer().getBox());
+        // paginationEgg.search(game.getPlayer().getBox());
+        // firstPaginationPk.search(game.getPlayer().getBox());
+        // secondPaginationPk.search(game.getPlayer().getBox());
     }
 
     public void switchObjectsTeamBox() {
@@ -543,16 +552,16 @@ public class FacadeGame implements WithMathFactory {
             return;
         }
         game.getPlayer().switchObjectsTeamBox(currentIndexOne_);
-//        firstPaginationPk.search(game.getPlayer().getBox());
-//        secondPaginationPk.search(game.getPlayer().getBox());
+        // firstPaginationPk.search(game.getPlayer().getBox());
+        // secondPaginationPk.search(game.getPlayer().getBox());
     }
 
     public void switchPokemonPlayerObjectsBoxes() {
         int currentIndexOne_ = firstPaginationPk.currentIndex();
         int currentIndexTwo_ = secondPaginationPk.currentIndex();
         game.getPlayer().switchObjectsBox(currentIndexOne_, currentIndexTwo_);
-//        firstPaginationPk.search(game.getPlayer().getBox());
-//        secondPaginationPk.search(game.getPlayer().getBox());
+        // firstPaginationPk.search(game.getPlayer().getBox());
+        // secondPaginationPk.search(game.getPlayer().getBox());
     }
 
     public boolean isSelectedPkTeamStorage() {
@@ -568,9 +577,9 @@ public class FacadeGame implements WithMathFactory {
             return;
         }
         game.getPlayer().storeIntoBox(data);
-//        paginationEgg.search(game.getPlayer().getBox());
-//        firstPaginationPk.search(game.getPlayer().getBox());
-//        secondPaginationPk.search(game.getPlayer().getBox());
+        // paginationEgg.search(game.getPlayer().getBox());
+        // firstPaginationPk.search(game.getPlayer().getBox());
+        // secondPaginationPk.search(game.getPlayer().getBox());
     }
 
     public void takeObjectFromBox() {
@@ -581,8 +590,8 @@ public class FacadeGame implements WithMathFactory {
         comment.clearMessages();
         game.getPlayer().takeObjectFromBox(currentIndexPk_, data);
         comment.addComment(game.getPlayer().getCommentGame());
-//        firstPaginationPk.search(game.getPlayer().getBox());
-//        secondPaginationPk.search(game.getPlayer().getBox());
+        // firstPaginationPk.search(game.getPlayer().getBox());
+        // secondPaginationPk.search(game.getPlayer().getBox());
     }
 
     public void withdrawEgg() {
@@ -590,13 +599,13 @@ public class FacadeGame implements WithMathFactory {
         if (currentIndexEgg_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-//        int teamSize_ = game.getPlayer().getTeam().size();
+        // int teamSize_ = game.getPlayer().getTeam().size();
         game.getPlayer().takePokemonFromBox(currentIndexEgg_, data);
         paginationEgg.clear();
-//        if (teamSize_ >= game.getPlayer().getTeam().size()) {
-//            paginationEgg.clear();
-////            paginationEgg.search(game.getPlayer().getBox());
-//        }
+        // if (teamSize_ >= game.getPlayer().getTeam().size()) {
+        // paginationEgg.clear();
+        // // paginationEgg.search(game.getPlayer().getBox());
+        // }
     }
 
     public void withdrawPk() {
@@ -604,13 +613,13 @@ public class FacadeGame implements WithMathFactory {
         if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-//        int teamSize_ = game.getPlayer().getTeam().size();
+        // int teamSize_ = game.getPlayer().getTeam().size();
         game.getPlayer().takePokemonFromBox(currentIndexPk_, data);
         firstPaginationPk.clear();
-//        if (teamSize_ < game.getPlayer().getTeam().size()) {
-//            firstPaginationPk.search(game.getPlayer().getBox());
-//            secondPaginationPk.search(game.getPlayer().getBox());
-//        }
+        // if (teamSize_ < game.getPlayer().getTeam().size()) {
+        // firstPaginationPk.search(game.getPlayer().getBox());
+        // secondPaginationPk.search(game.getPlayer().getBox());
+        // }
     }
 
     public boolean isSwitchable() {
@@ -652,8 +661,8 @@ public class FacadeGame implements WithMathFactory {
                 return false;
             }
             return game.getPlayer().isReleasable(currentIndexPk_, data);
-            //release egg
-//            paginationEgg.search(game.getPlayer().getBox());
+            // release egg
+            // paginationEgg.search(game.getPlayer().getBox());
         }
         if (paginationEgg.currentIndex() != CustList.INDEX_NOT_FOUND_ELT) {
             return false;
@@ -668,21 +677,21 @@ public class FacadeGame implements WithMathFactory {
             if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
                 return;
             }
-            game.getPlayer().releasePokemon(currentIndexPk_,data);
+            game.getPlayer().releasePokemon(currentIndexPk_, data);
             paginationEgg.clear();
-            //release egg
-//            paginationEgg.search(game.getPlayer().getBox());
+            // release egg
+            // paginationEgg.search(game.getPlayer().getBox());
         } else {
             if (paginationEgg.currentIndex() != CustList.INDEX_NOT_FOUND_ELT) {
                 return;
             }
             int boxSize_ = game.getPlayer().getBox().size();
-            game.getPlayer().releasePokemon(currentIndexPk_,data);
-            //release pokemon
+            game.getPlayer().releasePokemon(currentIndexPk_, data);
+            // release pokemon
             if (boxSize_ <= game.getPlayer().getBox().size()) {
                 firstPaginationPk.clear();
-//                firstPaginationPk.search(game.getPlayer().getBox());
-//                secondPaginationPk.search(game.getPlayer().getBox());
+                // firstPaginationPk.search(game.getPlayer().getBox());
+                // secondPaginationPk.search(game.getPlayer().getBox());
             }
         }
     }
@@ -909,7 +918,8 @@ public class FacadeGame implements WithMathFactory {
     }
 
     public void setSearchModeAbilityFirstBox(SearchingMode _searchModeAbility) {
-        firstPaginationPk.getCriteria().setSearchModeAbility(_searchModeAbility);
+        firstPaginationPk.getCriteria()
+                .setSearchModeAbility(_searchModeAbility);
     }
 
     public void setContentOfAbilityFirstBox(String _contentOfAbility) {
@@ -1118,9 +1128,9 @@ public class FacadeGame implements WithMathFactory {
         return paginationEgg.getLine();
     }
 
-    //%%%%end%%%% functions for storage
+    // %%%%end%%%% functions for storage
 
-    //%%%%begin%%%% option team
+    // %%%%begin%%%% option team
 
     public boolean enabledSwitchTeamOrder() {
         return game.getPlayer().enabledSwitchTeamOrder();
@@ -1183,22 +1193,24 @@ public class FacadeGame implements WithMathFactory {
         openMenu();
         places.clear();
         placesCoords.clear();
-        ObjectMap<Coords,Boolean> visitedPlaces_ = game.getVisitedPlaces();
+        ObjectMap<Coords, Boolean> visitedPlaces_ = game.getVisitedPlaces();
         placesCoords.addAllElts(visitedPlaces_.getKeys());
-//        placesCoords.sort(new Comparator<Coords>() {
-//            @Override
-//            public int compare(Coords _o1, Coords _o2) {
-//                Place plOne_ = data.getMap().getPlaces().getVal(_o1.getNumberPlace());
-//                Place plTwo_ = data.getMap().getPlaces().getVal(_o2.getNumberPlace());
-//                int res_ = plOne_.getName().compareTo(plTwo_.getName());
-//                if (res_ != 0) {
-//                    return res_;
-//                }
-//                return Short.compare(_o1.getNumberPlace(), _o2.getNumberPlace());
-//            }
-//        });
+        // placesCoords.sort(new Comparator<Coords>() {
+        // @Override
+        // public int compare(Coords _o1, Coords _o2) {
+        // Place plOne_ =
+        // data.getMap().getPlaces().getVal(_o1.getNumberPlace());
+        // Place plTwo_ =
+        // data.getMap().getPlaces().getVal(_o2.getNumberPlace());
+        // int res_ = plOne_.getName().compareTo(plTwo_.getName());
+        // if (res_ != 0) {
+        // return res_;
+        // }
+        // return Short.compare(_o1.getNumberPlace(), _o2.getNumberPlace());
+        // }
+        // });
         placesCoords.sortElts(new ComparatorCoords(data));
-        for (Coords c: placesCoords) {
+        for (Coords c : placesCoords) {
             Place pl_ = data.getMap().getPlaces().getVal(c.getNumberPlace());
             places.add(pl_.getName());
         }
@@ -1213,7 +1225,7 @@ public class FacadeGame implements WithMathFactory {
     public TreeMap<MiniMapCoords, int[][]> getImages() {
         TreeMap<MiniMapCoords, int[][]> miniMap_;
         miniMap_ = data.getMap().getImages(data);
-        for (MiniMapCoords m: miniMap_.getKeys()) {
+        for (MiniMapCoords m : miniMap_.getKeys()) {
             TileMiniMap tile_ = data.getMap().getMiniMap().getVal(m);
             if (Numbers.eq(tile_.getPlace(), CustList.INDEX_NOT_FOUND_ELT)) {
                 continue;
@@ -1223,7 +1235,7 @@ public class FacadeGame implements WithMathFactory {
                 continue;
             }
             boolean visited_ = false;
-            for (Coords c: game.getVisitedPlaces().getKeys()) {
+            for (Coords c : game.getVisitedPlaces().getKeys()) {
                 if (Numbers.eq(c.getNumberPlace(), tile_.getPlace())) {
                     visited_ = game.getVisitedPlaces().getVal(c);
                     break;
@@ -1265,8 +1277,8 @@ public class FacadeGame implements WithMathFactory {
         int notFound_;
         notFound_ = CustList.INDEX_NOT_FOUND_ELT;
         setMiniMapCoords(notFound_, notFound_);
-//        miniMapCoords.setXcoords((short) CustList.INDEX_NOT_FOUND_ELT);
-//        miniMapCoords.setYcoords((short) CustList.INDEX_NOT_FOUND_ELT);
+        // miniMapCoords.setXcoords((short) CustList.INDEX_NOT_FOUND_ELT);
+        // miniMapCoords.setYcoords((short) CustList.INDEX_NOT_FOUND_ELT);
         game.getPlayerCoords().affect(coords_);
         game.setRankLeague((byte) 0);
         changeCamera();
@@ -1287,7 +1299,6 @@ public class FacadeGame implements WithMathFactory {
     public int[][] getImage(int _x, int _y) {
         return data.getMap().getImage(data, _x, _y);
     }
-
 
     public void initTrading() {
         exchangeData = new ExchangedData(data);
@@ -1312,7 +1323,8 @@ public class FacadeGame implements WithMathFactory {
         if (exchangeData.getIndexTeam() == CustList.INDEX_NOT_FOUND_ELT) {
             return null;
         }
-        return (PokemonPlayer) game.getPlayer().getTeam().get(exchangeData.getIndexTeam());
+        return (PokemonPlayer) game.getPlayer().getTeam()
+                .get(exchangeData.getIndexTeam());
     }
 
     public void receivePokemonPlayer(PokemonPlayer _pkPlayerOtherPlayer) {
@@ -1326,18 +1338,18 @@ public class FacadeGame implements WithMathFactory {
         selectedTeamPokemon = false;
         selectedBoxPokemon = false;
         selectedHostedPokemon = false;
-//        try {
-//            exchangeData.setPokemon(_pkPlayerOtherPlayer);
-//            exchangeData.check();
-//            _pkPlayerOtherPlayer.initilializeFromExchange(data);
-//            setSelectedOtherPokemon(true);
-//            selectedTeamPokemon = false;
-//            selectedBoxPokemon = false;
-//            selectedHostedPokemon = false;
-//        } catch (DataException _0) {
-//            exchangeData.setPokemon(null);
-//            throw _0;
-//        }
+        // try {
+        // exchangeData.setPokemon(_pkPlayerOtherPlayer);
+        // exchangeData.check();
+        // _pkPlayerOtherPlayer.initilializeFromExchange(data);
+        // setSelectedOtherPokemon(true);
+        // selectedTeamPokemon = false;
+        // selectedBoxPokemon = false;
+        // selectedHostedPokemon = false;
+        // } catch (DataException _0) {
+        // exchangeData.setPokemon(null);
+        // throw _0;
+        // }
     }
 
     public void applyTrading() {
@@ -1390,16 +1402,20 @@ public class FacadeGame implements WithMathFactory {
     public void switchObjectsTeam(byte _other) {
         game.getPlayer().switchObjectsTeam(_other);
     }
-    //%%%%end%%%% option team
 
-    //%%%%begin%%%% functions for buy/sell items
+    // %%%%end%%%% option team
+
+    // %%%%begin%%%% functions for buy/sell items
     public void searchObjectToBuyOrSell(boolean _buy) {
         if (_buy) {
             Coords coords_ = game.getPlayerCoords();
             coords_ = game.closestTile(data.getMap());
-            City pl_ = (City) data.getMap().getPlaces().getVal(coords_.getNumberPlace());
-            LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) pl_.getLevelByCoords(coords_);
-            Seller seller_ = (Seller) lev_.getGerants().getVal(coords_.getLevel().getPoint());
+            City pl_ = (City) data.getMap().getPlaces()
+                    .getVal(coords_.getNumberPlace());
+            LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) pl_
+                    .getLevelByCoords(coords_);
+            Seller seller_ = (Seller) lev_.getGerants().getVal(
+                    coords_.getLevel().getPoint());
             Inventory inventory_ = game.getPlayer().getInventory();
             paginationItem.setInventory(inventory_);
             paginationItem.search(seller_.getItems(), data);
@@ -1411,7 +1427,7 @@ public class FacadeGame implements WithMathFactory {
     public void searchObjectToUse() {
         StringList list_ = new StringList();
         Inventory inventory_ = game.getPlayer().getInventory();
-        for (String i: data.getItems().getKeys()) {
+        for (String i : data.getItems().getKeys()) {
             if (inventory_.getNumber(i).isZero()) {
                 continue;
             }
@@ -1464,8 +1480,9 @@ public class FacadeGame implements WithMathFactory {
 
     public LgInt amount() {
         LgInt amount_ = LgInt.zero();
-        for (String i: chosenItemsForBuyOrSell.getKeys()) {
-            amount_.addNb(LgInt.multiply(chosenItemsForBuyOrSell.getVal(i), new LgInt(data.getItem(i).getPrice())));
+        for (String i : chosenItemsForBuyOrSell.getKeys()) {
+            amount_.addNb(LgInt.multiply(chosenItemsForBuyOrSell.getVal(i),
+                    new LgInt(data.getItem(i).getPrice())));
         }
         return amount_;
     }
@@ -1493,7 +1510,7 @@ public class FacadeGame implements WithMathFactory {
 
     public StringList getChosenTmForBuy() {
         StringList moves_ = new StringList();
-        for (short t: chosenTmForBuy) {
+        for (short t : chosenTmForBuy) {
             moves_.add(data.getTm().getVal(t));
         }
         return moves_;
@@ -1501,17 +1518,18 @@ public class FacadeGame implements WithMathFactory {
 
     public TreeMap<String, LgInt> getChosenItemsForBuyOrSell() {
         TreeMap<String, LgInt> tr_;
-        tr_ = new TreeMap<String, LgInt>(new ComparatorTrStrings(data.getTranslatedItems().getVal(language)));
-        for (EntryCust<String, LgInt> e: chosenItemsForBuyOrSell.entryList()) {
+        tr_ = new TreeMap<String, LgInt>(new ComparatorTrStrings(data
+                .getTranslatedItems().getVal(language)));
+        for (EntryCust<String, LgInt> e : chosenItemsForBuyOrSell.entryList()) {
             tr_.put(e.getKey(), e.getValue());
         }
         return tr_;
-//        return new TreeMap<new>(new chosenItemsForBuyOrSell);
+        // return new TreeMap<new>(new chosenItemsForBuyOrSell);
     }
 
-    //%%%%end%%%% functions for buy/sell items
+    // %%%%end%%%% functions for buy/sell items
 
-    //%%%%begin%%%% search items
+    // %%%%begin%%%% search items
     public void newSearchItem() {
         paginationItem.newSearch();
     }
@@ -1632,12 +1650,15 @@ public class FacadeGame implements WithMathFactory {
         paginationItem.getCriteria().setContentOfName(_contentOfName);
     }
 
-    public void setSearchModeDescriptionItem(SearchingMode _searchModeDescription) {
-        paginationItem.getCriteria().setSearchModeDescription(_searchModeDescription);
+    public void setSearchModeDescriptionItem(
+            SearchingMode _searchModeDescription) {
+        paginationItem.getCriteria().setSearchModeDescription(
+                _searchModeDescription);
     }
 
     public void setContentOfDescriptionItem(String _contentOfDescription) {
-        paginationItem.getCriteria().setContentOfDescription(_contentOfDescription);
+        paginationItem.getCriteria().setContentOfDescription(
+                _contentOfDescription);
     }
 
     public void setMinPriceItem(Integer _minPrice) {
@@ -1698,17 +1719,20 @@ public class FacadeGame implements WithMathFactory {
         setCmpNumberPriorityItem(0);
     }
 
-    //%%%%end%%%% search items
+    // %%%%end%%%% search items
 
-    //%%%%begin%%%% functions for buy/use technical moves
+    // %%%%begin%%%% functions for buy/use technical moves
     public void searchTmToBuy() {
         Coords coords_ = game.getPlayerCoords();
         coords_ = game.closestTile(data.getMap());
-        City pl_ = (City) data.getMap().getPlaces().getVal(coords_.getNumberPlace());
-        LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) pl_.getLevelByCoords(coords_);
-        Seller seller_ = (Seller) lev_.getGerants().getVal(coords_.getLevel().getPoint());
+        City pl_ = (City) data.getMap().getPlaces()
+                .getVal(coords_.getNumberPlace());
+        LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) pl_
+                .getLevelByCoords(coords_);
+        Seller seller_ = (Seller) lev_.getGerants().getVal(
+                coords_.getLevel().getPoint());
         StringList list_ = new StringList();
-        for (short i: seller_.getTm()) {
+        for (short i : seller_.getTm()) {
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }
@@ -1719,7 +1743,7 @@ public class FacadeGame implements WithMathFactory {
     public void searchTmToUse() {
         StringList list_ = new StringList();
         Inventory inventory_ = game.getPlayer().getInventory();
-        for (short i: inventory_.gotTm()) {
+        for (short i : inventory_.gotTm()) {
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }
@@ -1729,7 +1753,7 @@ public class FacadeGame implements WithMathFactory {
     StringList getOwnedMoves() {
         StringList list_ = new StringList();
         Inventory inventory_ = game.getPlayer().getInventory();
-        for (short i: inventory_.gotTm()) {
+        for (short i : inventory_.gotTm()) {
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }
@@ -1988,18 +2012,18 @@ public class FacadeGame implements WithMathFactory {
     }
 
     public void addTmToBuy(String _move) {
-//        chosenTmForBuy.add(data.getTm().getKeys(_move).first());
+        // chosenTmForBuy.add(data.getTm().getKeys(_move).first());
         chosenTmForBuy.add(data.getTmByMove(_move).first());
     }
 
     public void removeTmToBuy(String _item) {
-//        chosenTmForBuy.removeObj(data.getTm().getKeys(_item).first());
+        // chosenTmForBuy.removeObj(data.getTm().getKeys(_item).first());
         chosenTmForBuy.removeObj(data.getTmByMove(_item).first());
     }
 
     public LgInt amountTm() {
         LgInt amount_ = LgInt.zero();
-        for (short i: chosenTmForBuy) {
+        for (short i : chosenTmForBuy) {
             amount_.addNb(new LgInt(data.getTmPrice().getVal(i)));
         }
         return amount_;
@@ -2017,9 +2041,10 @@ public class FacadeGame implements WithMathFactory {
     public void clearFoundResultsTm() {
         paginationMove.clear();
     }
-    //%%%%end%%%% functions for buy/use technical moves
 
-    //%%%%begin%%%% option items
+    // %%%%end%%%% functions for buy/use technical moves
+
+    // %%%%begin%%%% option items
     public void chooseObject() {
         String item_ = paginationItem.currentObject();
         if (item_ == null) {
@@ -2092,22 +2117,25 @@ public class FacadeGame implements WithMathFactory {
     }
 
     public void addOrDeleteMoveEvo(String _move) {
-        PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer().getSelectedPkTeam();
+        PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer()
+                .getSelectedPkTeam();
         boolean learnt_ = pk_.getMovesToBeKeptEvo().getVal(_move);
         pk_.getMovesToBeKeptEvo().put(_move, !learnt_);
     }
 
     public int nbLearntMoves() {
-//        PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer().getSelectedPkTeam();
-//        return pk_.getMovesToBeKeptEvo().getKeys(true).size();
+        // PokemonPlayer pk_ = (PokemonPlayer)
+        // game.getPlayer().getSelectedPkTeam();
+        // return pk_.getMovesToBeKeptEvo().getKeys(true).size();
         return getKeptMovesToEvo().size();
     }
 
     public StringList getKeptMovesToEvo() {
-        PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer().getSelectedPkTeam();
+        PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer()
+                .getSelectedPkTeam();
         StringMap<Boolean> m_ = pk_.getMovesToBeKeptEvo();
         StringList l_ = new StringList();
-        for (EntryCust<String, Boolean> e: m_.entryList()) {
+        for (EntryCust<String, Boolean> e : m_.entryList()) {
             if (e.getValue()) {
                 l_.add(e.getKey());
             }
@@ -2115,12 +2143,12 @@ public class FacadeGame implements WithMathFactory {
         return l_;
     }
 
-
     public StringList getUnKeptMovesToEvo() {
-        PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer().getSelectedPkTeam();
+        PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer()
+                .getSelectedPkTeam();
         StringMap<Boolean> m_ = pk_.getMovesToBeKeptEvo();
         StringList l_ = new StringList();
-        for (EntryCust<String, Boolean> e: m_.entryList()) {
+        for (EntryCust<String, Boolean> e : m_.entryList()) {
             if (!e.getValue()) {
                 l_.add(e.getKey());
             }
@@ -2142,28 +2170,29 @@ public class FacadeGame implements WithMathFactory {
             game.getPlayer().setPokemonAbleToHoldObject();
         }
     }
-    //%%%%end%%%% option items
 
-    //%%%%begin%%%% reviving fossil
-//    public void searchFossil() {
-//        paginationItem.getCriteria().setSelectedClass(Fossil.class);
-//        searchObjectToUse();
-//    }
-//
-//    public Fossil getFossile() {
-//        return (Fossil) data.getItem(paginationItem.currentObject());
-//    }
-//
-//    public void doRevivingFossil() {
-//        String item_ = paginationItem.currentObject();
-//        if (item_ == null) {
-//            return;
-//        }
-//        game.doRevivingFossil(item_, data);
-//    }
-    //%%%%end%%%% reviving fossil
+    // %%%%end%%%% option items
 
-    //%%%%begin%%%% hosting pokemon
+    // %%%%begin%%%% reviving fossil
+    // public void searchFossil() {
+    // paginationItem.getCriteria().setSelectedClass(Fossil.class);
+    // searchObjectToUse();
+    // }
+    //
+    // public Fossil getFossile() {
+    // return (Fossil) data.getItem(paginationItem.currentObject());
+    // }
+    //
+    // public void doRevivingFossil() {
+    // String item_ = paginationItem.currentObject();
+    // if (item_ == null) {
+    // return;
+    // }
+    // game.doRevivingFossil(item_, data);
+    // }
+    // %%%%end%%%% reviving fossil
+
+    // %%%%begin%%%% hosting pokemon
     public void setSelectPkToHost(short _selectPkToHost) {
         if (firstSelectPkToHost == CustList.INDEX_NOT_FOUND_ELT) {
             firstSelectPkToHost = _selectPkToHost;
@@ -2200,10 +2229,12 @@ public class FacadeGame implements WithMathFactory {
         if (secondSelectPkToHost == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        NatTreeMap<Byte,PokemonPlayer> team_ = game.getPlayer().getPokemonPlayerList();
+        NatTreeMap<Byte, PokemonPlayer> team_ = game.getPlayer()
+                .getPokemonPlayerList();
         Numbers<Byte> keys_ = new Numbers<Byte>(team_.getKeys());
-        //int teamSize_ = game.getPlayer().getTeam().size();
-        game.attemptForStoringPokemonToHost(keys_.get(firstSelectPkToHost), keys_.get(secondSelectPkToHost), data);
+        // int teamSize_ = game.getPlayer().getTeam().size();
+        game.attemptForStoringPokemonToHost(keys_.get(firstSelectPkToHost),
+                keys_.get(secondSelectPkToHost), data);
         firstSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
         secondSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
     }
@@ -2228,14 +2259,15 @@ public class FacadeGame implements WithMathFactory {
         }
     }
 
-    public void receiveOnlyEgg(){
+    public void receiveOnlyEgg() {
         game.receiveOnlyEgg(data);
     }
 
-    public void receiveEggOrParents(){
+    public void receiveEggOrParents() {
         game.receiveEggOrParents(data);
     }
-    //%%%%end%%%% hosting pokemon
+
+    // %%%%end%%%% hosting pokemon
 
     public boolean isFishArea() {
         Coords next_ = closestTile();
@@ -2254,7 +2286,7 @@ public class FacadeGame implements WithMathFactory {
         return game.closestTile(data.getMap());
     }
 
-    //%%%%begin%%%% learn technical moves option
+    // %%%%begin%%%% learn technical moves option
     public void chooseMoveByObject() {
         String move_ = paginationMove.currentObject();
         if (move_ == null) {
@@ -2274,9 +2306,10 @@ public class FacadeGame implements WithMathFactory {
         game.getPlayer().learnMove(_oldMove, data);
         comment.addComment(game.getPlayer().getCommentGame());
     }
-    //%%%%end%%%% learn technical moves option
 
-    //%%%%begin%%%% functions for learning move tutor
+    // %%%%end%%%% learn technical moves option
+
+    // %%%%begin%%%% functions for learning move tutor
     public void choosePokemonForMoveTutors(short _position) {
         game.getPlayer().choosePokemonForMoveTutors(_position, data);
     }
@@ -2285,7 +2318,7 @@ public class FacadeGame implements WithMathFactory {
         StringList list_;
         list_ = new StringList();
         StringMap<Boolean> moves_ = game.getPlayer().getSelectedMoves();
-        for (String k: moves_.getKeys()) {
+        for (String k : moves_.getKeys()) {
             if (!moves_.getVal(k)) {
                 continue;
             }
@@ -2299,7 +2332,7 @@ public class FacadeGame implements WithMathFactory {
         StringList list_;
         list_ = new StringList();
         StringMap<Boolean> moves_ = game.getPlayer().getSelectedMoves();
-        for (String k: moves_.getKeys()) {
+        for (String k : moves_.getKeys()) {
             if (moves_.getVal(k)) {
                 continue;
             }
@@ -2319,9 +2352,10 @@ public class FacadeGame implements WithMathFactory {
         game.getPlayer().learnMovesByMoveTutor(data);
         comment.addComment(game.getPlayer().getCommentGame());
     }
-    //%%%%end%%%% functions for learning move tutor
 
-    //%%%%begin%%%% fight before round or before proponed switch
+    // %%%%end%%%% functions for learning move tutor
+
+    // %%%%begin%%%% fight before round or before proponed switch
     public int[][] getMiniHeros() {
         return game.getMiniHeros(data);
     }
@@ -2358,22 +2392,22 @@ public class FacadeGame implements WithMathFactory {
         game.deselect();
     }
 
-//    public void validateSwitch() {
-//        game.validateSwitch();
-//    }
+    // public void validateSwitch() {
+    // game.validateSwitch();
+    // }
 
-    public void setFirstChosenMoveFoeTarget(byte _cible){
+    public void setFirstChosenMoveFoeTarget(byte _cible) {
         game.setFirstChosenMoveFoeTarget(_cible);
     }
 
-    public void setFirstChosenMovePlayerTarget(byte _cible){
+    public void setFirstChosenMovePlayerTarget(byte _cible) {
         game.setFirstChosenMovePlayerTarget(_cible);
     }
 
     public void searchPokemonHealingItem() {
         StringList list_ = new StringList();
         Inventory inventory_ = game.getPlayer().getInventory();
-        for (String i: data.getItems().getKeys()) {
+        for (String i : data.getItems().getKeys()) {
             if (inventory_.getNumber(i).isZero()) {
                 continue;
             }
@@ -2479,7 +2513,8 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.getCmpNumber().setPriority(_priority);
     }
 
-    public void setCmpDescriptionIncreasingHealingItem(SelectedBoolean _increasing) {
+    public void setCmpDescriptionIncreasingHealingItem(
+            SelectedBoolean _increasing) {
         paginationHealingItem.getCmpDescription().setIncreasing(_increasing);
     }
 
@@ -2495,7 +2530,8 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.getCmpName().setPriority(_priority);
     }
 
-    public void setCmpHealOneMoveIncreasingHealingItem(SelectedBoolean _increasing) {
+    public void setCmpHealOneMoveIncreasingHealingItem(
+            SelectedBoolean _increasing) {
         paginationHealingItem.getCmpHealOneMove().setIncreasing(_increasing);
     }
 
@@ -2527,7 +2563,8 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.getCmpPp().setPriority(_priority);
     }
 
-    public void setCmpNbHealedStatusIncreasingHealingItem(SelectedBoolean _increasing) {
+    public void setCmpNbHealedStatusIncreasingHealingItem(
+            SelectedBoolean _increasing) {
         paginationHealingItem.getCmpNbHealedStatus().setIncreasing(_increasing);
     }
 
@@ -2535,7 +2572,8 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.getCmpNbHealedStatus().setPriority(_priority);
     }
 
-    public void setCmpRelativeRateHpIncreasingHealingItem(SelectedBoolean _increasing) {
+    public void setCmpRelativeRateHpIncreasingHealingItem(
+            SelectedBoolean _increasing) {
         paginationHealingItem.getCmpRelativeRateHp().setIncreasing(_increasing);
     }
 
@@ -2543,7 +2581,8 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.getCmpRelativeRateHp().setPriority(_priority);
     }
 
-    public void setCmpRelativeRatePpIncreasingHealingItem(SelectedBoolean _increasing) {
+    public void setCmpRelativeRatePpIncreasingHealingItem(
+            SelectedBoolean _increasing) {
         paginationHealingItem.getCmpRelativeRatePp().setIncreasing(_increasing);
     }
 
@@ -2551,7 +2590,8 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.getCmpRelativeRatePp().setPriority(_priority);
     }
 
-    public void setCmpStatisticsIncreasingHealingItem(SelectedBoolean _increasing) {
+    public void setCmpStatisticsIncreasingHealingItem(
+            SelectedBoolean _increasing) {
         paginationHealingItem.getCmpStatistics().setIncreasing(_increasing);
     }
 
@@ -2575,20 +2615,25 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.getCriteria().setContentOfName(_contentOfName);
     }
 
-    public void setSearchModeDescriptionHealingItem(SearchingMode _searchModeDescription) {
-        paginationHealingItem.getCriteria().setSearchModeDescription(_searchModeDescription);
+    public void setSearchModeDescriptionHealingItem(
+            SearchingMode _searchModeDescription) {
+        paginationHealingItem.getCriteria().setSearchModeDescription(
+                _searchModeDescription);
     }
 
     public void setContentOfDescriptionHealingItem(String _contentOfDescription) {
-        paginationHealingItem.getCriteria().setContentOfDescription(_contentOfDescription);
+        paginationHealingItem.getCriteria().setContentOfDescription(
+                _contentOfDescription);
     }
 
     public void setSearchModeStatusHealingItem(SearchingMode _searchModeStatus) {
-        paginationHealingItem.getCriteria().setSearchModeStatus(_searchModeStatus);
+        paginationHealingItem.getCriteria().setSearchModeStatus(
+                _searchModeStatus);
     }
 
     public void setContentOfStatusHealingItem(String _contentOfStatus) {
-        paginationHealingItem.getCriteria().setContentOfStatus(_contentOfStatus);
+        paginationHealingItem.getCriteria()
+                .setContentOfStatus(_contentOfStatus);
     }
 
     public void setHealOneMoveHealingItem(SelectedBoolean _healOneMove) {
@@ -2715,7 +2760,7 @@ public class FacadeGame implements WithMathFactory {
         setCmpNbHealedStatusPriorityHealingItem(0);
     }
 
-    public void setChosenHealingItemWalk(){
+    public void setChosenHealingItemWalk() {
         String selected_ = paginationHealingItem.currentObject();
         if (selected_ == null) {
             return;
@@ -2723,41 +2768,38 @@ public class FacadeGame implements WithMathFactory {
         game.getPlayer().chooseObject(selected_);
     }
 
-    public void setChosenHealingItem(){
+    public void setChosenHealingItem() {
         String selected_ = paginationHealingItem.currentObject();
         if (selected_ == null) {
             return;
         }
-        game.setChosenHealingItem(selected_,data);
+        game.setChosenHealingItem(selected_, data);
     }
 
-    public ObjectMap<TeamPosition,StringMap<ObjectMap<TeamPosition,Rate>>>
-            remainingThrowersTargetsHp() {
+    public ObjectMap<TeamPosition, StringMap<ObjectMap<TeamPosition, Rate>>> remainingThrowersTargetsHp() {
         return game.remainingThrowersTargetsHp(data);
     }
 
-    public NatTreeMap<String,EqList<TeamPosition>>
-            sortedFightersBeginRoundWildFight() {
+    public NatTreeMap<String, EqList<TeamPosition>> sortedFightersBeginRoundWildFight() {
         return game.sortedFightersBeginRoundWildFight(data);
     }
 
-    public EqList<TeamPosition>
-            sortedFightersBeginRound() {
+    public EqList<TeamPosition> sortedFightersBeginRound() {
         return game.sortedFightersBeginRound(data);
     }
 
-//    public TreeMap<TeamPosition,ActionMove>
-//            sortedFightersUsingMoveDependingOnPlayerChoices() {
-//        return game.sortedFightersUsingMoveDependingOnPlayerChoices(data);
-//    }
+    // public TreeMap<TeamPosition,ActionMove>
+    // sortedFightersUsingMoveDependingOnPlayerChoices() {
+    // return game.sortedFightersUsingMoveDependingOnPlayerChoices(data);
+    // }
 
-    public void setSubstituteEndRound(byte _remplacant){
+    public void setSubstituteEndRound(byte _remplacant) {
         game.setSubstituteEndRound(_remplacant);
     }
 
-//    public void cancelChooseBackFighterWhileRound() {
-//        game.cancelChooseBackFighterWhileRound();
-//    }
+    // public void cancelChooseBackFighterWhileRound() {
+    // game.cancelChooseBackFighterWhileRound();
+    // }
 
     public void roundWhileKoPlayer(boolean _enableAnimation) {
         comment.clearMessages();
@@ -2827,53 +2869,55 @@ public class FacadeGame implements WithMathFactory {
     public boolean isErrorFight() {
         return game.getFight().isError();
     }
-    //%%%%end%%%% fight before round or before proponed switch
 
-    //%%%%begin%%%% fight player side team
-    public NatTreeMap<Byte,Fighter> getPlayerTeam() {
+    // %%%%end%%%% fight before round or before proponed switch
+
+    // %%%%begin%%%% fight player side team
+    public NatTreeMap<Byte, Fighter> getPlayerTeam() {
         return game.getPlayerTeam();
     }
 
-    public NatTreeMap<Byte,Fighter> getFoeFrontTeam() {
+    public NatTreeMap<Byte, Fighter> getFoeFrontTeam() {
         return game.getFoeFrontTeam();
     }
 
-    public NatTreeMap<Byte,Fighter> getUnionFrontTeam() {
+    public NatTreeMap<Byte, Fighter> getUnionFrontTeam() {
         return game.getUnionFrontTeam();
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerFrontTeam() {
+    public NatTreeMap<Byte, Fighter> getPlayerFrontTeam() {
         return game.getPlayerFrontTeam();
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerBackTeam() {
+    public NatTreeMap<Byte, Fighter> getPlayerBackTeam() {
         return game.getPlayerBackTeam();
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerFrontTeamForSubstituting() {
+    public NatTreeMap<Byte, Fighter> getPlayerFrontTeamForSubstituting() {
         return game.getPlayerFrontTeamForSubstituting();
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerBackTeamForSubstituting() {
+    public NatTreeMap<Byte, Fighter> getPlayerBackTeamForSubstituting() {
         return game.getPlayerBackTeamForSubstituting();
     }
 
-//    public TreeMap<Byte,Fighter> getAllyFrontTeam() {
-//        return game.getAllyFrontTeam();
-//    }
-//
-//    public TreeMap<Byte,Fighter> getAllyBackTeam() {
-//        return game.getAllyBackTeam();
-//    }
-    //%%%%end%%%% fight player side team
+    // public TreeMap<Byte,Fighter> getAllyFrontTeam() {
+    // return game.getAllyFrontTeam();
+    // }
+    //
+    // public TreeMap<Byte,Fighter> getAllyBackTeam() {
+    // return game.getAllyBackTeam();
+    // }
+    // %%%%end%%%% fight player side team
 
-    //%%%%begin%%%% fight foe side team
+    // %%%%begin%%%% fight foe side team
     public Team getFoeTeam() {
         return game.getFight().getFoeTeam();
     }
-    //%%%%end%%%% fight foe side team
 
-    //%%%%begin%%%% fight evolutions and learning moves
+    // %%%%end%%%% fight foe side team
+
+    // %%%%begin%%%% fight evolutions and learning moves
     public boolean isChosableForLearningAndEvolving(byte _key) {
         return game.isChosableForLearningAndEvolving(_key);
     }
@@ -2886,11 +2930,11 @@ public class FacadeGame implements WithMathFactory {
         return game.getChosenIndex();
     }
 
-    public NatTreeMap<String,Boolean> getMoves() {
+    public NatTreeMap<String, Boolean> getMoves() {
         return game.getMoves();
     }
 
-    public TreeMap<String,Boolean> getEvolutions() {
+    public TreeMap<String, Boolean> getEvolutions() {
         return game.getEvolutions();
     }
 
@@ -2924,14 +2968,15 @@ public class FacadeGame implements WithMathFactory {
             game.directInteraction(game.closestTile(getMap()), getMap());
         }
     }
-    //%%%%end%%%% fight evolutions and learning moves
 
-    //%%%%begin%%%% wild fight
-    public NatTreeMap<String,BallNumberRate> calculateCatchingRates() {
+    // %%%%end%%%% fight evolutions and learning moves
+
+    // %%%%begin%%%% wild fight
+    public NatTreeMap<String, BallNumberRate> calculateCatchingRates() {
         return game.calculateCatchingRates(data);
     }
 
-    public void attemptFlee(boolean _enableAnimation){
+    public void attemptFlee(boolean _enableAnimation) {
         comment.clearMessages();
         game.attemptFlee(data, _enableAnimation);
         if (!_enableAnimation) {
@@ -2941,7 +2986,7 @@ public class FacadeGame implements WithMathFactory {
                 game.directInteraction(game.closestTile(getMap()), getMap());
             }
         }
-        //comment.addComment(game.getPlayer().getCommentGame());
+        // comment.addComment(game.getPlayer().getCommentGame());
     }
 
     public void endRoundFightFlee() {
@@ -2958,7 +3003,8 @@ public class FacadeGame implements WithMathFactory {
         return game.calculateFleeingRate(data);
     }
 
-    public void attemptCatchingWildPokemon(String _ball, boolean _enableAnimation){
+    public void attemptCatchingWildPokemon(String _ball,
+            boolean _enableAnimation) {
         comment.clearMessages();
         game.attemptCatchingWildPokemon(_ball, data, _enableAnimation);
         comment.addComment(game.getCommentGame());
@@ -2989,7 +3035,7 @@ public class FacadeGame implements WithMathFactory {
         }
     }
 
-    public void notCatchKoWildPokemon(){
+    public void notCatchKoWildPokemon() {
         comment.clearMessages();
         game.notCatchKoWildPokemon(data);
         comment.addComment(game.getPlayer().getCommentGame());
@@ -3000,11 +3046,12 @@ public class FacadeGame implements WithMathFactory {
         }
     }
 
-    public void catchKoWildPokemon(String _ball, String _pseudo){
+    public void catchKoWildPokemon(String _ball, String _pseudo) {
         comment.clearMessages();
         String pseudo_ = _pseudo;
         if (pseudo_.isEmpty()) {
-            pseudo_ = data.translatePokemon(game.getFight().wildPokemon().getName());
+            pseudo_ = data.translatePokemon(game.getFight().wildPokemon()
+                    .getName());
         }
         game.catchKoWildPokemon(_ball, pseudo_, data);
         comment.addComment(game.getPlayer().getCommentGame());
@@ -3015,11 +3062,12 @@ public class FacadeGame implements WithMathFactory {
         }
     }
 
-    public void catchWildPokemon(String _pseudo){
+    public void catchWildPokemon(String _pseudo) {
         comment.clearMessages();
         String pseudo_ = _pseudo;
         if (pseudo_.isEmpty()) {
-            pseudo_ = data.translatePokemon(game.getFight().wildPokemon().getName());
+            pseudo_ = data.translatePokemon(game.getFight().wildPokemon()
+                    .getName());
         }
         game.catchWildPokemon(pseudo_, data);
         comment.addComment(game.getPlayer().getCommentGame());
@@ -3029,7 +3077,8 @@ public class FacadeGame implements WithMathFactory {
             game.directInteraction(game.closestTile(getMap()), getMap());
         }
     }
-    //%%%%end%%%% wild fight
+
+    // %%%%end%%%% wild fight
 
     public boolean isLoadedRom() {
         return data != null;
@@ -3142,16 +3191,16 @@ public class FacadeGame implements WithMathFactory {
     }
 
     public void setMiniMapCoords(int _x, int _y) {
-        miniMapCoords = new MiniMapCoords((byte) _x,(byte) _y);
+        miniMapCoords = new MiniMapCoords((byte) _x, (byte) _y);
     }
 
     public MiniMapCoords getMiniMapCoords() {
         return miniMapCoords;
     }
 
-//    public void saveRom(String _folder) {
-//        StreamBufferedImage.saveRom(_folder, data);
-//    }
+    // public void saveRom(String _folder) {
+    // StreamBufferedImage.saveRom(_folder, data);
+    // }
 
     public String getZipName() {
         return zipName;

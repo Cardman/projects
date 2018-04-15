@@ -1,6 +1,6 @@
 package aiki.map.levels;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
@@ -20,19 +20,27 @@ public final class LevelLeague extends Level {
     private String fileName;
 
     @Override
-    public void validate(DataBase _data,LevelArea _level) {
+    public void validate(DataBase _data, LevelArea _level) {
         if (!_level.allAccessible()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         super.validate(_data, _level);
         if (!isEmpty(accessPoint)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        if (!_level.isValid(accessPoint,true)) {
-            throw new DataException();
+        if (!_level.isValid(accessPoint, true)) {
+            _data.setError(true);
+            return;
+
         }
-        if (!_level.isValid(trainerCoords,true)) {
-            throw new DataException();
+        if (!_level.isValid(trainerCoords, true)) {
+            _data.setError(true);
+            return;
+
         }
         trainer.validate(_data);
     }
@@ -69,31 +77,33 @@ public final class LevelLeague extends Level {
 
     @Override
     public void clearElements(Point _point) {
-        if (Point.eq(accessPoint,_point)) {
+        if (Point.eq(accessPoint, _point)) {
             accessPoint = new Point();
         }
     }
 
     @Override
-    public void translateByLine(short _y,short _dir) {
+    public void translateByLine(short _y, short _dir) {
         super.translateByLine(_y, _dir);
         if (trainerCoords.gety() > _y) {
-            trainerCoords.sety((short) (trainerCoords.gety()+_dir));
+            trainerCoords.sety((short) (trainerCoords.gety() + _dir));
         }
         if (accessPoint.gety() > _y) {
-            accessPoint.sety((short) (accessPoint.gety()+_dir));
+            accessPoint.sety((short) (accessPoint.gety() + _dir));
         }
     }
+
     @Override
-    public void translateByColumn(short _x,short _dir) {
+    public void translateByColumn(short _x, short _dir) {
         super.translateByColumn(_x, _dir);
         if (trainerCoords.getx() > _x) {
-            trainerCoords.setx((short) (trainerCoords.getx()+_dir));
+            trainerCoords.setx((short) (trainerCoords.getx() + _dir));
         }
         if (accessPoint.getx() > _x) {
-            accessPoint.setx((short) (accessPoint.getx()+_dir));
+            accessPoint.setx((short) (accessPoint.getx() + _dir));
         }
     }
+
     @Override
     public void translateElement(Point _id, Point _target) {
         if (!isEmptyForAdding(_target)) {
@@ -103,6 +113,7 @@ public final class LevelLeague extends Level {
             trainerCoords.affect(_target);
         }
     }
+
     public Point getTrainerCoords() {
         return trainerCoords;
     }

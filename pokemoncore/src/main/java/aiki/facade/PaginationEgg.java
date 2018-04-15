@@ -1,4 +1,11 @@
 package aiki.facade;
+
+import aiki.DataBase;
+import aiki.comparators.ComparatorEgg;
+import aiki.map.pokemon.CriteriaForSearchingEgg;
+import aiki.map.pokemon.Egg;
+import aiki.map.pokemon.UsablePokemon;
+import aiki.util.SortingEgg;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
@@ -6,14 +13,9 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
-import aiki.DataBase;
-import aiki.comparators.ComparatorEgg;
-import aiki.map.pokemon.CriteriaForSearchingEgg;
-import aiki.map.pokemon.Egg;
-import aiki.map.pokemon.UsablePokemon;
-import aiki.util.SortingEgg;
 
-public final class PaginationEgg extends Pagination<SortingEgg, Egg, CriteriaForSearchingEgg> {
+public final class PaginationEgg extends
+        Pagination<SortingEgg, Egg, CriteriaForSearchingEgg> {
 
     private FieldComparator<Integer> cmpSteps = new FieldComparator<Integer>();
 
@@ -23,7 +25,8 @@ public final class PaginationEgg extends Pagination<SortingEgg, Egg, CriteriaFor
 
     private final int nbComparators = 2;
 
-    private TreeMap<SortingEgg, Egg> eggs = new TreeMap<SortingEgg, Egg>(new ComparatorEgg());
+    private TreeMap<SortingEgg, Egg> eggs = new TreeMap<SortingEgg, Egg>(
+            new ComparatorEgg());
 
     private EqList<SortingEgg> rendered = new EqList<SortingEgg>();
 
@@ -97,26 +100,28 @@ public final class PaginationEgg extends Pagination<SortingEgg, Egg, CriteriaFor
 
     @Override
     public void sort() {
-//        TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<new>(new Comparator<SortingEgg>() {
-//            @Override
-//            public int compare(SortingEgg _o1, SortingEgg _o2) {
-//                for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
-//                    if (cmpSteps.getPriority() == i) {
-//                        int res_ = cmpSteps.compare(_o1.getSteps(), _o2.getSteps());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    } else if (cmpName.getPriority() == i) {
-//                        int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    }
-//                }
-//                return Integer.compare(_o1.getIndex(), _o2.getIndex());
-//            }
-//        });
-        TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<SortingEgg, Egg>(new ComparatorEgg(cmpSteps, cmpName, nbComparators));
+        // TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<new>(new
+        // Comparator<SortingEgg>() {
+        // @Override
+        // public int compare(SortingEgg _o1, SortingEgg _o2) {
+        // for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
+        // if (cmpSteps.getPriority() == i) {
+        // int res_ = cmpSteps.compare(_o1.getSteps(), _o2.getSteps());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // } else if (cmpName.getPriority() == i) {
+        // int res_ = cmpName.compare(_o1.getName(), _o2.getName());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // }
+        // }
+        // return Integer.compare(_o1.getIndex(), _o2.getIndex());
+        // }
+        // });
+        TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<SortingEgg, Egg>(
+                new ComparatorEgg(cmpSteps, cmpName, nbComparators));
         eggs_.putAllTreeMap(eggs);
         eggs = eggs_;
     }

@@ -526,6 +526,9 @@ public final class MainWindow extends NetGroupFrame {
             try {
                 InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(_file);
                 facade.loadRomAndCheck(_file, files_);
+                if (facade.getData() == null) {
+                    facade.loadResources();
+                }
                 if (!DataBase.isLoading()) {
                     return;
                 }
@@ -573,6 +576,9 @@ public final class MainWindow extends NetGroupFrame {
             try {
                 InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(path_);
                 facade.loadRomAndCheck(path_, files_);
+                if (facade.getData() == null) {
+                    facade.loadResources();
+                }
                 if (!DataBase.isLoading()) {
                     return;
                 }
@@ -1106,6 +1112,9 @@ public final class MainWindow extends NetGroupFrame {
         try {
             InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(_fileName);
             facade.loadRomAndCheck(_fileName, files_);
+            if (facade.getData() == null) {
+                facade.loadResources();
+            }
             if (!DataBase.isLoading()) {
                 return;
             }

@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.util.annot.RwXml;
 
@@ -13,10 +13,14 @@ public final class EffectWinMoney extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (winningRateBySumTargetUser.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!winningRateBySumTargetUser.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

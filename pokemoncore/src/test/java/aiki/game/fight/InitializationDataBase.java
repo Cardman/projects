@@ -1,4 +1,5 @@
 package aiki.game.fight;
+import static org.junit.Assert.assertTrue;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
@@ -857,24 +858,34 @@ public class InitializationDataBase {
 
         InitializationMap.initImages(data_);
         data_.getMap().initializeLinks();
+        assertTrue(!data_.isError());
         data_.initializeWildPokemon();
+        assertTrue(!data_.isError());
         data_.getMap().initInteractiveElements();
+        assertTrue(!data_.isError());
         data_.completeVariables();
+        assertTrue(!data_.isError());
         initTableTypes(data_);
         initConstants(data_);
         initRandomLaws(data_);
         initExpPoints(data_);
         initTmHm(data_);
         data_.initTypesByTable();
+        assertTrue(!data_.isError());
         initTranslations(data_);
         data_.setEndGameImage(new int[0][0]);
         //OK data, no homonyms
         data_.validateCore();
+        assertTrue(!data_.isError());
         data_.validateConstants();
+        assertTrue(!data_.isError());
         data_.setCheckTranslation(false);
         CheckNumericStringsFight.validateNumericBooleanStrings(data_, false);
+        assertTrue(!data_.isError());
         data_.getMap().validate(data_);
+        assertTrue(!data_.isError());
         data_.setupPseudoImages();
+        assertTrue(!data_.isError());
         return data_;
     }
 

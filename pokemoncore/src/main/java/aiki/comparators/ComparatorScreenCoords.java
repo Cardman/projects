@@ -1,8 +1,8 @@
 package aiki.comparators;
 import java.util.Comparator;
 
-import code.util.CustList;
 import aiki.map.util.ScreenCoords;
+import code.util.CustList;
 
 public final class ComparatorScreenCoords implements Comparator<ScreenCoords> {
 

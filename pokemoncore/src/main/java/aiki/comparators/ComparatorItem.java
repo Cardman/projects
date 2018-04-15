@@ -1,13 +1,13 @@
 package aiki.comparators;
 import java.util.Comparator;
 
+import aiki.util.SortingItem;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.FieldCustComparator;
 import code.util.pagination.Pagination;
-import aiki.util.SortingItem;
 
 public final class ComparatorItem implements Comparator<SortingItem> {
 

@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.util.annot.RwXml;
 
@@ -13,7 +13,9 @@ public abstract class EffectEndRoundStatus extends EffectEndRound {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (inflictedRateHpTarget == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

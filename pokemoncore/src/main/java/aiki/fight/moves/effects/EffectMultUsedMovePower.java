@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.util.StringMap;
 import code.util.annot.RwXml;
@@ -13,12 +13,16 @@ public final class EffectMultUsedMovePower extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (String s: multMovePowerFctType.getKeys()) {
+        for (String s : multMovePowerFctType.getKeys()) {
             if (!_data.getTypes().containsObj(s)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multMovePowerFctType.getVal(s).isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
     }

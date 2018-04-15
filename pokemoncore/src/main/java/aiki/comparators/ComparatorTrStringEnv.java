@@ -1,9 +1,9 @@
 package aiki.comparators;
 import java.util.Comparator;
 
-import code.util.EnumMap;
 import aiki.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
+import code.util.EnumMap;
 
 public final class ComparatorTrStringEnv implements Comparator<EnvironmentType> {
 

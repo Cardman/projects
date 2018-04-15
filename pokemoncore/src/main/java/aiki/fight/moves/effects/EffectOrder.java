@@ -1,8 +1,7 @@
 package aiki.fight.moves.effects;
-import aiki.DataBase;
-import aiki.exceptions.DataException;
-import code.util.annot.RwXml;
 
+import aiki.DataBase;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class EffectOrder extends Effect {
@@ -12,17 +11,21 @@ public final class EffectOrder extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-//        if (getTargetChoice() == TargetChoice.LANCEUR) {
-//            throw new DataException();
-//        }
+        // if (getTargetChoice() == TargetChoice.LANCEUR) {
+        // _data.setError(true);
+
+        // }
         if (!getTargetChoice().isWithChoice()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
     public boolean getTargetAttacksLast() {
         return targetAttacksLast;
     }
+
     public void setTargetAttacksLast(boolean _targetAttacksLast) {
         targetAttacksLast = _targetAttacksLast;
     }

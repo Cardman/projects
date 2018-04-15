@@ -1,6 +1,6 @@
 package aiki.fight.items;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.util.annot.RwXml;
 
@@ -20,12 +20,17 @@ public final class HealingHp extends HealingItem {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (hp.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!hp.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
+
     public Rate getHp() {
         return hp;
     }

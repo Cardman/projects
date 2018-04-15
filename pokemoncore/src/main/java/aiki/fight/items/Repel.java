@@ -1,6 +1,6 @@
 package aiki.fight.items;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -19,9 +19,12 @@ public final class Repel extends Item {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (steps <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
+
     public long getSteps() {
         return steps;
     }

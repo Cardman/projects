@@ -1,6 +1,6 @@
 package aiki.fight.status;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -18,25 +18,37 @@ public abstract class StatusBeginRound extends Status {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!lawForUsingAMove.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!lawForUsingAMoveNbRound.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!lawForUsingAMoveIfFoe.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!lawForFullHealIfMove.checkEvents()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!lawForUsingAMoveNbRound.events().isEmpty()) {
             Rate min_ = lawForUsingAMoveNbRound.minimum();
             if (!min_.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
-            for (Rate e: lawForUsingAMoveNbRound.events()) {
+            for (Rate e : lawForUsingAMoveNbRound.events()) {
                 if (!e.isInteger()) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
             return;
@@ -47,7 +59,9 @@ public abstract class StatusBeginRound extends Status {
         if (!lawForUsingAMoveIfFoe.events().isEmpty()) {
             return;
         }
-        throw new DataException();
+        _data.setError(true);
+        return;
+
     }
 
     public MonteCarloBoolean getLawForUsingAMove() {
@@ -62,7 +76,8 @@ public abstract class StatusBeginRound extends Status {
         return lawForUsingAMoveNbRound;
     }
 
-    public void setLawForUsingAMoveNbRound(MonteCarloNumber _lawForUsingAMoveNbRound) {
+    public void setLawForUsingAMoveNbRound(
+            MonteCarloNumber _lawForUsingAMoveNbRound) {
         lawForUsingAMoveNbRound = _lawForUsingAMoveNbRound;
     }
 
@@ -70,7 +85,8 @@ public abstract class StatusBeginRound extends Status {
         return lawForUsingAMoveIfFoe;
     }
 
-    public void setLawForUsingAMoveIfFoe(MonteCarloBoolean _lawForUsingAMoveIfFoe) {
+    public void setLawForUsingAMoveIfFoe(
+            MonteCarloBoolean _lawForUsingAMoveIfFoe) {
         lawForUsingAMoveIfFoe = _lawForUsingAMoveIfFoe;
     }
 

@@ -1,8 +1,8 @@
 package aiki.comparators;
 import java.util.Comparator;
 
-import code.util.StringMap;
 import aiki.DataBase;
+import code.util.StringMap;
 
 public final class ComparatorTrStrings implements Comparator<String> {
 

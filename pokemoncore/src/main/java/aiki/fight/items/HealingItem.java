@@ -1,6 +1,6 @@
 package aiki.fight.items;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.StringMap;
 import code.util.annot.RwXml;
 
@@ -20,16 +20,22 @@ public abstract class HealingItem extends Item {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (String k: happiness.getKeys()) {
+        for (String k : happiness.getKeys()) {
             if (happiness.getVal(k) < 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             Item obj_ = _data.getItem(k);
             if (obj_ == null) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!(obj_ instanceof Ball)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
     }
@@ -37,12 +43,15 @@ public abstract class HealingItem extends Item {
     public StringMap<Short> getHappiness() {
         return happiness;
     }
+
     public void setHappiness(StringMap<Short> _happiness) {
         happiness = _happiness;
     }
+
     public boolean getHealingTeam() {
         return healingTeam;
     }
+
     public void setHealingTeam(boolean _healingTeam) {
         healingTeam = _healingTeam;
     }

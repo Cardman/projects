@@ -1,6 +1,6 @@
 package aiki.fight.status;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
 import aiki.fight.status.effects.EffectPartnerStatus;
@@ -19,45 +19,65 @@ public abstract class Status {
     private boolean disabledEffIfSwitch;
     private int incrementEndRound;
     private boolean incrementingEndRound;
-    private EnumMap<Statistic,Rate> multStat;
+    private EnumMap<Statistic, Rate> multStat;
     private String fail;
+
     public void validate(DataBase _data) {
         if (statusType == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(multStat.getKeys())) {
-            throw new DataException();
+        if (!Statistic.getStatisticsWithBoost().containsAllObj(
+                multStat.getKeys())) {
+            _data.setError(true);
+            return;
+
         }
-        for (Rate v: multStat.values()) {
+        for (Rate v : multStat.values()) {
             if (!v.isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (v.isZero()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!catchingRate.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (catchingRate.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (effectEndRound.size() > 1) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (effectsPartner.size() > 1) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
         }
         if (!effectEndRound.isEmpty()) {
             if (incrementEndRound == effectEndRound.first().getEndRoundRank()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!effectsPartner.isEmpty()) {
-            effectsPartner.first().validate();
+            effectsPartner.first().validate(_data);
         }
     }
 
@@ -78,64 +98,82 @@ public abstract class Status {
         if (effectsPartner.isEmpty()) {
             return Rate.zero();
         }
-        EffectPartnerStatus effetPart_=effectsPartner.first();
+        EffectPartnerStatus effetPart_ = effectsPartner.first();
         return effetPart_.getRestoredHpRateLovedAlly();
     }
 
     public boolean estActifPartenaire() {
         return !effectsPartner.isEmpty();
     }
+
     public StatusType getStatusType() {
         return statusType;
     }
+
     public void setStatusType(StatusType _statusType) {
         statusType = _statusType;
     }
+
     public Rate getCatchingRate() {
         return catchingRate;
     }
+
     public void setCatchingRate(Rate _catchingRate) {
         catchingRate = _catchingRate;
     }
+
     public CustList<EffectEndRoundStatus> getEffectEndRound() {
         return effectEndRound;
     }
+
     public void setEffectEndRound(CustList<EffectEndRoundStatus> _effectEndRound) {
         effectEndRound = _effectEndRound;
     }
+
     public CustList<EffectPartnerStatus> getEffectsPartner() {
         return effectsPartner;
     }
+
     public void setEffectsPartner(CustList<EffectPartnerStatus> _effectsPartner) {
         effectsPartner = _effectsPartner;
     }
+
     public boolean getDisabledEffIfSwitch() {
         return disabledEffIfSwitch;
     }
+
     public void setDisabledEffIfSwitch(boolean _disabledEffIfSwitch) {
         disabledEffIfSwitch = _disabledEffIfSwitch;
     }
+
     public boolean getIncrementingEndRound() {
         return incrementingEndRound;
     }
+
     public void setIncrementingEndRound(boolean _incrementingEndRound) {
         incrementingEndRound = _incrementingEndRound;
     }
+
     public int getIncrementEndRound() {
         return incrementEndRound;
     }
+
     public void setIncrementEndRound(int _incrementEndRound) {
         incrementEndRound = _incrementEndRound;
     }
-    public EnumMap<Statistic,Rate> getMultStat() {
+
+    public EnumMap<Statistic, Rate> getMultStat() {
         return multStat;
     }
-    public void setMultStat(EnumMap<Statistic,Rate> _multStat) {
+
+    public void setMultStat(EnumMap<Statistic, Rate> _multStat) {
         multStat = _multStat;
     }
+
     public String getFail() {
         return fail;
     }
+
     public void setFail(String _fail) {
         fail = _fail;
     }

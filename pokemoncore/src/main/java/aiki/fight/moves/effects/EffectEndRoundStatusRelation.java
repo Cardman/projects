@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import code.maths.Rate;
 import code.util.annot.RwXml;
@@ -14,19 +14,27 @@ public final class EffectEndRoundStatusRelation extends EffectEndRoundStatus {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!getInflictedRateHpTarget().isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!thievedHpRateTargetToUser.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (getInflictedRateHpTarget().isZero()) {
             if (!thievedHpRateTargetToUser.isZero()) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!thievedHpRateTargetToUser.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         return;
     }

@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.annot.RwXml;
 
@@ -13,13 +13,18 @@ public final class EffectCopyFighter extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (getTargetChoice() == TargetChoice.LANCEUR) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (ppForMoves > 0) {
             return;
         }
-        throw new DataException();
+        _data.setError(true);
+        return;
+
     }
+
     public short getPpForMoves() {
         return ppForMoves;
     }

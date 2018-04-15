@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.util.annot.RwXml;
 
@@ -13,7 +13,9 @@ public final class EffectRemainedHpRate extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (rateHp.isZero()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

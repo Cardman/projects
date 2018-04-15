@@ -1,6 +1,6 @@
 package aiki.fight.pokemon;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.pokemon.enums.GenderRepartition;
@@ -33,49 +33,49 @@ public final class PokemonData {
 
     private static final int BONUS_HP = 5;
 
-    /**DONE*/
+    /** DONE */
     private int number;
 
-    /**DONE*/
+    /** DONE */
     private Rate weight;
 
-    /**DONE*/
+    /** DONE */
     private StringList types;
 
-    /**DONE*/
-    private EnumMap<Statistic,StatBaseEv> statistics;
+    /** DONE */
+    private EnumMap<Statistic, StatBaseEv> statistics;
 
-    /**DONE*/
+    /** DONE */
     private EqList<LevelMove> levMoves;
 
-    /**DONE*/
+    /** DONE */
     private GenderRepartition genderRep;
 
-    /**DONE*/
+    /** DONE */
     private StringList abilities;
 
-    /**DONE*/
+    /** DONE */
     private StringList moveTutors;
 
-    /**DONE*/
+    /** DONE */
     private Numbers<Short> hiddenMoves;
 
-    /**DONE*/
+    /** DONE */
     private Numbers<Short> technicalMoves;
 
-    /**DONE*/
+    /** DONE */
     private String baseEvo;
 
-    /**DONE*/
+    /** DONE */
     private StringMap<Evolution> evolutions;
 
-    /**DONE*/
+    /** DONE */
     private short catchingRate;
 
-    /**DONE*/
+    /** DONE */
     private Rate height;
 
-    /**DONE*/
+    /** DONE */
     private ExpType expEvo;
 
     /***/
@@ -84,10 +84,10 @@ public final class PokemonData {
     /***/
     private StringList eggGroups;
 
-    /**DONE*/
+    /** DONE */
     private LgInt hatchingSteps;
 
-    /**DONE*/
+    /** DONE */
     private short happiness;
 
     /***/
@@ -96,87 +96,138 @@ public final class PokemonData {
     public void validate(DataBase _data) {
         eggGroups.removeDuplicates();
         if (expEvo == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (expRate <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (catchingRate <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (happiness <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (happinessHatch <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!hatchingSteps.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!weight.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!height.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (types.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getTypes().containsAllObj(types)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (genderRep == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (genderRep != GenderRepartition.NO_GENDER) {
             if (genderRep != GenderRepartition.LEGENDARY) {
                 if (eggGroups.isEmpty()) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
                 PokemonData fPkBaseEvo_ = _data.getPokemon(baseEvo);
                 if (fPkBaseEvo_.genderRep == GenderRepartition.LEGENDARY) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
         }
-        if (!Statistic.equalsSet(statistics.getKeys(), Statistic.getStatisticsWithBase())) {
-            throw new DataException();
+        if (!Statistic.equalsSet(statistics.getKeys(),
+                Statistic.getStatisticsWithBase())) {
+            _data.setError(true);
+            return;
+
         }
-        for (Statistic s: Statistic.getStatisticsWithBase()) {
+        for (Statistic s : Statistic.getStatisticsWithBase()) {
             if (statistics.getVal(s).getBase() <= 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (statistics.getVal(s).getEv() < 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (levMoves.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (abilities.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getMoves().containsAllAsKeys(moveTutors)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (moveTutors.containsObj(_data.getDefaultMove())) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getAbilities().containsAllAsKeys(abilities)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getHm().containsAllAsKeys(hiddenMoves)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getTm().containsAllAsKeys(technicalMoves)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getPokedex().contains(baseEvo)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (String e: evolutions.getKeys()) {
+        for (String e : evolutions.getKeys()) {
             if (!_data.getPokedex().contains(e)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             evolutions.getVal(e).validate(_data, this);
         }
@@ -185,79 +236,95 @@ public final class PokemonData {
             levMoves.first().setLevel((short) _data.getMinLevel());
         }
         min_ = levMoves.first().getLevel();
-        for (LevelMove p:levMoves) {
+        for (LevelMove p : levMoves) {
             if (p.getLevel() < min_) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (StringList.quickEq(p.getMove(), _data.getDefaultMove())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getMoves().contains(p.getMove())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             min_ = p.getLevel();
         }
     }
 
     public void validateForEditing() {
-        if (!Statistic.equalsSet(statistics.getKeys(), Statistic.getStatisticsWithBase())) {
+        if (!Statistic.equalsSet(statistics.getKeys(),
+                Statistic.getStatisticsWithBase())) {
             statistics.clear();
-            for (Statistic s: Statistic.getStatisticsWithBase()) {
+            for (Statistic s : Statistic.getStatisticsWithBase()) {
                 statistics.put(s, new StatBaseEv((byte) 0, (byte) 0));
             }
         }
-//        levMoves.sort(new NaturalComparator<LevelMove>() {
-//            @Override
-//            public int compare(LevelMove _arg0, LevelMove _arg1) {
-//                return _arg0.getLevel() - _arg1.getLevel();
-//            }
-//        });
+        // levMoves.sort(new NaturalComparator<LevelMove>() {
+        // @Override
+        // public int compare(LevelMove _arg0, LevelMove _arg1) {
+        // return _arg0.getLevel() - _arg1.getLevel();
+        // }
+        // });
     }
 
     public Evolution getEvolution(String _name) {
-        return evolutions.getVal( _name);
+        return evolutions.getVal(_name);
     }
 
-//    public static String getFormula(Statistic _statistic) {
-//        if (_statistic == Statistic.HP) {
-//            return FORM_STATIS_HP;
-//        }
-//        return FORM_STATIS;
-//    }
+    // public static String getFormula(Statistic _statistic) {
+    // if (_statistic == Statistic.HP) {
+    // return FORM_STATIS_HP;
+    // }
+    // return FORM_STATIS;
+    // }
 
-    public Rate statHp(short _niv,EnumMap<Statistic,Short> _ev,EnumMap<Statistic,Short> _iv){
-        return stat(_niv, Statistic.HP, _ev.getVal(Statistic.HP), _iv.getVal(Statistic.HP));
+    public Rate statHp(short _niv, EnumMap<Statistic, Short> _ev,
+            EnumMap<Statistic, Short> _iv) {
+        return stat(_niv, Statistic.HP, _ev.getVal(Statistic.HP),
+                _iv.getVal(Statistic.HP));
     }
-    public Rate stat(short _niv,Statistic _stat,short _ev,short _iv){
-        return stat(_niv,statistics.getVal(_stat).getBase(),_stat,_ev,_iv);
+
+    public Rate stat(short _niv, Statistic _stat, short _ev, short _iv) {
+        return stat(_niv, statistics.getVal(_stat).getBase(), _stat, _ev, _iv);
     }
-    public static Rate stat(short _niv,short _base,Statistic _stat,short _ev,short _iv){
-        return stat(_niv,new Rate(_base),_stat,_ev,_iv);
+
+    public static Rate stat(short _niv, short _base, Statistic _stat,
+            short _ev, short _iv) {
+        return stat(_niv, new Rate(_base), _stat, _ev, _iv);
     }
+
     /**
-        Rate stat_=Rate.multiply(_base, new Rate(2));<br/>
-        stat_.addNb(new Rate(_ev+4x_iv,4));<br/>
-        stat_.multiplyBy(new Rate(_niv,100));<br/>
-        if(_stat == Statistic.HP){<br/>
-            stat_.addNb(new Rate(_niv+10));<br/>
-        } else {<br/>
-            stat_.addNb(new Rate(5));<br/>
-        }<br/>
-        return stat_;*/
-    public static Rate stat(short _niv,Rate _base,Statistic _stat,short _ev,short _iv){
-        Rate stat_=Rate.multiply(_base, new Rate(RATE_BASE));
-        stat_.addNb(new Rate(RATE_EV*_ev));
-        stat_.addNb(new Rate(RATE_IV*_iv));
-        stat_.multiplyBy(new Rate(_niv,RATE_DIV_STAT));
+     * Rate stat_=Rate.multiply(_base, new Rate(2));<br/>
+     * stat_.addNb(new Rate(_ev+4x_iv,4));<br/>
+     * stat_.multiplyBy(new Rate(_niv,100));<br/>
+     * if(_stat == Statistic.HP){<br/>
+     * stat_.addNb(new Rate(_niv+10));<br/>
+     * } else {<br/>
+     * stat_.addNb(new Rate(5));<br/>
+     * }<br/>
+     * return stat_;
+     */
+    public static Rate stat(short _niv, Rate _base, Statistic _stat, short _ev,
+            short _iv) {
+        Rate stat_ = Rate.multiply(_base, new Rate(RATE_BASE));
+        stat_.addNb(new Rate(RATE_EV * _ev));
+        stat_.addNb(new Rate(RATE_IV * _iv));
+        stat_.multiplyBy(new Rate(_niv, RATE_DIV_STAT));
         stat_.addNb(new Rate(BONUS_STAT));
-        if(_stat == Statistic.HP){
-            stat_.addNb(new Rate(_niv+BONUS_HP));
+        if (_stat == Statistic.HP) {
+            stat_.addNb(new Rate(_niv + BONUS_HP));
         }
         return stat_;
     }
+
     public StringList getMovesBeforeLevel(short _level) {
         StringList list_ = new StringList();
-        for (LevelMove p: levMoves) {
+        for (LevelMove p : levMoves) {
             if (p.getLevel() > _level) {
                 break;
             }
@@ -265,9 +332,10 @@ public final class PokemonData {
         }
         return list_;
     }
-    public StringList getMovesAtLevel(short _level,int _maxNumber) {
+
+    public StringList getMovesAtLevel(short _level, int _maxNumber) {
         StringList list_ = new StringList();
-        for (LevelMove l: levMoves.getReverse()) {
+        for (LevelMove l : levMoves.getReverse()) {
             if (list_.size() == _maxNumber) {
                 break;
             }
@@ -278,12 +346,14 @@ public final class PokemonData {
         }
         return list_;
     }
+
     public StringList getDirectEvolutions() {
         return getDirectEvolutions(Gender.NO_GENDER, false);
     }
+
     public StringList getDirectEvolutions(Gender _gender, boolean _onlyPossible) {
         StringList evos_ = new StringList();
-        for (String e2_: getEvolutions().getKeys()) {
+        for (String e2_ : getEvolutions().getKeys()) {
             if (_onlyPossible) {
                 Evolution e_ = getEvolution(e2_);
                 if (e_ instanceof GenderConstraints) {
@@ -300,42 +370,51 @@ public final class PokemonData {
         }
         return evos_;
     }
-    public EnumMap<Statistic,Short> getEvs() {
-        EnumMap<Statistic,Short> evs_ = new EnumMap<Statistic,Short>();
-        for (Statistic s: statistics.getKeys()) {
+
+    public EnumMap<Statistic, Short> getEvs() {
+        EnumMap<Statistic, Short> evs_ = new EnumMap<Statistic, Short>();
+        for (Statistic s : statistics.getKeys()) {
             evs_.put(s, statistics.getVal(s).getEv());
         }
         return evs_;
     }
+
     public int getNumber() {
         return number;
     }
+
     public void setNumber(int _number) {
         number = _number;
     }
+
     public Rate getWeight() {
         return weight;
     }
+
     public void setWeight(Rate _weight) {
         weight = _weight;
     }
+
     public StringList getTypes() {
         return types;
     }
+
     public void setTypes(StringList _types) {
         types = _types;
     }
-    public EnumMap<Statistic,StatBaseEv> getStatistics() {
+
+    public EnumMap<Statistic, StatBaseEv> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(EnumMap<Statistic,StatBaseEv> _statistics) {
+    public void setStatistics(EnumMap<Statistic, StatBaseEv> _statistics) {
         statistics = _statistics;
     }
 
     public EqList<LevelMove> getLevMoves() {
         return levMoves;
     }
+
     public void setLevMoves(EqList<LevelMove> _levMoves) {
         levMoves = _levMoves;
     }
@@ -343,90 +422,119 @@ public final class PokemonData {
     public GenderRepartition getGenderRep() {
         return genderRep;
     }
+
     public void setGenderRep(GenderRepartition _genderRep) {
         genderRep = _genderRep;
     }
+
     public StringList getAbilities() {
         return abilities;
     }
+
     public void setAbilities(StringList _abilities) {
         abilities = _abilities;
     }
+
     public StringList getMoveTutors() {
         return moveTutors;
     }
+
     public void setMoveTutors(StringList _moveTutors) {
         moveTutors = _moveTutors;
     }
+
     public Numbers<Short> getHiddenMoves() {
         return hiddenMoves;
     }
+
     public void setHiddenMoves(Numbers<Short> _hiddenMoves) {
         hiddenMoves = _hiddenMoves;
     }
+
     public Numbers<Short> getTechnicalMoves() {
         return technicalMoves;
     }
+
     public void setTechnicalMoves(Numbers<Short> _technicalMoves) {
         technicalMoves = _technicalMoves;
     }
+
     public String getBaseEvo() {
         return baseEvo;
     }
+
     public void setBaseEvo(String _baseEvo) {
         baseEvo = _baseEvo;
     }
+
     public StringMap<Evolution> getEvolutions() {
         return evolutions;
     }
+
     public void setEvolutions(StringMap<Evolution> _evolutions) {
         evolutions = _evolutions;
     }
+
     public short getCatchingRate() {
         return catchingRate;
     }
+
     public void setCatchingRate(short _catchingRate) {
         catchingRate = _catchingRate;
     }
+
     public Rate getHeight() {
         return height;
     }
+
     public void setHeight(Rate _height) {
         height = _height;
     }
+
     public ExpType getExpEvo() {
         return expEvo;
     }
+
     public void setExpEvo(ExpType _expEvo) {
         expEvo = _expEvo;
     }
+
     public long getExpRate() {
         return expRate;
     }
+
     public void setExpRate(long _expRate) {
         expRate = _expRate;
     }
+
     public StringList getEggGroups() {
         return eggGroups;
     }
+
     public void setEggGroups(StringList _eggGroups) {
         eggGroups = _eggGroups;
     }
+
     public LgInt getHatchingSteps() {
         return hatchingSteps;
     }
+
     public void setHatchingSteps(LgInt _hatchingSteps) {
         hatchingSteps = _hatchingSteps;
     }
+
     public short getHappiness() {
         return happiness;
     }
+
     public void setHappiness(short _happiness) {
         happiness = _happiness;
     }
+
     public short getHappinessHatch() {
         return happinessHatch;
     }
+
     public void setHappinessHatch(short _happinessHatch) {
         happinessHatch = _happinessHatch;
     }

@@ -1,12 +1,12 @@
 package aiki.map.characters;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.annot.RwXml;
 
 @RwXml
-public final class DealerItem extends Person implements CharacterInRoadCave{
+public final class DealerItem extends Person implements CharacterInRoadCave {
 
     private StringList items;
 
@@ -15,10 +15,14 @@ public final class DealerItem extends Person implements CharacterInRoadCave{
     @Override
     public void validate(DataBase _data) {
         if (!_data.getItems().containsAllAsKeys(items)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getTm().containsAllAsKeys(technicalMoves)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

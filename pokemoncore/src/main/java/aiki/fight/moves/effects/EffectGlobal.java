@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.StatisticType;
@@ -32,7 +32,7 @@ public final class EffectGlobal extends Effect {
 
     private Rate healingEndRoundGround;
 
-    private ObjectMap<TypesDuo,Rate> efficiencyMoves;
+    private ObjectMap<TypesDuo, Rate> efficiencyMoves;
 
     private StringList disableImmuAgainstTypes;
     private StringList cancelProtectingAbilities;
@@ -45,7 +45,7 @@ public final class EffectGlobal extends Effect {
     private Rate multEffectLovingAlly;
     private StringMap<Rate> multPowerMoves;
 
-    private ObjectMap<StatisticType,Rate> multStatIfContainsType;
+    private ObjectMap<StatisticType, Rate> multStatIfContainsType;
 
     private StringList cancelEffects;
     private StringMap<Rate> multDamageTypesMoves;
@@ -59,148 +59,219 @@ public final class EffectGlobal extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(cancelChgtStat)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getTypes().containsAllObj(immuneTypes)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!healingEndRound.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!healingEndRoundGround.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!damageEndRound.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (String k:multDamagePrepaRound.getKeys()) {
+        for (String k : multDamagePrepaRound.getKeys()) {
             if (!_data.getTypes().containsObj(k)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multDamagePrepaRound.getVal(k).isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (String k:multDamageTypesMoves.getKeys()) {
+        for (String k : multDamageTypesMoves.getKeys()) {
             if (!_data.getTypes().containsObj(k)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multDamageTypesMoves.getVal(k).isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (String k:multPowerMoves.getKeys()) {
+        for (String k : multPowerMoves.getKeys()) {
             if (!_data.getMoves().contains(k)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multPowerMoves.getVal(k).isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (TypesDuo k:efficiencyMoves.getKeys()) {
+        for (TypesDuo k : efficiencyMoves.getKeys()) {
             if (!_data.getTypes().containsObj(k.getDamageType())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getTypes().containsObj(k.getPokemonType())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!efficiencyMoves.getVal(k).isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
-        for (StatisticType k:multStatIfContainsType.getKeys()) {
+        for (StatisticType k : multStatIfContainsType.getKeys()) {
             if (!k.getStatistic().isBoost()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getTypes().containsObj(k.getType())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!multStatIfContainsType.getVal(k).isZeroOrGt()) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!_data.getTypes().containsAllObj(disableImmuAgainstTypes)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getAbilities().containsAllAsKeys(cancelProtectingAbilities)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getStatus().containsAllAsKeys(preventStatus)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getMoves().containsAllAsKeys(unusableMoves)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getMoves().containsAllAsKeys(movesUsedByTargetedFighters)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!multAccuracy.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!multEffectLovingAlly.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getMovesEffectGlobal().containsAllObj(cancelEffects)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!invokedMoveTerrain.isEmpty()) {
             if (!_data.getMoves().contains(invokedMoveTerrain)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!_data.getTypes().containsAllObj(changedTypesTerrain)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
     public boolean getPriseEnComptePkLanceur() {
         return priseEnComptePkLanceur;
     }
+
     public void setPriseEnComptePkLanceur(boolean _priseEnComptePkLanceur) {
         priseEnComptePkLanceur = _priseEnComptePkLanceur;
     }
+
     public boolean getWeather() {
         return weather;
     }
+
     public void setWeather(boolean _weather) {
         weather = _weather;
     }
+
     public boolean getCanceledIfUsed() {
         return canceledIfUsed;
     }
+
     public void setCanceledIfUsed(boolean _canceledIfUsed) {
         canceledIfUsed = _canceledIfUsed;
     }
+
     public boolean getReverseOrderOfSortBySpeed() {
         return reverseOrderOfSortBySpeed;
     }
+
     public void setReverseOrderOfSortBySpeed(boolean _reverseOrderOfSortBySpeed) {
         reverseOrderOfSortBySpeed = _reverseOrderOfSortBySpeed;
     }
+
     public boolean getPuttingKo() {
         return puttingKo;
     }
+
     public void setPuttingKo(boolean _puttingKo) {
         puttingKo = _puttingKo;
     }
+
     public Rate getMultAccuracy() {
         return multAccuracy;
     }
+
     public void setMultAccuracy(Rate _multAccuracy) {
         multAccuracy = _multAccuracy;
     }
+
     public boolean getUnusableItem() {
         return unusableItem;
     }
+
     public void setUnusableItem(boolean _unusableItem) {
         unusableItem = _unusableItem;
     }
+
     public StringList getPreventStatus() {
         return preventStatus;
     }
+
     public void setPreventStatus(StringList _preventStatus) {
         preventStatus = _preventStatus;
     }
@@ -237,17 +308,18 @@ public final class EffectGlobal extends Effect {
         healingEndRoundGround = _healingEndRoundGround;
     }
 
-    public ObjectMap<TypesDuo,Rate> getEfficiencyMoves() {
+    public ObjectMap<TypesDuo, Rate> getEfficiencyMoves() {
         return efficiencyMoves;
     }
 
-    public void setEfficiencyMoves(ObjectMap<TypesDuo,Rate> _efficiencyMoves) {
+    public void setEfficiencyMoves(ObjectMap<TypesDuo, Rate> _efficiencyMoves) {
         efficiencyMoves = _efficiencyMoves;
     }
 
     public StringList getDisableImmuAgainstTypes() {
         return disableImmuAgainstTypes;
     }
+
     public void setDisableImmuAgainstTypes(StringList _disableImmuAgainstTypes) {
         disableImmuAgainstTypes = _disableImmuAgainstTypes;
     }
@@ -256,13 +328,15 @@ public final class EffectGlobal extends Effect {
         return cancelProtectingAbilities;
     }
 
-    public void setCancelProtectingAbilities(StringList _cancelProtectingAbilities) {
+    public void setCancelProtectingAbilities(
+            StringList _cancelProtectingAbilities) {
         cancelProtectingAbilities = _cancelProtectingAbilities;
     }
 
     public StringList getUnusableMoves() {
         return unusableMoves;
     }
+
     public void setUnusableMoves(StringList _unusableMoves) {
         unusableMoves = _unusableMoves;
     }
@@ -279,44 +353,56 @@ public final class EffectGlobal extends Effect {
         return movesUsedByTargetedFighters;
     }
 
-    public void setMovesUsedByTargetedFighters(StringList _movesUsedByTargetedFighters) {
+    public void setMovesUsedByTargetedFighters(
+            StringList _movesUsedByTargetedFighters) {
         movesUsedByTargetedFighters = _movesUsedByTargetedFighters;
     }
 
     public Rate getMultEffectLovingAlly() {
         return multEffectLovingAlly;
     }
+
     public void setMultEffectLovingAlly(Rate _multEffectLovingAlly) {
         multEffectLovingAlly = _multEffectLovingAlly;
     }
+
     public StringMap<Rate> getMultPowerMoves() {
         return multPowerMoves;
     }
+
     public void setMultPowerMoves(StringMap<Rate> _multPowerMoves) {
         multPowerMoves = _multPowerMoves;
     }
-    public ObjectMap<StatisticType,Rate> getMultStatIfContainsType() {
+
+    public ObjectMap<StatisticType, Rate> getMultStatIfContainsType() {
         return multStatIfContainsType;
     }
-    public void setMultStatIfContainsType(ObjectMap<StatisticType,Rate> _multStatIfContainsType) {
+
+    public void setMultStatIfContainsType(
+            ObjectMap<StatisticType, Rate> _multStatIfContainsType) {
         multStatIfContainsType = _multStatIfContainsType;
     }
 
     public StringList getCancelEffects() {
         return cancelEffects;
     }
+
     public void setCancelEffects(StringList _cancelEffects) {
         cancelEffects = _cancelEffects;
     }
+
     public StringMap<Rate> getMultDamageTypesMoves() {
         return multDamageTypesMoves;
     }
+
     public void setMultDamageTypesMoves(StringMap<Rate> _multDamageTypesMoves) {
         multDamageTypesMoves = _multDamageTypesMoves;
     }
+
     public EnumList<Statistic> getCancelChgtStat() {
         return cancelChgtStat;
     }
+
     public void setCancelChgtStat(EnumList<Statistic> _cancelChgtStat) {
         cancelChgtStat = _cancelChgtStat;
     }

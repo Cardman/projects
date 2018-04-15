@@ -1,6 +1,6 @@
 package aiki.map.pokemon;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
 import code.util.annot.RwXml;
@@ -17,10 +17,13 @@ public final class PkTrainer extends Pokemon {
     /***/
     private Gender gender;
 
-    /**non modifiable une fois affecte a l'objet.*/
+    /** non modifiable une fois affecte a l'objet. */
     private String ability;
 
-    /**si la chaine de caractere est vide alors le pokemon ne porte pas d'objet, sinon cette chaine vaut le nom de l'objet. */
+    /**
+     * si la chaine de caractere est vide alors le pokemon ne porte pas d'objet,
+     * sinon cette chaine vaut le nom de l'objet.
+     */
     private String item;
 
     private StringList moves;
@@ -33,8 +36,8 @@ public final class PkTrainer extends Pokemon {
         item = DataBase.EMPTY_STRING;
     }
 
-    public PkTrainer(Pokemon _pk,StringList _moves) {
-//        super(_pk, _moves);
+    public PkTrainer(Pokemon _pk, StringList _moves) {
+        // super(_pk, _moves);
         name = _pk.getName();
         level = _pk.getLevel();
         gender = _pk.getGender();
@@ -46,44 +49,54 @@ public final class PkTrainer extends Pokemon {
     @Override
     public void validate(DataBase _data, boolean _ref) {
         super.validate(_data, _ref);
-//        if (hasJustBeenCreated()) {
-//            throw new DataException();
-//        }
-        for (String m: moves) {
+        // if (hasJustBeenCreated()) {
+        // _data.setError(true);
+
+        // }
+        for (String m : moves) {
             if (StringList.quickEq(m, _data.getDefaultMove())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getMoves().contains(m)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (moves.size() > _data.getNbMaxMoves()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (moves.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
-//    public boolean isValid(DataBase _data) {
-//        if(!super.isValid(_data)) {
-//            return false;
-//        }
-//        if (hasJustBeenCreated()) {
-//            return false;
-//        }
-//        for (String m: moves) {
-//            if (StringList.eq(m, _data.getDefaultMove())) {
-//                return false;
-//            }
-//            if (!_data.getMoves().contains(m)) {
-//                return false;
-//            }
-//        }
-//        if (moves.size() > _data.getNbMaxMoves()) {
-//            return false;
-//        }
-//        return !moves.isEmpty();
-//    }
+
+    // public boolean isValid(DataBase _data) {
+    // if(!super.isValid(_data)) {
+    // return false;
+    // }
+    // if (hasJustBeenCreated()) {
+    // return false;
+    // }
+    // for (String m: moves) {
+    // if (StringList.eq(m, _data.getDefaultMove())) {
+    // return false;
+    // }
+    // if (!_data.getMoves().contains(m)) {
+    // return false;
+    // }
+    // }
+    // if (moves.size() > _data.getNbMaxMoves()) {
+    // return false;
+    // }
+    // return !moves.isEmpty();
+    // }
 
     @Override
     public String getName() {
@@ -143,17 +156,17 @@ public final class PkTrainer extends Pokemon {
         moves = _moves;
     }
 
-//    @Override
-//    public void beforeSave() {
-////        name = getName();
-////        level = getLevel();
-////        ability = getAbility();
-////        gender = getGender();
-////        item = getItem();
-////        moves = getMoves();
-//    }
-//
-//    @Override
-//    public void afterLoad() {
-//    }
+    // @Override
+    // public void beforeSave() {
+    // // name = getName();
+    // // level = getLevel();
+    // // ability = getAbility();
+    // // gender = getGender();
+    // // item = getItem();
+    // // moves = getMoves();
+    // }
+    //
+    // @Override
+    // public void afterLoad() {
+    // }
 }

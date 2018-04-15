@@ -1,4 +1,12 @@
 package aiki.facade;
+
+import aiki.DataBase;
+import aiki.comparators.ComparatorPokemonPlayer;
+import aiki.map.pokemon.CriteriaForSearchingPokemon;
+import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.UsablePokemon;
+import aiki.map.pokemon.enums.Gender;
+import aiki.util.SortingPokemonPlayer;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
@@ -8,15 +16,10 @@ import code.util.TreeMap;
 import code.util.pagination.EnumFieldComparator;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
-import aiki.DataBase;
-import aiki.comparators.ComparatorPokemonPlayer;
-import aiki.map.pokemon.CriteriaForSearchingPokemon;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.UsablePokemon;
-import aiki.map.pokemon.enums.Gender;
-import aiki.util.SortingPokemonPlayer;
 
-public final class PaginationPokemonPlayer extends Pagination<SortingPokemonPlayer,PokemonPlayer,CriteriaForSearchingPokemon> {
+public final class PaginationPokemonPlayer
+        extends
+        Pagination<SortingPokemonPlayer, PokemonPlayer, CriteriaForSearchingPokemon> {
 
     private FieldComparator<Short> cmpLevel = new FieldComparator<Short>();
 
@@ -42,7 +45,8 @@ public final class PaginationPokemonPlayer extends Pagination<SortingPokemonPlay
 
     private final int nbComparators = 6;
 
-    private TreeMap<SortingPokemonPlayer, PokemonPlayer> pokemon = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(new ComparatorPokemonPlayer());
+    private TreeMap<SortingPokemonPlayer, PokemonPlayer> pokemon = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
+            new ComparatorPokemonPlayer());
 
     private EqList<SortingPokemonPlayer> rendered = new EqList<SortingPokemonPlayer>();
 
@@ -52,7 +56,8 @@ public final class PaginationPokemonPlayer extends Pagination<SortingPokemonPlay
 
     public void setTranslation(DataBase _data, String _language) {
         data = _data;
-        cmpGender.setTranslations(_data.getTranslatedGenders().getVal(_language));
+        cmpGender.setTranslations(_data.getTranslatedGenders()
+                .getVal(_language));
         translatedPokemon = _data.getTranslatedPokemon().getVal(_language);
         translatedMoves = _data.getTranslatedMoves().getVal(_language);
         translatedItems = _data.getTranslatedItems().getVal(_language);
@@ -120,21 +125,23 @@ public final class PaginationPokemonPlayer extends Pagination<SortingPokemonPlay
                 return false;
             }
         }
-        if (!getCriteria().matchAbility(translatedAbilities.getVal(_pk.getAbility()))) {
+        if (!getCriteria().matchAbility(
+                translatedAbilities.getVal(_pk.getAbility()))) {
             return false;
         }
         if (!getCriteria().matchGender(_pk.getGender())) {
             return false;
         }
         StringList list_ = new StringList();
-        for (String m: _pk.getMoves().getKeys()) {
+        for (String m : _pk.getMoves().getKeys()) {
             list_.add(translatedMoves.getVal(m));
         }
         list_.removeDuplicates();
         if (!getCriteria().matchMoves(list_)) {
             return false;
         }
-        if (!getCriteria().matchNbPossEvos(_pk.getDirectEvolutions(data).size())) {
+        if (!getCriteria()
+                .matchNbPossEvos(_pk.getDirectEvolutions(data).size())) {
             return false;
         }
         return true;
@@ -169,41 +176,45 @@ public final class PaginationPokemonPlayer extends Pagination<SortingPokemonPlay
 
     @Override
     public void sort() {
-//        TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new TreeMap<new>(new Comparator<SortingPokemonPlayer>() {
-//            @Override
-//            public int compare(SortingPokemonPlayer _o1, SortingPokemonPlayer _o2) {
-//                for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
-//                    if (cmpLevel.getPriority() == i) {
-//                        int res_ = cmpLevel.compare(_o1.getLevel(), _o2.getLevel());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    } else if (cmpName.getPriority() == i) {
-//                        int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    } else if (cmpAbility.getPriority() == i) {
-//                        int res_ = cmpAbility.compare(_o1.getAbility(), _o2.getAbility());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    } else if (cmpItem.getPriority() == i) {
-//                        int res_ = cmpItem.compare(_o1.getItem(), _o2.getItem());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    } else if (cmpGender.getPriority() == i) {
-//                        int res_ = cmpGender.compare(_o1.getGender(), _o2.getGender());
-//                        if (res_ != EQUALS_ELEMENTS) {
-//                            return res_;
-//                        }
-//                    }
-//                }
-//                return Integer.compare(_o1.getIndex(), _o2.getIndex());
-//            }
-//        });
-        TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(new ComparatorPokemonPlayer(cmpLevel, cmpName, cmpAbility, cmpItem, cmpGender, cmpPossEvos, nbComparators));
+        // TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new
+        // TreeMap<new>(new Comparator<SortingPokemonPlayer>() {
+        // @Override
+        // public int compare(SortingPokemonPlayer _o1, SortingPokemonPlayer
+        // _o2) {
+        // for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
+        // if (cmpLevel.getPriority() == i) {
+        // int res_ = cmpLevel.compare(_o1.getLevel(), _o2.getLevel());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // } else if (cmpName.getPriority() == i) {
+        // int res_ = cmpName.compare(_o1.getName(), _o2.getName());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // } else if (cmpAbility.getPriority() == i) {
+        // int res_ = cmpAbility.compare(_o1.getAbility(), _o2.getAbility());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // } else if (cmpItem.getPriority() == i) {
+        // int res_ = cmpItem.compare(_o1.getItem(), _o2.getItem());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // } else if (cmpGender.getPriority() == i) {
+        // int res_ = cmpGender.compare(_o1.getGender(), _o2.getGender());
+        // if (res_ != EQUALS_ELEMENTS) {
+        // return res_;
+        // }
+        // }
+        // }
+        // return Integer.compare(_o1.getIndex(), _o2.getIndex());
+        // }
+        // });
+        TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
+                new ComparatorPokemonPlayer(cmpLevel, cmpName, cmpAbility,
+                        cmpItem, cmpGender, cmpPossEvos, nbComparators));
         eggs_.putAllTreeMap(pokemon);
         pokemon = eggs_;
     }

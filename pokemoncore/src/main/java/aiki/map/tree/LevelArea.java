@@ -1,8 +1,5 @@
 package aiki.map.tree;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectMap;
+
 import aiki.fight.pokemon.GenderName;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.Block;
@@ -13,13 +10,17 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.Limits;
 import aiki.util.Point;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EqList;
+import code.util.ObjectMap;
 
 public class LevelArea {
 
     private Point leftTop;
     private EqList<Point> inacessiblePoints;
-    private ObjectMap<Point,Dims> dimsBlocks;
-    private ObjectMap<Point,Short> indexes;
+    private ObjectMap<Point, Dims> dimsBlocks;
+    private ObjectMap<Point, Short> indexes;
     private EqList<EqList<GenderName>> pokemon;
     private int height;
     private int width;
@@ -30,46 +31,48 @@ public class LevelArea {
         height = limits_.getBottomRight().gety() - leftTop.gety() + 1;
         width = limits_.getBottomRight().getx() - leftTop.getx() + 1;
         inacessiblePoints = new EqList<Point>();
-        indexes = new ObjectMap<Point,Short>();
-        dimsBlocks = new ObjectMap<Point,Dims>();
-        for (EntryCust<Point, Block> e: _level.getBlocks().entryList()) {
+        indexes = new ObjectMap<Point, Short>();
+        dimsBlocks = new ObjectMap<Point, Dims>();
+        for (EntryCust<Point, Block> e : _level.getBlocks().entryList()) {
             Block block_ = e.getValue();
             Point id_ = e.getKey();
             if (block_.getType() != EnvironmentType.NOTHING) {
                 if (block_.getIndexApparition() != CustList.INDEX_NOT_FOUND_ELT) {
                     indexes.put(id_, block_.getIndexApparition());
                 }
-                dimsBlocks.put(id_, new Dims(block_.getWidth(),block_.getHeight()));
+                dimsBlocks.put(id_,
+                        new Dims(block_.getWidth(), block_.getHeight()));
                 continue;
             }
             short x_ = id_.getx();
             short y_ = id_.gety();
             int w_ = block_.getWidth();
             int h_ = block_.getHeight();
-            int xMax_ = w_+x_;
-            int yMax_ = h_+y_;
-            for (short x=x_; x<xMax_; x++) {
-                for (short y=y_; y<yMax_; y++) {
-                    inacessiblePoints.add(new Point(x,y));
+            int xMax_ = w_ + x_;
+            int yMax_ = h_ + y_;
+            for (short x = x_; x < xMax_; x++) {
+                for (short y = y_; y < yMax_; y++) {
+                    inacessiblePoints.add(new Point(x, y));
                 }
             }
         }
         pokemon = new EqList<EqList<GenderName>>();
         if (_level instanceof LevelWithWildPokemon) {
-            for (AreaApparition a: ((LevelWithWildPokemon)_level).getWildPokemonAreas()) {
+            for (AreaApparition a : ((LevelWithWildPokemon) _level)
+                    .getWildPokemonAreas()) {
                 EqList<GenderName> list_ = new EqList<GenderName>();
-                for (WildPk p: a.getWildPokemon()) {
-                    list_.add(new GenderName(p.getGender(),p.getName()));
+                for (WildPk p : a.getWildPokemon()) {
+                    list_.add(new GenderName(p.getGender(), p.getName()));
                 }
-                for (WildPk p: a.getWildPokemonFishing()) {
-                    list_.add(new GenderName(p.getGender(),p.getName()));
+                for (WildPk p : a.getWildPokemonFishing()) {
+                    list_.add(new GenderName(p.getGender(), p.getName()));
                 }
                 pokemon.add(list_);
             }
         }
     }
 
-    public boolean isValid(Point _pt,boolean _accessible) {
+    public boolean isValid(Point _pt, boolean _accessible) {
         if (_accessible) {
             if (inacessiblePoints.containsObj(_pt)) {
                 return false;
@@ -93,6 +96,7 @@ public class LevelArea {
     public boolean isAccessible(Point _pt) {
         return !inacessiblePoints.containsObj(_pt);
     }
+
     public boolean allAccessible() {
         return inacessiblePoints.isEmpty();
     }
@@ -110,7 +114,7 @@ public class LevelArea {
     }
 
     public int getIndex(Point _pt) {
-        for (Point k: dimsBlocks.getKeys()) {
+        for (Point k : dimsBlocks.getKeys()) {
             if (_pt.getx() < k.getx()) {
                 continue;
             }
@@ -126,15 +130,14 @@ public class LevelArea {
             if (!indexes.contains(k)) {
                 continue;
             }
-            //_pt.getx() >= k.getx()
-            //_pt.gety() >= k.gety()
-            //_pt.getx() < k.getx() + width
-            //_pt.gety() < k.gety() + height
+            // _pt.getx() >= k.getx()
+            // _pt.gety() >= k.gety()
+            // _pt.getx() < k.getx() + width
+            // _pt.gety() < k.gety() + height
             return indexes.getVal(k);
         }
         return CustList.INDEX_NOT_FOUND_ELT;
     }
-
 
     public Point getLeftTop() {
         return leftTop;
@@ -144,11 +147,11 @@ public class LevelArea {
         return inacessiblePoints;
     }
 
-    public ObjectMap<Point,Dims> getDimsBlocks() {
+    public ObjectMap<Point, Dims> getDimsBlocks() {
         return dimsBlocks;
     }
 
-    public ObjectMap<Point,Short> getIndexes() {
+    public ObjectMap<Point, Short> getIndexes() {
         return indexes;
     }
 

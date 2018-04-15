@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -12,9 +12,12 @@ public final class EffectVarPP extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (deletePp <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
+
     public short getDeletePp() {
         return deletePp;
     }

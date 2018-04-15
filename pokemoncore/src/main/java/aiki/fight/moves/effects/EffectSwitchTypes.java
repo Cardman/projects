@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.enums.TargetChoice;
@@ -13,7 +13,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class EffectSwitchTypes extends Effect {
 
-    private EnumMap<EnvironmentType,String> chgtTypeByEnv;
+    private EnumMap<EnvironmentType, String> chgtTypeByEnv;
     private ConstValuesType constValuesType;
     private ExchangeType exchangeTypes;
     private StringList constTypes;
@@ -23,31 +23,46 @@ public final class EffectSwitchTypes extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!_data.getTypes().containsAllObj(constTypes)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!_data.getTypes().containsAllObj(addedTypes)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (constValuesType == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!chgtTypeByEnv.isEmpty()) {
             if (constValuesType != ConstValuesType.NOTHING) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
-            for (EntryCust<EnvironmentType,String> e: chgtTypeByEnv.entryList()) {
+            for (EntryCust<EnvironmentType, String> e : chgtTypeByEnv
+                    .entryList()) {
                 if (!EnvironmentType.getEnvironments().containsObj(e.getKey())) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
                 if (!_data.getTypes().containsStr(e.getValue())) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
             return;
         }
         if (exchangeTypes != ExchangeType.NOTHING) {
             if (constValuesType != ConstValuesType.NOTHING) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             boolean checkTargetChoice_ = false;
             if (exchangeTypes == ExchangeType.GIVE_TO_TARGET) {
@@ -59,41 +74,54 @@ public final class EffectSwitchTypes extends Effect {
             }
             if (checkTargetChoice_) {
                 if (getTargetChoice() == TargetChoice.LANCEUR) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
                 return;
             }
             if (exchangeTypes == ExchangeType.GIVE_CONST) {
                 if (constTypes.isEmpty()) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
-    public EnumMap<EnvironmentType,String> getChgtTypeByEnv() {
+    public EnumMap<EnvironmentType, String> getChgtTypeByEnv() {
         return chgtTypeByEnv;
     }
-    public void setChgtTypeByEnv(EnumMap<EnvironmentType,String> _chgtTypeByEnv) {
+
+    public void setChgtTypeByEnv(EnumMap<EnvironmentType, String> _chgtTypeByEnv) {
         chgtTypeByEnv = _chgtTypeByEnv;
     }
+
     public ConstValuesType getConstValuesType() {
         return constValuesType;
     }
+
     public void setConstValuesType(ConstValuesType _constValuesType) {
         constValuesType = _constValuesType;
     }
+
     public ExchangeType getExchangeTypes() {
         return exchangeTypes;
     }
+
     public void setExchangeTypes(ExchangeType _exchangeTypes) {
         exchangeTypes = _exchangeTypes;
     }
+
     public StringList getConstTypes() {
         return constTypes;
     }
+
     public void setConstTypes(StringList _constTypes) {
         constTypes = _constTypes;
     }

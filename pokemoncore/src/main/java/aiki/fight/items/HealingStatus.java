@@ -1,6 +1,6 @@
 package aiki.fight.items;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.StringList;
 import code.util.annot.RwXml;
 
@@ -20,28 +20,35 @@ public abstract class HealingStatus extends HealingItem {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!_data.getStatus().containsAllAsKeys(status)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (StringList.quickEq(getItemType(), ITEM)) {
             if (healingKo) {
                 return;
             }
-            if (!status.isEmpty() ) {
+            if (!status.isEmpty()) {
                 return;
             }
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
     public StringList getStatus() {
         return status;
     }
+
     public void setStatus(StringList _status) {
         status = _status;
     }
+
     public boolean getHealingKo() {
         return healingKo;
     }
+
     public void setHealingKo(boolean _healingKo) {
         healingKo = _healingKo;
     }

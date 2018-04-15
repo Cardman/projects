@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import code.maths.Rate;
 import code.util.annot.RwXml;
@@ -15,10 +15,14 @@ public final class EffectEndRoundTeam extends EffectEndRound {
     public void validate(DataBase _data) {
         super.validate(_data);
         if (!deleteAllStatusAlly.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (!deleteAllStatus.isZeroOrGt()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -30,12 +34,15 @@ public final class EffectEndRoundTeam extends EffectEndRound {
     public Rate getDeleteAllStatus() {
         return deleteAllStatus;
     }
+
     public void setDeleteAllStatus(Rate _deleteAllStatus) {
         deleteAllStatus = _deleteAllStatus;
     }
+
     public Rate getDeleteAllStatusAlly() {
         return deleteAllStatusAlly;
     }
+
     public void setDeleteAllStatusAlly(Rate _deleteAllStatusAlly) {
         deleteAllStatusAlly = _deleteAllStatusAlly;
     }

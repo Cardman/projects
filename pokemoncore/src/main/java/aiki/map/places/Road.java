@@ -1,6 +1,6 @@
 package aiki.map.places;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.Person;
@@ -21,49 +21,60 @@ import code.util.ObjectMap;
 import code.util.annot.RwXml;
 
 @RwXml
-public final class Road extends Campaign implements InitializedPlace{
+public final class Road extends Campaign implements InitializedPlace {
 
     private String name;
 
     private LevelRoad level;
 
-    private ObjectMap<Point,Link> linksWithCaves;
+    private ObjectMap<Point, Link> linksWithCaves;
 
-    private ObjectMap<PlaceInterConnect,Coords> savedlinks;
+    private ObjectMap<PlaceInterConnect, Coords> savedlinks;
 
-    private transient ObjectMap<PlaceInterConnect,Coords> linksWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect,Coords>();
+    private transient ObjectMap<PlaceInterConnect, Coords> linksWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect, Coords>();
 
     @Override
     public void addSavedLink(PlaceInterConnect _key, Coords _value) {
         savedlinks.put(_key, _value);
     }
+
     @Override
     public void deleteSavedLink(PlaceInterConnect _key) {
         savedlinks.removeKey(_key);
     }
+
     @Override
-    public void validate(DataBase _data,PlaceArea _placeArea) {
+    public void validate(DataBase _data, PlaceArea _placeArea) {
         if (name == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
-        for (PlaceInterConnect p :linksWithCitiesAndOtherRoads.getKeys()) {
-            if (!levelArea_.isValid(p.getSource(),false)) {
-                throw new DataException();
+        for (PlaceInterConnect p : linksWithCitiesAndOtherRoads.getKeys()) {
+            if (!levelArea_.isValid(p.getSource(), false)) {
+                _data.setError(true);
+                return;
+
             }
         }
-        for (Point p :linksWithCaves.getKeys()) {
-//            if (!levelArea_.isValid(p,true)) {
-//                throw new DataException();
-//            }
-            if (!levelArea_.isValid(p,false)) {
-                throw new DataException();
+        for (Point p : linksWithCaves.getKeys()) {
+            // if (!levelArea_.isValid(p,true)) {
+            // _data.setError(true);
+
+            // }
+            if (!levelArea_.isValid(p, false)) {
+                _data.setError(true);
+                return;
+
             }
             Coords c_ = linksWithCaves.getVal(p).getCoords();
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         level.validate(_data, levelArea_);
@@ -82,34 +93,36 @@ public final class Road extends Campaign implements InitializedPlace{
 
     @Override
     public boolean validLinks(Tree _tree) {
-        for (EntryCust<PlaceInterConnect,Coords> e: linksWithCitiesAndOtherRoads.entryList()) {
+        for (EntryCust<PlaceInterConnect, Coords> e : linksWithCitiesAndOtherRoads
+                .entryList()) {
             if (!_tree.isValid(e.getValue(), false)) {
                 return false;
             }
         }
-        for (EntryCust<Point,Link> e: linksWithCaves.entryList()) {
+        for (EntryCust<Point, Link> e : linksWithCaves.entryList()) {
             Link link_ = e.getValue();
             if (!_tree.isValid(link_.getCoords(), true)) {
                 return false;
             }
-//            if (!link_.isValidDir()) {
-//                if (!_tree.isValid(link_.getCoords(), true)) {
-//                    return false;
-//                }
-//            } else {
-//                Coords coords_ = new Coords(link_.getCoords());
-//                coords_.getLevel().getPoint().moveTo(link_.getDir());
-//                if (!_tree.isValid(coords_, true)) {
-//                    return false;
-//                }
-//            }
+            // if (!link_.isValidDir()) {
+            // if (!_tree.isValid(link_.getCoords(), true)) {
+            // return false;
+            // }
+            // } else {
+            // Coords coords_ = new Coords(link_.getCoords());
+            // coords_.getLevel().getPoint().moveTo(link_.getDir());
+            // if (!_tree.isValid(coords_, true)) {
+            // return false;
+            // }
+            // }
 
         }
         return true;
     }
+
     @Override
-    public NumberMap<Byte,Level> getLevelsMap() {
-        NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
+    public NumberMap<Byte, Level> getLevelsMap() {
+        NumberMap<Byte, Level> levels_ = new NumberMap<Byte, Level>();
         levels_.put(CustList.FIRST_INDEX, level);
         return levels_;
     }
@@ -156,7 +169,8 @@ public final class Road extends Campaign implements InitializedPlace{
 
     @Override
     public void addPerson(Coords _coords, Person _person) {
-        level.getCharacters().put(_coords.getLevel().getPoint(), (CharacterInRoadCave) _person);
+        level.getCharacters().put(_coords.getLevel().getPoint(),
+                (CharacterInRoadCave) _person);
     }
 
     @Override
@@ -254,28 +268,32 @@ public final class Road extends Campaign implements InitializedPlace{
     }
 
     @Override
-    public ObjectMap<PlaceInterConnect,Coords> getSavedlinks() {
+    public ObjectMap<PlaceInterConnect, Coords> getSavedlinks() {
         return savedlinks;
     }
+
     @Override
-    public void setSavedlinks(ObjectMap<PlaceInterConnect,Coords> _savedlinks) {
+    public void setSavedlinks(ObjectMap<PlaceInterConnect, Coords> _savedlinks) {
         savedlinks = _savedlinks;
     }
 
     @Override
-    public ObjectMap<PlaceInterConnect,Coords> getPointsWithCitiesAndOtherRoads() {
+    public ObjectMap<PlaceInterConnect, Coords> getPointsWithCitiesAndOtherRoads() {
         return linksWithCitiesAndOtherRoads;
     }
 
     @Override
-    public void setPointsWithCitiesAndOtherRoads(ObjectMap<PlaceInterConnect,Coords> _linksWithCitiesAndOtherRoads) {
+    public void setPointsWithCitiesAndOtherRoads(
+            ObjectMap<PlaceInterConnect, Coords> _linksWithCitiesAndOtherRoads) {
         linksWithCitiesAndOtherRoads = _linksWithCitiesAndOtherRoads;
     }
+
     @Override
-    public ObjectMap<Point,Link> getLinksWithCaves() {
+    public ObjectMap<Point, Link> getLinksWithCaves() {
         return linksWithCaves;
     }
-    public void setLinksWithCaves(ObjectMap<Point,Link> _linksWithCaves) {
+
+    public void setLinksWithCaves(ObjectMap<Point, Link> _linksWithCaves) {
         linksWithCaves = _linksWithCaves;
     }
 

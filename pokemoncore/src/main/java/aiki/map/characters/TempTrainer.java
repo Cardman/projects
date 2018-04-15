@@ -1,6 +1,6 @@
 package aiki.map.characters;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -22,7 +22,9 @@ public final class TempTrainer extends TrainerOneFight {
     public void validateForEditing(DataBase _data) {
         super.validateForEditing(_data);
         if (_data.getPerson(imageMiniSecondTrainerFileName).length == 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         setMultiplicityFight((byte) 2);
     }
@@ -42,7 +44,8 @@ public final class TempTrainer extends TrainerOneFight {
         return imageMiniSecondTrainerFileName;
     }
 
-    public void setImageMiniSecondTrainerFileName(String _imageMiniSecondTrainerFileName) {
+    public void setImageMiniSecondTrainerFileName(
+            String _imageMiniSecondTrainerFileName) {
         imageMiniSecondTrainerFileName = _imageMiniSecondTrainerFileName;
     }
 }

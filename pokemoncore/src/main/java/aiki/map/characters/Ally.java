@@ -1,6 +1,6 @@
 package aiki.map.characters;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.pokemon.PkTrainer;
 import code.util.CustList;
 import code.util.annot.RwXml;
@@ -11,20 +11,24 @@ public final class Ally {
     private CustList<PkTrainer> team;
 
     public void validate(DataBase _data) {
-        for (PkTrainer p: team) {
+        for (PkTrainer p : team) {
             p.validate(_data, true);
-//            if (!p.isValid(_data)) {
-//                throw new DataException();
-//            }
+            // if (!p.isValid(_data)) {
+            // _data.setError(true);
+            return;
+
+            // }
         }
         if (team.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
     public void validateForEditing() {
         CustList<PkTrainer> valid_ = new CustList<PkTrainer>();
-        for (PkTrainer p: team) {
+        for (PkTrainer p : team) {
             valid_.add(p);
         }
         team.clear();
@@ -39,17 +43,17 @@ public final class Ally {
         team = _team;
     }
 
-//    @Override
-//    public void beforeSave() {
-////        List<PokemonTrainer> l_ = new List<>();
-////        for (PokemonTrainer p: team) {
-////            l_.add(new PkTrainer(p, p.getMoves()));
-////        }
-////        team = l_;
-//    }
-//
-//    @Override
-//    public void afterLoad() {
-//    }
+    // @Override
+    // public void beforeSave() {
+    // // List<PokemonTrainer> l_ = new List<>();
+    // // for (PokemonTrainer p: team) {
+    // // l_.add(new PkTrainer(p, p.getMoves()));
+    // // }
+    // // team = l_;
+    // }
+    //
+    // @Override
+    // public void afterLoad() {
+    // }
 
 }

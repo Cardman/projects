@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
@@ -15,16 +15,22 @@ public final class EffectSwitchMoveTypes extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (String k: changeTypes.getKeys()) {
+        for (String k : changeTypes.getKeys()) {
             if (!_data.getTypes().containsObj(k)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             if (!_data.getTypes().containsObj(changeTypes.getVal(k))) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
         if (!_data.getTypes().containsAllObj(replacingTypes)) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

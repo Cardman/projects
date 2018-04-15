@@ -1,6 +1,6 @@
 package aiki.map.characters;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -10,12 +10,16 @@ public abstract class Trainer extends Person {
 
     private String imageMaxiFileName;
 
-    public void validate() {
+    public void validate(DataBase _data) {
         if (multiplicityFight < 1) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (multiplicityFight > DataBase.MAX_MULT_FIGHT) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -24,7 +28,9 @@ public abstract class Trainer extends Person {
         super.validateForEditing(_data);
         if (!imageMaxiFileName.isEmpty()) {
             if (_data.getTrainer(imageMaxiFileName).length == 0) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
     }

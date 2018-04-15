@@ -1,6 +1,6 @@
 package aiki.map.characters;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -10,7 +10,9 @@ public abstract class Person {
 
     public void validateForEditing(DataBase _data) {
         if (_data.getPerson(imageMiniFileName).length == 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 

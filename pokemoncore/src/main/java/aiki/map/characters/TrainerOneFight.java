@@ -1,6 +1,6 @@
 package aiki.map.characters;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.pokemon.PkTrainer;
 import code.util.CustList;
 import code.util.annot.RwXml;
@@ -12,16 +12,21 @@ public abstract class TrainerOneFight extends Trainer {
 
     private CustList<PkTrainer> team;
 
+    @Override
     public void validate(DataBase _data) {
-        validate();
-        for (PkTrainer p: team) {
+        super.validate(_data);
+        for (PkTrainer p : team) {
             p.validate(_data, true);
         }
         if (team.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (reward <= 0) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
     }
 
@@ -29,7 +34,7 @@ public abstract class TrainerOneFight extends Trainer {
     public void validateForEditing(DataBase _data) {
         super.validateForEditing(_data);
         CustList<PkTrainer> valid_ = new CustList<PkTrainer>();
-        for (PkTrainer p: team) {
+        for (PkTrainer p : team) {
             valid_.add(p);
         }
         team.clear();
@@ -52,16 +57,16 @@ public abstract class TrainerOneFight extends Trainer {
         team = _team;
     }
 
-//    @Override
-//    public void beforeSave() {
-////        List<PokemonTrainer> l_ = new List<>();
-////        for (PokemonTrainer p: team) {
-////            l_.add(new PkTrainer(p, p.getMoves()));
-////        }
-////        team = l_;
-//    }
-//
-//    @Override
-//    public void afterLoad() {
-//    }
+    // @Override
+    // public void beforeSave() {
+    // // List<PokemonTrainer> l_ = new List<>();
+    // // for (PokemonTrainer p: team) {
+    // // l_.add(new PkTrainer(p, p.getMoves()));
+    // // }
+    // // team = l_;
+    // }
+    //
+    // @Override
+    // public void afterLoad() {
+    // }
 }

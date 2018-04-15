@@ -1,9 +1,9 @@
 package aiki.comparators;
 import java.util.Comparator;
 
+import aiki.map.util.MiniMapCoords;
 import code.util.CustList;
 import code.util.Numbers;
-import aiki.map.util.MiniMapCoords;
 
 public final class ComparatorMiniMapCoords implements Comparator<MiniMapCoords> {
 

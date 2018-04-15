@@ -1,6 +1,6 @@
 package aiki.map.places;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.Person;
@@ -29,62 +29,88 @@ public final class Cave extends Campaign {
 
     private String name;
 
-    private NumberMap<Byte,LevelCave> levels;
+    private NumberMap<Byte, LevelCave> levels;
 
-    private ObjectMap<LevelPoint,Link> linksWithOtherPlaces;
+    private ObjectMap<LevelPoint, Link> linksWithOtherPlaces;
 
     @Override
-    public void validate(DataBase _data,PlaceArea _placeArea) {
+    public void validate(DataBase _data, PlaceArea _placeArea) {
         if (name == null) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (levels.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         if (linksWithOtherPlaces.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
         levels.getKeys().getMinimum().byteValue();
         int nbLevels_ = levels.size();
-        for (byte i=CustList.FIRST_INDEX;i<nbLevels_;i++) {
+        for (byte i = CustList.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.getVal(i);
             level_.validate(_data, _placeArea.getLevel(i));
-            for (EntryCust<Point, Link> e: level_.getLinksOtherLevels().entryList()) {
+            for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
+                    .entryList()) {
                 Link link_ = e.getValue();
                 if (!link_.isValid(_data)) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
                 if (!level_.isEmptyForAdding(e.getKey())) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
                 LevelPoint target_ = link_.getCoords().getLevel();
-                LevelArea levelArea_ = _placeArea.getLevel(target_.getLevelIndex());
+                LevelArea levelArea_ = _placeArea.getLevel(target_
+                        .getLevelIndex());
                 if (!levelArea_.isValid(target_.getPoint(), true)) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
                 LevelCave levelTarget_ = levels.getVal(target_.getLevelIndex());
                 if (!levelTarget_.isEmptyForAdding(target_.getPoint())) {
-                    throw new DataException();
+                    _data.setError(true);
+                    return;
+
                 }
             }
         }
-        for (EntryCust<LevelPoint,Link> e: linksWithOtherPlaces.entryList()) {
+        for (EntryCust<LevelPoint, Link> e : linksWithOtherPlaces.entryList()) {
             Link link_ = e.getValue();
             if (!link_.isValid(_data)) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
             LevelPoint k_ = e.getKey();
-//            if (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(), true)) {
-//                throw new DataException();
-//            }
-            if (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(), false)) {
-                throw new DataException();
+            // if
+            // (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(),
+            // true)) {
+            // _data.setError(true);
+
+            // }
+            if (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(),
+                    false)) {
+                _data.setError(true);
+                return;
+
             }
             Coords c_ = link_.getCoords();
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
-                throw new DataException();
+                _data.setError(true);
+                return;
+
             }
         }
     }
@@ -92,16 +118,18 @@ public final class Cave extends Campaign {
     @Override
     public void validateForEditing(DataBase _data) {
         if (levels.isEmpty()) {
-            throw new DataException();
+            _data.setError(true);
+            return;
+
         }
-        for (LevelCave l: levels.values()) {
+        for (LevelCave l : levels.values()) {
             l.validateForEditing(_data);
-            for (EntryCust<Point, Link> e: l.getLinksOtherLevels().entryList()) {
+            for (EntryCust<Point, Link> e : l.getLinksOtherLevels().entryList()) {
                 Link link_ = e.getValue();
                 link_.validateForEditing(_data);
             }
         }
-        for (EntryCust<LevelPoint,Link> e: linksWithOtherPlaces.entryList()) {
+        for (EntryCust<LevelPoint, Link> e : linksWithOtherPlaces.entryList()) {
             e.getValue().validateForEditing(_data);
         }
     }
@@ -112,26 +140,29 @@ public final class Cave extends Campaign {
         return level_.isEmptyForAdding(_coords.getLevel().getPoint());
     }
 
-    public boolean validLinks(short _place,Tree _tree) {
+    public boolean validLinks(short _place, Tree _tree) {
         int nbLevels_ = levels.size();
         EqList<LevelPoint> ids_ = new EqList<LevelPoint>();
-        for (byte i=CustList.FIRST_INDEX;i<nbLevels_;i++) {
+        for (byte i = CustList.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.getVal(i);
-            for (EntryCust<Point, Link> e: level_.getLinksOtherLevels().entryList()) {
+            for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
+                    .entryList()) {
                 Link link_ = e.getValue();
                 Coords coords_ = link_.getCoords();
-                if (!Numbers.eq(coords_.getNumberPlace(),_place)) {
+                if (!Numbers.eq(coords_.getNumberPlace(), _place)) {
                     return false;
                 }
                 LevelPoint lPoint_ = coords_.getLevel();
                 LevelCave otherLevel_ = levels.getVal(lPoint_.getLevelIndex());
-                if (!otherLevel_.getLinksOtherLevels().contains(lPoint_.getPoint())) {
+                if (!otherLevel_.getLinksOtherLevels().contains(
+                        lPoint_.getPoint())) {
                     return false;
                 }
-                Link otherLink_ = otherLevel_.getLinksOtherLevels().getVal(lPoint_.getPoint());
+                Link otherLink_ = otherLevel_.getLinksOtherLevels().getVal(
+                        lPoint_.getPoint());
                 Coords otherCoords_ = otherLink_.getCoords();
                 LevelPoint otherLevelPoint_ = otherCoords_.getLevel();
-                if (!Numbers.eq(otherLevelPoint_.getLevelIndex(),i)) {
+                if (!Numbers.eq(otherLevelPoint_.getLevelIndex(), i)) {
                     return false;
                 }
                 if (!Point.eq(otherLevelPoint_.getPoint(), e.getKey())) {
@@ -143,7 +174,7 @@ public final class Cave extends Campaign {
                 ids_.add(id_);
             }
         }
-        for (EntryCust<LevelPoint,Link> e: linksWithOtherPlaces.entryList()) {
+        for (EntryCust<LevelPoint, Link> e : linksWithOtherPlaces.entryList()) {
             Link link_ = e.getValue();
             if (!_tree.isValid(link_.getCoords(), true)) {
                 return false;
@@ -160,15 +191,15 @@ public final class Cave extends Campaign {
 
     public void addNewLevel() {
         LevelCave level_ = new LevelCave();
-        level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point,DualFight>());
-        level_.setHm(new ObjectMap<Point,Short>());
-        level_.setTm(new ObjectMap<Point,Short>());
-        level_.setItems(new ObjectMap<Point,String>());
-        level_.setLegendaryPks(new ObjectMap<Point,WildPk>());
+        level_.setBlocks(new ObjectMap<Point, Block>());
+        level_.setCharacters(new ObjectMap<Point, CharacterInRoadCave>());
+        level_.setDualFights(new ObjectMap<Point, DualFight>());
+        level_.setHm(new ObjectMap<Point, Short>());
+        level_.setTm(new ObjectMap<Point, Short>());
+        level_.setItems(new ObjectMap<Point, String>());
+        level_.setLegendaryPks(new ObjectMap<Point, WildPk>());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
-        level_.setLinksOtherLevels(new ObjectMap<Point,Link>());
+        level_.setLinksOtherLevels(new ObjectMap<Point, Link>());
         levels.put(indexOfAddedLevel(), level_);
     }
 
@@ -193,10 +224,10 @@ public final class Cave extends Campaign {
     }
 
     public void clearLink(LevelPoint _point) {
-        for (LevelCave l: levels.values()) {
-            for (Point p: l.getLinksOtherLevels().getKeys()) {
+        for (LevelCave l : levels.values()) {
+            for (Point p : l.getLinksOtherLevels().getKeys()) {
                 Link link_ = l.getLinksOtherLevels().getVal(p);
-                if (LevelPoint.eq(link_.getCoords().getLevel(),_point)) {
+                if (LevelPoint.eq(link_.getCoords().getLevel(), _point)) {
                     l.getLinksOtherLevels().removeKey(p);
                 }
             }
@@ -209,10 +240,11 @@ public final class Cave extends Campaign {
     public LevelCave getLevelByCoords(Coords _coords) {
         return levels.getVal(_coords.getLevel().getLevelIndex());
     }
+
     @Override
-    public NumberMap<Byte,Level> getLevelsMap() {
-        NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
-        for (EntryCust<Byte,LevelCave> e: levels.entryList()) {
+    public NumberMap<Byte, Level> getLevelsMap() {
+        NumberMap<Byte, Level> levels_ = new NumberMap<Byte, Level>();
+        for (EntryCust<Byte, LevelCave> e : levels.entryList()) {
             levels_.put(e.getKey(), e.getValue());
         }
         return levels_;
@@ -225,7 +257,7 @@ public final class Cave extends Campaign {
     @Override
     public CustList<Level> getLevelsList() {
         CustList<Level> levels_ = new CustList<Level>();
-        for (LevelCave l: levels.values()) {
+        for (LevelCave l : levels.values()) {
             levels_.add(l);
         }
         return levels_;
@@ -238,7 +270,7 @@ public final class Cave extends Campaign {
     }
 
     @Override
-    public void addPokemon(Coords _coords,WildPk _pk) {
+    public void addPokemon(Coords _coords, WildPk _pk) {
         LevelCave level_ = getLevelByCoords(_coords);
         level_.getLegendaryPks().put(_coords.getLevel().getPoint(), _pk);
     }
@@ -256,7 +288,7 @@ public final class Cave extends Campaign {
     }
 
     @Override
-    public void addObject(Coords _coords,String _object) {
+    public void addObject(Coords _coords, String _object) {
         LevelCave level_ = getLevelByCoords(_coords);
         level_.getItems().put(_coords.getLevel().getPoint(), _object);
     }
@@ -276,7 +308,8 @@ public final class Cave extends Campaign {
     @Override
     public void addPerson(Coords _coords, Person _person) {
         LevelCave level_ = getLevelByCoords(_coords);
-        level_.getCharacters().put(_coords.getLevel().getPoint(), (CharacterInRoadCave) _person);
+        level_.getCharacters().put(_coords.getLevel().getPoint(),
+                (CharacterInRoadCave) _person);
     }
 
     @Override
@@ -359,11 +392,12 @@ public final class Cave extends Campaign {
 
     @Override
     public void initializeWildPokemon() {
-        for (LevelCave l: levels.values()) {
+        for (LevelCave l : levels.values()) {
             l.initializeWildPokemon();
         }
     }
-    public void setLevels(NumberMap<Byte,LevelCave> _levels) {
+
+    public void setLevels(NumberMap<Byte, LevelCave> _levels) {
         levels = _levels;
     }
 
@@ -377,11 +411,12 @@ public final class Cave extends Campaign {
         name = _name;
     }
 
-    public ObjectMap<LevelPoint,Link> getLinksWithOtherPlaces() {
+    public ObjectMap<LevelPoint, Link> getLinksWithOtherPlaces() {
         return linksWithOtherPlaces;
     }
 
-    public void setLinksWithOtherPlaces(ObjectMap<LevelPoint,Link> _linksWithOtherPlaces) {
+    public void setLinksWithOtherPlaces(
+            ObjectMap<LevelPoint, Link> _linksWithOtherPlaces) {
         linksWithOtherPlaces = _linksWithOtherPlaces;
     }
 }

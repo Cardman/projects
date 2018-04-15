@@ -1,6 +1,6 @@
 package aiki.fight.pokemon.evolution;
+
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.pokemon.PokemonData;
 import code.util.StringList;
 import code.util.annot.RwXml;
@@ -11,13 +11,15 @@ public final class EvolutionMoveType extends Evolution {
     private String type;
 
     @Override
-    public void validate(DataBase _dataBase,PokemonData _fPk) {
+    public void validate(DataBase _dataBase, PokemonData _fPk) {
         StringList types_ = new StringList();
-        for (String m: _fPk.getMoveTutors()) {
+        for (String m : _fPk.getMoveTutors()) {
             types_.addAllElts(_dataBase.getMove(m).getTypes());
         }
         if (!types_.containsObj(type)) {
-            throw new DataException();
+            _dataBase.setError(true);
+            return;
+
         }
     }
 
