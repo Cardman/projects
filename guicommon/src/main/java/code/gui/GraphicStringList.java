@@ -21,7 +21,9 @@ public class GraphicStringList extends GraphicList<String> implements Input {
 
     @Override
     protected void buildList() {
-        setRender(new CustCellRender());
+        DefaultCellRender render_ = new DefaultCellRender();
+        render_.setMaxWidth(getMaxWidth());
+        setRender(render_);
         super.buildList();
     }
     @Override

@@ -101,11 +101,11 @@ public class ContainerGame implements Packable, Containable {
 
     public void pause() {
         if(isPasse()) {
-        	pause.set(!pause.get());
+            pause.set(!pause.get());
         }
         while(pause.get()) {
             if(!isPasse()) {
-            	pause.set(!pause.get());
+                pause.set(!pause.get());
             }
         }
     }

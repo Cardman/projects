@@ -3,6 +3,7 @@ package code.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -34,6 +35,16 @@ public final class LabelButtonUtil {
         _label.setIcon(new ImageIcon(img_));
     }
 
+    public static void paintDefaultLabel(Graphics _label, String _text, int _w, int _fw, int _h,
+            Color _front, Color _back) {
+        int w_ = _fw;
+        w_ = Math.max(_w, w_);
+        Graphics gr_ = _label;
+        gr_.setColor(_back);
+        gr_.fillRect(0, 0, w_ + 2, _h + 2);
+        gr_.setColor(_front);
+        gr_.drawString(_text, 1, _h);
+    }
     public static BufferedImage paintDefaultLabel(JLabel _label, String _text, int _w,
             Color _front, Color _back) {
         Font font_ = _label.getFont();

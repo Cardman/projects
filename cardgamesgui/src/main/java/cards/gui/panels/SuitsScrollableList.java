@@ -76,7 +76,7 @@ public class SuitsScrollableList extends ScrollableList {
         }
     }
     public void toutSupprimer() {
-        modeleListeCouleurs.removeAllElements();
+        modeleListeCouleurs.clear();
 //        suits.clear();
     }
     public EnumList<Suit> getCouleursSelectionnees() {

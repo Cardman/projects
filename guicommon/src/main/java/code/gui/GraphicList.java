@@ -88,6 +88,26 @@ public class GraphicList<T> implements GraphicListable {
             reindex(indexableMouse);
         }
     }
+    public void clear() {
+        list.clear();
+        JPanel panel_ = getPanel();
+        listComponents.clear();
+        panel_.removeAll();
+        selectedIndexes.clear();
+        indexableKey.clear();
+        indexableMouse.clear();
+    }
+    public void clearRevalidate() {
+        list.clear();
+        JPanel panel_ = getPanel();
+        listComponents.clear();
+        panel_.removeAll();
+        selectedIndexes.clear();
+        panel_.revalidate();
+        scroll.revalidate();
+        indexableKey.clear();
+        indexableMouse.clear();
+    }
     public void remove(int _index) {
         list.remove(_index);
         JPanel panel_ = getPanel();
