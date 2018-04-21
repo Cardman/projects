@@ -74,7 +74,7 @@ public final class PrimitiveTypeUtil {
         return _instance.isNull();
     }
 
-    public static boolean isExistentPrimitive(String _className, ContextEl _context) {
+    public static boolean isExistentPrimitive(String _className, Analyzable _context) {
         return isExistentPrimitive(_className, _context.getStandards());
     }
     public static boolean isExistentPrimitive(String _className, LgNames _stds) {
@@ -168,7 +168,7 @@ public final class PrimitiveTypeUtil {
         return output_;
     }
     /** Only "object" classes are used as arguments */
-    public static StringList getSubclasses(StringList _classNames, ContextEl _context) {
+    public static StringList getSubclasses(StringList _classNames, Analyzable _context) {
         StringList types_ = new StringList();
         LgNames stds_ = _context.getStandards();
         String voidType_ = stds_.getAliasVoid();
@@ -202,7 +202,7 @@ public final class PrimitiveTypeUtil {
         types_.removeDuplicates();
         return types_;
     }
-    public static String getSubslass(StringList _classNames, StringMap<StringList> _vars, ContextEl _classes) {
+    public static String getSubslass(StringList _classNames, StringMap<StringList> _vars, Analyzable _classes) {
         boolean hasPrim_ = false;
         boolean hasObj_ = false;
         LgNames stds_ = _classes.getStandards();
@@ -400,7 +400,7 @@ public final class PrimitiveTypeUtil {
         return AssignableFrom.NO;
     }
 
-    public static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, ContextEl _context) {
+    public static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, Analyzable _context) {
         return getOrdersGreaterEqThan(_class, _context.getStandards());
     }
     public static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, LgNames _stds) {
@@ -476,7 +476,7 @@ public final class PrimitiveTypeUtil {
         }
         return toPrimitive(new ClassArgumentMatching(_className), false, _stds) != null;
     }
-    public static boolean isPureNumberClass(ClassArgumentMatching _class, ContextEl _context) {
+    public static boolean isPureNumberClass(ClassArgumentMatching _class, Analyzable _context) {
         return isPureNumberClass(_class, _context.getStandards());
     }
     public static boolean isPureNumberClass(ClassArgumentMatching _class, LgNames _stds) {

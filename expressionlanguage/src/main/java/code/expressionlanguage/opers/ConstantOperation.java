@@ -13,13 +13,10 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ParsedArgument;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.common.GeneClass;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadAccessField;
 import code.expressionlanguage.methods.util.BadFormatNumber;
 import code.expressionlanguage.methods.util.BadFormatPathError;
 import code.expressionlanguage.methods.util.EmptyPartError;
@@ -44,8 +41,6 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -401,47 +396,23 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             }
 
             String base_ = StringList.getAllTypes(clCurName_).first();
-            GeneType root_ = _conf.getClassBody(base_);
             String key_;
             boolean superClassAccess_ = true;
+            boolean baseClassAccess_ = true;
             FieldResult r_;
             FieldInfo e_;
             if (op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD) {
                 StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                 key_ = classMethod_.last();
                 superClassAccess_ = false;
-                r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
+                r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), baseClassAccess_, superClassAccess_, key_);
             } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
                 key_ = str_;
-                if (!(root_ instanceof GeneClass)) {
-                    UndefinedFieldError und_ = new UndefinedFieldError();
-                    und_.setClassName(base_);
-                    und_.setFileName(key_);
-                    und_.setFileName(_conf.getCurrentFileName());
-                    und_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(und_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
-                }
-                String superClass_ = ((GeneClass)root_).getSuperClass(_conf);
-                superClass_ = StringList.getAllTypes(superClass_).first();
-                superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, _conf);
-                if (StringList.quickEq(superClass_, stds_.getAliasObject())) {
-                    UndefinedFieldError und_ = new UndefinedFieldError();
-                    und_.setClassName(base_);
-                    und_.setFileName(key_);
-                    und_.setFileName(_conf.getCurrentFileName());
-                    und_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(und_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
-                }
-                cl_ = new ClassArgumentMatching(superClass_);
-                r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
+                baseClassAccess_ = false;
+                r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), baseClassAccess_, superClassAccess_, key_);
             } else {
                 key_ = str_;
-                superClassAccess_ = root_ instanceof GeneClass;
-                r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
+                r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseClassAccess_, superClassAccess_, key_);
             }
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 UndefinedFieldError und_ = new UndefinedFieldError();
@@ -454,18 +425,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 return;
             }
             e_ = r_.getId();
-            String glClass_ = _conf.getGlobalClass();
-            String curClassBase_ = null;
-            if (glClass_ != null) {
-                curClassBase_ = StringList.getAllTypes(glClass_).first();
-            }
-            if (!Classes.canAccessField(curClassBase_, e_.getDeclaringBaseClass(), key_, _conf)) {
-                BadAccessField access_ = new BadAccessField();
-                access_.setFileName(_conf.getCurrentFileName());
-                access_.setId(new ClassField(e_.getDeclaringBaseClass(), _fieldName));
-                access_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(access_);
-            }
             fieldMetaInfo = e_;
             String c_ = fieldMetaInfo.getType();
             if (resultCanBeSet()) {
@@ -625,9 +584,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         String str_ = _key;
         String clCurName_ = cl_.getName();
         String base_ = StringList.getAllTypes(clCurName_).first();
-        StandardType root_ = stds_.getStandards().getVal(base_);
         String key_;
         boolean superClassAccess_ = true;
+        boolean baseClassAccess_ = true;
         FieldResult r_;
         FieldInfo e_;
         OperationsSequence op_ = getOperations();
@@ -635,38 +594,14 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
             key_ = classMethod_.last();
             superClassAccess_ = false;
-            r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
+            r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), baseClassAccess_, superClassAccess_, key_);
         } else if (op_.getConstType() == ConstType.SUPER_KEYWORD) {
             key_ = str_;
-            if (!(root_ instanceof StandardClass)) {
-                UndefinedFieldError und_ = new UndefinedFieldError();
-                und_.setClassName(base_);
-                und_.setFileName(key_);
-                und_.setFileName(_conf.getCurrentFileName());
-                und_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(und_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
-            String superClass_ = ((StandardClass)root_).getSuperClass();
-            superClass_ = StringList.getAllTypes(superClass_).first();
-            superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, _conf);
-            if (StringList.quickEq(superClass_, stds_.getAliasObject())) {
-                UndefinedFieldError und_ = new UndefinedFieldError();
-                und_.setClassName(base_);
-                und_.setFileName(key_);
-                und_.setFileName(_conf.getCurrentFileName());
-                und_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(und_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
-            cl_ = new ClassArgumentMatching(superClass_);
-            r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
+            baseClassAccess_ = false;
+            r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), baseClassAccess_, superClassAccess_, key_);
         } else {
             key_ = str_;
-            superClassAccess_ = root_ instanceof StandardClass;
-            r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
+            r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseClassAccess_, superClassAccess_, key_);
         }
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             UndefinedFieldError und_ = new UndefinedFieldError();

@@ -10,7 +10,6 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.common.GeneClass;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
@@ -25,6 +24,7 @@ import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMatching;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -328,19 +328,19 @@ public abstract class OperationNode {
         }
         return true;
     }
-    static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _superClass, String _name) {
+    static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name) {
         if (!_staticContext) {
-            FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _superClass, _name);
+            FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name);
             if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
                 return resIns_;
             }
         }
-        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _superClass, _name);
+        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name);
         if (resSt_.getStatus() == SearchingMemberStatus.UNIQ) {
             return resSt_;
         }
         //Errors
-        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _superClass, _name);
+        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name);
         if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
             StaticAccessFieldError access_ = new StaticAccessFieldError();
             access_.setClassName(_class.getName());
@@ -354,21 +354,28 @@ public abstract class OperationNode {
         resSt_.setStatus(SearchingMemberStatus.ZERO);
         return resSt_;
     }
-    private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _superClass, String _name) {
+    private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name) {
         String clCurName_ = _class.getName();
         String base_ = StringList.getAllTypes(clCurName_).first();
         GeneType root_ = _cont.getClassBody(base_);
         StringList classeNames_ = new StringList();
-        classeNames_.add(root_.getFullName());
+        if (_baseClass) {
+            classeNames_.add(root_.getFullName());
+        }
         String objectType_ = _cont.getStandards().getAliasObject();
-        if (root_ instanceof GeneClass) {
-            classeNames_.addAllElts(((GeneClass) root_).getAllSuperClasses(_cont));
+        if (_superClass) {
+            classeNames_.addAllElts(root_.getAllSuperTypes());
+        }
+        EqList<ClassField> fields_ = new EqList<ClassField>();
+        String glClass_ = _cont.getGlobalClass();
+        String curClassBase_ = null;
+        if (glClass_ != null) {
+            curClassBase_ = StringList.getAllTypes(glClass_).first();
         }
         for (String s: classeNames_) {
             if (StringList.quickEq(s, objectType_)) {
                 continue;
             }
-            String formatted_ = Templates.getFullTypeByBases(clCurName_, s, _cont);
             ClassMetaInfo custClass_;
             custClass_ = _cont.getClassMetaInfo(s);
             for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
@@ -377,30 +384,47 @@ public abstract class OperationNode {
                 }
                 if (_static) {
                     if (!e.getValue().isStaticField()) {
-                        break;
+                        continue;
                     }
                 } else {
                     if (e.getValue().isStaticField()) {
-                        break;
+                        continue;
                     }
                 }
-                FieldResult r_ = new FieldResult();
-                String formattedType_ = e.getValue().getType();
-                String realType_ = formattedType_;
-                formattedType_ = Templates.generalFormat(formatted_, formattedType_, _cont);
-                FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, realType_, _static, e.getValue().isFinalField());
-                r_.setId(f_);
-                r_.setStatus(SearchingMemberStatus.UNIQ);
-                return r_;
-            }
-            if (!_superClass) {
-                FieldResult r_ = new FieldResult();
-                r_.setStatus(SearchingMemberStatus.ZERO);
-                return r_;
+                if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
+                    continue;
+                }
+                fields_.add(new ClassField(s, _name));
             }
         }
+        if (fields_.isEmpty()) {
+            FieldResult r_ = new FieldResult();
+            r_.setStatus(SearchingMemberStatus.ZERO);
+            return r_;
+        }
+        String cl_ = fields_.first().getClassName();
+        StringList subClasses_ = new StringList();
+        for (ClassField c: fields_) {
+            subClasses_.add(c.getClassName());
+        }
+        StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
+        if (subs_.size() != CustList.ONE_ELEMENT) {
+            FieldResult r_ = new FieldResult();
+            r_.setStatus(SearchingMemberStatus.ZERO);
+            return r_;
+        }
+        cl_ = subs_.first();
+        String formatted_ = Templates.getFullTypeByBases(clCurName_, cl_, _cont);
+        ClassMetaInfo custClass_;
+        custClass_ = _cont.getClassMetaInfo(cl_);
+        FieldMetaInfo field_ = custClass_.getFields().getVal(_name);
         FieldResult r_ = new FieldResult();
-        r_.setStatus(SearchingMemberStatus.ZERO);
+        String formattedType_ = field_.getType();
+        String realType_ = formattedType_;
+        formattedType_ = Templates.generalFormat(formatted_, formattedType_, _cont);
+        FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, realType_, _static, field_.isFinalField());
+        r_.setId(f_);
+        r_.setStatus(SearchingMemberStatus.UNIQ);
         return r_;
     }
     
