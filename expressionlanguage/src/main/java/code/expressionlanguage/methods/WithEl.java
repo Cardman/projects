@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetsBlock;
 import code.sml.RowCol;
 
 public interface WithEl {
@@ -12,5 +13,6 @@ public interface WithEl {
 
     void processEl(ContextEl _cont);
 
-    RowCol getRowCol(int _offset, int _tabWidth,String _attribute);
+    RowCol getRowCol(int _offset, int _globalOffset);
+    OffsetsBlock getOffset();
 }

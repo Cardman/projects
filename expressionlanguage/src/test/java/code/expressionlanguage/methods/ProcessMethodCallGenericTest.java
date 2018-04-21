@@ -977,4 +977,27 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number) subField_.getInstance());
     }
+    @Test
+    public void instanceArgumentFailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExTwo<java.lang.Number>():\n");
+        xml_.append(" $public $int ance=inst;;;get(8I):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int gettwo(#T i){\n");
+        xml_.append("  $return $static$pkg$ExTwo.get(i;.;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+    }
 }

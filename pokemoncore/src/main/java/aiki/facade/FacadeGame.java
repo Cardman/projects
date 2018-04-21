@@ -224,6 +224,9 @@ public class FacadeGame implements WithMathFactory {
         }
         data_.validate();
         if (!DataBase.isLoading() || data_.isError()) {
+            if (data_.isError()) {
+                data = null;
+            }
             return;
         }
         data_.initializeWildPokemon();

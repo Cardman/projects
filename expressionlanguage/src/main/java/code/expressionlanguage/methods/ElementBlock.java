@@ -47,7 +47,8 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         value = _value.getInfo();
     }
 
-    public int getFieldNameOffest() {
+    @Override
+    public int getFieldNameOffset() {
         return fieldNameOffest;
     }
 

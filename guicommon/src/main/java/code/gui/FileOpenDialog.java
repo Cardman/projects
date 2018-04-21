@@ -1,6 +1,7 @@
 package code.gui;
 import java.awt.BorderLayout;
 import java.io.File;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -42,9 +43,9 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     private ThreadSearchingFile thread;
 
-    private volatile boolean keepSearching;
+    private AtomicBoolean keepSearching = new AtomicBoolean();
 
-    private volatile boolean showNewResults;
+    private AtomicBoolean showNewResults = new AtomicBoolean();
 
     private JLabel searchedFiles = new JLabel();
 
@@ -292,18 +293,18 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     }
 
     public boolean isKeepSearching() {
-        return keepSearching;
+        return keepSearching.get();
     }
 
     public void setKeepSearching(boolean _keepSearching) {
-        keepSearching = _keepSearching;
+        keepSearching.set(_keepSearching);
     }
 
     public boolean isShowNewResults() {
-        return showNewResults;
+        return showNewResults.get();
     }
 
     public void setShowNewResults(boolean _showNewResults) {
-        showNewResults = _showNewResults;
+        showNewResults.set(_showNewResults);
     }
 }

@@ -361,7 +361,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     MethodId id_ = new MethodId(st_, name_, pTypes_);
                     for (MethodId m: idMethods_) {
                         if (m.eq(id_)) {
-                            RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
                             DuplicateMethod duplicate_;
                             duplicate_ = new DuplicateMethod();
                             duplicate_.setRc(r_);
@@ -376,7 +376,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     ConstructorId idCt_ = new ConstructorId(name_, pTypes_);
                     for (ConstructorId m: idConstructors_) {
                         if (m.eq(idCt_)) {
-                            RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
                             DuplicateConstructor duplicate_;
                             duplicate_ = new DuplicateConstructor();
                             duplicate_.setRc(r_);
@@ -393,41 +393,38 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     BadNumberArgMethod b_;
                     b_ = new BadNumberArgMethod();
                     b_.setFileName(className_);
-                    b_.setRc(method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                    b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
                     b_.setNbTypes(len_);
                     b_.setNbVars(l_.size());
                     b_.setId(sgn_);
                     _context.getClasses().getErrorsDet().add(b_);
                 }
                 StringList seen_ = new StringList();
-                int i_ = CustList.FIRST_INDEX;
                 for (String v: l_) {
-                    String attr_ = StringList.concatNbs(ATTRIBUTE_VAR,i_);
                     if (!StringList.isWord(v)) {
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, _context.getTabWidth(), attr_));
+                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
                         b_.setParamName(v);
                         _context.getClasses().getErrorsDet().add(b_);
                     } else if (seen_.containsStr(v)){
                         DuplicateParamName b_;
                         b_ = new DuplicateParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, _context.getTabWidth(), attr_));
+                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
                         b_.setParamName(v);
                         _context.getClasses().getErrorsDet().add(b_);
                     } else {
                         seen_.add(v);
                     }
-                    i_++;
                 }
             } else if (b instanceof InfoBlock) {
                 InfoBlock method_ = (InfoBlock) b;
                 String name_ = method_.getFieldName();
                 InfoBlock m_ = (InfoBlock) b;
                 if (!StringList.isWord(name_)) {
-                    RowCol r_ = m_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME);
+                    RowCol r_ = m_.getRowCol(0, m_.getFieldNameOffset());
                     BadFieldName badMeth_ = new BadFieldName();
                     badMeth_.setFileName(className_);
                     badMeth_.setRc(r_);
@@ -436,7 +433,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                 }
                 for (String m: idsField_) {
                     if (StringList.quickEq(m, name_)) {
-                        RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+                        RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
                         DuplicateField duplicate_;
                         duplicate_ = new DuplicateField();
                         duplicate_.setRc(r_);
@@ -490,18 +487,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         Classes classesRef_ = _context.getClasses();
         ObjectMap<MethodId, ClassMethodId> localSignatures_;
         localSignatures_ = new ObjectMap<MethodId, ClassMethodId>();
-        ObjectMap<MethodId, EqList<ClassMethodId>> signatures_;
-        signatures_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        Mapping mapping_ = new Mapping();
         for (TypeVar t: getParamTypes()) {
             vars_.put(t.getName(), t.getConstraints());
-            mapping_.getMapping().put(t.getName(), t.getConstraints());
         }
         LgNames stds_ = _context.getStandards();
         String objectClassName_ = stds_.getAliasObject();
         for (TypeVar t: getParamTypes()) {
-            StringList upper_ = mapping_.getAllUpperBounds(t.getName(),objectClassName_);
+            ObjectMap<MethodId, EqList<ClassMethodId>> signatures_;
+            signatures_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
+            StringList upper_ = Mapping.getAllUpperBounds(vars_, t.getName(),objectClassName_);
             for (String c: upper_) {
                 String base_ = StringList.getAllTypes(c).first();
                 if (classesRef_.isCustomType(base_)) {
@@ -533,60 +528,60 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     }
                 }
             }
-        }
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: signatures_.entryList()) {
-            StringMap<MethodId> defs_ = new StringMap<MethodId>();
-            StringList list_ = new StringList();
-            for (ClassMethodId v: e.getValue()) {
-                defs_.put(v.getClassName(), v.getConstraints());
-                list_.add(v.getClassName());
-            }
-            StringMap<StringList> map_ = Classes.getBaseParams(list_);
-            for (EntryCust<String,StringList> m:map_.entryList()) {
-                if (m.getValue().size() > 1) {
-                    for (String s: m.getValue()) {
-                        MethodId id_ = defs_.getVal(s);
-                        MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s, id_).first();
-                        IncompatibilityReturnType err_ = new IncompatibilityReturnType();
-                        err_.setFileName(getFullName());
-                        err_.setRc(getRowCol(0, idRowCol));
-                        err_.setReturnType(mDer_.getReturnType(stds_));
-                        err_.setMethod(mDer_.getId());
-                        err_.setParentClass(s);
-                        _context.getClasses().getErrorsDet().add(err_);
+            for (EntryCust<MethodId, EqList<ClassMethodId>> e: signatures_.entryList()) {
+                StringMap<MethodId> defs_ = new StringMap<MethodId>();
+                StringList list_ = new StringList();
+                for (ClassMethodId v: e.getValue()) {
+                    defs_.put(v.getClassName(), v.getConstraints());
+                    list_.add(v.getClassName());
+                }
+                StringMap<StringList> map_ = Classes.getBaseParams(list_);
+                for (EntryCust<String,StringList> m:map_.entryList()) {
+                    if (m.getValue().size() > 1) {
+                        for (String s: m.getValue()) {
+                            MethodId id_ = defs_.getVal(s);
+                            MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s, id_).first();
+                            IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                            err_.setFileName(getFullName());
+                            err_.setRc(getRowCol(0, idRowCol));
+                            err_.setReturnType(mDer_.getReturnType(stds_));
+                            err_.setMethod(mDer_.getId());
+                            err_.setParentClass(s);
+                            _context.getClasses().getErrorsDet().add(err_);
+                        }
                     }
                 }
             }
-        }
-        ObjectMap<MethodId, EqList<ClassMethodId>> ov_;
-        ov_ = RootBlock.getAllOverridingMethods(signatures_, _context);
-        ObjectMap<MethodId, EqList<ClassMethodId>> er_;
-        er_ = RootBlock.areCompatible(localSignatures_, vars_, ov_, _context);
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
-            for (ClassMethodId s: e.getValue()) {
-                String s_ = s.getClassName();
-                MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s_, s.getConstraints()).first();
-                IncompatibilityReturnType err_ = new IncompatibilityReturnType();
-                err_.setFileName(getFullName());
-                err_.setRc(getRowCol(0, idRowCol));
-                err_.setReturnType(mDer_.getReturnType(stds_));
-                err_.setMethod(mDer_.getId());
-                err_.setParentClass(s_);
-                _context.getClasses().getErrorsDet().add(err_);
+            ObjectMap<MethodId, EqList<ClassMethodId>> ov_;
+            ov_ = RootBlock.getAllOverridingMethods(signatures_, _context);
+            ObjectMap<MethodId, EqList<ClassMethodId>> er_;
+            er_ = RootBlock.areCompatible(localSignatures_, vars_, ov_, _context);
+            for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
+                for (ClassMethodId s: e.getValue()) {
+                    String s_ = s.getClassName();
+                    MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s_, s.getConstraints()).first();
+                    IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                    err_.setFileName(getFullName());
+                    err_.setRc(getRowCol(0, idRowCol));
+                    err_.setReturnType(mDer_.getReturnType(stds_));
+                    err_.setMethod(mDer_.getId());
+                    err_.setParentClass(s_);
+                    _context.getClasses().getErrorsDet().add(err_);
+                }
             }
-        }
-        er_ = RootBlock.areModifierCompatible(ov_, vars_, _context);
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
-            for (ClassMethodId s: e.getValue()) {
-                String s_ = s.getClassName();
-                MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s_, s.getConstraints()).first();
-                IncompatibilityReturnType err_ = new IncompatibilityReturnType();
-                err_.setFileName(getFullName());
-                err_.setRc(getRowCol(0, idRowCol));
-                err_.setReturnType(mDer_.getReturnType(stds_));
-                err_.setMethod(mDer_.getId());
-                err_.setParentClass(s_);
-                _context.getClasses().getErrorsDet().add(err_);
+            er_ = RootBlock.areModifierCompatible(ov_, vars_, _context);
+            for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
+                for (ClassMethodId s: e.getValue()) {
+                    String s_ = s.getClassName();
+                    MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s_, s.getConstraints()).first();
+                    IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                    err_.setFileName(getFullName());
+                    err_.setRc(getRowCol(0, idRowCol));
+                    err_.setReturnType(mDer_.getReturnType(stds_));
+                    err_.setMethod(mDer_.getId());
+                    err_.setParentClass(s_);
+                    _context.getClasses().getErrorsDet().add(err_);
+                }
             }
         }
     }

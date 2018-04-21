@@ -99,7 +99,7 @@ public final class ProcessMethod {
                 if (_cont.getException() != null) {
                     return;
                 }
-            } catch (Throwable _0){
+            } catch (OutOfMemoryError _0){
                 _cont.setException(_cont.getMemoryError());
                 _cont.getThrowing().removeBlockFinally(_cont);
                 if (_cont.getException() != null) {

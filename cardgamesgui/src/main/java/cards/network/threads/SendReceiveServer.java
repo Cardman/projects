@@ -1,5 +1,6 @@
 package cards.network.threads;
 import java.net.Socket;
+import java.util.concurrent.locks.ReentrantLock;
 
 import code.network.AddingPlayer;
 import code.network.BasicServer;
@@ -107,6 +108,8 @@ import cards.tarot.enumerations.PlayingDog;
 Thread safe class*/
 public final class SendReceiveServer extends BasicServer {
 
+    private static final ReentrantLock LOCK = new ReentrantLock();
+
     private static final String EMPTY_STRING = "";
 
     /**This class thread is independant from EDT*/
@@ -149,10 +152,12 @@ public final class SendReceiveServer extends BasicServer {
 
     @Override
     public void loopServer(String _input, Object _object) {
+        LOCK.lock();
         loop(_input, _object);
+        LOCK.unlock();
     }
 
-    private static synchronized void loop(String _input, Object _readObject) {
+    private static void loop(String _input, Object _readObject) {
         if (_readObject instanceof AddingPlayer) {
             AddingPlayer newPlayer_ = (AddingPlayer)_readObject;
             if (!newPlayer_.isAcceptable()) {

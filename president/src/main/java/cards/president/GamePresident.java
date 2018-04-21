@@ -1,4 +1,6 @@
 package cards.president;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import cards.consts.GameType;
 import cards.consts.Suit;
 import cards.president.comparators.GameStrengthCardPresidentComparator;
@@ -19,7 +21,7 @@ import code.util.consts.Constants;
 @RwXml
 public final class GamePresident {
 
-    private static volatile int _chargementSimulation_;
+    private static AtomicInteger _chargementSimulation_ = new AtomicInteger();
     private static final String GAME_PRESIDENT = "cards.president.GamePresident";
     private static final String FOLDER = "resources_cards/classes";
 
@@ -217,7 +219,7 @@ public final class GamePresident {
 //        byte nombreJoueurs_ = getNombreDeJoueurs();
 //        byte donneur_ = getDistribution().getDonneur();
         simulated = true;
-        _chargementSimulation_ = CustList.SIZE_EMPTY;
+        _chargementSimulation_.set(CustList.SIZE_EMPTY);
         userHands.clear();
         currentUserHands.clear();
         dealTricks.clear();
@@ -269,7 +271,7 @@ public final class GamePresident {
 //                }
                 HandPresident h_ = playedCards();
                 nbPlayedCards_ += h_.total();
-                _chargementSimulation_ = PERCENT_MAX * nbPlayedCards_ / nbPlayedCardsCount_;
+                _chargementSimulation_.set(PERCENT_MAX * nbPlayedCards_ / nbPlayedCardsCount_);
 //                addCardsToCurrentTrick(player_, h_);
                 addCardsToCurrentTrickAndLoop(nextPlayer, h_);
 //                lastStatus_.add(new Map<>(lastStatus));
@@ -297,7 +299,7 @@ public final class GamePresident {
             noDeal_++;
         }
         ranksDeals.add(ranks);
-        _chargementSimulation_ = PERCENT_MAX;
+        _chargementSimulation_.set(PERCENT_MAX);
     }
 
     void initializeFirstTrick() {
@@ -2648,11 +2650,11 @@ public final class GamePresident {
     }
 
     public static int getChargementSimulation() {
-        return _chargementSimulation_;
+        return _chargementSimulation_.get();
     }
 
     public static void setChargementSimulation(int _chargementSimulation) {
-        _chargementSimulation_ = _chargementSimulation;
+        _chargementSimulation_.set(_chargementSimulation);
     }
 
     void setNextPlayer(byte _i) {

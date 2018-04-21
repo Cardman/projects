@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetsBlock;
 import code.sml.RowCol;
 
 public interface FunctionBlock {
@@ -9,6 +10,7 @@ public interface FunctionBlock {
     void checkFctConstrCalls(ContextEl _cont);
     boolean isStaticContext();
 
-    RowCol getRowCol(int _i, int _tabWidth, String _attr);
+    RowCol getRowCol(int _offset, int _globalOffset);
+    OffsetsBlock getOffset();
 
 }

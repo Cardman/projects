@@ -1,4 +1,6 @@
 package cards.tarot;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import cards.consts.CardChar;
 import cards.consts.EndGameState;
 import cards.consts.GameType;
@@ -52,7 +54,7 @@ public final class GameTarot {
 
     public static final int PTS_BASE = 25;
 
-    private static volatile int _chargementSimulation_;
+    private static AtomicInteger _chargementSimulation_ = new AtomicInteger();
 
     private static final String GAME_TAROT = "cards.tarot.GameTarot";
 
@@ -14824,11 +14826,11 @@ public final class GameTarot {
     }
 
     public static int getChargementSimulation() {
-        return _chargementSimulation_;
+        return _chargementSimulation_.get();
     }
 
     public static void setChargementSimulation(int _chargementSimulation) {
-        GameTarot._chargementSimulation_ = _chargementSimulation;
+        GameTarot._chargementSimulation_.set(_chargementSimulation);
     }
 
     public DealTarot getDeal() {

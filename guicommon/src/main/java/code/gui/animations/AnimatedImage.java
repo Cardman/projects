@@ -1,6 +1,7 @@
 package code.gui.animations;
 
 import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,7 +17,7 @@ public final class AnimatedImage extends Thread {
 
     private int delay;
 
-    private volatile boolean animated = true;
+    private AtomicBoolean animated = new AtomicBoolean(true);
 
     public AnimatedImage(JLabel _label, CustList<BufferedImage> _images,
             int _delay) {
@@ -28,7 +29,7 @@ public final class AnimatedImage extends Thread {
     @Override
     public void run() {
         int i = 0;
-        while (animated) {
+        while (animated.get()) {
             label.setIcon(new ImageIcon(images.get(i)));
             Constants.sleep(delay);
             i++;
@@ -39,6 +40,6 @@ public final class AnimatedImage extends Thread {
     }
 
     public void stopAnimation() {
-        animated = false;
+        animated.set(false);
     }
 }

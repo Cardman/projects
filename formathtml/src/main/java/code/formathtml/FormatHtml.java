@@ -693,7 +693,6 @@ public final class FormatHtml {
                     ip_.getLocalVars().putAllMap(last_.getReturnedValues());
                     processBlock(_conf, ip_);
                     if (_conf.getContext().getException() != null) {
-                        //TODO exception
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
                             return null;
@@ -710,7 +709,6 @@ public final class FormatHtml {
                 if (en_ instanceof Comment) {
                     processElementOrText(_conf, ip_, true);
                     if (_conf.getContext().getException() != null) {
-                        //TODO exception
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
                             return null;
@@ -726,7 +724,6 @@ public final class FormatHtml {
                         }
                         ImportingPage ret_ = processProcessingTags(_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, mainBean_, _loc, _files, _resourcesFolder);
                         if (_conf.getContext().getException() != null) {
-                            //TODO exception
                             throwException(_conf);
                             if (_conf.getContext().getException() != null) {
                                 return null;
@@ -750,7 +747,6 @@ public final class FormatHtml {
                     processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
                             indexes_, containersMap_, containers_, _resourcesFolder);
                     if (_conf.getContext().getException() != null) {
-                        //TODO exception
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
                             return null;
@@ -768,7 +764,6 @@ public final class FormatHtml {
                     }
                     processElementOrText(_conf, ip_, true);
                     if (_conf.getContext().getException() != null) {
-                        //TODO exception
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
                             return null;
@@ -782,7 +777,6 @@ public final class FormatHtml {
                     currentNode_.appendChild(t_);
                     processElementOrText(_conf, ip_, true);
                     if (_conf.getContext().getException() != null) {
-                        //TODO exception
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
                             return null;
@@ -793,7 +787,6 @@ public final class FormatHtml {
                 if (interpretBrackets((CharacterData) en_)) {
                     content_ = ExtractObject.formatNumVariables(content_, _conf, ip_);
                     if (_conf.getContext().getException() != null) {
-                        //TODO exception
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
                             return null;
@@ -805,13 +798,14 @@ public final class FormatHtml {
                 currentNode_.appendChild(t_);
                 processElementOrText(_conf, ip_, true);
                 if (_conf.getContext().getException() != null) {
-                    //TODO exception
                     throwException(_conf);
                     if (_conf.getContext().getException() != null) {
                         return null;
                     }
                 }
-            } catch (Throwable _0){_0.printStackTrace();
+            } catch (OutOfMemoryError _0){
+                ContextEl cont_ = _conf.getContext();
+                cont_.setException(cont_.getMemoryError());
                 throwException(_conf);
                 if (_conf.getContext().getException() != null) {
                     return null;

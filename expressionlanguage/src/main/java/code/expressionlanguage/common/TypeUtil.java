@@ -19,7 +19,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.OverridingRelation;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -368,7 +367,9 @@ public final class TypeUtil {
                         if (mBasesSuper_.size() > 1) {
                             DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                             duplicate_.setFileName(_type.getFullName());
-                            duplicate_.setRc(new RowCol());
+                            if (m instanceof MethodBlock) {
+                                duplicate_.setRc(((MethodBlock)m).getRowCol(0, ((MethodBlock) m).getNameOffset()));
+                            }
                             duplicate_.setCommonSignature(mId_.getSignature());
                             duplicate_.setOtherType(d);
                             classesRef_.getErrorsDet().add(duplicate_);

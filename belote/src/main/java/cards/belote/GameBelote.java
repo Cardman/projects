@@ -1,4 +1,6 @@
 package cards.belote;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import cards.belote.comparators.BidBeloteSuitComparator;
 import cards.belote.comparators.DeclareHandBeloteComparator;
 import cards.belote.comparators.GameStrengthGreatFirstHandBeloteComparator;
@@ -38,7 +40,7 @@ import code.util.consts.Constants;
  */
 @RwXml
 public final class GameBelote {
-    private static volatile int _chargementSimulation_;
+    private static AtomicInteger _chargementSimulation_ = new AtomicInteger(0);
     private static final String GAME_BELOTE = "cards.belote.GameBelote";
     private static final String FOLDER = "resources_cards/classes";
 
@@ -6461,11 +6463,11 @@ public final class GameBelote {
     }
 
     public static int getChargementSimulation() {
-        return _chargementSimulation_;
+        return _chargementSimulation_.get();
     }
 
     public static void setChargementSimulation(int _chargementSimulation) {
-        GameBelote._chargementSimulation_ = _chargementSimulation;
+        GameBelote._chargementSimulation_.set(_chargementSimulation);
     }
 
     public DealBelote getDeal() {

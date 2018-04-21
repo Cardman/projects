@@ -8,6 +8,7 @@ import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
@@ -107,6 +108,7 @@ public final class ElRenderUtil {
 
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.toContextEl();
+        context_.setAnalyzing(new PageEl());
         Delimiters d_ = ElResolver.checkSyntax(_el, context_, _index);
         if (d_.getBadOffset() >= 0) {
             _conf.getLastPage().setOffset(d_.getBadOffset());
@@ -115,6 +117,7 @@ public final class ElRenderUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
             return Argument.createVoid();
         }
         String el_ = _el.substring(_index);
@@ -126,6 +129,7 @@ public final class ElRenderUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
             return Argument.createVoid();
         }
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, context_);
@@ -138,8 +142,10 @@ public final class ElRenderUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
             return Argument.createVoid();
         }
+        context_.setAnalyzing(null);
         calculate(all_, context_, EMPTY_STRING);
         Argument arg_  = op_.getArgument();
         return arg_;

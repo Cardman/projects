@@ -89,7 +89,6 @@ public final class FctOperation extends InvokingOperation {
 
     private boolean superAccessMethod;
 
-    private boolean foundBound;
     private boolean correctTemplate = true;
 
     private String lastType = EMPTY_STRING;
@@ -571,6 +570,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         String objectClassName_ = stds_.getAliasObject();
+        StringList bounds_ = new StringList();
         if (clCurName_.startsWith(Templates.PREFIX_VAR_TYPE)) {
             String glClass_ = _conf.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(glClass_).first();
@@ -579,33 +579,11 @@ public final class FctOperation extends InvokingOperation {
             for (TypeVar t: gl_.getParamTypes()) {
                 mapping_.put(t.getName(), t.getConstraints());
             }
-            for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1), objectClassName_)) {
-                analyzeCustomClass(_conf, u, false);
-                if (foundBound) {
-                    return;
-                }
-            }
-            UndefinedMethodError undefined_ = new UndefinedMethodError();
-            undefined_.setClassName(clCurName_);
-            CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-            StringList names_ = new StringList();
-            for (ClassArgumentMatching c: firstArgs_) {
-                names_.add(c.getName());
-            }
-            MethodModifier mod_;
-            if (isStaticAccess()) {
-                mod_ = MethodModifier.STATIC;
-            } else {
-                mod_ = MethodModifier.FINAL;
-            }
-            undefined_.setId(new MethodId(mod_, trimMeth_, names_));
-            undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(undefined_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
+            bounds_.addAllElts(Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1), objectClassName_));
+        } else {
+            bounds_.add(clCurName_);
         }
-        analyzeCustomClass(_conf, clCurName_, true);
+        analyzeCustomClass(_conf, bounds_);
 //        if (firstArgs_.isEmpty()) {
 //            if (StringList.quickEq(trimMeth_, GET_CLASS)) {
 //                setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(ClassMetaInfo.class)));
@@ -614,7 +592,7 @@ public final class FctOperation extends InvokingOperation {
 //        }
     }
 
-    private void analyzeCustomClass(Analyzable _conf, String _subType, boolean _failIfError) {
+    private void analyzeCustomClass(Analyzable _conf, StringList _subTypes) {
         LgNames stds_ = _conf.getStandards();
         String stringType_ = stds_.getAliasString();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -622,7 +600,6 @@ public final class FctOperation extends InvokingOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-        String clCurName_ = _subType;
         int varargOnly_ = lookOnlyForVarArg();
         int indexChild_ = -1;
         boolean void_ = false;
@@ -648,118 +625,112 @@ public final class FctOperation extends InvokingOperation {
         }
         if (void_) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            foundBound = true;
             return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String baseClass_ = StringList.getAllTypes(clCurName_).first();
-        if (StringList.quickEq(baseClass_, PredefinedClasses.ENUM) || StringList.quickEq(baseClass_, PredefinedClasses.ENUM_PARAM)) {
-            if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
-                if (isStaticAccess()) {
-                    if (_failIfError) {
+        for (String s: _subTypes) {
+            String baseClass_ = StringList.getAllTypes(s).first();
+            if (StringList.quickEq(baseClass_, PredefinedClasses.ENUM) || StringList.quickEq(baseClass_, PredefinedClasses.ENUM_PARAM)) {
+                if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
+                    if (isStaticAccess()) {
                         StaticAccessMethodError static_ = new StaticAccessMethodError();
-                        static_.setClassName(_subType);
+                        static_.setClassName(s);
                         static_.setId(new MethodId(MethodModifier.NORMAL, trimMeth_, new StringList()));
                         static_.setFileName(_conf.getCurrentFileName());
                         static_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().getErrorsDet().add(static_);
+                        setResultClass(new ClassArgumentMatching(stringType_));
+                        return;
                     }
+                    MethodId methodId_ = new MethodId(false, METH_NAME, new EqList<ClassName>());
+                    classMethodId = new ClassMethodId(s, methodId_);
+                    realId = methodId_;
+                    setResultClass(new ClassArgumentMatching(stringType_));
                     return;
                 }
-                MethodId methodId_ = new MethodId(false, METH_NAME, new EqList<ClassName>());
-                classMethodId = new ClassMethodId(clCurName_, methodId_);
-                realId = methodId_;
-                setResultClass(new ClassArgumentMatching(stringType_));
-                foundBound = true;
-                return;
-            }
-            if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
-                if (isStaticAccess()) {
-                    if (_failIfError) {
+                if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
+                    if (isStaticAccess()) {
                         StaticAccessMethodError static_ = new StaticAccessMethodError();
-                        static_.setClassName(_subType);
+                        static_.setClassName(s);
                         static_.setId(new MethodId(MethodModifier.NORMAL, trimMeth_, new StringList()));
                         static_.setFileName(_conf.getCurrentFileName());
                         static_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().getErrorsDet().add(static_);
+                        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
+                        return;
                     }
+                    MethodId methodId_ = new MethodId(false, METH_ORDINAL, new EqList<ClassName>());
+                    classMethodId = new ClassMethodId(s, methodId_);
+                    realId = methodId_;
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
                     return;
                 }
-                MethodId methodId_ = new MethodId(false, METH_ORDINAL, new EqList<ClassName>());
-                classMethodId = new ClassMethodId(clCurName_, methodId_);
-                realId = methodId_;
-                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
-                foundBound = true;
-                return;
-            }
-        } else if (_conf.getClassBody(baseClass_) instanceof EnumBlock) {
-            if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
-                if (isStaticAccess()) {
-                    if (_failIfError) {
+            } else if (_conf.getClassBody(baseClass_) instanceof EnumBlock) {
+                if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
+                    if (isStaticAccess()) {
                         StaticAccessMethodError static_ = new StaticAccessMethodError();
-                        static_.setClassName(_subType);
+                        static_.setClassName(s);
                         static_.setId(new MethodId(MethodModifier.NORMAL, trimMeth_, new StringList()));
                         static_.setFileName(_conf.getCurrentFileName());
                         static_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().getErrorsDet().add(static_);
+                        setResultClass(new ClassArgumentMatching(stringType_));
+                        return;
                     }
+                    MethodId methodId_ = new MethodId(false, METH_NAME, new EqList<ClassName>());
+                    classMethodId = new ClassMethodId(s, methodId_);
+                    realId = methodId_;
+                    setResultClass(new ClassArgumentMatching(stringType_));
                     return;
                 }
-                MethodId methodId_ = new MethodId(false, METH_NAME, new EqList<ClassName>());
-                classMethodId = new ClassMethodId(clCurName_, methodId_);
-                realId = methodId_;
-                setResultClass(new ClassArgumentMatching(stringType_));
-                foundBound = true;
-                return;
-            }
-            if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
-                if (isStaticAccess()) {
-                    if (_failIfError) {
+                if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
+                    if (isStaticAccess()) {
                         StaticAccessMethodError static_ = new StaticAccessMethodError();
-                        static_.setClassName(_subType);
+                        static_.setClassName(s);
                         static_.setId(new MethodId(MethodModifier.NORMAL, trimMeth_, new StringList()));
                         static_.setFileName(_conf.getCurrentFileName());
                         static_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().getErrorsDet().add(static_);
+                        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
+                        return;
                     }
+                    MethodId methodId_ = new MethodId(false, METH_ORDINAL, new EqList<ClassName>());
+                    classMethodId = new ClassMethodId(s, methodId_);
+                    realId = methodId_;
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
                     return;
                 }
-                MethodId methodId_ = new MethodId(false, METH_ORDINAL, new EqList<ClassName>());
-                classMethodId = new ClassMethodId(clCurName_, methodId_);
-                realId = methodId_;
-                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
-                foundBound = true;
-                return;
-            }
-            if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
-                MethodId methodId_ = new MethodId(true, METH_VALUES, new EqList<ClassName>());
-                classMethodId = new ClassMethodId(clCurName_, methodId_);
-                realId = methodId_;
-                ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
-                staticMethod = true;
-                setResultClass(new ClassArgumentMatching(ret_.getName()));
-                foundBound = true;
-                return;
-            }
-            if (StringList.quickEq(trimMeth_, METH_VALUEOF) && firstArgs_.size() == CustList.ONE_ELEMENT) {
-                if (!StringList.quickEq(firstArgs_.first().getName(), stringType_)) {
-                    UndefinedMethodError und_ = new UndefinedMethodError();
-                    und_.setClassName(_subType);
-                    und_.setId(new MethodId(MethodModifier.STATIC, trimMeth_, new StringList(firstArgs_.first().getName())));
-                    und_.setRc(_conf.getCurrentLocation());
-                    und_.setFileName(_conf.getCurrentFileName());
-                    _conf.getClasses().getErrorsDet().add(und_);
+                if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
+                    MethodId methodId_ = new MethodId(true, METH_VALUES, new EqList<ClassName>());
+                    classMethodId = new ClassMethodId(s, methodId_);
+                    realId = methodId_;
+                    ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(s), false);
+                    staticMethod = true;
+                    setResultClass(new ClassArgumentMatching(ret_.getName()));
+                    return;
                 }
-                MethodId methodId_ = new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(stringType_, false)));
-                classMethodId = new ClassMethodId(clCurName_, methodId_);
-                realId = methodId_;
-                ClassName ret_ = new ClassName(clCurName_, false);
-                staticMethod = true;
-                setResultClass(new ClassArgumentMatching(ret_.getName()));
-                foundBound = true;
-                return;
+                if (StringList.quickEq(trimMeth_, METH_VALUEOF) && firstArgs_.size() == CustList.ONE_ELEMENT) {
+                    if (!StringList.quickEq(firstArgs_.first().getName(), stringType_)) {
+                        UndefinedMethodError und_ = new UndefinedMethodError();
+                        und_.setClassName(_subTypes);
+                        und_.setId(new MethodId(MethodModifier.STATIC, trimMeth_, new StringList(firstArgs_.first().getName())));
+                        und_.setRc(_conf.getCurrentLocation());
+                        und_.setFileName(_conf.getCurrentFileName());
+                        _conf.getClasses().getErrorsDet().add(und_);
+                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                        return;
+                    }
+                    MethodId methodId_ = new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(stringType_, false)));
+                    classMethodId = new ClassMethodId(s, methodId_);
+                    realId = methodId_;
+                    ClassName ret_ = new ClassName(s, false);
+                    staticMethod = true;
+                    setResultClass(new ClassArgumentMatching(ret_.getName()));
+                    return;
+                }
             }
         }
+        
         boolean superClassAccess_ = true;
         boolean staticChoiceMethod_ = false;
         boolean superAccessMethod_ = false;
@@ -779,21 +750,21 @@ public final class FctOperation extends InvokingOperation {
             staticChoiceMethod_ = true;
             superAccessMethod_ = true;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), _subTypes, trimMeth_, superClassAccess_, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
+            setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
         }
         if (staticChoiceMethod_) {
             if (clMeth_.isAbstractMethod()) {
-                if (_failIfError) {
-                    setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    AbstractMethod abs_ = new AbstractMethod();
-                    abs_.setClassName(clMeth_.getRealClass());
-                    abs_.setSgn(clMeth_.getRealId().getSignature());
-                    abs_.setRc(_conf.getCurrentLocation());
-                    abs_.setFileName(_conf.getCurrentFileName());
-                    _conf.getClasses().getErrorsDet().add(abs_);
-                }
+                setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                AbstractMethod abs_ = new AbstractMethod();
+                abs_.setClassName(clMeth_.getRealClass());
+                abs_.setSgn(clMeth_.getRealId().getSignature());
+                abs_.setRc(_conf.getCurrentLocation());
+                abs_.setFileName(_conf.getCurrentFileName());
+                _conf.getClasses().getErrorsDet().add(abs_);
+                setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                 return;
             }
             if (superAccessMethod_) {
@@ -820,7 +791,6 @@ public final class FctOperation extends InvokingOperation {
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = clMeth_.isStaticMethod();
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
-        foundBound = true;
     }
 
 

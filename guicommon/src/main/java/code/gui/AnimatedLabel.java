@@ -22,7 +22,7 @@ public class AnimatedLabel extends JLabel {
         }
     }
 
-    public synchronized void increment() {
+    public void increment() {
         repaint();
         index ++;
         if (index >= list.size()) {

@@ -1,4 +1,6 @@
 package cards.gui.containers;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -40,7 +42,7 @@ public class ContainerTarot extends ContainerGame{
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
     private boolean partieAleatoireJouee;
     private LoadingVideo animChargement;
-    private volatile boolean arretDemo;
+    private AtomicBoolean arretDemo = new AtomicBoolean();
     private boolean canBid;
     private boolean canCall;
     private boolean canDiscard;
@@ -262,10 +264,10 @@ public class ContainerTarot extends ContainerGame{
         selectedMiseres = _selectedMiseres;
     }
     public boolean isArretDemo() {
-        return arretDemo;
+        return arretDemo.get();
     }
     public void setArretDemo(boolean _arretDemo) {
-        arretDemo = _arretDemo;
+        arretDemo.set(_arretDemo);
     }
 
     public CardTarot getCarteSurvoleeTarot() {

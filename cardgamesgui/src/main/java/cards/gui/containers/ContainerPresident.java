@@ -1,4 +1,6 @@
 package cards.gui.containers;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -36,7 +38,7 @@ public class ContainerPresident extends ContainerGame {
     private boolean partieAleatoireJouee;
     private LoadingVideo animChargement;
 
-    private volatile boolean arretDemo;
+    private AtomicBoolean arretDemo = new AtomicBoolean();
 
     private boolean canDiscard;
     private boolean canPlay;
@@ -149,10 +151,10 @@ public class ContainerPresident extends ContainerGame {
         animChargement = _animChargement;
     }
     public boolean isArretDemo() {
-        return arretDemo;
+        return arretDemo.get();
     }
     public void setArretDemo(boolean _arretDemo) {
-        arretDemo = _arretDemo;
+        arretDemo.set(_arretDemo);
     }
     public CustList<Numbers<Long>> getScores() {
         return scores;

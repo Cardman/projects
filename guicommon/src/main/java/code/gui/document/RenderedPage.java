@@ -2,6 +2,7 @@ package code.gui.document;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -30,7 +31,7 @@ public final class RenderedPage implements ProcessingSession {
     private IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
 
-    private volatile boolean processing;
+    private AtomicBoolean processing = new AtomicBoolean();
 
     private ThreadActions threadAction;
 
@@ -97,7 +98,7 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     public void initializeOnlyConf(String _conf, BeanLgNames _stds) {
-        if (processing) {
+        if (processing.get()) {
             return;
         }
         standards = _stds;
@@ -128,7 +129,7 @@ public final class RenderedPage implements ProcessingSession {
         directScroll();
     }
     public void refresh() {
-        if (processing) {
+        if (processing.get()) {
             return;
         }
         threadAction = new ThreadActions(this, standards, "", "", false, true, false);
@@ -137,7 +138,7 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     public void reset(BeanLgNames _lgNames) {
-        if (processing) {
+        if (processing.get()) {
             return;
         }
         standards = _lgNames;
@@ -156,7 +157,7 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     public void start() {
-        processing = true;
+        processing.set(true);
     }
 
     public void interrupt() {
@@ -165,7 +166,7 @@ public final class RenderedPage implements ProcessingSession {
 
     public void finish(boolean _wait) {
         //boolean _stop
-        processing = false;
+        processing.set(false);
         if (!_wait) {
             return;
         }
@@ -178,7 +179,7 @@ public final class RenderedPage implements ProcessingSession {
         if (!_setText) {
             return;
         }
-        if (!processing) {
+        if (!processing.get()) {
             return;
         }
         Document doc_ = navigation.getDocument();
@@ -219,7 +220,7 @@ public final class RenderedPage implements ProcessingSession {
     }
     @Override
     public boolean isProcessing() {
-        return processing;
+        return processing.get();
     }
     public void setFinding(MetaDocument _document) {
         finding.setFinding(_document);
@@ -280,7 +281,7 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     public void setProcessing(boolean _processing) {
-        processing = _processing;
+        processing.set(_processing);
     }
     public void setArea(JTextArea _area) {
         area = _area;

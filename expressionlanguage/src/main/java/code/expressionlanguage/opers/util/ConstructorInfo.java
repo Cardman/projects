@@ -3,8 +3,6 @@ import code.util.ints.Displayable;
 
 public final class ConstructorInfo implements Parametrable, Displayable {
 
-    private ConstructorId constr;
-
     private ConstructorId constraints;
 
     private String className;
@@ -13,15 +11,7 @@ public final class ConstructorInfo implements Parametrable, Displayable {
 
     @Override
     public String display() {
-        return constr.getSignature();
-    }
-
-    public ConstructorId getConstr() {
-        return constr;
-    }
-
-    public void setConstr(ConstructorId _constr) {
-        constr = _constr;
+        return constraints.getSignature();
     }
 
     public ConstructorId getConstraints() {

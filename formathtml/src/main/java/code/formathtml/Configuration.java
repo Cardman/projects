@@ -1,4 +1,6 @@
 package code.formathtml;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
@@ -93,7 +95,7 @@ public class Configuration implements Analyzable {
 
     private transient String resourceUrl;
 
-    private transient volatile boolean interrupt;
+    private transient AtomicBoolean interrupt = new AtomicBoolean();
 
     public final void init() {
         htmlPage = new HtmlPage();
@@ -504,11 +506,11 @@ public class Configuration implements Analyzable {
     }
 
     public boolean isInterrupt() {
-        return interrupt;
+        return interrupt.get();
     }
 
     public void setInterrupt(boolean _interrupt) {
-        interrupt = _interrupt;
+        interrupt.set(_interrupt);
     }
 
     public String getFilesConfName() {

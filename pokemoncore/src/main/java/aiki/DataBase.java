@@ -1,5 +1,8 @@
 package aiki;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import aiki.comparators.ComparatorEndRoundMainElements;
 import aiki.fight.Combos;
 import aiki.fight.EndRoundMainElements;
@@ -297,9 +300,9 @@ public class DataBase implements WithMathFactory {
 
     private static final char UNDERSCORE = '_';
 
-    private static volatile boolean _loading_;
+    private static AtomicBoolean _loading_ = new AtomicBoolean();
 
-    private static volatile int _perCentLoading_;
+    private static AtomicInteger _perCentLoading_ = new AtomicInteger();
 
     private StringMap<PokemonData> pokedex = new StringMap<PokemonData>();
 
@@ -654,14 +657,14 @@ public class DataBase implements WithMathFactory {
         if (!isLoading()) {
             return;
         }
-        _perCentLoading_ = 60;
+        _perCentLoading_.set(60);
         validateConstants();
         setCheckTranslation(true);
         CheckNumericStringsFight.validateNumericBooleanStrings(this, false);
         if (!isLoading()) {
             return;
         }
-        _perCentLoading_ = 70;
+        _perCentLoading_.set(70);
         Rate power_ = getStrongMovePower();
         if (Rate.strLower(power_, new Rate(90))) {
             error = true;
@@ -685,7 +688,7 @@ public class DataBase implements WithMathFactory {
             error = true;
             return;
         }
-        _perCentLoading_ = 85;
+        _perCentLoading_.set(85);
         if (!isLoading()) {
             return;
         }
@@ -694,7 +697,7 @@ public class DataBase implements WithMathFactory {
             return;
         }
         validateTranslations();
-        _perCentLoading_ = 95;
+        _perCentLoading_.set(95);
 
     }
 
@@ -892,7 +895,7 @@ public class DataBase implements WithMathFactory {
 
     public void validateCore() {
         initTypesByTable();
-        _perCentLoading_ = 55;
+        _perCentLoading_.set(55);
         for (String t1_ : types) {
             for (String t2_ : types) {
                 if (!tableTypes.contains(new TypesDuo(t1_, t2_))) {
@@ -2122,7 +2125,7 @@ public class DataBase implements WithMathFactory {
 
     public void loadRom(InsCaseStringMap<String> _files) {
 
-        _perCentLoading_ = 0;
+        _perCentLoading_.set(0);
         initializeMembers();
         InsCaseStringMap<String> files_;
         StringList listRelativePaths_;
@@ -2160,7 +2163,7 @@ public class DataBase implements WithMathFactory {
             error = true;
             return;
         }
-        _perCentLoading_ = 5;
+        _perCentLoading_.set(5);
         StringList filesNames_;
         filesNames_ = new StringList();
 
@@ -2194,7 +2197,7 @@ public class DataBase implements WithMathFactory {
                     .getVal(StringList.concat(common_, f)));
             completeMembers(StringList.toUpperCase(n_), move_);
         }
-        _perCentLoading_ = 10;
+        _perCentLoading_.set(10);
         checkCaseOfFiles(MOVES_FOLDER, filesNames_);
         StringList tmHm_ = StringList.splitChars(
                 files_.getVal(StringList.concat(common_, CT_CS_FILE)),
@@ -2267,7 +2270,7 @@ public class DataBase implements WithMathFactory {
             completeMembers(StringList.toUpperCase(n_), st_);
         }
         checkCaseOfFiles(STATUS_FOLDER, filesNames_);
-        _perCentLoading_ = 15;
+        _perCentLoading_.set(15);
         completeVariables();
         filesNames_.clear();
         images = new StringMap<int[][]>();
@@ -2439,7 +2442,7 @@ public class DataBase implements WithMathFactory {
                             s))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
-        _perCentLoading_ = 25;
+        _perCentLoading_.set(25);
         filesNames_.clear();
         miniItems = new StringMap<int[][]>();
 
@@ -2656,7 +2659,7 @@ public class DataBase implements WithMathFactory {
         translatedTargets = new StringMap<EnumMap<TargetChoice, String>>();
         translatedClassesDescriptions = new StringMap<StringMap<String>>();
         litterals = new StringMap<StringMap<String>>();
-        _perCentLoading_ = 30;
+        _perCentLoading_.set(30);
         for (String l : Constants.getAvailableLanguages()) {
             String fileName_ = StringList.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
@@ -2921,7 +2924,7 @@ public class DataBase implements WithMathFactory {
             }
             litterals.put(l, litteral_);
         }
-        _perCentLoading_ = 35;
+        _perCentLoading_.set(35);
 
         for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
                 .concat(ANIM_STATIS, SEPARATOR_FILES))) {
@@ -2950,11 +2953,11 @@ public class DataBase implements WithMathFactory {
         }
         animAbsorb = BaseSixtyFourUtil.getImageByString(files_
                 .getVal(StringList.concat(common_, ANIM_ABSORB)));
-        _perCentLoading_ = 40;
+        _perCentLoading_.set(40);
     }
 
     public void loadResources() {
-        int delta_ = (100 - _perCentLoading_) / 6;
+        int delta_ = (100 - _perCentLoading_.get()) / 6;
         imagesDimensions.clear();
 
         initializeMembers();
@@ -3043,7 +3046,7 @@ public class DataBase implements WithMathFactory {
         completeMembersCombos();
         map = DocumentReaderAikiCoreUtil.getDataMap(ResourceFiles
                 .ressourceFichier(StringList.concat(common_, MAP_FILE)));
-        _perCentLoading_ += delta_;
+        _perCentLoading_.addAndGet(delta_);
         constNum = new StringMap<Rate>();
         StringList lines_ = StringList.splitChars(ResourceFiles
                 .ressourceFichier(StringList.concat(common_, CONST_NUM)),
@@ -3477,7 +3480,7 @@ public class DataBase implements WithMathFactory {
             }
             litterals.put(l, litteral_);
         }
-        _perCentLoading_ += delta_;
+        _perCentLoading_.addAndGet(delta_);
         for (Statistic f : translatedStatistics.getVal(Constants.getLanguage())
                 .getKeys()) {
             if (!f.isBoost()) {
@@ -3561,7 +3564,7 @@ public class DataBase implements WithMathFactory {
         completeVariables();
         filesNames_.clear();
         sortEndRound();
-        _perCentLoading_ += delta_;
+        _perCentLoading_.addAndGet(delta_);
         for (PokemonData pk_ : pokedex.values()) {
             for (short hm_ : pk_.getHiddenMoves()) {
                 String move_ = hm.getVal(hm_);
@@ -3625,7 +3628,7 @@ public class DataBase implements WithMathFactory {
                     .ressourceFichier(StringList.concat(common_, n_))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
-        _perCentLoading_ += delta_;
+        _perCentLoading_.addAndGet(delta_);
         filesNames_.clear();
         map.initializeLinks();
         map.initInteractiveElements();
@@ -3872,9 +3875,9 @@ public class DataBase implements WithMathFactory {
                 .getImageByString(ResourceFiles.ressourceFichier(StringList
                         .concat(common_, MINI_MAP_FOLDER, SEPARATOR_FILES,
                                 map.getUnlockedCity()))));
-        _perCentLoading_ += delta_;
+        _perCentLoading_.addAndGet(delta_);
         initializeWildPokemon();
-        _perCentLoading_ += delta_;
+        _perCentLoading_.addAndGet(delta_);
 
         validateEvolutions();
         for (int[][] i : maxiPkBack.values()) {
@@ -3921,7 +3924,7 @@ public class DataBase implements WithMathFactory {
             }
             imagesTiles.put(name_, tiles_);
         }
-        _perCentLoading_ = 100;
+        _perCentLoading_.set(100);
     }
 
     public void setupPseudoImages() {
@@ -8586,19 +8589,19 @@ public class DataBase implements WithMathFactory {
     }
 
     public static boolean isLoading() {
-        return _loading_;
+        return _loading_.get();
     }
 
     public static void setLoading(boolean _loading) {
-        DataBase._loading_ = _loading;
+        DataBase._loading_.set(_loading);
     }
 
     public static int getPerCentLoading() {
-        return _perCentLoading_;
+        return _perCentLoading_.get();
     }
 
     public static void setPerCentLoading(int _perCentLoading) {
-        _perCentLoading_ = _perCentLoading;
+        _perCentLoading_.set(_perCentLoading);
     }
 
     public static Rate getDefaultPower() {

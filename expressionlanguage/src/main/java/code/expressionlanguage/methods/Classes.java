@@ -954,7 +954,7 @@ public final class Classes {
                             String n_ = base_;
                             enum_.setClassName(n_);
                             enum_.setFileName(d_);
-                            enum_.setRc(new RowCol());
+                            enum_.setRc(bl_.getRowCol(0, offset_));
                             errorsDet.add(enum_);
                         }
                     } else if (super_.isFinalType()) {
@@ -963,7 +963,7 @@ public final class Classes {
                         String n_ = base_;
                         enum_.setClassName(n_);
                         enum_.setFileName(d_);
-                        enum_.setRc(new RowCol());
+                        enum_.setRc(bl_.getRowCol(0, offset_));
                         errorsDet.add(enum_);
                     }
                     if (!(bl_ instanceof EnumBlock) && !StringList.quickEq(bl_.getFullName(), PredefinedClasses.ENUM_PARAM)) {
@@ -973,7 +973,7 @@ public final class Classes {
                             String n_ = base_;
                             enum_.setClassName(n_);
                             enum_.setFileName(d_);
-                            enum_.setRc(new RowCol());
+                            enum_.setRc(bl_.getRowCol(0, offset_));
                             errorsDet.add(enum_);
                         }
                         if (StringList.quickEq(super_.getFullName(), PredefinedClasses.ENUM_PARAM)) {
@@ -982,7 +982,7 @@ public final class Classes {
                             String n_ = base_;
                             enum_.setClassName(n_);
                             enum_.setFileName(d_);
-                            enum_.setRc(new RowCol());
+                            enum_.setRc(bl_.getRowCol(0, offset_));
                             errorsDet.add(enum_);
                         }
                     }
@@ -994,7 +994,7 @@ public final class Classes {
                 enum_ = new BadInheritedClass();
                 enum_.setClassName(EMPTY_STRING);
                 enum_.setFileName(d_);
-                enum_.setRc(new RowCol());
+                enum_.setRc(bl_.getRowCol(0, bl_.getIdRowCol()));
                 errorsDet.add(enum_);
             }
         }
@@ -1007,9 +1007,10 @@ public final class Classes {
                 BadInheritedClass b_;
                 b_ = new BadInheritedClass();
                 String n_ = c.getId();
+                RootBlock type_ = classesBodies.getVal(n_);
                 b_.setClassName(n_);
                 b_.setFileName(n_);
-                b_.setRc(new RowCol());
+                b_.setRc(type_.getRowCol(0, type_.getIdRowCol()));
                 errorsDet.add(b_);
             }
             return;
@@ -1103,22 +1104,24 @@ public final class Classes {
             String c = s.getKey();
             RootBlock dBl_ = s.getValue();
             Mapping mapping_ = new Mapping();
+            StringMap<StringList> cts_ = new StringMap<StringList>();
             StringList variables_ = new StringList();
             boolean ok_ = true;
             for (TypeVar t: dBl_.getParamTypes()) {
-                mapping_.getMapping().put(t.getName(), t.getConstraints());
+                cts_.put(t.getName(), t.getConstraints());
                 variables_.add(t.getName());
                 for (String b: t.getConstraints()) {
                     if (!Templates.existAllClassParts(b, variables_, _context)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
                         un_.setFileName(c);
-                        un_.setRc(new RowCol());
+                        un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
                         errorsDet.add(un_);
                         ok_ = false;
                     }
                 }
             }
+            mapping_.setMapping(cts_);
             if (!ok_) {
                 continue;
             }
@@ -1128,14 +1131,14 @@ public final class Classes {
                 //TODO better message
                 b_.setClassName(c);
                 b_.setFileName(c);
-                b_.setRc(new RowCol());
+                b_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
                 errorsDet.add(b_);
                 continue;
             }
             for (TypeVar t: dBl_.getParamTypes()) {
                 boolean existNative_ = false;
                 boolean existCustom_ = false;
-                StringList upper_ = mapping_.getAllUpperBounds(t.getName(),objectClassName_);
+                StringList upper_ = Mapping.getAllUpperBounds(cts_, t.getName(),objectClassName_);
                 StringList upperNotObj_ = new StringList();
                 for (String b: upper_) {
                     StringList baseParams_ = StringList.getAllTypes(b);
@@ -1152,7 +1155,7 @@ public final class Classes {
                     //TODO all conflicting classes
                     un_.setClassName(c);
                     un_.setFileName(c);
-                    un_.setRc(new RowCol());
+                    un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
                     errorsDet.add(un_);
                     ok_ = false;
                 }
@@ -1162,7 +1165,7 @@ public final class Classes {
                         DuplicateGenericSuperTypes duplicate_;
                         duplicate_ = new DuplicateGenericSuperTypes();
                         duplicate_.setFileName(c);
-                        duplicate_.setRc(new RowCol());
+                        duplicate_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
                         duplicate_.setGenericSuperTypes(e.getValue());
                         errorsDet.add(duplicate_);
                     }
@@ -1211,7 +1214,7 @@ public final class Classes {
                         BadInheritedClass inh_;
                         inh_ = new BadInheritedClass();
                         inh_.setFileName(c);
-                        inh_.setRc(new RowCol());
+                        inh_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
                         inh_.setClassName(c);
                         errorsDet.add(inh_);
                     }
@@ -1234,7 +1237,7 @@ public final class Classes {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
                         un_.setFileName(d_);
-                        un_.setRc(new RowCol());
+                        un_.setRc(bl_.getRowCol(0, bl_.getIdRowCol()));
                         errorsDet.add(un_);
                     }
                 }
@@ -1244,7 +1247,7 @@ public final class Classes {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(s);
                     un_.setFileName(d_);
-                    un_.setRc(new RowCol());
+                    un_.setRc(bl_.getRowCol(0, bl_.getIdRowCol()));
                     errorsDet.add(un_);
                 }
             }
@@ -1260,7 +1263,7 @@ public final class Classes {
                     DuplicateGenericSuperTypes duplicate_;
                     duplicate_ = new DuplicateGenericSuperTypes();
                     duplicate_.setFileName(i.getKey());
-                    duplicate_.setRc(new RowCol());
+                    duplicate_.setRc(r_.getRowCol(0, r_.getIdRowCol()));
                     duplicate_.setGenericSuperTypes(e.getValue());
                     errorsDet.add(duplicate_);
                 }
@@ -1957,7 +1960,7 @@ public final class Classes {
                     }
                     if (!r_.isExitable() && !StringList.quickEq(method_.getReturnType(stds_), void_)) {
                         MissingReturnMethod miss_ = new MissingReturnMethod();
-                        miss_.setRc(method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                        miss_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
                         miss_.setFileName(className_);
                         miss_.setId(method_.getSignature());
                         miss_.setReturning(method_.getReturnType(stds_));

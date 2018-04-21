@@ -53,8 +53,8 @@ public final class Net {
 //    // network: socket allowing a player to send and receive informations which is use for a game
 //    private static Socket _socket_;
 //    private static String _ipHost_;
-    private static volatile NumberMap<Byte,Boolean> _activePlayers_;
-    private static volatile NumberMap<Byte,Boolean> _received_;
+    private static NumberMap<Byte,Boolean> _activePlayers_;
+    private static NumberMap<Byte,Boolean> _received_;
 
 //    private static ConnectionToServer _connection_;
 

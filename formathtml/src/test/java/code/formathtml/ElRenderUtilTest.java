@@ -12,6 +12,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ExpLanguages;
@@ -3006,6 +3007,8 @@ public final class ElRenderUtilTest {
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
         boolean staticContext_ = arg_ == null || arg_.isNull();
         ContextEl context_ = _conf.toContextEl();
+        context_.setAnalyzing(new PageEl());
+        context_.getAnalyzing().getLocalVars().putAllMap(_conf.getLastPage().getLocalVars());
         ExpLanguages members_ = ElUtil.getAnalyzedAffectation(0, 0, 0, _left, _right, _oper, context_, staticContext_, staticContext_);
         if (!_conf.getClasses().getErrorsDet().isEmpty()) {
             BadElRender badEl_ = new BadElRender();
@@ -3013,8 +3016,10 @@ public final class ElRenderUtilTest {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
             return;
         }
+        context_.setAnalyzing(null);
         CustList<OperationNode> left_ = members_.getLeft();
         CustList<OperationNode> right_ = members_.getRight();
         ElRenderUtil.tryToCalculateAffect(left_, context_, right_, _oper);

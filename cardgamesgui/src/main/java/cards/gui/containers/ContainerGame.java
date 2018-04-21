@@ -1,5 +1,6 @@
 package cards.gui.containers;
 import java.awt.Rectangle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -64,11 +65,11 @@ public class ContainerGame implements Packable, Containable {
     private String raisonCourante=EMPTY_STRING;
     private boolean threadAnime;
     private boolean aJoueCarte;
-    private volatile boolean pause;
+    private AtomicBoolean pause = new AtomicBoolean();
     private JTextArea events;
     private MiniCarpet mini;
     /**Est vrai si et seulement si le jeu est en pause*/
-    private volatile boolean passe;
+    private AtomicBoolean passe = new AtomicBoolean();
     /**Parametres de lancement, de jouerie*/
     private SoftParams parametres=new SoftParams();
     private StringMap<String> messages = new StringMap<String>();
@@ -100,11 +101,11 @@ public class ContainerGame implements Packable, Containable {
 
     public void pause() {
         if(isPasse()) {
-            pause=!pause;
+        	pause.set(!pause.get());
         }
-        while(pause) {
+        while(pause.get()) {
             if(!isPasse()) {
-                pause=!pause;
+            	pause.set(!pause.get());
             }
         }
     }
@@ -323,10 +324,10 @@ public class ContainerGame implements Packable, Containable {
         events = _events;
     }
     public boolean isPasse() {
-        return passe;
+        return passe.get();
     }
     public void setPasse(boolean _passe) {
-        passe = _passe;
+        passe.set(_passe);
     }
     public String getRaisonCourante() {
         return raisonCourante;

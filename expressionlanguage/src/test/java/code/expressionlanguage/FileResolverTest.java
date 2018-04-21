@@ -609,7 +609,7 @@ public final class FileResolverTest {
         assertEq("ONE", field_.getFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
-        assertEq(102, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(102, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(105, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof ElementBlock);
@@ -620,7 +620,7 @@ public final class FileResolverTest {
         assertEq("THERE", field_.getFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
-        assertEq(126, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(126, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(132, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof ElementBlock);
@@ -631,7 +631,7 @@ public final class FileResolverTest {
         assertEq("HERE", field_.getFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
-        assertEq(142, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(142, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(146, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof FieldBlock);
@@ -1144,7 +1144,7 @@ public final class FileResolverTest {
         assertEq("FIRST", ((ElementBlock) child_).getFieldName());
         assertEq("pkgtwo.Toto", ((ElementBlock) child_).getClassName());
         assertEq("", ((ElementBlock) child_).getValue());
-        assertEq(106, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(106, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(112, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof FieldBlock);
@@ -1441,7 +1441,7 @@ public final class FileResolverTest {
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getFieldName());
         assertEq("pkgtwo.Toto", ((ElementBlock) child_).getClassName());
-        assertEq(106, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(106, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(112, ((ElementBlock) child_).getValueOffest());
         assertEq("", ((ElementBlock) child_).getValue());
         child_ = child_.getNextSibling();
@@ -1585,7 +1585,7 @@ public final class FileResolverTest {
         assertEq("FIRST", ((ElementBlock) child_).getFieldName());
         assertEq("pkgtwo.Toto", ((ElementBlock) child_).getClassName());
         assertEq("", ((ElementBlock) child_).getValue());
-        assertEq(74, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(74, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(80, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof FieldBlock);
@@ -1758,7 +1758,7 @@ public final class FileResolverTest {
         assertEq("FIRST", ((ElementBlock) child_).getFieldName());
         assertEq("pkgtwo.Toto", ((ElementBlock) child_).getClassName());
         assertEq("", ((ElementBlock) child_).getValue());
-        assertEq(74, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(74, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(80, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof FieldBlock);
@@ -1925,7 +1925,7 @@ public final class FileResolverTest {
         assertEq("FIRST", ((ElementBlock) child_).getFieldName());
         assertEq("pkgtwo.Toto", ((ElementBlock) child_).getClassName());
         assertEq("", ((ElementBlock) child_).getValue());
-        assertEq(106, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(106, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(112, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof FieldBlock);
@@ -2066,7 +2066,7 @@ public final class FileResolverTest {
         assertEq("FIRST", ((ElementBlock) child_).getFieldName());
         assertEq("pkgtwo.Toto", ((ElementBlock) child_).getClassName());
         assertEq("", ((ElementBlock) child_).getValue());
-        assertEq(106, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(106, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(112, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof FieldBlock);
@@ -2203,7 +2203,7 @@ public final class FileResolverTest {
         assertEq("FIRST", ((ElementBlock) child_).getFieldName());
         assertEq("pkgtwo.Toto", ((ElementBlock) child_).getClassName());
         assertEq("", ((ElementBlock) child_).getValue());
-        assertEq(106, ((ElementBlock) child_).getFieldNameOffest());
+        assertEq(106, ((ElementBlock) child_).getFieldNameOffset());
         assertEq(112, ((ElementBlock) child_).getValueOffest());
         child_ = child_.getNextSibling();
         assertTrue(child_ instanceof FieldBlock);

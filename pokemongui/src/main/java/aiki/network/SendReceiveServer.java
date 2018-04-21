@@ -1,5 +1,6 @@
 package aiki.network;
 import java.net.Socket;
+import java.util.concurrent.locks.ReentrantLock;
 
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.Bye;
@@ -20,6 +21,8 @@ import code.util.NatTreeMap;
 /**This class thread is independant from EDT,
 Thread safe class*/
 public final class SendReceiveServer extends BasicServer {
+
+    private static final ReentrantLock LOCK = new ReentrantLock();
 
     /**This class thread is independant from EDT*/
     public SendReceiveServer(Socket _socket, NetGroupFrame _net) {
@@ -61,10 +64,12 @@ public final class SendReceiveServer extends BasicServer {
 
     @Override
     public void loopServer(String _input, Object _object) {
+        LOCK.lock();
         loop(_input, _object);
+        LOCK.unlock();
     }
 
-    private static synchronized void loop(String _input, Object _readObject) {
+    private static void loop(String _input, Object _readObject) {
         if (_readObject instanceof AddingPlayer) {
             AddingPlayer newPlayer_ = (AddingPlayer)_readObject;
             if (!newPlayer_.isAcceptable()) {

@@ -334,10 +334,7 @@ public final class ContextEl implements Analyzable {
     }
     @Override
     public RowCol getCurrentLocation() {
-        if (isEmptyPages()) {
-            return new RowCol();
-        }
-        return getLastPage().getTrace();
+        return analyzing.getTrace();
     }
     public String getInfos() {
         return analyzing.getInfos(this);

@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -366,7 +367,7 @@ public class ScenePanel extends JPanel {
 
     private LabelButton chosenCity;
 
-    private volatile boolean paintingScene;
+    private AtomicBoolean paintingScene = new AtomicBoolean();
 
     public ScenePanel(MainWindow _window, FacadeGame _facade) {
         facade = _facade;
@@ -1848,11 +1849,11 @@ public class ScenePanel extends JPanel {
     }
 
     public boolean isPaintingScene() {
-        return paintingScene;
+        return paintingScene.get();
     }
 
     public void setPaintingScene(boolean _paintingScene) {
-        paintingScene = _paintingScene;
+        paintingScene.set(_paintingScene);
         team.setEnabledLabel(!_paintingScene);
         items.setEnabledLabel(!_paintingScene);
         tm.setEnabledLabel(!_paintingScene);

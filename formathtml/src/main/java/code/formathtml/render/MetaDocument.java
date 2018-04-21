@@ -260,6 +260,7 @@ public final class MetaDocument {
                         label_.setStyle(styleLoc_);
                         currentParent.appendChild(label_);
                     }
+                    rowGroup--;
                 }
             }
             boolean skipChildrenBuild_ = false;

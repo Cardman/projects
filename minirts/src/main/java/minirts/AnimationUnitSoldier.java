@@ -2,6 +2,8 @@ package minirts;
 
 import java.awt.Component;
 import java.awt.Point;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 
 import minirts.rts.CustPoint;
 import minirts.rts.Facade;
@@ -14,17 +16,15 @@ import minirts.rts.UnitMapKey;
 un petit carre de 10 pixels noir en haut vers la droite*/
 public final class AnimationUnitSoldier extends Thread {
 
-    private static final Object MOVING_LOCK = new Object();
+    private static final ReentrantLock MOVING_LOCK = new ReentrantLock();
 
-//    private static final Object SELECT_LOCK = new Object();
-
-    private static final Object MAIN_LOCK = new Object();
+    private static final ReentrantLock MAIN_LOCK = new ReentrantLock();
 
     private static PanelBattle battleground;
 
     private static MainWindow window;
 
-    private static volatile boolean paused;
+    private static AtomicBoolean paused = new AtomicBoolean();
 
     private static boolean stop;
 
@@ -38,42 +38,38 @@ public final class AnimationUnitSoldier extends Thread {
     }
 
     public static void selectOrDeselect(CustPoint _first, CustPoint _last) {
-//        synchronized (SELECT_LOCK) {
         battleground.setRectangle(_first, _last);
-//            battleground.selectOrDeselect(_first, _last);
-//        }
         repaintBattleground();
     }
 
     public static void selectOrDeselect(int _x, int _y) {
-//        synchronized (SELECT_LOCK) {
         battleground.setRectangle(_x, _y);
         repaintBattleground();
     }
 
     public static void addNewSoldier(int _x, int _y) {
-        synchronized (MAIN_LOCK) {
-            battleground.addNewSoldier(_x, _y);
-        }
+        MAIN_LOCK.lock();
+        battleground.addNewSoldier(_x, _y);
+        MAIN_LOCK.unlock();
     }
 
     public static void setNewLocation(int _x, int _y) {
-        synchronized (MAIN_LOCK) {
-            battleground.setNewLocation(_x, _y);
-        }
+        MAIN_LOCK.lock();
+        battleground.setNewLocation(_x, _y);
+        MAIN_LOCK.unlock();
     }
 
     public static void moveCamera(Point _pt) {
-        synchronized (MOVING_LOCK) {
-            battleground.moveCamera(_pt);
-        }
+        MOVING_LOCK.lock();
+        battleground.moveCamera(_pt);
+        MOVING_LOCK.unlock();
     }
 
     public static void pause() {
-        if (!paused) {
+        if (!paused.get()) {
             window.setEnabledPause(false);
         }
-        paused = !paused;
+        paused.set(!paused.get());
     }
 
     public static void stopGame() {
@@ -89,63 +85,33 @@ public final class AnimationUnitSoldier extends Thread {
             pause(100);
             loop();
             moving();
-//            Facade f_ = battleground.getFacade();
-//            Component parent_ = battleground.getParent();
-//            int w_ = parent_.getWidth();
-//            int h_ = parent_.getHeight();
-//            Point curTopLeft_ = f_.getTopLeftPoint();
-////            battleground.repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-//            battleground.repaint(curTopLeft_.x, curTopLeft_.y, w_, h_);
         }
     }
 
     static void loop() {
-        synchronized (MAIN_LOCK) {
-            Facade f_ = battleground.getFacade();
-            f_.loop();
-        }
-//        synchronized (SELECT_LOCK) {
+        MAIN_LOCK.lock();
+        Facade f_ = battleground.getFacade();
+        f_.loop();
+        MAIN_LOCK.unlock();
         battleground.selectOrDeselectMany();
-//        }
-//        synchronized (MOVING_LOCK) {
-//            Component parent_ = battleground.getParent();
-//            int w_ = parent_.getWidth();
-//            int h_ = parent_.getHeight();
-//            for (UnitMapKey u: f_.getVisibleSoldiers(w_, h_)) {
-//                Soldier s_ = f_.getSoldier(u);
-//                UnitSoldier u_ = battleground.getSoldierLabel(u);
-//                battleground.setSoldierLocation(u_, s_.getX(), s_.getY());
-//            }
-//            if (!window.isDragged()) {
-//                battleground.setPaintSelection(false);
-//            }
-//        }
-//        int w_ = parent_.getWidth();
-//        int h_ = parent_.getHeight();
-//        Point curTopLeft_ = f_.getTopLeftPoint();
-////        battleground.repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-//        battleground.repaint(curTopLeft_.x, curTopLeft_.y, w_, h_);
     }
 
     static void moving() {
-        synchronized (MOVING_LOCK) {
-            Facade f_ = battleground.getFacade();
-            Component parent_ = battleground.getParent();
-            int w_ = parent_.getWidth();
-            int h_ = parent_.getHeight();
-            for (UnitMapKey u: f_.getVisibleSoldiers(w_, h_)) {
-                Soldier s_ = f_.getSoldier(u);
-                UnitSoldier u_ = battleground.getSoldierLabel(u);
-                PanelBattle.setSoldierLocation(u_, s_.getX(), s_.getY());
-            }
-            if (!window.isDragged()) {
-                battleground.setPaintSelection(false);
-            }
-            repaintBattleground();
-//            Point curTopLeft_ = f_.getTopLeftPoint();
-//            battleground.repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-//            battleground.repaint(curTopLeft_.x, curTopLeft_.y, w_, h_);
+        MOVING_LOCK.lock();
+        Facade f_ = battleground.getFacade();
+        Component parent_ = battleground.getParent();
+        int w_ = parent_.getWidth();
+        int h_ = parent_.getHeight();
+        for (UnitMapKey u: f_.getVisibleSoldiers(w_, h_)) {
+            Soldier s_ = f_.getSoldier(u);
+            UnitSoldier u_ = battleground.getSoldierLabel(u);
+            PanelBattle.setSoldierLocation(u_, s_.getX(), s_.getY());
         }
+        if (!window.isDragged()) {
+            battleground.setPaintSelection(false);
+        }
+        repaintBattleground();
+        MOVING_LOCK.unlock();
     }
 
     private static void repaintBattleground() {
@@ -165,7 +131,7 @@ public final class AnimationUnitSoldier extends Thread {
             continue;
         }
         window.setEnabledPause(true);
-        while (paused) {
+        while (paused.get()) {
             continue;
         }
     }

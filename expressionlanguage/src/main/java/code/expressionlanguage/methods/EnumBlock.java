@@ -24,7 +24,6 @@ import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -120,7 +119,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             inherit_ = new BadInheritedClass();
             inherit_.setClassName(fullName_);
             inherit_.setFileName(fullName_);
-            inherit_.setRc(new RowCol());
+            inherit_.setRc(getRowCol(0, getIdRowCol()));
             classesRef_.getErrorsDet().add(inherit_);
         }
         for (Block b: Classes.getDirectChildren(this)) {
@@ -132,7 +131,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 if (TypeUtil.getConstructorBodiesByFormattedId(_context, s, c_.getId()).size() > 1) {
                     DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                     duplicate_.setFileName(getFullName());
-                    duplicate_.setRc(new RowCol());
+                    duplicate_.setRc(c_.getRowCol(0, c_.getAccessOffset()));
                     duplicate_.setCommonSignature(c_.getId().getSignature());
                     duplicate_.setOtherType(s);
                     classesRef_.getErrorsDet().add(duplicate_);
