@@ -225,7 +225,9 @@ public final class FightFacade {
             }
         }
         for (byte t: _fight.getTeams().getKeys()) {
-            _fight.getTeams().getVal(t).validate(_data, t, _fight);
+            if (!_fight.getTeams().getVal(t).validate(_data, t, _fight)) {
+                return false;
+            }
             if (Numbers.eq(t, Fight.FOE)) {
                 continue;
             }

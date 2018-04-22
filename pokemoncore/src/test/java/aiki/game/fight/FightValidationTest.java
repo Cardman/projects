@@ -2109,7 +2109,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         //invalid data
         game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setWeight(new Rate("-1"));
-        assertTrue(FightFacade.validate(game_.getFight(), _data_, player_, diff_));
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
 
     @Test
