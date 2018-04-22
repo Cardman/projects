@@ -11,7 +11,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
@@ -84,6 +83,7 @@ import code.gui.LabelButton;
 import code.gui.LanguageDialog;
 import code.gui.Menu;
 import code.gui.MenuItem;
+import code.gui.Panel;
 import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
@@ -206,7 +206,7 @@ public final class MainWindow extends NetGroupFrame {
 
     private MenuItem difficulty;
 
-    private JPanel mainPanel;
+    private Panel mainPanel;
 
     private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
 
@@ -217,7 +217,7 @@ public final class MainWindow extends NetGroupFrame {
 
     private FacadeGame facade;
 
-    private JPanel beginGame;
+    private Panel beginGame;
 
     private final EnumMap<Sex,HeroLabel> herosLabels = new EnumMap<Sex,HeroLabel>();
 
@@ -263,8 +263,8 @@ public final class MainWindow extends NetGroupFrame {
         facade = new FacadeGame();
         facade.setLanguage();
         setImageIconFrame(LaunchingPokemon.getIcon());
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+        mainPanel = new Panel();
+        mainPanel.setLayout(new BoxLayout(mainPanel.getComponent(), BoxLayout.PAGE_AXIS));
         scenePanel = new ScenePanel(this, facade);
         initBattle();
         initMenuBar();
@@ -465,11 +465,11 @@ public final class MainWindow extends NetGroupFrame {
 
     private void addBeginGame() {
         if (beginGame == null) {
-            beginGame = new JPanel();
-            beginGame.setLayout(new BoxLayout(beginGame, BoxLayout.PAGE_AXIS));
+            beginGame = new Panel();
+            beginGame.setLayout(new BoxLayout(beginGame.getComponent(), BoxLayout.PAGE_AXIS));
         }
         beginGame.removeAll();
-        JPanel heros_ = new JPanel();
+        Panel heros_ = new Panel();
         for (Sex s: Sex.values()) {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
@@ -481,7 +481,7 @@ public final class MainWindow extends NetGroupFrame {
             heros_.add(label_);
         }
         beginGame.add(heros_);
-        JPanel nickname_ = new JPanel();
+        Panel nickname_ = new Panel();
         nickname_.add(new JLabel(_messages_.getVal(NICKNAME)));
         if (nickname == null) {
             nickname = new JTextField(16);
@@ -720,7 +720,7 @@ public final class MainWindow extends NetGroupFrame {
         quit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
         quit.addActionListener(new QuitEvent(this));
         file.addMenuItem(quit);
-        bar_.add(file);
+        bar_.add(file.getMenu());
         dataGame = new Menu();
 //        dataGame = new JMenuItem();
 //        dataGame.addMouseListener(new MouseAdapter() {
@@ -763,8 +763,12 @@ public final class MainWindow extends NetGroupFrame {
         difficulty.addActionListener(new ManageDifficultyEvent(this));
         difficulty.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
         dataGame.addMenuItem(difficulty);
-        bar_.add(dataGame);
+        bar_.add(dataGame.getMenu());
         setJMenuBar(bar_);
+    }
+
+    private void setJMenuBar(JMenuBar _bar) {
+        getFrame().setJMenuBar(_bar);
     }
 
     public void loadZip() {
@@ -1434,7 +1438,7 @@ public final class MainWindow extends NetGroupFrame {
 //        battle = new Battle(this);
         battle = new FrontBattle(this, facade);
         battle.addMouseListener(new FrontClickEvent(battle));
-        SetStyle.setupStyle(battle);
+        SetStyle.setupStyle(battle.getComponent());
     }
 
     public LoadingGame getLoadingConf() {

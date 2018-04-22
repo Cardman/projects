@@ -3,15 +3,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import code.gui.PaintableLabel;
 import code.util.Numbers;
 import code.util.consts.Constants;
 
-public class MiniBeloteCard extends JLabel {
+public class MiniBeloteCard extends PaintableLabel {
 
     static final String DEFAULT="Default";
 
@@ -25,7 +25,7 @@ public class MiniBeloteCard extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,75+getWidth(),getHeight());
         _g.setColor(Color.BLACK);

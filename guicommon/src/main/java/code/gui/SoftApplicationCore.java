@@ -5,8 +5,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import javax.swing.JFrame;
-
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
@@ -170,11 +168,11 @@ public abstract class SoftApplicationCore {
         DocumentBuilder.setIndentXmlWhileWriting(indent_);
     }
 
-    public static void setLocation(JFrame _frame, TopLeftFrame _topLeft) {
+    public static void setLocation(CommonFrame _frame, TopLeftFrame _topLeft) {
         setLocation(_frame, _topLeft.getWidth(), _topLeft.getHeight());
     }
 
-    private static void setLocation(JFrame _frame, int _x, int _y) {
+    private static void setLocation(CommonFrame _frame, int _x, int _y) {
         int x_ = _x;
         int y_ = _y;
         PairNumber<Integer,Integer> dims_ = getScreenSize();

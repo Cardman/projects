@@ -1,7 +1,6 @@
 package aiki.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import aiki.Resources;
@@ -12,6 +11,8 @@ import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingDialogEvent;
 import code.util.StringMap;
@@ -57,10 +58,10 @@ public final class SelectPokemon extends SelectDialog {
         storage = _storage;
         initOk();
 //        ok = false;
-        JPanel contentPane_ = new JPanel();
+        Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new JScrollPane(new PaginatorPokemon(this, _facade)), BorderLayout.CENTER);
-        JPanel buttons_ = new JPanel();
+        contentPane_.add(new ScrollPane(new PaginatorPokemon(this, _facade)), BorderLayout.CENTER);
+        Panel buttons_ = new Panel();
         LabelButton detail_ = new LabelButton(messages.getVal(DETAIL));
         detail_.addMouseListener(new SeePkDetailEvent(this));
         buttons_.add(detail_);

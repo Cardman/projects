@@ -12,13 +12,14 @@ import aiki.facade.FacadeGame;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.CommonCellRenderer;
+import code.gui.CustCellRender;
+import code.gui.GraphicListable;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
 
-public class PokemonRenderer extends CommonCellRenderer {
+public class PokemonRenderer extends CustCellRender {
 
     private static final String PER_CENT = " %";
 
@@ -68,8 +69,9 @@ public class PokemonRenderer extends CommonCellRenderer {
 
     @Override
     public JLabel getListCellRendererComponent(
-            Object _arg1,
+            GraphicListable _list, Object _arg1,
             int _index, boolean _selected, boolean _arg4) {
+        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
         pokemon = (UsablePokemon) _arg1;
         selected = _selected;
         if (pokemon instanceof PokemonPlayer) {
@@ -105,12 +107,12 @@ public class PokemonRenderer extends CommonCellRenderer {
             miniImagePk = ConverterGraphicBufferedImage.decodeToImage(img_);
             remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
         }
-        setPreferredSize(new Dimension(coords * 2 + sideLength * 2, sideLength));
-        return this;
+        label_.setPreferredSize(new Dimension(coords * 2 + sideLength * 2, sideLength));
+        return label_;
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         if (pokemon instanceof PokemonPlayer) {
@@ -154,5 +156,15 @@ public class PokemonRenderer extends CommonCellRenderer {
             _g.setColor(Color.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);
         }
+    }
+
+    @Override
+    public int getHeight() {
+        return sideLength;
+    }
+
+    @Override
+    public int getWidth() {
+        return coords * 2 + sideLength * 2;
     }
 }

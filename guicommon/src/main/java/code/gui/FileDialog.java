@@ -6,13 +6,11 @@ import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -44,8 +42,8 @@ public abstract class FileDialog extends Dialog {
     private static final int DIALOG_WIDTH = 400;
     private static final int DIALOG_HEIGHT = 278;
     private static final Dimension DIM = new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT);
-    private JPanel contentPane = new JPanel();
-    private JPanel buttons = new JPanel();
+    private Panel contentPane = new Panel();
+    private Panel buttons = new Panel();
     private JTextField fileName = new JTextField(NB_COLS);
     private JTree folderSystem;
     private FileTable fileModel;
@@ -117,21 +115,21 @@ public abstract class FileDialog extends Dialog {
             currentTitle = StringList.concat(currentTitle, SPACE, currentFolder);
         }
         setTitle(currentTitle);
-        fileTable = new JTable(fileModel);
+        fileTable = fileModel.getComponent();
         fileTable.getTableHeader().setReorderingAllowed(false);
         fileTable.getTableHeader().addMouseListener(new ClickHeaderEvent(this));
         fileTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         fileTable.getSelectionModel().addListSelectionListener(new ClickRowEvent(this));
         contentPane.setLayout(new BorderLayout());
-        JPanel openSaveFile_ = new JPanel();
-        openSaveFile_.setLayout(new BoxLayout(openSaveFile_,BoxLayout.PAGE_AXIS));
+        Panel openSaveFile_ = new Panel();
+        openSaveFile_.setLayout(new BoxLayout(openSaveFile_.getComponent(),BoxLayout.PAGE_AXIS));
         if (addTypingFileName) {
-            JPanel fieldFile_ = new JPanel();
+            Panel fieldFile_ = new Panel();
             fieldFile_.add(new JLabel(messages.getVal(NAME)));
             fieldFile_.add(fileName);
             openSaveFile_.add(fieldFile_);
         }
-        buttons = new JPanel();
+        buttons = new Panel();
         openSaveFile_.add(buttons);
         contentPane.add(openSaveFile_, BorderLayout.SOUTH);
         if (currentFolderRoot) {
@@ -167,10 +165,10 @@ public abstract class FileDialog extends Dialog {
             folderSystem.setRootVisible(false);
         }
         folderSystem.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-        JSplitPane fileSelector_ = new JSplitPane();
-        fileSelector_.setLeftComponent(new JScrollPane(folderSystem));
+        SplitPane fileSelector_ = new SplitPane();
+        fileSelector_.setLeftComponent(new ScrollPane(folderSystem));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
-        fileSelector_.setRightComponent(new JScrollPane(fileTable));
+        fileSelector_.setRightComponent(new ScrollPane(fileTable));
         contentPane.add(fileSelector_, BorderLayout.CENTER);
         contentPane.add(openSaveFile_, BorderLayout.SOUTH);
         setContentPane(contentPane);
@@ -290,7 +288,7 @@ public abstract class FileDialog extends Dialog {
     @Override
     public void pack() {
         setSize(DIM);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         super.pack();
         setVisible(true);
     }
@@ -307,7 +305,7 @@ public abstract class FileDialog extends Dialog {
         return extension;
     }
 
-    protected JPanel getButtons() {
+    protected Panel getButtons() {
         return buttons;
     }
 

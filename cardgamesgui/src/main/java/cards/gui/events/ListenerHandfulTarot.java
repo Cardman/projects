@@ -4,10 +4,10 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JRadioButton;
 
-import code.util.StringList;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.util.StringList;
 
 public class ListenerHandfulTarot extends MouseAdapter {
 

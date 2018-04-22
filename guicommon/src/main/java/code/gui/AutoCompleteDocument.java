@@ -1,14 +1,21 @@
 package code.gui;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.UndoableEditListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.PlainDocument;
+import javax.swing.text.Position;
+import javax.swing.text.Segment;
 
 import code.util.StringList;
 import code.util.pagination.SearchingMode;
 
-public final class AutoCompleteDocument extends PlainDocument {
+public final class AutoCompleteDocument implements Document {
 
     //the content is instance of javax.swing.text.GapContent
     private static final int WIDTH_FIELD = 20;
@@ -19,9 +26,137 @@ public final class AutoCompleteDocument extends PlainDocument {
 
     private SearchingMode mode = SearchingMode.WHOLE_STRING;
 
+    private PlainDocument doc = new PlainDocument();
+
     public AutoCompleteDocument(JTextComponent _field, StringList _aDictionary) {
         textField = _field;
         dictionary.addAllElts(_aDictionary);
+    }
+
+    @Override
+    public void addDocumentListener(DocumentListener _listener) {
+        doc.addDocumentListener(_listener);
+    }
+
+    @Override
+    public void removeDocumentListener(DocumentListener _listener) {
+        doc.removeDocumentListener(_listener);
+    }
+
+    @Override
+    public void addUndoableEditListener(UndoableEditListener _listener) {
+        doc.addUndoableEditListener(_listener);
+    }
+
+    @Override
+    public void removeUndoableEditListener(UndoableEditListener _listener) {
+        doc.removeUndoableEditListener(_listener);
+    }
+
+    @Override
+    public final Object getProperty(Object _key) {
+        return doc.getProperty(_key);
+    }
+
+    @Override
+    public final void putProperty(Object _key, Object _value) {
+        doc.putProperty(_key, _value);
+    }
+
+    @Override
+    public Position createPosition(int _offs) {
+        try {
+            return doc.createPosition(_offs);
+        } catch (BadLocationException _0) {
+            return null;
+        }
+    }
+
+    @Override
+    public final Position getStartPosition() {
+        return doc.getStartPosition();
+    }
+
+    @Override
+    public final Position getEndPosition() {
+        return doc.getEndPosition();
+    }
+
+    @Override
+    public Element getDefaultRootElement() {
+        return doc.getDefaultRootElement();
+    }
+
+    public Element getParagraphElement(int _pos) {
+        return doc.getParagraphElement(_pos);
+    }
+
+    public void setAsynchronousLoadPriority(int _p) {
+        doc.setAsynchronousLoadPriority(_p);
+    }
+
+    public void setDocumentFilter(DocumentFilter _filter) {
+        doc.setDocumentFilter(_filter);
+    }
+
+    public DocumentFilter getDocumentFilter() {
+        return doc.getDocumentFilter();
+    }
+
+    @Override
+    public void render(Runnable _r) {
+        doc.render(_r);
+    }
+
+    @Override
+    public int getLength() {
+        return doc.getLength();
+    }
+
+    public DocumentListener[] getDocumentListeners() {
+        return doc.getDocumentListeners();
+    }
+
+    @Override
+    public void remove(int _offs, int _len) {
+        try {
+            doc.remove(_offs, _len);
+        } catch (BadLocationException _0) {
+        }
+    }
+
+    public void replace(int _offset, int _length, String _text,
+            AttributeSet _attrs) {
+        try {
+            doc.replace(_offset, _length, _text, _attrs);
+        } catch (BadLocationException _0) {
+        }
+    }
+
+    @Override
+    public String getText(int _offset, int _length) {
+        try {
+            return doc.getText(_offset, _length);
+        } catch (BadLocationException _0) {
+            return null;
+        }
+    }
+
+    @Override
+    public void getText(int _offset, int _length, Segment _txt) {
+        try {
+            doc.getText(_offset, _length, _txt);
+        } catch (BadLocationException _0) {
+        }
+    }
+
+    @Override
+    public Element[] getRootElements() {
+        return doc.getRootElements();
+    }
+
+    public Element getBidiRootElement() {
+        return doc.getBidiRootElement();
     }
 
     public void addDictionaryEntry(String _item) {
@@ -31,13 +166,13 @@ public final class AutoCompleteDocument extends PlainDocument {
     @Override
     public void insertString(int _offs, String _str, AttributeSet _a) {
         try {
-            super.insertString(_offs, _str, _a);
+            doc.insertString(_offs, _str, _a);
             if (mode != SearchingMode.WHOLE_STRING) {
                 return;
             }
             String word_ = autoComplete(getText(0, getLength()));
             if (word_ != null) {
-                super.insertString(_offs + _str.length(), word_, _a);
+                doc.insertString(_offs + _str.length(), word_, _a);
                 textField.setCaretPosition(_offs + _str.length());
                 textField.moveCaretPosition(getLength());
                 // _textField.setCaretPosition(getLength());

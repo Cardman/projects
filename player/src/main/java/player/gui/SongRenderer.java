@@ -6,12 +6,11 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JLabel;
-
+import code.gui.PaintableLabel;
 import code.util.CustList;
 import code.util.StringList;
 
-public class SongRenderer extends JLabel implements MouseListener {
+public class SongRenderer extends PaintableLabel implements MouseListener {
 
     private int noSong;
 
@@ -46,7 +45,7 @@ public class SongRenderer extends JLabel implements MouseListener {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         FontMetrics f_ = getFontMetrics(getFont());

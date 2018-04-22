@@ -12,6 +12,7 @@ public class StringComboBox extends TreeComboBox<String> {
 //        super(_numerosPlis);
 //    }
 
+    @Override
     public void addItem(String _anObject) {
         getElements().put(_anObject, _anObject);
         super.addItem(_anObject);

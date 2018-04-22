@@ -4,11 +4,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
-
 import code.util.CustList;
 
-public class AnimatedLabel extends JLabel {
+public class AnimatedLabel extends PaintableLabel {
 
     private CustList<BufferedImage> list = new CustList<BufferedImage>();
 
@@ -31,7 +29,7 @@ public class AnimatedLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (index >= list.size()) {

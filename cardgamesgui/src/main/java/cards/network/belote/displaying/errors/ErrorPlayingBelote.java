@@ -1,7 +1,7 @@
 package cards.network.belote.displaying.errors;
-import code.util.annot.RwXml;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class ErrorPlayingBelote {

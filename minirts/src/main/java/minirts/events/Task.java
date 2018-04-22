@@ -1,6 +1,5 @@
 package minirts.events;
 
-import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +9,7 @@ import minirts.PanelBattle;
 import minirts.rts.CustPoint;
 import minirts.rts.Direction;
 import minirts.rts.Facade;
+import code.gui.CustComponent;
 
 public class Task implements ActionListener {
 
@@ -32,7 +32,7 @@ public class Task implements ActionListener {
         if (window.isDragged()) {
             return;
         }
-        Component par_ = scene.getParent();
+        CustComponent par_ = scene.getParent();
         CustPoint loc_ = facade.getTopLeftPoint();
         Point rel_ = new Point();
         rel_.x = loc_.getX();

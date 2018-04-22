@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 import aiki.DataBase;
@@ -84,6 +83,8 @@ import aiki.network.stream.SentPokemon;
 import code.gui.ConfirmDialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.gui.Separator;
 import code.gui.WrappedTextArea;
 import code.gui.document.RenderedPage;
@@ -101,7 +102,7 @@ import code.util.StringMap;
 import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
 
-public class ScenePanel extends JPanel {
+public class ScenePanel extends Panel {
 
     private static final String SCENE_PANEL = "aiki.gui.components.walk.ScenePanel";
 
@@ -253,7 +254,7 @@ public class ScenePanel extends JPanel {
 
     private final MainWindow window;
 
-    private JPanel panelMenu;
+    private Panel panelMenu;
 
     private JLabel endGame = new JLabel();
 
@@ -281,13 +282,13 @@ public class ScenePanel extends JPanel {
 
     private LabelButton server;
 
-    private JPanel movesLearnt;
+    private Panel movesLearnt;
 
-    private JPanel abilities;
+    private Panel abilities;
 
     private CustList<AbilityLabel> abilityLabels = new CustList<AbilityLabel>();
 
-    private JPanel panelOptions;
+    private Panel panelOptions;
 
     private TeamPanel teamPan;
 
@@ -319,9 +320,9 @@ public class ScenePanel extends JPanel {
 
     private FacadeGame facade;
 
-    private JPanel beginGame;
+    private Panel beginGame;
 
-    private JPanel sceneInteract;
+    private Panel sceneInteract;
 
     private JLabel placeName;
 
@@ -329,11 +330,11 @@ public class ScenePanel extends JPanel {
 
     private KeyPadListener keyPadListener;
 
-    private JPanel interaction;
+    private Panel interaction;
 
     private LabelButton buttonInteract;
 
-    private JTextArea commentsWalking;
+    private WrappedTextArea commentsWalking;
 
     private Pad pad;
 
@@ -357,7 +358,7 @@ public class ScenePanel extends JPanel {
 
     private RenderedPage receivedPk;
 
-    private JPanel panelNetWork;
+    private Panel panelNetWork;
 
     private boolean enabledReady;
 
@@ -372,10 +373,10 @@ public class ScenePanel extends JPanel {
     public ScenePanel(MainWindow _window, FacadeGame _facade) {
         facade = _facade;
         window = _window;
-        JPanel panelHoriz_ = new JPanel();
+        Panel panelHoriz_ = new Panel();
         initMenu();
         panelHoriz_.add(panelMenu);
-        panelOptions = new JPanel();
+        panelOptions = new Panel();
         panelOptions.setLayout(new BorderLayout());
         panelHoriz_.add(panelOptions);
         add(panelHoriz_);
@@ -433,7 +434,7 @@ public class ScenePanel extends JPanel {
         }
     }
 
-    public void addBeginGame(JPanel _panel) {
+    public void addBeginGame(Panel _panel) {
         panelOptions.add(_panel, BorderLayout.CENTER);
         beginGame = _panel;
         beginGame.setVisible(true);
@@ -476,7 +477,7 @@ public class ScenePanel extends JPanel {
         wasNull_ = false;
         if (sceneInteract == null) {
             wasNull_ = true;
-            sceneInteract = new JPanel();
+            sceneInteract = new Panel();
             sceneInteract.setLayout(new BorderLayout());
         } else {
             sceneInteract.removeAll();
@@ -525,12 +526,12 @@ public class ScenePanel extends JPanel {
     }
 
     private void initMenu() {
-        panelMenu = new JPanel();
-        panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.PAGE_AXIS));
+        panelMenu = new Panel();
+        panelMenu.setLayout(new BoxLayout(panelMenu.getComponent(), BoxLayout.PAGE_AXIS));
         endGame.setVisible(false);
         endGame.setOpaque(true);
         endGame.setBackground(Color.YELLOW);
-        JPanel menus_ = new JPanel();
+        Panel menus_ = new Panel();
         menus_.setLayout(new GridLayout(0,1));
         menus_.add(endGame);
         useKeyPad = new JLabel();
@@ -669,16 +670,16 @@ public class ScenePanel extends JPanel {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
         }
 
-        JPanel set_ = new JPanel();
+        Panel set_ = new Panel();
         teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, pks_, true);
         teamPan.addListener(this);
         set_.add(teamPan);
-        movesLearnt = new JPanel();
+        movesLearnt = new Panel();
         movesLearnt.setLayout(new GridLayout(0,1));
-        JScrollPane scroll_ = new JScrollPane(movesLearnt);
+        ScrollPane scroll_ = new ScrollPane(movesLearnt);
         scroll_.setPreferredSize(new Dimension(100, 220));
         set_.add(scroll_);
-        abilities = new JPanel();
+        abilities = new Panel();
         abilities.setLayout(new GridLayout(0,1));
         set_.add(abilities);
         panelOptions.add(set_, BorderLayout.CENTER);
@@ -716,16 +717,16 @@ public class ScenePanel extends JPanel {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
         }
 
-        JPanel set_ = new JPanel();
+        Panel set_ = new Panel();
         teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, pks_, true);
         teamPan.addListenerTm(this);
         set_.add(teamPan);
-        movesLearnt = new JPanel();
+        movesLearnt = new Panel();
         movesLearnt.setLayout(new GridLayout(0,1));
-        JScrollPane scroll_ = new JScrollPane(movesLearnt);
+        ScrollPane scroll_ = new ScrollPane(movesLearnt);
         scroll_.setPreferredSize(new Dimension(100, 220));
         set_.add(scroll_);
-        abilities = new JPanel();
+        abilities = new Panel();
         abilities.setLayout(new GridLayout(0,1));
         set_.add(abilities);
         panelOptions.add(set_, BorderLayout.CENTER);
@@ -780,14 +781,14 @@ public class ScenePanel extends JPanel {
 //        }
 //        panelOptions.add(panelPlaces_, BorderLayout.CENTER);
         mapPanel.init(facade, this);
-        JPanel box_ = new JPanel();
-        box_.setLayout(new BoxLayout(box_, BoxLayout.PAGE_AXIS));
+        Panel box_ = new Panel();
+        box_.setLayout(new BoxLayout(box_.getComponent(), BoxLayout.PAGE_AXIS));
         box_.add(new JLabel(_messages_.getVal(GO_BACK)));
         chosenCity = new LabelButton();
         chosenCity.setBackground(box_.getBackground());
         chosenCity.setForeground(box_.getForeground());
         box_.add(chosenCity);
-        JPanel line_ = new JPanel();
+        Panel line_ = new Panel();
         //avoid vertical spaces between tiles in map
         line_.add(mapPanel);
         line_.add(new JLabel(DataBase.EMPTY_STRING));
@@ -833,13 +834,13 @@ public class ScenePanel extends JPanel {
         window.getNewGame().setEnabledMenu(false);
         facade.openMenu();
         panelMenu.setVisible(false);
-        panelNetWork = new JPanel();
-        panelNetWork.setLayout(new BoxLayout(panelNetWork, BoxLayout.PAGE_AXIS));
+        panelNetWork = new Panel();
+        panelNetWork.setLayout(new BoxLayout(panelNetWork.getComponent(), BoxLayout.PAGE_AXIS));
         panelOptions.add(panelNetWork, BorderLayout.CENTER);
         LabelButton exit_ = new LabelButton(_messages_.getVal(EXIT));
         exit_.addMouseListener(new ExitTradeEvent(window));
         if (window.getIndexInGame() == CustList.FIRST_INDEX) {
-            JPanel panel_ = new JPanel();
+            Panel panel_ = new Panel();
             LabelButton trade_ = new LabelButton(_messages_.getVal(TRADE));
             trade_.addMouseListener(new ValidateTradingEvent(window));
             panel_.add(trade_);
@@ -934,7 +935,7 @@ public class ScenePanel extends JPanel {
         if (interaction != null) {
             return;
         }
-        interaction = new JPanel();
+        interaction = new Panel();
         buttonInteract = new LabelButton(_messages_.getVal(INTERACT));
         buttonInteract.addMouseListener(new InteractSceneEvent(this));
         interaction.add(buttonInteract);
@@ -972,7 +973,7 @@ public class ScenePanel extends JPanel {
         panelOptions.removeAll();
         if (facade.getInterfaceType() == InterfaceType.ECH_BOITE) {
             selectedForSwitch = new JLabel();
-            JPanel storage_ = new JPanel();
+            Panel storage_ = new Panel();
             storage_.setLayout(new GridLayout(0, 1));
             selectPkBox = new LabelButton(_messages_.getVal(SELECT_PK_BOX));
             selectPkBox.addMouseListener(new SelectPokemonBoxEvent(this));
@@ -1009,7 +1010,7 @@ public class ScenePanel extends JPanel {
             release.addMouseListener(new GearStorageEvent(this, StorageActions.RELEASE));
             storage_.add(release);
             storage_.add(selectedForSwitch);
-            JPanel set_ = new JPanel();
+            Panel set_ = new Panel();
             initTeam();
             teamPan.addListenerStorage(this);
             set_.add(teamPan);
@@ -1018,19 +1019,19 @@ public class ScenePanel extends JPanel {
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.MOVE_TUTORS) {
             initPkTeamMoveTutors();
-            JPanel set_ = new JPanel();
+            Panel set_ = new Panel();
             set_.add(teamPan);
-            movesLearnt = new JPanel();
+            movesLearnt = new Panel();
             movesLearnt.setLayout(new GridLayout(0,1));
-            JScrollPane scroll_ = new JScrollPane(movesLearnt);
+            ScrollPane scroll_ = new ScrollPane(movesLearnt);
             scroll_.setPreferredSize(new Dimension(100, 220));
             set_.add(scroll_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
             tmPanel = new TmPanel(5, _messages_.getVal(TM_TITLE), facade);
-            JPanel set_ = new JPanel();
-            set_.setLayout(new BoxLayout(set_, BoxLayout.PAGE_AXIS));
+            Panel set_ = new Panel();
+            set_.setLayout(new BoxLayout(set_.getComponent(), BoxLayout.PAGE_AXIS));
             LabelButton selectItem_ = new LabelButton(_messages_.getVal(TM_SELECT));
             selectItem_.addMouseListener(new AddTmEvent(this));
             set_.add(selectItem_);
@@ -1044,8 +1045,8 @@ public class ScenePanel extends JPanel {
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS) {
-            JPanel set_ = new JPanel();
-            set_.setLayout(new BoxLayout(set_, BoxLayout.PAGE_AXIS));
+            Panel set_ = new Panel();
+            set_.setLayout(new BoxLayout(set_.getComponent(), BoxLayout.PAGE_AXIS));
             buy = new JCheckBox(_messages_.getVal(ITEM_BUY));
             buy.setSelected(true);
             buy.addActionListener(new BuyOrSellEvent(this));
@@ -1067,7 +1068,7 @@ public class ScenePanel extends JPanel {
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.PENSION) {
-            JPanel set_ = new JPanel();
+            Panel set_ = new Panel();
             NatTreeMap<Byte,UsablePokemon> teamPks_ = new NatTreeMap<Byte,UsablePokemon>();
             NatTreeMap<Byte, PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
             for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
@@ -1076,8 +1077,8 @@ public class ScenePanel extends JPanel {
             teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT_TWO), facade, teamPks_, false);
             teamPan.addListenerHost(this);
             set_.add(teamPan);
-            JPanel form_ = new JPanel();
-            form_.setLayout(new BoxLayout(form_, BoxLayout.PAGE_AXIS));
+            Panel form_ = new Panel();
+            form_.setLayout(new BoxLayout(form_.getComponent(), BoxLayout.PAGE_AXIS));
             int nbRemSteps_ = facade.getRemaingingSteps();
             String buttonText_= StringList.simpleNumberFormat(_messages_.getVal(GET_EGG), nbRemSteps_);
             LabelButton receiveEgg_ = new LabelButton(buttonText_);
@@ -1333,9 +1334,9 @@ public class ScenePanel extends JPanel {
     }
 
     private void addButtonsTeam() {
-        JPanel set_ = new JPanel();
-        JPanel teamMenu_ = new JPanel();
-        teamMenu_.setLayout(new BoxLayout(teamMenu_, BoxLayout.PAGE_AXIS));
+        Panel set_ = new Panel();
+        Panel teamMenu_ = new Panel();
+        teamMenu_.setLayout(new BoxLayout(teamMenu_.getComponent(), BoxLayout.PAGE_AXIS));
         switchUsable = new JCheckBox(_messages_.getVal(SWITCH_PK_TEAM));
 //        enabledSwitchTeam = false;
 //        switchUsable.addChangeListener(new ChangeListener() {
@@ -1841,7 +1842,7 @@ public class ScenePanel extends JPanel {
             return;
         }
         commentsWalking.setText(_text);
-        ConfirmDialog.showComponent(window, new JScrollPane(commentsWalking), _messages_.getVal(TITLE_COMMENTS), Constants.getLanguage(), _messageType);
+        ConfirmDialog.showComponent(window, new ScrollPane(commentsWalking), _messages_.getVal(TITLE_COMMENTS), Constants.getLanguage(), _messageType);
     }
 
     public Scene getScene() {
@@ -1865,7 +1866,6 @@ public class ScenePanel extends JPanel {
         game.setEnabledLabel(!_paintingScene);
         goBack.setEnabledLabel(!_paintingScene);
         server.setEnabledLabel(!_paintingScene);
-        fish.repaint();
         panelMenu.repaint();
     }
 }

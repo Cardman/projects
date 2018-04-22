@@ -1,7 +1,7 @@
 package cards.network.tarot.unlock;
+import cards.tarot.enumerations.BidTarot;
 import code.util.EnumList;
 import code.util.annot.RwXml;
-import cards.tarot.enumerations.BidTarot;
 
 @RwXml
 public final class AllowBiddingTarot {

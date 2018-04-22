@@ -1,11 +1,11 @@
 package cards.network.tarot.actions;
-import code.util.EnumList;
-import code.util.annot.RwXml;
 import cards.network.common.PlayerActionGame;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.util.EnumList;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class PlayingCardTarot extends PlayerActionGame {

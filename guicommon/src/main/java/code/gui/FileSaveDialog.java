@@ -4,7 +4,6 @@ import java.io.File;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.tree.TreePath;
 
@@ -52,7 +51,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private JTextField typedString = new JTextField(NB_COLS);
 
-    private JPanel searchingPanel = new JPanel();
+    private Panel searchingPanel = new Panel();
 
     private StringMap<String> messages;
 
@@ -88,7 +87,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             searchingPanel.add(label_);
             searchingPanel.add(typedString);
             searchingPanel.add(search_);
-            getContentPane().add(searchingPanel, BorderLayout.NORTH);
+            getPane().add(searchingPanel, BorderLayout.NORTH);
         }
         pack();
     }

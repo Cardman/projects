@@ -3,12 +3,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
-
 import aiki.map.enums.Direction;
+import code.gui.PaintableLabel;
 import code.util.Numbers;
 
-public class KeyPad extends JLabel {
+public class KeyPad extends PaintableLabel {
 
     private Direction direction;
 
@@ -18,7 +17,7 @@ public class KeyPad extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.YELLOW);
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(Color.BLACK);

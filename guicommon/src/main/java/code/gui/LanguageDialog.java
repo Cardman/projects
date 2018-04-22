@@ -2,7 +2,6 @@ package code.gui;
 import java.awt.GridLayout;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
@@ -39,7 +38,7 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
         setDialogIcon(_owner);
         setLocationRelativeTo(_owner);
         setTitle(_title);
-        JPanel panneau_ = new JPanel();
+        Panel panneau_ = new Panel();
         panneau_.setLayout(new GridLayout(0,1));
         for (String l: Constants.getAvailableLanguages()) {
             JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));

@@ -1,7 +1,7 @@
 package cards.network.common;
+import cards.facade.Games;
 import code.util.NumberMap;
 import code.util.annot.RwXml;
-import cards.facade.Games;
 
 @RwXml
 public final class DelegateServer {

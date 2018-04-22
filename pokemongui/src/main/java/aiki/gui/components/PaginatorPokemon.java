@@ -1,12 +1,9 @@
 package aiki.gui.components;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Window;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import aiki.DataBase;
@@ -21,8 +18,11 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingPokemonPlayer;
 import code.gui.AutoCompleteDocument;
+import code.gui.ChangeableTitle;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
@@ -78,7 +78,7 @@ public final class PaginatorPokemon extends Paginator {
 
     private JTextField maxPossEvos = new JTextField(16);
 
-    private JPanel results = new JPanel();
+    private Panel results = new Panel();
 
     private ComboBoxSelectedBool cmpNameSorting;
 
@@ -104,7 +104,7 @@ public final class PaginatorPokemon extends Paginator {
 
     private NumComboBox cmpPossEvosPrio = new NumComboBox();
 
-    public PaginatorPokemon(Window _w, FacadeGame _d) {
+    public PaginatorPokemon(ChangeableTitle _w, FacadeGame _d) {
         super(ACCESS_POKEMON);
         setWindow(_w);
         setFacade(_d);
@@ -163,7 +163,7 @@ public final class PaginatorPokemon extends Paginator {
         getFacade().setSearchModeAbilityFirstBox(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeItemFirstBox(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeMoveFirstBox(SearchingMode.WHOLE_STRING);
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(getComponent(),BoxLayout.PAGE_AXIS));
         StringList pk_ = new StringList();
         for (String p: getFacade().getData().getPokedex().getKeys()) {
             String pkTr_ = getFacade().translatePokemon(p);
@@ -176,7 +176,7 @@ public final class PaginatorPokemon extends Paginator {
 //                getFacade().setContentOfNameFirstBox(convertStringField(name.getText()));
 //            }
 //        });
-        modeName.addActionListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, name));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -196,7 +196,7 @@ public final class PaginatorPokemon extends Paginator {
 //                getFacade().setContentOfAbilityFirstBox(convertStringField(ability.getText()));
 //            }
 //        });
-        modeAbility.addActionListener(new ChangedModeEvent(modeAbility, ability));
+        modeAbility.setListener(new ChangedModeEvent(modeAbility, ability));
 //        modeAbility.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeAbility.getCurrent();
@@ -216,7 +216,7 @@ public final class PaginatorPokemon extends Paginator {
 //                getFacade().setContentOfItemFirstBox(convertStringField(item.getText()));
 //            }
 //        });
-        modeItem.addActionListener(new ChangedModeEvent(modeItem, item));
+        modeItem.setListener(new ChangedModeEvent(modeItem, item));
 //        modeItem.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeItem.getCurrent();
@@ -241,7 +241,7 @@ public final class PaginatorPokemon extends Paginator {
 //                getFacade().setContentOfMoveFirstBox(convertStringField(moves.getText()));
 //            }
 //        });
-        modeMoves.addActionListener(new ChangedModeEvent(modeMoves, moves));
+        modeMoves.setListener(new ChangedModeEvent(modeMoves, moves));
 //        modeMoves.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeMoves.getCurrent();
@@ -338,8 +338,8 @@ public final class PaginatorPokemon extends Paginator {
 //                getFacade().setCmpPossEvosPriorityFirstBox((Integer)cmpPossEvosPrio.getSelectedItem());
 //            }
 //        });
-        JPanel search_;
-        search_ = new JPanel(new GridLayout(0,3));
+        Panel search_;
+        search_ = new Panel(new GridLayout(0,3));
         search_.add(new JLabel(getMessages().getVal(NAME)));
         search_.add(name);
         search_.add(modeName);
@@ -365,8 +365,8 @@ public final class PaginatorPokemon extends Paginator {
         search_.add(minPossEvos);
         search_.add(maxPossEvos);
         add(search_);
-        JPanel sorting_;
-        sorting_ = new JPanel(new GridLayout(0,3));
+        Panel sorting_;
+        sorting_ = new Panel(new GridLayout(0,3));
         sorting_.add(new JLabel(getMessages().getVal(NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
@@ -386,8 +386,8 @@ public final class PaginatorPokemon extends Paginator {
         sorting_.add(cmpPossEvosSorting);
         sorting_.add(cmpPossEvosPrio);
         add(sorting_);
-        JPanel top_;
-        top_ = new JPanel();
+        Panel top_;
+        top_ = new Panel();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseListener(new SearchEvent(this));
@@ -424,12 +424,12 @@ public final class PaginatorPokemon extends Paginator {
         int w_ = getHeader().width(getMessages().getVal(ITEM));
         getHeader().setPreferredSize(new Dimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
         results.add(getHeader());
-        add(new JScrollPane(results));
-        JPanel bottom_ = new JPanel();
+        add(new ScrollPane(results));
+        Panel bottom_ = new Panel();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().addActionListener(new ChangedPageEvent(this));
+        getPages().setListener(new ChangedPageEvent(this));
         getDelta().getDocument().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
@@ -557,12 +557,12 @@ public final class PaginatorPokemon extends Paginator {
         getFacade().setCmpLevelIncreasingFirstBox(cmpLevelSorting.getCurrent());
         getFacade().setCmpGenderIncreasingFirstBox(cmpGenderSorting.getCurrent());
         getFacade().setCmpPossEvosIncreasingFirstBox(cmpPossEvosSorting.getCurrent());
-        getFacade().setCmpNamePriorityFirstBox((Integer)cmpNamePrio.getSelectedItem());
-        getFacade().setCmpAbilityPriorityFirstBox((Integer)cmpAbilityPrio.getSelectedItem());
-        getFacade().setCmpItemPriorityFirstBox((Integer)cmpItemPrio.getSelectedItem());
-        getFacade().setCmpLevelPriorityFirstBox((Integer)cmpLevelPrio.getSelectedItem());
-        getFacade().setCmpGenderPriorityFirstBox((Integer)cmpGenderPrio.getSelectedItem());
-        getFacade().setCmpPossEvosPriorityFirstBox((Integer)cmpPossEvosPrio.getSelectedItem());
+        getFacade().setCmpNamePriorityFirstBox(cmpNamePrio.getCurrent());
+        getFacade().setCmpAbilityPriorityFirstBox(cmpAbilityPrio.getCurrent());
+        getFacade().setCmpItemPriorityFirstBox(cmpItemPrio.getCurrent());
+        getFacade().setCmpLevelPriorityFirstBox(cmpLevelPrio.getCurrent());
+        getFacade().setCmpGenderPriorityFirstBox(cmpGenderPrio.getCurrent());
+        getFacade().setCmpPossEvosPriorityFirstBox(cmpPossEvosPrio.getCurrent());
     }
 
     @Override

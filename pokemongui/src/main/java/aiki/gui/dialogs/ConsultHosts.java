@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import aiki.Resources;
@@ -16,6 +15,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.gui.Dialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.document.RenderedPage;
 import code.util.EqList;
 import code.util.NatTreeMap;
@@ -58,7 +58,7 @@ public final class ConsultHosts extends Dialog {
 //        window = _frame;
         setTitle(messages.getVal(TITLE));
         facade = _facade;
-        JPanel contentPane_ = new JPanel();
+        Panel contentPane_ = new Panel();
         contentPane_.setLayout(new GridLayout(0,1));
         NatTreeMap<Short,EqList<Coords>> hostsByPlace_;
         hostsByPlace_ = new NatTreeMap<Short,EqList<Coords>>();
@@ -71,12 +71,12 @@ public final class ConsultHosts extends Dialog {
         }
         for (short p: hostsByPlace_.getKeys()) {
             Place pl_ = facade.getMap().getPlaces().getVal(p);
-            JPanel hosting_ = new JPanel();
+            Panel hosting_ = new Panel();
             hosting_.setLayout(new GridLayout(0,1));
             JLabel place_ = new JLabel(pl_.getName());
             hosting_.add(place_);
             for (Coords c: hostsByPlace_.getVal(p)) {
-                JPanel hostingLoc_ = new JPanel();
+                Panel hostingLoc_ = new Panel();
                 hostingLoc_.setLayout(new GridLayout(0,1));
                 HostPokemonDuo host_ = facade.getGame().getHostedPk().getVal(c);
                 String rem_ = messages.getVal(STEPS);

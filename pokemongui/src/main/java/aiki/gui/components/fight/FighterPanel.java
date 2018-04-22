@@ -4,9 +4,6 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
@@ -15,21 +12,20 @@ import aiki.game.fight.Fighter;
 import aiki.gui.listeners.BackFighterSelection;
 import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
-import code.gui.CustListModel;
-import code.gui.Jl;
+import code.gui.GraphicList;
+import code.gui.Panel;
 import code.util.NatTreeMap;
 
-public class FighterPanel extends JPanel {
+public class FighterPanel extends Panel {
 
     private JLabel title;
 
-    private CustListModel<Fighter> modeleListe = new CustListModel<Fighter>();
-
-    private Jl<Fighter> liste = new Jl<Fighter>(modeleListe);
+    private GraphicList<Fighter> liste;
 
     private FacadeGame facade;
 
     public FighterPanel(int _nb, String _titre, FacadeGame _facade, NatTreeMap<Byte,Fighter> _fighters) {
+        liste = new GraphicList<Fighter>(false,true);
         facade = _facade;
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
@@ -38,17 +34,16 @@ public class FighterPanel extends JPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        liste.setCellRenderer(new FighterRenderer(facade));
+        liste.setRender(new FighterRenderer(facade));
         initFighters(_fighters);
-        add(new JScrollPane(liste),BorderLayout.CENTER);
+        add(liste.getComponent(), BorderLayout.CENTER);
         setPreferredSize(new Dimension(150,64*_nb));
     }
 
     public void initFighters(NatTreeMap<Byte,Fighter> _fighters) {
-        modeleListe.clear();
+        liste.clear();
         for (Fighter f: _fighters.values()) {
-            modeleListe.addElement(f);
+            liste.add(f);
         }
     }
 
@@ -71,23 +66,23 @@ public class FighterPanel extends JPanel {
 //    }
 
     public void initFighters() {
-        modeleListe.clear();
+        liste.clear();
         NatTreeMap<Byte,Fighter> fronts_ = facade.getPlayerTeam();
         for (Fighter f: fronts_.values()) {
-            modeleListe.addElement(f);
+            liste.add(f);
         }
     }
 
     public void addListener(Battle _battle, boolean _front) {
         if (_front) {
-            liste.addListSelectionListener(new FrontFighterSelection(_battle));
+            liste.setListener(new FrontFighterSelection(_battle));
         } else {
-            liste.addListSelectionListener(new BackFighterSelection(_battle));
+            liste.setListener(new BackFighterSelection(_battle));
         }
     }
 
     public void addListener(Battle _battle) {
-        liste.addListSelectionListener(new FighterSelection(_battle));
+        liste.setListener(new FighterSelection(_battle));
     }
 
     public int getSelectedIndex() {

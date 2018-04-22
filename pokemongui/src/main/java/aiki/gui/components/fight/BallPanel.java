@@ -4,31 +4,27 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
-import code.gui.CustListModel;
-import code.gui.Jl;
+import code.gui.GraphicList;
+import code.gui.Panel;
 import code.util.NatTreeMap;
 
-public class BallPanel extends JPanel {
+public class BallPanel extends Panel {
 
     private JLabel title;
 
-    private CustListModel<BallNumberRate> modeleListe = new CustListModel<BallNumberRate>();
-
-    private Jl<BallNumberRate> liste = new Jl<BallNumberRate>(modeleListe);
+    private GraphicList<BallNumberRate> liste;
 
     private FacadeGame facade;
 
     private BallRenderer renderer;
 
     public BallPanel(int _nb, String _titre, FacadeGame _facade) {
+        liste = new GraphicList<BallNumberRate>(false,true);
         facade = _facade;
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
@@ -37,11 +33,10 @@ public class BallPanel extends JPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
-        liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         renderer = new BallRenderer(facade);
-        liste.setCellRenderer(renderer);
+        liste.setRender(renderer);
         initBalls();
-        add(new JScrollPane(liste),BorderLayout.CENTER);
+        add(liste.getComponent(),BorderLayout.CENTER);
         setPreferredSize(new Dimension(100,32*_nb));
     }
 
@@ -50,16 +45,16 @@ public class BallPanel extends JPanel {
     }
 
     public void initBalls() {
-        modeleListe.clear();
+        liste.clear();
         NatTreeMap<String,BallNumberRate> map_ = facade.calculateCatchingRates();
-        renderer.setMaxWidth(map_);
+        renderer.setMaxWidth(title.getFontMetrics(title.getFont()),map_);
         for (BallNumberRate b: map_.values()) {
-            modeleListe.addElement(b);
+            liste.add(b);
         }
     }
 
     public BallNumberRate getSelectedBall() {
-        return (BallNumberRate) liste.getSelectedValue();
+        return liste.getSelectedValue();
     }
 
 }

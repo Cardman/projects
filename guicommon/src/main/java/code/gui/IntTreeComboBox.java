@@ -1,14 +1,11 @@
 package code.gui;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-
 import code.util.NumberMap;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorMapValue;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.ListableEntries;
 
-public final class IntTreeComboBox extends JComboBox {
+public final class IntTreeComboBox extends GraphicCombo {
 //implements TranslatableComponent
 
     private static final String EMPTY_STRING = "";
@@ -27,7 +24,7 @@ public final class IntTreeComboBox extends JComboBox {
 
     public IntTreeComboBox(Integer... _elements){
         for (Integer e: _elements) {
-            addItem(e);
+            addItem(e.toString());
         }
     }
     public IntTreeComboBox(TreeMap<Integer,String> _tr){
@@ -57,16 +54,19 @@ public final class IntTreeComboBox extends JComboBox {
     }
 
     @Override
-    public void removeItemAt(int _anIndex) {
+    public void removeItem(int _anIndex) {
         TreeMap<Integer, String> tr_;
         tr_ = getElements();
         Integer e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);
-        super.removeItemAt(_anIndex);
+        super.removeItem(_anIndex);
     }
 
     public void setItems(Integer... _numerosPlis) {
-        super.setModel(new DefaultComboBoxModel(_numerosPlis));
+        removeAllItems();
+        for (Integer i: _numerosPlis) {
+            addItem(i.toString());
+        }
         refresh(getTree(_numerosPlis));
     }
     private static TreeMap<Integer, String> getTree(Integer... _ints) {

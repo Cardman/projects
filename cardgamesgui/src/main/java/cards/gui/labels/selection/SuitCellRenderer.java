@@ -6,25 +6,27 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 
 import cards.consts.Suit;
-import code.gui.CommonCellRenderer;
+import code.gui.CustCellRender;
+import code.gui.GraphicListable;
 import code.util.Numbers;
 /**
     */
 
-public class SuitCellRenderer extends CommonCellRenderer {
+public class SuitCellRenderer extends CustCellRender {
     private Suit couleur;
     private boolean selectionne;
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/
     @Override
-    public JLabel getListCellRendererComponent(Object _value,
+    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value,
             int _index, boolean _isSelected, boolean _cellHasFocus) {
+        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
         couleur=(Suit)_value;
         selectionne=_isSelected;
-        setPreferredSize(new Dimension(100,10));
-        return this;
+        label_.setPreferredSize(new Dimension(100,10));
+        return label_;
     }
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         if(!selectionne) {
             _g.setColor(Color.WHITE);
         } else {
@@ -80,5 +82,13 @@ public class SuitCellRenderer extends CommonCellRenderer {
             _g.setColor(Color.RED);
         }
         _g.drawString(couleur.display(),10,10);
+    }
+    @Override
+    public int getHeight() {
+        return 10;
+    }
+    @Override
+    public int getWidth() {
+        return 100;
     }
 }

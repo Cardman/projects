@@ -2,7 +2,6 @@ package cards.gui.animations;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
@@ -19,6 +18,7 @@ import cards.president.TrickPresident;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.Playing;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.ThreadInvoker;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
@@ -280,8 +280,8 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 
     @Override
     public void endSimulation() {
-        JPanel panneau_=new JPanel();
-        panneau_.setLayout(new BoxLayout(panneau_, BoxLayout.PAGE_AXIS));
+        Panel panneau_=new Panel();
+        panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
         ResultsPresident res_ = new ResultsPresident();
         GamePresident currentGame_=partiePresidentSimulee();
         res_.setGame(currentGame_);

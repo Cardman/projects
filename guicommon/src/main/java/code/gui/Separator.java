@@ -1,6 +1,11 @@
 package code.gui;
-import javax.swing.JLabel;
 
-public class Separator extends JLabel {
+import java.awt.Graphics;
+
+public class Separator extends PaintableLabel {
+
+    @Override
+    public void paintComponent(Graphics _g) {
+    }
 
 }

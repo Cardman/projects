@@ -2,7 +2,6 @@ package cards.gui.dialogs;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
@@ -18,6 +17,7 @@ import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
 import code.gui.ChildFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.resources.ResourceFiles;
@@ -187,12 +187,12 @@ public final class FrameGeneralHelp extends ChildFrame {
         DefaultMutableTreeNode root_ = new DefaultMutableTreeNode(
                 racineBis.nom());
         boolean wasNull_ = editor == null;
-        JPanel container_;
+        Panel container_;
         if (wasNull_) {
-            container_ = new JPanel();
-            container_.setLayout(new BoxLayout(container_, BoxLayout.PAGE_AXIS));
+            container_ = new Panel();
+            container_.setLayout(new BoxLayout(container_.getComponent(), BoxLayout.PAGE_AXIS));
         } else {
-            container_ = (JPanel) getContentPane();
+            container_ = getPane();
             container_.removeAll();
         }
         for (Numbers<Integer> chemin_ : cles_) {

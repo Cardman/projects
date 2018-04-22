@@ -1,12 +1,11 @@
 package cards.gui.dialogs.events;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import code.util.StringList;
 import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.panels.CardsScrollableList;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
+import code.util.StringList;
 
-public class ListenerClickCardsList implements ListSelectionListener {
+public class ListenerClickCardsList extends ListSelection {
 
     private String formatMessage;
 
@@ -19,10 +18,7 @@ public class ListenerClickCardsList implements ListSelectionListener {
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent _e) {
-        if(_e.getValueIsAdjusting()) {
-            return;
-        }
+    public void valueChanged(SelectionInfo _e) {
 //        int nombreDeMains_=setterDialog.getPanelsCards().getComponentCount();
         setterDialog.setNombreCartesSelectionneesPrecedent(setterDialog.getNombreCartesSelectionnees());
         int nbSelectedCards_ = setterDialog.getNombreCartesSelectionnees();

@@ -1,12 +1,11 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.JPanel;
-
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.LabelButton;
+import code.gui.Panel;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogRulesPresident";
@@ -33,7 +32,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers) {
         validated = false;
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         initMessageName();
         initJt(null, _enabledChangingNbPlayers, _nbPlayers);

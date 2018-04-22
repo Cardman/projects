@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
@@ -42,9 +41,9 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         }
         perCent = PER_CENT;
         setLocationRelativeToWindow(_window);
-        JPanel contentPane_ = new JPanel();
-        contentPane_.setLayout(new BoxLayout(contentPane_, BoxLayout.PAGE_AXIS));
-        JPanel label_ = new JPanel();
+        Panel contentPane_ = new Panel();
+        contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel label_ = new Panel();
         if (!_images.isEmpty()) {
             anim = new JLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
@@ -75,7 +74,7 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
     @Override
     public void closeWindow() {
         super.closeWindow();
-        getContentPane().removeAll();
+        getPane().removeAll();
         stopTimer();
     }
 

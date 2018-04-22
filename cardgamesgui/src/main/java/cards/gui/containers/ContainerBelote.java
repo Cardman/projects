@@ -1,7 +1,6 @@
 package cards.gui.containers;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import cards.belote.BidBeloteSuit;
@@ -20,6 +19,7 @@ import cards.gui.labels.SuitLabel;
 import cards.gui.panels.CarpetBelote;
 import cards.main.LaunchingCards;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
@@ -30,7 +30,7 @@ public class ContainerBelote extends ContainerGame {
     public static final String EMPTY="";
     public static final String TAB="\t";
 
-    private JPanel panneauBoutonsJeuPoints;
+    private Panel panneauBoutonsJeuPoints;
 
     /**Renvoie tous les scores de toutes les parties non solitaires*/
     private CustList<Numbers<Long>> scores=new CustList<Numbers<Long>>();
@@ -69,9 +69,6 @@ public class ContainerBelote extends ContainerGame {
         pts = _points;
         for (LabelPoints l: pointsButtons) {
             l.setSelected(_points);
-        }
-        for (LabelPoints l: pointsButtons) {
-            l.repaint();
         }
         if (getBidType().getCouleurDominante()) {
             getBidOk().setEnabledLabel(true);
@@ -178,10 +175,10 @@ public class ContainerBelote extends ContainerGame {
     protected void setBidType(BidBelote _bidType) {
         bidType = _bidType;
     }
-    protected JPanel getPanneauBoutonsJeuPoints() {
+    protected Panel getPanneauBoutonsJeuPoints() {
         return panneauBoutonsJeuPoints;
     }
-    protected void setPanneauBoutonsJeuPoints(JPanel _panneauBoutonsJeuPoints) {
+    protected void setPanneauBoutonsJeuPoints(Panel _panneauBoutonsJeuPoints) {
         panneauBoutonsJeuPoints = _panneauBoutonsJeuPoints;
     }
     public boolean isCanPlay() {

@@ -1,6 +1,6 @@
 package cards.network.president.unlock;
-import code.util.annot.RwXml;
 import cards.president.HandPresident;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class AllowDiscarding {

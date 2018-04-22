@@ -1,13 +1,13 @@
 package cards.gui.dialogs;
 import java.awt.Dimension;
 
-import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.TricksHandsBelote;
 import cards.gui.MainWindow;
 import cards.gui.panels.PanelTricksHandsBelote;
+import code.gui.ScrollPane;
 import code.util.StringList;
 
 public final class DialogTricksBelote extends DialogCards {
@@ -36,7 +36,7 @@ public final class DialogTricksBelote extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingBelote _displayingBelote) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
-        JScrollPane scroll_ = new JScrollPane(new PanelTricksHandsBelote(this,
+        ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsBelote(this,
                 _tricksHands, _numberPlayers, _pseudos, _displayingBelote));
         scroll_.setPreferredSize(new Dimension(600, 600));
         setContentPane(scroll_);

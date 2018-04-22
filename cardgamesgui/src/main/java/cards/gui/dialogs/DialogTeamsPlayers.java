@@ -3,10 +3,10 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import cards.gui.MainWindow;
 import cards.network.common.select.TeamsPlayers;
+import code.gui.Panel;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
@@ -35,12 +35,12 @@ public final class DialogTeamsPlayers extends DialogCards {
     }
 
     public void setDialogue(StringList _pseudos, TeamsPlayers _teamsPlayers) {
-        JPanel panel_ = new JPanel(new GridLayout(0,1));
+        Panel panel_ = new Panel(new GridLayout(0,1));
         int i_ = 1;
         String stringTeam_ = messages.getVal(TEAM);
         for (Numbers<Byte> t: _teamsPlayers.getTeams()) {
             String stringTeamLoc_ = StringList.simpleNumberFormat(stringTeam_, i_);
-            JPanel team_ = new JPanel(new GridLayout(0,1));
+            Panel team_ = new Panel(new GridLayout(0,1));
             team_.setBorder(BorderFactory.createTitledBorder(stringTeamLoc_));
             for (byte p:t) {
                 JLabel player_ = new JLabel(_pseudos.get(p));

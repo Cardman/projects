@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -37,7 +36,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private static final String ERROR_TYPING = "errorTyping";
     private static final int NB_COLS = 24;
     private JTextField typedString = new JTextField(NB_COLS);
-    private JPanel searchingPanel = new JPanel();
+    private Panel searchingPanel = new Panel();
 
     private StringMap<String> messages;
 
@@ -53,7 +52,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     private FileOpenDialog(){
         setAccessFile(DIALOG_ACCESS);
-        searchingPanel.setLayout(new BoxLayout(searchingPanel, BoxLayout.PAGE_AXIS));
+        searchingPanel.setLayout(new BoxLayout(searchingPanel.getComponent(), BoxLayout.PAGE_AXIS));
     }
     public static void setFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
         DIALOG.setFileDialogByFrame(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
@@ -77,7 +76,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         LabelButton search_ = new LabelButton(messages.getVal(SEARCH));
         search_.addMouseListener(new SearchingEvent(this));
         searchingPanel.removeAll();
-        JPanel panel_ = new JPanel();
+        Panel panel_ = new Panel();
         panel_.add(label_);
         panel_.add(typedString);
         panel_.add(search_);
@@ -92,7 +91,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         searchingPanel.add(searchedFiles);
         foundFiles = new JLabel(StringList.simpleNumberFormat(messages.getVal(RESULT_COUNT), 0));
         searchingPanel.add(foundFiles);
-        getContentPane().add(searchingPanel, BorderLayout.NORTH);
+        getPane().add(searchingPanel, BorderLayout.NORTH);
         pack();
     }
 
@@ -111,9 +110,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             return;
         }
         CustList<File> backup_ = new CustList<File>(getFiles());
-        getFiles().clear();
         init(getCurrentFolder(), getExtension());
-        applyChanges();
+        getFileModel().clear();
         setKeepSearching(true);
         thread = new ThreadSearchingFile(DIALOG, backup_, currentFolder_);
         thread.start();

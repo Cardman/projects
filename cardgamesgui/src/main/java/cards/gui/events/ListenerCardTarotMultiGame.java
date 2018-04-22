@@ -1,12 +1,12 @@
 package cards.gui.events;
 import java.awt.event.MouseEvent;
 
-import code.util.consts.Constants;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.PlayingCardTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.util.consts.Constants;
 
 public class ListenerCardTarotMultiGame extends AbstractListenerCardTarot {
     private ContainerMultiTarot container;

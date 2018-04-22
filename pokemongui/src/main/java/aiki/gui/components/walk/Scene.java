@@ -6,17 +6,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
-
 import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
+import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.CustList;
 import code.util.TreeMap;
 
-public class Scene extends JLabel implements MouseListener {
+public class Scene extends PaintableLabel implements MouseListener {
 
     private static int _sideLength_;
 
@@ -232,7 +231,7 @@ public class Scene extends JLabel implements MouseListener {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, _sideLength_*_screenWidth_ - 1, _sideLength_*_screenHeight_ - 1);
         int dx_ = 0;
@@ -308,6 +307,6 @@ public class Scene extends JLabel implements MouseListener {
 
     public void setFocus() {
         requestFocus(false);
-        requestFocusInWindow(false);
+        requestFocusInWindow();
     }
 }

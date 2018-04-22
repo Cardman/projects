@@ -1,6 +1,5 @@
 package minirts;
 
-import java.awt.Component;
 import java.awt.Point;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
@@ -9,6 +8,7 @@ import minirts.rts.CustPoint;
 import minirts.rts.Facade;
 import minirts.rts.Soldier;
 import minirts.rts.UnitMapKey;
+import code.gui.CustComponent;
 
 
 
@@ -99,7 +99,7 @@ public final class AnimationUnitSoldier extends Thread {
     static void moving() {
         MOVING_LOCK.lock();
         Facade f_ = battleground.getFacade();
-        Component parent_ = battleground.getParent();
+        CustComponent parent_ = battleground.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         for (UnitMapKey u: f_.getVisibleSoldiers(w_, h_)) {
@@ -116,7 +116,7 @@ public final class AnimationUnitSoldier extends Thread {
 
     private static void repaintBattleground() {
         Facade f_ = battleground.getFacade();
-        Component parent_ = battleground.getParent();
+        CustComponent parent_ = battleground.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         CustPoint curTopLeft_ = f_.getTopLeftPoint();

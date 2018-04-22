@@ -1,9 +1,7 @@
 package code.gui;
-import javax.swing.JComboBox;
-
 import code.util.TreeMap;
 
-public abstract class TreeComboBox<T> extends JComboBox {
+public abstract class TreeComboBox<T> extends GraphicCombo {
 //implements TranslatableComponent
 
 //    private static final String EMPTY_STRING = "";
@@ -29,12 +27,12 @@ public abstract class TreeComboBox<T> extends JComboBox {
     }
 
     @Override
-    public void removeItemAt(int _anIndex) {
+    public void removeItem(int _anIndex) {
         TreeMap<T, String> tr_;
         tr_ = getElements();
         T e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);
-        super.removeItemAt(_anIndex);
+        super.removeItem(_anIndex);
     }
 
     @Override

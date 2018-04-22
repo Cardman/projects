@@ -2,18 +2,18 @@ package aiki.gui.components.fight;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
+import code.gui.Panel;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public class TargetsPanel extends JPanel {
+public class TargetsPanel extends Panel {
 
     private CustList<MiniTargetLabel> foeTargets = new CustList<MiniTargetLabel>();
 

@@ -1,11 +1,11 @@
 package cards.gui.events;
 import java.awt.event.MouseEvent;
 
-import code.util.consts.Constants;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.CalledCards;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.util.consts.Constants;
 
 public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
 

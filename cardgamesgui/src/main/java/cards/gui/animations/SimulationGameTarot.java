@@ -6,8 +6,6 @@ import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -29,6 +27,8 @@ import cards.tarot.RulesTarot;
 import cards.tarot.TrickTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.gui.ThreadInvoker;
 import code.util.CustList;
 import code.util.EqList;
@@ -95,7 +95,7 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
         SwingUtilities.invokeLater(new GoSimulateGame(new GoSimulateTarot(partieSimulee, container, stopButton), container));
     }
     private void afficherMainUtilisateurSimuTarot(HandTarot _mainUtilisateur) {
-        JPanel panneau1_=container.getPanelHand();
+        Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_mainUtilisateur)) {
@@ -153,9 +153,9 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
             mainsUtilisateurs_.add(partie_.getDistribution().main());
             mainsUtilisateurs_.get(0).trier(container.getDisplayingTarot().getCouleurs(),container.getDisplayingTarot().getDecroissant());
         }
-        JPanel contentPane_ = new JPanel();
-        contentPane_.setLayout(new BoxLayout(contentPane_, BoxLayout.PAGE_AXIS));
-        JPanel container_=new JPanel();
+        Panel contentPane_ = new Panel();
+        contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetTarot tapis_=new CarpetTarot();
@@ -163,40 +163,40 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
         tapis_.initTapisTarot(partie_.getNombreDeJoueurs(),container.getDisplayingTarot().getHoraire(),partie_.getDistribution().derniereMain().total());
         container.getTapis().setTapisTarot(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
-        container.setPanelHand(new JPanel());
+        container.setPanelHand(new Panel());
         container.getPanelHand().setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         panneau_.add(container.getPanelHand());
-        container.setPanelDiscardedTrumps(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
+        container.setPanelDiscardedTrumps(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         container.getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(container.getPanelDiscardedTrumps());
         panneau_.setBackground(Color.BLUE);
         container_.add(panneau_,BorderLayout.SOUTH);
-        JPanel panneau2_=new JPanel();
-        panneau2_.setLayout(new BoxLayout(panneau2_, BoxLayout.PAGE_AXIS));
+        Panel panneau2_=new Panel();
+        panneau2_.setLayout(new BoxLayout(panneau2_.getComponent(), BoxLayout.PAGE_AXIS));
         container.setEvents(new JTextArea(ContainerTarot.EMPTY,8, 30));
         container.getEvents().setEditable(false);
-        panneau2_.add(new JScrollPane(container.getEvents()));
+        panneau2_.add(new ScrollPane(container.getEvents()));
         container.setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingTarot().getHoraire(),pseudos_));
         panneau2_.add(container.getMini());
         container.setHandfuls(new NumberMap<Byte,JLabel>());
-        container.setDeclaredHandfuls(new NumberMap<Byte,JPanel>());
-        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
+        container.setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
-            JPanel declaredHandfulGroup_ = new JPanel(new FlowLayout());
+            Panel declaredHandfulGroup_ = new Panel(new FlowLayout());
             JLabel lab_ = new JLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             JLabel handful_ = new JLabel(ContainerGame.EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             container.getHandfuls().put(i, handful_);
-            JPanel declaredHandful_ = new JPanel(new FlowLayout());
+            Panel declaredHandful_ = new Panel(new FlowLayout());
             declaredHandfulGroup_.add(declaredHandful_);
             container.getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        panneau2_.add(new JScrollPane(declaredHandfuls_));
-        JPanel sousPanneau_=new JPanel(new GridLayout(0,1));
+        panneau2_.add(new ScrollPane(declaredHandfuls_));
+        Panel sousPanneau_=new Panel(new GridLayout(0,1));
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);

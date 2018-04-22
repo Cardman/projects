@@ -3,7 +3,6 @@ import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -16,6 +15,7 @@ import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.Dialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
@@ -83,7 +83,7 @@ public final class DialogDifficulty extends Dialog {
 //            session_.setRelativeFiles(Resources.ACCESS_TO_DEFAULT_FILES);
 //            session_.initialize(Resources.ACCESS_TO_DEFAULT_DIFF);
 //        }
-        JPanel panel_ = new JPanel();
+        Panel panel_ = new Panel();
         JLabel area_ = new JLabel(TEXT);
         JTextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
@@ -93,7 +93,7 @@ public final class DialogDifficulty extends Dialog {
         session.setSearchText(search_);
         session.setField(field_);
         session.addFinder();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
         scrollSession_.setPreferredSize(new Dimension(400, 400));

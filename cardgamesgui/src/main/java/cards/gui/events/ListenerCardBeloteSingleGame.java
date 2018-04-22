@@ -3,11 +3,7 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-import code.gui.ConfirmDialog;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.belote.GameBelote;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
@@ -16,6 +12,10 @@ import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.labels.GraphicBeloteCard;
+import code.gui.ConfirmDialog;
+import code.gui.Panel;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
 
@@ -51,7 +51,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                     //message d'erreur sur la belote rebelote
                     HandBelote cartesBeloteRebelote_=partie_.cartesBeloteRebelote();
                     /*On ordonne la poignee d'atouts*/
-                    JPanel panneau_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+                    Panel panneau_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
                     for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(cartesBeloteRebelote_)) {
                         panneau_.add(c);
                     }

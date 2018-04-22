@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Window;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import cards.gui.containers.ContainerTarot;
@@ -20,32 +18,34 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.TrickTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.ChangeableTitle;
 import code.gui.NumComboBox;
+import code.gui.Panel;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricksHands {
+public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksHands {
 
     private static final String ACCESS = "cards.gui.panels.PanelTricksHandsTarot";
     private static final String DEFAULT ="Default";
     private static final String TRICK ="trick";
     private static final String CARD ="card";
     private StringMap<String> messages = new StringMap<String>();
-    private JPanel cards;
-    private JPanel tricks;
-    private JPanel selectedTrick;
-    private JPanel hands;
+    private Panel cards;
+    private Panel tricks;
+    private Panel selectedTrick;
+    private Panel hands;
     private NumComboBox trickNumber;
     private NumComboBox cardNumberTrick;
     private TricksHandsTarot tricksHands;
-    private Window parent;
+    private ChangeableTitle parent;
 
     private byte numberPlayers;
     private DisplayingTarot displayingTarot;
-    public PanelTricksHandsTarot(Window _parent,
+    public PanelTricksHandsTarot(ChangeableTitle _parent,
             TricksHandsTarot _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
@@ -59,8 +59,8 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
         CustList<TrickTarot> tricks_ = tricksHands.getTricks();
 
         setLayout(new BorderLayout());
-        cards=new JPanel();
-        JPanel players_ = new JPanel(new GridLayout(0,1));
+        cards=new Panel();
+        Panel players_ = new Panel(new GridLayout(0,1));
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
         }
@@ -69,15 +69,15 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
             players_.add(getBlankCard(_pseudos, joueur_));
         }
         cards.add(players_);
-        tricks = new JPanel(new GridLayout(0,1));
+        tricks = new Panel(new GridLayout(0,1));
         cards.add(tricks);
-        selectedTrick = new JPanel(new GridLayout(0,1));
+        selectedTrick = new Panel(new GridLayout(0,1));
         cards.add(selectedTrick);
-        hands=new JPanel(new GridLayout(0,1));
-        JPanel sousPanneau3_;
+        hands=new Panel(new GridLayout(0,1));
+        Panel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
-            sousPanneau3_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(dealt_.main(joueur_))) {
                 sousPanneau3_.add(c);
             }
@@ -92,11 +92,11 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
             hands.add(sousPanneau3_);
         }
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         }
         cards.add(hands);
-        JPanel sousPanneau2_=new JPanel(new GridLayout(0,1));
-        sousPanneau3_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+        Panel sousPanneau2_=new Panel(new GridLayout(0,1));
+        sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(dealt_.derniereMain())) {
             sousPanneau3_.add(c);
         }
@@ -110,7 +110,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
 //        }
         sousPanneau2_.add(sousPanneau3_);
         if (!tricks_.isEmpty()) {
-            sousPanneau3_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(tricks_.first())) {
                 sousPanneau3_.add(c);
             }
@@ -126,7 +126,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
         }
         cards.add(sousPanneau2_);
         add(cards,BorderLayout.CENTER);
-        JPanel selectionGameState_=new JPanel();
+        Panel selectionGameState_=new Panel();
         selectionGameState_.add(new JLabel(messages.getVal(TRICK)));
         Integer[] numerosPlis_;
         numerosPlis_=new Integer[tricks_.size()+1];
@@ -135,7 +135,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
             numerosPlis_[indicePli_]=indicePli_-1;
         }
         trickNumber=new NumComboBox(numerosPlis_);
-        trickNumber.addActionListener(new ListenerTricks(this));
+        trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber);
         selectionGameState_.add(new JLabel(messages.getVal(CARD)));
         Integer[] numerosJoueurs_=new Integer[_numberPlayers];
@@ -143,7 +143,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
         }
         cardNumberTrick=new NumComboBox(numerosJoueurs_);
-        cardNumberTrick.addActionListener(new ListenerCards(this));
+        cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick);
         add(selectionGameState_,BorderLayout.SOUTH);
     }
@@ -169,7 +169,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
         hands.setLayout(new GridLayout(0,1));
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            JPanel sousPanneau4_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(restoredDeal_.main(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -186,7 +186,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
         int nbBots_ = numberPlayers;
         nbBots_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {
@@ -302,7 +302,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
         hands.setLayout(new GridLayout(0,1));
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            JPanel sousPanneau4_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(restoredDeal_.main(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -319,7 +319,7 @@ public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricks
         int nbBots_ = numberPlayers;
         nbBots_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {

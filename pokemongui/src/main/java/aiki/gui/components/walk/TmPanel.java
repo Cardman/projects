@@ -4,25 +4,20 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
 import aiki.facade.FacadeGame;
-import code.gui.StringJl;
-import code.gui.StringListModel;
+import code.gui.GraphicList;
+import code.gui.Panel;
 import code.util.CustList;
 import code.util.StringList;
 
-public class TmPanel extends JPanel {
+public class TmPanel extends Panel {
 
     private static final String SPACE = " ";
 
-    private StringListModel modeleListe = new StringListModel();
-
-    private StringJl liste = new StringJl(modeleListe);
+    private GraphicList<String> liste;
 
     private StringList items = new StringList();
 
@@ -31,6 +26,7 @@ public class TmPanel extends JPanel {
     private FacadeGame facade;
 
     public TmPanel(int _nb, String _titre, FacadeGame _facade) {
+        liste = new GraphicList<String>(false,true);
         facade = _facade;
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
@@ -39,20 +35,19 @@ public class TmPanel extends JPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        liste.setCellRenderer(new TmRenderer(facade));
+        liste.setRender(new TmRenderer(facade));
         initItems();
         int side_ = facade.getMap().getSideLength();
-        add(new JScrollPane(liste),BorderLayout.CENTER);
+        add(liste.getComponent(),BorderLayout.CENTER);
         add(amount, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(150,2*side_*_nb));
     }
 
     public void initItems() {
-        modeleListe.clear();
+        liste.clear();
         items.clear();
         for (String i: facade.getChosenTmForBuy()) {
-            modeleListe.addElement(i);
+            liste.add(i);
             items.add(i);
         }
         amount.setText(StringList.concat(facade.amountTm().toNumberString(),SPACE,facade.getPlayer().getMoney().toNumberString()));

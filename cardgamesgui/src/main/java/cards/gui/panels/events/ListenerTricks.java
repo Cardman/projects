@@ -1,10 +1,9 @@
 package cards.gui.panels.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import cards.gui.panels.ViewablePanelTricksHands;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
-public class ListenerTricks implements ActionListener {
+public class ListenerTricks extends ListSelection {
 
     private ViewablePanelTricksHands panel;
 
@@ -21,7 +20,7 @@ public class ListenerTricks implements ActionListener {
 //    }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void valueChanged(SelectionInfo _e) {
         panel.changeTrick();
     }
 }

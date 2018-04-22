@@ -1,8 +1,8 @@
 package cards.gui.dialogs;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import cards.gui.panels.CardsScrollableList;
+import code.gui.Panel;
 import code.util.CustList;
 
 public interface SetterSelectedCardList {
@@ -11,7 +11,7 @@ public interface SetterSelectedCardList {
     void setNombreCartesSelectionnees(int _nombreCartesSelectionnees);
     int getNombreCartesSelectionneesPrecedent();
     void setNombreCartesSelectionneesPrecedent(int _nombreCartesSelectionneesPrecedent);
-    JPanel getPanelsCards();
+    Panel getPanelsCards();
     JLabel getLabelSelectCards();
     CustList<CardsScrollableList> getHands(boolean _addStack);
     void validateRulesDeal();

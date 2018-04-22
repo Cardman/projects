@@ -2,7 +2,6 @@ package cards.gui.animations;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
@@ -27,6 +26,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.ThreadInvoker;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
@@ -493,7 +493,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         container.setCanDiscard(false);
         ThreadInvoker.invokeNow(new SimulationRefreshHandTarotDog(container, _main));
     }
-    static void updateCardsInPanelTarotDog(JPanel _panel, HandTarot _hand) {
+    static void updateCardsInPanelTarotDog(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_hand)) {
             _panel.add(c);
@@ -549,8 +549,8 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         }
         scroll_.setPreferredSize(new Dimension(300,300));
 
-        JPanel panneau_=new JPanel();
-        panneau_.setLayout(new BoxLayout(panneau_, BoxLayout.PAGE_AXIS));
+        Panel panneau_=new Panel();
+        panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
         panneau_.add(scroll_);
 
 //        LabelButton bouton_=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));

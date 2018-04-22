@@ -2,16 +2,6 @@ package cards.network.threads;
 import java.net.Socket;
 import java.util.concurrent.locks.ReentrantLock;
 
-import code.network.AddingPlayer;
-import code.network.BasicServer;
-import code.network.NetGroupFrame;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.belote.BidBeloteSuit;
 import cards.belote.DealBelote;
 import cards.belote.DeclareHandBelote;
@@ -103,6 +93,16 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
+import code.network.AddingPlayer;
+import code.network.BasicServer;
+import code.network.NetGroupFrame;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

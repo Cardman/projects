@@ -4,12 +4,14 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-public class LabelButton extends JLabel {
+public class LabelButton extends CustComponent {
 
     private static final int MAX_COLOR = 255;
     private static final int MID_COLOR = 127;
@@ -18,6 +20,8 @@ public class LabelButton extends JLabel {
     private static final Color DISABLED = new Color(MID_COLOR, MID_COLOR, MAX_COLOR);
 
     private boolean enabledLabel = true;
+
+    private JLabel label;
 
     private String text = "";
 
@@ -30,29 +34,30 @@ public class LabelButton extends JLabel {
     public LabelButton(String _text, boolean _initSize) {
         this();
         text = _text;
-        LabelButtonUtil.setTextDefaultColors(this, _text, enabledLabel);
+        LabelButtonUtil.setTextDefaultColors(label, _text, enabledLabel);
         if (_initSize) {
             initSize(_text);
         }
     }
 
     public LabelButton() {
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        setCursor(new Cursor(Cursor.HAND_CURSOR));
-        setOpaque(true);
-        setForeground(DEFAULT_FOREGROUND);
-        setBackground(Color.WHITE);
+        label = new JLabel();
+        label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        label.setOpaque(true);
+        label.setForeground(DEFAULT_FOREGROUND);
+        label.setBackground(Color.WHITE);
     }
 
     public LabelButton(ImageIcon _imageIcon) {
-        super(_imageIcon);
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        setCursor(new Cursor(Cursor.HAND_CURSOR));
+        label = new JLabel(_imageIcon);
+        label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     public void addMouseListener(MouseAdapter _l) {
         adapterCore = new MouseAdapaterCore(_l, this);
-        super.addMouseListener(adapterCore);
+        label.addMouseListener(adapterCore);
     }
 
     public boolean isEnabledLabel() {
@@ -61,37 +66,54 @@ public class LabelButton extends JLabel {
 
     public void setEnabledLabel(boolean _enabled) {
         if (!_enabled) {
-            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            label.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } else {
-            setCursor(new Cursor(Cursor.HAND_CURSOR));
+            label.setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
         enabledLabel = _enabled;
         if (_enabled) {
-            setForeground(DEFAULT_FOREGROUND);
+            label.setForeground(DEFAULT_FOREGROUND);
         } else {
-            setForeground(DISABLED);
+            label.setForeground(DISABLED);
         }
         if (!text.isEmpty()) {
-            LabelButtonUtil.setTextDefaultColors(this, text, enabledLabel);
+            LabelButtonUtil.setTextDefaultColors(label, text, enabledLabel);
         }
     }
 
     public void setTextAndSize(String _text) {
         text = _text;
-        LabelButtonUtil.setTextDefaultColors(this, _text, enabledLabel);
+        LabelButtonUtil.setTextDefaultColors(label, _text, enabledLabel);
         initSize(_text);
     }
 
     public void initSize(String _text) {
-        FontMetrics fMetric_ = getFontMetrics(getFont());
+        FontMetrics fMetric_ = label.getFontMetrics(label.getFont());
         int h_ = fMetric_.getHeight();
         int w_ = fMetric_.stringWidth(_text);
         w_++;
         w_++;
-        setPreferredSize(new Dimension(w_, h_));
+        label.setPreferredSize(new Dimension(w_, h_));
     }
 
     public void setVisibleButton(boolean _aFlag) {
-        setVisible(_aFlag);
+        label.setVisible(_aFlag);
+    }
+
+    @Override
+    public JComponent getComponent() {
+        return label;
+    }
+
+    public void setBackground(Color _background) {
+        label.setBackground(_background);
+    }
+
+    public void setForeground(Color _foreground) {
+        label.setForeground(_foreground);
+    }
+
+    public MouseListener[] getMouseListeners() {
+        return label.getMouseListeners();
     }
 }

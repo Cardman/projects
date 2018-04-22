@@ -4,9 +4,6 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
@@ -21,8 +18,8 @@ import aiki.gui.listeners.PokemonSelectionTm;
 import aiki.gui.listeners.PokemonSelectionTrading;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.CustListModel;
-import code.gui.Jl;
+import code.gui.GraphicList;
+import code.gui.Panel;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -31,7 +28,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public class TeamPanel extends JPanel {
+public class TeamPanel extends Panel {
     private static final String TEAM_PANEL = "aiki.gui.components.walk.TeamPanel";
 
     private static final String SPACE = " ";
@@ -42,11 +39,9 @@ public class TeamPanel extends JPanel {
 
     private static StringMap<String> _messages_ = new StringMap<String>();
 
-    private CustListModel<UsablePokemon> modeleListe = new CustListModel<UsablePokemon>();
-
     private PokemonRenderer renderer;
 
-    private Jl<UsablePokemon> liste;
+    private GraphicList<UsablePokemon> liste;
 
     private Numbers<Byte> indexes = new Numbers<Byte>();
 
@@ -56,7 +51,7 @@ public class TeamPanel extends JPanel {
 
     public TeamPanel(int _nb, String _titre, FacadeGame _facade, NatTreeMap<Byte,UsablePokemon> _team, boolean _single) {
         facade = _facade;
-        liste = new Jl<UsablePokemon>(modeleListe);
+        liste = new GraphicList<UsablePokemon>(false,true);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         JLabel titrePanneau_ = new JLabel(_titre, SwingConstants.CENTER);
@@ -64,12 +59,11 @@ public class TeamPanel extends JPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         renderer = new PokemonRenderer(facade, _single);
-        liste.setCellRenderer(renderer);
+        liste.setRender(renderer);
         initFighters(_team);
         int side_ = facade.getMap().getSideLength();
-        add(new JScrollPane(liste),BorderLayout.CENTER);
+        add(liste.getComponent(),BorderLayout.CENTER);
         nbRemainPlaces = new JLabel();
         translate();
         add(nbRemainPlaces,BorderLayout.SOUTH);
@@ -81,13 +75,13 @@ public class TeamPanel extends JPanel {
     }
 
     public void initFighters(NatTreeMap<Byte,UsablePokemon> _fighters) {
-        modeleListe.clear();
+        liste.clear();
         int maxPixName_ = getDeltaName(_fighters);
         renderer.setCoords(maxPixName_);
         indexes.clear();
         for (byte f: _fighters.getKeys()) {
             indexes.add(f);
-            modeleListe.addElement(_fighters.getVal(f));
+            liste.add(_fighters.getVal(f));
         }
         translate();
     }
@@ -132,27 +126,27 @@ public class TeamPanel extends JPanel {
     }
 
     public void addListenerHost(ScenePanel _battle) {
-        liste.addListSelectionListener(new PokemonHostEvent(_battle));
+        liste.setListener(new PokemonHostEvent(_battle));
     }
 
     public void addListener(ScenePanel _battle) {
-        liste.addListSelectionListener(new PokemonSelectionItems(_battle));
+        liste.setListener(new PokemonSelectionItems(_battle));
     }
 
     public void addListenerTeam(ScenePanel _battle) {
-        liste.addListSelectionListener(new PokemonSelectionTeam(_battle));
+        liste.setListener(new PokemonSelectionTeam(_battle));
     }
 
     public void addListenerMoveTutor(ScenePanel _battle) {
-        liste.addListSelectionListener(new PokemonSelectionMoveTutor(_battle));
+        liste.setListener(new PokemonSelectionMoveTutor(_battle));
     }
 
     public void addListenerStorage(ScenePanel _window) {
-        liste.addListSelectionListener(new PokemonSelectionStorage(_window));
+        liste.setListener(new PokemonSelectionStorage(_window));
     }
 
     public void addListenerTrading(ScenePanel _window) {
-        liste.addListSelectionListener(new PokemonSelectionTrading(_window));
+        liste.setListener(new PokemonSelectionTrading(_window));
     }
 
 //    public boolean isSingleSelected() {
@@ -183,6 +177,6 @@ public class TeamPanel extends JPanel {
     }
 
     public void addListenerTm(ScenePanel _mainWindow) {
-        liste.addListSelectionListener(new PokemonSelectionTm(_mainWindow));
+        liste.setListener(new PokemonSelectionTm(_mainWindow));
     }
 }

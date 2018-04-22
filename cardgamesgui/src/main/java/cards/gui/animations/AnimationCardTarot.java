@@ -1,11 +1,11 @@
 package cards.gui.animations;
 import javax.swing.SwingUtilities;
 
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

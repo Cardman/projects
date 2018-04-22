@@ -1,10 +1,9 @@
 package cards.gui.dialogs.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import cards.gui.dialogs.DialogTarot;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
-public class ListenerHandfulName implements ActionListener {
+public class ListenerHandfulName extends ListSelection {
 
     private DialogTarot dialog;
 
@@ -21,7 +20,7 @@ public class ListenerHandfulName implements ActionListener {
 //    }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void valueChanged(SelectionInfo _e) {
         dialog.validateHandful();
     }
 

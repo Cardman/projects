@@ -2,8 +2,6 @@ package aiki.gui.dialogs;
 import java.awt.BorderLayout;
 
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
@@ -13,6 +11,8 @@ import aiki.gui.components.PaginatorItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.gui.events.ClosingDialogEvent;
 import code.util.CustList;
 import code.util.StringMap;
@@ -55,10 +55,10 @@ public final class SelectItem extends SelectDialog {
         facade = _facade;
         initOk();
 //        ok = false;
-        JPanel contentPane_ = new JPanel();
+        Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new JScrollPane(new PaginatorItem(this, _facade, !_sell)), BorderLayout.CENTER);
-        JPanel buttons_ = new JPanel();
+        contentPane_.add(new ScrollPane(new PaginatorItem(this, _facade, !_sell)), BorderLayout.CENTER);
+        Panel buttons_ = new Panel();
         if (!_buy) {
             giveCheckBox = new JCheckBox(messages.getVal(GIVE));
 //            giveCheckBox.addChangeListener(new ChangeListener() {

@@ -1,6 +1,6 @@
 package cards.network.belote.unlock;
-import code.util.annot.RwXml;
 import cards.belote.DeclareHandBelote;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class AllowPlayingBelote {

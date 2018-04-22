@@ -3,17 +3,18 @@ package minirts;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import minirts.rts.DataBase;
 import minirts.rts.Direction;
+import code.gui.PaintableLabel;
+import code.gui.Panel;
 
-public class Pad extends JPanel {
+public class Pad extends Panel {
 
-    private JLabel up;
-    private JLabel left;
-    private JLabel down;
-    private JLabel right;
+    private PaintableLabel up;
+    private PaintableLabel left;
+    private PaintableLabel down;
+    private PaintableLabel right;
 
     /**
     Create the panel.
@@ -46,19 +47,19 @@ public class Pad extends JPanel {
         add(down);
     }
 
-    public JLabel getUp() {
+    public PaintableLabel getUp() {
         return up;
     }
 
-    public JLabel getLeft() {
+    public PaintableLabel getLeft() {
         return left;
     }
 
-    public JLabel getDown() {
+    public PaintableLabel getDown() {
         return down;
     }
 
-    public JLabel getRight() {
+    public PaintableLabel getRight() {
         return right;
     }
 }

@@ -1,12 +1,9 @@
 package aiki.gui.components;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Window;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import aiki.DataBase;
@@ -23,8 +20,11 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingMove;
 import code.gui.AutoCompleteDocument;
+import code.gui.ChangeableTitle;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
@@ -79,7 +79,7 @@ public final class PaginatorMove extends Paginator {
 
     private ComboBoxSearchingMode modeTypes;
 
-    private JPanel results = new JPanel();
+    private Panel results = new Panel();
 
     private ComboBoxSelectedBool cmpNameSorting;
 
@@ -111,7 +111,7 @@ public final class PaginatorMove extends Paginator {
 
     private boolean buy;
 
-    public PaginatorMove(Window _w, FacadeGame _d, boolean _buy) {
+    public PaginatorMove(ChangeableTitle _w, FacadeGame _d, boolean _buy) {
         super(ACCESS_MOVE);
         setWindow(_w);
         setFacade(_d);
@@ -166,14 +166,14 @@ public final class PaginatorMove extends Paginator {
             cmpPricePrio.addItem(i);
         }
         getFacade().setSearchModeNameMove(SearchingMode.WHOLE_STRING);
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(getComponent(),BoxLayout.PAGE_AXIS));
         StringList mvs_ = new StringList();
         for (String p: getFacade().getData().getMoves().getKeys()) {
             String mv_ = getFacade().translateMove(p);
             mvs_.add(mv_);
         }
         name = AutoCompleteDocument.createAutoCompleteTextField(mvs_, 16);
-        modeName.addActionListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, name));
 
         StringList ts_ = new StringList();
         for (String p: getFacade().getData().getTypes()) {
@@ -181,7 +181,7 @@ public final class PaginatorMove extends Paginator {
             ts_.add(mv_);
         }
         types = AutoCompleteDocument.createAutoCompleteTextField(ts_, 16);
-        modeTypes.addActionListener(new ChangedModeEvent(modeTypes, types));
+        modeTypes.setListener(new ChangedModeEvent(modeTypes, types));
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -318,8 +318,8 @@ public final class PaginatorMove extends Paginator {
 //                getFacade().setCmpTargetChoicePriorityMove((Integer)cmpTargetsPrio.getSelectedItem());
 //            }
 //        });
-        JPanel search_;
-        search_ = new JPanel(new GridLayout(0,3));
+        Panel search_;
+        search_ = new Panel(new GridLayout(0,3));
         search_.add(new JLabel(getMessages().getVal(NAME)));
         search_.add(name);
         search_.add(modeName);
@@ -342,8 +342,8 @@ public final class PaginatorMove extends Paginator {
         search_.add(targets);
         search_.add(new JLabel(DataBase.EMPTY_STRING));
         add(search_);
-        JPanel sorting_;
-        sorting_ = new JPanel(new GridLayout(0,3));
+        Panel sorting_;
+        sorting_ = new Panel(new GridLayout(0,3));
         sorting_.add(new JLabel(getMessages().getVal(NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
@@ -363,8 +363,8 @@ public final class PaginatorMove extends Paginator {
         sorting_.add(cmpTargetsSorting);
         sorting_.add(cmpTargetsPrio);
         add(sorting_);
-        JPanel top_;
-        top_ = new JPanel();
+        Panel top_;
+        top_ = new Panel();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseListener(new SearchEvent(this));
@@ -407,12 +407,12 @@ public final class PaginatorMove extends Paginator {
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(MOVE)));
-        add(new JScrollPane(results));
-        JPanel bottom_ = new JPanel();
+        add(new ScrollPane(results));
+        Panel bottom_ = new Panel();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().addActionListener(new ChangedPageEvent(this));
+        getPages().setListener(new ChangedPageEvent(this));
         getDelta().getDocument().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
@@ -534,17 +534,17 @@ public final class PaginatorMove extends Paginator {
         getFacade().setMinPriceMove(convertNumberField(minPrice.getText()));
         getFacade().setMaxPriceMove(convertNumberField(maxPrice.getText()));
         getFacade().setCmpNameIncreasingMove(cmpNameSorting.getCurrent());
-        getFacade().setCmpNamePriorityMove((Integer)cmpNamePrio.getSelectedItem());
+        getFacade().setCmpNamePriorityMove(cmpNamePrio.getCurrent());
         getFacade().setCmpPriceIncreasingMove(cmpPriceSorting.getCurrent());
-        getFacade().setCmpPricePriorityMove((Integer)cmpPricePrio.getSelectedItem());
+        getFacade().setCmpPricePriorityMove(cmpPricePrio.getCurrent());
         getFacade().setCmpPppIncreasingMove(cmpPpSorting.getCurrent());
-        getFacade().setCmpPppPriorityMove((Integer)cmpPpPrio.getSelectedItem());
+        getFacade().setCmpPppPriorityMove(cmpPpPrio.getCurrent());
         getFacade().setCmpPrioIncreasingMove(cmpPrioSorting.getCurrent());
-        getFacade().setCmpPrioPriorityMove((Integer)cmpPrioPrio.getSelectedItem());
+        getFacade().setCmpPrioPriorityMove(cmpPrioPrio.getCurrent());
         getFacade().setCmpDescriptionIncreasingMove(cmpDamagingSorting.getCurrent());
-        getFacade().setCmpDescriptionPriorityMove((Integer)cmpDamagingPrio.getSelectedItem());
+        getFacade().setCmpDescriptionPriorityMove(cmpDamagingPrio.getCurrent());
         getFacade().setCmpTargetChoiceIncreasingMove(cmpTargetsSorting.getCurrent());
-        getFacade().setCmpTargetChoicePriorityMove((Integer)cmpTargetsPrio.getSelectedItem());
+        getFacade().setCmpTargetChoicePriorityMove(cmpTargetsPrio.getCurrent());
     }
 
     @Override

@@ -4,14 +4,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JPanel;
-
-import code.util.NumberMap;
-import code.util.StringList;
 import cards.consts.Status;
 import cards.gui.labels.CellPlayer;
+import code.gui.Panel;
+import code.util.NumberMap;
+import code.util.StringList;
 
-public class MiniCarpet extends JPanel {
+public class MiniCarpet extends Panel {
 
     private boolean horaire;
 
@@ -22,12 +21,12 @@ public class MiniCarpet extends JPanel {
         if(_nombreDeJoueurs==4) {
             setLayout(new GridLayout(0,3));
             for(int i=0;i<9;i++) {
-                JPanel surPanneau_=new JPanel();
+                Panel surPanneau_=new Panel();
                 surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
                 CellPlayer cell_ = new CellPlayer();
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i%2==1) {
-                    JPanel panneau_=new JPanel();
+                    Panel panneau_=new Panel();
                     panneau_.setLayout(new BorderLayout());
                     if(i==1) {
                         cell_.setTextPlayer(_pseudos.get(2));
@@ -61,8 +60,8 @@ public class MiniCarpet extends JPanel {
         } else if(_nombreDeJoueurs==6) {
             setLayout(new GridLayout(0,4));
             for(int i=0;i<12;i++) {
-                JPanel surPanneau_=new JPanel();
-                JPanel panneau_=new JPanel();
+                Panel surPanneau_=new Panel();
+                Panel panneau_=new Panel();
                 panneau_.setLayout(new BorderLayout());
                 CellPlayer cell_ = new CellPlayer();
                 cell_.setPreferredSize(new Dimension(20,5));
@@ -123,9 +122,9 @@ public class MiniCarpet extends JPanel {
         } else if(_nombreDeJoueurs==3) {
             setLayout(new GridLayout(0,3));
             for(int i=0;i<9;i++) {
-                JPanel surPanneau_=new JPanel();
+                Panel surPanneau_=new Panel();
                 surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-                JPanel panneau_=new JPanel();
+                Panel panneau_=new Panel();
                 panneau_.setLayout(new BorderLayout());
                 CellPlayer cell_ = new CellPlayer();
                 cell_.setPreferredSize(new Dimension(20,5));
@@ -159,8 +158,8 @@ public class MiniCarpet extends JPanel {
         } else {
             setLayout(new GridLayout(0,3));
             for(int i=0;i<9;i++) {
-                JPanel surPanneau_=new JPanel();
-                JPanel panneau_=new JPanel();
+                Panel surPanneau_=new Panel();
+                Panel panneau_=new Panel();
                 panneau_.setLayout(new BorderLayout());
                 CellPlayer cell_ = new CellPlayer();
                 cell_.setPreferredSize(new Dimension(20,5));

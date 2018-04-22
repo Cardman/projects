@@ -1,6 +1,6 @@
 package cards.network.tarot.displaying.errors;
-import code.util.annot.RwXml;
 import cards.tarot.enumerations.BidTarot;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class ErrorBidding {

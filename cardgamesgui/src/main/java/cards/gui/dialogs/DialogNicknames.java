@@ -6,8 +6,6 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import cards.facade.Nicknames;
@@ -16,6 +14,8 @@ import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -61,10 +61,10 @@ public final class DialogNicknames extends DialogCards {
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public void setDialogue() {
         getJt().removeAll();
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         //Panneau pseudos des joueurs belote
-        JPanel sousPanneau_=new JPanel();
+        Panel sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,1));
         int i_=0;
         for (String p:pseudos.getPseudosBelote()) {
@@ -77,7 +77,7 @@ public final class DialogNicknames extends DialogCards {
         }
         getJt().add(GameEnum.BELOTE.toString(Constants.getLanguage()),sousPanneau_);
         //Panneau pseudos des joueurs president
-        sousPanneau_=new JPanel();
+        sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,1));
         i_=0;
         for (String p:pseudos.getPseudosPresident()) {
@@ -88,11 +88,11 @@ public final class DialogNicknames extends DialogCards {
             nicknamesPresident.add(pseudo_);
             i_++;
         }
-        JScrollPane scroll_ = new JScrollPane(sousPanneau_);
+        ScrollPane scroll_ = new ScrollPane(sousPanneau_);
         scroll_.setPreferredSize(new Dimension(300, 400));
         getJt().add(GameEnum.PRESIDENT.toString(Constants.getLanguage()), scroll_);
         //Panneau pseudos des joueurs tarot
-        sousPanneau_=new JPanel();
+        sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,1));
         i_=0;
         for (String p:pseudos.getPseudosTarot()) {
@@ -106,8 +106,8 @@ public final class DialogNicknames extends DialogCards {
         getJt().add(GameEnum.TAROT.toString(Constants.getLanguage()),sousPanneau_);
         container_.add(getJt(),BorderLayout.CENTER);
         //Panneau pseudo du joueur
-        sousPanneau_=new JPanel();
-        sousPanneau_.setLayout(new BoxLayout(sousPanneau_,BoxLayout.PAGE_AXIS));
+        sousPanneau_=new Panel();
+        sousPanneau_.setLayout(new BoxLayout(sousPanneau_.getComponent(),BoxLayout.PAGE_AXIS));
         sousPanneau_.add(new JLabel(messages.getVal(NICKNAME)));
         nickname=new JTextField(30);
         nickname.setText(pseudos.getPseudo());

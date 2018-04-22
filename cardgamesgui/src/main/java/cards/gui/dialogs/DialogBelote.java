@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
 import cards.belote.RulesBelote;
@@ -15,6 +14,7 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
+import code.gui.Panel;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -44,9 +44,9 @@ public abstract class DialogBelote extends DialogCards {
     private ComboBoxMixCards listeChoix;
     private JCheckBox dealAll;
 
-    private JPanel bidding;
+    private Panel bidding;
     private CustList<JCheckBox> bids = new CustList<JCheckBox>();
-    private JPanel declaresFirstRound;
+    private Panel declaresFirstRound;
     private CustList<JCheckBox> declares = new CustList<JCheckBox>();
     private JCheckBox underTrumpingFoe;
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
@@ -62,7 +62,7 @@ public abstract class DialogBelote extends DialogCards {
 
     protected void initJt(JSpinner _nbGames) {
         setNbGames(_nbGames);
-        JPanel dealing_=new JPanel();
+        Panel dealing_=new Panel();
         dealing_.setLayout(new GridLayout(0,2));
         //Sous - panneau Battre les cartes
         dealing_.add(new JLabel(getMessages().getVal(MIX_CARDS)));
@@ -91,12 +91,12 @@ public abstract class DialogBelote extends DialogCards {
 
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
-        JPanel bidding_=new JPanel();
-        bidding_.setLayout(new BoxLayout(bidding_, BoxLayout.PAGE_AXIS));
+        Panel bidding_=new Panel();
+        bidding_.setLayout(new BoxLayout(bidding_.getComponent(), BoxLayout.PAGE_AXIS));
         //Panneau Annonces autorisees
         bidding_.add(new JLabel(getMessages().getVal(BIDS)));
         bids.clear();
-        bidding=new JPanel();
+        bidding=new Panel();
         bidding.setLayout(new GridLayout(1,0));
         for (BidBelote enchere_:BidBelote.values()) {
             JCheckBox caseCroix_=new JCheckBox(enchere_.display());
@@ -110,7 +110,7 @@ public abstract class DialogBelote extends DialogCards {
         bidding_.add(bidding);
 
         bidding_.add(new JLabel(getMessages().getVal(ALLOWED_DECLARING)));
-        declaresFirstRound=new JPanel();
+        declaresFirstRound=new Panel();
         declares.clear();
         declaresFirstRound.setLayout(new GridLayout(0,3));
         int indice_ = 0;
@@ -125,18 +125,27 @@ public abstract class DialogBelote extends DialogCards {
         bidding_.add(declaresFirstRound);
 
         getJt().add(getMessages().getVal(DECLARING),bidding_);
-        JPanel trumping_ = new JPanel(new GridLayout(0,1));
+        Panel trumping_ = new Panel(new GridLayout(0,1));
         //Panneau gestion des coupes
-        JPanel sousPanneau_=new JPanel();
+        Panel sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,2));
         JLabel trumpingLabel_ = new JLabel(getMessages().getVal(TRUMPING));
         trumpingLabel_.setToolTipText(getMessages().getVal(TRUMPING_DESCRIPTION));
         sousPanneau_.add(trumpingLabel_);
         listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>();
+        BeloteTrumpPartner curOne_ = getReglesBelote().getGestionCoupePartenaire();
+        int index_ = 0;
+        int i_ = -1;
         for(BeloteTrumpPartner choix_:BeloteTrumpPartner.values()) {
+            if (choix_ == curOne_) {
+                i_ = index_;
+            }
             listChoiceTwo.addItem(choix_);
+            index_++;
         }
-        listChoiceTwo.setSelectedItem(getReglesBelote().getGestionCoupePartenaire());
+        if (i_ > -1) {
+            listChoiceTwo.selectItem(i_);
+        }
         sousPanneau_.add(listChoiceTwo);
         underTrumpingFoe=new JCheckBox(getMessages().getVal(UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
@@ -144,7 +153,7 @@ public abstract class DialogBelote extends DialogCards {
         trumping_.add(sousPanneau_);
         getJt().add(getMessages().getVal(RULES_TRUMPS),trumping_);
         //Panneau Calcul des scores
-        JPanel endOfGame_=new JPanel();
+        Panel endOfGame_=new Panel();
         endOfGame_.setLayout(new GridLayout(0,1));
         endOfGame_.add(new JLabel(getMessages().getVal(SCORING)));
         classic=new JCheckBox(getMessages().getVal(ALL_POINTS_FOR_DEFENDER_TEAM));
@@ -179,7 +188,7 @@ public abstract class DialogBelote extends DialogCards {
         }
         getReglesBelote().setAnnoncesAutorisees(annonces_);
 
-        BeloteTrumpPartner gestionCoupe_= (BeloteTrumpPartner) listChoiceTwo.getSelectedItem();
+        BeloteTrumpPartner gestionCoupe_= listChoiceTwo.getCurrentElement();
         getReglesBelote().setGestionCoupePartenaire(gestionCoupe_);
         getReglesBelote().setSousCoupeAdv(underTrumpingFoe.isSelected());
         getReglesBelote().setComptePointsClassique(classic.isSelected());

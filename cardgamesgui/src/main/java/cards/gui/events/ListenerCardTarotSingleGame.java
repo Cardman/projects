@@ -2,12 +2,7 @@ package cards.gui.events;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-import code.gui.ConfirmDialog;
-import code.util.EnumList;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
@@ -18,6 +13,11 @@ import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.gui.ConfirmDialog;
+import code.gui.Panel;
+import code.util.EnumList;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
 
@@ -52,7 +52,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 an_.add(container.getChoosenHandful());
                 partie_.ajouterAnnoncesPoignees(DealTarot.NUMERO_UTILISATEUR,an_);
                 container.getHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR).setText(container.getChoosenHandful().display());
-                JPanel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
+                Panel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
                 for(CardTarot c: container.getCurrentIncludedTrumps()) {
                     MiniTarotCard carte_=new MiniTarotCard(c);

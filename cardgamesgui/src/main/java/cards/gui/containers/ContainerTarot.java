@@ -2,9 +2,6 @@ package cards.gui.containers;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
@@ -21,6 +18,9 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
+import code.gui.SplitPane;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -50,17 +50,17 @@ public class ContainerTarot extends ContainerGame{
     private boolean canPlay;
     private boolean discardCall;
     /**Carte survol&eacute;e par la souris*/
-    private JPanel panelDiscardedTrumps;
+    private Panel panelDiscardedTrumps;
     private ButtonGroup listHandfuls = new ButtonGroup();
     private HandTarot currentIncludedTrumps = new HandTarot();
     private HandTarot currentExcludedTrumps = new HandTarot();
-    private JScrollPane scrollDeclaringHandful;
-    private JSplitPane declaringHandful;
-    private JPanel includedTrumpsForHandful;
-    private JPanel excludedTrumpsForHandful;
+    private ScrollPane scrollDeclaringHandful;
+    private SplitPane declaringHandful;
+    private Panel includedTrumpsForHandful;
+    private Panel excludedTrumpsForHandful;
     private EnumMap<Miseres,Boolean> selectedMiseres = new EnumMap<Miseres,Boolean>();
-    private JScrollPane scrollCallableCards;
-    private JPanel panelCallableCards;
+    private ScrollPane scrollCallableCards;
+    private Panel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
     private CardTarot carteSurvoleeTarot;
     private JTextArea infoCurrentHandful;
@@ -121,10 +121,10 @@ public class ContainerTarot extends ContainerGame{
     protected void setAnimChargement(LoadingVideo _animChargement) {
         animChargement = _animChargement;
     }
-    public JPanel getPanelDiscardedTrumps() {
+    public Panel getPanelDiscardedTrumps() {
         return panelDiscardedTrumps;
     }
-    public void setPanelDiscardedTrumps(JPanel _panelDiscardedTrumps) {
+    public void setPanelDiscardedTrumps(Panel _panelDiscardedTrumps) {
         panelDiscardedTrumps = _panelDiscardedTrumps;
     }
     public boolean isCanDiscard() {
@@ -181,28 +181,28 @@ public class ContainerTarot extends ContainerGame{
     protected void setListHandfuls(ButtonGroup _listHandfuls) {
         listHandfuls = _listHandfuls;
     }
-    public JScrollPane getScrollDeclaringHandful() {
+    public ScrollPane getScrollDeclaringHandful() {
         return scrollDeclaringHandful;
     }
-    protected void setScrollDeclaringHandful(JScrollPane _scrollDeclaringHandful) {
+    protected void setScrollDeclaringHandful(ScrollPane _scrollDeclaringHandful) {
         scrollDeclaringHandful = _scrollDeclaringHandful;
     }
-    protected JPanel getIncludedTrumpsForHandful() {
+    protected Panel getIncludedTrumpsForHandful() {
         return includedTrumpsForHandful;
     }
-    protected void setIncludedTrumpsForHandful(JPanel _includedTrumpsForHandful) {
+    protected void setIncludedTrumpsForHandful(Panel _includedTrumpsForHandful) {
         includedTrumpsForHandful = _includedTrumpsForHandful;
     }
-    protected JPanel getExcludedTrumpsForHandful() {
+    protected Panel getExcludedTrumpsForHandful() {
         return excludedTrumpsForHandful;
     }
-    protected void setExcludedTrumpsForHandful(JPanel _excludedTrumpsForHandful) {
+    protected void setExcludedTrumpsForHandful(Panel _excludedTrumpsForHandful) {
         excludedTrumpsForHandful = _excludedTrumpsForHandful;
     }
-    protected JSplitPane getDeclaringHandful() {
+    protected SplitPane getDeclaringHandful() {
         return declaringHandful;
     }
-    protected void setDeclaringHandful(JSplitPane _declaringHandful) {
+    protected void setDeclaringHandful(SplitPane _declaringHandful) {
         declaringHandful = _declaringHandful;
     }
     protected long getMaxAbsoluScore() {
@@ -217,10 +217,10 @@ public class ContainerTarot extends ContainerGame{
     public void setCanPlay(boolean _canPlay) {
         canPlay = _canPlay;
     }
-    protected JScrollPane getScrollCallableCards() {
+    protected ScrollPane getScrollCallableCards() {
         return scrollCallableCards;
     }
-    protected void setScrollCallableCards(JScrollPane _scrollCallableCards) {
+    protected void setScrollCallableCards(ScrollPane _scrollCallableCards) {
         scrollCallableCards = _scrollCallableCards;
     }
     protected boolean isPartieAleatoireJouee() {
@@ -229,10 +229,10 @@ public class ContainerTarot extends ContainerGame{
     protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
         partieAleatoireJouee = _partieAleatoireJouee;
     }
-    protected JPanel getPanelCallableCards() {
+    protected Panel getPanelCallableCards() {
         return panelCallableCards;
     }
-    protected void setPanelCallableCards(JPanel _panelCallableCards) {
+    protected void setPanelCallableCards(Panel _panelCallableCards) {
         panelCallableCards = _panelCallableCards;
     }
     protected boolean isPartieSauvegardee() {

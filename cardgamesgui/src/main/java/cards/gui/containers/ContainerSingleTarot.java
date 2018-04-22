@@ -11,11 +11,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
@@ -80,6 +78,10 @@ import cards.tarot.enumerations.PlayingDog;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
+import code.gui.SplitPane;
+import code.gui.TabbedPane;
 import code.gui.ThreadInvoker;
 import code.gui.document.RenderedPage;
 import code.maths.Rate;
@@ -125,7 +127,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         placerIhmTarot();
     }
     private void placerIhmTarot() {
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GameTarot partie_=partieTarot();
@@ -134,70 +136,70 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tapis_.initTapisTarot(partie_.getNombreDeJoueurs(),getDisplayingTarot().getHoraire(),partie_.getDistribution().derniereMain().total());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
-        setPanelHand(new JPanel());
+        setPanelHand(new Panel());
         getPanelHand().setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         panneau_.add(getPanelHand());
-        setPanelDiscardedTrumps(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
+        setPanelDiscardedTrumps(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(getPanelDiscardedTrumps());
         panneau_.setBackground(Color.BLUE);
         container_.add(panneau_,BorderLayout.SOUTH);
 
-        JPanel panneau2_=new JPanel();
-        panneau2_.setLayout(new BoxLayout(panneau2_, BoxLayout.PAGE_AXIS));
+        Panel panneau2_=new Panel();
+        panneau2_.setLayout(new BoxLayout(panneau2_.getComponent(), BoxLayout.PAGE_AXIS));
         setEvents(new JTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
-        panneau2_.add(new JScrollPane(getEvents()));
+        panneau2_.add(new ScrollPane(getEvents()));
         setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),getDisplayingTarot().getHoraire(),pseudos_));
         panneau2_.add(getMini());
-        setDeclaringHandful(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT));
+        setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT));
         getDeclaringHandful().setAlignmentY(Component.LEFT_ALIGNMENT);
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
-        setIncludedTrumpsForHandful(new JPanel(new FlowLayout(FlowLayout.CENTER,0,0)));
-        JScrollPane scroll_ = new JScrollPane(getIncludedTrumpsForHandful());
+        setIncludedTrumpsForHandful(new Panel(new FlowLayout(FlowLayout.CENTER,0,0)));
+        ScrollPane scroll_ = new ScrollPane(getIncludedTrumpsForHandful().getComponent());
         scroll_.setPreferredSize(new Dimension(125,60));
         getDeclaringHandful().setLeftComponent(scroll_);
-        setExcludedTrumpsForHandful(new JPanel(new FlowLayout(FlowLayout.CENTER,0,0)));
-        scroll_ = new JScrollPane(getExcludedTrumpsForHandful());
+        setExcludedTrumpsForHandful(new Panel(new FlowLayout(FlowLayout.CENTER,0,0)));
+        scroll_ = new ScrollPane(getExcludedTrumpsForHandful().getComponent());
         scroll_.setPreferredSize(new Dimension(125,60));
         getDeclaringHandful().setRightComponent(scroll_);
-        setScrollDeclaringHandful(new JScrollPane(getDeclaringHandful()));
+        setScrollDeclaringHandful(new ScrollPane(getDeclaringHandful()));
         getScrollDeclaringHandful().setPreferredSize(new Dimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
         setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,JPanel>());
-        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
+        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
-            JPanel declaredHandfulGroup_ = new JPanel(new FlowLayout());
+            Panel declaredHandfulGroup_ = new Panel(new FlowLayout());
             JLabel lab_ = new JLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             JLabel handful_ = new JLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
-            JPanel declaredHandful_ = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel declaredHandful_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        scroll_ = new JScrollPane(declaredHandfuls_);
+        scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        setPanelCallableCards(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
-        setScrollCallableCards(new JScrollPane(getPanelCallableCards()));
+        setPanelCallableCards(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
+        setScrollCallableCards(new ScrollPane(getPanelCallableCards()));
         getScrollCallableCards().setVisible(false);
         panneau2_.add(getScrollCallableCards());
-        JPanel sousPanneau_=new JPanel(new FlowLayout(FlowLayout.TRAILING,0,0));
-        sousPanneau_.setLayout(new BoxLayout(sousPanneau_, BoxLayout.PAGE_AXIS));
+        Panel sousPanneau_=new Panel(new FlowLayout(FlowLayout.TRAILING,0,0));
+        sousPanneau_.setLayout(new BoxLayout(sousPanneau_.getComponent(), BoxLayout.PAGE_AXIS));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
         tapisTarot().setTalonTarot(partie_.getDistribution().derniereMain());
-        JPanel panel_ = new JPanel();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
-        panel_.add(new JScrollPane(container_));
+        Panel panel_ = new Panel();
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        panel_.add(new ScrollPane(container_.getComponent()));
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
@@ -527,7 +529,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         animCarteTarot.start();
     }
     public void ajouterBoutonContratTarot(String _texte,BidTarot _action,boolean _apte) {
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratTarot(_action));
         bouton_.addMouseListener(new ListenerBidTarotSingle(this,_action));
@@ -552,14 +554,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        panneau_.add(bouton_);
 //    }
     public void addButtonSeeDogTarot(String _texte,boolean _apte) {
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new SeeDogEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonTakeDogCardsTarot(String _texte,boolean _apte) {
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new TakeDogEvent(this));
         bouton_.setEnabledLabel(_apte);
@@ -643,35 +645,35 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        setValidateDog(bouton_);
 //    }
     public void addButtonEndDealTarot(String _texte,boolean _apte) {
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new EndDealEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonNextTrickTarot(String _texte,boolean _apte) {
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new NextTrickEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
-    private void addButtonKeepPlayingDealTarot(JPanel _panneau,String _texte) {
+    private void addButtonKeepPlayingDealTarot(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonKeepPlayingEditedDealTarot(JPanel _panneau,String _texte) {
+    private void addButtonKeepPlayingEditedDealTarot(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonStopPlayingTarot(JPanel _panneau,String _texte) {
+    private void addButtonStopPlayingTarot(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonReplayDealTarot(JPanel _panneau,String _texte) {
+    private void addButtonReplayDealTarot(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new ReplayEvent(this));
         _panneau.add(bouton_);
@@ -701,11 +703,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             RulesTarot regles_=partie_.getRegles();
             HandTarot trumps_ = GameTarot.atoutsPoignee(partie_.getDistribution().main().couleurs());
             displayTrumpsForHandful(trumps_);
-            JPanel panneau_=getPanneauBoutonsJeu();
-            JPanel handFuls_ = new JPanel(new FlowLayout(FlowLayout.TRAILING,0,0));
-            handFuls_.setLayout(new BoxLayout(handFuls_, BoxLayout.PAGE_AXIS));
+            Panel panneau_=getPanneauBoutonsJeu();
+            Panel handFuls_ = new Panel(new FlowLayout(FlowLayout.TRAILING,0,0));
+            handFuls_.setLayout(new BoxLayout(handFuls_.getComponent(), BoxLayout.PAGE_AXIS));
             setInfoCurrentHandful(new JTextArea(EMPTY_STRING,1,15));
-            JScrollPane scroll_ = new JScrollPane(getInfoCurrentHandful());
+            ScrollPane scroll_ = new ScrollPane(getInfoCurrentHandful());
             scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
             handFuls_.add(scroll_);
             setListHandfuls(new ButtonGroup());
@@ -726,7 +728,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 handFuls_.add(radio_);
             }
             panneau_.add(handFuls_);
-            JPanel miseresPanel_ = new JPanel(new GridLayout(0,1));
+            Panel miseresPanel_ = new Panel(new GridLayout(0,1));
             for(Miseres po_:regles_.getMiseres()) {
                 JCheckBox check_ = new JCheckBox(po_.display());
                 //check_.addChangeListener(new ListenerMiseres(check_,po_));
@@ -778,7 +780,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
         getPanneauBoutonsJeu().removeAll();
-        getPanneauBoutonsJeu().setLayout(new BoxLayout(getPanneauBoutonsJeu(), BoxLayout.PAGE_AXIS));
+        getPanneauBoutonsJeu().setLayout(new BoxLayout(getPanneauBoutonsJeu().getComponent(), BoxLayout.PAGE_AXIS));
         getPanneauBoutonsJeu().repaint();
         setRaisonCourante(getMessages().getVal(MainWindow.WAIT_TURN));
         setThreadAnime(true);
@@ -797,7 +799,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             }
             partie_.ajouterChelemUtilisateur();
             getPanneauBoutonsJeu().removeAll();
-            getPanneauBoutonsJeu().setLayout(new BoxLayout(getPanneauBoutonsJeu(), BoxLayout.PAGE_AXIS));
+            getPanneauBoutonsJeu().setLayout(new BoxLayout(getPanneauBoutonsJeu().getComponent(), BoxLayout.PAGE_AXIS));
             ajouterTexteDansZone(StringList.concat(StringList.simpleStringsFormat(getMessages().getVal(MainWindow.DECLARING_SLAM), pseudo()),RETURN_LINE));
             setCanDiscard(false);
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
@@ -843,7 +845,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     getHandfuls().getVal(_joueur).setText(partie_.getAnnoncesPoignees(_joueur).first().display());
                 }
                 poignee_.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
-                JPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+                Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
                 panelToSet_.removeAll();
                 for(CardTarot c: poignee_) {
                     MiniTarotCard carte_=new MiniTarotCard(c);
@@ -884,7 +886,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
                 }
                 poignee_.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
-                JPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+                Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
                 ThreadInvoker.invokeNow(new HandfulThread(poignee_, panelToSet_));
 //                panelToSet_.removeAll();
 //                for(CardTarot c:poignee_)
@@ -964,7 +966,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         JScrollPane ascenseur_;
         container_.setLayout(new BorderLayout());
 
@@ -975,7 +977,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         StringList pseudos_=new StringList(pseudosTarot());
-        JTabbedPane onglets_=new JTabbedPane();
+        TabbedPane onglets_=new TabbedPane();
 
         GameTarot partie_=partieTarot();
         if(partie_.getType()==GameType.RANDOM) {
@@ -1061,17 +1063,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int)getMaxAbsoluScore();
             graphique_.setPreferredSize(new Dimension(2000,dimy_));
-            ascenseur_=new JScrollPane(graphique_);
+            ScrollPane locScroll_=new ScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
-            ascenseur_.setPreferredSize(new Dimension(300,200));
-            JPanel panneau_=new JPanel(new BorderLayout());
+            locScroll_.setPreferredSize(new Dimension(300,200));
+            Panel panneau_=new Panel(new BorderLayout());
             panneau_.add(new JLabel(getMessages().getVal(MainWindow.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
-            panneau_.add(ascenseur_,BorderLayout.CENTER);
+            panneau_.add(locScroll_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_);
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
-            ascenseur_=new JScrollPane(legende_);
-            ascenseur_.setPreferredSize(new Dimension(300,100));
-            panneau_.add(ascenseur_,BorderLayout.SOUTH);
+            locScroll_=new ScrollPane(legende_);
+            locScroll_.setPreferredSize(new Dimension(300,100));
+            panneau_.add(locScroll_,BorderLayout.SOUTH);
             onglets_.add(getMessages().getVal(MainWindow.SCORES_EVOLUTION),panneau_);
         }
         GameTarot game_=partieTarot();
@@ -1081,16 +1083,16 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.unionPlis(true), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingTarot(), game_.getNombreDeJoueurs());
-        scroll_ = new JScrollPane(new PanelTricksHandsTarot(getOwner(),tricksHands_,
+        ScrollPane panelCards_ = new ScrollPane(new PanelTricksHandsTarot(getOwner(),tricksHands_,
                 nombreJoueurs_,
                 pseudosTarot(),
                 getDisplayingTarot()));
-        scroll_.setPreferredSize(new Dimension(300,300));
-        onglets_.add(getMessages().getVal(MainWindow.HANDS_TRICKS),scroll_);
+        panelCards_.setPreferredSize(new Dimension(300,300));
+        onglets_.add(getMessages().getVal(MainWindow.HANDS_TRICKS),panelCards_);
         container_.add(onglets_,BorderLayout.CENTER);
-        JPanel panneau_=new JPanel();
-        panneau_.setLayout(new BoxLayout(panneau_, BoxLayout.PAGE_AXIS));
-        JPanel buttons_ = new JPanel();
+        Panel panneau_=new Panel();
+        panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel buttons_ = new Panel();
         GameType type_;
         long nombreParties_;
         type_=partie_.getType();
@@ -1238,7 +1240,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void voirChien() {
         GameTarot partie_=partieTarot();
         setChien(partie_.getDistribution().derniereMain(),false);
-        JPanel boutons_=getPanneauBoutonsJeu();
+        Panel boutons_=getPanneauBoutonsJeu();
         boutons_.removeAll();
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             addButtonTakeDogCardsTarot(getMessages().getVal(MainWindow.TAKE_CARDS), true);
@@ -1343,7 +1345,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //pack();
         getDeclaringHandful().setDividerLocation(getDeclaringHandful().getWidth()*9/10);
     }
-    private void updateCardsInPanelTarotDog(JPanel _panel, HandTarot _hand, boolean _inHand) {
+    private void updateCardsInPanelTarotDog(Panel _panel, HandTarot _hand, boolean _inHand) {
         _panel.removeAll();
         for (GraphicTarotCard c: getGraphicCards(_hand)) {
             c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand));
@@ -1362,7 +1364,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         _panel.validate();
         _panel.repaint();
     }
-    private void updateCardsInPanelTarotCallBeforeDog(JPanel _panel, HandTarot _hand) {
+    private void updateCardsInPanelTarotCallBeforeDog(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         for (GraphicTarotCard c: getGraphicCards(_hand)) {
             c.addMouseListener(new ListenerCardTarotSingleBeforeDog(this,c.getCard()));
@@ -1380,7 +1382,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         _panel.validate();
         _panel.repaint();
     }
-    private void updateCardsInPanelTarotHandful(JPanel _panel, HandTarot _hand, boolean _included) {
+    private void updateCardsInPanelTarotHandful(Panel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
         _panel.repaint();
         for(CardTarot c: _hand) {
@@ -1390,7 +1392,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             _panel.add(carte_);
         }
     }
-    private void updateCardsInPanelTarotJeu(JPanel _panel, HandTarot _hand) {
+    private void updateCardsInPanelTarotJeu(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         for (GraphicTarotCard c: getGraphicCards(_hand)) {
             c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));

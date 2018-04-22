@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import cards.facade.SoftParams;
@@ -16,6 +15,7 @@ import cards.gui.comboboxes.ComboBoxGameEnum;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -70,12 +70,12 @@ public final class DialogSoft extends DialogCards {
     }
     private void setDialogue(String _menu) {
         menu = _menu;
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         if(StringList.quickEq(menu,MainWindow.LAUNCHING)) {
             //Lancement du logiciel
-            JPanel panneau_=new JPanel();
-            panneau_.setLayout(new BoxLayout(panneau_, BoxLayout.PAGE_AXIS));
+            Panel panneau_=new Panel();
+            panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
             list = new ComboBoxGameEnum();
             EnumMap<GameEnum,String> mess_;
             EnumList<GameEnum> order_;
@@ -95,7 +95,7 @@ public final class DialogSoft extends DialogCards {
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);
         } else if(StringList.quickEq(menu,MainWindow.TIMING)) {
-            JPanel panneau_=new JPanel(new GridLayout(0,1));
+            Panel panneau_=new Panel(new GridLayout(0,1));
             JLabel label_;
             int valeur_=0;
             int minValeur_=0;
@@ -145,7 +145,7 @@ public final class DialogSoft extends DialogCards {
             panneau_.setPreferredSize(new Dimension(600,400));
             container_.add(panneau_,BorderLayout.CENTER);
         } else {
-            JPanel panneau_=new JPanel(new GridLayout(0,1));
+            Panel panneau_=new Panel(new GridLayout(0,1));
             clickCard=new JCheckBox(messages.getVal(CLICK_FOR_PLAYING_CARD));
             clickCard.setSelected(parametres.getJeuCarteClic());
             panneau_.add(clickCard);

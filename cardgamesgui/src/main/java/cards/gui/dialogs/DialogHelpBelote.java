@@ -3,8 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import cards.belote.BidBeloteSuit;
@@ -14,6 +12,8 @@ import cards.consts.Order;
 import cards.consts.Suit;
 import cards.gui.MainWindow;
 import code.gui.Dialog;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -49,10 +49,10 @@ public final class DialogHelpBelote extends Dialog {
             EnumMap<Suit,HandBelote> _repartitionJouees,
             Suit _couleurDemandee,BidBeloteSuit _bid,
             StringList _pseudos) {
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new FlowLayout());
-        JPanel panneau2_=new JPanel();
-        JPanel panneau3_;
+        Panel panneau2_=new Panel();
+        Panel panneau3_;
         JTextArea zone_;
         panneau2_.setLayout(new BorderLayout());
         HandBelote tout_ = HandBelote.pileBase();
@@ -78,7 +78,7 @@ public final class DialogHelpBelote extends Dialog {
             tout_.trier(Suit.couleursOrdinaires(), true, ordre_);
         }
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
-        panneau3_=new JPanel();
+        panneau3_=new Panel();
 //        Suit couleur_;
         int nbBotPlayers_ = _pseudos.size();
         for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbBotPlayers_;indicePseudo_++) {
@@ -122,7 +122,7 @@ public final class DialogHelpBelote extends Dialog {
             panneau3_.add(zone_);
         }
         panneau2_.add(panneau3_,BorderLayout.CENTER);
-        JScrollPane ascenseur_=new JScrollPane(panneau2_);
+        ScrollPane ascenseur_=new ScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);
         DIALOG.setContentPane(container_);

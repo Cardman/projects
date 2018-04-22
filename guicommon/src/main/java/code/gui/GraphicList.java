@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,10 +13,10 @@ import javax.swing.SwingUtilities;
 import code.util.CustList;
 import code.util.Numbers;
 
-public class GraphicList<T> implements GraphicListable {
+public class GraphicList<T> extends CustComponent implements GraphicListable {
 
     private CustList<T> list;
-    private CustList<Component> listComponents = new CustList<Component>();
+    private CustList<JComponent> listComponents = new CustList<JComponent>();
     private CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
     private CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
     private Numbers<Integer> selectedIndexes = new Numbers<Integer>();
@@ -104,6 +105,7 @@ public class GraphicList<T> implements GraphicListable {
         panel_.removeAll();
         selectedIndexes.clear();
         panel_.revalidate();
+        panel_.repaint();
         scroll.revalidate();
         indexableKey.clear();
         indexableMouse.clear();
@@ -115,6 +117,7 @@ public class GraphicList<T> implements GraphicListable {
         panel_.remove(_index);
         selectedIndexes.removeObj(_index);
         resetDimensions();
+        
         if (!simple) {
             indexableKey.remove(_index);
             indexableMouse.remove(_index);
@@ -273,6 +276,7 @@ public class GraphicList<T> implements GraphicListable {
         scroll.setPreferredSize(new Dimension(width_ + 4, (h_ + 2)* Math.min(c_, visibleRowCount)));
         panel_.revalidate();
         scroll.revalidate();
+        panel_.repaint();
     }
     protected static void reindex(CustList<IndexableListener> _list) {
         int index_ = 0;
@@ -336,7 +340,53 @@ public class GraphicList<T> implements GraphicListable {
     }
 
     @Override
-    public CustList<Component> getListComponents() {
+    public CustList<JComponent> getListComponents() {
         return listComponents;
+    }
+
+    public int getSelectedIndex() {
+        if (selectedIndexes.isEmpty()) {
+            return -1;
+        }
+        return selectedIndexes.first();
+    }
+
+    public T getSelectedValue() {
+        if (selectedIndexes.isEmpty()) {
+            return null;
+        }
+        return list.get(selectedIndexes.first());
+    }
+
+    public CustList<T> getSelectedValuesLs() {
+        CustList<T> list_ = new CustList<T>();
+        for (int i: selectedIndexes) {
+            list_.add(get(i));
+        }
+        return list_;
+    }
+    public T get(int _i) {
+        return list.get(_i);
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    public T last() {
+        return list.last();
+    }
+
+    public boolean isSelectionEmpty() {
+        return selectedIndexes.isEmpty();
+    }
+
+    public int size() {
+        return list.size();
+    }
+
+    @Override
+    public JComponent getComponent() {
+        return scroll;
     }
 }

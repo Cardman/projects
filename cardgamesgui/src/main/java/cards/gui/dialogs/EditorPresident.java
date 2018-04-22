@@ -4,8 +4,6 @@ import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 
@@ -30,6 +28,8 @@ import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.ConfirmDialog;
 import code.gui.FileSaveDialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -68,7 +68,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private boolean partieSauvegardee;
     private GamePresident partie;
     private int nombreCartesSelectionnees;
-    private JPanel panelsCards;
+    private Panel panelsCards;
     private PresidentCardsScrollableList stack;
     private CustList<PresidentCardsScrollableList> hands = new CustList<PresidentCardsScrollableList>();
     private JLabel labelSelectCards;
@@ -124,7 +124,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers) {
         getJt().removeAll();
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         initMessageName();
         Numbers<Integer> decks_ = new Numbers<Integer>();
@@ -134,7 +134,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         }
         initJt(new JSpinner(new SpinnerListModel(decks_.toArray())),_enabledChangingNbPlayers,_nbPlayers);
         container_.add(getJt(),BorderLayout.CENTER);
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseListener(new ValidateRulesDealEvent(this));
         panneau_.add(bouton_);
@@ -152,9 +152,9 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     private void distribuer() {
         setTitle(getMessages().getVal(DEALING_CARDS));
-        JPanel c=new JPanel();
+        Panel c=new Panel();
         c.setLayout(new BorderLayout());
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         byte nbCartesPJ_;
 
         int nbCards_ = getReglesPresident().getNbStacks() * HandPresident.pileBase().total();
@@ -190,13 +190,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
         plc_.iniPilePresident(pile_);
         plc_.initSelectionCartePresident();
-        plc_.getListe().addListSelectionListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        panelsCards=new JPanel();
+        plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+        panelsCards=new Panel();
         stack = plc_;
         panelsCards.add(plc_);
         plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
         plc_.initSelectionCartePresident();
-        plc_.getListe().addListSelectionListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+        plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
         panelsCards.add(plc_);
         hands.clear();
@@ -214,18 +214,18 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             message_ = StringList.simpleStringsFormat(message_, n);
             plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_);
             plc_.initSelectionCartePresident();
-            plc_.getListe().addListSelectionListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+            plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
             panelsCards.add(plc_);
             hands.add(plc_);
 //            i_++;
         }
-        JScrollPane scroll_ = new JScrollPane(panelsCards);
+        ScrollPane scroll_ = new ScrollPane(panelsCards);
         scroll_.setPreferredSize(new Dimension(500, h_));
-        panneau_=new JPanel();
+        panneau_=new Panel();
         panneau_.setLayout(new BorderLayout());
         panneau_.add(scroll_,BorderLayout.CENTER);
-        JPanel sousPanneau_=new JPanel();
+        Panel sousPanneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -246,7 +246,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
 
-        panneau_=new JPanel();
+        panneau_=new Panel();
         bouton_=new LabelButton(getMessages().getVal(BACK));
         bouton_.addMouseListener(new BackToRulesEvent(this));
         panneau_.add(bouton_);
@@ -410,7 +410,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public JPanel getPanelsCards() {
+    public Panel getPanelsCards() {
         return panelsCards;
     }
 

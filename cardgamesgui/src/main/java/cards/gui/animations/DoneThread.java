@@ -12,7 +12,7 @@ public final class DoneThread extends Thread {
     @Override
     public void run() {
         progressingWindow.setVisible(false);
-        progressingWindow.getContentPane().removeAll();
+        progressingWindow.getPane().removeAll();
         progressingWindow.removeAll();
         progressingWindow.dispose();
     }

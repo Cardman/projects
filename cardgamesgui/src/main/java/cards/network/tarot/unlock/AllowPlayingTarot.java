@@ -1,9 +1,9 @@
 package cards.network.tarot.unlock;
+import cards.tarot.enumerations.Handfuls;
+import cards.tarot.enumerations.Miseres;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.annot.RwXml;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
 
 @RwXml
 public final class AllowPlayingTarot {

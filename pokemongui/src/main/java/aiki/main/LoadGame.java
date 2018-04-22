@@ -26,7 +26,7 @@ public final class LoadGame extends Thread {
         }
         MainWindow.getDialog().stopAnimation();
         MainWindow.getDialog().setVisible(false);
-        MainWindow.getDialog().getContentPane().removeAll();
+        MainWindow.getDialog().getPane().removeAll();
         MainWindow.getDialog().stopTimer();
 //        ThreadInvoker.invokeNow(new DoneLoadingThread());
     }

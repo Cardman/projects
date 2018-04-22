@@ -2,9 +2,9 @@ package aiki.gui.components.walk.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import code.util.consts.Constants;
 import aiki.gui.MainWindow;
 import aiki.network.stream.Quit;
+import code.util.consts.Constants;
 
 public class ExitTradeEvent extends MouseAdapter {
 

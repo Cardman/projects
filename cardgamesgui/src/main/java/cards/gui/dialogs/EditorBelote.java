@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 
@@ -28,6 +27,7 @@ import cards.gui.panels.CardsScrollableList;
 import code.gui.ConfirmDialog;
 import code.gui.FileSaveDialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -66,7 +66,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private boolean partieSauvegardee;
     private GameBelote partie;
     private int nombreCartesSelectionnees;
-    private JPanel panelsCards;
+    private Panel panelsCards;
     private BeloteCardsScrollableList stack;
     private CustList<BeloteCardsScrollableList> hands = new CustList<BeloteCardsScrollableList>();
     private BeloteCardsScrollableList remaining;
@@ -128,7 +128,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     @Override
     public void setDialogue() {
         getJt().removeAll();
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         initMessageName();
         Numbers<Integer> decks_ = new Numbers<Integer>();
@@ -138,7 +138,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         }
         initJt(new JSpinner(new SpinnerListModel(decks_.toArray())));
         container_.add(getJt(),BorderLayout.CENTER);
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseListener(new ValidateRulesDealEvent(this));
         panneau_.add(bouton_);
@@ -174,11 +174,9 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 
     private void distribuer() {
         setTitle(getMessages().getVal(DEALING_CARDS));
-        JPanel c=new JPanel();
+        Panel c=new Panel();
         c.setLayout(new BorderLayout());
-        JPanel panneau_=new JPanel();
-
-        panneau_=new JPanel();
+        Panel panneau_=new Panel();
         panneau_.add(new JLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox();
         liste.addItem(nickNames.getPseudo());
@@ -192,16 +190,16 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         liste.addItem(getMessages().getVal(RANDOM));
         panneau_.add(liste);
         c.add(panneau_,BorderLayout.NORTH);
-        panneau_=new JPanel();
+        panneau_=new Panel();
         panneau_.setLayout(new BorderLayout());
-        panelsCards=new JPanel();
+        panelsCards=new Panel();
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getCouleurs(), displayingBelote.getDecroissant(), displayingBelote.getOrdreAvantEncheres());
         BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(12,pile_.total(),getMessages().getVal(DEALING_STACK));
         plc_.initSelectionCarteBelote();
         plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
         plc_.iniPileBelote(pile_);
-        plc_.getListe().addListSelectionListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+        plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         stack = plc_;
         panelsCards.add(plc_);
 //        hands.add(plc_);
@@ -209,7 +207,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         int lastCards_ = getReglesBelote().getRepartition().getRemainingCards();
         plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,getMessages().getVal(USER_HAND));
         plc_.initSelectionCarteBelote();
-        plc_.getListe().addListSelectionListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+        plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
         panelsCards.add(plc_);
         hands.clear();
@@ -227,7 +225,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             message_ = StringList.simpleStringsFormat(message_, n);
             plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,message_);
             plc_.initSelectionCarteBelote();
-            plc_.getListe().addListSelectionListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+            plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
             panelsCards.add(plc_);
             hands.add(plc_);
@@ -235,11 +233,11 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         }
         plc_=new BeloteCardsScrollableList(lastCards_,lastCards_,getMessages().getVal(REMAINING));
         plc_.initSelectionCarteBelote();
-        plc_.getListe().addListSelectionListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+        plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards.add(plc_);
         remaining = plc_;
         panneau_.add(panelsCards,BorderLayout.CENTER);
-        JPanel sousPanneau_=new JPanel();
+        Panel sousPanneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -260,7 +258,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
-        panneau_=new JPanel();
+        panneau_=new Panel();
         bouton_=new LabelButton(getMessages().getVal(BACK));
         bouton_.addMouseListener(new BackToRulesEvent(this));
         panneau_.add(bouton_);
@@ -423,7 +421,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         nombreCartesSelectionneesPrecedent = _nombreCartesSelectionneesPrecedent;
     }
     @Override
-    public JPanel getPanelsCards() {
+    public Panel getPanelsCards() {
         return panelsCards;
     }
     @Override

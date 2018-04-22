@@ -1,7 +1,7 @@
 package cards.network.president.actions;
-import code.util.annot.RwXml;
 import cards.network.common.PlayerActionGame;
 import cards.president.HandPresident;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class DiscardedCards extends PlayerActionGame {

@@ -2,7 +2,6 @@ package cards.gui.dialogs;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
@@ -15,6 +14,7 @@ import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
 import code.gui.AbstractDialogServer;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
@@ -67,9 +67,9 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_fenetre);
         ipOrHostName = new JTextField();
-        JPanel pane_ = new JPanel();
+        Panel pane_ = new Panel();
         pane_.setLayout(new GridLayout(0, 1));
-        JPanel panel_ = new JPanel();
+        Panel panel_ = new Panel();
         panel_.setLayout(new GridLayout(0, 2));
         if (_game == GameEnum.TAROT) {
             Numbers<Integer> nombreJoueursPossible_=new Numbers<Integer>();
@@ -135,7 +135,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
 //        ipType.setSelectedItem(IpType.HOST_NAME);
         panel_.add(ipType);
         pane_.add(panel_);
-        panel_ = new JPanel();
+        panel_ = new Panel();
         LabelButton button_ = new LabelButton(messages.getVal(CREATE_SERVER));
         button_.addMouseListener(new CreateServerEvent(this));
         panel_.add(button_);

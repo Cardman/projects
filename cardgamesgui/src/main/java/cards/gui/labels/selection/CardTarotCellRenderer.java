@@ -7,24 +7,26 @@ import javax.swing.JLabel;
 
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.CommonCellRenderer;
+import code.gui.CustCellRender;
+import code.gui.GraphicListable;
 import code.util.Numbers;
 import code.util.consts.Constants;
 /**
  */
-public class CardTarotCellRenderer extends CommonCellRenderer{
+public class CardTarotCellRenderer extends CustCellRender{
     private CardTarot card;
     private boolean selectionne;
     @Override
-    public JLabel getListCellRendererComponent(Object _value,
+    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value,
             int _index, boolean _isSelected, boolean _cellHasFocus) {
+        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
         card=(CardTarot)_value;
         selectionne=_isSelected;
-        setPreferredSize(new Dimension(50,10));
-        return this;
+        label_.setPreferredSize(new Dimension(50,10));
+        return label_;
     }
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         if(!selectionne) {
             _g.setColor(Color.WHITE);
         } else {
@@ -85,5 +87,13 @@ public class CardTarotCellRenderer extends CommonCellRenderer{
             _g.setColor(Color.RED);
         }
         _g.drawString(card.getSymbol(Constants.getLanguage()),10,10);
+    }
+    @Override
+    public int getHeight() {
+        return 10;
+    }
+    @Override
+    public int getWidth() {
+        return 50;
     }
 }

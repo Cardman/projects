@@ -1,14 +1,13 @@
 package aiki.gui.components.listeners;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JTextField;
 
 import aiki.gui.components.ComboBoxSearchingMode;
 import code.gui.AutoCompleteDocument;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 import code.util.pagination.SearchingMode;
 
-public class ChangedModeEvent implements ActionListener {
+public class ChangedModeEvent extends ListSelection {
 
     private ComboBoxSearchingMode mode;
 
@@ -29,7 +28,7 @@ public class ChangedModeEvent implements ActionListener {
 //    }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void valueChanged(SelectionInfo _e) {
         SearchingMode s_ = mode.getCurrent();
         AutoCompleteDocument.setMode(field, s_);
     }

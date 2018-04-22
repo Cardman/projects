@@ -2,11 +2,10 @@ package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
-
+import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 
-public class HeroLabel extends JLabel {
+public class HeroLabel extends PaintableLabel {
 
     private int[][] image;
 
@@ -21,7 +20,7 @@ public class HeroLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.drawImage(ConverterGraphicBufferedImage.decodeToImage(image), 0, 0, null);

@@ -4,7 +4,6 @@ import java.awt.Image;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
@@ -13,7 +12,7 @@ import code.gui.events.SetterLanguage;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public class LanguageFrame extends JFrame implements SetterLanguage, Packable {
+public class LanguageFrame extends CommonFrame implements SetterLanguage, Packable {
 
     private static final String TITLE = " ";
 
@@ -27,6 +26,7 @@ public class LanguageFrame extends JFrame implements SetterLanguage, Packable {
 
     private String dir;
 
+    private JFrame frame = new JFrame();
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, Image _icon) {
         dir = _dir;
         if (_icon != null) {
@@ -35,11 +35,16 @@ public class LanguageFrame extends JFrame implements SetterLanguage, Packable {
         init(_args, _soft);
     }
 
+    @Override
+    public void pack() {
+        frame.pack();
+    }
+
     private void init(String[] _args, SoftApplicationCore _soft) {
         soft = _soft;
         args = _args;
         setTitle(TITLE);
-        JPanel panneau_ = new JPanel();
+        Panel panneau_ = new Panel();
         panneau_.setLayout(new GridLayout(0,1));
         for (String l: Constants.getAvailableLanguages()) {
             JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));
@@ -52,7 +57,7 @@ public class LanguageFrame extends JFrame implements SetterLanguage, Packable {
         setLocationRelativeTo(null);
         setVisible(true);
         pack();
-        SetStyle.setupStyle(this);
+        SetStyle.setupStyle(getFrame());
     }
 
     @Override
@@ -61,7 +66,7 @@ public class LanguageFrame extends JFrame implements SetterLanguage, Packable {
         dispose();
         SoftApplicationCore.saveLanguage(dir, _language);
         Constants.setSystemLanguage(_language);
-        removeAll();
+        getPane().removeAll();
         StringMap<Object> file_ = soft.getFile(args);
         soft.launch(langue, file_);
     }
@@ -69,6 +74,11 @@ public class LanguageFrame extends JFrame implements SetterLanguage, Packable {
     @Override
     public String getLanguage() {
         return langue;
+    }
+
+    @Override
+    public Image getImageIconFrame() {
+        return null;
     }
 
 

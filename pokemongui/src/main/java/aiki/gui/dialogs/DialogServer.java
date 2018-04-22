@@ -2,7 +2,6 @@ package aiki.gui.dialogs;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -11,6 +10,7 @@ import code.gui.AbstractDialogServer;
 import code.gui.Dialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
@@ -65,9 +65,9 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         setResizable(false);
         setTitle(messages.getVal(TITLE));
         ipOrHostName = new JTextField();
-        JPanel pane_ = new JPanel();
+        Panel pane_ = new Panel();
         pane_.setLayout(new GridLayout(0, 1));
-        JPanel panel_ = new JPanel();
+        Panel panel_ = new Panel();
         panel_.setLayout(new GridLayout(0, 2));
         JLabel ipServer_ = new JLabel(messages.getVal(IP_SERVER));
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));
@@ -80,7 +80,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         ipType.setSelectedItem(IpType.HOST_NAME);
         panel_.add(ipType);
         pane_.add(panel_);
-        panel_ = new JPanel();
+        panel_ = new Panel();
         LabelButton button_ = new LabelButton(messages.getVal(CREATE_SERVER));
         button_.addMouseListener(new CreateServerEvent(this));
         panel_.add(button_);

@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Window;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import cards.belote.DealBelote;
@@ -20,32 +18,34 @@ import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
+import code.gui.ChangeableTitle;
 import code.gui.NumComboBox;
+import code.gui.Panel;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTricksHands {
+public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricksHands {
 
     private static final String ACCESS = "cards.gui.panels.PanelTricksHandsBelote";
     private static final String DEFAULT ="Default";
     private static final String TRICK ="trick";
     private static final String CARD ="card";
     private StringMap<String> messages = new StringMap<String>();
-    private JPanel cards;
-    private JPanel tricks;
-    private JPanel selectedTrick;
-    private JPanel hands;
+    private Panel cards;
+    private Panel tricks;
+    private Panel selectedTrick;
+    private Panel hands;
     private NumComboBox trickNumber;
     private NumComboBox cardNumberTrick;
     private TricksHandsBelote tricksHands;
-    private Window parent;
+    private ChangeableTitle parent;
     private byte numberPlayers;
     private DisplayingBelote displayingBelote;
 
-    public PanelTricksHandsBelote(Window _parent,
+    public PanelTricksHandsBelote(ChangeableTitle _parent,
             TricksHandsBelote _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
@@ -58,8 +58,8 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
         setLayout(new BorderLayout());
-        cards=new JPanel();
-        JPanel players_ = new JPanel(new GridLayout(0,1));
+        cards=new Panel();
+        Panel players_ = new Panel(new GridLayout(0,1));
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
         }
@@ -68,15 +68,15 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
             players_.add(getBlankCard(_pseudos, joueur_));
         }
         cards.add(players_);
-        tricks = new JPanel(new GridLayout(0,1));
+        tricks = new Panel(new GridLayout(0,1));
         cards.add(tricks);
-        selectedTrick = new JPanel(new GridLayout(0,1));
+        selectedTrick = new Panel(new GridLayout(0,1));
         cards.add(selectedTrick);
-        hands=new JPanel(new GridLayout(0,1));
-        JPanel sousPanneau3_;
+        hands=new Panel(new GridLayout(0,1));
+        Panel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
-            sousPanneau3_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(dealt_.main(joueur_))) {
                 sousPanneau3_.add(c);
             }
@@ -91,11 +91,11 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
             hands.add(sousPanneau3_);
         }
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         }
         cards.add(hands);
-        JPanel sousPanneau2_=new JPanel(new GridLayout(0,1));
-        sousPanneau3_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+        Panel sousPanneau2_=new Panel(new GridLayout(0,1));
+        sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
         for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(dealt_.derniereMain())) {
             sousPanneau3_.add(c);
         }
@@ -109,7 +109,7 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
         sousPanneau2_.add(sousPanneau3_);
         cards.add(sousPanneau2_);
         add(cards,BorderLayout.CENTER);
-        JPanel selectionGameState_=new JPanel();
+        Panel selectionGameState_=new Panel();
         selectionGameState_.add(new JLabel(messages.getVal(TRICK)));
         Integer[] numerosPlis_;
         numerosPlis_=new Integer[tricks_.size()+2];
@@ -118,7 +118,7 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
             numerosPlis_[indicePli_]=indicePli_-1;
         }
         trickNumber=new NumComboBox(numerosPlis_);
-        trickNumber.addActionListener(new ListenerTricks(this));
+        trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber);
         selectionGameState_.add(new JLabel(messages.getVal(CARD)));
         Integer[] numerosJoueurs_=new Integer[_numberPlayers];
@@ -126,7 +126,7 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
         }
         cardNumberTrick=new NumComboBox(numerosJoueurs_);
-        cardNumberTrick.addActionListener(new ListenerCards(this));
+        cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick);
         add(selectionGameState_,BorderLayout.SOUTH);
     }
@@ -150,7 +150,7 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            JPanel sousPanneau4_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(dealt_.main(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -167,7 +167,7 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
         int nbBots_ = numberPlayers;
         nbBots_ --;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {
@@ -249,7 +249,7 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
         hands.removeAll();
         hands.setLayout(new GridLayout(0,1));
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            JPanel sousPanneau4_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(dealt_.main(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -265,7 +265,7 @@ public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTrick
         int nbBots_ = numberPlayers;
         nbBots_ --;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {

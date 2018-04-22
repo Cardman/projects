@@ -1,21 +1,25 @@
 package cards.gui.labels;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
-
-import javax.swing.JLabel;
 
 import cards.belote.BidBeloteSuit;
 import cards.consts.Suit;
+import code.gui.LabelButtonUtil;
+import code.gui.PaintableLabel;
 import code.util.Numbers;
 
-public class SuitLabel extends JLabel {
+public class SuitLabel extends PaintableLabel {
 
     private static final String EMPTY_STRING = "";
 
     private BidBeloteSuit bid;
 
     private boolean selected;
+
+    private String text;
 
     public void setSuit(BidBeloteSuit _bid) {
         bid = _bid;
@@ -32,6 +36,10 @@ public class SuitLabel extends JLabel {
         }
     }
 
+    public void setText(String _emptyString) {
+        text = _emptyString;
+    }
+
     public void setSelected(BidBeloteSuit _bid) {
         if (bid.getCouleur() != _bid.getCouleur()) {
             selected = false;
@@ -43,9 +51,13 @@ public class SuitLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         if (!getText().isEmpty()) {
-            super.paintComponent(_g);
+            Font font_ = getFont();
+            FontMetrics fontMetrics_ = getFontMetrics(font_);
+            int h_ = fontMetrics_.getHeight();
+            int w_ = fontMetrics_.stringWidth(text);
+            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, getForeground(), getBackground());
         } else {
             _g.setColor(Color.WHITE);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
@@ -57,6 +69,10 @@ public class SuitLabel extends JLabel {
             _g.setColor(Color.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
+    }
+
+    private String getText() {
+        return text;
     }
 
     private void dessinerGrandSymbole(Graphics _g,int _x,int _y) {

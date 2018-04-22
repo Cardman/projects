@@ -1,7 +1,6 @@
 package cards.gui.containers;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
@@ -15,6 +14,7 @@ import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
@@ -25,8 +25,8 @@ public class ContainerPresident extends ContainerGame {
     public static final String EMPTY="";
     public static final String TAB="\t";
 
-    private JPanel panelReceivedCards;
-    private JPanel panelGivenCards;
+    private Panel panelReceivedCards;
+    private Panel panelGivenCards;
 
     /**Renvoie tous les scores de toutes les parties non solitaires*/
     private CustList<Numbers<Long>> scores=new CustList<Numbers<Long>>();
@@ -108,8 +108,8 @@ public class ContainerPresident extends ContainerGame {
         virtualHand.ajouter(c_);
     }
 
-    protected JPanel assemble() {
-        JPanel panelCards_ = new JPanel();
+    protected Panel assemble() {
+        Panel panelCards_ = new Panel();
         panelCards_.add(getPanelGivenCards());
         panelCards_.add(getPanelReceivedCards());
         return panelCards_;
@@ -179,19 +179,19 @@ public class ContainerPresident extends ContainerGame {
         givingCardsOk = _givingCardsOk;
     }
 
-    protected JPanel getPanelReceivedCards() {
+    protected Panel getPanelReceivedCards() {
         return panelReceivedCards;
     }
 
-    public void setPanelReceivedCards(JPanel _panelReceivedCards) {
+    public void setPanelReceivedCards(Panel _panelReceivedCards) {
         panelReceivedCards = _panelReceivedCards;
     }
 
-    protected JPanel getPanelGivenCards() {
+    protected Panel getPanelGivenCards() {
         return panelGivenCards;
     }
 
-    public void setPanelGivenCards(JPanel _panelGivenCards) {
+    public void setPanelGivenCards(Panel _panelGivenCards) {
         panelGivenCards = _panelGivenCards;
     }
 

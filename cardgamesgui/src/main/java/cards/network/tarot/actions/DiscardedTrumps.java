@@ -1,6 +1,6 @@
 package cards.network.tarot.actions;
-import code.util.annot.RwXml;
 import cards.tarot.HandTarot;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class DiscardedTrumps {

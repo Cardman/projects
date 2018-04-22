@@ -3,13 +3,13 @@ import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
 import cards.gui.MainWindow;
 import cards.president.enumerations.CardPresident;
 import code.gui.Dialog;
+import code.gui.Panel;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -44,9 +44,9 @@ public final class DialogHelpPresident extends Dialog {
 
     public static void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks) {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
-        JPanel contentPane_ = new JPanel();
-        contentPane_.setLayout(new BoxLayout(contentPane_, BoxLayout.PAGE_AXIS));
-        JPanel panelCards_ = new JPanel();
+        Panel contentPane_ = new Panel();
+        contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panelCards_ = new Panel();
         panelCards_.setLayout(new GridLayout(0, 3));
         panelCards_.add(new JLabel(DIALOG.messages.getVal(LEVEL)));
         panelCards_.add(new JLabel(DIALOG.messages.getVal(NB_PLAYED)));

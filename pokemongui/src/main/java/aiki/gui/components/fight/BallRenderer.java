@@ -1,6 +1,7 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -8,13 +9,14 @@ import javax.swing.JLabel;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
-import code.gui.CommonCellRenderer;
+import code.gui.CustCellRender;
+import code.gui.GraphicListable;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.Rate;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public class BallRenderer extends CommonCellRenderer {
+public class BallRenderer extends CustCellRender {
 
     private static final String PERCENT = " %";
 
@@ -36,7 +38,7 @@ public class BallRenderer extends CommonCellRenderer {
         facade = _facade;
     }
 
-    public void setMaxWidth(NatTreeMap<String,BallNumberRate> _balls) {
+    public void setMaxWidth(FontMetrics _fm,NatTreeMap<String,BallNumberRate> _balls) {
         maxWidthImage = 0;
         maxWidthRate = 0;
         maxWidthNumber = 0;
@@ -44,11 +46,11 @@ public class BallRenderer extends CommonCellRenderer {
             int[][] img_ = facade.getData().getMiniItems().getVal(b.getName());
             BufferedImage b_ = ConverterGraphicBufferedImage.decodeToImage(img_);
             Rate r_ = b.getRate();
-            int w_ = getFontMetrics(getFont()).stringWidth(r_.toNumberString());
+            int w_ = _fm.stringWidth(r_.toNumberString());
             if (w_ > maxWidthRate) {
                 maxWidthRate = w_;
             }
-            w_ = getFontMetrics(getFont()).stringWidth(b.getNumber().toNumberString());
+            w_ = _fm.stringWidth(b.getNumber().toNumberString());
             if (w_ > maxWidthNumber) {
                 maxWidthNumber = w_;
             }
@@ -60,18 +62,19 @@ public class BallRenderer extends CommonCellRenderer {
     }
 
     @Override
-    public JLabel getListCellRendererComponent(Object _value, int _index,
+    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value, int _index,
             boolean _isSelected, boolean _cellHasFocus) {
+        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
         selected = _isSelected;
         ball = (BallNumberRate)_value;
         int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());
         ballImage = ConverterGraphicBufferedImage.decodeToImage(img_);
-        setPreferredSize(new Dimension(100, ballImage.getHeight()));
-        return this;
+        label_.setPreferredSize(new Dimension(100, ballImage.getHeight()));
+        return label_;
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.drawImage(ballImage, 0, 0, null);
@@ -83,5 +86,15 @@ public class BallRenderer extends CommonCellRenderer {
             _g.setColor(Color.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
+    }
+
+    @Override
+    public int getHeight() {
+        return ballImage.getHeight();
+    }
+
+    @Override
+    public int getWidth() {
+        return 100;
     }
 }

@@ -33,7 +33,7 @@ public final class OpeningGame extends Thread {
         //Freeing resources
         MainWindow.getDialog().stopAnimation();
         MainWindow.getDialog().setVisible(false);
-        MainWindow.getDialog().getContentPane().removeAll();
+        MainWindow.getDialog().getPane().removeAll();
         MainWindow.getDialog().stopTimer();
         window = null;
 //        ThreadInvoker.invokeNow(new DoneLoadingThread());

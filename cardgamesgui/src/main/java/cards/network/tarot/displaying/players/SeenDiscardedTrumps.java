@@ -1,6 +1,6 @@
 package cards.network.tarot.displaying.players;
-import code.util.annot.RwXml;
 import cards.network.common.PlayerActionGame;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class SeenDiscardedTrumps extends PlayerActionGame {

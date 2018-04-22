@@ -1,13 +1,13 @@
 package cards.gui.dialogs;
 import java.awt.Dimension;
 
-import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import cards.gui.MainWindow;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.president.DisplayingPresident;
 import cards.president.TricksHandsPresident;
+import code.gui.ScrollPane;
 import code.util.StringList;
 
 public final class DialogTricksPresident extends DialogCards {
@@ -36,7 +36,7 @@ public final class DialogTricksPresident extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingPresident _displayingPresident) {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
-        JScrollPane scroll_ = new JScrollPane(new PanelTricksHandsPresident(this,
+        ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsPresident(this,
                 _tricksHands, _numberPlayers, _pseudos, _displayingPresident));
         scroll_.setPreferredSize(new Dimension(600, 600));
         setContentPane(scroll_);

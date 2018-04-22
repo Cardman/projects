@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
@@ -27,6 +26,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -58,9 +58,9 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private JSpinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private ComboBoxMixCards listeChoix;
-    private JPanel bidding;
+    private Panel bidding;
     private CustList<JCheckBox> bids = new CustList<JCheckBox>();
-    private JPanel declaringMiseres;
+    private Panel declaringMiseres;
     private CustList<JCheckBox> miseres = new CustList<JCheckBox>();
     private ComboBoxEnumCards<EndDealTarot> listeChoixTwo;
     private ComboBoxEnumCards<ModeTarot> listeChoixThree;
@@ -69,7 +69,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private ComboBoxEnumCards<Handfuls> listeChoixFive;
 
     private JSpinner nbAtoutsPoignee;
-    private JPanel players;
+    private Panel players;
     private JSpinner nbJoueurs;
     private EnumMap<Handfuls,Integer> poigneesAutorisees = new EnumMap<Handfuls,Integer>();
 
@@ -83,7 +83,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 
     protected void initJt(JSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers) {
         setNbGames(_nbGames);
-        JPanel dealing_=new JPanel();
+        Panel dealing_=new Panel();
         dealing_.setLayout(new GridLayout(0,2));
         //Panneau Battre les cartes
         dealing_.add(new JLabel(getMessages().getVal(MIX_CARDS)));
@@ -107,11 +107,10 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
-        JPanel declaring_=new JPanel();
-        declaring_=new JPanel();
-        declaring_.setLayout(new BoxLayout(declaring_, BoxLayout.PAGE_AXIS));
+        Panel declaring_=new Panel();
+        declaring_.setLayout(new BoxLayout(declaring_.getComponent(), BoxLayout.PAGE_AXIS));
         declaring_.add(new JLabel(getMessages().getVal(BIDS)));
-        bidding=new JPanel();
+        bidding=new Panel();
         bids.clear();
         bidding.setLayout(new FlowLayout());
         for (BidTarot enchere_:BidTarot.values()) {
@@ -124,21 +123,21 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         declaring_.add(bidding);
         //Panneau Poignees
-        JPanel sousPanneau_=new JPanel();
+        Panel sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(3,2));
         sousPanneau_.add(new JLabel(getMessages().getVal(HANDFUL)));
         listeChoixFive = new ComboBoxEnumCards<Handfuls>();
         for (Handfuls p: Handfuls.getDeclarableHandFuls()) {
             listeChoixFive.addItem(p);
         }
-        listeChoixFive.addActionListener(new ListenerHandfulName(this));
+        listeChoixFive.setListener(new ListenerHandfulName(this));
         sousPanneau_.add(listeChoixFive);
         sousPanneau_.add(new JLabel(getMessages().getVal(NUMBER_TRUMPS)));
         int nbCartesJoueur_ = getReglesTarot().getRepartition().getNombreCartesParJoueur();
         int nbTrumps_ = HandTarot.trumpsPlusExcuse().total();
         nbCartesJoueur_ = Math.min(nbCartesJoueur_, nbTrumps_);
         poigneesAutorisees = new EnumMap<Handfuls,Integer>(getReglesTarot().getPoigneesAutorisees());
-        int valeur_ = poigneesAutorisees.getVal((Handfuls) listeChoixFive.getSelectedItem());
+        int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
         nbAtoutsPoignee = new JSpinner(new SpinnerNumberModel(valeur_,0,nbCartesJoueur_,1));
         sousPanneau_.add(nbAtoutsPoignee);
         LabelButton boutonPoignees_ = new LabelButton(getMessages().getVal(VALIDATE_HANDFUL));
@@ -146,7 +145,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(boutonPoignees_);
         declaring_.add(sousPanneau_);
         //Panneau Miseres
-        declaringMiseres=new JPanel();
+        declaringMiseres=new Panel();
         miseres.clear();
         declaringMiseres.setLayout(new FlowLayout());
         declaringMiseres.add(new JLabel(getMessages().getVal(ALLOWED_MISERES)));
@@ -160,29 +159,47 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getJt().add(getMessages().getVal(DECLARING),declaring_);
 
         //Panneau Chelem
-        JPanel bidding_ =new JPanel();
+        Panel bidding_ =new Panel();
         bidding_.setLayout(new GridLayout(0,3));
 
         //Panneau Regle du demi-point
-        sousPanneau_=new JPanel();
+        sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,1));
         JLabel endDeal_ = new JLabel(getMessages().getVal(END_DEAL));
         endDeal_.setToolTipText(getMessages().getVal(END_DEAL_RULE));
         sousPanneau_.add(endDeal_);
         listeChoixTwo=new ComboBoxEnumCards<EndDealTarot>();
+        EndDealTarot curOne_ = getReglesTarot().getFinPartieTarot();
+        int index_ = 0;
+        int i_ = -1;
         for (EndDealTarot mode_:EndDealTarot.values()) {
+            if (mode_ == curOne_) {
+                i_ = index_;
+            }
             listeChoixTwo.addItem(mode_);
+            index_++;
         }
-        listeChoixTwo.setSelectedItem(getReglesTarot().getFinPartieTarot());
+        if (i_>-1) {
+            listeChoixTwo.selectItem(i_);
+        }
         sousPanneau_.add(listeChoixTwo);
         bidding_.add(sousPanneau_);
-        sousPanneau_=new JPanel();
+        sousPanneau_=new Panel();
         sousPanneau_.add(new JLabel(getMessages().getVal(MODE_GAME)));
         listeChoixThree=new ComboBoxEnumCards<ModeTarot>();
+        ModeTarot curTwo_ = getReglesTarot().getMode();
+        index_ = 0;
+        i_ = -1;
         for (ModeTarot mode_:ModeTarot.values()) {
+            if (mode_ == curTwo_) {
+                i_ = index_;
+            }
             listeChoixThree.addItem(mode_);
+            index_++;
         }
-        listeChoixThree.setSelectedItem(getReglesTarot().getMode());
+        if (i_>-1) {
+            listeChoixThree.selectItem(i_);
+        }
         sousPanneau_.add(listeChoixThree);
         bidding_.add(sousPanneau_);
         discardAfterCall = new JCheckBox(getMessages().getVal(DISCARDING));
@@ -190,9 +207,9 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         bidding_.add(discardAfterCall);
         getJt().add(getMessages().getVal(RULES),bidding_);
         //Panneau 4-5 joueurs
-        players=new JPanel();
+        players=new Panel();
         players.setLayout(new GridLayout(2,0));
-        sousPanneau_=new JPanel();
+        sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(2,0));
 
         sousPanneau_.add(new JLabel(getMessages().getVal(NUMBER_PLAYERS)));
@@ -234,14 +251,23 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(nbJoueurs);
         valeur_=(Integer) nbJoueurs.getValue();
         listeChoixFour=new ComboBoxEnumCards<DealingTarot>();
+        DealingTarot curThree_ = getReglesTarot().getRepartition();
+        index_ = 0;
+        i_ = -1;
         for(DealingTarot r:DealingTarot.values()) {
             if(r.getNombreJoueurs()!=valeur_) {
                 continue;
             }
+            if (r == curThree_) {
+                i_ = index_;
+            }
             listeChoixFour.addItem(r);
+            index_++;
         }
-        listeChoixFour.setSelectedItem(getReglesTarot().getRepartition());
-        listeChoixFour.addActionListener(new ListenerDealing(this));
+        if (i_ > -1) {
+            listeChoixFour.selectItem(i_);
+        }
+        listeChoixFour.setListener(new ListenerDealing(this));
         sousPanneau_.add(listeChoixFour);
         players.add(sousPanneau_);
         getJt().add(getMessages().getVal(REPARTITION),players);
@@ -256,7 +282,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     public abstract void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers);
 
     public void validateHandful() {
-        int valeur_ = poigneesAutorisees.getVal((Handfuls) listeChoixFive.getSelectedItem());
+        int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
         SpinnerNumberModel modele_ = (SpinnerNumberModel) nbAtoutsPoignee.getModel();
         modele_.setValue(valeur_);
     }
@@ -270,24 +296,37 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             if(r.getNombreJoueurs()!=nombreJoueursSel_) {
                 continue;
             }
-            listeChoixFour.addItem(r);
             repartitions_.add(r);
         }
-        DealingTarot repartition_ = repartitions_.first();
-        listeChoixFour.setSelectedItem(repartition_);
-        int nbCartesJoueur_ = repartition_.getNombreCartesParJoueur();
+        DealingTarot curThree_ = repartitions_.first();
+        int index_ = 0;
+        int i_ = -1;
+        for(DealingTarot r:DealingTarot.getRepartitionsValides()) {
+            if(r.getNombreJoueurs()!=nombreJoueursSel_) {
+                continue;
+            }
+            if (r == curThree_) {
+                i_ = index_;
+            }
+            listeChoixFour.addItem(r);
+            index_++;
+        }
+        if (i_ > -1) {
+            listeChoixFour.selectItem(i_);
+        }
+        int nbCartesJoueur_ = curThree_.getNombreCartesParJoueur();
         poigneesAutorisees.clear();
         for(Handfuls p: Handfuls.values()) {
             poigneesAutorisees.put(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
         }
-        Handfuls poignee_ = (Handfuls) listeChoixFive.getSelectedItem();
+        Handfuls poignee_ = listeChoixFive.getCurrentElement();
         SpinnerNumberModel modele_ = (SpinnerNumberModel) nbAtoutsPoignee.getModel();
         modele_.setMaximum(nbCartesJoueur_);
         modele_.setValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_));
     }
 
     public void validateDealingRules() {
-        DealingTarot repartition_ = (DealingTarot) listeChoixFour.getSelectedItem();
+        DealingTarot repartition_ = listeChoixFour.getCurrentElement();
         if (repartition_ == null) {
             return;
         }
@@ -296,14 +335,14 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         for(Handfuls p: Handfuls.values()) {
             poigneesAutorisees.put(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
         }
-        Handfuls poignee_ = (Handfuls) listeChoixFive.getSelectedItem();
+        Handfuls poignee_ = listeChoixFive.getCurrentElement();
         SpinnerNumberModel modele_ = (SpinnerNumberModel) nbAtoutsPoignee.getModel();
         modele_.setMaximum(nbCartesJoueur_);
         modele_.setValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_));
     }
 
     public void validateHandfulTrumps() {
-        Handfuls poignee_ = (Handfuls) listeChoixFive.getSelectedItem();
+        Handfuls poignee_ = listeChoixFive.getCurrentElement();
         SpinnerNumberModel modele_ = (SpinnerNumberModel) nbAtoutsPoignee.getModel();
         int valeur_ = (Integer) modele_.getValue();
         poigneesAutorisees.put(poignee_, valeur_);
@@ -328,10 +367,10 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             contrats_.put(enchere_, jcb_.isSelected());
         }
         getReglesTarot().setContrats(contrats_);
-        getReglesTarot().setFinPartieTarot((EndDealTarot)listeChoixTwo.getSelectedItem());
-        getReglesTarot().setMode((ModeTarot)listeChoixThree.getSelectedItem());
+        getReglesTarot().setFinPartieTarot(listeChoixTwo.getCurrentElement());
+        getReglesTarot().setMode(listeChoixThree.getCurrentElement());
         getReglesTarot().setDiscardAfterCall(discardAfterCall.isSelected());
-        getReglesTarot().setRepartition((DealingTarot)listeChoixFour.getSelectedItem());
+        getReglesTarot().setRepartition(listeChoixFour.getCurrentElement());
 
 
     }

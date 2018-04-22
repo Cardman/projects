@@ -1,12 +1,9 @@
 package aiki.gui.components;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Window;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import aiki.facade.FacadeGame;
@@ -20,8 +17,11 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingItem;
 import code.gui.AutoCompleteDocument;
+import code.gui.ChangeableTitle;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
@@ -61,7 +61,7 @@ public final class PaginatorItem extends Paginator {
 
     private ComboBoxSearchingMode modeDescription;
 
-    private JPanel results = new JPanel();
+    private Panel results = new Panel();
 
     private ComboBoxSelectedBool cmpNameSorting;
 
@@ -81,7 +81,7 @@ public final class PaginatorItem extends Paginator {
 
     private boolean buy;
 
-    public PaginatorItem(Window _w, FacadeGame _d, boolean _buy) {
+    public PaginatorItem(ChangeableTitle _w, FacadeGame _d, boolean _buy) {
         super(ACCESS_ITEM);
         setWindow(_w);
         setFacade(_d);
@@ -119,7 +119,7 @@ public final class PaginatorItem extends Paginator {
         }
         getFacade().setSearchModeNameItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeDescriptionItem(SearchingMode.WHOLE_STRING);
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(getComponent(),BoxLayout.PAGE_AXIS));
         StringList it_ = new StringList();
         for (String i: getFacade().getData().getItems().getKeys()) {
             String abTr_ = getFacade().translateItem(i);
@@ -138,7 +138,7 @@ public final class PaginatorItem extends Paginator {
 //                getFacade().setContentOfDescriptionItem(convertStringField(description.getText()));
 //            }
 //        });
-        modeName.addActionListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, name));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -216,8 +216,8 @@ public final class PaginatorItem extends Paginator {
 //                getFacade().setCmpNumberPriorityItem((Integer)cmpNumberPrio.getSelectedItem());
 //            }
 //        });
-        JPanel search_;
-        search_ = new JPanel(new GridLayout(0,3));
+        Panel search_;
+        search_ = new Panel(new GridLayout(0,3));
         search_.add(new JLabel(getMessages().getVal(NAME)));
         search_.add(name);
         search_.add(modeName);
@@ -231,8 +231,8 @@ public final class PaginatorItem extends Paginator {
         search_.add(minNumber);
         search_.add(maxNumber);
         add(search_);
-        JPanel sorting_;
-        sorting_ = new JPanel(new GridLayout(0,3));
+        Panel sorting_;
+        sorting_ = new Panel(new GridLayout(0,3));
         sorting_.add(new JLabel(getMessages().getVal(NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
@@ -246,8 +246,8 @@ public final class PaginatorItem extends Paginator {
         sorting_.add(cmpNumberSorting);
         sorting_.add(cmpNumberPrio);
         add(sorting_);
-        JPanel top_;
-        top_ = new JPanel();
+        Panel top_;
+        top_ = new Panel();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseListener(new SearchEvent(this));
@@ -279,12 +279,12 @@ public final class PaginatorItem extends Paginator {
         getHeader().setPreferredSize(new Dimension(widths_.getMaximum(), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
-        add(new JScrollPane(results));
-        JPanel bottom_ = new JPanel();
+        add(new ScrollPane(results));
+        Panel bottom_ = new Panel();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().addActionListener(new ChangedPageEvent(this));
+        getPages().setListener(new ChangedPageEvent(this));
         getDelta().getDocument().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
@@ -397,10 +397,10 @@ public final class PaginatorItem extends Paginator {
         getFacade().setCmpDescriptionIncreasingItem(cmpDescriptionSorting.getCurrent());
         getFacade().setCmpPriceIncreasingItem(cmpPriceSorting.getCurrent());
         getFacade().setCmpNumberIncreasingItem(cmpNumberSorting.getCurrent());
-        getFacade().setCmpNamePriorityItem((Integer)cmpNamePrio.getSelectedItem());
-        getFacade().setCmpDescriptionPriorityItem((Integer)cmpDescriptionPrio.getSelectedItem());
-        getFacade().setCmpPricePriorityItem((Integer)cmpPricePrio.getSelectedItem());
-        getFacade().setCmpNumberPriorityItem((Integer)cmpNumberPrio.getSelectedItem());
+        getFacade().setCmpNamePriorityItem(cmpNamePrio.getCurrent());
+        getFacade().setCmpDescriptionPriorityItem(cmpDescriptionPrio.getCurrent());
+        getFacade().setCmpPricePriorityItem(cmpPricePrio.getCurrent());
+        getFacade().setCmpNumberPriorityItem(cmpNumberPrio.getCurrent());
     }
 
     @Override

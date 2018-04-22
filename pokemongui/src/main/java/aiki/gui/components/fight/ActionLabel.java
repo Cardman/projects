@@ -2,11 +2,10 @@ package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
-
 import aiki.game.fight.enums.ActionType;
+import code.gui.PaintableLabel;
 
-public class ActionLabel extends JLabel {
+public class ActionLabel extends PaintableLabel {
 
     private String action;
 
@@ -17,7 +16,6 @@ public class ActionLabel extends JLabel {
     public ActionLabel(String _action, ActionType _actionEnum) {
         action = _action;
         actionEnum = _actionEnum;
-        setText(_action);
         //setPreferredSize(new Dimension(50,10));
     }
 
@@ -30,7 +28,7 @@ public class ActionLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.setColor(Color.BLACK);

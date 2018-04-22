@@ -1,10 +1,9 @@
 package cards.gui.dialogs.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import cards.gui.dialogs.DialogPresident;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
-public class ListenerEqualityPlaying implements ActionListener {
+public class ListenerEqualityPlaying extends ListSelection {
 
     private DialogPresident dialog;
 
@@ -13,7 +12,7 @@ public class ListenerEqualityPlaying implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void valueChanged(SelectionInfo _e) {
         dialog.displayMessagePlaying();
     }
 

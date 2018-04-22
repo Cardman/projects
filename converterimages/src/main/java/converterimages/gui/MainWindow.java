@@ -6,12 +6,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import code.gui.FolderOpenDialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.events.QuittingEvent;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.stream.StreamTextFile;
@@ -45,8 +46,8 @@ public class MainWindow extends GroupFrame {
 
     public MainWindow() {
         setTitle(CONVERT_IMAGE);
-        JPanel content_ = new JPanel();
-        content_.setLayout(new BoxLayout(content_, BoxLayout.PAGE_AXIS));
+        Panel content_ = new Panel();
+        content_.setLayout(new BoxLayout(content_.getComponent(), BoxLayout.PAGE_AXIS));
         readImages = new JCheckBox(READ_IMAGES);
         readImages.setSelected(true);
         content_.add(readImages);
@@ -65,7 +66,7 @@ public class MainWindow extends GroupFrame {
         setContentPane(content_);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
 

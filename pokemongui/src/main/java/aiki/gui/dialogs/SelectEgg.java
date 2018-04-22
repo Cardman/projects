@@ -1,8 +1,6 @@
 package aiki.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
@@ -12,6 +10,8 @@ import aiki.gui.components.PaginatorEgg;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.gui.events.ClosingDialogEvent;
 import code.util.CustList;
 import code.util.StringMap;
@@ -46,10 +46,10 @@ public final class SelectEgg extends SelectDialog {
         facade = _facade;
         initOk();
 //        ok = false;
-        JPanel contentPane_ = new JPanel();
+        Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new JScrollPane(new PaginatorEgg(this, _facade)), BorderLayout.CENTER);
-        JPanel buttons_ = new JPanel();
+        contentPane_.add(new ScrollPane(new PaginatorEgg(this, _facade)), BorderLayout.CENTER);
+        Panel buttons_ = new Panel();
         LabelButton ok_ = new LabelButton(MainWindow.OK);
         ok_.addMouseListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);

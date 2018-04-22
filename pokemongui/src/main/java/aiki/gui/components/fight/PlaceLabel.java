@@ -2,17 +2,19 @@ package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
+import code.gui.PaintableLabel;
 
-public class PlaceLabel extends JLabel {
+public class PlaceLabel extends PaintableLabel {
 
     private boolean selected;
 
     private byte number;
 
+    private String text;
+
     public PlaceLabel(String _title, byte _number) {
         this(_number);
-        setText(_title);
+        text = _title;
     }
 
     public PlaceLabel(byte _number) {
@@ -28,12 +30,16 @@ public class PlaceLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.BLACK);
-        _g.drawString(getText(), 0, getHeight());
+        _g.drawString(text, 0, getHeight());
         if (selected) {
             _g.setColor(Color.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
+    }
+
+    public void setText(String _val) {
+        text = _val;
     }
 }

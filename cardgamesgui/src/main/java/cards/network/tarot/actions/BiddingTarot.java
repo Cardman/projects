@@ -1,7 +1,7 @@
 package cards.network.tarot.actions;
-import code.util.annot.RwXml;
 import cards.network.common.PlayerActionGame;
 import cards.tarot.enumerations.BidTarot;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class BiddingTarot extends PlayerActionGame {

@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -25,11 +27,13 @@ import minirts.events.Task;
 import minirts.rts.CustPoint;
 import minirts.rts.Direction;
 import minirts.rts.Facade;
+import code.gui.GroupFrame;
+import code.gui.Panel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.resources.ResourceFiles;
 import code.util.opers.BaseSixtyFourUtil;
 
-public final class MainWindow extends JFrame {
+public final class MainWindow extends GroupFrame {
 
     public static final String MOUSE_ARROW_FILE = "resources_rts/mouse_arrow.txt";
 
@@ -67,8 +71,8 @@ public final class MainWindow extends JFrame {
 
     public MainWindow() {
         AnimationUnitSoldier.setWindow(this);
-        JPanel contentPane_ = new JPanel();
-        JPanel scene_ = new JPanel();
+        Panel contentPane_ = new Panel();
+        Panel scene_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
         scene_.setLayout(new BorderLayout());
         InteractClick i_ = new InteractClick(this);
@@ -76,7 +80,7 @@ public final class MainWindow extends JFrame {
         battleground.addMouseMotionListener(i_);
         battleground.setSize(new Dimension(2048, 2048));
 //        JPanel panelGame_ = new JPanel(new BorderLayout());
-        JPanel battlegroundWrapper_ = new JPanel(null);
+        Panel battlegroundWrapper_ = new Panel((LayoutManager)null);
         battlegroundWrapper_.add(battleground);
         CustPoint cust_ = facade.getTopLeftPoint();
         Point pt_ = new Point();
@@ -131,7 +135,7 @@ public final class MainWindow extends JFrame {
         scene_.add(buttons_, BorderLayout.SOUTH);
         contentPane_.add(scene_, BorderLayout.CENTER);
         setContentPane(contentPane_);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
     }
@@ -225,5 +229,33 @@ public final class MainWindow extends JFrame {
 
     public void setLast(int _x, int _y) {
         last = new CustPoint(_x, _y);
+    }
+
+    @Override
+    public void quit() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getApplicationName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean canChangeLanguage() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void changeLanguage(String _language) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void printAll(Graphics _g) {
+        getFrame().printAll(_g);
     }
 }

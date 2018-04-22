@@ -50,7 +50,7 @@ public final class LoadingWeb extends Thread {
         dialog.stopAnimation();
         timer.stop();
         dialog.setVisible(false);
-        dialog.getContentPane().removeAll();
+        dialog.getPane().removeAll();
         dialog = null;
         session = null;
         timer = null;

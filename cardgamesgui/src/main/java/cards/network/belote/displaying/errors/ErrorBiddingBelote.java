@@ -1,6 +1,6 @@
 package cards.network.belote.displaying.errors;
-import code.util.annot.RwXml;
 import cards.belote.BidBeloteSuit;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class ErrorBiddingBelote {

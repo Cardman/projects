@@ -1,19 +1,19 @@
 package aiki.gui.dialogs;
 import java.awt.Dimension;
-import java.awt.Window;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
 import aiki.beans.PokemonStandards;
+import code.gui.ChangeableTitle;
 import code.gui.Dialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
@@ -76,12 +76,12 @@ public final class DialogHtmlData extends Dialog {
         DIALOG.initSession();
     }
 
-    private void init(Window _parent, RenderedPage _session) {
+    private void init(ChangeableTitle _parent, RenderedPage _session) {
         messages = getMessages(Resources.MESSAGES_FOLDER);
         setLocationRelativeTo(_parent);
         session = _session;
         _session.setFrame(this);
-        JPanel panel_ = new JPanel();
+        Panel panel_ = new Panel();
         JLabel area_ = new JLabel(TEXT);
         JTextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
@@ -91,7 +91,7 @@ public final class DialogHtmlData extends Dialog {
         _session.setSearchText(search_);
         _session.setField(field_);
         _session.addFinder();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
         JScrollPane scrollSession_ = _session.getScroll();

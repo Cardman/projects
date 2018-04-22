@@ -1,13 +1,12 @@
 package cards.gui.dialogs;
-import javax.swing.JTabbedPane;
-
 import code.gui.Dialog;
+import code.gui.TabbedPane;
 /**
     */
 
 abstract class DialogCards extends Dialog {
 
-    private JTabbedPane jt=new JTabbedPane();
+    private TabbedPane jt=new TabbedPane();
     protected DialogCards() {
     }
 //    DialogCards(String _titre,MainWindow _fenetre,boolean _mod)
@@ -30,9 +29,9 @@ abstract class DialogCards extends Dialog {
     @Override
     public void closeWindow() {
         super.closeWindow();
-        getContentPane().removeAll();
+        getPane().removeAll();
     }
-    JTabbedPane getJt() {
+    TabbedPane getJt() {
         return jt;
     }
 }

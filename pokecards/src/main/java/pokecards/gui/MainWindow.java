@@ -5,21 +5,22 @@ import java.awt.Point;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.WindowConstants;
 
+import pokecards.main.LaunchingPokecards;
+import aiki.main.LaunchingPokemon;
+import cards.main.LaunchingCards;
 import code.gui.Clock;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;
 import code.gui.events.QuittingEvent;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.consts.Constants;
-import aiki.main.LaunchingPokemon;
-import pokecards.main.LaunchingPokecards;
-import cards.main.LaunchingCards;
 
 public final class MainWindow extends GroupFrame {
 
@@ -36,14 +37,14 @@ public final class MainWindow extends GroupFrame {
     public MainWindow() {
         setFocusableWindowState(true);
         setTitle(POKE_CARDS);
-        JPanel panel_ = new JPanel();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
-        JPanel linePokemon_ = new JPanel();
+        Panel panel_ = new Panel();
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel linePokemon_ = new Panel();
         buttonPokemon = new LabelButton(new ImageIcon(LaunchingPokemon.getIcon()));
         buttonPokemon.addMouseListener(new PokemonEvent());
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
-        JPanel lineCards_ = new JPanel();
+        Panel lineCards_ = new Panel();
         buttonCards = new LabelButton(new ImageIcon(LaunchingCards.getIcon()));
         buttonCards.addMouseListener(new CardsEvent());
         lineCards_.add(buttonCards);
@@ -59,9 +60,9 @@ public final class MainWindow extends GroupFrame {
         }
         panel_.setPreferredSize(new Dimension(256, 192));
         setContentPane(panel_);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
-        SetStyle.setupStyle(this);
+        SetStyle.setupStyle(getFrame());
         setVisible(true);
         pack();
     }
@@ -119,7 +120,7 @@ public final class MainWindow extends GroupFrame {
     }
 
     private void writeCoords() {
-        Point point_=getLocation();
+        Point point_=getFrame().getLocation();
         int x_ = point_.x;
         int y_ = point_.y;
         SoftApplicationCore.saveCoords(LaunchingPokecards.getTempFolder(), LaunchingPokecards.COORDS, x_, y_);

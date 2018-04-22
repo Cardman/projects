@@ -1,10 +1,10 @@
 package cards.network.president.actions;
-import code.util.NumberMap;
-import code.util.annot.RwXml;
 import cards.network.common.PlayerActionGame;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
+import code.util.NumberMap;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class PlayingCardPresident extends PlayerActionGame {

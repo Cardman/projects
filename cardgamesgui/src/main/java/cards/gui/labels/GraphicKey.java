@@ -4,15 +4,14 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JLabel;
-
 import cards.gui.dialogs.FileConst;
+import code.gui.PaintableLabel;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-public class GraphicKey extends JLabel {
+public class GraphicKey extends PaintableLabel {
     private static final String GRAPHIC_KEY = "cards.gui.labels.GraphicKey";
     private static final String DEFAULT="Default";
     private static final String DELTA = "delta";
@@ -24,7 +23,7 @@ public class GraphicKey extends JLabel {
         couleurs=_pcouleurs;
     }
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         Graphics2D g2_=(Graphics2D)_g;
         g2_.setColor(Color.WHITE);
         g2_.fillRect(0,0,getWidth(),getHeight());

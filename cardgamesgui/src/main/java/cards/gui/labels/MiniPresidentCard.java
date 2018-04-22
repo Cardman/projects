@@ -3,15 +3,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
 import cards.president.enumerations.CardPresident;
+import code.gui.PaintableLabel;
 import code.util.Numbers;
 import code.util.consts.Constants;
 
-public class MiniPresidentCard extends JLabel {
+public class MiniPresidentCard extends PaintableLabel {
 
     static final String DEFAULT="Default";
 
@@ -25,7 +25,7 @@ public class MiniPresidentCard extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,75+getWidth(),getHeight());
         _g.setColor(Color.BLACK);

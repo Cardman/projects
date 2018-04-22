@@ -1,12 +1,9 @@
 package aiki.gui.components;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Window;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import aiki.facade.FacadeGame;
@@ -20,8 +17,11 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingEgg;
 import code.gui.AutoCompleteDocument;
+import code.gui.ChangeableTitle;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
@@ -49,7 +49,7 @@ public final class PaginatorEgg extends Paginator {
 
     private JTextField maxSteps = new JTextField(16);
 
-    private JPanel results = new JPanel();
+    private Panel results = new Panel();
 
     private ComboBoxSelectedBool cmpNameSorting;
 
@@ -59,7 +59,7 @@ public final class PaginatorEgg extends Paginator {
 
     private NumComboBox cmpStepsPrio = new NumComboBox();
 
-    public PaginatorEgg(Window _w, FacadeGame _d) {
+    public PaginatorEgg(ChangeableTitle _w, FacadeGame _d) {
         super(ACCESS_EGG);
         setWindow(_w);
         setFacade(_d);
@@ -84,7 +84,7 @@ public final class PaginatorEgg extends Paginator {
             cmpStepsPrio.addItem(i);
         }
         getFacade().setSearchModeNameEgg(SearchingMode.WHOLE_STRING);
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(getComponent(),BoxLayout.PAGE_AXIS));
         StringList pk_ = new StringList();
         for (String p: getFacade().getData().getPokedex().getKeys()) {
             String pkTr_ = getFacade().translatePokemon(p);
@@ -97,7 +97,7 @@ public final class PaginatorEgg extends Paginator {
 //                getFacade().setContentOfNameEgg(convertStringField(name.getText()));
 //            }
 //        });
-        modeName.addActionListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, name));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -137,8 +137,8 @@ public final class PaginatorEgg extends Paginator {
 //                getFacade().setCmpStepsPriorityEgg((Integer)cmpStepsPrio.getSelectedItem());
 //            }
 //        });
-        JPanel search_;
-        search_ = new JPanel(new GridLayout(0,3));
+        Panel search_;
+        search_ = new Panel(new GridLayout(0,3));
         search_.add(new JLabel(getMessages().getVal(NAME)));
         search_.add(name);
         search_.add(modeName);
@@ -146,8 +146,8 @@ public final class PaginatorEgg extends Paginator {
         search_.add(minSteps);
         search_.add(maxSteps);
         add(search_);
-        JPanel sorting_;
-        sorting_ = new JPanel(new GridLayout(0,3));
+        Panel sorting_;
+        sorting_ = new Panel(new GridLayout(0,3));
         sorting_.add(new JLabel(getMessages().getVal(NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
@@ -155,8 +155,8 @@ public final class PaginatorEgg extends Paginator {
         sorting_.add(cmpStepsSorting);
         sorting_.add(cmpStepsPrio);
         add(sorting_);
-        JPanel top_;
-        top_ = new JPanel();
+        Panel top_;
+        top_ = new Panel();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseListener(new SearchEvent(this));
@@ -176,12 +176,12 @@ public final class PaginatorEgg extends Paginator {
         getHeader().addString(h_.toString(), FIRST_PIXEL);
         getHeader().setPreferredSize(new Dimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         results.add(getHeader());
-        add(new JScrollPane(results));
-        JPanel bottom_ = new JPanel();
+        add(new ScrollPane(results));
+        Panel bottom_ = new Panel();
         getNbResults().setValue(getFacade().getNbResultsPerPageEgg());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().addActionListener(new ChangedPageEvent(this));
+        getPages().setListener(new ChangedPageEvent(this));
         getDelta().getDocument().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
@@ -283,8 +283,8 @@ public final class PaginatorEgg extends Paginator {
         getFacade().setMaxStepsEgg(convertNumberField(maxSteps.getText()));
         getFacade().setCmpNameIncreasingEgg(cmpNameSorting.getCurrent());
         getFacade().setCmpStepsIncreasingEgg(cmpStepsSorting.getCurrent());
-        getFacade().setCmpNamePriorityEgg((Integer)cmpNamePrio.getSelectedItem());
-        getFacade().setCmpStepsPriorityEgg((Integer)cmpStepsPrio.getSelectedItem());
+        getFacade().setCmpNamePriorityEgg(cmpNamePrio.getCurrent());
+        getFacade().setCmpStepsPriorityEgg(cmpStepsPrio.getCurrent());
     }
 
     @Override

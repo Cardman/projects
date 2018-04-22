@@ -2,17 +2,16 @@ package aiki.gui.components.walk;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
-import javax.swing.JPanel;
-
 import aiki.facade.FacadeGame;
 import aiki.gui.components.labels.TileLabel;
 import aiki.gui.listeners.TileListener;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
+import code.gui.Panel;
 import code.images.ConverterBufferedImage;
 import code.util.TreeMap;
 
-public class MapPanel extends JPanel {
+public class MapPanel extends Panel {
 
     public void init(FacadeGame _facade, ScenePanel _scene) {
         setLayout(new GridLayout(_facade.getMapHeight(), _facade.getMapWidth(), 0, 0));

@@ -1,24 +1,53 @@
 package code.gui;
+import java.awt.Color;
+
+import javax.swing.JComponent;
 import javax.swing.JTextArea;
 
 import code.util.StringList;
 
-public class WrappedTextArea extends JTextArea {
+public class WrappedTextArea extends CustComponent {
+
+    private JTextArea textArea;
 
     public WrappedTextArea() {
+        textArea = new JTextArea();
     }
 
     public WrappedTextArea(int _rows, int _columns) {
-        super(_rows, _columns);
+        textArea = new JTextArea(_rows, _columns);
     }
 
-    @Override
+    public void setEditable(boolean _b) {
+        textArea.setEditable(_b);
+    }
+
+    public Color getForeground() {
+        return textArea.getForeground();
+    }
+
+    public Color getBackground() {
+        return textArea.getBackground();
+    }
+
+    public void setForeground(Color _fg) {
+        textArea.setForeground(_fg);
+    }
+
+    public void setBackground(Color _bg) {
+        textArea.setBackground(_bg);
+    }
+
     public void setText(String _t) {
-        super.setText(StringList.wrapContent(_t, getColumns(), false));
+        textArea.setText(StringList.wrapContent(_t, textArea.getColumns(), false));
+    }
+
+    public void append(String _str) {
+        textArea.append(StringList.wrapContent(_str, textArea.getColumns(), false));
     }
 
     @Override
-    public void append(String _str) {
-        super.append(StringList.wrapContent(_str, getColumns(), false));
+    public JComponent getComponent() {
+        return textArea;
     }
 }

@@ -9,9 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
@@ -71,6 +69,9 @@ import cards.main.LaunchingCards;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
+import code.gui.TabbedPane;
 import code.gui.ThreadInvoker;
 import code.gui.document.RenderedPage;
 import code.maths.Rate;
@@ -124,7 +125,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 usDecl_.getMain().trier(getDisplayingBelote().getCouleurs(), getDisplayingBelote().getDecroissant(), partie_.getContrat().getOrdre());
             }
 
-            JPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+            Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
             ThreadInvoker.invokeNow(new DeclaringThread(panelToSet_, usDecl_));
 //            panelToSet_.removeAll();
 //            for(CardBelote c: usDecl_.getMain())
@@ -243,7 +244,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         while (square_ * square_ < size_) {
             square_ ++;
         }
-        setPanneauBoutonsJeuPoints(new JPanel(new GridLayout(0, square_)));
+        setPanneauBoutonsJeuPoints(new Panel(new GridLayout(0, square_)));
         getPointsButtons().clear();
         for (int p_: points_) {
             LabelPoints label_ = new LabelPoints(p_);
@@ -266,9 +267,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setBidOk(new LabelButton(MainWindow.OK));
         getBidOk().setEnabledLabel(false);
         getBidOk().addMouseListener(new BidEvent(this));
-        JPanel panel_ = new JPanel();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
-        JPanel panelSuits_ = new JPanel();
+        Panel panel_ = new Panel();
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panelSuits_ = new Panel();
         getBidsButtons().clear();
         for (Suit s: Suit.couleursOrdinaires()) {
             SuitLabel suitLabel_ = new SuitLabel();
@@ -283,7 +284,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             getBidsButtons().add(suitLabel_);
         }
         panel_.add(panelSuits_);
-        JPanel panelBids_ = new JPanel();
+        Panel panelBids_ = new Panel();
         for (BidBelote b: BidBelote.getNonZeroBids()) {
             if (b.getCouleurDominante()) {
                 continue;
@@ -305,7 +306,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             getBidsButtons().add(suitLabel_);
         }
         panel_.add(panelBids_);
-        JPanel panelOk_ = new JPanel();
+        Panel panelOk_ = new Panel();
         LabelButton buttonSuit_ = new LabelButton(BidBelote.FOLD.display());
         //clickedTwo = false;
         buttonSuit_.addMouseListener(new FoldEvent(this));
@@ -346,7 +347,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         animContratBelote.start();
     }
     public void ajouterBoutonContratBelote(String _texte,BidBeloteSuit _action,boolean _apte) {
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratBelote(_action));
         bouton_.addMouseListener(new ListenerBidBeloteSingle(this,_action));
@@ -354,35 +355,35 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau_.add(bouton_);
     }
     public void addButtonNextTrickBelote(String _texte,boolean _apte) {
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new NextTrickEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonEndDealBelote(String _texte,boolean _apte) {
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new EndDealEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
-    private void addButtonKeepPlayingDealBelote(JPanel _panneau,String _texte) {
+    private void addButtonKeepPlayingDealBelote(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonKeepPlayingEditedDealBelote(JPanel _panneau,String _texte) {
+    private void addButtonKeepPlayingEditedDealBelote(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonStopPlayingBelote(JPanel _panneau,String _texte) {
+    private void addButtonStopPlayingBelote(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonReplayDealBelote(JPanel _panneau,String _texte) {
+    private void addButtonReplayDealBelote(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseListener(new ReplayEvent(this));
         _panneau.add(bouton_);
@@ -398,7 +399,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getOwner().getTeams().setEnabledMenu(true);
         if(!partie_.cartesBeloteRebelote().estVide()) {
             annonceBeloteRebelote = false;
-            JPanel panneau_ =getPanneauBoutonsJeu();
+            Panel panneau_ =getPanneauBoutonsJeu();
             JCheckBox caseCoche_ = new JCheckBox(DeclaresBeloteRebelote.BELOTE_REBELOTE.display());
             caseCoche_.setEnabled(partie_.autoriseBeloteRebelote(Constants.getLanguage()));
             caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
@@ -408,7 +409,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             DeclareHandBelote annonceMain_ = partie_.strategieAnnonces(DealBelote.NUMERO_UTILISATEUR);
             if(annonceMain_.getAnnonce() != DeclaresBelote.UNDEFINED) {
                 annonceBelote = false;
-                JPanel panneau_ =getPanneauBoutonsJeu();
+                Panel panneau_ =getPanneauBoutonsJeu();
                 JCheckBox caseCoche_ = new JCheckBox(StringList.concat(annonceMain_.getAnnonce().display(),INTRODUCTION_PTS,annonceMain_.getMain().display()));
                 caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
                 panneau_.add(caseCoche_);
@@ -462,7 +463,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         placerIhmBelote();
     }
     private void placerIhmBelote() {
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GameBelote partie_=partieBelote();
@@ -471,47 +472,47 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tapis_.initTapisBelote(partie_.getNombreDeJoueurs(),getDisplayingBelote().getHoraire(),pseudos_,1);
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         panneau_.setBackground(Color.BLUE);
         panneau_.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
         setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        JPanel panneau2_=new JPanel();
-        panneau2_.setLayout(new BoxLayout(panneau2_, BoxLayout.PAGE_AXIS));
+        Panel panneau2_=new Panel();
+        panneau2_.setLayout(new BoxLayout(panneau2_.getComponent(), BoxLayout.PAGE_AXIS));
         setEvents(new JTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
-        panneau2_.add(new JScrollPane(getEvents()));
+        panneau2_.add(new ScrollPane(getEvents()));
         setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),getDisplayingBelote().getHoraire(),pseudos_));
         panneau2_.add(getMini());
         setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,JPanel>());
-        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
+        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
-            JPanel declaredHandfulGroup_ = new JPanel(new FlowLayout());
+            Panel declaredHandfulGroup_ = new Panel(new FlowLayout());
             JLabel lab_ = new JLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             JLabel handful_ = new JLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
-            JPanel declaredHandful_ = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel declaredHandful_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        JScrollPane scroll_ = new JScrollPane(declaredHandfuls_);
+        ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        JPanel sousPanneau_=new JPanel();
-        sousPanneau_.setLayout(new BoxLayout(sousPanneau_, BoxLayout.PAGE_AXIS));
+        Panel sousPanneau_=new Panel();
+        sousPanneau_.setLayout(new BoxLayout(sousPanneau_.getComponent(), BoxLayout.PAGE_AXIS));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
         if (!partie_.getDistribution().derniereMain().estVide()) {
             tapisBelote().setTalonBelote(partie_.getDistribution().derniereMain());
         }
-        JPanel panel_ = new JPanel();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
-        panel_.add(new JScrollPane(container_));
+        Panel panel_ = new Panel();
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        panel_.add(new ScrollPane(container_));
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
@@ -610,7 +611,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             partie_.setPliEnCours();
         }
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
-        JPanel panneau_=getPanneauBoutonsJeu();
+        Panel panneau_=getPanneauBoutonsJeu();
         panneau_.removeAll();
         panneau_.validate();
         panneau_.repaint();
@@ -654,7 +655,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 if(!usDecl_.getMain().estVide()) {
                     getHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR).setText(usDecl_.getAnnonce().display());
                 }
-                JPanel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
+                Panel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
                 for (GraphicBeloteCard c: getGraphicCards(usDecl_.getMain())) {
                     panelToSet_.add(c);
@@ -700,10 +701,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        JPanel container_=new JPanel();
-        JScrollPane ascenseur_;
+        Panel container_=new Panel();
+        ScrollPane ascenseur_;
         container_.setLayout(new BorderLayout());
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()));
@@ -711,7 +712,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         StringList pseudos_=new StringList(pseudosBelote());
-        JTabbedPane onglets_=new JTabbedPane();
+        TabbedPane onglets_=new TabbedPane();
         GameBelote partie_=partieBelote();
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
@@ -720,7 +721,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
-        panneau_=new JPanel();
+        panneau_=new Panel();
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(partie_);
         res_.initialize(new StringList(pseudos_), getScores());
@@ -800,15 +801,15 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int) getMaxAbsoluScore();
             graphique_.setPreferredSize(new Dimension(2000,dimy_));
-            ascenseur_=new JScrollPane(graphique_);
+            ascenseur_=new ScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new Dimension(300,200));
-            panneau_=new JPanel(new BorderLayout());
+            panneau_=new Panel(new BorderLayout());
             panneau_.add(new JLabel(getMessages().getVal(MainWindow.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
             panneau_.add(ascenseur_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_);
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
-            ascenseur_=new JScrollPane(legende_);
+            ascenseur_=new ScrollPane(legende_);
             ascenseur_.setPreferredSize(new Dimension(300,100));
             panneau_.add(ascenseur_,BorderLayout.SOUTH);
             onglets_.add(getMessages().getVal(MainWindow.SCORES_EVOLUTION),panneau_);
@@ -821,13 +822,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
-        ascenseur_=new JScrollPane(new PanelTricksHandsBelote(getOwner(), tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote()));
+        ascenseur_=new ScrollPane(new PanelTricksHandsBelote(getOwner(), tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote()));
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);
-        panneau_=new JPanel();
-        panneau_.setLayout(new BoxLayout(panneau_, BoxLayout.PAGE_AXIS));
-        JPanel buttons_ = new JPanel();
+        panneau_=new Panel();
+        panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel buttons_ = new Panel();
         GameType type_;
         long nombreParties_;
         type_=partie_.getType();
@@ -889,7 +890,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         return pseudosBelote(partieBelote().getNombreDeJoueurs());
     }
 
-    private void updateCardsInPanelBelote(JPanel _panel, HandBelote _hand) {
+    private void updateCardsInPanelBelote(Panel _panel, HandBelote _hand) {
         _panel.removeAll();
         for (GraphicBeloteCard c: getGraphicCards(_hand)) {
             c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));

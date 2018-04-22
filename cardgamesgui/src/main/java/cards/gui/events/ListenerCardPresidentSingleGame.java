@@ -3,9 +3,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
-import code.gui.ConfirmDialog;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPresident;
@@ -13,6 +10,9 @@ import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.enumerations.CardPresident;
+import code.gui.ConfirmDialog;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 public class ListenerCardPresidentSingleGame extends
         AbstractListenerCardPresident {

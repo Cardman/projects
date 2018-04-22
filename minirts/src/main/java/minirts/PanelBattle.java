@@ -1,12 +1,11 @@
 package minirts;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
-
-import javax.swing.JPanel;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 
 import minirts.rts.CustPoint;
 import minirts.rts.Facade;
@@ -14,14 +13,24 @@ import minirts.rts.Rect;
 import minirts.rts.Soldier;
 import minirts.rts.SoldierPattern;
 import minirts.rts.UnitMapKey;
+import code.gui.CustComponent;
+import code.gui.Panel;
 import code.util.ObjectMap;
 
-public class PanelBattle extends JPanel {
+public class PanelBattle extends Panel {
 
     private ObjectMap<UnitMapKey,UnitSoldier> soldierLabels = new ObjectMap<UnitMapKey,UnitSoldier>();
     private final Facade facade;
 
     private boolean paintSelection;
+
+    public void addMouseMotionListener(MouseMotionListener _l) {
+        getComponent().addMouseMotionListener(_l);
+    }
+
+    public void addMouseWheelListener(MouseWheelListener _l) {
+        getComponent().addMouseWheelListener(_l);
+    }
 
     public PanelBattle(Facade _facade) {
         facade = _facade;
@@ -42,7 +51,7 @@ public class PanelBattle extends JPanel {
         soldierLabel_.setLocation(_x, _y);
         soldierLabels.put(facade.getLastSoldierKey(),soldierLabel_);
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
-        Component parent_ = getParent();
+        CustComponent parent_ = getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         paintSelection = false;
@@ -92,7 +101,7 @@ public class PanelBattle extends JPanel {
         facade.selectOrDeselectMany();
         paintSelection = true;
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
-        Component parent_ = getParent();
+        CustComponent parent_ = getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
 //        paintSelection = false;
@@ -105,7 +114,7 @@ public class PanelBattle extends JPanel {
     }
 
     public void moveCamera(Point _pt) {
-        Component parent_ = getParent();
+        CustComponent parent_ = getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         facade.moveCamera(_pt.x, _pt.y, w_, h_);
@@ -132,8 +141,12 @@ public class PanelBattle extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
-        super.paintComponent(_g);
+    public void repaint() {
+        super.repaint();
+        paintComponent(getComponent().getGraphics());
+    }
+
+    public void paintComponent(Graphics _g) {
         if (paintSelection) {
             Rect r_ = facade.getSelection();
             _g.setColor(Color.BLUE);

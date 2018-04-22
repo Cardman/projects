@@ -1,9 +1,9 @@
 package cards.network.tarot.displaying;
-import code.util.EnumList;
-import code.util.annot.RwXml;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.DealingTarot;
+import code.util.EnumList;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class DealtHandTarot {

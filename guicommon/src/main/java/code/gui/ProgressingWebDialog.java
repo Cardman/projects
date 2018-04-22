@@ -42,7 +42,9 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
         }
 //        anim = new AnimatedLabel();
 //        anim.setList(_images);
-        setContentPane(anim);
+        Panel p_ = new Panel();
+        p_.add(anim);
+        setContentPane(p_);
         pack();
         setVisible(true);
     }

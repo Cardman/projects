@@ -3,11 +3,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
-
+import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 
-public class TileLabel extends JLabel {
+public class TileLabel extends PaintableLabel {
 
     private BufferedImage image;
 
@@ -17,7 +16,7 @@ public class TileLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.drawImage(image, 0, 0, null);
     }
 }

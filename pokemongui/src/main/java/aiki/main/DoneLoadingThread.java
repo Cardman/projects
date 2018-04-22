@@ -7,7 +7,7 @@ public final class DoneLoadingThread extends Thread {
     public void run() {
         //Freeing resources
         MainWindow.getDialog().setVisible(false);
-        MainWindow.getDialog().getContentPane().removeAll();
+        MainWindow.getDialog().getPane().removeAll();
         MainWindow.getDialog().stopTimer();
     }
 }

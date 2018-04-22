@@ -3,10 +3,7 @@ import java.awt.Rectangle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 
@@ -29,7 +26,9 @@ import cards.tarot.enumerations.ChoiceTarot;
 import code.gui.CheckBoxMenuItem;
 import code.gui.Menu;
 import code.gui.MenuItem;
+import code.gui.Ownable;
 import code.gui.Packable;
+import code.gui.Panel;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -48,9 +47,9 @@ public class ContainerGame implements Packable, Containable {
     public static final String RETURN_LINE="\n";
 
     private static final char LINE_RETURN = '\n';
-    private JPanel actionsHistory;
-    private JPanel panneauBoutonsJeu;
-    private JPanel panelHand;
+    private Panel actionsHistory;
+    private Panel panneauBoutonsJeu;
+    private Panel panelHand;
     private MainWindow window;
     /**Parametres d'informations sur
     des pseudonymes*/
@@ -77,7 +76,7 @@ public class ContainerGame implements Packable, Containable {
     private DisplayingPresident displayingPresident;
     private DisplayingTarot displayingTarot;
     private NumberMap<Byte,JLabel> handfuls = new NumberMap<Byte,JLabel>();
-    private NumberMap<Byte,JPanel> declaredHandfuls = new NumberMap<Byte,JPanel>();
+    private NumberMap<Byte,Panel> declaredHandfuls = new NumberMap<Byte,Panel>();
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
     public ContainerGame(MainWindow _window) {
@@ -166,13 +165,14 @@ public class ContainerGame implements Packable, Containable {
     public void pack() {
         getWindow().pack();
     }
+    @Override
     public MainWindow getOwner() {
         return getWindow();
     }
-    protected JPanel getContentPane() {
-        return (JPanel) getWindow().getContentPane();
+    protected Panel getPane() {
+        return getWindow().getPane();
     }
-    public void setContentPane(JPanel _container) {
+    public void setContentPane(Panel _container) {
         getWindow().setContentPane(_container);
     }
     public void saveCurrentGame(String _file) {
@@ -266,10 +266,10 @@ public class ContainerGame implements Packable, Containable {
     public void setCarteSortie(boolean _carteSortie) {
         carteSortie = _carteSortie;
     }
-    public NumberMap<Byte,JPanel> getDeclaredHandfuls() {
+    public NumberMap<Byte,Panel> getDeclaredHandfuls() {
         return declaredHandfuls;
     }
-    public void setDeclaredHandfuls(NumberMap<Byte,JPanel> _declaredHandfuls) {
+    public void setDeclaredHandfuls(NumberMap<Byte,Panel> _declaredHandfuls) {
         declaredHandfuls = _declaredHandfuls;
     }
     public StringMap<String> getMessages() {
@@ -365,25 +365,25 @@ public class ContainerGame implements Packable, Containable {
     protected void setReglesTarot(RulesTarot _reglesTarot) {
         reglesTarot = _reglesTarot;
     }
-    public JPanel getPanelHand() {
+    public Panel getPanelHand() {
         return panelHand;
     }
-    public void setPanelHand(JPanel _panelHand) {
+    public void setPanelHand(Panel _panelHand) {
         panelHand = _panelHand;
     }
 
-    public JPanel getActionsHistory() {
+    public Panel getActionsHistory() {
         return actionsHistory;
     }
 
-    public void setActionsHistory(JPanel _actionsHistory) {
+    public void setActionsHistory(Panel _actionsHistory) {
         actionsHistory = _actionsHistory;
     }
 
-    public JPanel getPanneauBoutonsJeu() {
+    public Panel getPanneauBoutonsJeu() {
         return panneauBoutonsJeu;
     }
-    public void setPanneauBoutonsJeu(JPanel _panneauBoutonsJeu) {
+    public void setPanneauBoutonsJeu(Panel _panneauBoutonsJeu) {
         panneauBoutonsJeu = _panneauBoutonsJeu;
     }
     public MainWindow getWindow() {
@@ -415,11 +415,11 @@ public class ContainerGame implements Packable, Containable {
         return window.getChange();
     }
 
-    public JMenuItem getExit() {
+    public MenuItem getExit() {
         return window.getExit();
     }
 
-    public JMenu getDeal() {
+    public Menu getDeal() {
         return window.getDeal();
     }
 
@@ -507,12 +507,17 @@ public class ContainerGame implements Packable, Containable {
         return window.getDisplayingGames();
     }
 
-    public JMenu getHelp() {
+    public Menu getHelp() {
         return window.getHelp();
     }
 
-    public JMenuItem getGeneralHelp() {
+    public MenuItem getGeneralHelp() {
         return window.getGeneralHelp();
+    }
+
+    @Override
+    public void setOwner(Ownable _owner) {
+        window.setOwner(_owner);
     }
 
 }

@@ -9,16 +9,17 @@ import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
 import code.gui.Clock;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.PackingWindowAfter;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.gui.SetStyle;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.montecarlo.AbMonteCarlo;
@@ -107,13 +108,13 @@ public class MainWindow extends GroupFrame {
         initMessages();
         setTitle(_messages_.getVal(TITLE_PLAYER));
         setIconImage(getImage());
-        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+        getPane().setLayout(new BoxLayout(getPane().getComponent(), BoxLayout.PAGE_AXIS));
         songsLabel.setText(_messages_.getVal(SONGS));
-        getContentPane().add(songsLabel);
-        getContentPane().add(songs);
+        getPane().add(songsLabel);
+        getPane().add(songs);
         random.setText(_messages_.getVal(RANDOM));
-        getContentPane().add(random);
-        JPanel actions_ = new JPanel();
+        getPane().add(random);
+        Panel actions_ = new Panel();
 //        playPrevious.setTextAndSize(PREVIOUS);
 //        playPrevious.repaint();
         playPrevious.addMouseListener(new PreviousSong(this));
@@ -142,25 +143,25 @@ public class MainWindow extends GroupFrame {
                 }
             }
         }
-        getContentPane().add(actions_);
-        JScrollPane scr_ = new JScrollPane(songRend);
+        getPane().add(actions_);
+        ScrollPane scr_ = new ScrollPane(songRend);
         scr_.setPreferredSize(new Dimension(100, 60));
-        getContentPane().add(scr_);
-        getContentPane().add(currentSong);
-        getContentPane().add(elapsedTime);
-        getContentPane().add(new Clock());
+        getPane().add(scr_);
+        getPane().add(currentSong);
+        getPane().add(elapsedTime);
+        getPane().add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
             JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));
             radio_.addActionListener(new SetLanguage(l));
             radio_.setSelected(StringList.quickEq(l,Constants.getLanguage()));
             group.add(radio_);
-            getContentPane().add(radio_);
+            getPane().add(radio_);
             radios.add(radio_);
         }
         pack();
         setVisible(true);
-        SetStyle.setupStyle(this);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        SetStyle.setupStyle(getFrame());
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void initMessages() {
@@ -227,7 +228,7 @@ public class MainWindow extends GroupFrame {
                         }
                     }
                     if (songsList.isEmpty()) {
-                        JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WAV), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(getFrame(), _messages_.getVal(CANNOT_READ_MESSAGE_WAV), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     clipStream = c_;
@@ -269,7 +270,7 @@ public class MainWindow extends GroupFrame {
                     }
                     songsList.removeAllString(EMPTY);
                     if (songsList.isEmpty()) {
-                        JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(getFrame(), _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     if (random.isSelected()) {
@@ -303,7 +304,7 @@ public class MainWindow extends GroupFrame {
                     }
                     clipStream = c_;
                     if (songsList.isEmpty()) {
-                        JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(getFrame(), _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }
@@ -324,7 +325,7 @@ public class MainWindow extends GroupFrame {
                     timer.start();
                 }
             } catch (RuntimeException _0) {
-                JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(getFrame(), _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
             }
         } else {
             if (clipStream.getClip().isRunning()) {

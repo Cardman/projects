@@ -19,9 +19,13 @@ public class LabelPoints extends LabelButton {
     public void setSelected(int _pts) {
         selected = pts == _pts;
         if (selected) {
-            setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+            getComponent().setBorder(BorderFactory.createLineBorder(Color.RED, 1));
         } else {
-            setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            getComponent().setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         }
+    }
+
+    public void setToolTipText(String _string) {
+        getComponent().setToolTipText(_string);
     }
 }

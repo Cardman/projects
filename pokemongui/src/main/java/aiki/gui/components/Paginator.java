@@ -1,7 +1,4 @@
 package aiki.gui.components;
-import java.awt.Window;
-
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
@@ -15,8 +12,10 @@ import aiki.gui.components.listeners.NextDeltaEvent;
 import aiki.gui.components.listeners.NextEvent;
 import aiki.gui.components.listeners.PreviousDeltaEvent;
 import aiki.gui.components.listeners.PreviousEvent;
+import code.gui.ChangeableTitle;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
+import code.gui.Panel;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.sml.util.ExtractFromFiles;
@@ -27,7 +26,7 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.pagination.SearchingMode;
 
-public abstract class Paginator extends JPanel{
+public abstract class Paginator extends Panel{
 
     public static final int HEIGTH_CHARS = 10;
 
@@ -60,7 +59,7 @@ public abstract class Paginator extends JPanel{
     private static final String NEXT = ">";
     private static final String NEXT_DELTA = ">>";
 
-    private Window window;
+    private ChangeableTitle window;
 
     private FacadeGame facade;
 
@@ -214,18 +213,18 @@ public abstract class Paginator extends JPanel{
         end.setEnabledLabel(_nbPages > CustList.FIRST_INDEX);
         adding = true;
         try {
-            pages.setSelectedIndex(_noPage);
+            pages.selectItem(_noPage);
         } catch (RuntimeException _0) {
-            pages.setSelectedIndex(CustList.INDEX_NOT_FOUND_ELT);
+            pages.selectItem(CustList.INDEX_NOT_FOUND_ELT);
         }
         adding = false;
     }
 
-    protected Window getWindow() {
+    protected ChangeableTitle getWindow() {
         return window;
     }
 
-    protected void setWindow(Window _window) {
+    protected void setWindow(ChangeableTitle _window) {
         window = _window;
     }
 

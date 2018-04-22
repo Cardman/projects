@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.consts.CardChar;
@@ -14,6 +13,7 @@ import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
@@ -23,7 +23,7 @@ import code.util.StringList;
 import code.util.consts.Constants;
 import code.util.opers.BaseSixtyFourUtil;
 
-public class GraphicTarotCard extends JLabel {
+public class GraphicTarotCard extends PaintableLabel {
     static final String DEFAULT="Default";
 
     private CardTarot card;
@@ -387,7 +387,7 @@ public class GraphicTarotCard extends JLabel {
 
     /**Methode importante dessinant les cartes des jeux de cartes face non cachee sauf pour certaines cartes du solitaire*/
     @Override
-    protected void paintComponent(Graphics _g2) {
+    public void paintComponent(Graphics _g2) {
         Graphics2D g=(Graphics2D)_g2;
         if(!peindreCarte) {
             _g2.setColor(Color.RED);
@@ -402,7 +402,6 @@ public class GraphicTarotCard extends JLabel {
         if(!peinte) {
             g.setColor(Color.WHITE);
             g.fillRect(0,0,getWidth(),getHeight());
-            super.paintComponent(_g2);
             if (bufferedImage != null) {
                 if(fullCard) {
                     //whole card

@@ -2,10 +2,10 @@ package cards.gui.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import code.util.consts.Constants;
 import cards.belote.BidBeloteSuit;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.BiddingBelote;
+import code.util.consts.Constants;
 
 public class ListenerBidBeloteMulti extends MouseAdapter {
 

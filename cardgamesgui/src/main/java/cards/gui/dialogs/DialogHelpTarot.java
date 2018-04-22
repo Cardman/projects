@@ -3,8 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import cards.consts.Suit;
@@ -12,6 +10,8 @@ import cards.gui.MainWindow;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.Dialog;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -38,15 +38,15 @@ public final class DialogHelpTarot extends Dialog {
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
     public static void setDialogueTarot(EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,EnumMap<Suit,EqList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,StringList _pseudos) {
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new FlowLayout());
-        JPanel panneau2_=new JPanel();
-        JPanel panneau3_;
+        Panel panneau2_=new Panel();
+        Panel panneau3_;
         JTextArea zone_;
         panneau2_.setLayout(new BorderLayout());
         HandTarot tout_ = HandTarot.pileBase();
         EnumList<Suit> suits_ = new EnumList<Suit>(Suit.values());
-        panneau3_=new JPanel();
+        panneau3_=new Panel();
 //        Suit couleur_;
 //        Suit couleurMemo_=null;
         int nbPlayers_ = _pseudos.size();
@@ -111,7 +111,7 @@ public final class DialogHelpTarot extends Dialog {
             panneau3_.add(zone_);
         }
         panneau2_.add(panneau3_,BorderLayout.CENTER);
-        JScrollPane ascenseur_=new JScrollPane(panneau2_);
+        ScrollPane ascenseur_=new ScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);
         DIALOG.setContentPane(container_);

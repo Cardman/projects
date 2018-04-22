@@ -1,13 +1,10 @@
 package aiki.gui.components;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Window;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import aiki.DataBase;
@@ -22,8 +19,11 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingHealingItem;
 import code.gui.AutoCompleteDocument;
+import code.gui.ChangeableTitle;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
@@ -109,7 +109,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     private ComboBoxSearchingMode modeStatus;
 
-    private JPanel results = new JPanel();
+    private Panel results = new Panel();
 
     private ComboBoxSelectedBool cmpNameSorting;
 
@@ -151,7 +151,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     private NumComboBox cmpNbStatusPrio = new NumComboBox();
 
-    public PaginatorHealingItem(Window _w, FacadeGame _d) {
+    public PaginatorHealingItem(ChangeableTitle _w, FacadeGame _d) {
         super(ACCESS_HEALING_ITEM);
         setWindow(_w);
         setFacade(_d);
@@ -233,7 +233,7 @@ public final class PaginatorHealingItem extends Paginator {
         getFacade().setSearchModeNameHealingItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeDescriptionHealingItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeStatusHealingItem(SearchingMode.WHOLE_STRING);
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(getComponent(),BoxLayout.PAGE_AXIS));
         StringList it_ = new StringList();
         for (String i: getFacade().getData().getItems().getKeys()) {
             String abTr_ = getFacade().translateItem(i);
@@ -264,7 +264,7 @@ public final class PaginatorHealingItem extends Paginator {
 //                getFacade().setContentOfStatusHealingItem(convertStringField(status.getText()));
 //            }
 //        });
-        modeName.addActionListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, name));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -272,7 +272,7 @@ public final class PaginatorHealingItem extends Paginator {
 //                AutoCompleteDocument.setMode(name, s_);
 //            }
 //        });
-        modeStatus.addActionListener(new ChangedModeEvent(modeStatus, status));
+        modeStatus.setListener(new ChangedModeEvent(modeStatus, status));
 //        modeStatus.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeStatus.getCurrent();
@@ -484,8 +484,8 @@ public final class PaginatorHealingItem extends Paginator {
 //                getFacade().setCmpNbHealedStatusPriorityHealingItem((Integer)cmpNbStatusPrio.getSelectedItem());
 //            }
 //        });
-        JPanel search_;
-        search_ = new JPanel(new GridLayout(0,3));
+        Panel search_;
+        search_ = new Panel(new GridLayout(0,3));
         search_.add(new JLabel(getMessages().getVal(NAME)));
         search_.add(name);
         search_.add(modeName);
@@ -528,8 +528,8 @@ public final class PaginatorHealingItem extends Paginator {
         search_.add(statis);
         search_.add(new JLabel(DataBase.EMPTY_STRING));
         add(search_);
-        JPanel sorting_;
-        sorting_ = new JPanel(new GridLayout(0,3));
+        Panel sorting_;
+        sorting_ = new Panel(new GridLayout(0,3));
         sorting_.add(new JLabel(getMessages().getVal(NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
@@ -561,8 +561,8 @@ public final class PaginatorHealingItem extends Paginator {
         sorting_.add(cmpNbStatusSorting);
         sorting_.add(cmpNbStatusPrio);
         add(sorting_);
-        JPanel top_;
-        top_ = new JPanel();
+        Panel top_;
+        top_ = new Panel();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseListener(new SearchEvent(this));
@@ -587,12 +587,12 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().addString(StringList.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
-        add(new JScrollPane(results));
-        JPanel bottom_ = new JPanel();
+        add(new ScrollPane(results));
+        Panel bottom_ = new Panel();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().addActionListener(new ChangedPageEvent(this));
+        getPages().setListener(new ChangedPageEvent(this));
         getDelta().getDocument().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
@@ -734,16 +734,16 @@ public final class PaginatorHealingItem extends Paginator {
         getFacade().setCmpRelativeRateHpIncreasingHealingItem(cmpRelativeHpSorting.getCurrent());
         getFacade().setCmpStatisticsIncreasingHealingItem(cmpNbStatisticsSorting.getCurrent());
         getFacade().setCmpNbHealedStatusIncreasingHealingItem(cmpNbStatusSorting.getCurrent());
-        getFacade().setCmpNamePriorityHealingItem((Integer)cmpNamePrio.getSelectedItem());
-        getFacade().setCmpDescriptionPriorityHealingItem((Integer)cmpDescriptionPrio.getSelectedItem());
-        getFacade().setCmpPricePriorityHealingItem((Integer)cmpPricePrio.getSelectedItem());
-        getFacade().setCmpNumberPriorityHealingItem((Integer)cmpNumberPrio.getSelectedItem());
-        getFacade().setCmpPpPriorityHealingItem((Integer)cmpPpPrio.getSelectedItem());
-        getFacade().setCmpRelativeRatePpPriorityHealingItem((Integer)cmpRelativePpPrio.getSelectedItem());
-        getFacade().setCmpRateHpPriorityHealingItem((Integer)cmpHpPrio.getSelectedItem());
-        getFacade().setCmpRelativeRateHpPriorityHealingItem((Integer)cmpRelativeHpPrio.getSelectedItem());
-        getFacade().setCmpStatisticsPriorityHealingItem((Integer)cmpNbStatisticsPrio.getSelectedItem());
-        getFacade().setCmpNbHealedStatusPriorityHealingItem((Integer)cmpNbStatusPrio.getSelectedItem());
+        getFacade().setCmpNamePriorityHealingItem(cmpNamePrio.getCurrent());
+        getFacade().setCmpDescriptionPriorityHealingItem(cmpDescriptionPrio.getCurrent());
+        getFacade().setCmpPricePriorityHealingItem(cmpPricePrio.getCurrent());
+        getFacade().setCmpNumberPriorityHealingItem(cmpNumberPrio.getCurrent());
+        getFacade().setCmpPpPriorityHealingItem(cmpPpPrio.getCurrent());
+        getFacade().setCmpRelativeRatePpPriorityHealingItem(cmpRelativePpPrio.getCurrent());
+        getFacade().setCmpRateHpPriorityHealingItem(cmpHpPrio.getCurrent());
+        getFacade().setCmpRelativeRateHpPriorityHealingItem(cmpRelativeHpPrio.getCurrent());
+        getFacade().setCmpStatisticsPriorityHealingItem(cmpNbStatisticsPrio.getCurrent());
+        getFacade().setCmpNbHealedStatusPriorityHealingItem(cmpNbStatusPrio.getCurrent());
     }
 
     @Override

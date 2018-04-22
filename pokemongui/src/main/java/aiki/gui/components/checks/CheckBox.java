@@ -1,15 +1,21 @@
 package aiki.gui.components.checks;
+import java.awt.Color;
+
 import javax.swing.JCheckBox;
 
-public abstract class CheckBox extends JCheckBox {
+import code.gui.CustComponent;
+
+public abstract class CheckBox extends CustComponent {
+
+    private JCheckBox component = new JCheckBox();
 
     private String key;
 
     public CheckBox(String _key, String _text, boolean _selected) {
         key = _key;
-        setText(_text);
-        setSelected(_selected);
-        addActionListener(new CheckEvent(this));
+        component.setText(_text);
+        component.setSelected(_selected);
+        component.addActionListener(new CheckEvent(this));
 //        addItemListener(new ItemListener() {
 //
 //            @Override
@@ -17,6 +23,19 @@ public abstract class CheckBox extends JCheckBox {
 //                processKey(key);
 //            }
 //        });
+    }
+
+    public void setSelected(boolean _b) {
+        component.setSelected(_b);
+    }
+
+    public void setBackground(Color _bg) {
+        component.setBackground(_bg);
+    }
+
+    @Override
+    public JCheckBox getComponent() {
+        return component;
     }
 
     String getKey() {

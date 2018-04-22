@@ -5,20 +5,20 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import code.util.CustList;
-import code.util.NumberMap;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.Panel;
+import code.util.CustList;
+import code.util.NumberMap;
 
-public class CarpetTarot extends JPanel {
+public class CarpetTarot extends Panel {
 
     /** sens de distribution des cartes */
     private boolean horaire;
-    private JPanel centerDeck;
+    private Panel centerDeck;
 
     private NumberMap<Integer,GraphicTarotCard> cards = new NumberMap<Integer,GraphicTarotCard>();
 
@@ -30,7 +30,7 @@ public class CarpetTarot extends JPanel {
         if (_nombreDeJoueurs == 4) {
             setLayout(new GridLayout(0, 3));
             for (int i = 0; i < 9; i++) {
-                JPanel surPanneau_ = new JPanel();
+                Panel surPanneau_ = new Panel();
                 surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
                 if (i % 2 == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
@@ -66,7 +66,7 @@ public class CarpetTarot extends JPanel {
             GridBagLayout grid_ = new GridBagLayout();
             setLayout(grid_);
             for (int i = 0; i < 12; i++) {
-                JPanel surPanneau_ = new JPanel();
+                Panel surPanneau_ = new Panel();
                 if (i == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
                             SwingConstants.RIGHT, true);
@@ -79,7 +79,7 @@ public class CarpetTarot extends JPanel {
                     }
                     surPanneau_.add(carte_);
                     GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_, c);
+                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 } else if (i == 7) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
                             SwingConstants.RIGHT, true);
@@ -93,7 +93,7 @@ public class CarpetTarot extends JPanel {
                     surPanneau_.add(carte_);
                     GridBagConstraints c = new GridBagConstraints();
                     c.gridwidth = GridBagConstraints.REMAINDER;
-                    grid_.setConstraints(surPanneau_, c);
+                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 } else if (i == 4) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
                             SwingConstants.RIGHT, true);
@@ -106,7 +106,7 @@ public class CarpetTarot extends JPanel {
                     }
                     surPanneau_.add(carte_);
                     GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_, c);
+                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 } else if (i == 10) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
                             SwingConstants.RIGHT, true);
@@ -119,7 +119,7 @@ public class CarpetTarot extends JPanel {
                     }
                     surPanneau_.add(carte_);
                     GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_, c);
+                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 } else if (i == 2) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
                             SwingConstants.RIGHT, true);
@@ -128,7 +128,7 @@ public class CarpetTarot extends JPanel {
                     cards.put(3, carte_);
                     surPanneau_.add(carte_);
                     GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_, c);
+                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 } else if (i == 9) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
                             SwingConstants.RIGHT, true);
@@ -137,7 +137,7 @@ public class CarpetTarot extends JPanel {
                     cards.put(0, carte_);
                     surPanneau_.add(carte_);
                     GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_, c);
+                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 } else if (i == 5) {
                     surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER, 0,
                             0));
@@ -145,11 +145,11 @@ public class CarpetTarot extends JPanel {
                     centerDeck = surPanneau_;
                     GridBagConstraints c = new GridBagConstraints();
                     c.gridwidth = 2;
-                    grid_.setConstraints(surPanneau_, c);
+                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 } else if ((i+1) % 4 == 0){
                     GridBagConstraints c = new GridBagConstraints();
                     c.gridwidth = GridBagConstraints.REMAINDER;
-                    grid_.setConstraints(surPanneau_, c);
+                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 }
                 surPanneau_.setBackground(new Color(0, 125, 0));
                 add(surPanneau_);
@@ -157,7 +157,7 @@ public class CarpetTarot extends JPanel {
         } else if (_nombreDeJoueurs == 3) {
             setLayout(new GridLayout(0, 3));
             for (int i = 0; i < 9; i++) {
-                JPanel surPanneau_ = new JPanel();
+                Panel surPanneau_ = new Panel();
                 surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
@@ -196,7 +196,7 @@ public class CarpetTarot extends JPanel {
         } else {
             setLayout(new GridLayout(0, 3));
             for (int i = 0; i < 9; i++) {
-                JPanel surPanneau_ = new JPanel();
+                Panel surPanneau_ = new Panel();
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(
                             SwingConstants.RIGHT, true);
@@ -313,7 +313,7 @@ public class CarpetTarot extends JPanel {
         place_.repaint();
     }
 
-    public JPanel getCenterDeck() {
+    public Panel getCenterDeck() {
         return centerDeck;
     }
 }

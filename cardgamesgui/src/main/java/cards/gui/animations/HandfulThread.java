@@ -1,9 +1,8 @@
 package cards.gui.animations;
-import javax.swing.JPanel;
-
 import cards.gui.labels.MiniTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -11,10 +10,10 @@ public final class HandfulThread extends Thread {
 
     private HandTarot poignee;
 
-    private JPanel panelToSet;
+    private Panel panelToSet;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public HandfulThread(HandTarot _poignee, JPanel _panelToSet) {
+    public HandfulThread(HandTarot _poignee, Panel _panelToSet) {
         poignee = _poignee;
         panelToSet = _panelToSet;
     }

@@ -1,10 +1,9 @@
 package aiki.gui.listeners;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import aiki.gui.components.fight.Battle;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
-public class BackFighterSelection implements ListSelectionListener {
+public class BackFighterSelection extends ListSelection {
 
     private Battle battle;
 
@@ -13,10 +12,7 @@ public class BackFighterSelection implements ListSelectionListener {
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent _e) {
-        if (_e.getValueIsAdjusting()) {
-            return;
-        }
+    public void valueChanged(SelectionInfo _e) {
         battle.chooseBackFighter();
     }
 }

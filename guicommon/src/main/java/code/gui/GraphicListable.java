@@ -1,7 +1,6 @@
 package code.gui;
 
-import java.awt.Component;
-
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -35,5 +34,5 @@ public interface GraphicListable {
     JPanel getPanel();
     JScrollPane getScroll();
 
-    CustList<Component> getListComponents();
+    CustList<JComponent> getListComponents();
 }

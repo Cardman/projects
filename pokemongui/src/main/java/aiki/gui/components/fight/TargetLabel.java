@@ -4,11 +4,10 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
-
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
+import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -47,7 +46,7 @@ public class TargetLabel {
 
     private CustList<BufferedImage> statistics = new CustList<BufferedImage>();
 
-    public static int getWidthStatistic(JLabel _parent, FacadeGame _facade) {
+    public static int getWidthStatistic(PaintableLabel _parent, FacadeGame _facade) {
         FontMetrics fMet_ = _parent.getFontMetrics(_parent.getFont());
         int minValueStatis_ = _facade.getData().getMinBoost();
         int maxValueStatis_ = _facade.getData().getMaxBoost();
@@ -69,7 +68,7 @@ public class TargetLabel {
         return maxWidthValue_;
     }
 
-    public static int getHeightStatistic(JLabel _parent, FacadeGame _facade) {
+    public static int getHeightStatistic(PaintableLabel _parent, FacadeGame _facade) {
         FontMetrics fMet_ = _parent.getFontMetrics(_parent.getFont());
         int maxWidthValue_ = fMet_.getHeight();
         int add_ = CustList.SIZE_EMPTY;
@@ -81,7 +80,7 @@ public class TargetLabel {
         return maxWidthValue_ + add_;
     }
 
-    public void apply(JLabel _parent, FacadeGame _facade) {
+    public void apply(PaintableLabel _parent, FacadeGame _facade) {
         DataBase data_ = _facade.getData();
         int widthImage_ = _facade.getMaxWidthPk();
         int width_ = _facade.getMaxWidthPk();
@@ -245,7 +244,7 @@ public class TargetLabel {
         //setPreferredSize(new Dimension(width, height));
     }
 
-    public void set(JLabel _parent, boolean _playerTeam,FacadeGame _facade, String _name) {
+    public void set(PaintableLabel _parent, boolean _playerTeam,FacadeGame _facade, String _name) {
         playerTeam = _playerTeam;
         fighterName = _name;
         apply(_parent, _facade);

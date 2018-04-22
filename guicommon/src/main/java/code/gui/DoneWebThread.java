@@ -16,6 +16,6 @@ public final class DoneWebThread extends Thread {
     public void run() {
         timer.stop();
         dialog.setVisible(false);
-        dialog.getContentPane().removeAll();
+        dialog.getPane().removeAll();
     }
 }

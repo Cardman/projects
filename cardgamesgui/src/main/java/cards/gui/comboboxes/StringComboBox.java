@@ -13,6 +13,7 @@ public class StringComboBox extends TreeComboBox<Integer> {
 //        super(_numerosPlis);
 //    }
 
+    @Override
     public void addItem(String _anObject) {
         TreeMap<Integer, String> tr_;
         tr_ = getElements();
@@ -21,6 +22,6 @@ public class StringComboBox extends TreeComboBox<Integer> {
     }
 
     public String getSelectedComboItem() {
-        return (String)getSelectedItem();
+        return getSelectedItem();
     }
 }

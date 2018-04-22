@@ -3,11 +3,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
-
 import aiki.gui.components.Paginator;
+import code.gui.PaintableLabel;
 
-public class SelectableLabel extends JLabel {
+public class SelectableLabel extends PaintableLabel {
 
     protected static final int HEIGTH_CHARS = Paginator.HEIGTH_CHARS;
 

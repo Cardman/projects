@@ -3,30 +3,28 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import code.gui.EnumListModel;
-import code.gui.Jl;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.StringList;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import cards.gui.labels.selection.CardBeloteCellRenderer;
+import code.gui.GraphicList;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.StringList;
 
 public class BeloteCardsScrollableList extends CardsScrollableList {
 
     private EnumList<Suit> couleurs;
     private Order ordre;
     private boolean decroissant;
-    private EnumListModel<CardBelote> modeleListe = new EnumListModel<CardBelote>();
-    private Jl<CardBelote> liste = new Jl<CardBelote>(modeleListe);
+    private GraphicList<CardBelote> liste;
     private JLabel remCards;
 
     public BeloteCardsScrollableList(int _nb, int _pmax, String _titre) {
+        liste = new GraphicList<CardBelote>(false, false);
         setMax(_pmax);
         JLabel titrePanneau_ = new JLabel(_titre, SwingConstants.CENTER);
         add(titrePanneau_, BorderLayout.NORTH);
@@ -34,14 +32,14 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
-        add(new JScrollPane(liste),BorderLayout.CENTER);
+        add(liste.getComponent(),BorderLayout.CENTER);
         remCards = new JLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         add(remCards, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
 
     public void initSelectionCarteBelote() {
-        getListe().setCellRenderer(new CardBeloteCellRenderer());
+        liste.setRender(new CardBeloteCellRenderer());
     }
 
     public void iniPileBelote(HandBelote _main) {
@@ -55,27 +53,27 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
     }
     public void ajouterCartesBeloteFin(HandBelote _m) {
         for(CardBelote c:_m) {
-            modeleListe.addElement(c);
+            liste.add(c);
         }
         setNbCartesRestantes(getNbCartesRestantes() - _m.total());
         remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void ajouterCartesBelote(HandBelote _m) {
         for(CardBelote c:_m) {
-            if(modeleListe.isEmpty()) {
-                modeleListe.addElement(c);
+            if(liste.isEmpty()) {
+                liste.add(c);
                 setNbCartesRestantes(getNbCartesRestantes() - 1);
                 continue;
             }
-            CardBelote card_ = (CardBelote) modeleListe.lastElement();
+            CardBelote card_ = liste.last();
             if(card_.vientAvant(c,decroissant,ordre,couleurs)) {
-                modeleListe.addElement(c);
+                liste.add(c);
             } else {
                 byte b=0;
-                while(((CardBelote) modeleListe.get(b)).vientAvant(c,decroissant,ordre,couleurs)) {
+                while(liste.get(b).vientAvant(c,decroissant,ordre,couleurs)) {
                     b++;
                 }
-                modeleListe.add(b, c);
+                liste.add(b, c);
             }
             setNbCartesRestantes(getNbCartesRestantes() - 1);
         }
@@ -84,9 +82,17 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
     public void supprimerCartesBelote(HandBelote _cs) {
         int indice_;
         for(CardBelote c:_cs) {
-            indice_=modeleListe.indexOf(c);
-            if(indice_>-1) {
-                modeleListe.removeElementAt(indice_);
+            indice_ = -1;
+            int i_ = -1;
+            for (CardBelote v: liste.getList()) {
+                if (v == c) {
+                    i_ = indice_ + 1;
+                    break;
+                }
+                indice_++;
+            }
+            if(i_>-1) {
+                liste.remove(i_);
                 setNbCartesRestantes(getNbCartesRestantes() + 1);
             }
         }
@@ -96,29 +102,29 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
         HandBelote main_=new HandBelote();
         int taille_=taille();
         for (int i = CustList.FIRST_INDEX; i < taille_; i++) {
-            main_.ajouter((CardBelote)modeleListe.get(i));
+            main_.ajouter(liste.get(i));
         }
         return main_;
     }
     public HandBelote getCartesBeloteSelectionnees() {
-        if(getListe().isSelectionEmpty()) {
+        if(liste.isSelectionEmpty()) {
             return new HandBelote();
         }
         HandBelote main_=new HandBelote();
-        for (Object c: liste.getSelectedValuesLs()) {
-            main_.ajouter((CardBelote)c);
+        for (CardBelote c: liste.getSelectedValuesLs()) {
+            main_.ajouter(c);
         }
         return main_;
     }
     public int taille() {
-        return modeleListe.size();
+        return liste.size();
     }
     /**Retourne le nombre de cartes selectionnees*/
     @Override
     public int nombreCartesSelectionnees() {
         return liste.getSelectedValuesLs().size();
     }
-    public Jl<CardBelote> getListe() {
+    public GraphicList<CardBelote> getListe() {
         return liste;
     }
     @Override

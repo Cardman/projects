@@ -8,13 +8,14 @@ import javax.swing.JLabel;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
-import code.gui.CommonCellRenderer;
+import code.gui.CustCellRender;
+import code.gui.GraphicListable;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
 
-public class FighterRenderer extends CommonCellRenderer {
+public class FighterRenderer extends CustCellRender {
 
     private static final String KO = "KO";
     private static final String PER_CENT = " %";
@@ -41,8 +42,9 @@ public class FighterRenderer extends CommonCellRenderer {
     }
 
     @Override
-    public JLabel getListCellRendererComponent(Object _value, int _index,
+    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value, int _index,
             boolean _isSelected, boolean _cellHasFocus) {
+        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
         fighter = (Fighter) _value;
         ko = fighter.estKo();
         intRate = fighter.rateRemainHp();
@@ -55,12 +57,12 @@ public class FighterRenderer extends CommonCellRenderer {
         } else {
             enabled = facade.isChosableForLearningAndEvolving((byte) _index);
         }
-        setPreferredSize(new Dimension(150, sideLength));
-        return this;
+        label_.setPreferredSize(new Dimension(150, sideLength));
+        return label_;
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         if (!enabled) {
             _g.setColor(new Color(225, 225, 225));
             _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);
@@ -85,5 +87,15 @@ public class FighterRenderer extends CommonCellRenderer {
             _g.setColor(Color.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
+    }
+
+    @Override
+    public int getHeight() {
+        return sideLength;
+    }
+
+    @Override
+    public int getWidth() {
+        return 150;
     }
 }

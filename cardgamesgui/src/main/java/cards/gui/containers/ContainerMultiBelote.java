@@ -9,9 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
@@ -84,6 +82,9 @@ import cards.network.threads.Net;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
 import code.gui.NumComboBox;
+import code.gui.Panel;
+import code.gui.ScrollPane;
+import code.gui.TabbedPane;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EqList;
@@ -136,7 +137,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         while (square_ * square_ < size_) {
             square_ ++;
         }
-        setPanneauBoutonsJeuPoints(new JPanel(new GridLayout(0, square_)));
+        setPanneauBoutonsJeuPoints(new Panel(new GridLayout(0, square_)));
         getPointsButtons().clear();
         for (int p_: points_) {
             LabelPoints label_ = new LabelPoints(p_);
@@ -156,9 +157,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setBidOk(new LabelButton(MainWindow.OK));
         getBidOk().setEnabledLabel(false);
         getBidOk().addMouseListener(new BidEvent(this));
-        JPanel panel_ = new JPanel();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
-        JPanel panelSuits_ = new JPanel();
+        Panel panel_ = new Panel();
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panelSuits_ = new Panel();
         getBidsButtons().clear();
         for (Suit s: Suit.couleursOrdinaires()) {
             SuitLabel suitLabel_ = new SuitLabel();
@@ -174,7 +175,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             panelSuits_.add(suitLabel_);
         }
         panel_.add(panelSuits_);
-        JPanel panelBids_ = new JPanel();
+        Panel panelBids_ = new Panel();
         for (BidBelote b: BidBelote.getNonZeroBids()) {
             if (b.getCouleurDominante()) {
                 continue;
@@ -204,7 +205,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            panelBids_.add(buttonSuit_);
         }
         panel_.add(panelBids_);
-        JPanel panelOk_ = new JPanel();
+        Panel panelOk_ = new Panel();
         LabelButton buttonSuit_ = new LabelButton(BidBelote.FOLD.display());
         buttonSuit_.addMouseListener(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
@@ -246,7 +247,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private void ajouterBoutonContratBeloteMulti(String _texte,
             BidBeloteSuit _action) {
-        JPanel panneau_ = getPanneauBoutonsJeu();
+        Panel panneau_ = getPanneauBoutonsJeu();
         LabelButton bouton_ = new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratBeloteMulti(_action));
         bouton_.addMouseListener(new ListenerBidBeloteMulti(this,_action));
@@ -261,9 +262,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getLoad().setEnabledMenu(false);
         rulesBeloteMulti = _players.getRulesBelote();
         nbChoosenPlayers = _players.getNbPlayers();
-        JPanel container_ = new JPanel();
-        container_.setLayout(new BoxLayout(container_, BoxLayout.PAGE_AXIS));
-        JPanel panel_ = new JPanel();
+        Panel container_ = new Panel();
+        container_.setLayout(new BoxLayout(container_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panel_ = new Panel();
         panel_.setLayout(new GridLayout(0, 2));
         panel_.add(new JLabel(getMessages().getVal(MainWindow.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox();
@@ -274,13 +275,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 .size() - 1);
         indexInGame = choiceOfPlaceForPlayingGame
                 .getCurrent().byteValue();
-        choiceOfPlaceForPlayingGame.addActionListener(new ChangePlaceEvent(this));
+        choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame);
         ready = new JCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
-        panel_ = new JPanel();
+        panel_ = new Panel();
         panel_.setLayout(new GridLayout(0, 3));
         playersPseudos.clear();
         for (int i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
@@ -479,7 +480,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getOwner().getTeams().setEnabledMenu(true);
         annonceBeloteRebelote = false;
         if (_declaration.isPossibleBeloteRebelote()) {
-            JPanel panneau_ = getPanneauBoutonsJeu();
+            Panel panneau_ = getPanneauBoutonsJeu();
             JCheckBox caseCoche_ = new JCheckBox(
                     DeclaresBeloteRebelote.BELOTE_REBELOTE.display());
             caseCoche_.setEnabled(_declaration.isAllowedBeloteRebelote());
@@ -497,7 +498,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         DeclareHandBelote annonceMain_ = _declaration.getDeclaration();
         if (annonceMain_.getAnnonce() != DeclaresBelote.UNDEFINED) {
             annonceBelote = false;
-            JPanel panneau_ = getPanneauBoutonsJeu();
+            Panel panneau_ = getPanneauBoutonsJeu();
             JCheckBox caseCoche_ = new JCheckBox(StringList.concat(annonceMain_.getAnnonce().display(),
                     INTRODUCTION_PTS, annonceMain_.getMain().display()));
             caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
@@ -547,7 +548,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 getHandfuls().getVal(relative_).setText(
                         _card.getDeclare().getAnnonce().display());
             }
-            JPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
+            Panel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
             panelToSet_.removeAll();
             for (CardBelote c: _card.getDeclare().getMain()) {
                 MiniBeloteCard carte_ = new MiniBeloteCard(c);
@@ -567,7 +568,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void errorPlayingCard(ErrorPlayingBelote _error) {
         setCanPlay(true);
         if (!_error.getCards().estVide()) {
-            JPanel panneau_ = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+            Panel panneau_ = new Panel(new FlowLayout(FlowLayout.LEFT, 0, 0));
             HandBelote cartesBeloteRebelote_ = _error.getCards();
             for (GraphicBeloteCard c: getGraphicCards(cartesBeloteRebelote_)) {
                 panneau_.add(c);
@@ -723,7 +724,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
-        JPanel container_ = new JPanel();
+        Panel container_ = new Panel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
@@ -744,47 +745,47 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 list_, 1);
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_, BorderLayout.CENTER);
-        JPanel panneau_ = new JPanel();
+        Panel panneau_ = new Panel();
         panneau_.setBackground(Color.BLUE);
         panneau_.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         setPanelHand(panneau_);
         container_.add(panneau_, BorderLayout.SOUTH);
-        JPanel panneau2_ = new JPanel();
-        panneau2_.setLayout(new BoxLayout(panneau2_, BoxLayout.PAGE_AXIS));
+        Panel panneau2_ = new Panel();
+        panneau2_.setLayout(new BoxLayout(panneau2_.getComponent(), BoxLayout.PAGE_AXIS));
         setEvents(new JTextArea(EMPTY, 8, 30));
         byte relative_ = relative(_beginPlace);
         getEvents().append(StringList.concat(getMessages().getVal(MainWindow.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
         getEvents().setEditable(false);
-        panneau2_.add(new JScrollPane(getEvents()));
+        panneau2_.add(new ScrollPane(getEvents()));
         panneau2_.add(getMini());
         setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,JPanel>());
-        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0, 1));
+        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        Panel declaredHandfuls_ = new Panel(new GridLayout(0, 1));
         for (byte i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
-            JPanel declaredHandfulGroup_ = new JPanel(new FlowLayout());
+            Panel declaredHandfulGroup_ = new Panel(new FlowLayout());
             JLabel lab_ = new JLabel(pseudos_.getVal(i));
             declaredHandfulGroup_.add(lab_);
             JLabel handful_ = new JLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
-            JPanel declaredHandful_ = new JPanel(new FlowLayout(
+            Panel declaredHandful_ = new Panel(new FlowLayout(
                     FlowLayout.LEFT, 0, 0));
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        JScrollPane scroll_ = new JScrollPane(declaredHandfuls_);
+        ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        JPanel sousPanneau_ = new JPanel(new GridLayout(0, 1));
+        Panel sousPanneau_ = new Panel(new GridLayout(0, 1));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_, BorderLayout.EAST);
         if (!_cardsOnDeck.estVide()) {
             tapisBelote().setTalonBelote(_cardsOnDeck);
         }
-        JPanel panel_ = new JPanel();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
-        panel_.add(new JScrollPane(container_));
+        Panel panel_ = new Panel();
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        panel_.add(new ScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
         panel_.add(getWindow().getClock());
@@ -818,7 +819,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         return iter_;
     }
 
-    private void updateCardsInPanelBeloteMulti(JPanel _panel, HandBelote _hand) {
+    private void updateCardsInPanelBeloteMulti(Panel _panel, HandBelote _hand) {
         _panel.removeAll();
         for (GraphicBeloteCard c: getGraphicCards(_hand)) {
             c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
@@ -863,14 +864,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        JPanel container_=new JPanel();
-        JScrollPane ascenseur_;
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
 
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
 
-        JTabbedPane onglets_=new JTabbedPane();
+        TabbedPane onglets_=new TabbedPane();
         ResultsGame res_ = _res;
         setScores(res_.getScores());
 
@@ -889,7 +889,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
-        ascenseur_=new JScrollPane();
+        JScrollPane ascenseur_=new JScrollPane();
         editor_ = new RenderedPage(ascenseur_);
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
@@ -904,14 +904,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);
-        JPanel panneau_=new JPanel();
-        panneau_.setLayout(new BoxLayout(panneau_, BoxLayout.PAGE_AXIS));
+        Panel panneau_=new Panel();
+        panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
         readyToPlay = false;
         ready = new JCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
-        JPanel panel_ = new JPanel();
+        Panel panel_ = new Panel();
         panel_.setLayout(new GridLayout(0,3));
 
         for (int i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
@@ -979,7 +979,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void delegateServer() {
         hasCreatedServer = true;
         if (!Net.isProgressingGame()) {
-            JPanel container_ = getContentPane();
+            Panel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);

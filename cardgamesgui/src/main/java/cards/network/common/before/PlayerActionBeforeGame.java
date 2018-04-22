@@ -1,6 +1,6 @@
 package cards.network.common.before;
-import code.util.annot.RwXml;
 import cards.network.common.PlayerAction;
+import code.util.annot.RwXml;
 
 @RwXml
 public abstract class PlayerActionBeforeGame extends PlayerAction {

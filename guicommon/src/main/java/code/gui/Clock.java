@@ -3,13 +3,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Calendar;
 
+import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import code.gui.events.UpdateTimeEvent;
 import code.util.StringList;
 
-public class Clock extends JTextField {
+public class Clock extends CustComponent {
 
     private static final String ARIAL = "Arial";
     private static final String SAMPLE_SEPARATOR = "_";
@@ -22,18 +23,19 @@ public class Clock extends JTextField {
     private static final int HEIGHT_TIME = 15;
 
     private Timer timer;
+    private JTextField component;
 
     public Clock() {
-        super(DEFAULT_NB_CHARS);
-        setEditable(false);
-        setFont(new Font(ARIAL,Font.PLAIN,HEIGHT_TIME));
-        setForeground(COLOR);
+        component = new JTextField(DEFAULT_NB_CHARS);
+        component.setEditable(false);
+        component.setFont(new Font(ARIAL,Font.PLAIN,HEIGHT_TIME));
+        component.setForeground(COLOR);
         timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
         timer.start();
     }
 
     public void setTimeText() {
-        setText(getTimeText());
+        component.setText(getTimeText());
     }
 
     public static String getSimpleDateTimeText() {
@@ -76,5 +78,10 @@ public class Clock extends JTextField {
         int m_ = now_.get(Calendar.MONTH) + 1;
         int d_ = now_.get(Calendar.DAY_OF_MONTH);
         return StringList.concat(String.valueOf(y_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(d_));
+    }
+
+    @Override
+    public JComponent getComponent() {
+        return component;
     }
 }

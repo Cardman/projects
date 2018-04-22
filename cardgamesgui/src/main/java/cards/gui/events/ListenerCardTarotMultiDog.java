@@ -2,10 +2,10 @@ package cards.gui.events;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 
-import code.util.consts.Constants;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.DiscardedCard;
 import cards.tarot.enumerations.CardTarot;
+import code.util.consts.Constants;
 
 public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
 

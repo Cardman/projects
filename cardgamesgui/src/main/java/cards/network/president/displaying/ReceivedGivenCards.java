@@ -1,6 +1,6 @@
 package cards.network.president.displaying;
-import code.util.annot.RwXml;
 import cards.president.HandPresident;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class ReceivedGivenCards {

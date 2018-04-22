@@ -3,7 +3,6 @@ import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -13,6 +12,7 @@ import aiki.beans.PokemonStandards;
 import aiki.gui.MainWindow;
 import code.gui.ChildFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.ProgressingWebDialog;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
@@ -53,7 +53,7 @@ public final class FrameHtmlData extends ChildFrame {
         session = _session;
         session.setFrame(this);
         session.setDialog(dialog);
-        JPanel panel_ = new JPanel();
+        Panel panel_ = new Panel();
         JLabel area_ = new JLabel(TEXT);
         JTextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
@@ -63,7 +63,7 @@ public final class FrameHtmlData extends ChildFrame {
         session.setSearchText(search);
         session.setField(field_);
         session.addFinder();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
         JScrollPane scrollSession_ = session.getScroll();

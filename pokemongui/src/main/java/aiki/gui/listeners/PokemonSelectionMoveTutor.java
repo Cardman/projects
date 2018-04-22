@@ -1,10 +1,9 @@
 package aiki.gui.listeners;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import aiki.gui.components.walk.ScenePanel;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
-public class PokemonSelectionMoveTutor implements ListSelectionListener {
+public class PokemonSelectionMoveTutor extends ListSelection {
 
     private ScenePanel window;
 
@@ -13,10 +12,7 @@ public class PokemonSelectionMoveTutor implements ListSelectionListener {
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent _e) {
-        if (_e.getValueIsAdjusting()) {
-            return;
-        }
+    public void valueChanged(SelectionInfo _e) {
         window.selectPokemonMoveTutor();
     }
 

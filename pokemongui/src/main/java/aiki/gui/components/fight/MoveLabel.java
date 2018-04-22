@@ -3,17 +3,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
-
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.ChosenMoveInfos;
+import code.gui.PaintableLabel;
 import code.images.ConverterBufferedImage;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public class MoveLabel extends JLabel {
+public class MoveLabel extends PaintableLabel {
 
     private static final String SPACE = " ";
 
@@ -26,6 +25,8 @@ public class MoveLabel extends JLabel {
     private boolean selected;
 
     private NatTreeMap<String,Color> colorsTypes;
+
+    private String text;
 
     public MoveLabel(ChosenMoveInfos _infos, String _move, FacadeGame _facade) {
         colorsTypes = new NatTreeMap<String,Color>();
@@ -41,7 +42,7 @@ public class MoveLabel extends JLabel {
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }
-        setText(StringList.concat(move,SPACE,types_.join(SPACE),SPACE,usesStr_));
+        text = StringList.concat(move,SPACE,types_.join(SPACE),SPACE,usesStr_);
         setOpaque(true);
         setPreferredSize(new Dimension(150, 20));
     }
@@ -55,7 +56,7 @@ public class MoveLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (infos.isUsable()) {
@@ -63,7 +64,7 @@ public class MoveLabel extends JLabel {
         } else {
             _g.setColor(Color.GRAY);
         }
-        _g.drawString(getText(), 0, 10);
+        _g.drawString(text, 0, 10);
         int x_ = 0;
         for (String t: colorsTypes.getKeys()) {
             _g.setColor(colorsTypes.getVal(t));

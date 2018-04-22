@@ -1,4 +1,5 @@
 package code.gui;
+import code.util.Numbers;
 import code.util.TreeMap;
 import code.util.comparators.NaturalComparator;
 
@@ -19,7 +20,7 @@ public class NumComboBox extends TreeComboBox<Integer> {
 
     public void addItem(Integer _item) {
         getElements().put(_item, _item.toString());
-        super.addItem(_item);
+        super.addItem(_item.toString());
     }
 
     private static TreeMap<Integer, String> getTree(Integer... _ints) {
@@ -29,5 +30,15 @@ public class NumComboBox extends TreeComboBox<Integer> {
             tr_.put(i, i.toString());
         }
         return tr_;
+    }
+    public void setSelectedItem(int _i) {
+        int index_ = 0;
+        for (Integer k: getElements().getKeys()) {
+            if (Numbers.eq(k.intValue(), _i)) {
+                selectItem(index_);
+                break;
+            }
+            index_++;
+        }
     }
 }

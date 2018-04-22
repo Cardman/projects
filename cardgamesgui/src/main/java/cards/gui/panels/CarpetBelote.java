@@ -5,23 +5,23 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import code.util.NumberMap;
-import code.util.StringList;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.labels.GraphicBeloteCard;
+import code.gui.Panel;
+import code.gui.ScrollPane;
+import code.util.NumberMap;
+import code.util.StringList;
 
-public class CarpetBelote extends JPanel {
+public class CarpetBelote extends Panel {
 
     private static final String EMPTY="";
     private static final String RETURN_LINE="\n";
 
-    private JPanel centerDeck;
+    private Panel centerDeck;
 
     private NumberMap<Integer,GraphicBeloteCard> cards = new NumberMap<Integer,GraphicBeloteCard>();
 
@@ -35,7 +35,7 @@ public class CarpetBelote extends JPanel {
         if(_nombreDeJoueurs==4) {
             setLayout(new GridLayout(0, 3));
             for (int i = 0; i < 9; i++) {
-                JPanel surPanneau_ = new JPanel();
+                Panel surPanneau_ = new Panel();
                 surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
                 if (i % 2 == 1) {
 
@@ -70,8 +70,8 @@ public class CarpetBelote extends JPanel {
             }
         } else if(_nombreDeJoueurs==6) {
             for(int i=0;i<12;i++) {
-                JPanel surPanneau_=new JPanel();
-                JPanel panneau_=new JPanel();
+                Panel surPanneau_=new Panel();
+                Panel panneau_=new Panel();
                 panneau_.setLayout(new BorderLayout());
                 JTextArea jta_=new JTextArea(EMPTY);
                 jta_.setRows(3);
@@ -83,7 +83,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(4),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -97,7 +97,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -111,7 +111,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(5),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -125,7 +125,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -135,7 +135,7 @@ public class CarpetBelote extends JPanel {
                 } else if(i==1) {
                     surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
                     jta_.append(StringList.concat(_pseudos.get(3),RETURN_LINE));
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -145,7 +145,7 @@ public class CarpetBelote extends JPanel {
                 } else if(i==10) {
                     surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
                     jta_.append(StringList.concat(_pseudos.get(0),RETURN_LINE));
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -161,9 +161,9 @@ public class CarpetBelote extends JPanel {
             }
         } else if(_nombreDeJoueurs==3) {
             for(int i=0;i<9;i++) {
-                JPanel surPanneau_=new JPanel();
+                Panel surPanneau_=new Panel();
                 surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-                JPanel panneau_=new JPanel();
+                Panel panneau_=new Panel();
                 panneau_.setLayout(new BorderLayout());
                 JTextArea jta_=new JTextArea(EMPTY);
                 jta_.setRows(3);
@@ -174,7 +174,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -187,7 +187,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -196,7 +196,7 @@ public class CarpetBelote extends JPanel {
                     surPanneau_.add(panneau_);
                 } else if(i==7) {
                     jta_.append(StringList.concat(_pseudos.get(0),RETURN_LINE));
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -211,8 +211,8 @@ public class CarpetBelote extends JPanel {
             }
         } else {
             for(int i=0;i<9;i++) {
-                JPanel surPanneau_=new JPanel();
-                JPanel panneau_=new JPanel();
+                Panel surPanneau_=new Panel();
+                Panel panneau_=new Panel();
                 panneau_.setLayout(new BorderLayout());
                 JTextArea jta_=new JTextArea(EMPTY);
                 jta_.setRows(3);
@@ -224,7 +224,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(3),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -238,7 +238,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -252,7 +252,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(4),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -266,7 +266,7 @@ public class CarpetBelote extends JPanel {
                     } else {
                         jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
                     }
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);
@@ -276,7 +276,7 @@ public class CarpetBelote extends JPanel {
                 } else if(i==7) {
                     surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
                     jta_.append(StringList.concat(_pseudos.get(0),RETURN_LINE));
-                    JScrollPane ascenseur_=new JScrollPane(jta_);
+                    ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(SwingConstants.RIGHT,true);

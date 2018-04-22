@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
-
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
@@ -27,6 +25,7 @@ import aiki.game.fight.animations.InfosAnimationStatistic;
 import aiki.game.fight.enums.FightState;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.FrameHtmlData;
+import code.gui.PaintableLabel;
 import code.gui.SetStyle;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
@@ -34,7 +33,7 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
-public class FrontBattle extends JLabel {
+public class FrontBattle extends PaintableLabel {
 
     private static final int NB_IMAGES = 128;
 
@@ -115,7 +114,7 @@ public class FrontBattle extends JLabel {
     public FrontBattle(MainWindow _window, FacadeGame _facade) {
         facade = _facade;
         battle = new Battle(_window, _facade, this);
-        SetStyle.setupStyle(battle);
+        SetStyle.setupStyle(battle.getFrame());
     }
 
     public void setTargets() {
@@ -1166,7 +1165,7 @@ public class FrontBattle extends JLabel {
     }*/
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (drawImage) {

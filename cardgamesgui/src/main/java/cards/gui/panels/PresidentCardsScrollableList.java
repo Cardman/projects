@@ -3,28 +3,26 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import code.gui.EnumListModel;
-import code.gui.Jl;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.StringList;
 import cards.consts.Suit;
 import cards.gui.labels.selection.CardPresidentCellRenderer;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
+import code.gui.GraphicList;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.StringList;
 
 public class PresidentCardsScrollableList extends CardsScrollableList {
 
     private EnumList<Suit> couleurs;
     private boolean decroissant;
-    private EnumListModel<CardPresident> modeleListe = new EnumListModel<CardPresident>();
-    private Jl<CardPresident> liste = new Jl<CardPresident>(modeleListe);
+    private GraphicList<CardPresident> liste;
     private JLabel remCards;
 
     public PresidentCardsScrollableList(int _nb, int _pmax, String _titre) {
+        liste = new GraphicList<CardPresident>(false,false);
         setMax(_pmax);
         JLabel titrePanneau_ = new JLabel(_titre, SwingConstants.CENTER);
         add(titrePanneau_, BorderLayout.NORTH);
@@ -32,14 +30,14 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
-        add(new JScrollPane(liste),BorderLayout.CENTER);
+        add(liste.getComponent(),BorderLayout.CENTER);
         remCards = new JLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         add(remCards, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
 
     public void initSelectionCartePresident() {
-        getListe().setCellRenderer(new CardPresidentCellRenderer());
+        liste.setRender(new CardPresidentCellRenderer());
     }
 
     public void iniPilePresident(HandPresident _main) {
@@ -52,27 +50,27 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
     }
     public void ajouterCartesPresidentFin(HandPresident _m) {
         for(CardPresident c:_m) {
-            modeleListe.addElement(c);
+            liste.add(c);
         }
         setNbCartesRestantes(getNbCartesRestantes() - _m.total());
         remCards.setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void ajouterCartesPresident(HandPresident _m) {
         for(CardPresident c:_m) {
-            if(modeleListe.isEmpty()) {
-                modeleListe.addElement(c);
+            if(liste.isEmpty()) {
+                liste.add(c);
                 setNbCartesRestantes(getNbCartesRestantes() - 1);
                 continue;
             }
-            CardPresident card_ = (CardPresident) modeleListe.lastElement();
+            CardPresident card_ = liste.last();
             if(card_.vientAvant(c,decroissant,couleurs)) {
-                modeleListe.addElement(c);
+                liste.add(c);
             } else {
                 byte b=0;
-                while(((CardPresident)modeleListe.get(b)).vientAvant(c,decroissant,couleurs)) {
+                while(liste.get(b).vientAvant(c,decroissant,couleurs)) {
                     b++;
                 }
-                modeleListe.add(b, c);
+                liste.add(b, c);
             }
             setNbCartesRestantes(getNbCartesRestantes() - 1);
         }
@@ -81,9 +79,17 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
     public void supprimerCartesPresident(HandPresident _cs) {
         int indice_;
         for(CardPresident c:_cs) {
-            indice_=modeleListe.indexOf(c);
-            if(indice_>-1) {
-                modeleListe.removeElementAt(indice_);
+            indice_ = -1;
+            int i_ = -1;
+            for (CardPresident v: liste.getList()) {
+                if (v == c) {
+                    i_ = indice_ + 1;
+                    break;
+                }
+                indice_++;
+            }
+            if(i_>-1) {
+                liste.remove(indice_);
                 setNbCartesRestantes(getNbCartesRestantes() + 1);
             }
         }
@@ -93,29 +99,29 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
         HandPresident main_=new HandPresident();
         int taille_=taille();
         for (int i = CustList.FIRST_INDEX; i < taille_; i++) {
-            main_.ajouter((CardPresident)modeleListe.get(i));
+            main_.ajouter(liste.get(i));
         }
         return main_;
     }
     public HandPresident getCartesPresidentSelectionnees() {
-        if(getListe().isSelectionEmpty()) {
+        if(liste.isSelectionEmpty()) {
             return new HandPresident();
         }
         HandPresident main_=new HandPresident();
-        for (Object c: liste.getSelectedValuesLs()) {
-            main_.ajouter((CardPresident)c);
+        for (CardPresident c: liste.getSelectedValuesLs()) {
+            main_.ajouter(c);
         }
         return main_;
     }
     public int taille() {
-        return modeleListe.size();
+        return liste.size();
     }
     /**Retourne le nombre de cartes selectionnees*/
     @Override
     public int nombreCartesSelectionnees() {
         return liste.getSelectedValuesLs().size();
     }
-    public Jl<CardPresident> getListe() {
+    public GraphicList<CardPresident> getListe() {
         return liste;
     }
     @Override

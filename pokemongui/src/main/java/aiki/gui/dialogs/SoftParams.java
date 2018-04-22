@@ -2,7 +2,6 @@ package aiki.gui.dialogs;
 import java.awt.GridLayout;
 
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
@@ -11,6 +10,7 @@ import aiki.gui.MainWindow;
 import aiki.gui.dialogs.events.ValidateSoftParams;
 import code.gui.Dialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.util.StringMap;
 
 public final class SoftParams extends Dialog {
@@ -64,7 +64,7 @@ public final class SoftParams extends Dialog {
         ok = false;
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_window);
-        JPanel panel_ = new JPanel();
+        Panel panel_ = new Panel();
         panel_.setLayout(new GridLayout(0,1));
 //        loadLastRom = _loading.isLoadLastRom();
 //        loadLastGame = _loading.isLoadLastGame();

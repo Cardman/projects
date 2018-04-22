@@ -5,27 +5,27 @@ import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import cards.gui.labels.GraphicPresidentCard;
+import cards.president.HandPresident;
+import cards.president.enumerations.Playing;
+import code.gui.Panel;
 import code.util.CustList;
 import code.util.NumberMap;
 import code.util.StringList;
 import code.util.consts.Constants;
-import cards.gui.labels.GraphicPresidentCard;
-import cards.president.HandPresident;
-import cards.president.enumerations.Playing;
 
-public class CarpetPresident extends JPanel {
+public class CarpetPresident extends Panel {
 
     private static final String SEPARATOR = ":";
 //    private static final String EMPTY="";
 //    private static final char RETURN_LINE_CHAR='\n';
 
-    private JPanel playersPanel;
+    private Panel playersPanel;
     private CustList<JLabel> labels = new CustList<JLabel>();
 
-    private JPanel centerDeck;
+    private Panel centerDeck;
     private CustList<GraphicPresidentCard> listCards = new CustList<GraphicPresidentCard>();
 
     private NumberMap<Byte,Playing> cards = new NumberMap<Byte,Playing>();
@@ -44,7 +44,7 @@ public class CarpetPresident extends JPanel {
         number = _nombre;
         pseudos = _pseudos;
         cards = new NumberMap<Byte,Playing>(_status);
-        centerDeck = new JPanel();
+        centerDeck = new Panel();
         centerDeck.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         centerDeck.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(_nombre));
         listCards.clear();
@@ -59,8 +59,8 @@ public class CarpetPresident extends JPanel {
         }
         centerDeck.setBackground(new Color(0, 125, 0));
         add(centerDeck, BorderLayout.CENTER);
-        playersPanel = new JPanel();
-        playersPanel.setLayout(new BoxLayout(playersPanel, BoxLayout.PAGE_AXIS));
+        playersPanel = new Panel();
+        playersPanel.setLayout(new BoxLayout(playersPanel.getComponent(), BoxLayout.PAGE_AXIS));
         for (String n: pseudos) {
             JLabel l_ = new JLabel(n);
             l_.setOpaque(true);

@@ -2,10 +2,10 @@ package cards.gui.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import code.util.consts.Constants;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.BiddingTarot;
 import cards.tarot.enumerations.BidTarot;
+import code.util.consts.Constants;
 
 public class ListenerBidTarotMulti extends MouseAdapter {
 

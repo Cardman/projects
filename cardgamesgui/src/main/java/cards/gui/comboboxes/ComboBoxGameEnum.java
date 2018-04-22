@@ -1,6 +1,6 @@
 package cards.gui.comboboxes;
-import code.gui.ComboBox;
 import cards.facade.enumerations.GameEnum;
+import code.gui.ComboBox;
 
 public final class ComboBoxGameEnum extends ComboBox<GameEnum> {
 

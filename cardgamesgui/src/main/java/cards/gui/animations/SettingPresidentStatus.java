@@ -1,7 +1,7 @@
 package cards.gui.animations;
-import code.util.NumberMap;
 import cards.gui.containers.ContainerPresident;
 import cards.president.enumerations.Playing;
+import code.util.NumberMap;
 
 /**Thread safe class*/
 public final class SettingPresidentStatus extends Thread {

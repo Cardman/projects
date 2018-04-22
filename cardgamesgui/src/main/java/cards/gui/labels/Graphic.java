@@ -3,8 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JLabel;
-
+import code.gui.PaintableLabel;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
@@ -12,7 +11,7 @@ import code.util.Numbers;
 /**
     */
 
-public class Graphic extends JLabel {
+public class Graphic extends PaintableLabel {
     private CustList<Numbers<Long>> scores;
     private Numbers<Long> sommes;
     private EqList<Rate> sigmas;
@@ -24,7 +23,7 @@ public class Graphic extends JLabel {
         couleurs=_pcouleurs;
     }
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         Graphics2D g2_=(Graphics2D)_g;
         int rapport_=getWidth()/scores.size();
         g2_.setColor(Color.WHITE);

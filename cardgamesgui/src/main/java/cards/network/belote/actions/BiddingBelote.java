@@ -1,7 +1,7 @@
 package cards.network.belote.actions;
-import code.util.annot.RwXml;
 import cards.belote.BidBeloteSuit;
 import cards.network.common.PlayerActionGame;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class BiddingBelote extends PlayerActionGame {

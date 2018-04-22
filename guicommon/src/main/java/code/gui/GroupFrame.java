@@ -26,7 +26,7 @@ public abstract class GroupFrame extends CommonFrame implements ChangeableTitle 
 
     protected GroupFrame() {
         FRAMES.add(this);
-        WindowUtils.addInArray(this);
+        WindowUtils.addInArray(getFrame());
     }
 
     public static boolean tryToReopen(String _applicationName) {
@@ -113,7 +113,7 @@ public abstract class GroupFrame extends CommonFrame implements ChangeableTitle 
         opened = _b;
         super.setVisible(_b);
         if (!_b) {
-            WindowUtils.removeWindow(this);
+            WindowUtils.removeWindow(getFrame());
         }
     }
 

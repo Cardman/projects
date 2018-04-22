@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 
@@ -17,6 +16,7 @@ import cards.gui.dialogs.events.ListenerPlayers;
 import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
+import code.gui.Panel;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.Numbers;
@@ -74,7 +74,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     protected void initJt(JSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers) {
         setNbGames(_nbGames);
-        JPanel dealing_=new JPanel();
+        Panel dealing_=new Panel();
         dealing_.setLayout(new GridLayout(0,2));
         //Sous - panneau Battre les cartes
         dealing_.add(new JLabel(getMessages().getVal(MIX_CARDS)));
@@ -100,15 +100,24 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
 
-        JPanel rules_=new JPanel();
+        Panel rules_=new Panel();
         rules_.setLayout(new GridLayout(0,2));
         rules_.add(new JLabel(getMessages().getVal(EQUALITY)));
         equality = new ComboBoxEnumCards<EqualtyPlaying>();
+        EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
+        int index_ = 0;
+        int i_ = -1;
         for (EqualtyPlaying choix_:EqualtyPlaying.values()) {
+            if (choix_ == curThree_) {
+                i_ = index_;
+            }
             equality.addItem(choix_);
+            index_++;
         }
-        equality.setSelectedItem(getReglesPresident().getEqualty());
-        equality.addActionListener(new ListenerEqualityPlaying(this));
+        if (i_ > -1) {
+            equality.selectItem(i_);
+        }
+        equality.setListener(new ListenerEqualityPlaying(this));
         rules_.add(equality);
         rules_.add(new JLabel());
         stopAllPlayedCards = new JLabel();
@@ -131,8 +140,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         rules_.add(possibleReversing);
         getJt().add(getMessages().getVal(RULES),rules_);
 
-        JPanel endDeal_ = new JPanel();
-        endDeal_.setLayout(new BoxLayout(endDeal_, BoxLayout.PAGE_AXIS));
+        Panel endDeal_ = new Panel();
+        endDeal_.setLayout(new BoxLayout(endDeal_.getComponent(), BoxLayout.PAGE_AXIS));
         looseFinishBestCards = new JCheckBox(getMessages().getVal(LOOSE_FINISH_BEST_CARDS));
         looseFinishBestCards.setSelected(getReglesPresident().isLoosingIfFinishByBestCards());
         endDeal_.add(looseFinishBestCards);
@@ -144,7 +153,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         endDeal_.add(looserStartsFirst);
         getJt().add(getMessages().getVal(END_DEAL),endDeal_);
 
-        JPanel players_ = new JPanel();
+        Panel players_ = new Panel();
         players_.setLayout(new GridLayout(2,0));
         players_.add(new JLabel(getMessages().getVal(NUMBER_PLAYERS)));
         players_.add(new JLabel(getMessages().getVal(NUMBER_STACKS)));
@@ -183,7 +192,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     }
 
     public void displayMessagePlaying() {
-        if (equality.getSelectedItem() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
+        if (equality.getCurrentElement() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
             stopAllPlayedCards.setText(getMessages().getVal(STOP_ALL_PLAYED_CARDS));
         } else {
             stopAllPlayedCards.setText(EMPTY);
@@ -224,7 +233,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     protected void validateRules() {
 //        getReglesPresident().setMixedCards((MixCardsChoice)listeChoix.getSelectedItem());
         getReglesPresident().setMixedCards(listeChoix.getCurrent());
-        getReglesPresident().setEqualty((EqualtyPlaying)equality.getSelectedItem());
+        getReglesPresident().setEqualty(equality.getCurrentElement());
         getReglesPresident().setHasToPlay(!canPass.isSelected());
         getReglesPresident().setPossibleReversing(possibleReversing.isSelected());
         getReglesPresident().setLoosingIfFinishByBestCards(looseFinishBestCards.isSelected());

@@ -2,6 +2,7 @@ package exportwpl.gui;
 import java.io.File;
 
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -38,26 +39,26 @@ public class MainWindow extends GroupFrame {
     private JTextField file = new JTextField(40);
 
     public MainWindow() {
-        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        getContentPane().add(folderLabel);
-        getContentPane().add(folder);
+        getPane().setLayout(new BoxLayout(getPane().getComponent(), BoxLayout.PAGE_AXIS));
+        getPane().add(folderLabel);
+        getPane().add(folder);
         LabelButton b_;
         b_ = new LabelButton(SELECT_FOLDER);
         b_.addMouseListener(new SelectFolder(this));
-        getContentPane().add(b_);
-        getContentPane().add(fileLabel);
-        getContentPane().add(file);
+        getPane().add(b_);
+        getPane().add(fileLabel);
+        getPane().add(file);
         b_ = new LabelButton(SELECT_FILE);
         b_.addMouseListener(new SelectFile(this));
-        getContentPane().add(b_);
+        getPane().add(b_);
         b_ = new LabelButton(WRITE_TO_FILE);
         b_.addMouseListener(new WriteFile(this));
-        getContentPane().add(b_);
-        getContentPane().add(new Clock());
+        getPane().add(b_);
+        getPane().add(new Clock());
         pack();
         setVisible(true);
-        SetStyle.setupStyle(this);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        SetStyle.setupStyle(getFrame());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void selectFolder() {

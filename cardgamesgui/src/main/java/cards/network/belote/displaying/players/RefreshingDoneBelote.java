@@ -1,8 +1,8 @@
 package cards.network.belote.displaying.players;
-import code.util.annot.RwXml;
 import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.network.common.PlayerActionGame;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class RefreshingDoneBelote extends PlayerActionGame {

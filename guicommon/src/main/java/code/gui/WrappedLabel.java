@@ -3,12 +3,10 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
-
 import code.util.CustList;
 import code.util.StringList;
 
-public class WrappedLabel extends JLabel {
+public class WrappedLabel extends PaintableLabel {
 
     private static final char LINE_RETURN = '\n';
     private StringList lines = new StringList();
@@ -43,7 +41,7 @@ public class WrappedLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(getBackground());
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(getForeground());

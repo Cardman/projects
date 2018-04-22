@@ -1,7 +1,7 @@
 package aiki.gui.components.walk;
-import javax.swing.JPanel;
+import code.gui.Panel;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends Panel {
 
     /*private static final String BEAT_TRAINER = "beatTrainer";
     private static final String BEAT_GYM_TRAINER = "beatGymTrainer";
@@ -26,16 +26,16 @@ public class GamePanel extends JPanel {
 
     private FacadeGame facade;
 
-    private JPanel panelTrainers;
+    private Panel panelTrainers;
 
-    private JPanel panelImportantTrainers;
+    private Panel panelImportantTrainers;
 
-    private JPanel panelPlaces;
+    private Panel panelPlaces;
 
     private JLabel nickname;
 
-    private JPanel panelCaughtPk;
-    private JPanel panelPk;
+    private Panel panelCaughtPk;
+    private Panel panelPk;
 
     private JLabel money;
 
@@ -48,23 +48,23 @@ public class GamePanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         nickname = new JLabel();
         add(nickname);
-        panelCaughtPk = new JPanel();
+        panelCaughtPk = new Panel();
         panelCaughtPk.setLayout(new GridLayout(0, 10));
         add(panelCaughtPk);
-        panelPk = new JPanel();
+        panelPk = new Panel();
         panelPk.setLayout(new GridLayout(0, 10));
         add(panelPk);
         money = new JLabel();
         add(money);
         remainingRepelSteps = new JLabel();
         add(remainingRepelSteps);
-        panelPlaces = new JPanel();
+        panelPlaces = new Panel();
         panelPlaces.setLayout(new GridLayout(0, 1));
         add(panelPlaces);
-        panelImportantTrainers = new JPanel();
+        panelImportantTrainers = new Panel();
         panelImportantTrainers.setLayout(new GridLayout(0, 1));
         add(panelImportantTrainers);
-        panelTrainers = new JPanel();
+        panelTrainers = new Panel();
         panelTrainers.setLayout(new GridLayout(0, 1));
         add(panelTrainers);
     }

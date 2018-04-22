@@ -6,8 +6,6 @@ import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -28,6 +26,8 @@ import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import code.gui.LabelButton;
+import code.gui.Panel;
+import code.gui.ScrollPane;
 import code.gui.ThreadInvoker;
 import code.util.CustList;
 import code.util.EqList;
@@ -78,7 +78,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         SwingUtilities.invokeLater(new GoSimulateGame(new GoSimulateBelote(partieSimulee, container, stopButton), container));
     }
     private void afficherMainUtilisateurSimuBelote(HandBelote _mainUtilisateur) {
-        JPanel panneau1_=container.getPanelHand();
+        Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
         for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(_mainUtilisateur)) {
@@ -132,9 +132,9 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
             mainsUtilisateurs_.get(0).setOrdre(container.getDisplayingBelote().getOrdreAvantEncheres());
             mainsUtilisateurs_.get(0).trier(container.getDisplayingBelote().getCouleurs(),container.getDisplayingBelote().getDecroissant(),container.getDisplayingBelote().getOrdreAvantEncheres());
         }
-        JPanel contentPane_ = new JPanel();
-        contentPane_.setLayout(new BoxLayout(contentPane_, BoxLayout.PAGE_AXIS));
-        JPanel container_=new JPanel();
+        Panel contentPane_ = new Panel();
+        contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetBelote tapis_=new CarpetBelote();
@@ -142,37 +142,37 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         tapis_.initTapisBelote(partie_.getNombreDeJoueurs(),container.getDisplayingBelote().getHoraire(),pseudos_,1);
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         panneau_.setBackground(Color.BLUE);
         panneau_.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
         container.setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        JPanel panneau2_=new JPanel();
-        panneau2_.setLayout(new BoxLayout(panneau2_, BoxLayout.PAGE_AXIS));
+        Panel panneau2_=new Panel();
+        panneau2_.setLayout(new BoxLayout(panneau2_.getComponent(), BoxLayout.PAGE_AXIS));
         container.setEvents(new JTextArea(ContainerBelote.EMPTY,8, 30));
         container.getEvents().setEditable(false);
-        panneau2_.add(new JScrollPane(container.getEvents()));
+        panneau2_.add(new ScrollPane(container.getEvents()));
         container.setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingBelote().getHoraire(),pseudos_));
         panneau2_.add(container.getMini());
         container.setHandfuls(new NumberMap<Byte,JLabel>());
-        container.setDeclaredHandfuls(new NumberMap<Byte,JPanel>());
-        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
+        container.setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
-            JPanel declaredHandfulGroup_ = new JPanel(new FlowLayout());
+            Panel declaredHandfulGroup_ = new Panel(new FlowLayout());
             JLabel lab_ = new JLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             JLabel handful_ = new JLabel(ContainerGame.EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             container.getHandfuls().put(i, handful_);
-            JPanel declaredHandful_ = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel declaredHandful_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
             declaredHandfulGroup_.add(declaredHandful_);
             container.getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        JScrollPane scroll_ = new JScrollPane(declaredHandfuls_);
+        ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        JPanel sousPanneau_=new JPanel(new GridLayout(0,1));
+        Panel sousPanneau_=new Panel(new GridLayout(0,1));
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);

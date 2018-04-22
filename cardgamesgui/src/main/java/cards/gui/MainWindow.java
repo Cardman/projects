@@ -9,9 +9,9 @@ import java.net.Socket;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 import cards.belote.CheckerGameBeloteWithRules;
 import cards.belote.DisplayingBelote;
@@ -146,6 +146,7 @@ import code.gui.LabelButton;
 import code.gui.LanguageDialog;
 import code.gui.Menu;
 import code.gui.MenuItem;
+import code.gui.Panel;
 import code.gui.SoftApplicationCore;
 import code.gui.events.QuittingEvent;
 import code.network.AttemptConnecting;
@@ -652,7 +653,7 @@ public final class MainWindow extends NetGroupFrame {
             change.setEnabledMenu(true);
             containerGame.modify();
         }
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         //pack();
         //setVisible(true);
@@ -664,7 +665,7 @@ public final class MainWindow extends NetGroupFrame {
         return getMessages().getVal(TOO_MANY);
     }
 
-    private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,JPanel _container) {
+    private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,Panel _container) {
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
         bouton_.addMouseListener(new ListenerBeginGame(_nomJeu, this));
@@ -1166,7 +1167,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
@@ -1204,7 +1205,7 @@ public final class MainWindow extends NetGroupFrame {
         containerGame.setChangerPileFin(false);
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
@@ -1248,27 +1249,27 @@ public final class MainWindow extends NetGroupFrame {
         for (MenuItem m: getRulesGames().values()) {
             m.setEnabledMenu(true);
         }
-        getContentPane().removeAll();
+        getPane().removeAll();
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
-        getContentPane().setLayout(new GridLayout(0,1));
+        getPane().setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()));
-        getContentPane().add(welcomeLabel,SwingConstants.CENTER);
+        getPane().add(welcomeLabel,SwingConstants.CENTER);
         /*Cree les boutons de jeu*/
         singleModeButton = new LabelButton(getMessages().getVal(SINGLE_MODE));
         singleModeButton.addMouseListener(new ChooseModeEvent(this, true));
-        getContentPane().add(singleModeButton);
+        getPane().add(singleModeButton);
         multiModeButton = new LabelButton(getMessages().getVal(MULTI_MODE));
         multiModeButton.addMouseListener(new ChooseModeEvent(this, false));
-        getContentPane().add(multiModeButton);
+        getPane().add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
             goHelpMenu = new JLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
         }
-        getContentPane().add(goHelpMenu);
-        getContentPane().add(clock);
-        getContentPane().add(lastSavedGameDate);
+        getPane().add(goHelpMenu);
+        getPane().add(clock);
+        getPane().add(lastSavedGameDate);
         getSave().setEnabledMenu(false);
         getChange().setEnabledMenu(false);
     }
@@ -1346,7 +1347,7 @@ public final class MainWindow extends NetGroupFrame {
         exit.addActionListener(new QuitEvent(this));
         exit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
         file.addMenuItem(exit);
-        getJMenuBar().add(file);
+        getJMenuBar().add(file.getMenu());
     }
     public void loadGame() {
 //        if (!load.isEnabled()) {
@@ -1613,7 +1614,7 @@ public final class MainWindow extends NetGroupFrame {
         multiStop = new MenuItem(getMessages().getVal(MULTI_STOP));
         multiStop.addActionListener(new QuitMultiEvent(this));
         deal.addMenuItem(multiStop);
-        getJMenuBar().add(deal);
+        getJMenuBar().add(deal.getMenu());
     }
     public void consult() {
 //        if (!consulting.isEnabled()) {
@@ -1888,7 +1889,7 @@ public final class MainWindow extends NetGroupFrame {
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.TAROT, sousSousMenu_);
         parameters.addMenuItem(displaying);
-        getJMenuBar().add(parameters);
+        getJMenuBar().add(parameters.getMenu());
     }
     public void manageRules(GameEnum _game) {
         if (_game == GameEnum.BELOTE) {
@@ -1975,7 +1976,7 @@ public final class MainWindow extends NetGroupFrame {
         generalHelp.addActionListener(new DisplayHelpEvent(this));
         generalHelp.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
         help.addMenuItem(generalHelp);
-        getJMenuBar().add(help);
+        getJMenuBar().add(help.getMenu());
 
     }
 
@@ -2005,6 +2006,10 @@ public final class MainWindow extends NetGroupFrame {
         initParametersMenu();
         initHelpMenu();
     }
+    private void setJMenuBar(JMenuBar _jMenuBar) {
+        getFrame().setJMenuBar(_jMenuBar);
+    }
+
     private int confirm(String _message,String _titre) {
         //warning message
         return ConfirmDialog.getAnswer(this,_message,_titre, Constants.getLanguage(),JOptionPane.YES_NO_CANCEL_OPTION);
@@ -2337,6 +2342,10 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public Object getObject(String _object) {
         return DocumentReaderCardsMultiUtil.getObject(_object);
+    }
+
+    public JMenuBar getJMenuBar() {
+        return getFrame().getJMenuBar();
     }
 
 }

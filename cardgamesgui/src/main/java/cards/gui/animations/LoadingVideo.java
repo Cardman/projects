@@ -2,8 +2,6 @@ package cards.gui.animations;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import cards.belote.GameBelote;
@@ -11,7 +9,9 @@ import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
+import code.gui.Panel;
 import code.gui.SplashWindow;
+import code.gui.TextLabel;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,
@@ -20,7 +20,7 @@ public final class LoadingVideo extends Thread {
     private SplashWindow progressingWindow;
     private ContainerGame container;
     private JProgressBar barreProgression;
-    private JLabel label;
+    private TextLabel label;
 
     /**This class thread is independant from EDT*/
     public LoadingVideo(ContainerGame _container) {
@@ -28,9 +28,9 @@ public final class LoadingVideo extends Thread {
         barreProgression=new JProgressBar();
         barreProgression.setValue(0);
         barreProgression.setPreferredSize(new Dimension(200,50));
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new GridLayout(0,1));
-        label=new JLabel(StringList.simpleNumberFormat(container.getMessages().getVal(MainWindow.LOADING), barreProgression.getValue()));
+        label=new TextLabel(StringList.simpleNumberFormat(container.getMessages().getVal(MainWindow.LOADING), barreProgression.getValue()));
         container_.add(label);
         container_.add(barreProgression);
         progressingWindow = new SplashWindow(container.getOwner());
@@ -75,7 +75,7 @@ public final class LoadingVideo extends Thread {
 //            label.setText(StringList.simpleFormat(container.getMessages().getVal(MainWindow.LOADING), maxAvancement_));
         }
         progressingWindow.setVisible(false);
-        progressingWindow.getContentPane().removeAll();
+        progressingWindow.getPane().removeAll();
         progressingWindow.removeAll();
         progressingWindow.dispose();
         progressingWindow = null;

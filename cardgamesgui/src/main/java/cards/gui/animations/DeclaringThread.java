@@ -1,20 +1,19 @@
 package cards.gui.animations;
-import javax.swing.JPanel;
-
 import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.labels.MiniBeloteCard;
+import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class DeclaringThread extends Thread {
 
-    private JPanel panelToSet;
+    private Panel panelToSet;
 
     private DeclareHandBelote usDecl;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public DeclaringThread(JPanel _panelToSet, DeclareHandBelote _usDecl) {
+    public DeclaringThread(Panel _panelToSet, DeclareHandBelote _usDecl) {
         panelToSet = _panelToSet;
         usDecl = _usDecl;
     }

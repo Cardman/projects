@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -18,7 +19,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 
-public class GraphicCombo implements GraphicComboInt, Input {
+public class GraphicCombo extends CustComponent implements GraphicComboInt, Input  {
 
     private GraphicStringList grList;
 
@@ -232,6 +233,11 @@ public class GraphicCombo implements GraphicComboInt, Input {
             return new StringList();
         }
         return new StringList(getSelectedItem());
+    }
+
+    @Override
+    public JComponent getComponent() {
+        return getPanel();
     }
 
 }

@@ -1,11 +1,11 @@
 package cards.gui.events;
 import java.awt.event.MouseEvent;
 
-import code.util.consts.Constants;
 import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.PlayingCardBelote;
+import code.util.consts.Constants;
 
 public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
 

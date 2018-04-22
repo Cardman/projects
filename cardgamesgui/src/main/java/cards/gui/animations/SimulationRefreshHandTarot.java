@@ -1,10 +1,9 @@
 package cards.gui.animations;
-import javax.swing.JPanel;
-
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
+import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -22,7 +21,7 @@ public final class SimulationRefreshHandTarot extends Thread {
 
     @Override
     public void run() {
-        JPanel panneau1_=container.getPanelHand();
+        Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(hand)) {

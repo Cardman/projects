@@ -33,7 +33,7 @@ public final class CreateMainWindow extends Thread {
         window = new MainWindow();
         SoftApplicationCore.setLocation(window, topLeft);
         window.pack();
-        SetStyle.setupStyle(window);
+        SetStyle.setupStyle(window.getFrame());
         window.setVisible(true);
         if (!withParam.isEmpty()) {
             new CreateMainWindowParam(window, load, path, withParam).start();

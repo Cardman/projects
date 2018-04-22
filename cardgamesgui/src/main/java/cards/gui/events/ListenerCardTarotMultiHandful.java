@@ -3,15 +3,15 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
-import code.gui.ConfirmDialog;
-import code.util.StringList;
-import code.util.consts.Constants;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.ConfirmDialog;
+import code.util.StringList;
+import code.util.consts.Constants;
 
 public class ListenerCardTarotMultiHandful extends AbstractListenerCardTarot {
     private ContainerMultiTarot container;

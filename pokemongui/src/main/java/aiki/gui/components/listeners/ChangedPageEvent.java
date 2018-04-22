@@ -1,10 +1,9 @@
 package aiki.gui.components.listeners;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import aiki.gui.components.Paginator;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
-public class ChangedPageEvent implements ActionListener {
+public class ChangedPageEvent extends ListSelection {
 
     private Paginator paginator;
 
@@ -21,7 +20,7 @@ public class ChangedPageEvent implements ActionListener {
 //    }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void valueChanged(SelectionInfo _e) {
         paginator.changePageNumber();
     }
 

@@ -1,6 +1,5 @@
 package code.gui;
-import javax.swing.JComboBox;
-
+import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.TreeMap;
@@ -9,7 +8,7 @@ import code.util.comparators.ComparatorMapValue;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
-public abstract class ComboBox<T extends Enum<T>> extends JComboBox {
+public abstract class ComboBox<T extends Enum<T>> extends GraphicCombo {
 //implements TranslatableComponent
 
     private static final String EMPTY_STRING = "";
@@ -87,14 +86,30 @@ public abstract class ComboBox<T extends Enum<T>> extends JComboBox {
     }
 
     @Override
-    public void removeItemAt(int _anIndex) {
+    public void removeItem(int _anIndex) {
         TreeMap<T, String> tr_;
         tr_ = getElements();
         T e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);
-        super.removeItemAt(_anIndex);
+        super.removeItem(_anIndex);
     }
 
+    public void addItem(T _t, String _dis) {
+        TreeMap<T, String> tr_;
+        tr_ = getElements();
+        tr_.put(_t, _dis);
+        addItem(_dis);
+    }
+    public void setSelectedItem(T t) {
+        int i_ = 0;
+        for (EntryCust<T, String> e: getElements().entryList()) {
+            if (e.getKey() == t) {
+                selectItem(i_);
+                return;
+            }
+            i_++;
+        }
+    }
     @Override
     public void removeAllItems() {
         getElements().clear();

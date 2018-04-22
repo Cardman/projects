@@ -3,7 +3,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.table.AbstractTableModel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
@@ -11,7 +12,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public class FileTable extends AbstractTableModel {
+public class FileTable extends CustComponent {
 
     static final int NAME_INDEX = 0;
 
@@ -58,13 +59,15 @@ public class FileTable extends AbstractTableModel {
 
     private boolean increasing;
 
-    @Override
+    private DefaultTableModel model = new DefaultTableModel(0,NB_COLS);
+
+    private JTable table = new JTable(model);
+
     public int getRowCount() {
         return files.size();
     }
 
-    @Override
-    public int getColumnCount() {
+    public static int getColumnCount() {
         return NB_COLS;
     }
 
@@ -193,11 +196,10 @@ public class FileTable extends AbstractTableModel {
         //            break;
         //            default:
         //        }
-        fireTableStructureChanged();
-        fireTableDataChanged();
+        model.fireTableStructureChanged();
+        model.fireTableDataChanged();
     }
 
-    @Override
     public String getColumnName(int _columnIndex) {
         String end_ = EMPTY_STRING;
         if (_columnIndex == indexOfSorted) {
@@ -228,7 +230,6 @@ public class FileTable extends AbstractTableModel {
         return StringList.concat(head_,end_);
     }
 
-    @Override
     public Object getValueAt(int _rowIndex, int _columnIndex) {
         File currentFile_;
         currentFile_ = files.get(_rowIndex);
@@ -259,15 +260,28 @@ public class FileTable extends AbstractTableModel {
         increasing = false;
         files.clear();
         files.addAllElts(_list);
+        int len_ = _list.size();
+        model.setRowCount(len_);
+        for (int j = 0; j <len_; j++) {
+            int cols_ = getColumnCount();
+            for (int i = 0; i < cols_; i++) {
+                model.setValueAt(getValueAt(j, i), j, i);
+            }
+        }
         folder = _folder;
-        fireTableDataChanged();
-        fireTableStructureChanged();
+        model.fireTableDataChanged();
+        model.fireTableStructureChanged();
     }
 
     public void setupFile(File _file) {
         files.add(_file);
-        fireTableDataChanged();
-        fireTableStructureChanged();
+        model.setRowCount(files.size());
+        int cols_ = getColumnCount();
+        for (int i = 0; i < cols_; i++) {
+            model.setValueAt(getValueAt(files.size() - 1, i), files.size() - 1, i);
+        }
+        model.fireTableDataChanged();
+        model.fireTableStructureChanged();
     }
 
     public void init(String _folder, String _extension) {
@@ -277,9 +291,21 @@ public class FileTable extends AbstractTableModel {
         folder = _folder;
     }
 
+    public void clear() {
+        int len_ = files.size();
+        for (int j = 0; j <len_; j++) {
+            int cols_ = getColumnCount();
+            for (int i = 0; i < cols_; i++) {
+                model.setValueAt("", j, i);
+            }
+        }
+        files.clear();
+        model.setRowCount(files.size());
+        applyChanges();
+    }
     public void applyChanges() {
-        fireTableDataChanged();
-        fireTableStructureChanged();
+        model.fireTableDataChanged();
+        model.fireTableStructureChanged();
     }
 
     public CustList<File> getFiles() {
@@ -292,5 +318,10 @@ public class FileTable extends AbstractTableModel {
 
     public String getSelectedFilePath(int _index) {
         return files.get(_index).getAbsolutePath();
+    }
+
+    @Override
+    public JTable getComponent() {
+        return table;
     }
 }

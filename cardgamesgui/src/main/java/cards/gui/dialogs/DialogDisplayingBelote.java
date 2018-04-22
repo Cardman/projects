@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import cards.belote.DisplayingBelote;
@@ -19,6 +18,7 @@ import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringMap;
@@ -74,9 +74,9 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 
     public void setDialogue() {
         initMessageName();
-        JPanel container_=new JPanel();
+        Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
-        JPanel panneau_=new JPanel();
+        Panel panneau_=new Panel();
         panneau_.setLayout(new GridLayout(0,2));
         //Sous - panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
@@ -87,7 +87,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
-        panneau_=new JPanel();
+        panneau_=new Panel();
         panneau_.setLayout(new GridLayout(0,4));
         listeChoix=new ComboBoxSuit();
         EnumMap<Suit,String> trSuit_;
@@ -101,7 +101,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 //            listeChoix.addItem(couleur_);
 //        }
         panneau_.add(listeChoix);
-        JPanel sousPanneauTwo_=new JPanel();
+        Panel sousPanneauTwo_=new Panel();
         sousPanneauTwo_.setLayout(new GridLayout(0,1));
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseListener(new AddSuitEvent(this));
@@ -120,7 +120,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         liste_.clear();
         panneau_.add(orderedSuits);
         //Panneau Tri avant enchere (Atout)
-        JPanel sousPanneau_=new JPanel();
+        Panel sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,1));
         sousPanneau_.add(new JLabel(messages.getVal(SORTING_BEFORE_PLAYING_CARDS)));
         sortByTrump=new JCheckBox(messages.getVal(SORTING_TRUMP));
@@ -143,7 +143,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
             orderedSuits.toutSupprimer();
         }
         orderedSuits.ajouterCouleur(listeChoix.getCurrent());
-        listeChoix.removeItemAt(listeChoix.getSelectedIndex());
+        listeChoix.removeItem(listeChoix.getSelectedIndex());
     }
 
     @Override

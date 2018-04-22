@@ -3,13 +3,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
-
 import aiki.gui.components.Paginator;
+import code.gui.PaintableLabel;
 import code.util.CustList;
 import code.util.PairNumber;
 
-public class Header extends JLabel {
+public class Header extends PaintableLabel {
 
     private CustList<WordPoint> strings = new CustList<WordPoint>();
 
@@ -37,7 +36,7 @@ public class Header extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         _g.setColor(Color.YELLOW);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);

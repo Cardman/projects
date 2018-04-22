@@ -1,10 +1,9 @@
 package cards.gui.containers.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import cards.gui.containers.ContainerMulti;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
-public class ChangePlaceEvent implements ActionListener {
+public class ChangePlaceEvent extends ListSelection {
 
     private ContainerMulti container;
 
@@ -21,7 +20,7 @@ public class ChangePlaceEvent implements ActionListener {
 //    }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void valueChanged(SelectionInfo _e) {
         container.changePlace();
     }
 

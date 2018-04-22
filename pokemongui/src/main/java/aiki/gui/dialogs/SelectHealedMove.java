@@ -2,7 +2,6 @@ package aiki.gui.dialogs;
 import java.awt.BorderLayout;
 
 import javax.swing.BoxLayout;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
@@ -12,6 +11,7 @@ import aiki.gui.components.walk.HealedMoveEvent;
 import code.gui.Dialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
+import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
 import code.util.StringList;
 import code.util.StringMap;
@@ -29,7 +29,7 @@ public final class SelectHealedMove extends Dialog {
 
     private FacadeGame facade;
 
-    private JPanel movesLearnt = new JPanel();
+    private Panel movesLearnt = new Panel();
 
     private StringMap<String> messages;
 
@@ -46,7 +46,7 @@ public final class SelectHealedMove extends Dialog {
         messages = getMessages(Resources.MESSAGES_FOLDER);
         setTitle(messages.getVal(TITLE));
         facade = _facade;
-        JPanel contentPane_ = new JPanel();
+        Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
@@ -59,7 +59,7 @@ public final class SelectHealedMove extends Dialog {
 //            }
 //        });
         keys_.sortElts(new TrMovesComparator(facade.getData()));
-        movesLearnt.setLayout(new BoxLayout(movesLearnt, BoxLayout.PAGE_AXIS));
+        movesLearnt.setLayout(new BoxLayout(movesLearnt.getComponent(), BoxLayout.PAGE_AXIS));
         movesLearnt.removeAll();
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
@@ -70,7 +70,7 @@ public final class SelectHealedMove extends Dialog {
         contentPane_.add(movesLearnt, BorderLayout.CENTER);
         //window.healMove(move);
         //contentPane_.add(new JScrollPane(new PaginatorHealingItem(this, _facade)), BorderLayout.CENTER);
-        JPanel buttons_ = new JPanel();
+        Panel buttons_ = new Panel();
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));
         cancel_.addMouseListener(new ClosingDialogEvent(this));
         buttons_.add(cancel_);

@@ -4,13 +4,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
-
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
+import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 
-public class MiniTargetLabel extends JLabel {
+public class MiniTargetLabel extends PaintableLabel {
 
     private BufferedImage image;
 
@@ -40,7 +39,7 @@ public class MiniTargetLabel extends JLabel {
     }
 
     @Override
-    protected void paintComponent(Graphics _g) {
+    public void paintComponent(Graphics _g) {
         if (!selectable) {
             _g.setColor(Color.GRAY);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
