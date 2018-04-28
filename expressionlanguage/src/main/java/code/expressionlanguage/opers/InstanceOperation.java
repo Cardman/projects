@@ -242,6 +242,15 @@ public final class InstanceOperation extends InvokingOperation {
         }
         ClassMetaInfo custClass_ = null;
         custClass_ = _conf.getClassMetaInfo(realClassName_);
+        if (custClass_ == null) {
+            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+            call_.setType(realClassName_);
+            call_.setFileName(_conf.getCurrentFileName());
+            call_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(call_);
+            setResultClass(new ClassArgumentMatching(realClassName_));
+            return;
+        }
         if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);

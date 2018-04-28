@@ -15,7 +15,7 @@ public class ParserTest {
 
     @Test
     public void parseSax2Test() {
-        assertNotNull(DocumentBuilder.parseSax("<tag>"+(char)233+"</tag>"));
+        assertNotNull(DocumentBuilder.parseSax("<tag>\u00E9</tag>"));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ParserTest {
 
     @Test
     public void parseSaxHtml2Test() {
-        assertNotNull(DocumentBuilder.parseSax("<tag>"+(char)233+"</tag>"));
+        assertNotNull(DocumentBuilder.parseSax("<tag>\u00E9</tag>"));
     }
 
     @Test

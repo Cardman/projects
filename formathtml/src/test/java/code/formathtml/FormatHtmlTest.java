@@ -11,7 +11,6 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
@@ -30,24 +29,6 @@ import code.util.consts.Constants;
 
 @SuppressWarnings("static-method")
 public class FormatHtmlTest {
-
-    private static final String ARR_INT = "[$int";
-    private static final String ARR_ARR_INT = "[[$int";
-    private static final String ARR_INTEGER = "[java.lang.Integer";
-    private static final String ARR_ARR_INTEGER = "[[java.lang.Integer";
-    private static final String ARR_ARR_OBJECT = "[[java.lang.Object";
-    private static final String ARR_STRING = "[java.lang.String";
-    private static final String STRING_LIST = "code.util.StringList";
-    private static final String GENE_OBJS = "code.formathtml.classes.GeneObjs";
-
-    private static final String PKG = "code.formathtml.classes";
-    private static final String ENUM = "code.formathtml.classes.EnumNumber";
-    private static final String ENUMS = "code.formathtml.classes.EnumNumbers";
-    private static final String BEAN_UTIL = "code.formathtml.classes.BeanUtil";
-    private static final String BEAN_UTIL_HAT = StringList.replace(BEAN_UTIL, ".", "$");
-    private static final String RATE_EQ = "code.formathtml.classes.RateEq";
-    private static final String COMPOSITE = "code.formathtml.classes.Composite";
-    private static final String ABSTRACT = "code.formathtml.classes.AbstractBean";
 
     @BeforeClass
     public static void initialize() {
@@ -347,7 +328,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select className=\""+ENUM+"\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -368,8 +349,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -378,7 +359,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumber\" className=\""+ENUM+"\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumber\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -399,8 +380,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -409,7 +390,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select update=\"\" default=\"TWO\" varValue=\"chosenNumber\" className=\""+ENUM+"\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select update=\"\" default=\"TWO\" varValue=\"chosenNumber\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -430,8 +411,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -440,7 +421,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" varValue=\"chosenNumber\" className=\""+ENUM+"\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" varValue=\"chosenNumber\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -461,8 +442,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -471,7 +452,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" update=\"\" className=\""+ENUM+"\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" update=\"\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -492,8 +473,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -502,7 +483,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$getDefaultChoice()\" update=\"\" className=\""+ENUM+"\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$getDefaultChoice()\" update=\"\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" list=\"combobox\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -523,8 +504,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
 //    @Ignore
@@ -664,7 +645,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumber\" className=\""+ENUM+"\" name=\"chosenNumber\" map=\"translations\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumber\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" map=\"translations\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -685,8 +666,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
     @Test
@@ -695,7 +676,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" varValue=\"selectedString\" update=\"\" className=\""+ENUM+"\" name=\"chosenNumber\" map=\"tree\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" varValue=\"selectedString\" update=\"\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" map=\"tree\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -718,8 +699,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
 
     @Test
@@ -728,7 +709,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" varValue=\"selectedString\" className=\""+ENUM+"\" name=\"chosenNumber\" map=\"tree\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" varValue=\"selectedString\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" map=\"tree\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -751,8 +732,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option></select></body></html>", render_);
     }
 
     @Test
@@ -761,7 +742,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" varValue=\"chosenNumber\" className=\""+ENUM+"\" name=\"chosenNumber\" map=\"translations\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO\" varValue=\"chosenNumber\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" map=\"translations\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -784,7 +765,7 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
     @Test
@@ -793,7 +774,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$chosenNumber\" update=\"\" className=\""+ENUM+"\" name=\"chosenNumber\" map=\"translations\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$chosenNumber\" update=\"\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" map=\"translations\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -816,8 +797,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
     @Test
@@ -826,7 +807,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$selectedString\" className=\""+ENUM+"\" name=\"chosenNumber\" map=\"tree\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$selectedString\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumber\" map=\"tree\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -849,8 +830,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
 
     @Test
@@ -1147,7 +1128,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select className=\""+ENUM+"\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -1168,8 +1149,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -1178,7 +1159,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumbers\" className=\""+ENUM+"\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumbers\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1199,8 +1180,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -1209,7 +1190,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select update=\"\" default=\"TWO,THREE\" varValue=\"chosenNumbers\" className=\""+ENUM+"\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select update=\"\" default=\"TWO,THREE\" varValue=\"chosenNumbers\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1230,8 +1211,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -1240,7 +1221,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" varValue=\"chosenNumbers\" className=\""+ENUM+"\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" varValue=\"chosenNumbers\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1261,8 +1242,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -1271,7 +1252,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" update=\"\" className=\""+ENUM+"\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" update=\"\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1292,8 +1273,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -1302,7 +1283,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$getDefaultChoices()\" update=\"\" className=\""+ENUM+"\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$getDefaultChoices()\" update=\"\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1323,8 +1304,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -1395,7 +1376,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumbers\" className=\""+ENUM+"\" name=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumbers\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1416,8 +1397,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
     @Test
@@ -1426,7 +1407,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" varValue=\"selectedStrings\" update=\"\" className=\""+ENUM+"\" name=\"chosenNumbers\" map=\"tree\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" varValue=\"selectedStrings\" update=\"\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" map=\"tree\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1449,8 +1430,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
 
     @Test
@@ -1459,7 +1440,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" varValue=\"selectedStrings\" className=\""+ENUM+"\" name=\"chosenNumbers\" map=\"tree\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" varValue=\"selectedStrings\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" map=\"tree\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1482,8 +1463,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", render_);
     }
 
     @Test
@@ -1492,7 +1473,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" varValue=\"chosenNumbers\" className=\""+ENUM+"\" name=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"TWO,THREE\" varValue=\"chosenNumbers\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1515,8 +1496,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option><option value=\"THREE\" selected=\"selected\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option><option value=\"THREE\" selected=\"selected\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option><option value=\"THREE\" selected=\"selected\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option><option value=\"THREE\" selected=\"selected\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
     @Test
@@ -1525,7 +1506,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$chosenNumbers\" update=\"\" className=\""+ENUM+"\" name=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$chosenNumbers\" update=\"\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1548,8 +1529,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
     @Test
@@ -1558,7 +1539,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$selectedStrings\" className=\""+ENUM+"\" name=\"chosenNumbers\" map=\"tree\" multiple=\"multiple\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select default=\"$selectedStrings\" className=\"code.formathtml.classes.EnumNumber\" name=\"chosenNumbers\" map=\"tree\" multiple=\"multiple\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanFive bean_ = new BeanFive();
@@ -1581,8 +1562,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUM+"\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
 
     @Test
@@ -2317,7 +2298,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'><input type=\"text\" name=\"c;string\" c:varValue=\"c;string\"/></c:for></div><br/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"c\" list=\"getComposites()\" className='code.formathtml.classes.Composite'><input type=\"text\" name=\"c;string\" c:varValue=\"c;string\"/></c:for></div><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2639,7 +2620,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='"+STRING_LIST+"'/>{l;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className='code.util.StringList'/>{l;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2759,7 +2740,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.integer\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/>{l;.}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.integer\" className='$int'/>{l;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2789,7 +2770,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"8\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/>{l;.}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"8\" className='$int'/>{l;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2819,7 +2800,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"8\" className='"+PrimitiveTypeUtil.PRIM_DOUBLE+"'/>{l;.}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"8\" className='$double'/>{l;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2879,7 +2860,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"-1\" className='"+PrimitiveTypeUtil.PRIM_SHORT+"'/>{l;.}_<c:set var=\"l\" expression=\"9\" className='"+PrimitiveTypeUtil.PRIM_BYTE+"'/>{l;.}_<c:set var=\"l\" expression=\"8\" className='"+PrimitiveTypeUtil.PRIM_FLOAT+"'/>{l;.}_<c:set var=\"l\" expression=\"composite.myChar\" className='"+PrimitiveTypeUtil.PRIM_CHAR+"'/>{l;.}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"-1\" className='$short'/>{l;.}_<c:set var=\"l\" expression=\"9\" className='$byte'/>{l;.}_<c:set var=\"l\" expression=\"8\" className='$float'/>{l;.}_<c:set var=\"l\" expression=\"composite.myChar\" className='$char'/>{l;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2909,7 +2890,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.displayed\" className='"+PrimitiveTypeUtil.PRIM_BOOLEAN+"'/><c:if condition=\"l;.\">DISPLAY</c:if></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.displayed\" className='$boolean'/><c:if condition=\"l;.\">DISPLAY</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2969,8 +2950,8 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/>{class(\"java.lang.String\",composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {class(\"java.lang.String\",composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'>{c;strings.get(0i)} {class(\"java.lang.String\",c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/>{$class(\"java.lang.String\",composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {$class(\"java.lang.String\",composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'>{c;strings.get(0i)} {$class(\"java.lang.String\",c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
+//        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='$int'/>{class(\"java.lang.String\",composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {class(\"java.lang.String\",composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='$int'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='$int'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='code.formathtml.classes.Composite'>{c;strings.get(0i)} {class(\"java.lang.String\",c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='$int'/>{$class(\"java.lang.String\",composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {$class(\"java.lang.String\",composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='$int'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='$int'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='code.formathtml.classes.Composite'>{c;strings.get(0i)} {$class(\"java.lang.String\",c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -4182,7 +4163,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumbers\" className=\""+ENUMS+"\" name=\"chosenNumbers\" list=\"combobox\" multiple=''/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumbers\" className=\"code.formathtml.classes.EnumNumbers\" name=\"chosenNumbers\" list=\"combobox\" multiple=''/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -4203,8 +4184,8 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\""+ENUMS+"\" multiple='multiple' name=\"bean_one.chosenNumbers\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option selected=\"selected\" value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumbers\" multiple='multiple' name=\"bean_one.chosenNumbers\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option selected=\"selected\" value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
     @Test
@@ -4234,7 +4215,7 @@ public class FormatHtmlTest {
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"\" multiple='multiple' name=\"bean_one.chosenNumbers\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option selected=\"selected\" value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
     @Test
@@ -4307,7 +4288,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.map\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/><c:if isnull=\"l;.\">NULL_VAR</c:if></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.map\" className='$int'/><c:if isnull=\"l;.\">NULL_VAR</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -5864,7 +5845,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -5896,8 +5877,8 @@ public class FormatHtmlTest {
 //        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
 //        render_ = FormatHtml.processRadio(render_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_six", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
     }
 
 
@@ -5907,7 +5888,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -5939,8 +5920,8 @@ public class FormatHtmlTest {
 //        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
 //        render_ = FormatHtml.processRadio(render_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_six", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\""+ENUM+"\" checked=\"checked\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" className=\""+ENUM+"\" checked=\"checked\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\"code.formathtml.classes.EnumNumber\" checked=\"checked\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" className=\"code.formathtml.classes.EnumNumber\" checked=\"checked\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
     }
 
     @Test
@@ -5949,7 +5930,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input c:className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -5981,8 +5962,8 @@ public class FormatHtmlTest {
 //        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
 //        render_ = FormatHtml.processRadio(render_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_six", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
     }
 
     @Test
@@ -7910,7 +7891,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -7952,7 +7933,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4i\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4i\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -7990,7 +7971,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8069,7 +8050,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8108,7 +8089,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8148,7 +8129,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8189,7 +8170,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=<html xmlns:c=\"javahtml\" xmlns=\"javahtml\">Description <a href=\"\" c:command=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8230,7 +8211,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=<html>Description <a href=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8270,7 +8251,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedString\" value=\"message\" className=\"java.lang.String\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedString\" value=\"message\" className=\"java.lang.String\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8311,7 +8292,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='$int'><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8348,7 +8329,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='$int'><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><emb><ed>T</ed><ed>T</ed></emb> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8385,7 +8366,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8582,7 +8563,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+STRING_LIST+"()\" className='"+STRING_LIST+"'/>{list;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.util.StringList()\" className='code.util.StringList'/>{list;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8615,7 +8596,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className=\""+GENE_OBJS+"\"/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs(list;.)\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8648,7 +8629,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\"/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"($vararg(&quot;java.lang.Object&quot;),$firstopt(list;.))\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\"/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs($vararg(&quot;java.lang.Object&quot;),$firstopt(list;.))\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8682,7 +8663,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"elt\" expression=\"2\"/><c:set var=\"elt\" expression=\"elt;.\" className=\"java.lang.Object\"/><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className='"+GENE_OBJS+"'/><c:set expression=\"list;.add(elt;.)\"/>{list;.size()}-{list;.get(0i)}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"elt\" expression=\"2\"/><c:set var=\"elt\" expression=\"elt;.\" className=\"java.lang.Object\"/><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className='code.formathtml.classes.GeneObjs'/><c:set expression=\"list;.add(elt;.)\"/>{list;.size()}-{list;.get(0i)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8748,7 +8729,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body>{$static$"+BEAN_UTIL_HAT+".sum(1i,2i)}_{$static$"+BEAN_UTIL_HAT+".NB_BEANS}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body>{$static$code$formathtml$classes$BeanUtil.sum(1i,2i)}_{$static$code$formathtml$classes$BeanUtil.NB_BEANS}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8782,7 +8763,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" isstringconst=\"true\" expression=\"argument\"/><c:set var=\"compos\" expression=\"$new "+COMPOSITE+"(str;.)\" className='"+COMPOSITE+"'/>{compos;.string}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" isstringconst=\"true\" expression=\"argument\"/><c:set var=\"compos\" expression=\"$new code.formathtml.classes.Composite(str;.)\" className='code.formathtml.classes.Composite'/>{compos;.string}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8815,7 +8796,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"array\" expression=\"$new "+ARR_INT+"(2i)\" className='"+ARR_INT+"'/>{array;.length}_{array;.[0i]}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"array\" expression=\"$new [$int(2i)\" className='[$int'/>{array;.length}_{array;.[0i]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8849,7 +8830,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"array\" expression=\"$new "+ARR_ARR_INT+"(2i)\" className='"+ARR_ARR_INT+"'/>{array;.length}_{array;.[0i]}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"array\" expression=\"$new [[$int(2i)\" className='[[$int'/>{array;.length}_{array;.[0i]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8882,7 +8863,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new "+ARR_ARR_INT+"(2i)\" className='"+ARR_ARR_INT+"'/><c:set var=\"array\" expression=\"$new "+ARR_INT+"(1i)\" className='"+ARR_INT+"'/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[$int(2i)\" className='[[$int'/><c:set var=\"array\" expression=\"$new [$int(1i)\" className='[$int'/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8916,7 +8897,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new "+ARR_ARR_INT+"(2i)\" className=\""+ARR_ARR_INT+"\"/><c:set var=\"array\" expression=\"$new "+ARR_INT+"(1i)\" className=\""+ARR_INT+"\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[$int(2i)\" className=\"[[$int\"/><c:set var=\"array\" expression=\"$new [$int(1i)\" className=\"[$int\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8949,7 +8930,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new "+ARR_ARR_INTEGER+"(2i)\" className=\""+ARR_ARR_INTEGER+"\"/><c:set var=\"array\" expression=\"$new "+ARR_INTEGER+"(1i)\" className=\""+ARR_INTEGER+"\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Integer(2i)\" className=\"[[java.lang.Integer\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8982,7 +8963,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new "+ARR_ARR_OBJECT+"(2i)\" className=\""+ARR_ARR_OBJECT+"\"/><c:set var=\"array\" expression=\"$new "+ARR_INTEGER+"(1i)\" className=\""+ARR_INTEGER+"\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Object(2i)\" className=\"[[java.lang.Object\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9081,7 +9062,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><c:set var='str' expression='1' isstringconst='true'/><c:set var='o1' expression='$new "+RATE_EQ+"(str;.)' className='"+RATE_EQ+"'/><c:set var='o2' expression='$new "+RATE_EQ+"(o1;.)' className='"+RATE_EQ+"'/><c:if refeq='o1;.`!=`o2;.'>DIFF REF</c:if><c:else>EQ REF</c:else><br/><c:if condition='!o1;.eq(o2;.)'>DIFF OBJ</c:if><c:else>EQ OBJ</c:else></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><c:set var='str' expression='1' isstringconst='true'/><c:set var='o1' expression='$new code.formathtml.classes.RateEq(str;.)' className='code.formathtml.classes.RateEq'/><c:set var='o2' expression='$new code.formathtml.classes.RateEq(o1;.)' className='code.formathtml.classes.RateEq'/><c:if refeq='o1;.`!=`o2;.'>DIFF REF</c:if><c:else>EQ REF</c:else><br/><c:if condition='!o1;.eq(o2;.)'>DIFF OBJ</c:if><c:else>EQ OBJ</c:else></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9115,7 +9096,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"new.util.List()\" className=\"java.util.List\"/><c:set expression='list;.add(class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"new.util.List(list;.)\" className=\"util.List\"/>{listTwo;.size()}</body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className=\""+GENE_OBJS+"\"/><c:set expression='list;.add($class(\"java.lang.Object\",1i))'/><c:set expression='list;.add($class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($class(\"java.lang.Object\",1i))'/><c:set expression='list;.add($class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs(list;.)\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9149,7 +9130,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className=\""+GENE_OBJS+"\"/><c:set expression='list;.add($class(\"java.lang.Object\",1i))'/><c:set expression='list;.add($class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"($vararg(&quot;java.lang.Object&quot;),$firstopt($class(&quot;java.lang.Object&quot;,list;.)))\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($class(\"java.lang.Object\",1i))'/><c:set expression='list;.add($class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs($vararg(&quot;java.lang.Object&quot;),$firstopt($class(&quot;java.lang.Object&quot;,list;.)))\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9182,7 +9163,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4b\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4b\" className='$int'><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -9219,7 +9200,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new "+ARR_STRING+"(2i)\" className=\""+ARR_STRING+"\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"&quot;ab&quot;\"/>{arrays;.length}_{arrays;.[0i]}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [java.lang.String(2i)\" className=\"[java.lang.String\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"&quot;ab&quot;\"/>{arrays;.length}_{arrays;.[0i]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9252,7 +9233,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new "+GENE_OBJS+"()\" className='java.lang.Object'/><c:set var=\"listTwo\" expression=\"$new "+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className='java.lang.Object'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs(list;.)\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9326,7 +9307,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -9367,7 +9348,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -9408,7 +9389,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"nb\" expression=\"1\" className='"+PrimitiveTypeUtil.PRIM_INT+"'/><c:set var=\"compos\" expression=\"$new "+COMPOSITE+"(nb;.)\"/>{compos;.}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"nb\" expression=\"1\" className='$int'/><c:set var=\"compos\" expression=\"$new code.formathtml.classes.Composite(nb;.)\"/>{compos;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9441,7 +9422,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"nb\" expression=\"1\"/><c:set var=\"compos\" expression=\"$new "+COMPOSITE+"(nb;.)\"/>{compos;.}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"nb\" expression=\"1\"/><c:set var=\"compos\" expression=\"$new code.formathtml.classes.Composite(nb;.)\"/>{compos;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9507,7 +9488,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"compos\" expression=\"$new "+ABSTRACT+"()\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"compos\" expression=\"$new code.formathtml.classes.AbstractBean()\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9541,7 +9522,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new "+ARR_ARR_INTEGER+"(2i)\" className=\""+ARR_ARR_INTEGER+"\"/><c:set var=\"array\" expression=\"$new "+ARR_INTEGER+"(1i)\" className=\""+ARR_INTEGER+"\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"arrays;.\"/>{arrays;.length}_{arrays;.[0].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Integer(2i)\" className=\"[[java.lang.Integer\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"arrays;.\"/>{arrays;.length}_{arrays;.[0].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

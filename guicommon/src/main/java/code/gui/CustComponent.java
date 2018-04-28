@@ -25,16 +25,18 @@ public abstract class CustComponent {
                 current_ = ch_.first();
                 continue;
             }
-            CustComponent next_ = getNextSibling(current_);
-            while (next_ == null) {
+            while (true) {
+                CustComponent next_ = getNextSibling(current_);
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
                 CustComponent parent_ = current_.getParent();
                 if (parent_ == this) {
                     return;
                 }
-                next_ = getNextSibling(parent_);
                 current_ = parent_;
             }
-            current_ = next_;
         }
     }
     private static void paint(CustComponent _cust) {

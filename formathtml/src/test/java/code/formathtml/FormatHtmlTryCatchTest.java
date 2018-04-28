@@ -18,17 +18,13 @@ import code.util.StringMapObject;
 @SuppressWarnings("static-method")
 public class FormatHtmlTryCatchTest {
 
-    private static final String DIV_ZERO = "code.expressionlanguage.exceptions.DivideZeroException";
-    private static final String EXCEPTION = "java.lang.Exception";
-    private static final String NPE = "code.util.exceptions.NullObjectException";
-
     @Test
     public void processHtml132Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try>{1+1}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -61,7 +57,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -94,7 +90,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><div><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'><span>Divide Zero</span></c:catch></div></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><div><c:try>{1/0}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'><span>Divide Zero</span></c:catch></div></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -127,7 +123,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -160,8 +156,8 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try>{class(\"toto\")}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try>{$class(\"java.lang.String\",1i)}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
+//        String html_ = "<html xmlns:c='javahtml'><body><c:try>{class(\"toto\")}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try>{$class(\"java.lang.String\",1i)}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -194,8 +190,8 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try>{class(\"toto\")}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for></body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try>{$class(\"java.lang.String\",1i)}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for></body></html>";
+//        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try>{class(\"toto\")}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try>{$class(\"java.lang.String\",1i)}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -228,7 +224,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try>{1/i;}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try>{1/i;}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -261,7 +257,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -294,7 +290,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='"+DIV_ZERO+"' var='e'><c:for var='i' from='0' to='2' step='1'>Divide Zero{i;}</c:for></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'><c:for var='i' from='0' to='2' step='1'>Divide Zero{i;}</c:for></c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -327,7 +323,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='"+DIV_ZERO+"' var='e'><c:for var='i' from='0' to='2' step='1'>Divide Zero{i;}</c:for></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE_ex0</c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>RTE_ex0</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'><c:for var='i' from='0' to='2' step='1'>Divide Zero{i;}</c:for></c:catch><c:catch className='java.lang.Exception' var='e'>RTE_ex0</c:catch></c:try><c:catch className='java.lang.Exception' var='e'>RTE_ex0</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -360,7 +356,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='f'><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='"+DIV_ZERO+"' var='e'><c:for var='i' from='0' to='2' step='1'>Divide Zero{i;}</c:for></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE_ex0</c:catch></c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='f'><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'><c:for var='i' from='0' to='2' step='1'>Divide Zero{i;}</c:for></c:catch><c:catch className='java.lang.Exception' var='e'>RTE_ex0</c:catch></c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -393,7 +389,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body>{1/0}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -430,8 +426,8 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='"+NPE+"' var='e'>NPE</c:catch></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{1/0}</c:try><c:catch className='code.util.exceptions.NullObjectException' var='e'>NPE</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -467,8 +463,8 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+NPE+"' var='e'>NPE</c:catch></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='code.util.exceptions.NullObjectException' var='e'>NPE</c:catch></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -504,8 +500,8 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:try>{$class(\"java.lang.String\",$null).length()}</c:try><c:catch className='"+NPE+"' var='e'>NPE</c:catch></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:try>{$class(\"java.lang.String\",$null).length()}</c:try><c:catch className='code.util.exceptions.NullObjectException' var='e'>NPE</c:catch></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -541,8 +537,8 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{$class(\"java.lang.String\",$null).length()}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{$class(\"java.lang.String\",$null).length()}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -578,8 +574,8 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='"+EXCEPTION+"' var='e'/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{$class(\"java.lang.String\",$null).length()}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.Exception' var='e'/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try>{$class(\"java.lang.String\",$null).length()}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -616,7 +612,7 @@ public class FormatHtmlTryCatchTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.String' var='e'>{$instanceof(\"java.lang.String\",e;..)}</c:catch></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:throw expression='$new java.lang.String()'/></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:throw expression='$new java.lang.String()'/></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -652,7 +648,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='"+DIV_ZERO+"' var='e'><c:for var='i' from='0' to='2' step='1'><c:for var='j' from='2' to='4' step='1'>Divide Zero{i;}_{j;}</c:for></c:for></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='2' step='1'>{1/i;}</c:for></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'><c:for var='i' from='0' to='2' step='1'><c:for var='j' from='2' to='4' step='1'>Divide Zero{i;}_{j;}</c:for></c:for></c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -686,7 +682,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;%2=0'><c:continue/></c:if>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;%2=0'><c:continue/></c:if>{i;}_{1/i;};</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -720,7 +716,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;&gt;=2'><c:break/></c:if>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;&gt;=2'><c:break/></c:if>{i;}_{1/i;};</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -755,7 +751,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;%2=0'><c:continue/></c:if>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;%2=0'><c:continue/></c:if>{i;}_{1/i;};</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -789,7 +785,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;&gt;=2'><c:break/></c:if>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try><c:if condition='i;&gt;=2'><c:break/></c:if>{i;}_{1/i;};</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -823,7 +819,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero<c:continue/></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>OK</c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='0' to='4' step='1'><c:try>{i;}_{1/i;};</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero<c:continue/></c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch>OK</c:for>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -857,7 +853,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='3' to='0' eq='true' step='-1'><c:try>{i;}_{1/i;};</c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero<c:break/></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>OK</c:for>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:for var='i' from='3' to='0' eq='true' step='-1'><c:try>{i;}_{1/i;};</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero<c:break/></c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch>OK</c:for>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -891,7 +887,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>{1/0}<span>NOT_PASS</span></c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch>NOT READ</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXC</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>{1/0}<span>NOT_PASS</span></c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch>NOT READ</c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -923,7 +919,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try><c:if condition='i;%2=0'>{i;}_{1/i;};</c:if></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try><c:if condition='i;%2=0'>{i;}_{1/i;};</c:if></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -957,7 +953,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try><c:if condition='i;%2=0'><c:throw expression='1/0'/></c:if></c:try><c:catch className='"+NPE+"' var='e'>Divide Zero</c:catch><c:catch className='"+EXCEPTION+"' var='e'>RTE</c:catch></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try><c:if condition='i;%2=0'><c:throw expression='1/0'/></c:if></c:try><c:catch className='code.util.exceptions.NullObjectException' var='e'>Divide Zero</c:catch><c:catch className='java.lang.Exception' var='e'>RTE</c:catch></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();

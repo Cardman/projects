@@ -44,7 +44,7 @@ public class IndexesTest {
 
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute1Test() {
-        String html_ = "<tag>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
@@ -152,7 +152,7 @@ public class IndexesTest {
 
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute13Test() {
-        String html_ = "<tag>"+(char)233+"<ta>"+(char)233+"</ta></tag>";
+        String html_ = "<tag>\u00E9<ta>\u00E9</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
@@ -259,7 +259,7 @@ public class IndexesTest {
     }
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute25Test() {
-        String html_ = "<tag>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
@@ -267,7 +267,7 @@ public class IndexesTest {
     }
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute26Test() {
-        String html_ = "<tag>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
@@ -275,7 +275,7 @@ public class IndexesTest {
     }
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute27Test() {
-        String html_ = "<tag>"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>\u00E9<ta myattr='value'>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
@@ -283,7 +283,7 @@ public class IndexesTest {
     }
     @Test
     public void getIndexOfNodeOrAttribute28Test() {
-        String html_ = "<tag>"+(char)233+"<ta myattr='value'>"+(char)234+"</ta><sta myattr=\"value\">"+(char)234+"</sta></tag>";
+        String html_ = "<tag>\u00E9<ta myattr='value'>\u00EA</ta><sta myattr=\"value\">\u00EA</sta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
@@ -340,7 +340,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute1Test() {
-        String html_ = "<tag>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -362,7 +362,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute2Test() {
-        String html_ = "<tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>\n\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -385,7 +385,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute3Test() {
-        String html_ = " <tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = " <tag>\n\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -408,7 +408,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute4Test() {
-        String html_ = "<tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>\n\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -433,7 +433,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute5Test() {
-        String html_ = " <tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = " <tag>\n\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -456,7 +456,7 @@ public class IndexesTest {
     }
     @Test
     public void getIndexesOfElementOrAttribute6Test() {
-        String html_ = "<tag a='o'>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag a='o'>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -510,7 +510,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute8Test() {
-        String html_ = "<tag>"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>\u00E9<ta myattr='value'>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -537,7 +537,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute9Test() {
-        String html_ = "<tag>"+(char)233+"<ta myattr='value'>"+(char)234+"</ta><sta myattr=\"value\">"+(char)234+"</sta></tag>";
+        String html_ = "<tag>\u00E9<ta myattr='value'>\u00EA</ta><sta myattr=\"value\">\u00EA</sta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -594,7 +594,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute11Test() {
-        String html_ = "\n<tag>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "\n<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -616,7 +616,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute12Test() {
-        String html_ = "\n<tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "\n<tag>\n\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -639,7 +639,7 @@ public class IndexesTest {
 
     @Test
     public void getIndexesOfElementOrAttribute13Test() {
-        String html_ = "\n <tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "\n <tag>\n\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;

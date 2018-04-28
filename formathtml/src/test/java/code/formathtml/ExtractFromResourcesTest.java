@@ -11,8 +11,6 @@ import code.util.consts.Constants;
 
 @SuppressWarnings("static-method")
 public class ExtractFromResourcesTest {
-    private static final String SEPARATOR_PATH = "/";
-    private static final String IMPLICIT_LANGUAGE = SEPARATOR_PATH+SEPARATOR_PATH;
 
     @BeforeClass
     public static void initialize() {
@@ -52,12 +50,12 @@ public class ExtractFromResourcesTest {
 
     @Test
     public void loadPage1Test() {
-        String html_ = "<html><head><link rel=\"stylesheet\" href=\"css"+IMPLICIT_LANGUAGE+"main.css\"/></head><body><img src=\"imgs"+IMPLICIT_LANGUAGE+"sample.png\"/></body></html>";
+        String html_ = "<html><head><link rel=\"stylesheet\" href=\"css//main.css\"/></head><body><img src=\"imgs//sample.png\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("html/pages/index.html", html_);
         String res_ = ExtractFromResources.loadPage(null, files_, "html/pages/index.html");
 //        assertEq("<html><head><link href=\"css/LOCALE/main.css\" rel=\"stylesheet\"/></head><body><img src=\"imgs/LOCALE/sample.png\"/></body></html>",res_);
-        assertEq("<html><head><link rel=\"stylesheet\" href=\"css"+IMPLICIT_LANGUAGE+"main.css\"/></head><body><img src=\"imgs"+IMPLICIT_LANGUAGE+"sample.png\"/></body></html>",res_);
+        assertEq("<html><head><link rel=\"stylesheet\" href=\"css//main.css\"/></head><body><img src=\"imgs//sample.png\"/></body></html>",res_);
     }
 
     @Test
@@ -81,12 +79,12 @@ public class ExtractFromResourcesTest {
 
     @Test
     public void loadPage4Test() {
-        String html_ = "<html><body><a href=\"html/pages"+IMPLICIT_LANGUAGE+"index.html\"/><a href=\"\" command=\"html/pages"+IMPLICIT_LANGUAGE+"index.html\"/><form action=\"html/pages"+IMPLICIT_LANGUAGE+"index.html\"/><form action=\"\" command=\"html/pages"+IMPLICIT_LANGUAGE+"index.html\"/></body></html>";
+        String html_ = "<html><body><a href=\"html/pages//index.html\"/><a href=\"\" command=\"html/pages//index.html\"/><form action=\"html/pages//index.html\"/><form action=\"\" command=\"html/pages//index.html\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("html/pages/index.html", html_);
         String res_ = ExtractFromResources.loadPage(null, files_, "html/pages/index.html");
 //        assertEq("<html><body><a href=\"html/pages/LOCALE/index.html\"/><a command=\"html/pages/LOCALE/index.html\" href=\"\"/><form action=\"html/pages/LOCALE/index.html\"/><form action=\"\" command=\"html/pages/LOCALE/index.html\"/></body></html>",res_);
-        assertEq("<html><body><a href=\"html/pages"+IMPLICIT_LANGUAGE+"index.html\"/><a href=\"\" command=\"html/pages"+IMPLICIT_LANGUAGE+"index.html\"/><form action=\"html/pages"+IMPLICIT_LANGUAGE+"index.html\"/><form action=\"\" command=\"html/pages"+IMPLICIT_LANGUAGE+"index.html\"/></body></html>",res_);
+        assertEq("<html><body><a href=\"html/pages//index.html\"/><a href=\"\" command=\"html/pages//index.html\"/><form action=\"html/pages//index.html\"/><form action=\"\" command=\"html/pages//index.html\"/></body></html>",res_);
     }
 
     @Test
