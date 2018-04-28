@@ -3,13 +3,9 @@ import static code.util.EquallableExUtil.assertEq;
 
 import java.math.BigInteger;
 
-import junitparams.JUnitParamsRunner;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 @SuppressWarnings("static-method")
-@RunWith(JUnitParamsRunner.class)
 public class BigIntegersTest {
 
     @Test

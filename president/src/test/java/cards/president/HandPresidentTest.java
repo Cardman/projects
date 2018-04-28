@@ -1,14 +1,11 @@
 package cards.president;
 import static cards.president.EquallablePresidentUtil.assertEq;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import cards.president.enumerations.CardPresident;
 
-@RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
 public class HandPresidentTest {
 

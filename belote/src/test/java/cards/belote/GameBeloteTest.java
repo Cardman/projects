@@ -1,14 +1,9 @@
 package cards.belote;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import junitparams.JUnitParamsRunner;
-
-import org.junit.runner.RunWith;
-
 import cards.belote.enumerations.BidBelote;
 import cards.consts.Suit;
 
-@RunWith(JUnitParamsRunner.class)
 public class GameBeloteTest extends CommonBeloteGame{
 
     void biddingTrumpSuit(BidBelote _bid,Suit _suit) {

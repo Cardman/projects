@@ -1,14 +1,11 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNull;
-import junitparams.JUnitParamsRunner;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import code.util.classestest.KeyExample;
 
-@RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
 public class ReversibleMapTest {
 

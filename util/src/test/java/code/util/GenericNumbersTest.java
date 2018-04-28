@@ -5,13 +5,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 
-import junitparams.JUnitParamsRunner;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 @SuppressWarnings("static-method")
-@RunWith(JUnitParamsRunner.class)
 public class GenericNumbersTest {
 
     @Test
