@@ -1,10 +1,10 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import code.util.StringMap;
 
-public final class ComparatorTrStrings implements Comparator<String> {
+public final class ComparatorTrStrings implements Comparing<String> {
 
     private StringMap<String> translator;
 

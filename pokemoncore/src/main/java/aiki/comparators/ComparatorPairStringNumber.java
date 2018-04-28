@@ -1,10 +1,10 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.fight.pokemon.TrainerPlaceNames;
 import code.util.CustList;
 
-public final class ComparatorPairStringNumber implements Comparator<TrainerPlaceNames> {
+public final class ComparatorPairStringNumber implements Comparing<TrainerPlaceNames> {
 
     @Override
     public int compare(TrainerPlaceNames _o1, TrainerPlaceNames _o2) {

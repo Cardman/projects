@@ -1,5 +1,5 @@
 package aiki.game.fight.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
@@ -11,7 +11,7 @@ import code.util.Numbers;
 
 /** Comparator without case eq*/
 public final class SortedFighterHealActsComparator implements
-        Comparator<TeamPosition> {
+        Comparing<TeamPosition> {
 
     private Fight fight;
 

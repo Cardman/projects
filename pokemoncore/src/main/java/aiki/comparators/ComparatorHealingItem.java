@@ -1,5 +1,5 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.util.SortingHealingItem;
 import code.maths.LgInt;
@@ -10,7 +10,7 @@ import code.util.pagination.FieldComparator;
 import code.util.pagination.FieldCustComparator;
 import code.util.pagination.Pagination;
 
-public final class ComparatorHealingItem implements Comparator<SortingHealingItem> {
+public final class ComparatorHealingItem implements Comparing<SortingHealingItem> {
 
     private FieldComparator<String> cmpName = new FieldComparator<String>();
 

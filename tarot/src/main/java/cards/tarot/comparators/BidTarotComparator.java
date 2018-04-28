@@ -1,10 +1,10 @@
 package cards.tarot.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import cards.tarot.enumerations.BidTarot;
 
-public final class BidTarotComparator implements Comparator<BidTarot> {
+public final class BidTarotComparator implements Comparing<BidTarot> {
 
     @Override
     public int compare(BidTarot _bid1, BidTarot _bid2) {

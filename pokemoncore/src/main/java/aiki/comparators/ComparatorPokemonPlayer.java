@@ -1,5 +1,5 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
@@ -10,7 +10,7 @@ import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
 
 public final class ComparatorPokemonPlayer implements
-        Comparator<SortingPokemonPlayer> {
+        Comparing<SortingPokemonPlayer> {
 
     private FieldComparator<Short> cmpLevel = new FieldComparator<Short>();
 

@@ -1,5 +1,5 @@
 package code.util;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.annot.CapacityInit;
 import code.util.comparators.NatComparator;
@@ -160,7 +160,7 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
     }
 
     @Override
-    public Comparator<K> comparator() {
+    public Comparing<K> comparator() {
         return new NatComparator<K>();
     }
 

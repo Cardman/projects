@@ -1,6 +1,6 @@
 package code.expressionlanguage.classes;
 
-import java.util.Comparator;
+import code.util.ints.Comparing;
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -35,7 +35,7 @@ public class Ints implements Listable<Integer> {
         return ints.containsObj(_obj);
     }
 
-    public void sortElts(Comparator<Integer> _comp) {
+    public void sortElts(Comparing<Integer> _comp) {
         ints.sortElts(_comp);
     }
 

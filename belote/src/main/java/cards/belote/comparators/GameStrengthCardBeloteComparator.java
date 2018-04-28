@@ -1,12 +1,12 @@
 package cards.belote.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 
-public final class GameStrengthCardBeloteComparator implements Comparator<CardBelote> {
+public final class GameStrengthCardBeloteComparator implements Comparing<CardBelote> {
 
     private Suit trumpSuit;
     private Suit demandedSuit;

@@ -1,11 +1,11 @@
 package code.util;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.ints.Reversible;
 
 public final class ReversibleTreeNodeMap<K> extends TreeNodeMap<K, K> implements Reversible{
 
-    public ReversibleTreeNodeMap(Comparator<K> _cmp) {
+    public ReversibleTreeNodeMap(Comparing<K> _cmp) {
         super(_cmp);
     }
 

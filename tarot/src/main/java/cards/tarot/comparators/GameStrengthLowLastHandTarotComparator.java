@@ -1,12 +1,12 @@
 package cards.tarot.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 
-public final class GameStrengthLowLastHandTarotComparator implements Comparator<Suit> {
+public final class GameStrengthLowLastHandTarotComparator implements Comparing<Suit> {
 
     private HandTarot hand;
 

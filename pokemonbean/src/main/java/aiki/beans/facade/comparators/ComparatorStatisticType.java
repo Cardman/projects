@@ -1,5 +1,5 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
@@ -9,7 +9,7 @@ import aiki.fight.util.StatisticType;
 import code.util.EnumMap;
 import code.util.StringMap;
 
-public final class ComparatorStatisticType implements Comparator<StatisticType> {
+public final class ComparatorStatisticType implements Comparing<StatisticType> {
 
     private DataBase data;
 

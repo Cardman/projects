@@ -1,12 +1,12 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.map.DataMap;
 import aiki.map.places.Place;
 import code.util.CustList;
 import code.util.Numbers;
 
-public final class ComparatorPlaceNumber implements Comparator<Short> {
+public final class ComparatorPlaceNumber implements Comparing<Short> {
 
     private DataMap dataMap;
 

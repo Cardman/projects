@@ -1,10 +1,10 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import code.util.Numbers;
 
-public final class ComparatorListSizeElement implements Comparator<Numbers<Integer>> {
+public final class ComparatorListSizeElement implements Comparing<Numbers<Integer>> {
 
     @Override
     public int compare(Numbers<Integer> _arg0, Numbers<Integer> _arg1) {

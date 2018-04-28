@@ -1,5 +1,5 @@
 package code.util;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.annot.RwXml;
 import code.util.comparators.ComparatorList;
@@ -10,19 +10,19 @@ public class TreeNodeMap<K,V> {
 
     private final TreeMap<AbEqList<K>,V> tree;
 
-    private final Comparator<K> cmp;
+    private final Comparing<K> cmp;
 
     public TreeNodeMap() {
         tree = new TreeMap<AbEqList<K>,V>();
         cmp = null;
     }
 
-    public TreeNodeMap(Comparator<K> _cmp) {
+    public TreeNodeMap(Comparing<K> _cmp) {
         tree = new TreeMap<AbEqList<K>,V>(new ComparatorList<K>(_cmp));
         cmp = _cmp;
     }
 
-    public Comparator<K> getCmp() {
+    public Comparing<K> getCmp() {
         return cmp;
     }
 

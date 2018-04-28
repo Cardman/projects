@@ -1,10 +1,10 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.game.fight.MoveTeamPosition;
 import code.util.Numbers;
 
-public final class ComparatorMoveTeamPosition implements Comparator<MoveTeamPosition> {
+public final class ComparatorMoveTeamPosition implements Comparing<MoveTeamPosition> {
 
     @Override
     public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {

@@ -1,10 +1,10 @@
 package cards.tarot.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 import cards.tarot.enumerations.CardTarot;
 
-public final class CharactersTarotGreaterPointsComparator implements Comparator<CardTarot> {
+public final class CharactersTarotGreaterPointsComparator implements Comparing<CardTarot> {
 
     @Override
     public int compare(CardTarot _card1, CardTarot _card2) {

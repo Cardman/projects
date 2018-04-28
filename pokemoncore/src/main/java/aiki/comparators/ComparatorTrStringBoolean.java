@@ -1,11 +1,11 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import code.util.EnumMap;
 import code.util.pagination.SelectedBoolean;
 
-public final class ComparatorTrStringBoolean implements Comparator<SelectedBoolean> {
+public final class ComparatorTrStringBoolean implements Comparing<SelectedBoolean> {
 
     private EnumMap<SelectedBoolean,String> translator;
 

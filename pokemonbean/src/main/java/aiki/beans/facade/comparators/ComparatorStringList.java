@@ -1,5 +1,5 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ComparatorStringList implements Comparator<StringList> {
+public final class ComparatorStringList implements Comparing<StringList> {
 
     private boolean translate;
 

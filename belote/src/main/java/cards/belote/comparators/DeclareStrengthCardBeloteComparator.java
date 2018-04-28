@@ -1,9 +1,9 @@
 package cards.belote.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import cards.belote.enumerations.CardBelote;
 
-public final class DeclareStrengthCardBeloteComparator implements Comparator<CardBelote> {
+public final class DeclareStrengthCardBeloteComparator implements Comparing<CardBelote> {
 
     @Override
     public int compare(CardBelote _o1, CardBelote _o2) {

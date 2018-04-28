@@ -1,5 +1,5 @@
 package cards.tarot.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import code.util.EnumMap;
@@ -7,7 +7,7 @@ import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 
-public final class CalledSuitComparator implements Comparator<Suit> {
+public final class CalledSuitComparator implements Comparing<Suit> {
 
     private EnumMap<Suit,HandTarot> dealingCalledCards;
     private EnumMap<Suit,HandTarot> dealingTakerHand;

@@ -1,12 +1,12 @@
 package aiki.game.fight.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
 import code.util.EqList;
 import code.util.Numbers;
 
-public final class SortedFighterActsComparator implements Comparator<TeamPosition> {
+public final class SortedFighterActsComparator implements Comparing<TeamPosition> {
 
     private Fight fight;
 

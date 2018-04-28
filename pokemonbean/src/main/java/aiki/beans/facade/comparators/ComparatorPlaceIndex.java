@@ -1,9 +1,9 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.beans.facade.map.dto.PlaceIndex;
 
-public final class ComparatorPlaceIndex implements Comparator<PlaceIndex> {
+public final class ComparatorPlaceIndex implements Comparing<PlaceIndex> {
 
     @Override
     public int compare(PlaceIndex _arg0, PlaceIndex _arg1) {

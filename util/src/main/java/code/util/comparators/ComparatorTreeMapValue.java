@@ -1,10 +1,10 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 import code.util.TreeMap;
 
-public final class ComparatorTreeMapValue<T, U extends Number> implements Comparator<T> {
+public final class ComparatorTreeMapValue<T, U extends Number> implements Comparing<T> {
 
     private TreeMap<T, U> map;
 

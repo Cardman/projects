@@ -1,11 +1,11 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import code.util.EnumMap;
 
-public final class ComparatorTrStringStatistic implements Comparator<Statistic> {
+public final class ComparatorTrStringStatistic implements Comparing<Statistic> {
 
     private EnumMap<Statistic,String> translator;
 

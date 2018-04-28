@@ -1,5 +1,5 @@
 package code.util;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -37,7 +37,7 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     }
 
     @Override
-    public Comparator<E> comparator() {
+    public Comparing<E> comparator() {
         return new NatComparator<E>();
     }
 
@@ -174,7 +174,7 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     }
 
     @Override
-    public void sortElts(Comparator<E> _comp) {
+    public void sortElts(Comparing<E> _comp) {
         list.sortElts(_comp);
     }
 

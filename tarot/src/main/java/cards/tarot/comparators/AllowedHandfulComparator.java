@@ -1,11 +1,11 @@
 package cards.tarot.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import code.util.EnumMap;
 import cards.tarot.enumerations.Handfuls;
 
-public final class AllowedHandfulComparator implements Comparator<Handfuls> {
+public final class AllowedHandfulComparator implements Comparing<Handfuls> {
 
     private EnumMap<Handfuls,Integer> allowedHandfuls;
 

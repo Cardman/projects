@@ -1,12 +1,12 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.util.TypesDuo;
 import code.util.StringMap;
 
-public final class ComparatorTypesDuo implements Comparator<TypesDuo> {
+public final class ComparatorTypesDuo implements Comparing<TypesDuo> {
 
     private boolean translate;
 

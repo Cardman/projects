@@ -1,10 +1,10 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.map.util.MiniMapCoords;
 import code.util.Numbers;
 
-public final class ComparatorMiniMapCoords implements Comparator<MiniMapCoords> {
+public final class ComparatorMiniMapCoords implements Comparing<MiniMapCoords> {
 
     @Override
     public int compare(MiniMapCoords _o1, MiniMapCoords _o2) {

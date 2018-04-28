@@ -1,9 +1,9 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 
-public final class ComparatorEnum<T extends Enum<T>> implements Comparator<T> {
+public final class ComparatorEnum<T extends Enum<T>> implements Comparing<T> {
 
     @Override
     public int compare(T _e1, T _e2) {

@@ -1,9 +1,9 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 
-public final class TrMovesComparator implements Comparator<String> {
+public final class TrMovesComparator implements Comparing<String> {
 
     private DataBase data;
 

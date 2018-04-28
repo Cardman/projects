@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 
-public final class ComparatorBlockGroupOrder implements Comparator<BlockGroup> {
+public final class ComparatorBlockGroupOrder implements Comparing<BlockGroup> {
 
     @Override
     public int compare(BlockGroup _o1, BlockGroup _o2) {

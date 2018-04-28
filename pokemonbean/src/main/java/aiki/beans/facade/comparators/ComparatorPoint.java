@@ -1,9 +1,9 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.util.Point;
 
-public final class ComparatorPoint implements Comparator<Point> {
+public final class ComparatorPoint implements Comparing<Point> {
 
     @Override
     public int compare(Point _o1, Point _o2) {

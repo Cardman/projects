@@ -1,5 +1,5 @@
 package cards.belote.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
@@ -9,7 +9,7 @@ import code.util.CustList;
 import code.util.EnumMap;
 
 public final class GameStrengthLowLastHandBeloteComparator implements
-        Comparator<Suit> {
+        Comparing<Suit> {
 
     private EnumMap<Suit,HandBelote> hand;
     private BidBeloteSuit bid;

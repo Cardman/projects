@@ -1,6 +1,6 @@
 package code.util;
 import java.util.ArrayList;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -59,7 +59,7 @@ public class CustList<T> implements Listable<T> {
             add(e);
         }
     }
-    public void sortElts(Comparator<T> _comp) {
+    public void sortElts(Comparing<T> _comp) {
         int len_ = list.size();
         for (int i = FIRST_INDEX; i <len_; i++) {
             for (int j = i + 1; j <len_; j++) {
@@ -262,7 +262,7 @@ public class CustList<T> implements Listable<T> {
         return indexes_;
     }
 
-    public CustList<CustList<T>> getBaseGroupsSameCompare(Comparator<T> _cmp) {
+    public CustList<CustList<T>> getBaseGroupsSameCompare(Comparing<T> _cmp) {
         CustList<T> copy_ = new CustList<T>(this);
         copy_.sortElts(_cmp);
         CustList<CustList<T>> groups_;
@@ -371,7 +371,7 @@ public class CustList<T> implements Listable<T> {
         }
         return INDEX_NOT_FOUND_ELT;
     }
-    public void removeDuplicates(Comparator<T> _cmp)  {
+    public void removeDuplicates(Comparing<T> _cmp)  {
         int i_ = FIRST_INDEX;
         while (true) {
             if(i_ >= size()) {
@@ -391,7 +391,7 @@ public class CustList<T> implements Listable<T> {
         }
     }
 
-    public Numbers<Integer> indexesOfObj(Comparator<T> _cmp, T _element) {
+    public Numbers<Integer> indexesOfObj(Comparing<T> _cmp, T _element) {
         Numbers<Integer> indexes_;
         indexes_ = new Numbers<Integer>();
         int i_ = FIRST_INDEX;
@@ -406,7 +406,7 @@ public class CustList<T> implements Listable<T> {
         return indexes_;
     }
 
-    public int indexOfObj(Comparator<T> _cmp, T _element, int _from) {
+    public int indexOfObj(Comparing<T> _cmp, T _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             T e_ = get(i);

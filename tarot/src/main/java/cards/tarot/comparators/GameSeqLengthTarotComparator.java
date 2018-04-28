@@ -1,5 +1,5 @@
 package cards.tarot.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import cards.consts.Suit;
@@ -7,7 +7,7 @@ import cards.tarot.HandTarot;
 
 /**
  Applied if sets are distinct*/
-public final class GameSeqLengthTarotComparator implements Comparator<HandTarot> {
+public final class GameSeqLengthTarotComparator implements Comparing<HandTarot> {
 
     @Override
     public int compare(HandTarot _hand1, HandTarot _hand2) {

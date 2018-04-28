@@ -1,9 +1,9 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.ints.ListableEntries;
 
-public final class ComparatorMapValue<T> implements Comparator<T> {
+public final class ComparatorMapValue<T> implements Comparing<T> {
 
     private ListableEntries<T, String> map;
 

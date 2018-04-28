@@ -1,7 +1,7 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
-public final class NaturalComparator<T extends Comparable<T>> implements Comparator<T> {
+public final class NaturalComparator<T extends Comparable<T>> implements Comparing<T> {
 
     @Override
     public int compare(T _o1, T _o2) {

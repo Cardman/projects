@@ -1,9 +1,9 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 
-public final class ComparatorNatNumber<T extends Number> implements Comparator<T> {
+public final class ComparatorNatNumber<T extends Number> implements Comparing<T> {
 
     @Override
     public int compare(T _o1, T _o2) {

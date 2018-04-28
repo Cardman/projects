@@ -1,8 +1,8 @@
 package code.util.ints;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 public interface HasComparator<K> extends ChangeableMap {
 
-    Comparator<K> comparator();
+    Comparing<K> comparator();
 
 }

@@ -1,9 +1,9 @@
 package code.maths.litteral;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 
-public final class ComparatorOrder implements Comparator<OperationNode> {
+public final class ComparatorOrder implements Comparing<OperationNode> {
 
     @Override
     public int compare(OperationNode _o1, OperationNode _o2) {

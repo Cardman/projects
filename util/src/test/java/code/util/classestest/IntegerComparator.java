@@ -1,9 +1,9 @@
 package code.util.classestest;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 
-public class IntegerComparator implements Comparator<Integer> {
+public class IntegerComparator implements Comparing<Integer> {
 
     @Override
     public int compare(Integer _arg0, Integer _arg1) {

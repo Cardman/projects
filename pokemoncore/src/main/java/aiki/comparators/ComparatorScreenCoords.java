@@ -1,10 +1,10 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.map.util.ScreenCoords;
 import code.util.CustList;
 
-public final class ComparatorScreenCoords implements Comparator<ScreenCoords> {
+public final class ComparatorScreenCoords implements Comparing<ScreenCoords> {
 
     @Override
     public int compare(ScreenCoords _o1,

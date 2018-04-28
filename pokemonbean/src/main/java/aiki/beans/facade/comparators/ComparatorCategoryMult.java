@@ -1,10 +1,10 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.fight.util.CategoryMult;
 import code.util.CustList;
 
-public final class ComparatorCategoryMult implements Comparator<CategoryMult> {
+public final class ComparatorCategoryMult implements Comparing<CategoryMult> {
 
     @Override
     public int compare(CategoryMult _arg0, CategoryMult _arg1) {

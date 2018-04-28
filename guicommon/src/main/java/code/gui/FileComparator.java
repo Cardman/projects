@@ -1,13 +1,13 @@
 package code.gui;
 import java.io.File;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.consts.ConstFiles;
 
-public final class FileComparator implements Comparator<File> {
+public final class FileComparator implements Comparing<File> {
 
     private static final boolean SENSITIVE = ConstFiles.filesAreCaseSensitive();
 

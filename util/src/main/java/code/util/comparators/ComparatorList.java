@@ -1,13 +1,13 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.AbEqList;
 import code.util.CustList;
 
-public final class ComparatorList<K> implements Comparator<AbEqList<K>> {
+public final class ComparatorList<K> implements Comparing<AbEqList<K>> {
 
-    private Comparator<K> cmp;
-    public ComparatorList(Comparator<K> _cmp) {
+    private Comparing<K> cmp;
+    public ComparatorList(Comparing<K> _cmp) {
         cmp = _cmp;
     }
     @Override

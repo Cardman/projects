@@ -1,9 +1,9 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.beans.facade.fight.StatisticInfo;
 
-public final class ComparatorStatisticInfo implements Comparator<StatisticInfo> {
+public final class ComparatorStatisticInfo implements Comparing<StatisticInfo> {
 
     @Override
     public int compare(StatisticInfo _o1, StatisticInfo _o2) {

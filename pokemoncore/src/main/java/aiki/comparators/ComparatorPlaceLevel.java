@@ -1,11 +1,11 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.map.util.PlaceLevel;
 import code.util.CustList;
 import code.util.Numbers;
 
-public final class ComparatorPlaceLevel implements Comparator<PlaceLevel> {
+public final class ComparatorPlaceLevel implements Comparing<PlaceLevel> {
 
     @Override
     public int compare(PlaceLevel _o1, PlaceLevel _o2) {

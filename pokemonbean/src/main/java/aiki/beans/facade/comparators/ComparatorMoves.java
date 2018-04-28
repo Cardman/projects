@@ -1,9 +1,9 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 
-public final class ComparatorMoves implements Comparator<SelectLineMove> {
+public final class ComparatorMoves implements Comparing<SelectLineMove> {
 
     @Override
     public int compare(SelectLineMove _arg0, SelectLineMove _arg1) {

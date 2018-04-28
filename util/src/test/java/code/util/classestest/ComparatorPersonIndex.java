@@ -1,9 +1,9 @@
 package code.util.classestest;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 
-public class ComparatorPersonIndex implements Comparator<SortingPerson> {
+public class ComparatorPersonIndex implements Comparing<SortingPerson> {
 
     @Override
     public int compare(SortingPerson _o1, SortingPerson _o2) {

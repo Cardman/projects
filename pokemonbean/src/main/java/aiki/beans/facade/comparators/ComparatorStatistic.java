@@ -1,10 +1,10 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.fight.enums.Statistic;
 import code.util.Numbers;
 
-public final class ComparatorStatistic implements Comparator<Statistic> {
+public final class ComparatorStatistic implements Comparing<Statistic> {
 
     @Override
     public int compare(Statistic _arg0, Statistic _arg1) {

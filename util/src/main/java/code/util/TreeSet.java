@@ -1,5 +1,5 @@
 package code.util;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
@@ -11,14 +11,14 @@ public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
 //    private final transient CustList<E> list = new CustList<E>();
 
     @RwXml
-    private final Comparator<E> comparator;
+    private final Comparing<E> comparator;
 
     @RwXml
     private TreeSet() {
         comparator = null;
     }
 
-    public TreeSet(Comparator<E> _cmp) {
+    public TreeSet(Comparing<E> _cmp) {
         comparator = _cmp;
     }
 
@@ -38,7 +38,7 @@ public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
     }
 
     @Override
-    public Comparator<E> comparator() {
+    public Comparing<E> comparator() {
         return comparator;
     }
 

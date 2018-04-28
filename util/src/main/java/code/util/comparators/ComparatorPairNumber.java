@@ -1,11 +1,11 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
 
-public final class ComparatorPairNumber<U extends Number, V extends Number> implements Comparator<PairNumber<U, V>> {
+public final class ComparatorPairNumber<U extends Number, V extends Number> implements Comparing<PairNumber<U, V>> {
 
     @Override
     public int compare(PairNumber<U, V> _o1, PairNumber<U, V> _o2) {

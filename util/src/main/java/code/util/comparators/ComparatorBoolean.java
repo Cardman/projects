@@ -1,9 +1,9 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 
-public final class ComparatorBoolean implements Comparator<Boolean> {
+public final class ComparatorBoolean implements Comparing<Boolean> {
 
     @Override
     public int compare(Boolean _e1, Boolean _e2) {

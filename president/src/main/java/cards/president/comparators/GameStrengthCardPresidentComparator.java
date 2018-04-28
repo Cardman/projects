@@ -1,10 +1,10 @@
 package cards.president.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import cards.president.enumerations.CardPresident;
 
-public final class GameStrengthCardPresidentComparator implements Comparator<CardPresident> {
+public final class GameStrengthCardPresidentComparator implements Comparing<CardPresident> {
 
     private boolean reverseGame;
     private boolean decreasing;

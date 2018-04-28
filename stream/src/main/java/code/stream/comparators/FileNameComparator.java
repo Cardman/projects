@@ -1,10 +1,10 @@
 package code.stream.comparators;
 import java.io.File;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.consts.ConstFiles;
 
-public final class FileNameComparator implements Comparator<File> {
+public final class FileNameComparator implements Comparing<File> {
 
     private static final boolean SENSITIVE = ConstFiles.filesAreCaseSensitive();
 

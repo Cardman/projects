@@ -1,12 +1,12 @@
 package cards.belote.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import cards.belote.HandBelote;
 import cards.consts.Suit;
 import code.util.EnumMap;
 import code.util.Numbers;
 
-public final class HandBeloteShortLengthComparator implements Comparator<Suit> {
+public final class HandBeloteShortLengthComparator implements Comparing<Suit> {
 
     private EnumMap<Suit,HandBelote> hand;
 

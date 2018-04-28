@@ -1,11 +1,11 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.map.pokemon.enums.Gender;
 import code.util.EnumMap;
 
-public final class ComparatorTrStringGender implements Comparator<Gender> {
+public final class ComparatorTrStringGender implements Comparing<Gender> {
 
     private EnumMap<Gender,String> translator;
 

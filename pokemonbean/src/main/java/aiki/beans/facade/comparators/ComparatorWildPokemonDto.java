@@ -1,9 +1,9 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.beans.facade.solution.dto.WildPokemonDto;
 
-public final class ComparatorWildPokemonDto implements Comparator<WildPokemonDto> {
+public final class ComparatorWildPokemonDto implements Comparing<WildPokemonDto> {
 
     @Override
     public int compare(WildPokemonDto _o1, WildPokemonDto _o2) {

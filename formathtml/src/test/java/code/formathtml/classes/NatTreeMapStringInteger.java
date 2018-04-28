@@ -1,6 +1,6 @@
 package code.formathtml.classes;
 
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import code.util.EntryCust;
@@ -126,7 +126,7 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
     }
 
     @Override
-    public Comparator<String> comparator() {
+    public Comparing<String> comparator() {
         return tree.comparator();
     }
 

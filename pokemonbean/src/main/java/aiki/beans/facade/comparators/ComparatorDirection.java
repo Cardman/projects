@@ -1,10 +1,10 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.map.enums.Direction;
 import code.util.Numbers;
 
-public final class ComparatorDirection implements Comparator<Direction> {
+public final class ComparatorDirection implements Comparing<Direction> {
 
     @Override
     public int compare(Direction _o1, Direction _o2) {

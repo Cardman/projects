@@ -1,5 +1,5 @@
 package aiki.game.fight.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
@@ -16,7 +16,7 @@ import code.util.Numbers;
 import code.util.comparators.ComparatorBoolean;
 
 public final class SortedFighterMoveActsComparator implements
-        Comparator<TeamPosition> {
+        Comparing<TeamPosition> {
 
     private Fight fight;
 

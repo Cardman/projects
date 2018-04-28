@@ -1,9 +1,9 @@
 package code.util.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.AbEqList;
 
-public final class ComparatorIndexes<T> implements Comparator<T> {
+public final class ComparatorIndexes<T> implements Comparing<T> {
 
     private AbEqList<T> order;
 

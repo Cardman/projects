@@ -1,5 +1,5 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.util.SortingEgg;
 import code.util.CustList;
@@ -7,7 +7,7 @@ import code.util.Numbers;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
 
-public final class ComparatorEgg implements Comparator<SortingEgg> {
+public final class ComparatorEgg implements Comparing<SortingEgg> {
 
     private FieldComparator<Integer> cmpSteps = new FieldComparator<Integer>();
 

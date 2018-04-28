@@ -1,10 +1,10 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.game.fight.util.MoveTarget;
 import code.util.Numbers;
 
-public final class ComparatorMoveTarget implements Comparator<MoveTarget> {
+public final class ComparatorMoveTarget implements Comparing<MoveTarget> {
 
     @Override
     public int compare(MoveTarget _o1, MoveTarget _o2) {

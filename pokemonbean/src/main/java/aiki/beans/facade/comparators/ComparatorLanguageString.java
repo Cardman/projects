@@ -1,5 +1,5 @@
 package aiki.beans.facade.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.beans.help.LanguageElementStringKey;
@@ -9,7 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public final class ComparatorLanguageString implements Comparator<LanguageElementStringKey> {
+public final class ComparatorLanguageString implements Comparing<LanguageElementStringKey> {
 
     private StringMap<String> translatorCurrentLanguage;
 

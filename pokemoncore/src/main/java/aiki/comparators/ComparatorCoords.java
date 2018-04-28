@@ -1,5 +1,5 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.map.places.Place;
@@ -7,7 +7,7 @@ import aiki.util.Coords;
 import code.util.CustList;
 import code.util.Numbers;
 
-public final class ComparatorCoords implements Comparator<Coords> {
+public final class ComparatorCoords implements Comparing<Coords> {
 
     private DataBase data;
 

@@ -1,5 +1,5 @@
 package code.util;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.annot.CapacityInit;
 import code.util.comparators.ComparatorEnum;
@@ -29,7 +29,7 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         sortElts(new ComparatorEnum<T>());
     }
 
-    public CustList<EnumList<T>> getGroupsSameCompare(Comparator<T> _cmp) {
+    public CustList<EnumList<T>> getGroupsSameCompare(Comparing<T> _cmp) {
         CustList<T> copy_ = new CustList<T>(this);
         copy_.sortElts(_cmp);
         CustList<EnumList<T>> groups_;

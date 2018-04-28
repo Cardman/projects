@@ -1,5 +1,5 @@
 package code.util;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
@@ -136,7 +136,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     }
 
     @Override
-    public Comparator<K> comparator() {
+    public Comparing<K> comparator() {
         return new NaturalComparator<K>();
     }
 

@@ -1,11 +1,11 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import code.util.EnumMap;
 
-public final class ComparatorTrStringEnv implements Comparator<EnvironmentType> {
+public final class ComparatorTrStringEnv implements Comparing<EnvironmentType> {
 
     private EnumMap<EnvironmentType,String> translator;
 

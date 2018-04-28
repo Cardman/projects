@@ -1,12 +1,12 @@
 package cards.tarot.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.CustList;
 import code.util.Numbers;
 import cards.consts.Suit;
 import cards.tarot.TrickTarot;
 
-public final class GameTarotLeastDemandedSuitComparator implements Comparator<Suit> {
+public final class GameTarotLeastDemandedSuitComparator implements Comparing<Suit> {
 
     private CustList<TrickTarot> tricks;
 

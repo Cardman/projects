@@ -1,11 +1,11 @@
 package cards.tarot.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 
-public final class HandTarotCharShortLengthComparator implements Comparator<Suit> {
+public final class HandTarotCharShortLengthComparator implements Comparing<Suit> {
 
     private HandTarot hand;
 

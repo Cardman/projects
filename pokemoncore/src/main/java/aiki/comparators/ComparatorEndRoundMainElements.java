@@ -1,11 +1,11 @@
 package aiki.comparators;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import aiki.fight.EndRoundMainElements;
 import code.util.Numbers;
 
 public final class ComparatorEndRoundMainElements implements
-        Comparator<EndRoundMainElements> {
+        Comparing<EndRoundMainElements> {
 
     @Override
     public int compare(EndRoundMainElements _o1, EndRoundMainElements _o2) {

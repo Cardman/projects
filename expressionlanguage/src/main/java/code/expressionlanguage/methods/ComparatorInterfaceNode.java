@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.Numbers;
 
-public final class ComparatorInterfaceNode implements Comparator<InterfaceNode> {
+public final class ComparatorInterfaceNode implements Comparing<InterfaceNode> {
 
     @Override
     public int compare(InterfaceNode _o1, InterfaceNode _o2) {

@@ -1,5 +1,5 @@
 package code.util;
-import java.util.Comparator;
+import code.util.ints.Comparing;
 
 import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
@@ -14,7 +14,7 @@ import code.util.ints.SortableMap;
 public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, V> {
 
     @RwXml
-    private final Comparator<K> comparator;
+    private final Comparing<K> comparator;
 
     @RwXml
     TreeMap() {
@@ -27,12 +27,12 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         comparator = null;
     }
 
-    public TreeMap(CollCapacity _capacity, Comparator<K> _cmp) {
+    public TreeMap(CollCapacity _capacity, Comparing<K> _cmp) {
         super(_capacity);
         comparator = _cmp;
     }
 
-    public TreeMap(Comparator<K> _cmp) {
+    public TreeMap(Comparing<K> _cmp) {
         comparator = _cmp;
     }
 
@@ -148,7 +148,7 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     }
 
     @Override
-    public Comparator<K> comparator() {
+    public Comparing<K> comparator() {
         return comparator;
     }
 
