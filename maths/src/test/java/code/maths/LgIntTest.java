@@ -1,83 +1,166 @@
 package code.maths;
 import static code.maths.EquallableMathUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.SortableCustList;
 import code.util.TreeMap;
 
-@RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
 public class LgIntTest {
-
     @Test
-    public void base1Test() {
+    public void base1(){
         assertEq(1000000000, LgInt.base());
     }
-
     @Test
-    public void logBase1Test() {
+    public void logBase1(){
         assertEq(9, LgInt.logBase());
     }
-
     @Test
-    public void new_LgInt_1Test() {
+    public void new_LgInt_1(){
         LgInt entier_ = LgInt.zero();
         assertEq(1, entier_.getGrDigits().size());
         assertEq(0, entier_.getGrDigits().first().intValue());
         assertEq(LgInt.SIGNE_POSITIF,entier_.getSignum());
         assertTrue(entier_.isZero());
     }
-
-    Object[] inputsNewLgIntLong() {
-        return $($(1L,new Numbers<Long>(1L),LgInt.SIGNE_POSITIF),
-                        $(0L,new Numbers<Long>(0L),LgInt.SIGNE_POSITIF),
-                        $(-1L,new Numbers<Long>(1L),!LgInt.SIGNE_POSITIF),
-                        $(1234567890L,new Numbers<Long>(1L,234567890L),LgInt.SIGNE_POSITIF),
-                        $(-1234567890L,new Numbers<Long>(1L,234567890L),!LgInt.SIGNE_POSITIF),
-                        $(Long.MAX_VALUE,new Numbers<Long>(9L,223372036L,854775807L),LgInt.SIGNE_POSITIF));
-    }
-
     @Test
-    @Parameters(method="inputsNewLgIntLong")
-    public void new_LgInt_long_1Test(long _input,Numbers<Long> _expectedDigits, boolean _signum) {
-        LgInt int_ = new LgInt(_input);
+    public void new_LgInt_long_1Test(){
+        LgInt int_ = new LgInt(1L);
         Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(_expectedDigits, resDigits_);
-        assertEq(_signum, int_.getSignum());
+        assertEqDigits(new Numbers<Long>(1L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
-
-    Object[] inputsNewLgIntString() {
-        return $($("1",new Numbers<Long>(1L),LgInt.SIGNE_POSITIF),
-                        $("0",new Numbers<Long>(0L),LgInt.SIGNE_POSITIF),
-                        $("-1",new Numbers<Long>(1L),!LgInt.SIGNE_POSITIF),
-                        $("1234567890",new Numbers<Long>(1L,234567890L),LgInt.SIGNE_POSITIF),
-                        $("-1234567890",new Numbers<Long>(1L,234567890L),!LgInt.SIGNE_POSITIF),
-                        $("1000000000",new Numbers<Long>(1L,0L),LgInt.SIGNE_POSITIF),
-                        $("-1000000000",new Numbers<Long>(1L,0L),!LgInt.SIGNE_POSITIF),
-                        $("12345678901234567890",new Numbers<Long>(12L,345678901L,234567890L),LgInt.SIGNE_POSITIF),
-                        $("-12345678901234567890",new Numbers<Long>(12L,345678901L,234567890L),!LgInt.SIGNE_POSITIF),
-                        $("12000000000234567890",new Numbers<Long>(12L,0L,234567890L),LgInt.SIGNE_POSITIF),
-                        $("-12000000000234567890",new Numbers<Long>(12L,0L,234567890L),!LgInt.SIGNE_POSITIF),
-                        $("12000000001234567890",new Numbers<Long>(12L,1L,234567890L),LgInt.SIGNE_POSITIF),
-                        $("-12000000001234567890",new Numbers<Long>(12L,1L,234567890L),!LgInt.SIGNE_POSITIF));
-    }
-
     @Test
-    @Parameters(method="inputsNewLgIntString")
-    public void new_LgInt_String_1Test(String _input,Numbers<Long> _expectedDigits, boolean _signum) {
-        LgInt int_ = new LgInt(_input);
+    public void new_LgInt_long_2Test(){
+        LgInt int_ = new LgInt(0L);
         Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(_expectedDigits, resDigits_);
-        assertEq(_signum, int_.getSignum());
+        assertEqDigits(new Numbers<Long>(0L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
+    @Test
+    public void new_LgInt_long_3Test(){
+        LgInt int_ = new LgInt(-1L);
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_long_4Test(){
+        LgInt int_ = new LgInt(1234567890L);
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L,234567890L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_long_5Test(){
+        LgInt int_ = new LgInt(-1234567890L);
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L,234567890L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_long_6Test(){
+        LgInt int_ = new LgInt(Long.MAX_VALUE);
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(9L,223372036L,854775807L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_1Test(){
+        LgInt int_ = new LgInt("1");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_2Test(){
+        LgInt int_ = new LgInt("0");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(0L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_3Test(){
+        LgInt int_ = new LgInt("-1");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_4Test(){
+        LgInt int_ = new LgInt("1234567890");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L,234567890L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_5Test(){
+        LgInt int_ = new LgInt("-1234567890");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L,234567890L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_6Test(){
+        LgInt int_ = new LgInt("1000000000");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L,0L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_7Test(){
+        LgInt int_ = new LgInt("-1000000000");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(1L,0L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_8Test(){
+        LgInt int_ = new LgInt("12345678901234567890");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(12L,345678901L,234567890L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_9Test(){
+        LgInt int_ = new LgInt("-12345678901234567890");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(12L,345678901L,234567890L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_10Test(){
+        LgInt int_ = new LgInt("12000000000234567890");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(12L,0L,234567890L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_11Test(){
+        LgInt int_ = new LgInt("-12000000000234567890");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(12L,0L,234567890L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_12Test(){
+        LgInt int_ = new LgInt("12000000001234567890");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(12L,1L,234567890L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_String_13Test(){
+        LgInt int_ = new LgInt("-12000000001234567890");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(12L,1L,234567890L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+
 
     private static void assertEqDigits(Numbers<Long> _expected, Numbers<Long> _result) {
         int expectedLen_ = _expected.size();
@@ -85,543 +168,1886 @@ public class LgIntTest {
         for (int i = 0; i < expectedLen_; i++) {
             assertEq(_expected.get(i),_result.get(i));
         }
-    }
-
-    Object[] inputsToString() {
-        return $($(new LgInt(1),"1"),
-                $(new LgInt(-1),"-1"),
-                $(new LgInt("-0"),"0"),
-                $(LgInt.zero(),"0"),
-                $(new LgInt(1234567890),"1234567890"),
-                $(new LgInt(1000000000),"1000000000"),
-                $(new LgInt(-1000000000),"-1000000000"),
-                $(new LgInt(-1234567890),"-1234567890"),
-                $(new LgInt("12345678901234567890"),"12345678901234567890"),
-                $(new LgInt("-12345678901234567890"),"-12345678901234567890"),
-                $(new LgInt("12000000000234567890"),"12000000000234567890"),
-                $(new LgInt("-12000000000234567890"),"-12000000000234567890"),
-                $(new LgInt("12000000001234567890"),"12000000001234567890"),
-                $(new LgInt("-12000000001234567890"),"-12000000001234567890"));
-    }
-
-    @Parameters(method="inputsToString")
-    @Test
-    public void toString1Test(LgInt _input, String _expected) {
+    }    @Test
+    public void toString1Test(){
         //_input.setUnmodified();
-        assertEq(_expected, _input.toNumberString());
+        assertEq("1", new LgInt(1).toNumberString());
         //assertTrue(!_input.isModified());
     }
-
-    Object[] inputsEquals() {
-        return $($("1","1",true),
-                $("1","-1",false),
-                $("10","1",false),
-                $("-1","10",false),
-                $("1000000000","1",false),
-                $("1","1000000000",false),
-                $("1000000000","1000000000",true));
-    }
-
     @Test
-    @Parameters(method="inputsEquals")
-    public void eq1Test(String _one, String _two, boolean _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
+    public void toString2Test(){
+        //_input.setUnmodified();
+        assertEq("-1", new LgInt(-1).toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString3Test(){
+        //_input.setUnmodified();
+        assertEq("0", new LgInt("-0").toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString4Test(){
+        //_input.setUnmodified();
+        assertEq("0", LgInt.zero().toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString5Test(){
+        //_input.setUnmodified();
+        assertEq("1234567890", new LgInt(1234567890).toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString6Test(){
+        //_input.setUnmodified();
+        assertEq("1000000000", new LgInt(1000000000).toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString7Test(){
+        //_input.setUnmodified();
+        assertEq("-1000000000", new LgInt(-1000000000).toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString8Test(){
+        //_input.setUnmodified();
+        assertEq("-1234567890", new LgInt(-1234567890).toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString9Test(){
+        //_input.setUnmodified();
+        assertEq("12345678901234567890", new LgInt("12345678901234567890").toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString10Test(){
+        //_input.setUnmodified();
+        assertEq("-12345678901234567890", new LgInt("-12345678901234567890").toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString11Test(){
+        //_input.setUnmodified();
+        assertEq("12000000000234567890", new LgInt("12000000000234567890").toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString12Test(){
+        //_input.setUnmodified();
+        assertEq("-12000000000234567890", new LgInt("-12000000000234567890").toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString13Test(){
+        //_input.setUnmodified();
+        assertEq("12000000001234567890", new LgInt("12000000001234567890").toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void toString14Test(){
+        //_input.setUnmodified();
+        assertEq("-12000000001234567890", new LgInt("-12000000001234567890").toNumberString());
+        //assertTrue(!_input.isModified());
+    }
+    @Test
+    public void eq1Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("1");
         //intOne_.setUnmodified();
         //intTwo_.setUnmodified();
-        assertEq(_expected, intOne_.eq(intTwo_));
+        assertEq(true, intOne_.eq(intTwo_));
         //assertTrue(!intOne_.isModified());
         //assertTrue(!intTwo_.isModified());
     }
-
-    Object[] inputsDifferent() {
-        return $($("1","1",false),
-                $("1","-1",true),
-                $("10","1",true),
-                $("-1","10",true),
-                $("1000000000","1",true),
-                $("1","1000000000",true),
-                $("1000000000","1000000000",false));
-    }
-
     @Test
-    @Parameters(method="inputsDifferent")
-    public void different1Test(String _one, String _two, boolean _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
+    public void eq2Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("-1");
         //intOne_.setUnmodified();
         //intTwo_.setUnmodified();
-        assertEq(_expected, LgInt.different(intOne_, intTwo_));
+        assertEq(false, intOne_.eq(intTwo_));
         //assertTrue(!intOne_.isModified());
         //assertTrue(!intTwo_.isModified());
     }
-
-    Object[] inputsLl() {
-        return $($("1",1L),
-                $("-1",-1L),
-                $("0",0L),
-                $("1234567890",234567890L),
-                $("-1234567890",-234567890L),
-                $("12345678901234567890",234567890L),
-                $("-12345678901234567890",-234567890L));
-    }
-
     @Test
-    @Parameters(method="inputsLl")
-    public void ll1Test(String _input, long _expected) {
-        LgInt int_ = new LgInt(_input);
-        assertEq(_expected, int_.ll());
-        assertEq(new LgInt(_input), int_);
-    }
-
-    Object[] inputsInfEg() {
-        return $($("0", "3", true),
-                $("3", "3", true),
-                $("-3", "0", true),
-                $("3", "1234567890", true),
-                $("-3", "1234567890", true),
-                $("-1234567890", "3", true),
-                $("-1234567890", "-3", true),
-                $("3", "0", false),
-                $("0", "-3", false),
-                $("1234567890", "3", false),
-                $("1234567890", "-3", false),
-                $("3", "-1234567890", false),
-                $("-3", "-1234567890", false));
-    }
-
-    @Test
-    @Parameters(method="inputsInfEg")
-    public void lowerEq1Test(String _one, String _two, boolean _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(_expected, LgInt.lowerEq(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
-    }
-
-    Object[] inputsSupEg() {
-        return $($("0", "3", false),
-                $("3", "3", true),
-                $("-3", "0", false),
-                $("3", "1234567890", false),
-                $("-3", "1234567890", false),
-                $("-1234567890", "3", false),
-                $("-1234567890", "-3", false),
-                $("3", "0", true),
-                $("0", "-3", true),
-                $("1234567890", "3", true),
-                $("1234567890", "-3", true),
-                $("3", "-1234567890", true),
-                $("-3", "-1234567890", true));
-    }
-
-    @Test
-    @Parameters(method="inputsSupEg")
-    public void greaterEq1Test(String _one, String _two, boolean _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(_expected, LgInt.greaterEq(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
-    }
-
-    Object[] inputsStrPlusPetit() {
-        return $($("0", "3", true),
-                $("3", "3", false),
-                $("-3", "0", true),
-                $("3", "1234567890", true),
-                $("-3", "1234567890", true),
-                $("-1234567890", "3", true),
-                $("-1234567890", "-3", true),
-                $("3", "0", false),
-                $("0", "-3", false),
-                $("1234567890", "3", false),
-                $("1234567890", "-3", false),
-                $("3", "-1234567890", false),
-                $("-3", "-1234567890", false));
-    }
-
-    @Test
-    @Parameters(method="inputsStrPlusPetit")
-    public void strLower1Test(String _one, String _two, boolean _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(_expected, LgInt.strLower(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
-    }
-
-    Object[] inputsStrPlusGrand() {
-        return $($("0", "3", false),
-                $("3", "3", false),
-                $("-3", "0", false),
-                $("3", "1234567890", false),
-                $("-3", "1234567890", false),
-                $("-1234567890", "3", false),
-                $("-1234567890", "-3", false),
-                $("3", "0", true),
-                $("0", "-3", true),
-                $("1234567890", "3", true),
-                $("1234567890", "-3", true),
-                $("3", "-1234567890", true),
-                $("-3", "-1234567890", true));
-    }
-
-    @Test
-    @Parameters(method="inputsStrPlusGrand")
-    public void strGreater1Test(String _one, String _two, boolean _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(_expected, LgInt.strGreater(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
-    }
-
-    Object[] inputsPlus() {
-        return $($("0","20","20"),
-                $("1","20","21"),
-                $("-1","20","19"),
-                $("1","-20","-19"),
-                $("-1","-20","-21"),
-                $("999999999999999999","1","1000000000000000000"),
-                $("1","999999999999999999","1000000000000000000"),
-                $("1234567890","11234567890","12469135780"),
-                $("11234567890","1234567890","12469135780"),
-                $("12345678901234567890","11234567890","12345678912469135780"),
-                $("11234567890","12345678901234567890","12345678912469135780"),
-                $("12345678901234567890","11876543210","12345678913111111100"),
-                $("11876543210","12345678901234567890","12345678913111111100"),
-                $("4444444444444444444","-555555555555555555","3888888888888888889"),
-                $("4444444444444444444","-333333333555555555","4111111110888888889"),
-                $("4444444444444444444","-555555555","4444444443888888889"),
-                $("4444444444000000000","-1","4444444443999999999"),
-                $("4000000000000000000","-1","3999999999999999999"));
-    }
-
-    @Test
-    @Parameters(method="inputsPlus")
-    public void plus1Test(String _one, String _two, String _expected) {
-        LgInt one_ = new LgInt(_one);
-        LgInt two_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.plus(one_, two_));
-        assertEq(new LgInt(_one), one_);
-        assertEq(new LgInt(_two), two_);
-    }
-
-    Object[] inputsSoustraire() {
-        return $($("0","-20","20"),
-                $("1","-20","21"),
-                $("-1","-20","19"),
-                $("1","20","-19"),
-                $("-1","20","-21"),
-                $("999999999999999999","-1","1000000000000000000"),
-                $("1","-999999999999999999","1000000000000000000"),
-                $("1234567890","-11234567890","12469135780"),
-                $("11234567890","-1234567890","12469135780"),
-                $("12345678901234567890","-11234567890","12345678912469135780"),
-                $("11234567890","-12345678901234567890","12345678912469135780"),
-                $("12345678901234567890","-11876543210","12345678913111111100"),
-                $("11876543210","-12345678901234567890","12345678913111111100"),
-                $("4444444444444444444","555555555555555555","3888888888888888889"),
-                $("4444444444444444444","333333333555555555","4111111110888888889"),
-                $("4444444444444444444","555555555","4444444443888888889"),
-                $("4444444444000000000","1","4444444443999999999"),
-                $("4000000000000000000","1","3999999999999999999"));
+    public void eq3Test(){
+        LgInt intOne_ = new LgInt("10");
+        LgInt intTwo_ = new LgInt("1");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(false, intOne_.eq(intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
     }
     @Test
-    @Parameters(method="inputsSoustraire")
-    public void removeNb1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
+    public void eq4Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("10");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(false, intOne_.eq(intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void eq5Test(){
+        LgInt intOne_ = new LgInt("1000000000");
+        LgInt intTwo_ = new LgInt("1");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(false, intOne_.eq(intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void eq6Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("1000000000");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(false, intOne_.eq(intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void eq7Test(){
+        LgInt intOne_ = new LgInt("1000000000");
+        LgInt intTwo_ = new LgInt("1000000000");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(true, intOne_.eq(intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void different1Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("1");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(false, LgInt.different(intOne_, intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void different2Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("-1");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(true, LgInt.different(intOne_, intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void different3Test(){
+        LgInt intOne_ = new LgInt("10");
+        LgInt intTwo_ = new LgInt("1");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(true, LgInt.different(intOne_, intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void different4Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("10");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(true, LgInt.different(intOne_, intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void different5Test(){
+        LgInt intOne_ = new LgInt("1000000000");
+        LgInt intTwo_ = new LgInt("1");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(true, LgInt.different(intOne_, intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void different6Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("1000000000");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(true, LgInt.different(intOne_, intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void different7Test(){
+        LgInt intOne_ = new LgInt("1000000000");
+        LgInt intTwo_ = new LgInt("1000000000");
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(false, LgInt.different(intOne_, intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void ll1Test(){
+        LgInt int_ = new LgInt("1");
+        assertEq(1L, int_.ll());
+        assertEq(new LgInt("1"), int_);
+    }
+    @Test
+    public void ll2Test(){
+        LgInt int_ = new LgInt("-1");
+        assertEq(-1L, int_.ll());
+        assertEq(new LgInt("-1"), int_);
+    }
+    @Test
+    public void ll3Test(){
+        LgInt int_ = new LgInt("0");
+        assertEq(0L, int_.ll());
+        assertEq(new LgInt("0"), int_);
+    }
+    @Test
+    public void ll4Test(){
+        LgInt int_ = new LgInt("1234567890");
+        assertEq(234567890L, int_.ll());
+        assertEq(new LgInt("1234567890"), int_);
+    }
+    @Test
+    public void ll5Test(){
+        LgInt int_ = new LgInt("-1234567890");
+        assertEq(-234567890L, int_.ll());
+        assertEq(new LgInt("-1234567890"), int_);
+    }
+    @Test
+    public void ll6Test(){
+        LgInt int_ = new LgInt("12345678901234567890");
+        assertEq(234567890L, int_.ll());
+        assertEq(new LgInt("12345678901234567890"), int_);
+    }
+    @Test
+    public void ll7Test(){
+        LgInt int_ = new LgInt("-12345678901234567890");
+        assertEq(-234567890L, int_.ll());
+        assertEq(new LgInt("-12345678901234567890"), int_);
+    }
+    @Test
+    public void lowerEq1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(true, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void lowerEq2Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(true, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void lowerEq3Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(true, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void lowerEq4Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(true, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void lowerEq5Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(true, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void lowerEq6Test(){
+        LgInt intOne_ = new LgInt("-1234567890");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(true, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("-1234567890"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void lowerEq7Test(){
+        LgInt intOne_ = new LgInt("-1234567890");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(true, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("-1234567890"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void lowerEq8Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(false, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void lowerEq9Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(false, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void lowerEq10Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(false, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void lowerEq11Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(false, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void lowerEq12Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        assertEq(false, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void lowerEq13Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        assertEq(false, LgInt.lowerEq(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void greaterEq1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(false, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void greaterEq2Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(true, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void greaterEq3Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(false, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void greaterEq4Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(false, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void greaterEq5Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(false, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void greaterEq6Test(){
+        LgInt intOne_ = new LgInt("-1234567890");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(false, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("-1234567890"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void greaterEq7Test(){
+        LgInt intOne_ = new LgInt("-1234567890");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(false, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("-1234567890"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void greaterEq8Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(true, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void greaterEq9Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(true, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void greaterEq10Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(true, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void greaterEq11Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(true, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void greaterEq12Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        assertEq(true, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void greaterEq13Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        assertEq(true, LgInt.greaterEq(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void strLower1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(true, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void strLower2Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(false, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void strLower3Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(true, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void strLower4Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(true, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void strLower5Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(true, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void strLower6Test(){
+        LgInt intOne_ = new LgInt("-1234567890");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(true, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("-1234567890"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void strLower7Test(){
+        LgInt intOne_ = new LgInt("-1234567890");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(true, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("-1234567890"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void strLower8Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(false, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void strLower9Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(false, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void strLower10Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(false, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void strLower11Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(false, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void strLower12Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        assertEq(false, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void strLower13Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        assertEq(false, LgInt.strLower(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void strGreater1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(false, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void strGreater2Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(false, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void strGreater3Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(false, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void strGreater4Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(false, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void strGreater5Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(false, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void strGreater6Test(){
+        LgInt intOne_ = new LgInt("-1234567890");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(false, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("-1234567890"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void strGreater7Test(){
+        LgInt intOne_ = new LgInt("-1234567890");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(false, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("-1234567890"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void strGreater8Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(true, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void strGreater9Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(true, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void strGreater10Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(true, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void strGreater11Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("-3");
+        assertEq(true, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("-3"), intTwo_);
+    }
+    @Test
+    public void strGreater12Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        assertEq(true, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void strGreater13Test(){
+        LgInt intOne_ = new LgInt("-3");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        assertEq(true, LgInt.strGreater(intOne_, intTwo_));
+        assertEq(new LgInt("-3"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void plus1Test(){
+        LgInt one_ = new LgInt("0");
+        LgInt two_ = new LgInt("20");
+        assertEq(new LgInt("20"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("0"), one_);
+        assertEq(new LgInt("20"), two_);
+    }
+    @Test
+    public void plus2Test(){
+        LgInt one_ = new LgInt("1");
+        LgInt two_ = new LgInt("20");
+        assertEq(new LgInt("21"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("1"), one_);
+        assertEq(new LgInt("20"), two_);
+    }
+    @Test
+    public void plus3Test(){
+        LgInt one_ = new LgInt("-1");
+        LgInt two_ = new LgInt("20");
+        assertEq(new LgInt("19"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("-1"), one_);
+        assertEq(new LgInt("20"), two_);
+    }
+    @Test
+    public void plus4Test(){
+        LgInt one_ = new LgInt("1");
+        LgInt two_ = new LgInt("-20");
+        assertEq(new LgInt("-19"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("1"), one_);
+        assertEq(new LgInt("-20"), two_);
+    }
+    @Test
+    public void plus5Test(){
+        LgInt one_ = new LgInt("-1");
+        LgInt two_ = new LgInt("-20");
+        assertEq(new LgInt("-21"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("-1"), one_);
+        assertEq(new LgInt("-20"), two_);
+    }
+    @Test
+    public void plus6Test(){
+        LgInt one_ = new LgInt("999999999999999999");
+        LgInt two_ = new LgInt("1");
+        assertEq(new LgInt("1000000000000000000"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("999999999999999999"), one_);
+        assertEq(new LgInt("1"), two_);
+    }
+    @Test
+    public void plus7Test(){
+        LgInt one_ = new LgInt("1");
+        LgInt two_ = new LgInt("999999999999999999");
+        assertEq(new LgInt("1000000000000000000"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("1"), one_);
+        assertEq(new LgInt("999999999999999999"), two_);
+    }
+    @Test
+    public void plus8Test(){
+        LgInt one_ = new LgInt("1234567890");
+        LgInt two_ = new LgInt("11234567890");
+        assertEq(new LgInt("12469135780"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("1234567890"), one_);
+        assertEq(new LgInt("11234567890"), two_);
+    }
+    @Test
+    public void plus9Test(){
+        LgInt one_ = new LgInt("11234567890");
+        LgInt two_ = new LgInt("1234567890");
+        assertEq(new LgInt("12469135780"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("11234567890"), one_);
+        assertEq(new LgInt("1234567890"), two_);
+    }
+    @Test
+    public void plus10Test(){
+        LgInt one_ = new LgInt("12345678901234567890");
+        LgInt two_ = new LgInt("11234567890");
+        assertEq(new LgInt("12345678912469135780"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("12345678901234567890"), one_);
+        assertEq(new LgInt("11234567890"), two_);
+    }
+    @Test
+    public void plus11Test(){
+        LgInt one_ = new LgInt("11234567890");
+        LgInt two_ = new LgInt("12345678901234567890");
+        assertEq(new LgInt("12345678912469135780"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("11234567890"), one_);
+        assertEq(new LgInt("12345678901234567890"), two_);
+    }
+    @Test
+    public void plus12Test(){
+        LgInt one_ = new LgInt("12345678901234567890");
+        LgInt two_ = new LgInt("11876543210");
+        assertEq(new LgInt("12345678913111111100"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("12345678901234567890"), one_);
+        assertEq(new LgInt("11876543210"), two_);
+    }
+    @Test
+    public void plus13Test(){
+        LgInt one_ = new LgInt("11876543210");
+        LgInt two_ = new LgInt("12345678901234567890");
+        assertEq(new LgInt("12345678913111111100"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("11876543210"), one_);
+        assertEq(new LgInt("12345678901234567890"), two_);
+    }
+    @Test
+    public void plus14Test(){
+        LgInt one_ = new LgInt("4444444444444444444");
+        LgInt two_ = new LgInt("-555555555555555555");
+        assertEq(new LgInt("3888888888888888889"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("4444444444444444444"), one_);
+        assertEq(new LgInt("-555555555555555555"), two_);
+    }
+    @Test
+    public void plus15Test(){
+        LgInt one_ = new LgInt("4444444444444444444");
+        LgInt two_ = new LgInt("-333333333555555555");
+        assertEq(new LgInt("4111111110888888889"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("4444444444444444444"), one_);
+        assertEq(new LgInt("-333333333555555555"), two_);
+    }
+    @Test
+    public void plus16Test(){
+        LgInt one_ = new LgInt("4444444444444444444");
+        LgInt two_ = new LgInt("-555555555");
+        assertEq(new LgInt("4444444443888888889"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("4444444444444444444"), one_);
+        assertEq(new LgInt("-555555555"), two_);
+    }
+    @Test
+    public void plus17Test(){
+        LgInt one_ = new LgInt("4444444444000000000");
+        LgInt two_ = new LgInt("-1");
+        assertEq(new LgInt("4444444443999999999"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("4444444444000000000"), one_);
+        assertEq(new LgInt("-1"), two_);
+    }
+    @Test
+    public void plus18Test(){
+        LgInt one_ = new LgInt("4000000000000000000");
+        LgInt two_ = new LgInt("-1");
+        assertEq(new LgInt("3999999999999999999"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("4000000000000000000"), one_);
+        assertEq(new LgInt("-1"), two_);
+    }
+    @Test
+    public void removeNb1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("-20");
         intOne_.removeNb(intTwo_);
-        assertEq(new LgInt(_expected), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+        assertEq(new LgInt("20"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
     }
-
-    Object[] inputsFact() {
-        return $($("0", "1"),
-                $("1", "1"),
-                $("2", "2"),
-                $("3", "6"),
-                $("4", "24"));
-    }
-
     @Test
-    @Parameters(method="inputsFact")
-    public void fact1Test(String _input, String _expected) {
-        LgInt int_ = new LgInt(_input);
-        assertEq(new LgInt(_expected), int_.fact());
-        assertEq(new LgInt(_input), int_);
+    public void removeNb2Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("-20");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("21"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
     }
-
-    Object[] inputsOppose() {
-        return $($("0", "0"),
-                $("1", "-1"),
-                $("-1", "1"),
-                $("1234567890", "-1234567890"),
-                $("-1234567890", "1234567890"),
-                $("12345678901234567890", "-12345678901234567890"),
-                $("-12345678901234567890", "12345678901234567890"));
-    }
-
     @Test
-    @Parameters(method="inputsOppose")
-    public void opposNb1Test(String _input, String _expected) {
-        LgInt int_ = new LgInt(_input);
-        assertEq(new LgInt(_expected), int_.opposNb());
-        assertEq(new LgInt(_input), int_);
+    public void removeNb3Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("-20");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("19"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
     }
-
-    Object[] inputsAbsNb() {
-        return $($("0", "0"),
-                $("1", "1"),
-                $("-1", "1"),
-                $("1234567890", "1234567890"),
-                $("-1234567890", "1234567890"),
-                $("12345678901234567890", "12345678901234567890"),
-                $("-12345678901234567890", "12345678901234567890"));
-    }
-
     @Test
-    @Parameters(method="inputsAbsNb")
-    public void absNb1Test(String _input, String _expected) {
-        LgInt int_ = new LgInt(_input);
-        assertEq(new LgInt(_expected), int_.absNb());
-        assertEq(new LgInt(_input), int_);
+    public void removeNb4Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("-19"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
     }
-
-    Object[] inputsIncrement() {
-        return $($("0", "1"),
-                $("1", "2"),
-                $("-1", "0"),
-                $("1234567890", "1234567891"),
-                $("-1234567890", "-1234567889"),
-                $("12345678901234567890", "12345678901234567891"),
-                $("-12345678901234567890", "-12345678901234567889"));
-    }
-
     @Test
-    @Parameters(method="inputsIncrement")
-    public void increment1Test(String _input, String _expected) {
-        LgInt int_ = new LgInt(_input);
+    public void removeNb5Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("20");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("-21"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void removeNb6Test(){
+        LgInt intOne_ = new LgInt("999999999999999999");
+        LgInt intTwo_ = new LgInt("-1");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("1000000000000000000"), intOne_);
+        assertEq(new LgInt("-1"), intTwo_);
+    }
+    @Test
+    public void removeNb7Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("-999999999999999999");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("1000000000000000000"), intOne_);
+        assertEq(new LgInt("-999999999999999999"), intTwo_);
+    }
+    @Test
+    public void removeNb8Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("-11234567890");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("12469135780"), intOne_);
+        assertEq(new LgInt("-11234567890"), intTwo_);
+    }
+    @Test
+    public void removeNb9Test(){
+        LgInt intOne_ = new LgInt("11234567890");
+        LgInt intTwo_ = new LgInt("-1234567890");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("12469135780"), intOne_);
+        assertEq(new LgInt("-1234567890"), intTwo_);
+    }
+    @Test
+    public void removeNb10Test(){
+        LgInt intOne_ = new LgInt("12345678901234567890");
+        LgInt intTwo_ = new LgInt("-11234567890");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("12345678912469135780"), intOne_);
+        assertEq(new LgInt("-11234567890"), intTwo_);
+    }
+    @Test
+    public void removeNb11Test(){
+        LgInt intOne_ = new LgInt("11234567890");
+        LgInt intTwo_ = new LgInt("-12345678901234567890");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("12345678912469135780"), intOne_);
+        assertEq(new LgInt("-12345678901234567890"), intTwo_);
+    }
+    @Test
+    public void removeNb12Test(){
+        LgInt intOne_ = new LgInt("12345678901234567890");
+        LgInt intTwo_ = new LgInt("-11876543210");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("12345678913111111100"), intOne_);
+        assertEq(new LgInt("-11876543210"), intTwo_);
+    }
+    @Test
+    public void removeNb13Test(){
+        LgInt intOne_ = new LgInt("11876543210");
+        LgInt intTwo_ = new LgInt("-12345678901234567890");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("12345678913111111100"), intOne_);
+        assertEq(new LgInt("-12345678901234567890"), intTwo_);
+    }
+    @Test
+    public void removeNb14Test(){
+        LgInt intOne_ = new LgInt("4444444444444444444");
+        LgInt intTwo_ = new LgInt("555555555555555555");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("3888888888888888889"), intOne_);
+        assertEq(new LgInt("555555555555555555"), intTwo_);
+    }
+    @Test
+    public void removeNb15Test(){
+        LgInt intOne_ = new LgInt("4444444444444444444");
+        LgInt intTwo_ = new LgInt("333333333555555555");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("4111111110888888889"), intOne_);
+        assertEq(new LgInt("333333333555555555"), intTwo_);
+    }
+    @Test
+    public void removeNb16Test(){
+        LgInt intOne_ = new LgInt("4444444444444444444");
+        LgInt intTwo_ = new LgInt("555555555");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("4444444443888888889"), intOne_);
+        assertEq(new LgInt("555555555"), intTwo_);
+    }
+    @Test
+    public void removeNb17Test(){
+        LgInt intOne_ = new LgInt("4444444444000000000");
+        LgInt intTwo_ = new LgInt("1");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("4444444443999999999"), intOne_);
+        assertEq(new LgInt("1"), intTwo_);
+    }
+    @Test
+    public void removeNb18Test(){
+        LgInt intOne_ = new LgInt("4000000000000000000");
+        LgInt intTwo_ = new LgInt("1");
+        intOne_.removeNb(intTwo_);
+        assertEq(new LgInt("3999999999999999999"), intOne_);
+        assertEq(new LgInt("1"), intTwo_);
+    }
+    @Test
+    public void fact1Test(){
+        LgInt int_ = new LgInt("0");
+        assertEq(new LgInt("1"), int_.fact());
+        assertEq(new LgInt("0"), int_);
+    }
+    @Test
+    public void fact2Test(){
+        LgInt int_ = new LgInt("1");
+        assertEq(new LgInt("1"), int_.fact());
+        assertEq(new LgInt("1"), int_);
+    }
+    @Test
+    public void fact3Test(){
+        LgInt int_ = new LgInt("2");
+        assertEq(new LgInt("2"), int_.fact());
+        assertEq(new LgInt("2"), int_);
+    }
+    @Test
+    public void fact4Test(){
+        LgInt int_ = new LgInt("3");
+        assertEq(new LgInt("6"), int_.fact());
+        assertEq(new LgInt("3"), int_);
+    }
+    @Test
+    public void fact5Test(){
+        LgInt int_ = new LgInt("4");
+        assertEq(new LgInt("24"), int_.fact());
+        assertEq(new LgInt("4"), int_);
+    }
+    @Test
+    public void opposNb1Test(){
+        LgInt int_ = new LgInt("0");
+        assertEq(new LgInt("0"), int_.opposNb());
+        assertEq(new LgInt("0"), int_);
+    }
+    @Test
+    public void opposNb2Test(){
+        LgInt int_ = new LgInt("1");
+        assertEq(new LgInt("-1"), int_.opposNb());
+        assertEq(new LgInt("1"), int_);
+    }
+    @Test
+    public void opposNb3Test(){
+        LgInt int_ = new LgInt("-1");
+        assertEq(new LgInt("1"), int_.opposNb());
+        assertEq(new LgInt("-1"), int_);
+    }
+    @Test
+    public void opposNb4Test(){
+        LgInt int_ = new LgInt("1234567890");
+        assertEq(new LgInt("-1234567890"), int_.opposNb());
+        assertEq(new LgInt("1234567890"), int_);
+    }
+    @Test
+    public void opposNb5Test(){
+        LgInt int_ = new LgInt("-1234567890");
+        assertEq(new LgInt("1234567890"), int_.opposNb());
+        assertEq(new LgInt("-1234567890"), int_);
+    }
+    @Test
+    public void opposNb6Test(){
+        LgInt int_ = new LgInt("12345678901234567890");
+        assertEq(new LgInt("-12345678901234567890"), int_.opposNb());
+        assertEq(new LgInt("12345678901234567890"), int_);
+    }
+    @Test
+    public void opposNb7Test(){
+        LgInt int_ = new LgInt("-12345678901234567890");
+        assertEq(new LgInt("12345678901234567890"), int_.opposNb());
+        assertEq(new LgInt("-12345678901234567890"), int_);
+    }
+    @Test
+    public void absNb1Test(){
+        LgInt int_ = new LgInt("0");
+        assertEq(new LgInt("0"), int_.absNb());
+        assertEq(new LgInt("0"), int_);
+    }
+    @Test
+    public void absNb2Test(){
+        LgInt int_ = new LgInt("1");
+        assertEq(new LgInt("1"), int_.absNb());
+        assertEq(new LgInt("1"), int_);
+    }
+    @Test
+    public void absNb3Test(){
+        LgInt int_ = new LgInt("-1");
+        assertEq(new LgInt("1"), int_.absNb());
+        assertEq(new LgInt("-1"), int_);
+    }
+    @Test
+    public void absNb4Test(){
+        LgInt int_ = new LgInt("1234567890");
+        assertEq(new LgInt("1234567890"), int_.absNb());
+        assertEq(new LgInt("1234567890"), int_);
+    }
+    @Test
+    public void absNb5Test(){
+        LgInt int_ = new LgInt("-1234567890");
+        assertEq(new LgInt("1234567890"), int_.absNb());
+        assertEq(new LgInt("-1234567890"), int_);
+    }
+    @Test
+    public void absNb6Test(){
+        LgInt int_ = new LgInt("12345678901234567890");
+        assertEq(new LgInt("12345678901234567890"), int_.absNb());
+        assertEq(new LgInt("12345678901234567890"), int_);
+    }
+    @Test
+    public void absNb7Test(){
+        LgInt int_ = new LgInt("-12345678901234567890");
+        assertEq(new LgInt("12345678901234567890"), int_.absNb());
+        assertEq(new LgInt("-12345678901234567890"), int_);
+    }
+    @Test
+    public void increment1Test(){
+        LgInt int_ = new LgInt("0");
         int_.increment();
-        LgInt res_ = new LgInt(_expected);
+        LgInt res_ = new LgInt("1");
         assertEq(res_, int_);
     }
-
-    Object[] inputsDecrement() {
-        return $($("0", "-1"),
-                $("1", "0"),
-                $("-1", "-2"),
-                $("1234567890", "1234567889"),
-                $("-1234567890", "-1234567891"),
-                $("12345678901234567890", "12345678901234567889"),
-                $("-12345678901234567890", "-12345678901234567891"));
-    }
-
     @Test
-    @Parameters(method="inputsDecrement")
-    public void decrement1Test(String _input, String _expected) {
-        LgInt int_ = new LgInt(_input);
+    public void increment2Test(){
+        LgInt int_ = new LgInt("1");
+        int_.increment();
+        LgInt res_ = new LgInt("2");
+        assertEq(res_, int_);
+    }
+    @Test
+    public void increment3Test(){
+        LgInt int_ = new LgInt("-1");
+        int_.increment();
+        LgInt res_ = new LgInt("0");
+        assertEq(res_, int_);
+    }
+    @Test
+    public void increment4Test(){
+        LgInt int_ = new LgInt("1234567890");
+        int_.increment();
+        LgInt res_ = new LgInt("1234567891");
+        assertEq(res_, int_);
+    }
+    @Test
+    public void increment5Test(){
+        LgInt int_ = new LgInt("-1234567890");
+        int_.increment();
+        LgInt res_ = new LgInt("-1234567889");
+        assertEq(res_, int_);
+    }
+    @Test
+    public void increment6Test(){
+        LgInt int_ = new LgInt("12345678901234567890");
+        int_.increment();
+        LgInt res_ = new LgInt("12345678901234567891");
+        assertEq(res_, int_);
+    }
+    @Test
+    public void increment7Test(){
+        LgInt int_ = new LgInt("-12345678901234567890");
+        int_.increment();
+        LgInt res_ = new LgInt("-12345678901234567889");
+        assertEq(res_, int_);
+    }
+    @Test
+    public void decrement1Test(){
+        LgInt int_ = new LgInt("0");
         int_.decrement();
-        LgInt res_ = new LgInt(_expected);
+        LgInt res_ = new LgInt("-1");
         assertEq(res_, int_);
     }
-
-    Object[] inputsMoins() {
-        return $($("0","20","-20"),
-                $("1","20","-19"),
-                $("-1","20","-21"),
-                $("1","-20","21"),
-                $("-1","-20","19"),
-                $("1234567890","11234567890","-10000000000"),
-                $("12345678901234567890","11234567890","12345678890000000000"));
-    }
-
     @Test
-    @Parameters(method="inputsMoins")
-    public void minus1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.minus(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void decrement2Test(){
+        LgInt int_ = new LgInt("1");
+        int_.decrement();
+        LgInt res_ = new LgInt("0");
+        assertEq(res_, int_);
     }
-
-    Object[] inputsFois() {
-        return $($("0","20","0"),
-                $("1","20","20"),
-                $("-1","20","-20"),
-                $("1","-20","-20"),
-                $("-1","-20","20"),
-                $("1234567890","11234567890","13869836775019052100"),
-                $("11234567890","1234567890","13869836775019052100"),
-                $("1234567890","1","1234567890"),
-                $("1","1234567890","1234567890"),
-                $("1234567890","11234567890000000000","13869836775019052100000000000"),
-                $("1000000000000000000","2","2000000000000000000"),
-                $("2","1000000000000000000","2000000000000000000"),
-                $("1000000000000000000","2000000000","2000000000000000000000000000"),
-                $("2000000000","1000000000000000000","2000000000000000000000000000"));
-    }
-
     @Test
-    @Parameters(method="inputsFois")
-    public void multiply1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.multiply(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void decrement3Test(){
+        LgInt int_ = new LgInt("-1");
+        int_.decrement();
+        LgInt res_ = new LgInt("-2");
+        assertEq(res_, int_);
     }
-
-    Object[] inputsDivision() {
-        return $($("0","20","0"),
-                $("1","20","0"),
-                $("-1","20","-1"),
-                $("1","-20","0"),
-                $("-1","-20","1"),
-                $("-40","-20","2"),
-                $("-21","20","-2"),
-                $("21","-20","-1"),
-                $("-21","-20","2"),
-                $("1234567890","11234567890","0"),
-                $("11234567890","1234567890","9"),
-                $("12345678901234567890","11234567890","1098901090"),
-                $("11234567890","12345678901234567890","0"));
-    }
-
     @Test
-    @Parameters(method="inputsDivision")
-    public void divide1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.divide(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void decrement4Test(){
+        LgInt int_ = new LgInt("1234567890");
+        int_.decrement();
+        LgInt res_ = new LgInt("1234567889");
+        assertEq(res_, int_);
     }
-
-    Object[] inputsModulo() {
-        return $($("0","20","0"),
-                $("1","20","1"),
-                $("-1","20","19"),
-                $("1","-20","1"),
-                $("-1","-20","19"),
-                $("-21","20","19"),
-                $("21","-20","1"),
-                $("-21","-20","19"),
-                $("-40","-20","0"),
-                $("1234567890","11234567890","1234567890"),
-                $("11234567890","1234567890","123456880"),
-                $("12345678901234567890","11234567890","1234567790"),
-                $("11234567890","12345678901234567890","11234567890"));
-    }
-
     @Test
-    @Parameters(method="inputsModulo")
-    public void remain1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.remain(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void decrement5Test(){
+        LgInt int_ = new LgInt("-1234567890");
+        int_.decrement();
+        LgInt res_ = new LgInt("-1234567891");
+        assertEq(res_, int_);
     }
-
-    Object[] inputsPuissance() {
-        return $($("0", "0", "1"),
-                $("0", "20", "0"),
-                $("1", "20", "1"),
-                $("-1", "20", "1"),
-                $("-1", "19", "-1"),
-                $("2", "3", "8"),
-                $("3", "2", "9"),
-                $("1234567890", "0", "1"));
-    }
-
     @Test
-    @Parameters(method="inputsPuissance")
-    public void powNb1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.powNb(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void decrement6Test(){
+        LgInt int_ = new LgInt("12345678901234567890");
+        int_.decrement();
+        LgInt res_ = new LgInt("12345678901234567889");
+        assertEq(res_, int_);
     }
-
-    Object[] inputsPgcd() {
-        return $($("0", "0", "0"),
-                $("0", "20", "20"),
-                $("20", "0", "20"),
-                $("1", "20", "1"),
-                $("1", "19", "1"),
-                $("-2", "-19", "1"),
-                $("2", "-19", "1"),
-                $("2", "19", "1"),
-                $("-2", "19", "1"),
-                $("2", "4", "2"),
-                $("6", "4", "2"),
-                $("6", "9", "3"));
-    }
-
     @Test
-    @Parameters(method="inputsPgcd")
-    public void pgcd1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.pgcd(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void decrement7Test(){
+        LgInt int_ = new LgInt("-12345678901234567890");
+        int_.decrement();
+        LgInt res_ = new LgInt("-12345678901234567891");
+        assertEq(res_, int_);
     }
-
-    Object[] inputsPpcm() {
-        return $($("0", "0", "0"),
-                $("0", "20", "0"),
-                $("20", "0", "0"),
-                $("1", "20", "20"),
-                $("1", "19", "19"),
-                $("-2", "-19", "38"),
-                $("2", "-19", "38"),
-                $("2", "19", "38"),
-                $("-2", "19", "38"),
-                $("2", "4", "4"),
-                $("6", "4", "12"),
-                $("6", "9", "18"));
-    }
-
     @Test
-    @Parameters(method="inputsPpcm")
-    public void ppcm1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.ppcm(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void minus1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("-20"), LgInt.minus(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
     }
-
-    Object[] inputsParmi() {
-        return $($("0", "0", "1"),
-                $("0", "20", "1"),
-                $("1", "20", "20"),
-                $("19", "20", "20"),
-                $("2", "3", "3"),
-                $("3", "2", "0"),
-                $("2", "4", "6"),
-                $("3", "6", "20"));
-    }
-
     @Test
-    @Parameters(method="inputsParmi")
-    public void among1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), LgInt.among(intOne_, intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void minus2Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("-19"), LgInt.minus(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
     }
-
     @Test
-    public void seqAmong1Test() {
+    public void minus3Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("-21"), LgInt.minus(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void minus4Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("21"), LgInt.minus(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void minus5Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("19"), LgInt.minus(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void minus6Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("11234567890");
+        assertEq(new LgInt("-10000000000"), LgInt.minus(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("11234567890"), intTwo_);
+    }
+    @Test
+    public void minus7Test(){
+        LgInt intOne_ = new LgInt("12345678901234567890");
+        LgInt intTwo_ = new LgInt("11234567890");
+        assertEq(new LgInt("12345678890000000000"), LgInt.minus(intOne_, intTwo_));
+        assertEq(new LgInt("12345678901234567890"), intOne_);
+        assertEq(new LgInt("11234567890"), intTwo_);
+    }
+    @Test
+    public void multiply1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("0"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void multiply2Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("20"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void multiply3Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("-20"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void multiply4Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("-20"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void multiply5Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("20"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void multiply6Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("11234567890");
+        assertEq(new LgInt("13869836775019052100"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("11234567890"), intTwo_);
+    }
+    @Test
+    public void multiply7Test(){
+        LgInt intOne_ = new LgInt("11234567890");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(new LgInt("13869836775019052100"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("11234567890"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void multiply8Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("1");
+        assertEq(new LgInt("1234567890"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("1"), intTwo_);
+    }
+    @Test
+    public void multiply9Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(new LgInt("1234567890"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void multiply10Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("11234567890000000000");
+        assertEq(new LgInt("13869836775019052100000000000"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("11234567890000000000"), intTwo_);
+    }
+    @Test
+    public void multiply11Test(){
+        LgInt intOne_ = new LgInt("1000000000000000000");
+        LgInt intTwo_ = new LgInt("2");
+        assertEq(new LgInt("2000000000000000000"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("1000000000000000000"), intOne_);
+        assertEq(new LgInt("2"), intTwo_);
+    }
+    @Test
+    public void multiply12Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("1000000000000000000");
+        assertEq(new LgInt("2000000000000000000"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("1000000000000000000"), intTwo_);
+    }
+    @Test
+    public void multiply13Test(){
+        LgInt intOne_ = new LgInt("1000000000000000000");
+        LgInt intTwo_ = new LgInt("2000000000");
+        assertEq(new LgInt("2000000000000000000000000000"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("1000000000000000000"), intOne_);
+        assertEq(new LgInt("2000000000"), intTwo_);
+    }
+    @Test
+    public void multiply14Test(){
+        LgInt intOne_ = new LgInt("2000000000");
+        LgInt intTwo_ = new LgInt("1000000000000000000");
+        assertEq(new LgInt("2000000000000000000000000000"), LgInt.multiply(intOne_, intTwo_));
+        assertEq(new LgInt("2000000000"), intOne_);
+        assertEq(new LgInt("1000000000000000000"), intTwo_);
+    }
+    @Test
+    public void divide1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("0"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void divide2Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("0"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void divide3Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("-1"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void divide4Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("0"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void divide5Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("1"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void divide6Test(){
+        LgInt intOne_ = new LgInt("-40");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("2"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("-40"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void divide7Test(){
+        LgInt intOne_ = new LgInt("-21");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("-2"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("-21"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void divide8Test(){
+        LgInt intOne_ = new LgInt("21");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("-1"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("21"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void divide9Test(){
+        LgInt intOne_ = new LgInt("-21");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("2"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("-21"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void divide10Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("11234567890");
+        assertEq(new LgInt("0"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("11234567890"), intTwo_);
+    }
+    @Test
+    public void divide11Test(){
+        LgInt intOne_ = new LgInt("11234567890");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(new LgInt("9"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("11234567890"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void divide12Test(){
+        LgInt intOne_ = new LgInt("12345678901234567890");
+        LgInt intTwo_ = new LgInt("11234567890");
+        assertEq(new LgInt("1098901090"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("12345678901234567890"), intOne_);
+        assertEq(new LgInt("11234567890"), intTwo_);
+    }
+    @Test
+    public void divide13Test(){
+        LgInt intOne_ = new LgInt("11234567890");
+        LgInt intTwo_ = new LgInt("12345678901234567890");
+        assertEq(new LgInt("0"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("11234567890"), intOne_);
+        assertEq(new LgInt("12345678901234567890"), intTwo_);
+    }
+    @Test
+    public void remain1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("0"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void remain2Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("1"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void remain3Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("19"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void remain4Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("1"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void remain5Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("19"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void remain6Test(){
+        LgInt intOne_ = new LgInt("-21");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("19"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("-21"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void remain7Test(){
+        LgInt intOne_ = new LgInt("21");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("1"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("21"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void remain8Test(){
+        LgInt intOne_ = new LgInt("-21");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("19"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("-21"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void remain9Test(){
+        LgInt intOne_ = new LgInt("-40");
+        LgInt intTwo_ = new LgInt("-20");
+        assertEq(new LgInt("0"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("-40"), intOne_);
+        assertEq(new LgInt("-20"), intTwo_);
+    }
+    @Test
+    public void remain10Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("11234567890");
+        assertEq(new LgInt("1234567890"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("11234567890"), intTwo_);
+    }
+    @Test
+    public void remain11Test(){
+        LgInt intOne_ = new LgInt("11234567890");
+        LgInt intTwo_ = new LgInt("1234567890");
+        assertEq(new LgInt("123456880"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("11234567890"), intOne_);
+        assertEq(new LgInt("1234567890"), intTwo_);
+    }
+    @Test
+    public void remain12Test(){
+        LgInt intOne_ = new LgInt("12345678901234567890");
+        LgInt intTwo_ = new LgInt("11234567890");
+        assertEq(new LgInt("1234567790"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("12345678901234567890"), intOne_);
+        assertEq(new LgInt("11234567890"), intTwo_);
+    }
+    @Test
+    public void remain13Test(){
+        LgInt intOne_ = new LgInt("11234567890");
+        LgInt intTwo_ = new LgInt("12345678901234567890");
+        assertEq(new LgInt("11234567890"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("11234567890"), intOne_);
+        assertEq(new LgInt("12345678901234567890"), intTwo_);
+    }
+    @Test
+    public void powNb1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("1"), LgInt.powNb(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void powNb2Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("0"), LgInt.powNb(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void powNb3Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("1"), LgInt.powNb(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void powNb4Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("1"), LgInt.powNb(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void powNb5Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("19");
+        assertEq(new LgInt("-1"), LgInt.powNb(intOne_, intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("19"), intTwo_);
+    }
+    @Test
+    public void powNb6Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(new LgInt("8"), LgInt.powNb(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void powNb7Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("2");
+        assertEq(new LgInt("9"), LgInt.powNb(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("2"), intTwo_);
+    }
+    @Test
+    public void powNb8Test(){
+        LgInt intOne_ = new LgInt("1234567890");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("1"), LgInt.powNb(intOne_, intTwo_));
+        assertEq(new LgInt("1234567890"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void pgcd1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("0"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void pgcd2Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("20"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void pgcd3Test(){
+        LgInt intOne_ = new LgInt("20");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("20"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("20"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void pgcd4Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("1"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void pgcd5Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("19");
+        assertEq(new LgInt("1"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("19"), intTwo_);
+    }
+    @Test
+    public void pgcd6Test(){
+        LgInt intOne_ = new LgInt("-2");
+        LgInt intTwo_ = new LgInt("-19");
+        assertEq(new LgInt("1"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("-2"), intOne_);
+        assertEq(new LgInt("-19"), intTwo_);
+    }
+    @Test
+    public void pgcd7Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("-19");
+        assertEq(new LgInt("1"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("-19"), intTwo_);
+    }
+    @Test
+    public void pgcd8Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("19");
+        assertEq(new LgInt("1"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("19"), intTwo_);
+    }
+    @Test
+    public void pgcd9Test(){
+        LgInt intOne_ = new LgInt("-2");
+        LgInt intTwo_ = new LgInt("19");
+        assertEq(new LgInt("1"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("-2"), intOne_);
+        assertEq(new LgInt("19"), intTwo_);
+    }
+    @Test
+    public void pgcd10Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("4");
+        assertEq(new LgInt("2"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("4"), intTwo_);
+    }
+    @Test
+    public void pgcd11Test(){
+        LgInt intOne_ = new LgInt("6");
+        LgInt intTwo_ = new LgInt("4");
+        assertEq(new LgInt("2"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("6"), intOne_);
+        assertEq(new LgInt("4"), intTwo_);
+    }
+    @Test
+    public void pgcd12Test(){
+        LgInt intOne_ = new LgInt("6");
+        LgInt intTwo_ = new LgInt("9");
+        assertEq(new LgInt("3"), LgInt.pgcd(intOne_, intTwo_));
+        assertEq(new LgInt("6"), intOne_);
+        assertEq(new LgInt("9"), intTwo_);
+    }
+    @Test
+    public void ppcm1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("0"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void ppcm2Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("0"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void ppcm3Test(){
+        LgInt intOne_ = new LgInt("20");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("0"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("20"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void ppcm4Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("20"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void ppcm5Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("19");
+        assertEq(new LgInt("19"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("19"), intTwo_);
+    }
+    @Test
+    public void ppcm6Test(){
+        LgInt intOne_ = new LgInt("-2");
+        LgInt intTwo_ = new LgInt("-19");
+        assertEq(new LgInt("38"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("-2"), intOne_);
+        assertEq(new LgInt("-19"), intTwo_);
+    }
+    @Test
+    public void ppcm7Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("-19");
+        assertEq(new LgInt("38"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("-19"), intTwo_);
+    }
+    @Test
+    public void ppcm8Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("19");
+        assertEq(new LgInt("38"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("19"), intTwo_);
+    }
+    @Test
+    public void ppcm9Test(){
+        LgInt intOne_ = new LgInt("-2");
+        LgInt intTwo_ = new LgInt("19");
+        assertEq(new LgInt("38"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("-2"), intOne_);
+        assertEq(new LgInt("19"), intTwo_);
+    }
+    @Test
+    public void ppcm10Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("4");
+        assertEq(new LgInt("4"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("4"), intTwo_);
+    }
+    @Test
+    public void ppcm11Test(){
+        LgInt intOne_ = new LgInt("6");
+        LgInt intTwo_ = new LgInt("4");
+        assertEq(new LgInt("12"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("6"), intOne_);
+        assertEq(new LgInt("4"), intTwo_);
+    }
+    @Test
+    public void ppcm12Test(){
+        LgInt intOne_ = new LgInt("6");
+        LgInt intTwo_ = new LgInt("9");
+        assertEq(new LgInt("18"), LgInt.ppcm(intOne_, intTwo_));
+        assertEq(new LgInt("6"), intOne_);
+        assertEq(new LgInt("9"), intTwo_);
+    }
+    @Test
+    public void among1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("1"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void among2Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("1"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void among3Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("20"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void among4Test(){
+        LgInt intOne_ = new LgInt("19");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("20"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("19"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void among5Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("3");
+        assertEq(new LgInt("3"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("3"), intTwo_);
+    }
+    @Test
+    public void among6Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("2");
+        assertEq(new LgInt("0"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("2"), intTwo_);
+    }
+    @Test
+    public void among7Test(){
+        LgInt intOne_ = new LgInt("2");
+        LgInt intTwo_ = new LgInt("4");
+        assertEq(new LgInt("6"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("2"), intOne_);
+        assertEq(new LgInt("4"), intTwo_);
+    }
+    @Test
+    public void among8Test(){
+        LgInt intOne_ = new LgInt("3");
+        LgInt intTwo_ = new LgInt("6");
+        assertEq(new LgInt("20"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("3"), intOne_);
+        assertEq(new LgInt("6"), intTwo_);
+    }
+    @Test
+    public void seqAmong1(){
         EqList<LgInt> repartitions_ = new EqList<LgInt>();
         repartitions_.add(new LgInt(8));
         repartitions_.add(new LgInt(8));
@@ -652,10 +2078,9 @@ public class LgIntTest {
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
     }
-
     @Test
-    public void seqAmong2Test(){
-    	LgInt sommeTotale_ = new LgInt(8);
+    public void seqAmong2(){
+        LgInt sommeTotale_ = new LgInt(8);
         EqList<LgInt> repartitions_ = new EqList<LgInt>();
         repartitions_.add(new LgInt(22));
         repartitions_.add(new LgInt(14));
@@ -663,7 +2088,7 @@ public class LgIntTest {
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
         TreeMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
-    	assertEq(18,combinatoire_.size());
+        assertEq(18,combinatoire_.size());
         assertEq(5,combinatoire_.getKey(0).size());
         assertEq(new LgInt(0),combinatoire_.getKey(0).get(0));
         assertEq(new LgInt(0),combinatoire_.getKey(0).get(1));
@@ -792,52 +2217,170 @@ public class LgIntTest {
         assertEq(new LgInt(478),combinatoire_.getValue(17));
 
     }
-
-    Object[] inputsFoisDouble() {
-        return $($("0", 0.5, "0"),
-                $("1", 0.5, "0"),
-                $("1", 1.0, "1"),
-                $("2", 1.0, "2"),
-                $("2", 1.5, "3"),
-                $("4", 0.75, "3"),
-                $("12", 0.75, "9"),
-                $("900000000", 1.5, "1350000000"),
-                $("1234567890123456789", 0.75, "925925917592592591"),
-                $("1234567890123456789", 0.0, "0"));
-    }
-
     @Test
-    @Parameters(method="inputsFoisDouble")
-    public void multiply1Test(String _int, double _double, String _expected) {
-        LgInt int_ = new LgInt(_int);
-        LgInt res_ = int_.multiply(_double);
-        assertEq(new LgInt(_expected), res_);
-        assertEq(new LgInt(_int), int_);
+    public void multiplyDouble1Test(){
+        LgInt int_ = new LgInt("0");
+        LgInt res_ = int_.multiply(0.5);
+        assertEq(new LgInt("0"), res_);
+        assertEq(new LgInt("0"), int_);
     }
-
-
-    Object[] inputsRacineAbs() {
-        return $($("0", "1", "0"),
-                $("0", "2", "0"),
-                $("1", "0", "1"),
-                $("0", "0", "0"),
-                $("-1", "20", "1"),
-                $("-1", "19", "1"),
-                $("4", "2", "2"),
-                $("5", "2", "2"),
-                $("32", "5", "2"),
-                $("32", "1", "32"),
-                $("-32", "5", "2"),
-                $("-16", "4", "2"));
-    }
-
     @Test
-    @Parameters(method="inputsRacineAbs")
-    public void rootAbs1Test(String _one, String _two, String _expected) {
-        LgInt intOne_ = new LgInt(_one);
-        LgInt intTwo_ = new LgInt(_two);
-        assertEq(new LgInt(_expected), intOne_.rootAbs(intTwo_));
-        assertEq(new LgInt(_one), intOne_);
-        assertEq(new LgInt(_two), intTwo_);
+    public void multiplyDouble2Test(){
+        LgInt int_ = new LgInt("1");
+        LgInt res_ = int_.multiply(0.5);
+        assertEq(new LgInt("0"), res_);
+        assertEq(new LgInt("1"), int_);
+    }
+    @Test
+    public void multiplyDouble3Test(){
+        LgInt int_ = new LgInt("1");
+        LgInt res_ = int_.multiply(1.0);
+        assertEq(new LgInt("1"), res_);
+        assertEq(new LgInt("1"), int_);
+    }
+    @Test
+    public void multiplyDouble4Test(){
+        LgInt int_ = new LgInt("2");
+        LgInt res_ = int_.multiply(1.0);
+        assertEq(new LgInt("2"), res_);
+        assertEq(new LgInt("2"), int_);
+    }
+    @Test
+    public void multiplyDouble5Test(){
+        LgInt int_ = new LgInt("2");
+        LgInt res_ = int_.multiply(1.5);
+        assertEq(new LgInt("3"), res_);
+        assertEq(new LgInt("2"), int_);
+    }
+    @Test
+    public void multiplyDouble6Test(){
+        LgInt int_ = new LgInt("4");
+        LgInt res_ = int_.multiply(0.75);
+        assertEq(new LgInt("3"), res_);
+        assertEq(new LgInt("4"), int_);
+    }
+    @Test
+    public void multiplyDouble7Test(){
+        LgInt int_ = new LgInt("12");
+        LgInt res_ = int_.multiply(0.75);
+        assertEq(new LgInt("9"), res_);
+        assertEq(new LgInt("12"), int_);
+    }
+    @Test
+    public void multiplyDouble8Test(){
+        LgInt int_ = new LgInt("900000000");
+        LgInt res_ = int_.multiply(1.5);
+        assertEq(new LgInt("1350000000"), res_);
+        assertEq(new LgInt("900000000"), int_);
+    }
+    @Test
+    public void multiplyDouble9Test(){
+        LgInt int_ = new LgInt("1234567890123456789");
+        LgInt res_ = int_.multiply(0.75);
+        assertEq(new LgInt("925925917592592591"), res_);
+        assertEq(new LgInt("1234567890123456789"), int_);
+    }
+    @Test
+    public void multiplyDouble10Test(){
+        LgInt int_ = new LgInt("1234567890123456789");
+        LgInt res_ = int_.multiply(0.0);
+        assertEq(new LgInt("0"), res_);
+        assertEq(new LgInt("1234567890123456789"), int_);
+    }
+    @Test
+    public void rootAbs1Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("1");
+        assertEq(new LgInt("0"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("1"), intTwo_);
+    }
+    @Test
+    public void rootAbs2Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("2");
+        assertEq(new LgInt("0"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("2"), intTwo_);
+    }
+    @Test
+    public void rootAbs3Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("1"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void rootAbs4Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("0"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
+    public void rootAbs5Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("20");
+        assertEq(new LgInt("1"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("20"), intTwo_);
+    }
+    @Test
+    public void rootAbs6Test(){
+        LgInt intOne_ = new LgInt("-1");
+        LgInt intTwo_ = new LgInt("19");
+        assertEq(new LgInt("1"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("-1"), intOne_);
+        assertEq(new LgInt("19"), intTwo_);
+    }
+    @Test
+    public void rootAbs7Test(){
+        LgInt intOne_ = new LgInt("4");
+        LgInt intTwo_ = new LgInt("2");
+        assertEq(new LgInt("2"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("4"), intOne_);
+        assertEq(new LgInt("2"), intTwo_);
+    }
+    @Test
+    public void rootAbs8Test(){
+        LgInt intOne_ = new LgInt("5");
+        LgInt intTwo_ = new LgInt("2");
+        assertEq(new LgInt("2"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("5"), intOne_);
+        assertEq(new LgInt("2"), intTwo_);
+    }
+    @Test
+    public void rootAbs9Test(){
+        LgInt intOne_ = new LgInt("32");
+        LgInt intTwo_ = new LgInt("5");
+        assertEq(new LgInt("2"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("32"), intOne_);
+        assertEq(new LgInt("5"), intTwo_);
+    }
+    @Test
+    public void rootAbs10Test(){
+        LgInt intOne_ = new LgInt("32");
+        LgInt intTwo_ = new LgInt("1");
+        assertEq(new LgInt("32"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("32"), intOne_);
+        assertEq(new LgInt("1"), intTwo_);
+    }
+    @Test
+    public void rootAbs11Test(){
+        LgInt intOne_ = new LgInt("-32");
+        LgInt intTwo_ = new LgInt("5");
+        assertEq(new LgInt("2"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("-32"), intOne_);
+        assertEq(new LgInt("5"), intTwo_);
+    }
+    @Test
+    public void rootAbs12Test(){
+        LgInt intOne_ = new LgInt("-16");
+        LgInt intTwo_ = new LgInt("4");
+        assertEq(new LgInt("2"), intOne_.rootAbs(intTwo_));
+        assertEq(new LgInt("-16"), intOne_);
+        assertEq(new LgInt("4"), intTwo_);
     }
 }

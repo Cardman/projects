@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.EntryCust;
-import code.util.TreeMap;
 import code.util.classestest.MyStringComparator;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.Listable;

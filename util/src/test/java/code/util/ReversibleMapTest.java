@@ -6,7 +6,6 @@ import junitparams.JUnitParamsRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.util.ReversibleMap;
 import code.util.classestest.KeyExample;
 
 @RunWith(JUnitParamsRunner.class)

@@ -1,555 +1,2184 @@
 package code.maths.litteral;
 import static code.maths.EquallableMathUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import code.maths.Rate;
 import code.util.StringMap;
 
-@RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
 public class MathUtilTest {
-    Object[] numericStrings() {
-        return $($("1","1"),
-                $(".0","0"),
-                $("-.0","0"),
-                $("-.5","-1/2"),
-                $(".5","1/2"),
-                $("1.","1"),
-                $("1.5","3/2"),
-                $("-1.","-1"),
-                $("-1.5","-3/2"),
-                $("0.0","0"),
-                $("0.2","1/5"),
-                $("15/7","15/7"),
-                $("0.1","1/10"),
-                $("0.2","1/5"),
-                $("15/5","3"),
-                $("-3","-3"),
-                $("1+2*5*7","71"),
-                $("1-2*5*7","-69"),
-                $("1+3*5","16"),
-                $("1+3+5","9"),
-                $("1-3+5","3"),
-                $("1-3*5","-14"),
-                $("-3*5","-15"),
-                $("-3-5","-8"),
-                $("3-5","-2"),
-                $("1+4","5"),
-                $("1+4/5","9/5"),
-                $("5*3","15"),
-                $("5*3/7","15/7"),
-                $("5:3/7","35/3"),
-                $("div(5,3/7)","35/3"),
-                $("5:-3/7","-35/3"),
-                $("div(5,-3/7)","-35/3"),
-                $("8-6","2"),
-                $("--5","5"),
-                $("---5","-5"),
-                $("(--5+8)","13"),
-//                $("(--5","(5"),
-//                $("--5)","5)"),
-//                $("(5","(5"),
-//                $("5)","5)"),
-                $("(---5+8)","3"),
-                $("1*--5+8","13"),
-                $("1*---5+8","3"),
-                $("9--5","14"),
-                $("13---4","9"),
-                $("3*8+6","30"),
-                $("(3*8+6)","30"),
-//                $("(3*8+6)(3*8+6)","900"),
-                $("1-2*-3","7"),
-                $("1-2*-3*5","31"),
-                $("1-2*3*-5","31"),
-                $("1-2*3*5","-29"),
-                $("2*(1-2*-3)","14"),
-                $("2*(1-2*-3*5)","62"),
-                $("2*(1-2*3*-5)","62"),
-                $("2*(1-2*3*5)","-58"),
-                $("((3))","3"),
-//                $("(3+9","(12"),
-//                $("3+9)","12)"),
-//                $("(3+9+6","(18"),
-//                $("3+9+6)","18)"),
-//                $("(12","(12"),
-//                $("12)","12)"),
-//                $("((","(("),
-//                $("))","))"),
-//                $("((3+9)","(12"),
-//                $("(3+9))","12)"),
-//                $("((3+9","((12"),
-//                $("3+9))","12))"),
-//                $("4(3*8+6)","120"),
-                $("3*(8+6)","42"),
-                $("quot(5,6)","0"),
-                $("-1*quot(5,6)","0"),
-                $("-quot(5,6)","0"),
-                $("quot(15,6)","2"),
-                $("quot(-15,6)","-3"),
-//                $("quot(15,6)quot(-15,6)","-6"),
-                $("mod(15,6)","3"),
-                $("mod(15,5)","0"),
-                $("mod(-15,5)","0"),
-                $("mod(-5,6)","1"),
-                $("modtaux(15,6)","3"),
-                $("modtaux(15,5)","0"),
-                $("modtaux(-15,5)","0"),
-                $("modtaux(-5,6)","1"),
-                $("puis(3,4)","81"),
-                $("puis(-3,3)","-27"),
-                $("puis(-2,-3)","-1/8"),
-                $("puis(2,-3)","1/8"),
-                $("puis(0,0)","1"),
-                $("puis(0,1/2)","0"),
-//                $("3puis(0,0)","3"),
-                $("puis(9,1/2)","3"),
-                $("puis(9,-1/2)","1/3"),
-                $("puis(-9,1/2)","3"),
-                $("puis(-9,-1/2)","1/3"),
-                $("puis(-27,1/3)","-3"),
-                $("puis(-27,2/3)","9"),
-                $("puis(-27,-1/3)","-1/3"),
-                $("puis(-27,-2/3)","1/9"),
-                $("3*puis(1+2,2)--9","36"),
-                $("3*puis(1+2,2):3--9","18"),
-                $("3*div(puis(1+2,2),3)--9","18"),
-                $("3*puis(1+2,5-3):3--9","18"),
-                $("3*div(puis(1+2,5-3),3)--9","18"),
-                $("abs(9)","9"),
-                $("abs(-5)","5"),
-                $("abs(0)","0"),
-                $("sgn(9)","1"),
-                $("sgn(-5)","-1"),
-                $("sgn(0)","0"),
-                $("ent(-5)","-5"),
-                $("ent(-5/2)","-3"),
-                $("ent(0)","0"),
-                $("ent(4)","4"),
-                $("ent(6/5)","1"),
-                $("troncature(-5)","-5"),
-                $("troncature(-5/2)","-2"),
-                $("troncature(0)","0"),
-                $("troncature(4)","4"),
-                $("troncature(6/5)","1"),
-                $("num(0)","0"),
-                $("num(4)","4"),
-                $("num(6/5)","6"),
-                $("den(0)","1"),
-                $("den(4)","1"),
-                $("den(6/5)","5"),
-                $("num(-5)","-5"),
-                $("num(-5/2)","-5"),
-                $("den(-5)","1"),
-                $("den(-5/2)","2"),
-                $("caracferme(2,1,3)","1"),
-                $("caracferme(1,1,3)","1"),
-                $("caracferme(3,1,3)","1"),
-                $("caracferme(0,1,3)","0"),
-                $("caracferme(4,1,3)","0"),
-                $("caracferme(2,3,1)","0"),
-                $("caracferme(1,3,1)","0"),
-                $("caracferme(3,3,1)","0"),
-                $("caracferme(0,3,1)","0"),
-                $("caracferme(4,3,1)","0"),
-                $("caracouvert(2,1,3)","1"),
-                $("caracouvert(1,1,3)","0"),
-                $("caracouvert(3,1,3)","0"),
-                $("caracouvert(0,1,3)","0"),
-                $("caracouvert(4,1,3)","0"),
-                $("caracouvert(2,3,1)","0"),
-                $("caracouvert(1,3,1)","0"),
-                $("caracouvert(3,3,1)","0"),
-                $("caracouvert(0,3,1)","0"),
-                $("caracouvert(4,3,1)","0"),
-                $("caracsemiouvertg(2,1,3)","1"),
-                $("caracsemiouvertg(1,1,3)","0"),
-                $("caracsemiouvertg(3,1,3)","1"),
-                $("caracsemiouvertg(0,1,3)","0"),
-                $("caracsemiouvertg(4,1,3)","0"),
-                $("caracsemiouvertg(2,3,1)","0"),
-                $("caracsemiouvertg(1,3,1)","0"),
-                $("caracsemiouvertg(3,3,1)","0"),
-                $("caracsemiouvertg(0,3,1)","0"),
-                $("caracsemiouvertg(4,3,1)","0"),
-                $("caracsemiouvertd(2,1,3)","1"),
-                $("caracsemiouvertd(1,1,3)","1"),
-                $("caracsemiouvertd(3,1,3)","0"),
-                $("caracsemiouvertd(0,1,3)","0"),
-                $("caracsemiouvertd(4,1,3)","0"),
-                $("caracsemiouvertd(2,3,1)","0"),
-                $("caracsemiouvertd(1,3,1)","0"),
-                $("caracsemiouvertd(3,3,1)","0"),
-                $("caracsemiouvertd(0,3,1)","0"),
-                $("caracsemiouvertd(4,3,1)","0"),
-                $("caracdroiteouvert(2,1)","1"),
-                $("caracdroiteouvert(1,1)","0"),
-                $("caracdroiteouvert(0,1)","0"),
-                $("caracdroiteferme(2,1)","1"),
-                $("caracdroiteferme(1,1)","1"),
-                $("caracdroiteferme(0,1)","0"),
-                $("caracgaucheouvert(2,1)","0"),
-                $("caracgaucheouvert(1,1)","0"),
-                $("caracgaucheouvert(0,1)","1"),
-                $("caracgaucheferme(2,1)","0"),
-                $("caracgaucheferme(1,1)","1"),
-                $("caracgaucheferme(0,1)","1"),
-                $("puis(1+5,1+2)","216"),
-                $("puis(1+5,1*2)","36"),
-                $("abs(4+6)","10"),
-                $("abs((4+6))","10"),
-                $("min(1+5,1+7)","6"),
-                $("max(1+5,1+7)","8"),
-                $("min(1+7,1+5)","6"),
-                $("max(1+7,1+5)","8"),
-                $("moy(1+5,1+7)","7"),
-                $("var(1+5,1+7)","1"),
-                $("min(4+19,max(12,15))","15"),
-                $("2*min(4+19,max(12,15))","30"),
-                $("(4+12)*2","32"),
-                $("2:-min(4+19,max(12,15))","-2/15"),
-                $("3:-min(4+19,max(12,15))","-1/5"),
-                $("puis(4*div(1,(3060)),1/4)","29/153"),
-                $("puis(3,(1+1)*2)","81"),
-                $("puis(3,2*(1+1))","81"),
-                $("puis(2*1+1,2+1*2)","81"),
-                $("puis(3,2+1*2)","81"),
-                $("puis(2+1*(1+0),2+1*2)","81"),
-                $("min(2,2+1*1,2+1*2)","2"),
-                $("2*min(2,2+1*1,2+1*2)","4"),
-                $("1+2+3","6"),
-                $("1+(2+3)","6"),
-                $("1+2+(3+0)","6"),
-                $("1+2*-3+3","-2"),
-                $("2*-3+1+2+3","0"),
-                $("2*-3+1+2+3+4","4"),
-                $("abs(2*-3+1)+(1+2+3+4)","15"),
-                $("abs(2*-3+1)+(1+2-3+4)","9"),
-                $("abs(2*-3+1)+(1+2-3+4+00)","9"),
-                $("abs(2*-3+1)+(1+2-3+4+001)","10"),
-                $("12-7*2*3","-30"),
-                $("2*6-7*2*3","-30"),
-                $("2*(2*6-7*2*3)","-60"),
-                $("2*-3+1+2-3","-6"),
-                $("2+2*(5+0*1)","12"),
-                $("2+2*(5+(0*1+0))","12"),
-                $("cardinal({})","0"),
-                $("cardinal({MY_STRING_1})","1"),
-                $("cardinal(union({MY_STRING_1;MY_STRING_3},{MY_STRING_2;MY_STRING_3}))","3"),
-                $("cardinal({my_string;MY_STRING})","2"),
-                $("cardinal({MY_STRING_cardinal;MY_STRING_CARDINAL})","2"),
-                $("cardinal({MY_STRING_ONE})","1"),
-                $("cardinal({MY_STRING_ONE;MY_STRING_TWO})","2"),
-                $("cardinal({MY_STRING_ONE;MY_STRING_TWO;MY_STRING_ONE})","2"),
-                $("cardinal(inter({MY_STRING_ONE},{MY_STRING_ONE}))","1"),
-                $("cardinal(inter({MY_STRING_ONE},{MY_STRING_TWO}))","0"),
-                $("cardinal(inter({MY_STRING_ONE},{}))","0"),
-                $("cardinal(inter({},{MY_STRING_TWO}))","0"),
-                $("cardinal(inter({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}))","1"),
-                $("cardinal(union({MY_STRING_ONE},{}))","1"),
-                $("cardinal(union({},{MY_STRING_ONE}))","1"),
-                $("cardinal(union({},{}))","0"),
-                $("cardinal(union({MY_STRING_ONE},{MY_STRING_ONE}))","1"),
-                $("cardinal(union({MY_STRING_ONE},{MY_STRING_TWO}))","2"),
-                $("cardinal(union({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}))","3"),
-                $("cardinal(complementaire({},{}))","0"),
-                $("cardinal(complementaire({},{MY_STRING_ONE}))","1"),
-                $("cardinal(complementaire({},{MY_STRING_ONE;MY_STRING_TWO}))","2"),
-                $("cardinal(complementaire({MY_STRING_ONE},{}))","0"),
-                $("cardinal(complementaire({MY_STRING_ONE},{MY_STRING_ONE}))","0"),
-                $("cardinal(complementaire({MY_STRING_ONE},{MY_STRING_TWO}))","1"),
-                $("cardinal(complementaire({MY_STRING_ONE},{MY_STRING_ONE;MY_STRING_TWO}))","1"),
-                $("cardinal(complementaire({MY_STRING_THREE},{MY_STRING_ONE;MY_STRING_TWO}))","2"),
-                $("cardinal(complementaire({MY_STRING_THREE;MY_STRING_ONE},{MY_STRING_ONE;MY_STRING_TWO}))","1"),
-                $("cardinal(complementaire({MY_STRING_THREE;MY_STRING_ONE;MY_STRING_FOUR},{MY_STRING_ONE;MY_STRING_TWO}))","1"),
-                $("cardinal(complementaire({MY_STRING_THREE;MY_STRING_ONE;MY_STRING_FIVE},{MY_STRING_ONE;MY_STRING_TWO;MY_STRING_FOUR}))","2"),
-                $("egalnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO})","0"),
-                $("egalnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_ONE})","1"),
-                $("inclusnum(vide,vide)","1"),
-                $("inclusnum(vide,{MY_STRING_ONE;MY_STRING_TWO})","1"),
-                $("inclusnum({MY_STRING_ONE},{MY_STRING_TWO})","0"),
-                $("inclusnum({MY_STRING_ONE;MY_STRING_TWO},vide)","0"),
-                $("inclusnum({MY_STRING_ONE;MY_STRING_TWO},{})","0"),
-                $("inclusnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO})","0"),
-                $("inclusnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_ONE})","1"),
-                $("noninclusnum(vide,vide)","0"),
-                $("noninclusnum(vide,{MY_STRING_ONE;MY_STRING_TWO})","0"),
-                $("noninclusnum({MY_STRING_ONE},{MY_STRING_TWO})","1"),
-                $("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},vide)","1"),
-                $("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},{})","1"),
-                $("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO})","1"),
-                $("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_ONE})","0"),
-                $("egalnum({MY_STRING_ONE},vide)","0"),
-                $("egalnum(vide,{MY_STRING_ONE})","0"),
-                $("egalnum(inter({MY_STRING_ONE},{MY_STRING_ONE}),{MY_STRING_ONE})","1"),
-                $("egalnum(inter({MY_STRING_ONE},{MY_STRING_TWO}),{})","1"),
-                $("egalnum(inter({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}),{MY_STRING_TWO})","1"),
-                $("egalnum(union({MY_STRING_ONE},{MY_STRING_ONE}),{MY_STRING_ONE})","1"),
-                $("egalnum(union({MY_STRING_ONE},{MY_STRING_TWO}),{MY_STRING_ONE;MY_STRING_TWO})","1"),
-                $("egalnum(union({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}),{MY_STRING_ONE;MY_STRING_TWO;MY_STRING_THREE})","1"),
-                $("differentnum({MY_STRING_ONE},vide)","1"),
-                $("differentnum(vide,{MY_STRING_ONE})","1"),
-                $("differentnum({MY_STRING_TWO},{MY_STRING_ONE})","1"),
-                $("differentnum(inter({MY_STRING_ONE},{MY_STRING_ONE}),{MY_STRING_ONE})","0"),
-                $("differentnum(inter({MY_STRING_ONE},{MY_STRING_TWO}),{})","0"),
-                $("differentnum(inter({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}),{MY_STRING_TWO})","0"),
-                $("differentnum(union({MY_STRING_ONE},{MY_STRING_ONE}),{MY_STRING_ONE})","0"),
-                $("differentnum(union({MY_STRING_ONE},{MY_STRING_TWO}),{MY_STRING_ONE;MY_STRING_TWO})","0"),
-                $("differentnum(union({12my_string},{MY_STRING_TWO}),{12my_string;MY_STRING_TWO})","0"),
-                $("differentnum(union({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}),{MY_STRING_ONE;MY_STRING_TWO;MY_STRING_THREE})","0"));
-    }
-
-    @Test(timeout=1000)
-    @Parameters(method="numericStrings")
-    public void evaluateExp1Test(String _numericString,String _res) {
-        Argument a_ = MathUtil.processEl(_numericString, 0, false, new StringMap<String>());
-        assertEq(new Rate(_res),(Rate)a_.getObject());
-    }
-
-
     @Test
-    public void evaluateTest() {
+    public void evaluateExp1Test(){
+        Argument a_ = MathUtil.processEl("1", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp2Test(){
+        Argument a_ = MathUtil.processEl(".0", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp3Test(){
+        Argument a_ = MathUtil.processEl("-.0", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp4Test(){
+        Argument a_ = MathUtil.processEl("-.5", 0, false, new StringMap<String>());
+        assertEq(new Rate("-1/2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp5Test(){
+        Argument a_ = MathUtil.processEl(".5", 0, false, new StringMap<String>());
+        assertEq(new Rate("1/2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp6Test(){
+        Argument a_ = MathUtil.processEl("1.", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp7Test(){
+        Argument a_ = MathUtil.processEl("1.5", 0, false, new StringMap<String>());
+        assertEq(new Rate("3/2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp8Test(){
+        Argument a_ = MathUtil.processEl("-1.", 0, false, new StringMap<String>());
+        assertEq(new Rate("-1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp9Test(){
+        Argument a_ = MathUtil.processEl("-1.5", 0, false, new StringMap<String>());
+        assertEq(new Rate("-3/2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp10Test(){
+        Argument a_ = MathUtil.processEl("0.0", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp11Test(){
+        Argument a_ = MathUtil.processEl("0.2", 0, false, new StringMap<String>());
+        assertEq(new Rate("1/5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp12Test(){
+        Argument a_ = MathUtil.processEl("15/7", 0, false, new StringMap<String>());
+        assertEq(new Rate("15/7"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp13Test(){
+        Argument a_ = MathUtil.processEl("0.1", 0, false, new StringMap<String>());
+        assertEq(new Rate("1/10"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp14Test(){
+        Argument a_ = MathUtil.processEl("0.2", 0, false, new StringMap<String>());
+        assertEq(new Rate("1/5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp15Test(){
+        Argument a_ = MathUtil.processEl("15/5", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp16Test(){
+        Argument a_ = MathUtil.processEl("-3", 0, false, new StringMap<String>());
+        assertEq(new Rate("-3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp17Test(){
+        Argument a_ = MathUtil.processEl("1+2*5*7", 0, false, new StringMap<String>());
+        assertEq(new Rate("71"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp18Test(){
+        Argument a_ = MathUtil.processEl("1-2*5*7", 0, false, new StringMap<String>());
+        assertEq(new Rate("-69"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp19Test(){
+        Argument a_ = MathUtil.processEl("1+3*5", 0, false, new StringMap<String>());
+        assertEq(new Rate("16"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp20Test(){
+        Argument a_ = MathUtil.processEl("1+3+5", 0, false, new StringMap<String>());
+        assertEq(new Rate("9"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp21Test(){
+        Argument a_ = MathUtil.processEl("1-3+5", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp22Test(){
+        Argument a_ = MathUtil.processEl("1-3*5", 0, false, new StringMap<String>());
+        assertEq(new Rate("-14"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp23Test(){
+        Argument a_ = MathUtil.processEl("-3*5", 0, false, new StringMap<String>());
+        assertEq(new Rate("-15"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp24Test(){
+        Argument a_ = MathUtil.processEl("-3-5", 0, false, new StringMap<String>());
+        assertEq(new Rate("-8"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp25Test(){
+        Argument a_ = MathUtil.processEl("3-5", 0, false, new StringMap<String>());
+        assertEq(new Rate("-2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp26Test(){
+        Argument a_ = MathUtil.processEl("1+4", 0, false, new StringMap<String>());
+        assertEq(new Rate("5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp27Test(){
+        Argument a_ = MathUtil.processEl("1+4/5", 0, false, new StringMap<String>());
+        assertEq(new Rate("9/5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp28Test(){
+        Argument a_ = MathUtil.processEl("5*3", 0, false, new StringMap<String>());
+        assertEq(new Rate("15"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp29Test(){
+        Argument a_ = MathUtil.processEl("5*3/7", 0, false, new StringMap<String>());
+        assertEq(new Rate("15/7"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp30Test(){
+        Argument a_ = MathUtil.processEl("5:3/7", 0, false, new StringMap<String>());
+        assertEq(new Rate("35/3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp31Test(){
+        Argument a_ = MathUtil.processEl("div(5,3/7)", 0, false, new StringMap<String>());
+        assertEq(new Rate("35/3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp32Test(){
+        Argument a_ = MathUtil.processEl("5:-3/7", 0, false, new StringMap<String>());
+        assertEq(new Rate("-35/3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp33Test(){
+        Argument a_ = MathUtil.processEl("div(5,-3/7)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-35/3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp34Test(){
+        Argument a_ = MathUtil.processEl("8-6", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp35Test(){
+        Argument a_ = MathUtil.processEl("--5", 0, false, new StringMap<String>());
+        assertEq(new Rate("5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp36Test(){
+        Argument a_ = MathUtil.processEl("---5", 0, false, new StringMap<String>());
+        assertEq(new Rate("-5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp37Test(){
+        Argument a_ = MathUtil.processEl("(--5+8)", 0, false, new StringMap<String>());
+        assertEq(new Rate("13"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp38Test(){
+        Argument a_ = MathUtil.processEl("(---5+8)", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp39Test(){
+        Argument a_ = MathUtil.processEl("1*--5+8", 0, false, new StringMap<String>());
+        assertEq(new Rate("13"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp40Test(){
+        Argument a_ = MathUtil.processEl("1*---5+8", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp41Test(){
+        Argument a_ = MathUtil.processEl("9--5", 0, false, new StringMap<String>());
+        assertEq(new Rate("14"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp42Test(){
+        Argument a_ = MathUtil.processEl("13---4", 0, false, new StringMap<String>());
+        assertEq(new Rate("9"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp43Test(){
+        Argument a_ = MathUtil.processEl("3*8+6", 0, false, new StringMap<String>());
+        assertEq(new Rate("30"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp44Test(){
+        Argument a_ = MathUtil.processEl("(3*8+6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("30"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp45Test(){
+        Argument a_ = MathUtil.processEl("1-2*-3", 0, false, new StringMap<String>());
+        assertEq(new Rate("7"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp46Test(){
+        Argument a_ = MathUtil.processEl("1-2*-3*5", 0, false, new StringMap<String>());
+        assertEq(new Rate("31"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp47Test(){
+        Argument a_ = MathUtil.processEl("1-2*3*-5", 0, false, new StringMap<String>());
+        assertEq(new Rate("31"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp48Test(){
+        Argument a_ = MathUtil.processEl("1-2*3*5", 0, false, new StringMap<String>());
+        assertEq(new Rate("-29"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp49Test(){
+        Argument a_ = MathUtil.processEl("2*(1-2*-3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("14"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp50Test(){
+        Argument a_ = MathUtil.processEl("2*(1-2*-3*5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("62"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp51Test(){
+        Argument a_ = MathUtil.processEl("2*(1-2*3*-5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("62"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp52Test(){
+        Argument a_ = MathUtil.processEl("2*(1-2*3*5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-58"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp53Test(){
+        Argument a_ = MathUtil.processEl("((3))", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp54Test(){
+        Argument a_ = MathUtil.processEl("3*(8+6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("42"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp55Test(){
+        Argument a_ = MathUtil.processEl("quot(5,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp56Test(){
+        Argument a_ = MathUtil.processEl("-1*quot(5,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp57Test(){
+        Argument a_ = MathUtil.processEl("-quot(5,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp58Test(){
+        Argument a_ = MathUtil.processEl("quot(15,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp59Test(){
+        Argument a_ = MathUtil.processEl("quot(-15,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp60Test(){
+        Argument a_ = MathUtil.processEl("mod(15,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp61Test(){
+        Argument a_ = MathUtil.processEl("mod(15,5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp62Test(){
+        Argument a_ = MathUtil.processEl("mod(-15,5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp63Test(){
+        Argument a_ = MathUtil.processEl("mod(-5,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp64Test(){
+        Argument a_ = MathUtil.processEl("modtaux(15,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp65Test(){
+        Argument a_ = MathUtil.processEl("modtaux(15,5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp66Test(){
+        Argument a_ = MathUtil.processEl("modtaux(-15,5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp67Test(){
+        Argument a_ = MathUtil.processEl("modtaux(-5,6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp68Test(){
+        Argument a_ = MathUtil.processEl("puis(3,4)", 0, false, new StringMap<String>());
+        assertEq(new Rate("81"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp69Test(){
+        Argument a_ = MathUtil.processEl("puis(-3,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-27"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp70Test(){
+        Argument a_ = MathUtil.processEl("puis(-2,-3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-1/8"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp71Test(){
+        Argument a_ = MathUtil.processEl("puis(2,-3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1/8"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp72Test(){
+        Argument a_ = MathUtil.processEl("puis(0,0)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp73Test(){
+        Argument a_ = MathUtil.processEl("puis(0,1/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp74Test(){
+        Argument a_ = MathUtil.processEl("puis(9,1/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp75Test(){
+        Argument a_ = MathUtil.processEl("puis(9,-1/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1/3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp76Test(){
+        Argument a_ = MathUtil.processEl("puis(-9,1/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp77Test(){
+        Argument a_ = MathUtil.processEl("puis(-9,-1/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1/3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp78Test(){
+        Argument a_ = MathUtil.processEl("puis(-27,1/3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp79Test(){
+        Argument a_ = MathUtil.processEl("puis(-27,2/3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("9"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp80Test(){
+        Argument a_ = MathUtil.processEl("puis(-27,-1/3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-1/3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp81Test(){
+        Argument a_ = MathUtil.processEl("puis(-27,-2/3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1/9"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp82Test(){
+        Argument a_ = MathUtil.processEl("3*puis(1+2,2)--9", 0, false, new StringMap<String>());
+        assertEq(new Rate("36"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp83Test(){
+        Argument a_ = MathUtil.processEl("3*puis(1+2,2):3--9", 0, false, new StringMap<String>());
+        assertEq(new Rate("18"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp84Test(){
+        Argument a_ = MathUtil.processEl("3*div(puis(1+2,2),3)--9", 0, false, new StringMap<String>());
+        assertEq(new Rate("18"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp85Test(){
+        Argument a_ = MathUtil.processEl("3*puis(1+2,5-3):3--9", 0, false, new StringMap<String>());
+        assertEq(new Rate("18"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp86Test(){
+        Argument a_ = MathUtil.processEl("3*div(puis(1+2,5-3),3)--9", 0, false, new StringMap<String>());
+        assertEq(new Rate("18"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp87Test(){
+        Argument a_ = MathUtil.processEl("abs(9)", 0, false, new StringMap<String>());
+        assertEq(new Rate("9"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp88Test(){
+        Argument a_ = MathUtil.processEl("abs(-5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp89Test(){
+        Argument a_ = MathUtil.processEl("abs(0)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp90Test(){
+        Argument a_ = MathUtil.processEl("sgn(9)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp91Test(){
+        Argument a_ = MathUtil.processEl("sgn(-5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp92Test(){
+        Argument a_ = MathUtil.processEl("sgn(0)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp93Test(){
+        Argument a_ = MathUtil.processEl("ent(-5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp94Test(){
+        Argument a_ = MathUtil.processEl("ent(-5/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp95Test(){
+        Argument a_ = MathUtil.processEl("ent(0)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp96Test(){
+        Argument a_ = MathUtil.processEl("ent(4)", 0, false, new StringMap<String>());
+        assertEq(new Rate("4"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp97Test(){
+        Argument a_ = MathUtil.processEl("ent(6/5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp98Test(){
+        Argument a_ = MathUtil.processEl("troncature(-5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp99Test(){
+        Argument a_ = MathUtil.processEl("troncature(-5/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp100Test(){
+        Argument a_ = MathUtil.processEl("troncature(0)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp101Test(){
+        Argument a_ = MathUtil.processEl("troncature(4)", 0, false, new StringMap<String>());
+        assertEq(new Rate("4"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp102Test(){
+        Argument a_ = MathUtil.processEl("troncature(6/5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp103Test(){
+        Argument a_ = MathUtil.processEl("num(0)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp104Test(){
+        Argument a_ = MathUtil.processEl("num(4)", 0, false, new StringMap<String>());
+        assertEq(new Rate("4"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp105Test(){
+        Argument a_ = MathUtil.processEl("num(6/5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("6"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp106Test(){
+        Argument a_ = MathUtil.processEl("den(0)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp107Test(){
+        Argument a_ = MathUtil.processEl("den(4)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp108Test(){
+        Argument a_ = MathUtil.processEl("den(6/5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp109Test(){
+        Argument a_ = MathUtil.processEl("num(-5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp110Test(){
+        Argument a_ = MathUtil.processEl("num(-5/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp111Test(){
+        Argument a_ = MathUtil.processEl("den(-5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp112Test(){
+        Argument a_ = MathUtil.processEl("den(-5/2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp113Test(){
+        Argument a_ = MathUtil.processEl("caracferme(2,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp114Test(){
+        Argument a_ = MathUtil.processEl("caracferme(1,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp115Test(){
+        Argument a_ = MathUtil.processEl("caracferme(3,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp116Test(){
+        Argument a_ = MathUtil.processEl("caracferme(0,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp117Test(){
+        Argument a_ = MathUtil.processEl("caracferme(4,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp118Test(){
+        Argument a_ = MathUtil.processEl("caracferme(2,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp119Test(){
+        Argument a_ = MathUtil.processEl("caracferme(1,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp120Test(){
+        Argument a_ = MathUtil.processEl("caracferme(3,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp121Test(){
+        Argument a_ = MathUtil.processEl("caracferme(0,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp122Test(){
+        Argument a_ = MathUtil.processEl("caracferme(4,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp123Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(2,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp124Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(1,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp125Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(3,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp126Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(0,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp127Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(4,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp128Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(2,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp129Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(1,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp130Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(3,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp131Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(0,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp132Test(){
+        Argument a_ = MathUtil.processEl("caracouvert(4,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp133Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(2,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp134Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(1,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp135Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(3,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp136Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(0,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp137Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(4,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp138Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(2,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp139Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(1,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp140Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(3,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp141Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(0,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp142Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertg(4,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp143Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(2,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp144Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(1,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp145Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(3,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp146Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(0,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp147Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(4,1,3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp148Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(2,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp149Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(1,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp150Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(3,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp151Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(0,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp152Test(){
+        Argument a_ = MathUtil.processEl("caracsemiouvertd(4,3,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp153Test(){
+        Argument a_ = MathUtil.processEl("caracdroiteouvert(2,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp154Test(){
+        Argument a_ = MathUtil.processEl("caracdroiteouvert(1,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp155Test(){
+        Argument a_ = MathUtil.processEl("caracdroiteouvert(0,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp156Test(){
+        Argument a_ = MathUtil.processEl("caracdroiteferme(2,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp157Test(){
+        Argument a_ = MathUtil.processEl("caracdroiteferme(1,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp158Test(){
+        Argument a_ = MathUtil.processEl("caracdroiteferme(0,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp159Test(){
+        Argument a_ = MathUtil.processEl("caracgaucheouvert(2,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp160Test(){
+        Argument a_ = MathUtil.processEl("caracgaucheouvert(1,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp161Test(){
+        Argument a_ = MathUtil.processEl("caracgaucheouvert(0,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp162Test(){
+        Argument a_ = MathUtil.processEl("caracgaucheferme(2,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp163Test(){
+        Argument a_ = MathUtil.processEl("caracgaucheferme(1,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp164Test(){
+        Argument a_ = MathUtil.processEl("caracgaucheferme(0,1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp165Test(){
+        Argument a_ = MathUtil.processEl("puis(1+5,1+2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("216"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp166Test(){
+        Argument a_ = MathUtil.processEl("puis(1+5,1*2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("36"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp167Test(){
+        Argument a_ = MathUtil.processEl("abs(4+6)", 0, false, new StringMap<String>());
+        assertEq(new Rate("10"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp168Test(){
+        Argument a_ = MathUtil.processEl("abs((4+6))", 0, false, new StringMap<String>());
+        assertEq(new Rate("10"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp169Test(){
+        Argument a_ = MathUtil.processEl("min(1+5,1+7)", 0, false, new StringMap<String>());
+        assertEq(new Rate("6"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp170Test(){
+        Argument a_ = MathUtil.processEl("max(1+5,1+7)", 0, false, new StringMap<String>());
+        assertEq(new Rate("8"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp171Test(){
+        Argument a_ = MathUtil.processEl("min(1+7,1+5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("6"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp172Test(){
+        Argument a_ = MathUtil.processEl("max(1+7,1+5)", 0, false, new StringMap<String>());
+        assertEq(new Rate("8"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp173Test(){
+        Argument a_ = MathUtil.processEl("moy(1+5,1+7)", 0, false, new StringMap<String>());
+        assertEq(new Rate("7"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp174Test(){
+        Argument a_ = MathUtil.processEl("var(1+5,1+7)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp175Test(){
+        Argument a_ = MathUtil.processEl("min(4+19,max(12,15))", 0, false, new StringMap<String>());
+        assertEq(new Rate("15"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp176Test(){
+        Argument a_ = MathUtil.processEl("2*min(4+19,max(12,15))", 0, false, new StringMap<String>());
+        assertEq(new Rate("30"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp177Test(){
+        Argument a_ = MathUtil.processEl("(4+12)*2", 0, false, new StringMap<String>());
+        assertEq(new Rate("32"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp178Test(){
+        Argument a_ = MathUtil.processEl("2:-min(4+19,max(12,15))", 0, false, new StringMap<String>());
+        assertEq(new Rate("-2/15"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp179Test(){
+        Argument a_ = MathUtil.processEl("3:-min(4+19,max(12,15))", 0, false, new StringMap<String>());
+        assertEq(new Rate("-1/5"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp180Test(){
+        Argument a_ = MathUtil.processEl("puis(4*div(1,(3060)),1/4)", 0, false, new StringMap<String>());
+        assertEq(new Rate("29/153"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp181Test(){
+        Argument a_ = MathUtil.processEl("puis(3,(1+1)*2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("81"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp182Test(){
+        Argument a_ = MathUtil.processEl("puis(3,2*(1+1))", 0, false, new StringMap<String>());
+        assertEq(new Rate("81"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp183Test(){
+        Argument a_ = MathUtil.processEl("puis(2*1+1,2+1*2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("81"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp184Test(){
+        Argument a_ = MathUtil.processEl("puis(3,2+1*2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("81"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp185Test(){
+        Argument a_ = MathUtil.processEl("puis(2+1*(1+0),2+1*2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("81"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp186Test(){
+        Argument a_ = MathUtil.processEl("min(2,2+1*1,2+1*2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp187Test(){
+        Argument a_ = MathUtil.processEl("2*min(2,2+1*1,2+1*2)", 0, false, new StringMap<String>());
+        assertEq(new Rate("4"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp188Test(){
+        Argument a_ = MathUtil.processEl("1+2+3", 0, false, new StringMap<String>());
+        assertEq(new Rate("6"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp189Test(){
+        Argument a_ = MathUtil.processEl("1+(2+3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("6"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp190Test(){
+        Argument a_ = MathUtil.processEl("1+2+(3+0)", 0, false, new StringMap<String>());
+        assertEq(new Rate("6"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp191Test(){
+        Argument a_ = MathUtil.processEl("1+2*-3+3", 0, false, new StringMap<String>());
+        assertEq(new Rate("-2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp192Test(){
+        Argument a_ = MathUtil.processEl("2*-3+1+2+3", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp193Test(){
+        Argument a_ = MathUtil.processEl("2*-3+1+2+3+4", 0, false, new StringMap<String>());
+        assertEq(new Rate("4"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp194Test(){
+        Argument a_ = MathUtil.processEl("abs(2*-3+1)+(1+2+3+4)", 0, false, new StringMap<String>());
+        assertEq(new Rate("15"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp195Test(){
+        Argument a_ = MathUtil.processEl("abs(2*-3+1)+(1+2-3+4)", 0, false, new StringMap<String>());
+        assertEq(new Rate("9"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp196Test(){
+        Argument a_ = MathUtil.processEl("abs(2*-3+1)+(1+2-3+4+00)", 0, false, new StringMap<String>());
+        assertEq(new Rate("9"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp197Test(){
+        Argument a_ = MathUtil.processEl("abs(2*-3+1)+(1+2-3+4+001)", 0, false, new StringMap<String>());
+        assertEq(new Rate("10"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp198Test(){
+        Argument a_ = MathUtil.processEl("12-7*2*3", 0, false, new StringMap<String>());
+        assertEq(new Rate("-30"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp199Test(){
+        Argument a_ = MathUtil.processEl("2*6-7*2*3", 0, false, new StringMap<String>());
+        assertEq(new Rate("-30"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp200Test(){
+        Argument a_ = MathUtil.processEl("2*(2*6-7*2*3)", 0, false, new StringMap<String>());
+        assertEq(new Rate("-60"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp201Test(){
+        Argument a_ = MathUtil.processEl("2*-3+1+2-3", 0, false, new StringMap<String>());
+        assertEq(new Rate("-6"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp202Test(){
+        Argument a_ = MathUtil.processEl("2+2*(5+0*1)", 0, false, new StringMap<String>());
+        assertEq(new Rate("12"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp203Test(){
+        Argument a_ = MathUtil.processEl("2+2*(5+(0*1+0))", 0, false, new StringMap<String>());
+        assertEq(new Rate("12"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp204Test(){
+        Argument a_ = MathUtil.processEl("cardinal({})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp205Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_1})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp206Test(){
+        Argument a_ = MathUtil.processEl("cardinal(union({MY_STRING_1;MY_STRING_3},{MY_STRING_2;MY_STRING_3}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp207Test(){
+        Argument a_ = MathUtil.processEl("cardinal({my_string;MY_STRING})", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp208Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_cardinal;MY_STRING_CARDINAL})", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp209Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp210Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp211Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_ONE;MY_STRING_TWO;MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp212Test(){
+        Argument a_ = MathUtil.processEl("cardinal(inter({MY_STRING_ONE},{MY_STRING_ONE}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp213Test(){
+        Argument a_ = MathUtil.processEl("cardinal(inter({MY_STRING_ONE},{MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp214Test(){
+        Argument a_ = MathUtil.processEl("cardinal(inter({MY_STRING_ONE},{}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp215Test(){
+        Argument a_ = MathUtil.processEl("cardinal(inter({},{MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp216Test(){
+        Argument a_ = MathUtil.processEl("cardinal(inter({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp217Test(){
+        Argument a_ = MathUtil.processEl("cardinal(union({MY_STRING_ONE},{}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp218Test(){
+        Argument a_ = MathUtil.processEl("cardinal(union({},{MY_STRING_ONE}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp219Test(){
+        Argument a_ = MathUtil.processEl("cardinal(union({},{}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp220Test(){
+        Argument a_ = MathUtil.processEl("cardinal(union({MY_STRING_ONE},{MY_STRING_ONE}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp221Test(){
+        Argument a_ = MathUtil.processEl("cardinal(union({MY_STRING_ONE},{MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp222Test(){
+        Argument a_ = MathUtil.processEl("cardinal(union({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("3"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp223Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({},{}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp224Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({},{MY_STRING_ONE}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp225Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({},{MY_STRING_ONE;MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp226Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({MY_STRING_ONE},{}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp227Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({MY_STRING_ONE},{MY_STRING_ONE}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp228Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({MY_STRING_ONE},{MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp229Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({MY_STRING_ONE},{MY_STRING_ONE;MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp230Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({MY_STRING_THREE},{MY_STRING_ONE;MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp231Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({MY_STRING_THREE;MY_STRING_ONE},{MY_STRING_ONE;MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp232Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({MY_STRING_THREE;MY_STRING_ONE;MY_STRING_FOUR},{MY_STRING_ONE;MY_STRING_TWO}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp233Test(){
+        Argument a_ = MathUtil.processEl("cardinal(complementaire({MY_STRING_THREE;MY_STRING_ONE;MY_STRING_FIVE},{MY_STRING_ONE;MY_STRING_TWO;MY_STRING_FOUR}))", 0, false, new StringMap<String>());
+        assertEq(new Rate("2"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp234Test(){
+        Argument a_ = MathUtil.processEl("egalnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp235Test(){
+        Argument a_ = MathUtil.processEl("egalnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp236Test(){
+        Argument a_ = MathUtil.processEl("inclusnum(vide,vide)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp237Test(){
+        Argument a_ = MathUtil.processEl("inclusnum(vide,{MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp238Test(){
+        Argument a_ = MathUtil.processEl("inclusnum({MY_STRING_ONE},{MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp239Test(){
+        Argument a_ = MathUtil.processEl("inclusnum({MY_STRING_ONE;MY_STRING_TWO},vide)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp240Test(){
+        Argument a_ = MathUtil.processEl("inclusnum({MY_STRING_ONE;MY_STRING_TWO},{})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp241Test(){
+        Argument a_ = MathUtil.processEl("inclusnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp242Test(){
+        Argument a_ = MathUtil.processEl("inclusnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp243Test(){
+        Argument a_ = MathUtil.processEl("noninclusnum(vide,vide)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp244Test(){
+        Argument a_ = MathUtil.processEl("noninclusnum(vide,{MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp245Test(){
+        Argument a_ = MathUtil.processEl("noninclusnum({MY_STRING_ONE},{MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp246Test(){
+        Argument a_ = MathUtil.processEl("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},vide)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp247Test(){
+        Argument a_ = MathUtil.processEl("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},{})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp248Test(){
+        Argument a_ = MathUtil.processEl("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp249Test(){
+        Argument a_ = MathUtil.processEl("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp250Test(){
+        Argument a_ = MathUtil.processEl("egalnum({MY_STRING_ONE},vide)", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp251Test(){
+        Argument a_ = MathUtil.processEl("egalnum(vide,{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp252Test(){
+        Argument a_ = MathUtil.processEl("egalnum(inter({MY_STRING_ONE},{MY_STRING_ONE}),{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp253Test(){
+        Argument a_ = MathUtil.processEl("egalnum(inter({MY_STRING_ONE},{MY_STRING_TWO}),{})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp254Test(){
+        Argument a_ = MathUtil.processEl("egalnum(inter({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}),{MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp255Test(){
+        Argument a_ = MathUtil.processEl("egalnum(union({MY_STRING_ONE},{MY_STRING_ONE}),{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp256Test(){
+        Argument a_ = MathUtil.processEl("egalnum(union({MY_STRING_ONE},{MY_STRING_TWO}),{MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp257Test(){
+        Argument a_ = MathUtil.processEl("egalnum(union({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}),{MY_STRING_ONE;MY_STRING_TWO;MY_STRING_THREE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp258Test(){
+        Argument a_ = MathUtil.processEl("differentnum({MY_STRING_ONE},vide)", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp259Test(){
+        Argument a_ = MathUtil.processEl("differentnum(vide,{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp260Test(){
+        Argument a_ = MathUtil.processEl("differentnum({MY_STRING_TWO},{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp261Test(){
+        Argument a_ = MathUtil.processEl("differentnum(inter({MY_STRING_ONE},{MY_STRING_ONE}),{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp262Test(){
+        Argument a_ = MathUtil.processEl("differentnum(inter({MY_STRING_ONE},{MY_STRING_TWO}),{})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp263Test(){
+        Argument a_ = MathUtil.processEl("differentnum(inter({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}),{MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp264Test(){
+        Argument a_ = MathUtil.processEl("differentnum(union({MY_STRING_ONE},{MY_STRING_ONE}),{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp265Test(){
+        Argument a_ = MathUtil.processEl("differentnum(union({MY_STRING_ONE},{MY_STRING_TWO}),{MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp266Test(){
+        Argument a_ = MathUtil.processEl("differentnum(union({12my_string},{MY_STRING_TWO}),{12my_string;MY_STRING_TWO})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp267Test(){
+        Argument a_ = MathUtil.processEl("differentnum(union({MY_STRING_ONE;MY_STRING_TWO},{MY_STRING_TWO;MY_STRING_THREE}),{MY_STRING_ONE;MY_STRING_TWO;MY_STRING_THREE})", 0, false, new StringMap<String>());
+        assertEq(new Rate("0"),(Rate)a_.getObject());
+    }
+    @Test
+    public void eval1Fail(){
         StringMap<String> variables_ = new StringMap<String>();
         variables_.put("VARIABLE", "2");
         String numericString_ = "8:VARIABLE";
         assertEq(new Rate("4"), (Rate)MathUtil.processEl(numericString_, 0, false, variables_).getObject());
     }
-
-    @Test(timeout=1000)
-    public void check1Test() {
+    @Test
+    public void check1(){
         Argument a_ = MathUtil.processEl("1:0", 0, true, new StringMap<String>());
         assertEq(MathType.RATE.name(), a_.getArgClass().name());
 
     }
-
-    Object[] evaluateExpressionFail() {
-        return $($("(2*1+1):0"),
-                $("(2*1+1):0+1"),
-                $("1+(2*1+1):0"),
-                $("1+(2*1+1):0+8"),
-                $("1+((2*1+1):0)+8"),
-                $("(1:0)+4"),
-                $("div(1,0)+4"),
-                $("1:0+1"),
-                $("1:-0+1"),
-                $("div(1,-0)+1"),
-                $("1+2*5:0"),
-                $("1-2*5:0"),
-                $("1+3:0"),
-                $("1+3+5:0"),
-                $("1-3+5:0"),
-                $("1-3:0"),
-                $("-3*5:0"),
-                $("-3-5:0"),
-                $("3-5:0"),
-                $("1:0"),
-                $("1:-0"),
-                $("quot(1,0)"),
-                $("quot(1,-0)"),
-                $("mod(1,0)"),
-                $("mod(1,-0)"),
-                $("modtaux(1,0)"),
-                $("modtaux(1,-0)"),
-//                $("string(0,-1)"),
-                $("abs(1:0)"),
-                $("quot(1,1:0)"),
-                $("quot(1,1:0+1)"),
-                $("2*quot(1:0,1)"),
-                $("2*quot(1,1:0)"),
-                $("2*quot(1,0)"),
-                $("quot(1:0,1)"),
-//                $("(1:0"),
-//                $("1:0)"),
-                $("quot(1:0+1,1)"),
-                $("-1:0+1"),
-                $("puis(0,-1)"),
-                $("-1:0"),
-                $("(-1:0+1)+1"));
-    }
-
     @Test
-    @Parameters(method="evaluateExpressionFail")
-    public void evaluateExp_2FailTest(String _input) {
-        assertTrue(MathUtil.processEl(_input, 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    public void evaluateExp_1FailTest(){
+        assertTrue(MathUtil.processEl("(2*1+1):0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
-    Object[] evaluateExpressionFailDivZero() {
-        return $($("(2*1+1):0"),
-                $("(2*1+1):0+1"),
-                $("1+(2*1+1):0"),
-                $("1+(2*1+1):0+8"),
-                $("1+((2*1+1):0)+8"),
-                $("(1:0)+4"),
-                $("div(1,0)+4"),
-                $("1:0+1"),
-                $("1:-0+1"),
-                $("div(1,-0)+1"),
-                $("1+2*5:0"),
-                $("1-2*5:0"),
-                $("1+3:0"),
-                $("1+3+5:0"),
-                $("1-3+5:0"),
-                $("1-3:0"),
-                $("-3*5:0"),
-                $("-3-5:0"),
-                $("3-5:0"),
-                $("1:0"),
-                $("1:-0"),
-                $("quot(1,0)"),
-                $("quot(1,-0)"),
-                $("mod(1,0)"),
-                $("mod(1,-0)"),
-                $("modtaux(1,0)"),
-                $("modtaux(1,-0)"),
-//                $("string(0,-1)"),
-                $("abs(1:0)"),
-                $("quot(1,1:0)"),
-                $("quot(1,1:0+1)"),
-                $("2*quot(1:0,1)"),
-                $("2*quot(1,1:0)"),
-                $("2*quot(1,0)"),
-                $("quot(1:0,1)"),
-//                $("(1:0"),
-//                $("1:0)"),
-                $("quot(1:0+1,1)"),
-                $("-1:0+1"),
-                $("puis(0,-1)"),
-                $("-1:0"),
-                $("(-1:0+1)+1"));
-    }
-
     @Test
-    @Parameters(method="evaluateExpressionFailDivZero")
-    public void evaluateExp_DivZero_FailTest(String _input) {
-        assertTrue(MathUtil.processEl(_input, 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    public void evaluateExp_2FailTest(){
+        assertTrue(MathUtil.processEl("(2*1+1):0+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
-
     @Test
-    public void evaluateExp_unknownNbArgFct_FailTest() {
+    public void evaluateExp_3FailTest(){
+        assertTrue(MathUtil.processEl("1+(2*1+1):0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_4FailTest(){
+        assertTrue(MathUtil.processEl("1+(2*1+1):0+8", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_5FailTest(){
+        assertTrue(MathUtil.processEl("1+((2*1+1):0)+8", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_6FailTest(){
+        assertTrue(MathUtil.processEl("(1:0)+4", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_7FailTest(){
+        assertTrue(MathUtil.processEl("div(1,0)+4", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_8FailTest(){
+        assertTrue(MathUtil.processEl("1:0+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_9FailTest(){
+        assertTrue(MathUtil.processEl("1:-0+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_10FailTest(){
+        assertTrue(MathUtil.processEl("div(1,-0)+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_11FailTest(){
+        assertTrue(MathUtil.processEl("1+2*5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_12FailTest(){
+        assertTrue(MathUtil.processEl("1-2*5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_13FailTest(){
+        assertTrue(MathUtil.processEl("1+3:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_14FailTest(){
+        assertTrue(MathUtil.processEl("1+3+5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_15FailTest(){
+        assertTrue(MathUtil.processEl("1-3+5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_16FailTest(){
+        assertTrue(MathUtil.processEl("1-3:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_17FailTest(){
+        assertTrue(MathUtil.processEl("-3*5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_18FailTest(){
+        assertTrue(MathUtil.processEl("-3-5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_19FailTest(){
+        assertTrue(MathUtil.processEl("3-5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_20FailTest(){
+        assertTrue(MathUtil.processEl("1:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_21FailTest(){
+        assertTrue(MathUtil.processEl("1:-0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_22FailTest(){
+        assertTrue(MathUtil.processEl("quot(1,0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_23FailTest(){
+        assertTrue(MathUtil.processEl("quot(1,-0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_24FailTest(){
+        assertTrue(MathUtil.processEl("mod(1,0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_25FailTest(){
+        assertTrue(MathUtil.processEl("mod(1,-0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_26FailTest(){
+        assertTrue(MathUtil.processEl("modtaux(1,0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_27FailTest(){
+        assertTrue(MathUtil.processEl("modtaux(1,-0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_28FailTest(){
+        assertTrue(MathUtil.processEl("abs(1:0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_29FailTest(){
+        assertTrue(MathUtil.processEl("quot(1,1:0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_30FailTest(){
+        assertTrue(MathUtil.processEl("quot(1,1:0+1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_31FailTest(){
+        assertTrue(MathUtil.processEl("2*quot(1:0,1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_32FailTest(){
+        assertTrue(MathUtil.processEl("2*quot(1,1:0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_33FailTest(){
+        assertTrue(MathUtil.processEl("2*quot(1,0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_34FailTest(){
+        assertTrue(MathUtil.processEl("quot(1:0,1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_35FailTest(){
+        assertTrue(MathUtil.processEl("quot(1:0+1,1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_36FailTest(){
+        assertTrue(MathUtil.processEl("-1:0+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_37FailTest(){
+        assertTrue(MathUtil.processEl("puis(0,-1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_38FailTest(){
+        assertTrue(MathUtil.processEl("-1:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_39FailTest(){
+        assertTrue(MathUtil.processEl("(-1:0+1)+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_1FailTest(){
+        assertTrue(MathUtil.processEl("(2*1+1):0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_2FailTest(){
+        assertTrue(MathUtil.processEl("(2*1+1):0+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_3FailTest(){
+        assertTrue(MathUtil.processEl("1+(2*1+1):0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_4FailTest(){
+        assertTrue(MathUtil.processEl("1+(2*1+1):0+8", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_5FailTest(){
+        assertTrue(MathUtil.processEl("1+((2*1+1):0)+8", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_6FailTest(){
+        assertTrue(MathUtil.processEl("(1:0)+4", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_7FailTest(){
+        assertTrue(MathUtil.processEl("div(1,0)+4", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_8FailTest(){
+        assertTrue(MathUtil.processEl("1:0+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_9FailTest(){
+        assertTrue(MathUtil.processEl("1:-0+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_10FailTest(){
+        assertTrue(MathUtil.processEl("div(1,-0)+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_11FailTest(){
+        assertTrue(MathUtil.processEl("1+2*5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_12FailTest(){
+        assertTrue(MathUtil.processEl("1-2*5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_13FailTest(){
+        assertTrue(MathUtil.processEl("1+3:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_14FailTest(){
+        assertTrue(MathUtil.processEl("1+3+5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_15FailTest(){
+        assertTrue(MathUtil.processEl("1-3+5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_16FailTest(){
+        assertTrue(MathUtil.processEl("1-3:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_17FailTest(){
+        assertTrue(MathUtil.processEl("-3*5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_18FailTest(){
+        assertTrue(MathUtil.processEl("-3-5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_19FailTest(){
+        assertTrue(MathUtil.processEl("3-5:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_20FailTest(){
+        assertTrue(MathUtil.processEl("1:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_21FailTest(){
+        assertTrue(MathUtil.processEl("1:-0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_22FailTest(){
+        assertTrue(MathUtil.processEl("quot(1,0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_23FailTest(){
+        assertTrue(MathUtil.processEl("quot(1,-0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_24FailTest(){
+        assertTrue(MathUtil.processEl("mod(1,0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_25FailTest(){
+        assertTrue(MathUtil.processEl("mod(1,-0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_26FailTest(){
+        assertTrue(MathUtil.processEl("modtaux(1,0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_27FailTest(){
+        assertTrue(MathUtil.processEl("modtaux(1,-0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_28FailTest(){
+        assertTrue(MathUtil.processEl("abs(1:0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_29FailTest(){
+        assertTrue(MathUtil.processEl("quot(1,1:0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_30FailTest(){
+        assertTrue(MathUtil.processEl("quot(1,1:0+1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_31FailTest(){
+        assertTrue(MathUtil.processEl("2*quot(1:0,1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_32FailTest(){
+        assertTrue(MathUtil.processEl("2*quot(1,1:0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_33FailTest(){
+        assertTrue(MathUtil.processEl("2*quot(1,0)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_34FailTest(){
+        assertTrue(MathUtil.processEl("quot(1:0,1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_35FailTest(){
+        assertTrue(MathUtil.processEl("quot(1:0+1,1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_36FailTest(){
+        assertTrue(MathUtil.processEl("-1:0+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_37FailTest(){
+        assertTrue(MathUtil.processEl("puis(0,-1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_38FailTest(){
+        assertTrue(MathUtil.processEl("-1:0", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_DivZero_39FailTest(){
+        assertTrue(MathUtil.processEl("(-1:0+1)+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_unknownNbArgFct_1Fail(){
         assertTrue(MathUtil.processEl("min()", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
-
     @Test
-    public void evaluateExp_unknownFct_FailTest() {
+    public void evaluateExp_unknownFct_1Fail(){
         assertTrue(MathUtil.processEl("string(0,-1)", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
-
     @Test
-    public void evaluateExp_unknownVar_FailTest() {
+    public void evaluateExp_unknownVar_1Fail(){
         assertTrue(MathUtil.processEl("VAR__UNDEFINED+1", 0, false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
-
-    Object[] booleanStrings() {
-        return $($("V",true),
-                $("F",false),
-                $("1=1",true),
-                $("1=abs(1)",true),
-                $("1=2",false),
-                $("1!=1",false),
-                $("1!=abs(1)",false),
-                $("1!=2",true),
-                $("1<0",false),
-                $("1<1",false),
-                $("1<2",true),
-                $("1<=0",false),
-                $("1<=1",true),
-                $("1<=2",true),
-                $("1>0",true),
-                $("1>1",false),
-                $("1>2",false),
-                $("1>=0",true),
-                $("1>=1",true),
-                $("1>=2",false),
-                $("1=1&2<3",true),
-                $("1=1&2<puis(3,2)",true),
-                $("1=1&2>3",false),
-                $("1!=1&2>3",false),
-                $("1=1|2<3",true),
-                $("1=1|2<puis(2,3)",true),
-                $("1=1|2>3&4<8&1>0",true),
-                $("(1!=1|2>3|5<6)&4<8&1>0",true),
-                $("1=1|2>3",true),
-                $("1!=1|2>3",false),
-                $("1!=1|2<3",true),
-                $("2<3|1!=1&4<3",true),
-                $("2<3|1!=abs(1)&4<3",true),
-                $("(2<3|1!=1)&4<3",false),
-                $("(2<3|1!=abs(1))&4<3",false),
-                $("(2<3|abs(1)!=1)&4<3",false),
-                $("4<3&(2<3|abs(1)!=1)",false),
-                $("4<3&(abs(1)!=1|2<3)",false),
-                $("(2<3|1!=abs(1))&puis(2,2)<3",false),
-                $("2<3&(((2<3|1!=abs(1))&puis(2,2)<3)|puis(2,2)<3)",false),
-                $("2<3&(((2<3|1!=abs(1))&puis(2,2)<3)|((2<3|1!=abs(1))&puis(2,2)<3))",false),
-                $("(2<3&1=1|2<4)=V",true),
-                $("2<3&1=1|2<4",true),
-                $("2<3&((1=1))|2<4",true),
-                $("2<3&((1)=(1))|2<4",true),
-                $("2<3&((1))=((1))|2<4",true),
-                $("V&1=1|2<4",true),
-                $("F|1=1|2<4",true),
-                $("2<3&!(((2<3|1!=abs(1))&puis(2,2)<3)|((2<3|1!=abs(1))&puis(2,2)<3))",true),
-                $("2<3&!!(((2<3|1!=abs(1))&puis(2,2)<3)|((2<3|1!=abs(1))&puis(2,2)<3))",false),
-                $("((2<3)|1!=(abs(1)))&puis(2,2)<3",false),
-                $("2<3&((1)=(1))|(2<4&6>=5)",true),
-                $("1=1|(2<4&6>=5)",true),
-                $("cardinal({V;F})=2",true),
-                $("cardinal({1a;2b})=2",true),
-                $("cardinal({V;F})=2&(V)",true),
-                $("cardinal({1a;2b})=2&(F)",false),
-                $("1<=1&(1+1=2&2+3=5|5<6)",true),
-                $("1<=1&(1+1=2&(2+3=5|5<6))",true),
-                $("1<=1|(1+1=2&1+1=2&(2+3=5|5<6))",true),
-                $("1<=1|(1+1=2|1+1=2&1+1=2&(2+3=5|5<6&5<6))",true),
-                $("1<=1&(1+1=2&1+1=2&(2+3=5|5<6))",true),
-                $("1>=1&(1<=1|(1+1=2|(2+3=5|5<6)))",true),
-                $("1<=1|(1+1=2|(2+3=5|5<6))",true),
-                $("(2<3)=(1=1)",true),
-                $("(-2<3)=(1=1)",true),
-                $("(2<3)=(1!=1)",false),
-                $("(2>3)=(1!=1)",true),
-                $("(2>3)=(1=1)",false),
-                $("(2<3)!=(1=1)",false),
-                $("(2>3)!=(1=1)",true),
-                $("(2<3)!=(1!=1)",true),
-                $("(2>3)!=(1!=1)",false),
-                $("(-2>3)!=(1!=1)",false),
-                $("-1<4",true),
-                $("-1>4",false),
-                $("-1<=4",true),
-                $("-1>=4",false),
-                $("-1=4",false),
-                $("-1!=4",true),
-                $("1<-4",false),
-                $("1>-4",true),
-                $("1<=-4",false),
-                $("1>=-4",true),
-                $("1=-4",false),
-                $("1!=-4",true),
-                $("((1!=-4))",true),
-                $("1+1=2|2+2=4|3+3=6",true),
-                $("(V)",true),
-                $("((V))",true),
-                $("(F)",false),
-                $("((F))",false),
-                $("6+7>10&(1<2|4>3)",true),
-                $("6+7>10&(V|4>3)",true),
-                $("6+7>10&(1<2|V)",true),
-                $("6+7<=10&(1<2|4>3)",false),
-                $("6+7<=10&(V|4>3)",false),
-                $("6+7<=10&(1<2|V)",false),
-                $("1+1=2|1:0=8",true),
-                $("1+1!=2&1:0=8",false));
+    @Test
+    public void evaluateExp268Test(){
+        Argument a_ = MathUtil.processEl("V", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
     }
-
-    @Test(timeout=1000)
-    @Parameters(method="booleanStrings")
-    public void evaluateExp2Test(String _numericString,boolean _res) {
-        Argument a_ = MathUtil.processEl(_numericString, 0, false, new StringMap<String>());
-        assertEq(_res,(Boolean)a_.getObject());
+    @Test
+    public void evaluateExp269Test(){
+        Argument a_ = MathUtil.processEl("F", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp270Test(){
+        Argument a_ = MathUtil.processEl("1=1", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp271Test(){
+        Argument a_ = MathUtil.processEl("1=abs(1)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp272Test(){
+        Argument a_ = MathUtil.processEl("1=2", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp273Test(){
+        Argument a_ = MathUtil.processEl("1!=1", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp274Test(){
+        Argument a_ = MathUtil.processEl("1!=abs(1)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp275Test(){
+        Argument a_ = MathUtil.processEl("1!=2", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp276Test(){
+        Argument a_ = MathUtil.processEl("1<0", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp277Test(){
+        Argument a_ = MathUtil.processEl("1<1", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp278Test(){
+        Argument a_ = MathUtil.processEl("1<2", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp279Test(){
+        Argument a_ = MathUtil.processEl("1<=0", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp280Test(){
+        Argument a_ = MathUtil.processEl("1<=1", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp281Test(){
+        Argument a_ = MathUtil.processEl("1<=2", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp282Test(){
+        Argument a_ = MathUtil.processEl("1>0", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp283Test(){
+        Argument a_ = MathUtil.processEl("1>1", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp284Test(){
+        Argument a_ = MathUtil.processEl("1>2", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp285Test(){
+        Argument a_ = MathUtil.processEl("1>=0", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp286Test(){
+        Argument a_ = MathUtil.processEl("1>=1", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp287Test(){
+        Argument a_ = MathUtil.processEl("1>=2", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp288Test(){
+        Argument a_ = MathUtil.processEl("1=1&2<3", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp289Test(){
+        Argument a_ = MathUtil.processEl("1=1&2<puis(3,2)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp290Test(){
+        Argument a_ = MathUtil.processEl("1=1&2>3", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp291Test(){
+        Argument a_ = MathUtil.processEl("1!=1&2>3", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp292Test(){
+        Argument a_ = MathUtil.processEl("1=1|2<3", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp293Test(){
+        Argument a_ = MathUtil.processEl("1=1|2<puis(2,3)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp294Test(){
+        Argument a_ = MathUtil.processEl("1=1|2>3&4<8&1>0", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp295Test(){
+        Argument a_ = MathUtil.processEl("(1!=1|2>3|5<6)&4<8&1>0", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp296Test(){
+        Argument a_ = MathUtil.processEl("1=1|2>3", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp297Test(){
+        Argument a_ = MathUtil.processEl("1!=1|2>3", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp298Test(){
+        Argument a_ = MathUtil.processEl("1!=1|2<3", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp299Test(){
+        Argument a_ = MathUtil.processEl("2<3|1!=1&4<3", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp300Test(){
+        Argument a_ = MathUtil.processEl("2<3|1!=abs(1)&4<3", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp301Test(){
+        Argument a_ = MathUtil.processEl("(2<3|1!=1)&4<3", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp302Test(){
+        Argument a_ = MathUtil.processEl("(2<3|1!=abs(1))&4<3", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp303Test(){
+        Argument a_ = MathUtil.processEl("(2<3|abs(1)!=1)&4<3", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp304Test(){
+        Argument a_ = MathUtil.processEl("4<3&(2<3|abs(1)!=1)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp305Test(){
+        Argument a_ = MathUtil.processEl("4<3&(abs(1)!=1|2<3)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp306Test(){
+        Argument a_ = MathUtil.processEl("(2<3|1!=abs(1))&puis(2,2)<3", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp307Test(){
+        Argument a_ = MathUtil.processEl("2<3&(((2<3|1!=abs(1))&puis(2,2)<3)|puis(2,2)<3)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp308Test(){
+        Argument a_ = MathUtil.processEl("2<3&(((2<3|1!=abs(1))&puis(2,2)<3)|((2<3|1!=abs(1))&puis(2,2)<3))", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp309Test(){
+        Argument a_ = MathUtil.processEl("(2<3&1=1|2<4)=V", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp310Test(){
+        Argument a_ = MathUtil.processEl("2<3&1=1|2<4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp311Test(){
+        Argument a_ = MathUtil.processEl("2<3&((1=1))|2<4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp312Test(){
+        Argument a_ = MathUtil.processEl("2<3&((1)=(1))|2<4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp313Test(){
+        Argument a_ = MathUtil.processEl("2<3&((1))=((1))|2<4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp314Test(){
+        Argument a_ = MathUtil.processEl("V&1=1|2<4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp315Test(){
+        Argument a_ = MathUtil.processEl("F|1=1|2<4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp316Test(){
+        Argument a_ = MathUtil.processEl("2<3&!(((2<3|1!=abs(1))&puis(2,2)<3)|((2<3|1!=abs(1))&puis(2,2)<3))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp317Test(){
+        Argument a_ = MathUtil.processEl("2<3&!!(((2<3|1!=abs(1))&puis(2,2)<3)|((2<3|1!=abs(1))&puis(2,2)<3))", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp318Test(){
+        Argument a_ = MathUtil.processEl("((2<3)|1!=(abs(1)))&puis(2,2)<3", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp319Test(){
+        Argument a_ = MathUtil.processEl("2<3&((1)=(1))|(2<4&6>=5)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp320Test(){
+        Argument a_ = MathUtil.processEl("1=1|(2<4&6>=5)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp321Test(){
+        Argument a_ = MathUtil.processEl("cardinal({V;F})=2", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp322Test(){
+        Argument a_ = MathUtil.processEl("cardinal({1a;2b})=2", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp323Test(){
+        Argument a_ = MathUtil.processEl("cardinal({V;F})=2&(V)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp324Test(){
+        Argument a_ = MathUtil.processEl("cardinal({1a;2b})=2&(F)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp325Test(){
+        Argument a_ = MathUtil.processEl("1<=1&(1+1=2&2+3=5|5<6)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp326Test(){
+        Argument a_ = MathUtil.processEl("1<=1&(1+1=2&(2+3=5|5<6))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp327Test(){
+        Argument a_ = MathUtil.processEl("1<=1|(1+1=2&1+1=2&(2+3=5|5<6))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp328Test(){
+        Argument a_ = MathUtil.processEl("1<=1|(1+1=2|1+1=2&1+1=2&(2+3=5|5<6&5<6))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp329Test(){
+        Argument a_ = MathUtil.processEl("1<=1&(1+1=2&1+1=2&(2+3=5|5<6))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp330Test(){
+        Argument a_ = MathUtil.processEl("1>=1&(1<=1|(1+1=2|(2+3=5|5<6)))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp331Test(){
+        Argument a_ = MathUtil.processEl("1<=1|(1+1=2|(2+3=5|5<6))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp332Test(){
+        Argument a_ = MathUtil.processEl("(2<3)=(1=1)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp333Test(){
+        Argument a_ = MathUtil.processEl("(-2<3)=(1=1)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp334Test(){
+        Argument a_ = MathUtil.processEl("(2<3)=(1!=1)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp335Test(){
+        Argument a_ = MathUtil.processEl("(2>3)=(1!=1)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp336Test(){
+        Argument a_ = MathUtil.processEl("(2>3)=(1=1)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp337Test(){
+        Argument a_ = MathUtil.processEl("(2<3)!=(1=1)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp338Test(){
+        Argument a_ = MathUtil.processEl("(2>3)!=(1=1)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp339Test(){
+        Argument a_ = MathUtil.processEl("(2<3)!=(1!=1)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp340Test(){
+        Argument a_ = MathUtil.processEl("(2>3)!=(1!=1)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp341Test(){
+        Argument a_ = MathUtil.processEl("(-2>3)!=(1!=1)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp342Test(){
+        Argument a_ = MathUtil.processEl("-1<4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp343Test(){
+        Argument a_ = MathUtil.processEl("-1>4", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp344Test(){
+        Argument a_ = MathUtil.processEl("-1<=4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp345Test(){
+        Argument a_ = MathUtil.processEl("-1>=4", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp346Test(){
+        Argument a_ = MathUtil.processEl("-1=4", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp347Test(){
+        Argument a_ = MathUtil.processEl("-1!=4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp348Test(){
+        Argument a_ = MathUtil.processEl("1<-4", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp349Test(){
+        Argument a_ = MathUtil.processEl("1>-4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp350Test(){
+        Argument a_ = MathUtil.processEl("1<=-4", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp351Test(){
+        Argument a_ = MathUtil.processEl("1>=-4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp352Test(){
+        Argument a_ = MathUtil.processEl("1=-4", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp353Test(){
+        Argument a_ = MathUtil.processEl("1!=-4", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp354Test(){
+        Argument a_ = MathUtil.processEl("((1!=-4))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp355Test(){
+        Argument a_ = MathUtil.processEl("1+1=2|2+2=4|3+3=6", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp356Test(){
+        Argument a_ = MathUtil.processEl("(V)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp357Test(){
+        Argument a_ = MathUtil.processEl("((V))", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp358Test(){
+        Argument a_ = MathUtil.processEl("(F)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp359Test(){
+        Argument a_ = MathUtil.processEl("((F))", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp360Test(){
+        Argument a_ = MathUtil.processEl("6+7>10&(1<2|4>3)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp361Test(){
+        Argument a_ = MathUtil.processEl("6+7>10&(V|4>3)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp362Test(){
+        Argument a_ = MathUtil.processEl("6+7>10&(1<2|V)", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp363Test(){
+        Argument a_ = MathUtil.processEl("6+7<=10&(1<2|4>3)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp364Test(){
+        Argument a_ = MathUtil.processEl("6+7<=10&(V|4>3)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp365Test(){
+        Argument a_ = MathUtil.processEl("6+7<=10&(1<2|V)", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp366Test(){
+        Argument a_ = MathUtil.processEl("1+1=2|1:0=8", 0, false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp367Test(){
+        Argument a_ = MathUtil.processEl("1+1!=2&1:0=8", 0, false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
     }
 }

@@ -1,37 +1,38 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import code.util.Numbers;
 
 @SuppressWarnings("static-method")
-@RunWith(JUnitParamsRunner.class)
 public class NumbersTest {
-
-    Object[] equalsNumbers() {
-        return $($(new Long(1),new Integer(1)),
-                $(new Long(1),new Short((short) 1)),
-                $(new Long(1),new Byte((byte) 1)),
-                $(new Short((short) 1),new Integer(1)),
-                $(new Byte((byte) 1),new Integer(1)),
-                $(new Byte((byte) 1),new Short((short) 1)));
-    }
-
     @Test
-    @Parameters(method="equalsNumbers")
-    public void eq1Test(Number _nb1,Number _nb2) {
-        assertTrue(Numbers.eq(_nb1, _nb2));
+    public void eq1Test(){
+        assertTrue(Numbers.eq(new Long(1), new Integer(1)));
     }
-
     @Test
-    public void containsIndexOf1Test() {
+    public void eq2Test(){
+        assertTrue(Numbers.eq(new Long(1), new Short((short) 1)));
+    }
+    @Test
+    public void eq3Test(){
+        assertTrue(Numbers.eq(new Long(1), new Byte((byte) 1)));
+    }
+    @Test
+    public void eq4Test(){
+        assertTrue(Numbers.eq(new Short((short) 1), new Integer(1)));
+    }
+    @Test
+    public void eq5Test(){
+        assertTrue(Numbers.eq(new Byte((byte) 1), new Integer(1)));
+    }
+    @Test
+    public void eq6Test(){
+        assertTrue(Numbers.eq(new Byte((byte) 1), new Short((short) 1)));
+    }
+    @Test
+    public void containsIndexOf1(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
@@ -43,9 +44,8 @@ public class NumbersTest {
         assertEq(1,nbs_.indexOf((byte)3));
         assertEq(-1,nbs_.indexOf((byte)2));
     }
-
     @Test
-    public void removeDuplicates1Test() {
+    public void removeDuplicates1(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
@@ -54,9 +54,8 @@ public class NumbersTest {
         assertEq(1,nbs_.get(0).intValue());
         assertEq(3,nbs_.get(1).intValue());
     }
-
     @Test
-    public void removeDuplicates2Test() {
+    public void removeDuplicates2(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(1);
@@ -64,9 +63,8 @@ public class NumbersTest {
         assertEq(1,nbs_.size());
         assertEq(1,nbs_.get(0).intValue());
     }
-
     @Test
-    public void removeDuplicates3Test() {
+    public void removeDuplicates3(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
@@ -76,9 +74,8 @@ public class NumbersTest {
         assertEq(1,nbs_.get(0).intValue());
         assertEq(3,nbs_.get(1).intValue());
     }
-
     @Test
-    public void removeDuplicates4Test() {
+    public void removeDuplicates4(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
@@ -89,9 +86,8 @@ public class NumbersTest {
         assertEq(1,nbs_.get(0).intValue());
         assertEq(3,nbs_.get(1).intValue());
     }
-
     @Test
-    public void removeDuplicates5Test() {
+    public void removeDuplicates5(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(1);
@@ -101,9 +97,8 @@ public class NumbersTest {
         assertEq(1,nbs_.get(0).intValue());
         assertEq(3,nbs_.get(1).intValue());
     }
-
     @Test
-    public void removeDuplicates6Test() {
+    public void removeDuplicates6(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(1);
@@ -114,9 +109,8 @@ public class NumbersTest {
         assertEq(1,nbs_.get(0).intValue());
         assertEq(3,nbs_.get(1).intValue());
     }
-
     @Test
-    public void min1Test() {
+    public void min1(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
@@ -127,9 +121,8 @@ public class NumbersTest {
         nbs_ = new Numbers<Integer>();
         assertNull(nbs_.getMinimum());
     }
-
     @Test
-    public void max1Test() {
+    public void max1(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
@@ -140,9 +133,8 @@ public class NumbersTest {
         nbs_ = new Numbers<Integer>();
         assertNull(nbs_.getMaximum());
     }
-
     @Test
-    public void sort1Test() {
+    public void sort1(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(5);
         nbs_.add(1);
@@ -157,15 +149,13 @@ public class NumbersTest {
         assertEq(8,nbs_.get(3).intValue());
         assertEq(10,nbs_.get(4).intValue());
     }
-
     @Test
-    public void getAllIndexes1Test() {
+    public void getAllIndexes1(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         assertEq(0,nbs_.getAllIndexes().size());
     }
-
     @Test
-    public void getAllIndexes2Test() {
+    public void getAllIndexes2(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(2);
         nbs_.add(3);

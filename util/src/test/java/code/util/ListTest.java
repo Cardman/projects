@@ -3,7 +3,6 @@ import static code.util.EquallableExUtil.assertEq;
 
 import org.junit.Test;
 
-import code.util.CustList;
 import code.util.classestest.IntegerComparator;
 
 @SuppressWarnings("static-method")

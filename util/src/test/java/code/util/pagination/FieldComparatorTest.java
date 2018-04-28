@@ -3,9 +3,6 @@ import static code.util.EquallableExUtil.assertEq;
 
 import org.junit.Test;
 
-import code.util.pagination.FieldComparator;
-import code.util.pagination.SelectedBoolean;
-
 @SuppressWarnings("static-method")
 public class FieldComparatorTest {
 

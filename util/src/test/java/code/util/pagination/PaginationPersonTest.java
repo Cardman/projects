@@ -14,7 +14,6 @@ import code.util.classestest.PaginationPerson;
 import code.util.classestest.Person;
 import code.util.classestest.Sex;
 import code.util.classestest.SortingPerson;
-import code.util.pagination.SearchingMode;
 
 @SuppressWarnings("static-method")
 public class PaginationPersonTest {

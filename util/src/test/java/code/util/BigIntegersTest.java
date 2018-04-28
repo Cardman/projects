@@ -8,8 +8,6 @@ import junitparams.JUnitParamsRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.util.BigIntegers;
-
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
 public class BigIntegersTest {

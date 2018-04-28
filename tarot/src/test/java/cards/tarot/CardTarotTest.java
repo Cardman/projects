@@ -2,7 +2,6 @@ package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import junitparams.Parameters;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -892,7 +891,6 @@ public class CardTarotTest {
     }
 
     @Test
-    @Parameters(method="cardsSuits")
     public void strength1Test(Suit _couleurDemandee,CardTarot _demCards, CardTarot _trumpCard) {
         byte force_ = _trumpCard.strength(_couleurDemandee);
         byte forceTwo_ = _demCards.strength(_couleurDemandee);
@@ -935,7 +933,6 @@ public class CardTarotTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrump")
     public void strength2Test(Suit _couleurDemandee, CardTarot _trumpCard, CardTarot _trumpCardTwo) {
         byte force_ = _trumpCard.strength(_couleurDemandee);
         byte forceTwo_ = _trumpCardTwo.strength(_couleurDemandee);
@@ -979,7 +976,6 @@ public class CardTarotTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpOther")
     public void strength3Test(Suit _couleurDemandee, CardTarot _trumpCard, CardTarot _trumpCardTwo) {
         byte force_ = _trumpCard.strength(_couleurDemandee);
         byte forceTwo_ = _trumpCardTwo.strength(_couleurDemandee);
@@ -1016,7 +1012,6 @@ public class CardTarotTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsZeros")
     public void strength4Test(Suit _couleurDemandee, CardTarot _card) {
         byte force_ = _card.strength(_couleurDemandee);
         assertEq(0, force_);

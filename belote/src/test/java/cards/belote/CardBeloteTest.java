@@ -2,7 +2,6 @@ package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import junitparams.Parameters;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -400,7 +399,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuits")
     public void strength1Test(Suit _couleurDemandee,Suit _couleurAtout, CardBelote _demCards, CardBelote _trumpCard) {
         byte force_ = _trumpCard.strength(_couleurAtout, _couleurDemandee);
         byte forceTwo_ = _demCards.strength(_couleurAtout, _couleurDemandee);
@@ -434,7 +432,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrump")
     public void strength2Test(Suit _couleurDemandee,Suit _couleurAtout, CardBelote _trumpCard, CardBelote _trumpCardTwo) {
         byte force_ = _trumpCard.strength(_couleurAtout, _couleurDemandee);
         byte forceTwo_ = _trumpCardTwo.strength(_couleurAtout, _couleurDemandee);
@@ -469,7 +466,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpOther")
     public void strength3Test(Suit _couleurDemandee,Suit _couleurAtout, CardBelote _trumpCard, CardBelote _trumpCardTwo) {
         byte force_ = _trumpCard.strength(_couleurAtout, _couleurDemandee);
         byte forceTwo_ = _trumpCardTwo.strength(_couleurAtout, _couleurDemandee);
@@ -502,7 +498,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpZeroCards")
     public void strength4Test(Suit _couleurDemandee,Suit _couleurAtout, CardBelote _card) {
         byte force_ = _card.strength(_couleurAtout, _couleurDemandee);
         assertEq(0, force_);
@@ -524,7 +519,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpCards")
     public void strength5Test(Suit _couleurDemandee,Suit _couleurAtout, CardBelote _card) {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.SUIT);
@@ -534,7 +528,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpCards")
     public void strength6Test(Suit _couleurDemandee,Suit _couleurAtout, CardBelote _card) {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
@@ -565,7 +558,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpTrick")
     public void strength7Test(Suit _couleurAtout, CardBelote _trumpCard, CardBelote _trumpCardTwo) {
         byte force_ = _trumpCard.strength(_couleurAtout, _couleurAtout);
         byte forceTwo_ = _trumpCardTwo.strength(_couleurAtout, _couleurAtout);
@@ -590,14 +582,12 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpTrickZeroCards")
     public void strength8Test(Suit _couleurAtout, CardBelote _card) {
         byte force_ = _card.strength(_couleurAtout, _couleurAtout);
         assertEq(0, force_);
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpTrick")
     public void strength9Test(Suit _couleurAtout, CardBelote _trumpCard, CardBelote _trumpCardTwo) {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.ALL_TRUMP);
@@ -608,7 +598,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpTrickZeroCards")
     public void strength10Test(Suit _couleurAtout, CardBelote _card) {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.ALL_TRUMP);
@@ -617,7 +606,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpTrick")
     public void strength11Test(Suit _couleurAtout, CardBelote _trumpCard, CardBelote _trumpCardTwo) {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.NO_TRUMP);
@@ -628,7 +616,6 @@ public class CardBeloteTest {
     }
 
     @Test
-    @Parameters(method="cardsSuitsTrumpTrickZeroCards")
     public void strength12Test(Suit _couleurAtout, CardBelote _card) {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.NO_TRUMP);

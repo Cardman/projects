@@ -1,68 +1,57 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import code.util.Numbers;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
+import code.util.Numbers;
 
 @SuppressWarnings("static-method")
-@RunWith(JUnitParamsRunner.class)
 public class TrickTarotTest {
-
-    Object[] entameursValeurs() {
-        //new Description().getMethodName();
-        return $($(0), $(1), $(2), $(3));
-    }
-
-    Object[] entameursCouleursValeurs() {
-        return $($(0, Suit.TRUMP), $(1, Suit.TRUMP), $(2, Suit.TRUMP), $(3, Suit.TRUMP),
-                $(0, Suit.HEART), $(1, Suit.HEART), $(2, Suit.HEART), $(3, Suit.HEART), $(0, Suit.SPADE),
-                $(1, Suit.SPADE), $(2, Suit.SPADE), $(3, Suit.SPADE), $(0, Suit.DIAMOND), $(1, Suit.DIAMOND),
-                $(2, Suit.DIAMOND), $(3, Suit.DIAMOND), $(0, Suit.CLUB), $(1, Suit.CLUB), $(2, Suit.CLUB),
-                $(3, Suit.CLUB));
-    }
-
-
-    @Parameters(method = "entameursValeurs")
     @Test
-    public void new_PliTarot_byte_Boolean_1Test(int _entameur) {
-        TrickTarot pli_ = new TrickTarot((byte) _entameur,true);
-        //nombreTotal++;
-//        assertEq(0, pli_.getNumero());
+    public void new_PliTarot_byte_Boolean_1Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 0,true);
         assertTrue(pli_.estVide());
-        pli_ = new TrickTarot((byte) _entameur,true);
-//        assertEq(1, pli_.getNumero());
+        pli_ = new TrickTarot((byte) 0,true);
         assertTrue(pli_.estVide());
     }
-
     @Test
-    public void new_PliTarot_MainTarot_byte_Boolean_1Test() {
+    public void new_PliTarot_byte_Boolean_2Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 1,true);
+        assertTrue(pli_.estVide());
+        pli_ = new TrickTarot((byte) 1,true);
+        assertTrue(pli_.estVide());
+    }
+    @Test
+    public void new_PliTarot_byte_Boolean_3Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 2,true);
+        assertTrue(pli_.estVide());
+        pli_ = new TrickTarot((byte) 2,true);
+        assertTrue(pli_.estVide());
+    }
+    @Test
+    public void new_PliTarot_byte_Boolean_4Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 3,true);
+        assertTrue(pli_.estVide());
+        pli_ = new TrickTarot((byte) 3,true);
+        assertTrue(pli_.estVide());
+    }
+    @Test
+    public void new_PliTarot_MainTarot_byte_Boolean_1(){
         TrickTarot pli_ = new TrickTarot(new HandTarot(), (byte) 0,true);
-        //nombreTotal++;
-//        assertEq(0, pli_.getNumero());
         assertTrue(pli_.estVide());
         pli_ = new TrickTarot(new HandTarot(), (byte) 0,true);
-        //nombreTotal++;
-//        assertEq(1, pli_.getNumero());
         assertTrue(pli_.estVide());
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.DIAMOND_1);
         pli_ = new TrickTarot(main_, (byte) 0,true);
-        //nombreTotal++;
-//        assertEq(2, pli_.getNumero());
         assertEq(1, pli_.total() );
         assertTrue(pli_.contient(CardTarot.DIAMOND_1));
     }
-
     @Test
-    public void couleurDemandee1Test() {
+    public void couleurDemandee1(){
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;
         assertEq(Suit.UNDEFINED, pli_.couleurDemandee());
@@ -95,74 +84,228 @@ public class TrickTarotTest {
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(Suit.UNDEFINED, pli_.couleurDemandee());
     }
-
     @Test
-    @Parameters(method = "entameursValeurs")
-    public void aJoue1Test(int _entameur) {
-        TrickTarot pli_ = new TrickTarot((byte) _entameur, true);
+    public void aJoue1Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 0, true);
         byte nombreJoueurs_ = 4;
         assertTrue(!pli_.aJoue((byte) 0, nombreJoueurs_));
         assertTrue(!pli_.aJoue((byte) 1, nombreJoueurs_));
         assertTrue(!pli_.aJoue((byte) 2, nombreJoueurs_));
         assertTrue(!pli_.aJoue((byte) 3, nombreJoueurs_));
     }
-
     @Test
-    @Parameters(method = "entameursValeurs")
-    public void aJoue2Test(int _entameur) {
-        TrickTarot pli_ = new TrickTarot((byte) _entameur, true);
+    public void aJoue2Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        byte nombreJoueurs_ = 4;
+        assertTrue(!pli_.aJoue((byte) 0, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 1, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 2, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 3, nombreJoueurs_));
+    }
+    @Test
+    public void aJoue3Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        byte nombreJoueurs_ = 4;
+        assertTrue(!pli_.aJoue((byte) 0, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 1, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 2, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 3, nombreJoueurs_));
+    }
+    @Test
+    public void aJoue4Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        byte nombreJoueurs_ = 4;
+        assertTrue(!pli_.aJoue((byte) 0, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 1, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 2, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) 3, nombreJoueurs_));
+    }
+    @Test
+    public void aJoue5Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 0, true);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
-        assertTrue(pli_.aJoue((byte) _entameur, nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((_entameur+1)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((_entameur+2)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((_entameur+3)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) 0, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((0+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((0+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((0+3)%nombreJoueurs_), nombreJoueurs_));
     }
-
     @Test
-    @Parameters(method = "entameursValeurs")
-    public void aJoue3Test(int _entameur) {
-        TrickTarot pli_ = new TrickTarot((byte) _entameur, true);
+    public void aJoue6Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertTrue(pli_.aJoue((byte) 1, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((1+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((1+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((1+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue7Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertTrue(pli_.aJoue((byte) 2, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((2+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((2+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((2+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue8Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertTrue(pli_.aJoue((byte) 3, nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((3+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((3+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((3+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue9Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 0, true);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
-        assertTrue(pli_.aJoue((byte) _entameur, nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((_entameur+1)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((_entameur+2)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((_entameur+3)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) 0, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((0+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((0+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((0+3)%nombreJoueurs_), nombreJoueurs_));
     }
-
     @Test
-    @Parameters(method = "entameursValeurs")
-    public void aJoue4Test(int _entameur) {
-        TrickTarot pli_ = new TrickTarot((byte) _entameur, true);
+    public void aJoue10Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        assertTrue(pli_.aJoue((byte) 1, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((1+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((1+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((1+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue11Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        assertTrue(pli_.aJoue((byte) 2, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((2+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((2+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((2+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue12Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        assertTrue(pli_.aJoue((byte) 3, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((3+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((3+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((3+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue13Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 0, true);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
-        assertTrue(pli_.aJoue((byte) _entameur, nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((_entameur+1)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((_entameur+2)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((_entameur+3)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) 0, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((0+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((0+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((0+3)%nombreJoueurs_), nombreJoueurs_));
     }
-
     @Test
-    @Parameters(method = "entameursValeurs")
-    public void aJoue5Test(int _entameur) {
-        TrickTarot pli_ = new TrickTarot((byte) _entameur, true);
+    public void aJoue14Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertTrue(pli_.aJoue((byte) 1, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((1+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((1+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((1+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue15Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertTrue(pli_.aJoue((byte) 2, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((2+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((2+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((2+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue16Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertTrue(pli_.aJoue((byte) 3, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((3+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((3+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) ((3+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue17Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 0, true);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
         pli_.getCartes().ajouter(CardTarot.CLUB_7);
-        assertTrue(pli_.aJoue((byte) _entameur, nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((_entameur+1)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((_entameur+2)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((_entameur+3)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) 0, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((0+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((0+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((0+3)%nombreJoueurs_), nombreJoueurs_));
     }
-
     @Test
-    public void carteDuJoueur1Test() {
+    public void aJoue18Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        pli_.getCartes().ajouter(CardTarot.CLUB_7);
+        assertTrue(pli_.aJoue((byte) 1, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((1+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((1+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((1+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue19Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        pli_.getCartes().ajouter(CardTarot.CLUB_7);
+        assertTrue(pli_.aJoue((byte) 2, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((2+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((2+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((2+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void aJoue20Test(){
+        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        byte nombreJoueurs_ = 4;
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        pli_.getCartes().ajouter(CardTarot.CLUB_7);
+        assertTrue(pli_.aJoue((byte) 3, nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((3+1)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((3+2)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) ((3+3)%nombreJoueurs_), nombreJoueurs_));
+    }
+    @Test
+    public void carteDuJoueur1(){
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;
         byte nombreJoueurs_ = 4;
@@ -196,9 +339,8 @@ public class TrickTarotTest {
         assertEq(CardTarot.HEART_KING, pli_.carteDuJoueur((byte) 3, nombreJoueurs_));
         assertEq(CardTarot.CLUB_7, pli_.carteDuJoueur((byte) 0, nombreJoueurs_));
     }
-
     @Test
-    public void joueurAyantJouePliEnCours1Test() {
+    public void joueurAyantJouePliEnCours1(){
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;
         byte nombreJoueurs_ = 4;
@@ -235,9 +377,8 @@ public class TrickTarotTest {
         assertEq(3, pli_.joueurAyantJouePliEnCours(CardTarot.HEART_KING, nombreJoueurs_));
         assertEq(0, pli_.joueurAyantJouePliEnCours(CardTarot.CLUB_7, nombreJoueurs_));
     }
-
     @Test
-    public void joueursAyantJoueAvant1Test() {
+    public void joueursAyantJoueAvant1(){
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
@@ -316,129 +457,115 @@ public class TrickTarotTest {
         assertTrue(joueurs_.containsObj((byte) 0));
         assertTrue(joueurs_.containsObj((byte) 1));
     }
-
-    @Parameters(method = "entameursValeurs")
     @Test
-    public void getRamasseur1Test(int _j) {
+    public void getRamasseur1Test(){
         byte nombreDeJoueurs_ = 4;
-        byte j_ = (byte) ((_j + 1) % nombreDeJoueurs_);
-        byte jTwo_ = (byte) ((_j + 2) % nombreDeJoueurs_);
-        byte jThree_ = (byte) ((_j + 3) % nombreDeJoueurs_);
+        byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
+        byte jTwo_ = (byte) ((0 + 2) % nombreDeJoueurs_);
+        byte jThree_ = (byte) ((0 + 3) % nombreDeJoueurs_);
 
-        TrickTarot pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        TrickTarot pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_KING);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_7);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_KING);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_4);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_14);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_14);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) _j,true);
-        //nombreTotal++;
+        pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
-        assertEq(_j, pli_.getRamasseur(nombreDeJoueurs_));
+        assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_14);
@@ -446,9 +573,356 @@ public class TrickTarotTest {
         pli_.getCartes().ajouter(CardTarot.TRUMP_18);
         assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
     }
-
     @Test
-    public void joueursCoupes1Test() {
+    public void getRamasseur2Test(){
+        byte nombreDeJoueurs_ = 4;
+        byte j_ = (byte) ((1 + 1) % nombreDeJoueurs_);
+        byte jTwo_ = (byte) ((1 + 2) % nombreDeJoueurs_);
+        byte jThree_ = (byte) ((1 + 3) % nombreDeJoueurs_);
+
+        TrickTarot pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_KING);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_7);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_KING);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_4);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_16);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 1,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_16);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_18);
+        assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
+    }
+    @Test
+    public void getRamasseur3Test(){
+        byte nombreDeJoueurs_ = 4;
+        byte j_ = (byte) ((2 + 1) % nombreDeJoueurs_);
+        byte jTwo_ = (byte) ((2 + 2) % nombreDeJoueurs_);
+        byte jThree_ = (byte) ((2 + 3) % nombreDeJoueurs_);
+
+        TrickTarot pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_KING);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_7);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_KING);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_4);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_16);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 2,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_16);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_18);
+        assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
+    }
+    @Test
+    public void getRamasseur4Test(){
+        byte nombreDeJoueurs_ = 4;
+        byte j_ = (byte) ((3 + 1) % nombreDeJoueurs_);
+        byte jTwo_ = (byte) ((3 + 2) % nombreDeJoueurs_);
+        byte jThree_ = (byte) ((3 + 3) % nombreDeJoueurs_);
+
+        TrickTarot pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_KING);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_7);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_KING);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
+        assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_4);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.HEART_KING);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.SPADE_7);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_16);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.EXCUSE);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_ = new TrickTarot((byte) 3,true);
+        pli_.getCartes().ajouter(CardTarot.TRUMP_10);
+        assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_16);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_14);
+        assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
+        pli_.getCartes().ajouter(CardTarot.TRUMP_18);
+        assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
+    }
+    @Test
+    public void joueursCoupes1(){
         byte nombreDeJoueurs_ = 4;
 
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
@@ -528,9 +1002,8 @@ public class TrickTarotTest {
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
     }
-
     @Test
-    public void joueursCoupes2Test() {
+    public void joueursCoupes2(){
         byte nombreDeJoueurs_ = 4;
 
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
@@ -622,9 +1095,8 @@ public class TrickTarotTest {
         assertTrue(joueurs_.containsObj(j_));
         assertTrue(joueurs_.containsObj(jTwo_));
     }
-
     @Test
-    public void joueursDefausses1Test() {
+    public void joueursDefausses1(){
         byte nombreDeJoueurs_ = 4;
 
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
@@ -668,9 +1140,8 @@ public class TrickTarotTest {
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
     }
-
     @Test
-    public void joueursDefausses2Test() {
+    public void joueursDefausses2(){
         byte nombreDeJoueurs_ = 4;
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;

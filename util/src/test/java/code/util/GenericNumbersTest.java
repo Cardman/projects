@@ -10,8 +10,6 @@ import junitparams.JUnitParamsRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.util.GenericNumbers;
-
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
 public class GenericNumbersTest {

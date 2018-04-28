@@ -1,600 +1,1696 @@
 package code.maths;
 import static code.maths.EquallableMathUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import code.util.CustList;
 import code.util.EqList;
 
-@RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
 public class RateTest {
-
     @Test
-    public void new_Rate_1Test() {
+    public void new_Rate_1(){
         Rate rate_ = Rate.zero();
         assertEq(new LgInt(0), rate_.getNumerator());
         assertEq(new LgInt(1), rate_.getDenominator());
         assertTrue(rate_.isZeroOrGt());
         assertTrue(rate_.isZero());
     }
-
-    Object[] inputsNewRateLong() {
-        return $($(1L,new LgInt(1L),new LgInt(1L),true,false),
-                        $(0L,new LgInt(0L),new LgInt(1L),true,true),
-                        $(-1L,new LgInt(-1L),new LgInt(1L),false,false),
-                        $(1234567890L,new LgInt(1234567890L),new LgInt(1L),true,false),
-                        $(-1234567890L,new LgInt(-1234567890L),new LgInt(1L),false,false));
-    }
-
     @Test
-    @Parameters(method="inputsNewRateLong")
-    public void new_Rate_long_1Test(long _input, LgInt _num, LgInt _den, boolean _isPositive, boolean _isZero) {
-        Rate rate_ = new Rate(_input);
-        assertEq(_num, rate_.getNumerator());
-        assertEq(_den, rate_.getDenominator());
-        assertEq(_isPositive,rate_.isZeroOrGt());
-        assertEq(_isZero,rate_.isZero());
+    public void new_Rate_long_1Test(){
+        Rate rate_ = new Rate(1L);
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
     }
-
-    Object[] inputsNewRateLgInt() {
-        return $($(new LgInt(1L),new LgInt(1L),new LgInt(1L),true,false),
-                        $(new LgInt(0L),new LgInt(0L),new LgInt(1L),true,true),
-                        $(new LgInt(-1L),new LgInt(-1L),new LgInt(1L),false,false),
-                        $(new LgInt(1234567890L),new LgInt(1234567890L),new LgInt(1L),true,false),
-                        $(new LgInt(-1234567890L),new LgInt(-1234567890L),new LgInt(1L),false,false));
-    }
-
     @Test
-    @Parameters(method="inputsNewRateLgInt")
-    public void new_Rate_LgInt_1Test(LgInt _input, LgInt _num, LgInt _den, boolean _isPositive, boolean _isZero) {
-        Rate rate_ = new Rate(_input);
-        assertEq(_num, rate_.getNumerator());
-        assertEq(_den, rate_.getDenominator());
-        assertEq(_isPositive,rate_.isZeroOrGt());
-        assertEq(_isZero,rate_.isZero());
+    public void new_Rate_long_2Test(){
+        Rate rate_ = new Rate(0L);
+        assertEq(new LgInt(0L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(true,rate_.isZero());
     }
-
-    Object[] inputsNewRateLgIntLgInt() {
-        return $($(new LgInt(1L), new LgInt(2L) ,new LgInt(1L),new LgInt(2L),true),
-                        $(new LgInt(-1L),new LgInt(2L),new LgInt(-1L),new LgInt(2L),false),
-                        $(new LgInt(1L),new LgInt(-2L),new LgInt(-1L),new LgInt(2L),false),
-                        $(new LgInt(-1L),new LgInt(-2L),new LgInt(1L),new LgInt(2L),true),
-                        $(new LgInt(2L), new LgInt(4L) ,new LgInt(1L),new LgInt(2L),true));
-    }
-
     @Test
-    @Parameters(method="inputsNewRateLgIntLgInt")
-    public void new_Rate_LgInt_LgInt_1Test(LgInt _inputNum, LgInt _inputDen, LgInt _num, LgInt _den, boolean _isPositive) {
-        Rate rate_ = new Rate(_inputNum, _inputDen);
-        assertEq(_num, rate_.getNumerator());
-        assertEq(_den, rate_.getDenominator());
-        assertEq(_isPositive,rate_.isZeroOrGt());
+    public void new_Rate_long_3Test(){
+        Rate rate_ = new Rate(-1L);
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
     }
-
-    Object[] inputsNewRatelonglong() {
-        return $($(1L, 2L ,new LgInt(1L),new LgInt(2L),true),
-                        $(-1L,2L,new LgInt(-1L),new LgInt(2L),false),
-                        $(1L,-2L,new LgInt(-1L),new LgInt(2L),false),
-                        $(-1L,-2L,new LgInt(1L),new LgInt(2L),true),
-                        $(2L,4L,new LgInt(1L),new LgInt(2L),true));
-    }
-
     @Test
-    @Parameters(method="inputsNewRatelonglong")
-    public void new_Rate_long_long_1Test(long _inputNum, long _inputDen, LgInt _num, LgInt _den, boolean _isPositive) {
-        Rate rate_ = new Rate(_inputNum, _inputDen);
-        assertEq(_num, rate_.getNumerator());
-        assertEq(_den, rate_.getDenominator());
-        assertEq(_isPositive,rate_.isZeroOrGt());
+    public void new_Rate_long_4Test(){
+        Rate rate_ = new Rate(1234567890L);
+        assertEq(new LgInt(1234567890L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
     }
-
-    Object[] inputsNewRateString() {
-        return $($("1" ,new LgInt(1L),new LgInt(1L),true,false),
-                        $("-1",new LgInt(-1L),new LgInt(1L),false,false),
-                        $("0",new LgInt(0L),new LgInt(1L),true,true),
-                        $("01",new LgInt(1L),new LgInt(1L),true,false),
-                        $("1234567890",new LgInt(1234567890L),new LgInt(1L),true,false),
-                        $("-1234567890",new LgInt(-1234567890L),new LgInt(1L),false,false),
-                        $("1/2",new LgInt(1L),new LgInt(2L),true,false),
-                        $("2/4",new LgInt(1L),new LgInt(2L),true,false),
-                        $("-1/2",new LgInt(-1L),new LgInt(2L),false,false),
-                        $("1/-2",new LgInt(-1L),new LgInt(2L),false,false),
-                        $("-1/-2",new LgInt(1L),new LgInt(2L),true,false),
-                        $(".1",new LgInt(1L),new LgInt(10L),true,false),
-                        $("-.1",new LgInt(-1L),new LgInt(10L),false,false),
-                        $("1.",new LgInt(1L),new LgInt(1L),true,false),
-                        $("1.2",new LgInt(6L),new LgInt(5L),true,false),
-                        $("-1.2",new LgInt(-6L),new LgInt(5L),false,false),
-                        $("-1.",new LgInt(-1L),new LgInt(1L),false,false));
-    }
-
     @Test
-    @Parameters(method="inputsNewRateString")
-    public void new_Rate_String_1Test(String _input, LgInt _num, LgInt _den, boolean _isPositive, boolean _isZero) {
-        Rate rate_ = new Rate(_input);
-        assertEq(_num, rate_.getNumerator());
-        assertEq(_den, rate_.getDenominator());
-        assertEq(_isPositive,rate_.isZeroOrGt());
-        assertEq(_isZero,rate_.isZero());
+    public void new_Rate_long_5Test(){
+        Rate rate_ = new Rate(-1234567890L);
+        assertEq(new LgInt(-1234567890L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
     }
-
     @Test
-    public void isValid1Test() {
+    public void new_Rate_LgInt_1Test(){
+        Rate rate_ = new Rate(new LgInt(1L));
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_LgInt_2Test(){
+        Rate rate_ = new Rate(new LgInt(0L));
+        assertEq(new LgInt(0L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(true,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_LgInt_3Test(){
+        Rate rate_ = new Rate(new LgInt(-1L));
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_LgInt_4Test(){
+        Rate rate_ = new Rate(new LgInt(1234567890L));
+        assertEq(new LgInt(1234567890L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_LgInt_5Test(){
+        Rate rate_ = new Rate(new LgInt(-1234567890L));
+        assertEq(new LgInt(-1234567890L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_LgInt_LgInt_1Test(){
+        Rate rate_ = new Rate(new LgInt(1L), new LgInt(2L));
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_LgInt_LgInt_2Test(){
+        Rate rate_ = new Rate(new LgInt(-1L), new LgInt(2L));
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_LgInt_LgInt_3Test(){
+        Rate rate_ = new Rate(new LgInt(1L), new LgInt(-2L));
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_LgInt_LgInt_4Test(){
+        Rate rate_ = new Rate(new LgInt(-1L), new LgInt(-2L));
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_LgInt_LgInt_5Test(){
+        Rate rate_ = new Rate(new LgInt(2L), new LgInt(4L));
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_long_long_1Test(){
+        Rate rate_ = new Rate(1L, 2L);
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_long_long_2Test(){
+        Rate rate_ = new Rate(-1L, 2L);
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_long_long_3Test(){
+        Rate rate_ = new Rate(1L, -2L);
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_long_long_4Test(){
+        Rate rate_ = new Rate(-1L, -2L);
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_long_long_5Test(){
+        Rate rate_ = new Rate(2L, 4L);
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+    }
+    @Test
+    public void new_Rate_String_1Test(){
+        Rate rate_ = new Rate("1");
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_2Test(){
+        Rate rate_ = new Rate("-1");
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_3Test(){
+        Rate rate_ = new Rate("0");
+        assertEq(new LgInt(0L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(true,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_4Test(){
+        Rate rate_ = new Rate("01");
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_5Test(){
+        Rate rate_ = new Rate("1234567890");
+        assertEq(new LgInt(1234567890L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_6Test(){
+        Rate rate_ = new Rate("-1234567890");
+        assertEq(new LgInt(-1234567890L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_7Test(){
+        Rate rate_ = new Rate("1/2");
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_8Test(){
+        Rate rate_ = new Rate("2/4");
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_9Test(){
+        Rate rate_ = new Rate("-1/2");
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_10Test(){
+        Rate rate_ = new Rate("1/-2");
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_11Test(){
+        Rate rate_ = new Rate("-1/-2");
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(2L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_12Test(){
+        Rate rate_ = new Rate(".1");
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(10L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_13Test(){
+        Rate rate_ = new Rate("-.1");
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(10L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_14Test(){
+        Rate rate_ = new Rate("1.");
+        assertEq(new LgInt(1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_15Test(){
+        Rate rate_ = new Rate("1.2");
+        assertEq(new LgInt(6L), rate_.getNumerator());
+        assertEq(new LgInt(5L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_16Test(){
+        Rate rate_ = new Rate("-1.2");
+        assertEq(new LgInt(-6L), rate_.getNumerator());
+        assertEq(new LgInt(5L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_String_17Test(){
+        Rate rate_ = new Rate("-1.");
+        assertEq(new LgInt(-1L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(false,rate_.isZeroOrGt());
+        assertEq(false,rate_.isZero());
+    }
+    @Test
+    public void isValid1(){
         assertTrue(Rate.isValid("1"));
     }
-
     @Test
-    public void isValid2Test() {
+    public void isValid2(){
         assertTrue(Rate.isValid("1/2"));
     }
-
     @Test
-    public void isValid3Test() {
+    public void isValid3(){
         assertTrue(Rate.isValid("1.2"));
     }
-
     @Test
-    public void isValid4Test() {
+    public void isValid4(){
         assertTrue(!Rate.isValid("1/0"));
     }
-
     @Test
-    public void isValid5Test() {
+    public void isValid5(){
         assertTrue(!Rate.isValid(""));
     }
-
     @Test
-    public void isValid6Test() {
+    public void isValid6(){
         assertTrue(!Rate.isValid(null));
     }
-
-    Object[] inputsToString() {
-        return $($("1","1"),
-                $("-1","-1"),
-                $("-0","0"),
-                $("0","0"),
-                $("1234567890","1234567890"),
-                $("-1234567890","-1234567890"),
-                $("12345678901234567890","12345678901234567890"),
-                $("-12345678901234567890","-12345678901234567890"),
-                $("1/2","1/2"),
-                $("-1/2","-1/2"),
-                $("2/4","1/2"),
-                $("-2/4","-1/2"));
-    }
-
     @Test
-    @Parameters(method="inputsToString")
-    public void toString1Test(String _input, String _expected) {
-        Rate rate_ = new Rate(_input);
+    public void toString1Test(){
+        Rate rate_ = new Rate("1");
         String str_ = rate_.toNumberString();
-        assertEq(_expected, str_);
+        assertEq("1", str_);
     }
-
-    Object[] inputsEquals() {
-        return $($("1","1",true),
-                $("-1","1",false),
-                $("1","-1",false),
-                $("-1","-1",true),
-                $("1/2","1/4",false),
-                $("1/4","1/2",false),
-                $("1/2","1/2",true),
-                $("1/2","3/2",false),
-                $("3/2","1/2",false));
-    }
-
     @Test
-    @Parameters(method="inputsEquals")
-    public void eq1Test(String _one, String _two, boolean _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(_expected, rateOne_.eq(rateTwo_));
+    public void toString2Test(){
+        Rate rate_ = new Rate("-1");
+        String str_ = rate_.toNumberString();
+        assertEq("-1", str_);
     }
-
-    Object[] inputsDifferent() {
-        return $($("1","1",false),
-                $("-1","1",true),
-                $("1","-1",true),
-                $("-1","-1",false),
-                $("1/2","1/4",true),
-                $("1/4","1/2",true),
-                $("1/2","1/2",false),
-                $("1/2","3/2",true),
-                $("3/2","1/2",true));
-    }
-
     @Test
-    @Parameters(method="inputsDifferent")
-    public void different1Test(String _one, String _two, boolean _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(_expected, Rate.different(rateOne_, rateTwo_));
+    public void toString3Test(){
+        Rate rate_ = new Rate("-0");
+        String str_ = rate_.toNumberString();
+        assertEq("0", str_);
     }
-
-    Object[] inputsIsInteger() {
-        return $($("1",true),
-                $("-1",true),
-                $("0",true),
-                $("-1/2",false),
-                $("1/2",false));
-    }
-
     @Test
-    @Parameters(method="inputsIsInteger")
-    public void isInteger1Test(String _input, boolean _expected) {
-        assertEq(_expected, new Rate(_input).isInteger());
+    public void toString4Test(){
+        Rate rate_ = new Rate("0");
+        String str_ = rate_.toNumberString();
+        assertEq("0", str_);
     }
-
-    Object[] inputsChangeSignum() {
-        return $($("1","-1"),
-                $("-1","1"),
-                $("0","0"),
-                $("-1/2","1/2"),
-                $("1/2","-1/2"));
-    }
-
     @Test
-    @Parameters(method="inputsChangeSignum")
-    public void changeSignum1Test(String _input, String _expected) {
-        Rate rate_ = new Rate(_input);
+    public void toString5Test(){
+        Rate rate_ = new Rate("1234567890");
+        String str_ = rate_.toNumberString();
+        assertEq("1234567890", str_);
+    }
+    @Test
+    public void toString6Test(){
+        Rate rate_ = new Rate("-1234567890");
+        String str_ = rate_.toNumberString();
+        assertEq("-1234567890", str_);
+    }
+    @Test
+    public void toString7Test(){
+        Rate rate_ = new Rate("12345678901234567890");
+        String str_ = rate_.toNumberString();
+        assertEq("12345678901234567890", str_);
+    }
+    @Test
+    public void toString8Test(){
+        Rate rate_ = new Rate("-12345678901234567890");
+        String str_ = rate_.toNumberString();
+        assertEq("-12345678901234567890", str_);
+    }
+    @Test
+    public void toString9Test(){
+        Rate rate_ = new Rate("1/2");
+        String str_ = rate_.toNumberString();
+        assertEq("1/2", str_);
+    }
+    @Test
+    public void toString10Test(){
+        Rate rate_ = new Rate("-1/2");
+        String str_ = rate_.toNumberString();
+        assertEq("-1/2", str_);
+    }
+    @Test
+    public void toString11Test(){
+        Rate rate_ = new Rate("2/4");
+        String str_ = rate_.toNumberString();
+        assertEq("1/2", str_);
+    }
+    @Test
+    public void toString12Test(){
+        Rate rate_ = new Rate("-2/4");
+        String str_ = rate_.toNumberString();
+        assertEq("-1/2", str_);
+    }
+    @Test
+    public void eq1Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(true, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void eq2Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(false, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void eq3Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(false, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void eq4Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(true, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void eq5Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("1/4");
+        assertEq(false, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void eq6Test(){
+        Rate rateOne_ = new Rate("1/4");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(false, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void eq7Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(true, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void eq8Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("3/2");
+        assertEq(false, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void eq9Test(){
+        Rate rateOne_ = new Rate("3/2");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(false, rateOne_.eq(rateTwo_));
+    }
+    @Test
+    public void different1Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(false, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void different2Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(true, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void different3Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(true, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void different4Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(false, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void different5Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("1/4");
+        assertEq(true, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void different6Test(){
+        Rate rateOne_ = new Rate("1/4");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(true, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void different7Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(false, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void different8Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("3/2");
+        assertEq(true, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void different9Test(){
+        Rate rateOne_ = new Rate("3/2");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(true, Rate.different(rateOne_, rateTwo_));
+    }
+    @Test
+    public void isInteger1Test(){
+        assertEq(true, new Rate("1").isInteger());
+    }
+    @Test
+    public void isInteger2Test(){
+        assertEq(true, new Rate("-1").isInteger());
+    }
+    @Test
+    public void isInteger3Test(){
+        assertEq(true, new Rate("0").isInteger());
+    }
+    @Test
+    public void isInteger4Test(){
+        assertEq(false, new Rate("-1/2").isInteger());
+    }
+    @Test
+    public void isInteger5Test(){
+        assertEq(false, new Rate("1/2").isInteger());
+    }
+    @Test
+    public void changeSignum1Test(){
+        Rate rate_ = new Rate("1");
         rate_.changeSignum();
-        assertEq(new Rate(_expected),rate_);
+        assertEq(new Rate("-1"),rate_);
     }
-
-    Object[] inputsLl() {
-        return $($("1",1L),
-                $("-1",-1L),
-                $("0",0L),
-                $("-1/2",-1L),
-                $("1/2",0L),
-                $("-1234567890",-234567890L),
-                $("1234567890",234567890L),
-                $("-12345678901234567890",-234567890L),
-                $("12345678901234567890",234567890L),
-                $("-3/2",-2L),
-                $("3/2",1L));
-    }
-
     @Test
-    @Parameters(method="inputsLl")
-    public void ll1Test(String _input, long _expected) {
-        Rate rate_ = new Rate(_input);
-        assertEq(_expected,rate_.ll());
+    public void changeSignum2Test(){
+        Rate rate_ = new Rate("-1");
+        rate_.changeSignum();
+        assertEq(new Rate("1"),rate_);
     }
-
-    Object[] inputsEnt() {
-        return $($("1","1"),
-                $("-1","-1"),
-                $("0","0"),
-                $("-1/2","0"),
-                $("1/2","0"),
-                $("-1234567890","-1234567890"),
-                $("1234567890","1234567890"),
-                $("-12345678901234567890","-12345678901234567890"),
-                $("12345678901234567890","12345678901234567890"),
-                $("-3/2","-1"),
-                $("3/2","1"));
-    }
-
     @Test
-    @Parameters(method="inputsEnt")
-    public void toLgInt1Test(String _input, String _expected) {
-        Rate rate_ = new Rate(_input);
-        assertEq(new LgInt(_expected),rate_.toLgInt());
+    public void changeSignum3Test(){
+        Rate rate_ = new Rate("0");
+        rate_.changeSignum();
+        assertEq(new Rate("0"),rate_);
     }
-
-    Object[] inputsStrPlusPetit() {
-        return $($("0","1",true),
-                $("1","0",false),
-                $("0","0",false),
-                $("1","1",false),
-                $("-1","0",true),
-                $("0","-1",false),
-                $("-1","-1",false),
-                $("3","1234567890",true),
-                $("-3","1234567890",true),
-                $("-1234567890","3",true),
-                $("-1234567890","-3",true),
-                $("1234567890","3",false),
-                $("1234567890","-3",false),
-                $("3","-1234567890",false),
-                $("-3","-1234567890",false),
-                $("2/3","1/2",false),
-                $("1/2","2/3",true),
-                $("-1/2","-2/3",false),
-                $("-2/3","-1/2",true));
-    }
-
     @Test
-    @Parameters(method="inputsStrPlusPetit")
-    public void strLower1Test(String _one, String _two, boolean _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(_expected, Rate.strLower(rateOne_, rateTwo_));
+    public void changeSignum4Test(){
+        Rate rate_ = new Rate("-1/2");
+        rate_.changeSignum();
+        assertEq(new Rate("1/2"),rate_);
     }
-
-    Object[] inputsStrPlusGrand() {
-        return $($("0","1",false),
-                $("1","0",true),
-                $("0","0",false),
-                $("1","1",false),
-                $("-1","0",false),
-                $("0","-1",true),
-                $("-1","-1",false),
-                $("3","1234567890",false),
-                $("-3","1234567890",false),
-                $("-1234567890","3",false),
-                $("-1234567890","-3",false),
-                $("1234567890","3",true),
-                $("1234567890","-3",true),
-                $("3","-1234567890",true),
-                $("-3","-1234567890",true),
-                $("2/3","1/2",true),
-                $("1/2","2/3",false),
-                $("-1/2","-2/3",true),
-                $("-2/3","-1/2",false));
-    }
-
     @Test
-    @Parameters(method="inputsStrPlusGrand")
-    public void strGreater1Test(String _one, String _two, boolean _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(_expected, Rate.strGreater(rateOne_, rateTwo_));
+    public void changeSignum5Test(){
+        Rate rate_ = new Rate("1/2");
+        rate_.changeSignum();
+        assertEq(new Rate("-1/2"),rate_);
     }
-
-    Object[] inputsInfEg() {
-        return $($("0","1",true),
-                $("1","0",false),
-                $("0","0",true),
-                $("1","1",true),
-                $("-1","0",true),
-                $("0","-1",false),
-                $("-1","-1",true),
-                $("3","1234567890",true),
-                $("-3","1234567890",true),
-                $("-1234567890","3",true),
-                $("-1234567890","-3",true),
-                $("1234567890","3",false),
-                $("1234567890","-3",false),
-                $("3","-1234567890",false),
-                $("-3","-1234567890",false),
-                $("2/3","1/2",false),
-                $("1/2","2/3",true),
-                $("-1/2","-2/3",false),
-                $("-2/3","-1/2",true));
-    }
-
     @Test
-    @Parameters(method="inputsInfEg")
-    public void lowerEq1Test(String _one, String _two, boolean _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(_expected, Rate.lowerEq(rateOne_, rateTwo_));
+    public void ll1Test(){
+        Rate rate_ = new Rate("1");
+        assertEq(1L,rate_.ll());
     }
-
-    Object[] inputsSupEg() {
-        return $($("0","1",false),
-                $("1","0",true),
-                $("0","0",true),
-                $("1","1",true),
-                $("-1","0",false),
-                $("0","-1",true),
-                $("-1","-1",true),
-                $("3","1234567890",false),
-                $("-3","1234567890",false),
-                $("-1234567890","3",false),
-                $("-1234567890","-3",false),
-                $("1234567890","3",true),
-                $("1234567890","-3",true),
-                $("3","-1234567890",true),
-                $("-3","-1234567890",true),
-                $("2/3","1/2",true),
-                $("1/2","2/3",false),
-                $("-1/2","-2/3",true),
-                $("-2/3","-1/2",false));
-    }
-
     @Test
-    @Parameters(method="inputsSupEg")
-    public void greaterEq1Test(String _one, String _two, boolean _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(_expected, Rate.greaterEq(rateOne_, rateTwo_));
+    public void ll2Test(){
+        Rate rate_ = new Rate("-1");
+        assertEq(-1L,rate_.ll());
     }
-
-    Object[] inputsPlus() {
-        return $($("0","20","20"),
-                $("1","20","21"),
-                $("-1","20","19"),
-                $("1","-20","-19"),
-                $("-1","-20","-21"),
-                $("1234567890","11234567890","12469135780"),
-                $("12345678901234567890","11234567890","12345678912469135780"),
-                $("1/6","3/4","11/12"),
-                $("1/2","2/3","7/6"),
-                $("-1/2","2/3","1/6"),
-                $("1/2","-2/3","-1/6"),
-                $("-1/2","-2/3","-7/6"));
-    }
-
     @Test
-    @Parameters(method="inputsPlus")
-    public void plus1Test(String _one, String _two, String _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(new Rate(_expected), Rate.plus(rateOne_, rateTwo_));
+    public void ll3Test(){
+        Rate rate_ = new Rate("0");
+        assertEq(0L,rate_.ll());
     }
-
-    Object[] inputsOppose() {
-        return $($("1","-1"),
-                $("-1","1"),
-                $("0","0"),
-                $("-1/2","1/2"),
-                $("1/2","-1/2"),
-                $("-1234567890","1234567890"),
-                $("1234567890","-1234567890"),
-                $("-12345678901234567890","12345678901234567890"),
-                $("12345678901234567890","-12345678901234567890"),
-                $("-3/2","3/2"),
-                $("3/2","-3/2"));
-    }
-
     @Test
-    @Parameters(method="inputsOppose")
-    public void opposNb1Test(String _input, String _expected) {
-        Rate rate_ = new Rate(_input);
-        assertEq(new Rate(_expected), rate_.opposNb());
+    public void ll4Test(){
+        Rate rate_ = new Rate("-1/2");
+        assertEq(-1L,rate_.ll());
     }
-
-    Object[] inputsAbsNb() {
-        return $($("1","1"),
-                $("-1","1"),
-                $("0","0"),
-                $("-1/2","1/2"),
-                $("1/2","1/2"),
-                $("-1234567890","1234567890"),
-                $("1234567890","1234567890"),
-                $("-12345678901234567890","12345678901234567890"),
-                $("12345678901234567890","12345678901234567890"),
-                $("-3/2","3/2"),
-                $("3/2","3/2"));
-    }
-
     @Test
-    @Parameters(method="inputsAbsNb")
-    public void absNb1Test(String _input, String _expected) {
-        Rate rate_ = new Rate(_input);
-        assertEq(new Rate(_expected), rate_.absNb());
+    public void ll5Test(){
+        Rate rate_ = new Rate("1/2");
+        assertEq(0L,rate_.ll());
     }
-
-    Object[] inputsMoins() {
-        return $($("0","20","-20"),
-                $("1","20","-19"),
-                $("-1","20","-21"),
-                $("1","-20","21"),
-                $("-1","-20","19"),
-                $("1234567890","11234567890","-10000000000"),
-                $("12345678901234567890","11234567890","12345678890000000000"),
-                $("1/6","3/4","-7/12"),
-                $("1/2","2/3","-1/6"),
-                $("-1/2","2/3","-7/6"),
-                $("1/2","-2/3","7/6"),
-                $("-1/2","-2/3","1/6"));
-    }
-
     @Test
-    @Parameters(method="inputsMoins")
-    public void minus1Test(String _one, String _two, String _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(new Rate(_expected), Rate.minus(rateOne_, rateTwo_));
+    public void ll6Test(){
+        Rate rate_ = new Rate("-1234567890");
+        assertEq(-234567890L,rate_.ll());
     }
-
-    Object[] inputsFois() {
-        return $($("0","20","0"),
-                $("1","20","20"),
-                $("-1","20","-20"),
-                $("1","-20","-20"),
-                $("-1","-20","20"),
-                $("1234567890","11234567890","13869836775019052100"),
-                $("1/6","3/4","1/8"),
-                $("1/2","2/3","1/3"),
-                $("-1/2","2/3","-1/3"),
-                $("1/2","-2/3","-1/3"),
-                $("-1/2","-2/3","1/3"));
-    }
-
     @Test
-    @Parameters(method="inputsFois")
-    public void multiply1Test(String _one, String _two, String _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(new Rate(_expected), Rate.multiply(rateOne_, rateTwo_));
+    public void ll7Test(){
+        Rate rate_ = new Rate("1234567890");
+        assertEq(234567890L,rate_.ll());
     }
-
-    Object[] inputsDivision() {
-        return $($("0","20","0"),
-                $("1","20","1/20"),
-                $("-1","20","-1/20"),
-                $("1","-20","-1/20"),
-                $("-1","-20","1/20"),
-                $("1234567890","11234567890","123456789/1123456789"),
-                $("11234567890","1234567890","1123456789/123456789"),
-                $("12345678901234567890","11234567890","1234567890123456789/1123456789"),
-                $("11234567890","12345678901234567890","1123456789/1234567890123456789"),
-                $("1/6","3/4","2/9"),
-                $("1/2","2/3","3/4"),
-                $("-1/2","2/3","-3/4"),
-                $("1/2","-2/3","-3/4"),
-                $("-1/2","-2/3","3/4"));
-    }
-
     @Test
-    @Parameters(method="inputsDivision")
-    public void divide1Test(String _one, String _two, String _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(new Rate(_expected), Rate.divide(rateOne_, rateTwo_));
+    public void ll8Test(){
+        Rate rate_ = new Rate("-12345678901234567890");
+        assertEq(-234567890L,rate_.ll());
     }
-
-    Object[] inputsInv() {
-        return $($("1","1"),
-                $("-1","-1"),
-                $("-1/2","-2"),
-                $("1/2","2"),
-                $("2","1/2"),
-                $("-2","-1/2"));
-    }
-
     @Test
-    @Parameters(method="inputsInv")
-    public void inv1Test(String _input, String _expected) {
-        Rate rate_ = new Rate(_input);
-        assertEq(new Rate(_expected), rate_.inv());
+    public void ll9Test(){
+        Rate rate_ = new Rate("12345678901234567890");
+        assertEq(234567890L,rate_.ll());
     }
-
-    Object[] inputsPuissance() {
-        return $($("0", "0", "1"),
-                $("0", "20", "0"),
-                $("0", "1/2", "0"),
-                $("1", "20", "1"),
-                $("-1", "20", "1"),
-                $("-1", "19", "-1"),
-                $("2", "3", "8"),
-                $("3", "2", "9"),
-                $("1234567890", "0", "1"),
-                $("5", "-1", "1/5"),
-                $("-5", "-1", "-1/5"),
-                $("4", "1/2", "2"),
-                $("5", "1/2", "2"),
-                $("4", "-1/2", "1/2"),
-                $("4/9", "1/2", "2/3"),
-                $("27", "-2/3", "1/9"),
-                $("27", "2/3", "9"),
-                $("32", "-1/5", "1/2"),
-                $("32", "1/5", "2"),
-                $("-32", "1/5", "-2"),
-                $("-32", "2/5", "4"),
-                $("-16", "1/4", "2"));
-    }
-
     @Test
-    @Parameters(method="inputsPuissance")
-    public void powNb1Test(String _one, String _two, String _expected) {
-        Rate rateOne_ = new Rate(_one);
-        Rate rateTwo_ = new Rate(_two);
-        assertEq(new Rate(_expected), Rate.powNb(rateOne_, rateTwo_));
+    public void ll10Test(){
+        Rate rate_ = new Rate("-3/2");
+        assertEq(-2L,rate_.ll());
     }
-
     @Test
-    public void proba1Test(){
+    public void ll11Test(){
+        Rate rate_ = new Rate("3/2");
+        assertEq(1L,rate_.ll());
+    }
+    @Test
+    public void toLgInt1Test(){
+        Rate rate_ = new Rate("1");
+        assertEq(new LgInt("1"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt2Test(){
+        Rate rate_ = new Rate("-1");
+        assertEq(new LgInt("-1"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt3Test(){
+        Rate rate_ = new Rate("0");
+        assertEq(new LgInt("0"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt4Test(){
+        Rate rate_ = new Rate("-1/2");
+        assertEq(new LgInt("0"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt5Test(){
+        Rate rate_ = new Rate("1/2");
+        assertEq(new LgInt("0"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt6Test(){
+        Rate rate_ = new Rate("-1234567890");
+        assertEq(new LgInt("-1234567890"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt7Test(){
+        Rate rate_ = new Rate("1234567890");
+        assertEq(new LgInt("1234567890"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt8Test(){
+        Rate rate_ = new Rate("-12345678901234567890");
+        assertEq(new LgInt("-12345678901234567890"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt9Test(){
+        Rate rate_ = new Rate("12345678901234567890");
+        assertEq(new LgInt("12345678901234567890"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt10Test(){
+        Rate rate_ = new Rate("-3/2");
+        assertEq(new LgInt("-1"),rate_.toLgInt());
+    }
+    @Test
+    public void toLgInt11Test(){
+        Rate rate_ = new Rate("3/2");
+        assertEq(new LgInt("1"),rate_.toLgInt());
+    }
+    @Test
+    public void strLower1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(true, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower2Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower3Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(true, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower6Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower7Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower8Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(true, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower9Test(){
+        Rate rateOne_ = new Rate("-3");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(true, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower10Test(){
+        Rate rateOne_ = new Rate("-1234567890");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(true, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower11Test(){
+        Rate rateOne_ = new Rate("-1234567890");
+        Rate rateTwo_ = new Rate("-3");
+        assertEq(true, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower12Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower13Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("-3");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower14Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("-1234567890");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower15Test(){
+        Rate rateOne_ = new Rate("-3");
+        Rate rateTwo_ = new Rate("-1234567890");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower16Test(){
+        Rate rateOne_ = new Rate("2/3");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower17Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(true, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower18Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(false, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strLower19Test(){
+        Rate rateOne_ = new Rate("-2/3");
+        Rate rateTwo_ = new Rate("-1/2");
+        assertEq(true, Rate.strLower(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater2Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(true, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater3Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater6Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(true, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater7Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater8Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater9Test(){
+        Rate rateOne_ = new Rate("-3");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater10Test(){
+        Rate rateOne_ = new Rate("-1234567890");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater11Test(){
+        Rate rateOne_ = new Rate("-1234567890");
+        Rate rateTwo_ = new Rate("-3");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater12Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(true, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater13Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("-3");
+        assertEq(true, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater14Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("-1234567890");
+        assertEq(true, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater15Test(){
+        Rate rateOne_ = new Rate("-3");
+        Rate rateTwo_ = new Rate("-1234567890");
+        assertEq(true, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater16Test(){
+        Rate rateOne_ = new Rate("2/3");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(true, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater17Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater18Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(true, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void strGreater19Test(){
+        Rate rateOne_ = new Rate("-2/3");
+        Rate rateTwo_ = new Rate("-1/2");
+        assertEq(false, Rate.strGreater(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq2Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(false, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq3Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq6Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(false, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq7Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq8Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq9Test(){
+        Rate rateOne_ = new Rate("-3");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq10Test(){
+        Rate rateOne_ = new Rate("-1234567890");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq11Test(){
+        Rate rateOne_ = new Rate("-1234567890");
+        Rate rateTwo_ = new Rate("-3");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq12Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(false, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq13Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("-3");
+        assertEq(false, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq14Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("-1234567890");
+        assertEq(false, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq15Test(){
+        Rate rateOne_ = new Rate("-3");
+        Rate rateTwo_ = new Rate("-1234567890");
+        assertEq(false, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq16Test(){
+        Rate rateOne_ = new Rate("2/3");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(false, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq17Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq18Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(false, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void lowerEq19Test(){
+        Rate rateOne_ = new Rate("-2/3");
+        Rate rateTwo_ = new Rate("-1/2");
+        assertEq(true, Rate.lowerEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(false, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq2Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq3Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("1");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(false, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq6Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq7Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq8Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(false, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq9Test(){
+        Rate rateOne_ = new Rate("-3");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(false, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq10Test(){
+        Rate rateOne_ = new Rate("-1234567890");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(false, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq11Test(){
+        Rate rateOne_ = new Rate("-1234567890");
+        Rate rateTwo_ = new Rate("-3");
+        assertEq(false, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq12Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq13Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("-3");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq14Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("-1234567890");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq15Test(){
+        Rate rateOne_ = new Rate("-3");
+        Rate rateTwo_ = new Rate("-1234567890");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq16Test(){
+        Rate rateOne_ = new Rate("2/3");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq17Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(false, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq18Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(true, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void greaterEq19Test(){
+        Rate rateOne_ = new Rate("-2/3");
+        Rate rateTwo_ = new Rate("-1/2");
+        assertEq(false, Rate.greaterEq(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("20"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus2Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("21"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus3Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("19"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("-20");
+        assertEq(new Rate("-19"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-20");
+        assertEq(new Rate("-21"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus6Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("11234567890");
+        assertEq(new Rate("12469135780"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus7Test(){
+        Rate rateOne_ = new Rate("12345678901234567890");
+        Rate rateTwo_ = new Rate("11234567890");
+        assertEq(new Rate("12345678912469135780"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus8Test(){
+        Rate rateOne_ = new Rate("1/6");
+        Rate rateTwo_ = new Rate("3/4");
+        assertEq(new Rate("11/12"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus9Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("7/6"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus10Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("1/6"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus11Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("-1/6"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void plus12Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("-7/6"), Rate.plus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void opposNb1Test(){
+        Rate rate_ = new Rate("1");
+        assertEq(new Rate("-1"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb2Test(){
+        Rate rate_ = new Rate("-1");
+        assertEq(new Rate("1"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb3Test(){
+        Rate rate_ = new Rate("0");
+        assertEq(new Rate("0"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb4Test(){
+        Rate rate_ = new Rate("-1/2");
+        assertEq(new Rate("1/2"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb5Test(){
+        Rate rate_ = new Rate("1/2");
+        assertEq(new Rate("-1/2"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb6Test(){
+        Rate rate_ = new Rate("-1234567890");
+        assertEq(new Rate("1234567890"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb7Test(){
+        Rate rate_ = new Rate("1234567890");
+        assertEq(new Rate("-1234567890"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb8Test(){
+        Rate rate_ = new Rate("-12345678901234567890");
+        assertEq(new Rate("12345678901234567890"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb9Test(){
+        Rate rate_ = new Rate("12345678901234567890");
+        assertEq(new Rate("-12345678901234567890"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb10Test(){
+        Rate rate_ = new Rate("-3/2");
+        assertEq(new Rate("3/2"), rate_.opposNb());
+    }
+    @Test
+    public void opposNb11Test(){
+        Rate rate_ = new Rate("3/2");
+        assertEq(new Rate("-3/2"), rate_.opposNb());
+    }
+    @Test
+    public void absNb1Test(){
+        Rate rate_ = new Rate("1");
+        assertEq(new Rate("1"), rate_.absNb());
+    }
+    @Test
+    public void absNb2Test(){
+        Rate rate_ = new Rate("-1");
+        assertEq(new Rate("1"), rate_.absNb());
+    }
+    @Test
+    public void absNb3Test(){
+        Rate rate_ = new Rate("0");
+        assertEq(new Rate("0"), rate_.absNb());
+    }
+    @Test
+    public void absNb4Test(){
+        Rate rate_ = new Rate("-1/2");
+        assertEq(new Rate("1/2"), rate_.absNb());
+    }
+    @Test
+    public void absNb5Test(){
+        Rate rate_ = new Rate("1/2");
+        assertEq(new Rate("1/2"), rate_.absNb());
+    }
+    @Test
+    public void absNb6Test(){
+        Rate rate_ = new Rate("-1234567890");
+        assertEq(new Rate("1234567890"), rate_.absNb());
+    }
+    @Test
+    public void absNb7Test(){
+        Rate rate_ = new Rate("1234567890");
+        assertEq(new Rate("1234567890"), rate_.absNb());
+    }
+    @Test
+    public void absNb8Test(){
+        Rate rate_ = new Rate("-12345678901234567890");
+        assertEq(new Rate("12345678901234567890"), rate_.absNb());
+    }
+    @Test
+    public void absNb9Test(){
+        Rate rate_ = new Rate("12345678901234567890");
+        assertEq(new Rate("12345678901234567890"), rate_.absNb());
+    }
+    @Test
+    public void absNb10Test(){
+        Rate rate_ = new Rate("-3/2");
+        assertEq(new Rate("3/2"), rate_.absNb());
+    }
+    @Test
+    public void absNb11Test(){
+        Rate rate_ = new Rate("3/2");
+        assertEq(new Rate("3/2"), rate_.absNb());
+    }
+    @Test
+    public void minus1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("-20"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus2Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("-19"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus3Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("-21"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("-20");
+        assertEq(new Rate("21"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-20");
+        assertEq(new Rate("19"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus6Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("11234567890");
+        assertEq(new Rate("-10000000000"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus7Test(){
+        Rate rateOne_ = new Rate("12345678901234567890");
+        Rate rateTwo_ = new Rate("11234567890");
+        assertEq(new Rate("12345678890000000000"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus8Test(){
+        Rate rateOne_ = new Rate("1/6");
+        Rate rateTwo_ = new Rate("3/4");
+        assertEq(new Rate("-7/12"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus9Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("-1/6"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus10Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("-7/6"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus11Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("7/6"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void minus12Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("1/6"), Rate.minus(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("0"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply2Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("20"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply3Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("-20"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("-20");
+        assertEq(new Rate("-20"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-20");
+        assertEq(new Rate("20"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply6Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("11234567890");
+        assertEq(new Rate("13869836775019052100"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply7Test(){
+        Rate rateOne_ = new Rate("1/6");
+        Rate rateTwo_ = new Rate("3/4");
+        assertEq(new Rate("1/8"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply8Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("1/3"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply9Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("-1/3"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply10Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("-1/3"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void multiply11Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("1/3"), Rate.multiply(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("0"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide2Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("1/20"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide3Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("-1/20"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("-20");
+        assertEq(new Rate("-1/20"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("-20");
+        assertEq(new Rate("1/20"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide6Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("11234567890");
+        assertEq(new Rate("123456789/1123456789"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide7Test(){
+        Rate rateOne_ = new Rate("11234567890");
+        Rate rateTwo_ = new Rate("1234567890");
+        assertEq(new Rate("1123456789/123456789"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide8Test(){
+        Rate rateOne_ = new Rate("12345678901234567890");
+        Rate rateTwo_ = new Rate("11234567890");
+        assertEq(new Rate("1234567890123456789/1123456789"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide9Test(){
+        Rate rateOne_ = new Rate("11234567890");
+        Rate rateTwo_ = new Rate("12345678901234567890");
+        assertEq(new Rate("1123456789/1234567890123456789"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide10Test(){
+        Rate rateOne_ = new Rate("1/6");
+        Rate rateTwo_ = new Rate("3/4");
+        assertEq(new Rate("2/9"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide11Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("3/4"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide12Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("-3/4"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide13Test(){
+        Rate rateOne_ = new Rate("1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("-3/4"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void divide14Test(){
+        Rate rateOne_ = new Rate("-1/2");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("3/4"), Rate.divide(rateOne_, rateTwo_));
+    }
+    @Test
+    public void inv1Test(){
+        Rate rate_ = new Rate("1");
+        assertEq(new Rate("1"), rate_.inv());
+    }
+    @Test
+    public void inv2Test(){
+        Rate rate_ = new Rate("-1");
+        assertEq(new Rate("-1"), rate_.inv());
+    }
+    @Test
+    public void inv3Test(){
+        Rate rate_ = new Rate("-1/2");
+        assertEq(new Rate("-2"), rate_.inv());
+    }
+    @Test
+    public void inv4Test(){
+        Rate rate_ = new Rate("1/2");
+        assertEq(new Rate("2"), rate_.inv());
+    }
+    @Test
+    public void inv5Test(){
+        Rate rate_ = new Rate("2");
+        assertEq(new Rate("1/2"), rate_.inv());
+    }
+    @Test
+    public void inv6Test(){
+        Rate rate_ = new Rate("-2");
+        assertEq(new Rate("-1/2"), rate_.inv());
+    }
+    @Test
+    public void powNb1Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(new Rate("1"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb2Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("0"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb3Test(){
+        Rate rateOne_ = new Rate("0");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(new Rate("0"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb4Test(){
+        Rate rateOne_ = new Rate("1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("1"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb5Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("20");
+        assertEq(new Rate("1"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb6Test(){
+        Rate rateOne_ = new Rate("-1");
+        Rate rateTwo_ = new Rate("19");
+        assertEq(new Rate("-1"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb7Test(){
+        Rate rateOne_ = new Rate("2");
+        Rate rateTwo_ = new Rate("3");
+        assertEq(new Rate("8"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb8Test(){
+        Rate rateOne_ = new Rate("3");
+        Rate rateTwo_ = new Rate("2");
+        assertEq(new Rate("9"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb9Test(){
+        Rate rateOne_ = new Rate("1234567890");
+        Rate rateTwo_ = new Rate("0");
+        assertEq(new Rate("1"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb10Test(){
+        Rate rateOne_ = new Rate("5");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(new Rate("1/5"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb11Test(){
+        Rate rateOne_ = new Rate("-5");
+        Rate rateTwo_ = new Rate("-1");
+        assertEq(new Rate("-1/5"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb12Test(){
+        Rate rateOne_ = new Rate("4");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(new Rate("2"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb13Test(){
+        Rate rateOne_ = new Rate("5");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(new Rate("2"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb14Test(){
+        Rate rateOne_ = new Rate("4");
+        Rate rateTwo_ = new Rate("-1/2");
+        assertEq(new Rate("1/2"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb15Test(){
+        Rate rateOne_ = new Rate("4/9");
+        Rate rateTwo_ = new Rate("1/2");
+        assertEq(new Rate("2/3"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb16Test(){
+        Rate rateOne_ = new Rate("27");
+        Rate rateTwo_ = new Rate("-2/3");
+        assertEq(new Rate("1/9"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb17Test(){
+        Rate rateOne_ = new Rate("27");
+        Rate rateTwo_ = new Rate("2/3");
+        assertEq(new Rate("9"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb18Test(){
+        Rate rateOne_ = new Rate("32");
+        Rate rateTwo_ = new Rate("-1/5");
+        assertEq(new Rate("1/2"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb19Test(){
+        Rate rateOne_ = new Rate("32");
+        Rate rateTwo_ = new Rate("1/5");
+        assertEq(new Rate("2"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb20Test(){
+        Rate rateOne_ = new Rate("-32");
+        Rate rateTwo_ = new Rate("1/5");
+        assertEq(new Rate("-2"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb21Test(){
+        Rate rateOne_ = new Rate("-32");
+        Rate rateTwo_ = new Rate("2/5");
+        assertEq(new Rate("4"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void powNb22Test(){
+        Rate rateOne_ = new Rate("-16");
+        Rate rateTwo_ = new Rate("1/4");
+        assertEq(new Rate("2"), Rate.powNb(rateOne_, rateTwo_));
+    }
+    @Test
+    public void proba1(){
         EqList<Rate> probas_ = new EqList<Rate>();
         CustList<EqList<Rate>> tableProbas_ = new CustList<EqList<Rate>>();
         for(long t=1;t<=18;t++) {
@@ -628,115 +1724,231 @@ public class RateTest {
             }
             sumColumns_.add(rate_);
         }
-//        List<List<Rate>> cumulsProbas_ = new List<List<Rate>>();
-//        for(int i=tableProbas_.size()-1;i>-1;i--){
-//            List<Rate> probasLoc_ = tableProbas_.get((int)i);
-//            List<Rate> probasAjoutees_ = new List<Rate>();
-//            for(int j=probasLoc_.size()-1;j>-1;j--){
-//                probasAjoutees_
-//            }
-//        }
     }
-
-    Object[] inputsEvaluate() {
-        return $($("0", 0, "0"),
-            $("0", 1, "0"),
-            $("1", 0, "1"),
-            $("1", 1, "1.E0"),
-            $("2", 0, "2"),
-            $("2", 1, "2.E0"),
-            $("2", 2, "2.0E0"),
-            $("3/2", 2, "1.5E0"),
-            $("1/2", 2, "5.0E-1"),
-            $("-3/2", 2, "-1.5E0"),
-            $("-30/2", 2, "-1.5E1"),
-            $("-300001/20000", 2, "-1.5E1"));
-    }
-
     @Test
-    @Parameters(method="inputsEvaluate")
-    public void evaluate1Test(String _input, int _nbDigits, String _expected) {
-        Rate rate_ = new Rate(_input);
-        assertEq(_expected,rate_.evaluate(_nbDigits));
+    public void evaluate1Test(){
+        Rate rate_ = new Rate("0");
+        assertEq("0",rate_.evaluate(0));
     }
-
-
-    Object[] inputsEvaluatePoint() {
-        return $($("0", 0, "0"),
-            $("0", 1, "0"),
-            $("1", 0, "1"),
-            $("1", 1, "1"),
-            $("2", 0, "2"),
-            $("2", 1, "2"),
-            $("2", 2, "2"),
-            $("3/2", 2, "1.50"),
-            $("1/2", 2, "0.50"),
-            $("-1/2", 2, "-0.50"),
-            $("-3/2", 2, "-1.50"),
-            $("-3/20", 2, "-0.15"),
-            $("-3/20", 0, "0"),
-            $("3/20", 0, "0"),
-            $("-3/200", 2, "-0.01"),
-            $("-3/200", 1, "0.0"),
-            $("-30/2", 2, "-15"),
-            $("30/2", 2, "15"),
-            $("-31/2", 2, "-15.50"),
-            $("31/2", 2, "15.50"),
-            $("-31001/2000", 2, "-15.50"),
-            $("31001/2000", 2, "15.50"),
-            $("-31001/2000", 1, "-15.5"),
-            $("31001/2000", 1, "15.5"),
-            $("-31/2", 6, "-15.500000"),
-            $("31/2", 6, "15.500000"));
-    }
-
     @Test
-    @Parameters(method="inputsEvaluatePoint")
-    public void evaluatePoint1Test(String _input, int _nbDigits, String _expected) {
-        Rate rate_ = new Rate(_input);
-        assertEq(_expected,rate_.evaluatePoint(_nbDigits));
+    public void evaluate2Test(){
+        Rate rate_ = new Rate("0");
+        assertEq("0",rate_.evaluate(1));
     }
-
     @Test
-    public void greaterThanOne1Test() {
+    public void evaluate3Test(){
+        Rate rate_ = new Rate("1");
+        assertEq("1",rate_.evaluate(0));
+    }
+    @Test
+    public void evaluate4Test(){
+        Rate rate_ = new Rate("1");
+        assertEq("1.E0",rate_.evaluate(1));
+    }
+    @Test
+    public void evaluate5Test(){
+        Rate rate_ = new Rate("2");
+        assertEq("2",rate_.evaluate(0));
+    }
+    @Test
+    public void evaluate6Test(){
+        Rate rate_ = new Rate("2");
+        assertEq("2.E0",rate_.evaluate(1));
+    }
+    @Test
+    public void evaluate7Test(){
+        Rate rate_ = new Rate("2");
+        assertEq("2.0E0",rate_.evaluate(2));
+    }
+    @Test
+    public void evaluate8Test(){
+        Rate rate_ = new Rate("3/2");
+        assertEq("1.5E0",rate_.evaluate(2));
+    }
+    @Test
+    public void evaluate9Test(){
+        Rate rate_ = new Rate("1/2");
+        assertEq("5.0E-1",rate_.evaluate(2));
+    }
+    @Test
+    public void evaluate10Test(){
+        Rate rate_ = new Rate("-3/2");
+        assertEq("-1.5E0",rate_.evaluate(2));
+    }
+    @Test
+    public void evaluate11Test(){
+        Rate rate_ = new Rate("-30/2");
+        assertEq("-1.5E1",rate_.evaluate(2));
+    }
+    @Test
+    public void evaluate12Test(){
+        Rate rate_ = new Rate("-300001/20000");
+        assertEq("-1.5E1",rate_.evaluate(2));
+    }
+    @Test
+    public void evaluatePoint1Test(){
+        Rate rate_ = new Rate("0");
+        assertEq("0",rate_.evaluatePoint(0));
+    }
+    @Test
+    public void evaluatePoint2Test(){
+        Rate rate_ = new Rate("0");
+        assertEq("0",rate_.evaluatePoint(1));
+    }
+    @Test
+    public void evaluatePoint3Test(){
+        Rate rate_ = new Rate("1");
+        assertEq("1",rate_.evaluatePoint(0));
+    }
+    @Test
+    public void evaluatePoint4Test(){
+        Rate rate_ = new Rate("1");
+        assertEq("1",rate_.evaluatePoint(1));
+    }
+    @Test
+    public void evaluatePoint5Test(){
+        Rate rate_ = new Rate("2");
+        assertEq("2",rate_.evaluatePoint(0));
+    }
+    @Test
+    public void evaluatePoint6Test(){
+        Rate rate_ = new Rate("2");
+        assertEq("2",rate_.evaluatePoint(1));
+    }
+    @Test
+    public void evaluatePoint7Test(){
+        Rate rate_ = new Rate("2");
+        assertEq("2",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint8Test(){
+        Rate rate_ = new Rate("3/2");
+        assertEq("1.50",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint9Test(){
+        Rate rate_ = new Rate("1/2");
+        assertEq("0.50",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint10Test(){
+        Rate rate_ = new Rate("-1/2");
+        assertEq("-0.50",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint11Test(){
+        Rate rate_ = new Rate("-3/2");
+        assertEq("-1.50",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint12Test(){
+        Rate rate_ = new Rate("-3/20");
+        assertEq("-0.15",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint13Test(){
+        Rate rate_ = new Rate("-3/20");
+        assertEq("0",rate_.evaluatePoint(0));
+    }
+    @Test
+    public void evaluatePoint14Test(){
+        Rate rate_ = new Rate("3/20");
+        assertEq("0",rate_.evaluatePoint(0));
+    }
+    @Test
+    public void evaluatePoint15Test(){
+        Rate rate_ = new Rate("-3/200");
+        assertEq("-0.01",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint16Test(){
+        Rate rate_ = new Rate("-3/200");
+        assertEq("0.0",rate_.evaluatePoint(1));
+    }
+    @Test
+    public void evaluatePoint17Test(){
+        Rate rate_ = new Rate("-30/2");
+        assertEq("-15",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint18Test(){
+        Rate rate_ = new Rate("30/2");
+        assertEq("15",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint19Test(){
+        Rate rate_ = new Rate("-31/2");
+        assertEq("-15.50",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint20Test(){
+        Rate rate_ = new Rate("31/2");
+        assertEq("15.50",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint21Test(){
+        Rate rate_ = new Rate("-31001/2000");
+        assertEq("-15.50",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint22Test(){
+        Rate rate_ = new Rate("31001/2000");
+        assertEq("15.50",rate_.evaluatePoint(2));
+    }
+    @Test
+    public void evaluatePoint23Test(){
+        Rate rate_ = new Rate("-31001/2000");
+        assertEq("-15.5",rate_.evaluatePoint(1));
+    }
+    @Test
+    public void evaluatePoint24Test(){
+        Rate rate_ = new Rate("31001/2000");
+        assertEq("15.5",rate_.evaluatePoint(1));
+    }
+    @Test
+    public void evaluatePoint25Test(){
+        Rate rate_ = new Rate("-31/2");
+        assertEq("-15.500000",rate_.evaluatePoint(6));
+    }
+    @Test
+    public void evaluatePoint26Test(){
+        Rate rate_ = new Rate("31/2");
+        assertEq("15.500000",rate_.evaluatePoint(6));
+    }
+    @Test
+    public void greaterThanOne1(){
         assertTrue(new Rate("3/2").greaterThanOne());
         assertTrue(!new Rate("-3/2").greaterThanOne());
         assertTrue(!new Rate("1").greaterThanOne());
     }
-
     @Test
-    public void greaterOrEqualsOneT1est() {
+    public void greaterOrEquals1Fail(){
         assertTrue(new Rate("3/2").greaterOrEqualsOne());
         assertTrue(!new Rate("-3/2").greaterOrEqualsOne());
         assertTrue(new Rate("1").greaterOrEqualsOne());
     }
-
     @Test
-    public void lowerThanOne1Test() {
+    public void lowerThanOne1(){
         assertTrue(!new Rate("3/2").lowerThanOne());
         assertTrue(new Rate("-3/2").lowerThanOne());
         assertTrue(!new Rate("1").lowerThanOne());
     }
-
     @Test
-    public void lowerOrEqualsOnee1Test() {
+    public void lowerOrEqualsOnee1(){
         assertTrue(!new Rate("3/2").lowerOrEqualsOne());
         assertTrue(new Rate("-3/2").lowerOrEqualsOne());
         assertTrue(new Rate("1").lowerOrEqualsOne());
     }
-
     @Test
-    public void percent1Test() {
+    public void percent1(){
         assertEq(new LgInt("50"),new Rate("1/2").percent());
     }
-
     @Test
-    public void percent2Test() {
+    public void percent2(){
         assertEq(new LgInt("100"),new Rate("1").percent());
     }
-
     @Test
-    public void percent3Test() {
+    public void percent3(){
         assertEq(new LgInt("33"),new Rate("1/3").percent());
     }
 }

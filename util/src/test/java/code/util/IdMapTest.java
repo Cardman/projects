@@ -4,11 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.EntryCust;
-import code.util.IdList;
-import code.util.IdMap;
-import code.util.Numbers;
-import code.util.StringList;
 import code.util.classestest.KeyExample;
 import code.util.ints.Listable;
 

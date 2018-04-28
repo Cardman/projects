@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.EntryCust;
-import code.util.NatTreeMap;
 import code.util.ints.Listable;
 
 @SuppressWarnings("static-method")

@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import code.util.EnumMap;
 import code.util.classestest.EnumDigitExample;
-import code.util.pagination.EnumFieldComparator;
-import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class EnumFieldComparatorTest {
