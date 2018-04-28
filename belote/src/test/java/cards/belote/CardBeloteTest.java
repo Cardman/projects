@@ -1,105 +1,380 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import code.util.CustList;
 
-@RunWith(JUnitParamsRunner.class)
 @Ignore
 @SuppressWarnings("static-method")
 public class CardBeloteTest {
-
-    Object[] figures() {
-        return $($(CardBelote.HEART_JACK), $(CardBelote.HEART_KING), $(CardBelote.HEART_QUEEN),
-                $(CardBelote.SPADE_JACK), $(CardBelote.SPADE_KING), $(CardBelote.SPADE_QUEEN),
-                $(CardBelote.DIAMOND_JACK), $(CardBelote.DIAMOND_KING), $(CardBelote.DIAMOND_QUEEN),
-                $(CardBelote.CLUB_JACK), $(CardBelote.CLUB_KING), $(CardBelote.CLUB_QUEEN));
-    }
-
-    Object[] valeurs() {
-        return $($(CardBelote.HEART_1), $(CardBelote.HEART_10), $(CardBelote.HEART_9),
-                $(CardBelote.HEART_8), $(CardBelote.HEART_7),
-                $(CardBelote.SPADE_1), $(CardBelote.SPADE_10), $(CardBelote.SPADE_9),
-                $(CardBelote.SPADE_8), $(CardBelote.SPADE_7),
-                $(CardBelote.DIAMOND_1), $(CardBelote.DIAMOND_10), $(CardBelote.DIAMOND_9),
-                $(CardBelote.DIAMOND_8), $(CardBelote.DIAMOND_7),
-                $(CardBelote.CLUB_1), $(CardBelote.CLUB_10), $(CardBelote.CLUB_9),
-                $(CardBelote.CLUB_8), $(CardBelote.CLUB_7));
-    }
-
-    Object[] cards() {
-        return $($(CardBelote.HEART_JACK), $(CardBelote.HEART_KING), $(CardBelote.HEART_QUEEN),
-                $(CardBelote.SPADE_JACK), $(CardBelote.SPADE_KING), $(CardBelote.SPADE_QUEEN),
-                $(CardBelote.DIAMOND_JACK), $(CardBelote.DIAMOND_KING), $(CardBelote.DIAMOND_QUEEN),
-                $(CardBelote.CLUB_JACK), $(CardBelote.CLUB_KING), $(CardBelote.CLUB_QUEEN),
-                $(CardBelote.HEART_1), $(CardBelote.HEART_10), $(CardBelote.HEART_9),
-                $(CardBelote.HEART_8), $(CardBelote.HEART_7),
-                $(CardBelote.SPADE_1), $(CardBelote.SPADE_10), $(CardBelote.SPADE_9),
-                $(CardBelote.SPADE_8), $(CardBelote.SPADE_7),
-                $(CardBelote.DIAMOND_1), $(CardBelote.DIAMOND_10), $(CardBelote.DIAMOND_9),
-                $(CardBelote.DIAMOND_8), $(CardBelote.DIAMOND_7),
-                $(CardBelote.CLUB_1), $(CardBelote.CLUB_10), $(CardBelote.CLUB_9),
-                $(CardBelote.CLUB_8), $(CardBelote.CLUB_7));
-    }
-
     @Test
-    @Parameters(method="cards")
-    public void isPlayable1Test(CardBelote _card) {
-        assertTrue(_card.isPlayable());
-        assertNotEquals(Suit.UNDEFINED, _card.couleur());
-        assertNotEquals(Suit.TRUMP, _card.couleur());
+    public void isPlayable1Test(){
+        assertTrue(CardBelote.HEART_JACK.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.HEART_JACK.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.HEART_JACK.couleur());
     }
-
     @Test
     public void isPlayable2Test(){
+        assertTrue(CardBelote.HEART_KING.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.HEART_KING.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.HEART_KING.couleur());
+    }
+    @Test
+    public void isPlayable3Test(){
+        assertTrue(CardBelote.HEART_QUEEN.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.HEART_QUEEN.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.HEART_QUEEN.couleur());
+    }
+    @Test
+    public void isPlayable4Test(){
+        assertTrue(CardBelote.SPADE_JACK.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.SPADE_JACK.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.SPADE_JACK.couleur());
+    }
+    @Test
+    public void isPlayable5Test(){
+        assertTrue(CardBelote.SPADE_KING.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.SPADE_KING.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.SPADE_KING.couleur());
+    }
+    @Test
+    public void isPlayable6Test(){
+        assertTrue(CardBelote.SPADE_QUEEN.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.SPADE_QUEEN.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.SPADE_QUEEN.couleur());
+    }
+    @Test
+    public void isPlayable7Test(){
+        assertTrue(CardBelote.DIAMOND_JACK.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.DIAMOND_JACK.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.DIAMOND_JACK.couleur());
+    }
+    @Test
+    public void isPlayable8Test(){
+        assertTrue(CardBelote.DIAMOND_KING.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.DIAMOND_KING.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.DIAMOND_KING.couleur());
+    }
+    @Test
+    public void isPlayable9Test(){
+        assertTrue(CardBelote.DIAMOND_QUEEN.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.DIAMOND_QUEEN.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.DIAMOND_QUEEN.couleur());
+    }
+    @Test
+    public void isPlayable10Test(){
+        assertTrue(CardBelote.CLUB_JACK.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.CLUB_JACK.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.CLUB_JACK.couleur());
+    }
+    @Test
+    public void isPlayable11Test(){
+        assertTrue(CardBelote.CLUB_KING.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.CLUB_KING.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.CLUB_KING.couleur());
+    }
+    @Test
+    public void isPlayable12Test(){
+        assertTrue(CardBelote.CLUB_QUEEN.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.CLUB_QUEEN.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.CLUB_QUEEN.couleur());
+    }
+    @Test
+    public void isPlayable13Test(){
+        assertTrue(CardBelote.HEART_1.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.HEART_1.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.HEART_1.couleur());
+    }
+    @Test
+    public void isPlayable14Test(){
+        assertTrue(CardBelote.HEART_10.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.HEART_10.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.HEART_10.couleur());
+    }
+    @Test
+    public void isPlayable15Test(){
+        assertTrue(CardBelote.HEART_9.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.HEART_9.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.HEART_9.couleur());
+    }
+    @Test
+    public void isPlayable16Test(){
+        assertTrue(CardBelote.HEART_8.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.HEART_8.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.HEART_8.couleur());
+    }
+    @Test
+    public void isPlayable17Test(){
+        assertTrue(CardBelote.HEART_7.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.HEART_7.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.HEART_7.couleur());
+    }
+    @Test
+    public void isPlayable18Test(){
+        assertTrue(CardBelote.SPADE_1.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.SPADE_1.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.SPADE_1.couleur());
+    }
+    @Test
+    public void isPlayable19Test(){
+        assertTrue(CardBelote.SPADE_10.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.SPADE_10.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.SPADE_10.couleur());
+    }
+    @Test
+    public void isPlayable20Test(){
+        assertTrue(CardBelote.SPADE_9.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.SPADE_9.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.SPADE_9.couleur());
+    }
+    @Test
+    public void isPlayable21Test(){
+        assertTrue(CardBelote.SPADE_8.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.SPADE_8.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.SPADE_8.couleur());
+    }
+    @Test
+    public void isPlayable22Test(){
+        assertTrue(CardBelote.SPADE_7.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.SPADE_7.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.SPADE_7.couleur());
+    }
+    @Test
+    public void isPlayable23Test(){
+        assertTrue(CardBelote.DIAMOND_1.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.DIAMOND_1.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.DIAMOND_1.couleur());
+    }
+    @Test
+    public void isPlayable24Test(){
+        assertTrue(CardBelote.DIAMOND_10.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.DIAMOND_10.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.DIAMOND_10.couleur());
+    }
+    @Test
+    public void isPlayable25Test(){
+        assertTrue(CardBelote.DIAMOND_9.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.DIAMOND_9.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.DIAMOND_9.couleur());
+    }
+    @Test
+    public void isPlayable26Test(){
+        assertTrue(CardBelote.DIAMOND_8.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.DIAMOND_8.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.DIAMOND_8.couleur());
+    }
+    @Test
+    public void isPlayable27Test(){
+        assertTrue(CardBelote.DIAMOND_7.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.DIAMOND_7.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.DIAMOND_7.couleur());
+    }
+    @Test
+    public void isPlayable28Test(){
+        assertTrue(CardBelote.CLUB_1.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.CLUB_1.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.CLUB_1.couleur());
+    }
+    @Test
+    public void isPlayable29Test(){
+        assertTrue(CardBelote.CLUB_10.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.CLUB_10.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.CLUB_10.couleur());
+    }
+    @Test
+    public void isPlayable30Test(){
+        assertTrue(CardBelote.CLUB_9.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.CLUB_9.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.CLUB_9.couleur());
+    }
+    @Test
+    public void isPlayable31Test(){
+        assertTrue(CardBelote.CLUB_8.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.CLUB_8.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.CLUB_8.couleur());
+    }
+    @Test
+    public void isPlayable32Test(){
+        assertTrue(CardBelote.CLUB_7.isPlayable());
+        assertNotEquals(Suit.UNDEFINED, CardBelote.CLUB_7.couleur());
+        assertNotEquals(Suit.TRUMP, CardBelote.CLUB_7.couleur());
+    }
+    @Test
+    public void isPlayable33(){
         assertTrue(!CardBelote.WHITE.isPlayable());
         assertTrue(!CardBelote.WHITE.isCharacter());
         assertEq(0, CardBelote.WHITE.valeur());
         assertEq(Suit.UNDEFINED, CardBelote.WHITE.couleur());
     }
-
-    Object[] couleursDemandeesAtouts() {
-        return $($(Suit.HEART,Suit.SPADE),
-                $(Suit.HEART,Suit.DIAMOND),
-                $(Suit.HEART,Suit.CLUB),
-                $(Suit.SPADE,Suit.HEART),
-                $(Suit.SPADE,Suit.DIAMOND),
-                $(Suit.SPADE,Suit.CLUB),
-                $(Suit.DIAMOND,Suit.HEART),
-                $(Suit.DIAMOND,Suit.SPADE),
-                $(Suit.DIAMOND,Suit.CLUB),
-                $(Suit.CLUB,Suit.HEART),
-                $(Suit.CLUB,Suit.SPADE),
-                $(Suit.CLUB,Suit.DIAMOND));
-    }
-
-    Object[] couleursAtouts() {
-        return $($(Suit.HEART),$(Suit.SPADE),$(Suit.DIAMOND),$(Suit.CLUB));
-    }
-
     @Test
-    @Parameters(method="valeurs")
-    public void isCharacter_false1Test(CardBelote _carte){
-        assertTrue(!_carte.isCharacter());
-        assertTrue(_carte.valeur()>0);
+    public void isCharacter_false1Test(){
+        assertTrue(!CardBelote.HEART_1.isCharacter());
+        assertTrue(CardBelote.HEART_1.valeur()>0);
     }
     @Test
-    @Parameters(method="figures")
-    public void isCharacter_true2Test(CardBelote _carte){
-        assertTrue(_carte.isCharacter());
-        assertEq(0, _carte.valeur());
+    public void isCharacter_false2Test(){
+        assertTrue(!CardBelote.HEART_10.isCharacter());
+        assertTrue(CardBelote.HEART_10.valeur()>0);
     }
+    @Test
+    public void isCharacter_false3Test(){
+        assertTrue(!CardBelote.HEART_9.isCharacter());
+        assertTrue(CardBelote.HEART_9.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false4Test(){
+        assertTrue(!CardBelote.HEART_8.isCharacter());
+        assertTrue(CardBelote.HEART_8.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false5Test(){
+        assertTrue(!CardBelote.HEART_7.isCharacter());
+        assertTrue(CardBelote.HEART_7.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false6Test(){
+        assertTrue(!CardBelote.SPADE_1.isCharacter());
+        assertTrue(CardBelote.SPADE_1.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false7Test(){
+        assertTrue(!CardBelote.SPADE_10.isCharacter());
+        assertTrue(CardBelote.SPADE_10.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false8Test(){
+        assertTrue(!CardBelote.SPADE_9.isCharacter());
+        assertTrue(CardBelote.SPADE_9.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false9Test(){
+        assertTrue(!CardBelote.SPADE_8.isCharacter());
+        assertTrue(CardBelote.SPADE_8.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false10Test(){
+        assertTrue(!CardBelote.SPADE_7.isCharacter());
+        assertTrue(CardBelote.SPADE_7.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false11Test(){
+        assertTrue(!CardBelote.DIAMOND_1.isCharacter());
+        assertTrue(CardBelote.DIAMOND_1.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false12Test(){
+        assertTrue(!CardBelote.DIAMOND_10.isCharacter());
+        assertTrue(CardBelote.DIAMOND_10.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false13Test(){
+        assertTrue(!CardBelote.DIAMOND_9.isCharacter());
+        assertTrue(CardBelote.DIAMOND_9.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false14Test(){
+        assertTrue(!CardBelote.DIAMOND_8.isCharacter());
+        assertTrue(CardBelote.DIAMOND_8.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false15Test(){
+        assertTrue(!CardBelote.DIAMOND_7.isCharacter());
+        assertTrue(CardBelote.DIAMOND_7.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false16Test(){
+        assertTrue(!CardBelote.CLUB_1.isCharacter());
+        assertTrue(CardBelote.CLUB_1.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false17Test(){
+        assertTrue(!CardBelote.CLUB_10.isCharacter());
+        assertTrue(CardBelote.CLUB_10.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false18Test(){
+        assertTrue(!CardBelote.CLUB_9.isCharacter());
+        assertTrue(CardBelote.CLUB_9.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false19Test(){
+        assertTrue(!CardBelote.CLUB_8.isCharacter());
+        assertTrue(CardBelote.CLUB_8.valeur()>0);
+    }
+    @Test
+    public void isCharacter_false20Test(){
+        assertTrue(!CardBelote.CLUB_7.isCharacter());
+        assertTrue(CardBelote.CLUB_7.valeur()>0);
+    }
+    @Test
+    public void isCharacter_true1Test(){
+        assertTrue(CardBelote.HEART_JACK.isCharacter());
+        assertEq(0, CardBelote.HEART_JACK.valeur());
+    }
+    @Test
+    public void isCharacter_true2Test(){
+        assertTrue(CardBelote.HEART_KING.isCharacter());
+        assertEq(0, CardBelote.HEART_KING.valeur());
+    }
+    @Test
+    public void isCharacter_true3Test(){
+        assertTrue(CardBelote.HEART_QUEEN.isCharacter());
+        assertEq(0, CardBelote.HEART_QUEEN.valeur());
+    }
+    @Test
+    public void isCharacter_true4Test(){
+        assertTrue(CardBelote.SPADE_JACK.isCharacter());
+        assertEq(0, CardBelote.SPADE_JACK.valeur());
+    }
+    @Test
+    public void isCharacter_true5Test(){
+        assertTrue(CardBelote.SPADE_KING.isCharacter());
+        assertEq(0, CardBelote.SPADE_KING.valeur());
+    }
+    @Test
+    public void isCharacter_true6Test(){
+        assertTrue(CardBelote.SPADE_QUEEN.isCharacter());
+        assertEq(0, CardBelote.SPADE_QUEEN.valeur());
+    }
+    @Test
+    public void isCharacter_true7Test(){
+        assertTrue(CardBelote.DIAMOND_JACK.isCharacter());
+        assertEq(0, CardBelote.DIAMOND_JACK.valeur());
+    }
+    @Test
+    public void isCharacter_true8Test(){
+        assertTrue(CardBelote.DIAMOND_KING.isCharacter());
+        assertEq(0, CardBelote.DIAMOND_KING.valeur());
+    }
+    @Test
+    public void isCharacter_true9Test(){
+        assertTrue(CardBelote.DIAMOND_QUEEN.isCharacter());
+        assertEq(0, CardBelote.DIAMOND_QUEEN.valeur());
+    }
+    @Test
+    public void isCharacter_true10Test(){
+        assertTrue(CardBelote.CLUB_JACK.isCharacter());
+        assertEq(0, CardBelote.CLUB_JACK.valeur());
+    }
+    @Test
+    public void isCharacter_true11Test(){
+        assertTrue(CardBelote.CLUB_KING.isCharacter());
+        assertEq(0, CardBelote.CLUB_KING.valeur());
+    }
+    @Test
+    public void isCharacter_true12Test(){
+        assertTrue(CardBelote.CLUB_QUEEN.isCharacter());
+        assertEq(0, CardBelote.CLUB_QUEEN.valeur());
+    }
+
 
     Object[] cardsSuits() {
         CustList<Object[]> args_ = new CustList<Object[]>();
@@ -359,10 +634,8 @@ public class CardBeloteTest {
         enchereCouleur_.setEnchere(BidBelote.NO_TRUMP);
         byte force_ = _card.strength(_couleurAtout, enchereCouleur_);
         assertEq(0, force_);
-    }
-
-    @Test
-    public void points_CouleurAtout1Test(){
+    }    @Test
+    public void points_CouleurAtout1(){
         Suit couleurAtout_ = Suit.SPADE;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.SUIT);
@@ -442,9 +715,8 @@ public class CardBeloteTest {
         assertEq(0,CardBelote.CLUB_7.points(enchereCouleur_));
 
     }
-
     @Test
-    public void points_SansAtout2Test(){
+    public void points_SansAtout1(){
         Suit couleurAtout_ = Suit.UNDEFINED;
 
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
@@ -488,9 +760,8 @@ public class CardBeloteTest {
         assertEq(0,CardBelote.CLUB_7.points(enchereCouleur_));
 
     }
-
     @Test
-    public void points_ToutAtout3Test(){
+    public void points_ToutAtout1(){
         Suit couleurAtout_ = Suit.UNDEFINED;
 
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
@@ -534,9 +805,8 @@ public class CardBeloteTest {
         assertEq(0,CardBelote.CLUB_7.points(enchereCouleur_));
 
     }
-
     @Test
-    public void strength_CouleurDemandeCouleurAtoutIndeterminee13Test(){
+    public void strength_CouleurDemandeCouleurAtoutIndeterminee1(){
         Suit couleurAtout_ = Suit.UNDEFINED;
         Suit couleurDemandee_ = Suit.HEART;
         assertEq(CardBelote.HEART_1.strength(Suit.SPADE, couleurDemandee_),CardBelote.HEART_1.strength(couleurAtout_, couleurDemandee_));
@@ -549,4 +819,3 @@ public class CardBeloteTest {
         assertEq(CardBelote.HEART_7.strength(Suit.SPADE, couleurDemandee_),CardBelote.HEART_7.strength(couleurAtout_, couleurDemandee_));
     }
 }
-

@@ -1,13 +1,9 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
@@ -20,22 +16,16 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 
-@RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
 public class HandBeloteTest {
-
-    Object[] monotonieTri(){
-        return $($(true),$(false));
-    }
     @Test
-    public void pileBase1Test(){
+    public void pileBase1(){
         HandBelote main_ = HandBelote.pileBase();
         assertEq(CardBelote.values().length-1, main_.total());
         assertTrue(!main_.contient(CardBelote.WHITE));
     }
-
     @Test
-    public void trierUnicolore1Test(){
+    public void trierUnicolore1(){
         HandBelote main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.HEART_10);
         main_.ajouter(CardBelote.HEART_1);
@@ -70,9 +60,8 @@ public class HandBeloteTest {
         main_.trierUnicolore(false);
         assertEq(resAtt_, main_);
     }
-
     @Test
-    public void couleurComplete1Test(){
+    public void couleurComplete1(){
         Suit couleur_ = Suit.HEART;
         HandBelote main_ = HandBelote.couleurComplete(couleur_,Order.SUIT);
         HandBelote resAtt_ = new HandBelote();
@@ -98,6 +87,7 @@ public class HandBeloteTest {
         assertEq(resAtt_,main_);
     }
 
+
     private HandBelote trier(){
         HandBelote main_ = new HandBelote();
         main_.ajouter(CardBelote.SPADE_KING);
@@ -105,9 +95,8 @@ public class HandBeloteTest {
         main_.ajouter(CardBelote.SPADE_JACK);
         main_.ajouter(CardBelote.HEART_9);
         return main_;
-    }
-    @Test
-    public void trier1Test(){
+    }    @Test
+    public void trier1(){
         HandBelote main_ = trier();
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         couleurs_.add(Suit.SPADE);
@@ -180,6 +169,7 @@ public class HandBeloteTest {
         resAtt_.ajouter(CardBelote.HEART_1);
         assertEq(resAtt_, main_);
     }
+
     private HandBelote couleurs(){
         HandBelote main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
@@ -198,9 +188,8 @@ public class HandBeloteTest {
         main_.ajouter(CardBelote.HEART_JACK);
         main_.ajouter(CardBelote.SPADE_KING);
         return main_;
-    }
-    @Test
-    public void couleurs1Test(){
+    }    @Test
+    public void couleurs1(){
         HandBelote main_ = new HandBelote();
         EnumMap<Suit,HandBelote> hash_ = new EnumMap<Suit,HandBelote>();
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
@@ -474,17 +463,112 @@ public class HandBeloteTest {
         assertEq(hash_.getVal(Suit.DIAMOND), res_.getVal(Suit.DIAMOND));
         assertEq(hash_.getVal(Suit.CLUB), res_.getVal(Suit.CLUB));
     }
-
-    Object[] bidsSuits() {
-        return $($(BidBelote.SUIT, Suit.HEART),$(BidBelote.SUIT,Suit.SPADE),
-                $(BidBelote.SUIT,Suit.DIAMOND),$(BidBelote.SUIT,Suit.CLUB),
-                $(BidBelote.OTHER_SUIT,Suit.HEART),$(BidBelote.OTHER_SUIT,Suit.SPADE),
-                $(BidBelote.OTHER_SUIT,Suit.DIAMOND),$(BidBelote.OTHER_SUIT,Suit.CLUB));
-    }
-
-    @Parameters(method="bidsSuits")
     @Test
-    public void couleurs2Test(BidBelote _bid, Suit _suit){
+    public void couleurs2Test(){
+        HandBelote main_ = new HandBelote();
+        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.SUIT);
+        enchereCouleur_.setCouleur(Suit.HEART);
+        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        assertEq(4,res_.size());
+        assertEq(0,res_.getVal(Suit.HEART).total());
+        assertEq(0,res_.getVal(Suit.SPADE).total());
+        assertEq(0,res_.getVal(Suit.DIAMOND).total());
+        assertEq(0,res_.getVal(Suit.CLUB).total());
+    }
+    @Test
+    public void couleurs3Test(){
+        HandBelote main_ = new HandBelote();
+        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.SUIT);
+        enchereCouleur_.setCouleur(Suit.SPADE);
+        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        assertEq(4,res_.size());
+        assertEq(0,res_.getVal(Suit.HEART).total());
+        assertEq(0,res_.getVal(Suit.SPADE).total());
+        assertEq(0,res_.getVal(Suit.DIAMOND).total());
+        assertEq(0,res_.getVal(Suit.CLUB).total());
+    }
+    @Test
+    public void couleurs4Test(){
+        HandBelote main_ = new HandBelote();
+        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.SUIT);
+        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        assertEq(4,res_.size());
+        assertEq(0,res_.getVal(Suit.HEART).total());
+        assertEq(0,res_.getVal(Suit.SPADE).total());
+        assertEq(0,res_.getVal(Suit.DIAMOND).total());
+        assertEq(0,res_.getVal(Suit.CLUB).total());
+    }
+    @Test
+    public void couleurs5Test(){
+        HandBelote main_ = new HandBelote();
+        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.SUIT);
+        enchereCouleur_.setCouleur(Suit.CLUB);
+        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        assertEq(4,res_.size());
+        assertEq(0,res_.getVal(Suit.HEART).total());
+        assertEq(0,res_.getVal(Suit.SPADE).total());
+        assertEq(0,res_.getVal(Suit.DIAMOND).total());
+        assertEq(0,res_.getVal(Suit.CLUB).total());
+    }
+    @Test
+    public void couleurs6Test(){
+        HandBelote main_ = new HandBelote();
+        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
+        enchereCouleur_.setCouleur(Suit.HEART);
+        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        assertEq(4,res_.size());
+        assertEq(0,res_.getVal(Suit.HEART).total());
+        assertEq(0,res_.getVal(Suit.SPADE).total());
+        assertEq(0,res_.getVal(Suit.DIAMOND).total());
+        assertEq(0,res_.getVal(Suit.CLUB).total());
+    }
+    @Test
+    public void couleurs7Test(){
+        HandBelote main_ = new HandBelote();
+        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
+        enchereCouleur_.setCouleur(Suit.SPADE);
+        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        assertEq(4,res_.size());
+        assertEq(0,res_.getVal(Suit.HEART).total());
+        assertEq(0,res_.getVal(Suit.SPADE).total());
+        assertEq(0,res_.getVal(Suit.DIAMOND).total());
+        assertEq(0,res_.getVal(Suit.CLUB).total());
+    }
+    @Test
+    public void couleurs8Test(){
+        HandBelote main_ = new HandBelote();
+        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
+        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        assertEq(4,res_.size());
+        assertEq(0,res_.getVal(Suit.HEART).total());
+        assertEq(0,res_.getVal(Suit.SPADE).total());
+        assertEq(0,res_.getVal(Suit.DIAMOND).total());
+        assertEq(0,res_.getVal(Suit.CLUB).total());
+    }
+    @Test
+    public void couleurs9Test(){
+        HandBelote main_ = new HandBelote();
+        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
+        enchereCouleur_.setCouleur(Suit.CLUB);
+        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        assertEq(4,res_.size());
+        assertEq(0,res_.getVal(Suit.HEART).total());
+        assertEq(0,res_.getVal(Suit.SPADE).total());
+        assertEq(0,res_.getVal(Suit.DIAMOND).total());
+        assertEq(0,res_.getVal(Suit.CLUB).total());
+    }
+    @Test
+    public void couleurs10Test(){
         HandBelote main_ = new HandBelote();
 //        Map<Suit, HandBelote> hash_;
 //        hash_ = new Map<>();
@@ -493,8 +577,7 @@ public class HandBeloteTest {
 //        hash_.put(Suit.DIAMOND, new HandBelote());
 //        hash_.put(Suit.CLUB, new HandBelote());
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(_bid);
-        enchereCouleur_.setCouleur(_suit);
+        enchereCouleur_.setEnchere(BidBelote.NO_TRUMP);
         EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
@@ -502,14 +585,8 @@ public class HandBeloteTest {
         assertEq(0,res_.getVal(Suit.DIAMOND).total());
         assertEq(0,res_.getVal(Suit.CLUB).total());
     }
-
-    Object[] bids() {
-        return $($(BidBelote.NO_TRUMP),$(BidBelote.ALL_TRUMP));
-    }
-
-    @Parameters(method="bids")
     @Test
-    public void couleurs3Test(BidBelote _bid){
+    public void couleurs11Test(){
         HandBelote main_ = new HandBelote();
 //        Map<Suit, HandBelote> hash_;
 //        hash_ = new Map<>();
@@ -518,7 +595,7 @@ public class HandBeloteTest {
 //        hash_.put(Suit.DIAMOND, new HandBelote());
 //        hash_.put(Suit.CLUB, new HandBelote());
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(_bid);
+        enchereCouleur_.setEnchere(BidBelote.ALL_TRUMP);
         EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
@@ -526,9 +603,8 @@ public class HandBeloteTest {
         assertEq(0,res_.getVal(Suit.DIAMOND).total());
         assertEq(0,res_.getVal(Suit.CLUB).total());
     }
-
     @Test
-    public void nombreDePlisMinAssures1Test(){
+    public void nombreDePlisMinAssures1(){
         HandBelote main_ = new HandBelote();
         main_.ajouter(CardBelote.HEART_JACK);
         main_.ajouter(CardBelote.HEART_1);
@@ -647,6 +723,7 @@ public class HandBeloteTest {
         assertEq(2, main_.nombreDePlisMinAssures(Order.SUIT));
     }
 
+
     private HandBelote eclater(){
         HandBelote main_ = new HandBelote();
         main_.ajouter(CardBelote.HEART_9);
@@ -665,10 +742,8 @@ public class HandBeloteTest {
     private HandBelote initCartesJoueesVideEclaterTest(){
         HandBelote main_ = new HandBelote();
         return main_;
-    }
-
-    @Test
-    public void eclater1Test(){
+    }    @Test
+    public void eclater1(){
         HandBelote main_ = eclater();
         EqList<HandBelote> suites_ = new EqList<HandBelote>();
         HandBelote suite_ = new HandBelote();
@@ -779,17 +854,15 @@ public class HandBeloteTest {
         enchereCouleur_.setEnchere(BidBelote.ALL_TRUMP);
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
     }
-
-    @Parameters(method="bids")
     @Test
-    public void eclater2Test(BidBelote _bid){
+    public void eclater2Test(){
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
         EqList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(_bid);
+        enchereCouleur_.setEnchere(BidBelote.NO_TRUMP);
         cartesJouees_ = new HandBelote();
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -800,18 +873,15 @@ public class HandBeloteTest {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
     }
-
-    @Parameters(method="bidsSuits")
     @Test
-    public void eclater3Test(BidBelote _bid, Suit _suit){
+    public void eclater3Test(){
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
         EqList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(_bid);
-        enchereCouleur_.setCouleur(_suit);
+        enchereCouleur_.setEnchere(BidBelote.ALL_TRUMP);
         cartesJouees_ = new HandBelote();
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -822,9 +892,168 @@ public class HandBeloteTest {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
     }
-
     @Test
-    public void annonce1Test(){
+    public void eclater4Test(){
+        HandBelote main_;
+        BidBeloteSuit enchereCouleur_;
+        HandBelote cartesJouees_;
+        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        EqList<HandBelote> suites_;
+        enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.SUIT);
+        enchereCouleur_.setCouleur(Suit.HEART);
+        cartesJouees_ = new HandBelote();
+        cartesJouees_.ajouter(CardBelote.HEART_10);
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        main_ = new HandBelote();
+        suites_ = new EqList<HandBelote>();
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        cartesJouees_ = new HandBelote();
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+    }
+    @Test
+    public void eclater5Test(){
+        HandBelote main_;
+        BidBeloteSuit enchereCouleur_;
+        HandBelote cartesJouees_;
+        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        EqList<HandBelote> suites_;
+        enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.SUIT);
+        enchereCouleur_.setCouleur(Suit.SPADE);
+        cartesJouees_ = new HandBelote();
+        cartesJouees_.ajouter(CardBelote.HEART_10);
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        main_ = new HandBelote();
+        suites_ = new EqList<HandBelote>();
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        cartesJouees_ = new HandBelote();
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+    }
+    @Test
+    public void eclater6Test(){
+        HandBelote main_;
+        BidBeloteSuit enchereCouleur_;
+        HandBelote cartesJouees_;
+        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        EqList<HandBelote> suites_;
+        enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.SUIT);
+        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        cartesJouees_ = new HandBelote();
+        cartesJouees_.ajouter(CardBelote.HEART_10);
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        main_ = new HandBelote();
+        suites_ = new EqList<HandBelote>();
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        cartesJouees_ = new HandBelote();
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+    }
+    @Test
+    public void eclater7Test(){
+        HandBelote main_;
+        BidBeloteSuit enchereCouleur_;
+        HandBelote cartesJouees_;
+        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        EqList<HandBelote> suites_;
+        enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.SUIT);
+        enchereCouleur_.setCouleur(Suit.CLUB);
+        cartesJouees_ = new HandBelote();
+        cartesJouees_.ajouter(CardBelote.HEART_10);
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        main_ = new HandBelote();
+        suites_ = new EqList<HandBelote>();
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        cartesJouees_ = new HandBelote();
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+    }
+    @Test
+    public void eclater8Test(){
+        HandBelote main_;
+        BidBeloteSuit enchereCouleur_;
+        HandBelote cartesJouees_;
+        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        EqList<HandBelote> suites_;
+        enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
+        enchereCouleur_.setCouleur(Suit.HEART);
+        cartesJouees_ = new HandBelote();
+        cartesJouees_.ajouter(CardBelote.HEART_10);
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        main_ = new HandBelote();
+        suites_ = new EqList<HandBelote>();
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        cartesJouees_ = new HandBelote();
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+    }
+    @Test
+    public void eclater9Test(){
+        HandBelote main_;
+        BidBeloteSuit enchereCouleur_;
+        HandBelote cartesJouees_;
+        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        EqList<HandBelote> suites_;
+        enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
+        enchereCouleur_.setCouleur(Suit.SPADE);
+        cartesJouees_ = new HandBelote();
+        cartesJouees_.ajouter(CardBelote.HEART_10);
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        main_ = new HandBelote();
+        suites_ = new EqList<HandBelote>();
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        cartesJouees_ = new HandBelote();
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+    }
+    @Test
+    public void eclater10Test(){
+        HandBelote main_;
+        BidBeloteSuit enchereCouleur_;
+        HandBelote cartesJouees_;
+        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        EqList<HandBelote> suites_;
+        enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
+        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        cartesJouees_ = new HandBelote();
+        cartesJouees_.ajouter(CardBelote.HEART_10);
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        main_ = new HandBelote();
+        suites_ = new EqList<HandBelote>();
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        cartesJouees_ = new HandBelote();
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+    }
+    @Test
+    public void eclater11Test(){
+        HandBelote main_;
+        BidBeloteSuit enchereCouleur_;
+        HandBelote cartesJouees_;
+        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        EqList<HandBelote> suites_;
+        enchereCouleur_ = new BidBeloteSuit();
+        enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
+        enchereCouleur_.setCouleur(Suit.CLUB);
+        cartesJouees_ = new HandBelote();
+        cartesJouees_.ajouter(CardBelote.HEART_10);
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        main_ = new HandBelote();
+        suites_ = new EqList<HandBelote>();
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        cartesJouees_ = new HandBelote();
+        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+    }
+    @Test
+    public void annonce1(){
         Suit couleurAtout_ = Suit.UNDEFINED;
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
@@ -982,13 +1211,13 @@ public class HandBeloteTest {
         assertEq(res_, annonceMain_.getMain());
         assertEq(DeclaresBelote.FOUR_KING, annonceMain_.getAnnonce());
     }
-
     @Test
-    public void getRepartitionsValides_repartitionsToutesValides1Test(){
+    public void getRepartitionsValides_repartitionsToutesValides1(){
         EnumList<DealingBelote> repartitionsValides_ = DealingBelote.getRepartitionsValides();
         assertTrue(!repartitionsValides_.isEmpty());
         assertEq(DealingBelote.values().length,repartitionsValides_.size());
     }
+
 
     //TODO change later
     private void asserting(EqList<HandBelote> _exp, EqList<HandBelote> _res) {
@@ -997,10 +1226,8 @@ public class HandBeloteTest {
         for (int i = CustList.FIRST_INDEX; i < s_; i++) {
             assertEq(_exp.get(i), _res.get(i));
         }
-    }
-
-    @Test
-    public void jeuValide1Test(){
+    }    @Test
+    public void jeuValide1(){
         assertTrue(HandBelote.jeuValide());
     }
 }

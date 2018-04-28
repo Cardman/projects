@@ -1,34 +1,28 @@
 package cards.tarot;
+import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
 
 @SuppressWarnings("static-method")
-@RunWith(JUnitParamsRunner.class)
 public class HandTarotTest {
-
     @Test
-    public void pileBase1Test(){
+    public void pileBase1(){
         HandTarot main_ = HandTarot.pileBase();
         assertEq(CardTarot.values().length-1, main_.total());
         assertTrue(!main_.contient(CardTarot.WHITE));
     }
     @Test
-    public void trierParForceEnCours1Test(){
+    public void trierParForceEnCours1(){
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.HEART_10);
         main_.ajouter(CardTarot.HEART_1);
@@ -100,7 +94,7 @@ public class HandTarotTest {
         assertEq(resAtt_, main_);
     }
     @Test
-    public void couleurComplete1Test(){
+    public void couleurComplete1(){
         Suit couleur_ = Suit.HEART;
         HandTarot main_ = HandTarot.couleurComplete(couleur_);
         HandTarot resAtt_ = new HandTarot();
@@ -121,7 +115,7 @@ public class HandTarotTest {
         assertEq(resAtt_,main_);
     }
     @Test
-    public void atoutsSansExcuse1Test(){
+    public void atoutsSansExcuse1(){
         HandTarot main_ = HandTarot.atoutsSansExcuse();
         HandTarot resAtt_ = new HandTarot();
         resAtt_.ajouter(CardTarot.TRUMP_21);
@@ -147,41 +141,135 @@ public class HandTarotTest {
         resAtt_.ajouter(CardTarot.TRUMP_1);
         assertEq(resAtt_,main_);
     }
-
-    Object[] figuesCouleurs() {
-        CustList<Object> characters_;
-        characters_ = new CustList<Object>();
-        HandTarot main_ = HandTarot.figuesCouleurs();
-        for(CardTarot c: main_){
-            characters_.add(new Object[]{c});
-        }
-        return characters_.toArray();
-    }
-
-    @Parameters(method="figuesCouleurs")
     @Test
-    public void figuresCouleurs1Test(CardTarot _card){
-        assertTrue(_card.isCharacter());
+    public void figuresCouleurs1Test(){
+        assertTrue(CardTarot.HEART_KING.isCharacter());
     }
-
-    Object[] stackCharacters() {
-        CustList<Object> characters_;
-        characters_ = new CustList<Object>();
-        HandTarot main_ = HandTarot.pileBase();
-        for(CardTarot c: main_){
-            if(!c.isCharacter()){
-                continue;
-            }
-            characters_.add(new Object[]{c});
-        }
-        return characters_.toArray();
-    }
-
-    @Parameters(method="stackCharacters")
     @Test
-    public void figuresCouleurs2Test(CardTarot _card){
-        assertTrue(HandTarot.figuesCouleurs().contient(_card));
+    public void figuresCouleurs2Test(){
+        assertTrue(CardTarot.HEART_QUEEN.isCharacter());
     }
+    @Test
+    public void figuresCouleurs3Test(){
+        assertTrue(CardTarot.HEART_KNIGHT.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs4Test(){
+        assertTrue(CardTarot.HEART_JACK.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs5Test(){
+        assertTrue(CardTarot.SPADE_KING.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs6Test(){
+        assertTrue(CardTarot.SPADE_QUEEN.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs7Test(){
+        assertTrue(CardTarot.SPADE_KNIGHT.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs8Test(){
+        assertTrue(CardTarot.SPADE_JACK.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs9Test(){
+        assertTrue(CardTarot.DIAMOND_KING.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs10Test(){
+        assertTrue(CardTarot.DIAMOND_QUEEN.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs11Test(){
+        assertTrue(CardTarot.DIAMOND_KNIGHT.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs12Test(){
+        assertTrue(CardTarot.DIAMOND_JACK.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs13Test(){
+        assertTrue(CardTarot.CLUB_KING.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs14Test(){
+        assertTrue(CardTarot.CLUB_QUEEN.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs15Test(){
+        assertTrue(CardTarot.CLUB_KNIGHT.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs16Test(){
+        assertTrue(CardTarot.CLUB_JACK.isCharacter());
+    }
+    @Test
+    public void figuresCouleurs17Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.HEART_KING));
+    }
+    @Test
+    public void figuresCouleurs18Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.HEART_QUEEN));
+    }
+    @Test
+    public void figuresCouleurs19Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.HEART_KNIGHT));
+    }
+    @Test
+    public void figuresCouleurs20Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.HEART_JACK));
+    }
+    @Test
+    public void figuresCouleurs21Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.SPADE_KING));
+    }
+    @Test
+    public void figuresCouleurs22Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.SPADE_QUEEN));
+    }
+    @Test
+    public void figuresCouleurs23Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.SPADE_KNIGHT));
+    }
+    @Test
+    public void figuresCouleurs24Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.SPADE_JACK));
+    }
+    @Test
+    public void figuresCouleurs25Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.DIAMOND_KING));
+    }
+    @Test
+    public void figuresCouleurs26Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.DIAMOND_QUEEN));
+    }
+    @Test
+    public void figuresCouleurs27Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.DIAMOND_KNIGHT));
+    }
+    @Test
+    public void figuresCouleurs28Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.DIAMOND_JACK));
+    }
+    @Test
+    public void figuresCouleurs29Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.CLUB_KING));
+    }
+    @Test
+    public void figuresCouleurs30Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.CLUB_QUEEN));
+    }
+    @Test
+    public void figuresCouleurs31Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.CLUB_KNIGHT));
+    }
+    @Test
+    public void figuresCouleurs32Test(){
+        assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.CLUB_JACK));
+    }
+
 
     private HandTarot trier(){
         HandTarot main_ = new HandTarot();
@@ -192,9 +280,8 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.SPADE_JACK);
         main_.ajouter(CardTarot.HEART_9);
         return main_;
-    }
-    @Test
-    public void trier1Test(){
+    }    @Test
+    public void trier1(){
         HandTarot main_ = trier();
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         couleurs_.add(Suit.SPADE);
@@ -221,7 +308,7 @@ public class HandTarotTest {
         assertEq(resAtt_, main_);
     }
     @Test
-    public void couleur1Test(){
+    public void couleur1(){
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.SPADE_KING);
         main_.ajouter(CardTarot.SPADE_JACK);
@@ -247,7 +334,7 @@ public class HandTarotTest {
         assertEq(res_, main_.couleur(Suit.UNDEFINED));
     }
     @Test
-    public void couleurs1Test(){
+    public void couleurs1(){
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.SPADE_KING);
         main_.ajouter(CardTarot.SPADE_JACK);
@@ -282,7 +369,7 @@ public class HandTarotTest {
         assertEq(hash_.getVal(CardTarot.EXCUSE.couleur()), res_.getVal(CardTarot.EXCUSE.couleur()));
     }
     @Test
-    public void eclaterDebutPartie1Test(){
+    public void eclaterDebutPartie1(){
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.HEART_KING);
         main_.ajouter(CardTarot.HEART_10);
@@ -306,9 +393,8 @@ public class HandTarotTest {
         assertEq(suites_.get(1), res_.get(1));
         assertEq(suites_.last(), res_.last());
     }
-
     @Test
-    public void eclaterDebutPartie2Test(){
+    public void eclaterDebutPartie2(){
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.HEART_KING);
         main_.ajouter(CardTarot.HEART_10);
@@ -360,9 +446,8 @@ public class HandTarotTest {
         assertEq(suites_.get(1), res_.get(1));
         assertEq(suites_.last(), res_.last());
     }
-
     @Test
-    public void eclaterEnCours1Test(){
+    public void eclaterEnCours1(){
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.HEART_KING);
         main_.ajouter(CardTarot.HEART_10);
@@ -397,9 +482,8 @@ public class HandTarotTest {
         assertEq(suites_.last(), res_.last());
 //        assertEq(suites_,main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.HEART));
     }
-
     @Test
-    public void eclaterEnCours2Test(){
+    public void eclaterEnCours2(){
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.HEART_KING);
         main_.ajouter(CardTarot.HEART_10);
@@ -482,15 +566,14 @@ public class HandTarotTest {
 //        assertEq(suites_,main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.CLUB));
 //        assertEq(suites_,main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.TRUMP));
     }
-
     @Test
-    public void getRepartitionsValides_repartitionsToutesValides1Test(){
+    public void getRepartitionsValides_repartitionsToutesValides1(){
         EnumList<DealingTarot> repartitionsValides_ = DealingTarot.getRepartitionsValides();
         assertTrue(!repartitionsValides_.isEmpty());
         assertEq(DealingTarot.values().length,repartitionsValides_.size());
     }
     @Test
-    public void getDeclarableHandFuls_poigneesToutesValides1Test(){
+    public void getDeclarableHandFuls_poigneesToutesValides1(){
         EnumList<Handfuls> poigneesValidesDefaut_ = Handfuls.getPoigneesValidesParDefaut();
         assertTrue(!poigneesValidesDefaut_.isEmpty());
         assertEq(Handfuls.getDeclarableHandFuls().size(),poigneesValidesDefaut_.size());

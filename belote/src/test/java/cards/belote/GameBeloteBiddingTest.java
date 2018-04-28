@@ -1,8 +1,6 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
-import junitparams.Parameters;
 
 import org.junit.Test;
 
@@ -20,39 +18,6 @@ import code.util.EqList;
 @SuppressWarnings("static-method")
 public class GameBeloteBiddingTest extends GameBeloteTest {
 
-    static Object[] bidsWithoutTrumpSuit(){
-        Object[] bids_ = new Object[3];
-        EnumList<BidBelote> allowedBids_ = new EnumList<BidBelote>();
-        allowedBids_.add(BidBelote.NO_TRUMP);
-        bids_[0] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidBelote>();
-        allowedBids_.add(BidBelote.ALL_TRUMP);
-        bids_[1] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidBelote>();
-        allowedBids_.add(BidBelote.NO_TRUMP);
-        allowedBids_.add(BidBelote.ALL_TRUMP);
-        bids_[2] = $(allowedBids_);
-        return bids_;
-    }
-
-    static Object[] bidsWithoutTrumpSuitAllTrump(){
-        Object[] bids_ = new Object[2];
-        EnumList<BidBelote> allowedBids_ = new EnumList<BidBelote>();
-        allowedBids_.add(BidBelote.ALL_TRUMP);
-        bids_[0] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidBelote>();
-        allowedBids_.add(BidBelote.NO_TRUMP);
-        allowedBids_.add(BidBelote.ALL_TRUMP);
-        bids_[1] = $(allowedBids_);
-        return bids_;
-    }
-
-    static Object[] singleBidWithoutTrumpSuit(){
-        Object[] bids_ = new Object[2];
-        bids_[0] = $(BidBelote.NO_TRUMP);
-        bids_[1] = $(BidBelote.ALL_TRUMP);
-        return bids_;
-    }
 
     static DealBelote initializeHands() {
         EqList<HandBelote> mains_ = new EqList<HandBelote>();
@@ -160,10 +125,8 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         }
         regles_.setEncheresAutorisees(contrats_);
         return regles_;
-    }
-
-    @Test
-    public void allowedBids_AtFirstRoundBidsInitialize1Test() {
+    }    @Test
+    public void allowedBids_AtFirstRoundBidsInitialize1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -179,7 +142,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         asserting(expected_,bids_);
     }
     @Test
-    public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid2Test() {
+    public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -212,7 +175,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         asserting(expected_,bids_);
     }
     @Test
-    public void allowedBids_AtFirstRoundBidsInitializeByTakingBid3Test() {
+    public void allowedBids_AtFirstRoundBidsInitializeByTakingBid1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -248,7 +211,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertTrue(!expected_.get(1).estDemandable(game.getContrat()));
     }
     @Test
-    public void allowedBids_AtSecondRoundBidsInitialize4Test() {
+    public void allowedBids_AtSecondRoundBidsInitialize1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -274,7 +237,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         //max_contrat()
     }
     @Test
-    public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid5Test() {
+    public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -325,7 +288,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
     }
     @Test
-    public void allowedBids_AtSecondRoundBidsInitializeByTakingBid6Test() {
+    public void allowedBids_AtSecondRoundBidsInitializeByTakingBid1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -387,7 +350,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertTrue(!expected_.get(3).estDemandable(game.getContrat()));
     }
     @Test
-    public void allowedBids_AtSecondRoundBidsInitializePassing7Test() {
+    public void allowedBids_AtSecondRoundBidsInitializePassing1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -433,7 +396,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertTrue(!game.keepBidding());
     }
     @Test
-    public void maximumBid_AtFirstRound1Test() {
+    public void maximumBid_AtFirstRound1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -446,7 +409,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         asserting(expected_,maximunBidsSuits_);
     }
     @Test
-    public void maximumBid_AtSecondRound2Test() {
+    public void maximumBid_AtSecondRound1(){
         RulesBelote regles_=initializeDefaultRules();
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -467,11 +430,9 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         expected_.add(b_);
         assertTrue(BidBeloteSuit.equalsSet(expected_,maximunBidsSuits_));
     }
-
-    @Parameters(method = "singleBidWithoutTrumpSuit",source =GameBeloteBiddingTest.class)
     @Test
-    public void allowedBids_AtFirstRoundBidsInitialize8Test(BidBelote _bid) {
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(_bid));
+    public void allowedBids_AtFirstRoundBidsInitialize2Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         EqList<BidBeloteSuit> bids_ = game.allowedBids();
@@ -484,13 +445,31 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         b_.setCouleur(Suit.DIAMOND);
         expected_.add(b_);
         b_ = new BidBeloteSuit();
-        b_.setEnchere(_bid);
+        b_.setEnchere(BidBelote.NO_TRUMP);
         expected_.add(b_);
         asserting(expected_,bids_);
     }
-
     @Test
-    public void allowedBids_AtFirstRoundBidsInitialize9Test() {
+    public void allowedBids_AtFirstRoundBidsInitialize3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.SUIT);
+        b_.setCouleur(Suit.DIAMOND);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.ALL_TRUMP);
+        expected_.add(b_);
+        asserting(expected_,bids_);
+    }
+    @Test
+    public void allowedBids_AtFirstRoundBidsInitialize4(){
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP, BidBelote.ALL_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -511,10 +490,9 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         expected_.add(b_);
         asserting(expected_,bids_);
     }
-    @Parameters(method = "bidsWithoutTrumpSuit",source =GameBeloteBiddingTest.class)
     @Test
-    public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid10Test(EnumList<BidBelote> _bidsWithoutTrumpSuit) {
-        RulesBelote regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid2Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
@@ -543,13 +521,80 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         b_.setEnchere(BidBelote.SUIT);
         b_.setCouleur(Suit.DIAMOND);
         expected_.add(b_);
-        expected_.addAllElts(toRealBid(_bidsWithoutTrumpSuit));
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP)));
         asserting(expected_,bids_);
     }
-    @Parameters(method = "bidsWithoutTrumpSuit",source =GameBeloteBiddingTest.class)
     @Test
-    public void allowedBids_AtFirstRoundBidsInitializeByTakingBid11Test(EnumList<BidBelote> _bidsWithoutTrumpSuit) {
-        RulesBelote regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.SUIT);
+        b_.setCouleur(Suit.DIAMOND);
+        expected_.add(b_);
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.ALL_TRUMP)));
+        asserting(expected_,bids_);
+    }
+    @Test
+    public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid4Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.SUIT);
+        b_.setCouleur(Suit.DIAMOND);
+        expected_.add(b_);
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP)));
+        asserting(expected_,bids_);
+    }
+    @Test
+    public void allowedBids_AtFirstRoundBidsInitializeByTakingBid2Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
@@ -579,7 +624,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         b_.setEnchere(BidBelote.SUIT);
         b_.setCouleur(Suit.DIAMOND);
         expected_.add(b_);
-        EqList<BidBeloteSuit> bidsGr_ = toRealBid(_bidsWithoutTrumpSuit);
+        EqList<BidBeloteSuit> bidsGr_ = toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         expected_.addAllElts(bidsGr_);
         asserting(expected_,bids_);
         assertTrue(expected_.get(0).estDemandable(game.getContrat()));
@@ -587,10 +632,89 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertTrue(bidsGr_.first().estDemandable(game.getContrat()));
         assertTrue(bidsGr_.last().estDemandable(game.getContrat()));
     }
-    @Parameters(method = "bidsWithoutTrumpSuit",source =GameBeloteBiddingTest.class)
     @Test
-    public void allowedBids_AtSecondRoundBidsInitialize12Test(EnumList<BidBelote> _bidsWithoutTrumpSuit) {
-        RulesBelote regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void allowedBids_AtFirstRoundBidsInitializeByTakingBid3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.SUIT);
+        contratTmp_.setCouleur(Suit.DIAMOND);
+        game.ajouterContrat(contratTmp_,player_);
+        assertTrue(game.keepBidding());
+        //game.setContrat(contrat_tmp);
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.SUIT);
+        b_.setCouleur(Suit.DIAMOND);
+        expected_.add(b_);
+        EqList<BidBeloteSuit> bidsGr_ = toRealBid(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        expected_.addAllElts(bidsGr_);
+        asserting(expected_,bids_);
+        assertTrue(expected_.get(0).estDemandable(game.getContrat()));
+        assertTrue(!expected_.get(1).estDemandable(game.getContrat()));
+        assertTrue(bidsGr_.first().estDemandable(game.getContrat()));
+        assertTrue(bidsGr_.last().estDemandable(game.getContrat()));
+    }
+    @Test
+    public void allowedBids_AtFirstRoundBidsInitializeByTakingBid4Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.SUIT);
+        contratTmp_.setCouleur(Suit.DIAMOND);
+        game.ajouterContrat(contratTmp_,player_);
+        assertTrue(game.keepBidding());
+        //game.setContrat(contrat_tmp);
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.SUIT);
+        b_.setCouleur(Suit.DIAMOND);
+        expected_.add(b_);
+        EqList<BidBeloteSuit> bidsGr_ = toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        expected_.addAllElts(bidsGr_);
+        asserting(expected_,bids_);
+        assertTrue(expected_.get(0).estDemandable(game.getContrat()));
+        assertTrue(!expected_.get(1).estDemandable(game.getContrat()));
+        assertTrue(bidsGr_.first().estDemandable(game.getContrat()));
+        assertTrue(bidsGr_.last().estDemandable(game.getContrat()));
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitialize2Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         game.finEncherePremierTour();
@@ -611,13 +735,64 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         b_.setEnchere(BidBelote.OTHER_SUIT);
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
-        expected_.addAllElts(toRealBid(_bidsWithoutTrumpSuit));
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP)));
         assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
     }
-    @Parameters(method = "bidsWithoutTrumpSuit",source =GameBeloteBiddingTest.class)
     @Test
-    public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid13Test(EnumList<BidBelote> _bidsWithoutTrumpSuit) {
-        RulesBelote regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void allowedBids_AtSecondRoundBidsInitialize3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        game.finEncherePremierTour();
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.HEART);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.SPADE);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.CLUB);
+        expected_.add(b_);
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.ALL_TRUMP)));
+        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitialize4Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        game.finEncherePremierTour();
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.HEART);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.SPADE);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.CLUB);
+        expected_.add(b_);
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP)));
+        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid2Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
@@ -664,13 +839,116 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         b_.setEnchere(BidBelote.OTHER_SUIT);
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
-        expected_.addAllElts(toRealBid(_bidsWithoutTrumpSuit));
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP)));
         assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
     }
-    @Parameters(method = "bidsWithoutTrumpSuit",source =GameBeloteBiddingTest.class)
     @Test
-    public void allowedBids_AtSecondRoundBidsInitializeByTakingBid14Test(EnumList<BidBelote> _bidsWithoutTrumpSuit) {
-        RulesBelote regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        game.finEncherePremierTour();
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        assertTrue(game.keepBidding());
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.HEART);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.SPADE);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.CLUB);
+        expected_.add(b_);
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.ALL_TRUMP)));
+        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid4Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        game.finEncherePremierTour();
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        assertTrue(game.keepBidding());
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.HEART);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.SPADE);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.CLUB);
+        expected_.add(b_);
+        expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP)));
+        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitializeByTakingBid2Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
@@ -724,7 +1002,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         b_.setEnchere(BidBelote.OTHER_SUIT);
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
-        EqList<BidBeloteSuit> bidsGr_ = toRealBid(_bidsWithoutTrumpSuit);
+        EqList<BidBeloteSuit> bidsGr_ = toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         expected_.addAllElts(bidsGr_);
         asserting(expected_,bids_);
         assertTrue(expected_.get(0).estDemandable(game.getContrat()));
@@ -734,10 +1012,233 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertTrue(bidsGr_.first().estDemandable(game.getContrat()));
         assertTrue(bidsGr_.last().estDemandable(game.getContrat()));
     }
-    @Parameters(method = "bidsWithoutTrumpSuit",source =GameBeloteBiddingTest.class)
     @Test
-    public void allowedBids_AtSecondRoundBidsInitializePassing15Test(EnumList<BidBelote> _bidsWithoutTrumpSuit) {
-        RulesBelote regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void allowedBids_AtSecondRoundBidsInitializeByTakingBid3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        game.finEncherePremierTour();
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.OTHER_SUIT);
+        contratTmp_.setCouleur(Suit.HEART);
+        game.ajouterContrat(contratTmp_,player_);
+        assertTrue(game.keepBidding());
+        //game.setContrat(contrat_tmp);
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.HEART);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.SPADE);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.CLUB);
+        expected_.add(b_);
+        EqList<BidBeloteSuit> bidsGr_ = toRealBid(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        expected_.addAllElts(bidsGr_);
+        asserting(expected_,bids_);
+        assertTrue(expected_.get(0).estDemandable(game.getContrat()));
+        assertTrue(!expected_.get(1).estDemandable(game.getContrat()));
+        assertTrue(!expected_.get(2).estDemandable(game.getContrat()));
+        assertTrue(!expected_.get(3).estDemandable(game.getContrat()));
+        assertTrue(bidsGr_.first().estDemandable(game.getContrat()));
+        assertTrue(bidsGr_.last().estDemandable(game.getContrat()));
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitializeByTakingBid4Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        game.finEncherePremierTour();
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.OTHER_SUIT);
+        contratTmp_.setCouleur(Suit.HEART);
+        game.ajouterContrat(contratTmp_,player_);
+        assertTrue(game.keepBidding());
+        //game.setContrat(contrat_tmp);
+        EqList<BidBeloteSuit> bids_ = game.allowedBids();
+        EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.FOLD);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.HEART);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.SPADE);
+        expected_.add(b_);
+        b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.OTHER_SUIT);
+        b_.setCouleur(Suit.CLUB);
+        expected_.add(b_);
+        EqList<BidBeloteSuit> bidsGr_ = toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        expected_.addAllElts(bidsGr_);
+        asserting(expected_,bids_);
+        assertTrue(expected_.get(0).estDemandable(game.getContrat()));
+        assertTrue(!expected_.get(1).estDemandable(game.getContrat()));
+        assertTrue(!expected_.get(2).estDemandable(game.getContrat()));
+        assertTrue(!expected_.get(3).estDemandable(game.getContrat()));
+        assertTrue(bidsGr_.first().estDemandable(game.getContrat()));
+        assertTrue(bidsGr_.last().estDemandable(game.getContrat()));
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitializePassing2Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        game.finEncherePremierTour();
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        assertTrue(!game.keepBidding());
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitializePassing3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        game.finEncherePremierTour();
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setEnchere(BidBelote.FOLD);
+        game.ajouterContrat(contratTmp_,player_);
+        assertTrue(!game.keepBidding());
+    }
+    @Test
+    public void allowedBids_AtSecondRoundBidsInitializePassing4Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
@@ -782,6 +1283,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertTrue(!game.keepBidding());
     }
 
+
     private static EqList<BidBeloteSuit> toRealBid(EnumList<BidBelote> _bids) {
         EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
         for (BidBelote e: _bids) {
@@ -790,10 +1292,8 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
             bids_.add(bid_);
         }
         return bids_;
-    }
-
-    @Test
-    public void maximumBid_AtFirstRound3Test() {
+    }    @Test
+    public void maximumBid_AtFirstRound2(){
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -804,11 +1304,9 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertEq(1, maximunBidsSuits_.size());
         assertTrue(maximunBidsSuits_.containsObj(b_));
     }
-
-    @Parameters(method = "bidsWithoutTrumpSuitAllTrump",source =GameBeloteBiddingTest.class)
     @Test
-    public void maximumBid_AtFirstRound4Test(EnumList<BidBelote> _bidsWithoutTrumpSuit) {
-        RulesBelote regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void maximumBid_AtFirstRound3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -817,9 +1315,19 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertEq(1, maximunBidsSuits_.size());
         assertTrue(maximunBidsSuits_.containsObj(b_));
     }
-
     @Test
-    public void maximumBid_AtSecondRound5Test() {
+    public void maximumBid_AtFirstRound4Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.ALL_TRUMP);
+        EqList<BidBeloteSuit> maximunBidsSuits_ = game.maximumBid();
+        assertEq(1, maximunBidsSuits_.size());
+        assertTrue(maximunBidsSuits_.containsObj(b_));
+    }
+    @Test
+    public void maximumBid_AtSecondRound2(){
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -830,11 +1338,9 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertEq(1, maximunBidsSuits_.size());
         assertTrue(maximunBidsSuits_.containsObj(b_));
     }
-
-    @Parameters(method = "bidsWithoutTrumpSuitAllTrump",source =GameBeloteBiddingTest.class)
     @Test
-    public void maximumBid_AtSecondRound6Test(EnumList<BidBelote> _bidsWithoutTrumpSuit) {
-        RulesBelote regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void maximumBid_AtSecondRound3Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         game.finEncherePremierTour();
@@ -844,9 +1350,20 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertEq(1, maximunBidsSuits_.size());
         assertTrue(maximunBidsSuits_.containsObj(b_));
     }
-
     @Test
-    public void allowedBids16Test() {
+    public void maximumBid_AtSecondRound4Test(){
+        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        game.finEncherePremierTour();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.ALL_TRUMP);
+        EqList<BidBeloteSuit> maximunBidsSuits_ = game.maximumBid();
+        assertEq(1, maximunBidsSuits_.size());
+        assertTrue(maximunBidsSuits_.containsObj(b_));
+    }
+    @Test
+    public void allowedBids1(){
         RulesBelote regles_=initializeRulesWithBidPoints(false);
         regles_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
@@ -1106,9 +1623,8 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         expected_.add(b_);
         assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
     }
-
     @Test
-    public void allowedBids17Test() {
+    public void allowedBids2(){
         RulesBelote regles_=initializeRulesWithBidPoints(false);
         regles_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
@@ -1199,6 +1715,7 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
     }
 
+
     //TODO change later
     private void asserting(EqList<BidBeloteSuit> _exp, EqList<BidBeloteSuit> _res) {
         assertEq(_exp.size(), _res.size());
@@ -1206,5 +1723,4 @@ public class GameBeloteBiddingTest extends GameBeloteTest {
         for (int i = CustList.FIRST_INDEX; i < s_; i++) {
             assertEq(_exp.get(i), _res.get(i));
         }
-    }
-}
+    }}

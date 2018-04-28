@@ -1,9 +1,7 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import junitparams.Parameters;
 
 import org.junit.Test;
 
@@ -17,10 +15,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 
 public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteTest {
-    static Object[] rulesTrumpingPartner() {
-        return $($(BeloteTrumpPartner.UNDERTRUMP_ONLY),
-                $(BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP));
-    }
+
     static DealBelote initializeHands() {
         EqList<HandBelote> mains_ = new EqList<HandBelote>();
         HandBelote main_ = new HandBelote();
@@ -70,14 +65,39 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteTest {
         main_.ajouter(CardBelote.CLUB_1);
         mains_.add(main_);
         return new DealBelote(mains_,(byte)2);
-    }
-
-    /**Discarding a card while neither following nor trumping a suit*/
-    @Parameters(method="rulesTrumpingPartner")
-    @Test
-    public void playableCards_WhileDiscarding1Test(BeloteTrumpPartner _ruleTrumpPartner) {
+    }    @Test
+    public void playableCards_WhileDiscarding1Test(){
         RulesBelote regles_=new RulesBelote();
-        regles_.setGestionCoupePartenaire(_ruleTrumpPartner);
+        regles_.setGestionCoupePartenaire(BeloteTrumpPartner.UNDERTRUMP_ONLY);
+        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        biddingTrumpSuit(BidBelote.OTHER_SUIT,Suit.HEART);
+        game.setPliEnCours();
+        assertEq(3,game.getEntameur());
+        HandBelote hand_ = game.getDistribution().main(game.getEntameur());
+        assertTrue(hand_.contient(CardBelote.DIAMOND_1));
+        game.getDistribution().jouer(game.getEntameur(),CardBelote.DIAMOND_1);
+        game.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_1);
+        assertNotEquals(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
+        byte player_ = game.playerAfter(game.getEntameur());
+        hand_ = game.getDistribution().main(player_);
+        assertTrue(hand_.contient(CardBelote.DIAMOND_QUEEN));
+        game.getDistribution().jouer(player_,CardBelote.DIAMOND_QUEEN);
+        game.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_QUEEN);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.memeEquipe(player_, game.getEntameur()));
+        hand_ = game.getDistribution().main(player_);
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
+        assertTrue(!suits_.getVal(game.couleurAtout()).estVide());
+        HandBelote playableCards_ = game.playableCards(suits_);
+        assertEq(hand_.total(),playableCards_.total());
+        assertTrue(playableCards_.display(),playableCards_.contientCartes(hand_));
+    }
+    @Test
+    public void playableCards_WhileDiscarding2Test(){
+        RulesBelote regles_=new RulesBelote();
+        regles_.setGestionCoupePartenaire(BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP);
         regles_.setCartesBattues(MixCardsChoice.NEVER);
         game = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();

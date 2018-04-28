@@ -1,99 +1,21 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.tarot.enumerations.AllowedBiddingTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
 
-@RunWith(JUnitParamsRunner.class)
 public class GameTarotBidding extends CommonTarotGame {
 
-    static Object[] bids(){
-        Object[] bids_ = new Object[8];
-        EnumList<BidTarot> allowedBids_ = new EnumList<BidTarot>();
-        bids_[0] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.TAKE);
-        bids_[1] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.GUARD_WITHOUT);
-        bids_[2] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.GUARD_AGAINST);
-        bids_[3] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.TAKE);
-        allowedBids_.add(BidTarot.GUARD_WITHOUT);
-        bids_[4] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.TAKE);
-        allowedBids_.add(BidTarot.GUARD_AGAINST);
-        bids_[5] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.GUARD_WITHOUT);
-        allowedBids_.add(BidTarot.GUARD_AGAINST);
-        bids_[6] = $(allowedBids_);
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.TAKE);
-        allowedBids_.add(BidTarot.GUARD_WITHOUT);
-        allowedBids_.add(BidTarot.GUARD_AGAINST);
-        bids_[7] = $(allowedBids_);
-        return bids_;
-    }
-
-    static Object[] bidsExpect(){
-        Object[] bids_ = new Object[8];
-        EnumList<BidTarot> allowedBids_ = new EnumList<BidTarot>();
-        bids_[0] = $(allowedBids_, new EnumList<BidTarot>(BidTarot.FOLD,BidTarot.GUARD));
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.TAKE);
-        bids_[1] = $(allowedBids_, new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE,BidTarot.GUARD));
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.GUARD_WITHOUT);
-        bids_[2] = $(allowedBids_, new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD,BidTarot.GUARD_WITHOUT));
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.GUARD_AGAINST);
-        bids_[3] = $(allowedBids_, new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD,BidTarot.GUARD_AGAINST));
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.TAKE);
-        allowedBids_.add(BidTarot.GUARD_WITHOUT);
-        bids_[4] = $(allowedBids_, new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD,BidTarot.GUARD_WITHOUT));
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.TAKE);
-        allowedBids_.add(BidTarot.GUARD_AGAINST);
-        bids_[5] = $(allowedBids_, new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD,BidTarot.GUARD_AGAINST));
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.GUARD_WITHOUT);
-        allowedBids_.add(BidTarot.GUARD_AGAINST);
-        bids_[6] = $(allowedBids_, new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD, BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
-        allowedBids_ = new EnumList<BidTarot>();
-        allowedBids_.add(BidTarot.TAKE);
-        allowedBids_.add(BidTarot.GUARD_WITHOUT);
-        allowedBids_.add(BidTarot.GUARD_AGAINST);
-        bids_[7] = $(allowedBids_, new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD, BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
-        return bids_;
-    }
-
-    static Object[] bidsSingle(){
-        Object[] bids_ = new Object[3];
-        bids_[0] = $(BidTarot.TAKE);
-        bids_[1] = $(BidTarot.GUARD_WITHOUT);
-        bids_[2] = $(BidTarot.GUARD_AGAINST);
-        return bids_;
-    }
 
     static DealTarot initializeHands() {
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
@@ -316,10 +238,8 @@ public class GameTarotBidding extends CommonTarotGame {
         }
         regles_.setContrats(contrats_);
         return regles_;
-    }
-
-    @Test
-    public void allowedBids_BidsInitialize1Test() {
+    }    @Test
+    public void allowedBids_BidsInitialize1(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -333,9 +253,8 @@ public class GameTarotBidding extends CommonTarotGame {
         assertEq(expected_.get(1),bids_.get(1));
         assertEq(expected_.last(),bids_.last());
     }
-
     @Test
-    public void allowedBids_BidsInitialize2Test() {
+    public void allowedBids_BidsInitialize2(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -349,9 +268,8 @@ public class GameTarotBidding extends CommonTarotGame {
         assertEq(expected_.get(1),bids_.get(1));
         assertEq(expected_.last(),bids_.last());
     }
-
     @Test
-    public void allowedBids_BidsInitialize3Test() {
+    public void allowedBids_BidsInitialize3(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -363,9 +281,8 @@ public class GameTarotBidding extends CommonTarotGame {
         assertEq(expected_.first(),bids_.first());
         assertEq(expected_.last(),bids_.last());
     }
-
     @Test
-    public void allowedBids_BidsInitialize4Test() {
+    public void allowedBids_BidsInitialize4(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE, BidTarot.GUARD_WITHOUT));
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
@@ -381,13 +298,11 @@ public class GameTarotBidding extends CommonTarotGame {
         assertEq(expected_.get(2),bids_.get(2));
         assertEq(expected_.last(),bids_.last());
     }
-
-    @Parameters(method = "bidsExpect",source =GameTarotBidding.class)
     @Test
-    public void allowedBids_InitializeWithoutTakingBid5Test(EnumList<BidTarot> _bidsWithoutTrumpSuit, EnumList<BidTarot> _expected) {
-        RulesTarot regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void allowedBids_InitializeWithoutTakingBid1Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        //game.resetNbPlisTotal();
+
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         assertTrue(game.keepBidding());
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -397,8 +312,121 @@ public class GameTarotBidding extends CommonTarotGame {
         player_ = game.playerAfter(player_);
         assertTrue(game.keepBidding());
         EnumList<BidTarot> bids_ = game.allowedBids();
-        assertEqBids(_expected,bids_);
+        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD,BidTarot.GUARD),bids_);
     }
+    @Test
+    public void allowedBids_InitializeWithoutTakingBid2Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EnumList<BidTarot> bids_ = game.allowedBids();
+        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE,BidTarot.GUARD),bids_);
+    }
+    @Test
+    public void allowedBids_InitializeWithoutTakingBid3Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EnumList<BidTarot> bids_ = game.allowedBids();
+        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD,BidTarot.GUARD_WITHOUT),bids_);
+    }
+    @Test
+    public void allowedBids_InitializeWithoutTakingBid4Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EnumList<BidTarot> bids_ = game.allowedBids();
+        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD,BidTarot.GUARD_AGAINST),bids_);
+    }
+    @Test
+    public void allowedBids_InitializeWithoutTakingBid5Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EnumList<BidTarot> bids_ = game.allowedBids();
+        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD,BidTarot.GUARD_WITHOUT),bids_);
+    }
+    @Test
+    public void allowedBids_InitializeWithoutTakingBid6Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EnumList<BidTarot> bids_ = game.allowedBids();
+        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD,BidTarot.GUARD_AGAINST),bids_);
+    }
+    @Test
+    public void allowedBids_InitializeWithoutTakingBid7Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EnumList<BidTarot> bids_ = game.allowedBids();
+        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD, BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST),bids_);
+    }
+    @Test
+    public void allowedBids_InitializeWithoutTakingBid8Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        EnumList<BidTarot> bids_ = game.allowedBids();
+        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD, BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST),bids_);
+    }
+
 
     private static void assertEqBids(EnumList<BidTarot> _expected, EnumList<BidTarot> _result) {
         int expectedLen_ = _expected.size();
@@ -406,12 +434,11 @@ public class GameTarotBidding extends CommonTarotGame {
         for (int i = 0; i < expectedLen_; i++) {
             assertEq(_expected.get(i),_result.get(i));
         }
-    }
-    @Test
-    public void allowedBids_InitializeByTakingBid6Test() {
+    }    @Test
+    public void allowedBids_InitializeByTakingBid1(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        //game.resetNbPlisTotal();
+
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         assertTrue(game.keepBidding());
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -421,7 +448,7 @@ public class GameTarotBidding extends CommonTarotGame {
         assertEq(player_,game.getPreneur());
         player_ = game.playerAfter(player_);
         assertTrue(game.keepBidding());
-        //game.setContrat(contrat_tmp);
+
         EnumList<BidTarot> bids_ = game.allowedBids();
         EnumList<BidTarot> expected_ = new EnumList<BidTarot>();
         expected_.add(BidTarot.FOLD);
@@ -435,12 +462,11 @@ public class GameTarotBidding extends CommonTarotGame {
         assertTrue(!BidTarot.GUARD.estDemandable(game.getContrat()));
         assertTrue(BidTarot.GUARD_WITHOUT.estDemandable(game.getContrat()));
     }
-
     @Test
-    public void allowedBids_InitializeByTakingBid7Test() {
+    public void allowedBids_InitializeByTakingBid2(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        //game.resetNbPlisTotal();
+
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         assertTrue(game.keepBidding());
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -450,7 +476,7 @@ public class GameTarotBidding extends CommonTarotGame {
         assertEq(player_,game.getPreneur());
         player_ = game.playerAfter(player_);
         assertTrue(!game.keepBidding());
-        //game.setContrat(contrat_tmp);
+
         EnumList<BidTarot> bids_ = game.allowedBids();
         EnumList<BidTarot> expected_ = new EnumList<BidTarot>();
         expected_.add(BidTarot.FOLD);
@@ -464,13 +490,11 @@ public class GameTarotBidding extends CommonTarotGame {
         assertTrue(!BidTarot.TAKE.estDemandable(game.getContrat()));
         assertTrue(!BidTarot.GUARD.estDemandable(game.getContrat()));
     }
-
-    @Parameters(method = "bids",source =GameTarotBidding.class)
     @Test
-    public void allowedBids_InitializeByPassing8Test(EnumList<BidTarot> _bidsWithoutTrumpSuit) {
-        RulesTarot regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void allowedBids_InitializeByPassing1Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        //game.resetNbPlisTotal();
+
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         assertTrue(game.keepBidding());
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -481,36 +505,150 @@ public class GameTarotBidding extends CommonTarotGame {
         assertTrue(game.keepBidding());
         game.ajouterContrat(BidTarot.FOLD,player_);
         assertTrue(!game.keepBidding());
-        //game.setContrat(contrat_tmp);
-    }
 
+    }
     @Test
-    public void maximumBid_AtSecondRound1Test() {
+    public void allowedBids_InitializeByPassing2Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        assertTrue(!game.keepBidding());
+
+    }
+    @Test
+    public void allowedBids_InitializeByPassing3Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        assertTrue(!game.keepBidding());
+
+    }
+    @Test
+    public void allowedBids_InitializeByPassing4Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        assertTrue(!game.keepBidding());
+
+    }
+    @Test
+    public void allowedBids_InitializeByPassing5Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        assertTrue(!game.keepBidding());
+
+    }
+    @Test
+    public void allowedBids_InitializeByPassing6Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        assertTrue(!game.keepBidding());
+
+    }
+    @Test
+    public void allowedBids_InitializeByPassing7Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        assertTrue(!game.keepBidding());
+
+    }
+    @Test
+    public void allowedBids_InitializeByPassing8Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        assertTrue(!game.keepBidding());
+
+    }
+    @Test
+    public void maximumBid_AtSecondRound1(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game.maximumBid(BidTarot.GUARD));
     }
-
     @Test
-    public void maximumBid_AtSecondRound2Test() {
+    public void maximumBid_AtSecondRound2(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game.maximumBid(BidTarot.GUARD));
     }
-
     @Test
-    public void maximumBid_AtSecondRound3Test() {
+    public void maximumBid_AtSecondRound3(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game.maximumBid(BidTarot.GUARD_AGAINST));
     }
-
-    @Parameters(method = "bids",source =GameTarotBidding.class)
     @Test
-    public void initDefense_revealedTeamWithoutCallingByTaking1Test(EnumList<BidTarot> _bidsWithoutTrumpSuit) {
-        RulesTarot regles_=initializeRulesWithBids(_bidsWithoutTrumpSuit);
+    public void initDefense_revealedTeamWithoutCallingByTaking1Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        //game.resetNbPlisTotal();
+
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         assertTrue(game.keepBidding());
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -526,14 +664,167 @@ public class GameTarotBidding extends CommonTarotGame {
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)0 ,(byte) 1));
         assertTrue(game.confiance((byte)1 ,(byte) 0));
-        //game.setContrat(contrat_tmp);
+
     }
-    @Parameters(method = "bids",source =GameTarotBidding.class)
     @Test
-    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking1Test(EnumList<BidTarot> _bidsWithoutTrumpSuit) {
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(_bidsWithoutTrumpSuit);
+    public void initDefense_revealedTeamWithoutCallingByTaking2Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.initDefense();
+        assertTrue(!game.keepBidding());
+        assertEq(2,game.getPreneur());
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+
+    }
+    @Test
+    public void initDefense_revealedTeamWithoutCallingByTaking3Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.initDefense();
+        assertTrue(!game.keepBidding());
+        assertEq(2,game.getPreneur());
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+
+    }
+    @Test
+    public void initDefense_revealedTeamWithoutCallingByTaking4Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.initDefense();
+        assertTrue(!game.keepBidding());
+        assertEq(2,game.getPreneur());
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+
+    }
+    @Test
+    public void initDefense_revealedTeamWithoutCallingByTaking5Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.initDefense();
+        assertTrue(!game.keepBidding());
+        assertEq(2,game.getPreneur());
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+
+    }
+    @Test
+    public void initDefense_revealedTeamWithoutCallingByTaking6Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.initDefense();
+        assertTrue(!game.keepBidding());
+        assertEq(2,game.getPreneur());
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+
+    }
+    @Test
+    public void initDefense_revealedTeamWithoutCallingByTaking7Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.initDefense();
+        assertTrue(!game.keepBidding());
+        assertEq(2,game.getPreneur());
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+
+    }
+    @Test
+    public void initDefense_revealedTeamWithoutCallingByTaking8Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        assertTrue(game.keepBidding());
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.initDefense();
+        assertTrue(!game.keepBidding());
+        assertEq(2,game.getPreneur());
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+
+    }
+    @Test
+    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking1Test(){
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>());
         game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
-        //game.resetNbPlisTotal();
+
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
@@ -565,11 +856,276 @@ public class GameTarotBidding extends CommonTarotGame {
         assertTrue(game.confiance((byte)4 ,(byte) 0));
         assertTrue(game.confiance((byte)4 ,(byte) 1));
         assertTrue(game.confiance((byte)4 ,(byte) 3));
-        //game.setContrat(contrat_tmp);
-    }
 
+    }
     @Test
-    public void initEquipeDetermineeSansPreneur_revealedTeamWithoutCallingSixPlyersByTaking2Test() {
+    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking2Test(){
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.TAKE));
+        game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        game.initEquipeDeterminee();
+        assertEq(2,game.getPreneur());
+        assertEq(1,game.getAppele().size());
+        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)2 ,(byte) 5));
+        assertTrue(game.confiance((byte)5 ,(byte) 2));
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)0 ,(byte) 3));
+        assertTrue(game.confiance((byte)0 ,(byte) 4));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+        assertTrue(game.confiance((byte)1 ,(byte) 3));
+        assertTrue(game.confiance((byte)1 ,(byte) 4));
+        assertTrue(game.confiance((byte)3 ,(byte) 0));
+        assertTrue(game.confiance((byte)3 ,(byte) 1));
+        assertTrue(game.confiance((byte)3 ,(byte) 4));
+        assertTrue(game.confiance((byte)4 ,(byte) 0));
+        assertTrue(game.confiance((byte)4 ,(byte) 1));
+        assertTrue(game.confiance((byte)4 ,(byte) 3));
+
+    }
+    @Test
+    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking3Test(){
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        game.initEquipeDeterminee();
+        assertEq(2,game.getPreneur());
+        assertEq(1,game.getAppele().size());
+        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)2 ,(byte) 5));
+        assertTrue(game.confiance((byte)5 ,(byte) 2));
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)0 ,(byte) 3));
+        assertTrue(game.confiance((byte)0 ,(byte) 4));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+        assertTrue(game.confiance((byte)1 ,(byte) 3));
+        assertTrue(game.confiance((byte)1 ,(byte) 4));
+        assertTrue(game.confiance((byte)3 ,(byte) 0));
+        assertTrue(game.confiance((byte)3 ,(byte) 1));
+        assertTrue(game.confiance((byte)3 ,(byte) 4));
+        assertTrue(game.confiance((byte)4 ,(byte) 0));
+        assertTrue(game.confiance((byte)4 ,(byte) 1));
+        assertTrue(game.confiance((byte)4 ,(byte) 3));
+
+    }
+    @Test
+    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking4Test(){
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        game.initEquipeDeterminee();
+        assertEq(2,game.getPreneur());
+        assertEq(1,game.getAppele().size());
+        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)2 ,(byte) 5));
+        assertTrue(game.confiance((byte)5 ,(byte) 2));
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)0 ,(byte) 3));
+        assertTrue(game.confiance((byte)0 ,(byte) 4));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+        assertTrue(game.confiance((byte)1 ,(byte) 3));
+        assertTrue(game.confiance((byte)1 ,(byte) 4));
+        assertTrue(game.confiance((byte)3 ,(byte) 0));
+        assertTrue(game.confiance((byte)3 ,(byte) 1));
+        assertTrue(game.confiance((byte)3 ,(byte) 4));
+        assertTrue(game.confiance((byte)4 ,(byte) 0));
+        assertTrue(game.confiance((byte)4 ,(byte) 1));
+        assertTrue(game.confiance((byte)4 ,(byte) 3));
+
+    }
+    @Test
+    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking5Test(){
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
+        game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        game.initEquipeDeterminee();
+        assertEq(2,game.getPreneur());
+        assertEq(1,game.getAppele().size());
+        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)2 ,(byte) 5));
+        assertTrue(game.confiance((byte)5 ,(byte) 2));
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)0 ,(byte) 3));
+        assertTrue(game.confiance((byte)0 ,(byte) 4));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+        assertTrue(game.confiance((byte)1 ,(byte) 3));
+        assertTrue(game.confiance((byte)1 ,(byte) 4));
+        assertTrue(game.confiance((byte)3 ,(byte) 0));
+        assertTrue(game.confiance((byte)3 ,(byte) 1));
+        assertTrue(game.confiance((byte)3 ,(byte) 4));
+        assertTrue(game.confiance((byte)4 ,(byte) 0));
+        assertTrue(game.confiance((byte)4 ,(byte) 1));
+        assertTrue(game.confiance((byte)4 ,(byte) 3));
+
+    }
+    @Test
+    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking6Test(){
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        game.initEquipeDeterminee();
+        assertEq(2,game.getPreneur());
+        assertEq(1,game.getAppele().size());
+        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)2 ,(byte) 5));
+        assertTrue(game.confiance((byte)5 ,(byte) 2));
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)0 ,(byte) 3));
+        assertTrue(game.confiance((byte)0 ,(byte) 4));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+        assertTrue(game.confiance((byte)1 ,(byte) 3));
+        assertTrue(game.confiance((byte)1 ,(byte) 4));
+        assertTrue(game.confiance((byte)3 ,(byte) 0));
+        assertTrue(game.confiance((byte)3 ,(byte) 1));
+        assertTrue(game.confiance((byte)3 ,(byte) 4));
+        assertTrue(game.confiance((byte)4 ,(byte) 0));
+        assertTrue(game.confiance((byte)4 ,(byte) 1));
+        assertTrue(game.confiance((byte)4 ,(byte) 3));
+
+    }
+    @Test
+    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking7Test(){
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        game.initEquipeDeterminee();
+        assertEq(2,game.getPreneur());
+        assertEq(1,game.getAppele().size());
+        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)2 ,(byte) 5));
+        assertTrue(game.confiance((byte)5 ,(byte) 2));
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)0 ,(byte) 3));
+        assertTrue(game.confiance((byte)0 ,(byte) 4));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+        assertTrue(game.confiance((byte)1 ,(byte) 3));
+        assertTrue(game.confiance((byte)1 ,(byte) 4));
+        assertTrue(game.confiance((byte)3 ,(byte) 0));
+        assertTrue(game.confiance((byte)3 ,(byte) 1));
+        assertTrue(game.confiance((byte)3 ,(byte) 4));
+        assertTrue(game.confiance((byte)4 ,(byte) 0));
+        assertTrue(game.confiance((byte)4 ,(byte) 1));
+        assertTrue(game.confiance((byte)4 ,(byte) 3));
+
+    }
+    @Test
+    public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking8Test(){
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
+
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        game.initEquipeDeterminee();
+        assertEq(2,game.getPreneur());
+        assertEq(1,game.getAppele().size());
+        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertEq(BidTarot.GUARD,game.getContrat());
+        assertTrue(game.confiance((byte)2 ,(byte) 5));
+        assertTrue(game.confiance((byte)5 ,(byte) 2));
+        assertTrue(game.confiance((byte)0 ,(byte) 1));
+        assertTrue(game.confiance((byte)0 ,(byte) 3));
+        assertTrue(game.confiance((byte)0 ,(byte) 4));
+        assertTrue(game.confiance((byte)1 ,(byte) 0));
+        assertTrue(game.confiance((byte)1 ,(byte) 3));
+        assertTrue(game.confiance((byte)1 ,(byte) 4));
+        assertTrue(game.confiance((byte)3 ,(byte) 0));
+        assertTrue(game.confiance((byte)3 ,(byte) 1));
+        assertTrue(game.confiance((byte)3 ,(byte) 4));
+        assertTrue(game.confiance((byte)4 ,(byte) 0));
+        assertTrue(game.confiance((byte)4 ,(byte) 1));
+        assertTrue(game.confiance((byte)4 ,(byte) 3));
+
+    }
+    @Test
+    public void initEquipeDetermineeSansPreneur_revealedTeamWithoutCallingSixPlyersByTaking1(){
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>());
         game = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
         game.initEquipeDetermineeSansPreneur();
