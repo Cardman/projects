@@ -1,11 +1,7 @@
 package aiki.game.fight;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
@@ -24,167 +20,248 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
 
-@RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
 public class FighterValidationTest extends InitializationDataBase {
-
-    private static final String SEX = "sex";
-
-    Object[] sex() {
-        return $($(Sex.GIRL),$(Sex.BOY));
-    }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate1Test(Sex _sex) {
-        Game game_ = newGameInFight(_sex);
+    public void validate1Test(){
+        Game game_ = newGameInFight(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate2Test(Sex _sex) {
-        Game game_ = newGameInFight(_sex);
+    public void validate2Test(){
+        Game game_ = newGameInFight(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate3Test(){
+        Game game_ = newGameInFight(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate3Test(Sex _sex) {
+    public void validate4Test(){
+        Game game_ = newGameInFight(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate5Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFight(_sex);
+        Game game_ = newGameInFight(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate4Test(Sex _sex) {
+    public void validate6Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFight(_sex);
+        Game game_ = newGameInFight(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate7Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFight(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setFirstChosenMove(OEIL_MIRACLE);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate5Test(Sex _sex) {
+    public void validate8Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFight(_sex);
+        Game game_ = newGameInFight(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setFirstChosenMove(OEIL_MIRACLE);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate9Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFight(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate6Test(Sex _sex) {
+    public void validate10Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFight(_sex);
+        Game game_ = newGameInFight(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate11Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFight(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setFirstChosenMove(OEIL_MIRACLE);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate7Test(Sex _sex) {
+    public void validate12Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFight(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setFirstChosenMove(OEIL_MIRACLE);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate13Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_FOE_TARGET_ZERO, (byte) 1);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate8Test(Sex _sex) {
+    public void validate14Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_FOE_TARGET_ZERO, (byte) 1);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate15Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate9Test(Sex _sex) {
+    public void validate16Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFight(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate17Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFight(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
         figther_.choisirAttaqueFin();
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate10Test(Sex _sex) {
+    public void validate18Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFight(_sex);
+        Game game_ = newGameInFight(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
+        figther_.choisirAttaqueFin();
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate19Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFight(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         figther_.choisirAttaqueFin();
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate11Test(Sex _sex) {
+    public void validate20Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFight(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
+        figther_.choisirAttaqueFin();
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate21Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setSubstitute((byte) 1);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate12Test(Sex _sex) {
+    public void validate22Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setSubstitute((byte) 1);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate23Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setSubstitute((byte) 1);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate13Test(Sex _sex) {
+    public void validate24Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setSubstitute((byte) 1);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate25Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.setFirstChosenMoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ZERO);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate14Test(Sex _sex) {
+    public void validate26Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ZERO);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate27Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.setFirstChosenMoveTarget(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate15Test(Sex _sex) {
+    public void validate28Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTarget(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate29Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(RELAIS, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(RELAIS, new UsesOfMove((short)10));
@@ -192,12 +269,21 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setSubstituteForMove((byte) 1);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate16Test(Sex _sex) {
+    public void validate30Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(RELAIS, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(RELAIS, new UsesOfMove((short)10));
+        figther_.setFirstChosenMove(RELAIS);
+        figther_.setSubstituteForMove((byte) 1);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate31Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(RELAIS, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(RELAIS, new UsesOfMove((short)10));
@@ -205,92 +291,149 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setSubstituteForMove((byte) 1);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate17Test(Sex _sex) {
+    public void validate32Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(RELAIS, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(RELAIS, new UsesOfMove((short)10));
+        figther_.setFirstChosenMove(RELAIS);
+        figther_.setSubstituteForMove((byte) 1);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate33Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObject(POTION, _data_);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate18Test(Sex _sex) {
+    public void validate34Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(POTION, _data_);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate35Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setChosenHealingObject(POTION, _data_);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate19Test(Sex _sex) {
+    public void validate36Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(POTION, _data_);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate37Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(HUILE, JACKPOT);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate20Test(Sex _sex) {
+    public void validate38Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(HUILE, JACKPOT);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate39Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(HUILE, JACKPOT);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate21Test(Sex _sex) {
+    public void validate40Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(HUILE, JACKPOT);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate41Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         FightKo.setKoMoveTeams(game_.getFight(), POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate22Test(Sex _sex) {
+    public void validate42Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        FightKo.setKoMoveTeams(game_.getFight(), POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate43Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         FightKo.setKoMoveTeams(game_.getFight(), POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate23Test(Sex _sex) {
+    public void validate44Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        FightKo.setKoMoveTeams(game_.getFight(), POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate45Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate24Test(Sex _sex) {
+    public void validate46Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate47Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate25Test(Sex _sex) {
+    public void validate48Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate49Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
@@ -299,12 +442,22 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.successUsingMove();
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate26Test(Sex _sex) {
+    public void validate50Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_FOE_TARGET_ZERO, (byte) 1);
+        figther_.choisirAttaqueFin();
+        figther_.successUsingMove();
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate51Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
@@ -313,72 +466,118 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.successUsingMove();
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate27Test(Sex _sex) {
+    public void validate52Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
+        figther_.choisirAttaqueFin();
+        figther_.successUsingMove();
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate53Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLastSufferedMove(DEMI_TOUR);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate28Test(Sex _sex) {
+    public void validate54Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLastSufferedMove(DEMI_TOUR);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate55Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setLastSufferedMove(DEMI_TOUR);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate29Test(Sex _sex) {
+    public void validate56Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setLastSufferedMove(DEMI_TOUR);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate57Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLastSufferedMoveTypes(new StringList(INSECTE));
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate30Test(Sex _sex) {
+    public void validate58Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLastSufferedMoveTypes(new StringList(INSECTE));
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate59Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setLastSufferedMoveTypes(new StringList(INSECTE));
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate31Test(Sex _sex) {
+    public void validate60Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setLastSufferedMoveTypes(new StringList(INSECTE));
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate61Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLastUsedMove();
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate32Test(Sex _sex) {
+    public void validate62Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLastUsedMove();
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate63Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setLastUsedMove();
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate33Test(Sex _sex) {
+    public void validate64Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setLastUsedMove();
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate65Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
@@ -386,12 +585,21 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setLastUsedMove();
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate34Test(Sex _sex) {
+    public void validate66Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
+        figther_.setLastUsedMove();
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate67Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
@@ -399,12 +607,21 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setLastUsedMove();
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate35Test(Sex _sex) {
+    public void validate68Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
+        figther_.setLastUsedMove();
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate69Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
@@ -415,12 +632,24 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setLastUsedMove();
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate36Test(Sex _sex) {
+    public void validate70Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
+        figther_.choisirAttaqueFin();
+        figther_.ajouterAttaquesDejaInvoqueesTour(DEMI_TOUR);
+        figther_.invokeMove();
+        figther_.setLastUsedMove();
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate71Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
@@ -431,12 +660,24 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setLastUsedMove();
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate37Test(Sex _sex) {
+    public void validate72Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
+        figther_.choisirAttaqueFin();
+        figther_.ajouterAttaquesDejaInvoqueesTour(DEMI_TOUR);
+        figther_.invokeMove();
+        figther_.setLastUsedMove();
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate73Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
@@ -448,12 +689,25 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setLastUsedMove();
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate38Test(Sex _sex) {
+    public void validate74Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(DEMI_TOUR, COPIE, _data_);
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
+        figther_.choisirAttaqueFin();
+        figther_.ajouterAttaquesDejaInvoqueesTour(DEMI_TOUR);
+        figther_.invokeMove();
+        figther_.setLastUsedMove();
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate75Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
@@ -465,12 +719,25 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setLastUsedMove();
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate39Test(Sex _sex) {
+    public void validate76Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(DEMI_TOUR, COPIE, _data_);
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_PLAYER_TARGET_ZERO, (byte) 1);
+        figther_.choisirAttaqueFin();
+        figther_.ajouterAttaquesDejaInvoqueesTour(DEMI_TOUR);
+        figther_.invokeMove();
+        figther_.setLastUsedMove();
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate77Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
@@ -480,12 +747,23 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,POKEMON_FOE_FIGHTER_ZERO)).add(JACKPOT);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate40Test(Sex _sex) {
+    public void validate78Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(POSSESSIF, COPIE, _data_);
+        figther_.setFirstChosenMove(POSSESSIF);
+        figther_.choisirAttaqueFin();
+        figther_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,POKEMON_FOE_FIGHTER_ZERO)).add(JACKPOT);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate79Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
@@ -495,12 +773,23 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,POKEMON_PLAYER_FIGHTER_ZERO)).add(JACKPOT);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate41Test(Sex _sex) {
+    public void validate80Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(POSSESSIF, COPIE, _data_);
+        figther_.setFirstChosenMove(POSSESSIF);
+        figther_.choisirAttaqueFin();
+        figther_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,POKEMON_PLAYER_FIGHTER_ZERO)).add(JACKPOT);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate81Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
@@ -512,12 +801,25 @@ public class FighterValidationTest extends InitializationDataBase {
         aff_.getActivity().enableReset();
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate42Test(Sex _sex) {
+    public void validate82Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(ENCORE, COPIE, _data_);
+        figther_.setFirstChosenMoveTarget(ENCORE, POKEMON_FOE_TARGET_ZERO);
+        figther_.choisirAttaqueFin();
+        AffectedMove aff_ = figther_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE,POKEMON_FOE_FIGHTER_ZERO));
+        aff_.setMove(JACKPOT);
+        aff_.getActivity().enableReset();
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate83Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
@@ -529,12 +831,25 @@ public class FighterValidationTest extends InitializationDataBase {
         aff_.getActivity().enableReset();
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate43Test(Sex _sex) {
+    public void validate84Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(ENCORE, COPIE, _data_);
+        figther_.setFirstChosenMoveTarget(ENCORE, POKEMON_PLAYER_TARGET_ZERO);
+        figther_.choisirAttaqueFin();
+        AffectedMove aff_ = figther_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE,POKEMON_FOE_FIGHTER_ZERO));
+        aff_.setMove(JACKPOT);
+        aff_.getActivity().enableReset();
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate85Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
@@ -544,12 +859,23 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setNbPrepaRound((short) 1);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate44Test(Sex _sex) {
+    public void validate86Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(TUNNEL, COPIE, _data_);
+        figther_.setFirstChosenMoveTarget(TUNNEL, POKEMON_FOE_TARGET_ZERO);
+        figther_.choisirAttaqueFin();
+        figther_.setNbPrepaRound((short) 1);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate87Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
@@ -559,1087 +885,1733 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.setNbPrepaRound((short) 1);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate45Test(Sex _sex) {
+    public void validate88Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(TUNNEL, COPIE, _data_);
+        figther_.setFirstChosenMoveTarget(TUNNEL, POKEMON_PLAYER_TARGET_ZERO);
+        figther_.choisirAttaqueFin();
+        figther_.setNbPrepaRound((short) 1);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate89Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationGainExperience(new Rate("10000"), _data_);
         figther_.calculateNewLevel(diff_, _data_, new StringList());
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate46Test(Sex _sex) {
+    public void validate90Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer2(_sex);
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationGainExperience(new Rate("10000"), _data_);
+        figther_.calculateNewLevel(diff_, _data_, new StringList());
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate91Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.backUpObject(NULL_REF);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate47Test(Sex _sex) {
+    public void validate92Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer2(_sex);
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.backUpObject(NULL_REF);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate93Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.backUpObject(NULL_REF);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate48Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate94Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.backUpObject(NULL_REF);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate95Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setName(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate49Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate96Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setName(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate97Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setCurrentName(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate50Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate98Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setCurrentName(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate99Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setAbility(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate51Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate100Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setAbility(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate101Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setCurrentAbility(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate52Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate102Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setCurrentAbility(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate103Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setItem(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate53Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate104Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setItem(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate105Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLastUsedItem(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate54Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate106Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLastUsedItem(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate107Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setExpItem(POTION);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate55Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate108Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setExpItem(POTION);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate109Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.affecterTypes(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate56Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate110Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.affecterTypes(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate111Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCurrentMoves().put(INVALID_DATA_KEY, new UsesOfMove((short) 1));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate57Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate112Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCurrentMoves().put(INVALID_DATA_KEY, new UsesOfMove((short) 1));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate113Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(INVALID_DATA_KEY, new UsesOfMove((short) 1));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate58Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate114Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(INVALID_DATA_KEY, new UsesOfMove((short) 1));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate115Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getAlreadyInvokedMovesRound().add(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate59Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate116Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getAlreadyInvokedMovesRound().add(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate117Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getLastSufferedMoveTypes().add(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate60Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate118Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getLastSufferedMoveTypes().add(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate119Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLastSufferedMove(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate61Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate120Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLastSufferedMove(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate121Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatus().put(INVALID_DATA_KEY, (short) 1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate62Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate122Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatus().put(INVALID_DATA_KEY, (short) 1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate123Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatus().put(VAMPIGRAINE, (short) 1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate63Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate124Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatus().put(VAMPIGRAINE, (short) 1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate125Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatusRelat().put(new MoveTeamPosition(INVALID_DATA_KEY,POKEMON_FOE_FIGHTER_ZERO), (short) 1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate64Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate126Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatusRelat().put(new MoveTeamPosition(INVALID_DATA_KEY,POKEMON_FOE_FIGHTER_ZERO), (short) 1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate127Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatusRelat().put(new MoveTeamPosition(GEL,POKEMON_FOE_FIGHTER_ZERO), (short) 1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate65Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate128Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatusRelat().put(new MoveTeamPosition(GEL,POKEMON_FOE_FIGHTER_ZERO), (short) 1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate129Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatusRelat().put(new MoveTeamPosition(VAMPIGRAINE,POKEMON_FOE_FIGHTER_TWO), (short) 1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate66Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate130Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatusRelat().put(new MoveTeamPosition(VAMPIGRAINE,POKEMON_FOE_FIGHTER_TWO), (short) 1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate131Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatus().put(GEL, (short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate67Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate132Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatus().put(GEL, (short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate133Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatusRelat().put(new MoveTeamPosition(VAMPIGRAINE,POKEMON_FOE_FIGHTER_ZERO), (short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate68Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate134Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatusRelat().put(new MoveTeamPosition(VAMPIGRAINE,POKEMON_FOE_FIGHTER_ZERO), (short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate135Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getProtectedAgainstMoveTypes().add(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate69Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate136Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getProtectedAgainstMoveTypes().add(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate137Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageRateInflictedByType().put(INVALID_DATA_KEY, Rate.one());
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate70Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate138Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageRateInflictedByType().put(INVALID_DATA_KEY, Rate.one());
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate139Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageRateSufferedByType().put(INVALID_DATA_KEY, Rate.one());
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate71Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate140Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageRateSufferedByType().put(INVALID_DATA_KEY, Rate.one());
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate141Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageSufferedCateg().put(INVALID_DATA_KEY, Rate.one());
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate72Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate142Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageSufferedCateg().put(INVALID_DATA_KEY, Rate.one());
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate143Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageSufferedCategRound().put(INVALID_DATA_KEY, Rate.one());
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate73Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate144Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageSufferedCategRound().put(INVALID_DATA_KEY, Rate.one());
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate145Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageSufferedCateg().put(DataBase.AUTRE, Rate.one());
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate74Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate146Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageSufferedCateg().put(DataBase.AUTRE, Rate.one());
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate147Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageSufferedCategRound().put(DataBase.AUTRE, Rate.one());
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate75Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate148Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageSufferedCategRound().put(DataBase.AUTRE, Rate.one());
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate149Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setUsedBallCatching(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate76Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate150Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setUsedBallCatching(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate151Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setUsedBallCatching(POTION);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate77Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate152Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setUsedBallCatching(POTION);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate153Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMoves().put(CHARGE, new ActivityOfMove(true));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate78Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate154Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMoves().put(CHARGE, new ActivityOfMove(true));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate155Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesConstChoices().put(CHARGE, new ActivityOfMove(true));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate79Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate156Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesConstChoices().put(CHARGE, new ActivityOfMove(true));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate157Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesEndRound().put(CHARGE, new ActivityOfMove(true));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate80Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate158Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesEndRound().put(CHARGE, new ActivityOfMove(true));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate159Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesForAlly().put(CHARGE, true);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate81Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate160Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesForAlly().put(CHARGE, true);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate161Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesProt().put(CHARGE, new ActivityOfMove(true));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate82Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate162Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesProt().put(CHARGE, new ActivityOfMove(true));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate163Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesUnprot().put(CHARGE, new ActivityOfMove(true));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate83Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate164Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesUnprot().put(CHARGE, new ActivityOfMove(true));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate165Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMoves().getVal(PROVOC).setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate84Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate166Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMoves().getVal(PROVOC).setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate167Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesConstChoices().getVal(ROULADE).setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate85Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate168Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesConstChoices().getVal(ROULADE).setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate169Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesEndRound().getVal(ANNEAU_HYDRO).setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate86Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate170Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesEndRound().getVal(ANNEAU_HYDRO).setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate171Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesProt().getVal(VOL_MAGNETIK).setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate87Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate172Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesProt().getVal(VOL_MAGNETIK).setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate173Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledMovesUnprot().getVal(ANTI_AIR).setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate88Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate174Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledMovesUnprot().getVal(ANTI_AIR).setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate175Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledChangingTypesMoves().put(CHARGE, new ActivityOfMove(true));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate89Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate176Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledChangingTypesMoves().put(CHARGE, new ActivityOfMove(true));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate177Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledCounteringMoves().put(CHARGE, new ActivityOfMove(true));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate90Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate178Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledCounteringMoves().put(CHARGE, new ActivityOfMove(true));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate179Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledChangingTypesMoves().getVal(ELECTRISATION).setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate91Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate180Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledChangingTypesMoves().getVal(ELECTRISATION).setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate181Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEnabledCounteringMoves().getVal(NUEE_DE_POUDRE).setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate92Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate182Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEnabledCounteringMoves().getVal(NUEE_DE_POUDRE).setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate183Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCopiedMoves().put(CHARGE, new CopiedMove(NULL_REF,(short) 5));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate93Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate184Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCopiedMoves().put(CHARGE, new CopiedMove(NULL_REF,(short) 5));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate185Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getTrackingMoves().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), new AffectedMove(NULL_REF, new ActivityOfMove(true)));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate94Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate186Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getTrackingMoves().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), new AffectedMove(NULL_REF, new ActivityOfMove(true)));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate187Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getTrappingMoves().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), new ActivityOfMove(true));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate95Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate188Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getTrappingMoves().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), new ActivityOfMove(true));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate189Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getPrivateMoves().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), new StringList());
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate96Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate190Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getPrivateMoves().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), new StringList());
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate191Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getPrivateMoves().put(new MoveTeamPosition(POSSESSIF, POKEMON_FOE_FIGHTER_ZERO), new StringList(INVALID_DATA_KEY));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate97Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate192Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getPrivateMoves().put(new MoveTeamPosition(POSSESSIF, POKEMON_FOE_FIGHTER_ZERO), new StringList(INVALID_DATA_KEY));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate193Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getIncrUserAccuracy().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), true);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate98Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate194Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getIncrUserAccuracy().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), true);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate195Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getTrackingMoves().put(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO), new AffectedMove(INVALID_DATA_KEY, new ActivityOfMove(true)));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate99Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate196Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getTrackingMoves().put(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO), new AffectedMove(INVALID_DATA_KEY, new ActivityOfMove(true)));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate197Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCopiedMoves().put(COPIE, new CopiedMove(INVALID_DATA_KEY,(short) 5));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate100Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate198Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCopiedMoves().put(COPIE, new CopiedMove(INVALID_DATA_KEY,(short) 5));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate199Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCopiedMoves().put(COPIE, new CopiedMove(CHARGE,(short) -5));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate101Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate200Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCopiedMoves().put(COPIE, new CopiedMove(CHARGE,(short) -5));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate201Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO)).setMove(CHARGE);
         figther_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO)).getActivity().setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate102Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate202Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO)).setMove(CHARGE);
+        figther_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO)).getActivity().setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate203Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).setNbTurn((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate103Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate204Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).setNbTurn((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate205Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getNbUsesMoves().put(CHARGE, 1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate104Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate206Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getNbUsesMoves().put(CHARGE, 1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate207Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getNbUsesMoves().put(STOCKAGE, -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate105Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate208Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getNbUsesMoves().put(STOCKAGE, -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate209Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLastSuccessfulMove(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate106Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer2(_sex);
+    public void validate210Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLastSuccessfulMove(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate211Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setUsedMoveLastRound(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate107Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer(_sex);
+    public void validate212Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setUsedMoveLastRound(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate213Test(){
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setUsedMoveLastRound(CHARGE);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate108Test(Sex _sex) {
-        Game game_ = newGameInFightTrainer(_sex);
+    public void validate214Test(){
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setUsedMoveLastRound(CHARGE);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate215Test(){
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLastUsedMove(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate109Test(Sex _sex) {
+    public void validate216Test(){
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLastUsedMove(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate217Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationGainExperience(new Rate("10000"), _data_);
         figther_.calculateNewLevel(diff_, _data_, new StringList());
         figther_.getMovesToBeLearnt().add(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate110Test(Sex _sex) {
+    public void validate218Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationGainExperience(new Rate("10000"), _data_);
+        figther_.calculateNewLevel(diff_, _data_, new StringList());
+        figther_.getMovesToBeLearnt().add(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate219Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationGainExperience(new Rate("10000"), _data_);
         figther_.calculateNewLevel(diff_, _data_, new StringList());
         figther_.getMovesAbilitiesEvos().put(INVALID_DATA_KEY, new MovesAbilities(new StringList(), new StringList()));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate111Test(Sex _sex) {
+    public void validate220Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationGainExperience(new Rate("10000"), _data_);
+        figther_.calculateNewLevel(diff_, _data_, new StringList());
+        figther_.getMovesAbilitiesEvos().put(INVALID_DATA_KEY, new MovesAbilities(new StringList(), new StringList()));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate221Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationGainExperience(new Rate("10000"), _data_);
         figther_.calculateNewLevel(diff_, _data_, new StringList());
         figther_.getMovesAbilitiesEvos().put(NINJASK, new MovesAbilities(new StringList(INVALID_DATA_KEY), new StringList()));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate112Test(Sex _sex) {
+    public void validate222Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationGainExperience(new Rate("10000"), _data_);
+        figther_.calculateNewLevel(diff_, _data_, new StringList());
+        figther_.getMovesAbilitiesEvos().put(NINJASK, new MovesAbilities(new StringList(INVALID_DATA_KEY), new StringList()));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate223Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationGainExperience(new Rate("10000"), _data_);
         figther_.calculateNewLevel(diff_, _data_, new StringList());
         figther_.getMovesAbilitiesEvos().put(NINJASK, new MovesAbilities(new StringList(), new StringList(INVALID_DATA_KEY)));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate113Test(Sex _sex) {
+    public void validate224Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationGainExperience(new Rate("10000"), _data_);
+        figther_.calculateNewLevel(diff_, _data_, new StringList());
+        figther_.getMovesAbilitiesEvos().put(NINJASK, new MovesAbilities(new StringList(), new StringList(INVALID_DATA_KEY)));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate225Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationGainExperience(new Rate("10000"), _data_);
         figther_.calculateNewLevel(diff_, _data_, new StringList());
         figther_.getMovesToBeLearnt().add(GRIFFE);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate114Test(Sex _sex) {
+    public void validate226Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationGainExperience(new Rate("10000"), _data_);
+        figther_.calculateNewLevel(diff_, _data_, new StringList());
+        figther_.getMovesToBeLearnt().add(GRIFFE);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate227Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationGainExperience(new Rate("10000"), _data_);
         figther_.calculateNewLevel(diff_, _data_, new StringList());
         figther_.getMovesAbilitiesEvos().put(NINJASK, new MovesAbilities(new StringList(GRIFFE), new StringList()));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate115Test(Sex _sex) {
+    public void validate228Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationGainExperience(new Rate("10000"), _data_);
+        figther_.calculateNewLevel(diff_, _data_, new StringList());
+        figther_.getMovesAbilitiesEvos().put(NINJASK, new MovesAbilities(new StringList(GRIFFE), new StringList()));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate229Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageRateInflictedByType().getVal(EAU).affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate116Test(Sex _sex) {
+    public void validate230Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageRateInflictedByType().getVal(EAU).affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate231Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageRateSufferedByType().getVal(EAU).affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate117Test(Sex _sex) {
+    public void validate232Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageRateSufferedByType().getVal(EAU).affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate233Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageSufferedCateg().getVal(PHYSIQUE).affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate118Test(Sex _sex) {
+    public void validate234Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageSufferedCateg().getVal(PHYSIQUE).affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate235Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getDamageSufferedCategRound().getVal(PHYSIQUE).affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate119Test(Sex _sex) {
+    public void validate236Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getDamageSufferedCategRound().getVal(PHYSIQUE).affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate237Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setNbPrepaRound((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate120Test(Sex _sex) {
+    public void validate238Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setNbPrepaRound((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate239Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setNbPrepaRound((short) 1);
         figther_.setNeedingToRecharge(true);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate121Test(Sex _sex) {
+    public void validate240Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer2(_sex, diff_);
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setNbPrepaRound((short) 1);
+        figther_.setNeedingToRecharge(true);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate241Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setNbRepeatingSuccessfulMoves(new LgInt("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate122Test(Sex _sex) {
+    public void validate242Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer2(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setNbRepeatingSuccessfulMoves(new LgInt("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate243Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         FightKo.setKoMoveTeams(game_.getFight(), POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setGroundPlace((byte) 0);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate123Test(Sex _sex) {
+    public void validate244Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        FightKo.setKoMoveTeams(game_.getFight(), POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setGroundPlace((byte) 0);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate245Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setGroundPlace((byte) (Fighter.BACK/2));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate124Test(Sex _sex) {
+    public void validate246Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setGroundPlace((byte) (Fighter.BACK/2));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate247Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setGroundPlaceSubst((byte) (Fighter.BACK/2));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate125Test(Sex _sex) {
+    public void validate248Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setGroundPlaceSubst((byte) (Fighter.BACK/2));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate249Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setGroundPlaceSubst(Fighter.BACK);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate126Test(Sex _sex) {
+    public void validate250Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setGroundPlaceSubst(Fighter.BACK);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate251Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getClone().affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate127Test(Sex _sex) {
+    public void validate252Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getClone().affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate253Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getWonExp().affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate128Test(Sex _sex) {
+    public void validate254Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getWonExp().affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate255Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getWonExpSinceLastLevel().affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate129Test(Sex _sex) {
+    public void validate256Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getWonExpSinceLastLevel().affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate257Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getWeight().affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate130Test(Sex _sex) {
+    public void validate258Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getWeight().affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate259Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getHeight().affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate131Test(Sex _sex) {
+    public void validate260Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getHeight().affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate261Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getRemainingHp().affect(new Rate("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate132Test(Sex _sex) {
+    public void validate262Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getRemainingHp().affect(new Rate("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate263Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getRemainingHp().affect(new Rate("10000"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate133Test(Sex _sex) {
+    public void validate264Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getRemainingHp().affect(new Rate("10000"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate265Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationBoostStatistique(Statistic.ATTACK, (byte) -10);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate134Test(Sex _sex) {
+    public void validate266Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationBoostStatistique(Statistic.ATTACK, (byte) -10);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate267Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.variationBoostStatistique(Statistic.ATTACK, (byte) 10);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate135Test(Sex _sex) {
+    public void validate268Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.variationBoostStatistique(Statistic.ATTACK, (byte) 10);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate269Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getNbRounds().affect(new LgInt("-1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate136Test(Sex _sex) {
+    public void validate270Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getNbRounds().affect(new LgInt("-1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate271Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatisBase().getVal(Statistic.ATTACK).affectZero();
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate137Test(Sex _sex) {
+    public void validate272Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatisBase().getVal(Statistic.ATTACK).affectZero();
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate273Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEv().put(Statistic.ATTACK, (short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate138Test(Sex _sex) {
+    public void validate274Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEv().put(Statistic.ATTACK, (short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate275Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatisBase().put(Statistic.ACCURACY, new Rate("1"));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate139Test(Sex _sex) {
+    public void validate276Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatisBase().put(Statistic.ACCURACY, new Rate("1"));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate277Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getEv().put(Statistic.ACCURACY, (short) 1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate140Test(Sex _sex) {
+    public void validate278Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getEv().put(Statistic.ACCURACY, (short) 1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate279Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getStatisBoost().put(Statistic.HP, (byte) 1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate141Test(Sex _sex) {
+    public void validate280Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getStatisBoost().put(Statistic.HP, (byte) 1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate281Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLevel((short) 0);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate142Test(Sex _sex) {
+    public void validate282Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLevel((short) 0);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate283Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setLevel((short) 1000);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate143Test(Sex _sex) {
+    public void validate284Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setLevel((short) 1000);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate285Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(LUTTE, new UsesOfMove((short)10));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate144Test(Sex _sex) {
+    public void validate286Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(LUTTE, new UsesOfMove((short)10));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate287Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCurrentMoves().put(LUTTE, new UsesOfMove((short)10));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate145Test(Sex _sex) {
+    public void validate288Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCurrentMoves().put(LUTTE, new UsesOfMove((short)10));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate146Test(Sex _sex) {
+    public void validate289Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCurrentMoves().put(LUTTE, new UsesOfMove((short)10));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate290Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCurrentMoves().put(LUTTE, new UsesOfMove((short)10));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate291Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(JACKPOT, new UsesOfMove((short)0));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate147Test(Sex _sex) {
+    public void validate292Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(JACKPOT, new UsesOfMove((short)0));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate293Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCurrentMoves().put(JACKPOT, new UsesOfMove((short)0));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate148Test(Sex _sex) {
+    public void validate294Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCurrentMoves().put(JACKPOT, new UsesOfMove((short)0));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate295Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().getVal(JACKPOT).setCurrent((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate149Test(Sex _sex) {
+    public void validate296Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().getVal(JACKPOT).setCurrent((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate297Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCurrentMoves().getVal(JACKPOT).setCurrent((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate150Test(Sex _sex) {
+    public void validate298Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCurrentMoves().getVal(JACKPOT).setCurrent((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate299Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().getVal(JACKPOT).setCurrent((short) 1000);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate151Test(Sex _sex) {
+    public void validate300Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().getVal(JACKPOT).setCurrent((short) 1000);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate301Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCurrentMoves().getVal(JACKPOT).setCurrent((short) 1000);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate152Test(Sex _sex) {
+    public void validate302Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCurrentMoves().getVal(JACKPOT).setCurrent((short) 1000);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate303Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
         figther_.apprendreAttaqueEcrasant(JACKPOT, COPIE, _data_);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate153Test(Sex _sex) {
+    public void validate304Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(COPIE, new UsesOfMove((short)10));
+        figther_.apprendreAttaqueEcrasant(JACKPOT, COPIE, _data_);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate305Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(SEISME, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(SEISME, new UsesOfMove((short)10));
         figther_.setFirstChosenMoveTarget(SEISME, POKEMON_FOE_TARGET_ZERO);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate154Test(Sex _sex) {
+    public void validate306Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(SEISME, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(SEISME, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTarget(SEISME, POKEMON_FOE_TARGET_ZERO);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate307Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setFirstChosenMove(JACKPOT);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate155Test(Sex _sex) {
+    public void validate308Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setFirstChosenMove(JACKPOT);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate309Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setFirstChosenMove(JACKPOT);
         ActionMove act_ = (ActionMove) figther_.getAction();
@@ -1647,68 +2619,97 @@ public class FighterValidationTest extends InitializationDataBase {
         act_.getChosenTargets().add(POKEMON_FOE_TARGET_ONE);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
-//    @Test
-//    @Parameters(method="sex")
-//    public void validate155Test(Sex _sex) {
-//        Difficulty diff_ = new Difficulty();
-//        Game game_ = newGameInFightTrainer(_sex, diff_);
-//        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-//        figther_.setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE);
-//        figther_.validate(data, Fight.PLAYER, game_.getFight());
-//    }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate156Test(Sex _sex) {
+    public void validate310Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setFirstChosenMove(JACKPOT);
+        ActionMove act_ = (ActionMove) figther_.getAction();
+        act_.getChosenTargets().add(POKEMON_FOE_TARGET_ZERO);
+        act_.getChosenTargets().add(POKEMON_FOE_TARGET_ONE);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate311Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_FOE_TARGET_ONE, (byte) 2);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate157Test(Sex _sex) {
+    public void validate312Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_FOE_TARGET_ONE, (byte) 2);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate313Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.setSubstitute((byte) 2);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate158Test(Sex _sex) {
+    public void validate314Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setSubstitute((byte) 2);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate315Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
         figther_.setSubstitute(Fighter.BACK);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate159Test(Sex _sex) {
+    public void validate316Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        figther_.setSubstitute(Fighter.BACK);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate317Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setFirstChosenMove(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate160Test(Sex _sex) {
+    public void validate318Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setFirstChosenMove(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate319Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(SEISME, new UsesOfMove((short)10));
         figther_.getCurrentMoves().put(SEISME, new UsesOfMove((short)10));
@@ -1718,229 +2719,378 @@ public class FighterValidationTest extends InitializationDataBase {
         action_.setFinalChosenMove(INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate161Test(Sex _sex) {
+    public void validate320Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(SEISME, new UsesOfMove((short)10));
+        figther_.getCurrentMoves().put(SEISME, new UsesOfMove((short)10));
+        figther_.setFirstChosenMove(SEISME);
+        figther_.choisirAttaqueFin();
+        ActionMove action_ = (ActionMove) figther_.getAction();
+        action_.setFinalChosenMove(INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate321Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObject(MULTI_EXP, _data_);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate162Test(Sex _sex) {
+    public void validate322Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(MULTI_EXP, _data_);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate323Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(POTION, JACKPOT);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate163Test(Sex _sex) {
+    public void validate324Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(POTION, JACKPOT);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate325Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
         figther_.setChosenHealingObject(BAIE_ORAN, _data_);
         assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate164Test(Sex _sex) {
+    public void validate326Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(BAIE_ORAN, _data_);
+        assertTrue(figther_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate327Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(HUILE, INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate165Test(Sex _sex) {
+    public void validate328Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(HUILE, INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate329Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setHappiness((short) 1000);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate166Test(Sex _sex) {
+    public void validate330Test(){
         Difficulty diff_ = new Difficulty();
-        Game game_ = newGameInFightTrainer(_sex, diff_);
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setHappiness((short) 1000);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate331Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, diff_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setHappiness((short) -1);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate167Test(Sex _sex) {
+    public void validate332Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainer(Sex.BOY, diff_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setHappiness((short) -1);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate333Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(HUILE_MAX, JACKPOT);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate168Test(Sex _sex) {
+    public void validate334Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(HUILE_MAX, JACKPOT);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate335Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(BAIE_MEPO, JACKPOT);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate169Test(Sex _sex) {
+    public void validate336Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(BAIE_MEPO, JACKPOT);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate337Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObject(ELIXIR, _data_);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate170Test(Sex _sex) {
+    public void validate338Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(ELIXIR, _data_);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate339Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObject(MAX_ELIXIR, _data_);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate171Test(Sex _sex) {
+    public void validate340Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(MAX_ELIXIR, _data_);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate341Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(BAIE_MEPO, INVALID_DATA_KEY);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate172Test(Sex _sex) {
+    public void validate342Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(BAIE_MEPO, INVALID_DATA_KEY);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate343Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(ELIXIR, JACKPOT);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate173Test(Sex _sex) {
+    public void validate344Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(ELIXIR, JACKPOT);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate345Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(MAX_ELIXIR, JACKPOT);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate174Test(Sex _sex) {
+    public void validate346Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(MAX_ELIXIR, JACKPOT);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate347Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObject(BAIE_MEPO, _data_);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate175Test(Sex _sex) {
+    public void validate348Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(BAIE_MEPO, _data_);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate349Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObject(HUILE, _data_);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate176Test(Sex _sex) {
+    public void validate350Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(HUILE, _data_);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate351Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObjectMove(BAIE_ORAN, JACKPOT);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate177Test(Sex _sex) {
+    public void validate352Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObjectMove(BAIE_ORAN, JACKPOT);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate353Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setChosenHealingObject(HUILE_MAX, _data_);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate178Test(Sex _sex) {
+    public void validate354Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setChosenHealingObject(HUILE_MAX, _data_);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate355Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setNbPrepaRound((short) 1);
         figther_.setDisappeared(true);
         assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate179Test(Sex _sex) {
+    public void validate356Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setNbPrepaRound((short) 1);
+        figther_.setDisappeared(true);
+        assertTrue(figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate357Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.setDisappeared(true);
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate180Test(Sex _sex) {
+    public void validate358Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setDisappeared(true);
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate359Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().clear();
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate181Test(Sex _sex) {
+    public void validate360Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().clear();
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate361Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getMoves().put(CHARGE, new UsesOfMove((byte)15));
         figther_.getMoves().put(ECLAIR, new UsesOfMove((byte)15));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void validate182Test(Sex _sex) {
+    public void validate362Test(){
         //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
-        Game game_ = newGameInFightTrainer(_sex);
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getMoves().put(CHARGE, new UsesOfMove((byte)15));
+        figther_.getMoves().put(ECLAIR, new UsesOfMove((byte)15));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate363Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         figther_.getCurrentMoves().put(CHARGE, new UsesOfMove((byte)15));
         figther_.getCurrentMoves().put(ECLAIR, new UsesOfMove((byte)15));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
+    @Test
+    public void validate364Test(){
+        //JACKPOT, PASSE_PASSE, OEIL_MIRACLE
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getCurrentMoves().put(CHARGE, new UsesOfMove((byte)15));
+        figther_.getCurrentMoves().put(ECLAIR, new UsesOfMove((byte)15));
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+
 
     private static Game newGameInFightTrainer2(Sex _sex) {
         return newGameInFightTrainer2(_sex, new Difficulty());
@@ -2011,5 +3161,4 @@ public class FighterValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
         return game_;
-    }
-}
+    }}

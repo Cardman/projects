@@ -8,7 +8,6 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.SortableCustList;
@@ -654,41 +653,144 @@ public class LgIntTest {
         repartitions_.add(new LgInt(14));
     }
 
-    Object[] seqAmong() {
-        CustList<Object> list_ = new CustList<Object>();
+    @Test
+    public void seqAmong2Test(){
+    	LgInt sommeTotale_ = new LgInt(8);
         EqList<LgInt> repartitions_ = new EqList<LgInt>();
-        repartitions_.add(new LgInt(8));
-        repartitions_.add(new LgInt(8));
-        repartitions_.add(new LgInt(8));
-        repartitions_.add(new LgInt(8));
-        LgInt sommeTotale_ = new LgInt(8);
-        TreeMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
-        repartitions_ = new EqList<LgInt>();
         repartitions_.add(new LgInt(22));
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
-        combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
-        for (SortableCustList<LgInt> l : combinatoire_.getKeys()) {
-            LgInt somme_ = LgInt.zero();
-            for (LgInt e: l) {
-                somme_.addNb(e);
-            }
-            list_.add(wrapObjects(sommeTotale_, somme_, repartitions_.size(), l.size()));
-        }
-        return list_.toArray();
-    }
+        TreeMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
+    	assertEq(18,combinatoire_.size());
+        assertEq(5,combinatoire_.getKey(0).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(0).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(0).get(1));
+        assertEq(new LgInt(0),combinatoire_.getKey(0).get(2));
+        assertEq(new LgInt(0),combinatoire_.getKey(0).get(3));
+        assertEq(new LgInt(8),combinatoire_.getKey(0).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(0));
+        assertEq(5,combinatoire_.getKey(1).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(1).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(1).get(1));
+        assertEq(new LgInt(0),combinatoire_.getKey(1).get(2));
+        assertEq(new LgInt(1),combinatoire_.getKey(1).get(3));
+        assertEq(new LgInt(7),combinatoire_.getKey(1).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(1));
+        assertEq(5,combinatoire_.getKey(2).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(2).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(2).get(1));
+        assertEq(new LgInt(0),combinatoire_.getKey(2).get(2));
+        assertEq(new LgInt(2),combinatoire_.getKey(2).get(3));
+        assertEq(new LgInt(6),combinatoire_.getKey(2).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(2));
+        assertEq(5,combinatoire_.getKey(3).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(3).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(3).get(1));
+        assertEq(new LgInt(0),combinatoire_.getKey(3).get(2));
+        assertEq(new LgInt(3),combinatoire_.getKey(3).get(3));
+        assertEq(new LgInt(5),combinatoire_.getKey(3).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(3));
+        assertEq(5,combinatoire_.getKey(4).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(4).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(4).get(1));
+        assertEq(new LgInt(0),combinatoire_.getKey(4).get(2));
+        assertEq(new LgInt(4),combinatoire_.getKey(4).get(3));
+        assertEq(new LgInt(4),combinatoire_.getKey(4).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(4));
+        assertEq(5,combinatoire_.getKey(5).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(5).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(5).get(1));
+        assertEq(new LgInt(1),combinatoire_.getKey(5).get(2));
+        assertEq(new LgInt(1),combinatoire_.getKey(5).get(3));
+        assertEq(new LgInt(6),combinatoire_.getKey(5).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(5));
+        assertEq(5,combinatoire_.getKey(6).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(6).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(6).get(1));
+        assertEq(new LgInt(1),combinatoire_.getKey(6).get(2));
+        assertEq(new LgInt(2),combinatoire_.getKey(6).get(3));
+        assertEq(new LgInt(5),combinatoire_.getKey(6).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(6));
+        assertEq(5,combinatoire_.getKey(7).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(7).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(7).get(1));
+        assertEq(new LgInt(1),combinatoire_.getKey(7).get(2));
+        assertEq(new LgInt(3),combinatoire_.getKey(7).get(3));
+        assertEq(new LgInt(4),combinatoire_.getKey(7).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(7));
+        assertEq(5,combinatoire_.getKey(8).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(8).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(8).get(1));
+        assertEq(new LgInt(2),combinatoire_.getKey(8).get(2));
+        assertEq(new LgInt(2),combinatoire_.getKey(8).get(3));
+        assertEq(new LgInt(4),combinatoire_.getKey(8).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(8));
+        assertEq(5,combinatoire_.getKey(9).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(9).get(0));
+        assertEq(new LgInt(0),combinatoire_.getKey(9).get(1));
+        assertEq(new LgInt(2),combinatoire_.getKey(9).get(2));
+        assertEq(new LgInt(3),combinatoire_.getKey(9).get(3));
+        assertEq(new LgInt(3),combinatoire_.getKey(9).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(9));
+        assertEq(5,combinatoire_.getKey(10).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(10).get(0));
+        assertEq(new LgInt(1),combinatoire_.getKey(10).get(1));
+        assertEq(new LgInt(1),combinatoire_.getKey(10).get(2));
+        assertEq(new LgInt(1),combinatoire_.getKey(10).get(3));
+        assertEq(new LgInt(5),combinatoire_.getKey(10).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(10));
+        assertEq(5,combinatoire_.getKey(11).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(11).get(0));
+        assertEq(new LgInt(1),combinatoire_.getKey(11).get(1));
+        assertEq(new LgInt(1),combinatoire_.getKey(11).get(2));
+        assertEq(new LgInt(2),combinatoire_.getKey(11).get(3));
+        assertEq(new LgInt(4),combinatoire_.getKey(11).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(11));
+        assertEq(5,combinatoire_.getKey(12).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(12).get(0));
+        assertEq(new LgInt(1),combinatoire_.getKey(12).get(1));
+        assertEq(new LgInt(1),combinatoire_.getKey(12).get(2));
+        assertEq(new LgInt(3),combinatoire_.getKey(12).get(3));
+        assertEq(new LgInt(3),combinatoire_.getKey(12).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(12));
+        assertEq(5,combinatoire_.getKey(13).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(13).get(0));
+        assertEq(new LgInt(1),combinatoire_.getKey(13).get(1));
+        assertEq(new LgInt(2),combinatoire_.getKey(13).get(2));
+        assertEq(new LgInt(2),combinatoire_.getKey(13).get(3));
+        assertEq(new LgInt(3),combinatoire_.getKey(13).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(13));
+        assertEq(5,combinatoire_.getKey(14).size());
+        assertEq(new LgInt(0),combinatoire_.getKey(14).get(0));
+        assertEq(new LgInt(2),combinatoire_.getKey(14).get(1));
+        assertEq(new LgInt(2),combinatoire_.getKey(14).get(2));
+        assertEq(new LgInt(2),combinatoire_.getKey(14).get(3));
+        assertEq(new LgInt(2),combinatoire_.getKey(14).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(14));
+        assertEq(5,combinatoire_.getKey(15).size());
+        assertEq(new LgInt(1),combinatoire_.getKey(15).get(0));
+        assertEq(new LgInt(1),combinatoire_.getKey(15).get(1));
+        assertEq(new LgInt(1),combinatoire_.getKey(15).get(2));
+        assertEq(new LgInt(1),combinatoire_.getKey(15).get(3));
+        assertEq(new LgInt(4),combinatoire_.getKey(15).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(15));
+        assertEq(5,combinatoire_.getKey(16).size());
+        assertEq(new LgInt(1),combinatoire_.getKey(16).get(0));
+        assertEq(new LgInt(1),combinatoire_.getKey(16).get(1));
+        assertEq(new LgInt(1),combinatoire_.getKey(16).get(2));
+        assertEq(new LgInt(2),combinatoire_.getKey(16).get(3));
+        assertEq(new LgInt(3),combinatoire_.getKey(16).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(16));
+        assertEq(5,combinatoire_.getKey(17).size());
+        assertEq(new LgInt(1),combinatoire_.getKey(17).get(0));
+        assertEq(new LgInt(1),combinatoire_.getKey(17).get(1));
+        assertEq(new LgInt(2),combinatoire_.getKey(17).get(2));
+        assertEq(new LgInt(2),combinatoire_.getKey(17).get(3));
+        assertEq(new LgInt(2),combinatoire_.getKey(17).get(4));
+        assertEq(new LgInt(478),combinatoire_.getValue(17));
 
-    private static Object[] wrapObjects(Object ..._objects) {
-        return _objects;
-    }
-
-    @Parameters(method="seqAmong")
-    @Test
-    public void seqAmong2Test(LgInt _expected, LgInt _resSum, int _expectedSize, int _resSize) {
-        assertEq(_expected, _resSum);
-        assertEq(_expectedSize, _resSize);
     }
 
     Object[] inputsFoisDouble() {

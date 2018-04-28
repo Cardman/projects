@@ -1,13 +1,9 @@
 package aiki.game;
 import static aiki.EquallablePkUtil.assertEq;
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import aiki.ImageHeroKey;
 import aiki.game.fight.BallNumberRate;
@@ -51,17 +47,9 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 @SuppressWarnings("static-method")
-@RunWith(JUnitParamsRunner.class)
 public class GameFightTest extends InitializationDataBase {
-
-    private static final String SEX = "sex";
-
-    Object[] sex() {
-        return $($(Sex.GIRL),$(Sex.BOY));
-    }
-
     @Test
-    public void getTrainerImage1Test() {
+    public void getTrainerImage1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -76,9 +64,8 @@ public class GameFightTest extends InitializationDataBase {
         int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
-
     @Test
-    public void getTrainerImage2Test() {
+    public void getTrainerImage2(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
@@ -93,9 +80,8 @@ public class GameFightTest extends InitializationDataBase {
         int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
-
     @Test
-    public void getTrainerImage3Test() {
+    public void getTrainerImage3(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
@@ -110,9 +96,8 @@ public class GameFightTest extends InitializationDataBase {
         int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
-
     @Test
-    public void getTrainerImage4Test() {
+    public void getTrainerImage4(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
@@ -126,9 +111,8 @@ public class GameFightTest extends InitializationDataBase {
         int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
-
     @Test
-    public void getTrainerImage5Test() {
+    public void getTrainerImage5(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 1, 6));
@@ -142,9 +126,8 @@ public class GameFightTest extends InitializationDataBase {
         int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
-
     @Test
-    public void getTrainerImage6Test() {
+    public void getTrainerImage6(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -164,9 +147,8 @@ public class GameFightTest extends InitializationDataBase {
         int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
-
     @Test
-    public void getTrainerImage7Test() {
+    public void getTrainerImage7(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
@@ -175,9 +157,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
         assertEq(new int[0][0],game_.getTrainerImage(_data_));
     }
-
     @Test
-    public void getTrainerImage8Test() {
+    public void getTrainerImage8(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(2, 0, 4, 1));
@@ -192,9 +173,8 @@ public class GameFightTest extends InitializationDataBase {
         int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
-
     @Test
-    public void getTrainerImage9Test() {
+    public void getTrainerImage9(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(2, 0, 5, 1));
@@ -209,57 +189,88 @@ public class GameFightTest extends InitializationDataBase {
         int[][] img_ = _data_.getTrainer(fileName_);
         assertEq(img_,game_.getTrainerImage(_data_));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void getBackHeros1Test(Sex _sex) {
+    public void getBackHeros1Test(){
         Game game_ = new Game(_data_);
-        game_.initUtilisateur(NICKNAME, _sex, new Difficulty(), _data_);
+        game_.initUtilisateur(NICKNAME, Sex.GIRL, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex));
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL));
         assertEq(exp_, game_.getBackHeros(_data_));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void getBackHeros2Test(Sex _sex) {
+    public void getBackHeros2Test(){
         Game game_ = new Game(_data_);
-        game_.initUtilisateur(NICKNAME, _sex, new Difficulty(), _data_);
-        game_.setPlayerCoords(newCoords(5, 0, 0, 0));
-        game_.setPlayerOrientation(Direction.UP);
-        game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex));
-        assertEq(exp_, game_.getBackHeros(_data_));
-    }
-
-    @Test
-    @Parameters(method=SEX)
-    public void getBackHerosSexOpposite1Test(Sex _sex) {
-        Game game_ = new Game(_data_);
-        game_.initUtilisateur(NICKNAME, _sex, new Difficulty(), _data_);
+        game_.initUtilisateur(NICKNAME, Sex.BOY, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex.getOppositeSex()));
-        assertEq(exp_, game_.getBackHerosSexOpposite(_data_));
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY));
+        assertEq(exp_, game_.getBackHeros(_data_));
     }
-
     @Test
-    @Parameters(method=SEX)
-    public void getBackHerosSexOpposite2Test(Sex _sex) {
+    public void getBackHeros3Test(){
         Game game_ = new Game(_data_);
-        game_.initUtilisateur(NICKNAME, _sex, new Difficulty(), _data_);
+        game_.initUtilisateur(NICKNAME, Sex.GIRL, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, _sex.getOppositeSex()));
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL));
+        assertEq(exp_, game_.getBackHeros(_data_));
+    }
+    @Test
+    public void getBackHeros4Test(){
+        Game game_ = new Game(_data_);
+        game_.initUtilisateur(NICKNAME, Sex.BOY, new Difficulty(), _data_);
+        game_.setPlayerCoords(newCoords(5, 0, 0, 0));
+        game_.setPlayerOrientation(Direction.UP);
+        game_.getDifficulty().setRandomWildFight(false);
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY));
+        assertEq(exp_, game_.getBackHeros(_data_));
+    }
+    @Test
+    public void getBackHerosSexOpposite1Test(){
+        Game game_ = new Game(_data_);
+        game_.initUtilisateur(NICKNAME, Sex.GIRL, new Difficulty(), _data_);
+        game_.setPlayerCoords(newCoords(0, 0, 0, 0));
+        game_.setPlayerOrientation(Direction.UP);
+        game_.getDifficulty().setRandomWildFight(false);
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL.getOppositeSex()));
         assertEq(exp_, game_.getBackHerosSexOpposite(_data_));
     }
-
     @Test
-    public void chooseFrontFighter1Test() {
+    public void getBackHerosSexOpposite2Test(){
+        Game game_ = new Game(_data_);
+        game_.initUtilisateur(NICKNAME, Sex.BOY, new Difficulty(), _data_);
+        game_.setPlayerCoords(newCoords(0, 0, 0, 0));
+        game_.setPlayerOrientation(Direction.UP);
+        game_.getDifficulty().setRandomWildFight(false);
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY.getOppositeSex()));
+        assertEq(exp_, game_.getBackHerosSexOpposite(_data_));
+    }
+    @Test
+    public void getBackHerosSexOpposite3Test(){
+        Game game_ = new Game(_data_);
+        game_.initUtilisateur(NICKNAME, Sex.GIRL, new Difficulty(), _data_);
+        game_.setPlayerCoords(newCoords(5, 0, 0, 0));
+        game_.setPlayerOrientation(Direction.UP);
+        game_.getDifficulty().setRandomWildFight(false);
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL.getOppositeSex()));
+        assertEq(exp_, game_.getBackHerosSexOpposite(_data_));
+    }
+    @Test
+    public void getBackHerosSexOpposite4Test(){
+        Game game_ = new Game(_data_);
+        game_.initUtilisateur(NICKNAME, Sex.BOY, new Difficulty(), _data_);
+        game_.setPlayerCoords(newCoords(5, 0, 0, 0));
+        game_.setPlayerOrientation(Direction.UP);
+        game_.getDifficulty().setRandomWildFight(false);
+        int[][] exp_ = _data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY.getOppositeSex()));
+        assertEq(exp_, game_.getBackHerosSexOpposite(_data_));
+    }
+    @Test
+    public void chooseFrontFighter1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -286,9 +297,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(0, game_.getFight().getChosableFoeTargets().size());
         assertEq(0, game_.getFight().getChosablePlayerTargets().size());
     }
-
     @Test
-    public void chooseMove1Test() {
+    public void chooseMove1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -316,9 +326,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(0, game_.getFight().getChosableFoeTargets().size());
         assertEq(0, game_.getFight().getChosablePlayerTargets().size());
     }
-
     @Test
-    public void setFirstChosenMoveFoeTarget1Test() {
+    public void setFirstChosenMoveFoeTarget1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
@@ -352,9 +361,8 @@ public class GameFightTest extends InitializationDataBase {
         assertTrue(!game_.getFight().getChosablePlayerTargets().get(0));
         assertTrue(game_.getFight().getChosablePlayerTargets().get(1));
     }
-
     @Test
-    public void setFirstChosenMovePlayerTarget1Test() {
+    public void setFirstChosenMovePlayerTarget1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
@@ -388,9 +396,8 @@ public class GameFightTest extends InitializationDataBase {
         assertTrue(!game_.getFight().getChosablePlayerTargets().get(0));
         assertTrue(game_.getFight().getChosablePlayerTargets().get(1));
     }
-
     @Test
-    public void changeAction1Test() {
+    public void changeAction1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -419,9 +426,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(0, game_.getFight().getChosableFoeTargets().size());
         assertEq(0, game_.getFight().getChosablePlayerTargets().size());
     }
-
     @Test
-    public void chooseBackFighter1Test() {
+    public void chooseBackFighter1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -451,9 +457,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(0, game_.getFight().getChosableFoeTargets().size());
         assertEq(0, game_.getFight().getChosablePlayerTargets().size());
     }
-
     @Test
-    public void deselect1Test() {
+    public void deselect1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -481,9 +486,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(0, game_.getFight().getChosableFoeTargets().size());
         assertEq(0, game_.getFight().getChosablePlayerTargets().size());
     }
-
     @Test
-    public void setChosenHealingItem1Test() {
+    public void setChosenHealingItem1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -514,9 +518,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(0, game_.getFight().getChosableFoeTargets().size());
         assertEq(0, game_.getFight().getChosablePlayerTargets().size());
     }
-
     @Test
-    public void calculateCatchingRates1Test() {
+    public void calculateCatchingRates1(){
         Game game_ = new Game(_data_);
         //coords begin = newCoords(0, 0, 0, 0)
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
@@ -534,9 +537,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(Rate.one(), ball_.getRate());
         assertEq("100", ball_.getPercent());
     }
-
     @Test
-    public void setSubstituteEndRound1Test() {
+    public void setSubstituteEndRound1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -566,9 +568,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal((byte) 0).intValue());
         assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal((byte) 1).intValue());
     }
-
     @Test
-    public void remainingThrowersTargetsHp1Test() {
+    public void remainingThrowersTargetsHp1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -622,9 +623,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(new Rate("263"), mapFighters_.getVal(POKEMON_PLAYER_FIGHTER_ZERO));
         assertEq(new Rate("3037/100"), mapFighters_.getVal(POKEMON_PLAYER_FIGHTER_ONE));
     }
-
     @Test
-    public void sortedFightersBeginRoundWildFight1Test() {
+    public void sortedFightersBeginRoundWildFight1(){
         Game game_ = new Game(_data_);
         //coords begin = newCoords(0, 0, 0, 0)
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
@@ -642,9 +642,8 @@ public class GameFightTest extends InitializationDataBase {
         mapMoves_ = map_.getVal(JACKPOT);
         assertEq(POKEMON_FOE_FIGHTER_ZERO, mapMoves_.first());
     }
-
     @Test
-    public void sortedFightersBeginRoundWildFight2Test() {
+    public void sortedFightersBeginRoundWildFight2(){
         Game game_ = new Game(_data_);
         //coords begin = newCoords(0, 0, 0, 0)
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
@@ -665,9 +664,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, mapMoves_.first());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, mapMoves_.last());
     }
-
     @Test
-    public void sortedFightersBeginRound1Test() {
+    public void sortedFightersBeginRound1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -693,9 +691,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, tree_.first());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, tree_.last());
     }
-
     @Test
-    public void getPlayerTeam1Test() {
+    public void getPlayerTeam1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -719,9 +716,8 @@ public class GameFightTest extends InitializationDataBase {
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
         assertSame(team_.getVal((byte) 1), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
-
     @Test
-    public void getFoeFrontTeam1Test() {
+    public void getFoeFrontTeam1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -744,10 +740,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO));
     }
-
-
     @Test
-    public void getUnionFrontTeam1Test() {
+    public void getUnionFrontTeam1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -770,9 +764,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
-
     @Test
-    public void getPlayerFrontTeam1Test() {
+    public void getPlayerFrontTeam1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -795,9 +788,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
-
     @Test
-    public void getPlayerBackTeam1Test() {
+    public void getPlayerBackTeam1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -820,9 +812,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
-
     @Test
-    public void getPlayerFrontTeamForSubstituting1Test() {
+    public void getPlayerFrontTeamForSubstituting1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -849,9 +840,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
-
     @Test
-    public void getPlayerBackTeamForSubstituting1Test() {
+    public void getPlayerBackTeamForSubstituting1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -878,9 +868,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
-
     @Test
-    public void choosePokemonForLearningAndEvolving1Test() {
+    public void choosePokemonForLearningAndEvolving1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -921,9 +910,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(ABSORB_EAU, abilities_.get(0));
         assertEq(NULL_REF, game_.getAbility());
     }
-
     @Test
-    public void setEvolution1Test() {
+    public void setEvolution1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -982,9 +970,8 @@ public class GameFightTest extends InitializationDataBase {
 //        assertEq(NULL_REF, game_.getAbility());
         assertEq(TURBO, game_.getAbility());
     }
-
     @Test
-    public void setAbility1Test() {
+    public void setAbility1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -1042,9 +1029,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(MAGNEPIEGE, game_.getAbility());
         //assertEq(TURBO, game_.getFight().getChoices().getVal((byte) 0).getAbility());
     }
-
     @Test
-    public void addOrForgetMove1Test() {
+    public void addOrForgetMove1(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
@@ -1103,6 +1089,7 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(TURBO, abilities_.get(0));
     }
 
+
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);
@@ -1124,5 +1111,4 @@ public class GameFightTest extends InitializationDataBase {
 
     private static Point newPoint(int _x,int _y) {
         return new Point((short)_x, (short)_y);
-    }
-}
+    }}
