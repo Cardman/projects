@@ -172,7 +172,7 @@ public final class Line extends Leaf implements StackableBlock {
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, i, _cont);
-                        _cont.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                        _cont.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                         return;
                     }
                 }

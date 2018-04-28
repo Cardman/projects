@@ -229,7 +229,7 @@ public abstract class Block extends Blockable {
                 }
                 String curClass_ = ip_.getGlobalClass();
                 String curClassBase_ = StringList.getAllTypes(curClass_).first();
-                _conf.getClasses().successInitClass(curClassBase_);
+                _conf.getClasses().getLocks().successClass(_conf, curClassBase_);
                 ip_.setNullReadWrite();
                 return;
             }

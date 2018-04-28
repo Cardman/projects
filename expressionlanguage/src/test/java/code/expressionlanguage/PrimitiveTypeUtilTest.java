@@ -929,7 +929,6 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray1Test() {
         ContextEl cont_ = new ContextEl();
-        cont_.setClasses(new Classes());
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(1);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -943,7 +942,6 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray2Test() {
         ContextEl cont_ = new ContextEl();
-        cont_.setClasses(new Classes());
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -959,7 +957,6 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray3Test() {
         ContextEl cont_ = new ContextEl();
-        cont_.setClasses(new Classes());
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2,3);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -990,8 +987,8 @@ public class PrimitiveTypeUtilTest {
 
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_;
+        classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         Classes.tryBuildBracedClassesBodies(_files, cont_);
@@ -1003,8 +1000,6 @@ public class PrimitiveTypeUtilTest {
     }
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         return cont_;

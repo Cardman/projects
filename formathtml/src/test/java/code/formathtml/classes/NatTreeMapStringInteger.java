@@ -1,10 +1,9 @@
 package code.formathtml.classes;
 
-import code.util.ints.Comparing;
-
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
+import code.util.ints.Comparing;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SimpleIterable;

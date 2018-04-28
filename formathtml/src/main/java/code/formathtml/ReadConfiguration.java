@@ -5,7 +5,6 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Options;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -95,14 +94,12 @@ public final class ReadConfiguration {
         }
         if (!found_) {
             ContextEl context_ = new ContextEl();
-            context_.setClasses(new Classes());
             context_.setStandards(stds_);
             _configuration.setContext(context_);
         }
     }
     static ContextEl loadContext(Element _elt) {
         ContextEl context_ = new ContextEl();
-        context_.setClasses(new Classes());
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {

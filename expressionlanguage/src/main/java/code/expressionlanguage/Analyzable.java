@@ -42,4 +42,6 @@ public interface Analyzable {
     void setAmbigous(boolean _ambigous);
     ClassMetaInfo getClassMetaInfo(String _name);
     CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id);
+    int getCurrentChildTypeIndex();
+    void setCurrentChildTypeIndex(int _index);
 }

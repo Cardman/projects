@@ -3,7 +3,6 @@ package code.expressionlanguage.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.util.EntryCust;
 import code.util.ObjectMap;
-import code.util.StringList;
 
 public final class CustStruct implements FieldableStruct {
 
@@ -24,14 +23,7 @@ public final class CustStruct implements FieldableStruct {
 
     @Override
     public boolean sameReference(Struct _other) {
-        if (!(_other instanceof CustStruct)) {
-            return false;
-        }
-        CustStruct other_ = (CustStruct) _other;
-        if (!StringList.quickEq(className, other_.className)) {
-            return false;
-        }
-        return getFields() == other_.getFields();
+        return this == _other;
     }
 
     @Override

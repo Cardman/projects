@@ -1,11 +1,12 @@
 package code.expressionlanguage;
 
+
 public final class CustomError {
 
     private final String message;
 
     public CustomError() {
-        message = "";
+        this("");
     }
 
     public CustomError(String _message) {

@@ -21,8 +21,8 @@ public final class LocalThrowing implements CallingFinally {
     public void removeBlockFinally(ContextEl _conf) {
         LgNames lgNames_ = _conf.getStandards();
         CatchEval catchElt_ = null;
-        Struct custCause_ = _conf.getException();
         while (!_conf.isEmptyPages()) {
+            Struct custCause_ = _conf.getException();
             PageEl bkIp_ = _conf.getLastPage();
             while (!bkIp_.noBlock()) {
                 RemovableVars bl_ = bkIp_.getLastStack();
@@ -101,6 +101,7 @@ public final class LocalThrowing implements CallingFinally {
                 }
                 bkIp_.removeLastBlock();
             }
+            _conf.getClasses().getLocks().processErrorClass(_conf, custCause_);
             _conf.removeLastPage();
         }
     }

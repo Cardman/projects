@@ -81,9 +81,13 @@ public final class ElUtil {
         CustList<OperationNode> allRight_ = getSortedDescNodes(opRight_, _conf);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrLeft);
-        analyzeSetting(true, allLeft_, _conf);
+        if (!allLeft_.isEmpty()) {
+            analyzeSetting(true, allLeft_, _conf);
+        }
         analyze(allLeft_, _conf, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
-        analyzeSetting(false, allLeft_, _conf);
+        if (!allLeft_.isEmpty()) {
+            analyzeSetting(false, allLeft_, _conf);
+        }
         page_.setOffset(0);
         page_.setGlobalOffset(_attrRight);
         analyze(allRight_, _conf, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
@@ -433,6 +437,9 @@ public final class ElUtil {
         _context.getLastPage().setTranslatedOffset(0);
     }
     public static void analyzeSetting(boolean _setVar,CustList<OperationNode> _nodes, ContextEl _conf) {
+        if (_nodes.isEmpty()) {
+            return;
+        }
         OperationNode root_ = _nodes.last();
         SettableElResult elt_ = null;
         boolean ok_ = true;

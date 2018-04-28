@@ -1,9 +1,8 @@
 package code.expressionlanguage.opers.util;
 
-import code.util.ints.Comparing;
-
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class IndexesComparator implements Comparing<Numbers<Integer>>{
 

@@ -90,8 +90,6 @@ public abstract class ProcessMethodCommon {
         } else {
             ct_ = new ContextEl(_m[0]);
         }
-        Classes classes_ = new Classes();
-        ct_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
         return ct_;

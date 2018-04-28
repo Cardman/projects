@@ -1,26 +1,22 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.CustStruct;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.EqList;
-import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class ProcessMethod {
@@ -30,7 +26,7 @@ public final class ProcessMethod {
     }
 
     public static void initializeClass(String _class, ContextEl _cont) {
-        _cont.getClasses().initialize(_class);
+        _cont.getClasses().getLocks().initClass(_class);
         _cont.addPage(createInstancingClass(_class, _cont));
         loopCallings(_cont);
     }
@@ -184,39 +180,13 @@ public final class ProcessMethod {
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         if (in_ == InstancingStep.NEWING) {
-            StringList allClasses_ = new StringList(baseClass_);
-            allClasses_.addAllElts(class_.getAllSuperTypes());
-            ObjectMap<ClassField,Struct> fields_;
-            fields_ = new ObjectMap<ClassField,Struct>();
-            for (String c: allClasses_) {
-                ClassMetaInfo clMetaLoc_ = classes_.getClassMetaInfo(c, _cont);
-                if (clMetaLoc_ == null) {
-                    continue;
-                }
-                for (EntryCust<String, FieldMetaInfo> e: clMetaLoc_.getFields().entryList()) {
-                    FieldMetaInfo fieldMeta_ = e.getValue();
-                    if (fieldMeta_.isStaticField()) {
-                        continue;
-                    }
-                    String fieldDeclClass_ = fieldMeta_.getType();
-                    fields_.put(new ClassField(c, e.getKey()), StdStruct.defaultClass(fieldDeclClass_, _cont));
-                }
-            }
             Struct str_ = null;
             if (global_ != null) {
                 str_ = global_.getStruct();
             }
             String fieldName_ = _call.getFieldName();
-            if (fieldName_.isEmpty()) {
-                argGl_.setStruct(new CustStruct(_class, fields_, str_));
-            } else {
-                Struct enum_ = classes_.getStaticField(new ClassField(_class, fieldName_));
-                if (!enum_.isNull()) {
-                    argGl_.setStruct(enum_);
-                } else {
-                    argGl_.setStruct(new CustStruct(_class, fields_, str_));
-                }
-            }
+            int ordinal_ = _call.getChildIndex();
+            argGl_.setStruct(_cont.getInit().processInit(_cont, str_, _class, fieldName_, ordinal_));
         } else {
             argGl_.setStruct(global_.getStruct());
         }
@@ -269,16 +239,28 @@ public final class ProcessMethod {
             if (root_ instanceof UniqueRootedBlock) {
                 String superClass_ = ((UniqueRootedBlock) root_).getSuperClass(_conf);
                 ClassMetaInfo s_ = _conf.getClasses().getClassMetaInfo(superClass_, _conf);
-                if (s_ != null && !_conf.getClasses().isInitialized(superClass_)) {
-                    _conf.getClasses().initialize(superClass_);
-                    _conf.setInitClass(new NotInitializedClass(superClass_));
-                    return;
+                if (s_ != null) {
+                    InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, superClass_);
+                    if (res_ == InitClassState.NOT_YET) {
+                        _conf.setInitClass(new NotInitializedClass(superClass_));
+                        return;
+                    }
+                    if (res_ == InitClassState.ERROR) {
+                        CausingErrorStruct causing_ = new CausingErrorStruct(superClass_);
+                        _conf.setException(causing_);
+                        return;
+                    }
                 }
             }
             for (String i: root_.getAllNeededSortedInterfaces()) {
-                if (!_conf.getClasses().isInitialized(i)) {
-                    _conf.getClasses().initialize(i);
+                InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, i);
+                if (res_ == InitClassState.NOT_YET) {
                     _conf.setInitClass(new NotInitializedClass(i));
+                    return;
+                }
+                if (res_ == InitClassState.ERROR) {
+                    CausingErrorStruct causing_ = new CausingErrorStruct(i);
+                    _conf.setException(causing_);
                     return;
                 }
             }
@@ -312,7 +294,7 @@ public final class ProcessMethod {
                     called_.add(superClassBase_);
                     Argument global_ = ip_.getGlobalArgument();
                     String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _conf);
-                    _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                    _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                     return;
                 }
                 for (String i: class_.getAllNeededSortedInterfaces()) {
@@ -322,7 +304,7 @@ public final class ProcessMethod {
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, i, _conf);
-                        _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                        _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                         return;
                     }
                 }
@@ -375,7 +357,7 @@ public final class ProcessMethod {
             }
             String curClass_ = ip_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            _conf.getClasses().successInitClass(curClassBase_);
+            _conf.getClasses().getLocks().successClass(_conf, curClassBase_);
             ip_.setNullReadWrite();
             return;
         }

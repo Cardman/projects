@@ -21,17 +21,7 @@ public final class PredefinedClasses {
             return isPredefined(_type);
         }
         LgNames stds_ = _context.getStandards();
-        boolean pred_ = false;
-        if (StringList.quickEq(_type, stds_.getAliasIterable())) {
-            pred_ = true;
-        } else if (StringList.quickEq(_type, stds_.getAliasIteratorType())) {
-            pred_ = true;
-        } else if (StringList.quickEq(_type, stds_.getAliasEnum())) {
-            pred_ = true;
-        } else if (StringList.quickEq(_type, stds_.getAliasEnumParam())) {
-            pred_ = true;
-        }
-        return pred_;
+        return stds_.getPredefinedClasses().containsStr(_type);
     }
     private static boolean isPredefined(String _type) {
         boolean pred_ = false;

@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
-import code.util.ints.Comparing;
-
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorBlockOrder implements Comparing<Block> {
 

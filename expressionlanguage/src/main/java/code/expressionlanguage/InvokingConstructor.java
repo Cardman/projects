@@ -10,6 +10,7 @@ public class InvokingConstructor {
     private final String className;
 
     private final String fieldName;
+    private final int ordinal;
 
     private final ConstructorId id;
 
@@ -20,11 +21,13 @@ public class InvokingConstructor {
     private final InstancingStep instanceStep;
     private final StringList called;
     public InvokingConstructor(String _className, String _fieldName,
+            int _ordinal,
             ConstructorId _id, Argument _currentObject,
             CustList<Argument> _arguments, InstancingStep _instanceStep,
             StringList _called) {
         className = _className;
         fieldName = _fieldName;
+        ordinal = _ordinal;
         id = _id;
         currentObject = _currentObject;
         arguments = _arguments;
@@ -36,6 +39,9 @@ public class InvokingConstructor {
     }
     public String getFieldName() {
         return fieldName;
+    }
+    public int getOrdinal() {
+        return ordinal;
     }
     public ConstructorId getId() {
         return id;

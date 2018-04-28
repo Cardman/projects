@@ -2,6 +2,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
@@ -9,15 +10,20 @@ import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.opers.util.ClassCategory;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -33,12 +39,13 @@ import code.sml.ElementOffsetsNext;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.MathFactory;
 
-public final class ContextEl implements Analyzable {
+public final class ContextEl implements FieldableStruct,Runnable,Analyzable {
     private static final String RETURN_LINE = "\n";
     private static final int DEFAULT_TAB_WIDTH = 4;
 
@@ -64,6 +71,7 @@ public final class ContextEl implements Analyzable {
 
     private NotInitializedClass initClass;
 
+    private transient int indexChildType;
     private transient LgNames standards = new LgNames();
 
     private transient PageEl analyzing;
@@ -84,12 +92,107 @@ public final class ContextEl implements Analyzable {
 
     private transient String resourceUrl;
 
+    private transient ContextEl parentThread;
+
+    private transient CustList<ContextEl> children = new CustList<ContextEl>();
+
+    private transient Struct parent;
+
+    private transient String className = "";
+    private transient ObjectMap<ClassField, Struct> fields = new ObjectMap<ClassField, Struct>();
+    private transient Initializer init;
+    private transient String name;
+    private transient int ordinal;
     public ContextEl() {
         this(CustList.INDEX_NOT_FOUND_ELT);
     }
 
     public ContextEl(int _stackOverFlow) {
+        this(_stackOverFlow, new DefaultLockingClass(),new DefaultInitializer());
+    }
+    public ContextEl(DefaultLockingClass _lock,Initializer _init) {
+        this(CustList.INDEX_NOT_FOUND_ELT, _lock,_init);
+    }
+
+    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Initializer _init) {
         stackOverFlow = _stackOverFlow;
+        init = _init;
+        classes = new Classes();
+        classes.setLocks(_lock);
+    }
+    public ContextEl(ContextEl _context, String _className,
+            String _name, int _ordinal,
+            ObjectMap<ClassField,Struct> _fields, Struct _parent) {
+        parentThread = _context;
+        name = _name;
+        ordinal = _ordinal;
+        classes = _context.classes;
+        options = _context.options;
+        standards = _context.standards;
+        tabWidth = _context.tabWidth;
+        stackOverFlow = _context.stackOverFlow;
+        filesConfName = _context.filesConfName;
+        memoryError = _context.memoryError;
+        className = _className;
+        fields = _fields;
+        parent = _parent;
+        init = _context.init;
+        _context.children.add(this);
+    }
+    @Override
+    public void run() {
+        String run_ = init.getRunTask(standards);
+        String runnable_ = init.getInterfaceTask(standards);
+        MethodId id_ = new MethodId(MethodModifier.ABSTRACT, run_, new StringList(), false);
+        GeneType type_ = classes.getClassBody(runnable_);
+        String base_ = StringList.getAllTypes(className).first();
+        ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, this).getVal(base_);
+        Argument arg_ = new Argument();
+        arg_.setStruct(this);
+        ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), this);
+    }
+    @Override
+    public String getClassName(ContextEl _contextEl) {
+        return className;
+    }
+    @Override
+    public ObjectMap<ClassField, Struct> getFields() {
+        return fields;
+    }
+    @Override
+    public Object getInstance() {
+        return this;
+    }
+    @Override
+    public boolean isArray() {
+        return false;
+    }
+    @Override
+    public boolean isNull() {
+        return false;
+    }
+    @Override
+    public String getClassName() {
+        return className;
+    }
+
+    @Override
+    public Struct getStruct(ClassField _classField) {
+        return fields.getVal(_classField);
+    }
+
+    @Override
+    public void setStruct(ClassField _classField, Struct _value) {
+        for (EntryCust<ClassField, Struct> e: fields.entryList()) {
+            if (e.getKey().eq(_classField)) {
+                e.setValue(_value);
+                return;
+            }
+        }
+    }
+    @Override
+    public boolean sameReference(Struct _other) {
+        return this == _other;
     }
     public void initError() {
         memoryError = new StdStruct(new CustomError(), standards.getAliasError());
@@ -523,5 +626,23 @@ public final class ContextEl implements Analyzable {
 
     public Struct getMemoryError() {
         return memoryError;
+    }
+
+    public Initializer getInit() {
+        return init;
+    }
+
+    public void setInit(Initializer _init) {
+        init = _init;
+    }
+
+    @Override
+    public int getCurrentChildTypeIndex() {
+        return indexChildType;
+    }
+
+    @Override
+    public void setCurrentChildTypeIndex(int _index) {
+        indexChildType = _index;
     }
 }

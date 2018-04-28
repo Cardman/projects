@@ -7,7 +7,6 @@ import org.junit.Test;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.Classes;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
 import code.sml.Document;
@@ -883,7 +882,6 @@ public class FormatHtmlTryCatchFinallyTest {
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
-        context_.setClasses(new Classes());
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
         context_.initError();

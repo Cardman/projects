@@ -17,12 +17,19 @@ public final class FileBlock extends BracedBlock {
 
     private String fileName;
 
-    public FileBlock(OffsetsBlock _offset) {
+    private boolean predefined;
+
+    public FileBlock(OffsetsBlock _offset, boolean _predefined) {
         super(null, 0, null, _offset);
+        predefined = _predefined;
     }
 
     public FileBlock() {
         super(null, null, 0, null);
+    }
+
+    public boolean isPredefined() {
+        return predefined;
     }
 
     public Numbers<Integer> getLeftSpaces() {

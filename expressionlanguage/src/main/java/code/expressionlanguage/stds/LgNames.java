@@ -6,10 +6,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.LgAdv;
 import code.expressionlanguage.NumberInfos;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.BooleanStruct;
@@ -205,10 +207,13 @@ public class LgNames {
     private String aliasSetNewString;
     private String aliasSimpleIteratorType;
     private String aliasSimpleIterableType;
+    private String aliasErrorInitClass;
 
     private String selectedBoolean = "$sb";
 
     private StringMap<StandardType> standards = new StringMap<StandardType>();
+
+    private StringList predefinedClasses = new StringList();
 
     /**Called after setters*/
     public void build() {
@@ -280,6 +285,12 @@ public class LgNames {
         stdcl_ = new StandardClass(aliasSof, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
         std_ = stdcl_;
         standards.put(aliasSof, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasErrorInitClass, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
+        std_ = stdcl_;
+        standards.put(aliasErrorInitClass, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -2251,6 +2262,8 @@ public class LgNames {
                     }
                 }
             }
+        } else if(lgNames_ instanceof LgAdv) {
+            result_ = ((LgAdv)lgNames_).getOtherResult(_cont, _struct, _method, args_);
         } else {
             result_ = lgNames_.getOtherResult(_cont, _struct, _method, argsObj_);
         }
@@ -3137,6 +3150,8 @@ public class LgNames {
             }
         } else if (StringList.quickEq(type_, objectType_)) {
             result_.setResult(new StdStruct(new CustBase(), objectType_));
+        } else if (lgNames_ instanceof LgAdv) {
+            result_ = ((LgAdv)lgNames_).getOtherResult(_cont, _method, args_);
         } else {
             result_ = lgNames_.getOtherResult(_cont, _method, argsObj_);
         }
@@ -3294,7 +3309,7 @@ public class LgNames {
                     long[] adapt_ = new long[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = (Character) s.getInstance();
+                        adapt_[i_] = (Long) s.getInstance();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -3387,6 +3402,30 @@ public class LgNames {
         }
         return args_;
     }
+
+    public StringMap<String> buildFiles(ContextEl _context) {
+        StringMap<String> files_ = new StringMap<String>();
+        LgNames stds_ = _context.getStandards();
+        String content_ = PredefinedClasses.getBracedIterableType(_context);
+        String name_;
+        name_ = stds_.getAliasIterable();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
+        content_ = PredefinedClasses.getBracedIteratorType(_context);
+        name_ = stds_.getAliasIteratorType();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
+        content_ = PredefinedClasses.getBracedEnumType(_context);
+        name_ = stds_.getAliasEnum();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
+        content_ = PredefinedClasses.getBracedEnumParamType(_context);
+        name_ = stds_.getAliasEnumParam();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
+        return files_;
+    }
+
     public Object getOtherArguments(Struct[] _str, String _base) {
         return null;
     }
@@ -4331,6 +4370,12 @@ public class LgNames {
     public void setAliasSimpleIterableType(String _aliasSimpleIterableType) {
         aliasSimpleIterableType = _aliasSimpleIterableType;
     }
+    public String getAliasErrorInitClass() {
+        return aliasErrorInitClass;
+    }
+    public void setAliasErrorInitClass(String _aliasErrorInitClass) {
+        aliasErrorInitClass = _aliasErrorInitClass;
+    }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;
     }
@@ -4339,6 +4384,12 @@ public class LgNames {
     }
     public void setSelectedBoolean(String _selectedBoolean) {
         selectedBoolean = _selectedBoolean;
+    }
+    public StringList getPredefinedClasses() {
+        return predefinedClasses;
+    }
+    public void setPredefinedClasses(StringList _predefinedClasses) {
+        predefinedClasses = _predefinedClasses;
     }
     public String getPrettyString() {
         StringBuilder str_ = new StringBuilder();

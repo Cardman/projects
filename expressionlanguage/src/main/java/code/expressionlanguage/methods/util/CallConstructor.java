@@ -7,6 +7,7 @@ import code.util.StringList;
 public final class CallConstructor {
 
     private String fieldName;
+    private int childIndex;
 
     private InstancingStep instancingStep = InstancingStep.NOTHING;
 
@@ -29,6 +30,14 @@ public final class CallConstructor {
 
     public void setFieldName(String _fieldName) {
         fieldName = _fieldName;
+    }
+
+    public int getChildIndex() {
+        return childIndex;
+    }
+
+    public void setChildIndex(int _childIndex) {
+        childIndex = _childIndex;
     }
 
     public InstancingStep getInstancingStep() {

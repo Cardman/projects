@@ -4,7 +4,6 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import code.expressionlanguage.methods.Classes;
 import code.util.NatTreeMap;
 
 @SuppressWarnings("static-method")
@@ -3705,7 +3704,6 @@ public class ElResolverTest {
 
     private ContextEl contextEl() {
         ContextEl cont_ = new ContextEl();
-        cont_.setClasses(new Classes());
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         return cont_;

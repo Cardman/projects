@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers;
-import code.util.ints.Comparing;
-
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorOrder implements Comparing<OperationNode> {
 

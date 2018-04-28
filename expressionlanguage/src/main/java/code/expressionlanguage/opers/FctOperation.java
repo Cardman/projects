@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
@@ -38,6 +39,7 @@ import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.util.VarargError;
 import code.expressionlanguage.opers.util.ArrayStruct;
+import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
@@ -819,7 +821,7 @@ public final class FctOperation extends InvokingOperation {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
+            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
         } else if (argres_.isInvokeMethod()) {
             InvokingMethod i_ = argres_.getInvokeMethod();
             _conf.setCallMethod(new CustomFoundMethod(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments()));
@@ -956,12 +958,12 @@ public final class FctOperation extends InvokingOperation {
             StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
             called_.add(calledCtor_);
             if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
-                InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_THIS, called_);
+                InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, -1, constId, arg_, firstArgs_, InstancingStep.USING_THIS, called_);
                 return ArgumentCall.newCall(inv_);
             }
             if (StringList.quickEq(trimMeth_,prefixFunction(SUPER_ACCESS))) {
                 _conf.getLastPage().clearCurrentEls();
-                InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_SUPER, called_);
+                InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, -1, constId, arg_, firstArgs_, InstancingStep.USING_SUPER, called_);
                 return ArgumentCall.newCall(inv_);
             }
         }
@@ -1204,10 +1206,17 @@ public final class FctOperation extends InvokingOperation {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             ClassMetaInfo custClass_ = null;
             classNameFound_ = classMethodId.getClassName();
-            if (classes_.isCustomType(classNameFound_) && !classes_.isInitialized(classNameFound_)) {
-                classes_.initialize(classNameFound_);
-                InitializatingClass inv_ = new InitializatingClass(classNameFound_);
-                return ArgumentCall.newCall(inv_);
+            if (classes_.isCustomType(classNameFound_)) {
+                InitClassState res_ = classes_.getLocks().getState(_conf, classNameFound_);
+                if (res_ == InitClassState.NOT_YET) {
+                    InitializatingClass inv_ = new InitializatingClass(classNameFound_);
+                    return ArgumentCall.newCall(inv_);
+                }
+                if (res_ == InitClassState.ERROR) {
+                    CausingErrorStruct causing_ = new CausingErrorStruct(classNameFound_);
+                    _conf.setException(causing_);
+                    return ArgumentCall.newArgument(Argument.createVoid());
+                }
             }
             custClass_ = _conf.getClassMetaInfo(classNameFound_);
             if (custClass_.getCategory() == ClassCategory.ENUM) {

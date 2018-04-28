@@ -1,6 +1,5 @@
 package code.expressionlanguage.classes;
 
-import code.util.ints.Comparing;
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -8,6 +7,7 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.SimpleItr;
+import code.util.ints.Comparing;
 import code.util.ints.Listable;
 
 public class Ints implements Listable<Integer> {

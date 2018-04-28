@@ -3255,8 +3255,6 @@ public final class ElRenderUtilTest {
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -3270,8 +3268,6 @@ public final class ElRenderUtilTest {
     private Configuration contextEl(StringMap<String> _files) {
         Configuration conf_ = new Configuration();
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());

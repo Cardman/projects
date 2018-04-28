@@ -684,4 +684,13 @@ public class Configuration implements Analyzable {
         nextIndex = _nextIndex;
     }
 
+    @Override
+    public int getCurrentChildTypeIndex() {
+        return 0;
+    }
+
+    @Override
+    public void setCurrentChildTypeIndex(int _index) {
+    }
+
 }

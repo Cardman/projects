@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
@@ -11,6 +12,7 @@ import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessClass;
+import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
@@ -148,10 +150,15 @@ public final class StaticAccessOperation extends LeafOperation {
             String _op) {
         if (possibleInitClass) {
             String className_ = getResultClass().getName();
-            if (!_conf.getClasses().isInitialized(className_)) {
-                _conf.getClasses().initialize(className_);
+            InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, className_);
+            if (res_ == InitClassState.NOT_YET) {
                 InitializatingClass inv_ = new InitializatingClass(className_);
                 return ArgumentCall.newCall(inv_);
+            }
+            if (res_ == InitClassState.ERROR) {
+                CausingErrorStruct causing_ = new CausingErrorStruct(className_);
+                _conf.setException(causing_);
+                return ArgumentCall.newArgument(Argument.createVoid());
             }
         }
         Argument cur_ = _argument;

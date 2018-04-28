@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
@@ -27,6 +28,7 @@ import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
@@ -56,6 +58,7 @@ public final class InstanceOperation extends InvokingOperation {
     private String className;
 
     private String fieldName = EMPTY_STRING;
+    private int blockIndex = -1;
 
     private int naturalVararg = -1;
 
@@ -279,6 +282,7 @@ public final class InstanceOperation extends InvokingOperation {
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;
             }
+            blockIndex = _conf.getCurrentChildTypeIndex();
             fieldName = _fieldName;
         }
         ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
@@ -350,7 +354,7 @@ public final class InstanceOperation extends InvokingOperation {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
+            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
         } else {
             setSimpleArgument(res_, _conf, _nodes);
         }
@@ -477,10 +481,15 @@ public final class InstanceOperation extends InvokingOperation {
         if (possibleInitClass) {
             String base_ = StringList.getAllTypes(realClassName_).first();
             if (_conf.getClasses().isCustomType(base_)) {
-                if (!_conf.getClasses().isInitialized(realClassName_)) {
-                    _conf.getClasses().initialize(realClassName_);
+                InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, base_);
+                if (res_ == InitClassState.NOT_YET) {
                     InitializatingClass inv_ = new InitializatingClass(realClassName_);
                     return ArgumentCall.newCall(inv_);
+                }
+                if (res_ == InitClassState.ERROR) {
+                    CausingErrorStruct causing_ = new CausingErrorStruct(base_);
+                    _conf.setException(causing_);
+                    return ArgumentCall.newArgument(Argument.createVoid());
                 }
             }
         }
@@ -576,7 +585,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
             i_++;
         }
-        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, constId, needed_, _arguments, InstancingStep.NEWING, called_);
+        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, blockIndex,constId, needed_, _arguments, InstancingStep.NEWING, called_);
         return ArgumentCall.newCall(inv_);
     }
 

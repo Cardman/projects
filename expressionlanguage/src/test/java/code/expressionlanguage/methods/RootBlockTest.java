@@ -1004,8 +1004,7 @@ public class RootBlockTest {
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         Classes.tryBuildBracedClassesBodies(_files, cont_);

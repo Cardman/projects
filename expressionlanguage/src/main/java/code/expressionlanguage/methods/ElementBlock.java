@@ -122,6 +122,13 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         String className_ = getClassName();
         String fullInstance_ = StringList.concat(NEW,className_, PAR_LEFT, value, PAR_RIGHT);
         page_.setTranslatedOffset(valueOffest - fieldNameOffest - 1 - NEW.length() - className_.length());
+        int index_ = 0;
+        Block n_ = getPreviousSibling();
+        while (n_ != null) {
+            index_++;
+            n_ = n_.getPreviousSibling();
+        }
+        _cont.setCurrentChildTypeIndex(index_);
         opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
         page_.setTranslatedOffset(0);
     }
@@ -185,6 +192,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             ip_.clearCurrentEls();
             RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
+            int previous_;
             _cont.getClasses().initializeStaticField(staticField_, struct_);
         }
         processBlock(_cont);

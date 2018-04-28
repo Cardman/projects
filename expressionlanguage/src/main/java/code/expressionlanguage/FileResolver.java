@@ -119,7 +119,7 @@ public final class FileResolver {
     private FileResolver(){
     }
     public static void parseFile(String _fileName, String _file, boolean _predefined, ContextEl _context) {
-        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock());
+        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
         fileBlock_.setFileName(_fileName);
         EnablingSpaces enabledSpaces_ = new EnablingSpaces();
         enabledSpaces_.setEnabledSpace(true);

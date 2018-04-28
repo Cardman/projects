@@ -1,8 +1,7 @@
 package code.expressionlanguage.methods;
-import code.util.ints.Comparing;
-
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorClassEdge implements Comparing<ClassEdge> {
 

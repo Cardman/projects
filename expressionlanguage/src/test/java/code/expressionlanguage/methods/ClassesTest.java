@@ -353,8 +353,7 @@ public class ClassesTest {
         xml_.append("$public $interface pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -374,12 +373,10 @@ public class ClassesTest {
         xml_.append("$public $interface pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(2, s_.size());
         assertEq("pkg.ExTwo", s_.first());
@@ -400,8 +397,7 @@ public class ClassesTest {
         xml_.append("$public $interface pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -429,8 +425,7 @@ public class ClassesTest {
         xml_.append("$public $interface pkg.ExFour {}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -459,8 +454,7 @@ public class ClassesTest {
         xml_.append("$public $interface pkg.ExFour {}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -492,8 +486,7 @@ public class ClassesTest {
         xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
         files_.put("pkg/ExFive", xml_.toString());
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
@@ -605,8 +598,7 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         Classes.tryBuildBracedClassesBodies(_files, cont_);
@@ -622,8 +614,7 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes();
-        cont_.setClasses(classes_);
+        Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         Classes.tryBuildBracedClassesBodies(_files, cont_);

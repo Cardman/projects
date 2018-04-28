@@ -6,6 +6,7 @@ import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
+import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -25,6 +26,7 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.StaticAccessThisError;
 import code.expressionlanguage.methods.util.UndefinedFieldError;
 import code.expressionlanguage.methods.util.UndefinedVariableError;
+import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -732,10 +734,15 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             String className_ = fieldId.getClassName();
             if (fieldMetaInfo.isStaticField()) {
                 if (classes_.isCustomType(className_)) {
-                    if (!classes_.isInitialized(className_)) {
-                        classes_.initialize(className_);
+                    InitClassState res_ = classes_.getLocks().getState(_conf, className_);
+                    if (res_ == InitClassState.NOT_YET) {
                         InitializatingClass inv_ = new InitializatingClass(className_);
                         return ArgumentCall.newCall(inv_);
+                    }
+                    if (res_ == InitClassState.ERROR) {
+                        CausingErrorStruct causing_ = new CausingErrorStruct(className_);
+                        _conf.setException(causing_);
+                        return ArgumentCall.newArgument(Argument.createVoid());
                     }
                     Struct struct_ = classes_.getStaticField(fieldId);
                     a_ = new Argument();

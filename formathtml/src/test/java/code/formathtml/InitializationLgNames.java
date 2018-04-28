@@ -156,6 +156,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasSimpleIterator("iterator");
         _lgNames.setAliasSimpleIteratorType("code.util.SimpleItr");
         _lgNames.setAliasSimpleIterableType("code.util.ints.SimpleIterable");
+        _lgNames.setAliasErrorInitClass("$defErrorClass");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
         _lgNames.setAliasName("name");

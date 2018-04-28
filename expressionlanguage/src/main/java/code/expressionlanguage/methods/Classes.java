@@ -1,8 +1,10 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.FileResolver;
+import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -37,6 +39,7 @@ import code.expressionlanguage.opers.util.EnumStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
@@ -106,12 +109,11 @@ public final class Classes {
 
     private final ObjectMap<ClassField,Struct> staticFields;
     private final StringMap<CustList<Struct>> values;
-    private final StringMap<Boolean> initializedClasses;
-    private final StringMap<Boolean> successfulInitializedClasses;
 
     private final ErrorList errorsDet;
     private final StringList localVariablesNames;
     private final StringList classesInheriting;
+    private DefaultLockingClass locks;
     private EqualsEl natEqEl;
     private String iteratorVar;
     private String hasNextVar;
@@ -133,8 +135,6 @@ public final class Classes {
         errorsDet = new ErrorList();
         staticFields = new ObjectMap<ClassField,Struct>();
         values = new StringMap<CustList<Struct>>();
-        initializedClasses = new StringMap<Boolean>();
-        successfulInitializedClasses = new StringMap<Boolean>();
         classesInheriting = new StringList();
         localVariablesNames = new StringList();
     }
@@ -315,7 +315,6 @@ public final class Classes {
             b.setNullAssociateElement();
         }
         String fullName_ = cl_.getFullName();
-        initializedClasses.put(fullName_, false);
         classesBodies.put(fullName_, cl_);
     }
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
@@ -477,7 +476,6 @@ public final class Classes {
             b.setCompleteGroup();
         }
         String fullName_ = cl_.getFullName();
-        initializedClasses.put(fullName_, false);
         classesBodies.put(fullName_, cl_);
     }
     private static boolean isCorrectTemplate(String _temp, ContextEl _context) {
@@ -660,25 +658,19 @@ public final class Classes {
         _context.setHtml(EMPTY_STRING);
     }
     public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        for (EntryCust<String, String> e: stds_.buildFiles(_context).entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            FileResolver.parseFile(name_, content_, true, _context);
+        }
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             String content_ = f.getValue();
             FileResolver.parseFile(file_, content_, false, _context);
         }
-        String name_;
-        LgNames stds_ = _context.getStandards();
-        String content_ = PredefinedClasses.getBracedIterableType(_context);
-        name_ = stds_.getAliasIterable();
-        FileResolver.parseFile(name_, content_, true, _context);
-        content_ = PredefinedClasses.getBracedIteratorType(_context);
-        name_ = stds_.getAliasIteratorType();
-        FileResolver.parseFile(name_, content_, true, _context);
-        content_ = PredefinedClasses.getBracedEnumType(_context);
-        name_ = stds_.getAliasEnum();
-        FileResolver.parseFile(name_, content_, true, _context);
-        content_ = PredefinedClasses.getBracedEnumParamType(_context);
-        name_ = stds_.getAliasEnumParam();
-        FileResolver.parseFile(name_, content_, true, _context);
+        Classes cl_ = _context.getClasses();
+        cl_.getLocks().init(_context);
     }
     public static CustList<Block> getSortedDescNodesRoot(Block _root, ContextEl _context) {
         CustList<Block> list_ = new CustList<Block>();
@@ -2062,25 +2054,14 @@ public final class Classes {
     }
 
     public boolean isInitialized(String _name) {
-        String base_ = StringList.getAllTypes(_name).first();
-        return initializedClasses.getVal(base_);
+        return getLocks().getState(_name) != InitClassState.NOT_YET;
     }
     public boolean isSuccessfulInitialized(String _name) {
-        String base_ = StringList.getAllTypes(_name).first();
-        return successfulInitializedClasses.getVal(base_);
+        return getLocks().getState(_name) == InitClassState.SUCCESS;
     }
-    public void initialize(String _name) {
-        String base_ = StringList.getAllTypes(_name).first();
-        initializedClasses.put(base_, true);
-    }
-    public void successInitClass(String _name) {
-        String base_ = StringList.getAllTypes(_name).first();
-        successfulInitializedClasses.put(base_, true);
-    }
+
     public void preInitializeStaticFields(String _className, ContextEl _context) {
         String base_ = StringList.getAllTypes(_className).first();
-        ObjectMap<ClassField, FieldBlock> fieldsInfos_;
-        fieldsInfos_ = new ObjectMap<ClassField, FieldBlock>();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String k_ = c.getKey();
             if (!StringList.quickEq(k_, base_)) {
@@ -2096,30 +2077,6 @@ public final class Classes {
                         staticFields.put(new ClassField(base_, m_), str_);
                         continue;
                     }
-                    fieldsInfos_.put(new ClassField(base_, m_), method_);
-                }
-            }
-        }
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            String k_ = c.getKey();
-            if (!StringList.quickEq(k_, base_)) {
-                continue;
-            }
-            for (String s: c.getValue().getAllSuperTypes()) {
-                ClassMetaInfo clMetaLoc_ = getClassMetaInfo(s, _context);
-                if (clMetaLoc_ == null) {
-                    continue;
-                }
-                CustList<Block> bl_ = getDirectChildren(c.getValue());
-                for (Block b: bl_) {
-                    if (b instanceof FieldBlock) {
-                        FieldBlock method_ = (FieldBlock) b;
-                        String m_ = method_.getFieldName();
-                        if (method_.isStaticField()) {
-                            continue;
-                        }
-                        fieldsInfos_.put(new ClassField(s, m_), method_);
-                    }
                 }
             }
         }
@@ -2129,26 +2086,13 @@ public final class Classes {
                 continue;
             }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
-            int i_ = CustList.FIRST_INDEX;
-            CustList<Struct> values_ = new CustList<Struct>();
             for (Block b: bl_) {
                 if (b instanceof ElementBlock) {
                     ElementBlock method_ = (ElementBlock) b;
                     String m_ = method_.getFieldName();
-                    ObjectMap<ClassField,Struct> fields_;
-                    fields_ = new ObjectMap<ClassField,Struct>();
-                    for (EntryCust<ClassField, FieldBlock> f: fieldsInfos_.entryList()) {
-                        FieldBlock inf_ = f.getValue();
-                        fields_.put(f.getKey(), inf_.getDefaultStruct(_context));
-                    }
-                    Struct str_;
-                    str_ = new EnumStruct(base_, fields_, i_, m_);
-                    staticFields.put(new ClassField(base_, m_), str_);
-                    values_.add(str_);
-                    i_++;
+                    staticFields.put(new ClassField(base_, m_),NullStruct.NULL_VALUE);
                 }
             }
-            values.put(base_, values_);
         }
     }
     public void initializeStaticField(ClassField _clField, Struct _str) {
@@ -2228,5 +2172,11 @@ public final class Classes {
             return new ClassMetaInfo(_name, ((UniqueRootedBlock) clblock_).getGenericSuperClass(_context), infosFields_,infos_, infosConst_, cat_, abs_, final_);
         }
         return null;
+    }
+    public DefaultLockingClass getLocks() {
+        return locks;
+    }
+    public void setLocks(DefaultLockingClass _locks) {
+        locks = _locks;
     }
 }
