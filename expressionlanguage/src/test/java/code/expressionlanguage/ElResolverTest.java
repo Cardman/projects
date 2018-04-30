@@ -413,7 +413,7 @@ public class ElResolverTest {
         assertEq(2, opers_.size());
         assertEq("[", opers_.getVal(8));
         assertEq("]", opers_.getVal(10));
-        assertEq(9, seq_.getPriority());
+        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)", values_.getVal(0));
@@ -432,7 +432,7 @@ public class ElResolverTest {
         assertEq(2, opers_.size());
         assertEq("[", opers_.getVal(12));
         assertEq("]", opers_.getVal(14));
-        assertEq(9, seq_.getPriority());
+        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)[14]", values_.getVal(0));
@@ -2860,6 +2860,42 @@ public class ElResolverTest {
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
+    @Test
+    public void getOperationsSequence166Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "v+=b";
+        conf_.setRootAffect(true);
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        conf_.setAnalyzingRoot(true);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("+=", opers_.getVal(1));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("v", values_.getVal(0));
+        assertEq("b", values_.getVal(3));
+        assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence167Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "v++";
+        conf_.setRootAffect(true);
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        conf_.setAnalyzingRoot(true);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("++", opers_.getVal(1));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("v", values_.getVal(0));
+        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+    }
     @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();

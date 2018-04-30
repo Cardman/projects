@@ -16,11 +16,14 @@ import code.expressionlanguage.methods.util.BadElError;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
+import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BadElRender;
 import code.util.CustList;
 import code.util.StringList;
@@ -60,12 +63,21 @@ public final class ElRenderUtil {
         calculate(allRight_, _conf, _op);
         _conf.getLastPage().setRightArgument(_right.last().getArgument());
         SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
+        _conf.setCheckAffectation(true);
         settable_.calculateSetting(allLeft_, _conf, _op);
+        _conf.setCheckAffectation(false);
         _conf.getLastPage().setRightArgument(null);
     }
 
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
         ContextEl context_ = _conf.toContextEl();
+        context_.setRootAffect(false);
+        context_.setAnalyzing(new PageEl());
+        context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
+        context_.getAnalyzing().getLocalVars().putAllMap(_conf.getLocalVars());
+        context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
+        context_.getAnalyzing().getCatchVars().putAllMap(_conf.getCatchVars());
+        context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, context_, _minIndex, _begin, _end);
         if (d_.getBadOffset() >= 0) {
             _conf.setOffset(d_.getBadOffset());
@@ -78,6 +90,7 @@ public final class ElRenderUtil {
         }
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
         _conf.setNextIndex(d_.getIndexEnd()+2);
+        context_.setAnalyzingRoot(false);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, context_, d_);
         OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
@@ -89,10 +102,10 @@ public final class ElRenderUtil {
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return Argument.createVoid();
         }
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, context_);
         Argument argGl_ = _conf.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
-        ElUtil.analyze(all_, _conf,static_);
+        context_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, context_);
         if (!_conf.getClasses().getErrorsDet().isEmpty()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -101,6 +114,7 @@ public final class ElRenderUtil {
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return Argument.createVoid();
         }
+        context_.setAnalyzing(null);
         calculate(all_, context_, EMPTY_STRING);
         Argument arg_ = op_.getArgument();
         return arg_;
@@ -108,7 +122,13 @@ public final class ElRenderUtil {
 
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.toContextEl();
+        context_.setRootAffect(false);
         context_.setAnalyzing(new PageEl());
+        context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
+        context_.getAnalyzing().getLocalVars().putAllMap(_conf.getLocalVars());
+        context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
+        context_.getAnalyzing().getCatchVars().putAllMap(_conf.getCatchVars());
+        context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
         Delimiters d_ = ElResolver.checkSyntax(_el, context_, _index);
         if (d_.getBadOffset() >= 0) {
             _conf.getLastPage().setOffset(d_.getBadOffset());
@@ -121,6 +141,7 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         String el_ = _el.substring(_index);
+        context_.setAnalyzingRoot(false);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, context_, d_);
         OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
@@ -132,10 +153,10 @@ public final class ElRenderUtil {
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, context_);
         Argument argGl_ = _conf.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
-        ElUtil.analyze(all_, _conf,static_);
+        context_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, context_);
         if (!context_.getClasses().getErrorsDet().isEmpty()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -156,6 +177,7 @@ public final class ElRenderUtil {
         ImportingPage page_ = _conf.getLastPage();
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
+        cont_.setRootAffect(false);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, cont_, CustList.FIRST_INDEX);
         if (dLeft_.getBadOffset() >= 0) {
             _conf.getLastPage().setOffset(dLeft_.getBadOffset());
@@ -167,6 +189,7 @@ public final class ElRenderUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
+        cont_.setAnalyzingRoot(false);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, cont_, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
         if (opLeft_ == null) {
@@ -178,7 +201,8 @@ public final class ElRenderUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        CustList<OperationNode> allLeft_ = ElUtil.getSortedDescNodes(opLeft_, cont_);
+        cont_.setStaticContext(_staticContext);
+        CustList<OperationNode> allLeft_ = ElUtil.getSortedDescNodes(opLeft_, EMPTY_STRING, _hiddenVarTypes, cont_);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, cont_, CustList.FIRST_INDEX);
@@ -203,15 +227,35 @@ public final class ElRenderUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        CustList<OperationNode> allRight_ = ElUtil.getSortedDescNodes(opRight_, cont_);
+        CustList<OperationNode> allRight_ = ElUtil.getSortedDescNodes(opRight_, EMPTY_STRING, _hiddenVarTypes, cont_);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
-        ElUtil.analyzeSetting(true, allLeft_, cont_);
-        ElUtil.analyze(allLeft_, cont_, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
-        ElUtil.analyzeSetting(false, allLeft_, cont_);
         page_.setOffset(0);
+        SettableElResult set_ = ExpressionLanguage.getSettable(allLeft_);
+        set_.setVariable(true);
+        LgNames stds_ = _conf.getStandards();
+        String stringType_ = stds_.getAliasString();
+        String res_ = set_.getResultClass().getName();
+        if (set_.resultCanBeSet() && StringList.quickEq(res_, stringType_)) {
+            set_.setCatenizeStrings();
+        }
+        if (set_ instanceof ConstantOperation) {
+            if (((ConstantOperation)set_).isImmutablePart()) {
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(un_);
+                return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+            }
+            if (((ConstantOperation)set_).isFinalField()) {
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(un_);
+                return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+            }
+        }
         page_.setProcessingAttribute(_attrRight);
-        ElUtil.analyze(allRight_, cont_, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
@@ -237,6 +281,19 @@ public final class ElRenderUtil {
                 } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, cont_)) {
                     _conf.getClasses().getErrorsDet().add(cast_);
                     return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+                }
+            } else if (StringList.quickEq(_oper, Block.AND_EQ) || StringList.quickEq(_oper, Block.OR_EQ)) {
+                if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasBoolean())) {
+                    if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasPrimBoolean())) {
+                        _conf.getClasses().getErrorsDet().add(cast_);
+                        return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+                    }
+                }
+                if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasBoolean())) {
+                    if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasPrimBoolean())) {
+                        _conf.getClasses().getErrorsDet().add(cast_);
+                        return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+                    }
                 }
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, cont_)) {
                 _conf.getClasses().getErrorsDet().add(cast_);

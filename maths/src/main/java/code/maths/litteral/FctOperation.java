@@ -19,7 +19,7 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringList.quickEq(methodName,PUIS)) {
             if (chidren_.size() != 2) {
@@ -592,7 +592,7 @@ public final class FctOperation extends InvokingOperation {
         _error.setError(true);
     }
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringList.quickEq(methodName,PUIS)) {
             Rate base_=(Rate) chidren_.first().getArgument().getObject();

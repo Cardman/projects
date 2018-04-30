@@ -21,12 +21,12 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public final void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
+    public final void analyze(Analyzable _conf,
+            String _fieldName) {
+        analyzeCommon(_conf);
     }
 
-    final void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _op) {
+    final void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);

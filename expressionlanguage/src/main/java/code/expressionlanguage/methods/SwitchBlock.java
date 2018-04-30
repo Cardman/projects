@@ -90,7 +90,11 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         PageEl page_ = _cont.getLastPage();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
+        _cont.setRootAffect(false);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        if (opValue.isEmpty()) {
+            return;
+        }
         if (opValue.last().isVoidArg(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
@@ -161,7 +165,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             n_ = n_.getNextSibling();
         }
         if_.setBlock(this);
-        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
+        ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
         Argument arg_ =  el_.calculateMember(_cont);
@@ -178,5 +182,11 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         }
         rw_.setBlock(getFirstChild());
         ip_.addBlock(if_);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return getEl();
     }
 }

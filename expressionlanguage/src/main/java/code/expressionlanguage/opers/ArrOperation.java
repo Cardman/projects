@@ -35,8 +35,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
+    public void analyze(Analyzable _conf,
+            String _fieldName) {
         analyzeCommon(_conf);
     }
 
@@ -141,7 +141,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         array_ = a_.getStruct();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
-        affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _conf);
+        Struct arg_;
+        arg_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
+        affectArray(arg_, array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _conf);
         if (_conf.getException() != null) {
             return a_;
         }
@@ -170,21 +172,29 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = a_.getStruct();
         OperationNode lastElement_ = chidren_.last();
-        affectArray(array_, lastElement_.getArgument(), lastElement_.getIndexInEl(), _op, _conf);
+        Argument last_ = lastElement_.getArgument();
+        Struct arg_;
+        arg_ = chidren_.first().getArgument().getStruct();
+        affectArray(arg_, array_, last_, lastElement_.getIndexInEl(), _op, _conf);
         if (_conf.getException() != null) {
             return;
         }
         setSimpleArgument(a_, _conf);
     }
 
-    void affectArray(Struct _array,Argument _index, int _indexEl, String _op, ContextEl _conf) {
+    void affectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
         Object o_ = _index.getObject();
         PageEl ip_ = _conf.getLastPage();
-        Struct leftObj_ = getElement(_array, o_, _conf, _indexEl);
+        Struct leftObj_;
+        if (_stored.isArray()) {
+            leftObj_ = getElement(_array, o_, _conf, _indexEl);
+        } else {
+            leftObj_ = _stored;
+        }
         if (_conf.getException() != null) {
             return;
         }
@@ -192,9 +202,16 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
         String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf));
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct(), _conf)) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return;
+        if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct(), _conf)) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                return;
+            }
+        } else {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, leftObj_, _conf)) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                return;
+            }
         }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
@@ -313,7 +330,12 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public void setVariable() {
-        variable = true;
+    public void setVariable(boolean _variable) {
+        variable = _variable;
+    }
+
+    @Override
+    public void setCatenizeStrings() {
+        catString = true;
     }
 }

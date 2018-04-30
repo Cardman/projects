@@ -66,6 +66,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     private boolean possibleInitClass;
 
     private ClassField fieldId;
+    private boolean excVar;
     private FieldInfo fieldMetaInfo;
 
     private boolean catString;
@@ -105,8 +106,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
+    public void analyze(Analyzable _conf,
+            String _fieldName) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -441,7 +442,10 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             setResultClass(new ClassArgumentMatching(c_));
             return;
         }
-        if (op_.getConstType().isVariable()) {
+        if (getParent() instanceof AffectationOperation && getParent().getParent() == null && _conf.isMerged()) {
+            excVar = true;
+        }
+        if (op_.getConstType().isVariable() || excVar) {
             if (isIntermediateDottedOperation()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 FinalPart final_ = new FinalPart();
@@ -492,8 +496,12 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
-            if (op_.getConstType() == ConstType.LOC_VAR) {
+            if (op_.getConstType() == ConstType.LOC_VAR || excVar) {
                 variableName = str_;
+                if (excVar) {
+                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+                    return;
+                }
                 LocalVariable locVar_ = _conf.getLocalVars().getVal(variableName);
                 if (locVar_ != null) {
                     String c_ = locVar_.getClassName();
@@ -643,7 +651,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         } else {
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
-        ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
+        Argument current_ = _nodes.getVal(this).getArgument();
+        ArgumentCall argres_ = getCommonArgument(current_, previous_, _conf, _op);
         Argument arg_ = argres_.getArgument();
         if (_conf.getException() != null) {
             return arg_;
@@ -659,8 +668,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        Argument previous_ = _nodes.getVal(this).getPreviousArgument();
-        Argument arg_ = getCommonSetting(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
+        Argument current_ = _nodes.getVal(this).getArgument();
+        Argument arg_ = getCommonSetting(current_, _conf, _op);
         if (_conf.getException() == null) {
             setSimpleArgument(arg_, _conf, _nodes);
         }
@@ -699,7 +708,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     @Override
     public void calculateSetting(CustList<OperationNode> _nodes,
             ContextEl _conf, String _op) {
-        Argument arg_ = getCommonSetting(getArgument(), getPreviousArgument(), _conf, _op);
+        Argument current_ = getArgument();
+        Argument arg_ = getCommonSetting(current_, _conf, _op);
         if (_conf.getException() != null) {
             return;
         }
@@ -798,7 +808,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             a_.setStruct(locVar_.getStruct());
             return ArgumentCall.newArgument(a_);
         }
-        if (op_.getConstType() == ConstType.LOC_VAR) {
+        if (op_.getConstType() == ConstType.LOC_VAR || excVar) {
             if (resultCanBeSet()) {
                 return ArgumentCall.newArgument(Argument.createVoid());
             }
@@ -830,7 +840,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         return ArgumentCall.newArgument(a_);
     }
 
-    Argument getCommonSetting(Argument _argument, Argument _previous, ContextEl _conf, String _op) {
+    Argument getCommonSetting(Argument _argument, ContextEl _conf, String _op) {
         PageEl ip_ = _conf.getLastPage();
         LgNames stds_ = _conf.getStandards();
         String null_;
@@ -842,20 +852,24 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         OperationsSequence op_ = getOperations();
-        if (op_.getConstType() == ConstType.LOC_VAR) {
+        if (op_.getConstType() == ConstType.LOC_VAR || excVar) {
             LocalVariable locVar_ = ip_.getLocalVars().getVal(variableName);
             Argument left_ = new Argument();
             left_.setStruct(locVar_.getStruct());
             Argument right_ = ip_.getRightArgument();
+            Argument check_ = left_;
+            if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
+                check_ = right_;
+            }
             String formattedClassVar_ = locVar_.getClassName();
             formattedClassVar_ = _conf.getLastPage().formatVarType(formattedClassVar_, _conf);
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(formattedClassVar_, right_.getStruct(), _conf)) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(formattedClassVar_, check_.getStruct(), _conf)) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
                 return Argument.createVoid();
             }
-            if (!right_.isNull() && !NumericOperation.convert(_op)) {
+            if (!check_.isNull() && !NumericOperation.convert(_op)) {
                 Mapping mapping_ = new Mapping();
-                String base_ = right_.getObjectClassName(_conf);
+                String base_ = check_.getObjectClassName(_conf);
                 mapping_.setArg(base_);
                 mapping_.setParam(formattedClassVar_);
                 if (!Templates.isCorrect(mapping_, _conf)) {
@@ -892,17 +906,21 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             fieldType_ = fieldMetaInfo.getRealType();
         }
         Classes classes_ = _conf.getClasses();
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, right_.getStruct(), _conf)) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return Argument.createVoid();
-        }
         Struct structField_ = null;
         String className_ = fieldId.getClassName();
         if (fieldMetaInfo.isStaticField()) {
             structField_ = classes_.getStaticField(fieldId);
-            if (!right_.isNull() && !NumericOperation.convert(_op)) {
+            Struct check_ = structField_;
+            if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
+                check_ = right_.getStruct();
+            }
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_, _conf)) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                return Argument.createVoid();
+            }
+            if (!check_.isNull() && !NumericOperation.convert(_op)) {
                 Mapping map_ = new Mapping();
-                String rightClass_ = right_.getObjectClassName(_conf);
+                String rightClass_ = stds_.getStructClassName(check_, _conf);
                 map_.setArg(rightClass_);
                 map_.setParam(fieldType_);
                 if (!Templates.isCorrect(map_, _conf)) {
@@ -956,9 +974,17 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         }
         if (argument_.getStruct() instanceof FieldableStruct) {
             structField_ = ((FieldableStruct) argument_.getStruct()).getStruct(fieldId);
-            if (!right_.isNull() && !NumericOperation.convert(_op)) {
+            Struct check_ = structField_;
+            if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
+                check_ = right_.getStruct();
+            }
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_, _conf)) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                return Argument.createVoid();
+            }
+            if (!check_.isNull() && !NumericOperation.convert(_op)) {
                 Mapping map_ = new Mapping();
-                String rightClass_ = right_.getObjectClassName(_conf);
+                String rightClass_ = stds_.getStructClassName(check_, _conf);
                 map_.setArg(rightClass_);
                 map_.setParam(fieldType_);
                 if (!Templates.isCorrect(map_, _conf)) {
@@ -986,6 +1012,14 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         }
         structField_ = result_.getResult();
         left_.setStruct(structField_);
+        Argument check_ = left_;
+        if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
+            check_ = right_;
+        }
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_.getStruct(), _conf)) {
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return Argument.createVoid();
+        }
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
         if (_conf.getException() != null) {
             return res_;
@@ -1025,8 +1059,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     }
 
     @Override
-    public void setVariable() {
-        variable = true;
+    public void setVariable(boolean _variable) {
+        variable = _variable;
     }
 
     public boolean isImmutablePart() {
@@ -1073,5 +1107,10 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
 
     public final boolean isStaticAccess() {
         return staticAccess;
+    }
+
+    @Override
+    public void setCatenizeStrings() {
+        catString = true;
     }
 }

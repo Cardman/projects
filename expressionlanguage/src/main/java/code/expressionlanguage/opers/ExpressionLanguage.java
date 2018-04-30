@@ -124,5 +124,4 @@ public final class ExpressionLanguage {
     public void setCurrentOper(OperationNode _currentOper) {
         currentOper = _currentOper;
     }
-
 }

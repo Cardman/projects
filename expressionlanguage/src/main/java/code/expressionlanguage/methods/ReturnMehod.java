@@ -129,7 +129,11 @@ public final class ReturnMehod extends Leaf implements CallingFinally, AbruptBlo
                 return;
             }
         }
+        _cont.setRootAffect(false);
         opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        if (opRet.isEmpty()) {
+            return;
+        }
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!f_.isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
@@ -195,7 +199,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally, AbruptBlo
         if (!isEmpty()) {
             ip_.setOffset(0);
             ip_.setGlobalOffset(expressionOffset);
-            ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getElRet());
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
             Argument arg_ = el_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
@@ -284,5 +288,14 @@ public final class ReturnMehod extends Leaf implements CallingFinally, AbruptBlo
             return;
         }
         ip_.setNullReadWrite();
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        if (!isEmpty()) {
+            return getElRet();
+        }
+        return null;
     }
 }

@@ -176,7 +176,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
+        _cont.setRootAffect(false);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
+        if (opValue.isEmpty()) {
+            return;
+        }
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!staticField) {
             String globalClass_ = page_.getGlobalClass();
@@ -254,7 +258,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             if (value.isEmpty()) {
                 struct_ = StdStruct.defaultClass(className, _cont);
             } else {
-                ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
+                ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
                 Argument arg_ = el_.calculateMember(_cont);
                 if (_cont.callsOrException()) {
                     return;
@@ -278,5 +282,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public RootBlock belong() {
         return (RootBlock) getParent();
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return getValueEl();
     }
 }

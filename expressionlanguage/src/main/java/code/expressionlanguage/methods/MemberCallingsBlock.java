@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.sml.Element;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
@@ -164,4 +165,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
+    }
 }

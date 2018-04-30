@@ -129,6 +129,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             n_ = n_.getPreviousSibling();
         }
         _cont.setCurrentChildTypeIndex(index_);
+        _cont.setRootAffect(false);
         opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
         page_.setTranslatedOffset(0);
     }
@@ -181,7 +182,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             ip_.setOffset(0);
             String name_ = getFieldName();
             Struct struct_;
-            ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
             String className_ = getClassName();
             Argument arg_ = el_.calculateMember(_cont, valueOffest - fieldNameOffest - 1 - NEW.length() - className_.length());
             if (_cont.callsOrException()) {
@@ -192,7 +193,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             ip_.clearCurrentEls();
             RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
-            int previous_;
             _cont.getClasses().initializeStaticField(staticField_, struct_);
         }
         processBlock(_cont);
@@ -201,5 +201,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public RootBlock belong() {
         return (RootBlock) getParent();
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return getValueEl();
     }
 }

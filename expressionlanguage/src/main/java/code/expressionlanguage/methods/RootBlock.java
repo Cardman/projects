@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.util.IncompatibilityReturnType;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnknownClassName;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -1118,4 +1119,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     public abstract StringList getAllNeededSortedInterfaces();
 
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
+    }
 }

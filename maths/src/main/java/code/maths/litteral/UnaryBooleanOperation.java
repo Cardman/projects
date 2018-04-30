@@ -11,7 +11,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             _error.setIndex(getIndexInEl());
@@ -26,7 +26,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         setResultClass(MathType.BOOLEAN);
     }
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Object o_ = arg_.getObject();

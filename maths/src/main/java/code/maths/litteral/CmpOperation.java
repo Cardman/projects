@@ -26,7 +26,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         return a_;
     }
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
             _error.setError(true);
@@ -45,7 +45,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         _error.setString("");
     }
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();

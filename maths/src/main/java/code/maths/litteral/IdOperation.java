@@ -11,7 +11,7 @@ public final class IdOperation extends MethodOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             _error.setIndex(getIndexInEl());
@@ -22,7 +22,7 @@ public final class IdOperation extends MethodOperation {
     }
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setArgument(chidren_.first().getArgument());
         setNextSiblingsArg(chidren_.first().getArgument());

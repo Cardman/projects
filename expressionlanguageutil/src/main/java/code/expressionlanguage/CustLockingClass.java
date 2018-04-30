@@ -25,11 +25,7 @@ public class CustLockingClass extends DefaultLockingClass {
             ReentrantLock lock_ = locks.getVal(_className);
             lock_.lock();
             InitClassState res_ = getClasses().getVal(_className);
-            if (res_ == InitClassState.ERROR) {
-                lock_.unlock();
-                return res_;
-            }
-            if (res_ == InitClassState.SUCCESS) {
+            if (res_.isFinished()) {
                 lock_.unlock();
                 return res_;
             }

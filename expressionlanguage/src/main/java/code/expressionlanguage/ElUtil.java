@@ -6,15 +6,16 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.PossibleIntermediateDotted;
 import code.expressionlanguage.opers.SettableElResult;
+import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -43,6 +44,7 @@ public final class ElUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
+        _conf.setAnalyzingRoot(false);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
         if (opLeft_ == null) {
@@ -54,7 +56,7 @@ public final class ElUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        CustList<OperationNode> allLeft_ = getSortedDescNodes(opLeft_, _conf);
+        CustList<OperationNode> allLeft_ = getSortedDescNodes(opLeft_, EMPTY_STRING, _hiddenVarTypes, _conf);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
@@ -78,19 +80,11 @@ public final class ElUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        CustList<OperationNode> allRight_ = getSortedDescNodes(opRight_, _conf);
+        CustList<OperationNode> allRight_ = getSortedDescNodes(opRight_, EMPTY_STRING, _hiddenVarTypes, _conf);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrLeft);
-        if (!allLeft_.isEmpty()) {
-            analyzeSetting(true, allLeft_, _conf);
-        }
-        analyze(allLeft_, _conf, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
-        if (!allLeft_.isEmpty()) {
-            analyzeSetting(false, allLeft_, _conf);
-        }
         page_.setOffset(0);
         page_.setGlobalOffset(_attrRight);
-        analyze(allRight_, _conf, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
@@ -99,6 +93,7 @@ public final class ElUtil {
         if (_attrOp >= 0) {
             page_.setGlobalOffset(_attrOp);
         }
+        LgNames stds_ = _conf.getStandards();
         if (_oper.length() == 2) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(clMatchRight_.getName());
@@ -116,6 +111,19 @@ public final class ElUtil {
                 } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
                     _conf.getClasses().getErrorsDet().add(cast_);
                     return new ExpLanguages(allLeft_, allRight_);
+                }
+            } else if (StringList.quickEq(_oper, Block.AND_EQ) || StringList.quickEq(_oper, Block.OR_EQ)) {
+                if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasBoolean())) {
+                    if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasPrimBoolean())) {
+                        _conf.getClasses().getErrorsDet().add(cast_);
+                        return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+                    }
+                }
+                if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasBoolean())) {
+                    if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasPrimBoolean())) {
+                        _conf.getClasses().getErrorsDet().add(cast_);
+                        return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+                    }
                 }
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                 _conf.getClasses().getErrorsDet().add(cast_);
@@ -228,6 +236,7 @@ public final class ElUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new CustList<OperationNode>();
         }
+        _conf.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
@@ -239,35 +248,38 @@ public final class ElUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new CustList<OperationNode>();
         }
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
-        boolean staticContext_ = _calcul.isStaticAcces();
-        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
+        _conf.setAnalyzingRoot(false);
         String fieldName_ = _calcul.getFieldName();
-        String oper_ = _calcul.getOper();
-        if (_calcul.isLeftStep()) {
-            analyzeSetting(true, all_, _conf);
-            analyze(all_, _conf, staticContext_, hiddenVarTypes_, fieldName_, oper_);
-            analyzeSetting(false, all_, _conf);
-        } else {
-            analyze(all_, _conf, staticContext_, hiddenVarTypes_, fieldName_, oper_);
-        }
+        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
+        boolean staticContext_ = _calcul.isStaticAcces();
+        _conf.setStaticContext(staticContext_);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_,fieldName_, hiddenVarTypes_, _conf);
         return all_;
     }
 
 
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root,String _fieldName, boolean _staticBlock,ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
                 break;
             }
-            c_ = getNext(c_, _root, list_, _context);
+            c_ = getAnalyzedNext(c_, _root, list_, _fieldName, _staticBlock, _context);
         }
         return list_;
     }
 
-    private static OperationNode getNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, ContextEl _context) {
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,String _fieldName, boolean _staticBlock,ContextEl _context) {
+        if (_context.isEnabledDotted() && _current instanceof PossibleIntermediateDotted) {
+            OperationNode last_ = _sortedNodes.last();
+            PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _current;
+            boolean static_ = last_ instanceof StaticAccessOperation;
+            possible_.setIntermediateDotted();
+            possible_.setPreviousResultClass(last_.getResultClass(), static_);
+            last_.setSiblingSet(possible_);
+            _context.setEnabledDotted(false);
+        }
         OperationNode next_ = createFirstChild(_current, _context);
         if (!_context.getClasses().getErrorsDet().isEmpty()) {
             return null;
@@ -276,48 +288,34 @@ public final class ElUtil {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
         }
-        _sortedNodes.add(_current);
-        next_ = createNextSibling(_current, _context);
-        if (!_context.getClasses().getErrorsDet().isEmpty()) {
-            return null;
-        }
-        if (next_ != null) {
-            next_.getParent().appendChild(next_);
-            return next_;
-        }
-        next_ = _current.getParent();
-        if (next_ == _root) {
-            _sortedNodes.add(next_);
-            return null;
-        }
-        if (next_ != null) {
-            _sortedNodes.add(next_);
-            OperationNode nextAfter_ = createNextSibling(next_, _context);
+        OperationNode current_ = _current;
+        while (true) {
+            current_.setStaticBlock(_staticBlock);
+            current_.analyze(_context, _fieldName);
+            _sortedNodes.add(current_);
+            next_ = createNextSibling(current_, _context);
             if (!_context.getClasses().getErrorsDet().isEmpty()) {
                 return null;
             }
-            while (nextAfter_ == null) {
-                OperationNode par_ = next_.getParent();
-                if (par_ == _root) {
-                    _sortedNodes.add(par_);
-                    break;
+            MethodOperation par_ = current_.getParent();
+            if (next_ != null) {
+                if (par_ instanceof DotOperation) {
+                    _context.setEnabledDotted(true);
                 }
-                if (par_ == null) {
-                    break;
-                }
+                par_.appendChild(next_);
+                return next_;
+            }
+            if (par_ == _root) {
+                par_.setStaticBlock(_staticBlock);
+                par_.analyze(_context, _fieldName);
                 _sortedNodes.add(par_);
-                nextAfter_ = createNextSibling(par_, _context);
-                if (!_context.getClasses().getErrorsDet().isEmpty()) {
-                    return null;
-                }
-                next_ = par_;
+                return null;
             }
-            if (nextAfter_ != null) {
-                nextAfter_.getParent().appendChild(nextAfter_);
-                return nextAfter_;
+            if (par_ == null) {
+                return null;
             }
+            current_ = par_;
         }
-        return null;
     }
     private static OperationNode createFirstChild(OperationNode _block, ContextEl _context) {
         if (!(_block instanceof MethodOperation)) {
@@ -375,9 +373,6 @@ public final class ElUtil {
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
-        if (_element == null) {
-            return list_;
-        }
         OperationNode firstChild_ = _element.getFirstChild();
         OperationNode elt_ = firstChild_;
         while (elt_ != null) {
@@ -387,24 +382,9 @@ public final class ElUtil {
         return list_;
     }
 
-    public static void analyze(CustList<OperationNode> _nodes, Analyzable _context, boolean _staticContext, boolean _staticBlock,String _fieldName, String _op) {
-        _context.setStaticContext(_staticContext);
-        for (OperationNode e: _nodes) {
-            e.setStaticBlock(_staticBlock);
-            e.analyze(_nodes, _context, _fieldName, _op);
-        }
-    }
-
-    public static void analyze(CustList<OperationNode> _nodes, Analyzable _context, boolean _static) {
-        _context.setStaticContext(_static);
-        for (OperationNode e: _nodes) {
-            e.setStaticBlock(_static);
-            e.analyze(_nodes, _context, EMPTY_STRING, EMPTY_STRING);
-        }
-    }
-
     static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op, int _offset) {
-        _context.getLastPage().setTranslatedOffset(_offset);
+        PageEl pageEl_ = _context.getLastPage();
+        pageEl_.setTranslatedOffset(_offset);
         for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
             OperationNode o = e.getKey();
             if (!o.isCalculated(_nodes)) {
@@ -426,70 +406,14 @@ public final class ElUtil {
                     return;
                 }
                 if (_context.getException() != null) {
-                    _context.getLastPage().setTranslatedOffset(0);
+                    pageEl_.setTranslatedOffset(0);
                     _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
+                    pageEl_.clearCurrentEls();
                     return;
                 }
                 a_.setArgument(arg_);
             }
         }
         _context.getLastPage().setTranslatedOffset(0);
-    }
-    public static void analyzeSetting(boolean _setVar,CustList<OperationNode> _nodes, ContextEl _conf) {
-        if (_nodes.isEmpty()) {
-            return;
-        }
-        OperationNode root_ = _nodes.last();
-        SettableElResult elt_ = null;
-        boolean ok_ = true;
-        if (_nodes.size() == CustList.ONE_ELEMENT) {
-            if (!(root_ instanceof SettableElResult)) {
-                ok_ = false;
-            } else {
-                elt_ = (SettableElResult) root_;
-            }
-        } else {
-            OperationNode beforeLast_ = _nodes.getPrev(_nodes.getLastIndex());
-            if (!(root_ instanceof DotOperation)) {
-                if (!(root_ instanceof SettableElResult)) {
-                    ok_ = false;
-                } else {
-                    elt_ = (SettableElResult) root_;
-                }
-            } else if (!(beforeLast_ instanceof SettableElResult)){
-                ok_ = false;
-            } else {
-                elt_ = (SettableElResult) beforeLast_;
-            }
-        }
-        if (!ok_) {
-            root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(un_);
-            return;
-        }
-        if (_setVar) {
-            elt_.setVariable();
-        } else if (elt_ instanceof ConstantOperation) {
-            if (((ConstantOperation)elt_).isImmutablePart()) {
-                root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                return;
-            }
-            if (((ConstantOperation)elt_).isFinalField()) {
-                root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                return;
-            }
-        }
     }
 }

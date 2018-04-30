@@ -27,7 +27,6 @@ final class MathUtil {
             return arg_;
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_,_conf,err_);
-        analyze(all_, _conf, err_);
         if (err_.isError()) {
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.NOTHING);
@@ -56,12 +55,15 @@ final class MathUtil {
             if (c_ == null) {
                 break;
             }
-            c_ = getNext(c_, _root, list_, _context, _error);
+            if (_error.isError()) {
+                return list_;
+            }
+            c_ = getAnalyzedNext(c_, _root, list_, _context, _error);
         }
         return list_;
     }
 
-    public static OperationNode getNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,StringMap<String> _context, ErrorStatus _error) {
+    public static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,StringMap<String> _context, ErrorStatus _error) {
         OperationNode next_ = createFirstChild(_current, _context, _error);
         if (_error.isError()) {
             return null;
@@ -70,48 +72,32 @@ final class MathUtil {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
         }
-        _sortedNodes.add(_current);
-        next_ = createNextSibling(_current, _context, _error);
-        if (_error.isError()) {
-            return null;
-        }
-        if (next_ != null) {
-            next_.getParent().appendChild(next_);
-            return next_;
-        }
-        next_ = _current.getParent();
-        if (next_ == _root) {
-            _sortedNodes.add(next_);
-            return null;
-        }
-        if (next_ != null) {
-            _sortedNodes.add(next_);
-            OperationNode nextAfter_ = createNextSibling(next_, _context, _error);
+        OperationNode current_ = _current;
+        while (true) {
+            current_.analyze(_context, _error);
             if (_error.isError()) {
                 return null;
             }
-            while (nextAfter_ == null) {
-                OperationNode par_ = next_.getParent();
-                if (par_ == _root) {
-                    _sortedNodes.add(par_);
-                    break;
-                }
-                if (par_ == null) {
-                    break;
-                }
-                _sortedNodes.add(par_);
-                nextAfter_ = createNextSibling(par_, _context, _error);
+            _sortedNodes.add(current_);
+            next_ = createNextSibling(current_, _context, _error);
+            if (next_ != null) {
+                next_.getParent().appendChild(next_);
+                return next_;
+            }
+            OperationNode par_ = current_.getParent();
+            if (par_ == _root) {
+                par_.analyze(_context, _error);
                 if (_error.isError()) {
                     return null;
                 }
-                next_ = par_;
+                _sortedNodes.add(par_);
+                return null;
             }
-            if (nextAfter_ != null) {
-                nextAfter_.getParent().appendChild(nextAfter_);
-                return nextAfter_;
+            if (par_ == null) {
+                return null;
             }
+            current_ = par_;
         }
-        return null;
     }
     private static OperationNode createFirstChild(OperationNode _block, StringMap<String> _context, ErrorStatus _error) {
         if (!(_block instanceof MethodOperation)) {
@@ -161,9 +147,6 @@ final class MathUtil {
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
-        if (_element == null) {
-            return list_;
-        }
         OperationNode firstChild_ = _element.getFirstChild();
         OperationNode elt_ = firstChild_;
         while (elt_ != null) {
@@ -172,18 +155,10 @@ final class MathUtil {
         }
         return list_;
     }
-    static void analyze(CustList<OperationNode> _nodes, StringMap<String> _context, ErrorStatus _error) {
-        for (OperationNode e: _nodes) {
-            e.analyze(_nodes, _context, _error);
-            if (_error.isError()) {
-                return;
-            }
-        }
-    }
     static void calculate(CustList<OperationNode> _nodes, StringMap<String> _context, ErrorStatus _error) {
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
-                e.calculate(_nodes, _context, _error);
+                e.calculate(_context, _error);
                 if (_error.isError()) {
                     return;
                 }

@@ -179,7 +179,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         lv_.setClassName(getClassName());
         String name_ = getVariableName();
         StringMap<LocalVariable> map_ = ip_.getLocalVars();
-        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getRightEl());
+        ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         Argument arg_ = el_.calculateMember(_cont);
         if (_cont.callsOrException()) {
             return;
@@ -189,5 +189,11 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         lv_.setStruct(arg_.getStruct());
         map_.put(name_, lv_);
         processBlock(_cont);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
     }
 }

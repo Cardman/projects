@@ -38,12 +38,12 @@ public final class IdOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
+    public void analyze(Analyzable _conf,
+            String _fieldName) {
+        analyzeCommon(_conf);
     }
 
-    void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _op) {
+    void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);

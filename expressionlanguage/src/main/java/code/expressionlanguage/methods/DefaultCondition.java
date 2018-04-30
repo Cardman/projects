@@ -4,6 +4,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
@@ -107,5 +108,11 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
         if_.setFinished(true);
         rw_.setBlock(if_.getBlock());
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
     }
 }

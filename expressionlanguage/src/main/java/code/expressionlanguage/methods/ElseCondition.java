@@ -4,6 +4,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
@@ -101,5 +102,11 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         PageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         rw_.setBlock(this);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
     }
 }

@@ -97,7 +97,11 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         PageEl page_ = _cont.getLastPage();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
+        _cont.setRootAffect(false);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        if (opValue.isEmpty()) {
+            return;
+        }
         if (opValue.last().isVoidArg(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
@@ -168,7 +172,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         } else {
             ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false,CustList.FIRST_INDEX);
             Argument arg_ = el_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
@@ -242,5 +246,11 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         } else {
             rw_.setBlock(getNextSibling());
         }
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return getValueEl();
     }
 }

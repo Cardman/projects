@@ -6,6 +6,7 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
@@ -118,6 +119,12 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         FinallyEval catch_ = (FinallyEval) tryStack_.getCurrentCatchBlock();
         tryStack_.setVisitedFinally(true);
         rw_.setBlock(catch_);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
     }
 
 }

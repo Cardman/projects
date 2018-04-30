@@ -232,7 +232,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
+        _cont.setRootAffect(false);
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        if (opInit.isEmpty()) {
+            return;
+        }
         OperationNode initEl_ = opInit.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(className, initEl_.getResultClass().getName(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -247,6 +251,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        if (opExp.isEmpty()) {
+            return;
+        }
         OperationNode expressionEl_ = opExp.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(className, expressionEl_.getResultClass().getName(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -261,6 +268,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        if (opStep.isEmpty()) {
+            return;
+        }
         OperationNode stepEl_ = opStep.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(className, stepEl_.getResultClass().getName(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -381,7 +391,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         boolean eq_ = isEq();
         ip_.setGlobalOffset(initOffset);
         ip_.setOffset(0);
-        ExpressionLanguage from_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getInitEl());
+        ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         Argument argFrom_ = from_.calculateMember(_conf);
         if (_conf.callsOrException()) {
             return;
@@ -392,7 +402,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
-        ExpressionLanguage to_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getExpressionEl());
+        ExpressionLanguage to_ = ip_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, false, CustList.SECOND_INDEX);
         Argument argTo_ = to_.calculateMember(_conf);
         if (_conf.callsOrException()) {
             return;
@@ -403,7 +413,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         ip_.setGlobalOffset(stepOffset);
         ip_.setOffset(0);
-        ExpressionLanguage step_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX + 1, getStepEl());
+        ExpressionLanguage step_ = ip_.getCurrentEl(_conf,this, CustList.SECOND_INDEX + 1, false, CustList.SECOND_INDEX + 1);
         Argument argStep_ = step_.calculateMember(_conf);
         if (_conf.callsOrException()) {
             return;
@@ -523,5 +533,17 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         o_ = (Number) PrimitiveTypeUtil.convert(className, o_, _conf).getInstance();
         lv_.setElement(o_);
         lv_.setIndex(lv_.getIndex() + 1);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        if (_indexProcess == 0) {
+            return getInitEl();
+        }
+        if (_indexProcess == 1) {
+            return getExpressionEl();
+        }
+        return getStepEl();
     }
 }

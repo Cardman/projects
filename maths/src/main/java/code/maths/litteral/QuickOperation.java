@@ -11,7 +11,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         for (OperationNode o: chidren_) {
             if (o.getResultClass() != MathType.BOOLEAN) {
@@ -24,7 +24,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setArgument(chidren_.last().getArgument());
         setNextSiblingsArg(chidren_.last().getArgument());

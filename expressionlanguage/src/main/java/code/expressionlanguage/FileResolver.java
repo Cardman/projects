@@ -1,7 +1,6 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.Affectation;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.BreakBlock;
@@ -10,7 +9,6 @@ import code.expressionlanguage.methods.CatchEval;
 import code.expressionlanguage.methods.ClassBlock;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.ContinueBlock;
-import code.expressionlanguage.methods.DeclareAffectVariable;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.DefaultCondition;
 import code.expressionlanguage.methods.DoBlock;
@@ -30,7 +28,6 @@ import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.ReturnMehod;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.SemiAffectation;
 import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.SwitchBlock;
 import code.expressionlanguage.methods.Throwing;
@@ -78,8 +75,6 @@ public final class FileResolver {
     private static final char DEL_STRING = '"';
     private static final char ESCAPE = '\\';
     private static final String KEY_WORD_INTERFACES = "interfaces";
-    private static final String INCR = "++";
-    private static final String DECR = "--";
     private static final char KEY_WORD_PREFIX = '$';
     private static final String KEY_WORD_PUBLIC = "public";
     private static final String KEY_WORD_PACKAGE = "package";
@@ -1217,27 +1212,10 @@ public final class FileResolver {
                                 br_ = new FieldBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_), new OffsetStringInfo(fieldNameOffest_,fieldName_.trim()), new OffsetStringInfo(typeOffest_,declaringType_.trim()), new OffsetStringInfo(sepOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                 currentParent_.appendChild(br_);
                             }
-                        } else if (trimmedInstruction_.endsWith(INCR)) {
-                            int lastPrint_ = StringList.getLastPrintableCharIndex(found_);
-                            String leftPart_ = found_.substring(0, lastPrint_ + 1);
-                            String exp_ = leftPart_.substring(0, leftPart_.length() - INCR.length());
-                            int expOffset_ = instructionLocation_;
-                            int incOffset_ = expOffset_ + exp_.trim().length();
-                            br_ = new SemiAffectation(_context, index_, currentParent_, new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(incOffset_, INCR), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                            currentParent_.appendChild(br_);
-                        } else if (trimmedInstruction_.endsWith(DECR)) {
-                            int lastPrint_ = StringList.getLastPrintableCharIndex(found_);
-                            String leftPart_ = found_.substring(0, lastPrint_ + 1);
-                            String exp_ = leftPart_.substring(0, leftPart_.length() - DECR.length());
-                            int expOffset_ = instructionLocation_;
-                            int decOffset_ = expOffset_ + exp_.trim().length();
-                            br_ = new SemiAffectation(_context, index_, currentParent_, new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(decOffset_, DECR), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                            currentParent_.appendChild(br_);
                         } else {
                             int affectOffset_ = -1;
                             int typeOffset_ = instructionRealLocation_;
                             int afterDeclareOffset_ = -1;
-                            int afterAffectOffset_ = -1;
                             String declaringType_ = getDeclaringTypeInstr(found_);
                             boolean typeDeclaring_ = !declaringType_.trim().isEmpty();
                             boolean declaring_ = false;
@@ -1255,122 +1233,26 @@ public final class FileResolver {
                                 afterDeclareOffset_ = affectOffset_;
                                 info_ = found_;
                             }
-                            afterAffectOffset_ = afterDeclareOffset_;
-                            int indexInstr_ = 0;
-                            int instrLen_ = info_.length();
-                            Numbers<Integer> localCallings_ = new Numbers<Integer>();
-                            boolean localConstChar_ = false;
-                            boolean localConstString_ = false;
-                            boolean affect_ = false;
-                            while (indexInstr_ < instrLen_) {
-                                char locChar_ = info_.charAt(indexInstr_);
-                                if (localConstChar_) {
-                                    if (locChar_ == ESCAPE) {
-                                        indexInstr_++;
-                                        indexInstr_++;
-                                        continue;
-                                    }
-                                    if (locChar_ == DEL_CHAR) {
-                                        indexInstr_++;
-                                        localConstChar_ = false;
-                                        continue;
-                                    }
-                                    indexInstr_++;
-                                    continue;
+                            String inst_ = info_;
+                            boolean addLine_ = true;
+                            if (declaring_) {
+                                if (StringList.isWord(info_.trim())) {
+                                    br_ = new DeclareVariable(false,_context, index_, currentParent_, new OffsetStringInfo(instructionLocation_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, info_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                    currentParent_.appendChild(br_);
+                                    addLine_ = false;
+                                } else {
+                                    int firstIndex_ = info_.indexOf(PART_SEPARATOR);
+                                    String left_ = info_.substring(0, firstIndex_);
+                                    br_ = new DeclareVariable(true,_context, index_, currentParent_, new OffsetStringInfo(instructionLocation_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, left_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                    currentParent_.appendChild(br_);
+                                    index_++;
+                                    indexes_.setLast(index_);
+                                    inst_ = info_;
                                 }
-                                if (localConstString_) {
-                                    if (locChar_ == ESCAPE) {
-                                        indexInstr_++;
-                                        indexInstr_++;
-                                        continue;
-                                    }
-                                    if (locChar_ == DEL_STRING) {
-                                        indexInstr_++;
-                                        localConstString_ = false;
-                                        continue;
-                                    }
-                                    indexInstr_++;
-                                    continue;
-                                }
-                                if (localCallings_.isEmpty() && locChar_ == PART_SEPARATOR) {
-                                    affect_ = true;
-                                    afterAffectOffset_ += indexInstr_ - StringList.getFirstPrintableCharIndex(info_) + 1;
-                                    break;
-                                }
-                                if (locChar_ == DEL_CHAR) {
-                                    localConstChar_ = true;
-                                }
-                                if (locChar_ == DEL_STRING) {
-                                    localConstString_ = true;
-                                }
-                                if (locChar_ == BEGIN_CALLING) {
-                                    localCallings_.add(indexInstr_);
-                                }
-                                if (locChar_ == END_CALLING) {
-                                    localCallings_.removeLast();
-                                }
-                                indexInstr_++;
                             }
-                            if (affect_) {
-                                if (declaring_) {
-                                    String left_ = info_.substring(0, indexInstr_);
-                                    String right_ = info_.substring(indexInstr_ + 1);
-                                    afterAffectOffset_ += StringList.getFirstPrintableCharIndex(right_);
-                                    br_ = new DeclareAffectVariable(_context, index_, currentParent_, new OffsetStringInfo(instructionLocation_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, left_.trim()), new OffsetStringInfo(afterAffectOffset_, right_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                    currentParent_.appendChild(br_);
-                                } else {
-                                    if (indexInstr_ >= info_.length()) {
-                                        //ERROR
-                                        break;
-                                    }
-                                    int maxLeft_ = indexInstr_ - 1;
-                                    int minRight_ = indexInstr_ + 1;
-                                    int firstOpOffset_ = afterAffectOffset_ - 1;
-                                    StringBuilder oper_ = new StringBuilder();
-                                    if (info_.charAt(indexInstr_ + 1) == PLUS_CHAR) {
-                                        oper_.append(PART_SEPARATOR);
-                                        oper_.append(PLUS_CHAR);
-                                        maxLeft_++;
-                                        minRight_++;
-                                    } else if (info_.charAt(indexInstr_ - 1) == PLUS_CHAR) {
-                                        oper_.append(PLUS_CHAR);
-                                        oper_.append(PART_SEPARATOR);
-                                        firstOpOffset_--;
-                                    } else if (info_.charAt(indexInstr_ - 1) == MINUS_CHAR) {
-                                        oper_.append(MINUS_CHAR);
-                                        oper_.append(PART_SEPARATOR);
-                                        firstOpOffset_--;
-                                    } else if (info_.charAt(indexInstr_ - 1) == MULT_CHAR) {
-                                        oper_.append(MULT_CHAR);
-                                        oper_.append(PART_SEPARATOR);
-                                        firstOpOffset_--;
-                                    } else if (info_.charAt(indexInstr_ - 1) == DIV_CHAR) {
-                                        oper_.append(DIV_CHAR);
-                                        oper_.append(PART_SEPARATOR);
-                                        firstOpOffset_--;
-                                    } else if (info_.charAt(indexInstr_ - 1) == MOD_CHAR) {
-                                        oper_.append(MOD_CHAR);
-                                        oper_.append(PART_SEPARATOR);
-                                        firstOpOffset_--;
-                                    } else {
-                                        maxLeft_++;
-                                        oper_.append(PART_SEPARATOR);
-                                    }
-                                    String left_ = info_.substring(0, maxLeft_);
-                                    String right_ = info_.substring(minRight_);
-                                    afterAffectOffset_ += StringList.getFirstPrintableCharIndex(right_);
-                                    br_ = new Affectation(_context, index_, currentParent_, new OffsetStringInfo(afterDeclareOffset_, left_.trim()), new OffsetStringInfo(firstOpOffset_, oper_.toString()), new OffsetStringInfo(afterAffectOffset_,right_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                    currentParent_.appendChild(br_);
-                                }
-                            } else {
-                                String left_ = info_;
-                                if (declaring_) {
-                                    br_ = new DeclareVariable(_context, index_, currentParent_, new OffsetStringInfo(instructionLocation_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, left_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                    currentParent_.appendChild(br_);
-                                } else {
-                                    br_ = new Line(_context, index_, currentParent_, new OffsetStringInfo(afterDeclareOffset_, left_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                    currentParent_.appendChild(br_);
-                                }
+                            if (addLine_) {
+                                br_ = new Line(_context, index_, currentParent_, new OffsetStringInfo(afterDeclareOffset_, inst_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                currentParent_.appendChild(br_);
                             }
                         }
                     }

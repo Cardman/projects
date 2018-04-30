@@ -19,6 +19,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.EnumerableStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.MethodId;
@@ -45,7 +46,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.MathFactory;
 
-public final class ContextEl implements FieldableStruct,Runnable,Analyzable {
+public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnable,Analyzable {
     private static final String RETURN_LINE = "\n";
     private static final int DEFAULT_TAB_WIDTH = 4;
 
@@ -86,11 +87,7 @@ public final class ContextEl implements FieldableStruct,Runnable,Analyzable {
 
     private transient CustList<PageEl> importing = new CustList<PageEl>();
 
-    private transient String currentUrl;
-
     private transient String html;
-
-    private transient String resourceUrl;
 
     private transient ContextEl parentThread;
 
@@ -103,6 +100,12 @@ public final class ContextEl implements FieldableStruct,Runnable,Analyzable {
     private transient Initializer init;
     private transient String name;
     private transient int ordinal;
+    private transient boolean enabled;
+    private transient boolean rootAffect;
+    private transient boolean analyzingRoot;
+    private transient boolean merged;
+    private transient String currentVarSetting;
+    private transient boolean checkAffectation;
     public ContextEl() {
         this(CustList.INDEX_NOT_FOUND_ELT);
     }
@@ -477,28 +480,12 @@ public final class ContextEl implements FieldableStruct,Runnable,Analyzable {
         return importing.last();
     }
 
-    public String getCurrentUrl() {
-        return currentUrl;
-    }
-
-    public void setCurrentUrl(String _currentUrl) {
-        currentUrl = _currentUrl;
-    }
-
     public String getHtml() {
         return html;
     }
 
     public void setHtml(String _html) {
         html = _html;
-    }
-
-    public String getResourceUrl() {
-        return resourceUrl;
-    }
-
-    public void setResourceUrl(String _resourceUrl) {
-        resourceUrl = _resourceUrl;
     }
 
     @Override
@@ -644,5 +631,68 @@ public final class ContextEl implements FieldableStruct,Runnable,Analyzable {
     @Override
     public void setCurrentChildTypeIndex(int _index) {
         indexChildType = _index;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getOrdinal() {
+        return ordinal;
+    }
+
+    @Override
+    public boolean isEnabledDotted() {
+        return enabled;
+    }
+
+    @Override
+    public void setEnabledDotted(boolean _enabled) {
+        enabled = _enabled;
+    }
+
+    public boolean isRootAffect() {
+        return rootAffect;
+    }
+
+    public void setRootAffect(boolean _rootAffect) {
+        rootAffect = _rootAffect;
+    }
+
+    public boolean isAnalyzingRoot() {
+        return analyzingRoot;
+    }
+
+    public void setAnalyzingRoot(boolean _analyzingRoot) {
+        analyzingRoot = _analyzingRoot;
+    }
+
+    @Override
+    public boolean isMerged() {
+        return merged;
+    }
+
+    @Override
+    public void setMerged(boolean _merged) {
+        merged = _merged;
+    }
+
+    public boolean isCheckAffectation() {
+        return checkAffectation;
+    }
+
+    public void setCheckAffectation(boolean _checkAffectation) {
+        checkAffectation = _checkAffectation;
+    }
+
+    @Override
+    public String getCurrentVarSetting() {
+        return currentVarSetting;
+    }
+
+    public void setCurrentVarSetting(String _currentVarSetting) {
+        currentVarSetting = _currentVarSetting;
     }
 }

@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.FileRowCol;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -11,6 +10,7 @@ import code.expressionlanguage.methods.util.Metrics;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementOffsetsNext;
@@ -23,6 +23,8 @@ import code.util.StringMap;
 
 public abstract class Block extends Blockable {
     public static final String EQ = "=";
+    public static final String OR_EQ = "|=";
+    public static final String AND_EQ = "&=";
     public static final String PLUS_EQ = "+=";
     public static final String MINUS_EQ = "-=";
     public static final String MULT_EQ = "*=";
@@ -132,7 +134,7 @@ public abstract class Block extends Blockable {
         searching = new SearchingReturnThrow();
         offset = _offset;
     }
-    public OffsetsBlock getOffset() {
+    public final OffsetsBlock getOffset() {
         return offset;
     }
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
@@ -256,6 +258,10 @@ public abstract class Block extends Blockable {
         par_.removeLocalVars(ip_);
         ((StackableBlockGroup)par_).exitStack(_conf);
     }
+    public final ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
+        return getEl(_context, false, _indexProcess);
+    }
+    public abstract ExpressionLanguage getEl(ContextEl _context, boolean _native, int _indexProcess);
     public final RowCol getRowCol(int _offset, int _globalOffset) {
         RowCol rc_ = new RowCol();
         FileBlock f_ = getFile();
@@ -838,12 +844,6 @@ public abstract class Block extends Blockable {
         return parent;
     }
 
-    public StringMap<FileRowCol> getFileAttributes() {
-        return metrics.getFileAttributes();
-    }
-    public void setFileAttributes(StringMap<FileRowCol> _fileAttributes) {
-        metrics.setFileAttributes(_fileAttributes);
-    }
     public final boolean hasChildNodes() {
         return getFirstChild() != null;
     }

@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -85,5 +86,11 @@ public final class FileBlock extends BracedBlock {
 
     public void setFileName(String _fileName) {
         fileName = _fileName;
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
     }
 }

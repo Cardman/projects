@@ -30,7 +30,7 @@ public final class OperationsSequence {
         offset = _offset;
     }
 
-    public void setupValues(String _string) {
+    public void setupValues(String _string, boolean _incrdecr) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
             priority = ElResolver.BAD_PRIO;
@@ -70,6 +70,9 @@ public final class OperationsSequence {
                 //let analyze this
                 values.put(beginValuePart_, str_);
             }
+        } else if (_incrdecr) {
+            values.put((int)CustList.FIRST_INDEX, _string.substring(beginValuePart_, endValuePart_));
+            return;
         }
         if (useFct && operators.size() == 2) {
             beginValuePart_ = endValuePart_ + operators.firstValue().length();

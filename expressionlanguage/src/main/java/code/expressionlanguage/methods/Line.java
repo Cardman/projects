@@ -14,6 +14,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EqList;
@@ -93,7 +94,18 @@ public final class Line extends Leaf implements StackableBlock {
         PageEl page_ = _cont.getLastPage();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        _cont.setRootAffect(true);
+        Block previous_ = getPreviousSibling();
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_, stBlock_));
+        if (previous_ instanceof DeclareVariable) {
+            DeclareVariable dc_ = (DeclareVariable) previous_;
+            if (dc_.isMerged()) {
+                LocalVariable lv_ = new LocalVariable();
+                lv_.setClassName(dc_.getClassName());
+                _cont.getLastPage().getLocalVars().put(dc_.getVariableName(), lv_);
+            }
+        }
+        _cont.setMerged(false);
     }
 
     public ConstructorId getConstId() {
@@ -189,7 +201,7 @@ public final class Line extends Leaf implements StackableBlock {
         }
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
-        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getRightEl());
+        ExpressionLanguage el_ = ip_.getCurrentEl(_cont ,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         el_.calculateMember(_cont);
         if (_cont.callsOrException()) {
             return;
@@ -197,5 +209,11 @@ public final class Line extends Leaf implements StackableBlock {
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         processBlock(_cont);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return getRightEl();
     }
 }

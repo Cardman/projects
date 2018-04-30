@@ -50,7 +50,7 @@ public abstract class NumericOperation extends MethodOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         MathType a_ = chidren_.first().getResultClass();
         MathType r_;
@@ -71,7 +71,7 @@ public abstract class NumericOperation extends MethodOperation {
     abstract Argument calculateOper(Argument _a, String _op, Argument _b, int _offset, ErrorStatus _error);
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         Argument r_;

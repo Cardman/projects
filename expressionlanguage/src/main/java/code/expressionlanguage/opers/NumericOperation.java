@@ -8,6 +8,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ResultOperand;
@@ -47,6 +48,40 @@ public abstract class NumericOperation extends MethodOperation {
             o_ = AddOperation.addOne(_left, _conf);
         } else if (StringList.quickEq(_op, Block.DECR)) {
             o_ = AddOperation.removeOne(_left, _conf);
+        } else if (StringList.quickEq(_op, Block.AND_EQ)) {
+            LgNames stds_ = _conf.getStandards();
+            String null_;
+            null_ = stds_.getAliasNullPe();
+            o_ = new Argument();
+            if (_left.isNull()) {
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_conf.joinPages())),null_));
+                return Argument.createVoid();
+            }
+            if (_right.isNull()) {
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_conf.joinPages())),null_));
+                return Argument.createVoid();
+            }
+            Boolean left_ = (Boolean) _left.getObject();
+            Boolean right_ = (Boolean) _right.getObject();
+            o_.setStruct(new BooleanStruct(left_ && right_));
+            convert_ = false;
+        } else if (StringList.quickEq(_op, Block.OR_EQ)) {
+            LgNames stds_ = _conf.getStandards();
+            String null_;
+            null_ = stds_.getAliasNullPe();
+            o_ = new Argument();
+            if (_left.isNull()) {
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_conf.joinPages())),null_));
+                return Argument.createVoid();
+            }
+            if (_right.isNull()) {
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_conf.joinPages())),null_));
+                return Argument.createVoid();
+            }
+            Boolean left_ = (Boolean) _left.getObject();
+            Boolean right_ = (Boolean) _right.getObject();
+            o_.setStruct(new BooleanStruct(left_ || right_));
+            convert_ = false;
         } else {
             o_ = _right;
             convert_ = false;
@@ -897,12 +932,12 @@ public abstract class NumericOperation extends MethodOperation {
     }
 
     @Override
-    public final void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
+    public final void analyze(Analyzable _conf,
+            String _fieldName) {
+        analyzeCommon(_conf);
     }
 
-    final void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _op) {
+    final void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching a_ = chidren_.first().getResultClass();
         ResultOperand r_;

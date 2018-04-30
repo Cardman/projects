@@ -131,4 +131,35 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(5, (Number)ret_.getObject());
     }
+
+    @Test
+    public void calculateArgument72Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  [$int a:\n");
+        xml_.append("  a;.=$new [$int(2i):\n");
+        xml_.append("  a;.[0i]=8i:\n");
+        xml_.append("  a;.[0i]+=6i:\n");
+        xml_.append("  a;.[1i]=16i:\n");
+        xml_.append("  $foreach($int i:a;.){\n");
+        xml_.append("   t;.+=i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(30, (Number)ret_.getObject());
+    }
+
 }

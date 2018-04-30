@@ -174,6 +174,8 @@ public abstract class OperationNode {
 
     private boolean staticBlock;
 
+    private PossibleIntermediateDotted siblingSet;
+
     OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         parent = _m;
         indexInEl = _indexInEl;
@@ -181,7 +183,7 @@ public abstract class OperationNode {
         indexChild = _indexChild;
     }
 
-    public abstract void analyze(CustList<OperationNode> _nodes, Analyzable _conf, String _fieldName, String _op);
+    public abstract void analyze(Analyzable _conf, String _fieldName);
 
     public abstract void calculate(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
 
@@ -217,11 +219,14 @@ public abstract class OperationNode {
             return new DotOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.UNARY_PRIO) {
-            int key_ = _op.getOperators().firstKey();
-            if (StringList.quickEq(_op.getOperators().getVal(key_).trim(), NEG_BOOL)) {
+            String value_ = _op.getOperators().firstValue().trim();
+            if (StringList.quickEq(value_, NEG_BOOL)) {
                 return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
             }
-            return new UnaryOperation(_index, _indexChild, _m, _op);
+            if (StringList.quickEq(value_, MINUS)) {
+                return new UnaryOperation(_index, _indexChild, _m, _op);
+            }
+            return new SemiAffectationOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {
             return new MultOperation(_index, _indexChild, _m, _op);
@@ -240,6 +245,9 @@ public abstract class OperationNode {
         }
         if (_op.getPriority() == ElResolver.OR_PRIO) {
             return new OrOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getPriority() == ElResolver.AFF_PRIO) {
+            return new AffectationOperation(_index, _indexChild, _m, _op);
         }
         return null;
     }
@@ -1287,12 +1295,10 @@ public abstract class OperationNode {
 
     public final void setArguments(Argument _argument) {
         argument = _argument;
-        PossibleIntermediateDotted n_ = getSiblingToSet();
-        n_.setPreviousArgument(_argument);
     }
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        PossibleIntermediateDotted n_ = getSiblingToSet();
+        PossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             _nodes.getVal((OperationNode)n_).setPreviousArgument(_argument);
         }
@@ -1301,7 +1307,7 @@ public abstract class OperationNode {
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf) {
         argument = _argument;
-        PossibleIntermediateDotted n_ = getSiblingToSet();
+        PossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
         }
@@ -1327,25 +1333,13 @@ public abstract class OperationNode {
 
     public final void setResultClass(ClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
-        PossibleIntermediateDotted n_ = getSiblingToSet();
-        if (n_ == null) {
-            return;
-        }
-        n_.setIntermediateDotted();
-        n_.setPreviousResultClass(resultClass);
     }
 
     public final void setStaticResultClass(ClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
-        PossibleIntermediateDotted n_ = getSiblingToSet();
-        if (n_ == null) {
-            return;
-        }
-        n_.setIntermediateDotted();
-        n_.setPreviousResultClass(resultClass, true);
     }
 
-    protected PossibleIntermediateDotted getSiblingToSet() {
+    public PossibleIntermediateDotted getSiblingToSet() {
         OperationNode n_ = getNextSibling();
         if (n_ == null) {
             return null;
@@ -1365,5 +1359,13 @@ public abstract class OperationNode {
 
     protected static String prefixFunction(String _fct) {
         return StringList.concat(String.valueOf(EXTERN_CLASS), _fct);
+    }
+
+    public PossibleIntermediateDotted getSiblingSet() {
+        return siblingSet;
+    }
+
+    public void setSiblingSet(PossibleIntermediateDotted _siblingSet) {
+        siblingSet = _siblingSet;
     }
 }

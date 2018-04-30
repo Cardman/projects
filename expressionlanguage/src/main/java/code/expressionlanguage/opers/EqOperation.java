@@ -26,12 +26,12 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
+    public void analyze(Analyzable _conf,
+            String _fieldName) {
+        analyzeCommon(_conf);
     }
 
-    void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _op) {
+    void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (chidren_.size() != 2) {

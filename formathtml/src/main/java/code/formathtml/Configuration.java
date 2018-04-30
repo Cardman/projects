@@ -96,6 +96,26 @@ public class Configuration implements Analyzable {
     private transient String resourceUrl;
 
     private transient AtomicBoolean interrupt = new AtomicBoolean();
+    private transient String currentVarSetting;
+    @Override
+    public boolean isMerged() {
+        return context.isMerged();
+    }
+
+    @Override
+    public void setMerged(boolean _merged) {
+        context.setMerged(_merged);
+    }
+
+    @Override
+    public boolean isEnabledDotted() {
+        return context.isEnabledDotted();
+    }
+
+    @Override
+    public void setEnabledDotted(boolean _enabled) {
+        context.setEnabledDotted(_enabled);
+    }
 
     public final void init() {
         htmlPage = new HtmlPage();
@@ -348,9 +368,7 @@ public class Configuration implements Analyzable {
     }
 
     public final ContextEl toContextEl() {
-        context.setCurrentUrl(currentUrl);
         context.setHtml(html);
-        context.setResourceUrl(resourceUrl);
         context.clearPages();
         for (ImportingPage i: importing) {
             context.addPage(i.getPageEl());
@@ -691,6 +709,15 @@ public class Configuration implements Analyzable {
 
     @Override
     public void setCurrentChildTypeIndex(int _index) {
+    }
+
+    @Override
+    public String getCurrentVarSetting() {
+        return currentVarSetting;
+    }
+
+    public void setCurrentVarSetting(String _currentVarSetting) {
+        currentVarSetting = _currentVarSetting;
     }
 
 }

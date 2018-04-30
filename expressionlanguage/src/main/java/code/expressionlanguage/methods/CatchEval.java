@@ -6,6 +6,7 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
@@ -164,6 +165,12 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         StringMap<LocalVariable> vars_ = ip_.getCatchVars();
         vars_.removeKey(var_);
         rw_.setBlock(catch_);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
     }
 
 }

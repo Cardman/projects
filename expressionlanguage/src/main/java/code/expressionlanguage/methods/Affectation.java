@@ -146,14 +146,14 @@ public final class Affectation extends Leaf implements StackableBlock {
         ip_.setGlobalOffset(leftMemberOffset);
         ip_.setOffset(0);
         String op_ = getOper();
-        ExpressionLanguage elLeft_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getLeftEl());
+        ExpressionLanguage elLeft_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         elLeft_.affectLeftMember(_cont, op_);
         if (_cont.callsOrException()) {
             return;
         }
         ip_.setGlobalOffset(rightMemberOffset);
         ip_.setOffset(0);
-        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getRightEl());
+        ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.SECOND_INDEX, false, CustList.SECOND_INDEX);
         el_.affectRightMember(_cont, op_);
         if (_cont.callsOrException()) {
             return;
@@ -167,5 +167,11 @@ public final class Affectation extends Leaf implements StackableBlock {
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         processBlock(_cont);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
     }
 }

@@ -50,7 +50,7 @@ import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.opers.util.EnumStruct;
+import code.expressionlanguage.opers.util.EnumerableStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -104,12 +104,12 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
+    public void analyze(Analyzable _conf,
+            String _fieldName) {
+        analyzeCommon(_conf);
     }
 
-    void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _op) {
+    void analyzeCommon(Analyzable _conf) {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -1102,14 +1102,14 @@ public final class FctOperation extends InvokingOperation {
             custClass_ = _conf.getClassMetaInfo(className_);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (methodId_.eq(new MethodId(false, METH_NAME, new EqList<ClassName>()))) {
-                    EnumStruct cen_ = (EnumStruct) arg_.getStruct();
+                    EnumerableStruct cen_ = (EnumerableStruct) arg_.getStruct();
                     String name_ = cen_.getName();
                     Argument argres_ = new Argument();
                     argres_.setObject(name_);
                     return ArgumentCall.newArgument(argres_);
                 }
                 if (methodId_.eq(new MethodId(false, METH_ORDINAL, new EqList<ClassName>()))) {
-                    EnumStruct cen_ = (EnumStruct) arg_.getStruct();
+                    EnumerableStruct cen_ = (EnumerableStruct) arg_.getStruct();
                     int name_ = cen_.getOrdinal();
                     Argument argres_ = new Argument();
                     argres_.setObject(name_);

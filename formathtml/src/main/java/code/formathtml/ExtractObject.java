@@ -9,7 +9,7 @@ import code.expressionlanguage.methods.util.UndefinedVariableError;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.DoubleStruct;
-import code.expressionlanguage.opers.util.EnumStruct;
+import code.expressionlanguage.opers.util.EnumerableStruct;
 import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
@@ -552,8 +552,8 @@ final class ExtractObject {
 
     static String getStringKey(Configuration _conf, Struct _instance) {
         ContextEl cont_ = _conf.toContextEl();
-        if (_instance instanceof EnumStruct) {
-            return ((EnumStruct) _instance).getName();
+        if (_instance instanceof EnumerableStruct) {
+            return ((EnumerableStruct) _instance).getName();
         }
         ResultErrorStd res_ = _conf.getStandards().getName(cont_, _instance);
         if (res_.getError() != null) {

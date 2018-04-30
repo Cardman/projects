@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 
-public final class EnumStruct implements FieldableStruct {
+public final class EnumStruct implements FieldableStruct, EnumerableStruct {
 
     private final int ordinal;
 
@@ -58,10 +58,12 @@ public final class EnumStruct implements FieldableStruct {
         return null;
     }
 
+    @Override
     public int getOrdinal() {
         return ordinal;
     }
 
+    @Override
     public String getName() {
         return name;
     }

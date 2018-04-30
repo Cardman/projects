@@ -52,8 +52,8 @@ public final class StaticAccessOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
+    public void analyze(Analyzable _conf,
+            String _fieldName) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -139,7 +139,7 @@ public final class StaticAccessOperation extends LeafOperation {
         if (argres_.isInitClass()) {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else {
-            PossibleIntermediateDotted n_ = getSiblingToSet();
+            PossibleIntermediateDotted n_ = getSiblingSet();
             if (n_ != null) {
                 _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
             }

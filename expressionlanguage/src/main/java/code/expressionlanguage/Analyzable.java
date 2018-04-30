@@ -21,6 +21,7 @@ public interface Analyzable {
     String getCurrentFileName();
     RowCol getCurrentLocation();
 
+    String getCurrentVarSetting();
     StringMap<LoopVariable> getVars();
 
     StringMap<LocalVariable> getLocalVars();
@@ -44,4 +45,9 @@ public interface Analyzable {
     CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id);
     int getCurrentChildTypeIndex();
     void setCurrentChildTypeIndex(int _index);
+    boolean isEnabledDotted();
+    void setEnabledDotted(boolean _enabled);
+    boolean isMerged();
+
+    void setMerged(boolean _merged);
 }

@@ -18,7 +18,7 @@ public final class ConstantOperation extends OperationNode {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void analyze(StringMap<String> _conf, ErrorStatus _error) {
         analyzeCalculate(_error);
         if (getArgument() != null) {
             String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
@@ -59,7 +59,7 @@ public final class ConstantOperation extends OperationNode {
     }
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void calculate(StringMap<String> _conf, ErrorStatus _error) {
         if (getArgument() != null) {
             return;
         }

@@ -243,12 +243,12 @@ public final class PageEl {
         return getCallingConstr().getInstancingStep().isInstancing();
     }
 
-    public ExpressionLanguage getCurrentEl(Block _block, int _index, ExpressionLanguage _default) {
+    public ExpressionLanguage getCurrentEl(ContextEl _context, Block _block, int _index, boolean _native, int _indexProcess) {
         ExpressionLanguage el_;
         if (_index < currentEls.size()) {
             el_ = currentEls.get(_index);
         } else {
-            el_ = _default;
+            el_ = _block.getEl(_context, _native, _indexProcess);
             setCurrentBlock(_block);
             currentEls.add(el_);
         }

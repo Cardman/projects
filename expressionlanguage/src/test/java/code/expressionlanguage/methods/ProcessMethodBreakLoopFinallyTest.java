@@ -12,7 +12,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 @SuppressWarnings("static-method")
-public class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon {
+public final class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon {
 
     @Test
     public void calculateArgument30Test() {

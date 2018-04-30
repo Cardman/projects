@@ -179,7 +179,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         PageEl page_ = _cont.getLastPage();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        _cont.setRootAffect(false);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        if (opList.isEmpty()) {
+            return;
+        }
         OperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
             String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass().getName());
@@ -325,12 +329,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             locVar_.setClassName(stds_.getStructClassName(its_, _cont));
             locVar_.setStruct(its_);
             _cont.getLastPage().getLocalVars().put(locName_, locVar_);
-            ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator(native_);
-            ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
+            ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX, native_,CustList.SECOND_INDEX);
             Argument arg_ = dyn_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
             }
+            _cont.getLastPage().clearCurrentEls();
             iterStr_ = arg_.getStruct();
             _cont.getLastPage().getLocalVars().removeKey(locName_);
             if (iterStr_.isNull()) {
@@ -377,7 +381,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             if (_cont.callsOrException()) {
                 return;
             }
-            _cont.getLastPage().clearCurrentEls();
             l_.setEvaluatingKeepLoop(false);
             ip_.getReadWrite().setBlock(getFirstChild());
             return;
@@ -390,7 +393,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         String null_ = stds_.getAliasNullPe();
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
-        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
+        ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         Argument arg_ = el_.calculateMember(_conf);
         if (_conf.callsOrException()) {
             return NullStruct.NULL_VALUE;
@@ -442,14 +445,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 if (_conf.calls()) {
                     return;
                 }
-                _conf.getLastPage().clearCurrentEls();
                 l_.setEvaluatingKeepLoop(false);
                 return;
             }
         } else {
+            _conf.getLastPage().clearCurrentEls();
             l_.setFinished(true);
         }
-        _conf.getLastPage().clearCurrentEls();
         l_.setEvaluatingKeepLoop(false);
     }
 
@@ -464,8 +466,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         locVar_.setClassName(stds_.getStructClassName(strIter_, _conf));
         locVar_.setStruct(strIter_);
         _conf.getLastPage().getLocalVars().put(locName_, locVar_);
-        ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext(native_);
-        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.FIRST_INDEX, dynTwo_);
+        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, native_, 2);
         Argument arg_ = dyn_.calculateMember(_conf);
         if (_conf.callsOrException()) {
             return false;
@@ -496,12 +497,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             locVar_.setClassName(stds_.getStructClassName(iterator_, _conf));
             locVar_.setStruct(iterator_);
             _conf.getLastPage().getLocalVars().put(locName_, locVar_);
-            ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext(native_);
-            ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
+            ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.SECOND_INDEX, native_, 3);
             Argument arg_ = dyn_.calculateMember(_conf);
             if (_conf.callsOrException()) {
                 return;
             }
+            _conf.getLastPage().clearCurrentEls();
             element_ = arg_.getStruct();
         } else {
             element_ = LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf);
@@ -525,6 +526,21 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         lv_.setStruct(element_);
         lv_.setIndex(lv_.getIndex() + 1);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        if (_indexProcess == 0) {
+            return getEl();
+        }
+        if (_indexProcess == 1) {
+            return _context.getClasses().getEqIterator(_native);
+        }
+        if (_indexProcess == 2) {
+            return _context.getClasses().getEqHasNext(_native);
+        }
+        return _context.getClasses().getEqNext(_native);
     }
 
 }

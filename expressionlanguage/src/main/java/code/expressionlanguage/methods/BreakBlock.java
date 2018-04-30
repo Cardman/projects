@@ -4,6 +4,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.BreakableBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -101,6 +102,12 @@ public final class BreakBlock extends Leaf implements CallingFinally, AbruptBloc
         Block forLoopLoc_ = stack_.getBlock();
         rw_.setBlock(forLoopLoc_);
         stack_.setFinished(true);
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return null;
     }
 
 }

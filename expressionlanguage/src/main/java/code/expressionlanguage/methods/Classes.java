@@ -35,7 +35,6 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.EnumStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -108,7 +107,6 @@ public final class Classes {
     private final StringMap<FileBlock> filesBodies;
 
     private final ObjectMap<ClassField,Struct> staticFields;
-    private final StringMap<CustList<Struct>> values;
 
     private final ErrorList errorsDet;
     private final StringList localVariablesNames;
@@ -134,7 +132,6 @@ public final class Classes {
         filesBodies = new StringMap<FileBlock>();
         errorsDet = new ErrorList();
         staticFields = new ObjectMap<ClassField,Struct>();
-        values = new StringMap<CustList<Struct>>();
         classesInheriting = new StringList();
         localVariablesNames = new StringList();
     }
@@ -1569,6 +1566,7 @@ public final class Classes {
         lc_ = new LocalVariable();
         lc_.setClassName(_context.getStandards().getAliasObject());
         page_.getLocalVars().put(sixthArg_, lc_);
+        _context.setRootAffect(false);
         exps = ElUtil.getAnalyzedOperations(nateqt_, _context, Calculation.staticCalculation(true));
         String locName_ = page_.getNextTempVar(this);
         String exp_;

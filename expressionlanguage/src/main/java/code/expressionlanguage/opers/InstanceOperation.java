@@ -71,12 +71,12 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     @Override
-    public void analyze(CustList<OperationNode> _nodes, Analyzable _conf,
-            String _fieldName, String _op) {
-        analyzeCommon(_nodes, _conf, _fieldName, _op);
+    public void analyze(Analyzable _conf,
+            String _fieldName) {
+        analyzeCommon(_conf, _fieldName);
     }
 
-    void analyzeCommon(CustList<OperationNode> _nodes, Analyzable _conf, String _fieldName, String _op) {
+    void analyzeCommon(Analyzable _conf, String _fieldName) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -188,7 +188,7 @@ public final class InstanceOperation extends InvokingOperation {
 //                    }
 //                }
 //            }
-            analyzeCtor(_nodes, _conf, _fieldName, _op, realClassName_, firstArgs_, intern_);
+            analyzeCtor(_conf, _fieldName, realClassName_, firstArgs_, intern_);
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
@@ -209,10 +209,10 @@ public final class InstanceOperation extends InvokingOperation {
         }
         firstArgs_.add(CustList.FIRST_INDEX, arg_);
         realClassName_ = StringList.concat(arg_.getName(),String.valueOf(INTERN_CLASS),realClassName_);
-        analyzeCtor(_nodes, _conf, _fieldName, _op, realClassName_, firstArgs_, intern_);
+        analyzeCtor(_conf, _fieldName, realClassName_, firstArgs_, intern_);
     }
 
-    void analyzeCtor(CustList<OperationNode> _nodes, Analyzable _conf, String _fieldName, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
+    void analyzeCtor(Analyzable _conf, String _fieldName, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         String realClassName_ = _realClassName;
         LgNames stds_ = _conf.getStandards();
         if (StringList.quickEq(realClassName_, stds_.getAliasVoid())) {
@@ -273,7 +273,7 @@ public final class InstanceOperation extends InvokingOperation {
             return;
         }
         if (custClass_.getCategory() == ClassCategory.ENUM) {
-            if (_fieldName.isEmpty() || _nodes.last() != this) {
+            if (_fieldName.isEmpty() || getParent() != null) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());

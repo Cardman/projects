@@ -12,7 +12,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.first().getResultClass() != MathType.RATE) {
             _error.setIndex(getIndexInEl());
@@ -23,7 +23,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf, ErrorStatus _error) {
+    void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = new Argument();
