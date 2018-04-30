@@ -138,6 +138,8 @@ public final class Navigation {
 
     private String resourcesFolder = EMPTY_STRING;
 
+    private boolean error;
+
     public void setFiles(StringMap<String> _web, StringMap<String> _images) {
         files = new StringMap<String>();
         for (String f: _web.getKeys()) {
@@ -149,6 +151,7 @@ public final class Navigation {
     }
 
     public void loadConfiguration(String _conf, BeanLgNames _lgNames) {
+        error = false;
         boolean found_ = false;
         String fileName_ = EMPTY_STRING;
         for (EntryCust<String, String> e: files.entryList()) {
@@ -167,6 +170,7 @@ public final class Navigation {
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(content_);
         Document doc_ = res_.getDocument();
         if (doc_ == null) {
+            error = true;
             session.getContext().setException(NullStruct.NULL_VALUE);
             return;
         }
@@ -179,6 +183,9 @@ public final class Navigation {
                 session.setMathFactory(((WithMathFactory)dataBase).getMathFactory());
             }
         }
+    }
+    public boolean isError() {
+        return error;
     }
     public void setLanguage(String _language) {
         language = _language;

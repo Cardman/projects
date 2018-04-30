@@ -123,6 +123,7 @@ public class Configuration implements Analyzable {
         currentUrl = firstUrl;
         if (context == null) {
             context = new ContextEl();
+            context.setStandards(standards);
             context = toContextEl();
             context.initError();
         }
@@ -136,10 +137,6 @@ public class Configuration implements Analyzable {
         }
         if (lateTranslators == null) {
             lateTranslators = new StringMap<String>();
-        }
-        if (standards == null) {
-            standards = new BeanLgNames();
-            DefaultInitialization.basicStandards(standards);
         }
         standards.setContext(context);
         standards.build();
@@ -718,6 +715,26 @@ public class Configuration implements Analyzable {
 
     public void setCurrentVarSetting(String _currentVarSetting) {
         currentVarSetting = _currentVarSetting;
+    }
+
+    @Override
+    public boolean isAnalyzingRoot() {
+        return context.isAnalyzingRoot();
+    }
+
+    @Override
+    public boolean isRootAffect() {
+        return context.isRootAffect();
+    }
+
+    @Override
+    public void setAnalyzingRoot(boolean _b) {
+        context.setAnalyzingRoot(_b);
+    }
+
+    @Override
+    public void setRootAffect(boolean _b) {
+        context.setRootAffect(_b);
     }
 
 }

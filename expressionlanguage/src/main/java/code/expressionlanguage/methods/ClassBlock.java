@@ -37,10 +37,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     private final StringList allInterfaces = new StringList();
 
-    private final StringList allSortedInterfaces = new StringList();
-
-    private final StringList allNeededSortedInterfaces = new StringList();
-
     private final boolean finalType;
     private final boolean abstractType;
 
@@ -245,16 +241,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             }
         }
         return direct_;
-    }
-
-    @Override
-    public StringList getAllNeededSortedInterfaces() {
-        return allNeededSortedInterfaces;
-    }
-
-    @Override
-    public StringList getAllSortedInterfaces() {
-        return allSortedInterfaces;
     }
 
     @Override

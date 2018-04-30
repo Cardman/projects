@@ -258,7 +258,7 @@ public final class ElUtil {
     }
 
 
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root,String _fieldName, boolean _staticBlock,ContextEl _context) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root,String _fieldName, boolean _staticBlock,Analyzable _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (true) {
@@ -270,7 +270,7 @@ public final class ElUtil {
         return list_;
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,String _fieldName, boolean _staticBlock,ContextEl _context) {
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,String _fieldName, boolean _staticBlock,Analyzable _context) {
         if (_context.isEnabledDotted() && _current instanceof PossibleIntermediateDotted) {
             OperationNode last_ = _sortedNodes.last();
             PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _current;
@@ -317,7 +317,7 @@ public final class ElUtil {
             current_ = par_;
         }
     }
-    private static OperationNode createFirstChild(OperationNode _block, ContextEl _context) {
+    private static OperationNode createFirstChild(OperationNode _block, Analyzable _context) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
@@ -344,7 +344,7 @@ public final class ElUtil {
         return op_;
     }
 
-    private static OperationNode createNextSibling(OperationNode _block, ContextEl _context) {
+    private static OperationNode createNextSibling(OperationNode _block, Analyzable _context) {
         MethodOperation p_ = _block.getParent();
         if (p_ == null) {
             return null;

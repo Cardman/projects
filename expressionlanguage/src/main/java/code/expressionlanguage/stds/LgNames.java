@@ -50,7 +50,7 @@ import code.util.ints.Displayable;
 import code.util.ints.SimpleIterable;
 import code.util.pagination.SelectedBoolean;
 
-public class LgNames {
+public abstract class LgNames {
     protected static final int DEFAULT_RADIX = 10;
     protected static final String EMPTY_STRING = "";
     protected static final String RETURN_LINE = "\n";
@@ -214,6 +214,7 @@ public class LgNames {
     private StringMap<StandardType> standards = new StringMap<StandardType>();
 
     private StringList predefinedClasses = new StringList();
+    private StringList predefinedInterfacesInitOrder = new StringList();
 
     /**Called after setters*/
     public void build() {
@@ -941,7 +942,7 @@ public class LgNames {
     }
     public void setupOverrides(ContextEl _cont) {
         StringList keys_ = standards.getKeys();
-        TypeUtil.buildInherits(_cont, keys_, keys_);
+        TypeUtil.buildInherits(_cont, keys_, false);
         for (StandardType t: standards.values()) {
             TypeUtil.buildOverrides(t, _cont);
         }
@@ -3423,6 +3424,10 @@ public class LgNames {
         name_ = stds_.getAliasEnumParam();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
+        predefinedInterfacesInitOrder.add(stds_.getAliasIterable());
+        predefinedInterfacesInitOrder.add(stds_.getAliasIteratorType());
+        predefinedInterfacesInitOrder.add(stds_.getAliasEnumParam());
+        predefinedInterfacesInitOrder.add(stds_.getAliasEnum());
         return files_;
     }
 
@@ -4390,6 +4395,13 @@ public class LgNames {
     }
     public void setPredefinedClasses(StringList _predefinedClasses) {
         predefinedClasses = _predefinedClasses;
+    }
+    public StringList getPredefinedInterfacesInitOrder() {
+        return predefinedInterfacesInitOrder;
+    }
+    public void setPredefinedInterfacesInitOrder(
+            StringList _predefinedInterfacesInitOrder) {
+        predefinedInterfacesInitOrder = _predefinedInterfacesInitOrder;
     }
     public String getPrettyString() {
         StringBuilder str_ = new StringBuilder();

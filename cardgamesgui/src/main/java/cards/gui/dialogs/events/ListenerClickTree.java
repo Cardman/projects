@@ -6,6 +6,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
+import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
 import code.gui.document.RenderedPage;
@@ -53,7 +54,7 @@ public class ListenerClickTree implements TreeSelectionListener {
             indices_ = new Numbers<Integer>();
         }
         ElementHelp element_ = node.element(indices_).getElementLocal();
-        BeanLgNames bean_ = new BeanLgNames();
+        BeanLgNames bean_ = new GeneralHelpLgNames();
         DefaultInitialization.basicStandards(bean_);
         editor.reInitSession(element_.getFile(), bean_);
     }

@@ -580,7 +580,7 @@ public final class FileResolver {
                 //ERROR
                 return out_;
             }
-            int interfaceOffest_ = begin_ + 1 + StringList.getFirstPrintableCharIndex(typeBody_);
+            int interfaceOffest_ = begin_ + 1;
             String interfacesInfo_ = _file.substring(begin_ + 1, end_);
             for (int i = begin_ + 1; i < end_; i++) {
                 updateAllowedSpaces(i, _file, enabledSpaces_);
@@ -639,6 +639,10 @@ public final class FileResolver {
         } else {
             typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(beginType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
         }
+        typeBlock_.getInstInitInterfaces().addAllElts(instInitInterfaces_);
+        typeBlock_.getInstInitInterfacesOffset().addAllElts(instInitInterfacesOffset_);
+        typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
+        typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
         out_.setType(typeBlock_);
         currentParent_ = typeBlock_;
         i_ = nextIndex_;

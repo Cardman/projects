@@ -105,7 +105,7 @@ public final class ElResolver {
     private ElResolver() {
     }
 
-    public static Delimiters checkSyntaxDelimiters(String _string, ContextEl _conf, int _minIndex, char _begin, char _end) {
+    public static Delimiters checkSyntaxDelimiters(String _string, Analyzable _conf, int _minIndex, char _begin, char _end) {
         Delimiters d_ = new Delimiters();
         d_.setBegin(_begin);
         d_.setEnd(_end);
@@ -113,10 +113,10 @@ public final class ElResolver {
         return commonCheck(_string, _conf, _minIndex, d_);
     }
 
-    public static Delimiters checkSyntax(String _string, ContextEl _conf, int _elOffest) {
+    public static Delimiters checkSyntax(String _string, Analyzable _conf, int _elOffest) {
         return commonCheck(_string, _conf, _elOffest, new Delimiters());
     }
-    static Delimiters commonCheck(String _string, ContextEl _conf, int _minIndex, Delimiters _d) {
+    static Delimiters commonCheck(String _string, Analyzable _conf, int _minIndex, Delimiters _d) {
         char begin_ = _d.getBegin();
         char end_ = _d.getEnd();
         boolean partOfString_ = _d.isPartOfString();
@@ -1481,7 +1481,7 @@ public final class ElResolver {
         _output.setNextIndex(j_);
     }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
-            ContextEl _conf, Delimiters _d) {
+            Analyzable _conf, Delimiters _d) {
         NatTreeMap<Integer,String> operators_;
         operators_ = new NatTreeMap<Integer,String>();
         NatTreeMap<Integer,Character> parsBrackets_;

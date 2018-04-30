@@ -42,6 +42,8 @@ import code.expressionlanguage.methods.TryEval;
 import code.expressionlanguage.methods.WhileCondition;
 import code.expressionlanguage.stds.LgNames;
 import code.util.EntryCust;
+import code.util.Numbers;
+import code.util.StringList;
 import code.util.StringMap;
 
 @SuppressWarnings("static-method")
@@ -2931,6 +2933,107 @@ public final class FileResolverTest {
         assertEq(4, getFileTypes(context_,0).getLeftSpaces().get(6));
         assertEq(4, getFileTypes(context_,0).getLeftSpaces().get(7));
         assertEq(0, getFileTypes(context_,0).getLeftSpaces().get(8));
+    }
+
+    @Test
+    public void parseFile31Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $class $interfaces(pkg.Int,pkg.Int2) pkgtwo.ExClass {\n");
+        file_.append("}\n");
+        file_.append("$public $class pkgtwo.ExClassTwo {\n");
+        file_.append("$interfaces(pkg.Int,pkg.Int2)\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertNull(cl_.getFirstChild());
+        StringList ints_;
+        Numbers<Integer> offs_;
+        ints_ = cl_.getStaticInitInterfaces();
+        assertEq(2, ints_.size());
+        assertEq("pkg.Int", ints_.first());
+        assertEq("pkg.Int2", ints_.last());
+        offs_ = cl_.getStaticInitInterfacesOffset();
+        assertEq(2, offs_.size());
+        assertEq(70, offs_.first());
+        assertEq(78, offs_.last());
+        ints_ = cl_.getInstInitInterfaces();
+        offs_ = cl_.getInstInitInterfacesOffset();
+        assertEq(0, ints_.size());
+        assertEq(0, offs_.size());
+        assertEq("pkgtwo.ExClassTwo", getCustomTypes(context_,1).getFullName());
+        r_ = context_.getClasses().getClassBody("pkgtwo.ExClassTwo");
+        assertTrue(r_ instanceof ClassBlock);
+        cl_ = (ClassBlock) r_;
+        ints_ = cl_.getStaticInitInterfaces();
+        assertEq(0, ints_.size());
+        offs_ = cl_.getStaticInitInterfacesOffset();
+        assertEq(0, offs_.size());
+        ints_ = cl_.getInstInitInterfaces();
+        offs_ = cl_.getInstInitInterfacesOffset();
+        assertEq(2, ints_.size());
+        assertEq("pkg.Int", ints_.first());
+        assertEq("pkg.Int2", ints_.last());
+        assertEq(2, offs_.size());
+        assertEq(154, offs_.first());
+        assertEq(162, offs_.last());
+        assertNull(cl_.getFirstChild());
+    }
+    @Test
+    public void parseFile32Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $class $interfaces(pkg.Int) pkgtwo.ExClass {\n");
+        file_.append("}\n");
+        file_.append("$public $class pkgtwo.ExClassTwo {\n");
+        file_.append("$interfaces(pkg.Int)\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertNull(cl_.getFirstChild());
+        StringList ints_;
+        Numbers<Integer> offs_;
+        ints_ = cl_.getStaticInitInterfaces();
+        assertEq(1, ints_.size());
+        assertEq("pkg.Int", ints_.first());
+        offs_ = cl_.getStaticInitInterfacesOffset();
+        assertEq(1, offs_.size());
+        assertEq(70, offs_.first());
+        ints_ = cl_.getInstInitInterfaces();
+        offs_ = cl_.getInstInitInterfacesOffset();
+        assertEq(0, ints_.size());
+        assertEq(0, offs_.size());
+        assertEq("pkgtwo.ExClassTwo", getCustomTypes(context_,1).getFullName());
+        r_ = context_.getClasses().getClassBody("pkgtwo.ExClassTwo");
+        assertTrue(r_ instanceof ClassBlock);
+        cl_ = (ClassBlock) r_;
+        ints_ = cl_.getStaticInitInterfaces();
+        assertEq(0, ints_.size());
+        offs_ = cl_.getStaticInitInterfacesOffset();
+        assertEq(0, offs_.size());
+        ints_ = cl_.getInstInitInterfaces();
+        offs_ = cl_.getInstInitInterfacesOffset();
+        assertEq(1, ints_.size());
+        assertEq("pkg.Int", ints_.first());
+        assertEq(1, offs_.size());
+        assertEq(145, offs_.first());
+        assertNull(cl_.getFirstChild());
     }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;

@@ -73,7 +73,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private NotInitializedClass initClass;
 
     private transient int indexChildType;
-    private transient LgNames standards = new LgNames();
+    private transient LgNames standards;
 
     private transient PageEl analyzing;
 
@@ -653,18 +653,22 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         enabled = _enabled;
     }
 
+    @Override
     public boolean isRootAffect() {
         return rootAffect;
     }
 
+    @Override
     public void setRootAffect(boolean _rootAffect) {
         rootAffect = _rootAffect;
     }
 
+    @Override
     public boolean isAnalyzingRoot() {
         return analyzingRoot;
     }
 
+    @Override
     public void setAnalyzingRoot(boolean _analyzingRoot) {
         analyzingRoot = _analyzingRoot;
     }

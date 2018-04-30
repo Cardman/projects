@@ -41,10 +41,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     private final StringList allInterfaces = new StringList();
 
-    private final StringList allSortedInterfaces = new StringList();
-
-    private final StringList allNeededSortedInterfaces = new StringList();
-
     public EnumBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -241,16 +237,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             }
         }
         return interfaces_;
-    }
-
-    @Override
-    public StringList getAllNeededSortedInterfaces() {
-        return allNeededSortedInterfaces;
-    }
-
-    @Override
-    public StringList getAllSortedInterfaces() {
-        return allSortedInterfaces;
     }
 
     @Override

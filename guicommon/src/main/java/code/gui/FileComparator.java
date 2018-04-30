@@ -1,11 +1,11 @@
 package code.gui;
 import java.io.File;
-import code.util.ints.Comparing;
 
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.consts.ConstFiles;
+import code.util.ints.Comparing;
 
 public final class FileComparator implements Comparing<File> {
 

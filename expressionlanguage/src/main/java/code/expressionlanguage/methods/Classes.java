@@ -534,6 +534,7 @@ public final class Classes {
         classes_.validateLocalVariableNamesId(_context);
         classes_.validateEl(_context);
         classes_.validateReturns(_context);
+        TypeUtil.checkInterfaces(_context, classes_.classesBodies.getKeys());
         _context.setAnalyzing(null);
     }
     public void tryBuildClassesBodies(StringMap<String> _files, ContextEl _context) {
@@ -978,6 +979,87 @@ public final class Classes {
                 }
                 inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
             }
+            index_ = -1;
+            for (String t: bl_.getInstInitInterfaces()) {
+                index_++;
+                int offset_ = bl_.getInstInitInterfacesOffset().get(index_);
+                String base_ = StringList.removeAllSpaces(t);
+                RootBlock r_ = classesBodies.getVal(base_);
+                if (r_ == null) {
+                    UnknownClassName undef_;
+                    undef_ = new UnknownClassName();
+                    undef_.setClassName(base_);
+                    undef_.setFileName(d_);
+                    undef_.setRc(bl_.getRowCol(0, offset_));
+                    errorsDet.add(undef_);
+                    continue;
+                }
+                if (!(r_ instanceof InterfaceBlock)) {
+                    BadInheritedClass enum_;
+                    enum_ = new BadInheritedClass();
+                    String n_ = base_;
+                    enum_.setClassName(n_);
+                    enum_.setFileName(d_);
+                    enum_.setRc(bl_.getRowCol(0, offset_));
+                    errorsDet.add(enum_);
+                }
+            }
+            index_ = -1;
+            for (String t: bl_.getStaticInitInterfaces()) {
+                index_++;
+                int offset_ = bl_.getStaticInitInterfacesOffset().get(index_);
+                String base_ = StringList.removeAllSpaces(t);
+                RootBlock r_ = classesBodies.getVal(base_);
+                if (r_ == null) {
+                    UnknownClassName undef_;
+                    undef_ = new UnknownClassName();
+                    undef_.setClassName(base_);
+                    undef_.setFileName(d_);
+                    undef_.setRc(bl_.getRowCol(0, offset_));
+                    errorsDet.add(undef_);
+                    continue;
+                }
+                if (!(r_ instanceof InterfaceBlock)) {
+                    BadInheritedClass enum_;
+                    enum_ = new BadInheritedClass();
+                    String n_ = base_;
+                    enum_.setClassName(n_);
+                    enum_.setFileName(d_);
+                    enum_.setRc(bl_.getRowCol(0, offset_));
+                    errorsDet.add(enum_);
+                }
+            }
+            for (Block t: getDirectChildren(bl_)) {
+                if (!(t instanceof ConstructorBlock)) {
+                    continue;
+                }
+                ConstructorBlock ctor_ = (ConstructorBlock) t;
+                index_ = -1;
+                for (String i: ctor_.getInterfaces()) {
+                    index_++;
+                    int offset_ = ctor_.getInterfacesOffest().get(index_);
+                    String base_ = StringList.removeAllSpaces(i);
+                    RootBlock r_ = classesBodies.getVal(base_);
+                    if (r_ == null) {
+                        UnknownClassName undef_;
+                        undef_ = new UnknownClassName();
+                        undef_.setClassName(base_);
+                        undef_.setFileName(d_);
+                        undef_.setRc(ctor_.getRowCol(0, offset_));
+                        errorsDet.add(undef_);
+                        continue;
+                    }
+                    if (!(r_ instanceof InterfaceBlock)) {
+                        BadInheritedClass enum_;
+                        enum_ = new BadInheritedClass();
+                        String n_ = base_;
+                        enum_.setClassName(n_);
+                        enum_.setFileName(d_);
+                        enum_.setRc(ctor_.getRowCol(0, offset_));
+                        errorsDet.add(enum_);
+                    }
+                }
+            }
             if (nbDirectSuperClass_ > 1) {
                 BadInheritedClass enum_;
                 enum_ = new BadInheritedClass();
@@ -1087,7 +1169,7 @@ public final class Classes {
                 return;
             }
         }
-        TypeUtil.buildInherits(_context, classesBodies.getKeys(), classesInheriting);
+        TypeUtil.buildInherits(_context, classesBodies.getKeys(), true);
         LgNames stds_ = _context.getStandards();
         for (EntryCust<String, RootBlock> s: classesBodies.entryList()) {
             String c = s.getKey();

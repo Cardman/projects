@@ -62,9 +62,11 @@ public final class ThreadActions extends Thread {
             }
             if (usedFirstUrl) {
                 page.getNavigation().loadConfiguration(fileName, stds);
-                HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
-                htmlPage_.setUrl(-1);
-                page.getNavigation().initializeSession();
+                if (!page.getNavigation().isError()) {
+                    HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
+                    htmlPage_.setUrl(-1);
+                    page.getNavigation().initializeSession();
+                }
                 afterAction();
                 return;
             }

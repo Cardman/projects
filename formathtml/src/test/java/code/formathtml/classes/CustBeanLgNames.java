@@ -31,7 +31,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.SimpleIterable;
 
-public class CustBeanLgNames extends BeanLgNames {
+public final class CustBeanLgNames extends BeanLgNames {
 
     private static final String TYPE_INTS = "code.formathtml.classes.Ints";
     private static final String TYPE_RATE = "code.formathtml.classes.Rate";

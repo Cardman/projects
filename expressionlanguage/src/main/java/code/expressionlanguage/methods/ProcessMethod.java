@@ -252,14 +252,15 @@ public final class ProcessMethod {
                     }
                 }
             }
-            for (String i: root_.getAllNeededSortedInterfaces()) {
-                InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, i);
+            for (String i: root_.getStaticInitInterfaces()) {
+                String t_ = StringList.removeAllSpaces(i);
+                InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, t_);
                 if (res_ == InitClassState.NOT_YET) {
-                    _conf.setInitClass(new NotInitializedClass(i));
+                    _conf.setInitClass(new NotInitializedClass(t_));
                     return;
                 }
                 if (res_ == InitClassState.ERROR) {
-                    CausingErrorStruct causing_ = new CausingErrorStruct(i);
+                    CausingErrorStruct causing_ = new CausingErrorStruct(t_);
                     _conf.setException(causing_);
                     return;
                 }
@@ -297,13 +298,21 @@ public final class ProcessMethod {
                     _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                     return;
                 }
-                for (String i: class_.getAllNeededSortedInterfaces()) {
-                    if (!ip_.getIntializedInterfaces().containsStr(i)) {
-                        ip_.getIntializedInterfaces().add(i);
+                ConstructorBlock const_ = caller_.getUsedConstructor();
+                StringList ints_;
+                if (const_ != null) {
+                    ints_ = const_.getInterfaces();
+                } else {
+                    ints_ = class_.getInstInitInterfaces();
+                }
+                for (String i: ints_) {
+                    String t_ = StringList.removeAllSpaces(i);
+                    if (!ip_.getIntializedInterfaces().containsStr(t_)) {
+                        ip_.getIntializedInterfaces().add(t_);
                         ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        String generic_ = Templates.getFullTypeByBases(formatted_, i, _conf);
+                        String generic_ = Templates.getFullTypeByBases(formatted_, t_, _conf);
                         _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                         return;
                     }

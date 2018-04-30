@@ -5,10 +5,16 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.AloneBlock;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.BadAccessMethod;
+import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.FinalMethod;
@@ -35,33 +41,10 @@ public final class TypeUtil {
     private TypeUtil() {
     }
 
-    public static void buildInherits(ContextEl _context, StringList _types, StringList _inheritingClasses) {
-        Classes classes_ = _context.getClasses();
-        String objectClassName_ = _context.getStandards().getAliasObject();
+    public static void buildInherits(ContextEl _context, StringList _types, boolean _cust) {
         for (String c: _types) {
             GeneType dBl_ = _context.getClassBody(c);
             buildInherits(dBl_, _context);
-        }
-        for (String c: _inheritingClasses) {
-            GeneType bl_ = _context.getClassBody(c);
-            if (!(bl_ instanceof GeneClass)) {
-                continue;
-            }
-            if (!(bl_ instanceof RootBlock)) {
-                continue;
-            }
-            StringList all_ = bl_.getAllInterfaces();
-            RootBlock cust_ = (RootBlock) bl_;
-            StringList needed_ = new StringList();
-            for (String s: cust_.getDirectSuperClasses(_context)) {
-                if (!StringList.quickEq(s, objectClassName_)) {
-                    RootBlock super_ = classes_.getClassBody(s);
-                    needed_.addAllElts(super_.getAllSortedInterfaces());
-                }
-            }
-            cust_.getAllSortedInterfaces().addAllElts(classes_.getSortedSuperInterfaces(all_,_context));
-            cust_.getAllNeededSortedInterfaces().addAllElts(cust_.getAllSortedInterfaces());
-            cust_.getAllNeededSortedInterfaces().removeAllElements(needed_);
         }
         for (GeneType c: _context.getClassBodies()) {
             if (!_types.containsStr(c.getFullName())) {
@@ -72,6 +55,197 @@ public final class TypeUtil {
                 c.getAllSuperTypes().addAllElts(((GeneClass)c).getAllInterfaces());
             } else {
                 c.getAllSuperTypes().addAllElts(((GeneInterface)c).getAllSuperClasses());
+            }
+        }
+        if (_cust) {
+            Classes classes_ = _context.getClasses();
+            for (RootBlock c: classes_.getClassBodies()) {
+                RootBlock bl_ = c;
+                String d_ = c.getFullName();
+                StringList ints_ = bl_.getStaticInitInterfaces();
+                int len_ = ints_.size();
+                for (int i = 0; i < len_; i++) {
+                    String sup_ = StringList.removeAllSpaces(ints_.get(i));
+                    for (int j = i + 1; j < len_; j++) {
+                        String sub_ = StringList.removeAllSpaces(ints_.get(j));
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
+                            BadInheritedClass undef_;
+                            undef_ = new BadInheritedClass();
+                            undef_.setClassName(sub_);
+                            undef_.setFileName(d_);
+                            int offset_ = bl_.getStaticInitInterfacesOffset().get(j);
+                            undef_.setRc(bl_.getRowCol(0, offset_));
+                            classes_.getErrorsDet().add(undef_);
+                        }
+                    }
+                }
+                ints_ = bl_.getInstInitInterfaces();
+                len_ = ints_.size();
+                for (int i = 0; i < len_; i++) {
+                    String sup_ = StringList.removeAllSpaces(ints_.get(i));
+                    for (int j = i + 1; j < len_; j++) {
+                        String sub_ = StringList.removeAllSpaces(ints_.get(j));
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
+                            BadInheritedClass undef_;
+                            undef_ = new BadInheritedClass();
+                            undef_.setClassName(sub_);
+                            undef_.setFileName(d_);
+                            int offset_ = bl_.getInstInitInterfacesOffset().get(j);
+                            undef_.setRc(bl_.getRowCol(0, offset_));
+                            classes_.getErrorsDet().add(undef_);
+                        }
+                    }
+                }
+                for (Block t: Classes.getDirectChildren(bl_)) {
+                    if (!(t instanceof ConstructorBlock)) {
+                        continue;
+                    }
+                    ConstructorBlock ctor_ = (ConstructorBlock) t;
+                    ints_ = ctor_.getInterfaces();
+                    len_ = ints_.size();
+                    for (int i = 0; i < len_; i++) {
+                        String sup_ = StringList.removeAllSpaces(ints_.get(i));
+                        for (int j = i + 1; j < len_; j++) {
+                            String sub_ = StringList.removeAllSpaces(ints_.get(j));
+                            if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
+                                BadInheritedClass undef_;
+                                undef_ = new BadInheritedClass();
+                                undef_.setClassName(sub_);
+                                undef_.setFileName(d_);
+                                int offset_ = ctor_.getInterfacesOffest().get(j);
+                                undef_.setRc(bl_.getRowCol(0, offset_));
+                                classes_.getErrorsDet().add(undef_);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public static void checkInterfaces(ContextEl _context, StringList _types) {
+        Classes classes_ = _context.getClasses();
+        for (String c: _types) {
+            GeneType bl_ = _context.getClassBody(c);
+            if (!(bl_ instanceof GeneClass)) {
+                continue;
+            }
+            if (!(bl_ instanceof RootBlock)) {
+                continue;
+            }
+            RootBlock block_ = (RootBlock) bl_;
+            StringList ints_ = block_.getStaticInitInterfaces();
+            StringList trimmedInt_ = new StringList();
+            for (String i: ints_) {
+                trimmedInt_.add(StringList.removeAllSpaces(i));
+            }
+            UniqueRootedBlock un_ = (UniqueRootedBlock)bl_;
+            StringList all_ = bl_.getAllInterfaces();
+            StringList allCopy_ = new StringList(all_);
+            allCopy_.removeAllElements(_context.getStandards().getPredefinedInterfacesInitOrder());
+            RootBlock superType_ = classes_.getClassBody(un_.getSuperClass(_context));
+            if (superType_ != null) {
+                allCopy_.removeAllElements(superType_.getAllInterfaces());
+            }
+            StringList filteredStatic_ = new StringList();
+            StringList filteredInst_ = new StringList();
+            for (String i: allCopy_) {
+                RootBlock int_ = classes_.getClassBody(i);
+                for (Block b: Classes.getDirectChildren(int_)) {
+                    if (b instanceof NamedFunctionBlock) {
+                        continue;
+                    }
+                    if (b instanceof GeneField) {
+                        GeneField a_ = (GeneField) b;
+                        if (a_.isStaticField()) {
+                            filteredStatic_.add(i);
+                        } else {
+                            filteredInst_.add(i);
+                        }
+                    }
+                    if (b instanceof AloneBlock) {
+                        AloneBlock a_ = (AloneBlock) b;
+                        if (a_.isStaticContext()) {
+                            filteredStatic_.add(i);
+                        } else {
+                            filteredInst_.add(i);
+                        }
+                    }
+                }
+            }
+            if (!StringList.equalsSet(filteredStatic_, trimmedInt_)) {
+                BadInheritedClass undef_;
+                undef_ = new BadInheritedClass();
+                undef_.setClassName(c);
+                undef_.setFileName(c);
+                undef_.setRc(block_.getRowCol(0, 0));
+                classes_.getErrorsDet().add(undef_);
+            }
+            ints_ = block_.getInstInitInterfaces();
+            trimmedInt_.clear();
+            for (String i: ints_) {
+                trimmedInt_.add(StringList.removeAllSpaces(i));
+            }
+            boolean ctor_ = false;
+            for (Block t: Classes.getDirectChildren(block_)) {
+                if (!(t instanceof ConstructorBlock)) {
+                    continue;
+                }
+                ctor_ = true;
+                break;
+            }
+            if (!ctor_) {
+                if (!StringList.equalsSet(filteredInst_, trimmedInt_)) {
+                    BadInheritedClass undef_;
+                    undef_ = new BadInheritedClass();
+                    undef_.setClassName(c);
+                    undef_.setFileName(c);
+                    undef_.setRc(block_.getRowCol(0, 0));
+                    classes_.getErrorsDet().add(undef_);
+                }
+            } else {
+                for (Block t: Classes.getDirectChildren(block_)) {
+                    if (!(t instanceof ConstructorBlock)) {
+                        continue;
+                    }
+                    ConstructorBlock ctorLoc_ = (ConstructorBlock) t;
+                    if (!ctorLoc_.superConstr()) {
+                        continue;
+                    }
+                    StringList filteredCtor_ = new StringList();
+                    for (String i: allCopy_) {
+                        RootBlock int_ = classes_.getClassBody(i);
+                        for (Block b: Classes.getDirectChildren(int_)) {
+                            if (b instanceof NamedFunctionBlock) {
+                                continue;
+                            }
+                            if (b instanceof GeneField) {
+                                GeneField a_ = (GeneField) b;
+                                if (!a_.isStaticField()) {
+                                    filteredCtor_.add(i);
+                                }
+                            }
+                            if (b instanceof AloneBlock) {
+                                AloneBlock a_ = (AloneBlock) b;
+                                if (!a_.isStaticContext()) {
+                                    filteredCtor_.add(i);
+                                }
+                            }
+                        }
+                    }
+                    ints_ = ctorLoc_.getInterfaces();
+                    trimmedInt_.clear();
+                    for (String i: ints_) {
+                        trimmedInt_.add(StringList.removeAllSpaces(i));
+                    }
+                    if (!StringList.equalsSet(filteredCtor_, trimmedInt_)) {
+                        BadInheritedClass undef_;
+                        undef_ = new BadInheritedClass();
+                        undef_.setClassName(c);
+                        undef_.setFileName(c);
+                        undef_.setRc(ctorLoc_.getRowCol(0, 0));
+                        classes_.getErrorsDet().add(undef_);
+                    }
+                }
             }
         }
     }

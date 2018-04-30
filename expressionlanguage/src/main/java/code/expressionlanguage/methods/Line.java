@@ -176,14 +176,15 @@ public final class Line extends Leaf implements StackableBlock {
             String superClass_ = meta_.getSuperClass();
             String baseSuperClass_ = StringList.getAllTypes(superClass_).first();
             if (ip_.getCallingConstr().getCalledConstructors().containsObj(baseSuperClass_)) {
-                RootBlock root_ = _cont.getClasses().getClassBody(curClassBase_);
-                for (String i: root_.getAllNeededSortedInterfaces()) {
-                    if (!ip_.getIntializedInterfaces().containsStr(i)) {
-                        ip_.getIntializedInterfaces().add(i);
+                ConstructorBlock ctor_ = (ConstructorBlock) getFunction();
+                for (String i: ctor_.getInterfaces()) {
+                    String t_ = StringList.removeAllSpaces(i);
+                    if (!ip_.getIntializedInterfaces().containsStr(t_)) {
+                        ip_.getIntializedInterfaces().add(t_);
                         ConstructorId super_ = new ConstructorId(baseSuperClass_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        String generic_ = Templates.getFullTypeByBases(formatted_, i, _cont);
+                        String generic_ = Templates.getFullTypeByBases(formatted_, t_, _cont);
                         _cont.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                         return;
                     }

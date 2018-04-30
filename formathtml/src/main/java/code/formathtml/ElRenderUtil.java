@@ -42,6 +42,7 @@ public final class ElRenderUtil {
     public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, Configuration _conf, boolean _staticContext, boolean _hiddentVarTypes) {
         ExpLanguages members_ = analyzeAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, _staticContext, _hiddentVarTypes);
+        _conf.getContext().setAnalyzing(null);
         CustList<OperationNode> left_ = members_.getLeft();
         CustList<OperationNode> right_ = members_.getRight();
         ContextEl cont_ = _conf.toContextEl();
@@ -86,6 +87,7 @@ public final class ElRenderUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
             return Argument.createVoid();
         }
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
@@ -100,18 +102,20 @@ public final class ElRenderUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
             return Argument.createVoid();
         }
         Argument argGl_ = _conf.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         context_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, context_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, _conf);
         if (!_conf.getClasses().getErrorsDet().isEmpty()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
@@ -155,9 +159,9 @@ public final class ElRenderUtil {
         }
         Argument argGl_ = _conf.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
-        context_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, context_);
-        if (!context_.getClasses().getErrorsDet().isEmpty()) {
+        _conf.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, _conf);
+        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
@@ -173,12 +177,18 @@ public final class ElRenderUtil {
     }
     public static ExpLanguages analyzeAffect(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, Configuration _conf, boolean _staticContext, boolean _hiddenVarTypes) {
-        ContextEl cont_ = _conf.toContextEl();
+        ContextEl context_ = _conf.toContextEl();
+        context_.setAnalyzing(new PageEl());
+        context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
+        context_.getAnalyzing().getLocalVars().putAllMap(_conf.getLocalVars());
+        context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
+        context_.getAnalyzing().getCatchVars().putAllMap(_conf.getCatchVars());
+        context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
         ImportingPage page_ = _conf.getLastPage();
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
-        cont_.setRootAffect(false);
-        Delimiters dLeft_ = ElResolver.checkSyntax(_left, cont_, CustList.FIRST_INDEX);
+        _conf.setRootAffect(false);
+        Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
         if (dLeft_.getBadOffset() >= 0) {
             _conf.getLastPage().setOffset(dLeft_.getBadOffset());
             BadElError badEl_ = new BadElError();
@@ -189,8 +199,8 @@ public final class ElRenderUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        cont_.setAnalyzingRoot(false);
-        OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, cont_, dLeft_);
+        _conf.setAnalyzingRoot(false);
+        OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
         if (opLeft_ == null) {
             BadElError badEl_ = new BadElError();
@@ -201,11 +211,11 @@ public final class ElRenderUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        cont_.setStaticContext(_staticContext);
-        CustList<OperationNode> allLeft_ = ElUtil.getSortedDescNodes(opLeft_, EMPTY_STRING, _hiddenVarTypes, cont_);
+        _conf.setStaticContext(_staticContext);
+        CustList<OperationNode> allLeft_ = ElUtil.getSortedDescNodes(opLeft_, EMPTY_STRING, _hiddenVarTypes, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
-        Delimiters dRight_ = ElResolver.checkSyntax(_right, cont_, CustList.FIRST_INDEX);
+        Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
         if (dRight_.getBadOffset() >= 0) {
             _conf.getLastPage().setOffset(dRight_.getBadOffset());
             BadElError badEl_ = new BadElError();
@@ -216,7 +226,7 @@ public final class ElRenderUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, cont_, dRight_);
+        OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
         OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
         if (opRight_ == null) {
             BadElError badEl_ = new BadElError();
@@ -227,7 +237,7 @@ public final class ElRenderUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        CustList<OperationNode> allRight_ = ElUtil.getSortedDescNodes(opRight_, EMPTY_STRING, _hiddenVarTypes, cont_);
+        CustList<OperationNode> allRight_ = ElUtil.getSortedDescNodes(opRight_, EMPTY_STRING, _hiddenVarTypes, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         page_.setOffset(0);
@@ -273,12 +283,12 @@ public final class ElRenderUtil {
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setRc(_conf.getCurrentLocation());
             if (StringList.quickEq(_oper, Block.EQ_PLUS) || StringList.quickEq(_oper, Block.PLUS_EQ)) {
-                if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, cont_)) {
+                if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                     if (!clMatchLeft_.matchClass(_conf.getStandards().getAliasString())) {
                         _conf.getClasses().getErrorsDet().add(cast_);
                         return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
                     }
-                } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, cont_)) {
+                } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
                     _conf.getClasses().getErrorsDet().add(cast_);
                     return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
                 }
@@ -295,16 +305,16 @@ public final class ElRenderUtil {
                         return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
                     }
                 }
-            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, cont_)) {
+            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                 _conf.getClasses().getErrorsDet().add(cast_);
                 return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
-            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, cont_)) {
+            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
                 _conf.getClasses().getErrorsDet().add(cast_);
                 return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
             }
         } else {
             if (clMatchRight_.isVariable()) {
-                if (!clMatchLeft_.isPrimitive(cont_)) {
+                if (!clMatchLeft_.isPrimitive(_conf)) {
                     return new ExpLanguages(allLeft_, allRight_);
                 }
                 Mapping mapping_ = new Mapping();
@@ -325,7 +335,7 @@ public final class ElRenderUtil {
                 buildMap_ = false;
             }
             if (buildMap_) {
-                for (TypeVar t: Templates.getConstraints(page_.getGlobalClass(), cont_)) {
+                for (TypeVar t: Templates.getConstraints(page_.getGlobalClass(), _conf)) {
                     vars_.put(t.getName(), t.getConstraints());
                 }
             }
@@ -333,7 +343,7 @@ public final class ElRenderUtil {
             mapping_.setMapping(vars_);
             mapping_.setArg(clMatchRight_.getName());
             mapping_.setParam(clMatchLeft_.getName());
-            if (!Templates.isCorrect(mapping_, cont_)) {
+            if (!Templates.isCorrect(mapping_, _conf)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());

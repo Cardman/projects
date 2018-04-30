@@ -191,7 +191,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         PageEl ip_ = _conf.getLastPage();
         Struct leftObj_;
         if (_stored.isArray()) {
-            leftObj_ = getElement(_array, o_, _conf, _indexEl);
+            leftObj_ = getElement(_stored, o_, _conf, _indexEl);
         } else {
             leftObj_ = _stored;
         }

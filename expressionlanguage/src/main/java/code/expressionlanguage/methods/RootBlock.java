@@ -76,6 +76,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     private int categoryOffset;
 
+    private StringList staticInitInterfaces = new StringList();
+    private Numbers<Integer> staticInitInterfacesOffset = new Numbers<Integer>();
+
+    private StringList instInitInterfaces = new StringList();
+    private Numbers<Integer> instInitInterfacesOffset = new Numbers<Integer>();
+
     RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -104,6 +110,22 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         for (String t: _directSuperTypes.values()) {
             directSuperTypes.add(StringList.removeAllSpaces(t));
         }
+    }
+
+    public StringList getStaticInitInterfaces() {
+        return staticInitInterfaces;
+    }
+
+    public Numbers<Integer> getStaticInitInterfacesOffset() {
+        return staticInitInterfacesOffset;
+    }
+
+    public StringList getInstInitInterfaces() {
+        return instInitInterfaces;
+    }
+
+    public Numbers<Integer> getInstInitInterfacesOffset() {
+        return instInitInterfacesOffset;
     }
 
     public int getCategoryOffset() {
@@ -1114,10 +1136,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             _map.put(_key, new EqList<ClassMethodId>(_class));
         }
     }
-
-    public abstract StringList getAllSortedInterfaces();
-
-    public abstract StringList getAllNeededSortedInterfaces();
 
     @Override
     public ExpressionLanguage getEl(ContextEl _context, boolean _native,

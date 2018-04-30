@@ -18,10 +18,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     private final StringList allSuperTypes = new StringList();
 
-    private final StringList allSortedInterfaces = new StringList();
-
-    private final StringList allNeededSortedInterfaces = new StringList();
-
     public InterfaceBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -194,15 +190,5 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
             }
         }
         return classes_;
-    }
-
-    @Override
-    public StringList getAllNeededSortedInterfaces() {
-        return allNeededSortedInterfaces;
-    }
-
-    @Override
-    public StringList getAllSortedInterfaces() {
-        return allSortedInterfaces;
     }
 }

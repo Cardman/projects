@@ -41,7 +41,7 @@ import code.util.ints.SimpleIterable;
 import code.util.ints.SimpleList;
 import code.util.pagination.SelectedBoolean;
 
-public class BeanLgNames extends LgNames {
+public abstract class BeanLgNames extends LgNames {
 
     private static final String VALIDATE = "validate";
     private static final String GET_INDEXES = "getIndexes";

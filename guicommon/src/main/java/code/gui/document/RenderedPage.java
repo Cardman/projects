@@ -92,6 +92,11 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _stds;
         navigation.loadConfiguration(_conf, _stds);
+        if (navigation.isError()) {
+            setupText(true);
+            directScroll();
+            return;
+        }
         navigation.initializeSession();
         setupText(true);
         directScroll();
@@ -116,6 +121,11 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _lgNames;
         navigation.loadConfiguration(_conf, _lgNames);
+        if (navigation.isError()) {
+            setupText(true);
+            finish(false);
+            return;
+        }
         navigation.initializeSession();
         setupText(true);
         finish(false);
@@ -124,6 +134,11 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _lgNames;
         navigation.loadConfiguration(_conf, _lgNames);
+        if (navigation.isError()) {
+            setupText(true);
+            directScroll();
+            return;
+        }
         navigation.initializeSession();
         setupText(true);
         directScroll();
@@ -151,6 +166,11 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _lgNames;
         navigation.loadConfiguration(_conf, _lgNames);
+        if (navigation.isError()) {
+            setupText(true);
+            directScroll();
+            return;
+        }
         navigation.initializeSession();
         setupText(true);
         directScroll();

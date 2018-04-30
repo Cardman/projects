@@ -50,4 +50,8 @@ public interface Analyzable {
     boolean isMerged();
 
     void setMerged(boolean _merged);
+    boolean isAnalyzingRoot();
+    boolean isRootAffect();
+    void setAnalyzingRoot(boolean _b);
+    void setRootAffect(boolean _b);
 }

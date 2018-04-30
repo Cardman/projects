@@ -5,15 +5,6 @@ import code.expressionlanguage.stds.LgNames;
 
 public final class InitializationLgNames {
 
-    public static LgNames initStandards(ContextEl _context) {
-        LgNames lgNames_ = new LgNames();
-        lgNames_.setContext(_context);
-        basicStandards(lgNames_);
-        lgNames_.build();
-        _context.setStandards(lgNames_);
-        lgNames_.setupOverrides(_context);
-        return lgNames_;
-    }
     public static LgNames initAdvStandards(ContextEl _context) {
         LgNames lgNames_ = new CustLgNames();
         lgNames_.setContext(_context);

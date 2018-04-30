@@ -25,7 +25,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class CustLgNames extends LgNames {
+public final class CustLgNames extends LgNames {
 
     private String aliasStringList = "code.util.StringList";
     private String aliasComposite = "code.expressionlanguage.classes.Composite";

@@ -13,6 +13,7 @@ import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
+import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
 import code.gui.ChildFrame;
@@ -240,7 +241,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //            editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
         editor.setLanguage(Constants.getLanguage());
-        BeanLgNames bean_ = new BeanLgNames();
+        BeanLgNames bean_ = new GeneralHelpLgNames();
         DefaultInitialization.basicStandards(bean_);
         editor.initialize(racineBis.getFile(), bean_);
         if (field == null) {

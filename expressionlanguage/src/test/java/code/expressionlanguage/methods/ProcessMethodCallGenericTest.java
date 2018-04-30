@@ -573,6 +573,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<#U> :pkg.ExTwo<#U>{\n");
+        xml_.append("$interfaces(pkg.ExTwo)\n");
         xml_.append(" $public #U get:\n");
         xml_.append(" $public $normal #U getter(){\n");
         xml_.append("  $return get;;;:\n");
@@ -619,6 +620,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<#U> :pkg.ExTwo<#U>{\n");
+        xml_.append("$interfaces(pkg.ExTwo)\n");
         xml_.append(" $public #U get:\n");
         xml_.append(" $public $normal #U getter(){\n");
         xml_.append("  $return get;;;:\n");
