@@ -6,6 +6,7 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Options;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
@@ -735,6 +736,11 @@ public class Configuration implements Analyzable {
     @Override
     public void setRootAffect(boolean _b) {
         context.setRootAffect(_b);
+    }
+
+    @Override
+    public Options getOptions() {
+        return context.getOptions();
     }
 
 }

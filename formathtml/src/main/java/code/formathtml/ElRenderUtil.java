@@ -65,7 +65,7 @@ public final class ElRenderUtil {
         _conf.getLastPage().setRightArgument(_right.last().getArgument());
         SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
         _conf.setCheckAffectation(true);
-        settable_.calculateSetting(allLeft_, _conf, _op);
+        settable_.calculateSetting(allLeft_, _conf, _op, false);
         _conf.setCheckAffectation(false);
         _conf.getLastPage().setRightArgument(null);
     }

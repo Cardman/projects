@@ -16,8 +16,8 @@ public interface SettableElResult {
 
     Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op);
+            String _op, boolean _post);
 
     void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op);
+            ContextEl _conf, String _op, boolean _post);
 }

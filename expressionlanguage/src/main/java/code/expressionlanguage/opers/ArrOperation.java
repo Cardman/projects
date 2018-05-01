@@ -134,16 +134,16 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op) {
+            String _op, boolean _post) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = _nodes.getVal(this).getArgument();
-        Struct array_;
-        array_ = a_.getStruct();
+        Struct store_;
+        store_ = a_.getStruct();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
-        Struct arg_;
-        arg_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
-        affectArray(arg_, array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _conf);
+        Struct array_;
+        array_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
+        a_.setStruct(affectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _post, _conf));
         if (_conf.getException() != null) {
             return a_;
         }
@@ -166,23 +166,23 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     @Override
     public void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
+            ContextEl _conf, String _op, boolean _post) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument();
-        Struct array_;
-        array_ = a_.getStruct();
+        Struct store_;
+        store_ = a_.getStruct();
         OperationNode lastElement_ = chidren_.last();
         Argument last_ = lastElement_.getArgument();
-        Struct arg_;
-        arg_ = chidren_.first().getArgument().getStruct();
-        affectArray(arg_, array_, last_, lastElement_.getIndexInEl(), _op, _conf);
+        Struct array_;
+        array_ = chidren_.first().getArgument().getStruct();
+        a_.setStruct(affectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
         if (_conf.getException() != null) {
             return;
         }
         setSimpleArgument(a_, _conf);
     }
 
-    void affectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, ContextEl _conf) {
+    Struct affectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;
@@ -196,7 +196,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             leftObj_ = _stored;
         }
         if (_conf.getException() != null) {
-            return;
+            return _stored;
         }
         Argument left_ = new Argument();
         left_.setStruct(leftObj_);
@@ -205,20 +205,24 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
             if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct(), _conf)) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                return;
+                return _stored;
             }
         } else {
             if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, leftObj_, _conf)) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                return;
+                return _stored;
             }
         }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
         if (_conf.getException() != null) {
-            return;
+            return _stored;
         }
         setElement(_array, o_, res_.getStruct(), _conf);
+        if (_post) {
+            return left_.getStruct();
+        }
+        return res_.getStruct();
     }
 
     Argument getArgument(int _maxIndexChildren, ContextEl _conf) {

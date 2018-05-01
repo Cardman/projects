@@ -189,7 +189,7 @@ public final class AffectationOperation extends MethodOperation {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getLastPage().setRightArgument(right_.getArgument());
         String oper_ = getOperations().getOperators().firstValue();
-        settable.calculateSetting(_nodes, _conf, oper_);
+        settable.calculateSetting(_nodes, _conf, oper_, false);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
         _conf.getLastPage().setRightArgument(null);
@@ -201,7 +201,7 @@ public final class AffectationOperation extends MethodOperation {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getLastPage().setRightArgument(_nodes.getVal(right_).getArgument());
         String oper_ = getOperations().getOperators().firstValue();
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper_);
+        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper_, false);
         _conf.getLastPage().setRightArgument(null);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;

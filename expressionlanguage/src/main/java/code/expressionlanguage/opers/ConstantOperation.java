@@ -667,9 +667,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     @Override
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op) {
+            String _op, boolean _post) {
         Argument current_ = _nodes.getVal(this).getArgument();
-        Argument arg_ = getCommonSetting(current_, _conf, _op);
+        Argument arg_ = getCommonSetting(current_, _conf, _op, _post);
         if (_conf.getException() == null) {
             setSimpleArgument(arg_, _conf, _nodes);
         }
@@ -707,9 +707,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
 
     @Override
     public void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
+            ContextEl _conf, String _op, boolean _post) {
         Argument current_ = getArgument();
-        Argument arg_ = getCommonSetting(current_, _conf, _op);
+        Argument arg_ = getCommonSetting(current_, _conf, _op, _post);
         if (_conf.getException() != null) {
             return;
         }
@@ -840,7 +840,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         return ArgumentCall.newArgument(a_);
     }
 
-    Argument getCommonSetting(Argument _argument, ContextEl _conf, String _op) {
+    Argument getCommonSetting(Argument _argument, ContextEl _conf, String _op, boolean _post) {
         PageEl ip_ = _conf.getLastPage();
         LgNames stds_ = _conf.getStandards();
         String null_;
@@ -887,6 +887,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
             }
             locVar_.setStruct(res_.getStruct());
+            if (_post) {
+                return left_;
+            }
             return res_;
         }
         Argument argument_ = _argument;
@@ -959,6 +962,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 return res_;
             }
             Argument a_ = res_;
+            if (_post) {
+                return left_;
+            }
             return a_;
         }
         if (argument_.isNull()) {
@@ -1002,6 +1008,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
             }
             ((FieldableStruct) argument_.getStruct()).setStruct(fieldId, res_.getStruct());
+            if (_post) {
+                return left_;
+            }
             Argument a_ = res_;
             return a_;
         }
@@ -1030,6 +1039,9 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             return res_;
         }
         Argument a_ = res_;
+        if (_post) {
+            return left_;
+        }
         return a_;
     }
 

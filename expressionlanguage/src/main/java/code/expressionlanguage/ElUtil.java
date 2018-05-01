@@ -214,7 +214,7 @@ public final class ElUtil {
         SettableElResult settable_ = _left.getSettable();
         OperationNode op_ = (OperationNode) settable_;
         ArgumentsPair a_ = allLeft_.getVal(op_);
-        Argument arg_ = settable_.calculateSetting(allLeft_, _conf, _op);
+        Argument arg_ = settable_.calculateSetting(allLeft_, _conf, _op, false);
         a_.setArgument(arg_);
         if (_conf.getException() != null) {
             _left.setCurrentOper(null);

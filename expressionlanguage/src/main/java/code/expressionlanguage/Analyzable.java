@@ -54,4 +54,5 @@ public interface Analyzable {
     boolean isRootAffect();
     void setAnalyzingRoot(boolean _b);
     void setRootAffect(boolean _b);
+    Options getOptions();
 }

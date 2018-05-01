@@ -4,6 +4,8 @@ public final class Options {
 
     private boolean breadthFirst = true;
 
+    private boolean multipleAffectations;
+
     public boolean isBreadthFirst() {
         return breadthFirst;
     }
@@ -12,4 +14,11 @@ public final class Options {
         breadthFirst = _breadthFirst;
     }
 
+    public boolean isMultipleAffectations() {
+        return multipleAffectations;
+    }
+
+    public void setMultipleAffectations(boolean _multipleAffectations) {
+        multipleAffectations = _multipleAffectations;
+    }
 }

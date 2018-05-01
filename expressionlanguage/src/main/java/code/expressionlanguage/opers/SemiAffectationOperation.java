@@ -19,10 +19,12 @@ import code.util.StringList;
 
 public final class SemiAffectationOperation extends PrimitiveBoolOperation {
     private SettableElResult settable;
+    private boolean post;
 
     public SemiAffectationOperation(int _index, int _indexChild,
-            MethodOperation _m, OperationsSequence _op) {
+            MethodOperation _m, OperationsSequence _op, boolean _post) {
         super(_index, _indexChild, _m, _op);
+        post = _post;
     }
 
     @Override
@@ -90,7 +92,7 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getLastPage().setRightArgument(right_.getArgument());
         String oper_ = getOperations().getOperators().firstValue();
-        settable.calculateSetting(_nodes, _conf, oper_);
+        settable.calculateSetting(_nodes, _conf, oper_, post);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
         _conf.getLastPage().setRightArgument(null);
@@ -102,7 +104,7 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getLastPage().setRightArgument(_nodes.getVal(right_).getArgument());
         String oper_ = getOperations().getOperators().firstValue();
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper_);
+        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper_, post);
         setSimpleArgument(arg_, _conf, _nodes);
         _conf.getLastPage().setRightArgument(null);
         return arg_;

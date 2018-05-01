@@ -218,6 +218,9 @@ public abstract class OperationNode {
         if (_op.getPriority() == ElResolver.DOT_PRIO) {
             return new DotOperation(_index, _indexChild, _m, _op);
         }
+        if (_op.getPriority() == ElResolver.POST_INCR_PRIO) {
+            return new SemiAffectationOperation(_index, _indexChild, _m, _op, true);
+        }
         if (_op.getPriority() == ElResolver.UNARY_PRIO) {
             String value_ = _op.getOperators().firstValue().trim();
             if (StringList.quickEq(value_, NEG_BOOL)) {
@@ -226,7 +229,7 @@ public abstract class OperationNode {
             if (StringList.quickEq(value_, MINUS)) {
                 return new UnaryOperation(_index, _indexChild, _m, _op);
             }
-            return new SemiAffectationOperation(_index, _indexChild, _m, _op);
+            return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {
             return new MultOperation(_index, _indexChild, _m, _op);

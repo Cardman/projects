@@ -2894,7 +2894,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("v", values_.getVal(0));
-        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+        assertEq(ElResolver.POST_INCR_PRIO, seq_.getPriority());
     }
     @Test
     public void checkSyntaxDelimiters1Test() {

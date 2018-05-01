@@ -30,7 +30,7 @@ public final class OperationsSequence {
         offset = _offset;
     }
 
-    public void setupValues(String _string, boolean _incrdecr) {
+    public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
             priority = ElResolver.BAD_PRIO;
@@ -59,7 +59,10 @@ public final class OperationsSequence {
         int beginValuePart_ = CustList.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_;
-        if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {
+        if (priority == ElResolver.POST_INCR_PRIO) {
+            values.put((int)CustList.FIRST_INDEX, _string.substring(beginValuePart_, endValuePart_));
+            return;
+        } else if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {
             //not unary priority, not identity priority
             str_ = _string.substring(beginValuePart_, endValuePart_);
             values.put(beginValuePart_, str_);
@@ -70,9 +73,6 @@ public final class OperationsSequence {
                 //let analyze this
                 values.put(beginValuePart_, str_);
             }
-        } else if (_incrdecr) {
-            values.put((int)CustList.FIRST_INDEX, _string.substring(beginValuePart_, endValuePart_));
-            return;
         }
         if (useFct && operators.size() == 2) {
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
