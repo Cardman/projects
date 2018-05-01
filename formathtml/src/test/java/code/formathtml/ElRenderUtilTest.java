@@ -3054,6 +3054,43 @@ public final class ElRenderUtilTest {
         assertEq(15, (Number)op_.getArgument().getObject());
     }
     @Test
+    public void processEl194Test() {
+        Configuration context_ = contextEl(true);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(3);
+        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v", lv_);
+        LocalVariable lv2_ = new LocalVariable();
+        lv2_.setElement(12);
+        lv2_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v2", lv2_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new PageEl());
+        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.setRootAffect(true);
+        String elr_ = "v;.---v2;.";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        assertNotNull(op_);
+        Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, ctx_, "");
+        assertEq(12, (Number)lv2_.getElement());
+        assertEq(2, (Number)lv_.getElement());
+        assertEq(-9, (Number)op_.getArgument().getObject());
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);

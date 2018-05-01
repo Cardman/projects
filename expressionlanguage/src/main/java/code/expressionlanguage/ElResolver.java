@@ -848,13 +848,13 @@ public final class ElResolver {
             if (curChar_ == PLUS_CHAR) {
                 pureBinaryOp_ = true;
             }
-            if (curChar_ == MULT_CHAR) {
-                pureBinaryOp_ = true;
-            }
-            if (curChar_ == PLUS_CHAR || curChar_ == MINUS_CHAR) {
+            if ((curChar_ == PLUS_CHAR || curChar_ == MINUS_CHAR) && _conf.getOptions().isMultipleAffectations()) {
                 if (i_ + 1 < len_ && curChar_ == _string.charAt(i_ + 1)) {
                     pureBinaryOp_ = false;
                 }
+            }
+            if (curChar_ == MULT_CHAR) {
+                pureBinaryOp_ = true;
             }
             if (curChar_ == MOD_CHAR) {
                 pureBinaryOp_ = true;
@@ -926,7 +926,7 @@ public final class ElResolver {
             if (idOp_) {
                 d_.getAllowedOperatorsIndexes().add(i_);
             }
-            if (curChar_ == MINUS_CHAR) {
+            if (curChar_ == MINUS_CHAR && !_conf.getOptions().isMultipleAffectations()) {
                 enabledMinus_ = false;
             }
             if (partOfString_ && curChar_ == end_) {
@@ -1666,7 +1666,7 @@ public final class ElResolver {
             prio_ = UNARY_PRIO;
             String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
             operators_.put(firstPrintChar_, StringList.concat(EMPTY_STRING,ch_,ch_));
-            i_ += 2;
+            i_ += getIncrement(_string, firstPrintChar_ + 2, lastPrintChar_);
         } else if (_string.charAt(firstPrintChar_) == MINUS_CHAR) {
             prio_ = UNARY_PRIO;
             operators_.put(firstPrintChar_, String.valueOf(MINUS_CHAR));
@@ -1980,9 +1980,11 @@ public final class ElResolver {
         while (j_ <= _to) {
             char ch_ = _string.charAt(j_);
             if (ch_ != MINUS_CHAR) {
-                if (ch_ != NEG_BOOL_CHAR) {
-                    if (!Character.isWhitespace(ch_)) {
-                        break;
+                if (ch_ != PLUS_CHAR) {
+                    if (ch_ != NEG_BOOL_CHAR) {
+                        if (!Character.isWhitespace(ch_)) {
+                            break;
+                        }
                     }
                 }
             }
