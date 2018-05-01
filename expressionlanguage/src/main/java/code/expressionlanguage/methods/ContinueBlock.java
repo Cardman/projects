@@ -10,7 +10,7 @@ import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.NatTreeMap;
 
-public final class ContinueBlock extends Leaf implements CallingFinally, AbruptBlock {
+public final class ContinueBlock extends AbruptBlock implements CallingFinally {
 
     public ContinueBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -102,4 +102,5 @@ public final class ContinueBlock extends Leaf implements CallingFinally, AbruptB
             int _indexProcess) {
         return null;
     }
+
 }

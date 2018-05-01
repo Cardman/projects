@@ -30,7 +30,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ReturnMehod extends Leaf implements CallingFinally, AbruptBlock {
+public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
 
     private final String expression;
 

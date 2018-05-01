@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -110,6 +111,18 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
             rw_.setBlock(this);
         } else {
             rw_.setBlock(getNextSibling());
+        }
+    }
+    @Override
+    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            p_ = p_.getPreviousSibling();
+        }
+        if (_anEl.isReachable(p_)) {
+            _anEl.reach(this);
+        } else {
+            _anEl.unreach(this);
         }
     }
 }

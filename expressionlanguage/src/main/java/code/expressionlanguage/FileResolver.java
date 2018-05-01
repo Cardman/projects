@@ -51,6 +51,7 @@ public final class FileResolver {
     private static final char BEGIN_COMMENT = '/';
     private static final char SECOND_COMMENT = '*';
     private static final char PKG = '.';
+    private static final char TYPE_VAR = '#';
     private static final String EMPTY_STRING = "";
     private static final String VARARG = "...";
     private static final String NEW = "$new";
@@ -60,17 +61,11 @@ public final class FileResolver {
     private static final char BEGIN_BLOCK = '{';
     private static final char END_BLOCK = '}';
     private static final char BEGIN_ARRAY = '[';
-    private static final char GET_VAR = ';';
     private static final char END_ARRAY = ']';
     private static final char BEGIN_CALLING = '(';
     private static final char SEP_CALLING = ',';
     private static final char END_CALLING = ')';
     private static final char PART_SEPARATOR = '=';
-    private static final char PLUS_CHAR = '+';
-    private static final char MINUS_CHAR = '-';
-    private static final char MULT_CHAR = '*';
-    private static final char DIV_CHAR = '/';
-    private static final char MOD_CHAR = '%';
     private static final char DEL_CHAR = '\'';
     private static final char DEL_STRING = '"';
     private static final char ESCAPE = '\\';
@@ -1222,7 +1217,6 @@ public final class FileResolver {
                             int afterDeclareOffset_ = -1;
                             String declaringType_ = getDeclaringTypeInstr(found_);
                             boolean typeDeclaring_ = !declaringType_.trim().isEmpty();
-                            boolean declaring_ = false;
                             String info_;
                             if (typeDeclaring_) {
                                 int varNameOffset_ = typeOffset_;
@@ -1230,7 +1224,6 @@ public final class FileResolver {
                                 info_ = found_.substring(declaringType_.length());
                                 varNameOffset_ += StringList.getFirstPrintableCharIndex(info_);
                                 afterDeclareOffset_ = varNameOffset_;
-                                declaring_ = true;
                             } else {
                                 affectOffset_ = instructionRealLocation_;
                                 affectOffset_ += StringList.getFirstPrintableCharIndex(found_);
@@ -1239,7 +1232,7 @@ public final class FileResolver {
                             }
                             String inst_ = info_;
                             boolean addLine_ = true;
-                            if (declaring_) {
+                            if (typeDeclaring_) {
                                 if (StringList.isWord(info_.trim())) {
                                     br_ = new DeclareVariable(false,_context, index_, currentParent_, new OffsetStringInfo(instructionLocation_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, info_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                     currentParent_.appendChild(br_);
@@ -1450,33 +1443,6 @@ public final class FileResolver {
                 indexInstr_++;
                 continue;
             }
-            if (currentCharFound_ == BEGIN_CALLING) {
-                break;
-            }
-            if (currentCharFound_ == PLUS_CHAR) {
-                break;
-            }
-            if (currentCharFound_ == MINUS_CHAR) {
-                break;
-            }
-            if (currentCharFound_ == PART_SEPARATOR) {
-                break;
-            }
-            if (currentCharFound_ == MULT_CHAR) {
-                break;
-            }
-            if (currentCharFound_ == DIV_CHAR) {
-                break;
-            }
-            if (currentCharFound_ == MOD_CHAR) {
-                break;
-            }
-            if (currentCharFound_ == BEGIN_CALLING) {
-                break;
-            }
-            if (currentCharFound_ == GET_VAR) {
-                break;
-            }
             if (currentCharFound_ == BEGIN_ARRAY) {
                 String trimmed_ = declTypeName_.toString().trim();
                 if (trimmed_.length() > 0) {
@@ -1485,9 +1451,15 @@ public final class FileResolver {
                         break;
                     }
                 }
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
             }
             if (currentCharFound_ == BEGIN_TEMPLATE) {
                 nbOpenedTmp_++;
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
             }
             if (currentCharFound_ == END_TEMPLATE) {
                 nbOpenedTmp_--;
@@ -1496,9 +1468,38 @@ public final class FileResolver {
                     typeDeclaring_ = true;
                     break;
                 }
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
             }
-            declTypeName_.append(currentCharFound_);
-            indexInstr_++;
+            if (nbOpenedTmp_ > 0) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            // !Character.isWhitespace(currentCharFound_)
+            if (StringList.isWordChar(currentCharFound_)) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == KEY_WORD_PREFIX) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == PKG) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == TYPE_VAR) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            // !Character.isWhitespace(currentCharFound_)
+            break;
         }
         if (typeDeclaring_) {
             return declTypeName_.toString();

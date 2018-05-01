@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -543,4 +544,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         return _context.getClasses().getEqNext(_native);
     }
 
+    @Override
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+        if (!_anEl.isReachable(this)) {
+            _anEl.completeAbrupt(this);
+            _anEl.completeAbruptGroup(this);
+        }
+    }
 }

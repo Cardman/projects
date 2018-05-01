@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -16,6 +17,8 @@ import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.NatTreeMap;
 
 public final class SwitchBlock extends BracedStack implements BreakableBlock {
@@ -188,5 +191,42 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
     public ExpressionLanguage getEl(ContextEl _context, boolean _native,
             int _indexProcess) {
         return getEl();
+    }
+    @Override
+    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+        Block ch_ = getFirstChild();
+        if (ch_ == null) {
+            return;
+        }
+        boolean abrupt_ = true;
+        boolean def_ = false;
+        while (ch_.getNextSibling() != null) {
+            if (ch_ instanceof DefaultCondition) {
+                def_ = true;
+            }
+            ch_ = ch_.getNextSibling();
+        }
+        if (ch_ instanceof DefaultCondition) {
+            def_ = true;
+        }
+        if (_anEl.canCompleteNormally(ch_)) {
+            abrupt_ = false;
+        } else if (ch_.getFirstChild() == null) {
+            abrupt_ = false;
+        } else if (!def_) {
+            abrupt_ = false;
+        }
+        IdMap<BreakBlock, BreakableBlock> breakables_;
+        breakables_ = _anEl.getBreakables();
+        for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
+            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
+                abrupt_ = false;
+                break;
+            }
+        }
+        if (abrupt_) {
+            _anEl.completeAbrupt(this);
+            _anEl.completeAbruptGroup(this);
+        }
     }
 }

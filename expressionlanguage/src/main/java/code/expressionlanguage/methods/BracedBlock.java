@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
@@ -37,6 +38,26 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     }
 
     @Override
+    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+        Block ch_ = getFirstChild();
+        if (ch_ == null) {
+            if (!_anEl.isReachable(this)) {
+                _anEl.completeAbrupt(this);
+                _anEl.completeAbruptGroup(this);
+            }
+            return;
+        }
+        while (ch_.getNextSibling() != null) {
+            ch_ = ch_.getNextSibling();
+        }
+        if (!_anEl.canCompleteNormallyGroup(ch_)) {
+            _anEl.completeAbrupt(this);
+        }
+    }
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    }
+
+    @Override
     public final Block getFirstChild() {
         return firstChild;
     }
@@ -47,6 +68,21 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
                 String var_ = ((InitVariable)s).getVariableName();
                 _ip.getLocalVars().removeKey(var_);
             }
+        }
+    }
+
+    @Override
+    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+        Block prev_ = getPreviousSibling();
+        BracedBlock br_ = getParent();
+        if (prev_ == null) {
+            if (_anEl.isReachable(br_)) {
+                _anEl.reach(this);
+            } else {
+                _anEl.unreach(this);
+            }
+        } else {
+            super.reach(_an, _anEl);
         }
     }
 

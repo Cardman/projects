@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -7,7 +8,10 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.sml.Element;
+import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.StringList;
 
 public final class WhileCondition extends Condition implements Loop, IncrNextGroup {
 
@@ -127,5 +131,31 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         _conf.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _conf.getLastPage().setOffset(0);
         return evaluateCondition(_conf);
+    }
+    @Override
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+        if (getFirstChild() == null) {
+            return;
+        }
+        boolean abr_ = true;
+        if (_anEl.isReachable(this)) {
+            if (!StringList.quickEq(getCondition().trim(), TRUE_STRING)) {
+                abr_ = false;
+            }
+        }
+        if (abr_) {
+            IdMap<BreakBlock, BreakableBlock> breakables_;
+            breakables_ = _anEl.getBreakables();
+            for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
+                if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
+                    abr_ = false;
+                    break;
+                }
+            }
+        }
+        if (abr_) {
+            _anEl.completeAbrupt(this);
+            _anEl.completeAbruptGroup(this);
+        }
     }
 }

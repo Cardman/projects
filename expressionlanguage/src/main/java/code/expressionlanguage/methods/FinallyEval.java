@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
@@ -9,6 +10,7 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
+import code.util.CustList;
 import code.util.NatTreeMap;
 
 public final class FinallyEval extends BracedStack implements Eval, IncrNextGroup {
@@ -127,4 +129,44 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         return null;
     }
 
+    @Override
+    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            p_ = p_.getPreviousSibling();
+        }
+        if (_anEl.isReachable(p_)) {
+            _anEl.reach(this);
+        } else {
+            _anEl.unreach(this);
+        }
+    }
+    @Override
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+        CustList<Block> group_ = new CustList<Block>();
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            group_.add(p_);
+            p_ = p_.getPreviousSibling();
+        }
+        group_.add(p_);
+        boolean canCmpNormally_ = false;
+        for (Block b: group_) {
+            if (_anEl.canCompleteNormally(b)) {
+                canCmpNormally_ = true;
+                break;
+            }
+        }
+        if (!_anEl.canCompleteNormally(this)) {
+            canCmpNormally_ = false;
+        }
+        if (!canCmpNormally_) {
+            for (Block b: group_) {
+                _anEl.completeAbrupt(b);
+                _anEl.completeAbruptGroup(b);
+            }
+            _anEl.completeAbrupt(this);
+            _anEl.completeAbruptGroup(this);
+        }
+    }
 }

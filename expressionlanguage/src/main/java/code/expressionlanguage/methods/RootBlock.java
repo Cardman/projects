@@ -1142,4 +1142,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             int _indexProcess) {
         return null;
     }
+    @Override
+    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+    }
+    @Override
+    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+    }
 }

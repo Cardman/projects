@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
@@ -7,6 +8,7 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.sml.Element;
+import code.util.CustList;
 import code.util.NatTreeMap;
 
 public final class ElseCondition extends BracedStack implements BlockCondition, IncrNextGroup {
@@ -108,5 +110,41 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     public ExpressionLanguage getEl(ContextEl _context, boolean _native,
             int _indexProcess) {
         return null;
+    }
+    @Override
+    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            p_ = p_.getPreviousSibling();
+        }
+        if (_anEl.isReachable(p_)) {
+            _anEl.reach(this);
+        } else {
+            _anEl.unreach(this);
+        }
+    }
+    @Override
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+        CustList<Block> group_ = new CustList<Block>();
+        group_.add(this);
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            group_.add(p_);
+            p_ = p_.getPreviousSibling();
+        }
+        group_.add(p_);
+        boolean canCmpNormally_ = false;
+        for (Block b: group_) {
+            if (_anEl.canCompleteNormally(b)) {
+                canCmpNormally_ = true;
+                break;
+            }
+        }
+        if (!canCmpNormally_) {
+            for (Block b: group_) {
+                _anEl.completeAbrupt(b);
+                _anEl.completeAbruptGroup(b);
+            }
+        }
     }
 }

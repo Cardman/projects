@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 
-import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -344,12 +343,6 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasYield)) {
-                try {
-                    Field hyperReflection_ = Thread.class.getDeclaredField("target");
-                    assert _cont == hyperReflection_.get(Thread.currentThread());
-                } catch (Exception _0_) {
-                    // TODO: handle exception
-                }
                 Thread.yield();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;

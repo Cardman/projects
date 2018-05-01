@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
@@ -102,7 +103,8 @@ public abstract class Block extends Blockable {
     protected static final String GT = ">";
     protected static final String SEP_TMP = ",";
 
-    private static final String TRUE_STRING = "true";
+    protected static final String FALSE_STRING = "$false";
+    protected static final String TRUE_STRING = "$true";
 
     private BracedBlock parent;
 
@@ -137,6 +139,22 @@ public abstract class Block extends Blockable {
     public final OffsetsBlock getOffset() {
         return offset;
     }
+    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+        BracedBlock br_ = getParent();
+        Block prev_ = getPreviousSibling();
+        if (prev_ == null || this == _anEl.getRoot()) {
+            if (this == _anEl.getRoot() || _anEl.isReachable(br_)) {
+                _anEl.reach(this);
+            } else {
+                _anEl.unreach(this);
+            }
+        } else if (_anEl.canCompleteNormallyGroup(prev_)) {
+            _anEl.reach(this);
+        } else {
+            _anEl.unreach(this);
+        }
+    }
+    public abstract void abrupt(Analyzable _an, AnalyzingEl _anEl);
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
             _cont.getLastPage().setCurrentBlock(_block);

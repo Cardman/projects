@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -11,7 +12,9 @@ import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
+import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class CatchEval extends BracedStack implements Eval, IncrCurrentGroup, IncrNextGroup {
@@ -173,4 +176,55 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         return null;
     }
 
+    @Override
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+        if (canBeIncrementedCurGroup()) {
+            return;
+        }
+        CustList<Block> group_ = new CustList<Block>();
+        group_.add(this);
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            group_.add(p_);
+            p_ = p_.getPreviousSibling();
+        }
+        group_.add(p_);
+        boolean canCmpNormally_ = false;
+        for (Block b: group_) {
+            if (_anEl.canCompleteNormally(b)) {
+                canCmpNormally_ = true;
+                break;
+            }
+        }
+        if (!canCmpNormally_) {
+            for (Block b: group_) {
+                _anEl.completeAbruptGroup(b);
+            }
+        }
+    }
+
+    @Override
+    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+        StringList classes_ = new StringList();
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            classes_.add(((CatchEval)p_).getClassName());
+            p_ = p_.getPreviousSibling();
+        }
+        String curClass_ = getClassName();
+        _anEl.setArgMapping(curClass_);
+        boolean reachCatch_ = true;
+        for (String c: classes_) {
+            _anEl.setParamMapping(c);
+            if (_anEl.isCorrectMapping(_an)) {
+                reachCatch_ = false;
+                break;
+            }
+        }
+        if (reachCatch_) {
+            _anEl.reach(this);
+        } else {
+            _anEl.unreach(this);
+        }
+    }
 }

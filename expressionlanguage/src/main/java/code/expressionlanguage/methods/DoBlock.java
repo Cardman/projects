@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
@@ -8,7 +9,10 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.sml.Element;
+import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.StringList;
 
 public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup {
 
@@ -159,5 +163,45 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     public ExpressionLanguage getEl(ContextEl _context, boolean _native,
             int _indexProcess) {
         return null;
+    }
+    @Override
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+        Condition cond_ = getNext();
+        boolean abr_ = true;
+        Block last_ = getFirstChild();
+        while (last_.getNextSibling() != null) {
+            last_ = last_.getNextSibling();
+        }
+        if (!StringList.quickEq(cond_.getCondition().trim(), TRUE_STRING)) {
+            if (_anEl.canCompleteNormallyGroup(last_)) {
+                abr_ = false;
+            }
+        }
+        if (abr_) {
+            if (!StringList.quickEq(cond_.getCondition().trim(), TRUE_STRING)) {
+                IdMap<ContinueBlock, Loop> breakables_;
+                breakables_ = _anEl.getContinuables();
+                for (EntryCust<ContinueBlock, Loop> e: breakables_.entryList()) {
+                    if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
+                        abr_ = false;
+                        break;
+                    }
+                }
+            }
+        }
+        if (abr_) {
+            IdMap<BreakBlock, BreakableBlock> breakables_;
+            breakables_ = _anEl.getBreakables();
+            for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
+                if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
+                    abr_ = false;
+                    break;
+                }
+            }
+        }
+        if (abr_) {
+            _anEl.completeAbrupt(cond_);
+            _anEl.completeAbruptGroup(cond_);
+        }
     }
 }

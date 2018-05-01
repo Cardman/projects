@@ -20,6 +20,7 @@ import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
 import code.expressionlanguage.methods.util.DuplicateType;
+import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.EqualsEl;
 import code.expressionlanguage.methods.util.ErrorList;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
@@ -110,7 +111,6 @@ public final class Classes {
 
     private final ErrorList errorsDet;
     private final StringList localVariablesNames;
-    private final StringList classesInheriting;
     private DefaultLockingClass locks;
     private EqualsEl natEqEl;
     private String iteratorVar;
@@ -132,7 +132,6 @@ public final class Classes {
         filesBodies = new StringMap<FileBlock>();
         errorsDet = new ErrorList();
         staticFields = new ObjectMap<ClassField,Struct>();
-        classesInheriting = new StringList();
         localVariablesNames = new StringList();
     }
     private void processPredefinedClass(String _fileName,String _content, ContextEl _context) {
@@ -533,7 +532,6 @@ public final class Classes {
         classes_.validateClassesAccess(_context);
         classes_.validateLocalVariableNamesId(_context);
         classes_.validateEl(_context);
-        classes_.validateReturns(_context);
         TypeUtil.checkInterfaces(_context, classes_.classesBodies.getKeys());
         _context.setAnalyzing(null);
     }
@@ -1085,89 +1083,6 @@ public final class Classes {
                 errorsDet.add(b_);
             }
             return;
-        }
-        if (_context.getOptions().isBreadthFirst()) {
-            StringList allTypes_ = new StringList();
-            StringList allInterfaces_;
-            allInterfaces_ = new StringList();
-            for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-                RootBlock bl_ = c.getValue();
-                if (!(bl_ instanceof InterfaceBlock)) {
-                    continue;
-                }
-                if (!((InterfaceBlock) bl_).getDirectSuperInterfaces().isEmpty()) {
-                    continue;
-                }
-                String key_ = c.getKey();
-                StringList loc_ = breadthFirst(key_, _context);
-                for (String s: loc_) {
-                    if (!allInterfaces_.containsStr(s)) {
-                        allInterfaces_.add(s);
-                    }
-                }
-            }
-            allTypes_.addAllElts(allInterfaces_);
-            StringList allOthers_;
-            allOthers_ = new StringList();
-            for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-                RootBlock bl_ = c.getValue();
-                if (!(bl_ instanceof UniqueRootedBlock)) {
-                    continue;
-                }
-                UniqueRootedBlock unique_ = (UniqueRootedBlock) bl_;
-                if (!StringList.quickEq(unique_.getSuperClass(_context), objectClassName_)) {
-                    continue;
-                }
-                String key_ = c.getKey();
-                StringList loc_ = breadthFirst(key_, _context);
-                for (String s: loc_) {
-                    if (!allOthers_.containsStr(s)) {
-                        allOthers_.add(s);
-                    }
-                }
-            }
-            allTypes_.addAllElts(allOthers_);
-            classesInheriting.clear();
-            classesInheriting.addAllElts(allTypes_);
-        } else {
-            EqList<ClassEdge> elts_ = inherit_.getElementsListCopy();
-            int order_ = 0;
-            while (true) {
-                EqList<ClassEdge> next_ = new EqList<ClassEdge>();
-                for (ClassEdge e: elts_) {
-                    if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-                        continue;
-                    }
-                    EqList<ClassEdge> list_ = inherit_.getChildren(e);
-                    boolean allNb_ = true;
-                    for (ClassEdge s: list_) {
-                        ClassEdge s_ = inherit_.getElementByEq(s);
-                        if (s_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                            allNb_ = false;
-                            break;
-                        }
-                    }
-                    if (!allNb_) {
-                        continue;
-                    }
-                    next_.add(e);
-                }
-                if (next_.isEmpty()) {
-                    break;
-                }
-                for (ClassEdge o: next_) {
-                    o.setOrder(order_);
-                    order_++;
-                }
-            }
-            elts_.sortElts(new ComparatorClassEdge());
-            for (ClassEdge c: elts_) {
-                classesInheriting.add(c.getId());
-            }
-            classesInheriting.removeAllObj(objectClassName_);
-            if (!errorsDet.isEmpty()) {
-                return;
-            }
         }
         TypeUtil.buildInherits(_context, classesBodies.getKeys(), true);
         LgNames stds_ = _context.getStandards();
@@ -1819,32 +1734,34 @@ public final class Classes {
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
-                if (b instanceof FunctionBlock) {
-                    FunctionBlock method_ = (FunctionBlock) b;
-                    method_.checkFctBlocksTree(_context);
-                }
                 if (b instanceof InfoBlock) {
+                    page_.setGlobalClass(c.getValue().getGenericString());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.checkBlocksTree(_context);
+                    method_.buildExpressionLanguage(_context);
+                    method_.checkCallConstructor(_context);
+                }
+                if (b instanceof AloneBlock) {
+                    page_.setGlobalClass(c.getValue().getGenericString());
+                    AloneBlock method_ = (AloneBlock) b;
+                    if (b.getFirstChild() == null) {
+                        page_.setGlobalOffset(b.getOffset().getOffsetTrim());
+                        page_.setOffset(0);
+                        EmptyTagName un_ = new EmptyTagName();
+                        un_.setFileName(b.getFile().getFileName());
+                        un_.setRc(b.getRowCol(0, b.getOffset().getOffsetTrim()));
+                        errorsDet.add(un_);
+                    }
+                    method_.buildFctInstructions(_context);
+                    page_.getLocalVars().clear();
+                    page_.getCatchVars().clear();
+                    page_.getVars().clear();
                 }
             }
         }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
-                if (b instanceof InfoBlock) {
-                    page_.setGlobalClass(c.getValue().getGenericString());
-                    InfoBlock method_ = (InfoBlock) b;
-                    method_.buildExpressionLanguage(_context);
-                }
-                if (b instanceof AloneBlock) {
-                    page_.setGlobalClass(c.getValue().getGenericString());
-                    AloneBlock method_ = (AloneBlock) b;
-                    method_.buildFctInstructions(_context);
-                    page_.getLocalVars().clear();
-                    page_.getCatchVars().clear();
-                    page_.getVars().clear();
-                }
                 if (b instanceof Returnable) {
                     page_.setGlobalClass(c.getValue().getGenericString());
                     Returnable method_ = (Returnable) b;
@@ -1878,21 +1795,6 @@ public final class Classes {
                     page_.getLocalVars().clear();
                     page_.getCatchVars().clear();
                     page_.getVars().clear();
-                }
-            }
-        }
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (b instanceof InfoBlock) {
-                    page_.setGlobalClass(c.getValue().getGenericString());
-                    InfoBlock method_ = (InfoBlock) b;
-                    method_.checkCallConstructor(_context);
-                }
-                if (b instanceof FunctionBlock) {
-                    page_.setGlobalClass(c.getValue().getGenericString());
-                    FunctionBlock method_ = (FunctionBlock) b;
-                    method_.checkFctConstrCalls(_context);
                 }
             }
         }

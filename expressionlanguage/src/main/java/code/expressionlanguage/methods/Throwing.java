@@ -15,7 +15,7 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public final class Throwing extends Leaf implements StackableBlock, AbruptBlock {
+public final class Throwing extends AbruptBlock implements StackableBlock {
 
     private final String expression;
 
