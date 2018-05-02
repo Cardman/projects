@@ -1475,6 +1475,7 @@ public final class Classes {
     //validate local variables names and loop variables names
     public void validateLocalVariableNamesId(ContextEl _context) {
         _context.setAnalyzing(new AnalyzedPageEl());
+        _context.getAnalyzing().initLocalVars();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
@@ -1594,6 +1595,7 @@ public final class Classes {
         _context.removeLocalVar(iteratorVarCust);
         _context.removeLocalVar(hasNextVarCust);
         _context.removeLocalVar(nextVarCust);
+        _context.setAnalyzing(null);
     }
 
     public static boolean canAccessField(String _className, String _accessedClass, String _name, Analyzable _context) {
@@ -1731,7 +1733,7 @@ public final class Classes {
                         errorsDet.add(un_);
                     }
                     method_.buildFctInstructions(_context);
-                    page_.getLocalVars().clear();
+                    page_.clearAllLocalVars();
                     page_.getCatchVars().clear();
                     page_.getVars().clear();
                 }
@@ -1770,7 +1772,7 @@ public final class Classes {
                     }
                     method_.buildFctInstructions(_context);
                     page_.getParameters().clear();
-                    page_.getLocalVars().clear();
+                    page_.clearAllLocalVars();
                     page_.getCatchVars().clear();
                     page_.getVars().clear();
                 }

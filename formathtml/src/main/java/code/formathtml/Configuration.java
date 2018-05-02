@@ -97,7 +97,6 @@ public class Configuration implements Analyzable {
     private transient String resourceUrl;
 
     private transient AtomicBoolean interrupt = new AtomicBoolean();
-    private transient String currentVarSetting;
     @Override
     public boolean isMerged() {
         return context.isMerged();
@@ -720,11 +719,11 @@ public class Configuration implements Analyzable {
 
     @Override
     public String getCurrentVarSetting() {
-        return currentVarSetting;
+        return context.getCurrentVarSetting();
     }
 
     public void setCurrentVarSetting(String _currentVarSetting) {
-        currentVarSetting = _currentVarSetting;
+        context.setCurrentVarSetting(_currentVarSetting);
     }
 
     @Override
@@ -750,6 +749,16 @@ public class Configuration implements Analyzable {
     @Override
     public Options getOptions() {
         return context.getOptions();
+    }
+
+    @Override
+    public boolean isFinalVariable() {
+        return context.isFinalVariable();
+    }
+
+    @Override
+    public void setFinalVariable(boolean _finalVariable) {
+        context.setFinalVariable(_finalVariable);
     }
 
 }

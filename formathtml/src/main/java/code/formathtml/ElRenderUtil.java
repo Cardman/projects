@@ -72,8 +72,8 @@ public final class ElRenderUtil {
 
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
         ContextEl context_ = _conf.toContextEl();
-        context_.setRootAffect(false);
         context_.setAnalyzing(new AnalyzedPageEl());
+        context_.setRootAffect(false);
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
@@ -126,8 +126,8 @@ public final class ElRenderUtil {
 
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.toContextEl();
-        context_.setRootAffect(false);
         context_.setAnalyzing(new AnalyzedPageEl());
+        context_.setRootAffect(false);
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getVars());

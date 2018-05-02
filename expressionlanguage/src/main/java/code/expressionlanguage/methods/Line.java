@@ -107,6 +107,7 @@ public final class Line extends Leaf implements StackableBlock {
             }
         }
         _cont.setMerged(false);
+        _cont.setFinalVariable(false);
     }
 
     public ConstructorId getConstId() {

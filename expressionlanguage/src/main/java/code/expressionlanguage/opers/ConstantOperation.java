@@ -497,6 +497,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                     if (StringList.quickEq(c_, stringType_)) {
                         catString = true;
                     }
+                    immutablePart = locVar_.isFinalVariable();
                     setResultClass(new ClassArgumentMatching(c_));
                     return;
                 }

@@ -85,6 +85,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         _cont.setMerged(merged);
+        _cont.setFinalVariable(finalVariable);
         if (_cont.containsLocalVar(variableName)) {
             page_.setGlobalOffset(variableNameOffset);
             page_.setOffset(0);

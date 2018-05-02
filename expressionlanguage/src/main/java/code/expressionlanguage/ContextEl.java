@@ -72,14 +72,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     private NotInitializedClass initClass;
 
-    private transient int indexChildType;
     private transient LgNames standards;
 
     private transient AnalyzedPageEl analyzing;
-
-    private transient boolean staticBlock;
-
-    private transient boolean ambigous;
 
     private transient ElementOffsetsNext elements;
 
@@ -100,11 +95,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private transient Initializer init;
     private transient String name;
     private transient int ordinal;
-    private transient boolean enabled;
-    private transient boolean rootAffect;
-    private transient boolean analyzingRoot;
-    private transient boolean merged;
-    private transient String currentVarSetting;
     private transient boolean checkAffectation;
     public ContextEl() {
         this(CustList.INDEX_NOT_FOUND_ELT);
@@ -467,14 +457,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         analyzing = _analyzing;
     }
 
-    public boolean isStaticBlock() {
-        return staticBlock;
-    }
-
-    public void setStaticBlock(boolean _staticBlock) {
-        staticBlock = _staticBlock;
-    }
-
     public String getNextTempVar() {
         return analyzing.getNextTempVar(classes);
     }
@@ -493,12 +475,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public boolean isAmbigous() {
-        return ambigous;
+        return analyzing.isAmbigous();
     }
 
     @Override
     public void setAmbigous(boolean _ambigous) {
-        ambigous = _ambigous;
+        analyzing.setAmbigous(_ambigous);
     }
 
     @Override
@@ -526,20 +508,20 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     public boolean containsLocalVar(String _string) {
-        return analyzing.getLocalVars().contains(_string);
+        return analyzing.containsLocalVar(_string);
     }
 
     @Override
     public LocalVariable getLocalVar(String _string) {
-        return analyzing.getLocalVars().getVal(_string);
+        return analyzing.getLocalVar(_string);
     }
 
     public void putLocalVar(String _string, LocalVariable _loc) {
-        analyzing.getLocalVars().put(_string, _loc);
+        analyzing.putLocalVar(_string, _loc);
     }
 
     public void removeLocalVar(String _string) {
-        analyzing.getLocalVars().removeKey(_string);
+        analyzing.removeLocalVar(_string);
     }
 
     @Override
@@ -645,12 +627,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public int getCurrentChildTypeIndex() {
-        return indexChildType;
+        return analyzing.getIndexChildType();
     }
 
     @Override
     public void setCurrentChildTypeIndex(int _index) {
-        indexChildType = _index;
+        analyzing.setIndexChildType(_index);
     }
 
     @Override
@@ -665,42 +647,42 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public boolean isEnabledDotted() {
-        return enabled;
+        return analyzing.isEnabled();
     }
 
     @Override
     public void setEnabledDotted(boolean _enabled) {
-        enabled = _enabled;
+        analyzing.setEnabled(_enabled);;
     }
 
     @Override
     public boolean isRootAffect() {
-        return rootAffect;
+        return analyzing.isRootAffect();
     }
 
     @Override
     public void setRootAffect(boolean _rootAffect) {
-        rootAffect = _rootAffect;
+        analyzing.setRootAffect(_rootAffect);
     }
 
     @Override
     public boolean isAnalyzingRoot() {
-        return analyzingRoot;
+        return analyzing.isAnalyzingRoot();
     }
 
     @Override
     public void setAnalyzingRoot(boolean _analyzingRoot) {
-        analyzingRoot = _analyzingRoot;
+        analyzing.setAnalyzingRoot(_analyzingRoot);
     }
 
     @Override
     public boolean isMerged() {
-        return merged;
+        return analyzing.isMerged();
     }
 
     @Override
     public void setMerged(boolean _merged) {
-        merged = _merged;
+        analyzing.setMerged(_merged);
     }
 
     public boolean isCheckAffectation() {
@@ -713,10 +695,21 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public String getCurrentVarSetting() {
-        return currentVarSetting;
+        return analyzing.getCurrentVarSetting();
     }
 
     public void setCurrentVarSetting(String _currentVarSetting) {
-        currentVarSetting = _currentVarSetting;
+        analyzing.setCurrentVarSetting(_currentVarSetting);
     }
+
+    @Override
+    public boolean isFinalVariable() {
+        return analyzing.isFinalVariable();
+    }
+
+    @Override
+    public void setFinalVariable(boolean _finalVariable) {
+        analyzing.setFinalVariable(_finalVariable);
+    }
+
 }

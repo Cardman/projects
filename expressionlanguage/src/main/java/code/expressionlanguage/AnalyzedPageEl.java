@@ -3,11 +3,10 @@ package code.expressionlanguage;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FileBlock;
-import code.expressionlanguage.stacks.LoopBlockStack;
-import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.RowCol;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Numbers;
@@ -37,16 +36,13 @@ public class AnalyzedPageEl {
 
     private StringMap<LocalVariable> catchVars = new StringMap<LocalVariable>();
 
-    private StringMap<LocalVariable> localVars = new StringMap<LocalVariable>();
+    private CustList<StringMap<LocalVariable>> localVars = new CustList<StringMap<LocalVariable>>();
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
-
-    private CustList<RemovableVars> blockStacks = new CustList<RemovableVars>();
 
     private String readUrl;
 
     private int tabWidth;
-
     private int offset;
 
     private boolean staticContext;
@@ -54,7 +50,15 @@ public class AnalyzedPageEl {
     private int globalOffset;
 
     private int translatedOffset;
+    private int indexChildType;
 
+    private boolean ambigous;
+    private boolean enabled;
+    private boolean rootAffect;
+    private boolean analyzingRoot;
+    private boolean merged;
+    private boolean finalVariable;
+    private String currentVarSetting;
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -124,13 +128,10 @@ public class AnalyzedPageEl {
             list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos(_context)));
         }
         list_.add(LOCAL_VARIABLES);
-//        for (StringMap<LocalVariable> e: localVars) {
-//            for (EntryCust<String,LocalVariable> f: localVars.entryList()) {
-//                list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
-//            }
-//        }
-        for (EntryCust<String,LocalVariable> f: localVars.entryList()) {
-            list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
+        for (StringMap<LocalVariable> e: localVars) {
+            for (EntryCust<String,LocalVariable> f: e.entryList()) {
+                list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
+            }
         }
         list_.add(CATCH_VARIABLES);
         for (EntryCust<String,LocalVariable> e: catchVars.entryList()) {
@@ -139,10 +140,6 @@ public class AnalyzedPageEl {
         list_.add(PARAMATERS);
         for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
             list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
-        }
-        list_.add(SEP_INFO);
-        for (RemovableVars b: blockStacks) {
-            list_.add(b.getInfos());
         }
         StringBuilder keyMessage_ = new StringBuilder(SEP_INFO);
         return keyMessage_.append(list_.join(SEP_INFO)).append(SEP_INFO).append(LINE_COL).append(SEP_KEY_VAL).toString();
@@ -157,7 +154,7 @@ public class AnalyzedPageEl {
         int i_ = CustList.FIRST_INDEX;
         while (true) {
             if (!resVar_.containsStr(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
-                if (!localVars.contains(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
+                if (!localVars.last().contains(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
                     break;
                 }
             }
@@ -190,8 +187,16 @@ public class AnalyzedPageEl {
         vars = _vars;
     }
 
+    public void initLocalVars() {
+        localVars.add(new StringMap<LocalVariable>());
+    }
+
+    public void removeLocalVars() {
+        localVars.removeLast();
+    }
+
     public void putLocalVar(String _key, LocalVariable _var) {
-        localVars.put(_key, _var);
+        localVars.last().put(_key, _var);
     }
 
     public void clearAllLocalVars() {
@@ -199,27 +204,34 @@ public class AnalyzedPageEl {
     }
 
     public void removeLocalVar(String _key) {
-        localVars.removeKey(_key);
+        localVars.last().removeKey(_key);
     }
 
     public boolean containsLocalVar(String _key) {
-        return localVars.contains(_key);
+        for (StringMap<LocalVariable> m: localVars) {
+            if (m.contains(_key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public LocalVariable getLocalVar(String _key) {
-        return localVars.getVal(_key);
-    }
-
-    public StringMap<LocalVariable> getLocalVars() {
-        return localVars;
+        for (StringMap<LocalVariable> m: localVars) {
+            if (m.contains(_key)) {
+                return m.getVal(_key);
+            }
+        }
+        return null;
     }
 
     public void setLocalVars(StringMap<LocalVariable> _localVars) {
-        localVars = _localVars;
+        localVars = new CustList<StringMap<LocalVariable>>(new CollCapacity(1));
+        localVars.add(_localVars);
     }
 
     public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {
-        localVars = _localVars.last();
+        localVars = _localVars;
     }
 
     public StringMap<LocalVariable> getCatchVars() {
@@ -236,41 +248,6 @@ public class AnalyzedPageEl {
 
     public void setParameters(StringMap<LocalVariable> _parameters) {
         parameters = _parameters;
-    }
-    public boolean noBlock() {
-        return blockStacks.isEmpty();
-    }
-
-    public int nbBlocks() {
-        return blockStacks.size();
-    }
-
-    public LoopBlockStack getLastLoopIfPossible() {
-        LoopBlockStack c_ = null;
-        if (!noBlock() && getLastStack() instanceof LoopBlockStack) {
-            c_ = (LoopBlockStack) getLastStack();
-        }
-        return c_;
-    }
-
-    public RemovableVars getLastStack() {
-        return blockStacks.last();
-    }
-
-    public void addBlock(RemovableVars _b) {
-        blockStacks.add(_b);
-    }
-
-    public void removeLastBlock() {
-        blockStacks.removeLast();
-    }
-
-    public CustList<RemovableVars> getBlockStacks() {
-        return blockStacks;
-    }
-
-    public void setBlockStacks(CustList<RemovableVars> _blockStacks) {
-        blockStacks = _blockStacks;
     }
 
     public String getReadUrl() {
@@ -304,4 +281,77 @@ public class AnalyzedPageEl {
     public void setStaticContext(boolean _staticContext) {
         staticContext = _staticContext;
     }
+
+    public int getIndexChildType() {
+        return indexChildType;
+    }
+
+    public void setIndexChildType(int _indexChildType) {
+        indexChildType = _indexChildType;
+    }
+
+    public boolean isAmbigous() {
+        return ambigous;
+    }
+
+    public void setAmbigous(boolean _ambigous) {
+        ambigous = _ambigous;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean _enabled) {
+        enabled = _enabled;
+    }
+
+    public boolean isRootAffect() {
+        return rootAffect;
+    }
+
+    public void setRootAffect(boolean _rootAffect) {
+        rootAffect = _rootAffect;
+    }
+
+    public boolean isAnalyzingRoot() {
+        return analyzingRoot;
+    }
+
+    public void setAnalyzingRoot(boolean _analyzingRoot) {
+        analyzingRoot = _analyzingRoot;
+    }
+
+    public boolean isMerged() {
+        return merged;
+    }
+
+    public void setMerged(boolean _merged) {
+        merged = _merged;
+    }
+
+    public boolean isFinalVariable() {
+        return finalVariable;
+    }
+
+    public void setFinalVariable(boolean _finalVariable) {
+        finalVariable = _finalVariable;
+    }
+
+    public String getCurrentVarSetting() {
+        return currentVarSetting;
+    }
+
+    public void setCurrentVarSetting(String _currentVarSetting) {
+        currentVarSetting = _currentVarSetting;
+    }
+
+    public int getGlobalOffset() {
+        return globalOffset;
+    }
+
+    public int getTranslatedOffset() {
+        return translatedOffset;
+    }
+
 }

@@ -74,7 +74,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         anEl_.setRoot(this);
         Block en_ = this;
         CustList<BracedBlock> parents_ = anEl_.getParents();
-        parents_.add(this);
+        CustList<BreakableBlock> parentsBreakables_ = anEl_.getParentsBreakables();
+        CustList<Loop> parentsContinuable_ = anEl_.getParentsContinuables();
         while (true) {
             en_.reach(_cont, anEl_);
             if (!anEl_.isReachable(en_)) {
@@ -91,6 +92,13 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             }
             Block n_ = en_.getFirstChild();
             if (n_ != null) {
+                _cont.getAnalyzing().initLocalVars();
+                if (en_ instanceof BreakableBlock) {
+                    parentsBreakables_.add((BreakableBlock) en_);
+                }
+                if (en_ instanceof Loop) {
+                    parentsContinuable_.add((Loop) en_);
+                }
                 parents_.add((BracedBlock) en_);
                 tryCheckBlocksTree(n_, _cont);
                 tryBuildExpressionLanguage(n_, _cont);
@@ -131,6 +139,13 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                     return;
                 }
                 parents_.removeLast();
+                if (par_ instanceof BreakableBlock) {
+                    parentsBreakables_.removeLast();
+                }
+                if (par_ instanceof Loop) {
+                    parentsContinuable_.removeLast();
+                }
+                _cont.getAnalyzing().removeLocalVars();
                 en_.removeLocalVariablesFromParent(_cont);
                 en_ = par_;
             }

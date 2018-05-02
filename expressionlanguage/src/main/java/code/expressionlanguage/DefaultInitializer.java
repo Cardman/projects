@@ -50,9 +50,11 @@ public class DefaultInitializer implements Initializer {
         }
         return new EnumStruct(_className, _fields, _ordinal, _fieldName);
     }
+    @Override
     public String getInterfaceTask(LgNames _stds) {
         return "";
     }
+    @Override
     public String getRunTask(LgNames _stds) {
         return "";
     }

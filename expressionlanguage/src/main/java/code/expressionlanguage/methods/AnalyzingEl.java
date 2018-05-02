@@ -15,6 +15,8 @@ public final class AnalyzingEl {
     private IdMap<BreakBlock, BreakableBlock> breakables = new IdMap<BreakBlock, BreakableBlock>();
     private IdMap<ContinueBlock, Loop> continuables = new IdMap<ContinueBlock, Loop>();
     private CustList<BracedBlock> parents = new CustList<BracedBlock>();
+    private CustList<BreakableBlock> parentsBreakables = new CustList<BreakableBlock>();
+    private CustList<Loop> parentsContinuables = new CustList<Loop>();
     private Mapping mapping;
     private MemberCallingsBlock root;
 
@@ -72,6 +74,14 @@ public final class AnalyzingEl {
 
     public CustList<BracedBlock> getParents() {
         return parents;
+    }
+
+    public CustList<BreakableBlock> getParentsBreakables() {
+        return parentsBreakables;
+    }
+
+    public CustList<Loop> getParentsContinuables() {
+        return parentsContinuables;
     }
 
     public MemberCallingsBlock getRoot() {
