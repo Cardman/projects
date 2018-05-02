@@ -60,7 +60,6 @@ import code.util.StringMap;
 
 public abstract class OperationNode {
 
-    public static final String VOID_RETURN = "$void";
     public static final String METH_NAME = "name";
     public static final String METH_ORDINAL = "ordinal";
     public static final String METH_VALUES = "values";

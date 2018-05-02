@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.classes.Ints;
 import code.expressionlanguage.opers.util.MethodId;
@@ -73,7 +72,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("factrec", PrimitiveTypeUtil.PRIM_INT);
+        MethodId id_ = getMethodId("factrec", cont_.getStandards().getAliasPrimInteger());
         Argument v_ = new Argument();
         v_.setObject(5);
         args_.add(v_);
@@ -140,7 +139,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("addelt", CUST, "$int");
+        MethodId id_ = getMethodId("addelt", CUST, cont_.getStandards().getAliasPrimInteger());
         Argument v_ = new Argument();
         Ints l_ = new Ints();
         v_.setStruct(new StdStruct(l_, custLgNames_.getAliasInts()));

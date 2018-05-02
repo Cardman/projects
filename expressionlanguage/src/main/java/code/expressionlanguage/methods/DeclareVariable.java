@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
@@ -9,7 +10,6 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.NatTreeMap;
-import code.util.StringMap;
 
 public final class DeclareVariable extends Leaf implements InitVariable {
 
@@ -23,6 +23,10 @@ public final class DeclareVariable extends Leaf implements InitVariable {
 
     private boolean merged;
 
+    private boolean finalVariable;
+
+    private int finalVariableOffset;
+
     DeclareVariable(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -31,9 +35,11 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     }
 
     public DeclareVariable(boolean _merged, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, OffsetStringInfo _className, OffsetStringInfo _variableName, OffsetsBlock _offset) {
+            BracedBlock _m, OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetStringInfo _variableName, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
         merged = _merged;
+        finalVariable = _finalVar.isInfo();
+        finalVariableOffset = _finalVar.getOffset();
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
         variableName = _variableName.getInfo();
@@ -78,7 +84,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         _cont.setMerged(merged);
-        if (_cont.getLastPage().getLocalVars().contains(variableName)) {
+        if (_cont.containsLocalVar(variableName)) {
             page_.setGlobalOffset(variableNameOffset);
             page_.setOffset(0);
             DuplicateVariable d_ = new DuplicateVariable();
@@ -91,7 +97,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         if (!merged) {
             LocalVariable lv_ = new LocalVariable();
             lv_.setClassName(className);
-            _cont.getLastPage().getLocalVars().put(variableName, lv_);
+            _cont.putLocalVar(variableName, lv_);
         } else {
             _cont.setCurrentVarSetting(className);
         }
@@ -119,12 +125,19 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         lv_.setClassName(className_);
         lv_.setStruct(PrimitiveTypeUtil.defaultValue(className_, _cont));
         String name_ = getVariableName();
-        StringMap<LocalVariable> map_ = ip_.getLocalVars();
-        map_.put(name_, lv_);
+        ip_.putLocalVar(name_, lv_);
         processBlock(_cont);
     }
     public boolean isMerged() {
         return merged;
+    }
+
+    public boolean isFinalVariable() {
+        return finalVariable;
+    }
+
+    public int getFinalVariableOffset() {
+        return finalVariableOffset;
     }
 
     @Override

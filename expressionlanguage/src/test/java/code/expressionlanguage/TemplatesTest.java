@@ -533,7 +533,7 @@ public class TemplatesTest {
     @Test
     public void isCorrectWrite2Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite(PrimitiveTypeUtil.PRIM_INT, context_));
+        assertTrue(Templates.isCorrectWrite(context_.getStandards().getAliasPrimInteger(), context_));
     }
 
     @Test
@@ -2004,7 +2004,7 @@ public class TemplatesTest {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll("$int", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll(cont_.getStandards().getAliasPrimInteger(), t_,cont_));
     }
 
     @Test

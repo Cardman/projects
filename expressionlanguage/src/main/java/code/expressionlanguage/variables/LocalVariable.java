@@ -15,6 +15,8 @@ public final class LocalVariable {
 
     private String className;
 
+    private boolean finalVariable;
+
     public String getInfos() {
         if (className == null) {
             return SEP_INFO;
@@ -59,5 +61,13 @@ public final class LocalVariable {
 
     public void setClassName(String _className) {
         className = _className;
+    }
+
+    public boolean isFinalVariable() {
+        return finalVariable;
+    }
+
+    public void setFinalVariable(boolean _finalVariable) {
+        finalVariable = _finalVariable;
     }
 }

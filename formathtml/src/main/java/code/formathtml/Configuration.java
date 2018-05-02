@@ -637,6 +637,10 @@ public class Configuration implements Analyzable {
     }
 
     @Override
+    public LocalVariable getLocalVar(String _key) {
+        return getLastPage().getLocalVar(_key);
+    }
+
     public StringMap<LocalVariable> getLocalVars() {
         return getLastPage().getLocalVars();
     }

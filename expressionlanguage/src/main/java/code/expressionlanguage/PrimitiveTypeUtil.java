@@ -32,14 +32,6 @@ import code.util.TreeMap;
 public final class PrimitiveTypeUtil {
     public static final String NO_SUB_CLASS = "";
     public static final String PRIM  = "$";
-    public static final String PRIM_BOOLEAN = "$boolean";
-    public static final String PRIM_CHAR = "$char";
-    public static final String PRIM_BYTE = "$byte";
-    public static final String PRIM_SHORT = "$short";
-    public static final String PRIM_INT = "$int";
-    public static final String PRIM_LONG = "$long";
-    public static final String PRIM_FLOAT = "$float";
-    public static final String PRIM_DOUBLE = "$double";
     public static final String ARR_CLASS = "[";
     private static final byte DOUBLE_CASTING = 7;
     private static final byte FLOAT_CASTING = 6;

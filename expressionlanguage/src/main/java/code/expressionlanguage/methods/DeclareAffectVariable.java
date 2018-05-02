@@ -106,7 +106,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         PageEl page_ = _cont.getLastPage();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        if (_cont.getLastPage().getLocalVars().contains(variableName)) {
+        if (_cont.containsLocalVar(variableName)) {
             page_.setGlobalOffset(variableNameOffset);
             page_.setOffset(0);
             DuplicateVariable d_ = new DuplicateVariable();
@@ -118,7 +118,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(className);
-        _cont.getLastPage().getLocalVars().put(variableName, lv_);
+        _cont.putLocalVar(variableName, lv_);
         page_.setGlobalOffset(rightMemberOffset);
         page_.setOffset(0);
         opRight = ElUtil.getAnalyzedOperations(rightMember, _cont, Calculation.staticCalculation(f_.isStaticContext()));
@@ -178,7 +178,6 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(getClassName());
         String name_ = getVariableName();
-        StringMap<LocalVariable> map_ = ip_.getLocalVars();
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         Argument arg_ = el_.calculateMember(_cont);
         if (_cont.callsOrException()) {
@@ -187,7 +186,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         lv_.setStruct(arg_.getStruct());
-        map_.put(name_, lv_);
+        ip_.putLocalVar(name_, lv_);
         processBlock(_cont);
     }
 

@@ -9,7 +9,6 @@ import org.junit.Test;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.Struct;
@@ -868,7 +867,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
         ProcessMethod.initializeClass("pkg.ExTwo", cont_);
-        cont_.addPage(new PageEl());
+//        cont_.addPage(new PageEl());
         Argument ret_;
         ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -904,7 +903,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExOne");
         ProcessMethod.initializeClass("pkg.ExOne", cont_);
-        cont_.addPage(new PageEl());
+//        cont_.addPage(new PageEl());
         Argument ret_;
         ret_ = instanceArgument("pkg.ExOne", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1015,7 +1014,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
@@ -1063,7 +1062,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
@@ -1111,7 +1110,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
@@ -1154,7 +1153,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
@@ -1194,7 +1193,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
@@ -1242,7 +1241,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);

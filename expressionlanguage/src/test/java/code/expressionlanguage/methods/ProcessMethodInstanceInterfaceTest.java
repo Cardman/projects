@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.Struct;
@@ -601,7 +600,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
@@ -655,7 +654,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
@@ -712,7 +711,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
@@ -768,7 +767,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
@@ -824,7 +823,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
@@ -880,7 +879,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
@@ -937,7 +936,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
@@ -998,7 +997,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
@@ -1058,7 +1057,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.ExThree",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);

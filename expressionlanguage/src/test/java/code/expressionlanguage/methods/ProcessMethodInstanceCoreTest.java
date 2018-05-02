@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.Struct;
@@ -102,7 +101,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
@@ -137,7 +136,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         arg_ = new Argument();
         arg_.setObject(8);
         args_.add(arg_);
-        ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
+        ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
         ProcessMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);

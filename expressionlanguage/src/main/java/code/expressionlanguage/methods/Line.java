@@ -102,7 +102,7 @@ public final class Line extends Leaf implements StackableBlock {
             if (dc_.isMerged()) {
                 LocalVariable lv_ = new LocalVariable();
                 lv_.setClassName(dc_.getClassName());
-                _cont.getLastPage().getLocalVars().put(dc_.getVariableName(), lv_);
+                _cont.putLocalVar(dc_.getVariableName(), lv_);
             }
         }
         _cont.setMerged(false);

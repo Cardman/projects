@@ -446,9 +446,9 @@ public final class FormatHtml {
                         lv_.setClassName(classNameParam_);
                         lv_.setStruct(argt_.getStruct());
                         String nameVar_ = ip_.getNextTempVar();
-                        ip_.getLocalVars().put(nameVar_, lv_);
+                        ip_.putLocalVar(nameVar_, lv_);
                         ElRenderUtil.processEl(StringList.concat(methodName_,leftParStr_,nameVar_,GET_LOC_VAR,rightParStr_), 0, _conf);
-                        ip_.getLocalVars().removeKey(nameVar_);
+                        ip_.removeLocalVar(nameVar_);
                         if (_conf.getContext().getException() != null) {
                             return;
                         }
@@ -467,7 +467,7 @@ public final class FormatHtml {
                     lv_.setClassName(searchedClass_);
                     lv_.setStruct(bean_);
                     String nameVar_ = ip_.getNextTempVar();
-                    ip_.getLocalVars().put(nameVar_, lv_);
+                    ip_.putLocalVar(nameVar_, lv_);
                     ip_.setProcessingNode(nThree_);
                     ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                     ip_.setOffset(0);
@@ -477,12 +477,12 @@ public final class FormatHtml {
                     lv_ = new LocalVariable();
                     lv_.setClassName(lgNames_.getStructClassName(argt_.getStruct(), context_));
                     lv_.setStruct(argt_.getStruct());
-                    ip_.getLocalVars().put(nameValue_, lv_);
+                    ip_.putLocalVar(nameValue_, lv_);
                     String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, fieldName_);
                     String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
                     ElRenderUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
-                    ip_.getLocalVars().removeKey(nameVar_);
-                    ip_.getLocalVars().removeKey(nameValue_);
+                    ip_.removeLocalVar(nameVar_);
+                    ip_.removeLocalVar(nameValue_);
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
@@ -690,7 +690,9 @@ public final class FormatHtml {
                         break;
                     }
                     ip_ = _conf.getLastPage();
-                    ip_.getLocalVars().putAllMap(last_.getReturnedValues());
+                    for (EntryCust<String, LocalVariable> e: last_.getReturnedValues().entryList()) {
+                        ip_.putLocalVar(e.getKey(), e.getValue());
+                    }
                     processBlock(_conf, ip_);
                     if (_conf.getContext().getException() != null) {
                         throwException(_conf);
@@ -970,7 +972,7 @@ public final class FormatHtml {
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,UNSET_BLOCK_TAG))) {
             Element set_ = en_;
             String var_ = set_.getAttribute(ATTRIBUTE_VAR);
-            ip_.getLocalVars().removeKey(var_);
+            ip_.removeLocalVar(var_);
             processBlock(_conf, _ip);
             return ip_;
         }
@@ -1834,14 +1836,14 @@ public final class FormatHtml {
                 left_.setClassName(lgNames_.getStructClassName(arrayArg_, _conf.toContextEl()));
                 left_.setStruct(arrayArg_);
                 String nameOne_ = _ip.getNextTempVar();
-                _ip.getLocalVars().put(nameOne_, left_);
+                _ip.putLocalVar(nameOne_, left_);
                 String nameTwo_ = _ip.getNextTempVar();
-                _ip.getLocalVars().put(nameTwo_, right_);
+                _ip.putLocalVar(nameTwo_, right_);
                 String leftEl_ = StringList.concat(nameOne_,GET_LOC_VAR,String.valueOf(LEFT_ARR),Long.toString(indexNb_),SUFFIX_INT,String.valueOf(RIGHT_ARR));
                 String rightEl_ = StringList.concat(nameTwo_,GET_LOC_VAR);
                 ElRenderUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, leftEl_, rightEl_, String.valueOf(EQUALS), _conf);
-                _ip.getLocalVars().removeKey(nameOne_);
-                _ip.getLocalVars().removeKey(nameTwo_);
+                _ip.removeLocalVar(nameOne_);
+                _ip.removeLocalVar(nameTwo_);
             } else {
                 ElRenderUtil.processEl(expression_, 0, _conf);
             }
@@ -1870,7 +1872,7 @@ public final class FormatHtml {
         }
         String className_ = vi_.getClassName();
         Struct obj_ = vi_.getStruct();
-        _ip.getLocalVars().put(var_, tryToCreateVariable(_conf, _ip, className_, obj_));
+        _ip.putLocalVar(var_, tryToCreateVariable(_conf, _ip, className_, obj_));
     }
 
     static VariableInformation tryToGetVoidVariable(Configuration _conf, ImportingPage _ip,
@@ -2323,7 +2325,7 @@ public final class FormatHtml {
                 }
             } else {
                 String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true,_conf.toContextEl()).getName();
-                if (!StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+                if (!StringList.quickEq(typeNameArg_, context_.getStandards().getAliasPrimBoolean())) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(typeNameArg_);
                     mapping_.setParam(paramName_);
@@ -4812,6 +4814,7 @@ public final class FormatHtml {
         long stepValue_ = 0;
         long fromValue_ = 0;
         Object realFromValue_ = 0;
+        String primLong_ = _conf.getStandards().getAliasPrimLong();
         if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {
             String listAttr_ = currentForNode_.getAttribute(ATTRIBUTE_LIST);
             _ip.setProcessingAttribute(ATTRIBUTE_LIST);
@@ -4916,9 +4919,9 @@ public final class FormatHtml {
                 return;
             }
             realFromValue_ = argFrom_.getObject();
-            fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_, _conf.toContextEl()).getInstance();
-            long toValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argTo_.getObject(), _conf.toContextEl()).getInstance();
-            stepValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argStep_.getObject(), _conf.toContextEl()).getInstance();
+            fromValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.toContextEl()).getInstance();
+            long toValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argTo_.getObject(), _conf.toContextEl()).getInstance();
+            stepValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argStep_.getObject(), _conf.toContextEl()).getInstance();
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -5041,7 +5044,7 @@ public final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(ATTRIBUTE_CLASS_NAME);
             if (className_.isEmpty()) {
-                className_ = PrimitiveTypeUtil.PRIM_LONG;
+                className_ = primLong_;
             }
             if (!OperationNode.okType(_conf.toContextEl(), className_)) {
                 UnknownClassName un_ = new UnknownClassName();

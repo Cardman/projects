@@ -81,7 +81,6 @@ final class ExtractCondition {
     }
 
     static boolean evaluateCondition(Element _en, Configuration _conf, ImportingPage _ip) {
-        StringMap<LocalVariable> locVars_ = _ip.getLocalVars();
         String defined_ = _en.getAttribute(DEFINED_ATTRIBUTE);
         String undefined_ = _en.getAttribute(UNDEFINED_ATTRIBUTE);
         String isNotNull_ = _en.getAttribute(IS_NOT_NULL_ATTRIBUTE);
@@ -92,7 +91,7 @@ final class ExtractCondition {
         boolean return_ = true;
         if (!defined_.isEmpty()) {
             for (String a: StringList.splitChars(defined_, COMMA_CHAR)) {
-                if (!locVars_.contains(a)) {
+                if (!_ip.containsLocalVar(a)) {
                     return_ = false;
                     break;
                 }
@@ -101,7 +100,7 @@ final class ExtractCondition {
         if (return_) {
             if (!undefined_.isEmpty()) {
                 for (String a: StringList.splitChars(undefined_, COMMA_CHAR)) {
-                    if (locVars_.contains(a)) {
+                    if (_ip.containsLocalVar(a)) {
                         return_ = false;
                         break;
                     }

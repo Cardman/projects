@@ -88,14 +88,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             return;
         }
         class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
-        LgNames stds_ = _conf.getStandards();
-        String stringType_;
-        stringType_ = stds_.getAliasString();
-        if (resultCanBeSet()) {
-            if (StringList.quickEq(class_.getName(), stringType_)) {
-                catString = true;
-            }
-        }
         setResultClass(class_);
     }
 

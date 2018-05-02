@@ -11,7 +11,6 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.formathtml.classes.BeanFour;
@@ -185,7 +184,7 @@ public class HtmlRequestTest {
         nc_.setObject(bean_);
         nc_.getNodeInformation().setVarMethod("setInvisibleIntField");
         nc_.getNodeInformation().setChanging("");
-        nc_.getNodeInformation().setInputClass(PrimitiveTypeUtil.PRIM_INT);
+        nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
         HtmlRequest.setObject(conf_, nc_, new IntStruct(7),new Numbers<Long>());
         assertEq(7, bean_.getInvisibleField());
     }
@@ -260,7 +259,7 @@ public class HtmlRequestTest {
         nc_.setObject(bean_.getArrayInt(), conf_.toContextEl());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
-        nc_.getNodeInformation().setInputClass(PrimitiveTypeUtil.PRIM_INT);
+        nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
         HtmlRequest.setObject(conf_, nc_, new IntStruct(5),new Numbers<Long>());
         assertEq(2, bean_.getArrayInt().length);
         assertEq(5, bean_.getArrayInt()[0]);
@@ -349,7 +348,7 @@ public class HtmlRequestTest {
 //        nc_.setObject(bean_.getArrayInt(), "[$int");
 //        nc_.getNodeInformation().setVarMethod("");
 //        nc_.getNodeInformation().setChanging("updateValue");
-//        nc_.getNodeInformation().setInputClass(PrimitiveTypeUtil.PRIM_INT);
+//        nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
 //        HtmlRequest.setObject(conf_, nc_, new IntStruct(5),new Numbers<Long>());
 //        assertEq(2, bean_.getArrayInt().length);
 //        assertEq(5, bean_.getArrayInt()[0]);

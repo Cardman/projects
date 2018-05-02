@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
@@ -873,7 +872,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("factrec", PrimitiveTypeUtil.PRIM_INT);
+        MethodId id_ = getMethodId("factrec", cont_.getStandards().getAliasPrimInteger());
         Argument v_ = new Argument();
         v_.setObject(11);
         args_.add(v_);
@@ -1395,7 +1394,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("factrec", PrimitiveTypeUtil.PRIM_INT);
+        MethodId id_ = getMethodId("factrec", cont_.getStandards().getAliasPrimInteger());
         Argument v_ = new Argument();
         v_.setObject(2);
         args_.add(v_);

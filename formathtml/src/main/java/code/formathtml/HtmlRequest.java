@@ -14,7 +14,6 @@ import code.formathtml.util.BadElRender;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
 import code.sml.DocumentBuilder;
-import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
@@ -25,7 +24,6 @@ final class HtmlRequest {
     private static final String EMPTY_STRING = "";
     private static final char EQUALS = '=';
     private static final String GET_LOC_VAR = ";.";
-    private static final String TMP_VAR = "tmpvar";
     private static final String LEFT_PAR = "(";
     private static final String RIGHT_PAR = ")";
     private HtmlRequest() {
@@ -57,23 +55,19 @@ final class HtmlRequest {
         ImportingPage ip_ = _conf.getLastPage();
         StringList varNames_ = new StringList();
         for (Argument a: _args) {
-            String tmp_ = TMP_VAR;
-            int i_ = CustList.FIRST_INDEX;
-            while (ip_.getLocalVars().contains(StringList.concatNbs(tmp_,i_))) {
-                i_++;
-            }
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(a.getObjectClassName(_conf.toContextEl()));
             locVar_.setStruct(a.getStruct());
-            varNames_.add(StringList.concat(tmp_,Long.toString(i_),GET_LOC_VAR));
-            ip_.getLocalVars().put(StringList.concatNbs(tmp_,i_), locVar_);
+            String locName_ = ip_.getNextTempVar();
+            varNames_.add(StringList.concat(locName_,GET_LOC_VAR));
+            ip_.putLocalVar(locName_, locVar_);
         }
         Argument arg_ = ElRenderUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR,varNames_.join(COMMA),RIGHT_PAR), 0, _conf);
         if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
             return NullStruct.NULL_VALUE;
         }
         for (String n: varNames_) {
-            ip_.getLocalVars().removeKey(n.substring(0, n.length() - GET_LOC_VAR.length()));
+            ip_.removeLocalVar(n.substring(0, n.length() - GET_LOC_VAR.length()));
         }
         return arg_.getStruct();
     }
@@ -131,9 +125,9 @@ final class HtmlRequest {
                 LocalVariable locVar_ = new LocalVariable();
                 locVar_.setClassName(className_);
                 locVar_.setStruct(_attribute);
-                ip_.getLocalVars().put(tmp_, locVar_);
+                ip_.putLocalVar(tmp_, locVar_);
                 ElRenderUtil.processEl(StringList.concat(varMethod_,LEFT_PAR,tmp_,GET_LOC_VAR,RIGHT_PAR), 0, _conf);
-                ip_.getLocalVars().removeKey(tmp_);
+                ip_.removeLocalVar(tmp_);
                 ip_.setGlobalArgumentStruct(current_, _conf);
                 return;
             }
@@ -142,17 +136,17 @@ final class HtmlRequest {
             lv_.setClassName(lgNames_.getStructClassName(obj_, _conf.toContextEl()));
             lv_.setStruct(obj_);
             String nameVar_ = ip_.getNextTempVar();
-            ip_.getLocalVars().put(nameVar_, lv_);
+            ip_.putLocalVar(nameVar_, lv_);
             String nameValue_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
             lv_.setClassName(lgNames_.getStructClassName(_attribute, _conf.toContextEl()));
             lv_.setStruct(_attribute);
-            ip_.getLocalVars().put(nameValue_, lv_);
+            ip_.putLocalVar(nameValue_, lv_);
             String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
             String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
             ElRenderUtil.processAffect(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
-            ip_.getLocalVars().removeKey(nameVar_);
-            ip_.getLocalVars().removeKey(nameValue_);
+            ip_.removeLocalVar(nameVar_);
+            ip_.removeLocalVar(nameValue_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -169,14 +163,14 @@ final class HtmlRequest {
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(_conf.getStandards().getValueChangedEvent());
             locVar_.setElement(chg_, _conf.toContextEl());
-            ip_.getLocalVars().put(tmp_, locVar_);
+            ip_.putLocalVar(tmp_, locVar_);
             StringBuilder str_ = new StringBuilder(method_);
             str_.append(LEFT_PAR);
             str_.append(tmp_);
             str_.append(GET_LOC_VAR);
             str_.append(RIGHT_PAR);
             ElRenderUtil.processEl(str_.toString(), 0, _conf);
-            ip_.getLocalVars().removeKey(tmp_);
+            ip_.removeLocalVar(tmp_);
             ip_.setGlobalArgumentStruct(current_, _conf);
         }
     }

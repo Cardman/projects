@@ -24,7 +24,7 @@ public interface Analyzable {
     String getCurrentVarSetting();
     StringMap<LoopVariable> getVars();
 
-    StringMap<LocalVariable> getLocalVars();
+    LocalVariable getLocalVar(String _key);
 
     StringMap<LocalVariable> getCatchVars();
 

@@ -13,7 +13,6 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.Struct;
 import code.formathtml.classes.BeanEight;
 import code.formathtml.classes.BeanFive;
@@ -4695,7 +4694,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+"\u00E4 %2\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"\u00E4 %2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("\u00E4 %2", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -5415,7 +5414,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+"\u00E4 %2\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"\u00E4 %2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("\u00E4 %2", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -8674,7 +8673,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" c:className='"+PrimitiveTypeUtil.PRIM_INT+"' name=\"composite.privateInt\" varValue=\"composite.getPrivateInt()\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" c:className='$int' name=\"composite.privateInt\" varValue=\"composite.getPrivateInt()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

@@ -218,7 +218,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StdStruct(compos_, custLgNames_.getAliasComposite()));
         lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("v;.integer",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -703,7 +703,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StringStruct("varargs:{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("f;.format($vararg(\"java.lang.String\"),$firstopt(v;.),2;.,v;.)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
@@ -728,7 +728,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StringStruct("varargs:{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("f;.format($vararg(\"java.lang.String\"))",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
@@ -753,7 +753,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StringStruct("varargs:{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("f;.format(v;.,2;.,v;.)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
@@ -778,7 +778,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StringStruct("varargs:{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("f;.format()",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
@@ -798,7 +798,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasString());
         localVars_.put("2", lv_);
         addImportingPage(context_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("$new code.expressionlanguage.classes.Composite($vararg(\"java.lang.String\"),$firstopt(v;.),2;.).getStrings()",0, context_);
         assertNotNull(context_.getContext().getException());
 //        Object res_ = arg_.getObject();
@@ -875,7 +875,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arrays", lv_);
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("arrays;.[0i]",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -901,7 +901,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arrays", lv_);
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("arrays;.[0i].length",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -1040,7 +1040,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StringStruct("varargs:{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("(f;.format($vararg(\"java.lang.String\"),$firstopt(v;.),2;.,v;.)+'\\'').length()",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -1058,7 +1058,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(i_,ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(v;.[0i]+2)*2",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
@@ -1076,7 +1076,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(i_,ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("(v;.[0i]+2)*2",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
@@ -1138,7 +1138,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("$bool(1>0,0i,1i)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -1150,7 +1150,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("$bool(1<0,0i,1i)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -1162,7 +1162,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("$bool(1>0,0i,1i/0i)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -1174,7 +1174,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("$bool(1<0,1i/0i,1i)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -1254,7 +1254,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("$new [$int(1i)[0i]",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
@@ -1343,7 +1343,7 @@ public final class ElRenderUtilTest {
         lv_.setElement(1l);
         lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("getOverridenThree(arg;.)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
@@ -1359,9 +1359,9 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1l);
-        lv_.setClassName("$long");
+        lv_.setClassName(context_.getStandards().getAliasPrimLong());
         localVars_.put("arg", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("getOverridenThree(arg;.)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
@@ -2199,7 +2199,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         addBean(context_,new Composite(), COMPOSITE);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("setPrivateInt(arg;.)",0, context_);
         assertNotNull(context_.getContext().getException());
     }
@@ -2332,7 +2332,7 @@ public final class ElRenderUtilTest {
         lv_.setElement(1l);
         lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("get(arg;.)",0, context_);
         assertNotNull(context_.getContext().getException());
     }
@@ -2354,7 +2354,7 @@ public final class ElRenderUtilTest {
         lv_.setElement(1l);
         lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail().arg;.",0, context_);
         assertNotNull(context_.getContext().getException());
     }
@@ -2573,12 +2573,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.+=1i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2604,12 +2604,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new BooleanStruct(true));
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.&=$false";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2635,12 +2635,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new BooleanStruct(false));
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.|=$true";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2666,12 +2666,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new BooleanStruct(false));
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.&=1/0 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2698,12 +2698,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new BooleanStruct(true));
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.|=1/0 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2732,10 +2732,10 @@ public final class ElRenderUtilTest {
         lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(context_.getStandards().getAliasBoolean());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.&=1 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2764,10 +2764,10 @@ public final class ElRenderUtilTest {
         lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(context_.getStandards().getAliasBoolean());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.|=1 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2794,12 +2794,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.==1i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2825,12 +2825,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2857,12 +2857,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "++v;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2893,10 +2893,10 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_, ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.[0i]++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2927,10 +2927,10 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_, ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "++v;.[0i]";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2957,12 +2957,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.+=2i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2993,10 +2993,10 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_, ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.[0i]+=3i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3023,16 +3023,16 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setElement(12);
-        lv2_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.+++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3060,16 +3060,16 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setElement(12);
-        lv2_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.---v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3097,16 +3097,16 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setElement(12);
-        lv2_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.=++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3134,16 +3134,16 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(3);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         LocalVariable lv2_ = new LocalVariable();
         lv2_.setElement(12);
-        lv2_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.getLastPage().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.= ++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3197,11 +3197,11 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(0);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.", "1i", "=",context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, lv_.getClassName());
+        assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
         assertEq(1, (Number)lv_.getElement());
     }
 
@@ -3216,7 +3216,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
         lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
         processAffect("","","","v;.integer", "12i", "=",context_);
         assertEq(COMPOSITE, lv_.getClassName());
@@ -3234,7 +3234,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_, ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i]", "12i", "=",context_);
         assertEq(12, (Number) in_[0].getInstance());
     }
@@ -3253,7 +3253,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i][0i]", "12i", "=",context_);
         assertEq(12, (Number) ((Struct[])in_[0].getInstance())[0].getInstance());
     }
@@ -3265,11 +3265,11 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.", "1i", "+=",context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, lv_.getClassName());
+        assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
         assertEq(2, (Number)lv_.getElement());
     }
 
@@ -3284,7 +3284,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
         lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
         processAffect("","","","v;.integer", "12i", "-=",context_);
         assertEq(COMPOSITE, lv_.getClassName());
@@ -3302,7 +3302,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_, ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i]", "12i", "-=",context_);
         assertEq(-12, (Number) in_[0].getInstance());
     }
@@ -3321,7 +3321,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i][0i]", "12i", "-=",context_);
         assertEq(-12, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
     }
@@ -3340,7 +3340,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i][0i]", "1b", "++",context_);
         assertEq(1, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
     }
@@ -3359,7 +3359,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i][0i]", "1b", "--",context_);
         assertEq(-1, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
     }
@@ -3413,7 +3413,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i].array[0i]", "1i", "=",context_);
         assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
     }
@@ -3429,7 +3429,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i].getArray()[0i]", "1i", "=",context_);
         assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
     }
@@ -3445,7 +3445,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "1i", "=",context_);
         assertEq(1, ((ArrayContainer)c_[0].getInstance()).getCompo()[0].getArray()[0]);
     }
@@ -3500,7 +3500,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StdStruct(c_,"code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.getArray()[0i]", "1i", "=",context_);
         assertEq(1, c_.getArray()[0]);
     }
@@ -3515,7 +3515,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StdStruct(c_,"code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.getCompo()[0i].getArray()[0i]", "1i", "=",context_);
         assertEq(1, c_.getCompo()[0].getArray()[0]);
     }
@@ -3540,7 +3540,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(null);
         lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
-        cont_.getLastPage().getLocalVars().putAllMap(localVars_);
+        cont_.getLastPage().setLocalVars(localVars_);
         Struct arg_;
         Object res_;
         processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "2i", "=",cont_);
@@ -3570,7 +3570,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(null);
         lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
-        cont_.getLastPage().getLocalVars().putAllMap(localVars_);
+        cont_.getLastPage().setLocalVars(localVars_);
         Struct arg_;
         Object res_;
         processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "2i", "=",cont_);
@@ -3589,7 +3589,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StringStruct("add "));
         lv_.setClassName(context_.getStandards().getAliasString());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.", "1i", "+=",context_);
         assertEq(context_.getStandards().getAliasString(), lv_.getClassName());
         assertEq("add 1", (String)lv_.getElement());
@@ -3608,7 +3608,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(arr_, arrayType_));
         lv_.setClassName(arrayType_);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i]", "1i", "+=",context_);
         assertEq(arrayType_, lv_.getClassName());
         assertEq("add 1",(String)((Struct[]) lv_.getStruct().getInstance())[0].getInstance());
@@ -3642,11 +3642,11 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new BooleanStruct(true));
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.", "$false", "&=",context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, lv_.getClassName());
+        assertEq(context_.getStandards().getAliasPrimBoolean(), lv_.getClassName());
         assertEq(false, (Boolean)lv_.getElement());
     }
     @Test
@@ -3656,11 +3656,11 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new BooleanStruct(false));
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.", "$true", "|=",context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, lv_.getClassName());
+        assertEq(context_.getStandards().getAliasPrimBoolean(), lv_.getClassName());
         assertEq(true, (Boolean)lv_.getElement());
     }
     static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
@@ -3670,7 +3670,7 @@ public final class ElRenderUtilTest {
         ContextEl context_ = _conf.toContextEl();
         context_.setAnalyzing(new PageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getLastPage().getGlobalClass());
-        context_.getAnalyzing().getLocalVars().putAllMap(_conf.getLastPage().getLocalVars());
+        context_.getAnalyzing().setLocalVars(_conf.getLastPage().getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getLastPage().getVars());
         context_.getAnalyzing().getCatchVars().putAllMap(_conf.getLastPage().getCatchVars());
         context_.getAnalyzing().getParameters().putAllMap(_conf.getLastPage().getParameters());
@@ -3737,7 +3737,7 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().getParameters().putAllMap(localVars_);
         processAffect("","","","v;.;", "12i", "=",context_);
@@ -3754,7 +3754,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new ArrayStruct(c_, ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i]", "\"12i\"", "=",context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
@@ -3770,7 +3770,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
         lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
         processAffect("","","","v;.integer", "\"12i\"", "=",context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
@@ -3783,9 +3783,9 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(8);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.", "\"12i\"", "=",context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
@@ -3804,7 +3804,7 @@ public final class ElRenderUtilTest {
         lv_ = new LocalVariable();
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
         processAffect("","","","v;.integer", "v2;.", "=",context_);
         assertNotNull(context_.getContext().getException());
@@ -3824,7 +3824,7 @@ public final class ElRenderUtilTest {
         lv_ = new LocalVariable();
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "v2;.", "=",context_);
         assertNotNull(context_.getContext().getException());
     }
@@ -3836,12 +3836,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.", "v2;.", "=",context_);
         assertNotNull(context_.getContext().getException());
     }
@@ -3854,12 +3854,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","$this", "$null", "=",context_);
         assertNotNull(context_.getContext().getException());
     }
@@ -3871,12 +3871,12 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1);
-        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.", "$this", "=",context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
@@ -3901,7 +3901,7 @@ public final class ElRenderUtilTest {
         lv_.setStruct(null);
         lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
-        cont_.getLastPage().getLocalVars().putAllMap(localVars_);
+        cont_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "v;.", "=",cont_);
         assertNotNull(cont_.getContext().getException());
     }
@@ -3923,7 +3923,7 @@ public final class ElRenderUtilTest {
         lv_.setElement(1);
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
-        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        context_.getLastPage().setLocalVars(localVars_);
         processAffect("","","","v;.[0i]", "v2;.", "=",context_);
         assertNotNull(context_.getContext().getException());
     }

@@ -201,27 +201,27 @@ final class ExtractObject {
                         lv_ = new LocalVariable();
                         lv_.setStruct(trloc_);
                         lv_.setClassName(trloc_.getClassName(_conf.toContextEl()));
-                        _ip.getLocalVars().put(valName_, lv_);
+                        _ip.putLocalVar(valName_, lv_);
                         String patName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
                         lv_.setElement(_pattern);
                         lv_.setClassName(_conf.getStandards().getAliasString());
-                        _ip.getLocalVars().put(patName_, lv_);
+                        _ip.putLocalVar(patName_, lv_);
                         String navName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
                         lv_.setElement(_conf, _conf.toContextEl());
                         lv_.setClassName(_conf.getStandards().getAliasObject());
-                        _ip.getLocalVars().put(navName_, lv_);
+                        _ip.putLocalVar(navName_, lv_);
                         String beanName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
                         lv_.setStruct(bean_);
                         lv_.setClassName(bean_.getClassName(_conf.toContextEl()));
-                        _ip.getLocalVars().put(beanName_, lv_);
+                        _ip.putLocalVar(beanName_, lv_);
                         String objName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
                         lv_.setStruct(s_);
                         lv_.setClassName(_conf.getStandards().getAliasObject());
-                        _ip.getLocalVars().put(objName_, lv_);
+                        _ip.putLocalVar(objName_, lv_);
                         StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(GET_STRING).append(BEGIN_ARGS);
                         expression_.append(patName_).append(GET_LOC_VAR).append(SEP_ARGS);
                         expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
@@ -477,15 +477,15 @@ final class ExtractObject {
         lvOne_.setClassName(_conf.getStandards().getAliasObject());
         lvOne_.setStruct(_objOne);
         String nameOne_ = ip_.getNextTempVar();
-        ip_.getLocalVars().put(nameOne_, lvOne_);
+        ip_.putLocalVar(nameOne_, lvOne_);
         LocalVariable lvTwo_ = new LocalVariable();
         lvTwo_.setClassName(_conf.getStandards().getAliasObject());
         lvTwo_.setStruct(_objTwo);
         String nameTwo_ = ip_.getNextTempVar();
-        ip_.getLocalVars().put(nameTwo_, lvTwo_);
+        ip_.putLocalVar(nameTwo_, lvTwo_);
         Argument arg_ = ElRenderUtil.processEl(StringList.concat(nameOne_,GET_LOC_VAR,CMP,nameTwo_,GET_LOC_VAR), 0, _conf);
-        ip_.getLocalVars().removeKey(nameOne_);
-        ip_.getLocalVars().removeKey(nameTwo_);
+        ip_.removeLocalVar(nameOne_);
+        ip_.removeLocalVar(nameTwo_);
         if (_conf.getContext().getException() != null) {
             return false;
         }
@@ -568,10 +568,10 @@ final class ExtractObject {
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
         var_.setClassName(_classVar);
-        ip_.getLocalVars().put(varName_, var_);
+        ip_.putLocalVar(varName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,NO_PARAM_METHOD);
         Argument arg_ = ElRenderUtil.processEl(expression_, 0, _conf);
-        ip_.getLocalVars().removeKey(varName_);
+        ip_.removeLocalVar(varName_);
         if (arg_ == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -585,15 +585,15 @@ final class ExtractObject {
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
         var_.setClassName(_conf.getStandards().getBean());
-        ip_.getLocalVars().put(varName_, var_);
+        ip_.putLocalVar(varName_, var_);
         String argName_ = ip_.getNextTempVar();
         var_ = new LocalVariable();
         var_.setStruct(_argument);
         var_.setClassName(_argumentClassName);
-        ip_.getLocalVars().put(argName_, var_);
+        ip_.putLocalVar(argName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,String.valueOf(BEGIN_ARGS),argName_,GET_LOC_VAR,String.valueOf(END_ARGS));
         ElRenderUtil.processEl(expression_, 0, _conf);
-        ip_.getLocalVars().removeKey(varName_);
+        ip_.removeLocalVar(varName_);
     }
 
     static LoopVariable getCurrentVariable(Configuration _conf, int _offset,StringMap<LoopVariable> _vars, String _candidate) {

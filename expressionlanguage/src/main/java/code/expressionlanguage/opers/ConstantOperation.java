@@ -335,9 +335,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 static_.setRc(_conf.getCurrentLocation());
                 _conf.getClasses().getErrorsDet().add(static_);
             }
-            if (getParent() == null) {
-                immutablePart = true;
-            }
+            immutablePart = true;
             setResultClass(new ClassArgumentMatching(arg_));
             return;
         }
@@ -430,13 +428,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             e_ = r_.getId();
             fieldMetaInfo = e_;
             String c_ = fieldMetaInfo.getType();
-            if (resultCanBeSet()) {
-                if (fieldMetaInfo.isFinalField()) {
-                    finalField = true;
-                }
-                if (StringList.quickEq(c_, stringType_)) {
-                    catString = true;
-                }
+            if (fieldMetaInfo.isFinalField()) {
+                finalField = true;
             }
             fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
             setResultClass(new ClassArgumentMatching(c_));
@@ -456,9 +449,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 _conf.getClasses().getErrorsDet().add(final_);
             }
             if (op_.getConstType() == ConstType.PARAM) {
-                if (getParent() == null) {
-                    immutablePart = true;
-                }
+                immutablePart = true;
                 variableName = str_;
                 LocalVariable locVar_ = _conf.getParameters().getVal(variableName);
                 if (locVar_ != null) {
@@ -479,9 +470,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 return;
             }
             if (op_.getConstType() == ConstType.CATCH_VAR) {
-                if (getParent() == null) {
-                    immutablePart = true;
-                }
+                immutablePart = true;
                 variableName = str_;
                 LocalVariable locVar_ = _conf.getCatchVars().getVal(variableName);
                 if (locVar_ != null) {
@@ -502,7 +491,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                     setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
                     return;
                 }
-                LocalVariable locVar_ = _conf.getLocalVars().getVal(variableName);
+                LocalVariable locVar_ = _conf.getLocalVar(variableName);
                 if (locVar_ != null) {
                     String c_ = locVar_.getClassName();
                     if (StringList.quickEq(c_, stringType_)) {
@@ -520,9 +509,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 return;
             }
             if (op_.getConstType() == ConstType.LOOP_INDEX) {
-                if (getParent() == null) {
-                    immutablePart = true;
-                }
+                immutablePart = true;
                 variableName = str_;
                 LoopVariable locVar_ = _conf.getVars().getVal(variableName);
                 if (locVar_ != null) {
@@ -538,9 +525,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 return;
             }
             if (op_.getConstType() == ConstType.LOOP_VAR) {
-                if (getParent() == null) {
-                    immutablePart = true;
-                }
+                immutablePart = true;
                 variableName = str_;
                 LoopVariable locVar_ = _conf.getVars().getVal(variableName);
                 if (locVar_ != null) {
@@ -575,8 +560,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        String stringType_;
-        stringType_ = stds_.getAliasString();
         if (cl_.isArray()) {
             if (StringList.quickEq(_key, LENGTH)) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
@@ -626,13 +609,8 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         e_ = r_.getId();
         fieldMetaInfo = e_;
         String c_ = fieldMetaInfo.getType();
-        if (resultCanBeSet()) {
-            if (fieldMetaInfo.isFinalField()) {
-                finalField = true;
-            }
-            if (StringList.quickEq(c_, stringType_)) {
-                catString = true;
-            }
+        if (fieldMetaInfo.isFinalField()) {
+            finalField = true;
         }
         fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
         setResultClass(new ClassArgumentMatching(c_));
@@ -812,7 +790,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             if (resultCanBeSet()) {
                 return ArgumentCall.newArgument(Argument.createVoid());
             }
-            LocalVariable locVar_ = ip_.getLocalVars().getVal(variableName);
+            LocalVariable locVar_ = ip_.getLocalVar(variableName);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
             return ArgumentCall.newArgument(a_);
@@ -853,7 +831,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         OperationsSequence op_ = getOperations();
         if (op_.getConstType() == ConstType.LOC_VAR || excVar) {
-            LocalVariable locVar_ = ip_.getLocalVars().getVal(variableName);
+            LocalVariable locVar_ = ip_.getLocalVar(variableName);
             Argument left_ = new Argument();
             left_.setStruct(locVar_.getStruct());
             Argument right_ = ip_.getRightArgument();

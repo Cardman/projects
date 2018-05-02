@@ -75,7 +75,7 @@ public final class ElRenderUtil {
         context_.setRootAffect(false);
         context_.setAnalyzing(new PageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
-        context_.getAnalyzing().getLocalVars().putAllMap(_conf.getLocalVars());
+        context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
         context_.getAnalyzing().getCatchVars().putAllMap(_conf.getCatchVars());
         context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
@@ -129,7 +129,7 @@ public final class ElRenderUtil {
         context_.setRootAffect(false);
         context_.setAnalyzing(new PageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
-        context_.getAnalyzing().getLocalVars().putAllMap(_conf.getLocalVars());
+        context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
         context_.getAnalyzing().getCatchVars().putAllMap(_conf.getCatchVars());
         context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
@@ -180,7 +180,7 @@ public final class ElRenderUtil {
         ContextEl context_ = _conf.toContextEl();
         context_.setAnalyzing(new PageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
-        context_.getAnalyzing().getLocalVars().putAllMap(_conf.getLocalVars());
+        context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
         context_.getAnalyzing().getCatchVars().putAllMap(_conf.getCatchVars());
         context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());

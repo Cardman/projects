@@ -58,7 +58,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     private int stackOverFlow;
 
-    private Options options = new Options();
+    private Options options;
 
     private Struct exception;
 
@@ -111,13 +111,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     public ContextEl(int _stackOverFlow) {
-        this(_stackOverFlow, new DefaultLockingClass(),new DefaultInitializer());
+        this(_stackOverFlow, new DefaultLockingClass(),new DefaultInitializer(), new Options());
     }
-    public ContextEl(DefaultLockingClass _lock,Initializer _init) {
-        this(CustList.INDEX_NOT_FOUND_ELT, _lock,_init);
+    public ContextEl(DefaultLockingClass _lock,Initializer _init, Options _options) {
+        this(CustList.INDEX_NOT_FOUND_ELT, _lock,_init, _options);
     }
 
-    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Initializer _init) {
+    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Initializer _init, Options _options) {
+        options = _options;
         stackOverFlow = _stackOverFlow;
         init = _init;
         classes = new Classes();
@@ -474,6 +475,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         staticBlock = _staticBlock;
     }
 
+    public String getNextTempVar() {
+        return getLastPage().getNextTempVar(classes);
+    }
+
     public PageEl getLastPage() {
         if (analyzing != null) {
             return analyzing;
@@ -523,7 +528,23 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return getLastPage().getVars();
     }
 
+    public boolean containsLocalVar(String _string) {
+        return getLastPage().getLocalVars().contains(_string);
+    }
+
     @Override
+    public LocalVariable getLocalVar(String _string) {
+        return getLastPage().getLocalVars().getVal(_string);
+    }
+
+    public void putLocalVar(String _string, LocalVariable _loc) {
+        getLastPage().getLocalVars().put(_string, _loc);
+    }
+
+    public void removeLocalVar(String _string) {
+        getLastPage().getLocalVars().removeKey(_string);
+    }
+
     public StringMap<LocalVariable> getLocalVars() {
         return getLastPage().getLocalVars();
     }

@@ -1215,11 +1215,27 @@ public final class FileResolver {
                             int affectOffset_ = -1;
                             int typeOffset_ = instructionRealLocation_;
                             int afterDeclareOffset_ = -1;
+                            boolean finalLocalVar_ = startsWithPrefixKeyWord(trimmedInstruction_, KEY_WORD_FINAL);
+                            int delta_ = 0;
+                            int deltaAfter_ = 0;
+                            if (finalLocalVar_) {
+                                deltaAfter_ = prefixKeyWord(KEY_WORD_FINAL).length();
+                                delta_ = StringList.getFirstPrintableCharIndex(found_) + deltaAfter_;
+                                deltaAfter_ = delta_;
+                                deltaAfter_ += StringList.getFirstPrintableCharIndex(found_.substring(delta_));
+                            }
+                            found_ = found_.substring(delta_);
                             String declaringType_ = getDeclaringTypeInstr(found_);
                             boolean typeDeclaring_ = !declaringType_.trim().isEmpty();
                             String info_;
+                            int realTypeOffset_;
+                            if (finalLocalVar_) {
+                                realTypeOffset_ = typeOffset_ + deltaAfter_;
+                            } else {
+                                realTypeOffset_ = instructionLocation_;
+                            }
                             if (typeDeclaring_) {
-                                int varNameOffset_ = typeOffset_;
+                                int varNameOffset_ = typeOffset_ + delta_;
                                 varNameOffset_ += declaringType_.length();
                                 info_ = found_.substring(declaringType_.length());
                                 varNameOffset_ += StringList.getFirstPrintableCharIndex(info_);
@@ -1234,13 +1250,13 @@ public final class FileResolver {
                             boolean addLine_ = true;
                             if (typeDeclaring_) {
                                 if (StringList.isWord(info_.trim())) {
-                                    br_ = new DeclareVariable(false,_context, index_, currentParent_, new OffsetStringInfo(instructionLocation_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, info_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                    br_ = new DeclareVariable(false,_context, index_, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, info_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                     currentParent_.appendChild(br_);
                                     addLine_ = false;
                                 } else {
                                     int firstIndex_ = info_.indexOf(PART_SEPARATOR);
                                     String left_ = info_.substring(0, firstIndex_);
-                                    br_ = new DeclareVariable(true,_context, index_, currentParent_, new OffsetStringInfo(instructionLocation_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, left_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                    br_ = new DeclareVariable(true,_context, index_, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, left_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                     currentParent_.appendChild(br_);
                                     index_++;
                                     indexes_.setLast(index_);

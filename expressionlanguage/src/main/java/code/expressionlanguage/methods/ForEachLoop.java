@@ -329,7 +329,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(stds_.getStructClassName(its_, _cont));
             locVar_.setStruct(its_);
-            _cont.getLastPage().getLocalVars().put(locName_, locVar_);
+            _cont.getLastPage().putLocalVar(locName_, locVar_);
             ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX, native_,CustList.SECOND_INDEX);
             Argument arg_ = dyn_.calculateMember(_cont);
             if (_cont.callsOrException()) {
@@ -337,7 +337,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             }
             _cont.getLastPage().clearCurrentEls();
             iterStr_ = arg_.getStruct();
-            _cont.getLastPage().getLocalVars().removeKey(locName_);
+            _cont.getLastPage().removeLocalVar(locName_);
             if (iterStr_.isNull()) {
                 _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
                 return;
@@ -466,14 +466,14 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getStructClassName(strIter_, _conf));
         locVar_.setStruct(strIter_);
-        _conf.getLastPage().getLocalVars().put(locName_, locVar_);
+        _conf.getLastPage().putLocalVar(locName_, locVar_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, native_, 2);
         Argument arg_ = dyn_.calculateMember(_conf);
         if (_conf.callsOrException()) {
             return false;
         }
         boolean hasNext_ = (Boolean) arg_.getObject();
-        _conf.getLastPage().getLocalVars().removeKey(locName_);
+        _conf.getLastPage().removeLocalVar(locName_);
         return hasNext_;
     }
 
@@ -497,12 +497,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(stds_.getStructClassName(iterator_, _conf));
             locVar_.setStruct(iterator_);
-            _conf.getLastPage().getLocalVars().put(locName_, locVar_);
+            _conf.getLastPage().putLocalVar(locName_, locVar_);
             ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.SECOND_INDEX, native_, 3);
             Argument arg_ = dyn_.calculateMember(_conf);
             if (_conf.callsOrException()) {
                 return;
             }
+            _conf.getLastPage().removeLocalVar(locName_);
             _conf.getLastPage().clearCurrentEls();
             element_ = arg_.getStruct();
         } else {

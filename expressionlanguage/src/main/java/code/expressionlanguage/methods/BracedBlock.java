@@ -66,7 +66,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         for (Block s: Classes.getDirectChildren(this)) {
             if (s instanceof InitVariable) {
                 String var_ = ((InitVariable)s).getVariableName();
-                _ip.getLocalVars().removeKey(var_);
+                _ip.removeLocalVar(var_);
             }
         }
     }

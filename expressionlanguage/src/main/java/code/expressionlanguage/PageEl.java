@@ -157,8 +157,13 @@ public final class PageEl {
             list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos(_context)));
         }
         list_.add(LOCAL_VARIABLES);
-        for (EntryCust<String,LocalVariable> e: localVars.entryList()) {
-            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
+//        for (StringMap<LocalVariable> e: localVars) {
+//            for (EntryCust<String,LocalVariable> f: localVars.entryList()) {
+//                list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
+//            }
+//        }
+        for (EntryCust<String,LocalVariable> f: localVars.entryList()) {
+            list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
         }
         list_.add(CATCH_VARIABLES);
         for (EntryCust<String,LocalVariable> e: catchVars.entryList()) {
@@ -346,12 +351,36 @@ public final class PageEl {
         vars = _vars;
     }
 
+    public void putLocalVar(String _key, LocalVariable _var) {
+        localVars.put(_key, _var);
+    }
+
+    public void clearAllLocalVars() {
+        localVars.clear();
+    }
+
+    public void removeLocalVar(String _key) {
+        localVars.removeKey(_key);
+    }
+
+    public boolean containsLocalVar(String _key) {
+        return localVars.contains(_key);
+    }
+
+    public LocalVariable getLocalVar(String _key) {
+        return localVars.getVal(_key);
+    }
+
     public StringMap<LocalVariable> getLocalVars() {
         return localVars;
     }
 
     public void setLocalVars(StringMap<LocalVariable> _localVars) {
-        localVars = _localVars;
+        setLocalVars(new CustList<StringMap<LocalVariable>>(_localVars));
+    }
+
+    public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {
+        localVars = _localVars.last();
     }
 
     public StringMap<LocalVariable> getCatchVars() {
