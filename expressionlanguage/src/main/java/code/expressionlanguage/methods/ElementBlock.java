@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -94,7 +95,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof EnumBlock)) {
-            PageEl page_ = _cont.getLastPage();
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
@@ -104,7 +105,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         }
         Block previous_ = getPreviousSibling();
         if (previous_ != null && !(previous_ instanceof ElementBlock)) {
-            PageEl page_ = _cont.getLastPage();
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
@@ -116,7 +117,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
         page_.setOffset(0);
         String className_ = getClassName();
@@ -153,7 +154,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
     @Override
     public void checkCallConstructor(ContextEl _cont) {
-        PageEl p_ = _cont.getLastPage();
+        AnalyzedPageEl p_ = _cont.getAnalyzing();
         p_.setGlobalOffset(valueOffest);
         for (OperationNode o: opValue) {
             if (o.isSuperThis()) {

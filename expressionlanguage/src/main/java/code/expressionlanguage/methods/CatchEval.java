@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -85,7 +86,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
             next_ = next_.getPreviousSibling();
         }
         if (!existTry_) {
-            PageEl page_ = _cont.getLastPage();
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
@@ -97,12 +98,12 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (_cont.getLastPage().getCatchVars().contains(variableName)) {
+        if (_cont.getAnalyzing().getCatchVars().contains(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
@@ -115,7 +116,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(className);
-        _cont.getLastPage().getCatchVars().put(variableName, lv_);
+        _cont.getAnalyzing().getCatchVars().put(variableName, lv_);
     }
 
     @Override

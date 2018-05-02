@@ -113,7 +113,7 @@ public final class FctOperation extends InvokingOperation {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
         int varargOnly_ = lookOnlyForVarArg();
         LgNames stds_ = _conf.getStandards();
@@ -164,7 +164,7 @@ public final class FctOperation extends InvokingOperation {
                 return;
             }
             if (!chidren_.first().getResultClass().matchClass(stringType_)) {
-                setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                 ClassArgumentMatching cl_ = chidren_.first().getResultClass();
                 UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
                 un_.setRc(_conf.getCurrentLocation());
@@ -177,7 +177,7 @@ public final class FctOperation extends InvokingOperation {
                 return;
             }
             if (chidren_.first().getArgument() == null) {
-                setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                 BadImplicitCast bad_ = new BadImplicitCast();
                 Mapping map_ = new Mapping();
                 map_.setArg(EMPTY_STRING);
@@ -192,7 +192,7 @@ public final class FctOperation extends InvokingOperation {
             }
             String str_ = (String) chidren_.first().getArgument().getObject();
             if (str_ == null) {
-                setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                 BadImplicitCast bad_ = new BadImplicitCast();
                 Mapping map_ = new Mapping();
                 map_.setArg(EMPTY_STRING);
@@ -334,7 +334,7 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(trimMeth_,prefixFunction(INSTANCEOF))) {
             if (chidren_.size() == 2) {
                 if (!chidren_.first().getResultClass().matchClass(stringType_)) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                     ClassArgumentMatching cl_ = chidren_.first().getResultClass();
                     UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
                     un_.setRc(_conf.getCurrentLocation());
@@ -346,7 +346,7 @@ public final class FctOperation extends InvokingOperation {
                     return;
                 }
                 if (chidren_.first().getArgument() == null) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                     BadImplicitCast bad_ = new BadImplicitCast();
                     Mapping map_ = new Mapping();
                     map_.setArg(EMPTY_STRING);
@@ -360,7 +360,7 @@ public final class FctOperation extends InvokingOperation {
                 }
                 String str_ = (String) chidren_.first().getArgument() .getObject();
                 if (str_ == null) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                     BadImplicitCast bad_ = new BadImplicitCast();
                     Mapping map_ = new Mapping();
                     map_.setArg(EMPTY_STRING);
@@ -406,7 +406,7 @@ public final class FctOperation extends InvokingOperation {
 //            }
             if (chidren_.size() == 2) {
                 if (!chidren_.first().getResultClass().matchClass(stringType_)) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                     ClassArgumentMatching cl_ = chidren_.first().getResultClass();
                     UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
                     un_.setRc(_conf.getCurrentLocation());
@@ -418,7 +418,7 @@ public final class FctOperation extends InvokingOperation {
                     return;
                 }
                 if (chidren_.first().getArgument() == null) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                     BadImplicitCast bad_ = new BadImplicitCast();
                     Mapping map_ = new Mapping();
                     map_.setArg(EMPTY_STRING);
@@ -432,7 +432,7 @@ public final class FctOperation extends InvokingOperation {
                 }
                 String str_ = (String) chidren_.first().getArgument().getObject();
                 if (str_ == null) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
                     BadImplicitCast bad_ = new BadImplicitCast();
                     Mapping map_ = new Mapping();
                     map_.setArg(EMPTY_STRING);
@@ -473,7 +473,7 @@ public final class FctOperation extends InvokingOperation {
             ClassArgumentMatching clMatch_ = opOne_.getResultClass();
             if (!clMatch_.matchClass(booleanPrimType_)) {
                 if (!clMatch_.matchClass(booleanType_)) {
-                    setRelativeOffsetPossibleLastPage(opOne_.getIndexInEl()+1, _conf);
+                    setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
                     ClassArgumentMatching cl_ = chidren_.first().getResultClass();
                     UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
                     un_.setRc(_conf.getCurrentLocation());
@@ -488,7 +488,7 @@ public final class FctOperation extends InvokingOperation {
             ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
             ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
             if (!clMatchTwo_.matchClass(clMatchThree_)) {
-                setRelativeOffsetPossibleLastPage(opTwo_.getIndexInEl()+1, _conf);
+                setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl()+1, _conf);
                 UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
                 un_.setExpectedResult(clMatchTwo_.getName());
                 un_.setOperands(new StringList(clMatchTwo_.getName(),clMatchThree_.getName()));
@@ -599,7 +599,7 @@ public final class FctOperation extends InvokingOperation {
         String stringType_ = stds_.getAliasString();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
@@ -611,9 +611,9 @@ public final class FctOperation extends InvokingOperation {
                 void_ = true;
                 if (indexChild_ < chidren_.size()) {
                     OperationNode op_ = chidren_.get(indexChild_);
-                    op_.setRelativeOffsetPossibleLastPage(op_.getIndexInEl()+off_, _conf);
+                    op_.setRelativeOffsetPossibleAnalyzable(op_.getIndexInEl()+off_, _conf);
                 } else {
-                    setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
                 }
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(stds_.getAliasVoid());
@@ -629,7 +629,7 @@ public final class FctOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         for (String s: _subTypes) {
             String baseClass_ = StringList.getAllTypes(s).first();
             if (StringList.quickEq(baseClass_, PredefinedClasses.ENUM) || StringList.quickEq(baseClass_, PredefinedClasses.ENUM_PARAM)) {
@@ -759,7 +759,7 @@ public final class FctOperation extends InvokingOperation {
         }
         if (staticChoiceMethod_) {
             if (clMeth_.isAbstractMethod()) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
                 AbstractMethod abs_ = new AbstractMethod();
                 abs_.setClassName(clMeth_.getRealClass());
                 abs_.setSgn(clMeth_.getRealId().getSignature());

@@ -32,6 +32,8 @@ public interface Analyzable {
 
     int getOffset();
 
+    void setAnalyzedOffset(int _offset);
+
     void setOffset(int _offset);
 
     boolean isStaticContext();

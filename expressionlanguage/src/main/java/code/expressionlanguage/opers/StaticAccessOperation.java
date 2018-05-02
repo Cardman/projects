@@ -59,7 +59,7 @@ public final class StaticAccessOperation extends LeafOperation {
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String argClName_;
         String type_ = str_.substring(STATIC_ACCESS.length() + 2);
         StringBuilder class_ = new StringBuilder();

@@ -189,6 +189,10 @@ public abstract class OperationNode {
     public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op);
 
 
+    public final void setRelativeOffsetPossibleAnalyzable(int _offset, Analyzable _cont) {
+        _cont.setAnalyzedOffset(operations.getDelimiter().getIndexBegin()+_offset);
+    }
+
     public final void setRelativeOffsetPossibleLastPage(int _offset, Analyzable _cont) {
         _cont.setOffset(operations.getDelimiter().getIndexBegin()+_offset);
     }
@@ -305,7 +309,7 @@ public abstract class OperationNode {
         }
         if (!Templates.correctClassParts(_className, map_, _cont)) {
             if (_setOffset) {
-                setRelativeOffsetPossibleLastPage(_offset, _cont);
+                setRelativeOffsetPossibleAnalyzable(_offset, _cont);
             }
             UnknownClassName unknown_ = new UnknownClassName();
             unknown_.setClassName(_className);
@@ -327,7 +331,7 @@ public abstract class OperationNode {
         }
         if (!Templates.existClassParts(_className, map_, _cont)) {
             if (_setOffset) {
-                setRelativeOffsetPossibleLastPage(_offset, _cont);
+                setRelativeOffsetPossibleAnalyzable(_offset, _cont);
             }
             UnknownClassName unknown_ = new UnknownClassName();
             unknown_.setClassName(_className);

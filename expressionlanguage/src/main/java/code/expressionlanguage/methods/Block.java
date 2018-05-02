@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
@@ -157,7 +158,7 @@ public abstract class Block extends Blockable {
     public abstract void abrupt(Analyzable _an, AnalyzingEl _anEl);
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
-            _cont.getLastPage().setCurrentBlock(_block);
+            _cont.getAnalyzing().setCurrentBlock(_block);
             ((WithEl)_block).checkBlocksTree(_cont);
             return;
         }
@@ -169,7 +170,7 @@ public abstract class Block extends Blockable {
 
     protected static void tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
-            _cont.getLastPage().setCurrentBlock(_block);
+            _cont.getAnalyzing().setCurrentBlock(_block);
             ((WithEl)_block).buildExpressionLanguage(_cont);
             return;
         }
@@ -180,7 +181,7 @@ public abstract class Block extends Blockable {
     }
     protected static void tryCheckConstCall(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
-            _cont.getLastPage().setCurrentBlock(_block);
+            _cont.getAnalyzing().setCurrentBlock(_block);
             ((WithEl)_block).checkCallConstructor(_cont);
             return;
         }
@@ -677,8 +678,13 @@ public abstract class Block extends Blockable {
     }
 
     protected final void removeLocalVariablesFromParent(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
-        parent.removeLocalVars(page_);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        for (Block s: Classes.getDirectChildren(parent)) {
+            if (s instanceof InitVariable) {
+                String var_ = ((InitVariable)s).getVariableName();
+                page_.removeLocalVar(var_);
+            }
+        }
         if (parent instanceof ForLoop) {
             String var_ = ((ForLoop)parent).getVariableName();
             page_.getVars().removeKey(var_);

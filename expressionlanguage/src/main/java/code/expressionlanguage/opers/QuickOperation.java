@@ -29,7 +29,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     final void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
@@ -44,7 +44,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;
             clMatch_ = o.getResultClass();
-            setRelativeOffsetPossibleLastPage(o.getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
             if (!clMatch_.matchClass(booleanPrimType_)) {
                 if (!clMatch_.matchClass(booleanType_)) {
                     ClassArgumentMatching cl_ = o.getResultClass();

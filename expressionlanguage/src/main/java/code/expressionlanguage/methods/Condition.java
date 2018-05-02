@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -42,7 +43,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         _cont.setRootAffect(false);
@@ -73,7 +74,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
 
     @Override
     public final void checkCallConstructor(ContextEl _cont) {
-        PageEl p_ = _cont.getLastPage();
+        AnalyzedPageEl p_ = _cont.getAnalyzing();
         p_.setGlobalOffset(conditionOffset);
         for (OperationNode o: opCondition) {
             if (o.isSuperThis()) {

@@ -376,7 +376,7 @@ public final class PageEl {
     }
 
     public void setLocalVars(StringMap<LocalVariable> _localVars) {
-        setLocalVars(new CustList<StringMap<LocalVariable>>(_localVars));
+        localVars = _localVars;
     }
 
     public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {

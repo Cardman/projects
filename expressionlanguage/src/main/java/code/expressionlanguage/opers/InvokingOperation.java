@@ -59,7 +59,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Mapping mapping_ = new Mapping();
             mapping_.setParam(name_);
             for (OperationNode o: optArgsNodes_) {
-                setRelativeOffsetPossibleLastPage(o.getIndexInEl(), _conf);
+                setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
                 String argType_ = o.getResultClass().getName();
                 if (argType_.isEmpty()) {
                     if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {

@@ -35,7 +35,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (chidren_.size() != 2) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());

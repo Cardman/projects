@@ -1,10 +1,10 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -30,8 +30,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     @Override
     public final void buildFctInstructions(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (!(getParent() instanceof RootBlock)) {
-            PageEl page_ = _cont.getLastPage();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
@@ -39,7 +39,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
             _cont.getClasses().getErrorsDet().add(un_);
         }
-        PageEl page_ = _cont.getLastPage();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block firstChild_ = getFirstChild();

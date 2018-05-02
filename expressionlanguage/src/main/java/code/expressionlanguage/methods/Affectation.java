@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
@@ -108,7 +109,7 @@ public final class Affectation extends Leaf implements StackableBlock {
 
     @Override
     public void checkCallConstructor(ContextEl _cont) {
-        PageEl p_ = _cont.getLastPage();
+        AnalyzedPageEl p_ = _cont.getAnalyzing();
         p_.setGlobalOffset(leftMemberOffset);
         for (OperationNode o: opLeft) {
             if (o.isSuperThis()) {

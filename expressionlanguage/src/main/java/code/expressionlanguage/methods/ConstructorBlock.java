@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -96,7 +96,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return new ConstructorId(name_, pTypes_);
     }
     public void setupInstancingStep(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block first_ = getFirstChild();

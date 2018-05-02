@@ -113,7 +113,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String argClName_;
         if (str_.isEmpty()) {
             EmptyPartError emptyPart_ = new EmptyPartError();
@@ -440,7 +440,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         }
         if (op_.getConstType().isVariable() || excVar) {
             if (isIntermediateDottedOperation()) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                 FinalPart final_ = new FinalPart();
                 final_.setClassName(_conf.getGlobalClass());
                 final_.setId(str_);

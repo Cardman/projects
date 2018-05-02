@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -37,7 +38,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         if (getFirstChild() == null) {
-            PageEl page_ = _cont.getLastPage();
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffset());
             page_.setOffset(0);
             EmptyTagName un_ = new EmptyTagName();

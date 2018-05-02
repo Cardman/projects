@@ -383,7 +383,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (chidren_.size() != 2) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
@@ -401,7 +401,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
             return;
         }
         if (first_.matchClass(stringType_) || second_.matchClass(stringType_)) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
@@ -419,7 +419,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
@@ -431,7 +431,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
             return;
         }
         if (classSecond_.isPrimitive(_conf)) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
@@ -442,7 +442,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
         StringList expectedTypes_ = new StringList();
         expectedTypes_.add(stds_.getAliasPrimDouble());
         expectedTypes_.add(stds_.getAliasString());

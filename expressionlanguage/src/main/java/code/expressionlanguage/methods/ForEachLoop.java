@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -145,7 +146,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     @Override
     public void checkBlocksTree(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getFirstChild() == null) {
@@ -169,7 +170,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             cast_.setRc(getRowCol(0, classIndexNameOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
-        if (_cont.getLastPage().getVars().contains(variableName)) {
+        if (_cont.getAnalyzing().getVars().contains(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
@@ -177,7 +178,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             _cont.getClasses().getErrorsDet().add(d_);
             return;
         }
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.setRootAffect(false);
@@ -251,7 +252,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         LoopVariable lv_ = new LoopVariable();
         lv_.setClassName(className);
         lv_.setIndexClassName(classIndexName);
-        _cont.getLastPage().getVars().put(variableName, lv_);
+        _cont.getAnalyzing().getVars().put(variableName, lv_);
     }
 
     @Override
@@ -271,7 +272,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     @Override
     public void checkCallConstructor(ContextEl _cont) {
-        PageEl p_ = _cont.getLastPage();
+        AnalyzedPageEl p_ = _cont.getAnalyzing();
         p_.setGlobalOffset(expressionOffset);
         for (OperationNode o: opList) {
             if (o.isSuperThis()) {

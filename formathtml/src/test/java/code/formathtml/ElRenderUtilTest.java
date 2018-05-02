@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -15,7 +16,6 @@ import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ExpLanguages;
@@ -2577,8 +2577,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.+=1i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2608,8 +2608,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.&=$false";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2639,8 +2639,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.|=$true";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2670,8 +2670,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.&=1/0 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2702,8 +2702,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.|=1/0 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2734,8 +2734,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.&=1 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2766,8 +2766,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.|=1 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2798,8 +2798,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.==1i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2829,8 +2829,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2861,8 +2861,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "++v;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2895,8 +2895,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.[0i]++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2929,8 +2929,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "++v;.[0i]";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2961,8 +2961,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.+=2i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -2995,8 +2995,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.[0i]+=3i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3031,8 +3031,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.+++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3068,8 +3068,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.---v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3105,8 +3105,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.=++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3142,8 +3142,8 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
-        ctx_.getLastPage().setLocalVars(localVars_);
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
         ctx_.setRootAffect(true);
         String elr_ = "v;.= ++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3169,7 +3169,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl(true, false);
         addImportingPage(context_);
         ContextEl ctx_ = context_.toContextEl();
-        ctx_.setAnalyzing(new PageEl());
+        ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.setRootAffect(true);
         String elr_ = "+1b";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3668,7 +3668,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
         boolean staticContext_ = arg_ == null || arg_.isNull();
         ContextEl context_ = _conf.toContextEl();
-        context_.setAnalyzing(new PageEl());
+        context_.setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getLastPage().getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLastPage().getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getLastPage().getVars());
@@ -3930,6 +3930,7 @@ public final class ElRenderUtilTest {
 
     private static void addImportingPage(Configuration _conf) {
         _conf.addPage(new ImportingPage(false));
+        _conf.getContext().setAnalyzing(new AnalyzedPageEl());
     }
     private static void addBean(Configuration _conf, Object _bean, String _beanClass) {
         _conf.getLastPage().setGlobalArgumentStruct(StdStruct.wrapStd(_bean, _conf.toContextEl()),_conf);

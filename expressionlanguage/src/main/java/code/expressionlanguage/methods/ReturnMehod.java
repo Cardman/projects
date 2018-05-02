@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -100,7 +101,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         if (getNextSibling() != null) {
@@ -173,7 +174,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         if (opRet == null) {
             return;
         }
-        PageEl p_ = _cont.getLastPage();
+        AnalyzedPageEl p_ = _cont.getAnalyzing();
         p_.setGlobalOffset(expressionOffset);
         for (OperationNode o: opRet) {
             if (o.isSuperThis()) {

@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -77,7 +78,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 first_ = first_.getNextSibling();
                 continue;
             }
-            PageEl page_ = _cont.getLastPage();
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
@@ -90,7 +91,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         _cont.setRootAffect(false);
@@ -129,7 +130,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
 
     @Override
     public void checkCallConstructor(ContextEl _cont) {
-        PageEl p_ = _cont.getLastPage();
+        AnalyzedPageEl p_ = _cont.getAnalyzing();
         p_.setGlobalOffset(valueOffset);
         for (OperationNode o: opValue) {
             if (o.isSuperThis()) {

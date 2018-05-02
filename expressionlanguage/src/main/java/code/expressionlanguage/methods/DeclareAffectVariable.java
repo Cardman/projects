@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -103,7 +104,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (_cont.containsLocalVar(variableName)) {
@@ -150,7 +151,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
 
     @Override
     public void checkCallConstructor(ContextEl _cont) {
-        PageEl p_ = _cont.getLastPage();
+        AnalyzedPageEl p_ = _cont.getAnalyzing();
         p_.setGlobalOffset(rightMemberOffset);
         for (OperationNode o: opRight) {
             if (o.isSuperThis()) {

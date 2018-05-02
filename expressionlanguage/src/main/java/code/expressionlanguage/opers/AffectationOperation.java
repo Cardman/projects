@@ -45,7 +45,7 @@ public final class AffectationOperation extends MethodOperation {
         SettableElResult elt_ = tryGetSettable(this);
         boolean ok_ = elt_ != null;
         if (!ok_) {
-            root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
+            root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
@@ -69,7 +69,7 @@ public final class AffectationOperation extends MethodOperation {
         }
         if (elt_ instanceof ConstantOperation) {
             if (((ConstantOperation)elt_).isImmutablePart()) {
-                root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
+                root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setRc(_conf.getCurrentLocation());
@@ -77,7 +77,7 @@ public final class AffectationOperation extends MethodOperation {
                 return;
             }
             if (((ConstantOperation)elt_).isFinalField()) {
-                root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
+                root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setRc(_conf.getCurrentLocation());
@@ -87,7 +87,7 @@ public final class AffectationOperation extends MethodOperation {
         }
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = root_.getResultClass();
-        root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
+        root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
         if (oper_.length() == 2) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(clMatchRight_.getName());

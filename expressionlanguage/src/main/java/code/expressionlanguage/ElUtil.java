@@ -31,7 +31,7 @@ public final class ElUtil {
 
     public static ExpLanguages getAnalyzedAffectation(int _attrOp, int _attrLeft, int _attrRight,
             String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddenVarTypes) {
-        PageEl page_ = _conf.getLastPage();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         page_.setOffset(0);
         page_.setGlobalOffset(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);

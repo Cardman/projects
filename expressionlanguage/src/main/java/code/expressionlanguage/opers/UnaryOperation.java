@@ -32,7 +32,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching clMatch_ = chidren_.first().getResultClass();
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (cl_ == null) {
             String exp_ = _conf.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();

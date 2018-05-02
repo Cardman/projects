@@ -39,7 +39,7 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
         setResultClass(leftEl_.getResultClass());
         settable = AffectationOperation.tryGetSettable(this);
         if (settable == null) {
-            leftEl_.setRelativeOffsetPossibleLastPage(leftEl_.getIndexInEl(), _conf);
+            leftEl_.setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
@@ -58,7 +58,7 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
             settable.setCatenizeStrings();
         }
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(clMatchLeft_.getName());

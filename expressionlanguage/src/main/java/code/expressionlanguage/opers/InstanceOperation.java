@@ -79,7 +79,7 @@ public final class InstanceOperation extends InvokingOperation {
     void analyzeCommon(Analyzable _conf, String _fieldName) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = StringList.removeAllSpaces(className_);
         if (!className_.startsWith(ARR) && className_.endsWith(ARR_DYN)) {
@@ -116,7 +116,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
             if (!elts_) {
                 for (OperationNode o: chidren_) {
-                    setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
+                    setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
                     if (!o.getResultClass().isNumericInt(_conf)) {
                         ClassArgumentMatching cl_ = o.getResultClass();
                         UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
@@ -140,7 +140,7 @@ public final class InstanceOperation extends InvokingOperation {
                 Mapping mapping_ = new Mapping();
                 mapping_.setParam(eltType_);
                 for (OperationNode o: chidren_) {
-                    setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
+                    setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
                     String argType_ = o.getResultClass().getName();
                     mapping_.setArg(argType_);
                     mapping_.setMapping(map_);
@@ -154,7 +154,7 @@ public final class InstanceOperation extends InvokingOperation {
                 }
             }
             realClassName_ = realClassName_.substring(ARR.length());
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             if (!checkCorrect(_conf, realClassName_, false, 0)) {
                 realClassName_ = _conf.getStandards().getAliasObject();
             }

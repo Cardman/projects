@@ -661,6 +661,11 @@ public class Configuration implements Analyzable {
     }
 
     @Override
+    public void setAnalyzedOffset(int _offset) {
+        context.setAnalyzedOffset(_offset);
+    }
+
+    @Override
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
     }

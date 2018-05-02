@@ -3735,7 +3735,7 @@ public class ElResolverTest {
     }
 
     private static void addImportingPage(ContextEl _conf, boolean _rendering) {
-        _conf.setAnalyzing(new PageEl());
+        _conf.setAnalyzing(new AnalyzedPageEl());
     }
 
     private ContextEl contextEl() {

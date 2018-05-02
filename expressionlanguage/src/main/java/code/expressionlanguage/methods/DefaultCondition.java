@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
@@ -36,7 +37,7 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
     public void checkBlocksTree(ContextEl _cont) {
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock) || getNextSibling() != null) {
-            PageEl page_ = _cont.getLastPage();
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();

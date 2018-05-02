@@ -63,7 +63,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching class_ = chidren_.first().getResultClass();
         ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();
-        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(chidren_.last().getIndexInEl(), _conf);
         if (!indexClass_.isNumericInt(_conf)) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
@@ -75,7 +75,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             setResultClass(class_);
             return;
         }
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
         if (!class_.isArray()) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());

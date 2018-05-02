@@ -46,7 +46,7 @@ public final class IdOperation extends MethodOperation {
     void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
@@ -56,7 +56,7 @@ public final class IdOperation extends MethodOperation {
             return;
         }
         if (getParent() instanceof DotOperation && !isFirstChild()) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());

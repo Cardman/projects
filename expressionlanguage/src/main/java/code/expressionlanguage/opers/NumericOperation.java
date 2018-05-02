@@ -943,7 +943,7 @@ public abstract class NumericOperation extends MethodOperation {
         ResultOperand r_;
         NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
         ClassArgumentMatching c_ = chidren_.last().getResultClass();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         r_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);
         setCatenize(r_);
         a_ = r_.getResult();

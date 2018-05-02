@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
@@ -8,7 +9,6 @@ import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
@@ -73,7 +73,7 @@ public final class ElRenderUtil {
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
         ContextEl context_ = _conf.toContextEl();
         context_.setRootAffect(false);
-        context_.setAnalyzing(new PageEl());
+        context_.setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
@@ -127,7 +127,7 @@ public final class ElRenderUtil {
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.toContextEl();
         context_.setRootAffect(false);
-        context_.setAnalyzing(new PageEl());
+        context_.setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
@@ -178,7 +178,7 @@ public final class ElRenderUtil {
     public static ExpLanguages analyzeAffect(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, Configuration _conf, boolean _staticContext, boolean _hiddenVarTypes) {
         ContextEl context_ = _conf.toContextEl();
-        context_.setAnalyzing(new PageEl());
+        context_.setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().getVars().putAllMap(_conf.getVars());

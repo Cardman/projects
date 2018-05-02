@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -156,7 +157,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof RootBlock)) {
-            PageEl page_ = _cont.getLastPage();
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
@@ -168,7 +169,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
         if (value.isEmpty()) {
@@ -225,7 +226,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         if (value.isEmpty()) {
             return;
         }
-        PageEl p_ = _cont.getLastPage();
+        AnalyzedPageEl p_ = _cont.getAnalyzing();
         p_.setGlobalOffset(valueOffset);
         for (OperationNode o: opValue) {
             if (o.isSuperThis()) {

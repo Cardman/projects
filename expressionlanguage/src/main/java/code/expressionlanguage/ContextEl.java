@@ -75,7 +75,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private transient int indexChildType;
     private transient LgNames standards;
 
-    private transient PageEl analyzing;
+    private transient AnalyzedPageEl analyzing;
 
     private transient boolean staticBlock;
 
@@ -429,16 +429,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public String getCurrentFileName() {
-        if (isEmptyPages() || getLastPage().getCurrentBlock() == null) {
+        if (isEmptyPages() || analyzing.getCurrentBlock() == null) {
             return null;
         }
-        return getLastPage().getCurrentBlock().getFile().getFileName();
+        return analyzing.getCurrentBlock().getFile().getFileName();
     }
     public Block getCurrentBlock() {
         if (isEmptyPages()) {
             return null;
         }
-        return getLastPage().getCurrentBlock();
+        return analyzing.getCurrentBlock();
     }
     @Override
     public RowCol getCurrentLocation() {
@@ -459,11 +459,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return l_.join(RETURN_LINE);
     }
 
-    public PageEl getAnalyzing() {
+    public AnalyzedPageEl getAnalyzing() {
         return analyzing;
     }
 
-    public void setAnalyzing(PageEl _analyzing) {
+    public void setAnalyzing(AnalyzedPageEl _analyzing) {
         analyzing = _analyzing;
     }
 
@@ -476,13 +476,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     public String getNextTempVar() {
-        return getLastPage().getNextTempVar(classes);
+        return analyzing.getNextTempVar(classes);
     }
 
     public PageEl getLastPage() {
-        if (analyzing != null) {
-            return analyzing;
-        }
         return importing.last();
     }
 
@@ -515,53 +512,54 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public String getGlobalClass() {
-        return getLastPage().getGlobalClass();
+        return analyzing.getGlobalClass();
     }
 
     @Override
     public void setGlobalClass(String _globalClass) {
-        getLastPage().setGlobalClass(_globalClass);
+        analyzing.setGlobalClass(_globalClass);
     }
 
     @Override
     public StringMap<LoopVariable> getVars() {
-        return getLastPage().getVars();
+        return analyzing.getVars();
     }
 
     public boolean containsLocalVar(String _string) {
-        return getLastPage().getLocalVars().contains(_string);
+        return analyzing.getLocalVars().contains(_string);
     }
 
     @Override
     public LocalVariable getLocalVar(String _string) {
-        return getLastPage().getLocalVars().getVal(_string);
+        return analyzing.getLocalVars().getVal(_string);
     }
 
     public void putLocalVar(String _string, LocalVariable _loc) {
-        getLastPage().getLocalVars().put(_string, _loc);
+        analyzing.getLocalVars().put(_string, _loc);
     }
 
     public void removeLocalVar(String _string) {
-        getLastPage().getLocalVars().removeKey(_string);
-    }
-
-    public StringMap<LocalVariable> getLocalVars() {
-        return getLastPage().getLocalVars();
+        analyzing.getLocalVars().removeKey(_string);
     }
 
     @Override
     public StringMap<LocalVariable> getCatchVars() {
-        return getLastPage().getCatchVars();
+        return analyzing.getCatchVars();
     }
 
     @Override
     public StringMap<LocalVariable> getParameters() {
-        return getLastPage().getParameters();
+        return analyzing.getParameters();
     }
 
     @Override
     public int getOffset() {
-        return getLastPage().getOffset();
+        return analyzing.getOffset();
+    }
+
+    @Override
+    public void setAnalyzedOffset(int _offset) {
+        analyzing.setOffset(_offset);
     }
 
     @Override
@@ -571,12 +569,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public boolean isStaticContext() {
-        return getLastPage().isStaticContext();
+        return analyzing.isStaticContext();
     }
 
     @Override
     public void setStaticContext(boolean _staticContext) {
-        getLastPage().setStaticContext(_staticContext);
+        analyzing.setStaticContext(_staticContext);
     }
 
     public boolean callsOrException() {
