@@ -845,13 +845,11 @@ public final class ElResolver {
                 }
             }
             boolean pureBinaryOp_ = false;
-            if (curChar_ == PLUS_CHAR) {
+            if (curChar_ == PLUS_CHAR && _conf.getOptions().applyEqPlus()) {
                 pureBinaryOp_ = true;
             }
             if ((curChar_ == PLUS_CHAR || curChar_ == MINUS_CHAR) && _conf.getOptions().isMultipleAffectations()) {
-                if (i_ + 1 < len_ && curChar_ == _string.charAt(i_ + 1)) {
-                    pureBinaryOp_ = false;
-                }
+                pureBinaryOp_ = false;
             }
             if (curChar_ == MULT_CHAR) {
                 pureBinaryOp_ = true;
@@ -862,12 +860,18 @@ public final class ElResolver {
             if (curChar_ == DIV_CHAR) {
                 pureBinaryOp_ = true;
             }
+            boolean plusMinus_ = false;
+            if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
+                if (curChar_ == MINUS_CHAR || !_conf.getOptions().applyEqPlus()) {
+                    plusMinus_ = true;
+                }
+            }
             if (pureBinaryOp_) {
                 enabledMinus_ = false;
-            } else if (!Character.isWhitespace(curChar_) && curChar_ != MINUS_CHAR){
+            } else if (!Character.isWhitespace(curChar_) && !plusMinus_){
                 enabledMinus_ = true;
             }
-            if (!enabledMinus_ && curChar_ == MINUS_CHAR) {
+            if (!enabledMinus_ && plusMinus_) {
                 i_++;
                 continue;
             }
@@ -926,7 +930,7 @@ public final class ElResolver {
             if (idOp_) {
                 d_.getAllowedOperatorsIndexes().add(i_);
             }
-            if (curChar_ == MINUS_CHAR && !_conf.getOptions().isMultipleAffectations()) {
+            if (plusMinus_) {
                 enabledMinus_ = false;
             }
             if (partOfString_ && curChar_ == end_) {
@@ -970,11 +974,12 @@ public final class ElResolver {
                         if (curChar_ == PLUS_CHAR || curChar_ == MINUS_CHAR) {
                             if (curChar_ == next_) {
                                 i_++;
+                                enabledMinus_ = true;
                             }
                         }
                     }
                 }
-                if (curChar_ == EQ_CHAR) {
+                if (curChar_ == EQ_CHAR && _conf.getOptions().applyEqPlus()) {
                     if (i_ + 1 < len_) {
                         char next_ = _string.charAt(i_ + 1);
                         if (next_ == PLUS_CHAR) {
@@ -1666,10 +1671,10 @@ public final class ElResolver {
             prio_ = UNARY_PRIO;
             String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
             operators_.put(firstPrintChar_, StringList.concat(EMPTY_STRING,ch_,ch_));
-            i_ += getIncrement(_string, firstPrintChar_ + 2, lastPrintChar_);
-        } else if (_string.charAt(firstPrintChar_) == MINUS_CHAR) {
+            i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
+        } else if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR && !_conf.getOptions().applyEqPlus()) {
             prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, String.valueOf(MINUS_CHAR));
+            operators_.put(firstPrintChar_, String.valueOf(_string.charAt(firstPrintChar_)));
             i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
         } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
             if (firstPrintChar_ < lastPrintChar_ && _string.charAt(firstPrintChar_+1) != EQ_CHAR) {
@@ -1858,7 +1863,7 @@ public final class ElResolver {
                                 foundOperator_ = true;
                             }
                             increment_ = 1;
-                            if (i_ + 1 < _string.length()) {
+                            if (i_ + 1 < _string.length() && _conf.getOptions().applyEqPlus()) {
                                 char nextChar_ = _string.charAt(i_ + 1);
                                 if (nextChar_ == PLUS_CHAR) {
                                     increment_ = 2;

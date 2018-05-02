@@ -142,7 +142,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         }
         if (!canCmpNormally_) {
             for (Block b: group_) {
-                _anEl.completeAbrupt(b);
                 _anEl.completeAbruptGroup(b);
             }
         }

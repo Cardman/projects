@@ -226,7 +226,7 @@ public abstract class OperationNode {
             if (StringList.quickEq(value_, NEG_BOOL)) {
                 return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(value_, MINUS)) {
+            if (StringList.quickEq(value_, MINUS) || StringList.quickEq(value_, PLUS)) {
                 return new UnaryOperation(_index, _indexChild, _m, _op);
             }
             return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);

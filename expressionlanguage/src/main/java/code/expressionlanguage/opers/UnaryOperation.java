@@ -100,7 +100,27 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return out_;
         }
-        if (o_ instanceof Character) {
+        String oper_ = getOperations().getOperators().firstValue();
+        if (StringList.quickEq(oper_, PLUS)) {
+            if (o_ instanceof Character) {
+                out_.setObject(((Character)o_));
+            } else {
+                Number b_ = (Number) o_;
+                if (b_ instanceof Integer) {
+                    out_.setObject(((Integer)b_));
+                } else if (b_ instanceof Long) {
+                    out_.setObject(((Long)b_));
+                } else if (b_ instanceof Byte) {
+                    out_.setObject(((Byte)b_));
+                } else if (b_ instanceof Short) {
+                    out_.setObject(((Short)b_));
+                } else if (b_ instanceof Double) {
+                    out_.setObject(((Double)b_));
+                } else if (b_ instanceof Float) {
+                    out_.setObject(((Float)b_));
+                }
+            }
+        } else if (o_ instanceof Character) {
             out_.setObject(-((Character)o_));
         } else {
             Number b_ = (Number) o_;
@@ -118,6 +138,8 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
                 out_.setObject(-((Float)b_));
             }
         }
+        ClassArgumentMatching res_ = getResultClass();
+        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
         return out_;
     }
     @Override

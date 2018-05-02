@@ -3091,6 +3091,106 @@ public final class ElRenderUtilTest {
         assertEq(-9, (Number)op_.getArgument().getObject());
     }
     @Test
+    public void processEl195Test() {
+        Configuration context_ = contextEl(true, false);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(3);
+        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v", lv_);
+        LocalVariable lv2_ = new LocalVariable();
+        lv2_.setElement(12);
+        lv2_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v2", lv2_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new PageEl());
+        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.setRootAffect(true);
+        String elr_ = "v;.=++v2;.";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        assertNotNull(op_);
+        Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, ctx_, "");
+        assertEq(13, (Number)lv2_.getElement());
+        assertEq(13, (Number)lv_.getElement());
+        assertEq(13, (Number)op_.getArgument().getObject());
+    }
+    @Test
+    public void processEl196Test() {
+        Configuration context_ = contextEl(true, true);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(3);
+        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v", lv_);
+        LocalVariable lv2_ = new LocalVariable();
+        lv2_.setElement(12);
+        lv2_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v2", lv2_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new PageEl());
+        ctx_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ctx_.setRootAffect(true);
+        String elr_ = "v;.= ++v2;.";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        assertNotNull(op_);
+        Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, ctx_, "");
+        assertEq(13, (Number)lv2_.getElement());
+        assertEq(13, (Number)lv_.getElement());
+        assertEq(13, (Number)op_.getArgument().getObject());
+    }
+    @Test
+    public void processEl197Test() {
+        Configuration context_ = contextEl(true, false);
+        addImportingPage(context_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new PageEl());
+        ctx_.setRootAffect(true);
+        String elr_ = "+1b";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        assertNotNull(op_);
+        Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, ctx_, "");
+        Object res_ = op_.getArgument().getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1, (Number)res_);
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -3847,11 +3947,15 @@ public final class ElRenderUtilTest {
     }
 
     private Configuration contextEl(boolean _multiple) {
+        return contextEl(_multiple, true);
+    }
+    private Configuration contextEl(boolean _multiple, boolean _eqPlus) {
         Configuration conf_ = new Configuration();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());

@@ -162,7 +162,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         }
         if (!canCmpNormally_) {
             for (Block b: group_) {
-                _anEl.completeAbrupt(b);
                 _anEl.completeAbruptGroup(b);
             }
             _anEl.completeAbrupt(this);
