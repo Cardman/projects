@@ -59,13 +59,13 @@ public final class ElRenderUtil {
 
     public static void tryToCalculateAffect(CustList<OperationNode> _left, ContextEl _conf, CustList<OperationNode> _right, String _op) {
         CustList<OperationNode> allLeft_ = _left;
-        calculate(allLeft_ , _conf, _op);
+        calculate(allLeft_ , _conf);
         CustList<OperationNode> allRight_ = _right;
-        calculate(allRight_, _conf, _op);
+        calculate(allRight_, _conf);
         _conf.getLastPage().setRightArgument(_right.last().getArgument());
         SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
         _conf.setCheckAffectation(true);
-        settable_.calculateSetting(allLeft_, _conf, _op, false);
+        settable_.calculateSetting(_conf, _op, false);
         _conf.setCheckAffectation(false);
         _conf.getLastPage().setRightArgument(null);
     }
@@ -119,7 +119,7 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        calculate(all_, context_, EMPTY_STRING);
+        calculate(all_, context_);
         Argument arg_ = op_.getArgument();
         return arg_;
     }
@@ -171,7 +171,7 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        calculate(all_, context_, EMPTY_STRING);
+        calculate(all_, context_);
         Argument arg_  = op_.getArgument();
         return arg_;
     }
@@ -354,10 +354,10 @@ public final class ElRenderUtil {
         }
         return new ExpLanguages(allLeft_, allRight_);
     }
-    static void calculate(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
+    static void calculate(CustList<OperationNode> _nodes, ContextEl _context) {
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
-                e.calculate(_nodes, _context, _op);
+                e.calculate(_context);
                 if (_context.getException() != null) {
                     return;
                 }

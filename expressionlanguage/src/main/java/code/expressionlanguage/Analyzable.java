@@ -2,7 +2,10 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.AssignedVariablesBlock;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -23,6 +26,8 @@ public interface Analyzable {
 
     String getCurrentVarSetting();
     StringMap<LoopVariable> getVars();
+
+    CustList<StringMap<LocalVariable>> getLocalVariables();
 
     LocalVariable getLocalVar(String _key);
 
@@ -59,4 +64,7 @@ public interface Analyzable {
     void setAnalyzingRoot(boolean _b);
     void setRootAffect(boolean _b);
     Options getOptions();
+    AssignedVariablesBlock getAssignedVariables();
+    Block getCurrentBlock();
+    CustList<OperationNode> getTextualSortedOperations();
 }

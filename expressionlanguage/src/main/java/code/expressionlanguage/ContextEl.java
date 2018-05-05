@@ -3,6 +3,7 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
@@ -13,6 +14,7 @@ import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.LocalThrowing;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -338,20 +340,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         stackOverFlow = _stackOverFlow;
     }
 
-    public void setOffsetPossibleLastPage(int _offset) {
-        if (importing.isEmpty()) {
-            return;
-        }
-        importing.last().setOffset(_offset);
-    }
-
-    public void addToOffsetPossibleLastPage(int _offset) {
-        if (importing.isEmpty()) {
-            return;
-        }
-        importing.last().addToOffset(_offset);
-    }
-
     public MathFactory getMathFactory() {
         return mathFactory;
     }
@@ -419,15 +407,13 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public String getCurrentFileName() {
-        if (isEmptyPages() || analyzing.getCurrentBlock() == null) {
+        if (analyzing.getCurrentBlock() == null) {
             return null;
         }
         return analyzing.getCurrentBlock().getFile().getFileName();
     }
+    @Override
     public Block getCurrentBlock() {
-        if (isEmptyPages()) {
-            return null;
-        }
         return analyzing.getCurrentBlock();
     }
     @Override
@@ -442,9 +428,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         StringList l_ = new StringList();
         for (PageEl p: importing) {
             l_.add(p.getInfos(this));
-        }
-        if (analyzing != null) {
-            l_.add(analyzing.getInfos(this));
         }
         return l_.join(RETURN_LINE);
     }
@@ -652,7 +635,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public void setEnabledDotted(boolean _enabled) {
-        analyzing.setEnabled(_enabled);;
+        analyzing.setEnabled(_enabled);
     }
 
     @Override
@@ -710,6 +693,21 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setFinalVariable(boolean _finalVariable) {
         analyzing.setFinalVariable(_finalVariable);
+    }
+
+    @Override
+    public AssignedVariablesBlock getAssignedVariables() {
+        return analyzing.getAssignedVariables();
+    }
+
+    @Override
+    public CustList<OperationNode> getTextualSortedOperations() {
+        return analyzing.getTextualSortedOperations();
+    }
+
+    @Override
+    public CustList<StringMap<LocalVariable>> getLocalVariables() {
+        return analyzing.getLocalVars();
     }
 
 }

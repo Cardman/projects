@@ -74,6 +74,36 @@ public final class Graph<T extends GraphElement<T>> {
         }
         return false;
     }
+    public EqList<T> getTreeFrom(T _elt) {
+        EqList<T> current_ = new EqList<T>(_elt);
+        EqList<T> visited_ = new EqList<T>(_elt);
+        EqList<T> new_ = new EqList<T>();
+        while (true) {
+            for (T t: current_) {
+                for (ArrowedSegment<T> u: getChildrenSegments(t)) {
+                    boolean ex_ = false;
+                    for (T e: visited_) {
+                        if (e.eq(u.getTo())) {
+                            //!e.eq(s)
+                            ex_ = true;
+                            break;
+                        }
+                    }
+                    if (ex_) {
+                        continue;
+                    }
+                    new_.add(u.getTo());
+                    visited_.add(u.getTo());
+                }
+            }
+            if (new_.isEmpty()) {
+                break;
+            }
+            current_ = new_;
+            new_ = new EqList<T>();
+        }
+        return visited_;
+    }
     public EqList<T> elementsCycle() {
 //        if (segments.isEmpty()) {
 //            return new List<T>();

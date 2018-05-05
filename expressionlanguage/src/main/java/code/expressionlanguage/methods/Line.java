@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -6,12 +7,15 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -102,12 +106,23 @@ public final class Line extends Leaf implements StackableBlock {
             DeclareVariable dc_ = (DeclareVariable) previous_;
             if (dc_.isMerged()) {
                 LocalVariable lv_ = new LocalVariable();
-                lv_.setClassName(dc_.getClassName());
-                _cont.putLocalVar(dc_.getVariableName(), lv_);
+                String clName_ = dc_.getClassName();
+                lv_.setClassName(clName_);
+                String varName_ = dc_.getVariableName();
+                _cont.putLocalVar(varName_, lv_);
+                String boolStd_ = _cont.getStandards().getAliasBoolean();
+                AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
+                AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
+                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, clName_, _cont);
+                ass_.getVariablesRoot().last().put(varName_,Assignment.assign(isBool_, true, false));
             }
         }
         _cont.setMerged(false);
         _cont.setFinalVariable(false);
+    }
+
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
     }
 
     public ConstructorId getConstId() {

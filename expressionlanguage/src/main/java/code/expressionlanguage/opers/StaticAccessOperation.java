@@ -7,17 +7,27 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessClass;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EqList;
 import code.util.IdMap;
+import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class StaticAccessOperation extends LeafOperation {
 
@@ -110,18 +120,44 @@ public final class StaticAccessOperation extends LeafOperation {
         setStaticResultClass(new ClassArgumentMatching(argClName_));
         return;
     }
-
     @Override
-    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
+    public final void tryCalculate(ContextEl _conf,
+            EqList<SortedClassField> _list, SortedClassField _current) {
+    }
+    @Override
+    public void analyzeAssignmentAfter(Analyzable _conf) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
+        CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
+        ObjectMap<ClassField,AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
+        ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
+        //simple assignment
+        for (StringMap<AssignmentBefore> s: assB_) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                AssignmentBefore bf_ = e.getValue();
+                sm_.put(e.getKey(), bf_.assignAfter(false));
+            }
+            ass_.add(sm_);
+        }
+        for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+            AssignmentBefore bf_ = e.getValue();
+            assA_.put(e.getKey(), bf_.assignAfter(false));
+        }
+        vars_.getVariables().put(this, ass_);
+        vars_.getFields().put(this, assA_);
+    }
+    @Override
+    public void calculate(ContextEl _conf) {
         Argument previous_ = _conf.getLastPage().getGlobalArgument();
-        ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
+        ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf);
         if (argres_.isInitClass()) {
             ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
             if (_conf.getException() != null) {
                 return;
             }
-            argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
+            argres_ = getCommonArgument(getArgument(), previous_, _conf);
         }
         if (_conf.getException() != null) {
             return;
@@ -132,9 +168,9 @@ public final class StaticAccessOperation extends LeafOperation {
 
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
+            ContextEl _conf) {
         Argument previous_ = _conf.getLastPage().getGlobalArgument();
-        ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
+        ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf);
         Argument arg_ = argres_.getArgument();
         if (argres_.isInitClass()) {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
@@ -146,8 +182,7 @@ public final class StaticAccessOperation extends LeafOperation {
         }
         return arg_;
     }
-    ArgumentCall getCommonArgument(Argument _argument, Argument _previous, ContextEl _conf,
-            String _op) {
+    ArgumentCall getCommonArgument(Argument _argument, Argument _previous, ContextEl _conf) {
         if (possibleInitClass) {
             String className_ = getResultClass().getName();
             InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, className_);

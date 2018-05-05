@@ -14,6 +14,7 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ParsedArgument;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -26,6 +27,10 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.StaticAccessThisError;
 import code.expressionlanguage.methods.util.UndefinedFieldError;
 import code.expressionlanguage.methods.util.UndefinedVariableError;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -39,6 +44,7 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -46,8 +52,12 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EqList;
 import code.util.IdMap;
+import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class ConstantOperation extends LeafOperation implements SettableElResult, PossibleIntermediateDotted {
     private static final String LENGTH = "length";
@@ -497,7 +507,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                     if (StringList.quickEq(c_, stringType_)) {
                         catString = true;
                     }
-                    immutablePart = locVar_.isFinalVariable();
                     setResultClass(new ClassArgumentMatching(c_));
                     return;
                 }
@@ -562,6 +571,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             return;
         }
         if (cl_.isArray()) {
+            immutablePart = true;
             if (StringList.quickEq(_key, LENGTH)) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
                 return;
@@ -617,13 +627,132 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         setResultClass(new ClassArgumentMatching(c_));
     }
     @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
-        return calculateArgument(_nodes, _conf, _op);
+    public void analyzeAssignmentAfter(Analyzable _conf) {
+        Argument arg_ = getArgument();
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
+        ObjectMap<ClassField,AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
+        CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
+        ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
+        if (arg_ != null) {
+            Object obj_ = arg_.getObject();
+            if (obj_ instanceof Boolean) {
+                //boolean constant assignment
+                for (StringMap<AssignmentBefore> s: assB_) {
+                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                    for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                        AssignmentBefore bf_ = e.getValue();
+                        BooleanAssignment b_ = new BooleanAssignment();
+                        if ((Boolean)obj_) {
+                            b_.setAssignedAfterWhenFalse(true);
+                            b_.setUnassignedAfterWhenFalse(true);
+                            b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
+                            b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
+                        } else {
+                            b_.setAssignedAfterWhenTrue(true);
+                            b_.setUnassignedAfterWhenTrue(true);
+                            b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
+                            b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
+                        }
+                        sm_.put(e.getKey(), b_);
+                    }
+                    ass_.add(sm_);
+                }
+                for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+                    AssignmentBefore bf_ = e.getValue();
+                    BooleanAssignment b_ = new BooleanAssignment();
+                    if ((Boolean)obj_) {
+                        b_.setAssignedAfterWhenFalse(true);
+                        b_.setUnassignedAfterWhenFalse(true);
+                        b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
+                        b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
+                    } else {
+                        b_.setAssignedAfterWhenTrue(true);
+                        b_.setUnassignedAfterWhenTrue(true);
+                        b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
+                        b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
+                    }
+                    assA_.put(e.getKey(), b_);
+                }
+            } else {
+                //simple assignment
+                for (StringMap<AssignmentBefore> s: assB_) {
+                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                    for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                        AssignmentBefore bf_ = e.getValue();
+                        sm_.put(e.getKey(), bf_.assignAfter(false));
+                    }
+                    ass_.add(sm_);
+                }
+                for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+                    AssignmentBefore bf_ = e.getValue();
+                    assA_.put(e.getKey(), bf_.assignAfter(false));
+                }
+            }
+        } else {
+            LgNames lgNames_ = _conf.getStandards();
+            String aliasBoolean_ = lgNames_.getAliasBoolean();
+            boolean isBool_;
+            isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+            for (StringMap<AssignmentBefore> s: assB_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore bf_ = e.getValue();
+                    sm_.put(e.getKey(), bf_.assignAfter(isBool_));
+                }
+                ass_.add(sm_);
+            }
+            for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+                AssignmentBefore bf_ = e.getValue();
+                assA_.put(e.getKey(), bf_.assignAfter(isBool_));
+            }
+        }
+        vars_.getVariables().put(this, ass_);
+        vars_.getFields().put(this, assA_);
+    }
+    public ClassField getFieldId() {
+        return fieldId;
+    }
+    public FieldInfo getFieldMetaInfo() {
+        return fieldMetaInfo;
     }
 
-    Argument calculateArgument(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
+    @Override
+    public final void tryCalculate(ContextEl _conf,
+            EqList<SortedClassField> _list, SortedClassField _current) {
+        if (fieldId != null && fieldMetaInfo.isStaticField()) {
+            int index_ = _list.indexOfObj(new SortedClassField(fieldId));
+            SortedClassField found_ = _list.get(index_);
+            if (found_.isOk()) {
+                Argument arg_ = Argument.createVoid();
+                arg_.setStruct(found_.getStruct());
+                setSimpleArgument(arg_);
+                return;
+            }
+            _current.setOk(false);
+            return;
+        }
+        Argument previous_;
+        if (isIntermediateDottedOperation()) {
+            previous_ = getPreviousArgument();
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
+        Argument arg_ = previous_;
+        Argument a_ = new Argument();
+        if (arg_.isNull()) {
+            _current.setOk(false);
+            return;
+        } else {
+            a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
+        }
+        setSimpleArgument(a_);
+    }
+
+    @Override
+    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
+            ContextEl _conf) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
             previous_ = _nodes.getVal(this).getPreviousArgument();
@@ -631,7 +760,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
         Argument current_ = _nodes.getVal(this).getArgument();
-        ArgumentCall argres_ = getCommonArgument(current_, previous_, _conf, _op);
+        ArgumentCall argres_ = getCommonArgument(current_, previous_, _conf);
         Argument arg_ = argres_.getArgument();
         if (_conf.getException() != null) {
             return arg_;
@@ -656,26 +785,20 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     }
 
     @Override
-    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateArgument(_nodes, _conf, _op);
-    }
-
-    void calculateArgument(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
+    public void calculate(ContextEl _conf) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument();
         } else {
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
-        ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
+        ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf);
         if (_conf.getException() != null) {
             return;
         }
         if (argres_.isInitClass()) {
             ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
-            argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
+            argres_ = getCommonArgument(getArgument(), previous_, _conf);
         }
         Argument arg_ = argres_.getArgument();
         if (arg_ == null) {
@@ -685,7 +808,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     }
 
     @Override
-    public void calculateSetting(CustList<OperationNode> _nodes,
+    public void calculateSetting(
             ContextEl _conf, String _op, boolean _post) {
         Argument current_ = getArgument();
         Argument arg_ = getCommonSetting(current_, _conf, _op, _post);
@@ -695,8 +818,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         setSimpleArgument(arg_, _conf);
     }
 
-    ArgumentCall getCommonArgument(Argument _argument, Argument _previous, ContextEl _conf,
-            String _op) {
+    ArgumentCall getCommonArgument(Argument _argument, Argument _previous, ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String cast_;

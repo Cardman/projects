@@ -59,7 +59,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
     }
-
     @Override
     boolean canBeIncrementedNextGroup() {
         return false;

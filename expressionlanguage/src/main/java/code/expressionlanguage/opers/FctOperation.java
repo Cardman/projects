@@ -15,6 +15,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
@@ -39,6 +40,10 @@ import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.util.VarargError;
 import code.expressionlanguage.opers.util.ArrayStruct;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -55,6 +60,7 @@ import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NumberStruct;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -64,6 +70,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -795,15 +802,211 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
     }
 
-
     @Override
-    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
+    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+            OperationNode _firstChild, OperationNode _previous) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        ObjectMap<ClassField,Assignment> fieldsAfter_;
+        CustList<StringMap<Assignment>> variablesAfter_;
+        fieldsAfter_ = vars_.getFields().getVal(_previous);
+        variablesAfter_ = vars_.getVariables().getVal(_previous);
+        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
+        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
+        if (isTernary()) {
+            OperationNode firstChild_ = getFirstChild();
+            ObjectMap<ClassField,Assignment> fieldsAfterFirst_ = vars_.getFields().getVal(firstChild_);
+            CustList<StringMap<Assignment>> variablesAfterFirst_ = vars_.getVariables().getVal(firstChild_);
+            if (firstChild_ == _previous) {
+                for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
+                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                    AssignmentBefore a_ = new AssignmentBefore();
+                    if (b_.isAssignedAfterWhenTrue()) {
+                        a_.setAssignedBefore(true);
+                    }
+                    if (b_.isUnassignedAfterWhenTrue()) {
+                        a_.setUnassignedBefore(true);
+                    }
+                    fieldsBefore_.put(e.getKey(), a_);
+                }
+                for (StringMap<Assignment> s: variablesAfterFirst_) {
+                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                    for (EntryCust<String, Assignment> e: s.entryList()) {
+                        BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                        AssignmentBefore a_ = new AssignmentBefore();
+                        if (b_.isAssignedAfterWhenTrue()) {
+                            a_.setAssignedBefore(true);
+                        }
+                        if (b_.isUnassignedAfterWhenTrue()) {
+                            a_.setUnassignedBefore(true);
+                        }
+                        sm_.put(e.getKey(), a_);
+                    }
+                    variablesBefore_.add(sm_);
+                }
+            } else {
+                for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
+                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                    AssignmentBefore a_ = new AssignmentBefore();
+                    if (b_.isAssignedAfterWhenFalse()) {
+                        a_.setAssignedBefore(true);
+                    }
+                    if (b_.isUnassignedAfterWhenFalse()) {
+                        a_.setUnassignedBefore(true);
+                    }
+                    fieldsBefore_.put(e.getKey(), a_);
+                }
+                for (StringMap<Assignment> s: variablesAfterFirst_) {
+                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                    for (EntryCust<String, Assignment> e: s.entryList()) {
+                        BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                        AssignmentBefore a_ = new AssignmentBefore();
+                        if (b_.isAssignedAfterWhenFalse()) {
+                            a_.setAssignedBefore(true);
+                        }
+                        if (b_.isUnassignedAfterWhenFalse()) {
+                            a_.setUnassignedBefore(true);
+                        }
+                        sm_.put(e.getKey(), a_);
+                    }
+                    variablesBefore_.add(sm_);
+                }
+            }
+            vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
+            vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+            return;
+        }
+        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
+            Assignment b_ = e.getValue();
+            fieldsBefore_.put(e.getKey(), b_.assignBefore());
+        }
+        vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
+        for (StringMap<Assignment> s: variablesAfter_) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment b_ = e.getValue();
+                sm_.put(e.getKey(), b_.assignBefore());
+            }
+            variablesBefore_.add(sm_);
+        }
+        vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+    }
+    @Override
+    public void analyzeAssignmentAfter(Analyzable _conf) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        CustList<OperationNode> children_ = getChildrenNodes();
+        LgNames lgNames_ = _conf.getStandards();
+        String aliasBoolean_ = lgNames_.getAliasBoolean();
+        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        if (children_.isEmpty()) {
+            boolean isBool_;
+            isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+            for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
+                AssignmentBefore b_ = e.getValue();
+                fieldsAfter_.put(e.getKey(), b_.assignAfter(isBool_));
+            }
+            for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore b_ = e.getValue();
+                    sm_.put(e.getKey(), b_.assignAfter(isBool_));
+                }
+                variablesAfter_.add(sm_);
+            }
+            vars_.getFields().put(this, fieldsAfter_);
+            vars_.getVariables().put(this, variablesAfter_);
+            return;
+        }
+        OperationNode last_ = children_.last();
+        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
+        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
+        if (isTernary()) {
+            OperationNode befLast_ = children_.get(children_.size() - 2);
+            ObjectMap<ClassField,Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
+            CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
+            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf)) {
+                for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                    BooleanAssignment p_ = (BooleanAssignment) fieldsAfterBefLast_.getVal(e.getKey());
+                    BooleanAssignment r_ = new BooleanAssignment();
+                    if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
+                        r_.setAssignedAfterWhenTrue(true);
+                    }
+                    if (b_.isUnassignedAfterWhenFalse() && p_.isAssignedAfterWhenFalse()) {
+                        r_.setUnassignedAfterWhenFalse(true);
+                    }
+                    fieldsAfter_.put(e.getKey(), r_);
+                }
+                for (StringMap<Assignment> s: variablesAfterLast_) {
+                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                    int index_ = variablesAfter_.size();
+                    for (EntryCust<String, Assignment> e: s.entryList()) {
+                        BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                        BooleanAssignment p_ = (BooleanAssignment) variablesAfterBefLast_.get(index_).getVal(e.getKey());
+                        BooleanAssignment r_ = new BooleanAssignment();
+                        if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
+                            r_.setAssignedAfterWhenTrue(true);
+                        }
+                        if (b_.isUnassignedAfterWhenFalse() && p_.isAssignedAfterWhenFalse()) {
+                            r_.setUnassignedAfterWhenFalse(true);
+                        }
+                        sm_.put(e.getKey(), r_);
+                    }
+                    variablesAfter_.add(sm_);
+                }
+            } else {
+                for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+                    Assignment b_ = e.getValue();
+                    Assignment p_ = fieldsAfterBefLast_.getVal(e.getKey());
+                    SimpleAssignment r_ = new SimpleAssignment();
+                    if (b_.isAssignedAfter() && p_.isAssignedAfter()) {
+                        r_.setAssignedAfter(true);
+                    }
+                    fieldsAfter_.put(e.getKey(), r_);
+                }
+                for (StringMap<Assignment> s: variablesAfterLast_) {
+                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                    int index_ = variablesAfter_.size();
+                    for (EntryCust<String, Assignment> e: s.entryList()) {
+                        Assignment b_ = e.getValue();
+                        Assignment p_ = variablesAfterBefLast_.get(index_).getVal(e.getKey());
+                        SimpleAssignment r_ = new SimpleAssignment();
+                        if (b_.isAssignedAfter() && p_.isAssignedAfter()) {
+                            r_.setAssignedAfter(true);
+                        }
+                        sm_.put(e.getKey(), r_);
+                    }
+                    variablesAfter_.add(sm_);
+                }
+            }
+        } else {
+            boolean isBool_;
+            isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+                Assignment b_ = e.getValue();
+                fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
+            }
+            for (StringMap<Assignment> s: variablesAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    Assignment b_ = e.getValue();
+                    sm_.put(e.getKey(), b_.assign(isBool_));
+                }
+                variablesAfter_.add(sm_);
+            }
+        }
+        vars_.getFields().put(this, fieldsAfter_);
+        vars_.getVariables().put(this, variablesAfter_);
+    }
+    @Override
+    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+        return calculateCommon(_nodes, _conf);
     }
 
     Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op) {
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -832,12 +1035,79 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateCommon(_nodes, _conf, _op);
+    public void quickCalculate(ContextEl _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (OperationNode o: chidren_) {
+            arguments_.add(o.getArgument());
+        }
+        LgNames stds_ = _conf.getStandards();
+        String trimMeth_ = methodName.trim();
+        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
+            setSimpleArgument(arguments_.first(), _conf);
+            return;
+        }
+        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
+            if (chidren_.size() == 2) {
+                Argument objArg_ = arguments_.last();
+                Argument classArg_ = arguments_.first();
+                String paramName_ = (String) classArg_.getObject();
+                if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, objArg_.getStruct(), _conf)) {
+                    return;
+                }
+                if (objArg_.isNull()) {
+                    Argument arg_ = new Argument();
+                    setSimpleArgument(arg_, _conf);
+                    return;
+                }
+                String argClassName_ = objArg_.getObjectClassName(_conf);
+                ClassArgumentMatching resCl_ = getResultClass();
+                Argument arg_ = new Argument();
+                if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(argClassName_);
+                    paramName_ = _conf.getLastPage().formatVarType(paramName_, _conf);
+                    mapping_.setParam(paramName_);
+                    if (!Templates.isCorrect(mapping_, _conf)) {
+                        return;
+                    }
+                    arg_.setStruct(objArg_.getStruct());
+                } else {
+                    if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
+                        if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
+                            return;
+                        }
+                        arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
+                    } else {
+                        String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true, _conf).getName();
+                        if (!StringList.quickEq(typeNameArg_, stds_.getAliasPrimBoolean())) {
+                            return;
+                        }
+                        arg_.setStruct(objArg_.getStruct());
+                    }
+                }
+                setSimpleArgument(arg_, _conf);
+                return;
+            }
+        }
+        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
+            Boolean obj_ = (Boolean) arguments_.first().getObject();
+            Argument arg_;
+            if (obj_) {
+                arg_ = arguments_.get(CustList.SECOND_INDEX);
+            } else {
+                arg_ = arguments_.last();
+            }
+            setSimpleArgument(arg_, _conf);
+            return;
+        }
+    }
+    @Override
+    public void calculate(ContextEl _conf) {
+        calculateCommon(_conf);
     }
 
-    void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
+    void calculateCommon(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -1378,5 +1648,21 @@ public final class FctOperation extends InvokingOperation {
             return false;
         }
         return true;
+    }
+    public boolean isConstCall() {
+        String trimMeth_ = methodName.trim();
+        if (StringList.quickEq(trimMeth_,prefixFunction(VAR_ARG))) {
+            return true;
+        }
+        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
+            return true;
+        }
+        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
+            return true;
+        }
+        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
+            return true;
+        }
+        return false;
     }
 }

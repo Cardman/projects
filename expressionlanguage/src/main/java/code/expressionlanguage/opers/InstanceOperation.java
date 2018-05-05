@@ -15,6 +15,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.NotInitializedClass;
@@ -28,10 +29,14 @@ import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
@@ -41,9 +46,11 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -309,7 +316,78 @@ public final class InstanceOperation extends InvokingOperation {
         possibleInitClass = true;
         setResultClass(new ClassArgumentMatching(realClassName_));
     }
-
+    @Override
+    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+            OperationNode _firstChild, OperationNode _previous) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        ObjectMap<ClassField,Assignment> fieldsAfter_;
+        CustList<StringMap<Assignment>> variablesAfter_;
+        fieldsAfter_ = vars_.getFields().getVal(_previous);
+        variablesAfter_ = vars_.getVariables().getVal(_previous);
+        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
+        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
+            Assignment b_ = e.getValue();
+            fieldsBefore_.put(e.getKey(), b_.assignBefore());
+        }
+        vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
+        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
+        for (StringMap<Assignment> s: variablesAfter_) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment b_ = e.getValue();
+                sm_.put(e.getKey(), b_.assignBefore());
+            }
+            variablesBefore_.add(sm_);
+        }
+        vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+    }
+    @Override
+    public void analyzeAssignmentAfter(Analyzable _conf) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        CustList<OperationNode> children_ = getChildrenNodes();
+        LgNames lgNames_ = _conf.getStandards();
+        String aliasBoolean_ = lgNames_.getAliasBoolean();
+        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        boolean isBool_;
+        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        if (children_.isEmpty()) {
+            for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
+                AssignmentBefore b_ = e.getValue();
+                fieldsAfter_.put(e.getKey(), b_.assignAfter(isBool_));
+            }
+            for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore b_ = e.getValue();
+                    sm_.put(e.getKey(), b_.assignAfter(isBool_));
+                }
+                variablesAfter_.add(sm_);
+            }
+            vars_.getFields().put(this, fieldsAfter_);
+            vars_.getVariables().put(this, variablesAfter_);
+            return;
+        }
+        OperationNode last_ = children_.last();
+        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
+        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
+        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+            Assignment b_ = e.getValue();
+            fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
+        }
+        for (StringMap<Assignment> s: variablesAfterLast_) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment b_ = e.getValue();
+                sm_.put(e.getKey(), b_.assign(isBool_));
+            }
+            variablesAfter_.add(sm_);
+        }
+        vars_.getFields().put(this, fieldsAfter_);
+        vars_.getVariables().put(this, variablesAfter_);
+    }
     @Override
     public boolean isOtherConstructorClass() {
         return false;
@@ -330,13 +408,12 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     @Override
-    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
+    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+        return calculateCommon(_nodes, _conf);
     }
 
     Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op) {
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -348,7 +425,7 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
-        ArgumentCall argres_ = getArgument(previous_, arguments_, _conf, _op);
+        ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
         Argument res_ = argres_.getArgument();
         if (argres_.isInitClass()) {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
@@ -361,12 +438,11 @@ public final class InstanceOperation extends InvokingOperation {
         return res_;
     }
     @Override
-    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateCommon(_nodes, _conf, _op);
+    public void calculate(ContextEl _conf) {
+        calculateCommon(_conf);
     }
 
-    void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
+    void calculateCommon(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -378,13 +454,13 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
-        ArgumentCall argres_ = getArgument(previous_, arguments_, _conf, _op);
+        ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
         if (argres_.isInitClass()) {
             ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
             if (_conf.getException() != null) {
                 return;
             }
-            argres_ = getArgument(previous_, arguments_, _conf, _op);
+            argres_ = getArgument(previous_, arguments_, _conf);
         }
         Argument res_;
         if (argres_.isInvokeConstructor()) {
@@ -403,7 +479,7 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     ArgumentCall getArgument(Argument _previous,CustList<Argument> _arguments,
-            ContextEl _conf, String _op) {
+            ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String size_;

@@ -10,9 +10,14 @@ import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -57,6 +62,15 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                         _cont.getClasses().getErrorsDet().add(miss_);
                     }
                 }
+            } else if (this instanceof ConstructorBlock) {
+                AssignedVariablesBlock glAss_ = page_.getAssignedVariables();
+                AssignedVariables varsAss_ = glAss_.getFinalVariablesGlobal();
+                ObjectMap<ClassField,Assignment> as_ = varsAss_.getFieldsRoot();
+                for (EntryCust<ClassField, Assignment> a: as_.entryList()) {
+                    if (!a.getValue().isAssignedAfter()) {
+                        //field error
+                    }
+                }
             }
             return;
         }
@@ -77,6 +91,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         CustList<BreakableBlock> parentsBreakables_ = anEl_.getParentsBreakables();
         CustList<Loop> parentsContinuable_ = anEl_.getParentsContinuables();
         while (true) {
+            en_.setAssignmentBefore(_cont, anEl_);
             en_.reach(_cont, anEl_);
             if (!anEl_.isReachable(en_)) {
                 //error
@@ -93,6 +108,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             Block n_ = en_.getFirstChild();
             if (n_ != null) {
                 _cont.getAnalyzing().initLocalVars();
+//                page_.getAssignedVariables().getFinalVariables().getVal(en_).initVars();
                 if (en_ instanceof BreakableBlock) {
                     parentsBreakables_.add((BreakableBlock) en_);
                 }
@@ -100,19 +116,21 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                     parentsContinuable_.add((Loop) en_);
                 }
                 parents_.add((BracedBlock) en_);
-                tryCheckBlocksTree(n_, _cont);
-                tryBuildExpressionLanguage(n_, _cont);
-                tryCheckConstCall(n_, _cont);
+            }
+            if (en_ != anEl_.getRoot()) {
+                tryCheckBlocksTree(en_, _cont);
+                tryBuildExpressionLanguage(en_, _cont);
+                tryCheckConstCall(en_, _cont);
+            }
+            if (n_ != null) {
                 en_ = n_;
                 continue;
             }
             en_.abrupt(_cont, anEl_);
+            en_.setAssignmentAfter(_cont, anEl_);
             while (true) {
                 n_ = en_.getNextSibling();
                 if (n_ != null) {
-                    tryCheckBlocksTree(n_, _cont);
-                    tryBuildExpressionLanguage(n_, _cont);
-                    tryCheckConstCall(n_, _cont);
                     en_ = n_;
                     break;
                 }
@@ -120,6 +138,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 par_ = en_.getParent();
                 par_.abrupt(_cont, anEl_);
                 par_.abruptGroup(_cont, anEl_);
+                par_.setAssignmentAfter(_cont, anEl_);
                 if (par_ == this) {
                     if (par_ instanceof MethodBlock) {
                         MethodBlock method_ = (MethodBlock)par_;
@@ -145,8 +164,16 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 if (par_ instanceof Loop) {
                     parentsContinuable_.removeLast();
                 }
-                _cont.getAnalyzing().removeLocalVars();
-                en_.removeLocalVariablesFromParent(_cont);
+                page_.removeLocalVars();
+//                page_.getAssignedVariables().getFinalVariables().getVal(par_).removeVars();
+                if (par_ instanceof ForLoop) {
+                    String var_ = ((ForLoop)par_).getVariableName();
+                    page_.getVars().removeKey(var_);
+                }
+                if (par_ instanceof CatchEval) {
+                    String var_ = ((CatchEval)par_).getVariableName();
+                    page_.getCatchVars().removeKey(var_);
+                }
                 en_ = par_;
             }
         }

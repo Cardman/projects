@@ -20,6 +20,13 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.AssignedBooleanVariables;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.BooleanAssignment;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -29,7 +36,10 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -253,8 +263,219 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         lv_.setClassName(className);
         lv_.setIndexClassName(classIndexName);
         _cont.getAnalyzing().getVars().put(variableName, lv_);
+        AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
+        for (EntryCust<ClassField,Assignment> e: res_.getFields().lastValue().entryList()) {
+            BooleanAssignment ba_ = new BooleanAssignment();
+            ba_.setAssignedAfterWhenFalse(true);
+            ba_.setUnassignedAfterWhenFalse(true);
+            ba_.setAssignedAfterWhenTrue(e.getValue().isAssignedAfter());
+            ba_.setUnassignedAfterWhenTrue(e.getValue().isUnassignedAfter());
+            res_.getFieldsRootAfter().put(e.getKey(), ba_);
+        }
+        for (StringMap<Assignment> s: res_.getVariables().lastValue()) {
+            StringMap<BooleanAssignment> sm_;
+            sm_ = new StringMap<BooleanAssignment>();
+            for (EntryCust<String,Assignment> e: s.entryList()) {
+                BooleanAssignment ba_ = new BooleanAssignment();
+                ba_.setAssignedAfterWhenFalse(true);
+                ba_.setUnassignedAfterWhenFalse(true);
+                ba_.setAssignedAfterWhenTrue(e.getValue().isAssignedAfter());
+                ba_.setUnassignedAfterWhenTrue(e.getValue().isUnassignedAfter());
+                sm_.put(e.getKey(), ba_);
+            }
+            res_.getVariablesRootAfter().add(sm_);
+        }
+    }
+    @Override
+    public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        ObjectMap<ClassField,AssignmentBefore> fields_;
+        CustList<StringMap<AssignmentBefore>> variables_;
+        fields_ = new ObjectMap<ClassField,AssignmentBefore>();
+        variables_ = new CustList<StringMap<AssignmentBefore>>();
+        for (EntryCust<ClassField,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
+            AssignmentBefore ab_ = new AssignmentBefore();
+            if (e.getValue().isAssignedBefore()) {
+                ab_.setAssignedBefore(true);
+            } else {
+                ab_.setUnassignedBefore(true);
+            }
+            fields_.put(e.getKey(), ab_);
+        }
+        vars_.getFieldsBefore().put(_root, fields_);
+        for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                AssignmentBefore ab_ = new AssignmentBefore();
+                if (e.getValue().isAssignedBefore()) {
+                    ab_.setAssignedBefore(true);
+                } else {
+                    ab_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), ab_);
+            }
+            variables_.add(sm_);
+        }
+        vars_.getVariablesBefore().put(_root, variables_);
     }
 
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        Block last_ = firstChild_;
+        while (last_.getNextSibling() != null) {
+            last_ = last_.getNextSibling();
+        }
+        IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
+        boolean add_ = false;
+        for (EntryCust<Block, AssignedVariables> e: _an.getAssignedVariables().getFinalVariables().entryList()) {
+            if (e.getKey() == this) {
+                add_ = true;
+            }
+            if (add_) {
+                allDesc_.put(e.getKey(), e.getValue());
+            }
+        }
+        AssignedBooleanVariables varsWhile_ = (AssignedBooleanVariables) allDesc_.firstValue();
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        ObjectMap<ClassField,AssignmentBefore> fields_;
+        fields_ = new ObjectMap<ClassField,AssignmentBefore>();
+        for (EntryCust<ClassField,AssignmentBefore> e: varsWhile_.getFieldsRootBefore().entryList()) {
+            AssignmentBefore ab_ = new AssignmentBefore();
+            if (e.getValue().isAssignedBefore()) {
+                ab_.setAssignedBefore(true);
+            } else {
+                ab_.setUnassignedBefore(true);
+            }
+            fields_.put(e.getKey(), ab_);
+        }
+        CustList<ContinueBlock> conts_ = new CustList<ContinueBlock>();
+        for (EntryCust<ContinueBlock, Loop> e: _anEl.getContinuables().entryList()) {
+            if (e.getValue() != this) {
+                continue;
+            }
+            conts_.add(e.getKey());
+            AssignedVariables vars_;
+            vars_ = id_.getVal(e.getKey());
+            for (EntryCust<ClassField,AssignmentBefore> f: vars_.getFieldsRootBefore().entryList()) {
+                if (!f.getValue().isUnassignedBefore()) {
+                    fields_.getVal(f.getKey()).setUnassignedBefore(false);
+                }
+            }
+        }
+        AssignedVariables vars_;
+        vars_ = id_.getVal(last_);
+        for (EntryCust<ClassField,Assignment> f: vars_.getFieldsRoot().entryList()) {
+            if (!f.getValue().isUnassignedAfter()) {
+                fields_.getVal(f.getKey()).setUnassignedBefore(false);
+            }
+        }
+        varsWhile_.getFieldsRootBefore().putAllMap(fields_);
+//        processFinalVars(_anEl, allDesc_, fields_, conts_);
+        ObjectMap<ClassField,Assignment> fieldsAfter_;
+        fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        String boolType_ = _an.getStandards().getAliasBoolean();
+        for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {
+            BooleanAssignment ba_ = e.getValue();
+            boolean ass_ = true;
+            boolean unass_ = true;
+            if (!ba_.isAssignedAfterWhenFalse()) {
+                ass_ = false;
+            }
+            if (!ba_.isUnassignedAfterWhenFalse()) {
+                unass_ = false;
+            }
+            if (!id_.getVal(this).getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
+                ass_ = false;
+            }
+            if (!id_.getVal(this).getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
+                unass_ = false;
+            }
+            for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
+                if (f.getValue() != this) {
+                    continue;
+                }
+                if (!id_.getVal(f.getKey()).getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
+                    ass_ = false;
+                }
+                if (!id_.getVal(f.getKey()).getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
+                    unass_ = false;
+                }
+            }
+            ClassField key_ = e.getKey();
+            String classNameDecl_ = key_.getClassName();
+            ClassMetaInfo custClass_;
+            custClass_ = _an.getClassMetaInfo(classNameDecl_);
+            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
+            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
+            fieldsAfter_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+        }
+        varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
+        
+        
+        
+        
+//        IdMap<Block, AssignedVariables> id_;
+//        id_ = _an.getAssignedVariables().getFinalVariables();
+//        IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
+//        boolean add_ = false;
+//        for (EntryCust<Block, AssignedVariables> e: _an.getAssignedVariables().getFinalVariables().entryList()) {
+//            if (e.getKey() == this) {
+//                add_ = true;
+//            }
+//            if (add_) {
+//                allDesc_.put(e.getKey(), e.getValue());
+//            }
+//        }
+//        AssignedVariables varsWhile_ = allDesc_.firstValue();
+//        ObjectMap<ClassField,Assignment> fieldsAfter_;
+//        fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+//        String boolType_ = _an.getStandards().getAliasBoolean();
+//        for (EntryCust<ClassField,Assignment> e: varsWhile_.getFieldsRoot().entryList()) {
+//            boolean ass_ = varsWhile_.getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore();
+//            boolean unass_ = varsWhile_.getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore();
+//            for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
+//                if (f.getValue() != this) {
+//                    continue;
+//                }
+//                if (!id_.getVal(f.getKey()).getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
+//                    unass_ = false;
+//                }
+//            }
+//            ClassField key_ = e.getKey();
+//            String classNameDecl_ = key_.getClassName();
+//            ClassMetaInfo custClass_;
+//            custClass_ = _an.getClassMetaInfo(classNameDecl_);
+//            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
+//            if (PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an)) {
+//                BooleanAssignment bas_ = new BooleanAssignment();
+//                if (ass_) {
+//                    bas_.setAssignedAfterWhenFalse(true);
+//                    bas_.setAssignedAfterWhenTrue(true);
+//                }
+//                if (unass_) {
+//                    bas_.setUnassignedAfterWhenFalse(true);
+//                    bas_.setUnassignedAfterWhenTrue(true);
+//                }
+//                fieldsAfter_.put(key_, bas_);
+//            } else {
+//                SimpleAssignment si_ = new SimpleAssignment();
+//                if (ass_) {
+//                    si_.setAssignedAfter(true);
+//                }
+//                if (unass_) {
+//                    si_.setUnassignedAfter(true);
+//                }
+//                fieldsAfter_.put(key_, si_);
+//            }
+//        }
+//        varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
+    }
+    @Override
+    protected AssignedBooleanVariables buildNewAssignedVariable() {
+        return new AssignedBooleanVariables();
+    }
     @Override
     boolean canBeIncrementedNextGroup() {
         return false;

@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.IdMap;
 
 public final class AnalyzingEl {
@@ -13,7 +14,9 @@ public final class AnalyzingEl {
 
     private IdMap<Block, Boolean> reachable = new IdMap<Block, Boolean>();
     private IdMap<BreakBlock, BreakableBlock> breakables = new IdMap<BreakBlock, BreakableBlock>();
+    private IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors = new IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>>();
     private IdMap<ContinueBlock, Loop> continuables = new IdMap<ContinueBlock, Loop>();
+    private IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>> continuablesAncestors = new IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>>();
     private CustList<BracedBlock> parents = new CustList<BracedBlock>();
     private CustList<BreakableBlock> parentsBreakables = new CustList<BreakableBlock>();
     private CustList<Loop> parentsContinuables = new CustList<Loop>();
@@ -70,6 +73,14 @@ public final class AnalyzingEl {
 
     public IdMap<ContinueBlock, Loop> getContinuables() {
         return continuables;
+    }
+
+    public IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> getBreakablesAncestors() {
+        return breakablesAncestors;
+    }
+
+    public IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>> getContinuablesAncestors() {
+        return continuablesAncestors;
     }
 
     public CustList<BracedBlock> getParents() {

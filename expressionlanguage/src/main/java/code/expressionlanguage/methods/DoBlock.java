@@ -77,6 +77,11 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     public void buildExpressionLanguage(ContextEl _cont) {
     }
 
+//    @Override
+//    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+//        // TODO Auto-generated method stub
+//    }
+
     @Override
     boolean canBeIncrementedNextGroup() {
         return false;

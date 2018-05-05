@@ -14,6 +14,7 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
@@ -48,6 +49,7 @@ import code.expressionlanguage.opers.util.ParametersGroup;
 import code.expressionlanguage.opers.util.Parametrable;
 import code.expressionlanguage.opers.util.Parametrables;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -184,9 +186,18 @@ public abstract class OperationNode {
 
     public abstract void analyze(Analyzable _conf, String _fieldName);
 
-    public abstract void calculate(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
+    public final void tryAnalyzeAssignmentAfter(Analyzable _conf) {
+        Block currentBlock_ = _conf.getCurrentBlock();
+        if (currentBlock_  == null) {
+            return;
+        }
+        analyzeAssignmentAfter(_conf);
+    }
+    public abstract void analyzeAssignmentAfter(Analyzable _conf);
+    public abstract void calculate(ContextEl _conf);
+    public abstract void tryCalculate(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current);
 
-    public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op);
+    public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf);
 
 
     public final void setRelativeOffsetPossibleAnalyzable(int _offset, Analyzable _cont) {

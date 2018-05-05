@@ -43,6 +43,10 @@ public final class SortedGraph<T extends SortedEdge<T>> {
         return elts_;
     }
 
+    public EqList<T> getTreeFrom(T _elt) {
+        return graph.getTreeFrom(_elt);
+    }
+
     public CustList<ArrowedSegment<T>> getSegments() {
         return graph.getSegments();
     }

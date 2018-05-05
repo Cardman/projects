@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.util.CustList;
 import code.util.IdMap;
 
 public interface SettableElResult {
@@ -18,6 +17,6 @@ public interface SettableElResult {
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post);
 
-    void calculateSetting(CustList<OperationNode> _nodes,
+    void calculateSetting(
             ContextEl _conf, String _op, boolean _post);
 }

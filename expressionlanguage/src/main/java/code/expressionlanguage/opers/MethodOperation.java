@@ -1,10 +1,20 @@
 package code.expressionlanguage.opers;
+import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.CustList;
+import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
+import code.util.StringMap;
 
 public abstract class MethodOperation extends OperationNode {
 
@@ -40,7 +50,47 @@ public abstract class MethodOperation extends OperationNode {
         }
         return false;
     }
- 
+
+    public final void tryAnalyzeAssignmentBefore(Analyzable _conf, OperationNode _firstChild) {
+        Block currentBlock_ = _conf.getCurrentBlock();
+        if (currentBlock_  == null) {
+            return;
+        }
+        analyzeAssignmentBefore(_conf, _firstChild);
+    }
+    public void analyzeAssignmentBefore(Analyzable _conf, OperationNode _firstChild) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        ObjectMap<ClassField,AssignmentBefore> fields_;
+        CustList<StringMap<AssignmentBefore>> variables_;
+        fields_ = vars_.getFieldsBefore().getVal(this);
+        variables_ = vars_.getVariablesBefore().getVal(this);
+        vars_.getFieldsBefore().put(_firstChild, fields_);
+        vars_.getVariablesBefore().put(_firstChild, variables_);
+    }
+    public final void tryAnalyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _firstChild, OperationNode _previous) {
+        Block currentBlock_ = _conf.getCurrentBlock();
+        if (currentBlock_  == null) {
+            return;
+        }
+        analyzeAssignmentBeforeNextSibling(_conf, _firstChild, _previous);
+    }
+    public abstract void analyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _firstChild, OperationNode _previous);
+    @Override
+    public final void tryCalculate(ContextEl _conf,
+            EqList<SortedClassField> _list, SortedClassField _current) {
+        CustList<OperationNode> children_ = getChildrenNodes();
+        for (OperationNode o: children_) {
+            if (o.getArgument() == null) {
+                _current.setOk(false);
+                return;
+            }
+        }
+        quickCalculate(_conf);
+    }
+    public void quickCalculate(ContextEl _conf) {
+    }
+
     public final void appendChild(OperationNode _child) {
         if (firstChild == null) {
             firstChild = _child;

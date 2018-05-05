@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -11,12 +12,19 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class ElementBlock extends Leaf implements InfoBlock{
 
@@ -116,6 +124,46 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     @Override
+    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+        Block prev_ = getPreviousSibling();
+        AssignedVariables ass_;
+        if (prev_ == null) {
+            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
+            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+            id_.put(this, ass_);
+        } else {
+            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+            AssignedVariables parAss_ = id_.getVal(prev_);
+            AssignedVariables assBl_ = buildNewAssignedVariable();
+            for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
+                AssignmentBefore asBef_ = new AssignmentBefore();
+                if (e.getValue().isAssignedAfter()) {
+                    asBef_.setAssignedBefore(true);
+                }
+                if (e.getValue().isUnassignedAfter()) {
+                    asBef_.setUnassignedBefore(true);
+                }
+                assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
+            }
+            for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    AssignmentBefore asBef_ = new AssignmentBefore();
+                    if (e.getValue().isAssignedAfter()) {
+                        asBef_.setAssignedBefore(true);
+                    }
+                    if (e.getValue().isUnassignedAfter()) {
+                        asBef_.setUnassignedBefore(true);
+                    }
+                    sm_.put(e.getKey(), asBef_);
+                }
+                assBl_.getVariablesRootBefore().add(sm_);
+            }
+            id_.put(this, assBl_);
+        }
+    }
+
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
@@ -134,7 +182,14 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
         page_.setTranslatedOffset(0);
     }
-
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        String className_ = getClassName();
+        AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
+        AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
+        ObjectMap<ClassField,Assignment> as_ = varsAss_.getFieldsRoot();
+        as_.put(new ClassField(className_, fieldName), Assignment.assign(false, true, false));
+    }
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;

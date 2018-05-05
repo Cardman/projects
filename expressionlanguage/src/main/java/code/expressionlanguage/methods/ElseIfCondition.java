@@ -5,11 +5,24 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.util.AssignedBooleanVariables;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.BooleanAssignment;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stacks.IfBlockStack;
+import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
+import code.util.StringMap;
 
 public final class ElseIfCondition extends Condition implements BlockCondition, IncrCurrentGroup, IncrNextGroup {
 
@@ -67,7 +80,138 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
     }
-
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        super.setAssignmentAfter(_an, _anEl);
+        if (canBeIncrementedCurGroup()) {
+            return;
+        }
+        CustList<Block> prev_ = new CustList<Block>();
+        Block pBlock_ = getPreviousSibling();
+        while (!(pBlock_ instanceof IfCondition)) {
+//            Block ch_ = pBlock_.getFirstChild();
+//            while (ch_.getNextSibling() != null) {
+//                ch_ = ch_.getNextSibling();
+//            }
+            prev_.add(pBlock_);
+            pBlock_ = pBlock_.getPreviousSibling();
+        }
+//        Block chIf_ = pBlock_.getFirstChild();
+//        while (chIf_.getNextSibling() != null) {
+//            chIf_ = chIf_.getNextSibling();
+//        }
+        prev_.add(pBlock_);
+//        Block ch_ = getFirstChild();
+//        while (ch_.getNextSibling() != null) {
+//            ch_ = ch_.getNextSibling();
+//        }
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
+        ObjectMap<ClassField,BooleanAssignment> fieldsCond_ = assTar_.getFieldsRootAfter();
+        CustList<StringMap<BooleanAssignment>> varsCond_ = assTar_.getVariablesRootAfter();
+        AssignedVariables ass_ = id_.getVal(this);
+        ObjectMap<ClassField,Assignment> fields_ = ass_.getFieldsRoot();
+        CustList<StringMap<Assignment>> vars_ = ass_.getVariablesRoot();
+        ObjectMap<ClassField,Assignment> after_ = new ObjectMap<ClassField,Assignment>();
+        CustList<StringMap<Assignment>> afterVars_ = new CustList<StringMap<Assignment>>();
+        String boolType_ = _an.getStandards().getAliasBoolean();
+        for (EntryCust<ClassField,Assignment> e: fields_.entryList()) {
+            Assignment ab_ = e.getValue();
+            ClassField key_ = e.getKey();
+            String classNameDecl_ = key_.getClassName();
+            ClassMetaInfo custClass_;
+            custClass_ = _an.getClassMetaInfo(classNameDecl_);
+            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
+            BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
+            boolean assAfter_ = ab_.isAssignedAfter();
+            boolean unassAfter_ = ab_.isUnassignedAfter();
+            if (assAfter_) {
+                for (Block p: prev_) {
+                    if (!_anEl.canCompleteNormally(p)) {
+                        continue;
+                    }
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    ObjectMap<ClassField,Assignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                        assAfter_ = false;
+                        break;
+                    }
+                }
+            }
+            if (unassAfter_) {
+                for (Block p: prev_) {
+                    if (!_anEl.canCompleteNormally(p)) {
+                        continue;
+                    }
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    ObjectMap<ClassField,Assignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                        unassAfter_ = false;
+                        break;
+                    }
+                }
+            }
+            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
+            if (assAfter_ || _anEl.canCompleteNormally(this)) {
+                assAfter_ = condBa_.isAssignedAfterWhenFalse();
+            }
+            if (unassAfter_ || _anEl.canCompleteNormally(this)) {
+                unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+            }
+            after_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
+        }
+        assTar_.getFieldsRoot().putAllMap(after_);
+        for (StringMap<Assignment> s: vars_) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            int index_ = afterVars_.size();
+            for (EntryCust<String,Assignment> e: s.entryList()) {
+                Assignment ab_ = e.getValue();
+                String key_ = e.getKey();
+                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
+                String type_ = lc_.getClassName();
+                BooleanAssignment condBa_ = varsCond_.get(index_).getVal(key_);
+                boolean assAfter_ = ab_.isAssignedAfter();
+                boolean unassAfter_ = ab_.isUnassignedAfter();
+                if (assAfter_) {
+                    for (Block p: prev_) {
+                        if (!_anEl.canCompleteNormally(p)) {
+                            continue;
+                        }
+                        AssignedVariables assLoc_ = id_.getVal(p);
+                        StringMap<Assignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                        if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                            assAfter_ = false;
+                            break;
+                        }
+                    }
+                }
+                if (unassAfter_) {
+                    for (Block p: prev_) {
+                        if (!_anEl.canCompleteNormally(p)) {
+                            continue;
+                        }
+                        AssignedVariables assLoc_ = id_.getVal(p);
+                        StringMap<Assignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                        if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                            unassAfter_ = false;
+                            break;
+                        }
+                    }
+                }
+                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
+                if (assAfter_ || _anEl.canCompleteNormally(this)) {
+                    assAfter_ = condBa_.isAssignedAfterWhenFalse();
+                }
+                if (unassAfter_ || _anEl.canCompleteNormally(this)) {
+                    unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                }
+                sm_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
+            }
+            afterVars_.add(sm_);
+        }
+        assTar_.getVariablesRoot().clear();
+        assTar_.getVariablesRoot().addAllElts(afterVars_);
+    }
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;

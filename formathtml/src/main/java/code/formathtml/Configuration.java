@@ -9,7 +9,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Options;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.AssignedVariablesBlock;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.NullStruct;
@@ -761,4 +764,23 @@ public class Configuration implements Analyzable {
         context.setFinalVariable(_finalVariable);
     }
 
+    @Override
+    public AssignedVariablesBlock getAssignedVariables() {
+        return context.getAssignedVariables();
+    }
+
+    @Override
+    public Block getCurrentBlock() {
+        return context.getCurrentBlock();
+    }
+
+    @Override
+    public CustList<OperationNode> getTextualSortedOperations() {
+        return context.getTextualSortedOperations();
+    }
+
+    @Override
+    public CustList<StringMap<LocalVariable>> getLocalVariables() {
+        return context.getLocalVariables();
+    }
 }

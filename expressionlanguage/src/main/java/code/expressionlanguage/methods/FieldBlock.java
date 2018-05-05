@@ -1,6 +1,8 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
@@ -8,22 +10,39 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.ConstantOperation;
+import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.FctOperation;
+import code.expressionlanguage.opers.IdOperation;
+import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.PrimitiveBoolOperation;
+import code.expressionlanguage.opers.SemiAffectationOperation;
+import code.expressionlanguage.opers.StaticAccessOperation;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EqList;
+import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -130,6 +149,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return new ExpressionLanguage(opValue);
     }
 
+    public CustList<OperationNode> getOpValue() {
+        return opValue;
+    }
+
     @Override
     public boolean isStaticField() {
         return staticField;
@@ -168,6 +191,34 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
+    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+        Block prev_ = getPreviousSibling();
+        AssignedVariables ass_;
+        if (prev_ == null) {
+            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
+            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+            id_.put(this, ass_);
+        } else {
+            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+            AssignedVariables parAss_ = id_.getVal(prev_);
+            if (parAss_ == null) {
+                parAss_ = _an.getAssignedVariables().getFinalVariablesGlobal();
+            }
+            AssignedVariables assBl_ = buildNewAssignedVariable();
+            for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
+                assBl_.getFieldsRootBefore().put(e.getKey(), e.getValue().assignBefore());
+            }
+            for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    sm_.put(e.getKey(), e.getValue().assignBefore());
+                }
+                assBl_.getVariablesRootBefore().add(sm_);
+            }
+            id_.put(this, assBl_);
+        }
+    }
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getClassNameOffset());
@@ -192,7 +243,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        mapping_.setArg(opValue.last().getResultClass().getName());
+        String arg_ = opValue.last().getResultClass().getName();
+        mapping_.setArg(arg_);
         mapping_.setParam(className);
         if (!Templates.isGenericCorrect(mapping_, _cont)) {
             BadImplicitCast cast_ = new BadImplicitCast();
@@ -201,6 +253,98 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             cast_.setRc(getRowCol(0, valueOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
+    }
+
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        String boolStd_ = _an.getStandards().getAliasBoolean();
+        String arg_ = className;
+        if (!value.isEmpty()) {
+            arg_ = opValue.last().getResultClass().getName();
+        }
+        AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
+        AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
+        ObjectMap<ClassField,Assignment> as_ = varsAss_.getFieldsRoot();
+        String className_ = getRooted().getFullName();
+        boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, arg_, _an);
+        as_.put(new ClassField(className_, fieldName), Assignment.assign(isBool_, true, false));
+    }
+    public boolean isSimpleStaticConstant() {
+        if (!isStaticField()) {
+            return false;
+        }
+        if (!isFinalField()) {
+            return false;
+        }
+        for (OperationNode o: opValue) {
+            OperationsSequence op_ = o.getOperations();
+            if (op_.getConstType() == ConstType.NUMBER) {
+                continue;
+            }
+            if (op_.getConstType() == ConstType.STRING) {
+                continue;
+            }
+            if (op_.getConstType() == ConstType.CHARACTER) {
+                continue;
+            }
+            if (op_.getConstType() == ConstType.TRUE_CST) {
+                continue;
+            }
+            if (op_.getConstType() == ConstType.FALSE_CST) {
+                continue;
+            }
+            if (op_.getConstType() == ConstType.NULL_CST) {
+                continue;
+            }
+            if (o instanceof StaticAccessOperation) {
+                continue;
+            }
+            if (o instanceof ConstantOperation) {
+                ConstantOperation cst_ = (ConstantOperation) o;
+                if (cst_.getFieldMetaInfo().isFinalField()) {
+                    continue;
+                }
+            }
+            if (o instanceof NumericOperation) {
+                continue;
+            }
+            if (o instanceof DotOperation) {
+                continue;
+            }
+            if (o instanceof IdOperation) {
+                continue;
+            }
+            if (o instanceof PrimitiveBoolOperation) {
+                if (!(o instanceof SemiAffectationOperation)) {
+                    continue;
+                }
+                return false;
+            }
+            if (o instanceof FctOperation) {
+                FctOperation fct_ = (FctOperation) o;
+                if (fct_.isTernary()) {
+                    continue;
+                }
+                if (fct_.isConstCall()) {
+                    continue;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+    public EqList<ClassField> getStaticConstantDependencies() {
+        EqList<ClassField> eq_ = new EqList<ClassField>();
+        for (OperationNode o: opValue) {
+            if (!(o instanceof ConstantOperation)) {
+                continue;
+            }
+            ConstantOperation cst_ = (ConstantOperation) o;
+            if (cst_.getFieldId() != null) {
+                eq_.add(cst_.getFieldId());
+            }
+        }
+        return eq_;
     }
 
     @Override

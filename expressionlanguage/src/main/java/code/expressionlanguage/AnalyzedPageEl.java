@@ -1,8 +1,10 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FileBlock;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.RowCol;
@@ -39,6 +41,10 @@ public class AnalyzedPageEl {
     private CustList<StringMap<LocalVariable>> localVars = new CustList<StringMap<LocalVariable>>();
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
+
+    private AssignedVariablesBlock assignedVariables = new AssignedVariablesBlock();
+
+    private CustList<OperationNode> textualSortedOperations = new CustList<OperationNode>();
 
     private String readUrl;
 
@@ -185,6 +191,10 @@ public class AnalyzedPageEl {
 
     public void setVars(StringMap<LoopVariable> _vars) {
         vars = _vars;
+    }
+
+    public CustList<StringMap<LocalVariable>> getLocalVars() {
+        return localVars;
     }
 
     public void initLocalVars() {
@@ -354,4 +364,10 @@ public class AnalyzedPageEl {
         return translatedOffset;
     }
 
+    public AssignedVariablesBlock getAssignedVariables() {
+        return assignedVariables;
+    }
+    public CustList<OperationNode> getTextualSortedOperations() {
+        return textualSortedOperations;
+    }
 }

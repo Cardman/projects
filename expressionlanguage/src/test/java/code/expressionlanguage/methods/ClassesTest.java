@@ -8,9 +8,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -595,6 +597,141 @@ public class ClassesTest {
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new EqList<ClassName>())));
     }
+    @Test
+    public void calculateStaticField1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int myf=2i:\n");
+        xml_.append(" $public $static $final $int mys=myf;;;+3i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        assertTrue(str_.getInstance() instanceof Integer);
+        assertEq(2, ((Number)str_.getInstance()).intValue());
+        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        assertTrue(str_.getInstance() instanceof Integer);
+        assertEq(5, ((Number)str_.getInstance()).intValue());
+    }
+    @Test
+    public void calculateStaticField2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int myf=$static$pkg$ExThree.myf;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final $int myf=$static$pkg$ExTwo.myf;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(0, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int mys=$static$pkg$ExThree.myf;;;:\n");
+        xml_.append(" $public $static $final $int myf=$static$pkg$ExThree.myf;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final $int myf=$static$pkg$ExTwo.myf;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(0, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int mys=1i:\n");
+        xml_.append(" $public $static $final $int myf=$static$pkg$ExThree.myf;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final $int myf=$static$pkg$ExTwo.myf;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        assertTrue(str_.getInstance() instanceof Integer);
+        assertEq(1, ((Number)str_.getInstance()).intValue());
+    }
+    @Test
+    public void calculateStaticField5Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int mys=1i:\n");
+        xml_.append(" $public $static $final $int myt=mys;;;+2i:\n");
+        xml_.append(" $public $static $final $int myf=$static$pkg$ExThree.myf;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final $int myf=$static$pkg$ExTwo.myf;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        assertTrue(str_.getInstance() instanceof Integer);
+        assertEq(1, ((Number)str_.getInstance()).intValue());
+        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myt"));
+        assertTrue(str_.getInstance() instanceof Integer);
+        assertEq(3, ((Number)str_.getInstance()).intValue());
+    }
+    @Test
+    public void calculateStaticField6Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int myf=meth():\n");
+        xml_.append(" $public $static $final $int mys=myf;;;+2i:\n");
+        xml_.append(" $public $static $int meth(){\n");
+        xml_.append("  $return 5i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(0, ctx_.getClasses().staticFieldCount());
+    }
+    private ContextEl validateStaticFields(StringMap<String> _files) {
+        ContextEl cont_ = new ContextEl();
+        Classes classes_ = cont_.getClasses();
+        InitializationLgNames.initAdvStandards(cont_);
+        cont_.initError();
+        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        classes_.validateInheritingClasses(cont_);
+        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        classes_.validateSingleParameterizedClasses(cont_);
+        classes_.validateIds(cont_);
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        classes_.validateClassesAccess(cont_);
+        classes_.validateLocalVariableNamesId(cont_);
+        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        classes_.initStaticFields(cont_);
+        return cont_;
+   }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = cont_.getClasses();

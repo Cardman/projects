@@ -7,6 +7,7 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
@@ -14,13 +15,20 @@ import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
+import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
+import code.util.StringMap;
 
 public final class SwitchBlock extends BracedStack implements BreakableBlock {
 
@@ -144,6 +152,168 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             }
         }
     }
+    @Override
+    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+        Block ch_ = getFirstChild();
+        if (ch_ == null) {
+            return;
+        }
+        boolean abrupt_ = true;
+        boolean def_ = false;
+        while (ch_.getNextSibling() != null) {
+            if (ch_ instanceof DefaultCondition) {
+                def_ = true;
+            }
+            ch_ = ch_.getNextSibling();
+        }
+        if (ch_ instanceof DefaultCondition) {
+            def_ = true;
+        }
+        if (_anEl.canCompleteNormally(ch_)) {
+            abrupt_ = false;
+        } else if (ch_.getFirstChild() == null) {
+            abrupt_ = false;
+        } else if (!def_) {
+            abrupt_ = false;
+        }
+        IdMap<BreakBlock, BreakableBlock> breakables_;
+        breakables_ = _anEl.getBreakables();
+        for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
+            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
+                abrupt_ = false;
+                break;
+            }
+        }
+        if (abrupt_) {
+            _anEl.completeAbrupt(this);
+            _anEl.completeAbruptGroup(this);
+        }
+    }
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        Block ch_ = getFirstChild();
+        if (ch_ == null) {
+            super.setAssignmentAfter(_an, _anEl);
+            return;
+        }
+        boolean def_ = false;
+        while (ch_.getNextSibling() != null) {
+            if (ch_ instanceof DefaultCondition) {
+                def_ = true;
+            }
+            ch_ = ch_.getNextSibling();
+        }
+        if (ch_ instanceof DefaultCondition) {
+            def_ = true;
+        }
+        boolean emptyEndCases_ = ch_.getFirstChild() == null;
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables assTar_ = id_.getVal(this);
+        AssignedVariables assLast_ = id_.getVal(ch_);
+        String boolType_ = _an.getStandards().getAliasBoolean();
+        ObjectMap<ClassField,Assignment> after_ = new ObjectMap<ClassField,Assignment>();
+        CustList<StringMap<Assignment>> afterVars_ = new CustList<StringMap<Assignment>>();
+        for (EntryCust<ClassField,Assignment> e: assTar_.getFields().lastValue().entryList()) {
+            boolean ass_ = true;
+            boolean unass_ = true;
+            if (!(def_ && e.getValue().isAssignedAfter())){
+                ass_ = false;
+            }
+            if (!(def_ && e.getValue().isUnassignedAfter())){
+                unass_ = false;
+            }
+            if (!(!emptyEndCases_ && e.getValue().isAssignedAfter())){
+                ass_ = false;
+            }
+            if (!(!emptyEndCases_ && e.getValue().isUnassignedAfter())){
+                unass_ = false;
+            }
+            if (_anEl.canCompleteNormally(ch_)) {
+                ObjectMap<ClassField, Assignment> l_;
+                l_ = assLast_.getFieldsRoot();
+                if (!l_.getVal(e.getKey()).isAssignedAfter()) {
+                    ass_ = false;
+                }
+                if (!l_.getVal(e.getKey()).isUnassignedAfter()) {
+                    unass_ = false;
+                }
+            }
+            for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
+                if (f.getValue() != this) {
+                    continue;
+                }
+                AssignedVariables assBr_ = id_.getVal(f.getKey());
+                ObjectMap<ClassField, Assignment> l_;
+                l_ = assBr_.getFieldsRoot();
+                if (!l_.getVal(e.getKey()).isAssignedAfter()) {
+                    ass_ = false;
+                }
+                if (!l_.getVal(e.getKey()).isUnassignedAfter()) {
+                    unass_ = false;
+                }
+            }
+            ClassField key_ = e.getKey();
+            String classNameDecl_ = key_.getClassName();
+            ClassMetaInfo custClass_;
+            custClass_ = _an.getClassMetaInfo(classNameDecl_);
+            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
+            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
+            after_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+        }
+        assTar_.getFieldsRoot().putAllMap(after_);
+        for (StringMap<Assignment> s: assTar_.getVariables().lastValue()) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            int index_ = afterVars_.size();
+            for (EntryCust<String,Assignment> e: s.entryList()) {
+                boolean ass_ = true;
+                boolean unass_ = true;
+                if (!(def_ && e.getValue().isAssignedAfter())){
+                    ass_ = false;
+                }
+                if (!(def_ && e.getValue().isUnassignedAfter())){
+                    unass_ = false;
+                }
+                if (!(!emptyEndCases_ && e.getValue().isAssignedAfter())){
+                    ass_ = false;
+                }
+                if (!(!emptyEndCases_ && e.getValue().isUnassignedAfter())){
+                    unass_ = false;
+                }
+                if (_anEl.canCompleteNormally(ch_)) {
+                    CustList<StringMap<Assignment>> l_;
+                    l_ = assLast_.getVariablesRoot();
+                    if (index_ < l_.size() && !l_.get(index_).getVal(e.getKey()).isAssignedAfter()) {
+                        ass_ = false;
+                    }
+                    if (index_ < l_.size() && !l_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
+                        unass_ = false;
+                    }
+                }
+                for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
+                    if (f.getValue() != this) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(f.getKey());
+                    CustList<StringMap<Assignment>> l_;
+                    l_ = assBr_.getVariablesRoot();
+                    if (index_ < l_.size() && !l_.get(index_).getVal(e.getKey()).isAssignedAfter()) {
+                        ass_ = false;
+                    }
+                    if (index_ < l_.size() && !l_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
+                        unass_ = false;
+                    }
+                }
+                String key_ = e.getKey();
+                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
+                String type_ = lc_.getClassName();
+                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
+                sm_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+            }
+            afterVars_.add(sm_);
+        }
+        assTar_.getVariablesRoot().clear();
+        assTar_.getVariablesRoot().addAllElts(afterVars_);
+    }
 
     @Override
     public String getTagName() {
@@ -192,42 +362,5 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
     public ExpressionLanguage getEl(ContextEl _context, boolean _native,
             int _indexProcess) {
         return getEl();
-    }
-    @Override
-    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            return;
-        }
-        boolean abrupt_ = true;
-        boolean def_ = false;
-        while (ch_.getNextSibling() != null) {
-            if (ch_ instanceof DefaultCondition) {
-                def_ = true;
-            }
-            ch_ = ch_.getNextSibling();
-        }
-        if (ch_ instanceof DefaultCondition) {
-            def_ = true;
-        }
-        if (_anEl.canCompleteNormally(ch_)) {
-            abrupt_ = false;
-        } else if (ch_.getFirstChild() == null) {
-            abrupt_ = false;
-        } else if (!def_) {
-            abrupt_ = false;
-        }
-        IdMap<BreakBlock, BreakableBlock> breakables_;
-        breakables_ = _anEl.getBreakables();
-        for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
-            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
-                abrupt_ = false;
-                break;
-            }
-        }
-        if (abrupt_) {
-            _anEl.completeAbrupt(this);
-            _anEl.completeAbruptGroup(this);
-        }
     }
 }

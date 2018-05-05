@@ -2594,7 +2594,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(4, (Number)lv_.getElement());
     }
     @Test
@@ -2625,7 +2625,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(false, (Boolean)lv_.getElement());
     }
     @Test
@@ -2656,7 +2656,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(true, (Boolean)lv_.getElement());
     }
     @Test
@@ -2687,7 +2687,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertNotNull(ctx_.getException());
         assertEq(ctx_.getStandards().getAliasDivisionZero(), ctx_.getException().getClassName(ctx_));
     }
@@ -2719,7 +2719,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertNotNull(ctx_.getException());
         assertEq(ctx_.getStandards().getAliasDivisionZero(), ctx_.getException().getClassName(ctx_));
     }
@@ -2751,7 +2751,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertNotNull(ctx_.getException());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
@@ -2783,7 +2783,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertNotNull(ctx_.getException());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
@@ -2815,7 +2815,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(false, (Boolean)op_.getArgument().getObject());
     }
     @Test
@@ -2846,7 +2846,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(4, (Number)lv_.getElement());
         assertEq(3, (Number)op_.getArgument().getObject());
     }
@@ -2878,7 +2878,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(4, (Number)lv_.getElement());
         assertEq(4, (Number)op_.getArgument().getObject());
     }
@@ -2912,7 +2912,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(6, (Number) in_[0].getInstance());
         assertEq(5, (Number)op_.getArgument().getObject());
     }
@@ -2946,7 +2946,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(6, (Number) in_[0].getInstance());
         assertEq(6, (Number)op_.getArgument().getObject());
     }
@@ -2978,7 +2978,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(5, (Number)lv_.getElement());
         assertEq(5, (Number)op_.getArgument().getObject());
     }
@@ -3012,7 +3012,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(8, (Number) in_[0].getInstance());
         assertEq(8, (Number)op_.getArgument().getObject());
     }
@@ -3048,7 +3048,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(12, (Number)lv2_.getElement());
         assertEq(4, (Number)lv_.getElement());
         assertEq(15, (Number)op_.getArgument().getObject());
@@ -3085,7 +3085,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(12, (Number)lv2_.getElement());
         assertEq(2, (Number)lv_.getElement());
         assertEq(-9, (Number)op_.getArgument().getObject());
@@ -3122,7 +3122,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(13, (Number)lv2_.getElement());
         assertEq(13, (Number)lv_.getElement());
         assertEq(13, (Number)op_.getArgument().getObject());
@@ -3159,7 +3159,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         assertEq(13, (Number)lv2_.getElement());
         assertEq(13, (Number)lv_.getElement());
         assertEq(13, (Number)op_.getArgument().getObject());
@@ -3185,7 +3185,7 @@ public final class ElRenderUtilTest {
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         ctx_.setAnalyzing(null);
-        ElRenderUtil.calculate(all_, ctx_, "");
+        ElRenderUtil.calculate(all_, ctx_);
         Object res_ = op_.getArgument().getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(1, (Number)res_);

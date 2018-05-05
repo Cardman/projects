@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -10,12 +11,18 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class SemiAffectationOperation extends PrimitiveBoolOperation {
     private SettableElResult settable;
@@ -87,12 +94,100 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
+    public void analyzeAssignmentAfter(Analyzable _conf) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        OperationNode firstChild_ = (OperationNode) settable;
+        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
+        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(firstChild_);
+        OperationsSequence op_ = firstChild_.getOperations();
+        LgNames lgNames_ = _conf.getStandards();
+        String aliasBoolean_ = lgNames_.getAliasBoolean();
+        boolean isBool_;
+        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        if (op_.getConstType() == ConstType.LOC_VAR) {
+            String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+            String str_ = originalStr_.trim();
+            for (StringMap<Assignment> s: variablesAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    if (StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter()) {
+                        sm_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
+                    } else if (!StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter()) {
+                        sm_.put(e.getKey(), e.getValue().assignChange(isBool_, false, true));
+                    } else {
+                        sm_.put(e.getKey(), e.getValue().assign(isBool_));
+                    }
+                }
+                variablesAfter_.add(sm_);
+            }
+        } else {
+            for (StringMap<Assignment> s: variablesAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    sm_.put(e.getKey(), e.getValue().assign(isBool_));
+                }
+                variablesAfter_.add(sm_);
+            }
+        }
+        vars_.getVariables().put(this, variablesAfter_);
+        boolean procField_ = false;
+        if (firstChild_ instanceof ConstantOperation) {
+            ConstantOperation cst_ = (ConstantOperation)firstChild_;
+            ClassField cl_ = cst_.getFieldId();
+            if (cl_ != null) {
+                if (cst_.isFirstChild()) {
+                    procField_ = true;
+                } else {
+                    int index_ = cst_.getIndexChild() - 1;
+                    OperationNode opPr_ = cst_.getParent().getChildrenNodes().get(index_);
+                    OperationsSequence opPrev_ = opPr_.getOperations();
+                    if (opPrev_.getConstType() == ConstType.THIS_KEYWORD) {
+                        if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
+                            procField_ = true;
+                        }
+                    }
+                    if (!procField_) {
+                        if (opPr_ instanceof StaticAccessOperation) {
+                            if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
+                                procField_ = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (procField_) {
+            ConstantOperation cst_ = (ConstantOperation)firstChild_;
+            ClassField cl_ = cst_.getFieldId();
+            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+                if (cl_.eq(e.getKey()) || e.getValue().isAssignedAfter()) {
+                    fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
+                } else if (!cl_.eq(e.getKey()) && e.getValue().isUnassignedAfter()) {
+                    fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, false, true));
+                } else {
+                    fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
+                }
+            }
+        } else {
+            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+                fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
+            }
+        }
+        vars_.getFields().put(this, fieldsAfter_);
+    }
+    @Override
+    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+            OperationNode _firstChild, OperationNode _previous) {
+    }
+    @Override
+    public void calculate(ContextEl _conf) {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getLastPage().setRightArgument(right_.getArgument());
         String oper_ = getOperations().getOperators().firstValue();
-        settable.calculateSetting(_nodes, _conf, oper_, post);
+        settable.calculateSetting(_conf, oper_, post);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
         _conf.getLastPage().setRightArgument(null);
@@ -100,7 +195,7 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
 
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
+            ContextEl _conf) {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getLastPage().setRightArgument(_nodes.getVal(right_).getArgument());
         String oper_ = getOperations().getOperators().firstValue();

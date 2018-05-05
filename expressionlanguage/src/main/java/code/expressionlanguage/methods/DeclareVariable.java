@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetBooleanInfo;
@@ -8,9 +9,14 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
+import code.util.EntryCust;
 import code.util.NatTreeMap;
+import code.util.StringMap;
 
 public final class DeclareVariable extends Leaf implements InitVariable {
 
@@ -105,6 +111,26 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         }
     }
 
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
+        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
+        AssignmentBefore asBe_ = new AssignmentBefore();
+        asBe_.setUnassignedBefore(true);
+        ass_.getVariablesRootBefore().last().put(variableName, asBe_);
+        String boolStd_ = _an.getStandards().getAliasBoolean();
+        boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, className, _an);
+        for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
+            StringMap<Assignment> vars_ = new StringMap<Assignment>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                vars_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+            }
+            ass_.getVariablesRoot().add(vars_);
+        }
+        Assignment asf_ = asBe_.assignAfter(isBool_);
+        StringMap<Assignment> as_ = ass_.getVariablesRoot().last();
+        as_.put(variableName, asf_);
+    }
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;

@@ -8,16 +8,23 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class NumericOperation extends MethodOperation {
 
@@ -33,17 +40,17 @@ public abstract class NumericOperation extends MethodOperation {
         Argument o_;
         boolean convert_ = true;
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
-            o_ = NumericOperation.calculateSum(_left, _conf, _right, false, _catString);
+            o_ = NumericOperation.calculateSum(_left, _conf, _right, true, false, _catString);
         } else if (StringList.quickEq(_op, Block.EQ_PLUS)) {
-            o_ = NumericOperation.calculateSum(_right, _conf, _left, false, _catString);
+            o_ = NumericOperation.calculateSum(_right, _conf, _left, true, false, _catString);
         } else if (StringList.quickEq(_op, Block.MINUS_EQ)) {
-            o_ = NumericOperation.calculateDiff(_left, _conf, _right);
+            o_ = NumericOperation.calculateDiff(_left, _conf, _right, true);
         } else if (StringList.quickEq(_op, Block.MULT_EQ)) {
-            o_ = NumericOperation.calculateMult(_left, _conf, _right);
+            o_ = NumericOperation.calculateMult(_left, _conf, _right, true);
         } else if (StringList.quickEq(_op, Block.DIV_EQ)) {
-            o_ = NumericOperation.calculateDiv(_left, _conf, _right);
+            o_ = NumericOperation.calculateDiv(_left, _conf, _right, true);
         } else if (StringList.quickEq(_op, Block.MOD_EQ)) {
-            o_ = NumericOperation.calculateMod(_left, _conf, _right);
+            o_ = NumericOperation.calculateMod(_left, _conf, _right, true);
         } else if (StringList.quickEq(_op, Block.INCR)) {
             o_ = AddOperation.addOne(_left, _conf);
         } else if (StringList.quickEq(_op, Block.DECR)) {
@@ -121,7 +128,7 @@ public abstract class NumericOperation extends MethodOperation {
         }
         return false;
     }
-    static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b, boolean _catChars, boolean _catString) {
+    static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b, boolean _offset, boolean _catChars, boolean _catString) {
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
@@ -142,11 +149,15 @@ public abstract class NumericOperation extends MethodOperation {
             return a_;
         }
         if (_a.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         if (_b.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         Object o_ = _a.getObject();
@@ -280,16 +291,20 @@ public abstract class NumericOperation extends MethodOperation {
         return a_;
     }
 
-    static Argument calculateDiff(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateDiff(Argument _a, ContextEl _cont, Argument _b, boolean _offset) {
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         if (_b.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         Object o_ = _a.getObject();
@@ -423,16 +438,20 @@ public abstract class NumericOperation extends MethodOperation {
         return a_;
     }
     /**@throws NullObjectException*/
-    static Argument calculateMult(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateMult(Argument _a, ContextEl _cont, Argument _b, boolean _offset) {
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         if (_b.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         Object o_ = _a.getObject();
@@ -565,18 +584,22 @@ public abstract class NumericOperation extends MethodOperation {
         a_.setObject(nb_);
         return a_;
     }
-    static Argument calculateDiv(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateDiv(Argument _a, ContextEl _cont, Argument _b, boolean _offset) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         String null_;
         div_ = stds_.getAliasDivisionZero();
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         if (_b.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         Object o_ = _a.getObject();
@@ -613,25 +636,33 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Long) {
             bThree_ = (Long) p_;
             if (bThree_.longValue() == 0) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                if (_offset) {
+                    _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                }
                 return Argument.createVoid();
             }
         } else if (p_ instanceof Integer) {
             bFour_ = (Integer) p_;
             if (bFour_.longValue() == 0) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                if (_offset) {
+                    _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                }
                 return Argument.createVoid();
             }
         } else if (p_ instanceof Short) {
             bFive_ = (Short) p_;
             if (bFive_.longValue() == 0) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                if (_offset) {
+                    _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                }
                 return Argument.createVoid();
             }
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
             if (bSix_.longValue() == 0) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                if (_offset) {
+                    _cont.setException(new StdStruct(new CustomError(_cont.joinPages()), div_));
+                }
                 return Argument.createVoid();
             }
         }
@@ -725,18 +756,22 @@ public abstract class NumericOperation extends MethodOperation {
         a_.setObject(nb_);
         return a_;
     }
-    static Argument calculateMod(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateMod(Argument _a, ContextEl _cont, Argument _b, boolean _offset) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         String null_;
         div_ = stds_.getAliasDivisionZero();
         null_ = stds_.getAliasNullPe();
         if (_a.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         if (_b.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            if (_offset) {
+                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
+            }
             return Argument.createVoid();
         }
         Object o_ = _a.getObject();
@@ -773,25 +808,33 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Long) {
             bThree_ = (Long) p_;
             if (bThree_.longValue() == 0) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                if (_offset) {
+                    _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                }
                 return Argument.createVoid();
             }
         } else if (p_ instanceof Integer) {
             bFour_ = (Integer) p_;
             if (bFour_.longValue() == 0) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                if (_offset) {
+                    _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                }
                 return Argument.createVoid();
             }
         } else if (p_ instanceof Short) {
             bFive_ = (Short) p_;
             if (bFive_.longValue() == 0) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                if (_offset) {
+                    _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                }
                 return Argument.createVoid();
             }
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
             if (bSix_.longValue() == 0) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                if (_offset) {
+                    _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+                }
                 return Argument.createVoid();
             }
         }
@@ -950,17 +993,67 @@ public abstract class NumericOperation extends MethodOperation {
         setResultClass(a_);
     }
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont);
-    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont);
+    @Override
+    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+            OperationNode _firstChild, OperationNode _previous) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        ObjectMap<ClassField,Assignment> fieldsAfter_;
+        CustList<StringMap<Assignment>> variablesAfter_;
+        fieldsAfter_ = vars_.getFields().getVal(_previous);
+        variablesAfter_ = vars_.getVariables().getVal(_previous);
+        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
+        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
+            Assignment b_ = e.getValue();
+            fieldsBefore_.put(e.getKey(), b_.assignBefore());
+        }
+        vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
+        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
+        for (StringMap<Assignment> s: variablesAfter_) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment b_ = e.getValue();
+                sm_.put(e.getKey(), b_.assignBefore());
+            }
+            variablesBefore_.add(sm_);
+        }
+        vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+    }
+    @Override
+    public void analyzeAssignmentAfter(Analyzable _conf) {
+        Block block_ = _conf.getCurrentBlock();
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        CustList<OperationNode> children_ = getChildrenNodes();
+        OperationNode last_ = children_.last();
+        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
+        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
+        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+            Assignment b_ = e.getValue();
+            fieldsAfter_.put(e.getKey(), b_.assign(false));
+        }
+        vars_.getFields().put(this, fieldsAfter_);
+        for (StringMap<Assignment> s: variablesAfterLast_) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment b_ = e.getValue();
+                sm_.put(e.getKey(), b_.assign(false));
+            }
+            variablesAfter_.add(sm_);
+        }
+        vars_.getVariables().put(this, variablesAfter_);
+    }
+    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, boolean _offset);
 
     @Override
     public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
+            ContextEl _conf) {
+        return calculateCommon(_nodes, _conf);
     }
 
     final Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op) {
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode o_ = chidren_.first();
         Argument a_ = _nodes.getVal(o_).getArgument();
@@ -969,7 +1062,7 @@ public abstract class NumericOperation extends MethodOperation {
         Argument c_ = _nodes.getVal(o_).getArgument();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
         Argument r_;
-        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
+        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf, true);
         if (_conf.getException() != null) {
             return r_;
         }
@@ -977,22 +1070,33 @@ public abstract class NumericOperation extends MethodOperation {
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
-    /**@throws InvokeRedinedMethException
-    @throws NullObjectException*/
     @Override
-    public final void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateCommon(_nodes, _conf, _op);
+    public void quickCalculate(ContextEl _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = chidren_.first().getArgument();
+        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        Argument c_ = chidren_.last().getArgument();
+        Argument r_;
+        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf, false);
+        if (r_.isNull()) {
+            return;
+        }
+        a_ = r_;
+        setSimpleArgument(a_, _conf);
+    }
+    @Override
+    public final void calculate(ContextEl _conf) {
+        calculateCommon(_conf);
     }
 
-    final void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
+    final void calculateCommon(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
         Argument c_ = chidren_.last().getArgument();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
         Argument r_;
-        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
+        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf, true);
         if (_conf.getException() != null) {
             return;
         }

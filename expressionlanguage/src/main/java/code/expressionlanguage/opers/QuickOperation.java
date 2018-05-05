@@ -62,13 +62,12 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
 
     @Override
     public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
+            ContextEl _conf) {
+        return calculateCommon(_nodes, _conf);
     }
 
     final Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op) {
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
@@ -78,12 +77,18 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public final void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateCommon(_nodes, _conf, _op);
+    public void quickCalculate(ContextEl _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = chidren_.last().getArgument();
+        setSimpleArgument(a_, _conf);
     }
 
-    final void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
+    @Override
+    public final void calculate(ContextEl _conf) {
+        calculateCommon(_conf);
+    }
+
+    final void calculateCommon(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
         Argument a_ = chidren_.last().getArgument();

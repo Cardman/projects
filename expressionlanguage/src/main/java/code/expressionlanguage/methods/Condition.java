@@ -11,9 +11,15 @@ import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.AssignedBooleanVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.BooleanAssignment;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringMap;
 
 public abstract class Condition extends BracedStack implements StackableBlockGroup {
 
@@ -41,6 +47,10 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
     }
 
     @Override
+    public AssignedBooleanVariables buildNewAssignedVariable() {
+        return new AssignedBooleanVariables();
+    }
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -60,7 +70,20 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
                 un_.setRc(getRowCol(0, conditionOffset));
                 un_.setType(opCondition.last().getResultClass().getName());
                 _cont.getClasses().getErrorsDet().add(un_);
+                return;
             }
+        }
+        AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
+        for (EntryCust<ClassField,Assignment> e: res_.getFields().lastValue().entryList()) {
+            res_.getFieldsRootAfter().put(e.getKey(), (BooleanAssignment) e.getValue());
+        }
+        for (StringMap<Assignment> s: res_.getVariables().lastValue()) {
+            StringMap<BooleanAssignment> sm_;
+            sm_ = new StringMap<BooleanAssignment>();
+            for (EntryCust<String,Assignment> e: s.entryList()) {
+                sm_.put(e.getKey(), (BooleanAssignment) e.getValue());
+            }
+            res_.getVariablesRootAfter().add(sm_);
         }
     }
 
