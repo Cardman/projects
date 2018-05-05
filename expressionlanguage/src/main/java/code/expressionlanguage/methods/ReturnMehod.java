@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -164,6 +165,12 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         }
     }
 
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        if (isEmpty()) {
+            super.setAssignmentAfter(_an, _anEl);
+        }
+    }
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;

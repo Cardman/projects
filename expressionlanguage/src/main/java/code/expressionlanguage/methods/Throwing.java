@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -106,6 +107,9 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
         }
     }
 
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    }
     @Override
     public String getTagName() {
         return TAG_THROW;

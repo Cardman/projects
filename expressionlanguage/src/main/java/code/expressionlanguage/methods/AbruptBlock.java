@@ -7,10 +7,8 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
@@ -86,7 +84,6 @@ public abstract class AbruptBlock extends Leaf {
             list_.add(sm_);
             index_++;
         }
-        vars_.getVariablesRoot().clear();
         vars_.getVariablesRoot().addAllElts(list_);
         for (EntryCust<ClassField,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
             ClassField key_ = e.getKey();
@@ -97,18 +94,5 @@ public abstract class AbruptBlock extends Leaf {
             boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
             vars_.getFieldsRoot().put(key_, e.getValue().assignAfter(isBool_));
         }
-//        for (StringMap<Assignment> e: vars_.getVariablesRoot().getReverse()) {
-//            for (EntryCust<String, Assignment> f: e.entryList()) {
-//                if (f.getValue() instanceof BooleanAssignment) {
-//                    ((BooleanAssignment)f.getValue()).setAssignedAfterWhenFalse(true);
-//                    ((BooleanAssignment)f.getValue()).setAssignedAfterWhenTrue(true);
-//                    ((BooleanAssignment)f.getValue()).setUnassignedAfterWhenFalse(true);
-//                    ((BooleanAssignment)f.getValue()).setUnassignedAfterWhenTrue(true);
-//                } else {
-//                    ((SimpleAssignment)f.getValue()).setAssignedAfter(true);
-//                    ((SimpleAssignment)f.getValue()).setUnassignedAfter(true);
-//                }
-//            }
-//        }
     }
 }

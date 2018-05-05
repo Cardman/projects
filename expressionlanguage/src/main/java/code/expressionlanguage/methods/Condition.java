@@ -75,13 +75,13 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         }
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
         for (EntryCust<ClassField,Assignment> e: res_.getFields().lastValue().entryList()) {
-            res_.getFieldsRootAfter().put(e.getKey(), (BooleanAssignment) e.getValue());
+            res_.getFieldsRootAfter().put(e.getKey(), ((BooleanAssignment) e.getValue()).copy());
         }
         for (StringMap<Assignment> s: res_.getVariables().lastValue()) {
             StringMap<BooleanAssignment> sm_;
             sm_ = new StringMap<BooleanAssignment>();
             for (EntryCust<String,Assignment> e: s.entryList()) {
-                sm_.put(e.getKey(), (BooleanAssignment) e.getValue());
+                sm_.put(e.getKey(), ((BooleanAssignment) e.getValue()).copy());
             }
             res_.getVariablesRootAfter().add(sm_);
         }

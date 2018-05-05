@@ -78,10 +78,10 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if (canBeIncrementedCurGroup()) {
             return;
         }
-//        Block ch_ = getFirstChild();
-//        while (ch_.getNextSibling() != null) {
-//            ch_ = ch_.getNextSibling();
-//        }
+        Block ch_ = getFirstChild();
+        while (ch_.getNextSibling() != null) {
+            ch_ = ch_.getNextSibling();
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         ObjectMap<ClassField,BooleanAssignment> fieldsCond_ = assTar_.getFieldsRootAfter();
@@ -103,11 +103,13 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
             boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
             boolean assAfter_ = ab_.isAssignedAfter();
             boolean unassAfter_ = ab_.isUnassignedAfter();
-            if (assAfter_ || _anEl.canCompleteNormally(this)) {
-                assAfter_ = condBa_.isAssignedAfterWhenFalse();
-            }
-            if (unassAfter_ || _anEl.canCompleteNormally(this)) {
-                unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+            if (_anEl.canCompleteNormally(ch_)) {
+                if (assAfter_) {
+                    assAfter_ = condBa_.isAssignedAfterWhenFalse();
+                }
+                if (unassAfter_) {
+                    unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                }
             }
             after_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
         }
@@ -124,11 +126,13 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                 boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
                 boolean assAfter_ = ab_.isAssignedAfter();
                 boolean unassAfter_ = ab_.isUnassignedAfter();
-                if (assAfter_ || _anEl.canCompleteNormally(this)) {
-                    assAfter_ = condBa_.isAssignedAfterWhenFalse();
-                }
-                if (unassAfter_ || _anEl.canCompleteNormally(this)) {
-                    unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                if (_anEl.canCompleteNormally(ch_)) {
+                    if (assAfter_) {
+                        assAfter_ = condBa_.isAssignedAfterWhenFalse();
+                    }
+                    if (unassAfter_) {
+                        unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                    }
                 }
                 sm_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
             }

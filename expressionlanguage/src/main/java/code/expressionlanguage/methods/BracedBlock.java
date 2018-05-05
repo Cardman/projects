@@ -105,6 +105,9 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             ass_.getVariablesRoot().addAllElts(afterVars_);
             return;
         }
+        if (!_anEl.canCompleteNormally(this)) {
+            return;
+        }
         while (ch_.getNextSibling() != null) {
             ch_ = ch_.getNextSibling();
         }

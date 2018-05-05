@@ -21,6 +21,7 @@ import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stacks.LoopBlockStack;
+import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -218,8 +219,10 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             }
         }
         AssignedBooleanVariables varsWhile_ = (AssignedBooleanVariables) allDesc_.firstValue();
-        ObjectMap<ClassField,AssignmentBefore> fields_;
-        fields_ = new ObjectMap<ClassField,AssignmentBefore>();
+        ObjectMap<ClassField,AssignmentBefore> fieldsHypot_;
+        fieldsHypot_ = new ObjectMap<ClassField,AssignmentBefore>();
+        CustList<StringMap<AssignmentBefore>> varsHypot_;
+        varsHypot_ = new CustList<StringMap<AssignmentBefore>>();
         for (EntryCust<ClassField,AssignmentBefore> e: varsWhile_.getFieldsRootBefore().entryList()) {
             AssignmentBefore ab_ = new AssignmentBefore();
             if (e.getValue().isAssignedBefore()) {
@@ -227,7 +230,21 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             } else {
                 ab_.setUnassignedBefore(true);
             }
-            fields_.put(e.getKey(), ab_);
+            fieldsHypot_.put(e.getKey(), ab_);
+        }
+        for (StringMap<AssignmentBefore> s: varsWhile_.getVariablesRootBefore()) {
+            StringMap<AssignmentBefore> sm_;
+            sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                AssignmentBefore ab_ = new AssignmentBefore();
+                if (e.getValue().isAssignedBefore()) {
+                    ab_.setAssignedBefore(true);
+                } else {
+                    ab_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), ab_);
+            }
+            varsHypot_.add(sm_);
         }
         CustList<ContinueBlock> conts_ = new CustList<ContinueBlock>();
         for (EntryCust<ContinueBlock, Loop> e: _anEl.getContinuables().entryList()) {
@@ -239,19 +256,39 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             vars_ = id_.getVal(e.getKey());
             for (EntryCust<ClassField,AssignmentBefore> f: vars_.getFieldsRootBefore().entryList()) {
                 if (!f.getValue().isUnassignedBefore()) {
-                    fields_.getVal(f.getKey()).setUnassignedBefore(false);
+                    fieldsHypot_.getVal(f.getKey()).setUnassignedBefore(false);
                 }
+            }
+            int index_ = 0;
+            for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+                for (EntryCust<String,AssignmentBefore> f: s.entryList()) {
+                    if (!f.getValue().isUnassignedBefore()) {
+                        varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
+                    }
+                }
+                index_++;
             }
         }
         AssignedVariables vars_;
         vars_ = id_.getVal(last_);
         for (EntryCust<ClassField,Assignment> f: vars_.getFieldsRoot().entryList()) {
             if (!f.getValue().isUnassignedAfter()) {
-                fields_.getVal(f.getKey()).setUnassignedBefore(false);
+                fieldsHypot_.getVal(f.getKey()).setUnassignedBefore(false);
             }
         }
-        varsWhile_.getFieldsRootBefore().putAllMap(fields_);
-        processFinalVars(_anEl, allDesc_, fields_, conts_);
+        int index_ = 0;
+        for (StringMap<Assignment> s: vars_.getVariablesRoot()) {
+            for (EntryCust<String,Assignment> f: s.entryList()) {
+                if (!f.getValue().isUnassignedAfter()) {
+                    varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
+                }
+            }
+            index_++;
+        }
+        varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
+        varsWhile_.getVariablesRootBefore().clear();
+        varsWhile_.getVariablesRootBefore().addAllElts(varsHypot_);
+        processFinalVars(_anEl, allDesc_, fieldsHypot_, conts_);
         ObjectMap<ClassField,Assignment> fieldsAfter_;
         fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         String boolType_ = _an.getStandards().getAliasBoolean();
@@ -285,6 +322,47 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             fieldsAfter_.put(key_, Assignment.assign(isBool_, ass_, unass_));
         }
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
+        CustList<StringMap<Assignment>> varsAfter_;
+        varsAfter_ = new CustList<StringMap<Assignment>>();
+        index_ = 0;
+        for (StringMap<BooleanAssignment> s: varsWhile_.getVariablesRootAfter()) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            for (EntryCust<String,BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                boolean ass_ = true;
+                boolean unass_ = true;
+                if (!ba_.isAssignedAfterWhenFalse()) {
+                    ass_ = false;
+                }
+                if (!ba_.isUnassignedAfterWhenFalse()) {
+                    unass_ = false;
+                }
+                String key_ = e.getKey();
+                for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
+                    if (f.getValue() != this) {
+                        continue;
+                    }
+                    CustList<StringMap<AssignmentBefore>> list_;
+                    list_ = id_.getVal(f.getKey()).getVariablesRootBefore();
+                    StringMap<AssignmentBefore> sa_;
+                    sa_ = list_.get(index_);
+                    if (!sa_.getVal(key_).isAssignedBefore()) {
+                        ass_ = false;
+                    }
+                    if (!sa_.getVal(key_).isUnassignedBefore()) {
+                        unass_ = false;
+                    }
+                }
+                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
+                String type_ = lc_.getClassName();
+                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
+                sm_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+            }
+            varsAfter_.add(sm_);
+            index_++;
+        }
+        varsWhile_.getVariablesRoot().clear();
+        varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
     }
 
     private void processFinalVars(AnalyzingEl _anEl,

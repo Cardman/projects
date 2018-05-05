@@ -7,6 +7,15 @@ public class BooleanAssignment extends Assignment {
     private boolean assignedAfterWhenTrue;
     private boolean unassignedAfterWhenFalse;
     private boolean unassignedAfterWhenTrue;
+    public BooleanAssignment copy() {
+        BooleanAssignment cp_;
+        cp_ = new BooleanAssignment();
+        cp_.setAssignedAfterWhenFalse(assignedAfterWhenFalse);
+        cp_.setAssignedAfterWhenTrue(assignedAfterWhenTrue);
+        cp_.setUnassignedAfterWhenFalse(unassignedAfterWhenFalse);
+        cp_.setUnassignedAfterWhenTrue(unassignedAfterWhenTrue);
+        return cp_;
+    }
     @Override
     public BooleanAssignment assign() {
         BooleanAssignment ba_ = new BooleanAssignment();
