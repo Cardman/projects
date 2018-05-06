@@ -152,11 +152,13 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
                 }
             }
             boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-            if (assAfter_ || _anEl.canCompleteNormally(this)) {
-                assAfter_ = condBa_.isAssignedAfterWhenFalse();
-            }
-            if (unassAfter_ || _anEl.canCompleteNormally(this)) {
-                unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+            if (_anEl.canCompleteNormally(this)) {
+                if (assAfter_) {
+                    assAfter_ = condBa_.isAssignedAfterWhenFalse();
+                }
+                if (unassAfter_) {
+                    unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                }
             }
             after_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
         }
@@ -199,11 +201,13 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
                     }
                 }
                 boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-                if (assAfter_ || _anEl.canCompleteNormally(this)) {
-                    assAfter_ = condBa_.isAssignedAfterWhenFalse();
-                }
-                if (unassAfter_ || _anEl.canCompleteNormally(this)) {
-                    unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                if (_anEl.canCompleteNormally(this)) {
+                    if (assAfter_) {
+                        assAfter_ = condBa_.isAssignedAfterWhenFalse();
+                    }
+                    if (unassAfter_) {
+                        unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                    }
                 }
                 sm_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
             }

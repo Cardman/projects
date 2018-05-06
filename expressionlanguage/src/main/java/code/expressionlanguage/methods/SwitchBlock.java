@@ -282,11 +282,13 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 if (_anEl.canCompleteNormally(ch_)) {
                     CustList<StringMap<Assignment>> l_;
                     l_ = assLast_.getVariablesRoot();
-                    if (index_ < l_.size() && !l_.get(index_).getVal(e.getKey()).isAssignedAfter()) {
-                        ass_ = false;
-                    }
-                    if (index_ < l_.size() && !l_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
-                        unass_ = false;
+                    if (index_ < l_.size() && l_.get(index_).contains(e.getKey())) {
+                        if (!l_.get(index_).getVal(e.getKey()).isAssignedAfter()) {
+                            ass_ = false;
+                        }
+                        if (!l_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
+                            unass_ = false;
+                        }
                     }
                 }
                 for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
@@ -296,10 +298,16 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     AssignedVariables assBr_ = id_.getVal(f.getKey());
                     CustList<StringMap<Assignment>> l_;
                     l_ = assBr_.getVariablesRoot();
-                    if (index_ < l_.size() && !l_.get(index_).getVal(e.getKey()).isAssignedAfter()) {
+                    if (index_ >= l_.size()) {
+                        continue;
+                    }
+                    if (!l_.get(index_).contains(e.getKey())) {
+                        continue;
+                    }
+                    if (!l_.get(index_).getVal(e.getKey()).isAssignedAfter()) {
                         ass_ = false;
                     }
-                    if (index_ < l_.size() && !l_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
+                    if (!l_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
                         unass_ = false;
                     }
                 }
