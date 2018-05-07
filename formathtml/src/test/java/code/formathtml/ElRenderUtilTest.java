@@ -3703,14 +3703,6 @@ public final class ElRenderUtilTest {
                 context_.setException(new StdStruct(new CustomError(), _conf.getStandards().getErrorEl()));
                 return;
             }
-            if (((ConstantOperation)set_).isFinalField()) {
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                context_.setException(new StdStruct(new CustomError(), _conf.getStandards().getErrorEl()));
-                return;
-            }
         }
         CustList<OperationNode> right_ = members_.getRight();
         ElRenderUtil.tryToCalculateAffect(left_, context_, right_, _oper);

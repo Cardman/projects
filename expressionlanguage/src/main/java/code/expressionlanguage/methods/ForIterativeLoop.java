@@ -339,18 +339,28 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             fields_.put(e.getKey(), ab_);
         }
         vars_.getFieldsBefore().put(_root, fields_);
-        for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore ab_ = new AssignmentBefore();
-                if (e.getValue().isAssignedBefore()) {
-                    ab_.setAssignedBefore(true);
-                } else {
-                    ab_.setUnassignedBefore(true);
+        if (vars_.getVariablesRoot().isEmpty()) {
+            for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore ab_ = new AssignmentBefore();
+                    if (e.getValue().isAssignedBefore()) {
+                        ab_.setAssignedBefore(true);
+                    } else {
+                        ab_.setUnassignedBefore(true);
+                    }
+                    sm_.put(e.getKey(), ab_);
                 }
-                sm_.put(e.getKey(), ab_);
+                variables_.add(sm_);
             }
-            variables_.add(sm_);
+        } else {
+            for (StringMap<Assignment> s: vars_.getVariablesRoot()) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    sm_.put(e.getKey(), e.getValue().assignBefore());
+                }
+                variables_.add(sm_);
+            }
         }
         vars_.getVariablesBefore().put(_root, variables_);
     }

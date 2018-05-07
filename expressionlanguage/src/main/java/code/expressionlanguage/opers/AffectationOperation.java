@@ -18,8 +18,10 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -76,14 +78,6 @@ public final class AffectationOperation extends MethodOperation {
         }
         if (elt_ instanceof ConstantOperation) {
             if (((ConstantOperation)elt_).isImmutablePart()) {
-                root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                return;
-            }
-            if (((ConstantOperation)elt_).isFinalField()) {
                 root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                 un_.setFileName(_conf.getCurrentFileName());
@@ -210,7 +204,21 @@ public final class AffectationOperation extends MethodOperation {
             String str_ = originalStr_.trim();
             for (StringMap<Assignment> s: variablesAfterLast_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                int index_ = variablesAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
+                    if (StringList.quickEq(str_, e.getKey())) {
+                        LocalVariable locVar_ = _conf.getLocalVariables().get(index_).getVal(str_);
+                        if (!e.getValue().isUnassignedAfter()) {
+                            if (locVar_.isFinalVariable()) {
+                                //error
+                                firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
+                                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                                un_.setFileName(_conf.getCurrentFileName());
+                                un_.setRc(_conf.getCurrentLocation());
+                                _conf.getClasses().getErrorsDet().add(un_);
+                            }
+                        }
+                    }
                     if (StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter()) {
                         sm_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
                     } else if (!StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter()) {
@@ -233,10 +241,12 @@ public final class AffectationOperation extends MethodOperation {
         }
         vars_.getVariables().put(this, variablesAfter_);
         boolean procField_ = false;
+        boolean procFinalField_ = false;
         if (firstChild_ instanceof ConstantOperation) {
             ConstantOperation cst_ = (ConstantOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             if (cl_ != null) {
+                procFinalField_ = true;
                 if (cst_.isFirstChild()) {
                     procField_ = true;
                 } else {
@@ -254,6 +264,23 @@ public final class AffectationOperation extends MethodOperation {
                                 procField_ = true;
                             }
                         }
+                    }
+                }
+            }
+        }
+        if (procFinalField_) {
+            ConstantOperation cst_ = (ConstantOperation)firstChild_;
+            ClassField cl_ = cst_.getFieldId();
+            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+                if (!e.getValue().isUnassignedAfter() && cl_.eq(e.getKey())) {
+                    ClassMetaInfo meta_ = _conf.getClassMetaInfo(cl_.getClassName());
+                    if (meta_.getFields().getVal(cl_.getFieldName()).isFinalField()) {
+                        //error if final field
+                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(un_);
                     }
                 }
             }

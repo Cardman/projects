@@ -202,6 +202,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq(INTEGER, str_.getClassName(cont_));
         assertEq(1, (Number)str_.getInstance());
     }
+
     @Test
     public void initializeClass1FailTest() {
         StringBuilder xml_ = new StringBuilder();

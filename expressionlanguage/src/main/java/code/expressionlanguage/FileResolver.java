@@ -12,6 +12,7 @@ import code.expressionlanguage.methods.ContinueBlock;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.DefaultCondition;
 import code.expressionlanguage.methods.DoBlock;
+import code.expressionlanguage.methods.DoWhileCondition;
 import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.ElseCondition;
 import code.expressionlanguage.methods.ElseIfCondition;
@@ -884,12 +885,22 @@ public final class FileResolver {
                         br_ = new DefaultCondition(_context, index_, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_WHILE)) {
+                        Block child_ = currentParent_.getFirstChild();
+                        if (child_ != null) {
+                            while (child_.getNextSibling() != null) {
+                                child_ = child_.getNextSibling();
+                            }
+                        }
                         String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_WHILE)).length());
                         int conditionOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_WHILE).length();
                         conditionOffest_ += exp_.indexOf(BEGIN_CALLING)+1;
                         exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
                         conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
-                        br_ = new WhileCondition(_context, index_, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        if (child_ instanceof DoBlock) {
+                            br_ = new DoWhileCondition(_context, index_, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        } else {
+                            br_ = new WhileCondition(_context, index_, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));    
+                        }
                         currentParent_.appendChild(br_);
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_CATCH)) {
                         String info_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_CATCH)).length());
@@ -1208,7 +1219,7 @@ public final class FileResolver {
                                     fieldName_ = afterType_;
                                     sepOffest_ = fieldNameOffest_;
                                 }
-                                br_ = new FieldBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_), new OffsetStringInfo(fieldNameOffest_,fieldName_.trim()), new OffsetStringInfo(typeOffest_,declaringType_.trim()), new OffsetStringInfo(sepOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                br_ = new FieldBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_), new OffsetStringInfo(fieldNameOffest_,fieldName_.trim()), new OffsetStringInfo(typeOffest_,declaringType_.trim()), new OffsetStringInfo(sepOffest_, expression_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                 currentParent_.appendChild(br_);
                             }
                         } else {

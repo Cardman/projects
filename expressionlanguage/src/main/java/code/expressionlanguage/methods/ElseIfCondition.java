@@ -87,6 +87,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
             return;
         }
         CustList<Block> prev_ = new CustList<Block>();
+        prev_.add(this);
         Block pBlock_ = getPreviousSibling();
         while (!(pBlock_ instanceof IfCondition)) {
 //            Block ch_ = pBlock_.getFirstChild();

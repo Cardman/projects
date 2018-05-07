@@ -211,6 +211,10 @@ public class AnalyzedPageEl {
 
     public void clearAllLocalVars() {
         localVars.clear();
+        assignedVariables.getFinalVariablesGlobal().getVariables().clear();
+        assignedVariables.getFinalVariablesGlobal().getVariablesRoot().clear();
+        assignedVariables.getFinalVariablesGlobal().getVariablesRootBefore().clear();
+        assignedVariables.getFinalVariablesGlobal().getVariablesBefore().clear();
     }
 
     public void removeLocalVar(String _key) {

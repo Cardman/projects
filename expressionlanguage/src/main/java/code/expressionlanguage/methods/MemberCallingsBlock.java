@@ -108,7 +108,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             Block n_ = en_.getFirstChild();
             if (n_ != null) {
                 _cont.getAnalyzing().initLocalVars();
-//                page_.getAssignedVariables().getFinalVariables().getVal(en_).initVars();
                 if (en_ instanceof BreakableBlock) {
                     parentsBreakables_.add((BreakableBlock) en_);
                 }
@@ -127,6 +126,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 continue;
             }
             en_.abrupt(_cont, anEl_);
+            if (en_ instanceof BracedBlock) {
+                ((BracedBlock)en_).abruptGroup(_cont, anEl_);
+            }
+            
             en_.setAssignmentAfter(_cont, anEl_);
             while (true) {
                 n_ = en_.getNextSibling();
@@ -165,7 +168,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                     parentsContinuable_.removeLast();
                 }
                 page_.removeLocalVars();
-//                page_.getAssignedVariables().getFinalVariables().getVal(par_).removeVars();
                 if (par_ instanceof ForLoop) {
                     String var_ = ((ForLoop)par_).getVariableName();
                     page_.getVars().removeKey(var_);

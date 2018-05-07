@@ -27,6 +27,7 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.StaticAccessThisError;
 import code.expressionlanguage.methods.util.UndefinedFieldError;
 import code.expressionlanguage.methods.util.UndefinedVariableError;
+import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -35,6 +36,7 @@ import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
@@ -68,8 +70,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     private static final String FORM = "\f";
 
     private boolean variable;
-    
-    private boolean finalField;
 
     private boolean immutablePart;
 
@@ -438,9 +438,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             e_ = r_.getId();
             fieldMetaInfo = e_;
             String c_ = fieldMetaInfo.getType();
-            if (fieldMetaInfo.isFinalField()) {
-                finalField = true;
-            }
             fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
             setResultClass(new ClassArgumentMatching(c_));
             return;
@@ -620,9 +617,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         e_ = r_.getId();
         fieldMetaInfo = e_;
         String c_ = fieldMetaInfo.getType();
-        if (fieldMetaInfo.isFinalField()) {
-            finalField = true;
-        }
         fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
         setResultClass(new ClassArgumentMatching(c_));
     }
@@ -695,15 +689,78 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             String aliasBoolean_ = lgNames_.getAliasBoolean();
             boolean isBool_;
             isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+            String varName_ = EMPTY_STRING;
+            OperationsSequence op_ = getOperations();
+            if (op_.getConstType() == ConstType.LOC_VAR) {
+                String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+                varName_ = originalStr_.trim();
+            }
+            if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
+                AffectationOperation aff_ = (AffectationOperation) getParent();
+                if (StringList.quickEq(aff_.getOperations().getOperators().firstValue(), "=")) {
+                    varName_ = EMPTY_STRING;
+                }
+            }
+            
             for (StringMap<AssignmentBefore> s: assB_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    if (StringList.quickEq(e.getKey(), varName_)) {
+                        if (!e.getValue().isAssignedBefore()) {
+                            //errors
+                            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+                            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                            un_.setFileName(_conf.getCurrentFileName());
+                            un_.setRc(_conf.getCurrentLocation());
+                            _conf.getClasses().getErrorsDet().add(un_);
+                        }
+                    }
                     AssignmentBefore bf_ = e.getValue();
                     sm_.put(e.getKey(), bf_.assignAfter(isBool_));
                 }
                 ass_.add(sm_);
             }
+            boolean procField_ = false;
+            ClassField cl_ = getFieldId();
+            if (cl_ != null) {
+                if (isFirstChild()) {
+                    procField_ = true;
+                } else {
+                    int index_ = getIndexChild() - 1;
+                    OperationNode opPr_ = getParent().getChildrenNodes().get(index_);
+                    OperationsSequence opPrev_ = opPr_.getOperations();
+                    if (opPrev_.getConstType() == ConstType.THIS_KEYWORD) {
+                        if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
+                            procField_ = true;
+                        }
+                    }
+                    if (!procField_) {
+                        if (opPr_ instanceof StaticAccessOperation) {
+                            if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
+                                procField_ = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
+                AffectationOperation aff_ = (AffectationOperation) getParent();
+                if (StringList.quickEq(aff_.getOperations().getOperators().firstValue(), "=")) {
+                    procField_ = false;
+                }
+            }
             for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+                if (procField_ && e.getKey().eq(cl_) && !e.getValue().isAssignedBefore()) {
+                    ClassMetaInfo meta_ = _conf.getClassMetaInfo(cl_.getClassName());
+                    if (meta_.getFields().getVal(cl_.getFieldName()).isFinalField()) {
+                        //error if final field
+                        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(un_);
+                    }
+                }
                 AssignmentBefore bf_ = e.getValue();
                 assA_.put(e.getKey(), bf_.assignAfter(isBool_));
             }
@@ -1180,9 +1237,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         return immutablePart;
     }
 
-    public boolean isFinalField() {
-        return finalField;
-    }
     @Override
     public void setIntermediateDotted() {
         intermediate = true;

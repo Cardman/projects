@@ -29,7 +29,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("  $return array;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($int... i){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:i;.;){\n");
         xml_.append("   t;.+=e;intValue():\n");
         xml_.append("  }\n");
@@ -67,7 +67,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("  $return array;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($int... i){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:i;.;){\n");
         xml_.append("   t;.+=e;intValue():\n");
         xml_.append("  }\n");
@@ -105,14 +105,14 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("  $return array;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($int... i){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:i;.;){\n");
         xml_.append("   t;.+=e;intValue():\n");
         xml_.append("  }\n");
         xml_.append("  $return elt;;;+t;.:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($long... i){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:i;.;){\n");
         xml_.append("   t;.+=e;intValue()*2i:\n");
         xml_.append("  }\n");
@@ -158,7 +158,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("  $return elt;;;+t;.:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($long... i){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:i;.;){\n");
         xml_.append("   t;.+=e;intValue()*2i:\n");
         xml_.append("  }\n");
@@ -243,7 +243,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("  $return array;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($int... j){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:j;.;){\n");
         xml_.append("   t;.+=e;intValue():\n");
         xml_.append("  }\n");
@@ -512,7 +512,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("  $return array;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($int... i){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:i;.;){\n");
         xml_.append("   t;.+=e;intValue():\n");
         xml_.append("  }\n");
@@ -550,7 +550,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("  $return array;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($int... i){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:i;.;){\n");
         xml_.append("   t;.+=e;intValue():\n");
         xml_.append("  }\n");
@@ -588,7 +588,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("  $return array;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter($int... i){\n");
-        xml_.append("  $int t:\n");
+        xml_.append("  $int t=0i:\n");
         xml_.append("  $foreach(java.lang.Number e:i;.;){\n");
         xml_.append("   t;.+=e;intValue():\n");
         xml_.append("  }\n");

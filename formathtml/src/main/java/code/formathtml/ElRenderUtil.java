@@ -257,13 +257,6 @@ public final class ElRenderUtil {
                 _conf.getClasses().getErrorsDet().add(un_);
                 return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
             }
-            if (((ConstantOperation)set_).isFinalField()) {
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
-            }
         }
         page_.setProcessingAttribute(_attrRight);
         page_.setOffset(0);

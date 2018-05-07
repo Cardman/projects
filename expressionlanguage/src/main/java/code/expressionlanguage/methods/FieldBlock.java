@@ -130,7 +130,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public Struct getDefaultStruct(ContextEl _cont) {
-        if (value.isEmpty()) {
+        if (value.trim().isEmpty()) {
             return StdStruct.defaultClass(className, _cont);
         }
         ExpressionLanguage el_ = getValueEl();
@@ -193,6 +193,19 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
+        while (prev_ != null) {
+            if (prev_ instanceof InitBlock) {
+                if (((InitBlock)prev_).isStaticContext() == isStaticField()) {
+                    break;
+                }
+            }
+            if (prev_ instanceof InfoBlock) {
+                if (((InfoBlock)prev_).isStaticField() == isStaticField()) {
+                    break;
+                }
+            }
+            prev_ = prev_.getPreviousSibling();
+        }
         AssignedVariables ass_;
         if (prev_ == null) {
             ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
@@ -208,13 +221,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
                 assBl_.getFieldsRootBefore().put(e.getKey(), e.getValue().assignBefore());
             }
-            for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignBefore());
-                }
-                assBl_.getVariablesRootBefore().add(sm_);
-            }
+            assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
             id_.put(this, assBl_);
         }
     }
@@ -223,7 +230,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
-        if (value.isEmpty()) {
+        if (value.trim().isEmpty()) {
             return;
         }
         page_.setGlobalOffset(valueOffset);
@@ -259,15 +266,25 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         String boolStd_ = _an.getStandards().getAliasBoolean();
         String arg_ = className;
-        if (!value.isEmpty()) {
+        boolean ass_ = false;
+        boolean unass_ = true;
+        if (!value.trim().isEmpty()) {
             arg_ = opValue.last().getResultClass().getName();
+            ass_ = true;
+            unass_ = false;
         }
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
         ObjectMap<ClassField,Assignment> as_ = varsAss_.getFieldsRoot();
+        for (EntryCust<ClassField, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
+            ClassField key_ = e.getKey();
+            String type_ = _an.getClassMetaInfo(key_.getClassName()).getFields().getVal(key_.getFieldName()).getType();
+            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _an);
+            as_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+        }
         String className_ = getRooted().getFullName();
         boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, arg_, _an);
-        as_.put(new ClassField(className_, fieldName), Assignment.assign(isBool_, true, false));
+        as_.put(new ClassField(className_, fieldName), Assignment.assign(isBool_, ass_, unass_));
     }
     public boolean isSimpleStaticConstant() {
         if (!isStaticField()) {
@@ -367,7 +384,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     @Override
     public void checkCallConstructor(ContextEl _cont) {
-        if (value.isEmpty()) {
+        if (value.trim().isEmpty()) {
             return;
         }
         AnalyzedPageEl p_ = _cont.getAnalyzing();
@@ -400,7 +417,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             ip_.setOffset(0);
             String name_ = getFieldName();
             Struct struct_;
-            if (value.isEmpty()) {
+            if (value.trim().isEmpty()) {
                 struct_ = StdStruct.defaultClass(className, _cont);
             } else {
                 ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);

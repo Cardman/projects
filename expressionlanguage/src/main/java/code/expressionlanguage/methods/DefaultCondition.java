@@ -3,12 +3,21 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stacks.SwitchBlockStack;
+import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
+import code.util.EntryCust;
 import code.util.NatTreeMap;
+import code.util.StringMap;
 
 public final class DefaultCondition extends BracedStack implements StackableBlockGroup, IncrNextGroup {
 
@@ -49,6 +58,31 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
+        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
+        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
+        int index_ = 0;
+        String boolStd_ = _cont.getStandards().getAliasBoolean();
+        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            ClassField key_ = e.getKey();
+            String classNameDecl_ = key_.getClassName();
+            ClassMetaInfo custClass_;
+            custClass_ = _cont.getClassMetaInfo(classNameDecl_);
+            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
+            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _cont);
+            ass_.getFieldsRoot().put(key_, e.getValue().assignAfter(isBool_));
+        }
+        for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
+            StringMap<Assignment> vars_ = new StringMap<Assignment>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                String key_ = e.getKey();
+                LocalVariable lc_ = _cont.getLocalVariables().get(index_).getVal(key_);
+                String type_ = lc_.getClassName();
+                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _cont);
+                vars_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+            }
+            index_++;
+            ass_.getVariablesRoot().add(vars_);
+        }
     }
 
     @Override

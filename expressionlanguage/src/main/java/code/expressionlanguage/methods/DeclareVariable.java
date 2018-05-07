@@ -12,6 +12,8 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.EntryCust;
@@ -115,10 +117,19 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
+        String boolStd_ = _an.getStandards().getAliasBoolean();
+        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            ClassField key_ = e.getKey();
+            String classNameDecl_ = key_.getClassName();
+            ClassMetaInfo custClass_;
+            custClass_ = _an.getClassMetaInfo(classNameDecl_);
+            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
+            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _an);
+            ass_.getFieldsRoot().put(key_, e.getValue().assignAfter(isBool_));
+        }
         AssignmentBefore asBe_ = new AssignmentBefore();
         asBe_.setUnassignedBefore(true);
         ass_.getVariablesRootBefore().last().put(variableName, asBe_);
-        String boolStd_ = _an.getStandards().getAliasBoolean();
         boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, className, _an);
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
             StringMap<Assignment> vars_ = new StringMap<Assignment>();

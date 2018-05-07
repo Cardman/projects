@@ -16,6 +16,7 @@ public class CustLockingClass extends DefaultLockingClass {
         for (RootBlock r: _context.getClasses().getClassBodies()) {
             String name_ = r.getFullName();
             locks.put(name_, new ReentrantLock());
+            types.put(name_, null);
         }
     }
 

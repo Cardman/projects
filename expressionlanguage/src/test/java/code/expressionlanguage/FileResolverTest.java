@@ -19,6 +19,7 @@ import code.expressionlanguage.methods.ContinueBlock;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.DefaultCondition;
 import code.expressionlanguage.methods.DoBlock;
+import code.expressionlanguage.methods.DoWhileCondition;
 import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.ElseCondition;
 import code.expressionlanguage.methods.ElseIfCondition;
@@ -2563,7 +2564,7 @@ public final class FileResolverTest {
         assertEq(79, ((Line) instrWhile_).getExpressionOffset());
         assertNull(instrWhile_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof WhileCondition);
+        assertTrue(instr_ instanceof DoWhileCondition);
         assertEq(97, ((Condition) instr_).getConditionOffset());
         assertEq("condition;.",((Condition) instr_).getCondition());
         assertNull(instr_.getFirstChild());

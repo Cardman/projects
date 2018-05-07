@@ -1,19 +1,24 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stacks.LoopBlockStack;
+import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.StringList;
+import code.util.StringMap;
 
 public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup {
 
@@ -56,14 +61,14 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             _cont.getClasses().getErrorsDet().add(un_);
             return;
         }
-        if (!(next_ instanceof WhileCondition)) {
+        if (!(next_ instanceof DoWhileCondition)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(next_.getFile().getFileName());
             un_.setRc(next_.getRowCol(0, next_.getOffset().getOffsetTrim()));
             _cont.getClasses().getErrorsDet().add(un_);
             return;
         }
-        WhileCondition w_ = (WhileCondition) next_;
+        DoWhileCondition w_ = (DoWhileCondition) next_;
         Block after_ = w_.getFirstChild();
         if (after_ != null) {
             UnexpectedTagName un_ = new UnexpectedTagName();
@@ -75,12 +80,32 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
+        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
+        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
+        int index_ = 0;
+        String boolStd_ = _cont.getStandards().getAliasBoolean();
+        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            ClassField key_ = e.getKey();
+            String classNameDecl_ = key_.getClassName();
+            ClassMetaInfo custClass_;
+            custClass_ = _cont.getClassMetaInfo(classNameDecl_);
+            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
+            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _cont);
+            ass_.getFieldsRoot().put(key_, e.getValue().assignAfter(isBool_));
+        }
+        for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
+            StringMap<Assignment> vars_ = new StringMap<Assignment>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                String key_ = e.getKey();
+                LocalVariable lc_ = _cont.getLocalVariables().get(index_).getVal(key_);
+                String type_ = lc_.getClassName();
+                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _cont);
+                vars_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+            }
+            index_++;
+            ass_.getVariablesRoot().add(vars_);
+        }
     }
-
-//    @Override
-//    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-//        // TODO Auto-generated method stub
-//    }
 
     @Override
     boolean canBeIncrementedNextGroup() {
@@ -112,10 +137,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         ReadWrite rw_ = ip_.getReadWrite();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible();
         if (c_ != null && c_.getBlock() == this) {
-            if (c_.isEvaluatingKeepLoop()) {
-                processLastElementLoop(_cont);
-                return;
-            }
             if (c_.isFinished()) {
                 removeVarAndLoop(ip_);
                 Block next_ = getNextSibling();
@@ -132,10 +153,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         rw_.setBlock(getFirstChild());
     }
 
-    Condition getNext() {
-        return (Condition) getNextSibling();
-    }
-
     @Override
     public void exitStack(ContextEl _context) {
         processLastElementLoop(_context);
@@ -145,24 +162,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     public void processLastElementLoop(ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        l_.setEvaluatingKeepLoop(true);
-        Block forLoopLoc_ = l_.getBlock();
-        rw_.setBlock(forLoopLoc_);
-        if (!keepLoop(_conf)) {
-            if (_conf.callsOrException()) {
-                return;
-            }
-            l_.setFinished(true);
-        }
-        l_.setEvaluatingKeepLoop(false);
-    }
-
-    public boolean keepLoop(ContextEl _conf) {
-        _conf.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
-        _conf.getLastPage().setOffset(0);
-        Condition c_ = getNext();
-        return c_.evaluateCondition(_conf);
+        rw_.setBlock(getNextSibling());
     }
 
     @Override
@@ -170,44 +170,5 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             int _indexProcess) {
         return null;
     }
-    @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
-        Condition cond_ = getNext();
-        boolean abr_ = true;
-        Block last_ = getFirstChild();
-        while (last_.getNextSibling() != null) {
-            last_ = last_.getNextSibling();
-        }
-        if (!StringList.quickEq(cond_.getCondition().trim(), TRUE_STRING)) {
-            if (_anEl.canCompleteNormallyGroup(last_)) {
-                abr_ = false;
-            }
-        }
-        if (abr_) {
-            if (!StringList.quickEq(cond_.getCondition().trim(), TRUE_STRING)) {
-                IdMap<ContinueBlock, Loop> breakables_;
-                breakables_ = _anEl.getContinuables();
-                for (EntryCust<ContinueBlock, Loop> e: breakables_.entryList()) {
-                    if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
-                        abr_ = false;
-                        break;
-                    }
-                }
-            }
-        }
-        if (abr_) {
-            IdMap<BreakBlock, BreakableBlock> breakables_;
-            breakables_ = _anEl.getBreakables();
-            for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
-                if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
-                    abr_ = false;
-                    break;
-                }
-            }
-        }
-        if (abr_) {
-            _anEl.completeAbrupt(cond_);
-            _anEl.completeAbruptGroup(cond_);
-        }
-    }
+
 }

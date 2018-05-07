@@ -7,6 +7,7 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
@@ -24,7 +25,6 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class ElementBlock extends Leaf implements InfoBlock{
 
@@ -126,6 +126,19 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
+        while (prev_ != null) {
+            if (prev_ instanceof InitBlock) {
+                if (((InitBlock)prev_).isStaticContext() == isStaticField()) {
+                    break;
+                }
+            }
+            if (prev_ instanceof InfoBlock) {
+                if (((InfoBlock)prev_).isStaticField() == isStaticField()) {
+                    break;
+                }
+            }
+            prev_ = prev_.getPreviousSibling();
+        }
         AssignedVariables ass_;
         if (prev_ == null) {
             ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
@@ -145,20 +158,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
                 }
                 assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
             }
-            for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    AssignmentBefore asBef_ = new AssignmentBefore();
-                    if (e.getValue().isAssignedAfter()) {
-                        asBef_.setAssignedBefore(true);
-                    }
-                    if (e.getValue().isUnassignedAfter()) {
-                        asBef_.setUnassignedBefore(true);
-                    }
-                    sm_.put(e.getKey(), asBef_);
-                }
-                assBl_.getVariablesRootBefore().add(sm_);
-            }
+            assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
             id_.put(this, assBl_);
         }
     }
@@ -188,6 +188,13 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
         ObjectMap<ClassField,Assignment> as_ = varsAss_.getFieldsRoot();
+        String boolStd_ = _an.getStandards().getAliasBoolean();
+        for (EntryCust<ClassField, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
+            ClassField key_ = e.getKey();
+            String type_ = _an.getClassMetaInfo(key_.getClassName()).getFields().getVal(key_.getFieldName()).getType();
+            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _an);
+            as_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+        }
         as_.put(new ClassField(className_, fieldName), Assignment.assign(false, true, false));
     }
     @Override

@@ -15,7 +15,9 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -112,7 +114,21 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
             String str_ = originalStr_.trim();
             for (StringMap<Assignment> s: variablesAfterLast_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                int index_ = variablesAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
+                    if (StringList.quickEq(str_, e.getKey())) {
+                        LocalVariable locVar_ = _conf.getLocalVariables().get(index_).getVal(str_);
+                        if (!e.getValue().isUnassignedAfter()) {
+                            if (locVar_.isFinalVariable()) {
+                                //error
+                                firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
+                                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                                un_.setFileName(_conf.getCurrentFileName());
+                                un_.setRc(_conf.getCurrentLocation());
+                                _conf.getClasses().getErrorsDet().add(un_);
+                            }
+                        }
+                    }
                     if (StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter()) {
                         sm_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
                     } else if (!StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter()) {
@@ -163,6 +179,17 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
             ConstantOperation cst_ = (ConstantOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+                if (!e.getValue().isUnassignedAfter()) {
+                    ClassMetaInfo meta_ = _conf.getClassMetaInfo(cl_.getClassName());
+                    if (meta_.getFields().getVal(cl_.getFieldName()).isFinalField()) {
+                        //error if final field
+                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().getErrorsDet().add(un_);
+                    }
+                }
                 if (cl_.eq(e.getKey()) || e.getValue().isAssignedAfter()) {
                     fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
                 } else if (!cl_.eq(e.getKey()) && e.getValue().isUnassignedAfter()) {

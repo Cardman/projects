@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -28,7 +29,6 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class WhileCondition extends Condition implements Loop, IncrNextGroup {
@@ -60,7 +60,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
-        if (getFirstChild() == null && !(getPreviousSibling() instanceof DoBlock)) {
+        if (getFirstChild() == null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
@@ -103,7 +103,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        // TODO Auto-generated method stub
         super.setAssignmentAfter(_an, _anEl);
         Block firstChild_ = getFirstChild();
         IdMap<Block, AssignedVariables> id_;
@@ -592,12 +591,19 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     }
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
-        if (getFirstChild() == null) {
-            return;
-        }
         boolean abr_ = true;
+        OperationNode op_ = getElCondition().getRoot();
+        boolean proc_ = true;
+        Argument arg_ = op_.getArgument();
+        if (op_.getArgument() == null) {
+            proc_ = false;
+        } else if (!(arg_.getObject() instanceof Boolean)) {
+            proc_ = false;
+        } else if (!(Boolean)arg_.getObject()) {
+            proc_ = false;
+        }
         if (_anEl.isReachable(this)) {
-            if (!StringList.quickEq(getCondition().trim(), TRUE_STRING)) {
+            if (!proc_) {
                 abr_ = false;
             }
         }

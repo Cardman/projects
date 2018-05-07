@@ -4,7 +4,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.sml.Element;
 import code.util.NatTreeMap;
 
-public final class StaticBlock extends MemberCallingsBlock implements AloneBlock {
+public final class StaticBlock extends InitBlock {
 
     public StaticBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {

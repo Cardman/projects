@@ -216,16 +216,16 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         for (EntryCust<ClassField,Assignment> e: assTar_.getFields().lastValue().entryList()) {
             boolean ass_ = true;
             boolean unass_ = true;
-            if (!(def_ && e.getValue().isAssignedAfter())){
+            if (!(def_ ||e.getValue().isAssignedAfter())){
                 ass_ = false;
             }
-            if (!(def_ && e.getValue().isUnassignedAfter())){
+            if (!(def_ || e.getValue().isUnassignedAfter())){
                 unass_ = false;
             }
-            if (!(!emptyEndCases_ && e.getValue().isAssignedAfter())){
+            if (!(!emptyEndCases_ || e.getValue().isAssignedAfter())){
                 ass_ = false;
             }
-            if (!(!emptyEndCases_ && e.getValue().isUnassignedAfter())){
+            if (!(!emptyEndCases_ || e.getValue().isUnassignedAfter())){
                 unass_ = false;
             }
             if (_anEl.canCompleteNormally(ch_)) {
@@ -267,16 +267,16 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             for (EntryCust<String,Assignment> e: s.entryList()) {
                 boolean ass_ = true;
                 boolean unass_ = true;
-                if (!(def_ && e.getValue().isAssignedAfter())){
+                if (!(def_ || e.getValue().isAssignedAfter())){
                     ass_ = false;
                 }
-                if (!(def_ && e.getValue().isUnassignedAfter())){
+                if (!(def_ || e.getValue().isUnassignedAfter())){
                     unass_ = false;
                 }
-                if (!(!emptyEndCases_ && e.getValue().isAssignedAfter())){
+                if (!(!emptyEndCases_ || e.getValue().isAssignedAfter())){
                     ass_ = false;
                 }
-                if (!(!emptyEndCases_ && e.getValue().isUnassignedAfter())){
+                if (!(!emptyEndCases_ || e.getValue().isUnassignedAfter())){
                     unass_ = false;
                 }
                 if (_anEl.canCompleteNormally(ch_)) {
