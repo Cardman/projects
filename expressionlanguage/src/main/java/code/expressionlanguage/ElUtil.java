@@ -337,6 +337,7 @@ public final class ElUtil {
             PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _current;
             boolean static_ = last_ instanceof StaticAccessOperation;
             possible_.setIntermediateDotted();
+            possible_.setPreviousArgument(last_.getArgument());
             possible_.setPreviousResultClass(last_.getResultClass(), static_);
             last_.setSiblingSet(possible_);
             _context.setEnabledDotted(false);

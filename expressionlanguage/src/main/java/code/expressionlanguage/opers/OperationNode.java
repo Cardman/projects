@@ -1193,21 +1193,11 @@ public abstract class OperationNode {
         Object o_ = _arg.getObject();
         Boolean b_ = (Boolean) o_;
         if (res_ != QUICK_OP) {
-            CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
-            OperationNode opElt_ = l_.get(res_);
-            opElt_.setSimpleArgument(_arg);
             return;
         }
         QuickOperation q_ = (QuickOperation) par_;
         if (b_ == q_.absorbingValue()) {
-            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-            for (OperationNode s: ElUtil.getDirectChildren(par_)) {
-                opers_.add(s);
-            }
-            int len_ = opers_.size();
-            for (int i = getIndexChild() + 1; i < len_; i++) {
-                opers_.get(i).setSimpleArgument(_arg);
-            }
+            par_.setSimpleArgument(_arg);
         }
     }
 

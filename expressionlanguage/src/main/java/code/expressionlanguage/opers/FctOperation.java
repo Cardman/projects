@@ -1604,7 +1604,8 @@ public final class FctOperation extends InvokingOperation {
         return ArgumentCall.newCall(inv_);
     }
     public boolean isTernary() {
-        return ternary;
+        String trimMeth_ = methodName.trim();
+        return StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN));
     }
 
     @Override
