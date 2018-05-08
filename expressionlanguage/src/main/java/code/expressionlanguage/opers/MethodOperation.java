@@ -78,8 +78,9 @@ public abstract class MethodOperation extends OperationNode {
     }
     public abstract void analyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _firstChild, OperationNode _previous);
     @Override
-    public final void tryCalculate(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
+    public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
+        int indexChild_ = getIndexChild();
+        MethodOperation mOp_ = getParent();
         CustList<OperationNode> children_ = getChildrenNodes();
         for (OperationNode o: children_) {
             if (o.getArgument() == null) {
@@ -88,9 +89,23 @@ public abstract class MethodOperation extends OperationNode {
             }
         }
         quickCalculate(_conf);
+        if (getArgument() == null) {
+            return;
+        }
+        if (indexChild_ == 1 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
+            Argument arg_ = mOp_.getFirstChild().getArgument();
+            if (arg_ != null && arg_.getObject() instanceof Boolean && (Boolean)arg_.getObject()) {
+                mOp_.setSimpleArgumentAna(getArgument(), _conf);
+            }
+        } else if (indexChild_ == 2 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
+            Argument arg_ = mOp_.getFirstChild().getArgument();
+            if (arg_ != null && arg_.getObject() instanceof Boolean && !(Boolean)arg_.getObject()) {
+                mOp_.setSimpleArgumentAna(getArgument(), _conf);
+            }
+        }
     }
     @Override
-    public void tryCalculate(Analyzable _conf) {
+    public void tryCalculateNode(Analyzable _conf) {
         int indexChild_ = getIndexChild();
         MethodOperation mOp_ = getParent();
         CustList<OperationNode> children_ = getChildrenNodes();
@@ -100,6 +115,9 @@ public abstract class MethodOperation extends OperationNode {
             }
         }
         quickCalculate(_conf);
+        if (getArgument() == null) {
+            return;
+        }
         if (indexChild_ == 1 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
             Argument arg_ = mOp_.getFirstChild().getArgument();
             if (arg_ != null && arg_.getObject() instanceof Boolean && (Boolean)arg_.getObject()) {

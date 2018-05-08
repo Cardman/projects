@@ -195,8 +195,8 @@ public abstract class OperationNode {
     }
     public abstract void analyzeAssignmentAfter(Analyzable _conf);
     public abstract void calculate(ContextEl _conf);
-    public abstract void tryCalculate(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current);
-    public abstract void tryCalculate(Analyzable _conf);
+    public abstract void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current);
+    public abstract void tryCalculateNode(Analyzable _conf);
 
     public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf);
 

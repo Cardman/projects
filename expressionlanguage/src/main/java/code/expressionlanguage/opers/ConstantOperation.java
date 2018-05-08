@@ -782,6 +782,29 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     }
 
     @Override
+    public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
+        tryCalculate(_conf, _list, _current);
+        if (getArgument() == null) {
+            return;
+        }
+        int indexChild_ = getIndexChild();
+        MethodOperation mOp_ = getParent();
+        if (mOp_ != null && mOp_.getArgument() != null) {
+            return;
+        }
+        if (indexChild_ == 1 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
+            Argument arg_ = mOp_.getFirstChild().getArgument();
+            if (arg_ != null && arg_.getObject() instanceof Boolean && (Boolean)arg_.getObject()) {
+                mOp_.setSimpleArgumentAna(getArgument(), _conf);
+            }
+        } else if (indexChild_ == 2 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
+            Argument arg_ = mOp_.getFirstChild().getArgument();
+            if (arg_ != null && arg_.getObject() instanceof Boolean && !(Boolean)arg_.getObject()) {
+                mOp_.setSimpleArgumentAna(getArgument(), _conf);
+            }
+        }
+    }
+
     public final void tryCalculate(ContextEl _conf,
             EqList<SortedClassField> _list, SortedClassField _current) {
         if (fieldId != null && fieldMetaInfo.isStaticField()) {
@@ -822,24 +845,31 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
     }
 
     @Override
+    public void tryCalculateNode(Analyzable _conf) {
+        tryCalculate(_conf);
+        if (getArgument() == null) {
+            return;
+        }
+        int indexChild_ = getIndexChild();
+        MethodOperation mOp_ = getParent();
+        if (mOp_ != null && mOp_.getArgument() != null) {
+            return;
+        }
+        if (indexChild_ == 1 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
+            Argument arg_ = mOp_.getFirstChild().getArgument();
+            if (arg_ != null && arg_.getObject() instanceof Boolean && (Boolean)arg_.getObject()) {
+                mOp_.setSimpleArgumentAna(getArgument(), _conf);
+            }
+        } else if (indexChild_ == 2 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
+            Argument arg_ = mOp_.getFirstChild().getArgument();
+            if (arg_ != null && arg_.getObject() instanceof Boolean && !(Boolean)arg_.getObject()) {
+                mOp_.setSimpleArgumentAna(getArgument(), _conf);
+            }
+        }
+    }
+
     public void tryCalculate(Analyzable _conf) {
         if (isCalculated()) {
-            int indexChild_ = getIndexChild();
-            MethodOperation mOp_ = getParent();
-            if (mOp_ != null && mOp_.getArgument() != null) {
-                return;
-            }
-            if (indexChild_ == 1 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
-                Argument arg_ = mOp_.getFirstChild().getArgument();
-                if (arg_ != null && arg_.getObject() instanceof Boolean && (Boolean)arg_.getObject()) {
-                    mOp_.setSimpleArgumentAna(getArgument(), _conf);
-                }
-            } else if (indexChild_ == 2 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
-                Argument arg_ = mOp_.getFirstChild().getArgument();
-                if (arg_ != null && arg_.getObject() instanceof Boolean && !(Boolean)arg_.getObject()) {
-                    mOp_.setSimpleArgumentAna(getArgument(), _conf);
-                }
-            }
             return;
         }
         if (fieldId != null && fieldMetaInfo.isStaticField()) {

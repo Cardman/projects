@@ -356,7 +356,7 @@ public final class ElUtil {
         while (true) {
             current_.setStaticBlock(_staticBlock);
             current_.analyze(_context, _fieldName);
-            current_.tryCalculate(_context);
+            current_.tryCalculateNode(_context);
             current_.tryAnalyzeAssignmentAfter(_context);
             _sortedNodes.add(current_);
             next_ = createNextSibling(current_, _context);
@@ -375,7 +375,7 @@ public final class ElUtil {
             if (par_ == _root) {
                 par_.setStaticBlock(_staticBlock);
                 par_.analyze(_context, _fieldName);
-                par_.tryCalculate(_context);
+                par_.tryCalculateNode(_context);
                 par_.tryAnalyzeAssignmentAfter(_context);
                 _sortedNodes.add(par_);
                 return null;
@@ -504,7 +504,7 @@ public final class ElUtil {
         pageEl_.setTranslatedOffset(_offset);
         for (OperationNode o: _nodes) {
             if (!o.isCalculated()) {
-                o.tryCalculate(_context, _list, _current);
+                o.tryCalculateNode(_context, _list, _current);
                 if (!_current.isOk()) {
                     pageEl_.setTranslatedOffset(0);
                     return;

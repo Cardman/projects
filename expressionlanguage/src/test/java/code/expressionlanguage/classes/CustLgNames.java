@@ -431,7 +431,7 @@ public final class CustLgNames extends LgNames {
             res_.setResult(new StdStruct(bytes_, ret_));
             return res_;
         }
-        return super.getOtherResult(_cont, _instance, _method, _args);
+        return res_;
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,

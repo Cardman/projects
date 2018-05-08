@@ -121,11 +121,10 @@ public final class StaticAccessOperation extends LeafOperation {
         return;
     }
     @Override
-    public final void tryCalculate(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
+    public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
     }
     @Override
-    public void tryCalculate(Analyzable _conf) {
+    public void tryCalculateNode(Analyzable _conf) {
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {

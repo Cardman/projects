@@ -87,8 +87,6 @@ public final class FctOperation extends InvokingOperation {
 
     private boolean staticMethod;
 
-    private boolean ternary;
-
     private boolean superConstructorCall;
 
     private boolean otherConstructorClass;
@@ -503,7 +501,6 @@ public final class FctOperation extends InvokingOperation {
                 un_.setRc(_conf.getCurrentLocation());
                 _conf.getClasses().getErrorsDet().add(un_);
             }
-            ternary = true;
             setResultClass(clMatchTwo_);
             return;
         }
@@ -1094,17 +1091,6 @@ public final class FctOperation extends InvokingOperation {
                 setSimpleArgumentAna(arg_, _conf);
                 return;
             }
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
-            Boolean obj_ = (Boolean) arguments_.first().getObject();
-            Argument arg_;
-            if (obj_) {
-                arg_ = arguments_.get(CustList.SECOND_INDEX);
-            } else {
-                arg_ = arguments_.last();
-            }
-            setSimpleArgumentAna(arg_, _conf);
-            return;
         }
     }
     @Override
