@@ -2,6 +2,7 @@ package code.expressionlanguage.stds;
 
 import java.io.UnsupportedEncodingException;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
@@ -3162,10 +3163,22 @@ public abstract class LgNames {
         return new ResultErrorStd();
     }
     public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {
+        LgNames lgNames_ = _cont.getStandards();
+        ResultErrorStd result_ = lgNames_.getSimpleResult(_cont, _classField);
+        if (result_.getResult() != null) {
+            return result_;
+        }
+        result_ = lgNames_.getOtherResult(_cont, _classField, _instance);
+        return result_;
+    }
+    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd getSimpleResult(Analyzable _conf, ClassField _classField) {
         ResultErrorStd result_ = new ResultErrorStd();
         String type_ = _classField.getClassName();
         String name_ = _classField.getFieldName();
-        LgNames lgNames_ = _cont.getStandards();
+        LgNames lgNames_ = _conf.getStandards();
         String charType_ = lgNames_.getAliasCharacter();
         String byteType_ = lgNames_.getAliasByte();
         String shortType_ = lgNames_.getAliasShort();
@@ -3215,13 +3228,8 @@ public abstract class LgNames {
             } else {
                 result_.setResult(new DoubleStruct(Double.MAX_VALUE));
             }
-        } else {
-            result_ = lgNames_.getOtherResult(_cont, _classField, _instance);
         }
         return result_;
-    }
-    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
-        return new ResultErrorStd();
     }
     public static ResultErrorStd setField(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         LgNames lgNames_ = _cont.getStandards();
@@ -3542,6 +3550,16 @@ public abstract class LgNames {
         return getStructClassName(_struct.getInstance(), _context);
     }
     public String getStructClassName(Object _struct, ContextEl _context) {
+        String cl_ = getSimpleStructClassName(_struct);
+        if (!StringList.quickEq(cl_, getAliasObject())) {
+            return cl_;
+        }
+        return getOtherStructClassName(_struct, _context);
+    }
+    public String getOtherStructClassName(Object _struct, ContextEl _context) {
+        return getAliasObject();
+    }
+    public final String getSimpleStructClassName(Object _struct) {
         if (_struct instanceof Double) {
             return getAliasDouble();
         }
@@ -3575,9 +3593,6 @@ public abstract class LgNames {
         if (_struct instanceof SelectedBoolean) {
             return getSelectedBoolean();
         }
-        return getOtherStructClassName(_struct, _context);
-    }
-    public String getOtherStructClassName(Object _struct, ContextEl _context) {
         return getAliasObject();
     }
     public StringMap<StandardType> getStandards() {

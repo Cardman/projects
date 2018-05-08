@@ -124,8 +124,9 @@ public final class DotOperation extends MethodOperation {
         return a_;
     }
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        calculateCommon(_conf);
+    public void quickCalculate(Analyzable _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
     }
     @Override
     public void calculate(ContextEl _conf) {

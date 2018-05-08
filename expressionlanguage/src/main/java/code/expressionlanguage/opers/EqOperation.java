@@ -27,7 +27,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument calculateEq(Argument _a, Argument _b, ContextEl _context) {
+    static Argument calculateEq(Argument _a, Argument _b) {
         Argument a_ = new Argument();
         a_.setObject(_a.getStruct().sameReference(_b.getStruct()));
         return a_;
@@ -123,7 +123,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        Argument arg_ = calculateEq(first_, second_, _conf);
+        Argument arg_ = calculateEq(first_, second_);
         if (complement_) {
             Boolean b_ = (Boolean) arg_.getObject();
             b_ = !b_;
@@ -134,8 +134,22 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        calculateCommon(_conf);
+    public void quickCalculate(Analyzable _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument first_ = chidren_.first().getArgument();
+        Argument second_ = chidren_.last().getArgument();
+        boolean complement_ = false;
+        String op_ = getOperations().getOperators().values().first().trim();
+        if (StringList.quickEq(op_, DIFF)) {
+            complement_ = true;
+        }
+        Argument arg_ = calculateEq(first_, second_);
+        if (complement_) {
+            Boolean b_ = (Boolean) arg_.getObject();
+            b_ = !b_;
+            arg_.setObject(b_);
+        }
+        setSimpleArgumentAna(arg_, _conf);
     }
     @Override
     public void calculate(ContextEl _conf) {
@@ -151,7 +165,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        Argument arg_ = calculateEq(first_, second_, _conf);
+        Argument arg_ = calculateEq(first_, second_);
         if (complement_) {
             Boolean b_ = (Boolean) arg_.getObject();
             b_ = !b_;

@@ -66,6 +66,16 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             _anEl.completeAbrupt(this);
         }
     }
+    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
+        assBl_.getFieldsRootBefore().putAllMap(parAss_.getFieldsRootBefore());
+        assBl_.getVariablesRootBefore().addAllElts(parAss_.getVariablesRootBefore());
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(firstChild_, assBl_);
+    }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();

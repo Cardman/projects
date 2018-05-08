@@ -13,11 +13,9 @@ import code.expressionlanguage.methods.util.SearchingReturnThrow;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -158,456 +156,24 @@ public abstract class Block extends Blockable {
         vars_.getFieldsBefore().put(_root, fields_);
         vars_.getVariablesBefore().put(_root, variables_);
     }
-    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
-        BracedBlock br_ = getParent();
-        Block prev_ = getPreviousSibling();
-        AssignedVariables ass_;
+    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        if (this == _anEl.getRoot()) {
-            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
-            id_.put(this, ass_);
-        } else if (prev_ == null) {
-            AssignedVariables parAss_ = id_.getVal(br_);
-            if (br_ instanceof ForEachLoop || br_ instanceof ForIterativeLoop || br_ instanceof TryEval) {
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-                    Assignment ba_ = e.getValue();
-                    assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
-                }
-                for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        Assignment ba_ = e.getValue();
-                        sm_.put(e.getKey(), ba_.assignBefore());
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-                id_.put(this, assBl_);
-                return;
+        AssignedVariables prevAss_ = id_.getVal(this);
+        Block nextSibling_ = getNextSibling();
+        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
+        for (EntryCust<ClassField, Assignment> e: prevAss_.getFieldsRoot().entryList()) {
+            AssignmentBefore asBef_ = new AssignmentBefore();
+            if (e.getValue().isAssignedAfter()) {
+                asBef_.setAssignedBefore(true);
             }
-            if (br_ instanceof IfCondition || br_ instanceof ElseIfCondition) {
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-                for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
-                    BooleanAssignment ba_ = e.getValue();
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    if (ba_.isAssignedAfterWhenTrue()) {
-                        ab_.setAssignedBefore(true);
-                    }
-                    if (ba_.isUnassignedAfterWhenTrue()) {
-                        ab_.setUnassignedBefore(true);
-                    }
-                    assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-                }
-                for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                        BooleanAssignment ba_ = e.getValue();
-                        AssignmentBefore ab_ = new AssignmentBefore();
-                        if (ba_.isAssignedAfterWhenTrue()) {
-                            ab_.setAssignedBefore(true);
-                        }
-                        if (ba_.isUnassignedAfterWhenTrue()) {
-                            ab_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), ab_);
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-                id_.put(this, assBl_);
-                return;
+            if (e.getValue().isUnassignedAfter()) {
+                asBef_.setUnassignedBefore(true);
             }
-            if (br_ instanceof ElseCondition) {
-                parAss_ = id_.getVal(br_.getPreviousSibling());
-                AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
-                    BooleanAssignment ba_ = e.getValue();
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    if (ba_.isAssignedAfterWhenFalse()) {
-                        ab_.setAssignedBefore(true);
-                    }
-                    if (ba_.isUnassignedAfterWhenFalse()) {
-                        ab_.setUnassignedBefore(true);
-                    }
-                    assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-                }
-                for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                        BooleanAssignment ba_ = e.getValue();
-                        AssignmentBefore ab_ = new AssignmentBefore();
-                        if (ba_.isAssignedAfterWhenFalse()) {
-                            ab_.setAssignedBefore(true);
-                        }
-                        if (ba_.isUnassignedAfterWhenFalse()) {
-                            ab_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), ab_);
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-                id_.put(this, assBl_);
-                return;
-            }
-            if (br_ instanceof SwitchBlock) {
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-                    Assignment ba_ = e.getValue();
-                    assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
-                }
-                for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        Assignment ba_ = e.getValue();
-                        sm_.put(e.getKey(), ba_.assignBefore());
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-                id_.put(this, assBl_);
-                return;
-            }
-            if (br_ instanceof WhileCondition) {
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-                for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
-                    BooleanAssignment ba_ = e.getValue();
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    if (ba_.isAssignedAfterWhenTrue()) {
-                        ab_.setAssignedBefore(true);
-                    }
-                    if (ba_.isUnassignedAfterWhenTrue()) {
-                        ab_.setUnassignedBefore(true);
-                    }
-                    assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-                }
-                for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                        BooleanAssignment ba_ = e.getValue();
-                        AssignmentBefore ab_ = new AssignmentBefore();
-                        if (ba_.isAssignedAfterWhenTrue()) {
-                            ab_.setAssignedBefore(true);
-                        }
-                        if (ba_.isUnassignedAfterWhenTrue()) {
-                            ab_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), ab_);
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-                id_.put(this, assBl_);
-                return;
-            }
-            if (br_ instanceof DoBlock) {
-                AssignedVariables varsPar_ = _an.getAssignedVariables().getFinalVariables().getVal(br_);
-                AssignedVariables vars_ = buildNewAssignedVariable();
-                ObjectMap<ClassField,AssignmentBefore> fields_;
-                CustList<StringMap<AssignmentBefore>> variables_;
-                fields_ = new ObjectMap<ClassField,AssignmentBefore>();
-                variables_ = varsPar_.getVariablesRootBefore();
-                for (EntryCust<ClassField,AssignmentBefore> e: varsPar_.getFieldsRootBefore().entryList()) {
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    if (e.getValue().isAssignedBefore()) {
-                        ab_.setAssignedBefore(true);
-                    } else {
-                        ab_.setUnassignedBefore(true);
-                    }
-                    fields_.put(e.getKey(), ab_);
-                }
-                vars_.getFieldsRootBefore().putAllMap(fields_);
-                for (StringMap<AssignmentBefore> s: variables_) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                        AssignmentBefore ab_ = new AssignmentBefore();
-                        if (e.getValue().isAssignedBefore()) {
-                            ab_.setAssignedBefore(true);
-                        } else {
-                            ab_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), ab_);
-                    }
-                    vars_.getVariablesRootBefore().add(sm_);
-                }
-                vars_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-                id_.put(this, vars_);
-                return;
-            }
-            AssignedVariables assBl_ = buildNewAssignedVariable();
-            assBl_.getFieldsRootBefore().putAllMap(parAss_.getFieldsRootBefore());
-            assBl_.getVariablesRootBefore().addAllElts(parAss_.getVariablesRootBefore());
-            assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-            id_.put(this, assBl_);
-        } else {
-            AssignedVariables prevAss_ = id_.getVal(prev_);
-            if (br_ instanceof SwitchBlock) {
-                AssignedVariables parAss_ = id_.getVal(br_);
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-                    Assignment ba_ = e.getValue();
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    if (ba_.isAssignedAfter() && prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter()) {
-                        ab_.setAssignedBefore(true);
-                    }
-                    if (ba_.isUnassignedAfter() && prevAss_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter()) {
-                        ab_.setUnassignedBefore(true);
-                    }
-                    assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-                }
-                for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    int index_ = assBl_.getVariablesRootBefore().size();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        Assignment ba_ = e.getValue();
-                        AssignmentBefore ab_ = new AssignmentBefore();
-                        if (ba_.isAssignedAfter() && prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter()) {
-                            ab_.setAssignedBefore(true);
-                        }
-                        if (ba_.isUnassignedAfter() && prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
-                            ab_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), ab_);
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-                id_.put(this, assBl_);
-                return;
-            }
-            if (prev_ instanceof DoBlock) {
-                AssignedVariables parAss_ = id_.getVal(prev_);
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-                    Assignment ba_ = e.getValue();
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    boolean contAss_ = true;
-                    boolean contUnass_ = true;
-                    for (EntryCust<ContinueBlock, Loop> c: _anEl.getContinuables().entryList()) {
-                        if (c.getValue() != prev_) {
-                            continue;
-                        }
-                        if (!id_.getVal(c.getKey()).getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
-                            contAss_ = false;
-                        }
-                        if (!id_.getVal(c.getKey()).getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
-                            contUnass_ = false;
-                        }
-                    }
-                    if (ba_.isAssignedAfter() && contAss_) {
-                        ab_.setAssignedBefore(true);
-                    }
-                    if (ba_.isUnassignedAfter() && contUnass_) {
-                        ab_.setUnassignedBefore(true);
-                    }
-                    assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-                }
-                for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    int index_ = assBl_.getVariablesRootBefore().size();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        Assignment ba_ = e.getValue();
-                        AssignmentBefore ab_ = new AssignmentBefore();
-                        boolean contAss_ = true;
-                        boolean contUnass_ = true;
-                        for (EntryCust<ContinueBlock, Loop> c: _anEl.getContinuables().entryList()) {
-                            if (c.getValue() != prev_) {
-                                continue;
-                            }
-                            if (!id_.getVal(c.getKey()).getVariablesRootBefore().get(index_).getVal(e.getKey()).isAssignedBefore()) {
-                                contAss_ = false;
-                            }
-                            if (!id_.getVal(c.getKey()).getVariablesRootBefore().get(index_).getVal(e.getKey()).isUnassignedBefore()) {
-                                contUnass_ = false;
-                            }
-                        }
-                        if (ba_.isAssignedAfter() && contAss_) {
-                            ab_.setAssignedBefore(true);
-                        }
-                        if (ba_.isUnassignedAfter() && contUnass_) {
-                            ab_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), ab_);
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                id_.put(this, assBl_);
-                return;
-            }
-            if (prev_ instanceof IfCondition || prev_ instanceof ElseIfCondition) {
-                AssignedBooleanVariables assBool_ = (AssignedBooleanVariables) prevAss_;
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                for (EntryCust<ClassField, BooleanAssignment> e: assBool_.getFieldsRootAfter().entryList()) {
-                    AssignmentBefore asBef_ = new AssignmentBefore();
-                    if (e.getValue().isAssignedAfterWhenFalse()) {
-                        asBef_.setAssignedBefore(true);
-                    }
-                    if (e.getValue().isUnassignedAfterWhenFalse()) {
-                        asBef_.setUnassignedBefore(true);
-                    }
-                    assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
-                }
-                for (StringMap<BooleanAssignment> s: assBool_.getVariablesRootAfter()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                        AssignmentBefore asBef_ = new AssignmentBefore();
-                        if (e.getValue().isAssignedAfterWhenFalse()) {
-                            asBef_.setAssignedBefore(true);
-                        }
-                        if (e.getValue().isUnassignedAfterWhenFalse()) {
-                            asBef_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), asBef_);
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                id_.put(this, assBl_);
-                return;
-            }
-            if (prev_ instanceof CatchEval || prev_ instanceof TryEval) {
-                boolean finClause_ = this instanceof FinallyEval;
-                Block try_ = prev_;
-                CustList<CatchEval> catch_ = new CustList<CatchEval>();
-                while (try_ instanceof CatchEval) {
-                    catch_.add((CatchEval) try_);
-                    try_ = try_.getPreviousSibling();
-                }
-                IdMap<Block, AssignedVariables> inners_;
-                inners_ = new IdMap<Block, AssignedVariables>();
-                boolean add_ = false;
-                for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
-                    if (e.getKey() == try_) {
-                        add_ = true;
-                    }
-                    if (e.getKey().getPreviousSibling() == try_) {
-                        break;
-                    }
-                    if (add_) {
-                        inners_.put(e.getKey(), e.getValue());
-                    }
-                }
-                AssignedVariables parAss_ = inners_.firstValue();
-                AssignedVariables assBl_ = buildNewAssignedVariable();
-                for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    if (parAss_.getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
-                        ab_.setAssignedBefore(true);
-                    }
-                    boolean unass_ = true;
-                    if (!e.getValue().isUnassignedAfter()) {
-                        unass_ = false;
-                    }
-                    for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
-                        if (!(f.getKey() instanceof AbruptBlock)) {
-                            continue;
-                        }
-                        if (f.getKey() instanceof ContinueBlock) {
-                            Loop lp_ = _anEl.getContinuables().getVal((ContinueBlock) f.getKey());
-                            if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
-                                continue;
-                            }
-                        }
-                        if (f.getKey() instanceof BreakBlock) {
-                            BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f.getKey());
-                            if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
-                                continue;
-                            }
-                        }
-                        if (f.getKey() instanceof Throwing) {
-                            //throwing clause => test just after the root
-                            AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(f.getKey());
-                            if (!vars_.getFields().lastValue().getVal(e.getKey()).isUnassignedAfter()) {
-                                unass_ = false;
-                                break;
-                            }
-                        } else if (!f.getValue().getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
-                            unass_ = false;
-                            break;
-                        }
-                    }
-                    if (finClause_) {
-                        if (unass_) {
-                            for (CatchEval c: catch_) {
-                                AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
-                                if (!vars_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter()) {
-                                    unass_ = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (unass_) {
-                        ab_.setUnassignedBefore(true);
-                    }
-                    assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-                }
-                for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    int index_ = assBl_.getVariablesRootBefore().size();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        AssignmentBefore ab_ = new AssignmentBefore();
-                        if (parAss_.getVariablesRootBefore().get(index_).getVal(e.getKey()).isAssignedBefore()) {
-                            ab_.setAssignedBefore(true);
-                        }
-                        boolean unass_ = true;
-                        if (!e.getValue().isUnassignedAfter()) {
-                            unass_ = false;
-                        }
-                        for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
-                            if (!(f.getKey() instanceof AbruptBlock)) {
-                                continue;
-                            }
-                            if (f.getKey() instanceof ContinueBlock) {
-                                Loop lp_ = _anEl.getContinuables().getVal((ContinueBlock) f.getKey());
-                                if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
-                                    continue;
-                                }
-                            }
-                            if (f.getKey() instanceof BreakBlock) {
-                                BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f.getKey());
-                                if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
-                                    continue;
-                                }
-                            }
-                            if (f.getKey() instanceof Throwing) {
-                                //throwing clause => test just after the root
-                                AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(f.getKey());
-                                if (!vars_.getVariables().lastValue().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
-                                    unass_ = false;
-                                    break;
-                                }
-                            } else if (!f.getValue().getVariablesRootBefore().get(index_).getVal(e.getKey()).isUnassignedBefore()) {
-                                unass_ = false;
-                                break;
-                            }
-                        }
-                        if (finClause_) {
-                            if (unass_) {
-                                for (CatchEval c: catch_) {
-                                    AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
-                                    if (!vars_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
-                                        unass_ = false;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        if (unass_) {
-                            ab_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), ab_);
-                    }
-                    assBl_.getVariablesRootBefore().add(sm_);
-                }
-                id_.put(this, assBl_);
-                return;
-            }
-            AssignedVariables assBl_ = buildNewAssignedVariable();
-            for (EntryCust<ClassField, Assignment> e: prevAss_.getFieldsRoot().entryList()) {
+            assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
+        }
+        for (StringMap<Assignment> s: prevAss_.getVariablesRoot()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
                 AssignmentBefore asBef_ = new AssignmentBefore();
                 if (e.getValue().isAssignedAfter()) {
                     asBef_.setAssignedBefore(true);
@@ -615,23 +181,19 @@ public abstract class Block extends Blockable {
                 if (e.getValue().isUnassignedAfter()) {
                     asBef_.setUnassignedBefore(true);
                 }
-                assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
+                sm_.put(e.getKey(), asBef_);
             }
-            for (StringMap<Assignment> s: prevAss_.getVariablesRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    AssignmentBefore asBef_ = new AssignmentBefore();
-                    if (e.getValue().isAssignedAfter()) {
-                        asBef_.setAssignedBefore(true);
-                    }
-                    if (e.getValue().isUnassignedAfter()) {
-                        asBef_.setUnassignedBefore(true);
-                    }
-                    sm_.put(e.getKey(), asBef_);
-                }
-                assBl_.getVariablesRootBefore().add(sm_);
-            }
-            id_.put(this, assBl_);
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        id_.put(nextSibling_, assBl_);
+    }
+    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+        BracedBlock br_ = getParent();
+        Block prev_ = getPreviousSibling();
+        if (prev_ == null) {
+            br_.setAssignmentBeforeChild(_an, _anEl);
+        } else {
+            prev_.setAssignmentBeforeNextSibling(_an, _anEl);
         }
     }
     protected AssignedVariables buildNewAssignedVariable() {

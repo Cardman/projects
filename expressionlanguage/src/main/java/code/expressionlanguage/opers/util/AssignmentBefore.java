@@ -38,5 +38,11 @@ public final class AssignmentBefore {
     public void setUnassignedBefore(boolean _unassignedBefore) {
         unassignedBefore = _unassignedBefore;
     }
+    public AssignmentBefore copy() {
+        AssignmentBefore as_ = new AssignmentBefore();
+        as_.setAssignedBefore(assignedBefore);
+        as_.setUnassignedBefore(unassignedBefore);
+        return as_;
+    }
 
 }

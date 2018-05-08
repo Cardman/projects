@@ -11,6 +11,7 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -79,6 +80,75 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
     boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
+    }
+    @Override
+       public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables prevAss_ = id_.getVal(this);
+        Block nextSibling_ = getNextSibling();
+        AssignedBooleanVariables assBool_ = (AssignedBooleanVariables) prevAss_;
+        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
+        for (EntryCust<ClassField, BooleanAssignment> e: assBool_.getFieldsRootAfter().entryList()) {
+            AssignmentBefore asBef_ = new AssignmentBefore();
+            if (e.getValue().isAssignedAfterWhenFalse()) {
+                asBef_.setAssignedBefore(true);
+            }
+            if (e.getValue().isUnassignedAfterWhenFalse()) {
+                asBef_.setUnassignedBefore(true);
+            }
+            assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
+        }
+        for (StringMap<BooleanAssignment> s: assBool_.getVariablesRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                AssignmentBefore asBef_ = new AssignmentBefore();
+                if (e.getValue().isAssignedAfterWhenFalse()) {
+                    asBef_.setAssignedBefore(true);
+                }
+                if (e.getValue().isUnassignedAfterWhenFalse()) {
+                    asBef_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), asBef_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        id_.put(nextSibling_, assBl_);
+    }
+    @Override
+    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
+        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
+        for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
+            BooleanAssignment ba_ = e.getValue();
+            AssignmentBefore ab_ = new AssignmentBefore();
+            if (ba_.isAssignedAfterWhenTrue()) {
+                ab_.setAssignedBefore(true);
+            }
+            if (ba_.isUnassignedAfterWhenTrue()) {
+                ab_.setUnassignedBefore(true);
+            }
+            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+        }
+        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                AssignmentBefore ab_ = new AssignmentBefore();
+                if (ba_.isAssignedAfterWhenTrue()) {
+                    ab_.setAssignedBefore(true);
+                }
+                if (ba_.isUnassignedAfterWhenTrue()) {
+                    ab_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(firstChild_, assBl_);
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {

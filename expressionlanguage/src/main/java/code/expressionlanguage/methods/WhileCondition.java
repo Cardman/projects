@@ -69,6 +69,42 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     }
 
     @Override
+    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
+        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
+        for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
+            BooleanAssignment ba_ = e.getValue();
+            AssignmentBefore ab_ = new AssignmentBefore();
+            if (ba_.isAssignedAfterWhenTrue()) {
+                ab_.setAssignedBefore(true);
+            }
+            if (ba_.isUnassignedAfterWhenTrue()) {
+                ab_.setUnassignedBefore(true);
+            }
+            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+        }
+        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                AssignmentBefore ab_ = new AssignmentBefore();
+                if (ba_.isAssignedAfterWhenTrue()) {
+                    ab_.setAssignedBefore(true);
+                }
+                if (ba_.isUnassignedAfterWhenTrue()) {
+                    ab_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(firstChild_, assBl_);
+    }
+    @Override
     public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         ObjectMap<ClassField,AssignmentBefore> fields_;

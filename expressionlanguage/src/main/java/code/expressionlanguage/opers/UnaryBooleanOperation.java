@@ -84,8 +84,18 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        calculateCommon(_conf);
+    public void quickCalculate(Analyzable _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument arg_ = chidren_.first().getArgument();
+        Object o_ = arg_.getObject();
+        if (o_ == null) {
+            return;
+        }
+        Boolean b_ = (Boolean) o_;
+        b_ = !b_;
+        Argument a_ = new Argument();
+        a_.setObject(b_);
+        setSimpleArgumentAna(a_, _conf);
     }
     @Override
     public void calculate(ContextEl _conf) {

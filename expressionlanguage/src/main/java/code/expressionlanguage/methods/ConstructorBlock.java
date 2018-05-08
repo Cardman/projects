@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetAccessInfo;
@@ -7,13 +8,22 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.EqList;
+import code.util.IdMap;
 import code.util.Numbers;
+import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor {
@@ -190,5 +200,53 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     public String getDeclaringType() {
         RootBlock clBlock_ = (RootBlock) getParent();
         return clBlock_.getFullName();
+    }
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        super.setAssignmentAfter(_an, _anEl);
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        for (EntryCust<ReturnMehod, ObjectMap<ClassField, Assignment>> r: _anEl.getAssignments().entryList()) {
+            for (EntryCust<ClassField, Assignment> f: r.getValue().entryList()) {
+                ClassField key_ = f.getKey();
+                ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
+                FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
+                if (!finfo_.isFinalField()) {
+                    continue;
+                }
+                if (finfo_.isStaticField()) {
+                    continue;
+                }
+                Assignment a_ = f.getValue();
+                if (!a_.isAssignedAfter()) {
+                    //error
+                    UnassignedFinalField un_ = new UnassignedFinalField(key_);
+                    un_.setFileName(getFile().getFileName());
+                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    _an.getClasses().getErrorsDet().add(un_);
+                }
+            }
+        }
+        if (_anEl.canCompleteNormally(this)) {
+            AssignedVariables assTar_ = id_.getVal(this);
+            for (EntryCust<ClassField, Assignment> f: assTar_.getFieldsRoot().entryList()) {
+                ClassField key_ = f.getKey();
+                ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
+                FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
+                if (!finfo_.isFinalField()) {
+                    continue;
+                }
+                if (finfo_.isStaticField()) {
+                    continue;
+                }
+                Assignment a_ = f.getValue();
+                if (!a_.isAssignedAfter()) {
+                    //error
+                    UnassignedFinalField un_ = new UnassignedFinalField(key_);
+                    un_.setFileName(getFile().getFileName());
+                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    _an.getClasses().getErrorsDet().add(un_);
+                }
+            }
+        }
     }
 }

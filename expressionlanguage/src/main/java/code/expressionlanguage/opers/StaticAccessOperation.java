@@ -125,6 +125,9 @@ public final class StaticAccessOperation extends LeafOperation {
             EqList<SortedClassField> _list, SortedClassField _current) {
     }
     @Override
+    public void tryCalculate(Analyzable _conf) {
+    }
+    @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);

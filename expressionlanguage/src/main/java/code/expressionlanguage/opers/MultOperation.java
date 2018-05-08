@@ -16,14 +16,26 @@ public final class MultOperation extends NumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, boolean _offset) {
+    Argument calculateOperAna(Argument _a, String _op, Argument _b,
+            Analyzable _an) {
         if (StringList.quickEq(_op.trim(), MULT)) {
-            return calculateMult(_a, _cont, _b, _offset);
+            return calculateMult(_a, _b);
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
-            return calculateDiv(_a, _cont, _b, _offset);
+            return calculateDiv(_a, _b);
         }
-        return calculateMod(_a, _cont, _b, _offset);
+        return calculateMod(_a, _b);
+    }
+
+    @Override
+    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
+        if (StringList.quickEq(_op.trim(), MULT)) {
+            return calculateMultEx(_a, _cont, _b);
+        }
+        if (StringList.quickEq(_op.trim(), DIV)) {
+            return calculateDivEx(_a, _cont, _b);
+        }
+        return calculateModEx(_a, _cont, _b);
     }
 
     @Override

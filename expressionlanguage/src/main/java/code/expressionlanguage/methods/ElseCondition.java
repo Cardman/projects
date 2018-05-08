@@ -8,9 +8,11 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stacks.IfBlockStack;
@@ -69,6 +71,43 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         }
     }
 
+    @Override
+    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        parAss_ = id_.getVal(getPreviousSibling());
+        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
+        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
+        for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
+            BooleanAssignment ba_ = e.getValue();
+            AssignmentBefore ab_ = new AssignmentBefore();
+            if (ba_.isAssignedAfterWhenFalse()) {
+                ab_.setAssignedBefore(true);
+            }
+            if (ba_.isUnassignedAfterWhenFalse()) {
+                ab_.setUnassignedBefore(true);
+            }
+            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+        }
+        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                AssignmentBefore ab_ = new AssignmentBefore();
+                if (ba_.isAssignedAfterWhenFalse()) {
+                    ab_.setAssignedBefore(true);
+                }
+                if (ba_.isUnassignedAfterWhenFalse()) {
+                    ab_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(firstChild_, assBl_);
+    }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();

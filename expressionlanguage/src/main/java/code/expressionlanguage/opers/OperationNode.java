@@ -196,6 +196,7 @@ public abstract class OperationNode {
     public abstract void analyzeAssignmentAfter(Analyzable _conf);
     public abstract void calculate(ContextEl _conf);
     public abstract void tryCalculate(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current);
+    public abstract void tryCalculate(Analyzable _conf);
 
     public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf);
 
@@ -447,7 +448,7 @@ public abstract class OperationNode {
         String formattedType_ = field_.getType();
         String realType_ = formattedType_;
         formattedType_ = Templates.generalFormat(formatted_, formattedType_, _cont);
-        FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, realType_, _static, field_.isFinalField());
+        FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, realType_, _static, field_.isFinalField(), field_.isEnumElement());
         r_.setId(f_);
         r_.setStatus(SearchingMemberStatus.UNIQ);
         return r_;
@@ -1183,6 +1184,32 @@ public abstract class OperationNode {
             }
         }
     }
+    final void setNextSiblingsArgAna(Argument _arg, Analyzable _cont) {
+        int res_ = processBooleanValuesAna(_arg, _cont);
+        if (res_ <= 0) {
+            return;
+        }
+        MethodOperation par_ = getParent();
+        Object o_ = _arg.getObject();
+        Boolean b_ = (Boolean) o_;
+        if (res_ != QUICK_OP) {
+            CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
+            OperationNode opElt_ = l_.get(res_);
+            opElt_.setSimpleArgument(_arg);
+            return;
+        }
+        QuickOperation q_ = (QuickOperation) par_;
+        if (b_ == q_.absorbingValue()) {
+            CustList<OperationNode> opers_ = new CustList<OperationNode>();
+            for (OperationNode s: ElUtil.getDirectChildren(par_)) {
+                opers_.add(s);
+            }
+            int len_ = opers_.size();
+            for (int i = getIndexChild() + 1; i < len_; i++) {
+                opers_.get(i).setSimpleArgument(_arg);
+            }
+        }
+    }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
         int res_ = processBooleanValues(_arg, _cont);
@@ -1212,15 +1239,21 @@ public abstract class OperationNode {
     }
 
     final int processBooleanValues(Argument _arg, ContextEl _cont) {
+        int res_ = processBooleanValuesAna(_arg, _cont);
+        if (res_ < 0) {
+            LgNames stds_ = _cont.getStandards();
+            String null_;
+            null_ = stds_.getAliasNullPe();
+            setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
+            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+        }
+        return res_;
+    }
+    final int processBooleanValuesAna(Argument _arg, Analyzable _cont) {
         Object o_ = _arg.getObject();
         MethodOperation par_ = getParent();
-        LgNames stds_ = _cont.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
         if (o_ == null) {
             if (par_ instanceof QuickOperation) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
                 return -1;
             }
             boolean ternaryParent_ = false;
@@ -1229,8 +1262,6 @@ public abstract class OperationNode {
                 ternaryParent_ = op_.isTernary() && isFirstChild();
             }
             if (ternaryParent_) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
                 return -1;
             }
             return 0;
@@ -1331,6 +1362,14 @@ public abstract class OperationNode {
         setNextSiblingsArg(_argument, _conf);
     }
 
+    public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
+        argument = _argument;
+        PossibleIntermediateDotted n_ = getSiblingSet();
+        if (n_ != null) {
+            n_.setPreviousArgument(_argument);
+        }
+        setNextSiblingsArgAna(_argument, _conf);
+    }
     public final boolean isStaticBlock() {
         return staticBlock;
     }

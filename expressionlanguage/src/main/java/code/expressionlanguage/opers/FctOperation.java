@@ -1035,7 +1035,7 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
+    public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -1044,7 +1044,7 @@ public final class FctOperation extends InvokingOperation {
         LgNames stds_ = _conf.getStandards();
         String trimMeth_ = methodName.trim();
         if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            setSimpleArgument(arguments_.first(), _conf);
+            setSimpleArgumentAna(arguments_.first(), _conf);
             return;
         }
         if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
@@ -1052,21 +1052,26 @@ public final class FctOperation extends InvokingOperation {
                 Argument objArg_ = arguments_.last();
                 Argument classArg_ = arguments_.first();
                 String paramName_ = (String) classArg_.getObject();
-                if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, objArg_.getStruct(), _conf)) {
+                if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, objArg_.getStruct(), _conf.getStandards())) {
                     return;
                 }
                 if (objArg_.isNull()) {
                     Argument arg_ = new Argument();
-                    setSimpleArgument(arg_, _conf);
+                    setSimpleArgumentAna(arg_, _conf);
                     return;
                 }
-                String argClassName_ = objArg_.getObjectClassName(_conf);
+                if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
+                    if (!StringList.quickEq(paramName_, _conf.getStandards().getAliasString())) {
+                        return;
+                    }
+                }
+                Object o_ = objArg_.getObject();
+                String argClassName_ = _conf.getStandards().getSimpleStructClassName(o_);
                 ClassArgumentMatching resCl_ = getResultClass();
                 Argument arg_ = new Argument();
                 if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(argClassName_);
-                    paramName_ = _conf.getLastPage().formatVarType(paramName_, _conf);
                     mapping_.setParam(paramName_);
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         return;
@@ -1086,7 +1091,7 @@ public final class FctOperation extends InvokingOperation {
                         arg_.setStruct(objArg_.getStruct());
                     }
                 }
-                setSimpleArgument(arg_, _conf);
+                setSimpleArgumentAna(arg_, _conf);
                 return;
             }
         }
@@ -1098,7 +1103,7 @@ public final class FctOperation extends InvokingOperation {
             } else {
                 arg_ = arguments_.last();
             }
-            setSimpleArgument(arg_, _conf);
+            setSimpleArgumentAna(arg_, _conf);
             return;
         }
     }

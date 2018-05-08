@@ -298,7 +298,7 @@ public final class PrimitiveTypeUtil {
         return _className.substring(CustList.SECOND_INDEX);
     }
 
-    public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, ContextEl _context) {
+    public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, Analyzable _context) {
         return convertObject(_match, _obj, _context.getStandards());
     }
     public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, LgNames _stds) {

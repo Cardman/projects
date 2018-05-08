@@ -10,8 +10,9 @@ public final class FieldInfo {
     private final String realType;
     private final boolean staticField;
     private final boolean finalField;
+    private final boolean enumField;
     public FieldInfo(String _name,String _declaringClass, String _type, String _realType,
-            boolean _staticField, boolean _finalField) {
+            boolean _staticField, boolean _finalField, boolean _enumField) {
         name = _name;
         declaringClass = _declaringClass;
         declaringBaseClass = StringList.getAllTypes(_declaringClass).first();
@@ -19,6 +20,7 @@ public final class FieldInfo {
         realType = _realType;
         staticField = _staticField;
         finalField = _finalField;
+        enumField = _enumField;
     }
     public String getName() {
         return name;
@@ -40,5 +42,8 @@ public final class FieldInfo {
     }
     public boolean isFinalField() {
         return finalField;
+    }
+    public boolean isEnumField() {
+        return enumField;
     }
 }

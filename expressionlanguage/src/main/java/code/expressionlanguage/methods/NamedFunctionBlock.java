@@ -1,12 +1,15 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -180,5 +183,12 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     @Override
     public final AccessEnum getAccess() {
         return access;
+    }
+    @Override
+    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+        AssignedVariables ass_;
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
+        id_.put(this, ass_);
     }
 }

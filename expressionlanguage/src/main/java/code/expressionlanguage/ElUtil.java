@@ -18,9 +18,14 @@ import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -283,6 +288,20 @@ public final class ElUtil {
                         break;
                     }
                     vars_.getFieldsRoot().putAllMap(res_);
+                    if (_root.isOtherConstructorClass()) {
+                        for (EntryCust<ClassField,Assignment> e: vars_.getFieldsRoot().entryList()) {
+                            Assignment a_ = e.getValue();
+                            if (a_ instanceof BooleanAssignment) {
+                                ((BooleanAssignment)a_).setAssignedAfterWhenFalse(true);
+                                ((BooleanAssignment)a_).setAssignedAfterWhenTrue(true);
+                                ((BooleanAssignment)a_).setUnassignedAfterWhenFalse(false);
+                                ((BooleanAssignment)a_).setUnassignedAfterWhenTrue(false);
+                            } else {
+                                ((SimpleAssignment)a_).setAssignedAfter(true);
+                                ((SimpleAssignment)a_).setUnassignedAfter(false);
+                            }
+                        }
+                    }
                     CustList<StringMap<Assignment>> varsRes_;
                     varsRes_ = vars_.getVariables().getVal(_root);
                     if (vars_.getVariablesRoot().isEmpty()) {
@@ -336,6 +355,7 @@ public final class ElUtil {
         while (true) {
             current_.setStaticBlock(_staticBlock);
             current_.analyze(_context, _fieldName);
+            current_.tryCalculate(_context);
             current_.tryAnalyzeAssignmentAfter(_context);
             _sortedNodes.add(current_);
             next_ = createNextSibling(current_, _context);
@@ -354,6 +374,7 @@ public final class ElUtil {
             if (par_ == _root) {
                 par_.setStaticBlock(_staticBlock);
                 par_.analyze(_context, _fieldName);
+                par_.tryCalculate(_context);
                 par_.tryAnalyzeAssignmentAfter(_context);
                 _sortedNodes.add(par_);
                 return null;
@@ -494,7 +515,12 @@ public final class ElUtil {
             pageEl_.setTranslatedOffset(0);
             return;
         }
-        _current.setStruct(_nodes.last().getArgument().getStruct());
+        ClassField key_ = _current.getClassField();
+        ClassMetaInfo cm_ = _context.getClassMetaInfo(key_.getClassName());
+        FieldMetaInfo fm_ = cm_.getFields().getVal(key_.getFieldName());
+        Struct str_ = _nodes.last().getArgument().getStruct();
+        str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _context);
+        _current.setStruct(str_);
         pageEl_.setTranslatedOffset(0);
     }
 }

@@ -77,10 +77,10 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
+    public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.last().getArgument();
-        setSimpleArgument(a_, _conf);
+        setSimpleArgumentAna(a_, _conf);
     }
 
     @Override

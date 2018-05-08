@@ -78,8 +78,55 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        calculateCommon(_conf);
+    public void quickCalculate(Analyzable _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument arg_ = chidren_.first().getArgument();
+        Argument out_ = new Argument();
+        Object o_ = arg_.getObject();
+        if (o_ == null) {
+            return;
+        }
+        String oper_ = getOperations().getOperators().firstValue();
+        if (StringList.quickEq(oper_, PLUS)) {
+            if (o_ instanceof Character) {
+                out_.setObject(((Character)o_));
+            } else {
+                Number b_ = (Number) o_;
+                if (b_ instanceof Integer) {
+                    out_.setObject(((Integer)b_));
+                } else if (b_ instanceof Long) {
+                    out_.setObject(((Long)b_));
+                } else if (b_ instanceof Byte) {
+                    out_.setObject(((Byte)b_));
+                } else if (b_ instanceof Short) {
+                    out_.setObject(((Short)b_));
+                } else if (b_ instanceof Double) {
+                    out_.setObject(((Double)b_));
+                } else if (b_ instanceof Float) {
+                    out_.setObject(((Float)b_));
+                }
+            }
+        } else if (o_ instanceof Character) {
+            out_.setObject(-((Character)o_));
+        } else {
+            Number b_ = (Number) o_;
+            if (b_ instanceof Integer) {
+                out_.setObject(-((Integer)b_));
+            } else if (b_ instanceof Long) {
+                out_.setObject(-((Long)b_));
+            } else if (b_ instanceof Byte) {
+                out_.setObject(-((Byte)b_));
+            } else if (b_ instanceof Short) {
+                out_.setObject(-((Short)b_));
+            } else if (b_ instanceof Double) {
+                out_.setObject(-((Double)b_));
+            } else if (b_ instanceof Float) {
+                out_.setObject(-((Float)b_));
+            }
+        }
+        ClassArgumentMatching res_ = getResultClass();
+        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
+        setSimpleArgumentAna(out_, _conf);
     }
     @Override
     public void calculate(ContextEl _conf) {

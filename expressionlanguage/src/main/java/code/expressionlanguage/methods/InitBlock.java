@@ -5,12 +5,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.StringMap;
+import code.util.ObjectMap;
 
 public abstract class InitBlock extends MemberCallingsBlock implements AloneBlock {
 
@@ -56,6 +58,54 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
             }
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
             id_.put(this, assBl_);
+        }
+    }
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        super.setAssignmentAfter(_an, _anEl);
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        for (EntryCust<ReturnMehod, ObjectMap<ClassField, Assignment>> r: _anEl.getAssignments().entryList()) {
+            for (EntryCust<ClassField, Assignment> f: r.getValue().entryList()) {
+                ClassField key_ = f.getKey();
+                ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
+                FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
+                if (!finfo_.isFinalField()) {
+                    continue;
+                }
+                if (finfo_.isStaticField() != isStaticContext()) {
+                    continue;
+                }
+                Assignment a_ = f.getValue();
+                if (!a_.isAssignedAfter() && !a_.isUnassignedAfter()) {
+                    //error
+                    UnassignedFinalField un_ = new UnassignedFinalField(key_);
+                    un_.setFileName(getFile().getFileName());
+                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    _an.getClasses().getErrorsDet().add(un_);
+                }
+            }
+        }
+        if (_anEl.canCompleteNormally(this)) {
+            AssignedVariables assTar_ = id_.getVal(this);
+            for (EntryCust<ClassField, Assignment> f: assTar_.getFieldsRoot().entryList()) {
+                ClassField key_ = f.getKey();
+                ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
+                FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
+                if (!finfo_.isFinalField()) {
+                    continue;
+                }
+                if (finfo_.isStaticField() != isStaticContext()) {
+                    continue;
+                }
+                Assignment a_ = f.getValue();
+                if (!a_.isAssignedAfter() && !a_.isUnassignedAfter()) {
+                    //error
+                    UnassignedFinalField un_ = new UnassignedFinalField(key_);
+                    un_.setFileName(getFile().getFileName());
+                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    _an.getClasses().getErrorsDet().add(un_);
+                }
+            }
         }
     }
 }

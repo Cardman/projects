@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
@@ -10,6 +11,8 @@ import code.expressionlanguage.stacks.BreakableBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.NatTreeMap;
 
 public final class BreakBlock extends AbruptBlock implements CallingFinally {
@@ -62,6 +65,24 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         }
     }
 
+    @Override
+    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+        super.abrupt(_an, _anEl);
+        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
+        IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getBreakablesAncestors();
+        BracedBlock par_ = getParent();
+        IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
+        BracedBlock a_ = (BracedBlock) _anEl.getParentsBreakables().last();
+        while (par_ != a_) {
+            pars_.add(par_);
+            par_ = par_.getParent();
+        }
+        IdMap<BreakableBlock, IdList<BracedBlock>> id_;
+        id_ = new IdMap<BreakableBlock, IdList<BracedBlock>>();
+        id_.put((BreakableBlock) a_, pars_);
+        breakablesAncestors_.put(this, id_);
+        breakables_.put(this, (BreakableBlock) a_);
+    }
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;

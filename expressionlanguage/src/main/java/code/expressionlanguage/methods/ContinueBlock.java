@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
@@ -9,6 +10,8 @@ import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.NatTreeMap;
 
 public final class ContinueBlock extends AbruptBlock implements CallingFinally {
@@ -56,6 +59,25 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
             _cont.getClasses().getErrorsDet().add(un_);
         }
+    }
+
+    @Override
+    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+        super.abrupt(_an, _anEl);
+        IdMap<ContinueBlock, Loop> continuables_ = _anEl.getContinuables();
+        IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>> continuablesAncestors_ = _anEl.getContinuablesAncestors();
+        BracedBlock par_ = getParent();
+        IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
+        BracedBlock a_ = (BracedBlock) _anEl.getParentsContinuables().last();
+        while (par_ != a_) {
+            pars_.add(par_);
+            par_ = par_.getParent();
+        }
+        IdMap<Loop, IdList<BracedBlock>> id_;
+        id_ = new IdMap<Loop, IdList<BracedBlock>>();
+        id_.put((Loop) a_, pars_);
+        continuablesAncestors_.put(this, id_);
+        continuables_.put(this, (Loop) a_);
     }
 
     @Override

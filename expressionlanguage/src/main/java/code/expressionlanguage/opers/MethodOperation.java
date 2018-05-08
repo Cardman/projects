@@ -88,7 +88,17 @@ public abstract class MethodOperation extends OperationNode {
         }
         quickCalculate(_conf);
     }
-    public void quickCalculate(ContextEl _conf) {
+    @Override
+    public void tryCalculate(Analyzable _conf) {
+        CustList<OperationNode> children_ = getChildrenNodes();
+        for (OperationNode o: children_) {
+            if (o.getArgument() == null) {
+                return;
+            }
+        }
+        quickCalculate(_conf);
+    }
+    public void quickCalculate(Analyzable _conf) {
     }
 
     public final void appendChild(OperationNode _child) {

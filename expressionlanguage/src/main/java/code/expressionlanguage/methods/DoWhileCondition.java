@@ -61,6 +61,12 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
             _cont.getClasses().getErrorsDet().add(un_);
         }
+        if (getFirstChild() != null) {
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
+        }
     }
 
     @Override

@@ -17,6 +17,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -96,6 +97,27 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         }
     }
 
+    @Override
+    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
+        for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
+            Assignment ba_ = e.getValue();
+            assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
+        }
+        for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment ba_ = e.getValue();
+                sm_.put(e.getKey(), ba_.assignBefore());
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(firstChild_, assBl_);
+    }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();

@@ -13,8 +13,6 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdList;
-import code.util.IdMap;
 import code.util.StringMap;
 
 public abstract class AbruptBlock extends Leaf {
@@ -30,41 +28,9 @@ public abstract class AbruptBlock extends Leaf {
     }
 
     @Override
-    public final void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
         _anEl.completeAbrupt(this);
         _anEl.completeAbruptGroup(this);
-        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
-        IdMap<ContinueBlock, Loop> continuables_ = _anEl.getContinuables();
-        IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getBreakablesAncestors();
-        IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>> continuablesAncestors_ = _anEl.getContinuablesAncestors();
-        if (this instanceof BreakBlock) {
-            BracedBlock par_ = getParent();
-            IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
-            BracedBlock a_ = (BracedBlock) _anEl.getParentsBreakables().last();
-            while (par_ != a_) {
-                pars_.add(par_);
-                par_ = par_.getParent();
-            }
-            IdMap<BreakableBlock, IdList<BracedBlock>> id_;
-            id_ = new IdMap<BreakableBlock, IdList<BracedBlock>>();
-            id_.put((BreakableBlock) a_, pars_);
-            breakablesAncestors_.put((BreakBlock)this, id_);
-            breakables_.put((BreakBlock)this, (BreakableBlock) a_);
-        }
-        if (this instanceof ContinueBlock) {
-            BracedBlock par_ = getParent();
-            IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
-            BracedBlock a_ = (BracedBlock) _anEl.getParentsContinuables().last();
-            while (par_ != a_) {
-                pars_.add(par_);
-                par_ = par_.getParent();
-            }
-            IdMap<Loop, IdList<BracedBlock>> id_;
-            id_ = new IdMap<Loop, IdList<BracedBlock>>();
-            id_.put((Loop) a_, pars_);
-            continuablesAncestors_.put((ContinueBlock)this, id_);
-            continuables_.put((ContinueBlock)this, (Loop) a_);
-        }
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {

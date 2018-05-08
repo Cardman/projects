@@ -318,6 +318,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             }
             if (o instanceof ConstantOperation) {
                 ConstantOperation cst_ = (ConstantOperation) o;
+                if (cst_.getFieldMetaInfo().isEnumField()) {
+                    return false;
+                }
                 if (cst_.getFieldMetaInfo().isFinalField()) {
                     continue;
                 }
@@ -350,16 +353,21 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         return true;
     }
-    public EqList<ClassField> getStaticConstantDependencies() {
+    public EqList<ClassField> getStaticConstantDependencies(Analyzable _an) {
         EqList<ClassField> eq_ = new EqList<ClassField>();
         for (OperationNode o: opValue) {
             if (!(o instanceof ConstantOperation)) {
                 continue;
             }
             ConstantOperation cst_ = (ConstantOperation) o;
-            if (cst_.getFieldId() != null) {
-                eq_.add(cst_.getFieldId());
+            ClassField key_ = cst_.getFieldId();
+            if (key_ == null) {
+                continue;
             }
+            if (!_an.getClasses().isCustomType(key_.getClassName())) {
+                continue;
+            }
+            eq_.add(key_);
         }
         return eq_;
     }
@@ -412,23 +420,19 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         PageEl ip_ = _cont.getLastPage();
         boolean instancing_ = ip_.isInstancing();
         boolean static_ = isStaticField();
-        if (static_ != instancing_) {
+        if (static_ != instancing_ && !value.trim().isEmpty()) {
             ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
             String name_ = getFieldName();
             Struct struct_;
-            if (value.trim().isEmpty()) {
-                struct_ = StdStruct.defaultClass(className, _cont);
-            } else {
-                ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
-                Argument arg_ = el_.calculateMember(_cont);
-                if (_cont.callsOrException()) {
-                    return;
-                }
-                struct_ = arg_.getStruct();
-                el_.setCurrentOper(null);
-                ip_.clearCurrentEls();
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
+            Argument arg_ = el_.calculateMember(_cont);
+            if (_cont.callsOrException()) {
+                return;
             }
+            struct_ = arg_.getStruct();
+            el_.setCurrentOper(null);
+            ip_.clearCurrentEls();
             RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
             if (static_) {

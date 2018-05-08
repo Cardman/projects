@@ -2,8 +2,7 @@ package code.expressionlanguage.stacks;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.CallingFinally;
-import code.expressionlanguage.methods.CatchEval;
-import code.expressionlanguage.methods.FinallyEval;
+import code.expressionlanguage.methods.Eval;
 import code.util.CustList;
 
 public final class TryBlockStack extends TryStack implements RemovableVars {
@@ -14,6 +13,14 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
 
     public BracedBlock getLastCatchBlock() {
         return catchBlocks.last();
+    }
+
+    public Eval getCurrentBlock() {
+        int index_ = getVisitedCatch();
+        if (index_ >= CustList.FIRST_INDEX) {
+            return (Eval) catchBlocks.get(index_);
+        }
+        return (Eval) getBlock();
     }
 
     public BracedBlock getCurrentCatchBlock() {
@@ -34,30 +41,7 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
 
     @Override
     public void removeVarAndLoop(PageEl _ip) {
-        boolean isFinallyBlock_ = false;
-        if (getVisitedCatch() >= CustList.FIRST_INDEX) {
-            BracedBlock catchBlock_ = getCurrentCatchBlock();
-            if (catchBlock_ instanceof CatchEval) {
-                String var_ = ((CatchEval)catchBlock_).getVariableName();
-                _ip.getCatchVars().removeKey(var_);
-            } else {
-                isFinallyBlock_ = true;
-            }
-            catchBlock_.removeLocalVars(_ip);
-        } else {
-            getBlock().removeLocalVars(_ip);
-        }
-        if (isFinallyBlock_) {
-            _ip.removeLastBlock();
-            return;
-        }
-        if (getLastCatchBlock() instanceof FinallyEval) {
-            _ip.clearCurrentEls();
-            _ip.getReadWrite().setBlock(getLastCatchBlock());
-            _ip.setFinallyToProcess(true);
-            return;
-        }
-        _ip.removeLastBlock();
+        getCurrentBlock().processToFinally(_ip, this);
     }
 
     @Override

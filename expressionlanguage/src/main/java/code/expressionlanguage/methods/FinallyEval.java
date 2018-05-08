@@ -13,8 +13,10 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
@@ -123,6 +125,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
 //            chIf_ = chIf_.getNextSibling();
 //        }
         prev_.add(pBlock_);
+        
 //        Block ch_ = getFirstChild();
 //        while (ch_.getNextSibling() != null) {
 //            ch_ = ch_.getNextSibling();
@@ -161,6 +164,30 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             after_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
         }
         assTar_.getFieldsRoot().putAllMap(after_);
+        for (EntryCust<ReturnMehod, Eval> e: _anEl.getReturnables().entryList()) {
+            for (Block b: prev_) {
+                if (b != e.getValue()) {
+                    continue;
+                }
+                for (EntryCust<ClassField, Assignment> f: _anEl.getAssignments().getVal(e.getKey()).entryList()) {
+                    Assignment asLoc_ = f.getValue();
+                    if (assTar_.getFieldsRoot().getVal(f.getKey()).isAssignedAfter() || asLoc_.isAssignedAfter()) {
+                        if (asLoc_ instanceof BooleanAssignment) {
+                            BooleanAssignment b_ = (BooleanAssignment) asLoc_;
+                            b_.setAssignedAfterWhenFalse(true);
+                            b_.setAssignedAfterWhenTrue(true);
+                            b_.setUnassignedAfterWhenFalse(false);
+                            b_.setUnassignedAfterWhenTrue(false);
+                        } else {
+                            SimpleAssignment s_ = (SimpleAssignment) asLoc_;
+                            s_.setAssignedAfter(true);
+                            s_.setUnassignedAfter(false);
+                        }
+                    }
+                }
+                break;
+            }
+        }
         for (StringMap<Assignment> s: vars_) {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();
             int index_ = afterVars_.size();
@@ -291,5 +318,11 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
+    }
+
+    @Override
+    public void processToFinally(PageEl _ip, TryBlockStack _stack) {
+        removeLocalVars(_ip);
+        _ip.removeLastBlock();
     }
 }

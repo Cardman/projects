@@ -159,6 +159,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             a_.setObject(true);
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
+            immutablePart = true;
             return;
         }
         if (op_.getConstType() == ConstType.FALSE_CST) {
@@ -166,12 +167,14 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             a_.setObject(false);
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
+            immutablePart = true;
             return;
         }
         if (op_.getConstType() == ConstType.NULL_CST) {
             argClName_ = EMPTY_STRING;
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
+            immutablePart = true;
             return;
         }
         if (op_.getConstType() == ConstType.STRING) {
@@ -242,6 +245,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             a_.setObject(strBuilder_.toString());
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(stringType_));
+            immutablePart = true;
             return;
         }
         if (op_.getConstType() == ConstType.CHARACTER) {
@@ -313,6 +317,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             a_.setObject(strBuilder_.toString().charAt(0));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
+            immutablePart = true;
             return;
         }
         str_ = StringList.removeAllSpaces(str_);
@@ -331,6 +336,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             arg_.setStruct(parsed_.getStruct());
             setSimpleArgument(arg_);
             setResultClass(new ClassArgumentMatching(argClassName_));
+            immutablePart = true;
             return;
         }
         if (op_.getConstType() == ConstType.THIS_KEYWORD) {
@@ -780,23 +786,31 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             EqList<SortedClassField> _list, SortedClassField _current) {
         if (fieldId != null && fieldMetaInfo.isStaticField()) {
             int index_ = _list.indexOfObj(new SortedClassField(fieldId));
+            if (index_ < 0) {
+                ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId);
+                if (res_.getResult() != null) {
+                    Argument arg_ = Argument.createVoid();
+                    arg_.setStruct(res_.getResult());
+                    setSimpleArgumentAna(arg_,_conf);
+                    return;
+                }
+                _current.setOk(false);
+                return;
+            }
             SortedClassField found_ = _list.get(index_);
             if (found_.isOk()) {
                 Argument arg_ = Argument.createVoid();
                 arg_.setStruct(found_.getStruct());
-                setSimpleArgument(arg_);
+                setSimpleArgumentAna(arg_,_conf);
                 return;
             }
             _current.setOk(false);
             return;
         }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
+        if (!isIntermediateDottedOperation()) {
+            return;
         }
-        Argument arg_ = previous_;
+        Argument arg_ = getPreviousArgument();
         Argument a_ = new Argument();
         if (arg_.isNull()) {
             _current.setOk(false);
@@ -804,7 +818,41 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         } else {
             a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
         }
-        setSimpleArgument(a_);
+        setSimpleArgumentAna(a_,_conf);
+    }
+
+    @Override
+    public void tryCalculate(Analyzable _conf) {
+        if (isCalculated()) {
+            return;
+        }
+        if (fieldId != null && fieldMetaInfo.isStaticField()) {
+            Classes cl_ = _conf.getClasses();
+            if (!cl_.isCustomType(fieldId.getClassName())) {
+                ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId);
+                if (res_.getResult() != null) {
+                    Argument arg_ = Argument.createVoid();
+                    arg_.setStruct(res_.getResult());
+                    setSimpleArgumentAna(arg_,_conf);
+                }
+                return;
+            }
+            Struct str_ = cl_.getStaticField(fieldId);
+            if (str_ != null) {
+                Argument arg_ = Argument.createVoid();
+                arg_.setStruct(str_);
+                setSimpleArgumentAna(arg_,_conf);
+            }
+            return;
+        }
+        Argument arg_ = getPreviousArgument();
+        Argument a_ = new Argument();
+        if (arg_ == null || arg_.isNull()) {
+            return;
+        } else {
+            a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
+        }
+        setSimpleArgumentAna(a_,_conf);
     }
 
     @Override

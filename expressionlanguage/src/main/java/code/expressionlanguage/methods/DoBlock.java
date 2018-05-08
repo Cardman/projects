@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
@@ -16,8 +17,11 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
+import code.util.CustList;
 import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup {
@@ -78,6 +82,103 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         }
     }
 
+    @Override
+    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        Block nextSibling_ = getNextSibling();
+        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
+        for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
+            Assignment ba_ = e.getValue();
+            AssignmentBefore ab_ = new AssignmentBefore();
+            boolean contAss_ = true;
+            boolean contUnass_ = true;
+            for (EntryCust<ContinueBlock, Loop> c: _anEl.getContinuables().entryList()) {
+                if (c.getValue() != this) {
+                    continue;
+                }
+                if (!id_.getVal(c.getKey()).getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
+                    contAss_ = false;
+                }
+                if (!id_.getVal(c.getKey()).getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
+                    contUnass_ = false;
+                }
+            }
+            if (ba_.isAssignedAfter() && contAss_) {
+                ab_.setAssignedBefore(true);
+            }
+            if (ba_.isUnassignedAfter() && contUnass_) {
+                ab_.setUnassignedBefore(true);
+            }
+            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+        }
+        for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            int index_ = assBl_.getVariablesRootBefore().size();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment ba_ = e.getValue();
+                AssignmentBefore ab_ = new AssignmentBefore();
+                boolean contAss_ = true;
+                boolean contUnass_ = true;
+                for (EntryCust<ContinueBlock, Loop> c: _anEl.getContinuables().entryList()) {
+                    if (c.getValue() != this) {
+                        continue;
+                    }
+                    if (!id_.getVal(c.getKey()).getVariablesRootBefore().get(index_).getVal(e.getKey()).isAssignedBefore()) {
+                        contAss_ = false;
+                    }
+                    if (!id_.getVal(c.getKey()).getVariablesRootBefore().get(index_).getVal(e.getKey()).isUnassignedBefore()) {
+                        contUnass_ = false;
+                    }
+                }
+                if (ba_.isAssignedAfter() && contAss_) {
+                    ab_.setAssignedBefore(true);
+                }
+                if (ba_.isUnassignedAfter() && contUnass_) {
+                    ab_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        id_.put(nextSibling_, assBl_);
+    }
+    @Override
+    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        AssignedVariables vars_ = firstChild_.buildNewAssignedVariable();
+        ObjectMap<ClassField,AssignmentBefore> fields_;
+        CustList<StringMap<AssignmentBefore>> variables_;
+        fields_ = new ObjectMap<ClassField,AssignmentBefore>();
+        variables_ = parAss_.getVariablesRootBefore();
+        for (EntryCust<ClassField,AssignmentBefore> e: parAss_.getFieldsRootBefore().entryList()) {
+            AssignmentBefore ab_ = new AssignmentBefore();
+            if (e.getValue().isAssignedBefore()) {
+                ab_.setAssignedBefore(true);
+            } else {
+                ab_.setUnassignedBefore(true);
+            }
+            fields_.put(e.getKey(), ab_);
+        }
+        vars_.getFieldsRootBefore().putAllMap(fields_);
+        for (StringMap<AssignmentBefore> s: variables_) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                AssignmentBefore ab_ = new AssignmentBefore();
+                if (e.getValue().isAssignedBefore()) {
+                    ab_.setAssignedBefore(true);
+                } else {
+                    ab_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), ab_);
+            }
+            vars_.getVariablesRootBefore().add(sm_);
+        }
+        vars_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(firstChild_, vars_);
+    }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();

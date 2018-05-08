@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
@@ -16,6 +17,7 @@ import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
@@ -56,6 +58,44 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         }
     }
 
+    @Override
+    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        BracedBlock br_ = getParent();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(br_);
+        AssignedVariables prevAss_ = id_.getVal(this);
+        Block nextSibling_ = getNextSibling();
+        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
+        for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
+            Assignment ba_ = e.getValue();
+            AssignmentBefore ab_ = new AssignmentBefore();
+            if (ba_.isAssignedAfter() && prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter()) {
+                ab_.setAssignedBefore(true);
+            }
+            if (ba_.isUnassignedAfter() && prevAss_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter()) {
+                ab_.setUnassignedBefore(true);
+            }
+            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+        }
+        for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            int index_ = assBl_.getVariablesRootBefore().size();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment ba_ = e.getValue();
+                AssignmentBefore ab_ = new AssignmentBefore();
+                if (ba_.isAssignedAfter() && prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter()) {
+                    ab_.setAssignedBefore(true);
+                }
+                if (ba_.isUnassignedAfter() && prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
+                    ab_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(nextSibling_, assBl_);
+    }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();

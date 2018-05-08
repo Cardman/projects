@@ -19,8 +19,11 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -28,7 +31,11 @@ import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -166,10 +173,51 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
     }
 
     @Override
+    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+        super.abrupt(_an, _anEl);
+        BracedBlock par_ = getParent();
+        IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
+        BracedBlock a_;
+        if (_anEl.getParentsReturnables().isEmpty()) {
+            a_ = _anEl.getRoot();
+        } else {
+            a_ = (BracedBlock) _anEl.getParentsReturnables().last();
+        }
+        while (par_ != a_) {
+            pars_.add(par_);
+            par_ = par_.getParent();
+        }
+        if (a_ instanceof Eval) {
+            IdMap<ReturnMehod, Eval> breakables_ = _anEl.getReturnables();
+            IdMap<ReturnMehod, IdMap<Eval, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getReturnablesAncestors();
+            IdMap<Eval, IdList<BracedBlock>> id_;
+            id_ = new IdMap<Eval, IdList<BracedBlock>>();
+            id_.put((Eval) a_, pars_);
+            breakablesAncestors_.put(this, id_);
+            breakables_.put(this, (Eval) a_);
+        } else {
+            IdMap<ReturnMehod, MemberCallingsBlock> breakables_ = _anEl.getReturnablesCallings();
+            IdMap<ReturnMehod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getReturnablesAncestorsCallings();
+            IdMap<MemberCallingsBlock, IdList<BracedBlock>> id_;
+            id_ = new IdMap<MemberCallingsBlock, IdList<BracedBlock>>();
+            id_.put((MemberCallingsBlock) a_, pars_);
+            breakablesAncestors_.put(this, id_);
+            breakables_.put(this, (MemberCallingsBlock) a_);
+        }
+    }
+
+    @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         if (isEmpty()) {
             super.setAssignmentAfter(_an, _anEl);
         }
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        ObjectMap<ClassField, Assignment> ass_;
+        ass_ = new ObjectMap<ClassField, Assignment>();
+        for (EntryCust<ClassField, Assignment> e: vars_.getFieldsRoot().entryList()) {
+            ass_.put(e.getKey(), e.getValue().assign());
+        }
+        _anEl.getAssignments().put(this, ass_);
     }
     @Override
     boolean canBeLastOfBlockGroup() {

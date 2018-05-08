@@ -35,7 +35,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument calculateLower(Argument _a, boolean _strCmp, Argument _b, ContextEl _context) {
+    static Argument calculateLower(Argument _a, boolean _strCmp, Argument _b) {
         if (_strCmp) {
             Argument a_ = new Argument();
             String first_ = (String)_a.getObject();
@@ -208,7 +208,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         return a_;
     }
 
-    static Argument calculateGreater(Argument _a, boolean _strCmp, Argument _b, ContextEl _context) {
+    static Argument calculateGreater(Argument _a, boolean _strCmp, Argument _b) {
         if (_strCmp) {
             Argument a_ = new Argument();
             String first_ = (String)_a.getObject();
@@ -551,9 +551,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         Argument arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = calculateLower(first_, stringCompare, second_, _conf);
+            arg_ = calculateLower(first_, stringCompare, second_);
         } else {
-            arg_ = calculateGreater(first_, stringCompare, second_, _conf);
+            arg_ = calculateGreater(first_, stringCompare, second_);
         }
         Boolean b_ = (Boolean) arg_.getObject();
         if (complement_) {
@@ -565,8 +565,40 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        calculateCommon(_conf);
+    public void quickCalculate(Analyzable _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument first_ = chidren_.first().getArgument();
+        if (first_.isNull()) {
+            setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+            return;
+        }
+        Argument second_ = chidren_.last().getArgument();
+        if (second_.isNull()) {
+            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+            return;
+        }
+        boolean complement_ = false;
+        String op_ = getOperations().getOperators().values().first().trim();
+        String useOp_ = op_;
+        if (StringList.quickEq(op_, LOWER_EQ)) {
+            complement_ = true;
+            useOp_ = GREATER;
+        } else if (StringList.quickEq(op_, GREATER_EQ)) {
+            complement_ = true;
+            useOp_ = LOWER;
+        }
+        Argument arg_;
+        if (StringList.quickEq(useOp_, LOWER)) {
+            arg_ = calculateLower(first_, stringCompare, second_);
+        } else {
+            arg_ = calculateGreater(first_, stringCompare, second_);
+        }
+        Boolean b_ = (Boolean) arg_.getObject();
+        if (complement_) {
+            b_ = !b_;
+            arg_.setObject(b_);
+        }
+        setSimpleArgumentAna(arg_, _conf);
     }
 
     @Override
@@ -603,9 +635,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         Argument arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = calculateLower(first_, stringCompare, second_, _conf);
+            arg_ = calculateLower(first_, stringCompare, second_);
         } else {
-            arg_ = calculateGreater(first_, stringCompare, second_, _conf);
+            arg_ = calculateGreater(first_, stringCompare, second_);
         }
         Boolean b_ = (Boolean) arg_.getObject();
         if (complement_) {
