@@ -29,6 +29,7 @@ import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -469,7 +470,68 @@ public final class InstanceOperation extends InvokingOperation {
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = StringList.removeAllSpaces(className_);
         if (className_.startsWith(ARR)) {
-            return;
+            if (!_conf.isGearConst()) {
+                return;
+            }
+            for (OperationNode o: chidren_) {
+                arguments_.add(o.getArgument());
+            }
+            boolean elts_ = false;
+            String realClassName_;
+            if (className_.endsWith(ARR_DYN)) {
+                elts_ = true;
+                int len_ = className_.length();
+                realClassName_ = className_.substring(0, len_-ARR_DYN.length());
+            } else {
+                realClassName_ = className_;
+            }
+            int nbCh_ = chidren_.size();
+            int[] args_;
+            if (elts_) {
+                args_ = new int[CustList.ONE_ELEMENT];
+                args_[CustList.FIRST_INDEX] = chidren_.size();
+            } else {
+                args_ = new int[chidren_.size()];
+                int i_ = CustList.FIRST_INDEX;
+                for (OperationNode o: chidren_) {
+                    Number n_ = (Number)arguments_.get(i_).getObject();
+                    if (n_ == null) {
+                        return;
+                    }
+                    int dim_ = n_.intValue();
+                    if (dim_ < 0) {
+                        return;
+                    }
+                    args_[i_] = dim_;
+                    i_++;
+                }
+            }
+            realClassName_ = realClassName_.substring(ARR.length());
+            Argument a_ = new Argument();
+            if (elts_) {
+                Numbers<Integer> dims_;
+                dims_ = new Numbers<Integer>();
+                dims_.add(nbCh_);
+                ArrayStruct str_ = PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf);
+                for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
+                    Argument chArg_ = arguments_.get(i);
+                    if (!setCheckedElement(str_, i, chArg_, _conf)) {
+                        return;
+                    }
+                }
+                a_.setStruct(str_);
+                setSimpleArgumentAna(a_, _conf);
+                return;
+            } else {
+                Numbers<Integer> dims_;
+                dims_ = new Numbers<Integer>();
+                for (int d: args_) {
+                    dims_.add(d);
+                }
+                a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf));
+                setSimpleArgumentAna(a_, _conf);
+                return;
+            }
         }
         String cl_ = className;
         if (cl_ == null) {

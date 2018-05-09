@@ -775,6 +775,15 @@ public class Configuration implements Analyzable {
     }
 
     @Override
+    public boolean isGearConst() {
+        return context.isGearConst();
+    }
+
+    public void setGearConst(boolean _gearConst) {
+        context.setGearConst(_gearConst);
+    }
+
+    @Override
     public CustList<OperationNode> getTextualSortedOperations() {
         return context.getTextualSortedOperations();
     }

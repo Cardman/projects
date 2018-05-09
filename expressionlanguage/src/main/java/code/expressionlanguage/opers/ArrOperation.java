@@ -11,6 +11,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -152,6 +153,31 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
+    }
+    @Override
+    public void quickCalculate(Analyzable _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Struct array_;
+        array_ = chidren_.first().getArgument().getStruct();
+        if (!(array_ instanceof ArrayStruct)) {
+            return;
+        }
+        Object o_ = chidren_.last().getArgument().getObject();
+        if (!(o_ instanceof Number)) {
+            return;
+        }
+        int index_ = ((Number)o_).intValue();
+        if (index_ < 0) {
+            return;
+        }
+        Struct[] str_ = ((ArrayStruct)array_).getInstance();
+        if (index_ >= str_.length) {
+            return;
+        }
+        Struct res_ = str_[index_];
+        Argument arg_ = Argument.createVoid();
+        arg_.setStruct(res_);
+        setSimpleArgumentAna(arg_, _conf);
     }
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,

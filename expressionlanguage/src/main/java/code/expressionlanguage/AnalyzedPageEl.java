@@ -65,6 +65,7 @@ public class AnalyzedPageEl {
     private boolean merged;
     private boolean finalVariable;
     private String currentVarSetting;
+    private boolean gearConst;
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -373,5 +374,13 @@ public class AnalyzedPageEl {
     }
     public CustList<OperationNode> getTextualSortedOperations() {
         return textualSortedOperations;
+    }
+
+    public boolean isGearConst() {
+        return gearConst;
+    }
+
+    public void setGearConst(boolean _gearConst) {
+        gearConst = _gearConst;
     }
 }

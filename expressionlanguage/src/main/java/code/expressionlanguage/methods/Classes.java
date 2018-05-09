@@ -2105,6 +2105,7 @@ public final class Classes {
     public EqList<ClassField> initStaticFields(ContextEl _context) {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         _context.setAnalyzing(page_);
+        page_.setGearConst(true);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             StringMap<Struct> cl_ = new StringMap<Struct>();

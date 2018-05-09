@@ -67,4 +67,5 @@ public interface Analyzable {
     AssignedVariablesBlock getAssignedVariables();
     Block getCurrentBlock();
     CustList<OperationNode> getTextualSortedOperations();
+    boolean isGearConst();
 }

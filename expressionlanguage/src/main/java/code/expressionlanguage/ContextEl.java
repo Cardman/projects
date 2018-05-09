@@ -542,6 +542,15 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         analyzing.setStaticContext(_staticContext);
     }
 
+    @Override
+    public boolean isGearConst() {
+        return analyzing.isGearConst();
+    }
+
+    public void setGearConst(boolean _gearConst) {
+        analyzing.setGearConst(_gearConst);
+    }
+
     public boolean callsOrException() {
         if (calls()) {
             return true;
