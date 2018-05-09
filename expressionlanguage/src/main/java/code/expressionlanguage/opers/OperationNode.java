@@ -222,6 +222,9 @@ public abstract class OperationNode {
             if (fctName_.isEmpty()) {
                 return new IdOperation(_index, _indexChild, _m, _op);
             }
+            if (StringList.quickEq(fctName_, prefixFunction(BOOLEAN))) {
+                return new TernaryOperation(_index, _indexChild, _m, _op);
+            }
             if (fctName_.startsWith(prefixFunction(INSTANCE))) {
                 return new InstanceOperation(_index, _indexChild, _m, _op);
             }
@@ -1159,6 +1162,18 @@ public abstract class OperationNode {
     }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont) {
+        String un_ = resultClass.getUnwrapObject();
+        if (!un_.isEmpty()) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont)) {
+                LgNames stds_ = _cont.getStandards();
+                String null_;
+                null_ = stds_.getAliasNullPe();
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                return;
+            }
+            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
+        }
         int res_ = processBooleanValues(_arg, _cont);
         if (res_ <= 0) {
             return;
@@ -1202,6 +1217,18 @@ public abstract class OperationNode {
     }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
+        String un_ = resultClass.getUnwrapObject();
+        if (!un_.isEmpty()) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont)) {
+                LgNames stds_ = _cont.getStandards();
+                String null_;
+                null_ = stds_.getAliasNullPe();
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
+                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                return;
+            }
+            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
+        }
         int res_ = processBooleanValues(_arg, _cont);
         if (res_ <= 0) {
             return;
@@ -1247,9 +1274,8 @@ public abstract class OperationNode {
                 return -1;
             }
             boolean ternaryParent_ = false;
-            if (par_ instanceof FctOperation) {
-                FctOperation op_ = (FctOperation) par_;
-                ternaryParent_ = op_.isTernary() && isFirstChild();
+            if (par_ instanceof TernaryOperation) {
+                ternaryParent_ = isFirstChild();
             }
             if (ternaryParent_) {
                 return -1;
@@ -1261,9 +1287,8 @@ public abstract class OperationNode {
         }
         if (!(par_ instanceof QuickOperation)) {
             boolean ternaryParent_ = false;
-            if (par_ instanceof FctOperation) {
-                FctOperation op_ = (FctOperation) par_;
-                ternaryParent_ = op_.isTernary() && isFirstChild();
+            if (par_ instanceof TernaryOperation) {
+                ternaryParent_ = isFirstChild();
             }
             if (!ternaryParent_) {
                 return 0;

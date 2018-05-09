@@ -277,6 +277,50 @@ public final class FctOperation extends InvokingOperation {
                     naturalVararg = constId.getParametersTypes().size() - 1;
                     lastType = constId.getParametersTypes().last();
                 }
+                if (!chidren_.isEmpty() && chidren_.first().isVararg()) {
+                    int i_ = CustList.FIRST_INDEX;
+                    for (OperationNode o: chidren_) {
+                        if (o.isVararg()) {
+                            i_++;
+                            continue;
+                        }
+                        if (o.isFirstOptArg()) {
+                            break;
+                        }
+                        String param_ = constId.getParametersTypes().get(i_-1);
+                        if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                            o.getResultClass().setUnwrapObject(param_);
+                        }
+                        i_++;
+                    }
+                } else if (naturalVararg > -1) {
+                    int lenCh_ = firstArgs_.size();
+                    for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                        ClassArgumentMatching a_ = firstArgs_.get(i);
+                        if (i >= naturalVararg) {
+                            if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
+                                a_.setUnwrapObject(lastType);
+                            }
+                        } else {
+                            String param_ = constId.getParametersTypes().get(i);
+                            if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                                a_.setUnwrapObject(param_);
+                            }
+                        }
+                    }
+                } else {
+                    int lenCh_ = firstArgs_.size();
+                    for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                        ClassArgumentMatching a_ = firstArgs_.get(i);
+                        String param_ = constId.getParametersTypes().get(i);
+                        if (i + 1 == lenCh_ && constId.isVararg()) {
+                            param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
+                        }
+                        if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                            a_.setUnwrapObject(param_);
+                        }
+                    }
+                }
                 setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
                 return;
             }
@@ -318,6 +362,50 @@ public final class FctOperation extends InvokingOperation {
                 if (ctorRes_.isVarArgToCall()) {
                     naturalVararg = constId.getParametersTypes().size() - 1;
                     lastType = constId.getParametersTypes().last();
+                }
+                if (!chidren_.isEmpty() && chidren_.first().isVararg()) {
+                    int i_ = CustList.FIRST_INDEX;
+                    for (OperationNode o: chidren_) {
+                        if (o.isVararg()) {
+                            i_++;
+                            continue;
+                        }
+                        if (o.isFirstOptArg()) {
+                            break;
+                        }
+                        String param_ = constId.getParametersTypes().get(i_-1);
+                        if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                            o.getResultClass().setUnwrapObject(param_);
+                        }
+                        i_++;
+                    }
+                } else if (naturalVararg > -1) {
+                    int lenCh_ = firstArgs_.size();
+                    for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                        ClassArgumentMatching a_ = firstArgs_.get(i);
+                        if (i >= naturalVararg) {
+                            if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
+                                a_.setUnwrapObject(lastType);
+                            }
+                        } else {
+                            String param_ = constId.getParametersTypes().get(i);
+                            if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                                a_.setUnwrapObject(param_);
+                            }
+                        }
+                    }
+                } else {
+                    int lenCh_ = firstArgs_.size();
+                    for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                        ClassArgumentMatching a_ = firstArgs_.get(i);
+                        String param_ = constId.getParametersTypes().get(i);
+                        if (i + 1 == lenCh_ && constId.isVararg()) {
+                            param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
+                        }
+                        if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                            a_.setUnwrapObject(param_);
+                        }
+                    }
                 }
                 setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
                 return;
@@ -796,6 +884,50 @@ public final class FctOperation extends InvokingOperation {
         superAccessMethod = superAccessMethod_;
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = clMeth_.isStaticMethod();
+        if (!chidren_.isEmpty() && chidren_.first().isVararg()) {
+            int i_ = CustList.FIRST_INDEX;
+            for (OperationNode o: chidren_) {
+                if (o.isVararg()) {
+                    i_++;
+                    continue;
+                }
+                if (o.isFirstOptArg()) {
+                    break;
+                }
+                String param_ = realId.getParametersTypes().get(i_-1);
+                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    o.getResultClass().setUnwrapObject(param_);
+                }
+                i_++;
+            }
+        } else if (naturalVararg > -1) {
+            int lenCh_ = firstArgs_.size();
+            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                ClassArgumentMatching a_ = firstArgs_.get(i);
+                if (i >= naturalVararg) {
+                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
+                        a_.setUnwrapObject(lastType);
+                    }
+                } else {
+                    String param_ = realId.getParametersTypes().get(i);
+                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                        a_.setUnwrapObject(param_);
+                    }
+                }
+            }
+        } else {
+            int lenCh_ = firstArgs_.size();
+            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                ClassArgumentMatching a_ = firstArgs_.get(i);
+                String param_ = realId.getParametersTypes().get(i);
+                if (i + 1 == lenCh_ && realId.isVararg()) {
+                    param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
+                }
+                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    a_.setUnwrapObject(param_);
+                }
+            }
+        }
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
     }
 
@@ -1551,11 +1683,6 @@ public final class FctOperation extends InvokingOperation {
         for (Argument a: firstArgs_) {
             if (i_ < params_.size()) {
                 Struct str_ = a.getStruct();
-                if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                    Argument a_ = new Argument();
-                    return ArgumentCall.newArgument(a_);
-                }
                 if (!str_.isNull()) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(a.getObjectClassName(_conf));
@@ -1566,10 +1693,6 @@ public final class FctOperation extends InvokingOperation {
                         Argument a_ = new Argument();
                         return ArgumentCall.newArgument(a_);
                     }
-                }
-                if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
-                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
-                    a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
                 }
             }
             i_++;

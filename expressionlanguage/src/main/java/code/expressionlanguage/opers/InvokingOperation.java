@@ -81,6 +81,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     cast_.setRc(_conf.getCurrentLocation());
                     _conf.getClasses().getErrorsDet().add(cast_);
                 }
+                if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
+                    o.getResultClass().setUnwrapObject(name_);
+                }
             }
             name_ = PrimitiveTypeUtil.getPrettyArrayType(name_);
             ClassArgumentMatching clMatch_ = new ClassArgumentMatching(name_);

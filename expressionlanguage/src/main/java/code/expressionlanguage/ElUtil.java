@@ -505,10 +505,6 @@ public final class ElUtil {
         for (OperationNode o: _nodes) {
             if (!o.isCalculated()) {
                 o.tryCalculateNode(_context, _list, _current);
-                if (!_current.isOk()) {
-                    pageEl_.setTranslatedOffset(0);
-                    return;
-                }
             }
         }
         if (_nodes.last().getArgument() == null) {

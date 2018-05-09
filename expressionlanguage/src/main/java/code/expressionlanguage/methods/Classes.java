@@ -1945,6 +1945,42 @@ public final class Classes {
                 }
             }
             b_.clear();
+            boolean hasCtor_ = false;
+            for (Block b: bl_) {
+                if (b instanceof ConstructorBlock) {
+                    hasCtor_ = true;
+                    break;
+                }
+            }
+            if (!hasCtor_) {
+                for (EntryCust<ClassField, Assignment> a: assAfter_.entryList()) {
+                    ClassField key_ = a.getKey();
+                    String curCur_ = key_.getClassName();
+                    if (!StringList.quickEq(curCur_, c.getKey())) {
+                        continue;
+                    }
+                    ClassMetaInfo cl_ = _context.getClassMetaInfo(curCur_);
+                    String fieldName_ = key_.getFieldName();
+                    FieldMetaInfo finfo_ = cl_.getFields().getVal(fieldName_);
+                    if (!finfo_.isFinalField()) {
+                        continue;
+                    }
+                    if (!a.getValue().isAssignedAfter()) {
+                        //error
+                        for (Block b: bl_) {
+                            if (b instanceof InfoBlock) {
+                                if (StringList.quickEq(((InfoBlock)b).getFieldName(), fieldName_)) {
+                                    UnassignedFinalField un_ = new UnassignedFinalField(key_);
+                                    un_.setFileName(c.getValue().getFile().getFileName());
+                                    un_.setRc(b.getRowCol(0, ((InfoBlock) b).getFieldNameOffset()));
+                                    _context.getClasses().getErrorsDet().add(un_);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             for (EntryCust<ClassField, Assignment> a: assAfter_.entryList()) {
                 b_.put(a.getKey(), a.getValue().assignBefore());
             }

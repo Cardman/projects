@@ -29,6 +29,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PrimitiveBoolOperation;
 import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
+import code.expressionlanguage.opers.TernaryOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -340,11 +341,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 }
                 return false;
             }
+            if (o instanceof TernaryOperation) {
+                continue;
+            }
             if (o instanceof FctOperation) {
                 FctOperation fct_ = (FctOperation) o;
-                if (fct_.isTernary()) {
-                    continue;
-                }
                 if (fct_.isConstCall()) {
                     continue;
                 }

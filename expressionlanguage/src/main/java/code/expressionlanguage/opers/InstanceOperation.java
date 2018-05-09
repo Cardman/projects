@@ -33,14 +33,12 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
-import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -133,6 +131,7 @@ public final class InstanceOperation extends InvokingOperation {
                         un_.setOperands(new StringList(cl_.getName()));
                         _conf.getClasses().getErrorsDet().add(un_);
                     }
+                    o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
                 }
             } else {
                 StringMap<StringList> map_;
@@ -157,6 +156,9 @@ public final class InstanceOperation extends InvokingOperation {
                         cast_.setFileName(_conf.getCurrentFileName());
                         cast_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().getErrorsDet().add(cast_);
+                    }
+                    if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
+                        o.getResultClass().setUnwrapObject(eltType_);
                     }
                 }
             }
@@ -221,6 +223,7 @@ public final class InstanceOperation extends InvokingOperation {
 
     void analyzeCtor(Analyzable _conf, String _fieldName, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         String realClassName_ = _realClassName;
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (StringList.quickEq(realClassName_, stds_.getAliasVoid())) {
             Mapping mapping_ = new Mapping();
@@ -298,6 +301,50 @@ public final class InstanceOperation extends InvokingOperation {
         if (ctorRes_.isVarArgToCall()) {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
+        }
+        if (!chidren_.isEmpty() && chidren_.first().isVararg()) {
+            int i_ = CustList.FIRST_INDEX;
+            for (OperationNode o: chidren_) {
+                if (o.isVararg()) {
+                    i_++;
+                    continue;
+                }
+                if (o.isFirstOptArg()) {
+                    break;
+                }
+                String param_ = constId.getParametersTypes().get(i_-1);
+                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    o.getResultClass().setUnwrapObject(param_);
+                }
+                i_++;
+            }
+        } else if (naturalVararg > -1) {
+            int lenCh_ = _firstArgs.size();
+            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                ClassArgumentMatching a_ = _firstArgs.get(i);
+                if (i >= naturalVararg) {
+                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
+                        a_.setUnwrapObject(lastType);
+                    }
+                } else {
+                    String param_ = constId.getParametersTypes().get(i);
+                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                        a_.setUnwrapObject(param_);
+                    }
+                }
+            }
+        } else {
+            int lenCh_ = _firstArgs.size();
+            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                ClassArgumentMatching a_ = _firstArgs.get(i);
+                String param_ = constId.getParametersTypes().get(i);
+                if (i + 1 == lenCh_ && constId.isVararg()) {
+                    param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
+                }
+                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    a_.setUnwrapObject(param_);
+                }
+            }
         }
         String glClass_ = _conf.getGlobalClass();
         CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
@@ -572,6 +619,10 @@ public final class InstanceOperation extends InvokingOperation {
         className_ = page_.formatVarType(className_, _conf);
         String lastType_ = Templates.format(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
+        if (_conf.getException() != null) {
+            Argument a_ = new Argument();
+            return ArgumentCall.newArgument(a_);
+        }
         if (!isIntermediateDottedOperation()) {
 //            Class<?> class_ = null;
 //            if (StringList.isWord(realClassName_)) {
@@ -635,13 +686,6 @@ public final class InstanceOperation extends InvokingOperation {
         for (Argument a: _arguments) {
             if (i_ < params_.size()) {
                 Struct str_ = a.getStruct();
-                if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
-                    String null_;
-                    null_ = stds_.getAliasNullPe();
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                    Argument a_ = new Argument();
-                    return ArgumentCall.newArgument(a_);
-                }
                 if (!str_.isNull()) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(a.getObjectClassName(_conf));
@@ -653,10 +697,6 @@ public final class InstanceOperation extends InvokingOperation {
                         Argument a_ = new Argument();
                         return ArgumentCall.newArgument(a_);
                     }
-                }
-                if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
-                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
-                    a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
                 }
             }
             i_++;

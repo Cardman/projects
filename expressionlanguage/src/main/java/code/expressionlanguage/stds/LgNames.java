@@ -2892,10 +2892,6 @@ public abstract class LgNames {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
         StringList list_ = _method.getParametersTypes();
-        checkArgumentsForInvoking(_cont, _natvararg, list_, args_);
-        if (_cont.getException() != null) {
-            return result_;
-        }
         LgNames lgNames_ = _cont.getStandards();
         Object[] argsObj_ = adaptedArgs(list_, _cont, _cont.getStandards(), args_);
         String booleanType_ = lgNames_.getAliasBoolean();
@@ -3237,23 +3233,6 @@ public abstract class LgNames {
     }
     public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         return new ResultErrorStd();
-    }
-    static void checkArgumentsForInvoking(ContextEl _cont,boolean _natvararg, StringList _params,Struct... _args) {
-        int len_ = _params.size();
-        if (_natvararg) {
-            len_--;
-        }
-        StringList traces_ = new StringList();
-        for (int i = 0; i < len_; i++) {
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(_params.get(i), _args[i], _cont)) {
-                traces_.add(StringList.concat(Long.toString(i),RETURN_LINE,_params.get(i),RETURN_LINE,null));
-            }
-        }
-        LgNames stds_ = _cont.getStandards();
-        String null_ = stds_.getAliasNullPe();
-        if (!traces_.isEmpty()) {
-            _cont.setException(new StdStruct(new CustomError(StringList.concat(traces_.join(SEP_ARG),RETURN_LINE,_cont.joinPages())),null_));
-        }
     }
     static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;

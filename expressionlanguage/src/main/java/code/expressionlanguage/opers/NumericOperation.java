@@ -94,6 +94,9 @@ public abstract class NumericOperation extends MethodOperation {
             convert_ = false;
         }
         if (convert_) {
+            if (_conf.getException() != null) {
+                return o_;
+            }
             ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName(_conf));
             Argument converted_ = new Argument();
             converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getStruct(), _conf));

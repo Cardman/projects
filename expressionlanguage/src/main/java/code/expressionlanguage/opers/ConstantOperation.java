@@ -783,30 +783,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
 
     @Override
     public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
-        tryCalculate(_conf, _list, _current);
-        if (getArgument() == null) {
-            return;
-        }
-        int indexChild_ = getIndexChild();
-        MethodOperation mOp_ = getParent();
-        if (mOp_ != null && mOp_.getArgument() != null) {
-            return;
-        }
-        if (indexChild_ == 1 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
-            Argument arg_ = mOp_.getFirstChild().getArgument();
-            if (arg_ != null && arg_.getObject() instanceof Boolean && (Boolean)arg_.getObject()) {
-                mOp_.setSimpleArgumentAna(getArgument(), _conf);
-            }
-        } else if (indexChild_ == 2 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
-            Argument arg_ = mOp_.getFirstChild().getArgument();
-            if (arg_ != null && arg_.getObject() instanceof Boolean && !(Boolean)arg_.getObject()) {
-                mOp_.setSimpleArgumentAna(getArgument(), _conf);
-            }
-        }
-    }
-
-    public final void tryCalculate(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
         if (fieldId != null && fieldMetaInfo.isStaticField()) {
             int index_ = _list.indexOfObj(new SortedClassField(fieldId));
             if (index_ < 0) {
@@ -815,9 +791,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                     Argument arg_ = Argument.createVoid();
                     arg_.setStruct(res_.getResult());
                     setSimpleArgumentAna(arg_,_conf);
-                    return;
                 }
-                _current.setOk(false);
                 return;
             }
             SortedClassField found_ = _list.get(index_);
@@ -825,9 +799,7 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
                 Argument arg_ = Argument.createVoid();
                 arg_.setStruct(found_.getStruct());
                 setSimpleArgumentAna(arg_,_conf);
-                return;
             }
-            _current.setOk(false);
             return;
         }
         if (!isIntermediateDottedOperation()) {
@@ -836,7 +808,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
         Argument arg_ = getPreviousArgument();
         Argument a_ = new Argument();
         if (arg_.isNull()) {
-            _current.setOk(false);
             return;
         } else {
             a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
@@ -846,29 +817,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
 
     @Override
     public void tryCalculateNode(Analyzable _conf) {
-        tryCalculate(_conf);
-        if (getArgument() == null) {
-            return;
-        }
-        int indexChild_ = getIndexChild();
-        MethodOperation mOp_ = getParent();
-        if (mOp_ != null && mOp_.getArgument() != null) {
-            return;
-        }
-        if (indexChild_ == 1 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
-            Argument arg_ = mOp_.getFirstChild().getArgument();
-            if (arg_ != null && arg_.getObject() instanceof Boolean && (Boolean)arg_.getObject()) {
-                mOp_.setSimpleArgumentAna(getArgument(), _conf);
-            }
-        } else if (indexChild_ == 2 && mOp_ instanceof FctOperation && ((FctOperation)mOp_).isTernary()) {
-            Argument arg_ = mOp_.getFirstChild().getArgument();
-            if (arg_ != null && arg_.getObject() instanceof Boolean && !(Boolean)arg_.getObject()) {
-                mOp_.setSimpleArgumentAna(getArgument(), _conf);
-            }
-        }
-    }
-
-    public void tryCalculate(Analyzable _conf) {
         if (isCalculated()) {
             return;
         }

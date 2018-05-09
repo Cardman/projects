@@ -108,6 +108,7 @@ public final class Line extends Leaf implements StackableBlock {
                 LocalVariable lv_ = new LocalVariable();
                 String clName_ = dc_.getClassName();
                 lv_.setClassName(clName_);
+                lv_.setFinalVariable(dc_.isFinalVariable());
                 String varName_ = dc_.getVariableName();
                 _cont.putLocalVar(varName_, lv_);
                 String boolStd_ = _cont.getStandards().getAliasBoolean();

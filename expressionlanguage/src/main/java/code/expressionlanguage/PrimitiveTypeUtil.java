@@ -326,6 +326,31 @@ public final class PrimitiveTypeUtil {
         }
         return _obj;
     }
+    public static Struct unwrapObject(String _match, Struct _obj, LgNames _stds) {
+        Object obj_ = _obj.getInstance();
+        if (StringList.quickEq(_match,_stds.getAliasPrimDouble())) {
+            return new DoubleStruct(((Number)obj_).doubleValue());
+        }
+        if (StringList.quickEq(_match,_stds.getAliasPrimFloat())) {
+            return new FloatStruct(((Number)obj_).floatValue());
+        }
+        if (StringList.quickEq(_match,_stds.getAliasPrimLong())) {
+            return new LongStruct(((Number)obj_).longValue());
+        }
+        if (StringList.quickEq(_match,_stds.getAliasPrimInteger())) {
+            return new IntStruct(((Number)obj_).intValue());
+        }
+        if (StringList.quickEq(_match,_stds.getAliasPrimShort())) {
+            return new ShortStruct(((Number)obj_).shortValue());
+        }
+        if (StringList.quickEq(_match,_stds.getAliasPrimByte())) {
+            return new ByteStruct(((Number)obj_).byteValue());
+        }
+        if (StringList.quickEq(_match,_stds.getAliasPrimChar())) {
+            return new CharStruct(((Character)obj_).charValue());
+        }
+        return _obj;
+    }
 
     public static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
         LgNames stds_ = _context.getStandards();

@@ -3,13 +3,16 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.OperationNode;
@@ -22,6 +25,7 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
@@ -29,6 +33,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class DoWhileCondition extends Condition implements IncrNextGroup {
@@ -237,22 +242,54 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             if (e.getValue().isAssignedBefore()) {
                 continue;
             }
+            ClassField key_ = e.getKey();
+            ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
+            FieldMetaInfo fm_ = cl_.getFields().getVal(key_.getFieldName());
+            if (!fm_.isFinalField()) {
+                continue;
+            }
             for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
                 vars_ = d.getValue();
                 Block next_ = d.getKey();
-                boolean take_ = false;
-                while (next_ != null) {
-                    next_ = next_.getNextSibling();
-                }
-                if (next_ == null && d.getKey().getParent() == dBlock_) {
-                    take_ = true;
-                }
+                boolean take_ = takeContinue(next_, vars_, dBlock_, _anEl);
                 if (!take_) {
                     continue;
                 }
                 //next siblings of d
-                processFinalVars(vars_);
+                processFinalFields(next_, _an, vars_, key_);
             }
+        }
+        int indexDoWhile_ = 0;
+        for (StringMap<AssignmentBefore> s: varsHypot_) {
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                if (e.getValue().isUnassignedBefore()) {
+                    continue;
+                }
+                if (e.getValue().isAssignedBefore()) {
+                    continue;
+                }
+                if (!_an.getLocalVariables().isValidIndex(indexDoWhile_)) {
+                    continue;
+                }
+                String key_ = e.getKey();
+                StringMap<LocalVariable> varLocs_;
+                varLocs_ = _an.getLocalVariables().get(index_);
+                LocalVariable varLoc_ = varLocs_.getVal(key_);
+                if (!varLoc_.isFinalVariable()) {
+                    continue;
+                }
+                for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
+                    vars_ = d.getValue();
+                    Block next_ = d.getKey();
+                    boolean take_ = takeContinue(next_, vars_, dBlock_, _anEl);
+                    if (!take_) {
+                        continue;
+                    }
+                    //next siblings of d
+                    processFinalVars(next_, _an, vars_, key_);
+                }
+            }
+            indexDoWhile_++;
         }
 
         ObjectMap<ClassField,Assignment> fieldsAfter_;
@@ -333,13 +370,19 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
     
     }
-    private void processFinalVars(AssignedVariables _vars) {
+    private void processFinalFields(Block _curBlock, Analyzable _an,AssignedVariables _vars, ClassField _field) {
         for (EntryCust<OperationNode, ObjectMap<ClassField,AssignmentBefore>> f: _vars.getFieldsBefore().entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 if (!(f.getKey() instanceof SemiAffectationOperation)) {
                     continue;
                 }
                 //Error
+                OperationNode cst_ = f.getKey();
+                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setFileName(_an.getCurrentFileName());
+                un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
+                _an.getClasses().getErrorsDet().add(un_);
                 continue;
             }
             AffectationOperation aff_ = (AffectationOperation) f.getKey();
@@ -348,12 +391,62 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 continue;
             }
             ConstantOperation cst_ = (ConstantOperation) set_;
-            if (cst_.getFieldId() == null) {
+            if (cst_.getFieldId() != _field) {
                 continue;
             }
-            if (cst_.getFieldMetaInfo().isFinalField()) {
-                //error
-            }
+            cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
+            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            un_.setFileName(_an.getCurrentFileName());
+            un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
         }
+    }
+    private void processFinalVars(Block _curBlock, Analyzable _an,AssignedVariables _vars, String _field) {
+        for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getVariablesBefore().entryList()) {
+            if (!(f.getKey() instanceof AffectationOperation)) {
+                if (!(f.getKey() instanceof SemiAffectationOperation)) {
+                    continue;
+                }
+                //Error
+                OperationNode cst_ = f.getKey();
+                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setFileName(_an.getCurrentFileName());
+                un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
+                _an.getClasses().getErrorsDet().add(un_);
+                continue;
+            }
+            AffectationOperation aff_ = (AffectationOperation) f.getKey();
+            SettableElResult set_ = aff_.getSettable();
+            if (!(set_ instanceof ConstantOperation)) {
+                continue;
+            }
+            ConstantOperation cst_ = (ConstantOperation) set_;
+            OperationsSequence op_ = cst_.getOperations();
+            if (op_.getConstType() != ConstType.LOC_VAR) {
+                continue;
+            }
+            String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+            String str_ = originalStr_.trim();
+            if (!StringList.quickEq(str_, _field)) {
+                continue;
+            }
+            cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
+            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            un_.setFileName(_an.getCurrentFileName());
+            un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
+        }
+    }
+    private boolean takeContinue(Block _b,AssignedVariables _ass, Block _doBlock, AnalyzingEl _anEl) {
+        Block next_ = _b;
+        boolean take_ = false;
+        while (next_ != null) {
+            next_ = next_.getNextSibling();
+        }
+        if (next_ == null && _b.getParent() == _doBlock) {
+            take_ = true;
+        }
+        return take_;
     }
 }

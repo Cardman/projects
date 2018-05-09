@@ -107,6 +107,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         if (!merged) {
             LocalVariable lv_ = new LocalVariable();
             lv_.setClassName(className);
+            lv_.setFinalVariable(finalVariable);
             _cont.putLocalVar(variableName, lv_);
         } else {
             _cont.setCurrentVarSetting(className);

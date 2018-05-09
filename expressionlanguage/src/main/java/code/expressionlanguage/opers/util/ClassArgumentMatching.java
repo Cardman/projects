@@ -11,6 +11,8 @@ public final class ClassArgumentMatching {
 
     private final String className;
 
+    private String unwrapObject = "";
+
     public ClassArgumentMatching(String _className) {
         className = _className;
     }
@@ -91,4 +93,13 @@ public final class ClassArgumentMatching {
     public String getName() {
         return className;
     }
+
+    public String getUnwrapObject() {
+        return unwrapObject;
+    }
+
+    public void setUnwrapObject(String _unwrapObject) {
+        unwrapObject = _unwrapObject;
+    }
+
 }
