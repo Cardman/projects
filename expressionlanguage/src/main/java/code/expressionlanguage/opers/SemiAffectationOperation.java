@@ -207,7 +207,7 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
     }
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _firstChild, OperationNode _previous) {
+            OperationNode _nextSibling, OperationNode _previous) {
     }
     @Override
     public void calculate(ContextEl _conf) {

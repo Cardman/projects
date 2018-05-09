@@ -199,7 +199,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   $case(8){\n");
         xml_.append("    t;.=16:\n");
         xml_.append("   }\n");
-        xml_.append("   $case(8):\n");
+        xml_.append("   $case(1):\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
         xml_.append(" }\n");
@@ -228,8 +228,8 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   $case(8){\n");
         xml_.append("    t;.=16:\n");
         xml_.append("   }\n");
-        xml_.append("   $case(8):\n");
-        xml_.append("   $case(10):\n");
+        xml_.append("   $case(7):\n");
+        xml_.append("   $case(1):\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
         xml_.append(" }\n");

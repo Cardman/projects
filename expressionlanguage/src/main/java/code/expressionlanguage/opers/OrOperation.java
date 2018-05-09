@@ -28,7 +28,7 @@ public final class OrOperation extends QuickOperation {
 
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _firstChild, OperationNode _previous) {
+            OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         ObjectMap<ClassField,Assignment> fieldsAfter_;
@@ -47,7 +47,7 @@ public final class OrOperation extends QuickOperation {
             }
             fieldsBefore_.put(e.getKey(), a_);
         }
-        vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
+        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
         CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
         for (StringMap<Assignment> s: variablesAfter_) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
@@ -64,7 +64,7 @@ public final class OrOperation extends QuickOperation {
             }
             variablesBefore_.add(sm_);
         }
-        vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
     }
 
     @Override

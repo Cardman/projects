@@ -38,7 +38,7 @@ public final class DotOperation extends MethodOperation {
     }
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _firstChild, OperationNode _previous) {
+            OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         ObjectMap<ClassField,Assignment> fieldsAfter_;
@@ -50,7 +50,7 @@ public final class DotOperation extends MethodOperation {
             Assignment b_ = e.getValue();
             fieldsBefore_.put(e.getKey(), b_.assignBefore());
         }
-        vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
+        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
         CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
         for (StringMap<Assignment> s: variablesAfter_) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
@@ -60,7 +60,7 @@ public final class DotOperation extends MethodOperation {
             }
             variablesBefore_.add(sm_);
         }
-        vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {

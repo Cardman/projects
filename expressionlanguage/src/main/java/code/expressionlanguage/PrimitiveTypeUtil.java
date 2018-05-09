@@ -116,11 +116,11 @@ public final class PrimitiveTypeUtil {
         return toWrapper(new ClassArgumentMatching(_className), false, _stds) != null;
     }
 
-    public static Struct newCustomArray(String _className, Numbers<Integer> _dims, ContextEl _cont) {
+    public static ArrayStruct newCustomArray(String _className, Numbers<Integer> _dims, Analyzable _cont) {
         TreeMap<Numbers<Integer>,Struct> indexesArray_;
         indexesArray_ = new TreeMap<Numbers<Integer>,Struct>(new IndexesComparator());
         Struct[] instanceGl_ = new Struct[_dims.first()];
-        Struct output_ = new ArrayStruct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
+        ArrayStruct output_ = new ArrayStruct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
         Numbers<Integer> dims_ = new Numbers<Integer>();
         indexesArray_.put(new Numbers<Integer>(), output_);
         int glDim_ = _dims.size();
@@ -358,7 +358,7 @@ public final class PrimitiveTypeUtil {
             return false;
         }
         ClassArgumentMatching param_ = new ClassArgumentMatching(_param);
-        if (_arg == null) {
+        if (_arg == null || _arg.isEmpty()) {
             if (param_.isPrimitive(_context)) {
                 return false;
             }
@@ -603,7 +603,7 @@ public final class PrimitiveTypeUtil {
         return Argument.createVoid();
     }
 
-    public static Struct defaultValue(String _class, ContextEl _context) {
+    public static Struct defaultValue(String _class, Analyzable _context) {
         return defaultValue(_class, _context.getStandards());
     }
 

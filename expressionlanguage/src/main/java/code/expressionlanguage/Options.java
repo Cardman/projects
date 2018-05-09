@@ -6,6 +6,7 @@ public final class Options {
 
     private boolean eqPlus;
     private boolean multipleAffectations;
+    private boolean initializeStaticClassFirst = true;
 
     public boolean applyEqPlus() {
         if (!isMultipleAffectations()) {
@@ -36,5 +37,13 @@ public final class Options {
 
     public void setMultipleAffectations(boolean _multipleAffectations) {
         multipleAffectations = _multipleAffectations;
+    }
+
+    public boolean isInitializeStaticClassFirst() {
+        return initializeStaticClassFirst;
+    }
+
+    public void setInitializeStaticClassFirst(boolean _initializeStaticClassFirst) {
+        initializeStaticClassFirst = _initializeStaticClassFirst;
     }
 }

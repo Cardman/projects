@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -23,7 +24,7 @@ public final class StdStruct implements Struct {
         className = _className;
     }
 
-    public static Struct defaultClass(String _element, ContextEl _context) {
+    public static Struct defaultClass(String _element, Analyzable _context) {
         if (PrimitiveTypeUtil.isPrimitive(_element, _context)) {
             Object def_ = PrimitiveTypeUtil.defaultValue(_element, _context).getInstance();
             if (def_ instanceof Double) {
@@ -149,6 +150,9 @@ public final class StdStruct implements Struct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
+        return className;
+    }
+    public String getClassName() {
         return className;
     }
 

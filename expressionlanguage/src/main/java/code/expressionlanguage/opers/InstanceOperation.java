@@ -75,6 +75,10 @@ public final class InstanceOperation extends InvokingOperation {
         methodName = getOperations().getFctName();
     }
 
+    public boolean initStaticClass() {
+        return isCallMethodCtor();
+    }
+
     @Override
     public void analyze(Analyzable _conf,
             String _fieldName) {
@@ -174,7 +178,14 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, CustList.ONE_ELEMENT)));
             return;
         }
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        CustList<OperationNode> filter_ = new CustList<OperationNode>();
+        for (OperationNode o: chidren_) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
+            filter_.add(o);
+        }
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         boolean intern_ = true;
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
@@ -224,6 +235,13 @@ public final class InstanceOperation extends InvokingOperation {
     void analyzeCtor(Analyzable _conf, String _fieldName, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         String realClassName_ = _realClassName;
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<OperationNode> filter_ = new CustList<OperationNode>();
+        for (OperationNode o: chidren_) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
+            filter_.add(o);
+        }
         LgNames stds_ = _conf.getStandards();
         if (StringList.quickEq(realClassName_, stds_.getAliasVoid())) {
             Mapping mapping_ = new Mapping();
@@ -302,9 +320,9 @@ public final class InstanceOperation extends InvokingOperation {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        if (!chidren_.isEmpty() && chidren_.first().isVararg()) {
+        if (!filter_.isEmpty() && filter_.first().isVararg()) {
             int i_ = CustList.FIRST_INDEX;
-            for (OperationNode o: chidren_) {
+            for (OperationNode o: filter_) {
                 if (o.isVararg()) {
                     i_++;
                     continue;
@@ -360,12 +378,12 @@ public final class InstanceOperation extends InvokingOperation {
             access_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(access_);
         }
-        possibleInitClass = true;
+        possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst();
         setResultClass(new ClassArgumentMatching(realClassName_));
     }
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _firstChild, OperationNode _previous) {
+            OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         ObjectMap<ClassField,Assignment> fieldsAfter_;
@@ -377,7 +395,7 @@ public final class InstanceOperation extends InvokingOperation {
             Assignment b_ = e.getValue();
             fieldsBefore_.put(e.getKey(), b_.assignBefore());
         }
-        vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
+        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
         CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
         for (StringMap<Assignment> s: variablesAfter_) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
@@ -387,20 +405,27 @@ public final class InstanceOperation extends InvokingOperation {
             }
             variablesBefore_.add(sm_);
         }
-        vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
+        CustList<OperationNode> filter_ = new CustList<OperationNode>();
+        for (OperationNode o: children_) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
+            filter_.add(o);
+        }
         LgNames lgNames_ = _conf.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         boolean isBool_;
         isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
-        if (children_.isEmpty()) {
+        if (filter_.isEmpty()) {
             for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
                 AssignmentBefore b_ = e.getValue();
                 fieldsAfter_.put(e.getKey(), b_.assignAfter(isBool_));
@@ -417,7 +442,7 @@ public final class InstanceOperation extends InvokingOperation {
             vars_.getVariables().put(this, variablesAfter_);
             return;
         }
-        OperationNode last_ = children_.last();
+        OperationNode last_ = filter_.last();
         ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
@@ -434,6 +459,57 @@ public final class InstanceOperation extends InvokingOperation {
         }
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
+    }
+    @Override
+    public void quickCalculate(Analyzable _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        String className_ = methodName.trim().substring(INSTANCE.length()+1);
+        className_ = StringList.removeAllSpaces(className_);
+        if (className_.startsWith(ARR)) {
+            return;
+        }
+        String cl_ = className;
+        if (cl_ == null) {
+            return;
+        }
+        if (_conf.getClasses().isCustomType(cl_)) {
+            return;
+        }
+        boolean proc_ = false;
+        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(cl_, _conf)) {
+            proc_ = true;
+        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasString())) {
+            proc_ = true;
+        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasMath())) {
+            proc_ = true;
+        }
+        if (!proc_) {
+            return;
+        }
+        String lastType_ = lastType;
+        int naturalVararg_ = naturalVararg;
+        CustList<OperationNode> filter_ = new CustList<OperationNode>();
+        for (OperationNode o: chidren_) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
+            arguments_.add(o.getArgument());
+            filter_.add(o);
+        }
+        CustList<Argument> firstArgs_ = quickListArguments(filter_, naturalVararg_, lastType_, arguments_, _conf);
+        if (firstArgs_ == null) {
+            return;
+        }
+        ResultErrorStd res_ = LgNames.newInstanceStd(_conf, naturalVararg > -1, constId, Argument.toArgArray(firstArgs_));
+        if (res_.getResult() == null) {
+            return;
+        }
+        Argument arg_ = Argument.createVoid();
+        arg_.setStruct(res_.getResult());
+        setSimpleArgumentAna(arg_, _conf);
     }
     @Override
     public boolean isOtherConstructorClass() {
@@ -464,6 +540,9 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
             arguments_.add(_nodes.getVal(o).getArgument());
         }
         Argument previous_;
@@ -493,6 +572,9 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
             arguments_.add(o.getArgument());
         }
         Argument previous_;
@@ -533,7 +615,13 @@ public final class InstanceOperation extends InvokingOperation {
         null_ = stds_.getAliasNullPe();
         size_ = stds_.getAliasBadSize();
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int nbCh_ = chidren_.size();
+        CustList<OperationNode> filter_ = new CustList<OperationNode>();
+        for (OperationNode o: chidren_) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
+            filter_.add(o);
+        }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
@@ -550,6 +638,7 @@ public final class InstanceOperation extends InvokingOperation {
         PageEl page_ = _conf.getLastPage();
         realClassName_ = page_.formatVarType(realClassName_, _conf);
         if (realClassName_.startsWith(ARR)) {
+            int nbCh_ = chidren_.size();
             int[] args_;
             if (elts_) {
                 args_ = new int[CustList.ONE_ELEMENT];
@@ -618,7 +707,7 @@ public final class InstanceOperation extends InvokingOperation {
         }
         className_ = page_.formatVarType(className_, _conf);
         String lastType_ = Templates.format(className_, lastType, _conf);
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
+        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
         if (_conf.getException() != null) {
             Argument a_ = new Argument();
             return ArgumentCall.newArgument(a_);
@@ -716,13 +805,6 @@ public final class InstanceOperation extends InvokingOperation {
     boolean isCallMethodCtor() {
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = StringList.removeAllSpaces(className_);
-        String realClassName_;
-        if (className_.endsWith(ARR_DYN)) {
-            int len_ = className_.length();
-            realClassName_ = className_.substring(0, len_-ARR_DYN.length());
-        } else {
-            realClassName_ = className_;
-        }
-        return !realClassName_.startsWith(ARR);
+        return !className_.startsWith(ARR);
     }
 }

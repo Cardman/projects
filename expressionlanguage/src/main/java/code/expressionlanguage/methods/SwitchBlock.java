@@ -20,6 +20,8 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.EnumerableStruct;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
@@ -29,6 +31,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class SwitchBlock extends BracedStack implements BreakableBlock {
@@ -37,6 +40,8 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
     private int valueOffset;
 
     private CustList<OperationNode> opValue;
+
+    private boolean enumTest;
 
     public SwitchBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -72,6 +77,10 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
 
     public ExpressionLanguage getEl() {
         return new ExpressionLanguage(opValue);
+    }
+
+    public CustList<OperationNode> getOpValue() {
+        return opValue;
     }
 
     @Override
@@ -136,6 +145,20 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             un_.setType(opValue.last().getResultClass().getName());
             _cont.getClasses().getErrorsDet().add(un_);
         }
+        String exp_ = opValue.last().getResultClass().getName();
+        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(exp_, _cont)) {
+            if (!StringList.quickEq(exp_, _cont.getStandards().getAliasString())) {
+                if (!(_cont.getClassBody(exp_) instanceof EnumBlock)) {
+                    UnexpectedTypeError un_ = new UnexpectedTypeError();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setRc(getRowCol(0, valueOffset));
+                    un_.setType(opValue.last().getResultClass().getName());
+                    _cont.getClasses().getErrorsDet().add(un_);
+                } else {
+                    enumTest = true;
+                }
+            }
+        }
     }
 
     @Override
@@ -182,18 +205,80 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         }
         boolean abrupt_ = true;
         boolean def_ = false;
+        CustList<ClassField> enums_ = new CustList<ClassField>();
+        CustList<Struct> knowns_ = new CustList<Struct>();
+        CustList<CaseCondition> childrenKnowns_ = new CustList<CaseCondition>();
+        CustList<CaseCondition> childrenFields_ = new CustList<CaseCondition>();
         while (ch_.getNextSibling() != null) {
             if (ch_ instanceof DefaultCondition) {
+                if (def_) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    un_.setFileName(ch_.getFile().getFileName());
+                    un_.setRc(ch_.getRowCol(0, ch_.getOffset().getOffsetTrim()));
+                    _an.getClasses().getErrorsDet().add(un_);
+                }
                 def_ = true;
+            } else {
+                CaseCondition case_ = (CaseCondition) ch_;
+                OperationNode root_ = case_.getOpValue().last();
+                Argument arg_ = root_.getArgument();
+                if (arg_ != null) {
+                    knowns_.add(arg_.getStruct());
+                    childrenKnowns_.add(case_);
+                } else {
+                    enums_.add(case_.getFieldId());
+                    childrenFields_.add(case_);
+                }
             }
             ch_ = ch_.getNextSibling();
         }
         if (ch_ instanceof DefaultCondition) {
+            if (def_) {
+                UnexpectedTagName un_ = new UnexpectedTagName();
+                un_.setFileName(ch_.getFile().getFileName());
+                un_.setRc(ch_.getRowCol(0, ch_.getOffset().getOffsetTrim()));
+                _an.getClasses().getErrorsDet().add(un_);
+            }
             def_ = true;
+        } else {
+            CaseCondition case_ = (CaseCondition) ch_;
+            OperationNode root_ = case_.getOpValue().last();
+            Argument arg_ = root_.getArgument();
+            if (arg_ != null) {
+                knowns_.add(arg_.getStruct());
+                childrenKnowns_.add(case_);
+            } else {
+                enums_.add(case_.getFieldId());
+                childrenFields_.add(case_);
+            }
+        }
+        int lenTab_ = knowns_.size();
+        for (int i = 0; i < lenTab_; i++) {
+            for (int j = i + 1; j < lenTab_; j++) {
+                if (knowns_.get(i).sameReference(knowns_.get(j))) {
+                    //error
+                    CaseCondition locCh_ = childrenKnowns_.get(j);
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    un_.setFileName(locCh_.getFile().getFileName());
+                    un_.setRc(locCh_.getRowCol(locCh_.getValueOffset(), locCh_.getOffset().getOffsetTrim()));
+                    _an.getClasses().getErrorsDet().add(un_);
+                }
+            }
+        }
+        lenTab_ = enums_.size();
+        for (int i = 0; i < lenTab_; i++) {
+            for (int j = i + 1; j < lenTab_; j++) {
+                if (enums_.get(i).eq(enums_.get(j))) {
+                    //error
+                    CaseCondition locCh_ = childrenFields_.get(j);
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    un_.setFileName(locCh_.getFile().getFileName());
+                    un_.setRc(locCh_.getRowCol(locCh_.getValueOffset(), locCh_.getOffset().getOffsetTrim()));
+                    _an.getClasses().getErrorsDet().add(un_);
+                }
+            }
         }
         if (_anEl.canCompleteNormally(ch_)) {
-            abrupt_ = false;
-        } else if (ch_.getFirstChild() == null) {
             abrupt_ = false;
         } else if (!def_) {
             abrupt_ = false;
@@ -379,12 +464,64 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         if_.setStruct(arg_.getStruct());
-        if (if_.getBlocks().isEmpty()) {
-            if_.setFinished(true);
-            ip_.addBlock(if_);
-            return;
+        Block def_ = null;
+        boolean found_ = false;
+        if (arg_.isNull()) {
+            for (Block b: if_.getBlocks()) {
+                if (!(b instanceof CaseCondition)) {
+                    def_ = b;
+                    continue;
+                }
+                CaseCondition c_ = (CaseCondition) b;
+                Argument argRes_ = c_.getOpValue().last().getArgument();
+                if (argRes_ == null) {
+                    continue;
+                }
+                if (argRes_.isNull()) {
+                    found_ = true;
+                    rw_.setBlock(c_);
+                }
+            }
+        } else if (enumTest) {
+            EnumerableStruct en_ = (EnumerableStruct) arg_.getStruct();
+            for (Block b: if_.getBlocks()) {
+                if (!(b instanceof CaseCondition)) {
+                    def_ = b;
+                    continue;
+                }
+                CaseCondition c_ = (CaseCondition) b;
+                OperationNode op_ = c_.getOpValue().last();
+                if (op_.getArgument() != null) {
+                    continue;
+                }
+                if (!c_.getFieldId().eq(new ClassField(op_.getResultClass().getName(), en_.getName()))) {
+                    continue;
+                }
+                found_ = true;
+                rw_.setBlock(c_);
+            }
+        } else {
+            for (Block b: if_.getBlocks()) {
+                if (!(b instanceof CaseCondition)) {
+                    def_ = b;
+                    continue;
+                }
+                CaseCondition c_ = (CaseCondition) b;
+                Argument argRes_ = c_.getOpValue().last().getArgument();
+                if (!argRes_.getStruct().sameReference(arg_.getStruct())) {
+                    continue;
+                }
+                found_ = true;
+                rw_.setBlock(c_);
+            }
         }
-        rw_.setBlock(getFirstChild());
+        if (!found_) {
+            if (def_ != null) {
+                rw_.setBlock(def_);
+            } else {
+                if_.setFinished(true);
+            }
+        }
         ip_.addBlock(if_);
     }
 

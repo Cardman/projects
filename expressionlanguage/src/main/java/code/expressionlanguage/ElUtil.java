@@ -11,11 +11,13 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.InstanceOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PossibleIntermediateDotted;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.StaticAccessOperation;
+import code.expressionlanguage.opers.StaticInitOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
@@ -343,7 +345,8 @@ public final class ElUtil {
             _context.setEnabledDotted(false);
         }
         _context.getTextualSortedOperations().add(_current);
-        OperationNode next_ = createFirstChild(_current, _context);
+        
+        OperationNode next_ = createFirstChild(_current, _context, 0);
         if (!_context.getClasses().getErrorsDet().isEmpty()) {
             return null;
         }
@@ -359,7 +362,11 @@ public final class ElUtil {
             current_.tryCalculateNode(_context);
             current_.tryAnalyzeAssignmentAfter(_context);
             _sortedNodes.add(current_);
-            next_ = createNextSibling(current_, _context);
+            if (current_ instanceof StaticInitOperation) {
+                next_ = createFirstChild(current_.getParent(), _context, 1);
+            } else {
+                next_ = createNextSibling(current_, _context);
+            }
             if (!_context.getClasses().getErrorsDet().isEmpty()) {
                 return null;
             }
@@ -386,12 +393,22 @@ public final class ElUtil {
             current_ = par_;
         }
     }
-    private static OperationNode createFirstChild(OperationNode _block, Analyzable _context) {
+    private static OperationNode createFirstChild(OperationNode _block, Analyzable _context, int _index) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
+            if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof InstanceOperation) {
+                if (((InstanceOperation)_block).initStaticClass() && _index == CustList.FIRST_INDEX) {
+                    Delimiters d_ = block_.getOperations().getDelimiter();
+                    OperationsSequence opSeq_ = new OperationsSequence();
+                    opSeq_.setFctName(block_.getOperations().getFctName());
+                    opSeq_.setDelimiter(new Delimiters());
+                    opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+                    return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
+                }
+            }
             return null;
         }
         String value_ = block_.getChildren().getValue(0);
@@ -399,8 +416,17 @@ public final class ElUtil {
         int curKey_ = block_.getChildren().getKey(0);
         d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
+        if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof InstanceOperation) {
+            if (((InstanceOperation)_block).initStaticClass() && _index == CustList.FIRST_INDEX) {
+                OperationsSequence opSeq_ = new OperationsSequence();
+                opSeq_.setFctName(block_.getOperations().getFctName());
+                opSeq_.setDelimiter(new Delimiters());
+                opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+                return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
+            }
+        }
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
-        OperationNode op_ = OperationNode.createOperationNode(offset_, CustList.FIRST_INDEX, block_, r_);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_);
         if (op_ == null) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(offset_);
@@ -419,12 +445,18 @@ public final class ElUtil {
             return null;
         }
         NatTreeMap<Integer,String> children_ = p_.getChildren();
-        if (_block.getIndexChild() + 1 >= children_.size()) {
+        int delta_ = 1;
+        if (p_ instanceof InstanceOperation) {
+            if (p_.getFirstChild() instanceof StaticInitOperation) {
+                delta_ = 0;
+            }
+        }
+        if (_block.getIndexChild() + delta_ >= children_.size()) {
             return null;
         }
-        String value_ = children_.getValue(_block.getIndexChild() + 1);
+        String value_ = children_.getValue(_block.getIndexChild() + delta_);
         Delimiters d_ = _block.getOperations().getDelimiter();
-        int curKey_ = children_.getKey(_block.getIndexChild() + 1);
+        int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
         d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);

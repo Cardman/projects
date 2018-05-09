@@ -84,7 +84,7 @@ public final class TernaryOperation extends MethodOperation {
     }
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _firstChild, OperationNode _previous) {
+            OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
@@ -147,8 +147,8 @@ public final class TernaryOperation extends MethodOperation {
                 variablesBefore_.add(sm_);
             }
         }
-        vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
-        vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
+        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
     }
 
     @Override

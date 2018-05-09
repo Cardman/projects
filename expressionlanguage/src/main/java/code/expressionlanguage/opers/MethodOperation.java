@@ -68,14 +68,14 @@ public abstract class MethodOperation extends OperationNode {
         vars_.getFieldsBefore().put(_firstChild, fields_);
         vars_.getVariablesBefore().put(_firstChild, variables_);
     }
-    public final void tryAnalyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _firstChild, OperationNode _previous) {
+    public final void tryAnalyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
         Block currentBlock_ = _conf.getCurrentBlock();
         if (currentBlock_  == null) {
             return;
         }
-        analyzeAssignmentBeforeNextSibling(_conf, _firstChild, _previous);
+        analyzeAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
-    public abstract void analyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _firstChild, OperationNode _previous);
+    public abstract void analyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous);
     @Override
     public void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
         CustList<OperationNode> children_ = getChildrenNodes();

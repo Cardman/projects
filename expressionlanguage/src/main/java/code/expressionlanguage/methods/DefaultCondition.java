@@ -47,7 +47,7 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         BracedBlock b_ = getParent();
-        if (!(b_ instanceof SwitchBlock) || getNextSibling() != null) {
+        if (!(b_ instanceof SwitchBlock)) {
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
@@ -157,19 +157,31 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         sw_.setVisitedBlock(getIndexInGroup());
         if (sw_.isEntered()) {
             if (!hasChildNodes()) {
-                sw_.setFinished(true);
-                rw_.setBlock(sw_.getBlock());
+                if (sw_.lastVisitedBlock() == this) {
+                    sw_.setFinished(true);
+                    rw_.setBlock(sw_.getBlock());
+                    return;
+                }
+                rw_.setBlock(getNextSibling());
                 return;
             }
             rw_.setBlock(getFirstChild());
             return;
         } else {
+            ip_.setGlobalOffset(getOffset().getOffsetTrim());
+            ip_.setOffset(0);
             if (hasChildNodes()) {
                 sw_.setEntered(true);
             } else {
-                sw_.setFinished(true);
-                rw_.setBlock(sw_.getBlock());
-                return;
+                if (sw_.lastVisitedBlock() != this) {
+                    sw_.setEntered(true);
+                    rw_.setBlock(getNextSibling());
+                    return;
+                } else {
+                    sw_.setFinished(true);
+                    rw_.setBlock(sw_.getBlock());
+                    return;
+                }
             }
             rw_.setBlock(getFirstChild());
             return;
@@ -181,8 +193,12 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         PageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
-        if_.setFinished(true);
-        rw_.setBlock(if_.getBlock());
+        if (if_.lastVisitedBlock() == this) {
+            if_.setFinished(true);
+            rw_.setBlock(if_.getBlock());
+        } else {
+            rw_.setBlock(getNextSibling());
+        }
     }
 
     @Override

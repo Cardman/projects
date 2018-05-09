@@ -43,7 +43,6 @@ import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -60,7 +59,6 @@ import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NumberStruct;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -75,8 +73,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class FctOperation extends InvokingOperation {
-
-    private static final int BOOLEAN_ARGS = 3;
 
     private String methodName;
 
@@ -123,11 +119,10 @@ public final class FctOperation extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         LgNames stds_ = _conf.getStandards();
         String stringType_ = stds_.getAliasString();
-        String booleanType_ = stds_.getAliasBoolean();
-        String booleanPrimType_ = stds_.getAliasPrimBoolean();
         if (StringList.quickEq(trimMeth_,prefixFunction(VAR_ARG))) {
             setVararg(true);
-            if (!(getParent() instanceof InvokingOperation)) {
+            MethodOperation m_ = getParent();
+            if (!(m_ instanceof InvokingOperation)) {
                 VarargError varg_ = new VarargError();
                 varg_.setFileName(_conf.getCurrentFileName());
                 varg_.setRc(_conf.getCurrentLocation());
@@ -137,7 +132,7 @@ public final class FctOperation extends InvokingOperation {
                 setSimpleArgument(new Argument());
                 return;
             }
-            InvokingOperation parent_ = (InvokingOperation) getParent();
+            InvokingOperation parent_ = (InvokingOperation) m_;
             if (!parent_.isCallMethodCtor()) {
                 VarargError varg_ = new VarargError();
                 varg_.setFileName(_conf.getCurrentFileName());
@@ -148,7 +143,8 @@ public final class FctOperation extends InvokingOperation {
                 setSimpleArgument(new Argument());
                 return;
             }
-            if (!isFirstChild()) {
+            OperationNode opFirst_ = m_.getFirstChild();
+            if (!isFirstChild() && !(opFirst_ instanceof StaticInitOperation && opFirst_.getNextSibling() == this)) {
                 VarargError varg_ = new VarargError();
                 varg_.setFileName(_conf.getCurrentFileName());
                 varg_.setRc(_conf.getCurrentLocation());
@@ -220,7 +216,8 @@ public final class FctOperation extends InvokingOperation {
         }
         if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
             setFirstOptArg(true);
-            if (!(getParent() instanceof InvokingOperation)) {
+            MethodOperation m_ = getParent();
+            if (!(m_ instanceof InvokingOperation)) {
                 VarargError varg_ = new VarargError();
                 varg_.setFileName(_conf.getCurrentFileName());
                 varg_.setRc(_conf.getCurrentLocation());
@@ -230,7 +227,7 @@ public final class FctOperation extends InvokingOperation {
                 setSimpleArgument(new Argument());
                 return;
             }
-            InvokingOperation parent_ = (InvokingOperation) getParent();
+            InvokingOperation parent_ = (InvokingOperation)m_;
             if (!parent_.isCallMethodCtor()) {
                 VarargError varg_ = new VarargError();
                 varg_.setFileName(_conf.getCurrentFileName());
@@ -241,7 +238,8 @@ public final class FctOperation extends InvokingOperation {
                 setSimpleArgument(new Argument());
                 return;
             }
-            if (isFirstChild()) {
+            OperationNode opFirst_ = m_.getFirstChild();
+            if (isFirstChild() ||(opFirst_ instanceof StaticInitOperation && opFirst_.getNextSibling() == this)) {
                 VarargError varg_ = new VarargError();
                 varg_.setFileName(_conf.getCurrentFileName());
                 varg_.setRc(_conf.getCurrentLocation());
@@ -550,46 +548,6 @@ public final class FctOperation extends InvokingOperation {
             badNb_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
-            if (chidren_.size() != BOOLEAN_ARGS) {
-                BadOperandsNumber badNb_ = new BadOperandsNumber();
-                badNb_.setOperandsNumber(chidren_.size());
-                badNb_.setFileName(_conf.getCurrentFileName());
-                badNb_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(badNb_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
-            OperationNode opOne_ = chidren_.first();
-            ClassArgumentMatching clMatch_ = opOne_.getResultClass();
-            if (!clMatch_.matchClass(booleanPrimType_)) {
-                if (!clMatch_.matchClass(booleanType_)) {
-                    setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
-                    ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                    UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                    un_.setRc(_conf.getCurrentLocation());
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setExpectedResult(booleanType_);
-                    un_.setOperands(new StringList(cl_.getName()));
-                    _conf.getClasses().getErrorsDet().add(un_);
-                }
-            }
-            OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
-            OperationNode opThree_ = chidren_.get(CustList.SECOND_INDEX);
-            ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
-            ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
-            if (!clMatchTwo_.matchClass(clMatchThree_)) {
-                setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl()+1, _conf);
-                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                un_.setExpectedResult(clMatchTwo_.getName());
-                un_.setOperands(new StringList(clMatchTwo_.getName(),clMatchThree_.getName()));
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-            }
-            setResultClass(clMatchTwo_);
             return;
         }
         ClassArgumentMatching clCur_;
@@ -933,7 +891,7 @@ public final class FctOperation extends InvokingOperation {
 
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _firstChild, OperationNode _previous) {
+            OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         ObjectMap<ClassField,Assignment> fieldsAfter_;
@@ -942,74 +900,11 @@ public final class FctOperation extends InvokingOperation {
         variablesAfter_ = vars_.getVariables().getVal(_previous);
         ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
         CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        if (isTernary()) {
-            OperationNode firstChild_ = getFirstChild();
-            ObjectMap<ClassField,Assignment> fieldsAfterFirst_ = vars_.getFields().getVal(firstChild_);
-            CustList<StringMap<Assignment>> variablesAfterFirst_ = vars_.getVariables().getVal(firstChild_);
-            if (firstChild_ == _previous) {
-                for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
-                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
-                    AssignmentBefore a_ = new AssignmentBefore();
-                    if (b_.isAssignedAfterWhenTrue()) {
-                        a_.setAssignedBefore(true);
-                    }
-                    if (b_.isUnassignedAfterWhenTrue()) {
-                        a_.setUnassignedBefore(true);
-                    }
-                    fieldsBefore_.put(e.getKey(), a_);
-                }
-                for (StringMap<Assignment> s: variablesAfterFirst_) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        BooleanAssignment b_ = (BooleanAssignment) e.getValue();
-                        AssignmentBefore a_ = new AssignmentBefore();
-                        if (b_.isAssignedAfterWhenTrue()) {
-                            a_.setAssignedBefore(true);
-                        }
-                        if (b_.isUnassignedAfterWhenTrue()) {
-                            a_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), a_);
-                    }
-                    variablesBefore_.add(sm_);
-                }
-            } else {
-                for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
-                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
-                    AssignmentBefore a_ = new AssignmentBefore();
-                    if (b_.isAssignedAfterWhenFalse()) {
-                        a_.setAssignedBefore(true);
-                    }
-                    if (b_.isUnassignedAfterWhenFalse()) {
-                        a_.setUnassignedBefore(true);
-                    }
-                    fieldsBefore_.put(e.getKey(), a_);
-                }
-                for (StringMap<Assignment> s: variablesAfterFirst_) {
-                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        BooleanAssignment b_ = (BooleanAssignment) e.getValue();
-                        AssignmentBefore a_ = new AssignmentBefore();
-                        if (b_.isAssignedAfterWhenFalse()) {
-                            a_.setAssignedBefore(true);
-                        }
-                        if (b_.isUnassignedAfterWhenFalse()) {
-                            a_.setUnassignedBefore(true);
-                        }
-                        sm_.put(e.getKey(), a_);
-                    }
-                    variablesBefore_.add(sm_);
-                }
-            }
-            vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
-            vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
-            return;
-        }
         for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsBefore_.put(e.getKey(), b_.assignBefore());
         }
-        vars_.getFieldsBefore().put(_firstChild, fieldsBefore_);
+        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
         for (StringMap<Assignment> s: variablesAfter_) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
@@ -1018,7 +913,7 @@ public final class FctOperation extends InvokingOperation {
             }
             variablesBefore_.add(sm_);
         }
-        vars_.getVariablesBefore().put(_firstChild, variablesBefore_);
+        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
@@ -1051,80 +946,20 @@ public final class FctOperation extends InvokingOperation {
         OperationNode last_ = children_.last();
         ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        if (isTernary()) {
-            OperationNode befLast_ = children_.get(children_.size() - 2);
-            ObjectMap<ClassField,Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
-            CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
-            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf)) {
-                for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
-                    BooleanAssignment p_ = (BooleanAssignment) fieldsAfterBefLast_.getVal(e.getKey());
-                    BooleanAssignment r_ = new BooleanAssignment();
-                    if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
-                        r_.setAssignedAfterWhenTrue(true);
-                    }
-                    if (b_.isUnassignedAfterWhenFalse() && p_.isAssignedAfterWhenFalse()) {
-                        r_.setUnassignedAfterWhenFalse(true);
-                    }
-                    fieldsAfter_.put(e.getKey(), r_);
-                }
-                for (StringMap<Assignment> s: variablesAfterLast_) {
-                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                    int index_ = variablesAfter_.size();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        BooleanAssignment b_ = (BooleanAssignment) e.getValue();
-                        BooleanAssignment p_ = (BooleanAssignment) variablesAfterBefLast_.get(index_).getVal(e.getKey());
-                        BooleanAssignment r_ = new BooleanAssignment();
-                        if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
-                            r_.setAssignedAfterWhenTrue(true);
-                        }
-                        if (b_.isUnassignedAfterWhenFalse() && p_.isAssignedAfterWhenFalse()) {
-                            r_.setUnassignedAfterWhenFalse(true);
-                        }
-                        sm_.put(e.getKey(), r_);
-                    }
-                    variablesAfter_.add(sm_);
-                }
-            } else {
-                for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-                    Assignment b_ = e.getValue();
-                    Assignment p_ = fieldsAfterBefLast_.getVal(e.getKey());
-                    SimpleAssignment r_ = new SimpleAssignment();
-                    if (b_.isAssignedAfter() && p_.isAssignedAfter()) {
-                        r_.setAssignedAfter(true);
-                    }
-                    fieldsAfter_.put(e.getKey(), r_);
-                }
-                for (StringMap<Assignment> s: variablesAfterLast_) {
-                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                    int index_ = variablesAfter_.size();
-                    for (EntryCust<String, Assignment> e: s.entryList()) {
-                        Assignment b_ = e.getValue();
-                        Assignment p_ = variablesAfterBefLast_.get(index_).getVal(e.getKey());
-                        SimpleAssignment r_ = new SimpleAssignment();
-                        if (b_.isAssignedAfter() && p_.isAssignedAfter()) {
-                            r_.setAssignedAfter(true);
-                        }
-                        sm_.put(e.getKey(), r_);
-                    }
-                    variablesAfter_.add(sm_);
-                }
-            }
-        } else {
-            boolean isBool_;
-            isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+
+        boolean isBool_;
+        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+            Assignment b_ = e.getValue();
+            fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
+        }
+        for (StringMap<Assignment> s: variablesAfterLast_) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
                 Assignment b_ = e.getValue();
-                fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
+                sm_.put(e.getKey(), b_.assign(isBool_));
             }
-            for (StringMap<Assignment> s: variablesAfterLast_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    Assignment b_ = e.getValue();
-                    sm_.put(e.getKey(), b_.assign(isBool_));
-                }
-                variablesAfter_.add(sm_);
-            }
+            variablesAfter_.add(sm_);
         }
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
@@ -1224,6 +1059,47 @@ public final class FctOperation extends InvokingOperation {
                 return;
             }
         }
+        if (classMethodId == null) {
+            return;
+        }
+        Argument previous_;
+        previous_ = getPreviousArgument();
+        if (!classMethodId.getConstraints().isStaticMethod()) {
+            if (previous_ == null || previous_.isNull()) {
+                return;
+            }
+        }
+        String cl_ = classMethodId.getClassName();
+        if (_conf.getClasses().isCustomType(cl_)) {
+            return;
+        }
+        boolean proc_ = false;
+        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(cl_, _conf)) {
+            proc_ = true;
+        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasString())) {
+            proc_ = true;
+        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasMath())) {
+            proc_ = true;
+        }
+        if (!proc_) {
+            return;
+        }
+        if (lastType == null) {
+            return;
+        }
+        String lastType_ = lastType;
+        int naturalVararg_ = naturalVararg;
+        CustList<Argument> firstArgs_ = quickListArguments(chidren_, naturalVararg_, lastType_, arguments_, _conf);
+        if (firstArgs_ == null) {
+            return;
+        }
+        ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, naturalVararg > -1, classMethodId, previous_.getStruct(), Argument.toArgArray(firstArgs_));
+        if (res_.getResult() == null) {
+            return;
+        }
+        Argument arg_ = Argument.createVoid();
+        arg_.setStruct(res_.getResult());
+        setSimpleArgumentAna(arg_, _conf);
     }
     @Override
     public void calculate(ContextEl _conf) {
@@ -1468,16 +1344,6 @@ public final class FctOperation extends InvokingOperation {
                 return ArgumentCall.newArgument(arg_);
             }
         }
-        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
-            Boolean obj_ = (Boolean) _arguments.first().getObject();
-            Argument arg_;
-            if (obj_) {
-                arg_ = _arguments.get(CustList.SECOND_INDEX);
-            } else {
-                arg_ = _arguments.last();
-            }
-            return ArgumentCall.newArgument(arg_);
-        }
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
         MethodId methodId_ = classMethodId.getConstraints();
@@ -1712,10 +1578,6 @@ public final class FctOperation extends InvokingOperation {
         InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, firstArgs_);
         return ArgumentCall.newCall(inv_);
     }
-    public boolean isTernary() {
-        String trimMeth_ = methodName.trim();
-        return StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN));
-    }
 
     @Override
     public ConstructorId getConstId() {
@@ -1759,9 +1621,6 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
             return false;
         }
-        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
-            return false;
-        }
         return true;
     }
     public boolean isConstCall() {
@@ -1773,9 +1632,6 @@ public final class FctOperation extends InvokingOperation {
             return true;
         }
         if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
-            return true;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(BOOLEAN))) {
             return true;
         }
         return false;

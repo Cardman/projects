@@ -9,8 +9,12 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ArrayStruct;
+import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.NumberStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -169,7 +173,128 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         CustList<Argument> firstArgs_ = new CustList<Argument>(_nodes);
         return firstArgs_;
     }
-
+    static CustList<Argument> quickListArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Analyzable _context) {
+        if (!_children.isEmpty() && _children.first().isVararg()) {
+            CustList<Argument> firstArgs_ = new CustList<Argument>();
+            CustList<Argument> optArgs_ = new CustList<Argument>();
+            boolean opt_ = false;
+            int i_ = CustList.FIRST_INDEX;
+            for (OperationNode o: _children) {
+                if (o.isVararg()) {
+                    i_++;
+                    continue;
+                }
+                if (o.isFirstOptArg()) {
+                    opt_ = true;
+                }
+                Argument a_ = _nodes.get(i_);
+                if (opt_) {
+                    optArgs_.add(a_);
+                } else {
+                    firstArgs_.add(a_);
+                }
+                i_++;
+            }
+            Argument argRem_ = new Argument();
+            String g_ = _children.first().getResultClass().getName();
+            int len_ = optArgs_.size();
+            Struct[] array_ = new Struct[len_];
+            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
+            ArrayStruct str_ = new ArrayStruct(array_,clArr_);
+            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                Argument chArg_ = optArgs_.get(i);
+                if (!setCheckedElement(str_, i, chArg_, _context)) {
+                    return null;
+                }
+            }
+            argRem_.setStruct(str_);
+            firstArgs_.add(argRem_);
+            return firstArgs_;
+        }
+        if (_natVararg > -1) {
+            CustList<Argument> firstArgs_ = new CustList<Argument>();
+            CustList<Argument> optArgs_ = new CustList<Argument>();
+            int lenCh_ = _children.size();
+            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                Argument a_ = _nodes.get(i);
+                if (i >= _natVararg) {
+                    optArgs_.add(a_);
+                } else {
+                    firstArgs_.add(a_);
+                }
+            }
+            Argument argRem_ = new Argument();
+            String g_ = _lastType;
+            int len_ = optArgs_.size();
+            Struct[] array_ = new Struct[len_];
+            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
+            ArrayStruct str_ = new ArrayStruct(array_,clArr_);
+            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                Argument chArg_ = optArgs_.get(i);
+                if (!setCheckedElement(str_, i, chArg_, _context)) {
+                    return null;
+                }
+            }
+            argRem_.setStruct(str_);
+            firstArgs_.add(argRem_);
+            return firstArgs_;
+        }
+        CustList<Argument> firstArgs_ = new CustList<Argument>(_nodes);
+        return firstArgs_;
+    }
+    static boolean setCheckedElement(ArrayStruct _array,Object _index, Argument _element, Analyzable _conf) {
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct(), _conf.getStandards())) {
+            return false;
+        }
+        return setElement(_array, _index, _element.getStruct(), _conf);
+    }
+    static boolean setElement(ArrayStruct _struct, Object _index, Struct _value, Analyzable _conf) {
+        LgNames stds_ = _conf.getStandards();
+        if (_struct.isNull()) {
+            return false;
+        }
+        if (_index == null) {
+            return false;
+        }
+        String strClass_ = _struct.getClassName();
+        String valClass_;
+        if (_value.isArray()) {
+            if (_value instanceof StdStruct) {
+                valClass_ = ((StdStruct)_value).getClassName();
+            } else {
+                valClass_ = ((ArrayStruct)_value).getClassName();
+            }
+        } else {
+            valClass_ = stds_.getSimpleStructClassName(_value.getInstance());
+        }
+        Struct[] instance_ = _struct.getInstance();
+        int len_ = instance_.length;
+        int index_ = ((Number)_index).intValue();
+        if (index_ < 0 || index_ >= len_) {
+            return false;
+        }
+        if (!_value.isNull()) {
+            String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+            String elementType_ = valClass_;
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(elementType_);
+            mapping_.setParam(componentType_);
+            if (!Templates.isCorrect(mapping_, _conf)) {
+                return false;
+            }
+        }
+        Struct value_;
+        if (_value instanceof NumberStruct || _value instanceof CharStruct) {
+            String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
+            value_ = PrimitiveTypeUtil.convertObject(cl_, _value, _conf);
+        } else {
+            value_ = _value;
+        }
+        instance_[index_] = value_;
+        return true;
+    }
     final int lookOnlyForVarArg() {
         OperationNode first_ = getFirstChild();
         if (first_ == null) {

@@ -29,6 +29,10 @@ public final class ArrayStruct implements Struct {
         return className;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
     @Override
     public Struct[] getInstance() {
         return instance;

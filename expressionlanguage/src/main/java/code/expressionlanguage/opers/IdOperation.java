@@ -141,7 +141,7 @@ public final class IdOperation extends MethodOperation {
 
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _firstChild, OperationNode _previous) {
+            OperationNode _nextSibling, OperationNode _previous) {
         
     }
 }

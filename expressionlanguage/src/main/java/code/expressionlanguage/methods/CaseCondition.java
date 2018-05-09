@@ -7,21 +7,23 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.BadConstructorCall;
-import code.expressionlanguage.methods.util.EqualsEl;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.ConstantOperation;
+import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.SwitchBlockStack;
-import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -156,6 +158,78 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             un_.setType(opValue.last().getResultClass().getName());
             _cont.getClasses().getErrorsDet().add(un_);
         }
+        if (opValue.last().getArgument() == null) {
+            OperationNode last_ = opValue.last();
+            if (!(last_ instanceof ConstantOperation)) {
+                if (!(last_ instanceof DotOperation)) {
+                    UnexpectedTypeError un_ = new UnexpectedTypeError();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setRc(getRowCol(0, valueOffset));
+                    un_.setType(opValue.last().getResultClass().getName());
+                    _cont.getClasses().getErrorsDet().add(un_);
+                    return;
+                }
+                DotOperation d_ = (DotOperation) last_;
+                if (!(d_.getFirstChild() instanceof StaticAccessOperation)) {
+                    UnexpectedTypeError un_ = new UnexpectedTypeError();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setRc(getRowCol(0, valueOffset));
+                    un_.setType(opValue.last().getResultClass().getName());
+                    _cont.getClasses().getErrorsDet().add(un_);
+                    return;
+                }
+                if (!(d_.getFirstChild().getNextSibling() instanceof ConstantOperation)) {
+                    UnexpectedTypeError un_ = new UnexpectedTypeError();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setRc(getRowCol(0, valueOffset));
+                    un_.setType(opValue.last().getResultClass().getName());
+                    _cont.getClasses().getErrorsDet().add(un_);
+                    return;
+                }
+                last_ = d_.getFirstChild().getNextSibling();
+            }
+            ConstantOperation cst_ = (ConstantOperation) last_;
+            ClassField clField_ = cst_.getFieldId();
+            if (clField_ == null) {
+                UnexpectedTypeError un_ = new UnexpectedTypeError();
+                un_.setFileName(getFile().getFileName());
+                un_.setRc(getRowCol(0, valueOffset));
+                un_.setType(opValue.last().getResultClass().getName());
+                _cont.getClasses().getErrorsDet().add(un_);
+                return;
+            }
+            if (!cst_.getFieldMetaInfo().isEnumField()) {
+                UnexpectedTypeError un_ = new UnexpectedTypeError();
+                un_.setFileName(getFile().getFileName());
+                un_.setRc(getRowCol(0, valueOffset));
+                un_.setType(opValue.last().getResultClass().getName());
+                _cont.getClasses().getErrorsDet().add(un_);
+                return;
+            }
+        }
+        String resCase_ = opValue.last().getResultClass().getName();
+        SwitchBlock sw_ = (SwitchBlock) getParent();
+        String resSwitch_ = sw_.getOpValue().last().getResultClass().getName();
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, valueOffset));
+            un_.setType(opValue.last().getResultClass().getName());
+            _cont.getClasses().getErrorsDet().add(un_);
+        }
+    }
+
+    public ClassField getFieldId() {
+        OperationNode last_ = opValue.last();
+        if (!(last_ instanceof ConstantOperation)) {
+            DotOperation d_ = (DotOperation) last_;
+            last_ = d_.getFirstChild().getNextSibling();
+            return ((ConstantOperation)last_).getFieldId();
+        }
+        return ((ConstantOperation)last_).getFieldId();
+    }
+    public CustList<OperationNode> getOpValue() {
+        return opValue;
     }
 
     @Override
@@ -219,65 +293,20 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         } else {
             ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false,CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont);
-            if (_cont.callsOrException()) {
-                return;
-            }
-            el_.setCurrentOper(null);
-            ip_.clearCurrentEls();
-            boolean enter_ = false;
-            if (str_.isNull()) {
-                if (arg_.isNull()) {
-                    enter_ = true;
-                }
+            if (hasChildNodes()) {
+                sw_.setEntered(true);
             } else {
-                Classes cl_ = _cont.getClasses();
-                EqualsEl eq_ = cl_.getNatEqEl();
-                String loc_ = eq_.getFirstArg();
-                LocalVariable local_ = new LocalVariable();
-                local_.setStruct(str_);
-                local_.setClassName(_cont.getStandards().getAliasObject());
-                ip_.putLocalVar(loc_, local_);
-                String locSec_ = eq_.getSecondArg();
-                local_ = new LocalVariable();
-                local_.setStruct(arg_.getStruct());
-                local_.setClassName(_cont.getStandards().getAliasObject());
-                ip_.putLocalVar(locSec_, local_);
-                Argument eqArg_ = cl_.getEqNatEl().calculateMember(_cont);
-                if (_cont.callsOrException()) {
+                if (sw_.lastVisitedBlock() != this) {
+                    sw_.setEntered(true);
+                    rw_.setBlock(getNextSibling());
+                    return;
+                } else {
+                    sw_.setFinished(true);
+                    rw_.setBlock(sw_.getBlock());
                     return;
                 }
-                boolean b_ = (Boolean) eqArg_.getObject();
-                ip_.removeLocalVar(loc_);
-                ip_.removeLocalVar(locSec_);
-                if (b_) {
-                    enter_ = true;
-                }
             }
-            if (enter_) {
-                if (hasChildNodes()) {
-                    sw_.setEntered(true);
-                } else {
-                    if (sw_.lastVisitedBlock() != this) {
-                        sw_.setEntered(true);
-                        rw_.setBlock(getNextSibling());
-                        return;
-                    } else {
-                        sw_.setFinished(true);
-                        rw_.setBlock(sw_.getBlock());
-                        return;
-                    }
-                }
-                rw_.setBlock(getFirstChild());
-                return;
-            }
-            if (sw_.lastVisitedBlock() == this) {
-                sw_.setFinished(true);
-                rw_.setBlock(sw_.getBlock());
-                return;
-            }
-            rw_.setBlock(getNextSibling());
+            rw_.setBlock(getFirstChild());
             return;
         }
     }
