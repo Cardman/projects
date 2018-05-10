@@ -24,6 +24,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasIterable("$iterable");
         _lgNames.setAliasEnumParam("$Enum");
         _lgNames.setAliasEnum("$enum");
+        _lgNames.setAliasEnums("$enums");
         _lgNames.setAliasReplacement("code.util.Replacement");
 //        _lgNames.setAliasStore("$badStore");
         _lgNames.setAliasStore("code.expressionlanguage.exceptions.DynamicArrayStoreException");

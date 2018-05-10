@@ -180,11 +180,6 @@ public final class StaticInitOperation extends LeafOperation {
     }
 
     @Override
-    public boolean isPossibleInitClass() {
-        return false;
-    }
-
-    @Override
     public boolean isSuperConstructorCall() {
         return false;
     }

@@ -7,7 +7,7 @@ import code.util.ints.Equallable;
 
 public final class MethodId implements Equallable<MethodId>, Identifiable {
 
-	private static final String EMPTY = "";
+    private static final String EMPTY = "";
     private static final String VARARG = "...";
     private static final String SEP_TYPE = ",";
     private static final String LEFT = "(";
@@ -26,7 +26,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
     }
 
     public MethodId(MethodModifier _staticMethod,String _name, StringList _classNames, boolean _vararg) {
-    	this(_staticMethod == MethodModifier.STATIC, _name, _classNames, _vararg);
+        this(_staticMethod == MethodModifier.STATIC, _name, _classNames, _vararg);
     }
 
     public MethodId(boolean _staticMethod,String _name, StringList _classNames) {
@@ -39,13 +39,13 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         name = _name;
         classNames = new StringList();
         for (String s: _classNames) {
-        	classNames.add(s);
+            classNames.add(s);
         }
     }
     public String getSignature() {
-    	String suf_ = EMPTY;
+        String suf_ = EMPTY;
         if (vararg) {
-        	suf_ = VARARG;
+            suf_ = VARARG;
         }
         return StringList.concat(name,LEFT,classNames.join(SEP_TYPE),suf_,RIGHT);
     }
@@ -63,7 +63,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
             return false;
         }
         if (vararg != _obj.vararg) {
-        	return false;
+            return false;
         }
         for (int i = 0; i < len_; i++) {
             if (!StringList.quickEq(classNames.get(i),_obj.classNames.get(i))) {

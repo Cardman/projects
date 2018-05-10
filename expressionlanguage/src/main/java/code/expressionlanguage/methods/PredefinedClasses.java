@@ -90,8 +90,6 @@ public final class PredefinedClasses {
     public static String getBracedEnumType(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         StringBuilder iterable_ = new StringBuilder("$public $interface ").append(stds_.getAliasEnum()).append("{\n");
-        iterable_.append("$public $abstract ").append(stds_.getAliasString()).append(" ").append(stds_.getAliasName()).append("():\n");
-        iterable_.append("$public $abstract ").append(stds_.getAliasPrimInteger()).append(" ").append(stds_.getAliasOrdinal()).append("():\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }

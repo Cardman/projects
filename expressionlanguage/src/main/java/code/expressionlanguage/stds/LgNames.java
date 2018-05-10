@@ -24,6 +24,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.DoubleStruct;
+import code.expressionlanguage.opers.util.EnumerableStruct;
 import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
@@ -93,6 +94,7 @@ public abstract class LgNames {
     private String aliasIterable;
     private String aliasEnumParam;
     private String aliasEnum;
+    private String aliasEnums;
     private String aliasReplacement;
 
     private String aliasError;
@@ -939,6 +941,17 @@ public abstract class LgNames {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(selectedBoolean, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         getStandards().put(selectedBoolean, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList(aliasEnum);
+        method_ = new StandardMethod(aliasName, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasEnum);
+        method_ = new StandardMethod(aliasOrdinal, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasEnums, stdcl_);
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
@@ -1500,6 +1513,24 @@ public abstract class LgNames {
                     } else {
                         result_ = lgNames_.getOtherResult(_cont, _struct, _method, argsObj_);
                     }
+                }
+            }
+        } else if (StringList.quickEq(type_, lgNames_.getAliasEnums())) {
+            if (StringList.quickEq(name_, lgNames_.getAliasName())) {
+                Struct str_ = args_[0];
+                if (!(str_ instanceof EnumerableStruct)) {
+                    result_.setError(lgNames_.getAliasNullPe());
+                } else {
+                    EnumerableStruct en_ = (EnumerableStruct) str_;
+                    result_.setResult(new StringStruct(en_.getName()));
+                }
+            } else {
+                Struct str_ = args_[0];
+                if (!(str_ instanceof EnumerableStruct)) {
+                    result_.setError(lgNames_.getAliasNullPe());
+                } else {
+                    EnumerableStruct en_ = (EnumerableStruct) str_;
+                    result_.setResult(new IntStruct(en_.getOrdinal()));
                 }
             }
         } else if(lgNames_ instanceof LgAdv) {
@@ -3723,6 +3754,12 @@ public abstract class LgNames {
     }
     public void setAliasEnum(String _aliasEnum) {
         aliasEnum = _aliasEnum;
+    }
+    public String getAliasEnums() {
+        return aliasEnums;
+    }
+    public void setAliasEnums(String _aliasEnums) {
+        aliasEnums = _aliasEnums;
     }
     public String getAliasError() {
         return aliasError;

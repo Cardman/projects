@@ -13,10 +13,8 @@ import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.CyclicInheritingGraph;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
-import code.expressionlanguage.methods.util.ReservedMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UndefinedSuperConstructor;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
@@ -65,37 +63,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        String stringType_ = stds_.getAliasString();
-        for (MethodBlock m: Classes.getMethodBlocks(this)) {
-            if (m.getId().eq(new MethodId(false, OperationNode.METH_NAME, new StringList()))) {
-                ReservedMethod r_ = new ReservedMethod();
-                r_.setFileName(getFullName());
-                r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
-                r_.setMethodeId(m.getId());
-                _context.getClasses().getErrorsDet().add(r_);
-            }
-            if (m.getId().eq(new MethodId(false, OperationNode.METH_ORDINAL, new StringList()))) {
-                ReservedMethod r_ = new ReservedMethod();
-                r_.setFileName(getFullName());
-                r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
-                r_.setMethodeId(m.getId());
-                _context.getClasses().getErrorsDet().add(r_);
-            }
-            if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUES, new StringList()))) {
-                ReservedMethod r_ = new ReservedMethod();
-                r_.setFileName(getFullName());
-                r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
-                r_.setMethodeId(m.getId());
-                _context.getClasses().getErrorsDet().add(r_);
-            }
-            if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUEOF, new StringList(stringType_)))) {
-                ReservedMethod r_ = new ReservedMethod();
-                r_.setFileName(getFullName());
-                r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
-                r_.setMethodeId(m.getId());
-                _context.getClasses().getErrorsDet().add(r_);
-            }
-        }
         Classes classesRef_ = _context.getClasses();
         StringList classNames_ = getAllGenericSuperClasses(_context);
         String fullName_ = getFullName();

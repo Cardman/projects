@@ -61,11 +61,6 @@ import code.util.StringMap;
 
 public abstract class OperationNode {
 
-    public static final String METH_NAME = "name";
-    public static final String METH_ORDINAL = "ordinal";
-    public static final String METH_VALUES = "values";
-    public static final String METH_VALUEOF = "valueOf";
-
     protected static final char ESCAPE_META_CHAR = '\\';
     protected static final char DELIMITER_CHAR = 39;
     protected static final char DELIMITER_STRING = 34;
@@ -91,6 +86,8 @@ public abstract class OperationNode {
     protected static final String STATIC_ACCESS = "static";
     protected static final String INSTANCEOF = "instanceof";
     protected static final String BOOLEAN = "bool";
+    protected static final String VALUES = "values";
+    protected static final String VALUE_OF = "valueOf";
     protected static final String CAST = "class";
     protected static final char MIN_ENCODE_DIGIT = '0';
     protected static final char MAX_ENCODE_DIGIT = '9';
@@ -221,6 +218,12 @@ public abstract class OperationNode {
             if (fctName_.isEmpty()) {
                 return new IdOperation(_index, _indexChild, _m, _op);
             }
+            if (StringList.quickEq(fctName_, prefixFunction(VALUE_OF))) {
+                return new EnumValueOfOperation(_index, _indexChild, _m, _op);
+            }
+            if (StringList.quickEq(fctName_, prefixFunction(VALUES))) {
+                return new ValuesOperation(_index, _indexChild, _m, _op);
+            }
             if (StringList.quickEq(fctName_, prefixFunction(BOOLEAN))) {
                 return new TernaryOperation(_index, _indexChild, _m, _op);
             }
@@ -279,8 +282,6 @@ public abstract class OperationNode {
     public abstract boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes);
 
     public abstract boolean isCalculated();
-
-    public abstract boolean isPossibleInitClass();
 
     public final boolean isSuperThis() {
         return isSuperConstructorCall() || isOtherConstructorClass();

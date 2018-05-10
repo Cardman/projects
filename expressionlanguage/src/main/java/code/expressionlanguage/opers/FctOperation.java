@@ -20,9 +20,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
-import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
-import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.AbstractMethod;
@@ -33,30 +31,22 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.StaticAccessError;
-import code.expressionlanguage.methods.util.StaticAccessMethodError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UndefinedConstructorError;
-import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.util.VarargError;
-import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.opers.util.EnumerableStruct;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -644,7 +634,6 @@ public final class FctOperation extends InvokingOperation {
 
     private void analyzeCustomClass(Analyzable _conf, StringList _subTypes) {
         LgNames stds_ = _conf.getStandards();
-        String stringType_ = stds_.getAliasString();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -678,107 +667,6 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        for (String s: _subTypes) {
-            String baseClass_ = StringList.getAllTypes(s).first();
-            if (StringList.quickEq(baseClass_, PredefinedClasses.ENUM) || StringList.quickEq(baseClass_, PredefinedClasses.ENUM_PARAM)) {
-                if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
-                    if (isStaticAccess()) {
-                        StaticAccessMethodError static_ = new StaticAccessMethodError();
-                        static_.setClassName(s);
-                        static_.setId(new MethodId(MethodModifier.NORMAL, trimMeth_, new StringList()));
-                        static_.setFileName(_conf.getCurrentFileName());
-                        static_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(static_);
-                        setResultClass(new ClassArgumentMatching(stringType_));
-                        return;
-                    }
-                    MethodId methodId_ = new MethodId(false, METH_NAME, new StringList());
-                    classMethodId = new ClassMethodId(s, methodId_);
-                    realId = methodId_;
-                    setResultClass(new ClassArgumentMatching(stringType_));
-                    return;
-                }
-                if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
-                    if (isStaticAccess()) {
-                        StaticAccessMethodError static_ = new StaticAccessMethodError();
-                        static_.setClassName(s);
-                        static_.setId(new MethodId(MethodModifier.NORMAL, trimMeth_, new StringList()));
-                        static_.setFileName(_conf.getCurrentFileName());
-                        static_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(static_);
-                        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
-                        return;
-                    }
-                    MethodId methodId_ = new MethodId(false, METH_ORDINAL, new StringList());
-                    classMethodId = new ClassMethodId(s, methodId_);
-                    realId = methodId_;
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
-                    return;
-                }
-            } else if (_conf.getClassBody(baseClass_) instanceof EnumBlock) {
-                if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
-                    if (isStaticAccess()) {
-                        StaticAccessMethodError static_ = new StaticAccessMethodError();
-                        static_.setClassName(s);
-                        static_.setId(new MethodId(MethodModifier.NORMAL, trimMeth_, new StringList()));
-                        static_.setFileName(_conf.getCurrentFileName());
-                        static_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(static_);
-                        setResultClass(new ClassArgumentMatching(stringType_));
-                        return;
-                    }
-                    MethodId methodId_ = new MethodId(false, METH_NAME, new StringList());
-                    classMethodId = new ClassMethodId(s, methodId_);
-                    realId = methodId_;
-                    setResultClass(new ClassArgumentMatching(stringType_));
-                    return;
-                }
-                if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
-                    if (isStaticAccess()) {
-                        StaticAccessMethodError static_ = new StaticAccessMethodError();
-                        static_.setClassName(s);
-                        static_.setId(new MethodId(MethodModifier.NORMAL, trimMeth_, new StringList()));
-                        static_.setFileName(_conf.getCurrentFileName());
-                        static_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(static_);
-                        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
-                        return;
-                    }
-                    MethodId methodId_ = new MethodId(false, METH_ORDINAL, new StringList());
-                    classMethodId = new ClassMethodId(s, methodId_);
-                    realId = methodId_;
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
-                    return;
-                }
-                if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
-                    MethodId methodId_ = new MethodId(true, METH_VALUES, new StringList());
-                    classMethodId = new ClassMethodId(s, methodId_);
-                    realId = methodId_;
-                    String ret_ = PrimitiveTypeUtil.getPrettyArrayType(s);
-                    staticMethod = true;
-                    setResultClass(new ClassArgumentMatching(ret_));
-                    return;
-                }
-                if (StringList.quickEq(trimMeth_, METH_VALUEOF) && firstArgs_.size() == CustList.ONE_ELEMENT) {
-                    if (!StringList.quickEq(firstArgs_.first().getName(), stringType_)) {
-                        UndefinedMethodError und_ = new UndefinedMethodError();
-                        und_.setClassName(_subTypes);
-                        und_.setId(new MethodId(MethodModifier.STATIC, trimMeth_, new StringList(firstArgs_.first().getName())));
-                        und_.setRc(_conf.getCurrentLocation());
-                        und_.setFileName(_conf.getCurrentFileName());
-                        _conf.getClasses().getErrorsDet().add(und_);
-                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                        return;
-                    }
-                    MethodId methodId_ = new MethodId(true, METH_VALUEOF, new StringList(stringType_));
-                    classMethodId = new ClassMethodId(s, methodId_);
-                    realId = methodId_;
-                    staticMethod = true;
-                    setResultClass(new ClassArgumentMatching(s));
-                    return;
-                }
-            }
-        }
         
         boolean superClassAccess_ = true;
         boolean staticChoiceMethod_ = false;
@@ -1153,10 +1041,8 @@ public final class FctOperation extends InvokingOperation {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String cast_;
-        String stringType_;
         null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
-        stringType_ = stds_.getAliasString();
         if (constId != null) {
             Argument arg_ = _conf.getLastPage().getGlobalArgument();
             String clCurName_ = arg_.getObjectClassName(_conf);
@@ -1356,25 +1242,6 @@ public final class FctOperation extends InvokingOperation {
                 Argument a_ = new Argument();
                 return ArgumentCall.newArgument(a_);
             }
-            ClassMetaInfo custClass_ = null;
-            String className_ = stds_.getStructClassName(arg_.getStruct(), _conf);
-            custClass_ = _conf.getClassMetaInfo(className_);
-            if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (methodId_.eq(new MethodId(false, METH_NAME, new StringList()))) {
-                    EnumerableStruct cen_ = (EnumerableStruct) arg_.getStruct();
-                    String name_ = cen_.getName();
-                    Argument argres_ = new Argument();
-                    argres_.setObject(name_);
-                    return ArgumentCall.newArgument(argres_);
-                }
-                if (methodId_.eq(new MethodId(false, METH_ORDINAL, new StringList()))) {
-                    EnumerableStruct cen_ = (EnumerableStruct) arg_.getStruct();
-                    int name_ = cen_.getOrdinal();
-                    Argument argres_ = new Argument();
-                    argres_.setObject(name_);
-                    return ArgumentCall.newArgument(argres_);
-                }
-            }
             if (staticChoiceMethod) {
                 classNameFound_ = classMethodId.getClassName();
                 if (!superAccessMethod) {
@@ -1463,7 +1330,6 @@ public final class FctOperation extends InvokingOperation {
             }
         } else {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-            ClassMetaInfo custClass_ = null;
             classNameFound_ = classMethodId.getClassName();
             if (classes_.isCustomType(classNameFound_)) {
                 InitClassState res_ = classes_.getLocks().getState(_conf, classNameFound_);
@@ -1475,42 +1341,6 @@ public final class FctOperation extends InvokingOperation {
                     CausingErrorStruct causing_ = new CausingErrorStruct(classNameFound_);
                     _conf.setException(causing_);
                     return ArgumentCall.newArgument(Argument.createVoid());
-                }
-            }
-            custClass_ = _conf.getClassMetaInfo(classNameFound_);
-            if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (methodId_.eq(new MethodId(true, METH_VALUES, new StringList()))) {
-                    CustList<Struct> enums_ = new CustList<Struct>();
-                    for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
-                        if (e.getValue().isEnumElement()) {
-                            enums_.add(classes_.getStaticField(new ClassField(classNameFound_, e.getKey())));
-                        }
-                    }
-                    Struct[] o_ = new Struct[enums_.size()];
-                    int i_ = CustList.FIRST_INDEX;
-                    for (Struct o: enums_) {
-                        o_[i_] = o;
-                        i_++;
-                    }
-                    String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(classNameFound_);
-                    Argument argres_ = new Argument();
-                    argres_.setStruct(new ArrayStruct(o_,clArr_));
-                    return ArgumentCall.newArgument(argres_);
-                }
-                if (methodId_.eq(new MethodId(true, METH_VALUEOF, new StringList(stringType_)))) {
-                    if (firstArgs_.first().isNull()) {
-                        Argument argres_ = new Argument();
-                        return ArgumentCall.newArgument(argres_);
-                    }
-                    for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
-                        if (StringList.quickEq(e.getKey(), (String) firstArgs_.first().getObject())) {
-                            Argument argres_ = new Argument();
-                            argres_.setStruct(classes_.getStaticField(new ClassField(classNameFound_, e.getKey())));
-                            return ArgumentCall.newArgument(argres_);
-                        }
-                    }
-                    Argument argres_ = new Argument();
-                    return ArgumentCall.newArgument(argres_);
                 }
             }
         }
@@ -1599,11 +1429,6 @@ public final class FctOperation extends InvokingOperation {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
-    }
-
-    @Override
-    public boolean isPossibleInitClass() {
-        return false;
     }
 
     @Override

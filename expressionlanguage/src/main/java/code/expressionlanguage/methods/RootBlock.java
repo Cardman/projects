@@ -23,7 +23,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -720,14 +719,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     }
                 }
             }
-            boolean isEnum_ = this instanceof EnumBlock;
             for (ClassFormattedMethodId m: abstractMethods_) {
-                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_NAME, new StringList()))) {
-                    continue;
-                }
-                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_ORDINAL, new StringList()))) {
-                    continue;
-                }
                 String baseClass_ = m.getClassName();
                 baseClass_ = StringList.getAllTypes(baseClass_).first();
                 RootBlock info_ = classesRef_.getClassBody(baseClass_);
@@ -764,14 +756,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         ov_ = RootBlock.getAllOverridingMethods(signatures_, _context);
         if (concreteClass_) {
             abstractMethods_ = RootBlock.remainingMethodsToImplement(ov_, getFullName(), _context);
-            boolean isEnum_ = this instanceof EnumBlock;
             for (ClassFormattedMethodId m: abstractMethods_) {
-                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_NAME, new StringList()))) {
-                    continue;
-                }
-                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_ORDINAL, new StringList()))) {
-                    continue;
-                }
                 String baseClass_ = m.getClassName();
                 baseClass_ = StringList.getAllTypes(baseClass_).first();
                 RootBlock info_ = classesRef_.getClassBody(baseClass_);

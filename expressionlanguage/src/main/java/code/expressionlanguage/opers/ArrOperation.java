@@ -60,10 +60,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public boolean isPossibleInitClass() {
-        return false;
-    }
-    @Override
     public boolean isSuperConstructorCall() {
         return false;
     }

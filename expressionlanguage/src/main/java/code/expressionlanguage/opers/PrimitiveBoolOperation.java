@@ -22,10 +22,6 @@ public abstract class PrimitiveBoolOperation extends MethodOperation {
     }
 
     @Override
-    public final boolean isPossibleInitClass() {
-        return false;
-    }
-    @Override
     public final boolean isSuperConstructorCall() {
         return false;
     }

@@ -67,6 +67,8 @@ public final class ElResolver {
     private static final String CLASS = "class";
     private static final String BOOLEAN = "bool";
     private static final String INSTANCEOF = "instanceof";
+    private static final String VALUE_OF = "valueOf";
+    private static final String VALUES = "values";
     private static final String THIS = "this";
     private static final String NULL_REF_STRING = "null";
     private static final String TRUE_STRING = "true";
@@ -332,6 +334,38 @@ public final class ElResolver {
                     if (Character.isWhitespace(nextChar_)) {
                         d_.setBadOffset(i_+1);
                         return d_;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, VALUE_OF, len_)) {
+                        int j_ = i_ + 1;
+                        while (j_ < len_) {
+                            if (_string.charAt(j_) == PAR_LEFT) {
+                                hatMethod_ = false;
+                                break;
+                            }
+                            j_++;
+                        }
+                        if (j_ >= len_) {
+                            d_.setBadOffset(len_ - 1);
+                            return d_;
+                        }
+                        i_ = j_;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, VALUES, len_)) {
+                        int j_ = i_ + 1;
+                        while (j_ < len_) {
+                            if (_string.charAt(j_) == PAR_LEFT) {
+                                hatMethod_ = false;
+                                break;
+                            }
+                            j_++;
+                        }
+                        if (j_ >= len_) {
+                            d_.setBadOffset(len_ - 1);
+                            return d_;
+                        }
+                        i_ = j_;
+                        continue;
                     }
                     if (procWordFirstChar(_string, i_ + 1, INSTANCE, len_)) {
                         int j_ = i_ + 1;
@@ -1732,8 +1766,17 @@ public final class ElResolver {
                     }
                     parsBrackets_.put(i_, curChar_);
                 }
-                if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ >= ARR_OPER_PRIO) {
-                    operators_.put(i_, String.valueOf(SEP_ARG));
+                if (StringList.quickEq(fctName_, StringList.concat(String.valueOf(EXTERN_CLASS),VALUE_OF))) {
+                    if (curChar_ == SEP_ARG && parsBrackets_.size() == 1) {
+                        int first_ = parsBrackets_.firstKey();
+                        operators_.clear();
+                        operators_.put(first_, String.valueOf(PAR_LEFT));
+                        operators_.put(i_, String.valueOf(SEP_ARG));
+                    }
+                } else if (!StringList.quickEq(fctName_, StringList.concat(String.valueOf(EXTERN_CLASS),VALUES))) {
+                    if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ >= ARR_OPER_PRIO) {
+                        operators_.put(i_, String.valueOf(SEP_ARG));
+                    }
                 }
                 if (curChar_ == PAR_RIGHT) {
                     parsBrackets_.removeKey(parsBrackets_.lastKey());

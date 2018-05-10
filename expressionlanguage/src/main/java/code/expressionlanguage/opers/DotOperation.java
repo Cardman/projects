@@ -102,10 +102,6 @@ public final class DotOperation extends MethodOperation {
     }
 
     @Override
-    public boolean isPossibleInitClass() {
-        return false;
-    }
-    @Override
     public boolean isSuperConstructorCall() {
         return false;
     }

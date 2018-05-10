@@ -349,10 +349,6 @@ public final class TernaryOperation extends MethodOperation {
         }
         return ArgumentCall.newArgument(arg_);
     }
-    @Override
-    public boolean isPossibleInitClass() {
-        return false;
-    }
 
     @Override
     public boolean isSuperConstructorCall() {

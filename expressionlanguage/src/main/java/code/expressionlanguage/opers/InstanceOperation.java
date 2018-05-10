@@ -584,10 +584,6 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     @Override
-    public boolean isPossibleInitClass() {
-        return false;
-    }
-    @Override
     public boolean isSuperConstructorCall() {
         return false;
     }

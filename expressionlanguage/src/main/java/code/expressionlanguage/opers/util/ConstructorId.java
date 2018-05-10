@@ -7,7 +7,7 @@ import code.util.ints.Equallable;
 
 public final class ConstructorId implements Equallable<ConstructorId>, Identifiable {
 
-	private static final String EMPTY = "";
+    private static final String EMPTY = "";
     private static final String VARARG = "...";
     private static final String SEP_TYPE = ",";
     private static final String LEFT = "(";
@@ -24,7 +24,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         vararg = _vararg;
         classNames = new StringList();
         for (String s: _classNames) {
-        	classNames.add(s);
+            classNames.add(s);
         }
     }
 
@@ -43,7 +43,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
     public String getSignature() {
         String suf_ = EMPTY;
         if (vararg) {
-        	suf_ = VARARG;
+            suf_ = VARARG;
         }
         return StringList.concat(name,LEFT,classNames.join(SEP_TYPE),suf_,RIGHT);
     }
@@ -57,7 +57,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
             return false;
         }
         if (vararg != _obj.vararg) {
-        	return false;
+            return false;
         }
         int len_ = classNames.size();
         for (int i = 0; i < len_; i++) {

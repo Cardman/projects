@@ -43,7 +43,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static MethodId getMethodId(String _name, boolean _vararg, String..._classNames) {
-    	StringList cl_ = new StringList();
+        StringList cl_ = new StringList();
         for (String c: _classNames) {
             cl_.add(c);
         }
@@ -62,7 +62,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static ConstructorId getConstructorId(String _name, String..._classNames) {
-    	StringList cl_ = new StringList();
+        StringList cl_ = new StringList();
         for (String c: _classNames) {
             cl_.add(c);
         }
@@ -70,7 +70,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static ConstructorId getConstructorId(String _name, boolean _vararg, String..._classNames) {
-    	StringList cl_ = new StringList();
+        StringList cl_ = new StringList();
         for (String c: _classNames) {
             cl_.add(c);
         }

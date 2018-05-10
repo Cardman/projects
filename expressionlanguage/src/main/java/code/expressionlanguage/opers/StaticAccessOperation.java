@@ -153,26 +153,28 @@ public final class StaticAccessOperation extends LeafOperation {
     @Override
     public void calculate(ContextEl _conf) {
         Argument previous_ = _conf.getLastPage().getGlobalArgument();
-        ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf);
+        Argument arg_ = getArgument();
+        ArgumentCall argres_ = getCommonArgument(arg_, previous_, _conf);
         if (argres_.isInitClass()) {
             ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
             if (_conf.getException() != null) {
                 return;
             }
-            argres_ = getCommonArgument(getArgument(), previous_, _conf);
+            argres_ = getCommonArgument(arg_, previous_, _conf);
         }
         if (_conf.getException() != null) {
             return;
         }
-        Argument arg_ = argres_.getArgument();
-        setSimpleArgument(arg_, _conf);
+        Argument argRes_ = argres_.getArgument();
+        setSimpleArgument(argRes_, _conf);
     }
 
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         Argument previous_ = _conf.getLastPage().getGlobalArgument();
-        ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf);
+        Argument a_ = _nodes.getVal(this).getArgument();
+        ArgumentCall argres_ = getCommonArgument(a_, previous_, _conf);
         Argument arg_ = argres_.getArgument();
         if (argres_.isInitClass()) {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
@@ -200,11 +202,6 @@ public final class StaticAccessOperation extends LeafOperation {
         }
         Argument cur_ = _argument;
         return ArgumentCall.newArgument(cur_);
-    }
-
-    @Override
-    public boolean isPossibleInitClass() {
-        return false;
     }
 
     @Override

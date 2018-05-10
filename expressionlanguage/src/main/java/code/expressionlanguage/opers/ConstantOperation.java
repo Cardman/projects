@@ -73,8 +73,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
 
     private boolean immutablePart;
 
-    private boolean possibleInitClass;
-
     private ClassField fieldId;
     private boolean excVar;
     private FieldInfo fieldMetaInfo;
@@ -1243,11 +1241,6 @@ public final class ConstantOperation extends LeafOperation implements SettableEl
             return left_;
         }
         return a_;
-    }
-
-    @Override
-    public boolean isPossibleInitClass() {
-        return possibleInitClass;
     }
 
     @Override
