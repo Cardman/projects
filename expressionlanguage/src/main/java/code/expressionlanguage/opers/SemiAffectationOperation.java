@@ -44,8 +44,16 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
 
     @Override
     public void analyze(Analyzable _conf, String _fieldName) {
-        OperationNode leftEl_ = getChildrenNodes().last();
-        setResultClass(leftEl_.getResultClass());
+        OperationNode leftEl_ = getFirstChild();
+        LgNames stds_ = _conf.getStandards();
+        if (leftEl_ == null) {
+            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(un_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
         settable = AffectationOperation.tryGetSettable(this);
         if (settable == null) {
             leftEl_.setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
@@ -53,14 +61,15 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(un_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
+        setResultClass(settable.getResultClass());
         boolean var_ = true;
         if (settable instanceof ArrOperation) {
             var_ = false;
         }
         settable.setVariable(var_);
-        LgNames stds_ = _conf.getStandards();
         String stringType_ = stds_.getAliasString();
         String res_ = settable.getResultClass().getName();
         if (settable.resultCanBeSet() && StringList.quickEq(res_, stringType_)) {

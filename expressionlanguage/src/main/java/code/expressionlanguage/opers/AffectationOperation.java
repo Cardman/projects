@@ -49,19 +49,21 @@ public final class AffectationOperation extends MethodOperation {
     public void analyze(Analyzable _conf, String _fieldName) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode root_ = chidren_.first();
-        setResultClass(root_.getResultClass());
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = tryGetSettable(this);
         boolean ok_ = elt_ != null;
+        LgNames stds_ = _conf.getStandards();
         if (!ok_) {
             root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(un_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         settable = elt_;
+        setResultClass(elt_.getResultClass());
         String oper_ = getOperations().getOperators().firstValue();
         boolean var_ = true;
         if (elt_ instanceof ArrOperation) {
@@ -70,7 +72,6 @@ public final class AffectationOperation extends MethodOperation {
             }
         }
         elt_.setVariable(var_);
-        LgNames stds_ = _conf.getStandards();
         String stringType_ = stds_.getAliasString();
         String res_ = elt_.getResultClass().getName();
         if (settable.resultCanBeSet() && StringList.quickEq(res_, stringType_)) {

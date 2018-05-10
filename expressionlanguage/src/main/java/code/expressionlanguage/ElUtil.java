@@ -347,9 +347,6 @@ public final class ElUtil {
         _context.getTextualSortedOperations().add(_current);
         
         OperationNode next_ = createFirstChild(_current, _context, 0);
-        if (!_context.getClasses().getErrorsDet().isEmpty()) {
-            return null;
-        }
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
@@ -366,9 +363,6 @@ public final class ElUtil {
                 next_ = createFirstChild(current_.getParent(), _context, 1);
             } else {
                 next_ = createNextSibling(current_, _context);
-            }
-            if (!_context.getClasses().getErrorsDet().isEmpty()) {
-                return null;
             }
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {

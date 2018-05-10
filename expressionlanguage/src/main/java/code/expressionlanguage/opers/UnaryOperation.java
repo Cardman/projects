@@ -37,6 +37,12 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
 
     void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        LgNames stds_ = _conf.getStandards();
+        if (chidren_.isEmpty()) {
+            String exp_ = _conf.getStandards().getAliasNumber();
+            setResultClass(new ClassArgumentMatching(exp_));
+            return;
+        }
         ClassArgumentMatching clMatch_ = chidren_.first().getResultClass();
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
@@ -52,7 +58,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
             setResultClass(arg_);
             return;
         }
-        LgNames stds_ = _conf.getStandards();
         int intOrder_ = PrimitiveTypeUtil.getOrderClass(stds_.getAliasPrimInteger(), _conf);
         if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());

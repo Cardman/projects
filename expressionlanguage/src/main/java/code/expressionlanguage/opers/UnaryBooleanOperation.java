@@ -37,11 +37,15 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
 
     void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        LgNames stds_ = _conf.getStandards();
+        String booleanPrimType_ = stds_.getAliasPrimBoolean();
+        if (chidren_.isEmpty()) {
+            setResultClass(new ClassArgumentMatching(booleanPrimType_));
+            return;
+        }
         ClassArgumentMatching clMatch_;
         clMatch_ = chidren_.first().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        LgNames stds_ = _conf.getStandards();
-        String booleanPrimType_ = stds_.getAliasPrimBoolean();
         String booleanType_ = stds_.getAliasBoolean();
         if (!clMatch_.matchClass(booleanPrimType_)) {
             if (!clMatch_.matchClass(booleanType_)) {
