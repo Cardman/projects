@@ -223,11 +223,33 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         return TAG_IF;
     }
     @Override
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+        if (canBeIncrementedCurGroup()) {
+            return;
+        }
+        OperationNode op_ = getElCondition().getRoot();
+        boolean abr_ = true;
+        Argument arg_ = op_.getArgument();
+        if (arg_ == null) {
+            abr_ = false;
+        } else if (!(arg_.getObject() instanceof Boolean)) {
+            abr_ = false;
+        } else if (!(Boolean)arg_.getObject()) {
+            abr_ = false;
+        }
+        if (!abr_) {
+            return;
+        }
+        if (!_anEl.canCompleteNormally(this)) {
+            _anEl.completeAbruptGroup(this);
+        }
+    }
+    @Override
     public boolean accessibleCondition() {
         OperationNode op_ = getElCondition().getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
-        if (op_.getArgument() == null) {
+        if (arg_ == null) {
             accessible_ = true;
         } else if (!(arg_.getObject() instanceof Boolean)) {
             accessible_ = true;

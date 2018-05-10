@@ -37,7 +37,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class ValuesOperation extends LeafOperation {
+public final class ValuesOperation extends LeafOperation {
 
     private String className;
     private int argOffset;

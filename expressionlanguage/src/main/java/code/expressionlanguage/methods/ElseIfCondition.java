@@ -84,7 +84,46 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
     }
     @Override
-       public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+        if (canBeIncrementedCurGroup()) {
+            return;
+        }
+        OperationNode op_ = getElCondition().getRoot();
+        boolean abr_ = true;
+        Argument arg_ = op_.getArgument();
+        if (arg_ == null) {
+            abr_ = false;
+        } else if (!(arg_.getObject() instanceof Boolean)) {
+            abr_ = false;
+        } else if (!(Boolean)arg_.getObject()) {
+            abr_ = false;
+        }
+        if (!abr_) {
+            return;
+        }
+        CustList<Block> group_ = new CustList<Block>();
+        group_.add(this);
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            group_.add(p_);
+            p_ = p_.getPreviousSibling();
+        }
+        group_.add(p_);
+        boolean canCmpNormally_ = false;
+        for (Block b: group_) {
+            if (_anEl.canCompleteNormally(b)) {
+                canCmpNormally_ = true;
+                break;
+            }
+        }
+        if (!canCmpNormally_) {
+            for (Block b: group_) {
+                _anEl.completeAbruptGroup(b);
+            }
+        }
+    }
+    @Override
+    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
@@ -303,7 +342,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         OperationNode op_ = getElCondition().getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
-        if (op_.getArgument() == null) {
+        if (arg_ == null) {
             accessible_ = true;
         } else if (!(arg_.getObject() instanceof Boolean)) {
             accessible_ = true;
@@ -354,7 +393,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         while (!(p_ instanceof IfCondition)) {
             p_ = p_.getPreviousSibling();
         }
-        if (_anEl.isReachable(p_)) {
+        if (_anEl.isReachable(p_) && ((BracedBlock)p_).accessibleCondition()) {
             _anEl.reach(this);
         } else {
             _anEl.unreach(this);

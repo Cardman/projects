@@ -323,7 +323,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         while (!(p_ instanceof IfCondition)) {
             p_ = p_.getPreviousSibling();
         }
-        if (_anEl.isReachable(p_)) {
+        if (_anEl.isReachable(p_) && ((BracedBlock)p_).accessibleCondition()) {
             _anEl.reach(this);
         } else {
             _anEl.unreach(this);

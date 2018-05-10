@@ -533,7 +533,8 @@ public final class ElUtil {
                 o.tryCalculateNode(_context, _list, _current);
             }
         }
-        if (_nodes.last().getArgument() == null) {
+        Argument arg_ = _nodes.last().getArgument();
+        if (arg_ == null) {
             _current.setOk(false);
             pageEl_.setTranslatedOffset(0);
             return;
@@ -541,7 +542,7 @@ public final class ElUtil {
         ClassField key_ = _current.getClassField();
         ClassMetaInfo cm_ = _context.getClassMetaInfo(key_.getClassName());
         FieldMetaInfo fm_ = cm_.getFields().getVal(key_.getFieldName());
-        Struct str_ = _nodes.last().getArgument().getStruct();
+        Struct str_ = arg_.getStruct();
         str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _context);
         _current.setStruct(str_);
         pageEl_.setTranslatedOffset(0);

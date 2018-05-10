@@ -152,7 +152,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         Block prev_ = getPreviousSibling();
         BracedBlock br_ = getParent();
         if (prev_ == null) {
-            if (_anEl.isReachable(br_)) {
+            if (_anEl.isReachable(br_) && br_.accessibleCondition()) {
                 _anEl.reach(this);
             } else {
                 _anEl.unreach(this);
