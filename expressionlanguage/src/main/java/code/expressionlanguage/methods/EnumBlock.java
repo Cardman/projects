@@ -18,7 +18,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UndefinedSuperConstructor;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
@@ -68,28 +67,28 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         LgNames stds_ = _context.getStandards();
         String stringType_ = stds_.getAliasString();
         for (MethodBlock m: Classes.getMethodBlocks(this)) {
-            if (m.getId().eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
+            if (m.getId().eq(new MethodId(false, OperationNode.METH_NAME, new StringList()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
                 r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
-            if (m.getId().eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+            if (m.getId().eq(new MethodId(false, OperationNode.METH_ORDINAL, new StringList()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
                 r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
-            if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUES, new EqList<ClassName>()))) {
+            if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUES, new StringList()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
                 r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
-            if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUEOF, new EqList<ClassName>(new ClassName(stringType_, false))))) {
+            if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUEOF, new StringList(stringType_)))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
                 r_.setRc(m.getRowCol(0, m.getOffset().getOffsetTrim()));

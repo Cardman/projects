@@ -2462,7 +2462,7 @@ public final class Classes {
                     continue;
                 }
                 ConstructorBlock method_ = (ConstructorBlock) b;
-                EqList<ClassName> list_ = method_.getId().getClassNames();
+                StringList list_ = method_.getId().getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -2477,7 +2477,7 @@ public final class Classes {
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = list_.get(i).getName();
+                    String type_ = list_.get(i);
                     if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
                         all_ = false;
                         break;

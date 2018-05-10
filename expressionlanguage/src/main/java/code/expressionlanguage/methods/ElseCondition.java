@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
@@ -8,6 +9,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -150,6 +152,21 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     @Override
     boolean canBeLastOfBlockGroup() {
         return true;
+    }
+    @Override
+    public boolean accessibleCondition() {
+    	Condition cond_ = (Condition) getPreviousSibling();
+        OperationNode op_ = cond_.getElCondition().getRoot();
+        boolean accessible_ = false;
+        Argument arg_ = op_.getArgument();
+        if (op_.getArgument() == null) {
+            accessible_ = true;
+        } else if (!(arg_.getObject() instanceof Boolean)) {
+            accessible_ = true;
+        } else if (!(Boolean)arg_.getObject()) {
+            accessible_ = true;
+        }
+        return accessible_;
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {

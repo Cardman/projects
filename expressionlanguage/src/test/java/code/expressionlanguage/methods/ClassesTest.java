@@ -10,7 +10,6 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
@@ -40,8 +39,8 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger()), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getClassNames().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getClassNames().first().getName());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -62,8 +61,8 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#F"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getClassNames().size());
-        assertEq("#E", methods_.first().getId().getClassNames().first().getName());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -84,8 +83,8 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getClassNames().size());
-        assertEq("#E", methods_.first().getId().getClassNames().first().getName());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -106,8 +105,8 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getClassNames().size());
-        assertEq("#E", methods_.first().getId().getClassNames().first().getName());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -128,9 +127,9 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId().getClassNames().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getClassNames().first().getName());
-        assertEq("#E", methods_.first().getId().getClassNames().last().getName());
+        assertEq(2, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
+        assertEq("#E", methods_.first().getId().getParametersTypes().last());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -153,9 +152,9 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId().getClassNames().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getClassNames().first().getName());
-        assertEq("#E", methods_.first().getId().getClassNames().last().getName());
+        assertEq(2, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
+        assertEq("#E", methods_.first().getId().getParametersTypes().last());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -196,8 +195,8 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getClassNames().size());
-        assertEq("#E", methods_.first().getId().getClassNames().first().getName());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -238,12 +237,12 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(2, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getClassNames().size());
-        assertEq("#E", methods_.first().getId().getClassNames().first().getName());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
         assertEq("instancemethod", methods_.last().getName());
-        assertEq(1, methods_.last().getId().getClassNames().size());
-        assertEq("java.lang.Object", methods_.last().getId().getClassNames().first().getName());
+        assertEq(1, methods_.last().getId().getParametersTypes().size());
+        assertEq("java.lang.Object", methods_.last().getId().getParametersTypes().first());
         assertTrue(!methods_.last().isVarargs());
     }
 
@@ -268,9 +267,9 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId().getClassNames().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getClassNames().first().getName());
-        assertEq("#E", methods_.first().getId().getClassNames().last().getName());
+        assertEq(2, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
+        assertEq("#E", methods_.first().getId().getParametersTypes().last());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -295,7 +294,7 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(0, methods_.first().getId().getClassNames().size());
+        assertEq(0, methods_.first().getId().getParametersTypes().size());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -322,9 +321,9 @@ public class ClassesTest {
         CustList<GeneMethod> methods_ =TypeUtil.getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId().getClassNames().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getClassNames().first().getName());
-        assertEq("#E", methods_.first().getId().getClassNames().last().getName());
+        assertEq(2, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
+        assertEq("#E", methods_.first().getId().getParametersTypes().last());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -527,7 +526,7 @@ public class ClassesTest {
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new EqList<ClassName>())));
+        assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new StringList())));
     }
 
     @Test
@@ -557,10 +556,10 @@ public class ClassesTest {
         InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.Ex");
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new EqList<ClassName>())));
+        assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new StringList())));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.Ex"),sgn_.getVal(new MethodId(false, "absgetter", new EqList<ClassName>())));
+        assertEq(new StringList("pkg.Ex"),sgn_.getVal(new MethodId(false, "absgetter", new StringList())));
     }
 
     @Test
@@ -592,10 +591,10 @@ public class ClassesTest {
         InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.Ex");
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new EqList<ClassName>())));
+        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new StringList())));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new EqList<ClassName>())));
+        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new StringList())));
     }
     @Test
     public void calculateStaticField1Test() {

@@ -2,12 +2,12 @@ package code.expressionlanguage.opers.util;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 import code.util.ints.Equallable;
 
 public final class ConstructorId implements Equallable<ConstructorId>, Identifiable {
 
+	private static final String EMPTY = "";
     private static final String VARARG = "...";
     private static final String SEP_TYPE = ",";
     private static final String LEFT = "(";
@@ -15,35 +15,37 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
 
     private final String name;
 
-    private final EqList<ClassName> classNames;
+    private final StringList classNames;
 
-    public ConstructorId(String _name, EqList<ClassName> _classNames) {
+    private final boolean vararg;
+
+    public ConstructorId(String _name, StringList _classNames, boolean _vararg) {
         name = _name;
-        classNames = _classNames;
+        vararg = _vararg;
+        classNames = new StringList();
+        for (String s: _classNames) {
+        	classNames.add(s);
+        }
     }
 
     public ConstructorId format(String _genericClass, Analyzable _classes) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             String formatted_ = Templates.format(_genericClass, n_, _classes);
-            pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVararg()));
+            pTypes_.add(formatted_);
         }
-        return new ConstructorId(_genericClass, pTypes_);
+        return new ConstructorId(_genericClass, pTypes_, isVararg());
     }
 
     public String getSignature() {
-        StringList classNames_ = new StringList();
-        for (ClassName c: classNames) {
-            if (c.isVararg()) {
-                classNames_.add(StringList.concat(c.getName(),VARARG));
-            } else {
-                classNames_.add(c.getName());
-            }
+        String suf_ = EMPTY;
+        if (vararg) {
+        	suf_ = VARARG;
         }
-        return StringList.concat(name,LEFT,classNames_.join(SEP_TYPE),RIGHT);
+        return StringList.concat(name,LEFT,classNames.join(SEP_TYPE),suf_,RIGHT);
     }
 
     @Override
@@ -54,20 +56,12 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         if (classNames.size() != _obj.classNames.size()) {
             return false;
         }
-        if (!classNames.isEmpty()) {
-            if (classNames.last().isVararg()) {
-                if (!_obj.classNames.last().isVararg()) {
-                    return false;
-                }
-            } else {
-                if (_obj.classNames.last().isVararg()) {
-                    return false;
-                }
-            }
+        if (vararg != _obj.vararg) {
+        	return false;
         }
         int len_ = classNames.size();
         for (int i = 0; i < len_; i++) {
-            if (!classNames.get(i).eq(_obj.classNames.get(i))) {
+            if (!StringList.quickEq(classNames.get(i), _obj.classNames.get(i))) {
                 return false;
             }
         }
@@ -76,28 +70,17 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
 
     @Override
     public StringList getParametersTypes() {
-        StringList params_ = new StringList();
-        for (ClassName c: classNames) {
-            params_.add(c.getName());
-        }
-        return params_;
+        return new StringList(classNames);
     }
 
     @Override
     public boolean isVararg() {
-        if (classNames.isEmpty()) {
-            return false;
-        }
-        return classNames.last().isVararg();
+        return vararg;
     }
 
     @Override
     public String getName() {
         return name;
-    }
-
-    public EqList<ClassName> getClassNames() {
-        return new EqList<ClassName>(classNames);
     }
 
     @Override

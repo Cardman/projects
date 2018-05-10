@@ -157,6 +157,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (!_conf.isGearConst()) {
+            return;
+        }
         Struct array_;
         array_ = chidren_.first().getArgument().getStruct();
         if (!(array_ instanceof ArrayStruct)) {

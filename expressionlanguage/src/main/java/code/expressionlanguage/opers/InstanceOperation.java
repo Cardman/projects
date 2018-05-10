@@ -469,10 +469,10 @@ public final class InstanceOperation extends InvokingOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = StringList.removeAllSpaces(className_);
+        if (!_conf.isGearConst()) {
+            return;
+        }
         if (className_.startsWith(ARR)) {
-            if (!_conf.isGearConst()) {
-                return;
-            }
             for (OperationNode o: chidren_) {
                 arguments_.add(o.getArgument());
             }

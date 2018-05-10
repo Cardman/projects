@@ -17,12 +17,10 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -199,7 +197,7 @@ public final class Line extends Leaf implements StackableBlock {
                     String t_ = StringList.removeAllSpaces(i);
                     if (!ip_.getIntializedInterfaces().containsStr(t_)) {
                         ip_.getIntializedInterfaces().add(t_);
-                        ConstructorId super_ = new ConstructorId(baseSuperClass_, new EqList<ClassName>());
+                        ConstructorId super_ = new ConstructorId(baseSuperClass_, new StringList(), false);
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, t_, _cont);

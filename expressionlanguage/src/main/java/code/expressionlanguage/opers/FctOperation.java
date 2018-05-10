@@ -51,7 +51,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.EnumerableStruct;
@@ -65,7 +64,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
@@ -322,11 +320,11 @@ public final class FctOperation extends InvokingOperation {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
                 return;
             }
-            EqList<ClassName> cl_ = new EqList<ClassName>();
+            StringList cl_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {
-                cl_.add(new ClassName(c.getName(), false));
+                cl_.add(c.getName());
             }
-            ConstructorId constId_ = new ConstructorId(clCurName_, cl_);
+            ConstructorId constId_ = new ConstructorId(clCurName_, cl_, false);
             UndefinedConstructorError und_ = new UndefinedConstructorError();
             und_.setId(constId_);
             und_.setClassName(clCurName_);
@@ -408,11 +406,11 @@ public final class FctOperation extends InvokingOperation {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
                 return;
             }
-            EqList<ClassName> cl_ = new EqList<ClassName>();
+            StringList cl_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {
-                cl_.add(new ClassName(c.getName(), false));
+                cl_.add(c.getName());
             }
-            ConstructorId constId_ = new ConstructorId(superClass_, cl_);
+            ConstructorId constId_ = new ConstructorId(superClass_, cl_, false);
             UndefinedConstructorError und_ = new UndefinedConstructorError();
             und_.setId(constId_);
             und_.setClassName(superClass_);
@@ -694,7 +692,7 @@ public final class FctOperation extends InvokingOperation {
                         setResultClass(new ClassArgumentMatching(stringType_));
                         return;
                     }
-                    MethodId methodId_ = new MethodId(false, METH_NAME, new EqList<ClassName>());
+                    MethodId methodId_ = new MethodId(false, METH_NAME, new StringList());
                     classMethodId = new ClassMethodId(s, methodId_);
                     realId = methodId_;
                     setResultClass(new ClassArgumentMatching(stringType_));
@@ -711,7 +709,7 @@ public final class FctOperation extends InvokingOperation {
                         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
                         return;
                     }
-                    MethodId methodId_ = new MethodId(false, METH_ORDINAL, new EqList<ClassName>());
+                    MethodId methodId_ = new MethodId(false, METH_ORDINAL, new StringList());
                     classMethodId = new ClassMethodId(s, methodId_);
                     realId = methodId_;
                     setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
@@ -729,7 +727,7 @@ public final class FctOperation extends InvokingOperation {
                         setResultClass(new ClassArgumentMatching(stringType_));
                         return;
                     }
-                    MethodId methodId_ = new MethodId(false, METH_NAME, new EqList<ClassName>());
+                    MethodId methodId_ = new MethodId(false, METH_NAME, new StringList());
                     classMethodId = new ClassMethodId(s, methodId_);
                     realId = methodId_;
                     setResultClass(new ClassArgumentMatching(stringType_));
@@ -746,19 +744,19 @@ public final class FctOperation extends InvokingOperation {
                         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
                         return;
                     }
-                    MethodId methodId_ = new MethodId(false, METH_ORDINAL, new EqList<ClassName>());
+                    MethodId methodId_ = new MethodId(false, METH_ORDINAL, new StringList());
                     classMethodId = new ClassMethodId(s, methodId_);
                     realId = methodId_;
                     setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
                     return;
                 }
                 if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
-                    MethodId methodId_ = new MethodId(true, METH_VALUES, new EqList<ClassName>());
+                    MethodId methodId_ = new MethodId(true, METH_VALUES, new StringList());
                     classMethodId = new ClassMethodId(s, methodId_);
                     realId = methodId_;
-                    ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(s), false);
+                    String ret_ = PrimitiveTypeUtil.getPrettyArrayType(s);
                     staticMethod = true;
-                    setResultClass(new ClassArgumentMatching(ret_.getName()));
+                    setResultClass(new ClassArgumentMatching(ret_));
                     return;
                 }
                 if (StringList.quickEq(trimMeth_, METH_VALUEOF) && firstArgs_.size() == CustList.ONE_ELEMENT) {
@@ -772,12 +770,11 @@ public final class FctOperation extends InvokingOperation {
                         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                         return;
                     }
-                    MethodId methodId_ = new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(stringType_, false)));
+                    MethodId methodId_ = new MethodId(true, METH_VALUEOF, new StringList(stringType_));
                     classMethodId = new ClassMethodId(s, methodId_);
                     realId = methodId_;
-                    ClassName ret_ = new ClassName(s, false);
                     staticMethod = true;
-                    setResultClass(new ClassArgumentMatching(ret_.getName()));
+                    setResultClass(new ClassArgumentMatching(s));
                     return;
                 }
             }
@@ -1000,6 +997,9 @@ public final class FctOperation extends InvokingOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
+        if (!_conf.isGearConst()) {
+            return;
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -1360,14 +1360,14 @@ public final class FctOperation extends InvokingOperation {
             String className_ = stds_.getStructClassName(arg_.getStruct(), _conf);
             custClass_ = _conf.getClassMetaInfo(className_);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (methodId_.eq(new MethodId(false, METH_NAME, new EqList<ClassName>()))) {
+                if (methodId_.eq(new MethodId(false, METH_NAME, new StringList()))) {
                     EnumerableStruct cen_ = (EnumerableStruct) arg_.getStruct();
                     String name_ = cen_.getName();
                     Argument argres_ = new Argument();
                     argres_.setObject(name_);
                     return ArgumentCall.newArgument(argres_);
                 }
-                if (methodId_.eq(new MethodId(false, METH_ORDINAL, new EqList<ClassName>()))) {
+                if (methodId_.eq(new MethodId(false, METH_ORDINAL, new StringList()))) {
                     EnumerableStruct cen_ = (EnumerableStruct) arg_.getStruct();
                     int name_ = cen_.getOrdinal();
                     Argument argres_ = new Argument();
@@ -1479,7 +1479,7 @@ public final class FctOperation extends InvokingOperation {
             }
             custClass_ = _conf.getClassMetaInfo(classNameFound_);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (methodId_.eq(new MethodId(true, METH_VALUES, new EqList<ClassName>()))) {
+                if (methodId_.eq(new MethodId(true, METH_VALUES, new StringList()))) {
                     CustList<Struct> enums_ = new CustList<Struct>();
                     for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                         if (e.getValue().isEnumElement()) {
@@ -1497,7 +1497,7 @@ public final class FctOperation extends InvokingOperation {
                     argres_.setStruct(new ArrayStruct(o_,clArr_));
                     return ArgumentCall.newArgument(argres_);
                 }
-                if (methodId_.eq(new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(stringType_,false))))) {
+                if (methodId_.eq(new MethodId(true, METH_VALUEOF, new StringList(stringType_)))) {
                     if (firstArgs_.first().isNull()) {
                         Argument argres_ = new Argument();
                         return ArgumentCall.newArgument(argres_);

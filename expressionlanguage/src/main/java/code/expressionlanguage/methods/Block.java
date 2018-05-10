@@ -203,7 +203,7 @@ public abstract class Block extends Blockable {
         BracedBlock br_ = getParent();
         Block prev_ = getPreviousSibling();
         if (prev_ == null || this == _anEl.getRoot()) {
-            if (this == _anEl.getRoot() || _anEl.isReachable(br_)) {
+            if (this == _anEl.getRoot() || _anEl.isReachable(br_) && br_.accessibleCondition()) {
                 _anEl.reach(this);
             } else {
                 _anEl.unreach(this);

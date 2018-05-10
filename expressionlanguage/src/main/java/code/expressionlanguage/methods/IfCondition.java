@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -8,6 +9,7 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -220,7 +222,20 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     public String getTagName() {
         return TAG_IF;
     }
-
+    @Override
+    public boolean accessibleCondition() {
+        OperationNode op_ = getElCondition().getRoot();
+        boolean accessible_ = false;
+        Argument arg_ = op_.getArgument();
+        if (op_.getArgument() == null) {
+            accessible_ = true;
+        } else if (!(arg_.getObject() instanceof Boolean)) {
+            accessible_ = true;
+        } else if ((Boolean)arg_.getObject()) {
+            accessible_ = true;
+        }
+        return accessible_;
+    }
     @Override
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();

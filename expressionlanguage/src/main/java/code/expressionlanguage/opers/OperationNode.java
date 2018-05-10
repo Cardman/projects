@@ -31,7 +31,6 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdResult;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
@@ -486,7 +485,7 @@ public abstract class OperationNode {
             if (_args.length == 0) {
                 ConstrustorIdVarArg out_;
                 out_ = new ConstrustorIdVarArg();
-                out_.setRealId(new ConstructorId(clCurName_, new EqList<ClassName>()));
+                out_.setRealId(new ConstructorId(clCurName_, new StringList(),false));
                 out_.setConstId(out_.getRealId());
                 return out_;
             }
@@ -509,13 +508,13 @@ public abstract class OperationNode {
             possibleMethods_.add(ctor_);
         }
         if (possibleMethods_.isEmpty()) {
-            EqList<ClassName> classesNames_ = new EqList<ClassName>();
+            StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
-                classesNames_.add(new ClassName(c.getName(),false));
+                classesNames_.add(c.getName());
             }
             UndefinedConstructorError undefined_ = new UndefinedConstructorError();
             undefined_.setClassName(clCurName_);
-            undefined_.setId(new ConstructorId(clCurName_, classesNames_));
+            undefined_.setId(new ConstructorId(clCurName_, classesNames_,false));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(undefined_);
@@ -548,13 +547,13 @@ public abstract class OperationNode {
         }
         sortCtors(signatures_, gr_);
         if (gr_.isAmbigous()) {
-            EqList<ClassName> classesNames_ = new EqList<ClassName>();
+            StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
-                classesNames_.add(new ClassName(c.getName(),false));
+                classesNames_.add(c.getName());
             }
             UndefinedConstructorError undefined_ = new UndefinedConstructorError();
             undefined_.setClassName(clCurName_);
-            undefined_.setId(new ConstructorId(clCurName_, classesNames_));
+            undefined_.setId(new ConstructorId(clCurName_, classesNames_, false));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(undefined_);

@@ -26,7 +26,6 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -369,19 +368,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     }
                 }
                 StringList types_ = method_.getParametersTypes();
+                boolean varArg_ = method_.isVarargs();
                 int len_ = types_.size();
-                EqList<ClassName> pTypes_ = new EqList<ClassName>();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    String n_ = types_.get(i);
-                    pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
-                }
                 if (name_.isEmpty()) {
                     name_ = className_;
                 }
                 String sgn_ = method_.getSignature();
                 if (method_ instanceof MethodBlock) {
-                    boolean st_ = ((MethodBlock)method_).isStaticMethod();
-                    MethodId id_ = new MethodId(st_, name_, pTypes_);
+                    MethodId id_ = ((MethodBlock) method_).getId();
                     for (MethodId m: idMethods_) {
                         if (m.eq(id_)) {
                             RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
@@ -396,7 +390,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     idMethods_.add(id_);
                 }
                 if (method_ instanceof ConstructorBlock) {
-                    ConstructorId idCt_ = new ConstructorId(name_, pTypes_);
+                    ConstructorId idCt_ = ((ConstructorBlock)method_).getId();
                     for (ConstructorId m: idConstructors_) {
                         if (m.eq(idCt_)) {
                             RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
@@ -404,7 +398,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                             duplicate_ = new DuplicateConstructor();
                             duplicate_.setRc(r_);
                             duplicate_.setFileName(className_);
-                            ConstructorId id_ = new ConstructorId(name_, pTypes_);
+                            ConstructorId id_ = new ConstructorId(name_, types_, varArg_);
                             duplicate_.setId(id_);
                             _context.getClasses().getErrorsDet().add(duplicate_);
                         }
@@ -728,10 +722,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             }
             boolean isEnum_ = this instanceof EnumBlock;
             for (ClassFormattedMethodId m: abstractMethods_) {
-                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
+                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_NAME, new StringList()))) {
                     continue;
                 }
-                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_ORDINAL, new StringList()))) {
                     continue;
                 }
                 String baseClass_ = m.getClassName();
@@ -772,10 +766,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             abstractMethods_ = RootBlock.remainingMethodsToImplement(ov_, getFullName(), _context);
             boolean isEnum_ = this instanceof EnumBlock;
             for (ClassFormattedMethodId m: abstractMethods_) {
-                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
+                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_NAME, new StringList()))) {
                     continue;
                 }
-                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_ORDINAL, new StringList()))) {
                     continue;
                 }
                 String baseClass_ = m.getClassName();

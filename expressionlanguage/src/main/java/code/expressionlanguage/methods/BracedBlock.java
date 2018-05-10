@@ -162,6 +162,10 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         }
     }
 
+    public boolean accessibleCondition() {
+        return true;
+    }
+
     @Override
     public void removeVarAndLoop(PageEl _ip) {
         _ip.removeLastBlock();

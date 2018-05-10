@@ -1,10 +1,8 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.common.GeneConstructor;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 
 public final class StandardConstructor extends StandardNamedFunction implements GeneConstructor {
@@ -18,12 +16,12 @@ public final class StandardConstructor extends StandardNamedFunction implements 
     public ConstructorId getId(String _className) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            pTypes_.add(new ClassName(n_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(n_);
         }
-        return new ConstructorId(_className, pTypes_);
+        return new ConstructorId(_className, pTypes_, isVarargs());
     }
 
     public String getPrettyString(String _className) {
@@ -36,12 +34,12 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         String name_ = clBlock_.getGenericString();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            pTypes_.add(new ClassName(n_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(n_);
         }
-        return new ConstructorId(name_, pTypes_);
+        return new ConstructorId(name_, pTypes_, isVarargs());
     }
 
     @Override
@@ -60,11 +58,11 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         String name_ = clBlock_.getFullName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            pTypes_.add(new ClassName(n_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(n_);
         }
-        return new ConstructorId(name_, pTypes_);
+        return new ConstructorId(name_, pTypes_, isVarargs());
     }
 }

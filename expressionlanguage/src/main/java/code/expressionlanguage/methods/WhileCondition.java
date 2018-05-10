@@ -564,6 +564,20 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         return evaluateCondition(_conf);
     }
     @Override
+    public boolean accessibleCondition() {
+        OperationNode op_ = getElCondition().getRoot();
+        boolean accessible_ = false;
+        Argument arg_ = op_.getArgument();
+        if (op_.getArgument() == null) {
+            accessible_ = true;
+        } else if (!(arg_.getObject() instanceof Boolean)) {
+            accessible_ = true;
+        } else if ((Boolean)arg_.getObject()) {
+            accessible_ = true;
+        }
+        return accessible_;
+    }
+    @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         boolean abr_ = true;
         OperationNode op_ = getElCondition().getRoot();

@@ -10,13 +10,11 @@ import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 
 public final class ProcessMethod {
@@ -290,7 +288,7 @@ public final class ProcessMethod {
                 String objectClassName_ = _conf.getStandards().getAliasObject();
                 if (!calledImpl_ && !StringList.quickEq(superClassBase_, objectClassName_)) {
                     ip_.getCallingConstr().setCalledImplicitConstructor(true);
-                    ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
+                    ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
                     StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                     called_.add(superClassBase_);
                     Argument global_ = ip_.getGlobalArgument();
@@ -309,7 +307,7 @@ public final class ProcessMethod {
                     String t_ = StringList.removeAllSpaces(i);
                     if (!ip_.getIntializedInterfaces().containsStr(t_)) {
                         ip_.getIntializedInterfaces().add(t_);
-                        ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
+                        ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, t_, _conf);

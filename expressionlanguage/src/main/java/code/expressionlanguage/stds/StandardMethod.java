@@ -4,11 +4,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 
 public final class StandardMethod extends StandardNamedFunction implements GeneMethod {
@@ -26,12 +24,12 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            pTypes_.add(new ClassName(n_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(n_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_);
+        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
     @Override
@@ -77,13 +75,13 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             String formatted_ = Templates.format(_genericClass, n_, _context);
-            pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(formatted_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_);
+        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
     @Override
@@ -97,13 +95,13 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             String formatted_ = Templates.format(current_, n_, _context);
-            pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(formatted_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_);
+        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
     @Override

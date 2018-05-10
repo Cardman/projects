@@ -20,7 +20,6 @@ import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.OverridingRelation;
@@ -568,7 +567,7 @@ public final class TypeUtil {
             }
             CustList<GeneConstructor> bl_ = ContextEl.getConstructorBlocks(c);
             for (GeneConstructor b: bl_) {
-                EqList<ClassName> list_ = b.getId().getClassNames();
+                StringList list_ = b.getId().getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -583,7 +582,7 @@ public final class TypeUtil {
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), _context);
+                    String type_ = Templates.format(_genericClassName, list_.get(i), _context);
                     if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
                         all_ = false;
                         break;
@@ -610,7 +609,7 @@ public final class TypeUtil {
             }
             CustList<GeneConstructor> bl_ = ContextEl.getConstructorBlocks(c);
             for (GeneConstructor b: bl_) {
-                EqList<ClassName> list_ = b.getId().getClassNames();
+                StringList list_ = b.getId().getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -625,7 +624,7 @@ public final class TypeUtil {
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = list_.get(i).getName();
+                    String type_ = list_.get(i);
                     if (!StringList.quickEq(type_, paramTypes_.get(i))) {
                         all_ = false;
                         break;
@@ -656,7 +655,7 @@ public final class TypeUtil {
                 if (!StringList.quickEq(_methodName, b.getName())) {
                     continue;
                 }
-                EqList<ClassName> list_ = b.getId().getClassNames();
+                StringList list_ = b.getId().getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -674,7 +673,7 @@ public final class TypeUtil {
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), _context);
+                    String type_ = Templates.format(_genericClassName, list_.get(i), _context);
                     if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
                         all_ = false;
                         break;

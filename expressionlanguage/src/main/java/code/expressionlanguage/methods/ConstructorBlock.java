@@ -12,7 +12,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
@@ -20,7 +19,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
@@ -73,12 +71,12 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         String name_ = clBlock_.getFullName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            pTypes_.add(new ClassName(n_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(n_);
         }
-        return new ConstructorId(name_, pTypes_);
+        return new ConstructorId(name_, pTypes_, isVarargs());
     }
     @Override
     public ConstructorId getGenericId() {
@@ -86,24 +84,24 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         String name_ = clBlock_.getGenericString();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            pTypes_.add(new ClassName(n_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(n_);
         }
-        return new ConstructorId(name_, pTypes_);
+        return new ConstructorId(name_, pTypes_, isVarargs());
     }
     public ConstructorId getFormattedId(String _genericClass, ContextEl _classes) {
         String name_ = Templates.format(_genericClass, getName(), _classes);
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             String formatted_ = Templates.format(_genericClass, n_, _classes);
-            pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
+            pTypes_.add(formatted_);
         }
-        return new ConstructorId(name_, pTypes_);
+        return new ConstructorId(name_, pTypes_, isVarargs());
     }
     public void setupInstancingStep(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
