@@ -83,7 +83,6 @@ public abstract class OperationNode {
     protected static final String SUPER_ACCESS = "super";
     protected static final String CURRENT = "this";
     protected static final String INSTANCE = "new";
-    protected static final String STATIC_ACCESS = "static";
     protected static final String INSTANCEOF = "instanceof";
     protected static final String BOOLEAN = "bool";
     protected static final String VALUES = "values";
@@ -95,7 +94,6 @@ public abstract class OperationNode {
     protected static final char MAX_ENCODE_LOW_LETTER = 'f';
     protected static final char MIN_ENCODE_UPP_LETTER = 'A';
     protected static final char MAX_ENCODE_UPP_LETTER = 'F';
-    protected static final String CURRENT_INTANCE = "$this";
     protected static final String VAR_ARG = "vararg";
     protected static final String FIRST_OPT = "firstopt";
 

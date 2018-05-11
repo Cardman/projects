@@ -1993,7 +1993,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.TWO;;;.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).TWO;;;.doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2032,7 +2032,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.ONE;;;.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).ONE;;;.doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2071,7 +2071,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public java.lang.String inst=$static$$enums.name($static$pkg$Ex.TWO;;;):\n");
+        xml_.append(" $public java.lang.String inst=$static($enums).name($static(pkg.Ex).TWO;;;):\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2110,7 +2110,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$$enums.ordinal($static$pkg$Ex.TWO;;;):\n");
+        xml_.append(" $public $int inst=$static($enums).ordinal($static(pkg.Ex).TWO;;;):\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2227,7 +2227,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2392,7 +2392,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  first;;;=5i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int doubleValue(){\n");
-        xml_.append("  pkg.Ex var = $static$pkg$Ex.ONE;;;:\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $switch(var;.){\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length:\n");
@@ -2402,7 +2402,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2434,10 +2434,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  first;;;=5i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int doubleValue(){\n");
-        xml_.append("  pkg.Ex var = $static$pkg$Ex.ONE;;;:\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
-        xml_.append("   $case($static$pkg$Ex.ONE;;;){\n");
+        xml_.append("   $case($static(pkg.Ex).ONE;;;){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2448,7 +2448,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2480,10 +2480,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  first;;;=5i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int doubleValue(){\n");
-        xml_.append("  pkg.Ex var = $static$pkg$Ex.ONE;;;:\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
-        xml_.append("   $case($static$pkg$Ex.TWO;;;){\n");
+        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2494,7 +2494,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2526,11 +2526,11 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  first;;;=5i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int doubleValue(){\n");
-        xml_.append("  pkg.Ex var = $static$pkg$Ex.ONE;;;:\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
         xml_.append("   $default:\n");
-        xml_.append("   $case($static$pkg$Ex.TWO;;;){\n");
+        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2541,7 +2541,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2573,7 +2573,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  first;;;=5i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int doubleValue(){\n");
-        xml_.append("  pkg.Ex var = $static$pkg$Ex.TWO;;;:\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).TWO;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
         xml_.append("   $default{\n");
@@ -2588,7 +2588,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2620,12 +2620,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  first;;;=5i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int doubleValue(){\n");
-        xml_.append("  pkg.Ex var = $static$pkg$Ex.ONE;;;:\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
-        xml_.append("   $case($static$pkg$Ex.ONE;;;):\n");
+        xml_.append("   $case($static(pkg.Ex).ONE;;;):\n");
         xml_.append("   $default:\n");
-        xml_.append("   $case($static$pkg$Ex.TWO;;;){\n");
+        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2636,7 +2636,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2668,14 +2668,14 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  first;;;=5i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int doubleValue(){\n");
-        xml_.append("  pkg.Ex var = $static$pkg$Ex.ONE;;;:\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
         xml_.append("   $case($null){\n");
         xml_.append("    r;. = 2i:\n");
         xml_.append("   }\n");
         xml_.append("   $default:\n");
-        xml_.append("   $case($static$pkg$Ex.TWO;;;){\n");
+        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2686,7 +2686,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -2726,7 +2726,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("    $break:\n");
         xml_.append("   }\n");
         xml_.append("   $default:\n");
-        xml_.append("   $case($static$pkg$Ex.TWO;;;){\n");
+        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2737,7 +2737,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $int inst=$static$pkg$Ex.doubleValue():\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextEl();

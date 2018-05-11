@@ -994,7 +994,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("  $return 1i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int gettwo(#T i){\n");
-        xml_.append("  $return $static$pkg$ExTwo.get(i;.;):\n");
+        xml_.append("  $return $static(pkg.ExTwo).get(i;.;):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());

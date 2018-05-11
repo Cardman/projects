@@ -70,32 +70,14 @@ public final class StaticAccessOperation extends LeafOperation {
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String argClName_;
-        String type_ = str_.substring(STATIC_ACCESS.length() + 2);
-        StringBuilder class_ = new StringBuilder();
-        if (type_.trim().startsWith(String.valueOf(EXTERN_CLASS))) {
-            class_.append(type_);
-        } else {
-            for (char p: type_.toCharArray()) {
-                if (Character.isWhitespace(p)) {
-                    continue;
-                }
-                if (StringList.isWordChar(p)) {
-                    class_.append(p);
-                } else if (p == EXTERN_CLASS){
-                    class_.append(DOT_VAR);
-                } else {
-                    class_.append(INTERN_CLASS);
-                }
-            }
-        }
-        String classStr_ = StringList.removeAllSpaces(class_.toString());
+        String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
+        String classStr_ = StringList.removeAllSpaces(realCl_);
         String base_ = StringList.getAllTypes(classStr_).first();
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         if (!checkExistBase(_conf, false, base_, false, 0)) {
             Argument a_ = new Argument();
-            argClName_ = _conf.getStandards().getAliasObject();
+            String argClName_ = _conf.getStandards().getAliasObject();
             setArguments(a_);
             setStaticResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -115,9 +97,8 @@ public final class StaticAccessOperation extends LeafOperation {
             possibleInitClass = true;
         }
         Argument a_ = new Argument();
-        argClName_ = classStr_;
         setArguments(a_);
-        setStaticResultClass(new ClassArgumentMatching(argClName_));
+        setStaticResultClass(new ClassArgumentMatching(classStr_));
         return;
     }
     @Override

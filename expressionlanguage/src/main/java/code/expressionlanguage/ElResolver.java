@@ -353,30 +353,55 @@ public final class ElResolver {
                     }
                     if (procWordFirstChar(_string, i_ + 1, STATIC_ACCESS, len_)) {
                         int afterStatic_ = i_ + 1 + STATIC_ACCESS.length();
-                        if (afterStatic_ < len_) {
-                            if (_string.charAt(afterStatic_) != EXTERN_CLASS) {
+                        boolean foundHat_ = false;
+                        while (afterStatic_ < len_) {
+                            if (_string.charAt(afterStatic_) == PAR_LEFT) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
                                 d_.setBadOffset(afterStatic_);
                                 return d_;
                             }
-                        } else {
+                            afterStatic_++;
+                        }
+                        if (!foundHat_) {
                             d_.setBadOffset(len_ - 1);
                             return d_;
                         }
-                        int j_ = i_ + 1;
-                        while (j_ < len_) {
-                            if (_string.charAt(j_) == DOT_VAR) {
-                                hatMethod_ = false;
+                        if (afterStatic_ + 1 >= len_) {
+                            d_.setBadOffset(afterStatic_);
+                            return d_;
+                        }
+                        while (afterStatic_ < len_) {
+                            if (_string.charAt(afterStatic_) == PAR_RIGHT) {
                                 break;
                             }
-                            j_++;
+                            afterStatic_++;
                         }
-                        if (j_ >= len_) {
-                            d_.setBadOffset(len_ - 1);
+                        afterStatic_++;
+                        if (afterStatic_ + 1 >= len_) {
+                            d_.setBadOffset(afterStatic_);
                             return d_;
                         }
-                        d_.getDelKeyWordStatic().add(i_);
-                        d_.getDelKeyWordStatic().add(j_);
-                        i_ = j_;
+                        while (afterStatic_ < len_) {
+                            if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
+                                if (_string.charAt(afterStatic_) == DOT_VAR) {
+                                    d_.getDelKeyWordStatic().add(i_);
+                                    d_.getDelKeyWordStatic().add(afterStatic_);
+                                    hatMethod_ = false;
+                                    i_ = afterStatic_;
+                                    break;
+                                }
+                                d_.setBadOffset(afterStatic_);
+                                return d_;
+                            }
+                            afterStatic_++;
+                        }
+                        if (afterStatic_ >= len_) {
+                            d_.setBadOffset(afterStatic_);
+                            return d_;
+                        }
                         continue;
                     }
                     if (procWordFirstChar(_string, i_ + 1, SUPER, len_)) {

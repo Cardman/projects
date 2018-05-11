@@ -68,7 +68,7 @@ public final class ElRenderUtilTest {
     public void processEl2Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$java$lang$Long.MAX_VALUE",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static(java.lang.Long).MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(Long.MAX_VALUE, (Number)res_);
@@ -118,7 +118,7 @@ public final class ElRenderUtilTest {
     public void processEl7Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(-8l)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(-8l)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
@@ -128,7 +128,7 @@ public final class ElRenderUtilTest {
     public void processEl8Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(8l)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(8l)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
@@ -382,7 +382,7 @@ public final class ElRenderUtilTest {
     public void processEl31Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(-8i)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(-8i)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(8, (Number)res_);
@@ -392,7 +392,7 @@ public final class ElRenderUtilTest {
     public void processEl32Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(8i)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(8i)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(8, (Number)res_);
@@ -403,7 +403,7 @@ public final class ElRenderUtilTest {
     public void processEl33Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(-8I)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(-8I)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(8, (Number)res_);
@@ -413,7 +413,7 @@ public final class ElRenderUtilTest {
     public void processEl34Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(8I)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(8I)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(8, (Number)res_);
@@ -424,7 +424,7 @@ public final class ElRenderUtilTest {
     public void processEl35Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(-8L)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(-8L)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
@@ -434,7 +434,7 @@ public final class ElRenderUtilTest {
     public void processEl36Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(8L)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(8L)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
@@ -932,7 +932,7 @@ public final class ElRenderUtilTest {
     public void processEl72Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$java$lang$Byte.MAX_VALUE",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static(java.lang.Byte).MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Byte);
         assertEq((byte)127, (Number)res_);
@@ -1058,7 +1058,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.abs(v;.[0i]+2)*2",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).abs(v;.[0i]+2)*2",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(20L, (Number)res_);
@@ -1392,7 +1392,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$static$pkg$Ex.exmeth()", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.Ex).exmeth()", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(9, (Number)res_);
@@ -1413,7 +1413,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$static$pkg$Ex.exmeth(6i)", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.Ex).exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(15,(Number) res_);
@@ -1709,7 +1709,7 @@ public final class ElRenderUtilTest {
     public void processEl129Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.mod(-8l,3l)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).mod(-8l,3l)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(1L, (Number)res_);
@@ -1719,7 +1719,7 @@ public final class ElRenderUtilTest {
     public void processEl130Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$$math.quot(-8l,3l)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($math).quot(-8l,3l)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(-3L, (Number)res_);
@@ -1764,7 +1764,7 @@ public final class ElRenderUtilTest {
     public void processEl134Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl(" 2.0 + $static$$math. quot( -8l, 3l) + 3.0",0, context_);
+        Argument arg_ = ElRenderUtil.processEl(" 2.0 + $static($math). quot( -8l, 3l) + 3.0",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Double);
         assertEq(2L, (Number)res_);
@@ -2157,7 +2157,7 @@ public final class ElRenderUtilTest {
     public void processEl178Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static$java$lang$Long .MAX_VALUE",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static(java.lang.Long) .MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(Long.MAX_VALUE, (Number)res_);
@@ -2268,7 +2268,7 @@ public final class ElRenderUtilTest {
     public void processEl12FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$Composite.integer",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).integer",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2276,7 +2276,7 @@ public final class ElRenderUtilTest {
     public void processEl13FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$Composite.int$$eger",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).int$$eger",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2284,7 +2284,7 @@ public final class ElRenderUtilTest {
     public void processEl14FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$StrangeInit.NOT_READ",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.StrangeInit).NOT_READ",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2292,7 +2292,7 @@ public final class ElRenderUtilTest {
     public void processEl15FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$StrangeInit.fail()",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.StrangeInit).fail()",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2308,7 +2308,7 @@ public final class ElRenderUtilTest {
     public void processEl17FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail()",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail()",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2340,7 +2340,7 @@ public final class ElRenderUtilTest {
     public void processEl20FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$Composite.getInteger()",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).getInteger()",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2354,7 +2354,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail().arg;.",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;.",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2368,7 +2368,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail().arg;",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2382,7 +2382,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
-        ElRenderUtil.processEl("$static$code$expressionlanguage$classes$FailMethods.fail().arg;;",0, context_);
+        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;;",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2552,7 +2552,7 @@ public final class ElRenderUtilTest {
     public void processEl43FailTest() {
         Configuration conf_ = contextEl();
         addImportingPage(conf_);
-        String el_ = "$static$code$expressionlanguage$classes$FailMethods.(fail())";
+        String el_ = "$static(code.expressionlanguage.classes.FailMethods).(fail())";
         ElRenderUtil.processEl(el_, 0, conf_);
         assertNotNull(conf_.getContext().getException());
     }
@@ -3628,7 +3628,7 @@ public final class ElRenderUtilTest {
         addImportingPage(cont_);
         Struct arg_;
         Object res_;
-        processAffect("","","","$static$pkg$Ex.exmeth()[0i]", "2i", "=",cont_);
+        processAffect("","","","$static(pkg.Ex).exmeth()[0i]", "2i", "=",cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertEq(1,((Struct[])res_).length);

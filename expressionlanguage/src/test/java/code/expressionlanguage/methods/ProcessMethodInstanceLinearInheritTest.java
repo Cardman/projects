@@ -916,7 +916,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public pkg.ExEnum inst=$static$pkg$ExEnum.ONE;;;:\n");
+        xml_.append(" $public pkg.ExEnum inst=$static(pkg.ExEnum).ONE;;;:\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -949,7 +949,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public pkg.ExEnum inst=$static$pkg$ExEnum.ONE;;;:\n");
+        xml_.append(" $public pkg.ExEnum inst=$static(pkg.ExEnum).ONE;;;:\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -1132,7 +1132,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $int inst=2i:\n");
         xml_.append(" $public ($int i){\n");
         xml_.append("  inst;;;=i;.;:\n");
-        xml_.append("  inst;;;+=$static$pkg$ExTwo.getter():\n");
+        xml_.append("  inst;;;+=$static(pkg.ExTwo).getter():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1172,7 +1172,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $private $int inst=2i:\n");
         xml_.append(" $public ($int i){\n");
         xml_.append("  inst;;;=i;.;:\n");
-        xml_.append("  inst;;;+=$static$pkg$ExTwo.getter():\n");
+        xml_.append("  inst;;;+=$static(pkg.ExTwo).getter():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1432,7 +1432,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" $public $int ance=$static$pkg$Ex.getter(5i):\n");
+        xml_.append(" $public $int ance=$static(pkg.Ex).getter(5i):\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -1465,7 +1465,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" $public $int ance=$static$pkg$Ex.getter(5i):\n");
+        xml_.append(" $public $int ance=$static(pkg.Ex).getter(5i):\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);

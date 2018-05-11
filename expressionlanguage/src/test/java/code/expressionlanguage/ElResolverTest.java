@@ -933,16 +933,16 @@ public class ElResolverTest {
     public void getOperationsSequence53Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$static$pkg$classname.field";
+        String el_ = "$static(pkg.classname).field";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(21));
+        assertEq(".", opers_.getVal(22));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$static$pkg$classname", values_.getVal(0));
-        assertEq("field", values_.getVal(22));
+        assertEq("$static(pkg.classname)", values_.getVal(0));
+        assertEq("field", values_.getVal(23));
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -3382,8 +3382,8 @@ public class ElResolverTest {
     public void checkSyntax40FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$static$pkg$classname";
-        assertEq(20, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$static(pkg$classname";
+        assertEq(22, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test

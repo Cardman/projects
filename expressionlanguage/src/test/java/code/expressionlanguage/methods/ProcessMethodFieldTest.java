@@ -19,7 +19,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -67,7 +67,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -118,7 +118,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -172,7 +172,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -227,7 +227,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -284,7 +284,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -344,7 +344,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1056,7 +1056,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1107,7 +1107,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1159,7 +1159,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1216,7 +1216,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1278,7 +1278,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $static$pkg$ExTwo.getstatic()+8i:\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
